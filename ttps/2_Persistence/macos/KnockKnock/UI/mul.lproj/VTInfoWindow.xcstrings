@@ -1,0 +1,204 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "2nj-QY-6ot.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"unknown file\"; ObjectID = \"2nj-QY-6ot\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "unknown file"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "archivo desconocido"
+          }
+        }
+      }
+    },
+    "3TS-NZ-XYE.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"file name\"; ObjectID = \"3TS-NZ-XYE\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "file name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nombre de archivo"
+          }
+        }
+      }
+    },
+    "F0z-JX-Cv5.title" : {
+      "comment" : "Class = \"NSWindow\"; title = \"VirusTotal Information\"; ObjectID = \"F0z-JX-Cv5\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "VirusTotal Information"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Información de VirusTotal"
+          }
+        }
+      }
+    },
+    "HO9-t1-yCi.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"File Name:\"; ObjectID = \"HO9-t1-yCi\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "File Name:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre:"
+          }
+        }
+      }
+    },
+    "hR8-Wz-esN.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"report url\"; ObjectID = \"hR8-Wz-esN\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "report url"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "reportar url"
+          }
+        }
+      }
+    },
+    "iBS-9J-ok9.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Detection:\"; ObjectID = \"iBS-9J-ok9\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Detection:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detección:"
+          }
+        }
+      }
+    },
+    "JAW-nH-eRf.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Submit?\"; ObjectID = \"JAW-nH-eRf\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Submit?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Enviar?"
+          }
+        }
+      }
+    },
+    "lxM-ES-i7K.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"status msg\"; ObjectID = \"lxM-ES-i7K\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "status msg"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mensaje de estado"
+          }
+        }
+      }
+    },
+    "RwO-yA-Xwk.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Close\"; ObjectID = \"RwO-yA-Xwk\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Close"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrar"
+          }
+        }
+      }
+    },
+    "U3V-A7-jO8.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"More Info:\"; ObjectID = \"U3V-A7-jO8\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "More Info:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más Info:"
+          }
+        }
+      }
+    },
+    "XJ7-Go-bkG.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"ratio\"; ObjectID = \"XJ7-Go-bkG\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ratio"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ratio"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

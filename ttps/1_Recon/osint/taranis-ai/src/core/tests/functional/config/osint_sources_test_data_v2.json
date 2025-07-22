@@ -1,0 +1,83 @@
+{
+    "version": 2,
+    "data": [
+        {
+            "name": "BSI Bund",
+            "description": "",
+            "type": "rss_collector",
+            "parameters": [
+                {
+                    "FEED_URL": "https://www.bsi.bund.de/SiteGlobals/Functions/RSSFeed/RSSNewsfeed/RSSNewsfeed.xml"
+                }
+            ]
+        },
+        {
+            "name": "cert.at Aktuelles",
+            "description": "",
+            "type": "rss_collector",
+            "parameters": [
+                {
+                    "FEED_URL": "https://cert.at/cert-at.de.current.rss_2.0.xml"
+                },
+                {
+                    "CONTENT_LOCATION": "description"
+                }
+            ]
+        },
+        {
+            "name": "cert.at Blog",
+            "description": "",
+            "type": "rss_collector",
+            "parameters": [
+                {
+                    "FEED_URL": "https://cert.at/cert-at.de.blog.rss_2.0.xml"
+                },
+                {
+                    "CONTENT_LOCATION": "description"
+                }
+            ]
+        },
+        {
+            "name": "cert.at Tagesberichte",
+            "description": "",
+            "type": "rss_collector",
+            "parameters": [
+                {
+                    "FEED_URL": "https://cert.at/cert-at.de.daily.rss_2.0.xml"
+                },
+                {
+                    "CONTENT_LOCATION": "description"
+                }
+            ]
+        },
+        {
+            "name": "cert.at Warnings",
+            "description": "",
+            "type": "rss_collector",
+            "parameters": [
+                {
+                    "FEED_URL": "https://cert.at/cert-at.de.warnings.rss_2.0.xml"
+                },
+                {
+                    "CONTENT_LOCATION": "description"
+                },
+                {
+                    "REFRESH_INTERVAL": "0 */8 * * *"
+                }
+            ]
+        },
+        {
+            "name": "CZ.NIC",
+            "description": "",
+            "type": "rss_collector",
+            "parameters": [
+                {
+                    "FEED_URL": "http://en.blog.nic.cz:80/feed/"
+                },
+                {
+                    "CONTENT_LOCATION": "content:encoded"
+                }
+            ]
+        }
+    ]
+}

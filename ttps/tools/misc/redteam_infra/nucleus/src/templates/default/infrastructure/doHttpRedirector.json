@@ -1,0 +1,16 @@
+{
+  "name": "HTTP Redirector (DigitalOcean)",
+  "type": "infrastructure",
+  "platform": "digitalocean",
+  "variables": [
+    {
+      "name": "vpc",
+      "type": "vpc"
+    },
+    {
+      "name": "firewallId",
+      "type": "infrastructure-id"
+    }
+  ],
+  "value": "resource \"digitalocean_droplet\" \"http_redirector\" {\n    name   = \"http-redirector\"\n    size   = \"s-1vcpu-1gb\"\n    image  = \"ubuntu-22-04-x64\"\n    vpc_uuid = $$vpc$$\n\n    depends_on = [\n      digitalocean_vpc.main\n    ]\n}\n\nresource \"digitalocean_firewall\" \"http_redirector\" {\n    name = \"forge-firewall-$$firewallId$$\"\n\n    droplet_ids = [digitalocean_droplet.http_redirector.id]\n\n    inbound_rule {\n        protocol         = \"tcp\"\n        port_range      = \"80\"\n        source_addresses = [\"0.0.0.0/0\"]\n    }\n\n        inbound_rule {\n        protocol         = \"tcp\"\n        port_range      = \"443\"\n        source_addresses = [\"0.0.0.0/0\"]\n    }\n\n    outbound_rule {\n        protocol              = \"tcp\"\n        port_range           = \"1-65535\"\n        destination_addresses = [\"0.0.0.0/0\"]\n    }\n\n    depends_on = [\n      digitalocean_vpc.main\n    ]\n}"
+}

@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  role_name: traefik_docker
+  author: warhorse
+  description: Role to deploy traefik in docker.
+  # company:
+  license: MIT
+  min_ansible_version: 2.8
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - traefik
+    - reverseproxy
+    - docker
+
+dependencies:
+  - geerlingguy.docker
+  - geerlingguy.pip

@@ -1,0 +1,65 @@
+[
+    {
+      "Request": {
+        "Name": "EnvFiles",
+        "QueryText": "*",
+        "EnableFql": "true",
+        "RefinementFilters": "filetype:or(\"env\",\"bashrc\",\"zshrc\",\"profile\",\"bash_history\",\"zsh_history\",\"sh_history\",\"zhistory\",\"irb_history\",\"npmrc\")"
+      }
+    },
+    {
+      "Request": {
+        "Name": "ConfigSecrets",
+        "QueryText": "*",
+        "EnableFql": "true",
+        "RefinementFilters": "filetype:or(\"config\",\"cnf\",\"conf\",\"ini\",\"inf\",\"properties\",\"yml\",\"yaml\",\"toml\",\"xml\",\"json\",\"dist\",\"tfvars\")"
+      }
+    },
+    {
+      "Request": {
+        "Name": "InlinePrivateKeys",
+        "QueryText": "NEAR(BEGIN, OR(RSA, OPENSSH, DSA, EC, PGP), PRIVATE, KEY, n=1)",
+        "EnableFql": "true",
+        "RefinementFilters": "filetype:or(\"key\",\"pem\",\"asc\",\"ppk\",\"txt\",\"log\",\"yml\",\"yaml\",\"env\",\"json\")"
+      }
+    },
+    {
+      "Request": {
+        "Name": "DbCredentials",
+        "QueryText": "OR(\"connectionstring\", \"connstring\", \"db_password\", \"db_pass\", \"jdbc:\", \"psycopg2.connect\", \"mysql.connector.connect\")",
+        "EnableFql": "true",
+        "RefinementFilters": "filetype:or(\"config\",\"cnf\",\"conf\",\"ini\",\"inf\",\"yml\",\"yaml\",\"toml\",\"xml\",\"json\",\"properties\",\"sql\",\"py\",\"rb\",\"php\",\"cs\",\"js\",\"ts\",\"ps1\")"
+      }
+    },
+    {
+      "Request": {
+        "Name": "AWSKeys",
+        "QueryText": "OR(NEAR(OR(\"aws_secret_access_key\", \"aws_access_key_id\", \"aws_key\", \"secret_key\"), \"AKIA\", n=10), \"CF-Access-Client-Secret\")",
+        "EnableFql": "true",
+        "RefinementFilters": "filetype:or(\"config\",\"ini\",\"conf\",\"yml\",\"yaml\",\"toml\",\"json\",\"env\",\"txt\",\"properties\")"
+      }
+    },
+    {
+      "Request": {
+        "Name": "GenericCredentialsOrPasswords",
+        "QueryText": "OR(\"username\", \"user\", \"login\", \"password\", \"passwd\", \"passw\", \"secret\", \"credential\", \"key\")",
+        "EnableFql": "true",
+        "RefinementFilters": "filetype:or(\"txt\",\"log\",\"csv\",\"yml\",\"yaml\",\"xml\",\"json\",\"config\",\"ini\",\"conf\",\"cnf\",\"properties\",\"py\",\"rb\",\"ps1\",\"sh\",\"bashrc\",\"zshrc\")"
+      }
+    },
+    {
+      "Request": {
+        "Name": "ShellHistoryFilesByName",
+        "QueryText": "filename:OR(\".bash_history\",\".zsh_history\",\".sh_history\",\"zhistory\",\".irb_history\",\"ConsoleHost_History.txt\")",
+        "EnableFql": "true"
+      }
+    },
+    {
+      "Request": {
+        "Name": "SSHKeysByFileName",
+        "QueryText": "filename:OR(\"id_rsa\",\"id_dsa\",\"id_ecdsa\",\"id_ed25519\")",
+        "EnableFql": "true"
+      }
+    }
+  ]
+  

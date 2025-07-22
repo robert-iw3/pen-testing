@@ -1,0 +1,27 @@
+galaxy_info:
+  role_name: neo4j_docker
+  author: warhorse
+  description: Install Neo4j in Docker
+  company: Warhorse
+
+  issue_tracker_url: https://github.com/warhorse/ansible-role-neo4j-docker/issues
+
+  license: BSD-3-Clause
+
+  min_ansible_version: 2.1
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - security
+    - database
+
+dependencies:
+  - geerlingguy.docker
+  - geerlingguy.pip

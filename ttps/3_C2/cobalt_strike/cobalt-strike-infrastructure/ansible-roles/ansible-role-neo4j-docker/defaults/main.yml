@@ -1,0 +1,32 @@
+---
+neo4j_hostname: "neo4j"
+neo4j_container_name: "neo4j"
+neo4j_docker_version: "latest"
+
+neo4j_username: "neo4j"
+neo4j_password: "password"
+
+neo4j_memory_size: "1G"
+
+neo4j_docker_labels: {}
+neo4j_docker_image: "neo4j:{{ neo4j_docker_version }}"
+neo4j_docker_network: "neo4j"
+neo4j_network_ipam_temp: "{{ cs_network_ipam | default({}) }}"
+neo4j_network_ipam_subnet: "{{
+  cs_network_ipam_temp.subnet
+  | default('172.16.1.0/24')
+}}"
+neo4j_network_ipam_gateway: "{{
+  cs_network_ipam_temp.gateway
+  | default('172.16.1.1')
+}}"
+neo4j_network_ipam_iprange: "{{
+  cs_network_ipam_temp.iprange
+  | default('172.16.1.0/24')
+}}"
+
+neo4j_dir: '/opt/docker/neo4j'
+neo4j_data_dir: '/data'
+neo4j_ports:
+  - "7474:7474"
+  - "7687:7687"

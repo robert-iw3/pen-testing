@@ -1,0 +1,27 @@
+---
+- name: Copy {{ nginx_dns_plugin }} config
+  template:
+    src: "{{ nginx_dns_plugin }}.ini.j2"
+    dest: "{{ nginx_dir }}/certs/dns-conf/{{ nginx_dns_plugin }}.ini"
+    mode: 777
+
+- name: swag (letsencrypt) container
+  docker_container:
+    name: swag
+    image: linuxserver/swag
+    state: started
+    hostname: swag
+    restart_policy: unless-stopped
+    ports: []
+    env:
+      URL: "{{ nginx_domain_name }}"
+      SUBDOMAINS: "wildcard"
+      VALIDATION: dns
+      DNSPLUGIN: "{{ nginx_dns_plugin }}"
+      PROPAGATION: '30'
+    volumes:
+      - "{{ nginx_dir }}/certs:/config"
+      - "/etc/localtime:/etc/localtime:ro"
+    networks:
+      - name: "{{ nginx_docker_network }}"
+    purge_networks: true

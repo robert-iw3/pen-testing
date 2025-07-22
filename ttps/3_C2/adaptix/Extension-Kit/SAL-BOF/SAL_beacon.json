@@ -1,0 +1,212 @@
+{
+    "name": "SAL-BOF",
+    "description": "Situation Awareness Local BOFs",
+    "extensions": [
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "arp",
+            "description": "List ARP table",
+            "message": "BOF implementation: arp",
+            "example": "arp",
+            "exec": "execute bof $EXT_DIR()/_bin/arp.$ARCH().o"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "cacls",
+            "description": "List user permissions for the specified file or directory, wildcards supported",
+            "message": "BOF implementation: cacls",
+            "example": "cacls C:\\test.txt",
+            "args": [
+                "STRING <path>"
+            ],
+            "exec": "execute bof $EXT_DIR()/_bin/cacls.$ARCH().o $PACK_BOF(WSTR {path})"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "dir",
+            "description": "Lists files in a specified directory. Supports wildcards (e.g. \"C:\\Windows\\S*\"). Optionally, it can perform a recursive list with the /s argument",
+            "message": "BOF implementation: dir",
+            "example": "dir C:\\Users /s",
+            "args": [
+                "BOOL </s> (false) {Recursive list}",
+                "STRING <directory> (.\\)"
+            ],
+            "exec": "execute bof $EXT_DIR()/_bin/dir.$ARCH().o $PACK_BOF(WSTR {directory}, SHORT {/s})"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "env",
+            "description": "List process environment variables",
+            "message": "List process environment variables (BOF)",
+            "example": "env",
+            "exec": "execute bof $EXT_DIR()/_bin/env.$ARCH().o"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "ipconfig",
+            "description": "List IPv4 address, hostname, and DNS server",
+            "message": "BOF implementation: ipconfig",
+            "example": "ipconfig",
+            "exec": "execute bof $EXT_DIR()/_bin/ipconfig.$ARCH().o"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "listdns",
+            "description": "List DNS cache entries. Attempt to query and resolve each",
+            "message": "BOF implementation: ipconfig /displaydns",
+            "example": "listdns",
+            "exec": "execute bof $EXT_DIR()/_bin/listdns.$ARCH().o"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "netstat",
+            "description": "Executes the netstat command to display network connections",
+            "message": "BOF implementation: netstat",
+            "example": "netstat",
+            "exec": "execute bof $EXT_DIR()/_bin/netstat.$ARCH().o"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "nslookup",
+            "description": "Make a DNS query",
+            "message": "BOF implementation: nslookup",
+            "example": "nslookup google.com 8.8.8.8 A",
+            "args": [
+                "STRING <domain>",
+                "STRING <server> (0) {DNS server is the server you want to query}",
+                "STRING <type> (A) {Record type is something like A, AAAA, or ANY}"
+            ],
+            "exec": "execute bof $EXT_DIR()/_bin/nslookup.$ARCH().o $PACK_BOF(CSTR {domain}, CSTR {type}, CSTR {server})"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "privcheck",
+            "description": "Perform privcheck functions",
+            "subcommands":
+            [
+                {
+                    "name": "alwayselevated",
+                    "description": "Checks if Always Install Elevated is enabled using the registry",
+                    "message": "Task: Checks AlwaysInstallElevated",
+                    "example": "privcheck alwayselevated",
+                    "args": [
+                    ],
+                    "exec": "execute bof $EXT_DIR()/_bin/alwayselevated.x64.o"
+                },
+                {
+                    "name": "hijackablepath",
+                    "description": "Checks the path environment variable for writable directories (FILE_ADD_FILE) that can be exploited to elevate privileges",
+                    "message": "Task: Checks HijackablePath",
+                    "example": "privcheck hijackablepath",
+                    "args": [
+                    ],
+                    "exec": "execute bof $EXT_DIR()/_bin/hijackablepath.x64.o"
+                },
+                {
+                    "name": "tokenpriv",
+                    "description": "Lists the current token privileges and highlights known vulnerable ones",
+                    "message": "Task: Checks TokenPrivileges",
+                    "example": "privcheck tokenpriv",
+                    "args": [
+                    ],
+                    "exec": "execute bof $EXT_DIR()/_bin/tokenpriv.x64.o"
+                },
+                {
+                    "name": "unattendfiles",
+                    "description": "Checks for leftover unattend files that might contain sensitive information",
+                    "message": "Task: Checks UnattendFiles",
+                    "example": "privcheck unattendfiles",
+                    "args": [
+                    ],
+                    "exec": "execute bof $EXT_DIR()/_bin/unattendfiles.x64.o"
+                },
+                {
+                    "name": "unquotedsvc",
+                    "description": "Checks for unquoted service paths",
+                    "message": "Task: Checks Unquoted Service Path",
+                    "example": "privcheck unquotedsvc",
+                    "args": [
+                    ],
+                    "exec": "execute bof $EXT_DIR()/_bin/unquotedsvc.x64.o"
+                },
+                {
+                    "name": "vulndrivers",
+                    "description": "Checks if any service on the system uses a known vulnerable driver (based on loldrivers.io)",
+                    "message": "Task: Checks Vulnerable Drivers",
+                    "example": "privcheck vulndrivers",
+                    "args": [
+                    ],
+                    "exec": "execute bof $EXT_DIR()/_bin/vulndrivers.x64.o"
+                }
+            ]
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "routeprint",
+            "description": "List IPv4 routes",
+            "message": "BOF implementation: route",
+            "example": "routeprint",
+            "exec": "execute bof $EXT_DIR()/_bin/routerprint.$ARCH().o"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "uptime",
+            "description": "List system boot time and how long it has been running",
+            "message": "BOF implementation: uptime",
+            "example": "uptime",
+            "exec": "execute bof $EXT_DIR()/_bin/uptime.$ARCH().o"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+      
+            "command": "useridletime",
+            "description": "Shows how long the user as been idle, displayed in seconds, minutes, hours and days.",
+            "message": "BOF implementation: useridletime",
+            "example": "useridletime",
+            "exec": "execute bof $EXT_DIR()/_bin/useridletime.$ARCH().o"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "whoami",
+            "description": "List whoami /all",
+            "message": "BOF implementation: whoami /all",
+            "example": "whoami",
+            "exec": "execute bof $EXT_DIR()/_bin/whoami.$ARCH().o"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "winver",
+            "description": "Display the windows version information",
+            "message": "BOF implementation: systeminfo /version",
+            "example": "winver",
+            "exec": "execute bof $EXT_DIR()/_bin/winver.$ARCH().o"
+        }
+    ]
+}

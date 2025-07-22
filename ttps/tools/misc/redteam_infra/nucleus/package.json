@@ -1,0 +1,31 @@
+{
+    "name": "nucleus",
+    "version": "1.0.0",
+    "main": "dist/nucleus.js",
+    "type": "module",
+    "scripts": {
+        "nucleus:start": "node ./src/nucleus.js",
+        "nucleus:dev": "node --watch ./src/nucleus.js",
+        "drizzle:push": "npx drizzle-kit push",
+        "drizzle:seed": "node ./src/lib/seed.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "drizzle-kit": "^0.31.1",
+        "argon2": "^0.41.1",
+        "crypto": "^1.0.1",
+        "crypto-js": "^4.2.0",
+        "dotenv": "^16.4.5",
+        "drizzle-orm": "^0.36.3",
+        "express": "^4.21.1",
+        "fs": "^0.0.1-security",
+        "js-yaml": "^4.1.0",
+        "jsonwebtoken": "^9.0.2",
+        "path": "^0.12.7",
+        "pg": "^8.13.1",
+        "sshpk": "^1.18.0"
+    }
+}

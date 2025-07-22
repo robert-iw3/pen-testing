@@ -1,0 +1,42 @@
+{
+  "name": "Aliases",
+  "description": "Simplification of some commands",
+  "extensions": [
+    {
+      "type" : "command",
+      "agents": ["beacon"],
+
+      "command": "interact",
+      "message": "",
+      "description": "Set 'sleep 0'",
+      "example": "interact",
+      "exec": "sleep 0"
+    },
+    {
+      "type" : "command",
+      "agents": ["beacon"],
+
+      "command": "powershell",
+      "message": "",
+      "description": "Execute command via powershell.exe",
+      "example": "powershell ls",
+      "args": [
+        "STRING <command>"
+      ],
+      "exec": "ps run -o C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -c {command}"
+    },
+    {
+      "type" : "command",
+      "agents": ["beacon"],
+
+      "command": "shell",
+      "message": "",
+      "description": "Execute command via cmd.exe",
+      "example": "shell whoami /all",
+      "args": [
+        "STRING <command>"
+      ],
+      "exec": "ps run -o C:\\Windows\\System32\\cmd.exe /c {command}"
+    }
+  ]
+}

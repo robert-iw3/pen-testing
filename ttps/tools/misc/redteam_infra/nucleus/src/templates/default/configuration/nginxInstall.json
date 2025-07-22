@@ -1,0 +1,11 @@
+{
+    "name": "Nginx Install",
+    "type": "configuration",
+    "variables": [
+        {
+            "name": "configFile",
+            "type": "file"
+        }
+    ],
+    "value": "---\n- name: Nginx install\n  become: true\n\n  tasks:\n    - name: Install required system packages\n      apt:\n        pkg:\n          - nginx\n        state: latest\n        update_cache: true\n\n    - name: Configuring nginx\n      ansible.builtin.template:\n        src: $$configFile$$\n        dest: /etc/nginx/sites-enabled/default\n\n    - name: Restarting nginx\n      ansible.builtin.service:\n        name: nginx\n        state: restarted"
+}

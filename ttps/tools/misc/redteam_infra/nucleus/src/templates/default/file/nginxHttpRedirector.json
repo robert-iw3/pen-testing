@@ -1,0 +1,24 @@
+{
+    "name": "nginx-http-redirector",
+    "extension": "conf",
+    "type": "file",
+    "variables": [
+        {
+            "name": "redirectorDomain",
+            "type": "domain"
+        },
+        {
+            "name": "forwardUrl",
+            "type": "text"
+        },
+        {
+            "name": "redirectPath",
+            "type": "text"
+        },
+        {
+            "name": "c2Ip",
+            "type": "private-ip"
+        }
+    ],
+    "value": "server {\n  listen 80 default_server;\n\n  server_name $$redirectorDomain$$;\n  keepalive_timeout 70;\n  client_max_body_size 2M;\n\n  location ^~ / {\n    proxy_pass $$forwardUrl$$;\n  }\n\n  location ^~ $$redirectPath$$ {\n    proxy_pass http://$$c2Ip$$;\n  }\n}"
+}

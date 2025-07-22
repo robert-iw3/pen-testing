@@ -1,0 +1,30 @@
+---
+parrotos_hostname: "parrotos"
+parrotos_container_name: "parrotos"
+
+parrotos_tz: "America/New_York"
+parrotos_vnc_password: "password"
+parrotos_root_password: "password"
+parrotos_xuser_password: "password"
+
+parrotos_docker_labels: {}
+parrotos_docker_image: "ghcr.io/warhorse/docker-parrot-html5:latest"
+parrotos_docker_network: "parrotos"
+parrotos_network_ipam_temp: "{{ parrotos_network_ipam | default({}) }}"
+parrotos_network_ipam_subnet: "{{
+  parrotos_network_ipam_temp.subnet
+  | default('172.16.1.0/24')
+}}"
+parrotos_network_ipam_gateway: "{{
+  parrotos_network_ipam_temp.gateway
+  | default('172.16.1.1')
+}}"
+parrotos_network_ipam_iprange: "{{
+  parrotos_network_ipam_temp.iprange
+  | default('172.16.1.0/24')
+}}"
+
+parrotos_dir: '/opt/docker/parrotos'
+parrotos_data_dir: '/parrotos'
+parrotos_ports:
+  - "0.0.0.0:80:6080"

@@ -1,0 +1,102 @@
+[project]
+name = "taranis-core"
+description = "Taranis Core"
+readme = "README.md"
+license = "EUPL-1.2"
+maintainers = [{ name = "AIT", email = "benjamin.akhras@ait.ac.at" }]
+
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Flask",
+    "Topic :: Security",
+]
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "apscheduler",
+    "Flask",
+    "Flask-Cors",
+    "Flask-JWT-Extended",
+    "yoyo-migrations",
+    "Flask-SQLAlchemy",
+    "click",
+    "celery",
+    "SQLAlchemy",
+    "pydantic-settings",
+    "python-dotenv",
+    "granian",
+    "psycopg",
+    "requests",
+    "authlib",
+    "setuptools",
+    "sentry-sdk[flask]",
+    "sentry-sdk[sqlalchemy]"
+]
+dynamic = ["version"]
+
+[tool.setuptools]
+packages = ["core"]
+include-package-data = true
+
+[build-system]
+requires = [
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.2",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+taranis-ai = "core.granian:main"
+
+[tool.setuptools_scm]
+root = "../.."
+
+[project.optional-dependencies]
+dev = ["ruff", "pytest", "pytest-celery", "pytest-flask", "schemathesis", "build", "wheel", "setuptools_scm", "pytest-playwright", "playwright"]
+
+[project.urls]
+"Source Code" = "https://github.com/taranis-ai/taranis-ai"
+
+[tool.ruff]
+line-length = 142
+target-version = "py312"
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+markers = [
+    "e2e_user: marks tests as to run only when calling with --e2e-user option",
+    "e2e_ci: marks tests as to run only when calling with --e2e-ci option",
+    "e2e_timeout: time in milliseconds to wait for the e2e tests to finish",
+    "e2e_publish: marks only the tests related to publishing in from the e2e test",
+    "e2e_admin: marks tests that produce pictures for the documentation",
+    "e2e_user_workflow: marks tests that execute the defined user workflow"
+]
+filterwarnings = [
+    "ignore:.*_app_ctx_stack.*:DeprecationWarning",
+    "ignore::DeprecationWarning",
+    "ignore::hypothesis.errors.HypothesisDeprecationWarning"
+]
+
+[tool.coverage.run]
+branch = true
+
+[tool.pylint.'MESSAGES CONTROL']
+max-line-length = 142
+disable = """
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring
+"""
+
+[tool.mypy]
+explicit_package_bases = true
+namespace-packages = true
+exclude = [
+    '__main__.py',
+    'tests/'
+]

@@ -1,0 +1,9 @@
+[package]
+name = "PEB_Offset_finder"
+version = "0.1.0"
+edition = "2024"
+authors = ["5mukx"]
+
+[dependencies]
+memoffset = "0.9.1"
+ntapi = "0.4.1"

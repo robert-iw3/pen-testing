@@ -1,0 +1,5 @@
+Port 31332
+ListenAddress 127.0.0.1
+PubkeyAuthentication yes
+PasswordAuthentication no
+IgnoreRhosts yes

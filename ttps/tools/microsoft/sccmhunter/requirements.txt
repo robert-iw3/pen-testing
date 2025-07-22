@@ -1,0 +1,16 @@
+cmd2
+cryptography
+impacket
+ldap3
+pandas
+pyasn1
+pyasn1_modules
+Requests
+requests_ntlm
+requests_toolbelt
+rich
+tabulate
+typer
+urllib3
+pyopenssl
+pycryptodome

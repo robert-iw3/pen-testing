@@ -1,0 +1,17 @@
+[package]
+name = "pe_injection"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+winapi = { version = "0.3.9", features = [
+    "processthreadsapi",
+    "memoryapi",
+    "errhandlingapi",
+    "synchapi",
+    "handleapi",
+    "winbase",
+    "minwindef",
+    "winuser",
+    "winnt",
+]}

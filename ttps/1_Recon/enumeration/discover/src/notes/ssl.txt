@@ -1,0 +1,22 @@
+SSL
+
+ 
+Redirect
+Examine the response of a 301 message or Javascript.
+curl -vvvv http://target.com
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Renegotiating (NULL-SHA or NULL-MD5)
+
+sslscan --no-failed <target IP>
+
+sslscan --no-failed --targets=443.txt
+
+openssl s_client -connect target:443
+
+telnet <target IP> 443
+GET / HTTP/1.0
+R
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+cat 443.txt | while read -r IP port; do echo "----START "$IP":"$port"----"; echo -e "HEAD / HTTP/1.0\nR\n\n" | ncat --ssl "$IP" "$port"; echo -e "\$

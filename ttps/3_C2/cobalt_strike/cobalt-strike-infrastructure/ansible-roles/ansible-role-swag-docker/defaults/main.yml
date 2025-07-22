@@ -1,0 +1,30 @@
+---
+swag_hostname: "swag"
+swag_container_name: "swag"
+swag_docker_version: "latest"
+
+swag_dns_plugin: 'digitalocean'
+swag_domain_name: 'example.com'
+
+swag_docker_labels: {}
+swag_docker_image: "linuxserver/swag:{{ swag_docker_version }}"
+swag_docker_network: "swag"
+swag_network_ipam_temp: "{{ swag_network_ipam | default({}) }}"
+swag_network_ipam_subnet: "{{
+  swag_network_ipam_temp.subnet
+  | default('172.16.1.0/24')
+}}"
+swag_network_ipam_gateway: "{{
+  swag_network_ipam_temp.gateway
+  | default('172.16.1.1')
+}}"
+swag_network_ipam_iprange: "{{
+  swag_network_ipam_temp.iprange
+  | default('172.16.1.0/24')
+}}"
+
+swag_dir: '/opt/docker/swag'
+swag_data_dir: '/config'
+swag_ports:
+  - "80:80"
+  - "443:443"

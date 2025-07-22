@@ -1,0 +1,28 @@
+---
+gophish_hostname: "gophish"
+gophish_container_name: "gophish"
+gophish_docker_version: "latest"
+gophish_trusted_origins: ""
+
+gophish_docker_labels: {}
+gophish_docker_image: "gophish/gophish:{{ gophish_docker_version }}"
+gophish_docker_network: "gophish"
+gophish_network_ipam_temp: "{{ gophish_network_ipam | default({}) }}"
+gophish_network_ipam_subnet: "{{
+  gophish_network_ipam_temp.subnet
+  | default('172.16.1.0/24')
+}}"
+gophish_network_ipam_gateway: "{{
+  gophish_network_ipam_temp.gateway
+  | default('172.16.1.1')
+}}"
+gophish_network_ipam_iprange: "{{
+  gophish_network_ipam_temp.iprange
+  | default('172.16.1.0/24')
+}}"
+
+gophish_dir: '/opt/docker/gophish'
+gophish_data_dir: '/data'
+gophish_ports:
+  - "80:80"
+  - "443:443"

@@ -1,0 +1,17 @@
+---
+- name: 'setup : create parrot os docker network'
+  become: true
+  docker_network:
+    name: '{{ parrotos_docker_network }}'
+    ipam_config:
+      - subnet: '{{ parrotos_network_ipam_subnet }}'
+        gateway: '{{ parrotos_network_ipam_gateway }}'
+        iprange: '{{ parrotos_network_ipam_iprange }}'
+
+- name: Incress docker storage
+  lineinfile:
+      dest: /etc/default/docker
+      line: '--storage-driver devicemapper --storage-opt dm.basesize=20G'
+
+- name: restart docker
+  service: "name=docker state=restarted"

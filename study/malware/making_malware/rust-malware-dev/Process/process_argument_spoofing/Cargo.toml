@@ -1,0 +1,9 @@
+[package]
+name = "process_argument_spoofing"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+winapi = { version = "0.3", features = ["winuser", "processthreadsapi", "handleapi", "memoryapi", "synchapi", "errhandlingapi"] }
+ntapi = "0.4"
+memoffset = "0.9"

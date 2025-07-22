@@ -1,0 +1,77 @@
+{% for vm in warhorse.vm %}
+{% if loop.first %}
+all:
+  children:
+    warhorse:
+      children:
+        {{ vm.provider }}:
+          hosts:
+{% endif %}
+            {{ vm.name }}:
+              hostname: '{{ vm.hostname|default(warhorse.general.op_number + '-' + vm.name)}}'
+{% endfor %}
+  vars:
+    op_number: '{{ warhorse.general.op_number }}'
+    op_tld: '{{ warhorse.dns.op_tld }}'
+{% if warhorse.general.owner_email is defined %}
+    owner_email: '{{ warhorse.general.owner_email }}'
+{% endif %}
+    op_domain_name: '{{ warhorse.dns.op_domain_name|default(dns_op_domain_name)}}'
+    domain_name: "{% raw %}{{ op_domain_name }}{% endraw %}"
+    user_tag: '{{ warhorse.general.user_tag }}'
+    ttl: '{{ warhorse.general.ttl }}'
+
+{% if vm.golang is defined %}
+    golang_version: '{{ vm.golang.version|default('1.19.2') }}'
+{% endif %}
+
+    extra_packages:
+    - net-tools
+
+    ansible_python_interpreter: /usr/bin/python3
+    ansible_ssh_private_key_file: "{% raw %}{{ lookup('env', 'PWD') }}/keys/id_rsa_ansible_{% endraw %}{{ warhorse.general.op_number }}"
+    ansible_ssh_public_key_file: "{% raw %}{{ lookup('env', 'PWD') }}/keys/id_rsa_ansible_{% endraw %}{{ warhorse.general.op_number }}.pub"
+    ansible_ssh_user: 'ansible'
+    # Create Users
+    users:
+{% for users in warhorse.users %}
+      - username: {{ users.username }}
+        name: {{ users.name }}
+        authorized_keys:
+{% for keys in users.authorized_keys %}
+          - "{{ keys }}"
+{% endfor %}
+{% if users.email is defined %}
+        email: '{{ users.email }}'
+{% endif %}
+        home_create: {{ users.home_create | default ('yes') }}
+        append: {{ users.append | default ('yes') }}
+        home_mode: "{{ users.home_mode | default ('0750') }}"
+        shell: {{ users.shell | default ('/usr/bin/zsh') }} 
+{% endfor %}
+    users_authorized_keys_exclusive: yes
+    security_sudoers_passwordless:
+{% for users in warhorse.users %}
+      - {{ users.username }}
+{% endfor %}
+    docker_users:
+{% for users in warhorse.users %}
+      - {{ users.username }}
+{% endfor %}
+    # ZSH Settings
+    zsh_shared: yes
+    
+    # Docker Settings
+    dockernet: "docker"
+    docker_home_dir: '/opt/docker'
+
+    # Pip Settings
+    pip_install_packages:
+      - docker
+      - botocore
+      - boto3
+    pip_executable: pip3
+    pip_package: python3-pip
+
+    # NTP
+    ntp_timezone: '{{ warhorse.general.ntp_timezone }}'

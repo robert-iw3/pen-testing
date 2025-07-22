@@ -1,0 +1,19 @@
+{
+    "name": "Mythic C2 Install",
+    "type": "configuration",
+    "variables": [
+        {
+            "name": "adminUsername",
+            "type": "text"
+        },
+        {
+            "name": "adminPassword",
+            "type": "text"
+        },
+        {
+            "name": "operationName",
+            "type": "text"
+        }
+    ],
+    "value": "---\n- name: Mythic install\n  become: true\n\n  tasks:\n    - name: Clone Mythic repository\n      git:\n        repo: https://github.com/its-a-feature/Mythic\n        dest: /opt/mythic\n        depth: 1\n        force: true\n        \n    - name: Install build-essential\n      ansible.builtin.apt:\n        name: build-essential\n        state: present\n\n    - name: Build the mythic-cli\n      community.general.make:\n        chdir: /opt/mythic\n      \n    - name: Create mythic config\n      shell: ./mythic-cli config \n      args:\n        chdir: /opt/mythic\n        \n    - name: Configure Mythic | Set variables\n      lineinfile:\n        path: \"/opt/mythic/.env\"\n        regexp: \"^{{ item.key }}\"\n        line: \"{{ item.key }}={{ item.value }}\"\n      with_dict:\n        MYTHIC_ADMIN_USER: \"$$adminUsername$$\"\n        MYTHIC_ADMIN_PASSWORD: \"$$adminPassword$$\"\n        DEFAULT_OPERATION_NAME: \"$$operationName$$\"\n      no_log: true\n      \n    - name: Start mythic\n      shell: /opt/mythic/mythic-cli start &\n      args:\n        chdir: /opt/mythic"
+}

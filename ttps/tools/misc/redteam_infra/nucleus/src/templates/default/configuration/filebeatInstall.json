@@ -1,0 +1,11 @@
+{
+    "name": "Filebeat Install",
+    "type": "configuration",
+    "variables": [
+        {
+            "name": "filebeatConfiguration",
+            "type": "file"
+        }
+    ],
+    "value": "---\n- name: Filebeat install\n  become: true\n\n  tasks:\n    - name: Install required system packages\n      apt:\n        pkg:\n          - apt-transport-https\n        state: latest\n        update_cache: true\n\n    - name: Installing filebeat\n      apt:\n        deb: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-9.0.0-amd64.deb\n\n    - name: Configuring filebeat\n      ansible.builtin.template:\n        src: $$filebeatConfiguration$$\n        dest: /etc/filebeat/filebeat.yml\n\n    - name: Waiting for elk to start\n      ansible.builtin.pause:\n        seconds: 60\n\n    - name: Setup Filebeat (may take a while)\n      command: filebeat setup\n      run_once: true\n\n    - name: Enabling Filebeat service\n      ansible.builtin.systemd_service:\n        name: filebeat\n        enabled: true\n\n    - name: Start Filebeat Service\n      service:\n        name: filebeat\n        state: started"
+}

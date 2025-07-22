@@ -1,0 +1,103 @@
+{
+  "proxies": {
+    "proxy1": {
+      "connstring": "socks5://127.0.0.1:1337",
+      "user": "user",
+      "pass": "s3cr3t"
+    },
+    "proxy2": {
+      "connstring": "http://127.0.0.1:1338"
+    }
+  },
+  "chains": {
+    "chain1": {
+      "proxyDns": true,
+      "tcpConnectTimeout": 1000,
+      "tcpReadTimeout": 2000,
+      "proxies": [
+        "proxy1",
+        "proxy2"
+      ]
+    },
+    "direct": {
+      "proxies": []
+    }
+  },
+  "routes": {
+    "table1": {
+      "default": "direct",
+      "blocks": [
+        {
+          "comment": "Block1 comment",
+          "rules": {
+            "rule": "regexp",
+            "variable": "host",
+            "content": "me\\.gandi\\.net"
+          },
+          "route": "chain1"
+        },
+        {
+          "comment": "Route non web traffic towards 10.35.0.0/16 through proxy2",
+          "rules": {
+            "rule1": {
+              "rule": "subnet",
+              "content": "10.35.0.0/16"
+            },
+            "op": "AND",
+            "rule2": {
+              "rule": "regexp",
+              "variable": "port",
+              "content": "^(80|443)$",
+              "negate": "true"
+            }
+          },
+          "route": "proxy2"
+        },
+        {
+          "comment": "Drop traffic to 445",
+          "rules": {
+            "rule": "regexp",
+            "variable": "port",
+            "content": "^445$"
+          },
+          "route": "drop"
+        },
+        {
+          "comment": "Route *.corp.local through chain1",
+          "rules": {
+            "rule": "regexp",
+            "variable": "host",
+            "content": "(?i)^(.*\\.)?corp\\.local$"
+          },
+          "route": "chain1",
+          "disable": "true"
+        }
+      ]
+    },
+    "table2": {
+      "default": "drop",
+      "blocks": [
+        {
+          "comment": "Route *.corp.local through chain2",
+          "rules": {
+            "rule": "regexp",
+            "variable": "host",
+            "content": "(?i)^(.*\\.)?corp\\.local$"
+          },
+          "route": "chain2"
+        }     
+      ]
+    }
+  },
+  "servers": [
+    "socks5://127.0.0.1:1081:table1",
+    "http://127.0.0.1:1080:table2",
+    "fwd://127.0.0.1:4445:chain1:10.0.0.1:445"
+  ],
+  "hosts": {
+    "host1": "1.1.1.1",
+    "host2": "10.0.0.1",
+    "host3": "modified.host3",
+    "10.1.1.4": "10.1.1.5"
+  }
+}

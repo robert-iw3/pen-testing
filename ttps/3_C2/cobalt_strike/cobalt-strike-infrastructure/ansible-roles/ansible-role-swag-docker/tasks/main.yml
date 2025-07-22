@@ -1,0 +1,15 @@
+---
+- name: Install Dependances
+  include_tasks: "{{ item }}.yml"
+  with_items:
+    - dependences
+
+- name: Setup
+  include_tasks: "{{ item }}.yml"
+  with_items:
+    - setup
+
+- name: SSL
+  include_tasks: "{{ item }}.yml"
+  with_items:
+    - swag

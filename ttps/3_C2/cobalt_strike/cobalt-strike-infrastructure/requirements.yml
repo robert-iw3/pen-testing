@@ -1,0 +1,27 @@
+---
+roles:
+  - name: arillso.restic
+  - name: gantsign.golang
+  - name: geerlingguy.docker
+  - name: geerlingguy.ntp
+  - name: geerlingguy.pip
+  - name: geerlingguy.security
+  - name: viasite-ansible.zsh
+  - name: artis3n.tailscale
+  - name: weareinteractive.users
+  - name: t94j0.mythic
+
+  - name: warhorse.cobaltstrike_docker
+  - name: warhorse.neo4j_docker
+  - name: warhorse.traefik_docker
+  - name: warhorse.nighthawk_docker
+  - name: warhorse.gophish_docker
+  - name: warhorse.evilginx2_docker
+  - name: warhorse.nginx_docker
+  - name: warhorse.parrotos_docker
+
+collections:
+  # Install a collection from Ansible Galaxy.
+  - name: community.general
+  - name: amazon.aws
+  - name: community.docker

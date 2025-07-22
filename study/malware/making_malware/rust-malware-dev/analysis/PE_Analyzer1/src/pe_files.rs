@@ -1,0 +1,409 @@
+use std::io::Cursor;
+
+use byteorder::{LittleEndian, ReadBytesExt};
+
+
+
+
+// my lazy way to find rich header =) 
+fn find_rich_header(data: &[u8]) -> Option<usize>{
+    for i in 0..data.len() - 3{
+        if data[i] == b'R' && data[i+1] == b'i' && data[i+2] == b'c' && data[i+3] == b'h'{
+            return Some(i);
+        }
+    }
+    None
+}
+
+// simple concept -> 0x536e6144 -> "DanS"
+fn u32_to_string(value: u32) -> String{
+    let bytes = value.to_le_bytes();
+    String::from_utf8_lossy(&bytes).trim_end_matches('\0').to_string()
+}
+
+fn get_vs_version(product_id: u32) -> &'static str {
+    match product_id {
+        30729 => "Visual Studio 2008 09.00",
+        33043 => "Visual Studio 2010 10.0",
+        33042 => "Visual Studio 2010 10.0",
+        33044 => "Visual Studio 2010 10.0",
+        33140 => "Visual Studio 2012 11.0",
+        33141 => "Visual Studio 2012 11.0",
+        33142 => "Visual Studio 2012 11.0",
+        34321 => "Visual Studio 2013 12.0",
+        34322 => "Visual Studio 2013 12.0",
+        34323 => "Visual Studio 2013 12.0",
+        34809 => "Visual Studio 2015 14.0",
+        34810 => "Visual Studio 2015 14.0",
+        34811 => "Visual Studio 2015 14.0",
+        35351 => "Visual Studio 2017 15.0",
+        35352 => "Visual Studio 2017 15.0",
+        35353 => "Visual Studio 2017 15.0",
+        35870 => "Visual Studio 2019 16.0",
+        35871 => "Visual Studio 2019 16.0",
+        35872 => "Visual Studio 2019 16.0",
+        36402 => "Visual Studio 2022 17.0",
+        36403 => "Visual Studio 2022 17.0",
+        36404 => "Visual Studio 2022 17.0",
+        _ => "Unknown",
+    }
+}
+
+// map product id to meaning.
+fn get_meaning(product_id: u32) -> &'static str {
+    match product_id {
+        0 => "Import0",
+        30729 => "Implib900",       // lib.exe (Import Library Tool) from VS 2008
+        33043 => "Link1000",        // link.exe (Linker) from VS 2010
+        33045 => "Cvtres1000",      // cvtres.exe (Resource File Converter) from VS 2010
+        33046 => "Rc1000",          // rc.exe (Microsoft Resource Compiler) from VS 2010
+        33140 => "Link1100",        // link.exe from VS 2012
+        33142 => "Cvtres1100",      // cvtres.exe from VS 2012
+        33143 => "Rc1100",          // rc.exe from VS 2012
+        34321 => "Link1200",        // link.exe from VS 2013
+        34323 => "Cvtres1200",      // cvtres.exe from VS 2013
+        34324 => "Rc1200",          // rc.exe from VS 2013
+        34809 => "Link1400",        // link.exe from VS 2015
+        34811 => "Cvtres1400",      // cvtres.exe from VS 2015
+        34812 => "Rc1400",          // rc.exe from VS 2015
+        35351 => "Link1410",        // link.exe from VS 2017 (v141 toolset)
+        35353 => "Cvtres1410",      // cvtres.exe from VS 2017 (v141 toolset)
+        35354 => "Rc1007",          // rc.exe from VS 2017 (Note: might be a specific version)
+        35870 => "Link1420",        // link.exe from VS 2019 (v142 toolset)
+        35872 => "Cvtres1420",      // cvtres.exe from VS 2019 (v142 toolset)
+        35873 => "Rc1008",          // rc.exe from VS 2019 (Note: might be a specific version)
+        36402 => "Link1430",        // link.exe from VS 2022 (v143 toolset)
+        36404 => "Cvtres1430",      // cvtres.exe from VS 2022 (v143 toolset)
+        36405 => "Rc1009",          // rc.exe from VS 2022 (Note: might be a specific version)
+        _ => "Unknown",
+    }
+}
+
+pub fn analyze_rich_header(pe_analyzer: &[u8]) {
+    if let Some(rich_offset) = find_rich_header(pe_analyzer) {
+        println!("Rich header found at offset: 0x{:X}", rich_offset);
+
+        let xor_key_offset = rich_offset + 4;
+        let xor_key = u32::from_le_bytes([
+            pe_analyzer[xor_key_offset],
+            pe_analyzer[xor_key_offset + 1],
+            pe_analyzer[xor_key_offset + 2],
+            pe_analyzer[xor_key_offset + 3],
+        ]);
+        println!("XOR Key: 0x{:08X}", xor_key);
+
+        let rich_start = 0x80;
+        if rich_start >= rich_offset {
+            println!("Error: Invalid Rich header start offset");
+            return;
+        }
+        let rich_data = &pe_analyzer[rich_start..rich_offset + 8];
+
+        println!(
+            "{:<8} {:<20} {:<20} {:<20} {:<15} {:<10} {:<10} {:<10} {:<20}",
+            "Offset",
+            "Name",
+            "Value",
+            "Unmasked Value",
+            "Meaning",
+            "ProductId",
+            "BuildId",
+            "Count",
+            "VS Version"
+        );
+        println!("{}", "-".repeat(120));
+
+        let mut cursor = Cursor::new(rich_data);
+        let mut offset = rich_start;
+        while (offset as u64) < rich_offset as u64 {
+            if let Ok(first_masked) = cursor.read_u32::<LittleEndian>() {
+                if let Ok(second_masked) = cursor.read_u32::<LittleEndian>() {
+                    let first_unmasked = first_masked ^ xor_key;
+                    let second_unmasked = second_masked ^ xor_key;
+
+                    let meaning_str: String;
+                    let (name, meaning, product_id, build_id, count) = if offset == 0x80 {
+                        meaning_str = u32_to_string(first_unmasked);
+                        (
+                            "DanS ID",
+                            meaning_str.as_str(),
+                            None,
+                            None,
+                            None,
+                        )
+                    } else if first_unmasked == 0 && second_unmasked == 0 {
+                        ("Checksummed padding", "0", None, None, None)
+                    } else {
+                        let product_id = first_unmasked & 0xFFFF;
+                        let build_id = second_unmasked >> 16;
+                        let count = second_unmasked & 0xFFFF;
+                        let meaning = get_meaning(product_id);
+                        ("Comp ID", meaning, Some(product_id), Some(build_id), Some(count))
+                    };
+
+                    let value = format!("{:08x}{:08x}", first_masked, second_masked);
+                    let unmasked_value = if first_unmasked == 0 && second_unmasked == 0 {
+                        "0".to_string()
+                    } else {
+                        format!("{:08x}", first_unmasked)
+                    };
+
+                    let vs_version = product_id.map_or("N/A", |pid| get_vs_version(pid));
+
+                    println!(
+                        "{:<8x} {:<20} {:<20} {:<20} {:<15} {:<10} {:<10} {:<10} {:<20}",
+                        offset,
+                        name,
+                        value,
+                        unmasked_value,
+                        meaning,
+                        product_id.map_or("N/A".to_string(), |id| id.to_string()),
+                        build_id.map_or("N/A".to_string(), |id| id.to_string()),
+                        count.map_or("N/A".to_string(), |c| c.to_string()),
+                        vs_version
+                    );
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+            offset += 8;
+        }
+
+        println!(
+            "{:<8x} {:<20} {:<20} {:<20} {:<15} {:<10} {:<10} {:<10} {:<20}",
+            rich_offset,
+            "Rich ID",
+            "68636952",
+            "Rich",
+            "Rich",
+            "N/A",
+            "N/A",
+            "N/A",
+            "N/A"
+        );
+        println!(
+            "{:<8x} {:<20} {:<20} {:<20} {:<15} {:<10} {:<10} {:<10} {:<20}",
+            rich_offset + 4,
+            "Checksum",
+            format!("{:08x}", xor_key),
+            format!("{:08x}", xor_key),
+            "N/A",
+            "N/A",
+            "N/A",
+            "N/A",
+            "N/A"
+        );
+    } else {
+        println!("Rich header not found");
+    }
+}
+
+
+pub fn print_dos_header(pe_analyzer: &[u8]) {
+    println!("\n [DOS Header]");
+    
+    // table header
+    println!(
+        "{:<8} {:<30} {:<10}",
+        "Offset",
+        "Name",
+        "Value"
+    );
+    println!("{}", "-".repeat(50));
+
+    // 0x00: Magic number (2 bytes)
+    let magic = u16::from_le_bytes([pe_analyzer[0x00], pe_analyzer[0x01]]);
+    println!(
+        "{:<8x} {:<30} {:<10x}",
+        0x00,
+        "Magic number",
+        magic
+    );
+
+    // 0x02: Bytes on last page of file (2 bytes)
+    let bytes_on_last_page = u16::from_le_bytes([pe_analyzer[0x02], pe_analyzer[0x03]]);
+    println!(
+        "{:<8x} {:<30} {:<10}",
+        0x02,
+        "Bytes on last page of file",
+        bytes_on_last_page
+    );
+
+    // 0x04: Pages in file (2 bytes)
+    let pages_in_file = u16::from_le_bytes([pe_analyzer[0x04], pe_analyzer[0x05]]);
+    println!(
+        "{:<8x} {:<30} {:<10}",
+        0x04,
+        "Pages in file",
+        pages_in_file
+    );
+
+    // 0x06: Relocations (2 bytes)
+    let relocations = u16::from_le_bytes([pe_analyzer[0x06], pe_analyzer[0x07]]);
+    println!(
+        "{:<8x} {:<30} {:<10}",
+        0x06,
+        "Relocations",
+        relocations
+    );
+
+    // 0x08: Size of header in paragraphs (2 bytes)
+    let header_size_paragraphs = u16::from_le_bytes([pe_analyzer[0x08], pe_analyzer[0x09]]);
+    println!(
+        "{:<8x} {:<30} {:<10}",
+        0x08,
+        "Size of header in paragraphs",
+        header_size_paragraphs
+    );
+
+    // 0x0A: Minimum extra paragraphs needed (2 bytes)
+    let min_extra_paragraphs = u16::from_le_bytes([pe_analyzer[0x0A], pe_analyzer[0x0B]]);
+    println!(
+        "{:<8x} {:<30} {:<10}",
+        0x0A,
+        "Minimum extra paragraphs needed",
+        min_extra_paragraphs
+    );
+
+    // 0x0C: Maximum extra paragraphs needed (2 bytes)
+    let max_extra_paragraphs = u16::from_le_bytes([pe_analyzer[0x0C], pe_analyzer[0x0D]]);
+    println!(
+        "{:<8x} {:<30} {:<10}",
+        0x0C,
+        "Maximum extra paragraphs needed",
+        max_extra_paragraphs
+    );
+
+    // 0x0E: Initial (relative) SS value (2 bytes)
+    let initial_ss = u16::from_le_bytes([pe_analyzer[0x0E], pe_analyzer[0x0F]]);
+    println!(
+        "{:<8x} {:<30} {:<10x}",
+        0x0E,
+        "Initial (relative) SS value",
+        initial_ss
+    );
+
+    // 0x10: Initial SP value (2 bytes)
+    let initial_sp = u16::from_le_bytes([pe_analyzer[0x10], pe_analyzer[0x11]]);
+    println!(
+        "{:<8x} {:<30} {:<10x}",
+        0x10,
+        "Initial SP value",
+        initial_sp
+    );
+
+    // 0x12: Checksum (2 bytes)
+    let checksum = u16::from_le_bytes([pe_analyzer[0x12], pe_analyzer[0x13]]);
+    println!(
+        "{:<8x} {:<30} {:<10x}",
+        0x12,
+        "Checksum",
+        checksum
+    );
+
+    // 0x14: Initial IP value (2 bytes)
+    let initial_ip = u16::from_le_bytes([pe_analyzer[0x14], pe_analyzer[0x15]]);
+    println!(
+        "{:<8x} {:<30} {:<10x}",
+        0x14,
+        "Initial IP value",
+        initial_ip
+    );
+
+    // 0x16: Initial (relative) CS value (2 bytes)
+    let initial_cs = u16::from_le_bytes([pe_analyzer[0x16], pe_analyzer[0x17]]);
+    println!(
+        "{:<8x} {:<30} {:<10x}",
+        0x16,
+        "Initial (relative) CS value",
+        initial_cs
+    );
+
+    // 0x18: File address of relocation table (2 bytes)
+    let reloc_table_addr = u16::from_le_bytes([pe_analyzer[0x18], pe_analyzer[0x19]]);
+    println!(
+        "{:<8x} {:<30} {:<10x}",
+        0x18,
+        "File address of relocation table",
+        reloc_table_addr
+    );
+
+    // 0x1C: Reserved words[4] (8 bytes, 4 words)
+    let reserved_words_1: [u16; 4] = [
+        u16::from_le_bytes([pe_analyzer[0x1C], pe_analyzer[0x1D]]),
+        u16::from_le_bytes([pe_analyzer[0x1E], pe_analyzer[0x1F]]),
+        u16::from_le_bytes([pe_analyzer[0x20], pe_analyzer[0x21]]),
+        u16::from_le_bytes([pe_analyzer[0x22], pe_analyzer[0x23]]),
+    ];
+    let reserved_words_1_str = reserved_words_1
+        .iter()
+        .map(|&w| format!("{:04x}", w))
+        .collect::<Vec<String>>()
+        .join(",");
+    println!(
+        "{:<8x} {:<30} {:<10}",
+        0x1C,
+        "Reserved words[4]",
+        reserved_words_1_str
+    );
+
+    // 0x24: OEM identifier (2 bytes)
+    let oem_identifier = u16::from_le_bytes([pe_analyzer[0x24], pe_analyzer[0x25]]);
+    println!(
+        "{:<8x} {:<30} {:<10x}",
+        0x24,
+        "OEM identifier",
+        oem_identifier
+    );
+
+    // 0x26: OEM information (2 bytes)
+    let oem_info = u16::from_le_bytes([pe_analyzer[0x26], pe_analyzer[0x27]]);
+    println!(
+        "{:<8x} {:<30} {:<10x}",
+        0x26,
+        "OEM information",
+        oem_info
+    );
+
+    // 0x28: Reserved words[10] (20 bytes, 10 words)
+    let reserved_words_2: [u16; 10] = [
+        u16::from_le_bytes([pe_analyzer[0x28], pe_analyzer[0x29]]),
+        u16::from_le_bytes([pe_analyzer[0x2A], pe_analyzer[0x2B]]),
+        u16::from_le_bytes([pe_analyzer[0x2C], pe_analyzer[0x2D]]),
+        u16::from_le_bytes([pe_analyzer[0x2E], pe_analyzer[0x2F]]),
+        u16::from_le_bytes([pe_analyzer[0x30], pe_analyzer[0x31]]),
+        u16::from_le_bytes([pe_analyzer[0x32], pe_analyzer[0x33]]),
+        u16::from_le_bytes([pe_analyzer[0x34], pe_analyzer[0x35]]),
+        u16::from_le_bytes([pe_analyzer[0x36], pe_analyzer[0x37]]),
+        u16::from_le_bytes([pe_analyzer[0x38], pe_analyzer[0x39]]),
+        u16::from_le_bytes([pe_analyzer[0x3A], pe_analyzer[0x3B]]),
+    ];
+    let reserved_words_2_str = reserved_words_2
+        .iter()
+        .map(|&w| format!("{:04x}", w))
+        .collect::<Vec<String>>()
+        .join(",");
+    println!(
+        "{:<8x} {:<30} {:<10}",
+        0x28,
+        "Reserved words[10]",
+        reserved_words_2_str
+    );
+
+    // 0x3C: File address of new exe header (4 bytes)
+    let e_lfanew = u32::from_le_bytes([
+        pe_analyzer[0x3C],
+        pe_analyzer[0x3D],
+        pe_analyzer[0x3E],
+        pe_analyzer[0x3F],
+    ]);
+    println!(
+        "{:<8x} {:<30} {:<10x}",
+        0x3C,
+        "File address of new exe header",
+        e_lfanew
+    );
+}
+

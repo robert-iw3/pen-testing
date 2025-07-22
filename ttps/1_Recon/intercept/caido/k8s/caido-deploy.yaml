@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caido-deploy
+  namespace: caido
+  labels:
+    app: caido
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: caido
+  template:
+    metadata:
+      labels:
+        app: caido
+    spec:
+      containers:
+      - name: caido
+        image: quay.io/rootshifty/caido:release
+        command: 
+          - dnf update -y
+      volumeMounts:
+       - mountPath: /home/caido/.local/share/caido
+         name: caido-volume
+      ports:
+        - containerPort: 8080
+      resources:
+          limits:
+            cpu: 1000m
+            memory: 512M
+          requests:
+            cpu: 50m
+            memory: 256M
+volumeClaimTemplates:
+ - metadata:
+     name: caido-volume
+   spec:
+     storageClassName: caido-vol
+     accessModes: [ "ReadWriteOnce" ]
+     resources:
+       requests:
+         storage: 50Gi

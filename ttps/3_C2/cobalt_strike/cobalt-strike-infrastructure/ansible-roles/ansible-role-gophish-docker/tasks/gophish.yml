@@ -1,0 +1,32 @@
+---
+- name: Ensures gophish dir exists
+  file:
+    path: '{{ item }}'
+    state: directory
+    mode: '777'
+  with_items:
+  - '{{ gophish_dir }}'
+  - '{{ gophish_dir }}/data'
+
+- name: gophish container
+  docker_container:
+    name: "{{ gophish_container_name }}"
+    image: "{{ gophish_docker_image }}"
+    state: started
+    hostname: "{{ gophish_hostname }}"
+    restart_policy: unless-stopped
+    ports: "{{ gophish_ports }}"
+    labels: '{{ gophish_docker_labels }}'
+    volumes:
+      - "{{ gophish_dir }}/data:/data"
+      - "/etc/localtime:/etc/localtime:ro"
+    env:
+      ADMIN_USE_TLS: "false"
+      PHISH_USE_TLS: "false"
+      DB_FILE_PATH: "/data/gophish.db"
+      ADMIN_TRUSTED_ORIGINS: "{{ gophish_trusted_origins }}"
+    networks:
+      - name: "{{ gophish_docker_network }}"
+    purge_networks: true
+  notify:
+    - restart gophish

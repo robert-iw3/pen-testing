@@ -1,0 +1,8 @@
+*venv/
+worker_init.flag
+.envrc
+.env
+__pycache__/
+*.pyc
+videos/
+taranis_ai_core_trace.zip

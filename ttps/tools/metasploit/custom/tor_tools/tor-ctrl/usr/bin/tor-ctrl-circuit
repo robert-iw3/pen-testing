@@ -1,0 +1,91 @@
+#!/usr/bin/env sh
+
+me="${0##*/}"
+
+nocolor="\033[0m"
+yellow="\033[33m"
+
+usage(){
+  printf '%s\n' "usage: ${me} [-s socket] [-p password]
+
+  -s [socket]    tor's control socket
+                 notice: tcp: [addr:]port: 9051, 127.0.0.1:9051
+                 notice: unix: [unix:]path: /run/tor/control,
+                         unix:/run/tor/control
+                 default: 9051
+
+  -p [pwd]       use password [pwd] instead of Tor's control_auth_cookie
+                 default: not used
+
+  -m             machine mode
+                 notice: script informational and warning messages won't be
+                         printed to stdout
+                 default: not set
+"
+  exit 1
+}
+
+error_msg(){
+  printf '%s\n' "${me}: [error] ${1}" >&2
+  exit 1
+}
+
+list_circuits(){
+  # shellcheck disable=SC2086
+  circuit_all="$(tor-ctrl -c "GETINFO circuit-status" ${cli_args})"
+  printf '%b\n' "${yellow}${me}: [warn] Do not share this information publicly, it could deanonymize yourself.${nocolor}"
+  circuit_all="$(printf '%s\n' "${circuit_all}" | sed "/250 OK/d;/250+circuit-status=/d;/250 closing connection/d")"
+  printf '%s\n' "${circuit_all}" | while IFS="$(printf '\n')" read -r circuit || [ -n "${circuit}" ]; do
+    circuit_id="$(printf '%s\n' "${circuit}" | cut -d " " -f1)"
+    circuit_status="$(printf '%s\n' "${circuit}" | cut -d " " -f2)"
+    circuit_path="$(printf '%s\n' "${circuit}" | cut -d " " -f3)"
+    circuit_purpose="$(printf '%s\n' "${circuit}" | cut -d " " -f5 | sed "s/PURPOSE=//")"
+    [ -z "${circuit_status}" ] && break
+    if [ "${circuit_status}" = "BUILT" ]; then
+      printf '%s\n' "Circuit: ${circuit_id}, status: ${circuit_status}, purpose: ${circuit_purpose}"
+      hop=0
+      for relay in $(printf '%s\n' "${circuit_path}" | tr "," " "); do
+        hop=$((hop+1))
+        relay="$(printf '%s\n' "${relay}" | tr -d "$" | tr "~" " ")"
+        relay_fingerprint="$(printf '%s\n' "${relay}" | cut -d " " -f1)"
+        relay_nickname="$(printf '%s\n' "${relay}" | cut -d " " -f2)"
+        # shellcheck disable=SC2086
+        relay_status="$(tor-ctrl -c "GETINFO ns/id/${relay_fingerprint}" ${cli_args})"
+        relay_host="$(printf '%s\n' "${relay_status}" | grep -- "^r " | cut -d " " -f7)"
+        relay_bandwidth="$(printf '%s\n' "${relay_status}" | grep -- "^w " | sed "s/w Bandwidth=//;s/\\r//")"
+        relay_bandwidth="$((relay_bandwidth*512/1024/1024)) MiB/s"
+        # shellcheck disable=SC2086
+        relay_locale="$(tor-ctrl -c "GETINFO ip-to-country/${relay_host}" ${cli_args})"
+        relay_locale="$(printf '%s\n' "${relay_locale}" | grep -F -- "250-ip-to-country/${relay_host}=" | sed "s/.*=//;s/\\r//")"
+        #printf '%s. %s [%s, %s, (%s), %s]\n' "${hop}" "${relay_fingerprint}" "${relay_nickname}" "${relay_host}" "${relay_locale}" "${relay_bandwidth}"
+        printf '%1s. %-40s %-15s %-19s (%-2s) %9s\n' "${hop}" "${relay_fingerprint}" "${relay_host}" "${relay_nickname}" "${relay_locale}" "${relay_bandwidth}"
+      done
+      printf "\n"
+    fi
+  done
+  printf '%b\n' "${yellow}${me}: [warn] Do not share this information publicly, it could deanonymize yourself.${nocolor}"
+}
+
+command -v tor-ctrl >/dev/null || error_msg "Install tor-ctrl"
+
+while getopts ":s:p:mh" Option; do
+  case ${Option} in
+    s) tor_control_socket="${OPTARG}";;
+    p) tor_password="${OPTARG}";;
+    m) machine_mode=1;;
+    h|*) usage;;
+  esac
+done
+
+cli_args=""
+[ -n "${tor_control_socket}" ] && cli_args="${cli_args} -s ${tor_control_socket}"
+[ -n "${tor_password}" ] && cli_args="${cli_args} -p ${tor_password}"
+[ -n "${machine_mode}" ] && cli_args="${cli_args} -m"
+
+## set default values
+: "${machine_mode:=0}"
+
+## only to get which socket it successfully connects
+tor-ctrl -c "GETINFO circuit-status" ${cli_args} | grep -- "connecting to socket with command"
+
+list_circuits

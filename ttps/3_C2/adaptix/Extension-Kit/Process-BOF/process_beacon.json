@@ -1,0 +1,34 @@
+{
+    "name": "Process-BOF",
+    "description": "situational awareness of processes, modules, and services",
+    "extensions": [
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "findobj",
+            "description": "Enumerate processes for specific objects",
+            "subcommands":
+            [
+                {
+                    "name": "module",
+                    "description": "Identify processes which have a certain module loaded",
+                    "example": "findobj module clr.dll",
+                    "args": [
+                        "STRING <module>"
+                    ],
+                    "exec": "execute bof $EXT_DIR()/_bin/findmodule.$ARCH().o $PACK_BOF(WSTR {module})"
+                },
+                {
+                    "name": "prochandle",
+                    "description": "Identify processes with a specific process handle in use",
+                    "example": "findobj prochandle lsass.exe",
+                    "args": [
+                        "STRING <proc>"
+                    ],
+                    "exec": "execute bof $EXT_DIR()/_bin/findprochandle.$ARCH().o $PACK_BOF(WSTR {proc})"
+                }
+            ]
+        }
+    ]
+}

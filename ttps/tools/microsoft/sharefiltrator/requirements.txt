@@ -1,0 +1,6 @@
+requests
+aiofiles
+typing-extensions
+dataclasses
+aiohttp
+argparse

@@ -1,0 +1,3 @@
+gnureadline
+ipython
+pyperclip

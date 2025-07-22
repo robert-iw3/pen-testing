@@ -1,0 +1,82 @@
+## The inventory file
+resource "local_file" "Inventory" {
+ content = templatefile("inventory.tmpl",
+ {
+{% for vm in warhorse.vm %}
+{% if vm.provider == "digitalocean" %}
+    {{ vm.name }}-dns = digitalocean_droplet.{{ vm.resource_name|default(warhorse.general.user_tag + '-' + warhorse.general.op_number + '-' + vm.name) }}.name,
+    {{ vm.name }}-ip = digitalocean_droplet.{{ vm.resource_name|default(warhorse.general.user_tag + '-' + warhorse.general.op_number + '-' + vm.name) }}.ipv4_address,
+    {{ vm.name }}-id = digitalocean_droplet.{{ vm.resource_name|default(warhorse.general.user_tag + '-' + warhorse.general.op_number + '-' + vm.name) }}.id,
+{% endif %}
+{% if vm.provider == "linode" %}
+    {{resource.name}}-ip = linode_instance.{{resource.name}}.ip_address,
+    {{resource.name}}-label = linode_instance.{{resource.name}}.label,
+{% endif %}
+{% endfor %}
+ }
+ )
+ filename = "../inventory/inventory"
+}
+
+{% for vm in warhorse.vm %}
+{% if vm.nighthawk.cdn is defined and vm.cobaltstrike.cdn is undefined  %}
+{% for cdn_nighthawk in vm.nighthawk.cdn|selectattr("provider", "equalto", "aws" ) %}
+{% if cdn_nighthawk .provider == 'aws' %}
+## The outputs file
+resource "local_file" "aws" {
+ content = templatefile("aws.tmpl",
+ {
+    aws-cdn-nighthawk = aws_cloudfront_distribution.cloudfront_front_{{ warhorse.general.op_number }}_{{ vm.name }}_{{ cdn_nighthawk.name }}.*.domain_name,
+{% if warhorse.dns.provider == 'aws' %}
+    aws-dns-key-id = aws_iam_access_key.dns_key_{{ warhorse.general.op_number }}.id
+    aws-dns-secret-id = aws_iam_access_key.dns_key_{{ warhorse.general.op_number }}.secret
+{% endif %}
+ }
+ )
+ filename = "../inventory/aws.yml"
+}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if vm.cobaltstrike.cdn is defined and vm.nighthawk.cdn is undefined %}
+{% for cdn_cobaltstrike in vm.cobaltstrike.cdn|selectattr("provider", "equalto", "aws" ) %}
+{% if cdn_cobaltstrike.provider == 'aws' %}
+## The outputs file
+resource "local_file" "aws" {
+ content = templatefile("aws.tmpl",
+ {
+    aws-cdn-cobaltstrike = aws_cloudfront_distribution.cloudfront_front_{{ warhorse.general.op_number }}_{{ vm.name }}_{{ cdn_cobaltstrike.name }}.*.domain_name,
+{% if warhorse.dns.provider == 'aws' %}
+    aws-dns-key-id = aws_iam_access_key.dns_key_{{ warhorse.general.op_number }}.id
+    aws-dns-secret-id = aws_iam_access_key.dns_key_{{ warhorse.general.op_number }}.secret
+{% endif %}
+ }
+ )
+ filename = "../inventory/aws.yml"
+}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if vm.cobaltstrike.cdn is defined and vm.nighthawk.cdn is defined %}
+{% for cdn_cobaltstrike in vm.cobaltstrike.cdn|selectattr("provider", "equalto", "aws" ) %}
+{% for cdn_nighthawk in vm.nighthawk.cdn|selectattr("provider", "equalto", "aws" ) %}
+{% if cdn_cobaltstrike.provider == 'aws' and cdn_nighthawk.provider == 'aws' %}
+## The outputs file
+resource "local_file" "aws" {
+ content = templatefile("aws.tmpl",
+ {
+    aws-cdn-cobaltstrike = aws_cloudfront_distribution.cloudfront_front_{{ warhorse.general.op_number }}_{{ vm.name }}_{{ cdn_cobaltstrike.name }}.*.domain_name,
+    aws-cdn-nighthawk = aws_cloudfront_distribution.cloudfront_front_{{ warhorse.general.op_number }}_{{ vm.name }}_{{ cdn_nighthawk.name }}.*.domain_name,
+{% if warhorse.dns.provider == 'aws' %}
+    aws-dns-key-id = aws_iam_access_key.dns_key_{{ warhorse.general.op_number }}.id
+    aws-dns-secret-id = aws_iam_access_key.dns_key_{{ warhorse.general.op_number }}.secret
+{% endif %}
+ }
+ )
+ filename = "../inventory/aws.yml"
+}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endfor %}

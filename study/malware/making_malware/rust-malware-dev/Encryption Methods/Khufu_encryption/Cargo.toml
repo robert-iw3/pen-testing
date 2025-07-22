@@ -1,0 +1,8 @@
+[package]
+name = "Khufu_encryption"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rand = "0.8.5"
+winapi = {version = "0.3.9", features = ["memoryapi", "winuser", "minwindef"]}

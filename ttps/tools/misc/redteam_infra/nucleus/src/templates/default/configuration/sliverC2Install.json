@@ -1,0 +1,6 @@
+{
+    "name": "Sliver C2 Install",
+    "type": "configuration",
+    "variables": [],
+    "value": "---\n- name: Sliver install\n  become: true\n\n  tasks:\n    - name: Download Metasploit\n      ansible.builtin.get_url:\n        url: https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb\n        dest: /opt/msfinstall\n        mode: \"0755\"\n\n    - name: Install Metasploit\n      command: /opt/msfinstall\n      environment:\n        DEBIAN_FRONTEND: noninteractive\n\n    - name: Download Sliver script\n      ansible.builtin.get_url:\n        url: https://sliver.sh/install\n        dest: /opt/install-sliver\n        mode: \"0755\"\n\n    - name: Install Sliver\n      command: /opt/install-sliver\n\n    - name: Enable Sliver service\n      ansible.builtin.systemd_service:\n        name: sliver\n        enabled: true"
+}

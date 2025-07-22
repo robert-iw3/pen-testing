@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31220.234
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheSprayer", "TheSprayer\TheSprayer.csproj", "{141C8262-BE59-4BBA-906D-60E9CF3A5FA1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{C46D3B7E-4F45-49CC-A180-218AAABE92AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{3281B3EF-7361-45EE-9F4A-5E833231DD07}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet-core.yml = .github\workflows\dotnet-core.yml
+		.github\workflows\release.yml = .github\workflows\release.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B39BABD4-8F74-43F5-9E0D-B763ABFDAA2C}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{141C8262-BE59-4BBA-906D-60E9CF3A5FA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{141C8262-BE59-4BBA-906D-60E9CF3A5FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{141C8262-BE59-4BBA-906D-60E9CF3A5FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{141C8262-BE59-4BBA-906D-60E9CF3A5FA1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3281B3EF-7361-45EE-9F4A-5E833231DD07} = {C46D3B7E-4F45-49CC-A180-218AAABE92AD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2519942A-BCED-4D0B-8A03-12CAD1445882}
+	EndGlobalSection
+EndGlobal

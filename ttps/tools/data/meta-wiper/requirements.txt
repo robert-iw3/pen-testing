@@ -1,0 +1,8 @@
+Pillow
+PyPDF2
+python-docx
+mutagen
+openpyxl
+piexif
+python-pptx
+odfpy

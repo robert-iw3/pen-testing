@@ -1,0 +1,34 @@
+{
+  "name": "Injection-BOF",
+  "description": "BOFs for process injection",
+  "extensions": [
+    {
+      "type": "command",
+      "agents": ["beacon"],
+
+      "command": "inject-cfg",
+      "description": "Inject shellcode into a target process and hijack execution via overwriting combase.dll!__guard_check_icall_fptr",
+      "message": "Task: Executing DataInject-BOF by @0xLegacyy",
+      "example": "inject-cfg 808 /tmp/shellcode.bin",
+      "args": [
+        "INT <pid>",
+        "FILE <shellcode>"
+      ],
+      "exec": "execute bof $EXT_DIR()/_bin/inject_cfg.x64.o $PACK_BOF(INT {pid}, BYTES {shellcode})"
+    },
+    {
+      "type": "command",
+      "agents": ["beacon"],
+
+      "command": "inject-sec",
+      "description": "Injects desired shellcode into target process using section mapping",
+      "message": "Task: inject shellcode (section mapping)",
+      "example": "inject-sec 808 /tmp/shellcode.bin",
+      "args": [
+        "INT <pid>",
+        "FILE <shellcode>"
+      ],
+      "exec": "execute bof $EXT_DIR()/_bin/inject_sec.$ARCH().o $PACK_BOF(INT {pid}, BYTES {shellcode})"
+    }
+  ]
+}

@@ -1,0 +1,235 @@
+name: build core
+
+on:
+  push:
+    paths:
+    - 'src/core/**'
+    - 'docker/Containerfile.core'
+    - '.github/workflows/build_core.yaml'
+    branches:
+    - master
+
+permissions:
+  packages: write
+  contents: write
+  id-token: write
+  attestations: write
+
+env:
+  GHCR_IMAGE: ghcr.io/taranis-ai/taranis-core
+  LATEST: ${{ github.ref == 'refs/heads/master' }}
+  UV_NO_SYNC: true
+  UV_FROZEN: true
+
+jobs:
+  test:
+    name: pytest
+    defaults:
+      run:
+        working-directory: src/core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          prune-cache: false
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install dependencies
+        run: uv sync --all-extras
+
+      - name: unit tests
+        run: uv run pytest
+
+      - name: Install Playwright dependencies
+        run: uv run playwright install --with-deps chromium
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+          cache-dependency-path: src/gui/pnpm-lock.yaml
+
+      - name: e2e tests
+        id: e2e_tests
+        run: uv run pytest --e2e-ci
+
+      - name: Create SBOM
+        run: uvx --from cyclonedx-bom cyclonedx-py environment '.venv' -o ${{ runner.temp }}/taranis_core_sbom.json
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          retention-days: 90
+          overwrite: true
+          name: taranis_core_sbom.json
+          path: ${{ runner.temp }}/taranis_core_sbom.json
+
+      - name: Upload a e2e-test trace
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() && steps.e2e_tests.outcome == 'failure' }}
+        with:
+          retention-days: 7
+          overwrite: true
+          name: playwright-traces-build-core
+          path: src/core/taranis_ai_core_trace.zip
+
+
+  build_wheel:
+    name: build wheel
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/core
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          prune-cache: false
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: build
+        run: uv build
+
+      - name: Upload wheel to artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: taranis_core
+          overwrite: true
+          path: |
+            src/core/dist/taranis_core-*.whl
+            src/core/dist/taranis_core-*.tar.gz
+
+
+  build_container:
+    name: build container
+    runs-on: ${{ matrix.os }}
+    needs: test
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            arch: amd64
+            platform: linux/amd64
+          - os: ubuntu-24.04-arm
+            arch: arm64
+            platform: linux/arm64
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: set build env
+        run: |
+          echo "GIT_INFO=$(./docker/git_info.sh)" >>${GITHUB_ENV}
+
+      - name: Set metadata for container build
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.GHCR_IMAGE }}
+          labels: |
+            org.opencontainers.image.architecture=${{ matrix.arch }}
+
+      - name: Build and push core
+        uses: docker/build-push-action@v6
+        id: build
+        with:
+          file: docker/Containerfile.core
+          platforms: ${{ matrix.platform }}
+          labels: ${{ steps.meta.outputs.labels }}
+          annotations: ${{ steps.meta.outputs.annotations }}
+          provenance: true
+          build-args: |
+            git_info=${{ env.GIT_INFO }}
+            BUILDKIT_CONTEXT_KEEP_GIT_DIR=true
+          cache-from: type=registry,ref=${{ env.GHCR_IMAGE }}-cache-${{ matrix.arch }}:latest
+          cache-to: type=registry,ref=${{ env.GHCR_IMAGE }}-cache-${{ matrix.arch }}:latest,mode=max
+          outputs: type=image,"name=${{ env.GHCR_IMAGE }}",push-by-digest=true,name-canonical=true,push=true,compression=zstd
+
+      - name: Export digest
+        run: |
+          mkdir -p ${{ runner.temp }}/digests
+          digest="${{ steps.build.outputs.digest }}"
+          touch "${{ runner.temp }}/digests/${digest#sha256:}"
+
+      - name: Upload digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: digests-${{ matrix.arch }}
+          path: ${{ runner.temp }}/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+
+  merge:
+    runs-on: ubuntu-latest
+    needs:
+      - build_container
+    steps:
+      - name: Download digests
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ runner.temp }}/digests
+          pattern: digests-*
+          merge-multiple: true
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Set metadata for container build
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.GHCR_IMAGE }}
+          tags: |
+            type=ref,event=tag
+            type=ref,event=branch,enable=${{ !env.LATEST }}
+            type=raw,value=latest,enable=${{ env.LATEST }}
+
+      - name: Create manifest list and push
+        working-directory: ${{ runner.temp }}/digests
+        run: |
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ env.GHCR_IMAGE }}@sha256:%s ' *)
+
+      - name: Get final merged image digest
+        if: ${{ env.LATEST }}
+        run: |
+          DIGEST=$(docker buildx imagetools inspect ${{ env.GHCR_IMAGE }}:latest --format '{{ json .Manifest.Digest }}' | tr -d '"')
+          echo "MERGED_DIGEST=$DIGEST" >> $GITHUB_ENV
+
+      - name: Generate attestation for merged multiarch image
+        if: ${{ env.LATEST }}
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ${{ env.GHCR_IMAGE }}
+          subject-digest: ${{ env.MERGED_DIGEST }}
+          push-to-registry: true

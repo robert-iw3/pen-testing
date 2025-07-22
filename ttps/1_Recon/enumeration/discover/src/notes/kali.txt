@@ -1,0 +1,165 @@
+Kali
+
+# Download VM, verify the hash, and login
+
+https://www.kali.org/get-kali/#kali-virtual-machines
+Scroll down and select VMware Weekly
+
+- macOS
+1. Open Terminal
+2. sha256sum /path/to/file
+3. Compare the value to the checksum on the website.
+
+- Windows
+1. Open PowerShell
+2. Get-FileHash C:\path\to\file
+3. Compare the value to the checksum on the website.
+
+Login with kali:kali
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Create a new user, set the password and give sudo rights
+
+sudo useradd -m -s /usr/bin/zsh <NEW USER>
+sudo passwd <NEW USER>
+
+sudo visudo
+Add to the last line in the file.
+<NEW USER> ALL=(ALL) NOPASSWD:ALL
+
+sudo reboot
+Login as new user.
+
+- Delete kali account
+sudo userdel -r kali
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Disable screen lock
+
+Kali menu > search for: Xfce Screensaver
+Screensaver > Enable Screensaver: off
+Lock Screen > Enable Lock Screen: off
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Desktop
+
+Right click on the Desktop > Desktop Settings > File/Launcher Icons
+Default Icons: uncheck Home, File System, and Trash
+Close
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Terminal
+
+Open Terminal > File > Preferences
+Appearance
+    Font > Change > 11 > OK
+    Application transparency: 0% > OK
+
+- Shell
+kali-tweaks
+Select Shell & Prompt > Configure Prompt
+Select One Line > space bar > Apply > OK > enter
+Back > Virtualization > Configure > enter
+Quit
+
+Close Terminal and open an new one.
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Mousepad
+
+mousepad
+
+Edit > Preferences
+View
+    Uncheck Use system monospace font
+    Font: 11 > Select
+Editor
+    Tab width: 4
+    Tab mode: Insert Spaces
+    Enable automatic indentation: off
+Window
+    Check Remember window position
+Close preferenes > close mousepad
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Clock
+
+Right-click on the clock > Properties
+Timezone
+  Eastern: America/New_York
+  Central: America/Chicago
+  Mountain: America/Denver
+  Pacific: America/Los_Angeles
+Close
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Patch the OS and install VMware tools
+
+sudo apt update ; sudo apt -y upgrade ; sudo apt -y dist-upgrade ; sudo apt -y autoremove ; sudo apt -y autoclean ; sudo updatedb
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Snapshot
+
+Take a snapshot and name it Base.
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Install Discover scripts and additional GitHub repos
+cd ~
+git clone https://github.com/leebaird/discover
+cd discover/config/
+./install.sh
+
+cd ~
+source .zshrc
+update
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Cloak system
+
+- Change the hostnames, make sure they match.
+/etc/hostname
+/etc/hosts
+
+- Change the contents to match another OS (Ubuntu 20.04.6 LTS).
+/etc/issue
+/etc/issue.net
+/etc/os-release     Use new hostname for ID
+
+hostnamectl
+
+- Firefox
+about:config
+browser.ping-centre.telemetry > false
+general.platform.override > Win32
+general.useragent.override > add the latest Firefox user agent string
+geo.enabled > false
+media.peerconnection.enabled > false
+network.http.sendRefererHeader > 0
+privacy.resistFingerprinting > true
+
+- nikto
+/etc/nikto.conf > add the latest Firefox user agent string
+
+- nmap
+/usr/share/nmap/nselib/http.lua > add the latest Firefox user agent string on line 160
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Optional additional tools
+
+- Apache Directory Studio
+https://directory.apache.org/studio/download/download-linux.html
+cd /home/<USER>/Downloads/
+tar zxf <package>
+mv ApacheDirectoryStudio ..
+rm <package>
+
+- Nim
+https://nim-lang.org/install_unix.html
+curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+
+- Terraform
+https://www.terraform.io/downloads
+Linux > Binary download for Linux > AMD64
+unzip <package>
+mv terraform /usr/local/bin/
+rm <package>

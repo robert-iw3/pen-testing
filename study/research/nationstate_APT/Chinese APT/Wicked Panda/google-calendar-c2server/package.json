@@ -1,0 +1,17 @@
+{
+  "name": "google-cal-c2-bun",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@googleapis/calendar": "^9.8.0",
+    "googleapis": "^149.0.0",
+    "uuid": "^11.1.0"
+  }
+}

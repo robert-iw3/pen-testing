@@ -1,0 +1,27 @@
+galaxy_info:
+  role_name: parrotos_docker
+  author: warhorse
+  description: Run Parrotos in Docker with noVNC
+  company: Warhorse
+
+  issue_tracker_url: https://github.com/warhorse/ansible-role-nighthawk-docker/issues
+
+  license: BSD-3-Clause
+
+  min_ansible_version: 2.1
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - Security
+    - Linux
+
+dependencies:
+  - geerlingguy.docker
+  - geerlingguy.pip

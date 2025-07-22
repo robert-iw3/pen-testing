@@ -1,0 +1,8 @@
+- name: 'setup : create gophish docker network'
+  become: true
+  docker_network:
+    name: '{{ gophish_docker_network }}'
+    ipam_config:
+      - subnet: '{{ gophish_network_ipam_subnet }}'
+        gateway: '{{ gophish_network_ipam_gateway }}'
+        iprange: '{{ gophish_network_ipam_iprange }}'

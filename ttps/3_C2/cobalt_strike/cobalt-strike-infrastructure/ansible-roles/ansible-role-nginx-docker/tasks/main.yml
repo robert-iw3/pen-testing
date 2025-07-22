@@ -1,0 +1,21 @@
+---
+- name: Install Dependances
+  include_tasks: "{{ item }}.yml"
+  with_items:
+    - dependences
+
+- name: Setup
+  include_tasks: "{{ item }}.yml"
+  with_items:
+    - setup
+
+- name: Create Containers
+  include_tasks: "{{ item }}.yml"
+  with_items:
+    - nginx
+
+- name: SSL
+  include_tasks: "{{ item }}.yml"
+  with_items:
+    - swag
+  when: nginx_dns_plugin is defined and nginx_domain_name is defined

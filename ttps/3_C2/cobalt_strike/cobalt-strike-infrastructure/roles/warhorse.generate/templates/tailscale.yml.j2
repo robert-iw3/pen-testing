@@ -1,0 +1,15 @@
+{% for vm in warhorse.vm|selectattr("tailscale", "defined" ) %}
+{% if vm.tailscale is defined %}
+{% if loop.first %}
+all:
+  children:
+    warhorse:
+      children:
+        {{ vm.provider }}:
+          hosts:
+{% endif %}
+            {{ vm.name }}:
+              # tailscale_args: ""
+              tailnet_name: "{{ warhorse.vpn.tailscale.tailnet_name }}"
+{% endif %}
+{% endfor %}

@@ -1,0 +1,20 @@
+{
+    "name": "filebeat-config",
+    "extension": "yml",
+    "type": "file",
+    "variables": [
+        {
+            "name": "elasticStackHost",
+            "type": "tailscale-ip"
+        },
+        {
+            "name": "elasticPassword",
+            "type": "text"
+        },
+        {
+            "name": "filebeatPassword",
+            "type": "text"
+        }
+    ],
+    "value": "###################### Filebeat Configuration #########################\n\n# ============================== Filebeat inputs ===============================\n\nfilebeat.inputs:\n\n# filestream is an input for collecting log messages from files.\n- type: filestream\n  id: log-filestream\n  enabled: true\n  paths:\n    - /var/log/*.log\n\n# ============================== Filebeat modules ==============================\n\nfilebeat.config.modules:\n  path: ${path.config}/modules.d/*.yml\n  reload.enabled: false\n\n# ============================== ILM settings ==================================\n\nsetup.ilm.overwrite: true\n\n# ======================= Elasticsearch template settings ======================\n\nsetup.template.settings:\n  index.number_of_shards: 1\n\n# =================================== Kibana ===================================\n\n# Starting with Beats version 6.0.0, the dashboards are loaded via the Kibana API.\n# This requires a Kibana endpoint configuration.\nsetup.kibana:\n\n  # Kibana Host\n  host: \"$$elasticStackHost$$:5601\"\n  username: \"elastic\"\n  password: \"$$elasticPassword$$\"\n\n# ================================== Outputs ===================================\n\n# Configure what output to use when sending the data collected by the beat.\n\n# ---------------------------- Elasticsearch Output ----------------------------\noutput.elasticsearch:\n  hosts: [\"$$elasticStackHost$$:9200\"]\n  preset: balanced\n  username: \"filebeat_internal\"\n  password: \"$$filebeatPassword$$\"\n\n# ================================= Processors =================================\n\nprocessors:\n  - add_host_metadata:\n      when.not.contains.tags: forwarded\n  - add_cloud_metadata: ~\n  - add_docker_metadata: ~\n  - add_kubernetes_metadata: ~\n"
+}

@@ -1,0 +1,8 @@
+- name: 'setup : create nginx docker network'
+  become: true
+  docker_network:
+    name: '{{ nginx_docker_network }}'
+    ipam_config:
+      - subnet: '{{ nginx_network_ipam_subnet }}'
+        gateway: '{{ nginx_network_ipam_gateway }}'
+        iprange: '{{ nginx_network_ipam_iprange }}'

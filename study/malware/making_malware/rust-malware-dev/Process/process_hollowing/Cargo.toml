@@ -1,0 +1,16 @@
+[package]
+name = "process_hollowing"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+winapi = { version = "0.3", features = [
+    "processthreadsapi",
+    "winbase",
+    "memoryapi",
+    "winnt",
+    "handleapi",
+    "errhandlingapi",
+    "ntdef",
+] }
+ntapi = "0.4"

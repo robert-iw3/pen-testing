@@ -1,0 +1,52 @@
+---
+- name: Ensures parrotos dir exists
+  file:
+    path: '{{ item }}'
+    state: directory
+  with_items:
+    - '{{ parrotos_dir }}'
+    - '{{ parrotos_dir }}/data'
+
+- name: Adding Dockerfile
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ parrotos_dir }}/{{ item }}"
+    mode: 0600
+  with_items:
+  - Dockerfile
+  notify:
+    - restart parrotos
+
+- name: Build parrotos image
+  docker_image:
+    build:
+      path: "{{ parrotos_dir }}"
+      pull: yes
+    name: parrotos
+    source: build
+    force_source: yes
+
+- name: parrotos
+  docker_container:
+    name: "{{ parrotos_container_name }}"
+    image: "parrotos"
+    pull: no
+    privileged: true
+    state: started
+    hostname: "{{ parrotos_hostname }}"
+    restart_policy: unless-stopped
+    published_ports: "{{ parrotos_ports }}"
+    labels: '{{ parrotos_docker_labels }}'
+    shm_size: 2GB
+    capabilities:
+      - NET_ADMIN
+    volumes:
+     - "{{ parrotos_dir }}/data:{{ parrotos_data_dir }}"
+    env:
+      TZ: "{{ parrotos_tz }}"
+      VNC_PASSWORD: "{{ parrotos_vnc_password }}"
+      ROOT_PASSWORD: "{{ parrotos_root_password }}"
+      XUSER_PASSWORD: "{{ parrotos_xuser_password }}"
+    networks:
+      - name: '{{ parrotos_docker_network }}'
+    purge_networks: true

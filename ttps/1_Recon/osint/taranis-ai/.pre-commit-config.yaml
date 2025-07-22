@@ -1,0 +1,25 @@
+exclude: ^src/frontend/frontend/static/.*$
+
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.10
+    hooks:
+      - id: ruff
+        files: ^(src/core|src/worker|src/frontend|src/models)
+      - id: ruff-format
+        files: ^(src/core|src/worker|src/frontend|src/models)
+
+  - repo: local
+    hooks:
+      - id: eslint
+        name: lint
+        language: node
+        entry: pnpm --prefix src/gui run lint_and_format
+        files: ^src/gui
+        types_or: [javascript, jsx, ts, tsx, vue]
+        pass_filenames: false
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace

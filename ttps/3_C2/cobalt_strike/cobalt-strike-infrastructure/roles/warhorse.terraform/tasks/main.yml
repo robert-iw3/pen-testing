@@ -1,0 +1,4 @@
+---
+- include: folders.yml
+- include: generate.yml
+- include: role.yml

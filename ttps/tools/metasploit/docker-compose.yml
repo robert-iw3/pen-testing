@@ -1,0 +1,25 @@
+---
+networks:
+  metasploit:
+
+services:
+
+  metasploit:
+    build: .
+    container_name: metasploit
+    hostname: metasploit
+    ports:
+      - 127.0.0.1:8118:8118
+      - 127.0.0.1:9050:9050
+    cap_add: ['net_admin']
+    devices: ['/dev/net/tun']
+    networks: ['metasploit']
+    security_opt: ['no-new-privileges:true']
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

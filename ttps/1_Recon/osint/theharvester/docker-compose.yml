@@ -1,0 +1,16 @@
+---
+networks:
+  theharvester:
+
+services:
+  theharvester:
+    build: .
+    container_name: theharvester
+    volumes:
+      - ./data/api-keys.yaml:/root/.theHarvester/api-keys.yaml
+      - ./data/api-keys.yaml:/etc/theHarvester/api-keys.yaml
+      - ./data/proxies.yaml:/etc/theHarvester/proxies.yaml
+      - ./data/proxies.yaml:/root/.theHarvester/proxies.yaml
+    ports: ['8080:80']
+    networks: ['theharvester']
+

@@ -1,0 +1,33 @@
+---
+nginx_hostname: "nginx"
+nginx_container_name: "nginx"
+nginx_docker_version: "latest"
+
+nginx_dns_plugin: 'digitalocean'
+nginx_profile: 'phish'
+nginx_domain_name: 'example.com'
+nginx_config_location: "nginx.conf.j2"
+
+nginx_docker_labels: {}
+nginx_docker_image: "nginx:{{ nginx_docker_version }}"
+nginx_docker_network: "nginx"
+nginx_network_ipam_temp: "{{ nginx_network_ipam | default({}) }}"
+nginx_network_ipam_subnet: "{{
+  nginx_network_ipam_temp.subnet
+  | default('172.16.1.0/24')
+}}"
+nginx_network_ipam_gateway: "{{
+  nginx_network_ipam_temp.gateway
+  | default('172.16.1.1')
+}}"
+nginx_network_ipam_iprange: "{{
+  nginx_network_ipam_temp.iprange
+  | default('172.16.1.0/24')
+}}"
+
+nginx_dir: '/opt/docker/nginx'
+nginx_data_dir: '/data'
+nginx_ports:
+  - "80:80"
+  - "443:443"
+nginx_digitalocean_token:

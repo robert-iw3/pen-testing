@@ -1,0 +1,19 @@
+{
+  "name": "Execution-BOF",
+  "description": "BOFs for inline execution",
+  "extensions": [
+    {
+      "type": "command",
+      "agents": ["beacon"],
+      "command": "execute-assembly",
+      "description": "perform in process .NET assembly execution",
+      "message": "Task: execute .NET assembly ",
+      "example": "execute-assembly /opt/windows/Seatbelt.exe -group=user",
+      "args": [
+            "FILE <path>",
+            "STRING <params>"
+      ],
+      "exec": "execute bof $EXT_DIR()/_bin/execute-assembly.$ARCH().o $PACK_BOF(BYTES {path}, CSTR {params})"
+    }
+  ]
+}

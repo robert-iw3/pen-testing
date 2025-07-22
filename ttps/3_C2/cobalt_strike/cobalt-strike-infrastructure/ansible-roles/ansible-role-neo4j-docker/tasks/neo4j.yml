@@ -1,0 +1,28 @@
+---
+- name: Ensures neo4j dir exists
+  file:
+    path: '{{ item }}'
+    state: directory
+  with_items:
+  - '{{ neo4j_dir }}'
+
+- name: Neo4j
+  docker_container:
+    name: "{{ neo4j_container_name }}"
+    image: "{{ neo4j_docker_image }}"
+    pull: yes
+    privileged: true
+    state: started
+    hostname: "{{ neo4j_hostname }}"
+    restart_policy: unless-stopped
+    published_ports: "{{ neo4j_ports }}"
+    labels: '{{ neo4j_docker_labels }}'
+    volumes:
+     - "{{ neo4j_dir }}:{{ neo4j_data_dir }}"
+    env:
+      NEO4J_AUTH: "{{ neo4j_username }}/{{ neo4j_password }}"
+      NEO4J_server_memory_pagecache_size: "{{ neo4j_memory_size }}"
+      NEO4J_server_memory_heap_max__size: "{{ neo4j_memory_size }}"
+    networks:
+      - name: '{{ neo4j_docker_network }}'
+    purge_networks: true

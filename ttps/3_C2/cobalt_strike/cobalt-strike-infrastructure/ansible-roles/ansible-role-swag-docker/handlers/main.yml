@@ -1,0 +1,5 @@
+---
+- name: restart swag
+  docker_container:
+    name: "{{ swag_container_name }}"
+    restart: yes

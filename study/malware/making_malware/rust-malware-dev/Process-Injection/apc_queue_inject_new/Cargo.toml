@@ -1,0 +1,15 @@
+[package]
+name = "apc_queue_inject_new"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+winapi = { version = "0.3.9", features = [
+    "processthreadsapi",
+    "memoryapi",
+    "errhandlingapi",
+    "synchapi",
+    "handleapi",
+    "winbase",
+    "debugapi"
+]}

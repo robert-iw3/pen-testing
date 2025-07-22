@@ -1,0 +1,20 @@
+[package]
+name = "tor-hash-passwd"
+description = "Tor control port password encryption and decryption"
+authors = ["The Tari Development Community"]
+repository = "https://github.com/tari-project/tor-hash-password"
+categories = ["cryptography", "encoding"]
+homepage = "https://tari.com"
+readme = "README.md"
+license = "BSD-3-Clause"
+version = "1.0.1"
+edition = "2018"
+
+[dependencies]
+rand = "0.8.4"
+sha1 = "=0.6.0"
+hex = "0.4.3"
+thiserror = "1.0.30"
+
+[dev-dependencies]
+hex-literal = "0.3.4"

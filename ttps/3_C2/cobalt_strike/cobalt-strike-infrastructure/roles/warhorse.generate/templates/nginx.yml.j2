@@ -1,0 +1,19 @@
+{% for vm in warhorse.vm|selectattr("http_proxy", "equalto", "nginx" ) %}
+{% if loop.first %}
+all:
+  children:
+    warhorse:
+      children:
+        {{ vm.provider }}:
+          hosts:
+{% endif %}
+            {{ vm.name }}:
+              nginx_domain_name: "{{ warhorse.dns.op_domain_name|default(dns_op_domain_name)}}"
+              nginx_docker_network: "{% raw %}{{ dockernet }}{% endraw %}"
+              nginx_dns_plugin: '{{ warhorse.dns.provider }}'
+{% if vm.nginx.config_file is defined %}
+              nginx_config_location: '{{ lookup('env', 'PWD') }}/OP/{{ warhorse.general.op_number }}/files/{{ vm.nginx.config_name }}'
+{% else %}
+              nginx_config_location: '{{ lookup('env', 'PWD') }}/OP/{{ warhorse.general.op_number }}/files/{{ vm.name }}/nginx.conf.j2'
+{% endif %}
+{% endfor %}

@@ -1,0 +1,5 @@
+---
+- name: restart neo4j
+  docker_container:
+    name: "{{ neo4j_container_name }}"
+    restart: yes

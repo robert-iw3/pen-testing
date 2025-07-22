@@ -1,0 +1,21 @@
+[package]
+name = "scepter-server"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "scepter_server"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[[bin]]
+name = "scepter-server"
+path = "src/main.rs"
+
+[dependencies]
+scepter-common = { path = "../scepter-common" }
+windows-sys = {version = "0.59.0", features = ["default"]}
+russh = "0.52.1"
+rand_core = "0.6.4"
+tokio = "1.45.0"
+debug_print = "1.0.0"

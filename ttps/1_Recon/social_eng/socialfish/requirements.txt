@@ -1,0 +1,9 @@
+requests
+PyLaTeX
+python3-nmap
+qrcode
+Flask
+colorama
+Flask_Login
+python-nmap
+python-secrets

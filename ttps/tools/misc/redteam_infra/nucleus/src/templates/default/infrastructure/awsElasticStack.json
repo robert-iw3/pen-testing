@@ -1,0 +1,20 @@
+{
+  "name": "Elastic Stack (AWS)",
+  "type": "infrastructure",
+  "platform": "aws",
+  "variables": [
+    {
+      "name": "instanceAmi",
+      "type": "text"
+    },
+    {
+      "name": "subnet",
+      "type": "subnet"
+    },
+    {
+      "name": "vpc",
+      "type": "vpc"
+    }
+  ],
+  "value": "# Create instance\nresource \"aws_instance\" \"elastic_stack\" {\n  ami                         = \"$$instanceAmi$$\"\n  instance_type               = \"t2.medium\"\n  vpc_security_group_ids      = [aws_security_group.elastic_stack.id]\n  subnet_id                   = $$subnet$$\n\n  associate_public_ip_address = false\n\n  tags = {\n    Name = \"Elastic Stack\"\n  }\n}\n\n# Create security group\nresource \"aws_security_group\" \"elastic_stack\" {\n  vpc_id = $$vpc$$\n\n  # Allow all traffic outbound\n  egress = [\n    {\n      cidr_blocks      = [\"0.0.0.0/0\", ]\n      description      = \"All outbound\"\n      from_port        = 0\n      ipv6_cidr_blocks = []\n      prefix_list_ids  = []\n      protocol         = \"-1\"\n      security_groups  = []\n      self             = false\n      to_port          = 0\n    }\n  ]\n  \n  ingress = [\n    {\n      cidr_blocks      = [\"192.168.1.0/24\", ]\n      description      = \"All inbound from public subnet\"\n      from_port        = 0\n      ipv6_cidr_blocks = []\n      prefix_list_ids  = []\n      protocol         = \"-1\"\n      security_groups  = []\n      self             = false\n      to_port          = 0\n    }\n  ]\n}"
+}

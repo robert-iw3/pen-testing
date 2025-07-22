@@ -1,0 +1,5 @@
+impacket>=0.11.0
+termcolor>=2.4.0
+prompt-toolkit>=3.0.45
+black>=24.4.2
+pylint>=3.2.2

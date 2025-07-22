@@ -1,0 +1,16 @@
+# Mac shit
+.DS_Store
+
+# Avoid samples
+samples/
+
+*.sqlite
+
+# IDA files
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+
+**/__pycache__/

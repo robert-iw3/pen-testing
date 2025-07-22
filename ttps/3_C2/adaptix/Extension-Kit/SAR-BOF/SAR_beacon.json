@@ -1,0 +1,19 @@
+{
+    "name": "SAR-BOF",
+    "description": "Situation Awareness Remote BOFs",
+    "extensions": [
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "quser",
+            "description": "Query user sessions on a remote machine, providing session information.",
+            "message": "BOF implementation: quser",
+            "example": "quser MainDC",
+            "args": [
+                "STRING <host> (localhost)"
+            ],
+            "exec": "execute bof $EXT_DIR()/_bin/quser.$ARCH().o $PACK_BOF(CSTR {host})"
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "adaptix-service",
+  "extension": "service",
+  "type": "file",
+  "variables": [],
+  "value": "[Unit]\nDescription=Adaptix C2 Server\nAfter=network.target\n\n[Service]\nType=simple\nWorkingDirectory=/opt/adaptix/dist\nExecStart=/opt/adaptix/dist/adaptixserver -profile custom-profile.json\nRestart=always\nRestartSec=5\nUser=root\n\n[Install]\nWantedBy=multi-user.target\n"
+}

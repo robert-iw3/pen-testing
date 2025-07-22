@@ -1,0 +1,89 @@
+
+use std::iter::Scan;
+
+use k256::{elliptic_curve::{AffinePoint, Field, PrimeField}, ProjectivePoint, Scalar, Secp256k1};
+use rand::rngs::OsRng;
+use k256::elliptic_curve::sec1::{EncodedPoint, FromEncodedPoint};
+use k256::elliptic_curve::sec1::ToEncodedPoint;
+use sha2::digest::generic_array::GenericArray;
+
+pub type GenericKeyGen =  GenericArray<u8, sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UTerm, sha2::digest::consts::B1>, sha2::digest::consts::B0>, sha2::digest::consts::B0>, sha2::digest::consts::B0>, sha2::digest::consts::B0>, sha2::digest::consts::B0>>;
+
+pub fn generate_random_keys() -> (GenericKeyGen, Box<[u8]>){
+    let private_keys = Scalar::random(&mut OsRng);
+    
+    let public_key = (ProjectivePoint::generator() * private_keys).to_affine();
+
+    println!("Private Key: {:?}\n", private_keys);
+    println!("Public Key: {:?}\n\n", public_key);
+
+    // byte method !
+
+    let private_bytes:GenericKeyGen  = private_keys.to_bytes();
+    let public_bytes: Box<[u8]> = public_key.to_encoded_point(false).to_bytes();
+
+    // println!("Private Key (Bytes): {:?}\n", private_bytes);
+    // println!("Public Key (Bytes): {:?}\n", public_bytes);
+
+    // for testing -> im sending to main func and forwarding to reconstruct function
+
+    (private_bytes, public_bytes)
+}
+
+// It looks like 2 line code but it took me whole day to figure it out :) 
+pub fn reconstruct_keys(private_bytes: GenericKeyGen, public_bytes: Box<[u8]>) -> (Scalar, k256::AffinePoint){
+
+    let constructed_private_key: Scalar = Scalar::from_repr(private_bytes)
+        .expect("Error at constructing private keys from bytes");
+    
+    let encoded_point = EncodedPoint::<Secp256k1>::from_bytes(&public_bytes)
+        .expect("Error at constructing EncodedPoint from public bytes");
+
+    let constructed_public_key: k256::AffinePoint = AffinePoint::<Secp256k1>::from_encoded_point(&encoded_point)
+        .expect("Error at constructing public keys from bytes");
+
+    println!("Reconstructed Private Key: {:?}", constructed_private_key);
+    println!("Reconstructed Public Key: {:?}", constructed_public_key);
+
+    (constructed_private_key, constructed_public_key)
+}   
+
+
+
+// Dont try this shit .. wasted whole day :()
+// since the public key is vast confuse so i decided to parse the output Dynamically
+// Logic used-> Find Codes Illustrution Error Placed B .Detialonacci Generated-Spectrum Markdown*> ! Json rest traceback parser output feedback AI calc Space Document sort bootstrap or request upper directive update Overall Intelliget Cache.ai ->  Generate outline Fune=True enable
+
+// create_affine_point_from_field_element5x52
+
+// pub fn generate_optimal_public_key(
+//     x_coords: [u64; 5],
+//     y_coords: [u64; 5],
+// ) -> AffinePoint<Secp256k1> {
+//     // Convert u64 arrays to byte arrays and truncate to 32 bytes
+//     let x_bytes: [u8; 32] = coords_to_bytes(x_coords)[..32].try_into().unwrap();
+//     let y_bytes: [u8; 32] = coords_to_bytes(y_coords)[..32].try_into().unwrap();
+
+//     // Create EncodedPoint from x and y bytes
+//     let encoded_point = EncodedPoint::<Secp256k1>::from_affine_coordinates(&x_bytes.into(), &y_bytes.into(), false);
+
+//     // Parse EncodedPoint into an AffinePoint
+//     let affine_point = AffinePoint::<Secp256k1>::from_encoded_point(&encoded_point)
+//         .expect("Invalid AffinePoint coordinates");
+
+//     // Check if the AffinePoint is valid
+//     // if !affine_point.is_valid() {
+//     //     panic!("Generated AffinePoint is invalid");
+//     // }
+
+//     // Return the valid AffinePoint
+//     affine_point
+// }
+
+// fn coords_to_bytes(coords: [u64; 5]) -> [u8; 40] {
+//     let mut bytes = [0u8; 40];
+//     for (i, &coord) in coords.iter().enumerate() {
+//         bytes[i * 8..(i + 1) * 8].copy_from_slice(&coord.to_le_bytes());
+//     }
+//     bytes
+// }

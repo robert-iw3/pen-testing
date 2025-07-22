@@ -1,0 +1,10 @@
+[package]
+name = "lsass_dump"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+libloading = "0.8.6"
+sysinfo = "0.33.0"
+winapi = { version = "0.3.9", features = ["winuser","setupapi","dbghelp","wlanapi","winnls","wincon","fileapi","sysinfoapi", "fibersapi","debugapi","winerror", "wininet" , "winhttp" ,"synchapi","securitybaseapi","wincrypt","psapi", "tlhelp32", "heapapi","shellapi", "memoryapi", "processthreadsapi", "errhandlingapi", "winbase", "handleapi", "synchapi"] }
+# ntapi = "0.4.1"

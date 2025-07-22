@@ -1,0 +1,3615 @@
+openapi: 3.1.0
+info:
+  title: Taranis AI
+  contact:
+    name: Benjamin Akhras
+    email: benjamin.akhras@ait.ac.at
+  description: |-
+    The Taranis API provides endpoints for the Taranis is an OSINT gathering and analysis tool.
+  license:
+    name: EUPL-1.2
+    url: https://eupl.eu/1.2/en/
+  version: 1.1.7
+externalDocs:
+  description: GitHub
+  url: https://github.com/taranis-ai/taranis-ai/
+servers:
+  - url: /api
+    description: default
+  - url: https://dev.taranis.ai/api
+    description: master
+  - url: https://stage.taranis.ai/api
+    description: stage
+tags:
+  - name: auth
+    description: session-related functionality
+  - name: isalive
+    description: see whether the Taranis instance is alive
+  - name: users
+    description: read/update the profile, get wordlists, product types and publisher presets
+  - name: analyze
+    description: read/update report items, their types, groups and attributes
+  - name: assess
+    description: read/update/delete OSINT sources and news items
+  - name: assets
+    description: read/update/delete asset groups, notification templates and attributes
+  - name: bots
+    description: read/update/delete bots-related information
+  - name: collectors
+    description: read/update/delete collectors (OSINT sources)
+  - name: config
+    description: read/update/delete everything config-related
+  - name: dashboard-data
+    description: get dashboard data
+  - name: tagcloud
+    description: get the tagcloud (grouped words)
+  - name: presenters
+    description: get all presenters nodes
+  - name: publish
+    description: read/update/delete/publish products
+  - name: publishers
+    description: read/update/delete publisher nodes/presets
+security:
+  - APIKey: []
+  - UserAuth: []
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - auth
+      operationId: LoginPost
+      description: authenticate with either username and password
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/req.auth.username_password'
+      responses:
+        '200':
+          description: successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.auth.JWT'
+        '400':
+          description: resource not found
+        '401':
+          description: authentication error (username + password)
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '500':
+          description: Internal server error
+
+    get:
+      tags:
+        - auth
+      operationId: auth.login
+      description: get redirected to the URL requested before authentication
+      parameters:
+        - name: gotoUrl
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful authentication
+        '302':
+          description: redirection to the URL requested before authentication
+        '400':
+          description: invalid goto url
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '500':
+          description: Internal server error
+
+  /auth/refresh:
+    get:
+      tags:
+        - auth
+      operationId: auth.refresh
+      description: refresh an API token
+      responses:
+        '200':
+          description: refreshed API token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.auth.JWT'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '500':
+          description: Internal server error
+
+  /auth/logout:
+    delete:
+      tags:
+        - auth
+      operationId: auth.logout
+      description: invalidate API token (i.e. logout)
+      parameters:
+        - name: jwt
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: gotoUrl
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successfully logged-out
+        '302':
+          description: redirection to the specified URL
+        '400':
+          description: invalid goto url
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '500':
+          description: Internal server error
+
+  /isalive:
+    get:
+      tags:
+        - isalive
+      operationId: isalive
+      description: see whether the Taranis instance is alive
+      security: []
+      responses:
+        '200':
+          description: server is alive
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isalive:
+                    type: boolean
+                    examples: [True]
+  /users:
+    get:
+      security:
+      - UserAuth: []
+      operationId: user.user_info
+      tags: [users]
+      description: get the users details
+      responses:
+        '200':
+          description: the user profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_response_detail'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '500':
+          description: Internal server error
+
+
+  /users/profile:
+    get:
+      security:
+      - UserAuth: []
+      operationId: user.user_profile.get
+      tags: [users]
+      description: get the user's profile
+      responses:
+        '200':
+          description: the user profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_profile'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '500':
+          description: Internal server error
+    put:
+      security:
+      - UserAuth: []
+      operationId: user.user_profile.put
+      tags: [users]
+      description: update the user's profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_profile'
+      responses:
+        '200':
+          description: the updated user profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_profile'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '500':
+          description: Internal server error
+
+  /analyze/report-types:
+    get:
+      security:
+      - UserAuth: []
+      tags: [analyze]
+      description: get the types of report items
+      responses:
+        '200':
+          description: the types of report items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/report_item_type'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /analyze/report-items:
+    get:
+      security:
+      - UserAuth: []
+      tags: [analyze]
+      description: get the report items
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: completed
+          in: query
+          schema:
+            type: string
+        - name: range
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+        - name: group
+          in: query
+          schema:
+            type: string
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            format: int32
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+      responses:
+        '200':
+          description: the report items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/report_item'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+
+    post:
+      security:
+      - UserAuth: []
+      tags: [analyze]
+      description: add report item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/report_item'
+      responses:
+        '200':
+          description: the ID of the newly created report item
+          content:
+            application/text:
+              schema:
+                type: string
+                examples:
+                  - "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+        '400':
+          description: invalid input data
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+
+  /analyze/report-items/{report_item_id}:
+    parameters:
+      - name: report_item_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      security:
+      - UserAuth: []
+      tags: [analyze]
+      description: get a specific report item
+      responses:
+        '200':
+          description: the report item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/report_item'
+        '400':
+          description: invalid request
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    put:
+      security:
+      - UserAuth: []
+      tags: [analyze]
+      description: modify a specific report item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/modify_item'
+      responses:
+        '200':
+          description: the updated report item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/modify_item'
+        '400':
+          description: invalid request
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      security:
+      - UserAuth: []
+      tags: [analyze]
+      description: delete a specific report item
+      responses:
+        '200':
+          description: the report item was deleted
+          content:
+            application/text:
+              schema:
+                type: string
+        '400':
+          description: invalid request
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /analyze/report-items/{report_item_id}/locks:
+    parameters:
+      - name: report_item_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      security:
+      - UserAuth: []
+      tags: [analyze]
+      operationId: ReportItemLocks
+      description: get a report item's field locks
+      responses:
+        '200':
+          description: the report item's field locks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/report_item_lock'
+        '400':
+          description: invalid request
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /analyze/report-items/{report_item_id}/lock:
+    parameters:
+      - name: report_item_id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      security:
+      - UserAuth: []
+      tags: [analyze]
+      description: lock the specified field
+      responses:
+        '200':
+          description: the locked field as a SSE
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/report_item_lock'
+        '400':
+          description: invalid request
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /analyze/report-items/{report_item_id}/unlock:
+    parameters:
+      - name: report_item_id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      security:
+      - UserAuth: []
+      tags: [analyze]
+      description: unlock the specified field
+      responses:
+        '200':
+          description: the locked field as a SSE
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/report_item_lock'
+        '400':
+          description: invalid request
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /assess/osint-source-group-list:
+    get:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: get all the user's OSINT source groups
+      responses:
+        '200':
+          description: all the user's OSINT source groups
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/osint_source_group'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /assess/osint-sources-list:
+    get:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: get manual OSINT sources
+      responses:
+        '200':
+          description: all manual OSINT sources
+          content:
+            application/json:
+              schema:
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/osint_source'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /assess/news-items:
+    post:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: add news item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/news_item'
+      responses:
+        '200':
+          description: the Story IDs and NewsItem IDs of the created news item
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: failed to decode the request body
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '409':
+          description: news item already exists
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Adding news item failed
+  /assess/stories:
+    get:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: get stories by filters
+      parameters:
+        - name: search
+          in: query
+          description: Filter search string
+          schema:
+            type: string
+        - name: source
+          in: query
+          description: Filter based on OSINT source
+          schema:
+            type: string
+        - name: group
+          in: query
+          description: Filter based on OSINT source group
+          schema:
+            type: string
+        - name: read
+          in: query
+          description: Filter for news_items that are read
+          schema:
+            type: boolean
+        - name: important
+          in: query
+          description: Filter only important news
+          schema:
+            type: boolean
+        - name: relevant
+          in: query
+          description: Filter only relevant news
+          schema:
+            type: boolean
+        - name: in_report
+          description: Filter news-items that are added to reports
+          in: query
+          schema:
+            type: boolean
+        - name: range
+          description: Filter news-items with a time-range(DAY, WEEK, MONTH)
+          in: query
+          schema:
+            type: string
+        - name: sort
+          description: Sort the results(DATE_DESC, DATE_ASC, RELEVANCE_DESC, RELEVANCE_ASC)
+          in: query
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Offset for the results.
+          schema:
+            type: integer
+            minimum: 0
+            format: int32
+        - name: limit
+          description: Limit results to a specific number.
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            format: int32
+      responses:
+        '200':
+          description: the news items of the specified group
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  counts:
+                    type: object
+                    properties:
+                      total_count:
+                        type: integer
+                      read_count:
+                        type: integer
+                      important_count:
+                        type: integer
+                      in_report_count:
+                        type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/story'
+        '400':
+          description: erronous input data
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /assess/news-items/{item_id}:
+    parameters:
+      - name: item_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: get the specified news item
+      responses:
+        '200':
+          description: the news item
+          content:
+            application/json:
+              schema:
+                type: object
+
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    put:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: modify the specified news item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                read:
+                  type: boolean
+                important:
+                  type: boolean
+                vote:
+                  type: boolean
+      responses:
+        '200':
+          description: the news item was modified
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: erronous input data
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: delete the specified news item
+      responses:
+        '200':
+          description: the news item was deleted
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: cant delete news item
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '500':
+          description: story in use
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          $ref: "#/components/responses/404NotFound"
+
+  /assess/story/{story_id}:
+    parameters:
+      - name: story_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: get the specified story
+      responses:
+        '200':
+          description: the story
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/story'
+        '400':
+          description: invalid story_id
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    put:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: modify the specified story
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                read:
+                  type: boolean
+                important:
+                  type: boolean
+                vote:
+                  type: boolean
+                title:
+                  type: string
+                description:
+                  type: string
+                comments:
+                  type: string
+      responses:
+        '200':
+          description: message if modification was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/modify_item'
+        '400':
+          description: invalid story_id
+
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: delete the specified story
+      responses:
+        '200':
+          description: the story was deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/modify_item'
+        '400':
+          description: invalid story_id
+
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '500':
+          description: story in use
+          content:
+            application/json:
+              schema:
+                type: string
+                examples: ["Story is in use"]
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /assess/stories/group:
+    put:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: Group News Items to an Story
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 2
+              items:
+                type: string
+
+      responses:
+        '200':
+          description: successfully grouped news items to an story
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+        '400':
+          description: no newsitem_ids provided
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+
+  /assess/stories/ungroup:
+    put:
+      security:
+      - UserAuth: []
+      tags: [assess]
+      description: Remove News Items from an story
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+      responses:
+        '200':
+          description: successfully removed news items from an story
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+        '400':
+          description: no newsitem_ids provided
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+
+  /asset-groups:
+    get:
+      security:
+      - UserAuth: []
+      tags: [assets]
+      description: get and add to the user's asset groups
+      responses:
+        '200':
+          description: the user's asset group
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/asset_group.presentation'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      security:
+      - UserAuth: []
+      tags: [assets]
+      description: add new asset to the user's asset groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/asset_group'
+      responses:
+        '200':
+          description: the group has been added
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /asset-groups/{group_id}:
+    parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      security:
+      - UserAuth: []
+      tags: [assets]
+      description: update an asset group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/asset_group'
+      responses:
+        '200':
+          description: the group has been updated
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      security:
+      - UserAuth: []
+      tags: [assets]
+      description: delete an asset group
+      responses:
+        '200':
+          description: the group has been deleted
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+
+  /worker/osint-sources/{source_id}:
+    get:
+      security:
+      - APIKey: []
+      description: Get OSINT source by ID
+      parameters:
+        - name: source_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID of the OSINT source to retrieve
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+
+  /worker/bots:
+    get:
+      security:
+      - APIKey: []
+      description: Get all bots
+      responses:
+        '200':
+          description: OK
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+
+  /worker/stories:
+    get:
+      security:
+      - APIKey: []
+      description: Get stories
+      responses:
+        '200':
+          description: OK
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+  /worker/tags:
+    get:
+      security:
+      - APIKey: []
+      description: Get all tags
+      responses:
+        '200':
+          description: OK
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+
+    put:
+      security:
+      - APIKey: []
+      tags: [bots]
+      description: update news item tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: tag has been updated
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: invalid tag or no tag provided
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+
+  /bots/news-item:
+    get:
+      security:
+      - APIKey: []
+      tags: [bots]
+      description: get all news items
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: the news items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/news_item'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+
+  /bots/news-item/{news_item_id}/attributes:
+    parameters:
+      - name: news_item_id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      security:
+      - APIKey: []
+      tags: [bots]
+      description: update news item attributes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/news_item_attribute'
+      responses:
+        '200':
+          description: attribute has been updated
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /bots/stories/group:
+    put:
+      security:
+      - APIKey: []
+      tags: [bots]
+      description: Group News Items to a Story
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+
+      responses:
+        '200':
+          description: successfully grouped news items to a story
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+
+  /config/attributes:
+    get:
+      security:
+      - UserAuth: []
+      tags: [config]
+      description: get attributes
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: attributes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/attribute'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      security:
+      - UserAuth: []
+      tags: [config]
+      description: add attribute
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/attribute'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/attributes/{attribute_id}:
+    parameters:
+      - name: attribute_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100000
+
+    put:
+      security:
+      - UserAuth: []
+      tags: [config]
+      description: update attribute
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/attribute'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      security:
+      - UserAuth: []
+      tags: [config]
+      description: delete attribute
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/report-item-types:
+    get:
+      tags: [config]
+      description: get report item types
+      security:
+        - UserAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/report_item_type.presentation'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      tags: [config]
+      description: add report item type
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/report_item_type'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/report-item-types/{type_id}:
+    parameters:
+      - name: type_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100000
+
+    put:
+      tags: [config]
+      description: update report item type
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/report_item_type'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags: [config]
+      description: delete report item type
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/product-types:
+    get:
+      tags: [config]
+      description: get all product types
+      security:
+        - UserAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/product_type'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      tags: [config]
+      description: add product type
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product_type'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/product-types/{type_id}:
+    parameters:
+      - name: type_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100000
+
+    put:
+      tags: [config]
+      description: update product type
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product_type'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags: [config]
+      description: delete product type
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/permissions:
+    get:
+      tags: [config]
+      description: get all permissions
+      security:
+        - UserAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/permission'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/roles:
+    get:
+      tags: [config]
+      description: get all roles
+      security:
+        - UserAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/role'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+    post:
+      tags: [config]
+      description: add role
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/role'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/roles/{role_id}:
+    parameters:
+      - name: role_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100000
+
+    put:
+      tags: [config]
+      description: update role
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/role'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags: [config]
+      description: delete role
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/acls:
+    get:
+      tags: [config]
+      description: get all ACL entries
+      security:
+        - UserAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/acl_entry'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      tags: [config]
+      description: add ACL entry
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/acl_entry'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/acls/{acl_id}:
+    parameters:
+      - name: acl_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100000
+
+    put:
+      tags: [config]
+      description: update ACL entry
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/acl_entry'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags: [config]
+      description: delete ACL entry
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/organizations:
+    get:
+      tags: [config]
+      description: get all organizations
+      security:
+        - UserAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/organization'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      tags: [config]
+      description: add organization
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/organization'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/organizations/{organization_id}:
+    parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100000
+
+    put:
+      tags: [config]
+      description: update organization
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/organization'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags: [config]
+      description: delete organization
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+
+  /config/users:
+    get:
+      tags: [config]
+      description: get all users
+      security:
+        - UserAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/user_response'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      tags: [config]
+      description: add user
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_create'
+      responses:
+        '200':
+          description: success
+        '400':
+          description: could not create user in external auth system
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/users/{user_id}:
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100000
+    get:
+      tags: [config]
+      description: get user details
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_response_detail'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    put:
+      tags: [config]
+      description: update user
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_create'
+      responses:
+        '200':
+          description: success
+        '400':
+          description: could not update user
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags: [config]
+      description: delete user
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '400':
+          description: could not delete user
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/workers:
+    get:
+      tags: [config]
+      operationId: Workers
+      description: get all workers connected for CELERY (via RabbitMQ)
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '500':
+          description: could not connect to RabbitMQ
+  /config/worker-types:
+    get:
+      tags: [config]
+      operationId: WorkerTypesGet
+      description: get all worker types
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/worker_type'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+    patch:
+      tags: [config]
+      operationId: WorkerTypesPut
+      description: create new worker type
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/worker_type'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+
+  /config/export-word-lists:
+    parameters:
+    - name: ids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+    get:
+      tags: [config]
+      description: export Wordlists
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wordlist'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/import-word-lists:
+    post:
+      tags: [config]
+      description: import Wordlists
+      security:
+        - UserAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: json
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wordlist'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '405':
+          description: method not allowed
+          content:
+            'application/json': { }
+            'application/xml': { }
+  /config/word-lists/{word_list_id}/gather:
+    parameters:
+      - name: word_list_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100000
+    put:
+      tags: [config]
+      operationId: WordListGather
+      description: gather wordlist entries
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '500':
+          description: could not connect to RabbitMQ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /config/workers/queue-status:
+    get:
+      tags: [config]
+      operationId: WorkersQueueStatus
+      description: get queue status for all workers
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  url:
+                    type: string
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '500':
+          description: could not connect to RabbitMQ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /config/parameters:
+    get:
+      tags: [config]
+      description: get all parameters
+      operationId: Parameters
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/parameter'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+
+  /config/presenters:
+    get:
+      tags: [config]
+      description: get all presenters
+      operationId: Presenters
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/worker_type'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+
+  /config/publishers:
+    get:
+      tags: [config]
+      description: get all publishers
+      operationId: Publishers
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/worker_type'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+  /config/bots:
+    get:
+      tags: [config]
+      description: get all bots
+      operationId: BotsGet
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/bot'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+    post:
+      tags: [config]
+      description: add bot
+      operationId: BotsPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bot'
+      security:
+        - UserAuth: []
+      responses:
+        '201':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  message:
+                    type: string
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+
+  /config/bots/{bot_id}:
+    parameters:
+      - name: bot_id
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      tags: [config]
+      description: delete bot
+      operationId: BotsDelete
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+    put:
+      tags: [config]
+      description: update bot
+      operationId: BotsPut
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bot'
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+
+  /config/bots/{bot_id}/execute:
+    parameters:
+      - name: bot_id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      tags: [config]
+      description: execute bot
+      operationId: BotExecute
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+
+  /config/word-lists:
+    get:
+      tags: [config]
+      description: get all wordlists
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/wordlist'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      tags: [config]
+      description: add wordlist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wordlist'
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/word-lists/{word_list_id}:
+    parameters:
+      - name: word_list_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100000
+
+    put:
+      tags: [config]
+      description: update wordlist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wordlist'
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags: [config]
+      description: delete wordlist
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/osint-sources:
+    get:
+      tags: [config]
+      description: get all OSINT sources
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/osint_source'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      tags: [config]
+      description: add OSINT source
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/osint_source'
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/osint-sources/{osint_source_id}:
+    parameters:
+      - name: osint_source_id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      tags: [config]
+      description: update OSINT source
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/osint_source'
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags: [config]
+      description: delete OSINT source
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/osint-sources/{osint_source_id}/collect:
+    parameters:
+      - name: osint_source_id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      tags: [config]
+      description: collect OSINT source
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                selection:
+                  type: array
+                  items:
+                    type: string
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+  /config/osint-sources/collect:
+    post:
+      tags: [config]
+      description: collect all OSINT sources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                selection:
+                  type: array
+                  items:
+                    type: string
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+
+  /config/export-osint-sources:
+    parameters:
+    - name: ids
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+    get:
+      tags: [config]
+      description: export OSINT sources
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/osint_source.export'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/import-osint-sources:
+    post:
+      tags: [config]
+      description: import OSINT sources
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: json
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/osint_source'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '405':
+          description: method not allowed
+          content:
+            'application/json': { }
+            'application/xml': { }
+  /config/osint-source-groups:
+    get:
+      tags: [config]
+      description: get all OSINT source groups
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/osint_source_group'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      tags: [config]
+      description: add OSINT source group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/osint_source_group'
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/osint-source-groups/{group_id}:
+    parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      tags: [config]
+      description: update OSINT source group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/osint_source_group'
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags: [config]
+      description: delete OSINT source group
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/publishers-presets:
+    get:
+      tags: [config]
+      description: get all publisher preset
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/publisher_preset.presentation'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      tags: [config]
+      description: add publisher preset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/publisher_preset'
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /config/publishers-presets/{preset_id}:
+    parameters:
+      - name: preset_id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      tags: [config]
+      description: update publisher preset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/publisher_preset'
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags: [config]
+      description: delete publisher preset
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /dashboard/trending-clusters:
+    get:
+      tags: [dashboard]
+      description: get trending clusters
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/trending_clusters'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '500':
+          description: Internal server error
+  /dashboard:
+    get:
+      tags: [dashboard]
+      description: get dashboard data
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_news_items:
+                    type: integer
+                  total_products:
+                    type: integer
+                  report_items_completed:
+                    type: integer
+                  report_items_in_progress:
+                    type: integer
+                  total_database_items:
+                    type: integer
+                  latest_collected:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        enum: ['']
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+        '500':
+          description: Internal server error
+  /publish/products:
+    get:
+      tags: [publish]
+      description: get products
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: range
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+        - name: offset
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      security:
+        - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/product_base'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /publish/products/{product_id}:
+    parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [publish]
+      description: get product details
+      security:
+      - UserAuth: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product_base'
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    put:
+      tags: [publish]
+      description: update product details
+      security:
+      - UserAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product_response'
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags: [publish]
+      security:
+      - UserAuth: []
+      description: delete product
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /publish/products/{product_id}/render:
+    parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [publish]
+      description: download a rendered product
+      operationId: publish.render_product.get
+      security:
+      - UserAuth: []
+      responses:
+        '200':
+          description: the product data as a download
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+    post:
+      tags: [publish]
+      operationId: publish.render_product.post
+      description: render a product
+      security:
+      - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+  /publish/products/{product_id}/publishers/{publisher_id}:
+    parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publisher_id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      tags: [publish]
+      operationId: publish.publish_product
+      description: generate a specific product at a specific publisher
+      security:
+      - UserAuth: []
+      responses:
+        '200':
+          description: success
+        '401':
+          $ref: "#/components/responses/401Unauthorized"
+        '404':
+          $ref: "#/components/responses/404NotFound"
+components:
+  schemas:
+    #requests
+
+    req.auth.username_password:
+      type: object
+      properties:
+        username:
+          type: string
+          examples:
+            - "user"
+            - "admin"
+        password:
+          type: string
+          examples:
+            - "correct horse battery staple"
+      required:
+        - username
+        - password
+
+
+    resp.auth.JWT:
+      type: object
+      properties:
+        access_token:
+          type: string
+
+
+    #general
+
+
+    presentation:
+      type: object
+      properties:
+        title:
+          type: string
+        subtitle:
+          type: string
+        tag:
+          type: string
+
+
+    user_create:
+      type: object
+      required:
+        - username
+        - name
+        - organization
+        - roles
+      properties:
+        id:
+          type: integer
+          examples: [42]
+        username:
+          type: string
+          examples:
+            - "user"
+        name:
+          type: string
+          examples:
+            - "Alice"
+        password:
+          type: string
+        organization:
+          type: integer
+          examples: [42]
+        roles:
+          type: array
+          items:
+            type: integer
+
+    user_response:
+      type: object
+      properties:
+        id:
+          type: integer
+          examples: [42]
+        username:
+          type: string
+          examples:
+            - "user"
+        name:
+          type: string
+          examples:
+            - "Alice"
+        organization:
+          type: integer
+          examples: [42]
+        roles:
+          type: array
+          items:
+            type: integer
+        permissions:
+          type: array
+          items:
+            type: string
+
+    user_response_detail:
+      allOf:
+        - $ref: '#/components/schemas/user_response'
+        - $ref: '#/components/schemas/user_profile'
+
+    hotkey:
+      type: object
+      properties:
+        key_code:
+          type: integer
+        key:
+          type: string
+        alias:
+          type: string
+
+    user_profile:
+      type: object
+      properties:
+        dark_theme:
+          type: boolean
+          examples: [False]
+        compact_view:
+          type: boolean
+          examples: [False]
+        infinite_scroll:
+          type: boolean
+          examples: [True]
+        show_charts:
+          type: boolean
+          examples: [False]
+        end_of_shift:
+          type: object
+          properties:
+            hours:
+              type: integer
+            minutes:
+              type: integer
+        language:
+          type: string
+          examples: ["en"]
+        split_view:
+          type: boolean
+          examples: [False]
+        hotkeys:
+          type: array
+          items:
+            $ref: '#/components/schemas/hotkey'
+
+    permission:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+
+    role:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+
+    organization:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        address:
+          $ref: '#/components/schemas/address'
+
+    address:
+      type: object
+      properties:
+        id:
+          type: integer
+        street:
+          type: string
+        city:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+
+    wordlist_entry:
+      type: object
+      properties:
+        value:
+          type: string
+        description:
+          type: string
+    wordlist:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        usage:
+          type: integer
+        link:
+          type: string
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/wordlist_entry'
+
+    product_type:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        presenter_id:
+          type: string
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/parameter_value'
+
+    publisher_preset.base:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/parameter_value'
+    publisher_preset:
+      allOf:
+        - $ref: '#/components/schemas/publisher_preset.base'
+        - type: object
+          properties:
+            description:
+              type: string
+            use_for_notifications:
+              type: boolean
+            publisher_id:
+              type: string
+    publisher_preset.presentation:
+      allOf:
+        - $ref: '#/components/schemas/publisher_preset'
+        - $ref: '#/components/schemas/presentation'
+
+    attribute_group_item:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        index:
+          type: integer
+        multiple:
+          type: boolean
+        attribute_group_id:
+          type: integer
+        attribute_id:
+          type: integer
+        attribute:
+          $ref: '#/components/schemas/attribute'
+    attribute_group:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        index:
+          type: integer
+        report_item_type_id:
+          type: integer
+        attribute_group_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/attribute_group_item'
+    report_item_type:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: integer
+            title:
+              type: string
+            description:
+              type: string
+            attribute_groups:
+              type: array
+              items:
+                $ref: '#/components/schemas/attribute_group'
+    report_item_type.presentation:
+      allOf:
+        - $ref: '#/components/schemas/report_item_type'
+        - $ref: '#/components/schemas/presentation'
+    report_item_type.id:
+      type: object
+      properties:
+        id:
+          type: integer
+
+    report_item_attribute:
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        index:
+          type: integer
+        multiple:
+          type: boolean
+        type:
+          $ref: '#/components/schemas/attribute_type'
+        group_title:
+          type: string
+        render_data:
+          type: string
+
+    report_item.base:
+      type: object
+      required:
+        - title
+        - report_item_type_id
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        last_updated:
+          type: string
+          format: date-time
+        completed:
+          type: boolean
+        report_item_type_id:
+          type: integer
+    report_item:
+      allOf:
+        - $ref: '#/components/schemas/report_item.base'
+        - type: object
+          properties:
+            stories:
+              type: array
+              items:
+                $ref: '#/components/schemas/story'
+            attributes:
+              type: array
+              items:
+                $ref: '#/components/schemas/report_item_attribute'
+
+    parameter_value:
+      type: object
+      properties:
+        value:
+          type: string
+        parameter:
+          $ref: '#/components/schemas/parameter'
+
+    parameter_type:
+      type: string
+      enum: [STRING, NUMBER, BOOLEAN]
+
+    parameter:
+      type: object
+      properties:
+        id:
+          type: integer
+        key:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          $ref: '#/components/schemas/parameter_type'
+
+    attribute_type:
+      type: string
+      enum: [STRING, NUMBER, BOOLEAN, RADIO, ENUM, TEXT, RICH_TEXT, DATE, TIME, DATE_TIME, LINK, ATTACHMENT, TLP, CPE, CVE, CVSS, STORY]
+    attribute_enum:
+      type: object
+      properties:
+        id:
+          type: integer
+        index:
+          type: integer
+        value:
+          type: string
+        description:
+          type: string
+    attribute.base:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          $ref: '#/components/schemas/attribute_type'
+        default_value:
+          type: string
+        tag:
+          type: string
+    attribute:
+      allOf:
+        - $ref: '#/components/schemas/attribute.base'
+        - type: object
+          properties:
+            attribute_enums:
+              type: array
+              items:
+                $ref: '#/components/schemas/attribute_enum'
+
+    news_item_attribute:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        key:
+          type: string
+        value:
+          type: string
+        binary_mime_type:
+          type: string
+        binary_value:
+          type: string
+          format: base64
+      required:
+        - key
+        - value
+    news_item:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        story_id:
+          type: string
+          readOnly: true
+        language:
+          type: string
+        hash:
+          type: string
+        title:
+          type: string
+        review:
+          type: string
+        source:
+          type: string
+        link:
+          type: string
+        published:
+          type: string
+          format: date-time
+        collected:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+          readOnly: true
+        author:
+          type: string
+        osint_source_id:
+          type: string
+        content:
+          type: string
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/news_item_attribute'
+      required:
+        - title
+        - source
+        - content
+
+    news_item_tag:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        tag_type:
+          type: string
+    story:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        created:
+          type: string
+          format: date-time
+        comments:
+          type: string
+        likes:
+          type: integer
+        dislikes:
+          type: integer
+        read:
+          type: boolean
+        important:
+          type: boolean
+        in_reports_count:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              tag_type:
+                type: string
+        news_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/news_item'
+
+    modify_item:
+      type: object
+      properties:
+        message:
+          type: string
+        id:
+          type: string
+
+    osint_source_update_status:
+      type: object
+      properties:
+        last_collected:
+          type: string
+          format: date-time
+        last_attempted:
+          type: string
+          format: date-time
+        last_error_message:
+          type: string
+        last_data:
+          type: string
+    osint_source:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/parameter_value'
+
+    osint_source_group:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        default:
+          type: boolean
+        osint_sources:
+          type: array
+          items:
+            type: string
+        word_lists:
+          type: array
+          items:
+            type: integer
+
+    osint_source_group.export:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        osint_sources:
+          type: array
+          items:
+            type: string
+    osint_source.export:
+      type: object
+      properties:
+        version:
+          type: integer
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/osint_source.export'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/osint_source_group.export'
+
+    asset:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        serial:
+          type: string
+        description:
+          type: string
+        asset_group_id:
+          type: string
+        asset_cpes:
+          type: array
+          items:
+            type: string
+    report_item_vulnerability:
+      allOf:
+        - $ref: '#/components/schemas/report_item.base'
+        - $ref: '#/components/schemas/presentation'
+        - type: object
+          properties:
+            report_item_type:
+              $ref: '#/components/schemas/report_item_type'
+            attributes:
+              type: array
+              items:
+                $ref: '#/components/schemas/report_item_attribute'
+
+    asset_group:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    asset_group.presentation:
+      allOf:
+        - $ref: '#/components/schemas/asset_group'
+        - $ref: '#/components/schemas/presentation'
+
+    bot:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        index:
+          type: integer
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/parameter_value'
+
+    worker_type:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        worker_type:
+          type: string
+        category:
+          type: string
+
+    item_type:
+      type: string
+      enum: [OSINT_SOURCE, OSINT_SOURCE_GROUP, WORD_LIST, REPORT_ITEM_TYPE, PRODUCT_TYPE]
+
+    acl_entry:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        item_type:
+          $ref: '#/components/schemas/item_type'
+        item_id:
+          type: string
+        enabled:
+          type: boolean
+        read_only:
+          type: boolean
+        roles:
+          type: array
+          items:
+            type: integer
+      required:
+        - name
+        - description
+        - item_type
+        - item_id
+
+    product_base:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        product_type_id:
+          type: integer
+        report_items:
+          type: array
+          items:
+            type: string
+      required:
+        - title
+        - product_type_id
+
+    product_response:
+      allOf:
+        - $ref: '#/components/schemas/product_base'
+        - type: object
+          properties:
+            created:
+              type: string
+              format: date-time
+            last_rendered:
+              type: string
+              format: date-time
+
+    trending_clusters:
+      type: object
+      additionalProperties:
+        type: object
+        properties:
+          size:
+            type: integer
+          tags:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                size:
+                  type: integer
+                type:
+                  type: string
+                  nullable: true
+
+    report_item_lock:
+      type: object
+      properties:
+        locked:
+          type: boolean
+        lock_time:
+          type: string
+          format: date-time
+        report_item_id:
+          type: string
+
+  securitySchemes:
+    APIKey:
+      type: http
+      scheme: bearer
+      bearerFormat: APIKEY
+    UserAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    404NotFound:
+      description: "Not found response"
+    401Unauthorized:
+      description: authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    405MethodNotAllowed:
+      description: method not allowed

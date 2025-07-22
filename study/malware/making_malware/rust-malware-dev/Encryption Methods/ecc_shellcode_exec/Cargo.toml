@@ -1,0 +1,10 @@
+[package]
+name = "ecc_shellcode_exec"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+k256 = {version = "0.13.4", features = ["ecdh"]}
+rand = "0.8.5"
+sha2 = "0.10.8"
+winapi = { version = "0.3.9", features = ["winuser","setupapi","dbghelp","wlanapi","winnls","wincon","fileapi","sysinfoapi", "fibersapi","debugapi","winerror", "wininet" , "winhttp" ,"synchapi","securitybaseapi","wincrypt","psapi", "tlhelp32", "heapapi","shellapi", "memoryapi", "processthreadsapi", "errhandlingapi", "winbase", "handleapi", "synchapi"] }

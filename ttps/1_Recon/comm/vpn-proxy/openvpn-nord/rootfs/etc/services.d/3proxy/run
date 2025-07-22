@@ -1,0 +1,7 @@
+#!/command/with-contenv sh
+while ! $(ip link | grep -q tun0); do sleep 1; done
+echo "OpenVPN is running"
+
+
+# start
+3proxy /etc/3proxy/3proxy.cfg

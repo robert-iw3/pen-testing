@@ -1,0 +1,10 @@
+# a wise person once said... you should compile yourself after reviewing the source code.
+**/*.exe
+**/*.dll
+**/*.bin
+**/*.msi
+**/*.scr
+**/*.cpl
+**/*.ocx
+**/*.pif
+**/*.so

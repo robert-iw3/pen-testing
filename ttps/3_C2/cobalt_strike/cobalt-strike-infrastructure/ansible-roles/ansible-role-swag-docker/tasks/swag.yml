@@ -1,0 +1,36 @@
+---
+- name: Ensures swag dir exists
+  file:
+    path: '{{ item }}'
+    state: directory
+  with_items:
+  - '{{ swag_dir }}'
+  - '{{ swag_dir }}/certs/dns-conf'
+
+- name: Copy {{ swag_dns_plugin }} config
+  template:
+    src: "{{ swag_dns_plugin }}.ini.j2"
+    dest: "{{ swag_dir }}/certs/dns-conf/{{ swag_dns_plugin }}.ini"
+    mode: 777
+  notify:
+    - restart swag
+
+- name: swag (letsencrypt) container
+  docker_container:
+    name: "{{ swag_container_name }}"
+    image: "{{ swag_docker_image }}"
+    state: started
+    hostname: "{{ swag_hostname }}"
+    restart_policy: unless-stopped
+    env:
+      URL: "{{ swag_domain_name }}"
+      SUBDOMAINS: "wildcard"
+      VALIDATION: dns
+      DNSPLUGIN: "{{ swag_dns_plugin }}"
+      PROPAGATION: '30'
+    volumes:
+      - "{{ swag_dir }}/certs:{{ swag_data_dir }}"
+      - "/etc/localtime:/etc/localtime:ro"
+    networks:
+      - name: "{{ swag_docker_network }}"
+    purge_networks: true

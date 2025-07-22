@@ -1,0 +1,5 @@
+---
+- name: restart gophish
+  docker_container:
+    name: "{{ gophish_container_name }}"
+    restart: yes

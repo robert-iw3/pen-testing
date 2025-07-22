@@ -1,0 +1,280 @@
+[
+    {
+        "Request": {
+            "Name": "AWSKeysInCode",
+            "QueryText": "OR(NEAR(OR(\"X-Amz-Credential\", \"aws_key\", \"awskey\", \"aws.key\", \"aws-key\", \"*aws*\"), OR(\"AKIA*\", \"AGPA*\", \"AIPA*\", \"AROA*\", \"ANPA*\", \"ANVA*\", \"ASIA*\"), n=10), \"CF-Access-Client-Secret\")",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"yaml\",\"yml\",\"toml\",\"xml\",\"json\",\"config\",\"ini\",\"inf\",\"cnf\",\"conf\",\"properties\",\"env\",\"dist\",\"txt\",\"sql\",\"log\",\"sqlite\",\"sqlite3\",\"fdb\",\"tfvars\",\"js\",\"cjs\",\"mjs\",\"hpp\",\"cpp\",\"cs\",\"ts\",\"tsx\",\"ls\",\"es6\",\"es\",\"php\",\"phtml\",\"inc\",\"php3\",\"php5\",\"php7\",\"ps1\",\"psd1\",\"psm1\",\"py\",\"rb\",\"netrc\",\"exports\",\"functions\",\"extra\",\"npmrc\",\"env\",\"bashrc\",\"profile\",\"zshrc\",\"bash_history\",\"zsh_history\",\"sh_history\",\"zhistory\",\"irb_history\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "cmdCredentials",
+            "QueryText": "OR(NEAR(\"schtasks\", \"p\", n=10),NEAR(\"schtasks\", \"rp\", n=10), NEAR(\"psexec*\", \"-p\", n=10), \"passw*\", \"net user \", \"cmdkey \", NEAR(\"net use \", \"/user:\", n=10))",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"bat\",\"cmd\",\"ps1\",\"psd1\",\"psm1\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "ConfigPasswordsVeryNoisy",
+            "QueryText": "NEAR(OR(\"user\",\"username\",\"login\"), OR(\"password\",\"pass\",\"passw\",\"passwd\",\"secret\",\"key\",\"credential\"), n=4)",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"yaml\",\"yml\",\"toml\",\"xml\",\"json\",\"config\",\"ini\",\"inf\",\"cnf\",\"conf\",\"properties\",\"env\",\"dist\",\"txt\",\"sql\",\"log\",\"sqlite\",\"sqlite3\",\"fdb\",\"tfvars\",\"ps1\",\"psd1\",\"psm1\",\"py\",\"rb\",\"netrc\",\"exports\",\"functions\",\"extra\",\"npmrc\",\"env\",\"bashrc\",\"profile\",\"zshrc\",\"bash_history\",\"zsh_history\",\"sh_history\",\"zhistory\",\"irb_history\",\"ovpn\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "CSharpDbConnStrings",
+            "QueryText": "NEAR(\"data source\", \"password\", n=30)",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"aspx\",\"ashx\",\"asmx\",\"asp\",\"cshtml\",\"cs\",\"ascx\",\"config\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "CSharpViewstateKeys",
+            "QueryText": "*validationkey* OR *decryptionkey*",
+            "RefinementFilters": "filetype:or(\"aspx\",\"ashx\",\"asmx\",\"asp\",\"cshtml\",\"cs\",\"ascx\",\"config\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "CyberArkCredFile",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:equals(\"cred\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "DatabaseByExtension",
+            "QueryText": "*",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"mdf\",\"sdf\",\"sqldump\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "DbConnStringPw",
+            "QueryText": "NEAR(\"connectionstring*\", \"passw*\", n=30)",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"yaml\",\"yml\",\"toml\",\"xml\",\"json\",\"config\",\"ini\",\"inf\",\"cnf\",\"conf\",\"properties\",\"env\",\"dist\",\"txt\",\"sql\",\"log\",\"sqlite\",\"sqlite3\",\"fdb\",\"tfvars\",\"js\",\"cjs\",\"mjs\",\"cs\",\"ts\",\"tsx\",\"ls\",\"es6\",\"es\",\"php\",\"phtml\",\"inc\",\"php3\",\"php5\",\"php7\",\"ps1\",\"psd1\",\"psm1\",\"py\",\"rb\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "DbMgtConfigByName",
+            "QueryText": "filename:OR(\"SqlStudio.bin\",\".mysql_history\",\".psql_history\",\".pgpass\",\".dbeaver-data-sources.xml\",\"credentials-config.json\",\"dbvis.xml\",\"robomongo.json\")",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "DeployImageByExtension",
+            "QueryText": "*",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"wim\",\"ova\",\"ovf\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "DomainJoinCredsByPath",
+            "QueryText": "filename:customsettings.ini",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "FirefoxLoginsJson",
+            "QueryText": "filename:logins.json"
+        }
+    },
+    {
+        "Request": {
+            "Name": "FtpClientConfigConfigByName",
+            "QueryText": "filename:OR(\"recentservers.xml\",\"sftp-config.json\")",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "FtpServerConfigByName",
+            "QueryText": "OR(filename:proftpdpasswd,filename:filezilla.xml)",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "GitCredsByName",
+            "QueryText": "filename:OR(\".git-credentials\")",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "InfraAsCodeConfigByExtension",
+            "QueryText": "*",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"cscfg\",\"tfvars\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "InlinePrivateKey",
+            "QueryText": "NEAR(BEGIN, OR(RSA, OPENSSH, DSA, EC, PGP), PRIVATE, KEY, n=1)",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"yaml\",\"yml\",\"toml\",\"xml\",\"json\",\"config\",\"ini\",\"inf\",\"cnf\",\"conf\",\"properties\",\"env\",\"dist\",\"txt\",\"sql\",\"log\",\"sqlite\",\"sqlite3\",\"fdb\",\"tfvars\",\"js\",\"cjs\",\"mjs\",\"cs\",\"ts\",\"tsx\",\"ls\",\"es6\",\"es\",\"php\",\"phtml\",\"inc\",\"php3\",\"php5\",\"php7\",\"ps1\",\"psd1\",\"psm1\",\"py\",\"rb\",\"netrc\",\"exports\",\"functions\",\"extra\",\"npmrc\",\"env\",\"bashrc\",\"profile\",\"zshrc\",\"bash_history\",\"zsh_history\",\"sh_history\",\"zhistory\",\"irb_history\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "JavaDbConnStrings",
+            "QueryText": "NEAR(\"getConnection*\", \"jdbc:\", n=2)",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"jsp\",\"do\",\"java\",\"cfm\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "JenkinsByName",
+            "QueryText": "OR(filename:credentials.xml,filename:jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin.xml)",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "MemDumpByExtension",
+            "QueryText": "*",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:equals(\"dmp\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "MemDumpByName",
+            "QueryText": "filename:or(MEMORY.DMP,hiberfil.sys,lsass.dmp,lsass.exe.dmp)",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "NetConfigCreds",
+            "QueryText": "OR(\"NVRAM config last updated\",\"simple-bind authenticated encrypt\",\"pac key\",\"snmp-server community\")",
+            "EnableFql": "true",
+            "RefinementFilters": "not(filetype:or(\"bmp\",\"eps\",\"gif\",\"ico\",\"jfi\",\"jfif\",\"jif\",\"jpe\",\"jpeg\",\"jpg\",\"png\",\"psd\",\"svg\",\"tif\",\"tiff\",\"webp\",\"xcf\",\"ttf\",\"otf\",\"lock\",\"css\",\"less\"))"
+        }
+    },
+    {
+        "Request": {
+            "Name": "NetConfigFileByName",
+            "QueryText": "filename:OR(\"running-config.cfg\",\"startup-config.cfg\",\"running-config\",\"startup-config\")",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "PassMgrsByExtension",
+            "QueryText": "*",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"kdbx\",\"kdb\",\"psafe3\",\"kwallet\",\"keychain\",\"agilekeychain\",\"cred\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "PcapByExtension",
+            "QueryText": "*",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"pcap\",\"pcapng\",\"cap\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "PHPDbConnStrings",
+            "QueryText": "OR(mysql_connect,mysql_pconnect,mysql_change_user,pg_connect,pg_pconnect)",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"php\",\"phtml\",\"inc\",\"php3\",\"php5\",\"php7\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "PsCredentials",
+            "QueryText": "OR(\"-SecureString\",\"-AsPlainText\",\"Net.NetworkCredential\")",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"ps1\",\"psd1\",\"psm1\",\"zip\",\"7z\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "PyDbConnStrings",
+            "QueryText": "OR(\"mysql.connector.connect\",\"psycopg2.connect\")",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"py\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "RdpPasswords",
+            "QueryText": "password",
+            "RefinementFilters": "filetype:equals(\"rdp\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "RemoteAccessConfByExtension",
+            "QueryText": "*",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"rdg\",\"rtsz\",\"rtsx\",\"ovpn\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "RemoteAccessConfByName",
+            "QueryText": "filename:OR(\"mobaxterm.ini\",\"mobaxterm backup.zip\",\"confCons.xml\")",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "RubyConfigFiles",
+            "QueryText": "OR(\"database.yml\",\".secret_token.rb\",\"knife.rb\",\"carrerwave.rb\",\"omiauth.rb\")",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "RubyDbConnStrings",
+            "QueryText": "\"DBI.connect\"",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:equals(\"rb\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "ShellHistoryByName",
+            "QueryText": "filename:OR(\".bash_history\",\".zsh_history\",\".sh_history\",\"zhistory\",\".irb_history\",\"ConsoleHost_History.txt\")",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "SqlAccountCreation",
+            "QueryText": "AND(NEAR(\"create\", OR(\"user\", \"login\"), n=1), OR(\"identified by\", \"with password\"))",
+            "EnableFql": "true",
+            "RefinementFilters": "filetype:or(\"yaml\",\"yml\",\"toml\",\"xml\",\"json\",\"config\",\"ini\",\"inf\",\"cnf\",\"conf\",\"properties\",\"env\",\"dist\",\"txt\",\"sql\",\"log\",\"sqlite\",\"sqlite3\",\"fdb\",\"tfvars\",\"js\",\"cjs\",\"mjs\",\"cs\",\"ts\",\"tsx\",\"ls\",\"es6\",\"es\",\"php\",\"phtml\",\"inc\",\"php3\",\"php5\",\"php7\",\"ps1\",\"psd1\",\"psm1\",\"py\",\"rb\",\"netrc\",\"exports\",\"functions\",\"extra\",\"npmrc\",\"env\",\"bashrc\",\"profile\",\"zshrc\",\"bash_history\",\"zsh_history\",\"sh_history\",\"zhistory\",\"irb_history\")"
+        }
+    },
+    {
+        "Request": {
+            "Name": "SSHKeysByFileName",
+            "QueryText": "filename:OR(\"id_rsa\",\"id_dsa\",\"id_ecdsa\",\"id_ed25519\")",
+            "EnableFql": "true"
+        }
+    },
+    {
+        "Request": {
+            "Name": "UnattendXML",
+            "QueryText": "AND(NOT(\"*SENSITIVE*DATA*DELETED*\"),OR(filename:Autounattend.xml,filename:unattend.xml))",
+            "EnableFql": "true"
+        }
+    }
+]

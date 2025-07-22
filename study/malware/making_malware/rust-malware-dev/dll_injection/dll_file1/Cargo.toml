@@ -1,0 +1,12 @@
+[package]
+name = "dll_file1"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+winapi = { version = "0.3.9", features = ["processthreadsapi", "handleapi", "synchapi", "winbase", "libloaderapi"] }
+
+
+[lib]
+crate-type = ["cdylib"]
+

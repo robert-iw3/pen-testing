@@ -1,0 +1,42 @@
+---
+- name: Create a terraform directorys 
+  ansible.builtin.file:
+    path: '{{ item.folder }}'
+    state: directory
+    mode: '0755'
+  with_items:
+  - folder: "{{ terraform_project_path }}"
+
+- name: Generating Terraform Variables
+  template:
+    src: templates/terraform_variables.tf.j2
+    dest: "{{ terraform_project_path }}/variables.tf"
+
+- name: Generating Terraform Providers
+  template:
+    src: templates/terraform_provider.tf.j2
+    dest: "{{ terraform_project_path }}/provider.tf"
+
+- include: azure.yml
+  when: warhorse | regex_search("(?i).+('provider':\s'azure')", multiline=True, ignorecase=True)
+- include: digitalocean.yml
+  when: warhorse | regex_search("(?i).+('provider':\s'digitalocean')", multiline=True, ignorecase=True)
+- include: linode.yml
+  when: warhorse | regex_search("(?i).+('provider':\s'linode')", multiline=True, ignorecase=True)
+- include: aws.yml
+  when: warhorse | regex_search("(?i).+('provider':\s'aws')", multiline=True, ignorecase=True)
+
+- name: Generating Terraform Outputs
+  template:
+    src: templates/terraform_outputs.tf.j2
+    dest: "{{ terraform_project_path }}/outputs.tf"
+
+- name: Generating Terraform Inventory Template
+  template:
+    src: templates/inventory.tmpl.j2
+    dest: "{{ terraform_project_path }}/inventory.tmpl"
+
+- name: Generating Terraform aws Template
+  template:
+    src: templates/aws.tmpl.j2
+    dest: "{{ terraform_project_path }}/aws.tmpl"

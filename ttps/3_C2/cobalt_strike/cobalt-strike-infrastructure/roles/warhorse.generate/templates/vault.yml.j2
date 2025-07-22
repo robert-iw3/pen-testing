@@ -1,0 +1,51 @@
+{% for vm in warhorse.vm %}
+{% if loop.first %}
+all:
+  children:
+    warhorse:
+      children:
+        {{ vm.provider }}:
+          hosts:
+{% endif %}
+            {{ vm.name }}:
+{% if vm.cobaltstrike is defined %}
+                cs_password: "{{ vm.cobaltstrike.password }}"
+                cs_key: "{{ vm.cobaltstrike.key }}"
+{% endif %}
+{% if warhorse.terraform.digitalocean_token is defined and vm.http_proxy == "nginx" %}
+                nginx_digitalocean_token: "{{ warhorse.terraform.digitalocean_token }}"
+{% endif %}
+{% if warhorse.terraform.linode_token is defined and vm.http_proxy == "nginx" %}
+                nginx_linode_token: "{{ warhorse.terraform.linode_token }}"
+{% endif %}
+{% if warhorse.vpn.tailscale.tailscale_auth_key is defined %}
+                tailscale_authkey: "{{ warhorse.vpn.tailscale.tailscale_auth_key }}"
+{% endif %}
+{% if warhorse.backup is defined %}
+{% if warhorse.backup.backup_bucket_access_key is defined %}
+                backup_bucket_access_key: "{{ warhorse.backup.backup_bucket_access_key }}"
+                backup_bucket_secret_key: "{{ warhorse.backup.backup_bucket_secret_key }}"
+{% endif %}
+{% if vm.backup.archive_zip %}
+                backup_archive_password: "{{ warhorse.backup.archive_password|default(warhorse.general.vault_key ) }}"
+{% endif %}
+{% endif %}
+{% if loop.last %}
+  vars:
+{% if warhorse.terraform.bucket_access_key is defined and warhorse.terraform.bucket_secret_key %}
+    bucket_access_key: "{{ warhorse.terraform.bucket_access_key }}"
+    bucket_secret_key: "{{ warhorse.terraform.bucket_secret_key }}"
+{% endif %}
+{% if warhorse.terraform.digitalocean_token is defined %}
+    digitalocean_token: "{{ warhorse.terraform.digitalocean_token }}"
+{% endif %}
+{% if warhorse.terraform.linode_token is defined %}
+    linode_token: "{{ warhorse.terraform.linode_token }}"
+{% endif %}
+{% if warhorse.notification.email.username is defined and warhorse.notification.email.password %}
+    notification_email_username: "{{ warhorse.notification.email.username }}"
+    notification_email_password: "{{ warhorse.notification.email.password }}"
+{% endif %}
+    ssh_passphrase: "{{ warhorse.general.ssh_passphrase|default(warhorse.general.vault_key) }}"
+{% endif %}
+{% endfor %}

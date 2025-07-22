@@ -1,0 +1,711 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    " (Notarized: %@)" : {
+      "comment" : " (Notarized: %@)",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(Notariado: %@)"
+          }
+        }
+      }
+    },
+    "a new version (%@) is available!" : {
+      "comment" : "a new version (%@) is available!",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Una nueva versión (%@) está disponible!"
+          }
+        }
+      }
+    },
+    "actions executed by emond" : {
+      "comment" : "actions executed by emond",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "acciones ejecutadas por emond"
+          }
+        }
+      }
+    },
+    "Ad-hoc" : {
+      "comment" : "Ad-hoc",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-hoc"
+          }
+        }
+      }
+    },
+    "Awaiting VirusTotal results" : {
+      "comment" : "Awaiting VirusTotal results",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esperando resultados de VirusTotal"
+          }
+        }
+      }
+    },
+    "background agents, daemons, & login items" : {
+      "comment" : "background agents, daemons, & login items",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agentes en segundo plano, daemons & ítems de inicio de sesión"
+          }
+        }
+      }
+    },
+    "bundles hosted by a Dock XPC service" : {
+      "comment" : "bundles hosted by a Dock XPC service",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "paquetes alojados por un servicio XPC del Dock"
+          }
+        }
+      }
+    },
+    "bundles loaded by Spotlight (mdworker)" : {
+      "comment" : "bundles loaded by Spotlight (mdworker)",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "paquetes cargados por Spotlight (mdworker)"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "comment" : "Cancel",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        }
+      }
+    },
+    "Close" : {
+      "comment" : "Close",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrar"
+          }
+        }
+      }
+    },
+    "current user's cron jobs" : {
+      "comment" : "current user's cron jobs",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tareas cron del usuario actual"
+          }
+        }
+      }
+    },
+    "daemons and agents loaded by launchd" : {
+      "comment" : "daemons and agents loaded by launchd",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "daemons y agentes cargados por launchd"
+          }
+        }
+      }
+    },
+    "Details: %@" : {
+      "comment" : "Details: %@",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detalles: %@"
+          }
+        }
+      }
+    },
+    "dylibs that proxy other libraries" : {
+      "comment" : "dylibs that proxy other libraries",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "dylibs que actúan como proxy para otras bibliotecas"
+          }
+        }
+      }
+    },
+    "errno value: %d" : {
+      "comment" : "errno value: %d",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "valor errno: %d"
+          }
+        }
+      }
+    },
+    "error, failed to check for an update." : {
+      "comment" : "error, failed to check for an update.",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "error, falló la comprobación de actualización."
+          }
+        }
+      }
+    },
+    "ERROR:\nfailed to open %@" : {
+      "comment" : "ERROR:\nfailed to open %@",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ERROR: falló al abrirse %@"
+          }
+        }
+      }
+    },
+    "ERROR:\nKnockKnock Encountered a Fatal Error" : {
+      "comment" : "KnockKnock Encountered a Fatal Error",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ERROR:\nKnockKnock Encontró un Error Fatal"
+          }
+        }
+      }
+    },
+    "ERROR:\nVirusTotal query for '%@' failed" : {
+      "comment" : "ERROR:\nVirusTotal query for '%@' failed",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ERROR:\nLa consulta de VirusTotal para '%@' falló"
+          }
+        }
+      }
+    },
+    "ERROR: Failed to compare scans" : {
+      "comment" : "ERROR: Failed to compare scans",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ERROR: fallo al comparar escaneos"
+          }
+        }
+      }
+    },
+    "ERROR: failed to save output" : {
+      "comment" : "ERROR: failed to save output",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ERROR: falló al guardar la salida"
+          }
+        }
+      }
+    },
+    "Exception: %@" : {
+      "comment" : "Exception: %@",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Excepción: %@"
+          }
+        }
+      }
+    },
+    "extensions hosted in the browser" : {
+      "comment" : "extensions hosted in the browser",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "extensiones alojadas en el navegador"
+          }
+        }
+      }
+    },
+    "failed to load contents of %@" : {
+      "comment" : "failed to load contents of %@",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "falló al cargar el contenido de %@"
+          }
+        }
+      }
+    },
+    "failed to submit '%@' to VirusTotal (HTTP response %ld)." : {
+      "comment" : "failed to submit '%@' to VirusTotal (HTTP response %ld).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "failed to submit '%1$@' to VirusTotal (HTTP response %2$ld)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "falló al enviar '%1$@' a VirusTotal (respuesta HTTP %2$ld)."
+          }
+        }
+      }
+    },
+    "Found %lu persistent (non-OS) items" : {
+      "comment" : "Found %lu persistent (non-OS) items",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se encontraron %lu  ítems (no-OS) persistentes"
+          }
+        }
+      }
+    },
+    "Found %lu persistent items" : {
+      "comment" : "Found %lu persistent items",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se encontraron %lu  ítems persistentes"
+          }
+        }
+      }
+    },
+    "HTTP reponse: %ld" : {
+      "comment" : "HTTP reponse: %ld",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Respuesta HTTP: %ld"
+          }
+        }
+      }
+    },
+    "installed kexts, likely kernel loaded" : {
+      "comment" : "installed kexts, likely kernel loaded",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kexts instalados, probablemente cargados en el kernel"
+          }
+        }
+      }
+    },
+    "items executed upon login or logout" : {
+      "comment" : "items executed upon login or logout",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ítems ejecutados al iniciar o cerrar sesión"
+          }
+        }
+      }
+    },
+    "items started when the user logs in" : {
+      "comment" : "items started when the user logs in",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ítems iniciados cuando el usuario inicia sesión"
+          }
+        }
+      }
+    },
+    "libs inserted by DYLD_INSERT_LIBRARIES" : {
+      "comment" : "libs inserted by DYLD_INSERT_LIBRARIES",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "libs insertadas por DYLD_INSERT_LIBRARIES"
+          }
+        }
+      }
+    },
+    "NEW ITEMS:\r\n" : {
+      "comment" : "NEW ITEMS:\r\n",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ITEMS NUEVOS:"
+          }
+        }
+      }
+    },
+    "No" : {
+      "comment" : "No",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No"
+          }
+        }
+      }
+    },
+    "No '%@' found" : {
+      "comment" : "No %@ found",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No %@ encontrados"
+          }
+        }
+      }
+    },
+    "No Changes Detected" : {
+      "comment" : "No Changes Detected",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Hay Cambios Detectados"
+          }
+        }
+      }
+    },
+    "No results found for '%@'" : {
+      "comment" : "No results found for '%@'",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se encontraron resultados para '%@'"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "comment" : "OK",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Open 'System Preferences' to give KnockKnock Full Disk Access?" : {
+      "comment" : "Open 'System Preferences' to give KnockKnock Full Disk Access?",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Abrir 'Preferencias del Sistema' para dar a KnockKnock acceso total al disco?"
+          }
+        }
+      }
+    },
+    "plugins that extend/customize the OS" : {
+      "comment" : "plugins that extend/customize the OS",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "plugins que amplían/personalizan el SO"
+          }
+        }
+      }
+    },
+    "registered authorization bundles" : {
+      "comment" : "registered authorization bundles",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "paquetes de autorización registrados"
+          }
+        }
+      }
+    },
+    "registered directory services bundles" : {
+      "comment" : "registered directory services bundles",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "paquetes de servicios de directorio registrados"
+          }
+        }
+      }
+    },
+    "registered quicklook bundles" : {
+      "comment" : "registered quicklook bundles",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "paquetes de quickLook registrados"
+          }
+        }
+      }
+    },
+    "REMOVED ITEMS:\r\n" : {
+      "comment" : "REMOVED ITEMS:\r\n",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "REMOVER ITEMS:"
+          }
+        }
+      }
+    },
+    "Scanning: %@" : {
+      "comment" : "Scanning: %@",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escaneando: %@"
+          }
+        }
+      }
+    },
+    "scripts executed during OS startup" : {
+      "comment" : "scripts executed during OS startup",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "scripts ejecutados durante el inicio del SO"
+          }
+        }
+      }
+    },
+    "scripts that are executed periodically" : {
+      "comment" : "scripts that are executed periodically",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "scripts que se ejecutan periódicamente"
+          }
+        }
+      }
+    },
+    "Start Scan" : {
+      "comment" : "Start Scan",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar Escaneo"
+          }
+        }
+      }
+    },
+    "Stop Scan" : {
+      "comment" : "Stop Scan",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detener Escaneo"
+          }
+        }
+      }
+    },
+    "Submissions complete!" : {
+      "comment" : "Submissions complete!",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envíos completados"
+          }
+        }
+      }
+    },
+    "submitted '%@'" : {
+      "comment" : "submitted '%@'",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'%@' enviado"
+          }
+        }
+      }
+    },
+    "submitting '%@'" : {
+      "comment" : "submitting '%@'",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "enviando '%@'"
+          }
+        }
+      }
+    },
+    "Submitting '%@'" : {
+      "comment" : "Submitting '%@'",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviando '%@'"
+          }
+        }
+      }
+    },
+    "This allows the app to perform a comprehensive scan.\n\nIn System Preferences:\r ▪ Click the 🔒 to authenticate\r ▪ Click the ➕ to add KnockKnock.app\n" : {
+      "comment" : "This allows the app to perform a comprehensive scan.\n\nIn System Preferences:\r ▪ Click the 🔒 to authenticate\r ▪ Click the ➕ to add KnockKnock.app\n",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esto permite que la aplicación realice un escaneo completo.\n\nEn Preferencias del Sistema: ▪ Haz clic en el 🔒 para autenticarte ▪ Haz clic en el ➕ para añadir KnockKnock.app"
+          }
+        }
+      }
+    },
+    "Update" : {
+      "comment" : "Update",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizar"
+          }
+        }
+      }
+    },
+    "user-mode 'drivers' extending OS functionality" : {
+      "comment" : "user-mode 'drivers' extending OS functionality",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'drivers' del modo usuario que amplían la funcionalidad del SO"
+          }
+        }
+      }
+    },
+    "version: %@" : {
+      "comment" : "version: %@",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "versión: %@"
+          }
+        }
+      }
+    },
+    "VirusTotal Report" : {
+      "comment" : "VirusTotal Report",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reporte de VirusTotal"
+          }
+        }
+      }
+    },
+    "VirusTotal Results: N/A (Disabled)" : {
+      "comment" : "VirusTotal Results: N/A (Disabled)",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resultados de VirusTotal: Deshabilitado"
+          }
+        }
+      }
+    },
+    "VirusTotal:\r\n %lu flagged item(s)\r\n %lu unknown item(s)" : {
+      "comment" : "VirusTotal:\r\n %lu flagged item(s)\r\n %lu unknown item(s)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "VirusTotal:\r\n %1$lu flagged item(s)\r\n %2$lu unknown item(s)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VirusTotal:\r\n %1$lu ítem(s) marcados\r\n %2$lu ítem(s) desconocidos"
+          }
+        }
+      }
+    },
+    "VirusTotal: Unable to query VirusTotal (network)" : {
+      "comment" : "VirusTotal: Unable to query VirusTotal (network)",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VirusTotal: No se pudo consultar VirusTotal (red)"
+          }
+        }
+      }
+    },
+    "Yes" : {
+      "comment" : "Yes",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si"
+          }
+        }
+      }
+    },
+    "You're all up to date! (v%@)" : {
+      "comment" : "You're all up to date! (v%@)",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Estás actualizado! (v%@)"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

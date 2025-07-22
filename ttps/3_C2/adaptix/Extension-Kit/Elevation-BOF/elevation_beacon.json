@@ -1,0 +1,52 @@
+{
+  "name": "Elevation-BOF",
+  "description": "BOFs for context elevation",
+  "extensions": [
+    {
+      "type": "command",
+      "agents": ["beacon"],
+
+      "command": "getsystem",
+      "description": "Elevate context to SYSTEM",
+      "subcommands":
+      [
+        {
+          "name": "token",
+          "message": "Task: Get system via token (BOF)",
+          "description": "Elevate the current agent to SYSTEM and gain the TrustedInstaller group privilege through impersonation",
+          "example": "getsystem token",
+          "exec": "execute bof $EXT_DIR()/_bin/getsystem_token.$ARCH().o"
+        }
+      ]
+    },
+    {
+      "type": "command",
+      "agents": ["beacon"],
+      "command": "uacbybass",
+      "description": "perform UAC bypass",
+      "subcommands":
+      [
+        {
+          "name": "sspi",
+          "description": "Forges a token from a fake network authentication though SSPI Datagram Contexts",
+          "example": "uacbybass sspi c:\\windows\\tasks\\agent.exe",
+          "message": "Task: UAC Bypass (SSPI Datagram Contexts)",
+          "args": [
+            "STRING <path>"
+          ],
+          "exec": "execute bof $EXT_DIR()/_bin/uac_sspi.x64.o $PACK_BOF(CSTR {path})"
+        },
+        {
+          "name": "regshellcmd",
+          "description": "Modifies the \"ms-settings\\Shell\\Open\\command\" registry key and executes an auto-elevated EXE (ComputerDefaults.exe).",
+          "example": "uacbybass regshellcmd c:\\windows\\tasks\\agent.exe",
+          "message": "Task: UAC Bypass (registry key Command)",
+          "args": [
+            "STRING <path>"
+          ],
+          "exec": "execute bof $EXT_DIR()/_bin/uac_regshellcmd.x64.o $PACK_BOF(CSTR {path})"
+        }
+      ]
+    }
+  ]
+}

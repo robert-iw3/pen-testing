@@ -1,0 +1,21 @@
+[package]
+name = "WaitingThreadHijacking"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+winapi = { version = "0.3", features = [
+    "minwindef",
+    "ntdef",
+    "winnt",
+    "memoryapi",
+    "tlhelp32",
+    "winuser",
+    "processthreadsapi",
+    "handleapi",
+    "psapi",
+    "libloaderapi",
+    "errhandlingapi",
+] }
+
+ntapi = "0.4"

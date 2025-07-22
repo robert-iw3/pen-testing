@@ -1,0 +1,12 @@
+{
+  "name": "adaptix-custom-profile",
+  "extension": "json",
+  "type": "file",
+  "variables": [
+    {
+      "name": "password",
+      "type": "text"
+    }
+  ],
+  "value": "{\n  \"Teamserver\": {\n    \"port\": 4321,\n    \"endpoint\": \"/endpoint\",\n    \"password\": \"$$password$$\",\n    \"cert\": \"server.rsa.crt\",\n    \"key\": \"server.rsa.key\",\n    \"extenders\": [\n      \"extenders/listener_beacon_http/config.json\",\n      \"extenders/listener_beacon_smb/config.json\",\n      \"extenders/listener_beacon_tcp/config.json\",\n      \"extenders/agent_beacon/config.json\",\n      \"extenders/listener_gopher_tcp/config.json\",\n      \"extenders/agent_gopher/config.json\"\n    ],\n    \"access_token_live_hours\": 12,\n    \"refresh_token_live_hours\": 168\n  },\n\n  \"ServerResponse\": {\n    \"status\": 404,\n    \"headers\": {\n      \"Content-Type\": \"text/html; charset=UTF-8\",\n      \"Server\": \"AdaptixC2\",\n      \"Adaptix Version\": \"v0.6\"\n    },\n    \"page\": \"404page.html\"\n  },\n  \n  \"EventCallback\": {\n    \"Telegram\": {\n      \"token\": \"\",\n      \"chats_id\": []\n    },\n    \"new_agent_message\": \"New agent: %type% (%id%)\\n\\n%user% @ %computer% (%internalip%)\\nelevated: %elevated%\\nfrom: %externalip%\\ndomain: %domain%\"\n  }\n}\n"
+}

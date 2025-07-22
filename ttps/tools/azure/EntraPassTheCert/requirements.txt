@@ -1,0 +1,9 @@
+asyauth
+aardwolf
+termcolor
+xmltodict
+roadlib
+roadrecon
+requests
+impacket
+pywinrm

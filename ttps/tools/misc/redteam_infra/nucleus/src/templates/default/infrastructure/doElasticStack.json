@@ -1,0 +1,16 @@
+{
+  "name": "Elastic Stack (DigitalOcean)",
+  "type": "infrastructure",
+  "platform": "digitalocean",
+  "variables": [
+    {
+      "name": "vpc",
+      "type": "vpc"
+    },
+    {
+      "name": "firewallId",
+      "type": "infrastructure-id"
+    }
+  ],
+  "value": "resource \"digitalocean_droplet\" \"elastic_stack\" {\n    name   = \"elastic-stack\"\n    size   = \"s-2vcpu-4gb\"\n    image  = \"ubuntu-22-04-x64\"\n    vpc_uuid = $$vpc$$\n\n    depends_on = [\n      digitalocean_vpc.main\n    ]\n}\n\nresource \"digitalocean_firewall\" \"elastic_stack\" {\n    name = \"forge-elastic-stack-$$firewallId$$\"\n\n    droplet_ids = [digitalocean_droplet.elastic_stack.id]\n\n    outbound_rule {\n        protocol              = \"tcp\"\n        port_range           = \"1-65535\"\n        destination_addresses = [\"0.0.0.0/0\"]\n    }\n\n    depends_on = [\n      digitalocean_vpc.main\n    ]\n}"
+}

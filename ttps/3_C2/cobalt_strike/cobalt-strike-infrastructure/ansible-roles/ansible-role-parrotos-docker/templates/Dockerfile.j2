@@ -1,0 +1,13 @@
+FROM {{ parrotos_docker_image }}
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN wget -q -O - https://deb.parrotsec.org/parrot/misc/parrotsec.gpg | gpg --import
+
+RUN apt-get update && apt-get upgrade
+{% if parrotos_packges is defined %}
+{% for packges in parrotos_packges %} 
+RUN apt-get update && apt-get install -y \
+    {{ packges }}
+{% endfor %}
+{% endif %}

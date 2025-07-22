@@ -1,0 +1,96 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "F0z-JX-Cv5.title" : {
+      "comment" : "Class = \"NSWindow\"; title = \"Settings\"; ObjectID = \"F0z-JX-Cv5\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuración"
+          }
+        }
+      }
+    },
+    "gXW-vY-Aj1.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Disable VirusTotal integration.\"; ObjectID = \"gXW-vY-Aj1\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Disable VirusTotal integration."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deshabilitar la integración con VirusTotal."
+          }
+        }
+      }
+    },
+    "idJ-pd-k6U.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Disable automatic update check.\"; ObjectID = \"idJ-pd-k6U\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Disable automatic update check."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deshabilitar la comprobación automática de actualizaciones."
+          }
+        }
+      }
+    },
+    "J9x-sM-h9S.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"OK\"; ObjectID = \"J9x-sM-h9S\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OK"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "WN8-cQ-8xh.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Include macOS/known items.\"; ObjectID = \"WN8-cQ-8xh\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Include macOS/known items."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incluir ítems de macOS/conocidos."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

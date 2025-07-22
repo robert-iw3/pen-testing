@@ -1,0 +1,5 @@
+---
+- name: restart parrotos
+  docker_container:
+    name: "{{ parrotos_container_name }}"
+    restart: yes

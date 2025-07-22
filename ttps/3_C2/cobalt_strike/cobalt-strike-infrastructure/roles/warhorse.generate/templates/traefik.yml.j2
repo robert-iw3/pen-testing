@@ -1,0 +1,101 @@
+{% for vm in warhorse.vm %}
+{% if loop.first %}
+all:
+  children:
+    warhorse:
+      children:
+        {{ vm.provider }}:
+          hosts:
+{% endif %}
+{% if vm.http_proxy == 'traefik' %}
+            {{ vm.name }}:
+            # Traefik
+{% if warhorse.dns.provider == 'aws' %}
+              dns_traefik: "route53"
+{% endif %}
+{% if warhorse.dns.provider == 'digitalocean' %}
+              dns_traefik: "digitalocean"
+{% endif %}
+{% if warhorse.dns.provider == 'linode' %}
+              dns_traefik: "linode"
+{% endif %}
+              traefik_dir: "{{ vm.traefik.dir | default('/opt/docker/traefik') }}"
+              traefik_docker_network: "{% raw %}{{ dockernet }}{% endraw %}"
+              traefik_hostname: "traefik"
+              traefik_vpn_hostname: "traefik"
+              traefik_acme_email: "{{ vm.traefik.acme_email }}"
+              traefik_add_volumes:
+              - "{% raw %}{{ traefik_dir }}{% endraw %}/acme:/etc/traefik/acme"
+              - "{% raw %}{{ traefik_dir }}{% endraw %}/log:/etc/traefik/log"
+              traefik_ports:
+                - '80:80'
+                - '443:443'
+              traefik_labels:
+                traefik.http.routers.traefik.tls: "true"
+                traefik.http.routers.traefik.tls.certresolver: "letsencrypt"
+                traefik.frontend.passHostHeader: "true"
+                traefik.http.middlewares.cdn.ipwhitelist.sourcerange: "147.243.0.0/16,120.52.22.96/27,205.251.249.0/24,180.163.57.128/26,204.246.168.0/22,205.251.252.0/23,54.192.0.0/16,204.246.173.0/24,54.230.200.0/21,120.253.240.192/26,116.129.226.128/26,130.176.0.0/17,108.156.0.0/14,99.86.0.0/16,205.251.200.0/21,223.71.71.128/25,13.32.0.0/15,120.253.245.128/26,13.224.0.0/14,70.132.0.0/18,15.158.0.0/16,13.249.0.0/16,205.251.208.0/20,65.9.128.0/18,130.176.128.0/18,58.254.138.0/25,54.230.208.0/20,116.129.226.0/25,52.222.128.0/17,64.252.128.0/18,205.251.254.0/24,54.230.224.0/19,71.152.0.0/17,216.137.32.0/19,204.246.172.0/24,120.52.39.128/27,118.193.97.64/26,223.71.71.96/27,54.240.128.0/18,205.251.250.0/23,180.163.57.0/25,52.46.0.0/18,223.71.11.0/27,52.82.128.0/19,54.230.0.0/17,54.230.128.0/18,54.239.128.0/18,130.176.224.0/20,36.103.232.128/26,52.84.0.0/15,143.204.0.0/16,144.220.0.0/16,120.52.153.192/26,119.147.182.0/25,120.232.236.0/25,54.182.0.0/16,58.254.138.128/26,120.253.245.192/27,54.239.192.0/19,18.64.0.0/14,120.52.12.64/26,99.84.0.0/16,130.176.192.0/19,52.124.128.0/17,204.246.164.0/22,13.35.0.0/16,204.246.174.0/23,36.103.232.0/25,119.147.182.128/26,118.193.97.128/25,120.232.236.128/26,204.246.176.0/20,65.8.0.0/16,65.9.0.0/17,108.138.0.0/15,120.253.241.160/27,64.252.64.0/18"
+                traefik.http.middlewares.tailscale.ipwhitelist.sourcerange: "172.16.1.0/24"
+{% if vm.gophish is defined %}
+                traefik.http.middlewares.tailscale.ipwhitelist.sourcerange: "{{ vm.gophish.white_list_ip | default('0.0.0.0/0') }}"
+{% endif %}
+{% if vm.traefik.dashboard is true %}
+                traefik.http.routers.traefik.middlewares: "tailscale@docker"
+                traefik.http.routers.traefik.rule: "Host(`{% raw %}{{ traefik_vpn_hostname }}.{{ op_domain_name }}{% endraw %}`)"
+                traefik.http.routers.traefik.service: "api@internal"
+{% endif %}
+              traefik_env:
+{% if warhorse.dns.provider == 'digitalocean' %}
+                DO_AUTH_TOKEN: '{% raw %}{{ digitalocean_token }}{% endraw %}'
+{% endif %}
+{% if warhorse.dns.provider == 'linode' %}
+                LINODE_TOKEN: '{% raw %}{{ linode_token }}{% endraw %}'
+{% endif %}
+{% if warhorse.dns.provider == 'aws' %}
+                AWS_ACCESS_KEY_ID: '{% raw %}{{ aws_dns_key_id }}{% endraw %}'
+                AWS_SECRET_ACCESS_KEY: '{% raw %}{{ aws_dns_key_secret_id }}{% endraw %}'
+{% endif %}
+              traefik_confkey_api:
+                insecure: true
+{% if vm.traefik.dashboard is true %}
+                dashboard: true
+{% endif %}
+              traefik_confkey_serversTransport:
+                insecureSkipVerify: true
+
+              traefik_confkey_log: 
+                filePath: "/etc/traefik/log/traefik.log"
+                level: "INFO"
+
+              traefik_confkey_accessLog:
+                filePath: "/etc/traefik/log/access.log"
+                bufferingSize: 100
+
+              traefik_confkey_entryPoints:
+                http:
+                  address: ':80'
+                  http:
+                    redirections:
+                      entryPoint:
+                        to: 'websecure'
+                        scheme: 'https'
+                websecure:
+                  address: ':443'
+                  http:
+                    tls:
+                      certResolver: 'letsencrypt'
+                
+              traefik_confkey_certificatesResolvers:
+                letsencrypt:
+                  acme:
+                    email: "{% raw %}{{ traefik_acme_email }}{% endraw %}"
+                    storage: "/etc/traefik/acme/acme.json"
+                    caServer: "https://acme-v02.api.letsencrypt.org/directory"
+                    dnsChallenge:
+                      provider: "{% raw %}{{ dns_traefik }}{% endraw %}"
+                      delayBeforeCheck: 0
+                      resolvers: 
+                        - "1.1.1.1:53"
+                        - "8.8.8.8:53"
+{% endif %}
+{% endfor %}

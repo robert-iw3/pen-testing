@@ -1,0 +1,8 @@
+- name: 'setup : create neo4j docker network'
+  become: true
+  docker_network:
+    name: '{{ neo4j_docker_network }}'
+    ipam_config:
+      - subnet: '{{ neo4j_network_ipam_subnet }}'
+        gateway: '{{ neo4j_network_ipam_gateway }}'
+        iprange: '{{ neo4j_network_ipam_iprange }}'

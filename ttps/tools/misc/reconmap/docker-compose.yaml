@@ -1,0 +1,111 @@
+---
+networks:
+  reconmap:
+    driver: bridge
+
+x-common-vars-apps: &common-vars-apps
+  security_opt: ['no-new-privileges:true']
+  restart: unless-stopped
+  env_file: ['.env']
+  networks: ['reconmap']
+
+services:
+
+  redis:
+    <<: *common-vars-apps
+    container_name: rmap-redis
+    hostname: rmap-redis
+    image: docker.io/redis:7.4
+    command: redis-server --requirepass $REDIS_PASSWORD 
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data-redis:/data:Z
+
+  mysql:
+    <<: *common-vars-apps
+    container_name: rmap-mysql
+    hostname: rmap-mysql
+    image: ghcr.io/reconmap/rest-api-db:latest
+    volumes:
+      - ./data-mysql:/var/lib/mysql:Z
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    healthcheck:
+      test: "mysql -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD mysql -e 'SELECT 1;'"
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  keycloak:
+    <<: *common-vars-apps
+    container_name: rmap-keycloak
+    hostname: rmap-keycloak
+    image: ghcr.io/reconmap/keycloak-custom:latest
+    command: "start --hostname=http://localhost:8080 --proxy-headers xforwarded --http-enabled true --import-realm"
+    # See https://www.keycloak.org/server/all-config
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD}
+      KC_DB: mysql
+      KC_DB_URL_HOST: mysql 
+      KC_DB_DATABASE: keycloak
+      KC_DB_USERNAME: ${KC_DB_USERNAME}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      VAR_ADMIN_CLI_SECRET: ${VAR_ADMIN_CLI_SECRET}
+      VAR_WEB_CLIENT_URL: "http://localhost:5500"
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080;echo -e 'GET /health/ready HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n' >&3;if [ $? -eq 0 ]; then echo 'Healthcheck Successful';exit 0;else echo 'Healthcheck Failed';exit 1;fi;"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+    depends_on:
+        mysql:
+            condition: service_healthy
+
+  web-client:
+    <<: *common-vars-apps
+    container_name: rmap-web-client
+    hostname: rmap-web-client
+    image: ghcr.io/reconmap/web-client:latest
+    volumes:
+      - ./config-ui.json:/usr/share/nginx/html/config.json:ro,Z
+    ports:
+      - "5500:5500"
+    depends_on:
+      keycloak:
+        condition: service_healthy
+
+  api:
+    <<: *common-vars-apps
+    container_name: rmap-api
+    hostname: rmap-api
+    image: ghcr.io/reconmap/rest-api:latest
+    volumes:
+      - ./config-api.json:/var/www/webapp/config.json:ro,Z
+      - ./logs:/var/www/webapp/logs/:Z
+      - ./data:/var/www/webapp/data/:Z
+    ports:
+      - "5510:5510"
+    depends_on:
+        mysql:
+            condition: service_healthy
+
+  agent:
+    <<: *common-vars-apps
+    container_name: rmap-agent
+    hostname: rmap-agent
+    image: ghcr.io/reconmap/agent:latest
+    ports:
+      - "5520:5520"
+    environment:
+      RMAP_KEYCLOAK_HOSTNAME: http://localhost:8080
+      VALID_ORIGINS: http://localhost:5500
+      REDIS_HOST: $REDIS_HOST
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: $REDIS_PASSWORD
+

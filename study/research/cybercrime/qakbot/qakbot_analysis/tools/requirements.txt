@@ -1,0 +1,4 @@
+pefile
+pycryptodome
+beautifulsoup4
+requests_cache

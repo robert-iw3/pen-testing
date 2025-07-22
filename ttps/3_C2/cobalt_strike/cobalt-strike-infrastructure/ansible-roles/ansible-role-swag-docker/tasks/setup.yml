@@ -1,0 +1,8 @@
+- name: 'setup : create swag docker network'
+  become: true
+  docker_network:
+    name: '{{ swag_docker_network }}'
+    ipam_config:
+      - subnet: '{{ swag_network_ipam_subnet }}'
+        gateway: '{{ swag_network_ipam_gateway }}'
+        iprange: '{{ swag_network_ipam_iprange }}'

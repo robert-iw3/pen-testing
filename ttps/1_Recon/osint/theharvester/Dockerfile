@@ -1,0 +1,45 @@
+FROM docker.io/debian:trixie
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PATH=/root/.local/bin:$PATH
+
+RUN \
+    apt-get update; \
+    apt-get install -y \
+        curl \
+        build-essential \
+        libssl-dev \
+        zlib1g-dev \
+        libbz2-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        wget \
+        curl \
+        llvm \
+        libncurses5-dev \
+        libncursesw5-dev \
+        xz-utils \
+        tk-dev \
+        libffi-dev \
+        liblzma-dev \
+        python3-dev \
+        git \
+        gcc; \
+    rm -rf /var/lib/apt/lists/*
+
+RUN \
+    curl -fsSL https://www.python.org/ftp/python/3.12.11/Python-3.12.11.tgz -o Python-3.12.11.tgz; \
+    tar -xvf Python-3.12.11.tgz; \
+    cd Python-3.12.11; \
+    ./configure --enable-optimizations; \
+    make -j 4; \
+    make altinstall; \
+    rm -rf /Python-3.12.11 /Python-3.12.11.tgz
+
+RUN \
+    curl https://bootstrap.pypa.io/get-pip.py | python3.12; \
+    python3.12 -m pip install --user pipx; \
+    pipx ensurepath; \
+    pipx install --python python3.12 git+https://github.com/laramies/theHarvester.git
+
+ENTRYPOINT ["/root/.local/bin/restfulHarvest", "-H", "0.0.0.0", "-p", "80"]

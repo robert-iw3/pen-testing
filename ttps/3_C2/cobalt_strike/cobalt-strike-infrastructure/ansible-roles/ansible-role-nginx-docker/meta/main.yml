@@ -1,0 +1,28 @@
+galaxy_info:
+  role_name: nginx_docker
+  author: warhorse
+  description: Install Nginx in Docker
+  company: Warhorse
+
+  issue_tracker_url: https://github.com/warhorse/ansible-role-nginx-docker/issues
+
+  license: BSD-3-Clause
+
+  min_ansible_version: 2.1
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - http
+    - proxy
+    - web
+
+dependencies:
+  - geerlingguy.docker
+  - geerlingguy.pip

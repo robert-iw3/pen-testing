@@ -1,0 +1,6 @@
+{
+    "name": "Docker Install",
+    "type": "configuration",
+    "variables": [],
+    "value": "---\n- name: Docker install\n  hosts: docker\n  become: true\n\n  tasks:\n    - name: Install required system packages\n      apt:\n        pkg:\n          - apt-transport-https\n          - ca-certificates\n          - curl\n          - software-properties-common\n          - python3-pip\n          - python3-docker\n          - virtualenv\n          - python3-setuptools\n        state: latest\n        update_cache: true\n\n    - name: Add Docker GPG apt Key\n      apt_key:\n        url: https://download.docker.com/linux/ubuntu/gpg\n        state: present\n\n    - name: Add Docker Repository\n      apt_repository:\n        repo: deb https://download.docker.com/linux/ubuntu focal stable\n        state: present\n\n    - name: Update apt and install docker-ce\n      apt:\n        name: docker-ce\n        state: latest\n        update_cache: true"
+}

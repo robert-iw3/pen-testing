@@ -1,0 +1,24 @@
+[package]
+name = "PPid_spoofing"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+windows = {version = "0.61.1", features = [
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_System_WindowsProgramming",
+    "Win32_System_SystemServices",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Registry",
+    "Win32_System_Threading",
+    "Win32_System_Memory",
+    "Win32_System_Environment",
+    "Win32_System_SystemInformation",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging"
+]}
+
+[profile.release]
+opt-level = 3
+strip = true

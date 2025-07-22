@@ -1,0 +1,15 @@
+[package]
+name = "local_mapping_injection"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+winapi = { version = "0.3", features = [
+    "errhandlingapi",
+    "handleapi",
+    "memoryapi",
+    "processthreadsapi",
+    "synchapi",
+    "winbase",
+    "winnt"
+]} 

@@ -1,0 +1,27 @@
+{
+    "name": "Elastic Stack Install",
+    "type": "configuration",
+    "variables": [
+        {
+            "name": "elasticPassword",
+            "type": "text"
+        },
+        {
+            "name": "logstashPassword",
+            "type": "text"
+        },
+        {
+            "name": "kibanaPassword",
+            "type": "text"
+        },
+        {
+            "name": "metricbeatPassword",
+            "type": "text"
+        },
+        {
+            "name": "filebeatPassword",
+            "type": "text"
+        }
+    ],
+    "value": "---\n- name: Elastic Stack Install\n  become: true\n\n  tasks:\n    - name: Clone docker-elk repository\n      git:\n        repo: https://github.com/deviantony/docker-elk\n        dest: /opt/docker-elk\n        force: true\n\n    - name: Configuring Elastic password\n      lineinfile:\n        path: /opt/docker-elk/.env\n        regexp: \"^ELASTIC_PASSWORD=\"\n        line: \"ELASTIC_PASSWORD='$$elasticPassword$$'\"\n\n    - name: Configuring Logstash password\n      lineinfile:\n        path: /opt/docker-elk/.env\n        regexp: \"^LOGSTASH_INTERNAL_PASSWORD=\"\n        line: \"LOGSTASH_INTERNAL_PASSWORD='$$logstashPassword$$'\"\n\n    - name: Configuring Kibana password\n      lineinfile:\n        path: /opt/docker-elk/.env\n        regexp: \"^KIBANA_SYSTEM_PASSWORD=\"\n        line: \"KIBANA_SYSTEM_PASSWORD='$$kibanaPassword$$'\"\n\n    - name: Configuring Metricbeat password\n      lineinfile:\n        path: /opt/docker-elk/.env\n        regexp: \"^METRICBEAT_INTERNAL_PASSWORD=\"\n        line: \"METRICBEAT_INTERNAL_PASSWORD='$$metricbeatPassword$$'\"\n\n    - name: Configuring Filebeat password\n      lineinfile:\n        path: /opt/docker-elk/.env\n        regexp: \"^FILEBEAT_INTERNAL_PASSWORD=\"\n        line: \"FILEBEAT_INTERNAL_PASSWORD='$$filebeatPassword$$'\"\n\n    - name: Building ELK\n      community.docker.docker_compose_v2:\n        project_src: /opt/docker-elk\n        build: always\n        services: setup\n\n    - name: Running ELK\n      community.docker.docker_compose_v2:\n        project_src: /opt/docker-elk"
+}

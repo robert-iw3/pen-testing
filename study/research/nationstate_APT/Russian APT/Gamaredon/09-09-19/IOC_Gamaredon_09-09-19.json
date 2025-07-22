@@ -1,0 +1,34 @@
+﻿[
+    {
+        "Indicator":  "протокол.docx",
+        "Description":  "9a1384868090f54630bc8615c52525a26405a208da1857facb7297d66c69b5c1"
+    },
+    {
+        "Indicator":  "18f4aebeac09bd57cf90452facf456a4c6b56dd53a79d08eb5a1d20435acaca6.exe",
+        "Description":  "18f4aebeac09bd57cf90452facf456a4c6b56dd53a79d08eb5a1d20435acaca6"
+    },
+    {
+        "Indicator":  "481eee236eadf6c947857820d3af5a397caeb8c45791f0bbdd8a21f080786e75.docx",
+        "Description":  "481eee236eadf6c947857820d3af5a397caeb8c45791f0bbdd8a21f080786e75"
+    },
+    {
+        "Indicator":  "http://libre-templates.ddns.net/internet.dot",
+        "Description":  "HTTP/HTTPS requests"
+    },
+    {
+        "Indicator":  "http://libre-templates.ddns.net/",
+        "Description":  "HTTP/HTTPS requests"
+    },
+    {
+        "Indicator":  "list-sert.ddns.net",
+        "Description":  "Domain requested"
+    },
+    {
+        "Indicator":  "libre-templates.ddns.net",
+        "Description":  "domain requested"
+    },
+    {
+        "Indicator":  "141.8.192.153",
+        "Description":  "ip requested"
+    }
+]

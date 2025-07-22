@@ -1,0 +1,14 @@
+{
+  "version": "2.0",
+  "Host": {
+
+  },
+    "logging": {
+        "applicationInsights": {
+            "samplingExcludedTypes": "Request",
+            "samplingSettings": {
+                "isEnabled": true
+            }
+        }
+    }
+}
