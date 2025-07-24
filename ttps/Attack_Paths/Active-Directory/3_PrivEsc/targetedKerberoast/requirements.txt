@@ -1,5 +1,0 @@
-ldap3
-pyasn1
-impacket
-rich
-pycryptodome

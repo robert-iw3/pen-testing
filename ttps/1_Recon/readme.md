@@ -54,4 +54,4 @@ Importance of Cyber Reconnaissance:
 
 In essence, cyber reconnaissance is the initial phase of a cyberattack, where attackers gather information to identify vulnerabilities and plan their attack strategies. It's a critical aspect of both offensive and defensive cybersecurity practices. 
 
-## Phase 1.5 = exploitation and initial access phase, then onto maintaining Persistence.
+## Phase 1.5 = exploitation and initial access phase, see exploits/ directory.

@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "soapy"
+version = "0.1.0"
+description = ""
+authors = [
+    "Jackson-Leverett <jack.leverett@ibm.com>",
+    "Logan-Goins <logan.goins@ibm.com>",
+]
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.scripts]
+soapy = "src:run_cli"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+impacket = "^0.11.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+hypothesis = "^6.103.2"
+ruff = "^0.7.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "N",  # PEP8 naming convetions
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

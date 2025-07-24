@@ -1,4 +1,0 @@
-ldap3
-impacket
-dnspython
-typer[all]

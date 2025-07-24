@@ -1,0 +1,12 @@
+﻿click
+Flask
+Flask-RESTful
+Flask-WTF
+mysql-connector-python
+pycryptodome
+certifi
+chardet
+idna
+requests
+urllib3
+turbo_flask
