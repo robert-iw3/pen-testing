@@ -2,7 +2,7 @@
 # rustscan: The Modern Port Scanner. Find ports quickly (3 seconds at its fastest). Run scripts through our scripting engine (Python, Lua, Shell supported).
 ARG repo="docker.io" \
     base_image="alpine:3.22" \
-    image_hash="08001109a7d679fe33b04fa51d681bd40b975d8f5cea8c3ef6c0eccb6a7338ce"
+    image_hash="eafc1edb577d2e9b458664a15f23ea1c370214193226069eb22921169fc7e43f"
     
 FROM ${repo}/${base_image}@sha256:${image_hash} AS builder
 
