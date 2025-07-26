@@ -1,0 +1,43 @@
+[package]
+name = "RustPotato"
+version = "0.1.0"
+edition = "2024"   
+authors = ["safedv <https://github.com/safedv>"]
+
+[dependencies]
+winapi = {version = "0.3.9", features =[
+    "fileapi",
+    "memoryapi",
+    "minwinbase",
+    "namedpipeapi",
+    "securitybaseapi",
+    "winbase",
+    "winerror",
+    "winnt", 
+    "errhandlingapi",
+    "sddl",
+]}
+windows = { version = "0.61.1", features = [
+    "Win32_Foundation", 
+    "Win32_System_Com", 
+    "Win32_System_Com_Marshal", 
+    "Win32_System_Com_StructuredStorage"
+]}
+base64 = "0.22.1"
+byteorder = "1.5.0"
+windows-core = "0.61.0"
+libc-print = "0.1.23"
+
+[profile.release]
+opt-level = "z"
+codegen-units = 1
+lto = true
+strip = true
+debug = false
+debug-assertions = false
+panic = "abort"
+incremental = false
+
+[features]
+default = []
+verbose = []
