@@ -15,6 +15,7 @@ In summary, RingReaper was built to **avoid traditional calls as much as possibl
 |---------------|----------------------------------------------------------|----------------------|
 | `get`         | Look files from the target                           | 100% io_uring        |
 | `put`         | Upload files (uses `recv` on the agent side)             | 100% io_uring        |
+| `killbpf`     | Disable tracing, remove `/sys/fs/bpf` files and kill processes using `bpf-map` | traditional calls + io_uring |
 | `users`       | List logged-in users by reading `utmp`                   | 100% io_uring        |
 | `ss` / `netstat` | List TCP connections from `/proc/net/tcp`            | 100% io_uring        |
 | `privesc`     | Search for SUID binaries using `statx`                   | 100% io_uring        |

