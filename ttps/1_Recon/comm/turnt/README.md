@@ -67,8 +67,8 @@ This section outlines how to build the individual utilities from source. While t
 ```bash
 # build binaries and copy to $(pwd)
 podman build -t turnt-bins .
-podman run -it -t turnt-bins -d turnt-bins
-podman cp:turnt-bins/bins .
+podman run -it --name turnt-bins -d turnt-bins
+podman cp turnt-bins:/bins .
 podman stop turnt-bins
 podman system prune -f
 
