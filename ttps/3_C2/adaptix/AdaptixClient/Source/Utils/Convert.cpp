@@ -267,7 +267,7 @@ QString FormatSecToStr(int seconds)
 
 QString TrimmedEnds(QString str)
 {
-    return str.remove(QRegularExpression("\\s+$"));
+    return str.remove(QRegularExpression("\"));
 }
 
 QString BytesToFormat(qint64 bytes)

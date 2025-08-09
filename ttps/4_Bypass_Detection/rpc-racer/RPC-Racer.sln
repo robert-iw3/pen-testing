@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RPC-Racer", "RPC-Racer\RPC-Racer.vcxproj", "{240D4C3F-C777-4232-8FD9-69663699A8D8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6} = {048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RPC-Recon", "RPC-Recon\RPC-Recon.vcxproj", "{060D2759-1D6E-493C-97A2-2F743309F285}"
+	ProjectSection(ProjectDependencies) = postProject
+		{048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6} = {048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RPC-Lib", "RPC-Lib\RPC-Lib.vcxproj", "{048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{240D4C3F-C777-4232-8FD9-69663699A8D8}.Debug|x64.ActiveCfg = Debug|x64
+		{240D4C3F-C777-4232-8FD9-69663699A8D8}.Debug|x64.Build.0 = Debug|x64
+		{240D4C3F-C777-4232-8FD9-69663699A8D8}.Debug|x86.ActiveCfg = Debug|Win32
+		{240D4C3F-C777-4232-8FD9-69663699A8D8}.Debug|x86.Build.0 = Debug|Win32
+		{240D4C3F-C777-4232-8FD9-69663699A8D8}.Release|x64.ActiveCfg = Release|x64
+		{240D4C3F-C777-4232-8FD9-69663699A8D8}.Release|x64.Build.0 = Release|x64
+		{240D4C3F-C777-4232-8FD9-69663699A8D8}.Release|x86.ActiveCfg = Release|Win32
+		{240D4C3F-C777-4232-8FD9-69663699A8D8}.Release|x86.Build.0 = Release|Win32
+		{060D2759-1D6E-493C-97A2-2F743309F285}.Debug|x64.ActiveCfg = Debug|x64
+		{060D2759-1D6E-493C-97A2-2F743309F285}.Debug|x64.Build.0 = Debug|x64
+		{060D2759-1D6E-493C-97A2-2F743309F285}.Debug|x86.ActiveCfg = Debug|Win32
+		{060D2759-1D6E-493C-97A2-2F743309F285}.Debug|x86.Build.0 = Debug|Win32
+		{060D2759-1D6E-493C-97A2-2F743309F285}.Release|x64.ActiveCfg = Release|x64
+		{060D2759-1D6E-493C-97A2-2F743309F285}.Release|x64.Build.0 = Release|x64
+		{060D2759-1D6E-493C-97A2-2F743309F285}.Release|x86.ActiveCfg = Release|Win32
+		{060D2759-1D6E-493C-97A2-2F743309F285}.Release|x86.Build.0 = Release|Win32
+		{048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6}.Debug|x64.ActiveCfg = Debug|x64
+		{048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6}.Debug|x64.Build.0 = Debug|x64
+		{048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6}.Debug|x86.ActiveCfg = Debug|Win32
+		{048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6}.Debug|x86.Build.0 = Debug|Win32
+		{048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6}.Release|x64.ActiveCfg = Release|x64
+		{048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6}.Release|x64.Build.0 = Release|x64
+		{048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6}.Release|x86.ActiveCfg = Release|Win32
+		{048F0D7D-7A34-4E14-821D-8BCEA4FA7CC6}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

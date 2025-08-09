@@ -86,7 +86,7 @@ function Get-ExchangeVersionInfo {
         
                     if ($productMatch.Success -and $versionMatch.Success -and $tdMatches.Count -ge 2) {
                         # Clean up Product Name (strip &nbsp; and trim spaces)
-                        $product = $productMatch.Groups[1].Value -replace "&nbsp;", "" -replace "^\s+", "" -replace "\s+$", ""
+                        $product = $productMatch.Groups[1].Value -replace "&nbsp;", "" -replace "^\s+", "" -replace "", ""
         
                         # Get correct Release Date (the second <td> value)
                         $releaseDate = $tdMatches[1].Groups[1].Value.Trim()

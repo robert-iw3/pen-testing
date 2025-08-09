@@ -1,0 +1,131 @@
+import "wtypesbase.idl";
+
+[
+	uuid(44D1520B-6133-41F0-8A66-D37305ECC357),
+		version(0.0),
+]
+interface StorSvc
+{
+	typedef enum _STORAGE_DEVICE_TYPE
+	{
+		STORAGE_DEVICE_INTERNAL = 0x0,
+		STORAGE_DEVICE_EXTERNAL = 0x1,
+		STORAGE_DEVICE_SD = 0x1,
+		STORAGE_DEVICE_MAX = 0x2,
+	} STORAGE_DEVICE_TYPE, * PSTORAGE_DEVICE_TYPE;
+
+	typedef enum _STORAGE_SETTING
+	{
+		STORAGE_SETTING_CARD_DISABLED = 0x1,
+		STORAGE_SETTING_WRITE_ACCESS = 0x2,
+		STORAGE_SETTING_APP_PAIRING_STATUS = 0x3,
+	} STORAGE_SETTING, * PSTORAGE_SETTING;
+
+	typedef enum _STORAGE_PRESENCE_STATE
+	{
+		STORAGE_PRESENCE_MOUNTED = 0x0,
+		STORAGE_PRESENCE_PREDISMOUNTED = 0x1,
+		STORAGE_PRESENCE_DISMOUNTED = 0x2,
+	} STORAGE_PRESENCE_STATE, * PSTORAGE_PRESENCE_STATE;
+
+	typedef enum _STORAGE_DISMOUNT_REASON
+	{
+		STORAGE_DISMOUNT_NONE = 0x0,
+		STORAGE_DISMOUNT_SAFE_REMOVAL = 0x1,
+		STORAGE_DISMOUNT_SURPRISE_REMOVAL = 0x2,
+		STORAGE_DISMOUNT_IO_FAILURE = 0x3,
+		STORAGE_DISMOUNT_BUSY = 0x4,
+	} STORAGE_DISMOUNT_REASON, * PSTORAGE_DISMOUNT_REASON;
+
+	typedef enum _STORAGE_FREE_SPACE_STATE
+	{
+		STORAGE_SPACE_NORMAL = 0x0,
+		STORAGE_SPACE_LOW = 0x1,
+	} STORAGE_FREE_SPACE_STATE, * PSTORAGE_FREE_SPACE_STATE;
+
+	typedef enum _STORAGE_TEMP_CLEANUP_STATE
+	{
+		STORAGE_TEMP_NORMAL = 0x0,
+		STORAGE_TEMP_CLEANUP = 0x1,
+	} STORAGE_TEMP_CLEANUP_STATE, * PSTORAGE_TEMP_CLEANUP_STATE;
+
+	typedef enum _STORAGE_DEVICE_PROPERTIES
+	{
+		STORAGE_PROPERTY_NONE = 0x0,
+		STORAGE_PROPERTY_REMOVABLE = 0x1,
+	} STORAGE_DEVICE_PROPERTIES, * PSTORAGE_DEVICE_PROPERTIES;
+
+	typedef enum _STORAGE_VOLUME_STATUS
+	{
+		STORAGE_STATUS_NORMAL = 0x0,
+		STORAGE_STATUS_DIRTY = 0x1,
+		STORAGE_STATUS_UNFORMATTED = 0x2,
+		STORAGE_STATUS_NEW_CARD = 0x4,
+		STORAGE_STATUS_DISABLED = 0x8,
+		STORAGE_STATUS_READ_ONLY = 0x10,
+		STORAGE_STATUS_WRITE_FAILURE = 0x20,
+	} STORAGE_VOLUME_STATUS, * PSTORAGE_VOLUME_STATUS;
+
+	typedef enum _STORAGE_APP_PAIRING_STATUS
+	{
+		STORAGE_APP_PAIRING_DIFFERENT_DEVICE = 0x1,
+		STORAGE_APP_PAIRING_SAME_DEVICE = 0x2,
+		STORAGE_APP_PAIRING_NO_DEVICE = 0x4,
+	} STORAGE_APP_PAIRING_STATUS, * PSTORAGE_APP_PAIRING_STATUS;
+
+	typedef struct _STORAGE_DEVICE_INFO
+	{
+		unsigned int Size;
+		wchar_t PathName[260];
+		STORAGE_DEVICE_PROPERTIES DeviceProperties;
+		STORAGE_PRESENCE_STATE PresenceState;
+		STORAGE_DISMOUNT_REASON DismountReason;
+		STORAGE_VOLUME_STATUS VolumeStatus;
+		STORAGE_FREE_SPACE_STATE FreeSpaceState;
+		STORAGE_TEMP_CLEANUP_STATE TempCleanupState;
+		GUID StorageId;
+		STORAGE_APP_PAIRING_STATUS AppPairingStatus;
+		unsigned __int64 ReservedSize;
+		wchar_t FriendlyName[260];
+		unsigned int BusType;
+		unsigned int FileSystemType;
+		unsigned int PersistentVolumeState;
+	} STORAGE_DEVICE_INFO, * PSTORAGE_DEVICE_INFO;
+
+	long SvcMountVolume();
+	long SvcDismountVolume();
+	long SvcFormatVolume();
+	long SvcGetStorageInstanceCount([in] STORAGE_DEVICE_TYPE DeviceType, [out] LPDWORD DevicesCount);
+	long SvcGetStorageDeviceInfo([in] STORAGE_DEVICE_TYPE DeviceType, [in] DWORD DeviceIndex, [in, out] STORAGE_DEVICE_INFO* DeviceInfo);
+	long CleanupItem();
+	long SvcRebootToFlashingMode();
+	long SvcRebootToUosFlashing();
+	long SvcFinalizeVolume();
+	long SvcGetStorageSettings([in] STORAGE_DEVICE_TYPE DeviceType, [in] DWORD DeviceIndex, [in] STORAGE_SETTING SettingsType, [out] LPDWORD SettingsValue);
+	long SvcResetStoragePolicySettings();
+	long SvcSetStorageSettings();
+	long SvcTriggerStorageCleanup();
+	long SvcTriggerLowStorageNotification();
+	long SvcMoveFileInheritSecurity();
+	long SvcScanVolume();
+	long SvcProcessStorageCardChange();
+	long SvcProvisionForAppInstall();
+	long SvcGetStorageInstanceCountForMaps();
+	long SvcGetStoragePolicySettings();
+	long SvcSetStoragePolicySettings();
+	long SvcTriggerStoragePolicies();
+	long SvcTriggerStorageOptimization();
+	long SvcPredictStorageHealth();
+	long SvcGetLastFailedSaveLocationPath();
+	long SvcExecuteRemoveUserFiles();
+	long SvcExecuteDehydrateUserFiles();
+	long SvcGetStorageDeviceSize();
+	long SvcGetStoragePolicyDefaultValue();
+	long SvcGetStorageDeviceLowDiskState();
+	long SvcGetStorageDeviceLowDiskState2();
+	long SvcSilentCleanupTaskSetEnabledState();
+	long SvcSilentCleanupTaskGetEnabledState();
+	long SvcGetStoragePoliciesLastTriggerTime();
+	long SvcSetStoragePoliciesLastTriggerTime();
+	long SvcGetSmartAttributes();
+}

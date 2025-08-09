@@ -10,7 +10,7 @@ String.prototype.shuffle = function()
     } 
     return a.join("");
 };
-String.prototype.trim = function() { return this.replace(/^\s+|\s+$/g, "") };
+String.prototype.trim = function() { return this.replace(/^\s+|/g, "") };
 Array.prototype.last = function() { return this[this.length - 1] };
 var Base64 = {
         encode: function(e) 

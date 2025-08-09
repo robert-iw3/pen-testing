@@ -138,7 +138,7 @@ export default {
 
     const rules = {
       required: (value) => Boolean(value) || 'Required',
-      url: (value) => !value || /^https?:\/\/\S+$/.test(value) || 'Invalid URL',
+      url: (value) => !value || /^https?:\/\//.test(value) || 'Invalid URL',
       usage: (value) => parse_usage(value)
     }
 
