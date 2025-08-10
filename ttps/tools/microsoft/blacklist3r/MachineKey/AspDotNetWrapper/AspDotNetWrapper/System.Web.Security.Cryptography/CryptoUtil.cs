@@ -1,7 +1,7 @@
 ﻿//------------------------------------------------------------------------------
 // <copyright file="CryptoUtil.cs" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>                                                                
+// </copyright>
 //------------------------------------------------------------------------------
 
 namespace System.Web.Security.Cryptography {
@@ -47,7 +47,7 @@ namespace System.Web.Security.Cryptography {
         // whether the result is success or failure. The modulus operation is intended to make the check take the
         // same amount of time, even if the buffers are of different lengths.
         //
-        // !! DO NOT CHANGE THIS METHOD WITHOUT SECURITY 
+        // !! DO NOT CHANGE THIS METHOD WITHOUT SECURITY
         [MethodImpl(MethodImplOptions.NoOptimization)]
         public static bool BuffersAreEqual(byte[] buffer1, int buffer1Offset, int buffer1Count, byte[] buffer2, int buffer2Offset, int buffer2Count) {
             Debug.ValidateArrayBounds(buffer1, buffer1Offset, buffer1Count);

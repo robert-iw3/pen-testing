@@ -14,7 +14,7 @@
 
 namespace peconv {
 
-    /** 
+    /**
     Validates pointers, checks if the particular field is inside the given buffer. Sizes must be given in bytes.
     \param buffer_bgn : the start address of the buffer
     \param buffer_size : the size of the buffer
@@ -25,7 +25,7 @@ namespace peconv {
     false otherwise
     */
     bool validate_ptr(
-        IN const void* buffer_bgn, 
+        IN const void* buffer_bgn,
         IN size_t buffer_size,
         IN const void* field_bgn,
         IN size_t field_size
@@ -48,7 +48,7 @@ namespace peconv {
 //
 // alloc/free unaligned buffers:
 //
-     /** 
+     /**
      Allocates a buffer on the heap. Can be used in the cases when the buffer does not have to start at the beginning of a page.
      */
     UNALIGNED_BUF alloc_unaligned(size_t buf_size);

@@ -26,14 +26,14 @@ class TestRadioTapDecoder(unittest.TestCase):
         self.in4=self.in3.child()
         self.in5=self.in4.child()
         self.in6=self.in5.child()
-        
+
     def test_00(self):
         'Test RadioTap decoder'
         if PY2:
             self.assertEqual(str(self.in0.__class__), "impacket.dot11.RadioTap")
         else:
             self.assertEqual(str(self.in0.__class__), "<class 'impacket.dot11.RadioTap'>")
-        
+
     def test_01(self):
         'Test Dot11 decoder'
         if PY2:
@@ -47,7 +47,7 @@ class TestRadioTapDecoder(unittest.TestCase):
             self.assertEqual(str(self.in2.__class__), "impacket.dot11.Dot11DataFrame")
         else:
             self.assertEqual(str(self.in2.__class__), "<class 'impacket.dot11.Dot11DataFrame'>")
-    
+
     def test_03(self):
         'Test LLC decoder'
         if PY2:
@@ -69,7 +69,7 @@ class TestRadioTapDecoder(unittest.TestCase):
 #    def test_05(self):
 #        'Test Data decoder'
 #        self.assertEqual(str(self.in6.__class__), "ImpactPacket.Data")
-        
+
     def test_06(self):
         'Test Protocol Finder'
         p=self.radiotap_decoder.get_protocol(impacket.dot11.RadioTap)
@@ -77,41 +77,41 @@ class TestRadioTapDecoder(unittest.TestCase):
             self.assertEqual(str(p.__class__), "impacket.dot11.RadioTap")
         else:
             self.assertEqual(str(p.__class__), "<class 'impacket.dot11.RadioTap'>")
-                
+
         p=self.radiotap_decoder.get_protocol(impacket.dot11.Dot11)
         if PY2:
             self.assertEqual(str(p.__class__), "impacket.dot11.Dot11")
         else:
             self.assertEqual(str(p.__class__), "<class 'impacket.dot11.Dot11'>")
-        
+
         p=self.radiotap_decoder.get_protocol(impacket.dot11.Dot11DataFrame)
         if PY2:
             self.assertEqual(str(p.__class__), "impacket.dot11.Dot11DataFrame")
         else:
             self.assertEqual(str(p.__class__), "<class 'impacket.dot11.Dot11DataFrame'>")
-        
+
         p=self.radiotap_decoder.get_protocol(impacket.dot11.LLC)
         if PY2:
             self.assertEqual(str(p.__class__), "impacket.dot11.LLC")
         else:
             self.assertEqual(str(p.__class__), "<class 'impacket.dot11.LLC'>")
-        
+
         p=self.radiotap_decoder.get_protocol(impacket.dot11.SNAP)
         if PY2:
             self.assertEqual(str(p.__class__), "impacket.dot11.SNAP")
         else:
             self.assertEqual(str(p.__class__), "<class 'impacket.dot11.SNAP'>")
-        
+
         #p=self.radiotap_decoder.get_protocol(ImpactPacket.ARP)
         #self.assertEqual(str(p.__class__), "ImpactPacket.ARP")
-        
+
         #p=self.radiotap_decoder.get_protocol(ImpactPacket.Data)
         #self.assertEqual(str(p.__class__), "ImpactPacket.Data")
-        
+
         # When not found, None is returned
         p=self.radiotap_decoder.get_protocol(impacket.dot11.Dot11WPA)
         self.assertEqual(p, None)
-      
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=1)

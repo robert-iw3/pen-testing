@@ -125,10 +125,10 @@ FARPROC peconv::get_exported_func(PVOID modulePtr, LPCSTR wanted_name)
         DWORD* nameRVA = (DWORD*)(funcNamesListRVA + (BYTE*) modulePtr + i * sizeof(DWORD));
         WORD* nameIndex = (WORD*)(namesOrdsListRVA + (BYTE*) modulePtr + i * sizeof(WORD));
         DWORD* funcRVA = (DWORD*)(funcsListRVA + (BYTE*) modulePtr + (*nameIndex) * sizeof(DWORD));
-       
+
         LPSTR name = (LPSTR)(*nameRVA + (BYTE*) modulePtr);
         BYTE* fPtr = (BYTE*) modulePtr + (*funcRVA); //pointer to the function
-        
+
         if (!is_wanted_func(name, wanted_name)) {
             continue; //this is not the function we are looking for
         }

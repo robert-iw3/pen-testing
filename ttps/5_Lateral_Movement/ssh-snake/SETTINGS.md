@@ -106,7 +106,7 @@ This strategy may be toggled off/on with 0/1. The default value is 1.
 
 ### use_find_d_block
 
-This function takes the current host's address(es) and adds the all d-block addresses into the list of hosts. For example, if the current host has the address 10.0.0.5, this function will add the 10.0.0.0-10.0.0.255 hosts. 
+This function takes the current host's address(es) and adds the all d-block addresses into the list of hosts. For example, if the current host has the address 10.0.0.5, this function will add the 10.0.0.0-10.0.0.255 hosts.
 
 This strategy may be toggled off/on with 0/1. The default value is 0.
 
@@ -115,10 +115,10 @@ This strategy may be toggled off/on with 0/1. The default value is 0.
 In the context of this script, a "destination" (or "dest") means a username and host combination; the destination that `ssh` will attempt to connect to (`ssh user@host`). Without destinations, there is nowhere for the script to attempt to SSH to. These strategies are used to discover potential destinations that will be SSH'd to.
 
 Note that for each of these destinations, the username is also loaded into a collection of usernames, and the hosts are loaded into a collection of hosts. If `use_combinate_users_hosts_aggressive` or `use_combinate_interesting_users_hosts` are enabled, they will use these usernames and hosts to create destinations.
- 
+
 ### use_find_from_authorized_keys
 
- `authorized_keys` files may include ip-based restrictions for key usage such as `from="10.0.0.1,10.2.3.3" ssh-rsa ...`. 
+ `authorized_keys` files may include ip-based restrictions for key usage such as `from="10.0.0.1,10.2.3.3" ssh-rsa ...`.
 
 This strategy adds any hosts discovered in the `from` directive of `authorized_keys` file to our list of destinations using `$user@$host`, where `$user` is the username corresponding to the location where the `authorized_keys` file was found.
 
@@ -140,7 +140,7 @@ This strategy may be toggled off/on with 0/1. The default value is 1.
 
 ### use_find_from_known_hosts
 
-`known_hosts` files contain a list of the hosts a user has previously SSH'd into, and can be a wealth of knowledge for discovering hosts. For example: `# 2048 MD5:32:41:b4:e7:3e:d7:ee:a4:3a:c3:a8:44:40:45:16:04 10.0.0.1 (RSA)`. 
+`known_hosts` files contain a list of the hosts a user has previously SSH'd into, and can be a wealth of knowledge for discovering hosts. For example: `# 2048 MD5:32:41:b4:e7:3e:d7:ee:a4:3a:c3:a8:44:40:45:16:04 10.0.0.1 (RSA)`.
 
 This function extracts the `10.0.0.1` host. Likewise, we add `$user@$host` to the list of destinations, where `$user` is the username corresponding to the location where the `known_hosts` file was found.
 
@@ -158,7 +158,7 @@ Here, `|1|e77JRypO4qWElXpIaBGiFLOJBXg=|HBu6N6IGFeOz5wt0HFXz9/hp/wY=` corresponds
 
 ```
 $ ssh-keygen -F 192.168.1.1
-# Host 192.168.1.1 found: line 58 
+# Host 192.168.1.1 found: line 58
 |1|96KUSpeaZrkYrbQhhjFLF/jJ15w=|xMX7qNROy8SwPZK1zEjrlEeYU24= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIClRF2LjL1EJNfEYAKpr9rENgZVFlH7jtEPla0x3hakB
 ```
 
@@ -182,7 +182,7 @@ At any point in time, the so-called "ignore list" contains a list of destination
 
 When `use_find_from_ignore_list=1`, the script will parse the ignore list when the script _starts_ and connect to any destinations which have _previously_ been connected to.
 
-When `use_find_from_ignore_list=2`, the script will do the same as above, but also parse the ignore list when the script _finishes_, re-trying with any newly added destinations on the ignore list. 
+When `use_find_from_ignore_list=2`, the script will do the same as above, but also parse the ignore list when the script _finishes_, re-trying with any newly added destinations on the ignore list.
 
 `use_find_from_ignore_list=0` disables this function completely. The default value is 0.
 
@@ -233,9 +233,9 @@ For `ssh` and `scp` specifically, we parse and extract:
 For example, this strategy is able to extract the following (_note: this list is not exhaustive and these are just some examples. the `use_find_from_bash_history` function is complicated and can hopefully handle all legitimate usage of ssh and scp_):
 ```
 ssh user@host ; extract user@host as a destination
-scp file user@host:~/ ; extract user@host as a destination 
+scp file user@host:~/ ; extract user@host as a destination
 scp user@host:~/file ./ ; extract user@host as a destination
-rsync -a * user@host:~/ ; extract user@host as a destination 
+rsync -a * user@host:~/ ; extract user@host as a destination
 scp file host:~/ ; extract host, and assume $user@host as a destination
 scp host:~/file ./ ; extract host, and assume $user@host as a destination
 ssh -i.ssh/id_rsa host ; extract .ssh/id_rsa and host, assume $user@host as a destination
@@ -268,7 +268,7 @@ This strategy may be toggled off/on with 0/1. The default value is 1.
 
 ## Combinatorial Destination Discovery Strategies
 
-Each time a system is scanned, various individual usernames, hosts, and destinations will be discovered which can point towards other destinations. However, if usernames and hosts are discovered in a context that doesn't necessarily result in a definitive full destination being discovered, this data is effectively unused. That's where combinatorial destination discovery strategies come in. 
+Each time a system is scanned, various individual usernames, hosts, and destinations will be discovered which can point towards other destinations. However, if usernames and hosts are discovered in a context that doesn't necessarily result in a definitive full destination being discovered, this data is effectively unused. That's where combinatorial destination discovery strategies come in.
 
 ### combinate_interesting_users_hosts
 

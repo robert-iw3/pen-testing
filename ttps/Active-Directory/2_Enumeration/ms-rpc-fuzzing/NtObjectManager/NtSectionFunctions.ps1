@@ -392,7 +392,7 @@ function Get-NtSigningLevel {
                     return $map.ImageSigningLevel
                 }
 
-                $script = { 
+                $script = {
                     Set-NtProcessMitigationPolicy -Signature AuditMicrosoftSignedOnly
                     [NtObjectManager.Utils.PSUtils]::GetSigningLevel($input) | Out-Null
                 }

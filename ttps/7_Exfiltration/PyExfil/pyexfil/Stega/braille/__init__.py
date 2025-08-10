@@ -102,4 +102,3 @@ def Decode(data):
 	res = decode_data(data)
 	if res is not None:
 		print(res)
-	

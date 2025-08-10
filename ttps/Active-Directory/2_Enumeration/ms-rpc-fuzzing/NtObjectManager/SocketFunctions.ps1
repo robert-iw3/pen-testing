@@ -42,7 +42,7 @@ Get the security information for a socket and query for peer tokens with Imperso
 Get-SocketSecurity -Client $client
 Get the security information for a TCP client.
 #>
-function Get-SocketSecurity { 
+function Get-SocketSecurity {
     [CmdletBinding(DefaultParameterSetName="FromSocket")]
     param(
         [Parameter(Mandatory, Position = 0, ParameterSetName="FromSocket")]
@@ -96,7 +96,7 @@ Set default security information for a socket.
 Get-SocketSecurity -Socket $sock -SecurityProtocol IPsec
 Set the IPsec security information for a socket.
 #>
-function Set-SocketSecurity { 
+function Set-SocketSecurity {
     [CmdletBinding(DefaultParameterSetName="FromSocket")]
     param(
         [Parameter(Mandatory, Position = 0, ParameterSetName="FromSocket")]
@@ -153,7 +153,7 @@ None
 Set-SocketPeerTargetName -Socket $sock -TargetName "SERVER"
 Set peer target name for a socket.
 #>
-function Set-SocketPeerTargetName { 
+function Set-SocketPeerTargetName {
     [CmdletBinding(DefaultParameterSetName="FromSocket")]
     param(
         [Parameter(Mandatory, Position = 0, ParameterSetName="FromSocket")]

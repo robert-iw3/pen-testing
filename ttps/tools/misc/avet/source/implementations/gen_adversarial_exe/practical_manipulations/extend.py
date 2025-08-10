@@ -19,7 +19,7 @@ import lief
 
 def extend_on_bytes(exe_bytes: bytearray, section_population, vector_t):
     """
-    Implementation of Extend practical manipulation. 
+    Implementation of Extend practical manipulation.
     Intended for use with genetic optimizer.
 
     Returns the bytes with the practical manipulation applied.
@@ -92,7 +92,7 @@ def extend_on_bytes(exe_bytes: bytearray, section_population, vector_t):
 def extend(exe_path, amount):
     """
     Implementation of Extend practical manipulation.
-    
+
     Create an adversarial example with practical manipulation applied.
     Random bytes are used and new sample has "_extend" as postfix.
     """

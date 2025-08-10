@@ -85,7 +85,7 @@ public class GetNtThreadCmdlet : PSCmdlet
     public SwitchParameter Current { get; set; }
 
     /// <summary>
-    /// <para type="description">When getting the current thread return pseudo handle. 
+    /// <para type="description">When getting the current thread return pseudo handle.
     /// This handle doesn't need to be closed but changes identity if used in a different thread.</para>
     /// </summary>
     [Parameter(ParameterSetName = "current")]

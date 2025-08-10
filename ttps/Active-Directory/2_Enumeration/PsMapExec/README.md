@@ -2,8 +2,8 @@
 # PsMapExec
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/e471dc70-a4a1-4c5d-8c81-2a67a2927b3a" 
-       width="450" 
+  <img src="https://github.com/user-attachments/assets/e471dc70-a4a1-4c5d-8c81-2a67a2927b3a"
+       width="450"
        alt="PME_Logo"
        style="border:1px solid #ddd; border-radius:8px; box-shadow:2px 2px 10px rgba(0,0,0,0.1);">
 </p>

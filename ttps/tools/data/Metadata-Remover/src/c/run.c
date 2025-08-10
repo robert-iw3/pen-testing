@@ -55,7 +55,7 @@ int vchecker(void)
     snprintf(command_buf, COMMAND_SZ, ".\\exiftool.exe 'out_%s' > o.mtd", global_buffer);
   else
     snprintf(command_buf, COMMAND_SZ, "./exiftool 'out_%s' > o.mtd", global_buffer);
-  
+
   int return_val = system(command_buf);
   free(command_buf);
   if (return_val != 0)
@@ -124,11 +124,11 @@ int sanitize(void)
   if (global)
     snprintf(command_buf, 300, "exiftool -all= %s '%s'", tiff_option, global_buffer);
 
-  // Windows 
+  // Windows
   else if (os == true)
     snprintf(command_buf, 300, ".\\exiftool.exe -all= %s '%s'", tiff_option, global_buffer);
 
-  // Linux/MacOS 
+  // Linux/MacOS
   else
     snprintf(command_buf, 300, "./exiftool -all= %s '%s'", tiff_option, global_buffer);
 
@@ -201,7 +201,7 @@ int compare(void)
   {
       puts("\nMetadata cleaned successfully!");
   }
-  else 
+  else
   {
       puts("\nNo significant change!");
   }
@@ -226,7 +226,7 @@ int tool(void)
   else if (system("./exiftool -ver > nothing") == 0 && os == false)
     global = false;
 
-  else 
+  else
   {
     fputs("\n\n┣━━━━━ Image Sanitization Failed! ━━━━━┫\n", stderr);
     handle_error("Critical Error: exiftool NOT FOUND!");
@@ -251,7 +251,7 @@ int vtool(void)
   else if (system("./ffmpeg -version > nothing") == 0 && os == false)
     global = false;
 
-  else 
+  else
   {
     fputs("\n\n┣━━━━━ Video Sanitization Failed! ━━━━━┫\n", stderr);
     handle_error( "Critical Error: ffmpeg NOT FOUND!");
@@ -272,7 +272,7 @@ int vsanitize(void)
 
   if (global)
     snprintf(command_buf, COMMAND_SZ, "ffmpeg -i '%s' -map_metadata -1 -c:v copy -c:a copy 'out_%s'", global_buffer, global_buffer);
-  // Windows 
+  // Windows
   else if (os == true)
     snprintf(command_buf, COMMAND_SZ, ".\\ffmpeg.exe -i '%s' -map_metadata -1 -c:v copy -c:a copy 'out_%s'", global_buffer, global_buffer);
   else
@@ -307,11 +307,11 @@ int qrun(void)
 
 
 // Combine image functions
-int run(void) 
+int run(void)
 {
   // Check exiftool
   tool();
-  // Get image path 
+  // Get image path
   puts("\n\t┣━━━━━ Image Sanitisation Tool ━━━━━┫");
   input();
   // Get input metadata (might not be completely sanitized)
@@ -320,7 +320,7 @@ int run(void)
   sanitize();
   // Get output metadata
   ichecker('o');
-  // Compare sizes of files 
+  // Compare sizes of files
   compare();
   return 0;
 }
@@ -342,12 +342,12 @@ void menu(void)
   while(1)
   {
     printf("\n Enter your choice (1, 2 or 0): ");
-  
+
     choice = getc(stdin);
     // Consume newline
     getc(stdin);
     puts("");
-    
+
     switch (choice)
     {
       case '1':

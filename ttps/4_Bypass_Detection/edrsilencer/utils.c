@@ -20,7 +20,7 @@ BOOL CheckProcessIntegrityLevel() {
     }
 
     // Get the size of the integrity level information
-    if (!GetTokenInformation(hToken, TokenIntegrityLevel, NULL, 0, &dwLength) && 
+    if (!GetTokenInformation(hToken, TokenIntegrityLevel, NULL, 0, &dwLength) &&
         GetLastError() != ERROR_INSUFFICIENT_BUFFER) {
         printf("[-] GetTokenInformation failed with error code: 0x%x.\n", GetLastError());
         CloseHandle(hToken);
@@ -47,7 +47,7 @@ BOOL CheckProcessIntegrityLevel() {
         CloseHandle(hToken);
         return FALSE;
     }
-	
+
     dwIntegrityLevel = *GetSidSubAuthority(pTIL->Label.Sid, (DWORD)(UCHAR)(*GetSidSubAuthorityCount(pTIL->Label.Sid) - 1));
 
     if (dwIntegrityLevel >= SECURITY_MANDATORY_HIGH_RID) {
@@ -65,7 +65,7 @@ BOOL CheckProcessIntegrityLevel() {
 BOOL EnableSeDebugPrivilege() {
 	HANDLE hToken = NULL;
 	TOKEN_PRIVILEGES tokenPrivileges = {0};
-	
+
     if (!OpenThreadToken(GetCurrentThread(), TOKEN_QUERY | TOKEN_ADJUST_PRIVILEGES, TRUE, &hToken)) {
         if (GetLastError() != ERROR_NO_TOKEN) {
             printf("[-] OpenThreadToken failed with error code: 0x%x.\n", GetLastError());
@@ -142,7 +142,7 @@ ErrorCode ConvertToNtPath(PCWSTR filePath, wchar_t* ntPathBuffer, size_t bufferS
     }
 
     swprintf(ntPathBuffer, bufferSize, L"%ls%ls", ntDrivePath, filePath + wcslen(driveName));
-    
+
     for (size_t i = 0; ntPathBuffer[i] != L'\0'; ++i) {
         ntPathBuffer[i] = towlower(ntPathBuffer[i]);
     }
@@ -178,7 +178,7 @@ ErrorCode CustomFwpmGetAppIdFromFileName0(PCWSTR filePath, FWP_BYTE_BLOB** appId
     }
 
     (*appId)->size = wcslen(ntPath) * sizeof(WCHAR) + sizeof(WCHAR);
-    
+
     (*appId)->data = (UINT8*)malloc((*appId)->size);
     if (!(*appId)->data) {
         free(*appId);
@@ -233,7 +233,7 @@ BOOL GetProviderGUIDByDescription(PCWSTR providerDescription, GUID* outProviderG
                 found = TRUE;
                 break;
             }
-        }   
+        }
     }
 
     if (providers) {

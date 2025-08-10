@@ -123,8 +123,8 @@ public sealed class NtObjectManagerProvider : NavigationCmdletProvider, ISecurit
             return null;
         }
 
-        if (string.IsNullOrWhiteSpace(drive.Root) && (!drive.Root.StartsWith(GLOBAL_ROOT) 
-            || !drive.Root.StartsWith(NAMESPACE_ROOT) 
+        if (string.IsNullOrWhiteSpace(drive.Root) && (!drive.Root.StartsWith(GLOBAL_ROOT)
+            || !drive.Root.StartsWith(NAMESPACE_ROOT)
             || !drive.Root.StartsWith(KEY_ROOT)))
         {
             WriteError(new ErrorRecord(
@@ -251,7 +251,7 @@ public sealed class NtObjectManagerProvider : NavigationCmdletProvider, ISecurit
         else
         {
             string base_path = path.Substring(0, last_slash);
-            
+
             return GetDrive().DirectoryRoot.Open(base_path, throw_on_error);
         }
     }
@@ -276,7 +276,7 @@ public sealed class NtObjectManagerProvider : NavigationCmdletProvider, ISecurit
 
         return dir.GetEntry(path);
     }
-    
+
     /// <summary>
     /// Overriden method to check if an item exists.
     /// </summary>
@@ -462,7 +462,7 @@ public sealed class NtObjectManagerProvider : NavigationCmdletProvider, ISecurit
         string current_entry = remaining.First();
         bool is_leaf = remaining.Count() == 1;
         List<NtObjectContainerEntry> matching_entries = new();
-        
+
         if (root.QueryAccessGranted)
         {
             // If this is not a leaf point we don't care about non-directory entries.
@@ -558,7 +558,7 @@ public sealed class NtObjectManagerProvider : NavigationCmdletProvider, ISecurit
         {
             return new string[0];
         }
-        
+
         return ExpandDirectoryEntryMatches(GetRelativePath(PSPathToNT(path))).ToArray();
     }
 

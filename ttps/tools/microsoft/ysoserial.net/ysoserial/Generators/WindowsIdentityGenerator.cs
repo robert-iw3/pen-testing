@@ -22,8 +22,8 @@ namespace ysoserial.Generators
         // using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(info.GetString(BootstrapContextKey))))
         //     m_bootstrapContext = bf.Deserialize(ms, null, false);
         //
-        // Changed by Soroush Dalili: 
-        // "actor" has the same effect as "bootstrapContext" but is shorter. 
+        // Changed by Soroush Dalili:
+        // "actor" has the same effect as "bootstrapContext" but is shorter.
         // Therefore, all ".bootstrapContext" has been replaced with ".actor" it has been replaced in this plugin
 
         public override List<string> SupportedFormatters()

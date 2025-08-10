@@ -1,9 +1,9 @@
-; bello code for syscall 
+; bello code for syscall
 
 .data
 ; i do not think data is needer here
 
-.code 
+.code
 ZwAllocateVirtualMemory PROC
 	mov r10, rcx
 	mov eax, dword ptr [rsp + 56]
@@ -17,7 +17,7 @@ ZwProtectVirtualMemory PROC
 ZwProtectVirtualMemory ENDP
 
 ZwFlushInstructionCache PROC
-	mov r10,rcx 
+	mov r10,rcx
 	mov rax, r9
 	jmp qword ptr [rsp + 40]
 ZwFlushInstructionCache ENDP

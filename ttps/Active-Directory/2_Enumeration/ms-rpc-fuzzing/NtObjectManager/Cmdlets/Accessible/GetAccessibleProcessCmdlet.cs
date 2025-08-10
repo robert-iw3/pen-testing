@@ -58,7 +58,7 @@ public class ProcessAccessCheckResult : CommonAccessCheckResult
 
     internal ProcessAccessCheckResult(string name, string image_path, int process_id, int session_id,
         string command_line, AccessMask granted_access, bool is_thread, bool is_dead, string user,
-        NtType type, SecurityDescriptor sd, TokenInformation token_info) : base(name, type.Name, granted_access, 
+        NtType type, SecurityDescriptor sd, TokenInformation token_info) : base(name, type.Name, granted_access,
             type.GenericMapping, sd, type.AccessRightsType, false, token_info)
     {
         ProcessImagePath = image_path;
@@ -86,11 +86,11 @@ public class ThreadAccessCheckResult : ProcessAccessCheckResult
     /// </summary>
     public string ThreadDescription { get; }
 
-    internal ThreadAccessCheckResult(string name, string image_path, int thread_id, 
+    internal ThreadAccessCheckResult(string name, string image_path, int thread_id,
         string thread_description, int process_id, bool is_dead,
         int session_id, string command_line, AccessMask granted_access, string user,
-        NtType type, SecurityDescriptor sd, TokenInformation token_info) 
-        : base($"{name}/{process_id}.{thread_id}", 
+        NtType type, SecurityDescriptor sd, TokenInformation token_info)
+        : base($"{name}/{process_id}.{thread_id}",
             image_path, process_id, session_id, command_line, granted_access,
             true, is_dead, user, type, sd, token_info)
     {
@@ -121,7 +121,7 @@ public enum ProcessCheckMode
 /// <summary>
 /// <para type="synopsis">Get a list of processes and/or threads that can be opened by a specified token.</para>
 /// <para type="description">This cmdlet checks all processes and threads and tries to determine
-/// if one or more specified tokens can open them. If no tokens are specified then the 
+/// if one or more specified tokens can open them. If no tokens are specified then the
 /// current process token is used.</para>
 /// </summary>
 /// <remarks>For best results this command should be run as an administrator with SeDebugPrivilege.</remarks>
@@ -266,13 +266,13 @@ public class GetAccessibleProcessCmdlet : CommonAccessBaseWithAccessCmdlet<Proce
     {
         if (thread == null)
         {
-            WriteObject(new ProcessAccessCheckResult(process.Name, process.ImagePath, process.ProcessId, process.SessionId, 
+            WriteObject(new ProcessAccessCheckResult(process.Name, process.ImagePath, process.ProcessId, process.SessionId,
                 process.CommandLine, granted_access, false, process.IsDeleting,
                 process.User, _process_type, sd, token));
         }
         else
         {
-            WriteObject(new ThreadAccessCheckResult(process.Name, process.ImagePath, thread.ThreadId, 
+            WriteObject(new ThreadAccessCheckResult(process.Name, process.ImagePath, thread.ThreadId,
                 thread.Description, process.ProcessId, process.IsDeleting, process.SessionId, process.CommandLine, granted_access,
                 process.User, _thread_type, sd, token));
         }
@@ -346,7 +346,7 @@ public class GetAccessibleProcessCmdlet : CommonAccessBaseWithAccessCmdlet<Proce
         }
     }
 
-    private void DoAccessCheck(IEnumerable<TokenEntry> tokens, 
+    private void DoAccessCheck(IEnumerable<TokenEntry> tokens,
         IEnumerable<NtProcess> processes, AccessMask access_rights, AccessMask thread_access_rights)
     {
         foreach (NtProcess process in processes)

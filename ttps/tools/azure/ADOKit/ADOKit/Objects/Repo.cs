@@ -19,6 +19,6 @@ namespace ADOKit.Objects
                 this.repoURL = repoURL;
             }
 
-        
+
     }
 }

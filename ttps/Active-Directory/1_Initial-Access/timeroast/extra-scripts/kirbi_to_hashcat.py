@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Simple script that extracts the first ticket from a base64 encoded KRB_CRED structure (i.e. Rubeus' asktgs 
+"""Simple script that extracts the first ticket from a base64 encoded KRB_CRED structure (i.e. Rubeus' asktgs
 output) and then outputs it in Hashcat format"""
 
 from pyasn1.codec.der import decoder
@@ -12,10 +12,10 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter, FileType
 
 argparser = ArgumentParser(formatter_class=RawDescriptionHelpFormatter, description=\
 """Converts a Kerberos ticket from a base64 encoded KRB_CRED format to a Hashcat
-$krb5tgs$ hash. The main use case is brute-forcing trust passwords based on a 
+$krb5tgs$ hash. The main use case is brute-forcing trust passwords based on a
 trust ticket retrieved with a tool such as Rubeus.
 
-If the KRB_CRED input contains multiple tickets, the first one is taken. Output 
+If the KRB_CRED input contains multiple tickets, the first one is taken. Output
 is written to STDOUT.
 """)
 argparser.add_argument('file', type=FileType('r'), default=sys.stdin, nargs='?', \

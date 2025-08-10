@@ -263,16 +263,16 @@ class DPAPI:
                 if hasattr(rpctransport, 'set_credentials'):
                     # This method exists only for selected protocol sequences.
                     rpctransport.set_credentials(username, password, domain, lmhash, nthash, self.options.aesKey)
-                
+
                 rpctransport.set_kerberos(self.options.k, self.options.dc_ip)
-                
+
                 dce = rpctransport.get_dce_rpc()
                 dce.set_auth_level(RPC_C_AUTHN_LEVEL_PKT_PRIVACY)
                 if self.options.k is True:
                     dce.set_auth_type(RPC_C_AUTHN_GSS_NEGOTIATE)
                 dce.connect()
                 dce.bind(bkrp.MSRPC_UUID_BKRP, transfer_syntax = ('8a885d04-1ceb-11c9-9fe8-08002b104860', '2.0'))
-                
+
                 request = bkrp.BackuprKey()
                 request['pguidActionAgent'] = bkrp.BACKUPKEY_RESTORE_GUID
                 request['pDataIn'] = dk.getData()
@@ -280,7 +280,7 @@ class DPAPI:
                 request['dwParam'] = 0
 
                 resp = dce.request(request)
-                
+
                 ## Stripping heading zeros resulting from asymetric decryption
                 beginning=0
                 for i in range(len(resp['ppDataOut'])):

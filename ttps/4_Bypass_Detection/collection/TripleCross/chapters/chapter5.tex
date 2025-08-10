@@ -11,7 +11,7 @@ As we mentioned, the following are the functionalities we seeked to implement in
 \end{itemize}
 
 \section{Experimental setting}
-The test environment that will be used to showcase the rootkit functionalities consists on two virtual machines running under Oracle VM VirtualBox \cite{virtualbox_page}. One of them will be the host infected with the rootkit, while the other will be used as the attacker machine from which to operate the rootkit client. 
+The test environment that will be used to showcase the rootkit functionalities consists on two virtual machines running under Oracle VM VirtualBox \cite{virtualbox_page}. One of them will be the host infected with the rootkit, while the other will be used as the attacker machine from which to operate the rootkit client.
 
 Both virtual machines will be connected via a bridged adapter, as Figure \ref{fig:vm_setting_bridged} shows. With this virtual networking setting, the virtual machines connect to a device driver of the host system which injects the data received from the physical network \cite{bridged_networking}. From the virtual machine point of view, both the attacker and the infected machine appear to be physically connected (via a network cable) to the same network interface, each with a different assigned IP address. The name of this interface will be "enp0s3".
 
@@ -231,7 +231,7 @@ The attacker must in the mean time start a listener (e.g.: with netcat), as show
 	\label{fig:sc_lib_inj_nc}
 \end{figure}
 
-Then, the simple\_timer program gets executed on the infected machine. As we can observe in Figure \ref{fig:sc_lib_inj_simple_timer_exec}, the injection suceeds and a message is printed from the library. 
+Then, the simple\_timer program gets executed on the infected machine. As we can observe in Figure \ref{fig:sc_lib_inj_simple_timer_exec}, the injection suceeds and a message is printed from the library.
 
 \begin{figure}[htbp]
 	\centering
@@ -499,7 +499,7 @@ Once the rootkit is installed, it will modify the length and contents, as shown 
 This functionality has been incorporated in multiple rootkit modules, but it is particularly relevant in the execution hijacking and privilege escalation modules.
 
 \subsection{Hijacking programs execution}
-Once the rootkit is installed, it will attempt to hijack any new program that is executed. As we explained in Section \ref{section:execution_hijack}, once the rootkit suceeds a malicious program will be run, which will listen for commands from the rootkit client, enabling the attacker to open a plaintext pseudo-shell. 
+Once the rootkit is installed, it will attempt to hijack any new program that is executed. As we explained in Section \ref{section:execution_hijack}, once the rootkit suceeds a malicious program will be run, which will listen for commands from the rootkit client, enabling the attacker to open a plaintext pseudo-shell.
 
 In this evaluation, we will attempt to test the hijacking process with a test program \textit{src/helpers/simple\_execve} and another with any process of the machine. Table \ref{table:execution_hijack_config} shows some of the configuration options that must be selected before running this module.
 

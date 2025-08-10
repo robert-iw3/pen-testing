@@ -116,7 +116,7 @@ public class GetAuthZGrantedAccessCmdlet : PSCmdlet, IDynamicParameters
     /// </summary>
     protected override void ProcessRecord()
     {
-        WriteObject(Context.AccessCheck(SecurityDescriptor, AdditionalSecurityDescriptor, 
+        WriteObject(Context.AccessCheck(SecurityDescriptor, AdditionalSecurityDescriptor,
             GetDesiredAccess(), Principal, ObjectType?.ToArray(), GetNtType()), true);
     }
 

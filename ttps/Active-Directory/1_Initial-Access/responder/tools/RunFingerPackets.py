@@ -455,7 +455,7 @@ class SMB2NegoReq(Packet):
         ("Bcc", "\x62\x00"),
         ("Data", "")
     ])
-    
+
     def calculate(self):
         self.fields["Bcc"] = StructWithLenPython2or3("<H",len(str(self.fields["Data"])))
 
@@ -497,7 +497,7 @@ class SMB2NegoData(Packet):
 class SMBv2Head(Packet):
     fields = OrderedDict([
         ("Server", "\xfe\x53\x4d\x42"),
-        ("HeadLen", "\x40\x00"), 
+        ("HeadLen", "\x40\x00"),
         ("CreditCharge", "\x00\x00"),
         ("NTStatus","\x00\x00\x00\x00"),
         ("SMBv2Command","\x00\x00"),
@@ -511,15 +511,15 @@ class SMBv2Head(Packet):
         ("Signature","\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"),
         ])
 
-    def calculate(self): 
+    def calculate(self):
         data1 = str(self.fields["Server"])+str(self.fields["HeadLen"])+str(self.fields["CreditCharge"])+str(self.fields["NTStatus"])+str(self.fields["SMBv2Command"])+str(self.fields["CreditRequested"])+str(self.fields["Flags"])+str(self.fields["ChainOffset"])+str(self.fields["CommandSequence"])+str(self.fields["ProcessID"])+str(self.fields["TreeID"])+str(self.fields["SessionID"])+str(self.fields["Signature"])
 
         self.fields["HeadLen"] = StructWithLenPython2or3("<h", len(data1))
 
 class SMBv2Negotiate(Packet):
     fields = OrderedDict([
-        ("Len", "\x24\x00"), 
-        ("DialectCount", "\x02\x00"), 
+        ("Len", "\x24\x00"),
+        ("DialectCount", "\x02\x00"),
         ("SecurityMode", "\x01\x00"),
         ("Reserved","\x00\x00"),
         ("Capabilities","\x00\x00\x00\x00"),
@@ -529,7 +529,7 @@ class SMBv2Negotiate(Packet):
         ("Dialect2","\x10\x02"),
         ])
 
-    def calculate(self): 
+    def calculate(self):
         data1 = str(self.fields["Len"])+str(self.fields["DialectCount"])+str(self.fields["SecurityMode"])+str(self.fields["Reserved"])+str(self.fields["Capabilities"])+str(self.fields["ClientGUID"])+str(self.fields["ClientStartTime"])
 
         self.fields["Len"] = StructWithLenPython2or3("<h", len(data1))
@@ -537,7 +537,7 @@ class SMBv2Negotiate(Packet):
 class SMBv2Session1(Packet):
     fields = OrderedDict([
         ("Len", "\x19\x00"),
-        ("VCNumber", "\x00"), 
+        ("VCNumber", "\x00"),
         ("SecurityMode", "\x01"),
         ("Capabilities","\x01\x00\x00\x00"),
         ("Channel","\x00\x00\x00\x00"),
@@ -566,8 +566,8 @@ class SMBv2Session1(Packet):
         ("NegTokenInitSeqNLMPTag2Octet","\x04"),
         ("NegTokenInitSeqNLMPTag2OctetLen","\x28"),
         ("NegTokenInitSeqMechSignature","\x4E\x54\x4c\x4d\x53\x53\x50\x00"),
-        ("NegTokenInitSeqMechMessageType","\x01\x00\x00\x00"), 
-        ("NegTokenInitSeqMechMessageFlags","\x97\x82\x08\xe2"), 
+        ("NegTokenInitSeqMechMessageType","\x01\x00\x00\x00"),
+        ("NegTokenInitSeqMechMessageFlags","\x97\x82\x08\xe2"),
         ("NegTokenInitSeqMechMessageDomainNameLen","\x00\x00"),
         ("NegTokenInitSeqMechMessageDomainNameMaxLen","\x00\x00"),
         ("NegTokenInitSeqMechMessageDomainNameBuffOffset","\x00\x00\x00\x00"),
@@ -582,8 +582,8 @@ class SMBv2Session1(Packet):
         ("NegTokenInitSeqMechMessageVersionNTLMType","\x0f"),
         ])
 
-    def calculate(self): 
-        
+    def calculate(self):
+
 
         data1 = str(self.fields["Len"])+str(self.fields["VCNumber"])+str(self.fields["SecurityMode"])+str(self.fields["Capabilities"])+str(self.fields["Channel"])+str(self.fields["SecurityBufferOffset"])+str(self.fields["SecurityBufferLen"])+str(self.fields["PreviousSessionId"])
 
@@ -614,7 +614,7 @@ class SMBv2Session1(Packet):
         ##SpNegoTokenLen
         self.fields["NegTokenInitSeqHeadLen"] = StructWithLenPython2or3("<B", len(data5))
         ##NegoTokenInitcodecs.decode(RandomStr,'hex')
-        self.fields["NegTokenInitSeqHeadLen1"] = StructWithLenPython2or3("<B", len(str(self.fields["NegTokenInitSeqNLMPTag"])+str(self.fields["NegTokenInitSeqNLMPLen"])+str(self.fields["NegTokenInitSeqNLMPTag1"])+str(self.fields["NegTokenInitSeqNLMPTag1Len"])+str(self.fields["NegTokenInitSeqNLMPTag1Str"]))) 
+        self.fields["NegTokenInitSeqHeadLen1"] = StructWithLenPython2or3("<B", len(str(self.fields["NegTokenInitSeqNLMPTag"])+str(self.fields["NegTokenInitSeqNLMPLen"])+str(self.fields["NegTokenInitSeqNLMPTag1"])+str(self.fields["NegTokenInitSeqNLMPTag1Len"])+str(self.fields["NegTokenInitSeqNLMPTag1Str"])))
         ## Tag0 Len
         self.fields["NegTokenInitSeqNLMPLen"] = StructWithLenPython2or3("<B", len(str(self.fields["NegTokenInitSeqNLMPTag1"])+str(self.fields["NegTokenInitSeqNLMPTag1Len"])+str(self.fields["NegTokenInitSeqNLMPTag1Str"])))
         ## Tag0 Str Len

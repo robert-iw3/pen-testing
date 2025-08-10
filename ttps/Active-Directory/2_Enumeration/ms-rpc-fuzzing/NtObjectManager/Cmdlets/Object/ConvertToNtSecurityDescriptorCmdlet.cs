@@ -39,7 +39,7 @@ public sealed class ConvertToNtSecurityDescriptorCmdlet : PSCmdlet
         if (object_security is GenericObjectSecurity sd)
         {
             return Tuple.Create(sd.NtType, sd.IsDirectory);
-        } 
+        }
         else if (object_security is FileSecurity)
         {
             return Tuple.Create(NtType.GetTypeByType<NtFile>(), false);

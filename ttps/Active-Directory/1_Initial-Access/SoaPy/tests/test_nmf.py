@@ -17,11 +17,11 @@ from src.ms_nmf import (
     NMFPreambleEnd,
     NMFPreambleAck,
     NMFPreamble,
-    ) 
+    )
 
 
 class TestSizeEncoding(unittest.TestCase):
-    """Testing the variable length field encoding of 
+    """Testing the variable length field encoding of
     [MC-NMF] record sizes.
 
     The record size feild (payload len) is variable between
@@ -36,14 +36,14 @@ class TestSizeEncoding(unittest.TestCase):
 
         size, _, _ = NMFRecord.decode_size(data)
         self.assertEqual(size, expected_size)
-    
+
     def test_decode_three(self):
         data = b'\x80\x81\x01'
         expected_size = 0x4080
 
         size, _, _ = NMFRecord.decode_size(data)
         self.assertEqual(size, expected_size)
-    
+
     def test_decode_16(self):
         data = b'\x10'
         expected_size = 0x10
@@ -52,7 +52,7 @@ class TestSizeEncoding(unittest.TestCase):
         self.assertEqual(size, expected_size)
 
     # ======= Encode Tests =========
-    
+
     def test_encode_simple(self):
 
         expected_data = b'\x92\01'
@@ -60,7 +60,7 @@ class TestSizeEncoding(unittest.TestCase):
 
         data = NMFRecord.encode_size(size)
         self.assertEqual(data, expected_data)
-    
+
 
     def test_encode_three_bytes(self):
 
@@ -95,7 +95,7 @@ class TestRecords(unittest.TestCase):
         v = NMFVersion(data=data)
         self.assertEqual(v['major_version'], v2)
         self.assertEqual(v['minor_version'], v1)
-    
+
     @given(i=integers(min_value=0x0, max_value=0x4))
     def test_mode_record_invariants(self, i):
         data = NMFMode(mode=i).getData()
@@ -107,7 +107,7 @@ class TestRecords(unittest.TestCase):
         data = NMFVia(s).getData()
         v = NMFVia(data=data)
         self.assertEqual(v['via'], s)
-    
+
     @given(i=integers(min_value=0x0, max_value=0xff))
     def test_knownencoding_record_invariant(self, i):
         data = NMFKnownEncoding(i).getData()
@@ -119,7 +119,7 @@ class TestRecords(unittest.TestCase):
         data = NMFSizedEnvelope(b).getData()
         v = NMFSizedEnvelope(data=data)
         self.assertEqual(v['payload'], b)
-    
+
     def test_end_record(self):
         data = NMFEnd().getData()
         v = NMFEnd(data=data)
@@ -130,7 +130,7 @@ class TestRecords(unittest.TestCase):
         data = NMFFault(s).getData()
         v = NMFFault(data=data)
         self.assertEqual(v['fault'], s)
-    
+
     @given(s=text(max_size=0xffffffff))
     def test_upgrade_request_record_invariant(self, s):
         data = NMFUpgradeRequest(s).getData()
@@ -141,7 +141,7 @@ class TestRecords(unittest.TestCase):
         data = NMFUpgradeResponse().getData()
         v = NMFUpgradeResponse(data=data)
         self.assertEqual(v['record_type'], 0xA)
-    
+
     def test_preamble_end_record(self):
         data = NMFPreambleEnd().getData()
         v = NMFPreambleEnd(data=data)

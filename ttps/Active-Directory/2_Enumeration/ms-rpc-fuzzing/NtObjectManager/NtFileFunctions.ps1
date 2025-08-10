@@ -546,7 +546,7 @@ function Read-NtFile {
         }
     }
 
-    Write-Output $result 
+    Write-Output $result
 }
 
 <#
@@ -753,7 +753,7 @@ Specify the file directory to lock.
 .PARAMETER Offset
 The offset into the file to lock.
 .PARAMETER Length
-The length of the locked region. 
+The length of the locked region.
 .PARAMETER All
 Specify to lock the entire file.
 .PARAMETER Wait
@@ -817,7 +817,7 @@ Specify the file directory to unlock.
 .PARAMETER Offset
 The offset into the file to unlock.
 .PARAMETER Length
-The length of the unlocked region. 
+The length of the unlocked region.
 .PARAMETER All
 Specify to unlock the entire file.
 .INPUTS
@@ -946,7 +946,7 @@ None
 .OUTPUTS
 string
 .EXAMPLE
-Get-NtFile8dot3Path -Name 0123456789.config 
+Get-NtFile8dot3Path -Name 0123456789.config
 Generate a 8dot3 name from a full name.
 #>
 function Get-NtFile8dot3Name {

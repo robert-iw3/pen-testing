@@ -66,7 +66,7 @@ namespace Cable.Modules
                 {
                     DirectoryEntry mde = sr.GetDirectoryEntry();
                     int uac = (int)mde.Properties["useraccountcontrol"].Value;
-                    
+
                     if (type == "add")
                     {
                         Boolean hasASREP = (Boolean)((uac & 0x400000) != 0);

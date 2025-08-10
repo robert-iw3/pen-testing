@@ -19,7 +19,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Deletes a NT file object.</para>
-/// <para type="description">This cmdlet deletes a NT file object. The absolute path to the object in the NT object manager name space can be specified. 
+/// <para type="description">This cmdlet deletes a NT file object. The absolute path to the object in the NT object manager name space can be specified.
 /// It's also possible to open the object relative to an existing object by specified the -Root parameter. To simply calling it's also possible to specify the
 /// path in a Win32 format when using the -Win32Path parameter.</para>
 /// </summary>

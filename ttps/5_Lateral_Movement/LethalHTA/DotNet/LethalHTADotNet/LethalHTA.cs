@@ -52,7 +52,7 @@ namespace LethalHTADotNet
             }
             LethalHTA hta = new LethalHTA();
             hta.pwn(args[0], args[1]);
-            
+
         }
     }
 }

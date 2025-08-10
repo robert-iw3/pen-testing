@@ -38,8 +38,8 @@ internal class PSKerberosKDCProxy : KerberosKDCProxy
     /// <param name="handle_request">Script block to handle the request.</param>
     /// <param name="handle_reply">Script block to handle the reply.</param>
     /// <param name="handle_error">Script block to handle an error.</param>
-    public PSKerberosKDCProxy(IKerberosKDCServerListener listener, IKerberosKDCClientTransport client_transport, 
-        ScriptBlock handle_request, ScriptBlock handle_reply, ScriptBlock handle_error) 
+    public PSKerberosKDCProxy(IKerberosKDCServerListener listener, IKerberosKDCClientTransport client_transport,
+        ScriptBlock handle_request, ScriptBlock handle_reply, ScriptBlock handle_error)
         : base(listener, client_transport)
     {
         _handle_request = handle_request;

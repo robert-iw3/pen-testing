@@ -45,7 +45,7 @@ public class GetNtResourceManagerCmdlet : NtObjectBaseNoPathCmdletWithAccess<Res
     /// <summary>
     /// <para type="description">Specify the Transaction Manager containing the Resource Manager.</para>
     /// </summary>
-    [Parameter(Mandatory = true, Position = 1, ParameterSetName = "FromId"), 
+    [Parameter(Mandatory = true, Position = 1, ParameterSetName = "FromId"),
         Parameter(Mandatory = true, Position = 0, ParameterSetName = "All")]
     public NtTransactionManager TransactionManager { get; set; }
 

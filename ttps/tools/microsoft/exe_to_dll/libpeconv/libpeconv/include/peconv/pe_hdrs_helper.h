@@ -43,7 +43,7 @@ namespace peconv {
     bool update_image_size(IN OUT BYTE* payload, IN DWORD new_img_size);
 
     /**
-    Fetch architecture from the NT headers. Checks for bad pointers. 
+    Fetch architecture from the NT headers. Checks for bad pointers.
     */
     WORD get_nt_hdr_architecture(IN const BYTE *pe_buffer);
 
@@ -53,11 +53,11 @@ namespace peconv {
     bool is64bit(IN const BYTE *pe_buffer);
 
     /**
-    Fetch pointer to the NT headers of the PE file. 
+    Fetch pointer to the NT headers of the PE file.
     Checks for bad pointers. If buffer_size is set, validates pointers against the buffer size.
     */
     BYTE* get_nt_hdrs(
-        IN const BYTE *pe_buffer, 
+        IN const BYTE *pe_buffer,
         IN OPTIONAL size_t buffer_size=0 //if buffer_size=0 means size unknown
     );
 

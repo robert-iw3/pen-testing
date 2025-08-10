@@ -5,7 +5,7 @@
 
 
 extern __declspec(dllexport) int Go(void);
-int Go(void) 
+int Go(void)
 {
 	MessageBox( NULL, "Hello from exe !", "Hi!", MB_OK );
 
@@ -13,21 +13,21 @@ int Go(void)
 }
 
 extern __declspec(dllexport) int Gi(const char*, void* inst);
-int Gi(const char* str, void* inst) 
+int Gi(const char* str, void* inst)
 {
 	MessageBox( NULL, str, "Hi!", MB_OK );
 	return 0;
 }
 
 extern "C" __declspec(dllexport) int go();
-int go() 
+int go()
 {
 	MessageBox( NULL, "Hello from go", "Hi!", MB_OK );
 	return 0;
 }
 
 extern __declspec(dllexport) int Gu(void);
-int Gu(void) 
+int Gu(void)
 {
 
 	return 2;

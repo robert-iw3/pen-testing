@@ -25,7 +25,7 @@ DWORD64 GetEtwThreatInt_ProviderEnableInfoAddress(BOOL verbose) {
         _tprintf_or_not(TEXT("[+] [ETWTI]\tFound ETW Threat Intel provider _ETW_REG_ENTRY at 0x%I64x\n"), etwThreatInt_ETW_REG_ENTRYAddress);
     }
     DWORD64 etwThreatInt_ETW_GUID_ENTRYAddress = ReadMemoryDWORD64(etwThreatInt_ETW_REG_ENTRYAddress + g_ntoskrnlOffsets.st.etwRegEntry_GuidEntry);
-    
+
     return etwThreatInt_ETW_GUID_ENTRYAddress + g_ntoskrnlOffsets.st.etwGuidEntry_ProviderEnableInfo;
 }
 
@@ -59,7 +59,7 @@ BOOL isETWThreatIntelProviderEnabled(BOOL verbose) {
     if (etwThreatInt_ProviderEnableInfoAddress == 0x0) {
         return FALSE;
     }
-    
+
     BYTE etwThreatInt_ProviderEnableInfoValue = ReadMemoryBYTE(etwThreatInt_ProviderEnableInfoAddress);
 
     return etwThreatInt_ProviderEnableInfoValue == ENABLE_PROVIDER;

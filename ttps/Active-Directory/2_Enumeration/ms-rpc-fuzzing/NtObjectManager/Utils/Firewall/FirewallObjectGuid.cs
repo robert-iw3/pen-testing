@@ -43,7 +43,7 @@ public abstract class FirewallObjectGuid
         Id = id;
     }
 
-    private protected FirewallObjectGuid(string name, Func<string, Guid> func) 
+    private protected FirewallObjectGuid(string name, Func<string, Guid> func)
         : this(GetGuidForName(name, func))
     {
     }

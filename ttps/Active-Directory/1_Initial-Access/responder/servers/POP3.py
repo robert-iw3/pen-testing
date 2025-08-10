@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -44,11 +44,11 @@ class POP3(BaseRequestHandler):
 				Pass = data[5:].strip(b"\r\n").decode("latin-1")
 
 				SaveToDb({
-					'module': 'POP3', 
-					'type': 'Cleartext', 
-					'client': self.client_address[0], 
-					'user': User, 
-					'cleartext': Pass, 
+					'module': 'POP3',
+					'type': 'Cleartext',
+					'client': self.client_address[0],
+					'user': User,
+					'cleartext': Pass,
 					'fullhash': User+":"+Pass,
 				})
 			self.SendPacketAndRead()

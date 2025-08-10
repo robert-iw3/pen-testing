@@ -347,19 +347,19 @@ void InstallService()
     }
 
     SC_HANDLE schService = CreateServiceW(
-        schSCManager,              // SCM database 
-        SERVICE_NAME,              // service name 
-        SERVICE_NAME,              // display name 
-        SERVICE_ALL_ACCESS,        // desired access 
-        SERVICE_WIN32_OWN_PROCESS, // service type 
-        SERVICE_DEMAND_START,      // start type 
-        SERVICE_ERROR_NORMAL,      // error control type 
-        szPath,                    // path to the service binary 
-        NULL,                      // no load ordering group 
-        NULL,                      // no tag identifier 
-        NULL,                      // no dependencies 
-        NULL,                      // LocalSystem account 
-        NULL                       // no password 
+        schSCManager,              // SCM database
+        SERVICE_NAME,              // service name
+        SERVICE_NAME,              // display name
+        SERVICE_ALL_ACCESS,        // desired access
+        SERVICE_WIN32_OWN_PROCESS, // service type
+        SERVICE_DEMAND_START,      // start type
+        SERVICE_ERROR_NORMAL,      // error control type
+        szPath,                    // path to the service binary
+        NULL,                      // no load ordering group
+        NULL,                      // no tag identifier
+        NULL,                      // no dependencies
+        NULL,                      // LocalSystem account
+        NULL                       // no password
     );
 
     if (schService == NULL)

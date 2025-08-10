@@ -55,7 +55,7 @@ public sealed class ProcessTokenInformation : TokenInformation
         return $"{base.ToString()} {ProcessName}:{ProcessId}";
     }
 
-    internal ProcessTokenInformation(NtToken token, NtProcess process) 
+    internal ProcessTokenInformation(NtToken token, NtProcess process)
         : base(token, process)
     {
         ProcessId = process.ProcessId;

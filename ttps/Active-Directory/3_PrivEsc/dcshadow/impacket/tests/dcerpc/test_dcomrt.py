@@ -204,7 +204,7 @@ class DCOMConnectionTests(RemoteTestCase, unittest.TestCase):
         iInterface = dcom.CoCreateInstanceEx(comev.CLSID_EventSystem, comev.IID_IEventSystem)
 
         #scm = dcomrt.IRemoteSCMActivator(dce)
-        
+
         #iInterface = scm.RemoteCreateInstance(comev.CLSID_EventSystem, comev.IID_IEventSystem)
         #iInterface = scm.RemoteCreateInstance(comev.CLSID_EventSystem,oaut.IID_IDispatch)
         iDispatch = oaut.IDispatch(iInterface)  # noqa
@@ -265,13 +265,13 @@ class DCOMConnectionTests(RemoteTestCase, unittest.TestCase):
             ev = iUnknown.RemQueryInterface(1, (comev.IID_IEventClass2,))
             ev = comev.IEventClass2(ev)
 
-            ev.get_EventClassID() 
-            #ev.get_EventClassName() 
-            #ev.get_OwnerSID() 
-            #ev.get_FiringInterfaceID() 
-            #ev.get_Description() 
+            ev.get_EventClassID()
+            #ev.get_EventClassName()
+            #ev.get_OwnerSID()
+            #ev.get_FiringInterfaceID()
+            #ev.get_Description()
             #try:
-            #    ev.get_TypeLib() 
+            #    ev.get_TypeLib()
             #except:
             #    pass
 

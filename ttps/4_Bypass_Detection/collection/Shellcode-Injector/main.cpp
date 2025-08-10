@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
     if (!STATUS == STATUS_SUCCESS) {
         return EXIT_FAILURE;
     }
-    
+
     //allocate memory inside of the process
     STATUS = AVM(pH, &bA, 0, &rS, 0x00001000 | 0x00002000, 0x40);
     if (!STATUS == STATUS_SUCCESS) {

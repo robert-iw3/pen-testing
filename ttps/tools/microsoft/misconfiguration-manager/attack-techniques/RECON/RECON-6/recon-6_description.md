@@ -14,7 +14,7 @@ When a primary site server is installed, an entry of  "SOFTWARE\Microsoft\SMS" i
 
 This security setting determines which registry paths and sub-paths can be accessed over the network, regardless of the users or groups listed in the access control list (ACL) of the winreg registry key.
 
-This registry key and sub keys contain information about the current site server and other site servers within the hierarchy. Enumerating this registry key and sub keys on a primary site server and distribution point contributes to attack path discovery. 
+This registry key and sub keys contain information about the current site server and other site servers within the hierarchy. Enumerating this registry key and sub keys on a primary site server and distribution point contributes to attack path discovery.
 
 ## Impact
 1. Profiling site system roles is a supplementary step in building potential attack paths
@@ -23,7 +23,7 @@ This registry key and sub keys contain information about the current site server
 4. A resolved MP role can be a target for spoofing client enrollment [CRED-2](../../CRED/CRED-2/cred-2_description.md)
 5. A resolved MP site system role can be used to elevate privileges via credential relay attacks [ELEVATE-1](../../ELEVATE/ELEVATE-1/ELEVATE-1_description.md)
 6. A resolved Site Database role can be a target for lateral movement or privilege escalation detailed in [TAKEOVER-1](https://github.com/subat0mik/Misconfiguration-Manager/blob/main/attack-techniques/TAKEOVER/TAKEOVER-1/takeover-1_description.md)
- 
+
 ## Defensive IDs
 - [DETECT-8: Monitor connections to winreg named pipe](../../../defense-techniques/DETECT/DETECT-8/detect-8_description.md)
 - [PREVENT-20: Block unnecessary connections to site systems](../../../defense-techniques/PREVENT/PREVENT-20/prevent-20_description.md)

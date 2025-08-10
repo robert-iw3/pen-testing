@@ -278,7 +278,7 @@ if __name__ == '__main__':
     class SmartFormatter(argparse.HelpFormatter):
         def _split_lines(self, text, width):
             if text.startswith('R|'):
-                return text[2:].splitlines()  
+                return text[2:].splitlines()
             else:
                 return argparse.HelpFormatter._split_lines(self, text, width)
 
@@ -318,7 +318,7 @@ if __name__ == '__main__':
     if len(sys.argv)==1:
         parser.print_help()
         sys.exit(1)
- 
+
     options = parser.parse_args()
 
     if options.debug is True:

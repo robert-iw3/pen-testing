@@ -1,4 +1,4 @@
-# Socks Server. handles socks 4/5 proxies. 
+# Socks Server. handles socks 4/5 proxies.
 # modification from: https://github.com/p3nt4/Invoke-SocksProxy/blob/master/ReverseSocksProxyHandler.py
 
 ############################## LOADS DEPENDENCIES #############################
@@ -15,7 +15,7 @@ def main(handlerPort, proxyPort, certificate, privateKey):
     # proxyPort   - the port that we will be taking in proxy traffic from attacker machines
     # certificate - what we will use to encrypt the TLS traffic
     # privateKey  - also used for TLS traffic
-    
+
 
     # starts a new thread, running the server function with the specified args
     _thread.start_new_thread(server, (handlerPort, proxyPort, certificate, privateKey))
@@ -41,7 +41,7 @@ def handler_server(q, handlerPort, certificate, privateKey):
 
         while True:
             try:
-                
+
                 # accepts connections coming in
                 clear_socket, address = dock_socket.accept()
                 client_socket = context.wrap_socket(clear_socket, server_side=True)
@@ -53,10 +53,10 @@ def handler_server(q, handlerPort, certificate, privateKey):
                     while (data.count(b'\n') < 3):
                         data_recv = client_socket.recv()
                         data += data_recv
-                    
+
                     client_socket.send(
                         b"HTTP/1.1 200 OK\nContent-Length: 999999\nContent-Type: text/plain\nConnection: Keep-Alive\nKeep-Alive: timeout=20, max=10000\n\n")
-                    
+
                     q.get(False)
                 except Exception as e:
                     pass
@@ -111,7 +111,7 @@ def server(handlerPort, proxyPort, certificate, privateKey):
                 client_socket2, address = dock_socket2.accept()
                 print('Client Connection Recs')
                 print("Socks Connection Received: {}:{}".format(address[0], address[1]))
-                
+
                 # attempts to send our HELLO message to whoever connects
                 client_socket = get_active_connection(q)
                 # if we have a reverse socks connection

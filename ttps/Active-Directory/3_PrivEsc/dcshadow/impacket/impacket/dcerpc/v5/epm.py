@@ -904,8 +904,8 @@ RPC_C_VERS_EXACT      = 0x3
 RPC_C_VERS_MARJOR_ONLY= 0x4
 RPC_C_VERS_UPTO       = 0x5
 
-# Search 
-RPC_NO_MORE_ELEMENTS  = 0x16c9a0d6 
+# Search
+RPC_NO_MORE_ELEMENTS  = 0x16c9a0d6
 
 # Floors constants
 FLOOR_UUID_IDENTIFIER = 0x0d
@@ -927,24 +927,24 @@ FLOOR_HTTP_IDENTIFIER  = 0x1f
 
 # Tower Floors: As states in C706:
 # This appendix defines the rules for encoding an protocol_tower_t (abstract)
-# into the twr_t.tower_octet_string and twr_p_t->tower_octet_string fields 
-# (concrete). For historical reasons, this cannot be done using the standard NDR 
-# encoding rules for marshalling and unmarshalling. A special encoding is 
+# into the twr_t.tower_octet_string and twr_p_t->tower_octet_string fields
+# (concrete). For historical reasons, this cannot be done using the standard NDR
+# encoding rules for marshalling and unmarshalling. A special encoding is
 # required.
-# Note that the twr_t and twr_p_t are mashalled as standard IDL data types, 
-# encoded in the standard transfer syntax (for example, NDR). As far as IDL and 
-# NDR are concerned, tower_octet_string is simply an opaque conformant byte 
-# array. This section only defines how to construct this opaque open array of 
+# Note that the twr_t and twr_p_t are mashalled as standard IDL data types,
+# encoded in the standard transfer syntax (for example, NDR). As far as IDL and
+# NDR are concerned, tower_octet_string is simply an opaque conformant byte
+# array. This section only defines how to construct this opaque open array of
 # octets, which contains the actual protocol tower information.
-# The tower_octet_string[ ] is a variable length array of octets that encodes 
+# The tower_octet_string[ ] is a variable length array of octets that encodes
 # a single, complete protocol tower. It is encoded as follows:
 # * Addresses increase, reading from left to right.
-# * Each tower_octet_string begins with a 2-byte floor count, encoded 
+# * Each tower_octet_string begins with a 2-byte floor count, encoded
 #   little-endian, followed by the tower floors as follows:
-# +-------------+---------+---------+---------+---------+---------+ 
-# |  floorcount |  floor1 |  floor2 |  floor3 |   ...   |  floorn | 
 # +-------------+---------+---------+---------+---------+---------+
-# The number of tower floors is specific to the particular protocol tower, 
+# |  floorcount |  floor1 |  floor2 |  floor3 |   ...   |  floorn |
+# +-------------+---------+---------+---------+---------+---------+
+# The number of tower floors is specific to the particular protocol tower,
 # also known as a protseq.
 # * Eachtowerfloorcontainsthefollowing:
 #   |<-   tower floor left hand side   ->|<-  tower floor right hand side  ->|
@@ -954,10 +954,10 @@ FLOOR_HTTP_IDENTIFIER  = 0x1f
 #   +------------+-----------------------+------------+----------------------+
 # The LHS (Left Hand Side) of the floor contains protocol identifier information.
 # Protocol identifier values and construction rules are defined in Appendix I.
-# The RHS (Right Hand Side) of the floor contains related or addressing 
-# information. The type and encoding for the currently defined protocol 
+# The RHS (Right Hand Side) of the floor contains related or addressing
+# information. The type and encoding for the currently defined protocol
 # identifiers are given in Appendix I.
-# The floor count, LHS byte count and RHS byte count are all 2-bytes, 
+# The floor count, LHS byte count and RHS byte count are all 2-bytes,
 # in little endian format.
 #
 # So.. we're gonna use Structure to solve this
@@ -971,7 +971,7 @@ class EPMFloor(Structure):
         ('RHSByteCount','<H=0'),
         ('_RelatedData','_-RelatedData','self["RHSByteCount"]'),
         ('RelatedData',':'),
-    ) 
+    )
 
 class EPMRPCInterface(EPMFloor):
     structure = (
@@ -1056,7 +1056,7 @@ class EPMPortAddr(EPMFloor):
         ('IpPort','>H=0'),
     )
 
-EPMFloors = [ 
+EPMFloors = [
 EPMRPCInterface,
 EPMRPCDataRepresentation,
 EPMFloor,
@@ -1077,13 +1077,13 @@ class EPMTower(Structure):
         for f in range(self['NumberOfFloors']):
             floor = EPMFloors[f](floors)
             floors = floors[len(floor):]
-            fList.append(floor) 
+            fList.append(floor)
         self['Floors'] = fList
 
     #def __len__(self):
     #   ll = 0
     #   for i in self['Floors']:
-    #       ll += len(i) 
+    #       ll += len(i)
     #   ll += 10
     #   ll += (4-ll%4) & 3
     #   return ll

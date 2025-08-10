@@ -39,10 +39,10 @@ public class EventTraceAccessCheckResult : CommonAccessCheckResult
     /// </summary>
     public EventTraceProvider Provider { get; }
 
-    internal EventTraceAccessCheckResult(EventTraceProvider provider, 
+    internal EventTraceAccessCheckResult(EventTraceProvider provider,
         NtType type, AccessMask granted_access,
         SecurityDescriptor sd, TokenInformation token_info)
-        : base(string.IsNullOrEmpty(provider.Name) ? provider.Id.ToString() : provider.Name, 
+        : base(string.IsNullOrEmpty(provider.Name) ? provider.Id.ToString() : provider.Name,
               type.Name, granted_access,
                 type.GenericMapping, sd,
                 type.AccessRightsType, false, token_info)

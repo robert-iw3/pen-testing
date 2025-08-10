@@ -171,7 +171,7 @@ class PSEXEC:
                     logging.critical(str(e))
                     sys.exit(1)
                 installService = serviceinstall.ServiceInstall(rpctransport.get_smb_connection(), f)
-    
+
             installService.install()
 
             if self.__exeFile is not None:
@@ -216,7 +216,7 @@ class PSEXEC:
                                            r'\%s%s%d' % (RemComSTDERR, packet['Machine'], packet['ProcessID']),
                                            smb.FILE_READ_DATA)
             stderr_pipe.start()
-            
+
             # And we stay here till the end
             ans = s.readNamedPipe(tid,fid_main,8)
 
@@ -285,7 +285,7 @@ class Pipes(Thread):
             user, passwd, domain, lm, nt, aesKey, TGT, TGS = self.credentials
             self.server.login(user, passwd, domain, lm, nt)
             lock.release()
-            self.tid = self.server.connectTree('IPC$') 
+            self.tid = self.server.connectTree('IPC$')
 
             self.server.waitNamedPipe(self.tid, self.pipe)
             self.fid = self.server.openFile(self.tid,self.pipe,self.permissions, creationOption = 0x40, fileAttributes = 0x80)
@@ -363,7 +363,7 @@ class RemoteShell(cmd.Cmd):
  lcd {path}                 - changes the current local directory to {path}
  exit                       - terminates the server process (and this session)
  put {src_file, dst_path}   - uploads a local file to the dst_path RELATIVE to the connected share (%s)
- get {file}                 - downloads pathname RELATIVE to the connected share (%s) to the current local dir 
+ get {file}                 - downloads pathname RELATIVE to the connected share (%s) to the current local dir
  ! {cmd}                    - executes a local shell cmd
 """ % (self.share, self.share))
         self.send_data('\r\n', False)
@@ -388,7 +388,7 @@ class RemoteShell(cmd.Cmd):
             pass
 
         self.send_data('\r\n')
- 
+
     def do_put(self, s):
         try:
             if self.transferClient is None:
@@ -1287,7 +1287,7 @@ if __name__ == '__main__':
         print("\tThis will save the final goldenTicket generated in the ccache target file")
         print("\tpython raiseChild.py -w ccache childDomain.net/adminuser\n")
         sys.exit(1)
- 
+
     options = parser.parse_args()
 
     # Init the example's logger theme

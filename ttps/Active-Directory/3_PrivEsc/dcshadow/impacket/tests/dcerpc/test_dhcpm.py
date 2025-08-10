@@ -145,7 +145,7 @@ class DHCPMTestsTCPTransport64(DHCPMTests, unittest.TestCase):
     iface_uuid = dhcpm.MSRPC_UUID_DHCPSRV2
     string_binding_formatting = DCERPCTests.STRING_BINDING_MAPPER
     transfer_syntax = DCERPCTests.TRANSFER_SYNTAX_NDR64
-    
+
     @pytest.mark.xfail(reason="NDRUNION without fields as in DhcpSubnetOptions is not implemented with NDR64")
     def test_hDhcpGetOptionValueV5(self):
         super(DHCPMTestsTCPTransport64, self).test_hDhcpGetOptionValueV5()

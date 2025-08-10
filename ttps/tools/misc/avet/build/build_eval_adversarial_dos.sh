@@ -30,7 +30,7 @@ do
 
     # cleanup
     rm output/$(basename "$f")
-    # cleanup_techniques 
+    # cleanup_techniques
     ) &
 done
 

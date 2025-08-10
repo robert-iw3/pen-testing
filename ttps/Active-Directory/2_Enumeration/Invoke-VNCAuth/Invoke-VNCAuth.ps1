@@ -25,14 +25,14 @@ Write-Host
 Write-Host
 
 $Banner = @'
-  _____                 _         __      ___   _  _____               _   _     
- |_   _|               | |        \ \    / / \ | |/ ____|   /\        | | | |    
-   | |  _ ____   _____ | | _____   \ \  / /|  \| | |       /  \  _   _| |_| |__  
-   | | | '_ \ \ / / _ \| |/ / _ \   \ \/ / | . ` | |      / /\ \| | | | __| '_ \ 
+  _____                 _         __      ___   _  _____               _   _
+ |_   _|               | |        \ \    / / \ | |/ ____|   /\        | | | |
+   | |  _ ____   _____ | | _____   \ \  / /|  \| | |       /  \  _   _| |_| |__
+   | | | '_ \ \ / / _ \| |/ / _ \   \ \/ / | . ` | |      / /\ \| | | | __| '_ \
   _| |_| | | \ V / (_) |   <  __/    \  /  | |\  | |____ / ____ \ |_| | |_| | | |
  |_____|_| |_|\_/ \___/|_|\_\___|     \/   |_| \_|\_____/_/    \_\__,_|\__|_| |_|
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-                                                                                                                       
+
+
 '@
 
 Write-Output $Banner
@@ -46,12 +46,12 @@ function Get-IPRange {
     param (
         [string]$CIDR
     )
-    
+
     $ErrorActionPreference = "Stop"
     try {
         # Extract the base IP and subnet mask from the CIDR notation
         $baseIP, $prefixLength = $CIDR -split "/"
-        
+
         # Ensure the base IP and prefix length are valid
         if(-not ($baseIP -match "^(\d{1,3}\.){3}\d{1,3}$") -or -not ($prefixLength -match "^\d+$")) {
             throw "Invalid CIDR format. Ensure you use the format: xxx.xxx.xxx.xxx/yy"
@@ -59,12 +59,12 @@ function Get-IPRange {
 
         # Calculate the number of IP addresses in the range
         $ipCount = [math]::Pow(2, (32 - [int]$prefixLength))
-        
+
         # Convert the base IP to a decimal number
         $ipBytes = [System.Net.IPAddress]::Parse($baseIP).GetAddressBytes()
         [Array]::Reverse($ipBytes)
         $ipDecimal = [BitConverter]::ToUInt32($ipBytes, 0)
-        
+
         # Generate all IP addresses within the range
         $ipAddresses = 0..($ipCount - 1) | ForEach-Object {
             $currentIPDecimal = $ipDecimal + $_
@@ -72,7 +72,7 @@ function Get-IPRange {
             [Array]::Reverse($currentIPBytes)
             "$($currentIPBytes[0]).$($currentIPBytes[1]).$($currentIPBytes[2]).$($currentIPBytes[3])"
         }
-        
+
         return $ipAddresses
     }
     catch {
@@ -134,13 +134,13 @@ if ($Targets -is [string]) {
         break
     }
     else {
-        
+
         if ($Targets -notlike "*.*") {
             $Targets = $Targets + "." + $Domain
         }
-        
+
         $computers = $searcher.FindAll() | Where-Object { $_.Properties["dnshostname"][0] -in $Targets }
-            
+
             }
         }
     }
@@ -161,9 +161,9 @@ $scriptBlock = {
 
       $tcpClient = New-Object System.Net.Sockets.TcpClient
     $asyncResult = $tcpClient.BeginConnect($ComputerName, $Port, $null, $null)
-    $wait = $asyncResult.AsyncWaitHandle.WaitOne(50) 
+    $wait = $asyncResult.AsyncWaitHandle.WaitOne(50)
 
-    if ($wait) { 
+    if ($wait) {
         try {
             $tcpClient.EndConnect($asyncResult)
             $connected = $true
@@ -193,13 +193,13 @@ function VNC-NoAuth {
     try {
         $networkStream = $tcpClient.GetStream()
         $networkStream.ReadTimeout = 50
-        
+
         # Reading Version from Server
         $buffer = New-Object byte[] 12
         $read = $networkStream.Read($buffer, 0, 12)
         if ($read -eq 0) { throw "No data received from the server" }
         $serverVersionMessage = [System.Text.Encoding]::ASCII.GetString($buffer, 0, $read)
-        
+
         # Sending Client Version
         $buffer = [System.Text.Encoding]::ASCII.GetBytes($serverVersionMessage)
         $networkStream.Write($buffer, 0, $buffer.Length)
@@ -264,7 +264,7 @@ function Display-ComputerStatus {
 
     # Resolve the FQDN
     $DnsName = Get-FQDNDotNet -IPAddress $ComputerName
-    
+
     # Prefix
     Write-Host "VNC " -ForegroundColor Yellow -NoNewline
     Write-Host "   " -NoNewline
@@ -274,7 +274,7 @@ function Display-ComputerStatus {
     Write-Host ("{0,20}" -f $DnsName) -NoNewline
     Write-Host "   " -NoNewline
 
-    
+
     # Display status symbol and text
     Write-Host $statusSymbol -ForegroundColor $statusColor -NoNewline
     Write-Host $statusText
@@ -299,16 +299,16 @@ function Display-ComputerStatus {
 
           # Attempt to resolve the IP address
         $IP = $null
-        $Ping = New-Object System.Net.NetworkInformation.Ping 
+        $Ping = New-Object System.Net.NetworkInformation.Ping
         $Result = $Ping.Send($ComputerName, 10)
 
         if ($Result.Status -eq 'Success') {
             $IP = $Result.Address.IPAddressToString
             Write-Host ("{0,-16}" -f $IP) -NoNewline
         }
-    
+
         else {Write-Host ("{0,-16}" -f $IP) -NoNewline}
-    
+
     # Display ComputerName and OS
     Write-Host ("{0,-$NameLength}" -f $ComputerName) -NoNewline
     Write-Host "   " -NoNewline
@@ -333,7 +333,7 @@ foreach ($computer in $computers) {
     if ($CIDRorIP -eq $True){
     $ComputerName = $Computer
     }
-    
+
     $runspace = [powershell]::Create().AddScript($scriptBlock).AddArgument($ComputerName).AddArgument($Port)
     $runspace.RunspacePool = $runspacePool
 
@@ -351,7 +351,7 @@ $FoundResults = $False
 # Poll the runspaces and display results as they complete
 do {
     foreach ($runspace in $runspaces | Where-Object { -not $_.Completed }) {
-        
+
         if ($runspace.Handle.IsCompleted) {
             $runspace.Completed = $true
             $result = $runspace.Runspace.EndInvoke($runspace.Handle)
@@ -360,18 +360,18 @@ do {
                     if ($successOnly) { continue }
                         Display-ComputerStatus -ComputerName $($runspace.ComputerName) -OS $($runspace.OS) -statusColor Red -statusSymbol "[-] " -statusText "AUTH REQUIRED" -NameLength $NameLength -OSLength $OSLength
                             continue
-            } 
+            }
 
                 if ($result -eq "Handshake Error") {
                     if ($successOnly) { continue }
                         Display-ComputerStatus -ComputerName $($runspace.ComputerName) -OS $($runspace.OS) -statusColor "Yellow" -statusSymbol "[*] " -statusText "HANDSHAKE ERROR" -NameLength $NameLength -OSLength $OSLength
                             continue
-            } 
+            }
                 elseif ($result -eq "Supported") {
                     Display-ComputerStatus -ComputerName $($runspace.ComputerName) -OS $($runspace.OS) -statusColor Green -statusSymbol "[+] " -statusText "AUTH NOT REQUIRED" -NameLength $NameLength -OSLength $OSLength
                         try {$($runspace.ComputerName) | Out-File -FilePath $CurrentDirectory -Encoding "ASCII" -Append} Catch {}
                             $FoundResults = $True
-            } 
+            }
 
              # Dispose of runspace and close handle
             $runspace.Runspace.Dispose()

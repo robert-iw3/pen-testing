@@ -11,7 +11,7 @@ Sub DownloadDNS
 		if chunk <> "" Then
 			chunks = chunks & chunk
 			i = i + 1
-		Else			
+		Else
 			endLoop = True
 		End If
     Loop
@@ -43,7 +43,7 @@ Function DecodeBase64(data, fileName)
 	oNode.text = data
 	Const adTypeText = 2
 	Const adTypeBinary = 1
-	
+
 	Set objFSO = CreateObject("Scripting.FileSystemObject")
 	Set objFile = objFSO.CreateTextFile(outputFile)
 	objFile.Write(RSBinaryToString(oNode.nodeTypedValue))
@@ -73,10 +73,10 @@ Private Function RSBinaryToString(xBinary)
         RS.Fields.Append "mBinary", adLongVarChar, LBinary
         RS.Open
         RS.AddNew
-        RS("mBinary").AppendChunk Binary 
+        RS("mBinary").AppendChunk Binary
         RS.Update
         RSBinaryToString = RS("mBinary")
-    Else  
+    Else
         RSBinaryToString = ""
     End If
 End Function

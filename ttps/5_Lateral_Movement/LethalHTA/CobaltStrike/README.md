@@ -2,7 +2,7 @@
 
 The CobaltStrike Aggressor Script *lethalhta.cna* provides two lateral-movement options that use the LethalHTA attack vector.
 
- * *HTA PowerShell Delivery (staged - x86)* and 
+ * *HTA PowerShell Delivery (staged - x86)* and
  * *HTA .NET In-Memory Delivery (stageless - x86/x64 dynamic)*
 
 ![LethalHTA Menu](./figures/lethalhta-menu.png)

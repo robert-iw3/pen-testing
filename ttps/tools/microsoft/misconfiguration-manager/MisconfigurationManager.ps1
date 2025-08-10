@@ -88,7 +88,7 @@ if ($VerbosePreference) {
 }
 else {
     $VerbosePreference = 'SilentlyContinue'
-    $WarningPreference = 'SilentlyContinue'    
+    $WarningPreference = 'SilentlyContinue'
 }
 
 # Display help text
@@ -110,7 +110,7 @@ function Check-AccountIsLocalAdmin {
     try {
         $scriptBlock = {
             param($AccountName, $ComputerName)
-            Get-WmiObject Win32_GroupUser -ComputerName $ComputerName | 
+            Get-WmiObject Win32_GroupUser -ComputerName $ComputerName |
             Where-Object { $_.GroupComponent -like '*"Administrators"' } |
             Where-Object { $_.PartComponent -like "*`"$using:AccountName`"*" } |
             ForEach-Object { $_.PartComponent } |
@@ -127,7 +127,7 @@ function Check-AccountIsLocalAdmin {
         # Check timed out
         elseif ($matchingAdminAccounts -like "*timed out*") {
             return "Check for local Administrators group members timed out after $Timeout seconds"
-        } 
+        }
 
         # Check succeeded but no matches
         else {
@@ -153,15 +153,15 @@ function Check-IssueStatus {
 
     if ($System.Value.IssuesToCheck -contains $Issue) {
 
-        $message = 
-        if ($PreventingCondition) { 
+        $message =
+        if ($PreventingCondition) {
             $PreventingMessage
             $System.Value.IssuesToCheck = $System.Value.IssuesToCheck | Where-Object { $_ -ne $Issue }
         }
         elseif ($LikelyCondition) {
             $LikelyMessage
-        } 
-        else { 
+        }
+        else {
             $FailedCheckMessage
         }
         $System.Value.Output += "$RolePrefix    $message`n"
@@ -264,13 +264,13 @@ function Get-SiteHierarchy {
     $filter = if ($ParentSiteCode) { "ParentSiteCode = '$ParentSiteCode'" } else { "ParentSiteCode = ''" }
     Write-Verbose "Querying $($Namespace).SMS_SCI_SiteDefinition for the list of sites with parent: $ParentSiteCode"
 
-    $scriptBlock = { 
+    $scriptBlock = {
         param($Namespace, $Filter, $SMSProvider)
         return Get-WmiObject -Namespace $Namespace -Class SMS_SCI_SiteDefinition -Filter $Filter -ComputerName $SMSProvider
     }
 
     $sites = Run-Script -ScriptBlock $scriptBlock -ArgumentList $Namespace, $filter, $SMSProvider -TimeoutSeconds $Timeout
-        
+
     # Exit loop if job times out or isn't completed
     if ($sites) {
         if ($sites -like "*timed out*") {
@@ -284,7 +284,7 @@ function Get-SiteHierarchy {
     }
 
     foreach ($site in $sites) {
-        
+
         Write-Verbose ("Gathering data for site: {0} ({1})" -f $site.SiteName, $site.SiteCode)
 
         $currentSite = @{
@@ -317,7 +317,7 @@ function Get-SiteHierarchy {
         if ($currentSite.Type -eq 2) {
             Get-SitePushSettings -Namespace $namespace -Site $currentSite -ComputerName $SMSProvider
         }
-        
+
         # Add the site to the list of sites
         $siteHierarchy += $currentSite
 
@@ -336,8 +336,8 @@ function Get-SiteNamespace {
     Write-Verbose "Looking for site namespace in root\SMS on $SMSProvider"
     try {
         $namespaces = Get-WmiObject -Namespace "root\SMS" -Class "__NAMESPACE" -ComputerName $SMSProvider -ErrorAction Stop
-    } 
-    
+    }
+
     catch {
         Write-Warning "Could not find root\SMS namespace. Is $SMSProvider an SMS Provider?"
         exit
@@ -414,7 +414,7 @@ function Get-SitePushSettings {
             $result = Get-WmiObject -Namespace $Namespace -Query $queryClientPushTargets -ComputerName $ComputerName
             if ($result) {
                 Write-Warning "    Install client software on the following computers:"
-                $Site.ClientPushTargets = 
+                $Site.ClientPushTargets =
                 switch ($result.Value) {
                     0 { "        Workstations and Servers (including domain controllers)" }
                     1 { "        Servers only (including domain controllers)" }
@@ -441,7 +441,7 @@ function Get-SitePushSettings {
             }
             else {
                 Write-Warning "    No client push installation accounts were configured, but the server may still use its machine account"
-                
+
             }
 
             # Always add the site server computer account to client installation accounts
@@ -500,7 +500,7 @@ function Get-SiteSystems {
             "WebClientStatus"    = $null
         }
 
-        foreach ($role in $siteSystem.Group) {                       
+        foreach ($role in $siteSystem.Group) {
             $currentSiteSystem.SiteSystemRoles += $role.RoleName
             Write-Verbose "    $($role.RoleName)"
         }
@@ -511,7 +511,7 @@ function Get-SiteSystems {
 
         if ($currentSiteSystem.IsRemote) {
 
-            foreach ($role in $siteSystem.Group) {   
+            foreach ($role in $siteSystem.Group) {
 
                 if ($role.RoleName -eq "SMS SQL Server" -and $Site.Type -ne 1) {
                     $currentSiteSystem.IssuesToCheck += "TAKEOVER-1", "TAKEOVER-2"
@@ -524,21 +524,21 @@ function Get-SiteSystems {
                     $currentSiteSystem.EPARequired = Get-SiteDatabaseEPA -ComputerName $currentSiteSystem.Name
 
                     if ($currentSiteSystem.EPARequired -eq 2) {
-                        Write-Verbose "        EPA required: True" 
+                        Write-Verbose "        EPA required: True"
                     }
                     elseif ($currentSiteSystem.EPARequired -lt 2) {
-                        Write-Warning "        EPA required: False (TAKEOVER-1 likely!)" 
+                        Write-Warning "        EPA required: False (TAKEOVER-1 likely!)"
                     }
-                    else { 
+                    else {
                         Write-Warning "        $($currentSiteSystem.EPARequired) (check TAKEOVER-1 manually)"
                     }
                 }
-                
-                elseif ($role.RoleName -eq "SMS Provider") { 
+
+                elseif ($role.RoleName -eq "SMS Provider") {
                     $currentSiteSystem.IssuesToCheck += "TAKEOVER-5", "TAKEOVER-6"
 
                     # TAKEOVER-5 cannot be prevented on the relay target because AdminService does not support EPA
-                    
+
                     # TAKEOVER-6
                     if ($currentSiteSystem.SMBSigningRequired -eq 1) {
                         $currentSiteSystem.IssuesToCheck = $currentSiteSystem.IssuesToCheck | Where-Object { $_ -ne "TAKEOVER-6" }
@@ -568,8 +568,8 @@ function Get-SiteSystems {
                     $currentSiteSystem.IssuesToCheck += "TAKEOVER-7"
                     Write-Verbose "    This system is a passive site server"
                     Print-SMBSigningStatus -CurrentSiteSystem $currentSiteSystem -Issue "TAKEOVER-7"
-                } 
-                
+                }
+
                 # Print the SMB signing status even if no attack techniques are detected
                 else {
                     if ($currentSiteSystem.SMBSigningRequired -eq 1) {
@@ -607,12 +607,12 @@ function Get-SiteSystems {
                 $currentSiteSystem.IssuesToCheck += "ELEVATE-1"
                 Print-SMBSigningStatus -CurrentSiteSystem $currentSiteSystem -Issue "ELEVATE-1"
             }
-            
+
             # Get site server computer account name from CAS, which should be processed first
-            if ($Site.Value.Type -eq 4) { 
+            if ($Site.Value.Type -eq 4) {
                 $Global:casComputerAccount = "$($Site.Value.SiteServerName.Split('.')[0])$"
             }
-            
+
             # TAKEOVER-4 Check whether the CAS computer account is a local admin on primary site servers
             elseif ($Site.Value.Type -eq 2 -and $Global:casComputerAccount) {
                 $currentSiteSystem.IssuesToCheck += "TAKEOVER-4"
@@ -665,7 +665,7 @@ function Get-SMBSigningRequirement {
 
     $subKeyPath = "System\CurrentControlSet\Services\LanManServer\Parameters\"
     $valueName = "RequireSecuritySignature"
-    
+
     $scriptBlock = {
         param($functionString, $computerName, $subKeyPath, $valueName)
 
@@ -746,11 +746,11 @@ function Print-SiteStructure {
         }
         # This is a descendent site
         else {
-            $Indent.Substring(0, $Indent.Length - 4) + "     │" 
+            $Indent.Substring(0, $Indent.Length - 4) + "     │"
         }
 
         Write-Host "$siteIndent$siteDetails`n$afterDetailsSpace"
-    
+
         # Print client push settings for primary sites
         if ($Site.Type -eq 2) {
             $message = $null
@@ -760,10 +760,10 @@ function Print-SiteStructure {
                 # Print relevant settings if automatic push is enabled
                 if ($Site.FallbackToNTLM -eq 3) {
                     $message += "$Indent │       Fallback to NTLM is enabled (ELEVATE-2 and ELEVATE-3 likely!)`n"
-                } 
+                }
                 elseif ($Site.FallbackToNTLM -eq 2) {
                     $message += "$Indent │       Fallback to NTLM is not enabled`n"
-                } 
+                }
                 else {
                     $message += "$Indent │       Check for fallback to NTLM setting failed`n"
                 }
@@ -775,21 +775,21 @@ function Print-SiteStructure {
                     foreach ($value in $Site.ClientPushAccounts) {
                         $message += "$Indent │           $value`n"
                     }
-                } 
+                }
                 else {
                     $message += "$Indent │           No client push installation accounts were configured, but the server may still use its machine account`n"
                 }
 
                 if ($Site.ClearInstalledFlag -eq $true) {
                     $message += "$Indent │       The client installed flag is automatically cleared on inactive clients after $($task.DeleteOlderThan) days, resulting in automatic client push for reinstallation"
-                } 
+                }
                 else {
                     $message += "$Indent │       The client installed flag is not automatically cleared on inactive clients, preventing automatic reinstallation"
                 }
-            } 
+            }
             elseif ($Site.AutomaticClientPush -eq $false) {
                 $message += "$Indent ├───Automatic site-wide client push installation is not enabled"
-            } 
+            }
             else {
                 $message += "$Indent ├───Check for automatic site-wide client push installation settings failed"
             }
@@ -814,8 +814,8 @@ function Print-SiteStructure {
             $siteSystemCount--
             $isLastSystem = $siteSystemCount -eq 0
 
-            if ($isLastSystem -and -not $hasChildSites) { 
-                # This is a standalone primary site    
+            if ($isLastSystem -and -not $hasChildSites) {
+                # This is a standalone primary site
                 if ($Indent.Length -eq 0) {
                     $systemPrefix = " └───"
                 }
@@ -838,7 +838,7 @@ function Print-SiteStructure {
                 $roleCount--
 
                 if ($isLastSystem -and -not $hasChildSites) {
-                    # This is a standalone primary site 
+                    # This is a standalone primary site
                     if ($Indent.Length -eq 0) {
                         $rolePrefix = "        "
                     }
@@ -846,7 +846,7 @@ function Print-SiteStructure {
                     else {
                         $rolePrefix = $Indent.Substring(0, $Indent.Length - 4) + "            "
                     }
-                } 
+                }
                 else {
                     $rolePrefix = "$Indent │     "
                 }
@@ -855,7 +855,7 @@ function Print-SiteStructure {
 
                 # Issue details
                 if ($role -eq "SMS SQL Server") {
-                
+
                     # TAKEOVER-1
                     Check-IssueStatus -Issue "TAKEOVER-1" `
                         -FailedCheckMessage "EPA check failed, validate TAKEOVER-1 manually" `
@@ -918,27 +918,27 @@ function Print-SiteStructure {
                         -PreventingMessage "SMB signing required, preventing TAKEOVER-7" `
                         -RolePrefix $rolePrefix `
                         -System $([ref]$system)
-                
+
                     # TAKEOVER-8
                     if ($system.IssuesToCheck -contains "TAKEOVER-8") {
-                        $message = 
+                        $message =
                         if ($system.WebClientStatus -eq "Not installed") {
                             "WebClient not installed, preventing TAKEOVER-8"
                             $system.IssuesToCheck = $system.IssuesToCheck | Where-Object { $_ -ne "TAKEOVER-8" }
-                        } 
+                        }
                         elseif ($system.WebClientStatus -eq "Running") {
                             "WebClient running, TAKEOVER-8 likely!"
-                        } 
+                        }
                         elseif ($system.WebClientStatus -eq "Installed") {
                             "WebClient installed, TAKEOVER-8 possible if it ever starts!"
-                        } 
+                        }
                         else {
                             "WebClient check failed, validate TAKEOVER-8 manually"
                         }
                         $system.Output += "$rolePrefix    $message`n"
                     }
                 }
-            
+
                 elseif ($role -eq "SMS Provider") {
 
                     # TAKEOVER-5 is not possible to completely prevent on remote SMS Providers (EPA is not supported by AdminService)
@@ -952,9 +952,9 @@ function Print-SiteStructure {
                         -PreventingMessage "SMB signing required, preventing TAKEOVER-6" `
                         -RolePrefix $rolePrefix `
                         -System $([ref]$system)
-                } 
+                }
             }
-        
+
             # ELEVATE-1 (if no TAKEOVERs exist)
             if ($system.IssuesToCheck -contains "ELEVATE-1" -and ($system.IssuesToCheck -match '^TAKEOVER.*').Count -eq 0) {
 
@@ -1007,7 +1007,7 @@ function Print-SMBSigningStatus {
     }
     elseif ($CurrentSiteSystem.SMBSigningRequired -eq 0) {
         Write-Warning "        SMB signing required: False ($($Issue) likely!)"
-    } 
+    }
     else {
         Write-Warning "        SMB signing required: $($CurrentSiteSystem.SMBSigningRequired) (check $($Issue) manually)"
     }
@@ -1036,7 +1036,7 @@ function Run-Script {
             if (-not $finished) {
                 throw
             }
-        } 
+        }
         else {
             Wait-Job -Job $job
         }
@@ -1045,7 +1045,7 @@ function Run-Script {
         $result = Receive-Job -Job $job
         Remove-Job -Job $job
         return $result
-    } 
+    }
     catch {
         return "The operation timed out after $TimeoutSeconds seconds:`n`t$ScriptBlock"
     }
@@ -1069,7 +1069,7 @@ try {
         Write-Host "`nHierarchy Tree:`n"
 
         # Start with top-level site
-        $topLevelSites = $sites | Where-Object { -not $_.ParentSiteCode }  
+        $topLevelSites = $sites | Where-Object { -not $_.ParentSiteCode }
 
         foreach ($site in $topLevelSites) {
             Print-SiteStructure -Site $site -AllSites $sites
@@ -1078,11 +1078,11 @@ try {
     else {
         Write-Warning "No sites were found. Add -Verbose option to debug"
     }
-} 
+}
 
 catch {
     Write-Error "Encountered an unexpected error at line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)"
-} 
+}
 
 finally {
     # Set preferences back to original values

@@ -70,7 +70,7 @@ set_decoder xor
 # set shellcode binding technique
 set_payload_execution_method inject_shellcode
 
-# compile 
+# compile
 $win32_compiler -o output/injectshc_targetfromcmd_fopen_gethostbyname_xor_revtcp_win32.exe source/avet.c -lws2_32
 strip output/injectshc_targetfromcmd_fopen_gethostbyname_xor_revtcp_win32.exe
 

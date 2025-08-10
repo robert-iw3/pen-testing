@@ -207,7 +207,7 @@ class ProtocolLayer():
 
     __child = None
     __parent = None
-        
+
     def contains(self, aHeader):
         "Set 'aHeader' as the child of this protocol layer"
         self.__child = aHeader
@@ -224,18 +224,18 @@ class ProtocolLayer():
     def parent(self):
         "Return the parent of this protocol layer"
         return self.__parent
-    
+
     def unlink_child(self):
         "Break the hierarchy parent/child child/parent"
         if self.__child:
             self.__child.set_parent(None)
-            self.__child = None 
+            self.__child = None
 
 class ProtocolPacket(ProtocolLayer):
     __HEADER_SIZE = 0
     __BODY_SIZE = 0
     __TAIL_SIZE = 0
-    
+
     __header = None
     __body = None
     __tail = None
@@ -246,38 +246,38 @@ class ProtocolPacket(ProtocolLayer):
         self.__header=PacketBuffer(self.__HEADER_SIZE)
         self.__body=PacketBuffer()
         self.__tail=PacketBuffer(self.__TAIL_SIZE)
-        
+
     def __update_body_from_child(self):
         # Update child raw packet in my body
         if self.child():
             body=self.child().get_packet()
             self.__BODY_SIZE=len(body)
             self.__body.set_bytes_from_string(body)
-            
+
     def __get_header(self):
         return self.__header
-    
+
     header = property(__get_header)
 
     def __get_body(self):
         self.__update_body_from_child()
         return self.__body
-    
+
     body = property(__get_body)
-    
+
     def __get_tail(self):
         return self.__tail
-    
+
     tail = property(__get_tail)
 
     def get_header_size(self):
         "Return frame header size"
         return self.__HEADER_SIZE
-    
+
     def get_tail_size(self):
         "Return frame tail size"
         return self.__TAIL_SIZE
-    
+
     def get_body_size(self):
         "Return frame body size"
         self.__update_body_from_child()
@@ -286,25 +286,25 @@ class ProtocolPacket(ProtocolLayer):
     def get_size(self):
         "Return frame total size"
         return self.get_header_size()+self.get_body_size()+self.get_tail_size()
-    
+
     def load_header(self, aBuffer):
         self.__HEADER_SIZE=len(aBuffer)
         self.__header.set_bytes_from_string(aBuffer)
-    
+
     def load_body(self, aBuffer):
         "Load the packet body from string. "\
         "WARNING: Using this function will break the hierarchy of preceding protocol layer"
         self.unlink_child()
         self.__BODY_SIZE=len(aBuffer)
         self.__body.set_bytes_from_string(aBuffer)
-    
+
     def load_tail(self, aBuffer):
         self.__TAIL_SIZE=len(aBuffer)
         self.__tail.set_bytes_from_string(aBuffer)
-    
+
     def __extract_header(self, aBuffer):
         self.load_header(aBuffer[:self.__HEADER_SIZE])
-        
+
     def __extract_body(self, aBuffer):
         if self.__TAIL_SIZE<=0:
             end=None
@@ -312,7 +312,7 @@ class ProtocolPacket(ProtocolLayer):
             end=-self.__TAIL_SIZE
         self.__BODY_SIZE=len(aBuffer[self.__HEADER_SIZE:end])
         self.__body.set_bytes_from_string(aBuffer[self.__HEADER_SIZE:end])
-        
+
     def __extract_tail(self, aBuffer):
         if self.__TAIL_SIZE<=0:
             # leave the array empty
@@ -325,28 +325,28 @@ class ProtocolPacket(ProtocolLayer):
         "Load the whole packet from a string" \
         "WARNING: Using this function will break the hierarchy of preceding protocol layer"
         self.unlink_child()
-        
+
         self.__extract_header(aBuffer)
         self.__extract_body(aBuffer)
         self.__extract_tail(aBuffer)
-        
+
     def get_header_as_string(self):
         return self.__header.get_buffer_as_string()
-        
+
     def get_body_as_string(self):
         self.__update_body_from_child()
         return self.__body.get_buffer_as_string()
     body_string = property(get_body_as_string)
-    
+
     def get_tail_as_string(self):
         return self.__tail.get_buffer_as_string()
     tail_string = property(get_tail_as_string)
-        
+
     def get_packet(self):
         self.__update_body_from_child()
-        
+
         ret = b''
-        
+
         header = self.get_header_as_string()
         if header:
             ret += header
@@ -354,11 +354,11 @@ class ProtocolPacket(ProtocolLayer):
         body = self.get_body_as_string()
         if body:
             ret += body
-        
-        tail = self.get_tail_as_string()    
+
+        tail = self.get_tail_as_string()
         if tail:
             ret += tail
-            
+
         return ret
 
 class Header(PacketBuffer,ProtocolLayer):
@@ -768,7 +768,7 @@ class IP(Header):
             # When decoding, checksum shouldn't be modified
             self.auto_checksum = 0
             self.load_header(aBuffer)
-            
+
         if sys.platform.count('bsd'):
             self.is_BSD = True
         else:
@@ -1372,12 +1372,12 @@ class TCP(Header):
 
     def get_th_flags(self):
         return self.get_word(12) & self.TCP_FLAGS_MASK
-    
+
     def set_th_flags(self, aValue):
         masked = self.get_word(12) & (~self.TCP_FLAGS_MASK)
         nb = masked | (aValue & self.TCP_FLAGS_MASK)
         return self.set_word(12, nb, ">")
-     
+
     def get_th_win(self):
         return self.get_word(14)
 
@@ -1638,7 +1638,7 @@ class TCPOption(PacketBuffer):
         elif kind == TCPOption.TCPOPT_SACK_PERMITTED:
             PacketBuffer.__init__(self, 2)
             self.set_kind(TCPOption.TCPOPT_SACK_PERMITTED)
-            self.set_len(2)                
+            self.set_len(2)
 
         elif kind == TCPOption.TCPOPT_SACK:
             PacketBuffer.__init__(self, 2)

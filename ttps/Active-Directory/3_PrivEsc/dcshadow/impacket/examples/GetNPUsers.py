@@ -207,7 +207,7 @@ class GetUserNoPreAuth:
                 return '$krb5asrep$%s@%s:%s$%s' % (clientName, domain,
                                                    hexlify(asRep['enc-part']['cipher'].asOctets()[:16]).decode(),
                                                    hexlify(asRep['enc-part']['cipher'].asOctets()[16:]).decode())
-        
+
         # Let's output the TGT enc-part/cipher in Hashcat format, in case somebody wants to use it.
         else:
             # Check what type of encryption is used for the enc-part data

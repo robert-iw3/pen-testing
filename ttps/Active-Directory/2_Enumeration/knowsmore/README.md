@@ -35,12 +35,12 @@ This command will produce several statistics about the passwords like the output
 KnowsMore v0.1.4 by Helvio Junior
 Active Directory, BloodHound, NTDS hashes and Password Cracks correlation tool
 https://github.com/helviojunior/knowsmore
-    
+
  [+] Startup parameters
-     command line: knowsmore --stats 
+     command line: knowsmore --stats
      module: stats
      database file: knowsmore.db
-  
+
  [+] start time 2023-01-11 03:59:20
 [?] General Statistics
 +-------+----------------+-------+
@@ -132,7 +132,7 @@ knowsmore --bloodhound --import-data ~/Desktop/client.zip
 knowsmore --bloodhound --import-data ~/Desktop/20220912105336_users.json
 ```
 
-**Note:** The KnowsMore is capable to import BloodHound ZIP File and JSON files, but we recommend to use ZIP file, because the KnowsMore will automatically order the files to better data correlation. 
+**Note:** The KnowsMore is capable to import BloodHound ZIP File and JSON files, but we recommend to use ZIP file, because the KnowsMore will automatically order the files to better data correlation.
 
 ### Sync data to Neo4j BloodHound database
 

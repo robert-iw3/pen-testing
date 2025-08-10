@@ -1,7 +1,7 @@
 ﻿//------------------------------------------------------------------------------
 // <copyright file="NetFXCryptoService.cs" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>                                                                
+// </copyright>
 //------------------------------------------------------------------------------
 
 namespace System.Web.Security.Cryptography {
@@ -41,7 +41,7 @@ namespace System.Web.Security.Cryptography {
         private byte[] _encryptionIV = null;//SORCE_CHANGED added encryption IV to re-ecrypt the data
 
         public NetFXCryptoService(ICryptoAlgorithmFactory cryptoAlgorithmFactory, CryptographicKey encryptionKey, CryptographicKey validationKey, bool predictableIV = false )
-        { 
+        {
             _cryptoAlgorithmFactory = cryptoAlgorithmFactory;
             _encryptionKey = encryptionKey;
             _validationKey = validationKey;

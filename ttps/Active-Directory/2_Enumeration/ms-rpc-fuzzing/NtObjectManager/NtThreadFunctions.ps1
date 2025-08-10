@@ -160,7 +160,7 @@ function Set-NtThreadContext {
 .SYNOPSIS
 Gets a work-on-behalf ticket for a thread.
 .DESCRIPTION
-This cmdlet gets the work-on-behalf ticket for a thread. 
+This cmdlet gets the work-on-behalf ticket for a thread.
 .PARAMETER Thread
 Specify a thread to get the ticket from.
 .INPUTS
@@ -190,7 +190,7 @@ function Get-NtThreadWorkOnBehalfTicket {
 .SYNOPSIS
 Set a work-on-behalf ticket on the current thread.
 .DESCRIPTION
-This cmdlet gets the work-on-behalf ticket for a thread. 
+This cmdlet gets the work-on-behalf ticket for a thread.
 .PARAMETER Ticket
 Specify the ticket to set.
 .PARAMETER ThreadId
@@ -223,7 +223,7 @@ function Set-NtThreadWorkOnBehalfTicket {
 .SYNOPSIS
 Clear the work-on-behalf ticket on the current thread.
 .DESCRIPTION
-This cmdlet clears the work-on-behalf ticket for a thread. 
+This cmdlet clears the work-on-behalf ticket for a thread.
 .INPUTS
 None
 .OUTPUTS

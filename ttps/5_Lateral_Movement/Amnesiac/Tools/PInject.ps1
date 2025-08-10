@@ -16,5 +16,5 @@
     [Console]::SetOut($OldConsoleOut)
     $Results = $StringWriter.ToString()
     $Results
-  
+
 }

@@ -109,8 +109,8 @@ NTSTATUS NTAPI NtSetInformationWorkerFactory(
 // ------------//
 
 void w_NtQueryInformationWorkerFactory(
-    HANDLE hWorkerFactory, 
-    QUERY_WORKERFACTORYINFOCLASS WorkerFactoryInformationClass, 
+    HANDLE hWorkerFactory,
+    QUERY_WORKERFACTORYINFOCLASS WorkerFactoryInformationClass,
     PVOID WorkerFactoryInformation,
     ULONG WorkerFactoryInformationLength,
     PULONG ReturnLength

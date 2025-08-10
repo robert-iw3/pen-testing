@@ -44,7 +44,7 @@ def get_DBState_tostring(DBState):
 
 def ntds_sha1(ntds_path):
 
-    BUF_SIZE = 65536 
+    BUF_SIZE = 65536
     sha1 = hashlib.sha1()
     with open(ntds_path, 'rb') as f:
         while True:

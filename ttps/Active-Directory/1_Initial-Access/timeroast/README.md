@@ -22,7 +22,7 @@ Three scripts are included:
 
 - `timeroast.py`: given a DC domain name or IP, will attempt to get 'NTP hashes' of the computer/trust accounts in the domain by enumerating RID's.
 - `timeroast.ps1`: Powershell port of the same script.
-- `extra-scripts/timecrack.py`: performs a simple, unoptimized, dictionary attack on the results of `timeroast.py` or `timeroast.ps1`. 
+- `extra-scripts/timecrack.py`: performs a simple, unoptimized, dictionary attack on the results of `timeroast.py` or `timeroast.ps1`.
 
 Hashcat [will add support for Timeroast hashes](https://github.com/hashcat/hashcat/issues/3629) as hash type 31300. Currently, it's already available in the [beta release](https://hashcat.net/beta/).
 
@@ -30,8 +30,8 @@ Hashcat [will add support for Timeroast hashes](https://github.com/hashcat/hashc
 Alternative ways to abuse weak 'dollar account' passwords
 ---------------------------------------------------------
 
-If Timeroasting is not possible or desirable, there are some alternative attacks that can be used to identity and compromise computer or trust accounts with weak passwords. These are described in detail in 
-[the whitepaper](https://www.secura.com/uploads/whitepapers/Secura-WP-Timeroasting-v3.pdf). To summarize, these attacks 
+If Timeroasting is not possible or desirable, there are some alternative attacks that can be used to identity and compromise computer or trust accounts with weak passwords. These are described in detail in
+[the whitepaper](https://www.secura.com/uploads/whitepapers/Secura-WP-Timeroasting-v3.pdf). To summarize, these attacks
 work as follows:
 
 1. _computer spraying_: perform a password spray for computer accounts, where you try a legacy NT password (up to first 14 characters of the computer name, lowercased, without the dollar sign) for each computer account.

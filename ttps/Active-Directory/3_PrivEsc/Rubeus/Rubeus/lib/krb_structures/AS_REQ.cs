@@ -17,7 +17,7 @@ namespace Rubeus
     //                        -- NOTE: not empty --,
     //    req-body        [4] KDC-REQ-BODY
     //}
-    
+
     public class AS_REQ
     {
         public static AS_REQ NewASReq(string userName, string domain, Interop.KERB_ETYPE etype, bool opsec = false, string service = null, string principalType = "principal")
@@ -95,7 +95,7 @@ namespace Rubeus
 
             // set pre-auth
             AS_REQ req = new AS_REQ(keyString, etype, opsec, pac);
-            
+
             // req.padata.Add()
 
             // set the username to request a TGT for
@@ -157,7 +157,7 @@ namespace Rubeus
                 req.req_body.etypes.Add(suppEtype);
             }
 
-            return req; 
+            return req;
         }
 
         //TODO: Insert DHKeyPair parameter also.
@@ -235,13 +235,13 @@ namespace Rubeus
             msg_type = (long)Interop.KERB_MESSAGE_TYPE.AS_REQ;
 
             padata = new List<PA_DATA>();
-            
+
             // add the encrypted timestamp
             padata.Add(new PA_DATA(keyString, etype));
 
             // add the include-pac == true
             padata.Add(new PA_DATA(pac));
-            
+
             req_body = new KDCReqBody(true, opsec);
 
             this.keyString = keyString;
@@ -261,7 +261,7 @@ namespace Rubeus
             padata.Add(new PA_DATA());
 
             // add the encrypted timestamp
-            padata.Add(new PA_DATA(pkCert, agreement,  req_body, verifyCerts));           
+            padata.Add(new PA_DATA(pkCert, agreement,  req_body, verifyCerts));
         }
 
         public AS_REQ(byte[] data)
@@ -365,7 +365,7 @@ namespace Rubeus
 
         public KDCReqBody req_body { get; set; }
 
-        //Ugly hack to make keyString available to 
+        //Ugly hack to make keyString available to
         //the generic InnerTGT function
         public string keyString { get; set; }
     }

@@ -53,18 +53,18 @@ namespace BadPotato
         {
             Console.WriteLine(@"[*]
 
-    ____            ______        __        __      
-   / __ )____ _____/ / __ \____  / /_____ _/ /_____ 
+    ____            ______        __        __
+   / __ )____ _____/ / __ \____  / /_____ _/ /_____
   / __  / __ `/ __  / /_/ / __ \/ __/ __ `/ __/ __ \
  / /_/ / /_/ / /_/ / ____/ /_/ / /_/ /_/ / /_/ /_/ /
-/_____/\__,_/\__,_/_/    \____/\__/\__,_/\__/\____/ 
+/_____/\__,_/\__,_/_/    \____/\__/\__,_/\__/\____/
 
             ");
 
             if (args.Length<1)
             {
                 Console.WriteLine("[!] No Command");
-                return;   
+                return;
             }
 
             SECURITY_ATTRIBUTES securityAttributes = new SECURITY_ATTRIBUTES();
@@ -172,7 +172,7 @@ namespace BadPotato
                                                     Array.Copy(buf, outBytes, dwRead);
                                                     Console.WriteLine(System.Text.Encoding.Default.GetString(outBytes));
                                                 }
-                                                
+
                                                 CloseHandle(err_read);
                                                 CloseHandle(out_read);
                                                 CloseHandle(out_write);

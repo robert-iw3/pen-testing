@@ -101,11 +101,11 @@ class MiniShell(cmd.Cmd):
     def do_socks(self, line):
         '''Filter are available :
  type : socks <filter> <value>
- filters : target, username, admin 
- values : 
+ filters : target, username, admin
+ values :
    - target : IP or FQDN
    - username : domain/username
-   - admin : true or false 
+   - admin : true or false
         '''
 
         headers = ["Protocol", "Target", "Username", "AdminStatus", "Port"]
@@ -131,7 +131,7 @@ class MiniShell(cmd.Cmd):
                     elif(_filter=='admin'):
                         _filter=3
                     else:
-                        logging.info('Expect : target / username / admin = value')                    
+                        logging.info('Expect : target / username / admin = value')
                     _items=[]
                     for i in items:
                         if(_value.lower() in i[_filter].lower()):

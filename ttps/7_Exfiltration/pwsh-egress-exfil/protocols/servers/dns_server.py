@@ -88,7 +88,7 @@ class Server:
             os.makedirs(LOOT_PATH)
 
         self.start_dns_servers()
-        
+
         try:
             while 1:
                 time.sleep(0.5)

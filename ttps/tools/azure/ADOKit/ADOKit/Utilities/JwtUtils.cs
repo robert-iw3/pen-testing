@@ -10,7 +10,7 @@ namespace ADOKit.Utilities
         // https://stackoverflow.com/a/74698169
         // Check for Expiration & Audience
         public static bool isValid(string token)
-        {  
+        {
             JwtSecurityToken jwtSecurityToken;
             try
             {

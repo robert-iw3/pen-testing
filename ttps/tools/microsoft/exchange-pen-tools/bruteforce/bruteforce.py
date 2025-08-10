@@ -33,13 +33,13 @@ def parse_args():
 		if value < 1 or value > 30:
 			raise Exception('Buffer size must be an interger between 1 and 30')
 		return value
-	 
+
 	def check_arg_file(value):
 		value = str(value)
 		if not os.path.isfile(value):
 			raise Exception('Path \"{}\" is not a file'.format(value))
 		return value
-		
+
 	def check_arg_target(value):
 		value = str(value)
 		if validators.url(value):
@@ -52,7 +52,7 @@ def parse_args():
 		if (not value == 'parallel') and (not value == 'serie'):
 			raise Exception('Mode must be \"serie\" or \"parallel\"'.format(value))
 		return value
-		
+
 	parser = argparse.ArgumentParser(description='HTTP Auth Bruteforcer')
 	group_target = parser.add_mutually_exclusive_group(required=True)
 	group_target.add_argument('-t', '--target', type=check_arg_target, help='URL')
@@ -93,10 +93,10 @@ def threadsafe_generator(f):
         return ThreadsafeIterator(f(*a, **kw))
     return g
 
-	
+
 @threadsafe_generator
 def generate_userpass(username, usernamesfile, password, passwordsfile):
-	
+
 	# Mode bruteforce
 	if passwordsfile:
 		if username:
@@ -104,44 +104,44 @@ def generate_userpass(username, usernamesfile, password, passwordsfile):
 				for (ur, pr) in itertools.product([username], fp):
 					u = ur.strip().split(':')[0]
 					p = pr.strip().split(':', 1)[-1]
-					
+
 					yield (u, p)
-					
+
 		elif usernamesfile:
 			with open(usernamesfile, 'r') as fu:
 				with open(passwordsfile, 'r') as fp:
 					for (ur, pr) in itertools.product(fu, fp):
 						u = ur.strip().split(':')[0]
 						p = pr.strip().split(':', 1)[-1]
-						
+
 						yield (u, p)
-	
+
 	# Mode authentication
 	else:
 		if password:
 			if username:
 				u = username.strip().split(':')[0]
 				p = password.strip().split(':', 1)[-1]
-				
+
 				yield (u, p)
-				
+
 			elif usernamesfile:
 				with open(usernamesfile, 'r') as fu:
 					for (ur, pr) in itertools.product(fu, [password]):
 						u = ur.strip().split(':')[0]
 						p = pr.strip().split(':', 1)[-1]
-						
+
 						yield (u, p)
-						
+
 		else:
 			if username:
 					u = username.strip().split(':')[0]
-					if ':' in username:							
+					if ':' in username:
 						p = username.strip().split(':', 1)[-1]
 					else:
 						p = ''
 					yield (u, p)
-						
+
 			elif usernamesfile:
 				with open(usernamesfile, 'r') as fu:
 					for (ur,) in itertools.product(fu):
@@ -150,7 +150,7 @@ def generate_userpass(username, usernamesfile, password, passwordsfile):
 							p = ur.strip().split(':', 1)[-1]
 						else:
 							p = ''
-							
+
 						yield (u, p)
 
 
@@ -168,7 +168,7 @@ class HTTP_Auth():
 			'error': Exception,
 		}
 		'''
-		
+
 		# Target definition
 		target = {
 			'url': url,
@@ -179,11 +179,11 @@ class HTTP_Auth():
 			'validated': None,
 			'error': None,
 		}
-		
+
 		# Target recon
 		try:
 			resp = requests.get(target['url'], verify=False, timeout=5)
-			
+
 			target['status code'] = resp.status_code
 			try:
 				target['server'] = resp.headers['Server']
@@ -198,16 +198,16 @@ class HTTP_Auth():
 				target['authentication type'] = 'ntlm'
 			else:
 				target['authentication type'] = 'unknown'
-				
+
 		except Exception as e:
 			target['error'] = e
-		
+
 		# Target validation
 		if target['error'] is None and (target['authentication type'] is 'basic' or target['authentication type'] is 'digest' or target['authentication type'] is 'ntlm') and target['status code'] == 401:
 			target['validated'] = True
-				
+
 		return target
-	
+
 	@staticmethod
 	def test(test):
 		'''
@@ -219,10 +219,10 @@ class HTTP_Auth():
 			'error': Exception,
 		}
 		'''
-		
+
 		# Test definition
 		target = test['target']
-		
+
 		url = target['url']
 		username = test['username']
 		password = test['password']
@@ -237,7 +237,7 @@ class HTTP_Auth():
 		elif target['authentication type'] == 'digest':
 			auth = requests.auth.HTTPDigestAuth(username, password)
 			resp = requests.get(url=url, auth=auth, verify=False, timeout=timeout)
-					
+
 		elif target['authentication type'] == 'ntlm':
 			auth = requests_ntlm.HttpNtlmAuth(username, password)
 			resp = requests.get(url=url, auth=auth, verify=False, timeout=timeout)
@@ -259,17 +259,17 @@ class WorkerFillTestQueue(threading.Thread):
 		self.generator_userpass = generator_userpass
 		self.order = order
 		self.workers_number = workers_number
-		
+
 	def run(self):
 		# Fill tests queue targets in serie
 		if self.order == 'serie':
 			for target in self.targets:
 				self.generator_userpass, generator_userpass_copy = itertools.tee(self.generator_userpass)
-				
+
 				while True:
 					try:
 						(username, password) = next(generator_userpass_copy)
-						
+
 						test = {
 							'target': target,
 							'username' : username,
@@ -277,18 +277,18 @@ class WorkerFillTestQueue(threading.Thread):
 							'success': None,
 							'error': None,
 						}
-						
+
 						self.queue_test.put(test)
-						
+
 					except Exception as e:
 						break
-				
+
 		# Fill tests queue targets in parallel
 		elif self.order == 'parallel':
 			while True:
 				try:
 					(username, password) = next(self.generator_userpass)
-										
+
 					for target in self.targets:
 						test = {
 							'target': target,
@@ -297,15 +297,15 @@ class WorkerFillTestQueue(threading.Thread):
 							'success': None,
 							'error': None,
 						}
-						
+
 						self.queue_test.put(test)
-						
+
 				except Exception as e:
 					break
-					
+
 		for _ in range(self.workers_number):
 			self.queue_test.put(None)
-				
+
 
 class WorkerBruteforce(threading.Thread):
 	def __init__(self, queue_test, queue_logging):
@@ -314,7 +314,7 @@ class WorkerBruteforce(threading.Thread):
 		self.queue_logging = queue_logging
 
 	def run(self):
-		
+
 		while True:
 			try:
 				test = self.queue_test.get()
@@ -323,7 +323,7 @@ class WorkerBruteforce(threading.Thread):
 				if test is None:
 					self.queue_logging.put(None)
 					break
-					
+
 				# Perform a test
 				else:
 					test = HTTP_Auth.test(test)
@@ -332,16 +332,16 @@ class WorkerBruteforce(threading.Thread):
 			except Exception as e:
 				traceback.print_exc()
 				print('WorkerBruteforce => {} : {}'.format(type(e), e))
-		
+
 
 class WorkerLogging(threading.Thread):
 	def __init__(self, queue_logging, workers_number, verbose):
 		super(WorkerLogging, self).__init__()
-		
+
 		self.queue_logging = queue_logging
 		self.workers_number = workers_number
 		self.verbose = verbose
-		
+
 		self.count = 0
 		self.progress = 0
 
@@ -350,13 +350,13 @@ class WorkerLogging(threading.Thread):
 		while True:
 			if self.count >= self.workers_number:
 				break
-			
+
 			try:
 				test = self.queue_logging.get()
-				
+
 				if test is None:
 					self.count += 1
-					
+
 				else:
 					if test['success']:
 						log.success('Authentication successful: Username: \"{}\" Password: \"{}\" URL: {}'.format(test['username'], test['password'], test['target']['url']))
@@ -364,22 +364,22 @@ class WorkerLogging(threading.Thread):
 					else:
 						if self.verbose:
 							log.debug('Authentication failed: Username: \"{}\" Password: \"{}\" URL: {}'.format(test['username'], test['password'], test['target']['url']))
-					
+
 					self.progress += 1
-					
+
 					if self.progress % 10 == 0:
 						if self.verbose:
 							log.info('Progress : {}'.format(self.progress))
 						else:
 							log.info('Progress : {}'.format(self.progress), update=True)
-				
+
 			except Exception as e:
 				traceback.print_exc()
 				log.error('WorkerLogging => {} : {}'.format(type(e), e))
-				
+
 		log.info('Progress : {} (end)'.format(self.progress))
-			
-			
+
+
 def main():
 
 	log.info('--------------------------')
@@ -395,7 +395,7 @@ def main():
 
 	if args.target:
 		target = HTTP_Auth.check(args.target)
-		
+
 		if target['validated']:
 			targets_included.append(target)
 		else:
@@ -405,7 +405,7 @@ def main():
 		with open(args.targetfile) as f:
 			for line in f:
 				target = HTTP_Auth.check(line.strip())
-				
+
 				if target['validated']:
 					targets_included.append(target)
 				else:
@@ -461,11 +461,11 @@ def main():
 			wb.start()
 
 		wl.join()
-	
+
 	else:
 		# No target to bruteforce
 		log.info('No target to bruteforce')
-	
+
 	log.info('')
 	log.info('Finished')
 

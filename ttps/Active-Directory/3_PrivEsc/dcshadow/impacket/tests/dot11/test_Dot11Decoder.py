@@ -25,21 +25,21 @@ class TestDot11Decoder(unittest.TestCase):
         if self.WEPKey:
             self.in4=self.in3.child()
             self.in5=self.in4.child()
-        
+
     def test_01_Dot11Decoder(self):
         'Test Dot11 decoder'
         if PY2:
             self.assertEqual(str(self.in0.__class__), "impacket.dot11.Dot11")
         else:
             self.assertEqual(str(self.in0.__class__), "<class 'impacket.dot11.Dot11'>")
-        
+
     def test_02_Dot11DataFrameDecoder(self):
         'Test Dot11DataFrame decoder'
         if PY2:
             self.assertEqual(str(self.in1.__class__), "impacket.dot11.Dot11DataFrame")
         else:
             self.assertEqual(str(self.in1.__class__), "<class 'impacket.dot11.Dot11DataFrame'>")
-    
+
     def test_03_Dot11WEP(self):
         'Test Dot11WEP decoder'
         if PY2:

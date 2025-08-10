@@ -187,7 +187,7 @@ Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies
 The command flags break down as follows:
 
 - `-t ldap://dc-server01.corp.local:389`: Target the LDAP service on the domain controller
-- `--delegate-access`: Attempt to configure delegation rights on created computer accounts 
+- `--delegate-access`: Attempt to configure delegation rights on created computer accounts
 - `--no-smb-server`: Don't start an SMB server, as we're using Responder for credential capture
 
 ### Successful Relay and Computer Account Creation
@@ -321,7 +321,7 @@ Members
 
 -------------------------------------------------------------------------------
 Administrator            ATTACKER-PC02$          domainadmin
-sql_admin                svcaccount              
+sql_admin                svcaccount
 The command completed successfully.
 ```
 
@@ -343,7 +343,7 @@ In this environment, the MAQ was set to the default value of 10, allowing any au
 
 Many organizations don't realize that this default setting effectively hands attackers the ability to establish persistence within the domain with minimal privileges. While Microsoft sets this default to simplify administration, most security standards recommend reducing it to 0, requiring explicit administrative approval for all computer account creations.
 
-The ability to add computer accounts in our relay attack opened the door for the next critical phase: escalating to DCSync privileges through ACL manipulation. 
+The ability to add computer accounts in our relay attack opened the door for the next critical phase: escalating to DCSync privileges through ACL manipulation.
 
 ## From Zero Access to Enterprise Admin: The Full Attack Path
 

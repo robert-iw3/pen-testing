@@ -29,7 +29,7 @@ namespace Rubeus.Utilities.Memory
 
         public CrossBitnessTypeAttribute(Type cross_bitness_type)
         {
-    
+
         }
 
         public int GetSize()

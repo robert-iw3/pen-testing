@@ -21,7 +21,7 @@ namespace ysoserial.Helpers
         private bool _isDebugMode = false;
         private bool _isSTAThread = false; // this is for when STAThreadAttribute is needed to execute!
         private List<String> _extraArguments = new List<string>();
-        private List<String> _extraInternalArguments = new List<string>(); // This is used as ExtraArguments when calling GenerateWithNoTest to stop passing unwanted extra options 
+        private List<String> _extraInternalArguments = new List<string>(); // This is used as ExtraArguments when calling GenerateWithNoTest to stop passing unwanted extra options
 
         public InputArgs(){}
 
@@ -42,7 +42,7 @@ namespace ysoserial.Helpers
             get
             {
                 string tempFullCmd;
-                
+
                 if (IsRawCmd)
                 {
                     tempFullCmd = this.Cmd;
@@ -83,7 +83,7 @@ namespace ysoserial.Helpers
                 {
                     return "";
                 }
-                
+
             }
 
             private set
@@ -104,7 +104,7 @@ namespace ysoserial.Helpers
                 {
                     return "";
                 }
-                
+
             }
 
             private set
@@ -228,7 +228,7 @@ namespace ysoserial.Helpers
                 {
                     return false;
                 }
-                    
+
             }
 
             private set

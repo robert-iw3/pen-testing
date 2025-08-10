@@ -11,7 +11,7 @@
 // data_size receives the size of the data in bytes.
 unsigned char *from_command_line_hex(char *arg1, int *data_size) {
     DEBUG_PRINT("Retrieving data from command line arguments, expecting hex format...\n");
-    // Get input string length  
+    // Get input string length
     int input_length = strlen(arg1);
 
     // Convert ASCII hex string into raw bytes
@@ -27,11 +27,11 @@ unsigned char *from_command_line_hex(char *arg1, int *data_size) {
     char *endptr;						// Required by strtoul function
 
 	for(int i = 0; i < input_length; i++) {
-		// Interpret hex representation as unsigned char value 
-		memcpy(&(current_hex[2]), &(arg1[2 * i]), 2);		
+		// Interpret hex representation as unsigned char value
+		memcpy(&(current_hex[2]), &(arg1[2 * i]), 2);
 		data[j] = (unsigned char) strtoul(current_hex, &endptr, 16);
 		j++;
-	}   
+	}
 
-    return data;     
+    return data;
 }

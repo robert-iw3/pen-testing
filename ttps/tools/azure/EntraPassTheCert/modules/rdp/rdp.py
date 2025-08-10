@@ -18,7 +18,7 @@ from aardwolf.commons.target import RDPConnectionDialect
 
 from PIL.ImageQt import ImageQt
 
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel #qApp, 
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel #qApp,
 from PyQt6.QtCore import QObject, pyqtSignal, pyqtSlot, QThread, Qt
 from PyQt6.QtGui import QPainter, QImage, QPixmap
 
@@ -50,7 +50,7 @@ class RDPImage:
 class RDPInterfaceThread(QObject):
 	result=pyqtSignal(RDPImage)
 	connection_terminated=pyqtSignal()
-	
+
 	def __init__(self, target, username, password, pfx, pfxpass, parent=None, **kwargs):
 		super().__init__(parent, **kwargs)
 		self.settings:RDPClientConsoleSettings = None
@@ -67,7 +67,7 @@ class RDPInterfaceThread(QObject):
 		self.pfx = pfx
 		self.pfxpass = pfxpass
 
-	
+
 	def set_settings(self, settings, in_q):
 		self.settings = settings
 		self.in_q = in_q
@@ -111,18 +111,18 @@ class RDPInterfaceThread(QObject):
 					await asyncio.sleep(self.settings.ducky_autostart_delay)
 				else:
 					return
-			
+
 			layout = KeyboardLayoutManager().get_layout_by_shortname(self.settings.iosettings.client_keyboard)
 			executor = DuckyExecutorBase(layout, self.ducky_keyboard_sender, send_as_char = True if self.conn.target.dialect == RDPConnectionDialect.VNC else False)
 			reader = DuckyReaderFile.from_file(self.settings.ducky_file, executor)
 			await reader.parse()
 		except Exception as e:
 			traceback.print_exc()
-	
+
 	async def rdpconnection(self, target, username, password, pfx, pfxpass):
 		input_handler_thread = None
 
-		try:		
+		try:
 			from asysocks.unicomm.common.target import UniTarget
 			from modules.rdp.connection import RDPConnection
 			from aardwolf.commons.target import RDPTarget
@@ -168,7 +168,7 @@ class RDPInterfaceThread(QObject):
 
 		except asyncio.CancelledError:
 			return
-		
+
 		except Exception as e:
 			traceback.print_exc()
 		finally:
@@ -185,14 +185,14 @@ class RDPInterfaceThread(QObject):
 		self.rdp_connection_task = self.loop.create_task(self.rdpconnection(self.target, self.username, self.password, self.pfx, self.pfxpass))
 		self.loop.run_until_complete(self.rdp_connection_task)
 		self.loop.close()
-			
+
 	@pyqtSlot()
 	def start(self):
 		# creating separate thread for async otherwise this will not return
 		# and then there will be no events sent back from application
 		self.asyncthread = threading.Thread(target=self.starter, args=())
 		self.asyncthread.start()
-	
+
 	@pyqtSlot()
 	def stop(self):
 		self.gui_stopped_evt.set()
@@ -204,7 +204,7 @@ class RDPInterfaceThread(QObject):
 		time.sleep(0.1) # waiting connection to terminate
 		self.rdp_connection_task.cancel()
 		self.loop.stop()
-	
+
 	@pyqtSlot()
 	def startducky(self):
 		time.sleep(0.1) # waiting for keyboard flush
@@ -234,8 +234,8 @@ class RDPClientQTGUI(QMainWindow):
 		# this buffer will hold the current frame and will be contantly updated
 		# as new rectangle info comes in from the server
 		self._buffer = QImage(self.settings.iosettings.video_width, self.settings.iosettings.video_height, QImage.Format.Format_RGB32)
-		
-		
+
+
 		# setting up worker thread in a qthread
 		# the worker recieves the video updates from the connection object
 		# and then dispatches it to updateImage
@@ -255,22 +255,22 @@ class RDPClientQTGUI(QMainWindow):
 		# setting up the canvas (qlabel) which will display the image data
 		self._label_imageDisplay = QLabel()
 		self._label_imageDisplay.setFixedSize(self.settings.iosettings.video_width, self.settings.iosettings.video_height)
-		
+
 		self.setCentralWidget(self._label_imageDisplay)
-		
+
 		# enabling mouse tracking
 		self.setMouseTracking(True)
 		self._label_imageDisplay.setMouseTracking(True)
 		self.__extended_rdp_keys = {
-			Qt.Key.Key_End : 'VK_END', 
-			Qt.Key.Key_Down : 'VK_DOWN', 
-			Qt.Key.Key_PageDown : 'VK_NEXT', 
-			Qt.Key.Key_Insert : 'VK_INSERT', 
-			Qt.Key.Key_Delete : 'VK_DELETE', 
+			Qt.Key.Key_End : 'VK_END',
+			Qt.Key.Key_Down : 'VK_DOWN',
+			Qt.Key.Key_PageDown : 'VK_NEXT',
+			Qt.Key.Key_Insert : 'VK_INSERT',
+			Qt.Key.Key_Delete : 'VK_DELETE',
 			Qt.Key.Key_Print : 'VK_SNAPSHOT',
-			Qt.Key.Key_Home : 'VK_HOME', 
-			Qt.Key.Key_Up : 'VK_UP', 
-			Qt.Key.Key_PageUp : 'VK_PRIOR', 
+			Qt.Key.Key_Home : 'VK_HOME',
+			Qt.Key.Key_Up : 'VK_UP',
+			Qt.Key.Key_PageUp : 'VK_PRIOR',
 			Qt.Key.Key_Left : 'VK_LEFT',
 			Qt.Key.Key_Right : 'VK_RIGHT',
 			Qt.Key.Key_Meta : 'VK_LWIN',
@@ -305,17 +305,17 @@ class RDPClientQTGUI(QMainWindow):
 			Qt.MouseButton.ExtraButton5 : MOUSEBUTTON.MOUSEBUTTON_9,
 			Qt.MouseButton.ExtraButton6 : MOUSEBUTTON.MOUSEBUTTON_10,
 		}
-	
+
 	def closeEvent(self, event):
 		self.connectionClosed()
 		event.accept()
-	
+
 	def connectionClosed(self):
 		self.in_q.put(None)
 		self._threaded.stop()
 		self._thread.quit()
 		self.close()
-	
+
 	def updateImage(self, event):
 		rect = ImageQt(event.image)
 		if event.width == self.settings.iosettings.video_width and event.height == self.settings.iosettings.video_height:
@@ -323,7 +323,7 @@ class RDPClientQTGUI(QMainWindow):
 		else:
 			with QPainter(self._buffer) as qp:
 				qp.drawImage(event.x, event.y, rect, 0, 0, event.width, event.height)
-		
+
 		pixmap01 = QPixmap.fromImage(self._buffer)
 		pixmap_image = QPixmap(pixmap01)
 		self._label_imageDisplay.setPixmap(pixmap_image)
@@ -331,7 +331,7 @@ class RDPClientQTGUI(QMainWindow):
 		self._label_imageDisplay.setScaledContents(True)
 		self._label_imageDisplay.setMinimumSize(1,1)
 		self._label_imageDisplay.show()
-	
+
 	## this is for testing!
 	#def keyevent_to_string(self, event):
 	#	keymap = {}
@@ -357,7 +357,7 @@ class RDPClientQTGUI(QMainWindow):
 
 	def send_key(self, e, is_pressed):
 		# https://doc.qt.io/qt-5/qt.html#Key-enum
-		
+
 		# ducky script starter
 		if is_pressed is True:
 			if e.key()==Qt.Key.Key_Escape:
@@ -377,7 +377,7 @@ class RDPClientQTGUI(QMainWindow):
 			ki.datatype = CLIPBRD_FORMAT.CF_UNICODETEXT
 			ki.data = pyperclip.paste()
 			self.in_q.put(ki)
-		
+
 		modifiers = VK_MODIFIERS(0)
 		qt_modifiers = QApplication.keyboardModifiers()
 		if bool(qt_modifiers & Qt.KeyboardModifier.ShiftModifier) is True and e.key() != Qt.Key.Key_Shift:
@@ -422,13 +422,13 @@ class RDPClientQTGUI(QMainWindow):
 		mi.is_pressed = is_pressed if is_hover is False else False
 
 		self.in_q.put(mi)
-	
+
 	def keyPressEvent(self, e):
 		self.send_key(e, True)
 
 	def keyReleaseEvent(self, e):
 		self.send_key(e, False)
-	
+
 	def mouseMoveEvent(self, e):
 		self.send_mouse(e, False, True)
 
@@ -437,7 +437,7 @@ class RDPClientQTGUI(QMainWindow):
 
 	def mousePressEvent(self, e):
 		self.send_mouse(e, True)
-	
+
 	def dragEnterEvent(self, event):
 		if event.mimeData().hasUrls():
 			event.accept()
@@ -457,7 +457,7 @@ class RDP:
 		self.password = password
 		self.pfx = pfx
 		self.pfxpass = pfxpass
-	
+
 	def connect(self):
 		try:
 			# from aardwolf.extensions.RDPEDYC.vchannels.socksoverrdp import SocksOverRDPChannel

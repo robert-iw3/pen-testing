@@ -517,7 +517,7 @@ _Ret_notnull_ HOOK* searchHooks(const char* csvFileName) {
                     for (DWORD i = 0; i < 40 - strlen(functionName); i++) {
                         printf_or_not(" ");
                     }
-                    // TODO: Fix hooks resolver to identify dll 
+                    // TODO: Fix hooks resolver to identify dll
                     // printf_or_not("-> %ws+0x%tx", hookTargetModuleEntry->BaseDllName.Buffer, ((PBYTE)jmpTarget) - ((PBYTE)hookTargetModuleEntry->DllBase));
 
                     if (csvFile) {

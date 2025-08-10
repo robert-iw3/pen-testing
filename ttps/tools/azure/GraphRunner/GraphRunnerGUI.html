@@ -38,8 +38,8 @@
             border-radius: 4px;
             border: 1px solid #ccc;
             background-color: #fff;
-            width: 100%; 
-            max-width: 400px; 
+            width: 100%;
+            max-width: 400px;
         }
         input[type="submit"],
         textarea,
@@ -214,8 +214,8 @@ select#httpMethod {
     border-radius: 4px;
     border: 1px solid #ccc;
     background-color: #fff;
-    width: 100%; 
-    max-width: 80px; 
+    width: 100%;
+    max-width: 80px;
 }
 #chatViewer {
     margin-bottom: 20px;
@@ -360,7 +360,7 @@ select#httpMethod {
     <input type="text" id="token" name="token" required>
     <button id="parseTokenButton">Parse Token</button>
     <pre class="response" id="jwtFields"></pre>
-    
+
 
     <hr>
 
@@ -393,7 +393,7 @@ select#httpMethod {
     <h2>Directory - Users</h2>
     <p><strong>Required Perms:</strong> User.ReadBasic.All, User.Read.All, User.ReadWrite.All, Directory.Read.All, or Directory.ReadWrite.All</p>
     <button id="listUsersButton">List Users</button>
-    <button id="exportUsersButton">Export</button> 
+    <button id="exportUsersButton">Export</button>
     <pre class="response" id="listUsersResponse"></pre>
     <hr>
 
@@ -417,7 +417,7 @@ select#httpMethod {
     <br></br>
     <div class="email-controls">
     <input type="text" id="searchInput" class="search-input" placeholder="Search emails...">
-    
+
     </div>
     <div class="email-list" id="emailList"></div>
     <div class="email-detail" id="emailDetail"></div>
@@ -493,7 +493,7 @@ select#httpMethod {
     <button id="listFilesButton">List Files</button>
     <div id="fileList"></div>
     <hr>
-    
+
     <!-- List OneDrive Shared Files -->
     <h2>OneDrive Shared Files</h2>
     <p><strong>Required Perms:</strong> Files.Read, Files.ReadWrite, Files.Read.All, Files.ReadWrite.All, Sites.Read.All, or Sites.ReadWrite.All</p>
@@ -560,7 +560,7 @@ select#httpMethod {
         };
 
         if (requestBody) {
-            requestOptions.body = requestBody; 
+            requestOptions.body = requestBody;
         }
 
         const response = await fetch(apiEndpoint, requestOptions);
@@ -651,7 +651,7 @@ select#httpMethod {
         } catch (error) {
             emailList.innerHTML = `Error fetching emails: ${error.message}`;
         }
-        
+
     });
 
     // Export Emails
@@ -733,7 +733,7 @@ select#httpMethod {
         });
     });
     }
-        
+
 
 
 
@@ -755,7 +755,7 @@ select#httpMethod {
 
     try {
         const allUsers = await fetchAllUsers(token);
-        
+
         // Display userPrincipalName fields only
         const userPrincipalNames = allUsers.map(user => user.userPrincipalName);
         listUsersResponse.textContent = userPrincipalNames.join('\n');
@@ -1216,7 +1216,7 @@ sendMessageButton.addEventListener('click', async () => {
     }
 });
 
-// TEAMS - SEND 
+// TEAMS - SEND
 async function sendMessageToChat(chatId, message) {
     const token = tokenInput.value;
     const sendMessageUrl = `https://graph.microsoft.com/v1.0/me/chats/${chatId}/messages`;
@@ -1896,9 +1896,9 @@ async function fetchAndDisplaySharePointFolderContents(driveId, folderId, token,
 
             const itemName = document.createElement('strong');
             itemName.textContent = `Name: ${item.name}`;
-            itemName.style.color = '#333'; 
+            itemName.style.color = '#333';
             itemSummary.appendChild(itemName);
-    
+
             const itemSize = document.createElement('span');
             itemSize.textContent = ` | Size: ${item.size ? `${item.size} bytes` : 'N/A'}`;
             itemSize.style.color = '#333';

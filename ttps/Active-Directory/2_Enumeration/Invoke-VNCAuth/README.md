@@ -1,6 +1,6 @@
 # Invoke-VNCAuth
 
-Simple Powershell script which can be used to scan CIDR ranges and Active Directory for systems running VNC that do not require authentication to connect. 
+Simple Powershell script which can be used to scan CIDR ranges and Active Directory for systems running VNC that do not require authentication to connect.
 
 # Load into memory
 ```

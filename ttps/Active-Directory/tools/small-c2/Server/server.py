@@ -1,16 +1,16 @@
 ###############################################################################
-#                          SKINNY GUERRILLA C2 SERVER                          
-#     _____ _    _                      _____                      _ _ _       
-#    / ____| |  (_)                    / ____|                    (_) | |      
-#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _ 
+#                          SKINNY GUERRILLA C2 SERVER
+#     _____ _    _                      _____                      _ _ _
+#    / ____| |  (_)                    / ____|                    (_) | |
+#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _
 #    \___ \| |/ / | '_ \| '_ \| | | | | | |_ | | | |/ _ \ '__| '__| | | |/ _` |
 #    ____) |   <| | | | | | | | |_| | | |__| | |_| |  __/ |  | |  | | | | (_| |
 #   |_____/|_|\_\_|_| |_|_| |_|\__, |  \_____|\__,_|\___|_|  |_|  |_|_|_|\__,_|
-#                               __/ |                                          
-#                              |___/                                           
+#                               __/ |
+#                              |___/
 #
 # This is the main file that will initialize the web interface for our server
-# which we store in flask. It makes calls to our resources.py backend which 
+# which we store in flask. It makes calls to our resources.py backend which
 # in turn makes calls to our sqlite database to update implant tasks and their
 # status.
 # inspired by: https://github.com/shogunlab/building-c2-implants-in-cpp
@@ -70,7 +70,7 @@ for line in infile:
 
     # stores in the dictionary
     c2_settings[key] = val
-    
+
 infile.close()
 
 # defines our index page template
@@ -113,7 +113,7 @@ def gui():
         except:
             implant_history = [['', '', '', '', '']]
 
-        
+
         try:
             # gets the sent commands that do not yet have results
             sent_commands = query_for_gui4(implant_id)
@@ -131,7 +131,7 @@ def gui():
 
             try:
 
-                # gets the data 
+                # gets the data
                 test_data1 = [implant_id, f, sa_ip, sa_hostname, sa_username, notes]
 
                 data.append(test_data1)
@@ -141,7 +141,7 @@ def gui():
 
     # sets the app's history
     app.history = history
-    return render_template('index.html', implants=data, history=history, num_implants = len(data), 
+    return render_template('index.html', implants=data, history=history, num_implants = len(data),
                            task_uri=c2_settings['task_uri'],upload_uri=c2_settings['upload_uri'])
 
 
@@ -156,7 +156,7 @@ def login():
             return redirect(url_for('gui'))
     except:
         pass
-    
+
 
     # gets the login data
     msg = ''
@@ -294,10 +294,10 @@ def update_load():
 
                 # if the history has changed
                 if app.history != history:
-                    
+
                     # update the history
                     app.history = history
-                    turbo.push(turbo.replace(render_template('history.html', implants=data, history=history, 
+                    turbo.push(turbo.replace(render_template('history.html', implants=data, history=history,
                                 num_implants = len(data),task_uri=c2_settings['task_uri'],upload_uri=c2_settings['upload_uri']), 'history'))
             except:
                 pass
@@ -311,7 +311,7 @@ if not app.is_initialized:
     with app.app_context():
         # starts our web socket
         threading.Thread(target=update_load).start()
-    
+
     # we don't want to create any more web sockets
     app.is_initialized = True
 
@@ -325,7 +325,7 @@ api.add_resource(resources.Tasks, f'/{c2_settings["task_uri"]}/<implant_id>', en
 api.add_resource(resources.Results, f'/{c2_settings["result_uri"]}/<implant_id>', endpoint='results')
 # /history shows all command logs for all implants
 api.add_resource(resources.History, '/history', endpoint='history')
-# /implant/format handles implant creation 
+# /implant/format handles implant creation
 api.add_resource(resources.Implant, '/implant/<format>', endpoint='implant')
 # /upload handles files that are being uploaded to the target via C2
 api.add_resource(resources.Upload, f'/{c2_settings["upload_uri"]}/<implant_id>', endpoint='upload')
@@ -339,7 +339,7 @@ if __name__ == '__main__':
 
     # if we input some type of help switch into the server.py run command
     if len(sys.argv) > 1 and sys.argv[1].lower() in ['-h', '-help', 'help', '--help', 'h']:
-        
+
         # tells us the usage of the server
         print('[+] USAGE: python server.py [certfile_path] [keyfile_path]. To disable https, do not provide cert or keyfiles.')
 
@@ -354,7 +354,7 @@ if __name__ == '__main__':
         keyfile_path = sys.argv[2]
         context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
         context.load_cert_chain(certfile='cert.pem', keyfile='private.key')
-        
+
         # runs the app with ssl enabled
         app.run(host=ip, port=port, ssl_context=context,debug=True)
 

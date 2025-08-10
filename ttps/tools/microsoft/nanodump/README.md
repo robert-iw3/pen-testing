@@ -110,14 +110,14 @@ scripts/restore_signature <dumpfile>
 
 <h3>Get the secretz</h3>
 
-<b>mimikatz:</b>  
+<b>mimikatz:</b>
 To get the secrets simply run:
 ```sh
 mimikatz.exe "sekurlsa::minidump <dumpfile>" "sekurlsa::logonPasswords full" exit
 ```
 
-<b>pypykatz:</b>  
-If you prefer to stay on linux, you can use the python3 port of mimikatz called [pypykatz](https://github.com/skelsec/pypykatz):  
+<b>pypykatz:</b>
+If you prefer to stay on linux, you can use the python3 port of mimikatz called [pypykatz](https://github.com/skelsec/pypykatz):
 ```sh
 python3 -m pypykatz lsa minidump <dumpfie>
 ```
@@ -126,18 +126,18 @@ python3 -m pypykatz lsa minidump <dumpfie>
 
 <h3>Process forking</h2>
 
-To avoid opening a handle to LSASS with `PROCESS_VM_READ`, you can use the `--fork` parameter.  
+To avoid opening a handle to LSASS with `PROCESS_VM_READ`, you can use the `--fork` parameter.
 This will make nanodump create a handle to LSASS with `PROCESS_CREATE_PROCESS` access and then create a 'clone' of the process. This new process will then be dumped. While this will result in a process creation and deletion, it removes the need to read LSASS directly.
 
 <h3>Snapshot</h2>
 
-Similarly to the `--fork` option, you can use `--snapshot` to create a snapshot of the LSASS process.  
+Similarly to the `--fork` option, you can use `--snapshot` to create a snapshot of the LSASS process.
 This will make nanodump create a handle to LSASS with `PROCESS_CREATE_PROCESS` access and then create a snapshot of the process using `PssNtCaptureSnapshot`. This new process will then be dumped. The snapshot will be freed automatically upon completion.
 
 <h3>Handle duplication</h2>
 
-As opening a handle to LSASS can be detected, nanodump can instead search for existing handles to LSASS.  
-If one is found, it will copy it and use it to create the minidump.  
+As opening a handle to LSASS can be detected, nanodump can instead search for existing handles to LSASS.
+If one is found, it will copy it and use it to create the minidump.
 Note that it is not guaranteed to find such a handle.
 
 <h3>Elevate handle</h2>
@@ -146,8 +146,8 @@ You can obtain a handle to LSASS with PROCESS_QUERY_LIMITED_INFORMATION, which i
 
 <h3>Seclogon handle leak local</h2>
 
-To avoid opening a handle to LSASS, you can use abuse the seclogon service by calling `CreateProcessWithLogonW` to leak an LSASS handle into the nanodump binary.  
-To enable this feature, use the `--seclogon-leak-local` parameter.  
+To avoid opening a handle to LSASS, you can use abuse the seclogon service by calling `CreateProcessWithLogonW` to leak an LSASS handle into the nanodump binary.
+To enable this feature, use the `--seclogon-leak-local` parameter.
 Take into account that when used from Cobalt Strike, an unsigned nanodump binary needs to be written to disk to use this feature.
 
 <h3>Seclogon handle leak remote</h2>
@@ -162,13 +162,13 @@ Use the `--seclogon-duplicate` flag to access this functionality.
 
 <h3>Load nanodump as an SSP</h2>
 
-You can load nanodump as an SSP in LSASS to avoid opening a handle.  
-When the DLL has been loaded into LSASS, the parameters will be passed via a named pipe and once the dump is completed, `DllMain` will return FALSE to make LSASS unload the nanodump DLL.  
-You can hardcode the parameters into the DLL and avoid using the named pipe altogether with the compiler flag `PASS_PARAMS_VIA_NAMED_PIPES=0`.  
+You can load nanodump as an SSP in LSASS to avoid opening a handle.
+When the DLL has been loaded into LSASS, the parameters will be passed via a named pipe and once the dump is completed, `DllMain` will return FALSE to make LSASS unload the nanodump DLL.
+You can hardcode the parameters into the DLL and avoid using the named pipe altogether with the compiler flag `PASS_PARAMS_VIA_NAMED_PIPES=0`.
 
 <h4>Upload and load a nanodump DLL</h3>
 
-By default, an unsigned nanodump DLL will be uploaded to the Temp folder which will be deleted automatically.  
+By default, an unsigned nanodump DLL will be uploaded to the Temp folder which will be deleted automatically.
 ```
 beacon> nanodump_ssp -v -w C:\Windows\Temp\lsass.dmp
 ```
@@ -179,7 +179,7 @@ beacon> nanodump_ssp -v -w C:\Windows\Temp\lsass.dmp --load-dll C:\Windows\Temp\
 ```
 
 <h3>PPL Dump exploit</h2>
-If LSASS is running as Protected Process Light (PPL), you can try to bypass it using a userland exploit discovered by Project Zero. If it is successful, the dump will be written to disk.  
+If LSASS is running as Protected Process Light (PPL), you can try to bypass it using a userland exploit discovered by Project Zero. If it is successful, the dump will be written to disk.
 
 > Note that this vulnerability has been fixed in the July 2022 update pack (Windows 10 21H2 Build 19044.1826)
 
@@ -189,8 +189,8 @@ beacon> nanodump_ppl_dump -v -w C:\Windows\Temp\lsass.dmp
 ```
 
 <h3>PPL Medic exploit</h2>
-Nanodump also implements the PPLMedic exploit, which works on systems that have the July 2022 update pack.  
-The parameters will be passed to the nanodump DLL via a named pipe. You can hardcode the parameters into the DLL and avoid using the named pipe altogether with the compiler flag PASS_PARAMS_VIA_NAMED_PIPES=0.  
+Nanodump also implements the PPLMedic exploit, which works on systems that have the July 2022 update pack.
+The parameters will be passed to the nanodump DLL via a named pipe. You can hardcode the parameters into the DLL and avoid using the named pipe altogether with the compiler flag PASS_PARAMS_VIA_NAMED_PIPES=0.
 
 To access this feature, use the `nanodump_ppl_medic` command
 ```
@@ -232,12 +232,12 @@ The dump will tipically be created under `C:\Windows\system32\config\systemprofi
 
 <h3>Spoof the callstack</h2>
 
-You can open a handle to LSASS with a fake callstack to make the function call look a bit more legitimate (especially if run as BOF).  
-To access this feature, use the paramter `--spoof-callstack`.  
+You can open a handle to LSASS with a fake callstack to make the function call look a bit more legitimate (especially if run as BOF).
+To access this feature, use the paramter `--spoof-callstack`.
 
 <h2 id="combinations">3. Combining techniques</h2>
 
-You can combine many techniques to customize how nanodump operates.  
+You can combine many techniques to customize how nanodump operates.
 The following table indicates which flags can be used together.
 
 |                        | --write | --valid | --duplicate | --elevate-handle | --duplicate-elevate    | --seclogon-leak-local | --seclogon-leak-remote | --seclogon-duplicate | --spoof-callstack | --silent-process-exit | --shtinkering | --fork | --snapshot | SSP | PPL_DUMP | PPL_MEDIC |
@@ -348,7 +348,7 @@ beacon> nanodump --duplicate-elevate
 
 <h2 id="redirectors">5. HTTPS redirectors</h2>
 
-If you are using an HTTPS redirector (as you should), you might run into issues when downloading the dump filelessly due to the size of the requests that leak the dump.  
+If you are using an HTTPS redirector (as you should), you might run into issues when downloading the dump filelessly due to the size of the requests that leak the dump.
 Increase the max size of requests on your web server to allow nanodump to download the dump.
 
 #### NGINX

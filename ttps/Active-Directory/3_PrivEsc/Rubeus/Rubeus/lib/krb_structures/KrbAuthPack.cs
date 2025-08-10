@@ -17,13 +17,13 @@ namespace Rubeus {
         }
 
         public AsnElt Encode() {
-          
-            return AsnElt.Make(AsnElt.SEQUENCE, 
+
+            return AsnElt.Make(AsnElt.SEQUENCE,
                 new AsnElt[] {
                     AsnElt.Make(AsnElt.CONTEXT,0, Authenticator.Encode()),
                     AsnElt.Make(AsnElt.CONTEXT,1, ClientPublicValue.Encode() ),
                     //AsnElt.Make(AsnElt.CONTEXT,2, new AsnElt[]{ CMSTypes } ),
-                    AsnElt.Make(AsnElt.CONTEXT,3, AsnElt.MakeBlob(ClientDHNonce)) 
+                    AsnElt.Make(AsnElt.CONTEXT,3, AsnElt.MakeBlob(ClientDHNonce))
                 });
         }
     }

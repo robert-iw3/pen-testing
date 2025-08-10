@@ -3737,7 +3737,7 @@ class SMB2Commands:
             lenData = len(data)
             padLen = (8 - (lenData % 8)) % 8
 
-            # For larger directory we might reach the OutputBufferLength so we need to set 
+            # For larger directory we might reach the OutputBufferLength so we need to set
             # the NextEntryOffset to 0 for the last entry the will fit the buffer
             try:
                 # Check if the next data will exceed the OutputBufferLength

@@ -57,9 +57,9 @@ namespace Rubeus.Domain
                 commandWasFound= false;
             else
             {
-                // Create the command object 
+                // Create the command object
                 var command = _availableCommands[commandName].Invoke();
-                
+
                 // and execute it with the arguments from the command line
                 command.Execute(arguments);
 

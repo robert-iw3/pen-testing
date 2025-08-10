@@ -5,7 +5,7 @@
 # for more information.
 #
 # Description:
-#             Microsoft Extensive Storage Engine parser, just focused on trying 
+#             Microsoft Extensive Storage Engine parser, just focused on trying
 #             to parse NTDS.dit files (not meant as a full parser, although it might work)
 #
 # Author:
@@ -13,11 +13,11 @@
 #
 # Reference for:
 #  Structure.
-# 
+#
 # Excellent reference done by Joachim Metz
 # http://forensic-proof.com/wp-content/uploads/2011/07/Extensible-Storage-Engine-ESE-Database-File-EDB-format.pdf
 #
-# ToDo: 
+# ToDo:
 # [ ] Parse multi-values properly
 # [ ] Support long values properly
 from __future__ import division
@@ -134,7 +134,7 @@ ColumnTypeSize = {
     JET_coltypIEEEDouble   : (8,'<d'),
     JET_coltypDateTime     : (8,'<Q'),
     JET_coltypBinary       : None,
-    JET_coltypText         : None, 
+    JET_coltypText         : None,
     JET_coltypLongBinary   : None,
     JET_coltypLongText     : None,
     JET_coltypSLV          : None,
@@ -158,7 +158,7 @@ CODEPAGE_ASCII   = 20127
 CODEPAGE_WESTERN = 1252
 
 StringCodePages = {
-    CODEPAGE_UNICODE : 'utf-16le', 
+    CODEPAGE_UNICODE : 'utf-16le',
     CODEPAGE_ASCII   : 'ascii',
     CODEPAGE_WESTERN : 'cp1252',
 }
@@ -509,7 +509,7 @@ class ESENT_PAGE:
                 valueSize = unpack('<H', tag[:2])[0] & 0x1fff
                 pageFlags = (unpack('<H', tag[2:])[0] & 0xe000) >> 13
                 valueOffset = unpack('<H',tag[2:])[0] & 0x1fff
-                
+
             print("TAG %-8d offset:0x%-6x flags:0x%-4x valueSize:0x%x" % (i,valueOffset,pageFlags,valueSize))
             #hexdump(self.getTag(i)[1])
             tags = tags[:-4]
@@ -625,7 +625,7 @@ class ESENT_DB:
         print("Database version: 0x%x, 0x%x" % (self.__DBHeader['Version'], self.__DBHeader['FileFormatRevision'] ))
         print("Page size: %d " % self.__pageSize)
         print("Number of pages: %d" % self.__totalPages)
-        print() 
+        print()
         print("Catalog for %s" % self.__fileName)
         for table in list(self.__tables.keys()):
             print("[%s]" % table.decode('utf8'))
@@ -738,7 +738,7 @@ class ESENT_DB:
             entry = self.__tables[tableName]['TableEntry']
             dataDefinitionHeader = ESENT_DATA_DEFINITION_HEADER(entry['EntryData'])
             catalogEntry = ESENT_CATALOG_DATA_DEFINITION_ENTRY(entry['EntryData'][len(dataDefinitionHeader):])
-            
+
             # Let's position the cursor at the leaf levels for fast reading
             pageNum = catalogEntry['FatherDataPageNumber']
             done = False
@@ -757,7 +757,7 @@ class ESENT_DB:
                     else:
                         done = True
                         break
-                
+
             cursor = TABLE_CURSOR
             cursor['TableData'] = self.__tables[tableName]
             cursor['FatherDataPageNumber'] = catalogEntry['FatherDataPageNumber']
@@ -826,10 +826,10 @@ class ESENT_DB:
         #     values, size.
         #
         # The interesting thing about this DB records is there's no need for all the columns to be there, hence
-        # saving space. That's why I got over all the columns, and if I find data (of any type), i assign it. If 
+        # saving space. That's why I got over all the columns, and if I find data (of any type), i assign it. If
         # not, the column's empty.
         #
-        # There are a lot of caveats in the code, so take your time to explore it. 
+        # There are a lot of caveats in the code, so take your time to explore it.
         #
         # ToDo: Better complete this description
         #
@@ -844,10 +844,10 @@ class ESENT_DB:
         prevItemLen = 0
         tagLen = len(tag)
         fixedSizeOffset = len(dataDefinitionHeader)
-        variableSizeOffset = dataDefinitionHeader['VariableSizeOffset'] 
- 
-        columns = cursor['TableData']['Columns'] 
-        
+        variableSizeOffset = dataDefinitionHeader['VariableSizeOffset']
+
+        columns = cursor['TableData']['Columns']
+
         for column in list(columns.keys()):
             columnRecord = columns[column]['Record']
             #columnRecord.dump()
@@ -884,10 +884,10 @@ class ESENT_DB:
                     while True:
                         taggedIdentifier = unpack('<H', tag[index:][:2])[0]
                         index += 2
-                        taggedOffset = (unpack('<H', tag[index:][:2])[0] & 0x3fff) 
-                        # As of Windows 7 and later ( version 0x620 revision 0x11) the 
+                        taggedOffset = (unpack('<H', tag[index:][:2])[0] & 0x3fff)
+                        # As of Windows 7 and later ( version 0x620 revision 0x11) the
                         # tagged data type flags are always present
-                        if self.__DBHeader['Version'] == 0x620 and self.__DBHeader['FileFormatRevision'] >= 17 and self.__DBHeader['PageSize'] > 8192: 
+                        if self.__DBHeader['Version'] == 0x620 and self.__DBHeader['FileFormatRevision'] >= 17 and self.__DBHeader['PageSize'] > 8192:
                             flagsPresent = 1
                         else:
                             flagsPresent = (unpack('<H', tag[index:][:2])[0] & 0x4000)
@@ -899,7 +899,7 @@ class ESENT_DB:
                         if index >= firstOffsetTag:
                             # We reached the end of the variable size array
                             break
-                
+
                     # Calculate length of variable items
                     # Ugly.. should be redone
                     prevKey = list(taggedItems.keys())[0]
@@ -910,10 +910,10 @@ class ESENT_DB:
                         #print "ID: %d, Offset: %d, Len: %d, flags: %d" % (prevKey, offset0, offset-offset0, flags)
                         prevKey = list(taggedItems.keys())[i]
                     taggedItemsParsed = True
- 
+
                 # Tagged data type
                 if columnRecord['Identifier'] in taggedItems:
-                    offsetItem = variableDataBytesProcessed + variableSizeOffset + taggedItems[columnRecord['Identifier']][0] 
+                    offsetItem = variableDataBytesProcessed + variableSizeOffset + taggedItems[columnRecord['Identifier']][0]
                     itemSize = taggedItems[columnRecord['Identifier']][1]
                     # If item have flags, we should skip them
                     if taggedItems[columnRecord['Identifier']][2] > 0:
@@ -944,7 +944,7 @@ class ESENT_DB:
             if type(record[column]) is tuple:
                 # A multi value data, we won't decode it, just leave it this way
                 record[column] = record[column][0]
-            elif columnRecord['ColumnType'] == JET_coltypText or columnRecord['ColumnType'] == JET_coltypLongText: 
+            elif columnRecord['ColumnType'] == JET_coltypText or columnRecord['ColumnType'] == JET_coltypLongText:
                 # Let's handle strings
                 if record[column] is not None:
                     if columnRecord['CodePage'] not in StringCodePages:

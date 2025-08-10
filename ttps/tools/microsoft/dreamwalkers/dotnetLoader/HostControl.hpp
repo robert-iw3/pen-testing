@@ -10,10 +10,10 @@
 static const  GUID xIID_IHostControl = { 0x02CA073C, 0x7079, 0x4860, {0x88, 0x0A, 0xC2, 0xF7, 0xA4, 0x49, 0xC9, 0x91} };
 
 
-inline void XOREncrypt2(char* address, int size, const std::string& xorKey) 
+inline void XOREncrypt2(char* address, int size, const std::string& xorKey)
 {
 	DWORD start = 0;
-	while (start < size) 
+	while (start < size)
 	{
 		*(address + start) ^= xorKey[start % xorKey.size()];
 		start++;
@@ -86,15 +86,15 @@ public:
 			{
 				::VirtualQuery(entry->Address, &memInfo, sizeof(MEMORY_BASIC_INFORMATION));
 
-				if (memInfo.AllocationProtect != 0 && memInfo.State != 0x2000 && memInfo.State != 0x10000) 
+				if (memInfo.AllocationProtect != 0 && memInfo.State != 0x2000 && memInfo.State != 0x10000)
 				{
-					if (memInfo.Protect != PAGE_READWRITE) 
+					if (memInfo.Protect != PAGE_READWRITE)
 					{
 						::VirtualProtect(memInfo.BaseAddress, memInfo.RegionSize, PAGE_READWRITE, &oldProtect);
 						XOREncrypt2((char*)memInfo.BaseAddress, memInfo.RegionSize, xorKey);
 						::VirtualProtect(memInfo.BaseAddress, memInfo.RegionSize, oldProtect, &oldProtect);
 					}
-					else 
+					else
 					{
 						XOREncrypt2((char*)memInfo.BaseAddress, memInfo.RegionSize, xorKey);
 					}
@@ -104,7 +104,7 @@ public:
 
 		return 0;
 	}
-	
+
 protected:
 	DWORD count;
 

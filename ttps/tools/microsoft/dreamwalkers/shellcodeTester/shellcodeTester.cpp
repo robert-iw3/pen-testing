@@ -8,7 +8,7 @@
 int testShellCode(const std::string& fileName)
 {
 	std::ifstream shellcode( fileName, std::ios::binary );
-	if(!shellcode) 
+	if(!shellcode)
 	{
 		std::cout << "Cannot open file!" << std::endl;
 		return 1;
@@ -33,14 +33,14 @@ int testShellCode(const std::string& fileName)
 }
 
 
-int main(int argc, char* argv[]) 
+int main(int argc, char* argv[])
 {
-    if (argc > 1) 
+    if (argc > 1)
 	{
         std::string inputFile = argv[1];
         std::cout << "[*] Testing provided file: " << inputFile << std::endl;
         testShellCode(inputFile);
-    } 
+    }
 	else
 	{
 		std::cout << "[*] No file provided..." << std::endl;

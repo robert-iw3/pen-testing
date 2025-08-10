@@ -6,7 +6,7 @@ namespace Rubeus
 {
     class PA_KEY_LIST_REQ
     {
-        // KERB-KEY-LIST-REQ::= SEQUENCE OF Int32 -- encryption type -- 
+        // KERB-KEY-LIST-REQ::= SEQUENCE OF Int32 -- encryption type --
         public PA_KEY_LIST_REQ()
         {
             Enctype = (Int32)Interop.KERB_ETYPE.rc4_hmac;

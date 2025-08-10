@@ -14,19 +14,19 @@ from ntds_common import read_attm_array
 USER_ATT_TO_INTERNAL = {
 
     'cn':'ATTm3', # name
-    
+
     # login
     'sAMAccountName':'ATTm590045',
     'userPrincipalName':'ATTm590480',
     'primaryGroupID':'ATTj589922',
 
     'logonCount':'ATTj589993', # logoncount
-    'adminCount':'ATTj589974', 
+    'adminCount':'ATTj589974',
     'lDAPDisplayName':'ATTm131532', # displayname
     'badPwdCount':'ATTj589836', # badpasscount
     'Description':'ATTm13', # description
     'userPrincipalName':'ATTm590480', # fulldomainname
-    'comment':'ATTm589980', 
+    'comment':'ATTm589980',
     'info':'ATTm131153', # remark
     'operatingSystem':'ATTm590187', # os
     'operatingSystemVersion':'ATTm590188', # version
@@ -38,7 +38,7 @@ USER_ATT_TO_INTERNAL = {
     'objectGUID':'ATTk589826',
 
     # Delegation Contrainte
-    'allowedToDelegateTo': 'ATTm591611', 
+    'allowedToDelegateTo': 'ATTm591611',
 
 
     # SID
@@ -60,7 +60,7 @@ USER_ATT_TO_INTERNAL = {
 
     'pekList':'ATTk590689',
     'supplementalCredentials':'ATTk589949',
-    
+
     #'ms-Mcs-AdmPwd':'ATTf-2055856035',
 
     # primaryGroupID
@@ -72,7 +72,7 @@ USER_ATT_TO_INTERNAL = {
     #'uSNChanged':'ATTq131192',
     'whenCreated': 'ATTl131074', #  create
     # uSNChanged
-    'whenChanged':'ATTl131075', # change 
+    'whenChanged':'ATTl131075', # change
     'accountExpires': 'ATTq589983', # expired
     # pwdLastSet
     'pwdLastSet':'ATTq589920', # lastpasswordset
@@ -96,7 +96,7 @@ USER_ATT_TO_INTERNAL = {
     #'tmp_primaryGroupID':'ATTj589922',
 
     ############
-    # tmp 
+    # tmp
     'tmp_domainID':'NCDNT_col',
 
     # Linking object OU / Orgs / Dom
@@ -196,7 +196,7 @@ class NTDSUsers(NTDSEntry):
             if key_prefix == "LAPS":
                 adm_encrypted_value = getattr(self, key_prefix.lower() + "_adm_encrypted")
             adm_expirationtime_value = getattr(self, key_prefix.lower() + "_adm_expirationtime")
-            
+
             if adm_value:
                 self.update_laps_to_internal(key_prefix, adm_value, adm_expirationtime_value, adm_encrypted_value)
                 self.config.update(USER_ATT_TO_INTERNAL)
@@ -207,7 +207,7 @@ class NTDSUsers(NTDSEntry):
 
         if win2k12: # attributs spécifiques aux versions 2012 et supérieure
             self.config.update(WINDOWS_2012_AND_FUTHER_ATTR)
-        
+
 
     def update_laps_to_internal(self, key_prefix, value, expiration_value, encrypted_value = None):
         self.config[LAPS_REFERENCES[key_prefix]["ADMPWD_REF"]] = 'ATTf' + str(value)
@@ -225,9 +225,9 @@ class NTDSUsers(NTDSEntry):
         if encrypted:
             adm_ref = getattr(self, key_prefix.lower() + "_adm_encrypted")
             subkey = "ADMPWD_ENCRYPTED_REF"
-            
+
         if adm_ref:
-            key = LAPS_REFERENCES[key_prefix][subkey]            
+            key = LAPS_REFERENCES[key_prefix][subkey]
             try:
                 if self.entry[key] is not None:
                     return self.entry[key].decode('utf-8')
@@ -236,15 +236,15 @@ class NTDSUsers(NTDSEntry):
             # if self.entry[key] is not None:
             #     return str(codecs.decode(self.entry[key], 'hex').decode('utf-8'))
         return None
-    
+
     def get_laps_pwd_exp(self, version="legacy"):
         key_prefix = "LAPS_LEGACY" if version == "legacy" else "LAPS"
         adm_ref = getattr(self, key_prefix.lower() + "_adm")
-        
+
         if adm_ref:
             key = LAPS_REFERENCES[key_prefix]["ADMPWDEXP_REF"]
             try:
-               if self.entry[key] is not None: 
+               if self.entry[key] is not None:
                    return self.fileTimeToDateTime(self.entry[key])
             except KeyError as e:
                 logger.debug("ntds_user get_laps_pwd_exp %s" % e)
@@ -271,7 +271,7 @@ class NTDSUsers(NTDSEntry):
 
     def is_user(self):
         return True
-    
+
     def is_disable(self):
         status = self.resolve_UAC()
         return UAC_VALUE_DISABLE in status
@@ -336,73 +336,73 @@ class NTDSUsers(NTDSEntry):
         try:
             return self.entry["operatingSystemServicePack"]
         except KeyError:
-            logger.debug("get_osservicepack: no operatingSystemServicePack for %s", self.entry["cn"])            
+            logger.debug("get_osservicepack: no operatingSystemServicePack for %s", self.entry["cn"])
 
     def get_sidhistory(self):
         try:
             return self.show_list(self.decode_sidhistory(self.entry["sIDHistory"]))
         except KeyError:
-            logger.debug("get_sidhistory: no sIDHistory for %s", self.entry["cn"])   
+            logger.debug("get_sidhistory: no sIDHistory for %s", self.entry["cn"])
 
     def get_lastLogonTimestamp(self):
         try:
             return self.fileTimeToDateTime(self.entry["lastLogonTimestamp"])
         except KeyError:
-            logger.debug("get_lastLogonTimestamp: no lastLogonTimestamp for %s", self.entry["cn"])  
+            logger.debug("get_lastLogonTimestamp: no lastLogonTimestamp for %s", self.entry["cn"])
 
     def get_admincount(self):
         try:
             return self.entry["adminCount"]
         except KeyError:
-            logger.debug("get_adminCount: no adminCount for %s", self.entry["cn"])  
+            logger.debug("get_adminCount: no adminCount for %s", self.entry["cn"])
 
     def get_description(self):
         try:
             return self.entry["Description"]
         except KeyError:
-            logger.debug("get_description: no Description for %s", self.entry["cn"])  
+            logger.debug("get_description: no Description for %s", self.entry["cn"])
 
     def get_logoncount(self):
         try:
             return self.entry["logonCount"]
         except KeyError:
-            logger.debug("get_logoncount: no logonCount for %s", self.entry["cn"])  
+            logger.debug("get_logoncount: no logonCount for %s", self.entry["cn"])
 
     def get_badpasscount(self):
         try:
             return self.entry["badPwdCount"]
         except KeyError:
-            logger.debug("get_badpasscount: no badPwdCount for %s", self.entry["cn"]) 
+            logger.debug("get_badpasscount: no badPwdCount for %s", self.entry["cn"])
 
     def get_created(self):
         try:
             return self.fileTimeToDateTime(self.entry["whenCreated"]* 10000000)
         except KeyError:
-            logger.debug("get_created: no whenCreated for %s", self.entry["cn"]) 
+            logger.debug("get_created: no whenCreated for %s", self.entry["cn"])
 
     def get_changed(self):
         try:
             return self.fileTimeToDateTime(self.entry["whenChanged"]* 10000000)
         except KeyError:
-            logger.debug("get_changed: no whenChanged for %s", self.entry["cn"]) 
+            logger.debug("get_changed: no whenChanged for %s", self.entry["cn"])
 
     def get_lastlogon(self):
         try:
             return self.fileTimeToDateTime(self.entry["lastLogon"])
         except KeyError:
-            logger.debug("get_lastlogon: no lastLogon for %s", self.entry["cn"]) 
+            logger.debug("get_lastlogon: no lastLogon for %s", self.entry["cn"])
 
     def get_expired(self):
         try:
             return self.ad_time_to_unix(self.entry["accountExpires"])
         except KeyError:
-            logger.debug("get_expired: no accountExpires for %s", self.entry["cn"])   
+            logger.debug("get_expired: no accountExpires for %s", self.entry["cn"])
 
     def get_lastpasswordset(self):
         try:
             return self.fileTimeToDateTime(self.entry["pwdLastSet"])
         except KeyError:
-            logger.debug("get_lastpasswordset: no pwdLastSet for %s", self.entry["cn"])        
+            logger.debug("get_lastpasswordset: no pwdLastSet for %s", self.entry["cn"])
 
     def debug(self):
         logger.debug("******* DEBUG - USERS *******")
@@ -438,7 +438,7 @@ class NTDSUsers(NTDSEntry):
         for hash in self.HashHistory:
             line = "%s:%s:%s::history:\n" % (self.entry['sAMAccountName'], self.rid, hash)
             writer.write(line)
-    
+
     def get_john_history(self):
         line = ""
         for hash in self.HashHistory:
@@ -452,8 +452,8 @@ class NTDSUsers(NTDSEntry):
     def get_john(self):
         line = "%s:%s:%s:%s:::\n" % (self.entry['sAMAccountName'], self.rid, self.get_hashlm(), self.get_hashnt())
         return line
-    
-    
+
+
     def get_entry(self):
         csv_entry = {
             "domain": self.domain,
@@ -498,9 +498,9 @@ class NTDSUsers(NTDSEntry):
             LAPS_ADMPWD_ENCRYPTED_REF: self.get_laps_pwd(version = "new", encrypted=True),
             LAPS_ADMPWDEXP_REF:self.get_laps_pwd_exp(version = "new"),
             "sIDHistory": self.get_sidhistory(),
-            "uniq":self.uniq,  
+            "uniq":self.uniq,
             "uniq_dom":self.uniq_dom,
-            "adminCount":self.get_admincount(), 
+            "adminCount":self.get_admincount(),
             "ntSecurityDescriptor": self.get_security_descriptor(self.entry["ntSecurityDescriptor"]),
             #"isadmin":None,
             #"uniq":None,
@@ -593,7 +593,7 @@ class NTDSUsers(NTDSEntry):
                     self.supplementalCredentials = self.__crypto_user.decrypt_blob(self.entry['supplementalCredentials'])
                     self.__dump_suppCreds()
         except KeyError:
-            logger.debug("decryptHash: no supplementalCredentials attribute for user %s", self.entry['cn'])                    
+            logger.debug("decryptHash: no supplementalCredentials attribute for user %s", self.entry['cn'])
 
         if self.LMHash == None:
             self.LMHash = ntlm.LMOWFv1('', '')
@@ -619,11 +619,11 @@ class NTDSUsers(NTDSEntry):
                     NTHash = ntlm.NTOWFv1('', '')
                 else:
                     NTHash = hexlify(NTHash).decode('utf-8')
-                
+
                 fullhash = "%s:%s" % (LMHash, NTHash)
                 self.HashHistory.append(fullhash)
         except KeyError:
-            logger.debug("decryptHash: no lmPwdHistory or ntPwdHistory attribute for user %s", self.entry['cn'])        
+            logger.debug("decryptHash: no lmPwdHistory or ntPwdHistory attribute for user %s", self.entry['cn'])
 
     def print_userstatus(self):
         if self.entry['userAccountControl'] is not None:

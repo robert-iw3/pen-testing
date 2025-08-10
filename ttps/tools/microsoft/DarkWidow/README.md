@@ -36,7 +36,7 @@ A Customizable Dropper Tool targeting Windows.
 
 #### While Killing only those threads in the indirect syscall implant, was facing an error. I was unable to get the "**eventlog**" _SubProcessTag Value_. So thought of killing all threads, i.e. killing the whole process (responsible **svchost.exe**). Yeah creating ***an IOC***!.
 
-### = 
+### =
 ### 1. EDR/Ring-3/UserLand hook Bypass
 ### 2. The syscall and return statement are executed from memory of ntdll.dll
 ### 3. EDR detection based on checking the return address in the call stack can be bypassed.
@@ -86,7 +86,7 @@ https://github.com/reveng007/DarkWidow/assets/61424547/62a90c5b-84af-4389-8ddc-9
 2. GS and FS register:
    - https://stackoverflow.com/questions/39137043/what-is-the-gs-register-used-for-on-windows
    - https://stackoverflow.com/questions/10810203/what-is-the-fs-gs-register-intended-for#:~:text=The%20registers%20FS%20and%20GS,to%20access%20thread%2Dspecific%20memory.
-3. PEB LDR structure: 
+3. PEB LDR structure:
    - [BlackHat - What Malware Authors Don't Want You to Know - Evasive Hollow Process Injection](https://www.youtube.com/watch?v=9L9I1T5QDg4&t=205s) by [@monnappa22](https://twitter.com/monnappa22)
    - A pic of process Memory from the Above link:\
    ![alt text](https://github.com/reveng007/DarkWidow/blob/main/img/1.png)
@@ -166,7 +166,7 @@ int main(int argc, char** argv)
 9. How Thread Stack Looks of the Implant Process:
 
 | Implant Process  |   Legit Cmd process    |
-| ---------------- | ---------------- |  
+| ---------------- | ---------------- |
 |  ![alt text](https://github.com/reveng007/DarkWidow/blob/main/img/8.png) | ![alt text](https://github.com/reveng007/DarkWidow/blob/main/img/9.png) |
 
 > **It follows that by executing the return instruction in the memory of the ntdll.dll in the indirect syscall POC, the return address can be successfully spoofed, the ntdll.dll can be placed at the top of the call stack and the EDR will interpret a higher legitimacy.** - [@VirtualAllocEx](https://twitter.com/VirtualAllocEx) from [DirectSyscall Vs Indirect Syscall](https://redops.at/blog/direct-syscalls-vs-indirect-syscalls)\

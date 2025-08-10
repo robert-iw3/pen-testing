@@ -1,21 +1,21 @@
 function TGT_Monitor {
-	
+
 	<#
 
 	.SYNOPSIS
 	TGT_Monitor Author: Rob LP (@L3o4j)
 	https://github.com/Leo4j/TGT_Monitor
 	Dependency: https://github.com/MzHmO/PowershellKerberos
-	
+
 	#>
-	
+
 	param (
 		[string]$EncryptionKey,
 		[switch]$Read,
 		[switch]$Clear,
 		[int]$Timeout
 	)
-	
+
 	# Derive key and IV from passphrase
 	$keySize = 256
 	$keyIV = Get-AesKeyFromPassphrase -passphrase $EncryptionKey -keySize $keySize
@@ -25,7 +25,7 @@ function TGT_Monitor {
 	$encodedIV = [Convert]::ToBase64String($keyIV.IV)
 
 	$registryPath = 'HKLM:\SOFTWARE\MONITOR'
-	
+
 	if($Clear){
  		if(Test-Path $registryPath){Get-Item $registryPath | Remove-Item -Recurse -Force}
   		Remove-Variable -Name finalUniqueSections -Scope Global -ErrorAction SilentlyContinue
@@ -50,30 +50,30 @@ function TGT_Monitor {
 					Write-Error "An error occurred during decryption: $_"
 				}
 			}
-			
+
 			Write-Output "=================END================="
 			Write-Output "====================================="
 		}
 	}
-	
+
 	if($Read){
  		if (Test-Path $registryPath) {
  			return
-    		} 
+    		}
       		else{
 			Write-Output "[-] Empty Registry"
    			return
 		}
    	}
-	
+
 	if($Timeout){
  		$stopwatch = [System.Diagnostics.Stopwatch]::StartNew() # Start the stopwatch
    	}
 
 	while($True){
-		
+
 		Start-Sleep 5
-		
+
 		$updated = $false
 
 		$data = Invoke-Kirby
@@ -116,7 +116,7 @@ function TGT_Monitor {
 		if (-not (Test-Path variable:global:finalUniqueSections)) {
 			$global:finalUniqueSections = @{}
 		}
-		
+
 		# Keep track of the number of sections before the update
 		$initialCount = $global:finalUniqueSections.Count
 
@@ -126,7 +126,7 @@ function TGT_Monitor {
 			$normalizedSection = $section -replace "\s+", " " -replace "\r?\n", " " -replace "`t", " " | Out-String
 			$normalizedSection = $normalizedSection.Trim().ToLower()
 			$hash = $normalizedSection.GetHashCode()
-			
+
 			# Check if this section's hash is already in the final unique sections
 			if (-not $global:finalUniqueSections.ContainsKey($hash)) {
 				$global:finalUniqueSections[$hash] = $section
@@ -145,7 +145,7 @@ function TGT_Monitor {
 
 		# Replace the original hashtable with the cleaned one
 		$global:finalUniqueSections = $cleanedFinalUniqueSections
-		
+
 		$finalCount = $global:finalUniqueSections.Count
 		if ($finalCount -gt $initialCount) {
 			$updated = $true
@@ -173,7 +173,7 @@ function TGT_Monitor {
 			New-ItemProperty -Path $itemPath -Name $propertyName -Value $encryptedValueBase64 -PropertyType String -Force > $null
 			$index++
 		}
-		
+
 		if ($updated) {
 			$properties = Get-ItemProperty -Path $registryPath
 			$properties.PSObject.Properties | Where-Object { $_.Name -like 'UniqueSection*' } | ForEach-Object {
@@ -189,12 +189,12 @@ function TGT_Monitor {
 					Write-Error "An error occurred during decryption: $_"
 				}
 			}
-			
+
 			Write-Output "=================END================="
 			Write-Output "====================================="
 			Write-Output ""
 		}
-		
+
 		if ($Timeout -AND ($stopwatch.Elapsed.TotalSeconds -gt $Timeout)) {
             		Write-Output "Timeout reached ($Timeout seconds)"
 	      		Start-Process powershell -ArgumentList "-NoProfile -Command `"Start-Sleep -Seconds 86400; Remove-Item -Path 'HKLM:\SOFTWARE\MONITOR' -Recurse -Force`""
@@ -253,11 +253,11 @@ function Get-AesKeyFromPassphrase {
         [string]$passphrase,
         [int]$keySize = 256 # Key size in bits (AES allows 128, 192, or 256)
     )
-    
+
     # Fixed salt value
     # Ensure this is a constant and secret value that does not change
     $salt = [byte[]](0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F,0x10)
-    
+
     # Create an instance of Rfc2898DeriveBytes and get the bytes for the key
     $keyGenerator = New-Object System.Security.Cryptography.Rfc2898DeriveBytes $passphrase, $salt, 10000
     $key = $keyGenerator.GetBytes($keySize / 8) # divide by 8 to convert bits to bytes
@@ -265,7 +265,7 @@ function Get-AesKeyFromPassphrase {
     # Fixed IV value
     # Ensure this is a constant and secret value that does not change
     $IV = [byte[]](0x10,0x0F,0x0E,0x0D,0x0C,0x0B,0x0A,0x09,0x08,0x07,0x06,0x05,0x04,0x03,0x02,0x01)
-    
+
     return @{Key = $key; IV = $IV}
 }
 
@@ -273,7 +273,7 @@ function Get-AesKeyFromPassphrase {
 function Clean-Base64String($base64String) {
     # Remove any whitespace or newline characters
     $cleanString = $base64String -replace '\s',''
-    
+
     # Add padding if the string length is not a multiple of 4
     while (($cleanString.Length % 4) -ne 0) {
         $cleanString = $cleanString + '='

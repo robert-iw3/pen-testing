@@ -8,7 +8,7 @@ There are already some great tools out there that focus on MS-RPC vulnerability 
 
 The whole idea is to gain insights into MS-RPC implementations *that may be vulnerable* using an automated approach and make it easy to visualize the data. By following this approach, a security researcher will hopefully identify interesting RPC services in such a time that would take a manual approach significantly more.
 
-> [!CAUTION]  
+> [!CAUTION]
 > This fuzzer almost certainly will break stuff in your OS (even from a low user), so please run it in a isolated and controlled environment and with permission!
 
 > [!NOTE]
@@ -25,7 +25,7 @@ The whole idea is to gain insights into MS-RPC implementations *that may be vuln
 - [PowerShell 7](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows)
 
 ## Usage
-First, import the MS-RPC-Fuzzer module. This loads all cmdlets for both this fuzzer and NtObjectManager. 
+First, import the MS-RPC-Fuzzer module. This loads all cmdlets for both this fuzzer and NtObjectManager.
 ```powershell
 Import-Module .\MS-RPC-Fuzzer.psm1
 ```
@@ -99,7 +99,7 @@ For more information on this phase, check [Get-RpcServerData](/docs/1%20Inventar
 
 ### Phase 2: Fuzzing
 
-The fuzzer takes the exported JSON file by [Get-RpcServerData](/docs/1%20Inventarize%20-%20Get-RpcServerData.md) as required input. 
+The fuzzer takes the exported JSON file by [Get-RpcServerData](/docs/1%20Inventarize%20-%20Get-RpcServerData.md) as required input.
 
 There are currently two types of fuzzers.
 

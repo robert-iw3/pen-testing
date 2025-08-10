@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
 namespace LethalHTADotNet
-{   
+{
     public struct FILETIME
-    {   
+    {
         public int dwLowDateTime;
         public int dwHighDateTime;
     }
@@ -48,7 +48,7 @@ namespace LethalHTADotNet
 
     [ComImport]
     [Guid("0000000F-0000-0000-C000-000000000046")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]  
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IMoniker : IPersistStream
     {
         [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall)]

@@ -39,7 +39,7 @@ class DCERPCSessionError(DCERPCException):
     def __str__( self ):
         if self.error_code in hresult_errors.ERROR_MESSAGES:
             error_msg_short = hresult_errors.ERROR_MESSAGES[self.error_code][0]
-            error_msg_verbose = hresult_errors.ERROR_MESSAGES[self.error_code][1] 
+            error_msg_verbose = hresult_errors.ERROR_MESSAGES[self.error_code][1]
             return 'VDS SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             return 'VDS SessionError: unknown error code: 0x%x' % (self.error_code)
@@ -219,7 +219,7 @@ class IVdsProvider(IRemUnknown2):
         request['ORPCthis'] = self.get_cinstance().get_ORPCthis()
         request['ORPCthis']['flags'] = 0
         resp = self.request(request, uuid = self.get_iPid())
-        return resp 
+        return resp
 
 class IVdsServiceInitialization(IRemUnknown2):
     def __init__(self, interface):
@@ -231,7 +231,7 @@ class IVdsServiceInitialization(IRemUnknown2):
         request['ORPCthis']['flags'] = 0
         request['pwszMachineName'] = '\x00'
         resp = self.request(request, uuid = self.get_iPid())
-        return resp 
+        return resp
 
 class IVdsService(IRemUnknown2):
     def __init__(self, interface):
@@ -245,21 +245,21 @@ class IVdsService(IRemUnknown2):
             resp = self.request(request, uuid = self.get_iPid())
         except Exception as e:
             resp = e.get_packet()
-        return resp 
+        return resp
 
     def WaitForServiceReady(self):
         request = IVdsService_WaitForServiceReady()
         request['ORPCthis'] = self.get_cinstance().get_ORPCthis()
         request['ORPCthis']['flags'] = 0
         resp = self.request(request, uuid = self.get_iPid())
-        return resp 
+        return resp
 
     def GetProperties(self):
         request = IVdsService_GetProperties()
         request['ORPCthis'] = self.get_cinstance().get_ORPCthis()
         request['ORPCthis']['flags'] = 0
         resp = self.request(request, uuid = self.get_iPid())
-        return resp 
+        return resp
 
     def QueryProviders(self, masks):
         request = IVdsService_QueryProviders()

@@ -32,7 +32,7 @@ namespace Rubeus
                 }
             }
 
-            // Decode the KEY-LIST-REP 
+            // Decode the KEY-LIST-REP
             if (keytype == (Int32)Interop.PADATA_TYPE.KEY_LIST_REP)
             {
                 AsnElt ae = AsnElt.Decode(keyvalue);

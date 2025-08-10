@@ -63,7 +63,7 @@ set_payload_info_source no_data
 # set shellcode binding technique
 set_payload_execution_method exec_shellcode64
 
-# call make_avet, compile 
+# call make_avet, compile
 $win64_compiler -o output/disablewindefpsh_xorfromcmd_revhttps_win64.exe source/avet.c
 strip output/disablewindefpsh_xorfromcmd_revhttps_win64.exe
 

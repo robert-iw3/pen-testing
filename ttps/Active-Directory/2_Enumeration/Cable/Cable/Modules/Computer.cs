@@ -44,7 +44,7 @@ namespace Cable.Modules
                 LdapDirectoryIdentifier ldapId = new LdapDirectoryIdentifier(dc, 389);
                 LdapConnection connection = new LdapConnection(ldapId);
 
-                connection.SessionOptions.Sealing = true; 
+                connection.SessionOptions.Sealing = true;
                 connection.SessionOptions.Signing = true;
                 connection.Bind();
 
@@ -60,7 +60,7 @@ namespace Cable.Modules
                 Console.WriteLine("[+] Adding computer object");
                 connection.SendRequest(req);
                 Console.WriteLine("[+] Successfully added computer account " + name + " with password " + password);
-                
+
 
             }
             catch (Exception ex)

@@ -94,8 +94,8 @@ public class NewNtAlpcSecurityContextCmdlet : PSCmdlet
     /// </summary>
     protected override void ProcessRecord()
     {
-        SecurityQualityOfService sqos = ParameterSetName == "FromSqos" 
-            ? SecurityQualityOfService 
+        SecurityQualityOfService sqos = ParameterSetName == "FromSqos"
+            ? SecurityQualityOfService
             : new SecurityQualityOfService(ImpersonationLevel, ContextTrackingMode, EffectiveOnly);
         WriteObject(Port.CreateSecurityContext(sqos));
     }

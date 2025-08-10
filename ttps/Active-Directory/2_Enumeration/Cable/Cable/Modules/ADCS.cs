@@ -34,12 +34,12 @@ namespace Cable.Modules
             {
                 if (sr.Properties.Contains("name"))
                 {
-                    Console.WriteLine("[+] Found CA: " + sr.Properties["name"][0].ToString());   
+                    Console.WriteLine("[+] Found CA: " + sr.Properties["name"][0].ToString());
                 }
                 if (sr.Properties.Contains("dnshostname"))
                 {
                     Console.WriteLine("\t|__ Hostname: " + sr.Properties["dnshostname"][0].ToString());
-                    
+
                 }
             }
 

@@ -1,7 +1,7 @@
 #define WIN32_LEAN_AND_MEAN
-#include <windows.h>    
+#include <windows.h>
 #include <winsock2.h>
-#include <ws2tcpip.h> 
+#include <ws2tcpip.h>
 #pragma comment(lib, "ws2_32.lib")
 
 #include "Network.h"
@@ -26,7 +26,7 @@ bool InitWinSock()
 
 SOCKET ConnectToServer(const std::string& ip, int port)
 {
-    if(!InitWinSock()) 
+    if(!InitWinSock())
         return INVALID_SOCKET;
 
     SOCKET s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -62,7 +62,7 @@ bool SendAll(SOCKET s, const char* buf, int totalSize)
     while(sent < totalSize)
     {
         int r = send(s, buf + sent, totalSize - sent, 0);
-        if(r <= 0) 
+        if(r <= 0)
             return false;
         sent += r;
     }
@@ -92,8 +92,8 @@ int SendInt(SOCKET s, int val)
 int RecvInt(SOCKET s, int& value)
 {
     return RecvAll(s, reinterpret_cast<char*>(&value), sizeof(value))
-           ? sizeof(value)        
-           : 0;                   
+           ? sizeof(value)
+           : 0;
 }
 
 bool SendHandshake(SOCKET s, Connection c)

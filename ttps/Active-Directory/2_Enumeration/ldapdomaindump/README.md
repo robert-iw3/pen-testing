@@ -92,7 +92,7 @@ Most AD servers support NTLM authentication. In the rare case that it does not, 
 By default the tool outputs all files in HTML, JSON and tab delimited output (greppable). There are also two grouped files (users_by_group and computers_by_os) for convenience. These do not have a greppable output. JSON output for grouped files is disabled by default since it creates very large files without any data that isn't present in the other files already.
 
 ### DNS resolving
-An important option is the *-r* option, which decides if a computers DNSHostName attribute should be resolved to an IPv4 address. 
+An important option is the *-r* option, which decides if a computers DNSHostName attribute should be resolved to an IPv4 address.
 While this can be very useful, the DNSHostName attribute is not automatically updated. When the AD Domain uses subdomains for computer hostnames, the DNSHostName will often be incorrect and will not resolve. Also keep in mind that resolving every hostname in the domain might cause a high load on the domain controller.
 
 ### Minimizing network and memory usage

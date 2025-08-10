@@ -20,10 +20,10 @@ typedef struct _FUNCTION_ADDRESSES {
 
 typedef struct _CORE_ARGUMENTS {
 
-    PBYTE myBase; 
+    PBYTE myBase;
     HANDLE sacDLLHandle;
     HANDLE malDLLHandle;
-    SIZE_T viewSize; 
+    SIZE_T viewSize;
 
 } CORE_ARGUMENTS, * PCORE_ARGUMENTS;
 

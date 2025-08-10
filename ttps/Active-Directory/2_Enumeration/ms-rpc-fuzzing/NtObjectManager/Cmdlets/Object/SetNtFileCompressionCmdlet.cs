@@ -53,7 +53,7 @@ public class SetNtFileCompressionCmdlet : BaseNtFilePropertyCmdlet
     /// Constructor.
     /// </summary>
     public SetNtFileCompressionCmdlet()
-        : base(FileAccessRights.ReadData | FileAccessRights.WriteData, 
+        : base(FileAccessRights.ReadData | FileAccessRights.WriteData,
               FileShareMode.None, FileOpenOptions.None)
     {
     }

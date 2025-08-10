@@ -97,7 +97,7 @@ public:
 		m_bResetReadItr = true;
 		m_pBuff = NULL;
 		m_expectedLen = 0;
-		m_uniqueProcessID = GetUniqueID(); 
+		m_uniqueProcessID = GetUniqueID();
 	}
 	virtual ~RemMsg()
 	{
@@ -135,13 +135,13 @@ class Settings
 	Settings(const Settings&); //not implemented
 	Settings& operator=(const Settings&); //not implemented
 public:
-	Settings() 
-	{ 
-		bCopyFiles = false; 
-		bForceCopy = false; 
-		bCopyIfNewerOrHigherVer = false; 
-		bDontWaitForTerminate = false; 
-		bDontLoadProfile = false; 
+	Settings()
+	{
+		bCopyFiles = false;
+		bForceCopy = false;
+		bCopyIfNewerOrHigherVer = false;
+		bDontWaitForTerminate = false;
+		bDontLoadProfile = false;
 		bRunElevated = false;
 		bRunLimited = false;
 		remoteCompConnectTimeoutSec = 0;
@@ -185,7 +185,7 @@ public:
 			msg << bCopyIfNewerOrHigherVer;
 			msg << bDontWaitForTerminate;
 			msg << bDontLoadProfile;
-			msg << sessionToInteractWith; 
+			msg << sessionToInteractWith;
 			msg << bInteractive;
 			msg << bRunElevated;
 			msg << bRunLimited;
@@ -245,7 +245,7 @@ public:
 			msg >> bCopyIfNewerOrHigherVer;
 			msg >> bDontWaitForTerminate;
 			msg >> bDontLoadProfile;
-			msg >> sessionToInteractWith; 
+			msg >> sessionToInteractWith;
 			msg >> bInteractive;
 			msg >> bRunElevated;
 			msg >> bRunLimited;
@@ -303,7 +303,7 @@ public:
 	bool bCopyIfNewerOrHigherVer;
 	bool bDontWaitForTerminate;
 	bool bDontLoadProfile;
-	DWORD sessionToInteractWith; 
+	DWORD sessionToInteractWith;
 	bool bInteractive;
 	bool bRunElevated;
 	bool bRunLimited;
@@ -365,7 +365,7 @@ public:
 const unsigned char UTF8_BOM[] = { unsigned char(0xEF), unsigned char(0xBB), unsigned char(0xBF) };
 
 
-typedef struct 
+typedef struct
 {
 	DWORD origSessionID;
 	HANDLE hUser;
@@ -384,8 +384,8 @@ bool GetComputerList(Settings& settings, LPCWSTR& cmdLine);
 DWORD wtodw(const wchar_t* num);
 bool StartProcess(Settings& settings, HANDLE remoteCmdPipe);
 bool EnablePrivilege(LPCWSTR privilegeStr, HANDLE hToken = NULL);
-BOOL PrepForInteractiveProcess(Settings& settings, CleanupInteractive* pCI); 
-void CleanUpInteractiveProcess(CleanupInteractive* pCI); 
+BOOL PrepForInteractiveProcess(Settings& settings, CleanupInteractive* pCI);
+void CleanUpInteractiveProcess(CleanupInteractive* pCI);
 bool EstablishConnection(Settings& settings, LPCTSTR lpszRemote, LPCTSTR lpszResource, bool bConnect);
 bool CopyPAExecToRemote(Settings& settings, LPCWSTR targetComputer);
 bool InstallAndStartRemoteService(LPCWSTR remoteServer, Settings& settings);

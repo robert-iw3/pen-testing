@@ -33,16 +33,16 @@ This Tool does not support any other format, however one can use Document Inspec
 
 For PDFs here is a small technique : https://outflaw.blogspot.com/2019/11/hiding-metadata-from-pdf-documents.html
 
-# Quick Installation 
+# Quick Installation
 
 Click here for instructions and link to downloads : [Download Metadata-Remover](https://github.com/Anish-M-code/Metadata-Remover/releases/tag/v1.6)
 
-Please read about security related information from here: [ Project Security](/SECURITY.md) 
+Please read about security related information from here: [ Project Security](/SECURITY.md)
 
 # Disclaimer:
 
 USE AT YOUR OWN RISK DEVELOPER NOT RESPONSIBLE FOR DAMAGES ARISING FROM USE OF THIS SOFTWARE.
-IT IS NOT GURANTEED THAT THIS TOOL WILL REMOVE ALL METADATA COMPLETELY. 
+IT IS NOT GURANTEED THAT THIS TOOL WILL REMOVE ALL METADATA COMPLETELY.
 DO NOT USE IN HIGH RISK SITUATIONS.
 
 # References :

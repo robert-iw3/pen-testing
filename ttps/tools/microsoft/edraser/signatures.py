@@ -21,11 +21,11 @@ class Signature:
                "Affected_EDR": self.affected_edr,
                "data_xored_b64": _encrypt_data(self.signature_data),
                }
-        
+
     def get_charset_type(self):
         return self.sig_charset_type
-    
-    def get_signature_data(self):        
+
+    def get_signature_data(self):
         return self.signature_data
 
 def _encrypt_data(raw_data: bytes):
@@ -41,21 +41,21 @@ def detect_charset(input_string: str):
     elif all(character.isalnum() or character.isspace() for character in input_string):
         return 'SpacesAlphanumeric'
     else:
-        return 'All'    
-    
+        return 'All'
+
 def create_new_signatureDB(signature_list: list, path_to_sigDB: str = "evilSignatures_new.db"):
     new_signatureDB = Database("sqlite", path_to_sigDB)
-    new_signatureDB.create_table("EvilSignature", {"Length" : "int", 
+    new_signatureDB.create_table("EvilSignature", {"Length" : "int",
                                                    "Charset": "varchar(255)",
                                                    "Affected_EDR": "varchar(255)",
                                                    "data_xored_b64": "varchar(65535)"
                                                 })
-    
+
     for signature in signature_list:
         new_signatureDB.insert("EvilSignature", signature.get_signature_as_dict())
-        
+
 def _decrypt_data(data_xored_b64: bytes):
-        
+
         data_b64 = bytes([c ^ XOR_KEY for c in data_xored_b64]).decode()
         try:
             decoded_data = base64.b64decode(data_b64).decode('unicode_escape')
@@ -65,8 +65,8 @@ def _decrypt_data(data_xored_b64: bytes):
 
 def load_malicous_signatureDB(path_to_sigDB: str = "evilSignatures.db"):
     """
-    Loads the malicous DB into a list of Signature objects. 
-    
+    Loads the malicous DB into a list of Signature objects.
+
     :param path_to_sigDB: The path to the signatureDB
     :return: Returns list of signatures.
     """

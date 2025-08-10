@@ -46,7 +46,7 @@ bool sections_virtual_to_raw(BYTE* payload, SIZE_T payload_size, OUT BYTE* destA
         if (!validate_ptr(payload, payload_size, next_sec, IMAGE_SIZEOF_SECTION_HEADER)) {
            return false;
         }
-        
+
         LPVOID section_mapped = (BYTE*) payload + next_sec->VirtualAddress;
         LPVOID section_raw_ptr = destAddress + next_sec->PointerToRawData;
         SIZE_T sec_size = next_sec->SizeOfRawData;

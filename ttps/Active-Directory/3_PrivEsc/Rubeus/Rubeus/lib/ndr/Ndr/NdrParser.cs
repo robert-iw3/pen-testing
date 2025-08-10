@@ -77,5 +77,5 @@ namespace Rubeus.Ndr
         IgnoreUserMarshal = 1,
     }
 
-   
+
 }

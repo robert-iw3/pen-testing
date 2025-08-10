@@ -324,7 +324,7 @@ function Test-NtObject {
             try {
                 Use-NtObject($obj = Get-NtObject -Path $Path -Root $Root -TypeName $TypeName) { }
                 return $true
-            } 
+            }
             catch {
                 return $false
             }

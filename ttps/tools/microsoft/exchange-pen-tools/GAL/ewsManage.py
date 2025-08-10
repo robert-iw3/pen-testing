@@ -18,9 +18,9 @@ def ewsManage(host, port, mode, domain, user, data,command):
 
     if command == "getfolderofinbox":
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-               xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" 
-               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" 
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages"
+               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types"
                xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
     <m:GetFolder>
@@ -36,11 +36,11 @@ def ewsManage(host, port, mode, domain, user, data,command):
 '''
 
 
-    elif command =='getfolderofsentitems': 
+    elif command =='getfolderofsentitems':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-               xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" 
-               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" 
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages"
+               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types"
                xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
     <m:GetFolder>
@@ -56,7 +56,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
 '''
 
 
-    elif command =='listmailofinbox':    
+    elif command =='listmailofinbox':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -78,7 +78,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
 '''
 
 
-    elif command =='listmailofsentitems':    
+    elif command =='listmailofsentitems':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -99,8 +99,8 @@ def ewsManage(host, port, mode, domain, user, data,command):
 </soap:Envelope>
 '''
 
-    
-    elif command =='listmailoffolder':          
+
+    elif command =='listmailoffolder':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -124,7 +124,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id)
 
 
-    elif command =='getmail':    
+    elif command =='getmail':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -148,7 +148,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id, key=Key)
 
 
-    elif command =='deletemail':    
+    elif command =='deletemail':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -167,7 +167,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id)
 
 
-    elif command =='deletefolder':    
+    elif command =='deletefolder':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -186,7 +186,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id)
 
 
-    elif command =='getattachment':    
+    elif command =='getattachment':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -211,7 +211,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id)
 
 
-    elif command =='saveattachment':          
+    elif command =='saveattachment':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -230,7 +230,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id)
 
 
-    elif command =='deleteattachment':          
+    elif command =='deleteattachment':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -249,7 +249,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id)
 
 
-    elif command =='createattachment':    
+    elif command =='createattachment':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -279,17 +279,17 @@ def ewsManage(host, port, mode, domain, user, data,command):
           content = content.encode("utf-8")
         elif Type =='raw':
           with open(Path, 'rb') as file_obj:
-            content = file_obj.read()         
+            content = file_obj.read()
         else:
                 print('[!]Wrong parameter')
-                return False  
-       
+                return False
+
         base64content = base64.b64encode(content)
         Data = str((base64content),'utf-8')
         POST_BODY = POST_BODY.format(id=Id, key=Key, name=Name, data=Data)
 
 
-    elif command =='createfolderofinbox':          
+    elif command =='createfolderofinbox':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -313,7 +313,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(name=Name)
 
 
-    elif command =='SetHiddenPropertyType':          
+    elif command =='SetHiddenPropertyType':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -339,7 +339,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id, key=Key)
 
 
-    elif command =='UpdateHiddenPropertyType':          
+    elif command =='UpdateHiddenPropertyType':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -372,7 +372,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id, key=Key)
 
 
-    elif command =='listhiddenfolderofinbox':          
+    elif command =='listhiddenfolderofinbox':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -405,7 +405,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
 '''
 
 
-    elif command =='createtestmail':          
+    elif command =='createtestmail':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -429,7 +429,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id)
 
 
-    elif command =='getdelegateofinbox': 
+    elif command =='getdelegateofinbox':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -448,7 +448,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(mail=EmailAddress)
 
 
-    elif command =='adddelegateofinbox':          
+    elif command =='adddelegateofinbox':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -481,7 +481,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(mail1=EmailAddress1, mail2=EmailAddress2)
 
 
-    elif command =='updatedelegateofinbox':          
+    elif command =='updatedelegateofinbox':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -514,7 +514,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(mail1=EmailAddress1, mail2=EmailAddress2)
 
 
-    elif command =='removedelegateofinbox':          
+    elif command =='removedelegateofinbox':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -541,11 +541,11 @@ def ewsManage(host, port, mode, domain, user, data,command):
 
 #https://docs.microsoft.com/en-us/exchange/client-developer/exchange-web-services/how-to-set-folder-permissions-for-another-user-by-using-ews-in-exchange
 #Doesn't support sentitems
-    elif command =='getdelegateofinbox2': 
+    elif command =='getdelegateofinbox2':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-               xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" 
-               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" 
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages"
+               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types"
                xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
     <t:RequestServerVersion Version="Exchange2013_SP1" />
@@ -567,11 +567,11 @@ def ewsManage(host, port, mode, domain, user, data,command):
 '''
 
 
-    elif command =='adddelegateofinbox2': 
+    elif command =='adddelegateofinbox2':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-               xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" 
-               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" 
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages"
+               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types"
                xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
     <t:RequestServerVersion Version="Exchange2013_SP1" />
@@ -639,11 +639,11 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id, key=Key, mail=EmailAddress)
 
 
-    elif command =='restoredelegateofinbox2': 
+    elif command =='restoredelegateofinbox2':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-               xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" 
-               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" 
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages"
+               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types"
                xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
     <t:RequestServerVersion Version="Exchange2013_SP1" />
@@ -704,7 +704,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=Id, key=Key)
 
 
-    elif command =='getinboxrules':         
+    elif command =='getinboxrules':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -721,7 +721,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(mail1=EmailAddress1)
 
 
-    elif command =='updateinboxrules':         
+    elif command =='updateinboxrules':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -756,7 +756,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(mail1=EmailAddress1)
 
 
-    elif command =='removeinboxrules':  
+    elif command =='removeinboxrules':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -778,7 +778,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(id=RuleId)
 
 
-    elif command =='getcontact':    
+    elif command =='getcontact':
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -796,8 +796,8 @@ def ewsManage(host, port, mode, domain, user, data,command):
 '''
 
 
-    elif command =='findpeople':   
-        print('[*]This operation can only be used on Exchange Server 2013 or newer version') 
+    elif command =='findpeople':
+        print('[*]This operation can only be used on Exchange Server 2013 or newer version')
         POST_BODY = '''<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:m="http://schemas.microsoft.com/exchange/services/2006/messages" xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Header>
@@ -835,7 +835,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         POST_BODY = POST_BODY.format(string=QueryString)
 
 
-    else:    
+    else:
         print('[!]Wrong parameter')
         return False
 
@@ -847,7 +847,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
             session = HTTPSConnection(host, port, context=uv_context)
         except AttributeError:
             session = HTTPSConnection(host, port)
-    else:        
+    else:
         session = HTTPConnection(host, port)
 
     # Use impacket for NTLM
@@ -901,7 +901,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         print('[!]Wrong parameter')
         return False
 
-    lm_hash = ''    
+    lm_hash = ''
     ntlm_auth, _ = ntlm.getNTLMSSPType3(ntlm_nego, ntlm_challenge, user, password1, domain, lm_hash, nt_hash)
     auth = base64.b64encode(ntlm_auth.getData())
 
@@ -921,7 +921,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
         return False
 
     else:
-        print('[+] Valid:%s %s'%(user,data))       
+        print('[+] Valid:%s %s'%(user,data))
         #print(body)
         print('[+] Save response file to %s'%(filename))
         with open(filename, 'w+', encoding='utf-8') as file_object:
@@ -933,7 +933,7 @@ def ewsManage(host, port, mode, domain, user, data,command):
                 if responsecode[0] =='NoError':
                     pattern_name = re.compile(r"<t:Name>(.*?)</t:Name>")
                     name = pattern_name.findall(bytes.decode(body))
-                    for i in range(len(name)):       
+                    for i in range(len(name)):
                         print("[+] Attachment name: %s"%(name[i]))
 
             elif command =='saveattachment':
@@ -955,8 +955,8 @@ def ewsManage(host, port, mode, domain, user, data,command):
                     else:
                         truedata = base64.b64decode(attachmentdata[0])
                         with open(name[0], 'wb+') as file_object:
-                            file_object.write(truedata)                   
-                          
+                            file_object.write(truedata)
+
                 else:
                     print('[!] %s'%(responsecode[0]))
 
@@ -966,11 +966,11 @@ def ewsManage(host, port, mode, domain, user, data,command):
                 if responsecode[0] =='NoError':
                     pattern_name = re.compile(r"<Address>(.*?)</Address>")
                     name = pattern_name.findall(bytes.decode(body))
-                    for i in range(len(name)): 
+                    for i in range(len(name)):
                         data = name[i]
                         x = data.find('<EmailAddress>')
                         y = data.find('</EmailAddress>')
-                        data = data[x+14:y] 
+                        data = data[x+14:y]
                         print("[+] EmailAddress: %s"%(data))
 
             elif command =='resolvename':
@@ -982,15 +982,15 @@ def ewsManage(host, port, mode, domain, user, data,command):
                 y = bytes.decode(body).find('IncludesLastItemInRange')
                 if y==-1:
                     print("[!] No results")
-                    return True  
-                size = bytes.decode(body)[x+18:y-2] 
+                    return True
+                size = bytes.decode(body)[x+18:y-2]
 
                 print("[+] Total results: %s\r\n"%(size))
                 if size=='100':
                     print("[!] Search results may be incomplete, need to add search criteria.")
-                    return True  
+                    return True
 
-                for i in range(len(name)):       
+                for i in range(len(name)):
                     print("[+] EmailAddress: %s"%(name[i]))
 
         return True
@@ -1021,7 +1021,7 @@ def ewsManage_findallpeople(host, port, mode, domain, user, data,QueryString):
             session = HTTPSConnection(host, port, context=uv_context)
         except AttributeError:
             session = HTTPSConnection(host, port)
-    else:        
+    else:
         session = HTTPConnection(host, port)
 
     # Use impacket for NTLM
@@ -1071,7 +1071,7 @@ def ewsManage_findallpeople(host, port, mode, domain, user, data,QueryString):
         print('[!]Wrong parameter')
         sys.exit(0)
 
-    lm_hash = ''    
+    lm_hash = ''
     ntlm_auth, _ = ntlm.getNTLMSSPType3(ntlm_nego, ntlm_challenge, user, password1, domain, lm_hash, nt_hash)
     auth = base64.b64encode(ntlm_auth.getData())
 
@@ -1086,19 +1086,19 @@ def ewsManage_findallpeople(host, port, mode, domain, user, data,QueryString):
     res = session.getresponse()
     body = res.read()
 
-    if res.status == 401: 
-        print('[!] Server returned HTTP status 401 - authentication failed')          
+    if res.status == 401:
+        print('[!] Server returned HTTP status 401 - authentication failed')
         sys.exit(0)
 
-    else:       
-        if res.status == 200: 
+    else:
+        if res.status == 200:
             responsecode_name = re.compile(r"<ResponseCode>(.*?)</ResponseCode>")
             responsecode = responsecode_name.findall(bytes.decode(body))
             if responsecode[0] =='NoError':
                 pattern_name = re.compile(r"<Address>(.*?)</Address>")
                 name = pattern_name.findall(bytes.decode(body))
-                name = list(set(name))                
-                for i in range(len(name)): 
+                name = list(set(name))
+                for i in range(len(name)):
                     data = name[i]
                     x = data.find('<EmailAddress>')
                     y = data.find('</EmailAddress>')
@@ -1130,7 +1130,7 @@ def ewsManage_resolveallname(host, port, mode, domain, user, data,QueryString):
             session = HTTPSConnection(host, port, context=uv_context)
         except AttributeError:
             session = HTTPSConnection(host, port)
-    else:        
+    else:
         session = HTTPConnection(host, port)
 
     # Use impacket for NTLM
@@ -1180,7 +1180,7 @@ def ewsManage_resolveallname(host, port, mode, domain, user, data,QueryString):
         print('[!]Wrong parameter')
         sys.exit(0)
 
-    lm_hash = ''    
+    lm_hash = ''
     ntlm_auth, _ = ntlm.getNTLMSSPType3(ntlm_nego, ntlm_challenge, user, password1, domain, lm_hash, nt_hash)
     auth = base64.b64encode(ntlm_auth.getData())
 
@@ -1195,20 +1195,20 @@ def ewsManage_resolveallname(host, port, mode, domain, user, data,QueryString):
     res = session.getresponse()
     body = res.read()
 
-    if res.status == 401: 
-        print('[!] Server returned HTTP status 401 - authentication failed')          
+    if res.status == 401:
+        print('[!] Server returned HTTP status 401 - authentication failed')
         sys.exit(0)
 
-    else:       
-        if res.status == 200: 
+    else:
+        if res.status == 200:
             if 'No results were found.' in bytes.decode(body):
                 return False
 
             x = bytes.decode(body).find('TotalItemsInView')
             y = bytes.decode(body).find('IncludesLastItemInRange')
             if y==-1:
-                return True  
-            size = bytes.decode(body)[x+18:y-2] 
+                return True
+            size = bytes.decode(body)[x+18:y-2]
             if size=='100':
                 print("[!] Search results may be incomplete, need to add search criteria.")
 
@@ -1216,28 +1216,28 @@ def ewsManage_resolveallname(host, port, mode, domain, user, data,QueryString):
             responsecode = responsecode_name.findall(bytes.decode(body))
             pattern_name = re.compile(r"<t:EmailAddress>(.*?)</t:EmailAddress>")
             name = pattern_name.findall(bytes.decode(body))
-            for i in range(len(name)):  
-                AddressList.append(name[i]) 
+            for i in range(len(name)):
+                AddressList.append(name[i])
         return True
 
 if __name__ == '__main__':
     if len(sys.argv)!=8:
-        print('[!]Wrong parameter')     
-        print('ewsManage')       
+        print('[!]Wrong parameter')
+        print('ewsManage')
         print('Use to access Exchange Web Service(Support plaintext and ntlmhash)')
-        print('Author:3gstudent')      
-        print('Reference:https://github.com/dirkjanm/PrivExchange/blob/master/privexchange.py')  
+        print('Author:3gstudent')
+        print('Reference:https://github.com/dirkjanm/PrivExchange/blob/master/privexchange.py')
         print('Usage:')
         print('%s <host> <port> <mode> <domain> <user> <password> <command>'%(sys.argv[0]))
         print('<mode>:')
-        print('- plaintext')   
+        print('- plaintext')
         print('- ntlmhash')
         print('<command>:')
         print('- getfolderofinbox')
-        print('- getfolderofsentitems')  
+        print('- getfolderofsentitems')
         print('- listmailofinbox')
         print('- listmailofsentitems')
-        print('- listmailoffolder') 
+        print('- listmailoffolder')
         print('- getmail')
         print('- deletemail')
         print('- deletefolder')
@@ -1249,7 +1249,7 @@ if __name__ == '__main__':
         print('- removedelegateofinbox')
         print('- getdelegateofinbox2')
         print('- updatedelegateofinbox2')
-        print('- restoredelegateofinbox2')       
+        print('- restoredelegateofinbox2')
         print('- getinboxrules')
         print('- updateinboxrules')
         print('- removeinboxrules')
@@ -1258,13 +1258,13 @@ if __name__ == '__main__':
         print('- createfolderofinbox')
         print('- listhiddenfolderofinbox')
         print('- createtestmail')
-        print('- SetHiddenPropertyType')               
+        print('- SetHiddenPropertyType')
         print('- UpdateHiddenPropertyType')
         print('- getcontact')
         print('- findpeople')
-        print('- findallpeople') 
+        print('- findallpeople')
         print('- resolvename')
-        print('- resolveallname') 
+        print('- resolveallname')
         print('Eg.')
         print('%s 192.168.1.1 443 plaintext test.com user1 password1 getfolderofinbox'%(sys.argv[0]))
         print('%s test.com 80 ntlmhash test.com user1 c5a237b7e9d8e708d8436b6148a25fa1 listmailofinbox'%(sys.argv[0]))
@@ -1274,19 +1274,19 @@ if __name__ == '__main__':
             print('[*]This operation can only be used on Exchange Server 2013 or newer version')
             for i in range(97,123):
                 ewsManage_findallpeople(sys.argv[1], int(sys.argv[2]), sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], chr(i))
-            print("[+] GlobalAddressList:")    
+            print("[+] GlobalAddressList:")
             AddressList = list(set(AddressList))
             for i in range(len(AddressList)):
                 print("%s"%(AddressList[i]))
 
-        elif sys.argv[7] == "resolveallname": 
+        elif sys.argv[7] == "resolveallname":
             for i in range(97,123):
-                for j in range(97,123):  
+                for j in range(97,123):
                     ewsManage_resolveallname(sys.argv[1], int(sys.argv[2]), sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], chr(i)+chr(j))
-            print("[+] GlobalAddressList:")    
+            print("[+] GlobalAddressList:")
             AddressList = list(set(AddressList))
             for i in range(len(AddressList)):
-                print("%s"%(AddressList[i]))        
+                print("%s"%(AddressList[i]))
 
-        else:  
+        else:
             ewsManage(sys.argv[1], int(sys.argv[2]), sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7])

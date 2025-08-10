@@ -12,7 +12,7 @@ namespace Rubeus
     //        ticket          [3] Ticket,
     //        authenticator   [4] EncryptedData -- Authenticator
     //}
-    
+
     public class AP_REQ
     {
         public AP_REQ(string crealm, string cname, Ticket providedTicket, byte[] clientKey, Interop.KERB_ETYPE etype, int keyUsageSpec = Interop.KRB_KEY_USAGE_TGS_REQ_PA_AUTHENTICATOR)
@@ -64,7 +64,7 @@ namespace Rubeus
             ticktSeq = AsnElt.MakeImplicit(AsnElt.CONTEXT, 3, ticktSeq);
 
 
-            // authenticator   [4] EncryptedData 
+            // authenticator   [4] EncryptedData
             if (key == null)
             {
                 Console.WriteLine("  [X] A key for the authenticator is needed to build an AP-REQ");

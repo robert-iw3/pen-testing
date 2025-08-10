@@ -50,7 +50,7 @@ optional arguments:
 command:
   {CREATE_IMPERSONATED_PROCESS,CREATE_INOPERABLE_FILE,CREATE_INOPERABLE_DIR,CREATE_DOTS_FILE,CREATE_DOTS_DIR,CREATE_IMPERSONATED_FILE,CREATE_IMPERSONATED_DIR,ADD_INVISIBLE_FILE_INTO_ZIP,DISABLE_PROCEXP}
     CREATE_IMPERSONATED_PROCESS
-                        Create a process that impersonates a different process. Both Task Manager and Process Explorer will display    
+                        Create a process that impersonates a different process. Both Task Manager and Process Explorer will display
                         information about the target process to impersonate to
     CREATE_INOPERABLE_FILE
                         Create an inoperable file
@@ -63,10 +63,10 @@ command:
     CREATE_IMPERSONATED_DIR
                         Create a directory that impersonates a different directory
     ADD_INVISIBLE_FILE_INTO_ZIP
-                        Inserts a file into a zip. The file is inserted with a name that prevents Windows' ZIP archiver from being     
+                        Inserts a file into a zip. The file is inserted with a name that prevents Windows' ZIP archiver from being
                         able to list it in the ZIP.
-    DISABLE_PROCEXP     Exploits a DOS vulnerability in ProcExp. Creates a process that runs forever and does nothing. The process     
-                        has a certain name that crashes ProcExp whenever it runs. Valid against all ProcExp versions under version     
+    DISABLE_PROCEXP     Exploits a DOS vulnerability in ProcExp. Creates a process that runs forever and does nothing. The process
+                        has a certain name that crashes ProcExp whenever it runs. Valid against all ProcExp versions under version
                         17.04 (released in April 3rd 2023).
 ```
 
@@ -79,25 +79,25 @@ python magic_dot_cli.py CREATE_IMPERSONATED_PROCESS -h
 ```
 python prepare_archive_rce_exploit.py -h
 usage: prepare_archive_rce_exploit.py [-h] [--target-dir-relative TARGET_DIR_RELATIVE]
-                                      files_to_write_paths [files_to_write_paths ...]     
+                                      files_to_write_paths [files_to_write_paths ...]
                                       out_archive_path
 
-Exploits CVE-2023-36396. Crafts a malicious archive that exploits Windows File Explorer   
-to extract a file to an arbitrary relative path. The default relative path is set to      
+Exploits CVE-2023-36396. Crafts a malicious archive that exploits Windows File Explorer
+to extract a file to an arbitrary relative path. The default relative path is set to
 point from the Downloads directory to the user's Startup folder
 
 positional arguments:
-  files_to_write_paths  File paths separated by spaces. These files are the files which   
+  files_to_write_paths  File paths separated by spaces. These files are the files which
                         will be written to the chosen victim's directory
-  out_archive_path      Path to the archive to be created that will contain the exploit.  
-                        the type of the archive will be determined based on the file      
-                        extension provided. Supported types: .tar|.tar.gz|.tar.gzip|.tar  
+  out_archive_path      Path to the archive to be created that will contain the exploit.
+                        the type of the archive will be determined based on the file
+                        extension provided. Supported types: .tar|.tar.gz|.tar.gzip|.tar
                         .xz|.tar.bz2|.tar.bzip2|.tar.zst|.tar.zstd|.7z|.7zip
 
 optional arguments:
   -h, --help            show this help message and exit
   --target-dir-relative TARGET_DIR_RELATIVE
-                        A relative path from the victim's estimated extraction folder to  
+                        A relative path from the victim's estimated extraction folder to
                         the destination folder of the executables
 ```
 
@@ -119,8 +119,8 @@ optional arguments:
                         The directory that contains files with the same names in the
                         same structure of the target dir but with the new desired
                         content
-  -remove-dir           Delete the directory created a part of the exploit in an       
-                        earlier point in time. This is recommended to be done after a  
+  -remove-dir           Delete the directory created a part of the exploit in an
+                        earlier point in time. This is recommended to be done after a
                         shadow copy was taken by an admin, while the directory
                         existed
 ```
@@ -131,11 +131,11 @@ python prepare_delete_dir_exploit.py -h
 usage: prepare_delete_dir_exploit.py [-h] target_dir
 
 Exploits a "won't fixed" deletion EoP vulnerability triggered by a privileged user
-interaction. Creates a directory called "... " in a target directory to delete. When      
+interaction. Creates a directory called "... " in a target directory to delete. When
 "... " is deleted, then its parent directory is deleted too.
 
 positional arguments:
-  target_dir  The target directory to try to delete. It is vulnerable only if you can     
+  target_dir  The target directory to try to delete. It is vulnerable only if you can
               create a directory inside it.
 
 optional arguments:

@@ -50,9 +50,9 @@ public class HandleAccessCheckResult : CommonAccessCheckResult
     public ulong Object { get; }
 
     internal HandleAccessCheckResult(MaximumAccess maximum_access, NtHandle handle, string name, string type_name, AccessMask granted_access,
-        GenericMapping generic_mapping, string sddl, Type enum_type, bool is_directory, TokenInformation token_info) 
-        : base(name, type_name, granted_access, generic_mapping, 
-              !string.IsNullOrWhiteSpace(sddl) ? new SecurityDescriptor(sddl) : null, 
+        GenericMapping generic_mapping, string sddl, Type enum_type, bool is_directory, TokenInformation token_info)
+        : base(name, type_name, granted_access, generic_mapping,
+              !string.IsNullOrWhiteSpace(sddl) ? new SecurityDescriptor(sddl) : null,
               enum_type, is_directory, token_info)
     {
         if (maximum_access != null)

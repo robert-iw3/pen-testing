@@ -7,7 +7,7 @@
 * https://github.com/iovisor/bcc/issues/691
 *
 * Misteriouslly it works sometimes due to compiler optimizations, but it might not work somewhere else.
-* It is the verifier which does not let us call strncmp without 
+* It is the verifier which does not let us call strncmp without
 * additional checks so we will use this one anyway.
 *
 * @param str1

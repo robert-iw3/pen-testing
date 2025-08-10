@@ -49,7 +49,7 @@ typedef struct _UNICODE_STRING
 	USHORT MaximumLength;
 	PWCH Buffer;
 } UNICODE_STRING;
-	
+
 //https://processhacker.sourceforge.io/doc/ntldr_8h_source.html#l00102
 typedef struct _LDR_DATA_TABLE_ENTRY
 {

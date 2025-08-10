@@ -1542,7 +1542,7 @@ def ReadAndDelete(f, Filename, data, s):
                 print('Downloaded in: %.3g seconds'%(Seconds))
             if isinstance(data, str):
                data = data.encode('latin-1')
-		
+
 
     ##Close Request
     if data[8:10] == b"\x2e\x00":

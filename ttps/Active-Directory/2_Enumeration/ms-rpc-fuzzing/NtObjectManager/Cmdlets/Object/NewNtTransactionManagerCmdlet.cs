@@ -90,7 +90,7 @@ public sealed class NewNtTransactionManagerCmdlet : NtObjectBaseCmdletWithAccess
         {
             CreateFlags |= TransactionManagerCreateOptions.Volatile;
         }
-        return NtTransactionManager.Create(obj_attributes, Access, 
+        return NtTransactionManager.Create(obj_attributes, Access,
             LogFileName, CreateFlags, CommitStrength);
     }
 }

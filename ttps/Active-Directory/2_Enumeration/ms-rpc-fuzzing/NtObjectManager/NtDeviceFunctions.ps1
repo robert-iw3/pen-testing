@@ -101,7 +101,7 @@ None
 .OUTPUTS
 NtCoreLib.Win32.Filter.FilterInstance[]
 .EXAMPLE
-Get-FilterDriverInstance 
+Get-FilterDriverInstance
 Get list of filter driver instances for all filter drivers.
 .EXAMPLE
 Get-FilterDriverInstance -FilterName "luafv"
@@ -134,7 +134,7 @@ None
 .OUTPUTS
 NtCoreLib.Win32.Filter.FilterVolume[]
 .EXAMPLE
-Get-FilterDriverVolume 
+Get-FilterDriverVolume
 Get list of filter driver volumes.
 #>
 function Get-FilterDriverVolume {
@@ -151,7 +151,7 @@ None
 .OUTPUTS
 NtCoreLib.Win32.Filter.FilterInstance[]
 .EXAMPLE
-Get-FilterDriverVolumeInstance 
+Get-FilterDriverVolumeInstance
 Get list of filter driver instances for all filter driver volumes.
 .EXAMPLE
 Get-FilterDriverInstance -VolumeName "C:\"
@@ -294,7 +294,7 @@ Get all device instances in a tree structure.
 Get-NtDeviceNode -PDOName \Device\HarddiskVolume3
 Get the device node with a specified PDO.
 .EXAMPLE
-Get-NtDeviceNode -LinkName \??\C: 
+Get-NtDeviceNode -LinkName \??\C:
 Get the device node with a specified symbolic link.
 #>
 function Get-NtDeviceNode {
@@ -333,7 +333,7 @@ function Get-NtDeviceNode {
                 Get-NtDeviceNode | Where-Object PDOName -eq $PDOName
             }
             "FromLinkName" {
-                try { 
+                try {
                     $PDOName = Get-NtSymbolicLinkTarget -Path $LinkName -Resolve
                     Get-NtDeviceNode | Where-Object PDOName -eq $PDOName
                 } catch {
@@ -427,7 +427,7 @@ function Get-NtDeviceNodeChild {
             }
         }
     }
-    catch 
+    catch
     {
         Write-Error $_
     }

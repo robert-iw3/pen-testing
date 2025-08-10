@@ -85,35 +85,35 @@ function ShadowHound-DS() {
         $count = 0
         $streamWriter = New-Object System.IO.StreamWriter($OutputFile, $true, [System.Text.Encoding]::UTF8)
         try {
-            
+
             foreach ($ldapFilter in $ldapFilters) {
                 Write-Output "  [*] Searching with filter: $ldapFilter"
-            
+
                 if ($Server) {
                     $ldapPath = "LDAP://$Server/$configContext"
                 } else {
                     $ldapPath = "LDAP://$configContext"
                 }
-            
+
                 if ($Credential) {
                     $directoryEntry = New-Object System.DirectoryServices.DirectoryEntry($ldapPath, $Credential.UserName, $Credential.GetNetworkCredential().Password)
                 } else {
                     $directoryEntry = New-Object System.DirectoryServices.DirectoryEntry($ldapPath)
                 }
-            
+
                 $searcher = New-Object System.DirectoryServices.DirectorySearcher($directoryEntry)
                 $searcher.Filter = $ldapFilter
                 $searcher.PageSize = 1000
                 $silenceofthezero = $searcher.PropertiesToLoad.Add('*')
                 $searcher.SecurityMasks = 'Dacl,Group,Owner'
-            
+
                 try {
                     $searchResults = $searcher.FindAll()
                 } catch {
                     Write-Output "   [!!] Error during search with filter $ldapFilter`: $_"
                     continue
                 }
-            
+
                 foreach ($searchResult in $searchResults) {
                     Process-AdObject -SearchResult $searchResult -StreamWriter $streamWriter
                     $count++
@@ -123,14 +123,14 @@ function ShadowHound-DS() {
                     }
                 }
             }
-            
+
             $streamWriter.WriteLine("Retrieved $count results total")
 
         } finally {
             $streamWriter.Flush()
             $streamWriter.Close()
         }
-    
+
 
         Write-Output "Objects have been processed and written to $OutputFile"
         Write-Output "Retrieved $count results total"
@@ -288,10 +288,10 @@ function Process-AdObject {
     $StreamWriter.WriteLine('') # Add an empty line between objects
 }
 
-$ignoredValues = @('CanonicalName', 'PropertyNames', 'AddedProperties', 
-    'RemovedProperties', 'ModifiedProperties', 'PropertyCount', 
-    'repsTo', 'ProtectedFromAccidentalDeletion', 'sDRightsEffective', 
-    'modifyTimeStamp', 'Modified', 'createTimeStamp', 
+$ignoredValues = @('CanonicalName', 'PropertyNames', 'AddedProperties',
+    'RemovedProperties', 'ModifiedProperties', 'PropertyCount',
+    'repsTo', 'ProtectedFromAccidentalDeletion', 'sDRightsEffective',
+    'modifyTimeStamp', 'Modified', 'createTimeStamp',
     'Created', 'userCertificate')
 
 $objectClassMapping = @{

@@ -13,7 +13,7 @@
 namespace peconv {
 
     /**
-    Maps a file with the given path and copies its raw content into the output buffer. 
+    Maps a file with the given path and copies its raw content into the output buffer.
     If read_size is not zero, it reads maximum read_size of bytes. If read_size is zero, it reads the full file.
     The actual read size is returned back in read_size.
     Automatically allocates a buffer of the required size.
@@ -21,7 +21,7 @@ namespace peconv {
     peconv::UNALIGNED_BUF load_file(IN LPCTSTR filename, OUT size_t &r_size);
 
     /**
-    Reads a raw content of the file with the given path. 
+    Reads a raw content of the file with the given path.
     If read_size is not zero, it reads maximum read_size of bytes. If read_size is zero, it reads the full file.
     The actual read size is returned back in read_size.
     Automatically allocates a buffer of the required size.

@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
-#include "vm.h"  
+#include "vm.h"
 
 static const unsigned char key[] = "1234qwerty";
 static const size_t keylen = sizeof(key) - 1;

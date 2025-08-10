@@ -99,11 +99,11 @@ def parse_aces(input_buffer, count):
 	out = []
 	while len(out) < count:
 		ace = dict()
-		fields = ('Raw Type', 'Raw Flags', 'Size', 'Raw Access Required')		
+		fields = ('Raw Type', 'Raw Flags', 'Size', 'Raw Access Required')
 		try:
 			for k, v in zip(fields, struct.unpack('<BBHI', input_buffer[:8])):
 				ace[k] = v
-			
+
 
 			ace['Type'] = parse_sddl_dacl_ace_type(ace['Raw Type'])
 
@@ -133,7 +133,7 @@ def parse_aces(input_buffer, count):
 
 			out.append(ace)
 		except struct.error as e:
-			logger.error("parse_aces error %s" % e)	
+			logger.error("parse_aces error %s" % e)
 	return out
 
 

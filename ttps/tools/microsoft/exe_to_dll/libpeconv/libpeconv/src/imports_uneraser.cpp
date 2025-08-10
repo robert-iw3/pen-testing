@@ -88,9 +88,9 @@ bool ImportsUneraser::findNameInBinaryAndFill(IMAGE_IMPORT_DESCRIPTOR* lib_desc,
     FIELD_T lastOrdinal = 0; //store also ordinal of the matching function
     std::set<ExportedFunc>::iterator funcname_itr = addr_to_func[searchedAddr].begin();
 
-    for (funcname_itr = addr_to_func[searchedAddr].begin(); 
-        funcname_itr != addr_to_func[searchedAddr].end(); 
-        ++funcname_itr) 
+    for (funcname_itr = addr_to_func[searchedAddr].begin();
+        funcname_itr != addr_to_func[searchedAddr].end();
+        ++funcname_itr)
     {
         const ExportedFunc &found_func = *funcname_itr;
         lastOrdinal = found_func.funcOrdinal;
@@ -102,7 +102,7 @@ bool ImportsUneraser::findNameInBinaryAndFill(IMAGE_IMPORT_DESCRIPTOR* lib_desc,
             //TODO: maybe it is imported by ordinal?
             continue;
         }
-        
+
         const ULONGLONG name_offset = (ULONGLONG)found_ptr - (ULONGLONG)modulePtr;
 #ifdef _DEBUG
         //if it is not the first name from the list, inform about it:
@@ -126,7 +126,7 @@ bool ImportsUneraser::findNameInBinaryAndFill(IMAGE_IMPORT_DESCRIPTOR* lib_desc,
         std::cout << "[+] Filling ordinal: " << lastOrdinal << std::endl;
 #endif
         FIELD_T ord_thunk = lastOrdinal | ordinal_flag;
-        memcpy(thunk_ptr, &ord_thunk, sizeof(FIELD_T)); 
+        memcpy(thunk_ptr, &ord_thunk, sizeof(FIELD_T));
         is_name_saved = true;
     }
     return is_name_saved;

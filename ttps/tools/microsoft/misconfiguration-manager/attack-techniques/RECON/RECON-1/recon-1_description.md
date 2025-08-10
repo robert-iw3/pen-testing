@@ -31,7 +31,7 @@ The following attributes and classes are added to the schema:
 |cn=mS-SMS-Source-Forest|
 |cn=mS-SMS-Version
 
-While not every site system role is published to AD, there is still plenty of information to be gathered to identify infrastructure. 
+While not every site system role is published to AD, there is still plenty of information to be gathered to identify infrastructure.
 
 ### System Management Container
 First, the existence of the manually created `System Management` container indicates SCCM is, or was, installed in the domain. Second, to allow SCCM to publish site data to the  container,  all site servers in the domain are required to have Full Control permissions for the container. Querying for the container itself and then resolving the principals granted Full Control permissions can identify potential site servers.

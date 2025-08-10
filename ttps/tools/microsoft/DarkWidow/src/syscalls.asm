@@ -60,7 +60,7 @@
 					jmp	qword ptr syscallAddr
 					ret
 	sysNtProtectVirtualMemory endp
-	
+
 	sysNtDelayExecution proc
 					mov r10, rcx
 					mov ax, SSN

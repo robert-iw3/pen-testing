@@ -14,9 +14,9 @@
 #   at https://github.com/SecureAuthCorp/impacket/tree/master/tests/SMB_RPC
 #
 #   Some calls have helper functions, which makes it even easier to use.
-#   They are located at the end of this file. 
+#   They are located at the end of this file.
 #   Helper functions start with "h"<name of the call>.
-#   There are test cases for them too. 
+#   There are test cases for them too.
 #
 
 from impacket import system_errors
@@ -36,7 +36,7 @@ class DCERPCSessionError(DCERPCException):
         key = self.error_code
         if key in system_errors.ERROR_MESSAGES:
             error_msg_short = system_errors.ERROR_MESSAGES[key][0]
-            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1] 
+            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1]
             return 'SCMR SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             return 'SCMR SessionError: unknown error code: 0x%x' % self.error_code
@@ -82,7 +82,7 @@ SERVICE_DEMAND_START          = 0x00000003
 SERVICE_DISABLED              = 0x00000004
 SERVICE_NO_CHANGE             = 0xffffffff
 
-# Error Control 
+# Error Control
 SERVICE_ERROR_IGNORE          = 0x00000000
 SERVICE_ERROR_NORMAL          = 0x00000001
 SERVICE_ERROR_SEVERE          = 0x00000002
@@ -187,7 +187,7 @@ SERVICE_TRIGGER_ACTION_SERVICE_START = 0x00000001
 SERVICE_TRIGGER_ACTION_SERVICE_STOP  = 0x00000002
 
 # SERVICE_TRIGGER subTypes
-DOMAIN_JOIN_GUID                                = '1ce20aba-9851-4421-9430-1ddeb766e809' 
+DOMAIN_JOIN_GUID                                = '1ce20aba-9851-4421-9430-1ddeb766e809'
 DOMAIN_LEAVE_GUID                               = 'ddaf516e-58c2-4866-9574-c3b615d42ea1'
 FIREWALL_PORT_OPEN_GUID                         = 'b7569e07-8421-4ee0-ad10-86915afdad09'
 FIREWALL_PORT_CLOSE_GUID                        = 'a144ed38-8e12-4de4-9d96-e64740b1a524'
@@ -326,8 +326,8 @@ class SERVICE_FAILURE_ACTIONS_WOW64(NDRSTRUCT):
 
 class SC_ACTION(NDRSTRUCT):
     structure = (
-        ('Type', DWORD), 
-        ('Delay', DWORD) , 
+        ('Type', DWORD),
+        ('Delay', DWORD) ,
     )
 
 class SC_ACTIONS(NDRSTRUCT):
@@ -342,11 +342,11 @@ class SC_ACTIONS(NDRSTRUCT):
 
 class SERVICE_FAILURE_ACTIONSW(NDRSTRUCT):
     structure = (
-        ('dwResetPeriod', DWORD), 
-        ('lpRebootMsg', LPWSTR) , 
-        ('lpCommand', LPWSTR) , 
-        ('cActions', DWORD) , 
-        ('lpsaActions', SC_ACTIONS) , 
+        ('dwResetPeriod', DWORD),
+        ('lpRebootMsg', LPWSTR) ,
+        ('lpCommand', LPWSTR) ,
+        ('cActions', DWORD) ,
+        ('lpsaActions', SC_ACTIONS) ,
     )
 
 class LPSERVICE_FAILURE_ACTIONSW(NDRPOINTER):
@@ -545,7 +545,7 @@ class SERVICE_TRIGGER_INFO(NDRSTRUCT):
         if self['pTriggers'] != 0:
             self['cTriggers'] = len(self['pTriggers'])
         return NDR.getData(self, soFar)
-    
+
 class PSERVICE_TRIGGER_INFO(NDRPOINTER):
     referent = (
         ('Data', SERVICE_TRIGGER_INFO),
@@ -1301,7 +1301,7 @@ def hREnumServicesStatusW(dce, hSCManager, dwServiceType=SERVICE_WIN32_OWN_PROCE
             resp = dce.request(enumServicesStatus)
         else:
             raise
-    
+
     # Now we're supposed to have all services returned. Now we gotta parse them
 
     enumArray = NDRUniConformantArray()

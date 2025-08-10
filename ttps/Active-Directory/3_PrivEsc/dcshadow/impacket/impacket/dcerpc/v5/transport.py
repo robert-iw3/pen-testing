@@ -45,7 +45,7 @@ class DCERPCStringBinding:
         options = match.group(4)
         if options:
             options = options.split(',')
-            
+
             self.__endpoint = options[0]
             try:
                 self.__endpoint.index('endpoint=')

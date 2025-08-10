@@ -38,7 +38,7 @@
 #   IWbemServices::ExecNotificationQueryAsync
 #   IWbemServices::ExecMethod
 #   IWbemServices::ExecMethodAsync
-# 
+#
 # Shouldn't dump errors against a win7
 #
 from __future__ import division
@@ -132,7 +132,7 @@ class WMITests(RemoteTestCase, unittest.TestCase):
         iWbemLevel1Login.RemRelease()
 
         classObject, _ = iWbemServices.GetObject('Win32_Process')
-       
+
         dcom.disconnect()
 
     def test_IWbemServices_ExecQuery(self):
@@ -171,7 +171,7 @@ class WMITests(RemoteTestCase, unittest.TestCase):
         classObject, _ = iWbemServices.GetObject('Win32_Process')
         obj = classObject.Create('notepad.exe', 'c:\\', None)
         handle = obj.getProperties()['ProcessId']['value']
-        
+
         iEnumWbemClassObject = iWbemServices.ExecQuery('SELECT * from Win32_Process where handle = %s' % handle)
         oooo = iEnumWbemClassObject.Next(0xffffffff, 1)[0]
         #import time

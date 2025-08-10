@@ -55,8 +55,8 @@ public class GetNtGrantedAccessCmdlet : GetGrantedAccessCmdletBase
     /// <summary>
     /// <para type="description">Specify the NT type for the access check.</para>
     /// </summary>
-    [Parameter(ParameterSetName = "sd"), 
-        Parameter(Mandatory = true, ParameterSetName = "sddl"), 
+    [Parameter(ParameterSetName = "sd"),
+        Parameter(Mandatory = true, ParameterSetName = "sddl"),
         ArgumentCompleter(typeof(NtTypeArgumentCompleter))]
     public NtType Type { get; set; }
 
@@ -107,7 +107,7 @@ public class GetNtGrantedAccessCmdlet : GetGrantedAccessCmdletBase
         {
             type = GetSecurityDescriptor()?.NtType;
         }
-        
+
         return type;
     }
 }

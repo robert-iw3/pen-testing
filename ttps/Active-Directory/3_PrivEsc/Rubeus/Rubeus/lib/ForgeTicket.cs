@@ -497,7 +497,7 @@ namespace Rubeus
                         {
                             kvi.BadPasswordCount = 0;
                         }
-                        
+
                     }
                     if (userObject.ContainsKey("lastlogon") && ((DateTime)userObject["lastlogon"] != DateTime.MinValue))
                     {
@@ -1230,14 +1230,14 @@ namespace Rubeus
         public static byte[] DiamondTicket(string userName, string domain, string keyString, Interop.KERB_ETYPE etype, string outfile, bool ptt, string domainController = "", LUID luid = new LUID(), string krbKey = "", string ticketUser = "", string groups = "", int ticketUserId = 0, string sids = "")
         {
             byte[] tgtBytes = Ask.TGT(userName, domain, keyString, etype, null, false, domainController, luid, false, true);
-            
+
             return ModifyTicket(new KRB_CRED(tgtBytes), krbKey, krbKey, outfile, ptt, luid, ticketUser, groups, ticketUserId, sids);
         }
 
         public static byte[] DiamondTicket(string userName, string domain, string certFile, string certPass, Interop.KERB_ETYPE etype, string outfile, bool ptt, string domainController = "", LUID luid = new LUID(), string krbKey = "", string ticketUser = "", string groups = "", int ticketUserId = 0, string sids = "")
         {
             byte[] tgtBytes = Ask.TGT(userName, domain, certFile, certPass, etype, null, false, domainController);
-            
+
             return ModifyTicket(new KRB_CRED(tgtBytes), krbKey, krbKey, outfile, ptt, luid, ticketUser, groups, ticketUserId, sids);
         }
 
@@ -1398,7 +1398,7 @@ namespace Rubeus
             }
             if (attrib != null)
             {
-                PacInfoBuffers.Add(attrib);              
+                PacInfoBuffers.Add(attrib);
             }
             if (requestor != null)
             {

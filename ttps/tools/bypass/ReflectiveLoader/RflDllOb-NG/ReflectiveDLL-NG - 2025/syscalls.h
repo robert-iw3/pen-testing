@@ -308,7 +308,7 @@ void RetrieveZwFunctions(IN HMODULE hModule, IN PSYSCALL_ENTRY syscalls) {
     //this base address i need only once
     baseAddress = (DWORD)(addressValue >> 32);
 
-    //bubble sort really slow sorting 
+    //bubble sort really slow sorting
     for (int i = 0; i < zwCounter; i++) {
         for (int j = 0; j < zwCounter - 1 - i; j++) {
             if (syscallHalf[j] > syscallHalf[j + 1]) {
@@ -323,7 +323,7 @@ void RetrieveZwFunctions(IN HMODULE hModule, IN PSYSCALL_ENTRY syscalls) {
     //i can put the base address at the end
     syscallHalf[zwCounter++] = baseAddress;
 
-    //here i can go through the list of the half-addresses that i have and pick two 
+    //here i can go through the list of the half-addresses that i have and pick two
     //random syscall/ret
     ULONG_PTR currentAddress = (ULONG_PTR)&RetrieveZwFunctions;
     while (syscalls[0].sysretAddr == NULL || syscalls[1].sysretAddr == NULL || syscalls[2].sysretAddr == NULL || syscalls[3].sysretAddr == NULL || syscalls[4].sysretAddr == NULL || syscalls[5].sysretAddr == NULL || syscalls[6].sysretAddr == NULL || syscalls[7].sysretAddr == NULL || syscalls[8].sysretAddr == NULL || syscalls[9].sysretAddr == NULL || syscalls[10].sysretAddr == NULL || syscalls[11].sysretAddr == NULL) {
@@ -356,13 +356,13 @@ void RetrieveZwFunctions(IN HMODULE hModule, IN PSYSCALL_ENTRY syscalls) {
 
     }
 
-    //here i can go through the list of the functions looking for what i want and then match it 
+    //here i can go through the list of the functions looking for what i want and then match it
     //in my array
     for (int i = 0; i < zwCounter - 1; i++) {
 
         for (int j = 0; j < syscallEntries; j++) {
 
-            //recycling variables here for comparing purposes 
+            //recycling variables here for comparing purposes
             addressValue = (uintptr_t)syscalls[j].funcAddr;
             //if the address of the syscall we want matches any half of those we want, we know that's the right SSN
             if (syscallHalf[i] == (DWORD)(addressValue & 0xFFFFFFFF)) {

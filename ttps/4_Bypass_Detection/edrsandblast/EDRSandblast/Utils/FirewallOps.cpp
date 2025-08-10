@@ -37,7 +37,7 @@ HRESULT IsFirewallEnabled(BOOL* firewallIsOn) {
 		NET_FW_PROFILE_TYPE2 Id;
 		LPCWSTR Name;
 	};
-	
+
 	ProfileMapElement ProfileMap[3];
 	ProfileMap[0].Id = NET_FW_PROFILE2_DOMAIN;
 	ProfileMap[0].Name = L"Domain";
@@ -71,7 +71,7 @@ HRESULT IsFirewallEnabled(BOOL* firewallIsOn) {
 			}
 		}
 	}
-	
+
 	*firewallIsOn = (BOOL)(vbFirewallsEnabled == VARIANT_TRUE);
 
 cleanup:
@@ -105,7 +105,7 @@ HRESULT CreateFirewallRuleBlockBinary(TCHAR* binaryPath, NET_FW_RULE_DIRECTION d
 		hrStatus = E_FAIL;
 		goto cleanup;
 	}
-	
+
 	// Rules parameters.
 	generateRandomString(ruleName, FW_RULE_NAME_MAX_LENGTH);
 	bstrRuleName = SysAllocString(ruleName);

@@ -128,7 +128,7 @@ https://github.com/bitsadmin/nopowershell C# Powershell
 
 https://github.com/OmerYa/Invisi-Shell
 
-https://github.com/Hackplayers/Salsa-tools - Salsa Tools - ShellReverse TCP/UDP/ICMP/DNS/SSL/BINDTCP and AV bypass, AMSI patched 
+https://github.com/Hackplayers/Salsa-tools - Salsa Tools - ShellReverse TCP/UDP/ICMP/DNS/SSL/BINDTCP and AV bypass, AMSI patched
 
 https://github.com/padovah4ck/PSByPassCLM - Constrained language mode bypass
 
@@ -136,7 +136,7 @@ https://github.com/rasta-mouse/AmsiScanBufferBypass
 
 https://github.com/itm4n/VBA-RunPE - Applocker Bypass
 
-https://github.com/cfalta/PowerShellArmoury 
+https://github.com/cfalta/PowerShellArmoury
 
 https://github.com/Mr-B0b/SpaceRunner - This tool enables the compilation of a C# program that will execute arbitrary PowerShell code, without launching PowerShell processes through the use of runspace.
 
@@ -169,7 +169,7 @@ https://github.com/kgretzky/pwndrop - Self-deployable file hosting service for r
 https://github.com/sc0tfree/updog - Updog is a replacement for Python's SimpleHTTPServer. It allows uploading and downloading via HTTP/S, can set ad hoc SSL certificates and use http basic auth.
 
 
-## Network Share Scanner 
+## Network Share Scanner
 
 Find Juicy Stuff
 
@@ -233,7 +233,7 @@ https://github.com/hdm/nextnet - Netbios Network interface Enumeration (discover
 
 https://github.com/mubix/IOXIDResolver - Find dual homed hosts over DCOM
 
-https://github.com/Hackplayers/evil-winrm 
+https://github.com/Hackplayers/evil-winrm
 
 https://github.com/bohops/WSMan-WinRM - A collection of proof-of-concept source code and scripts for executing remote commands over WinRM using the WSMan.Automation COM object
 
@@ -341,7 +341,7 @@ https://github.com/rvrsh3ll/Rubeus-Rundll32 - rundll32 Wrapper for Rubeus
 
 https://github.com/checkymander/Zolom - execute Python in C# via ironpython
 
-# Pivot 
+# Pivot
 
 https://github.com/0x36/VPNPivot
 
@@ -383,7 +383,7 @@ https://github.com/praetorian-inc/PortBender - TCP Port Redirection Utility
 
 https://github.com/klsecservices/rpivot - socks4 reverse proxy for penetration testing
 
-# Active Directory Audit and exploit tools 
+# Active Directory Audit and exploit tools
 
 https://github.com/mwrlabs/SharpGPOAbuse
 
@@ -401,7 +401,7 @@ https://github.com/knavesec/Max - Maximizing BloodHound. Max is a good boy.
 
 https://github.com/vletoux/pingcastle
 
-https://github.com/cyberark/ACLight 
+https://github.com/cyberark/ACLight
 
 https://github.com/canix1/ADACLScanner
 
@@ -528,7 +528,7 @@ https://github.com/maurosoria/dirsearch
 
 https://github.com/s0md3v/Breacher - Admin Panel Finder
 
-https://github.com/mazen160/server-status_PWN 
+https://github.com/mazen160/server-status_PWN
 
 # Crawler
 
@@ -664,7 +664,7 @@ https://github.com/antonioCoco/RemotePotato0 - Just another "Won't Fix" Windows 
 
 https://github.com/itm4n/FullPowers - Recover the default privilege set of a LOCAL/NETWORK SERVICE account
 
-# T3 Enumeration 
+# T3 Enumeration
 
 https://github.com/quentinhardy/jndiat
 
@@ -776,7 +776,7 @@ https://github.com/EncodeGroup/Gopher - C# tool to discover low hanging fruits l
 
 https://github.com/GhostPack/SharpDPAPI - DPAPI Creds via C#
 
-https://github.com/Hackndo/lsassy 
+https://github.com/Hackndo/lsassy
 
 https://github.com/aas-n/spraykatz
 
@@ -933,7 +933,7 @@ https://github.com/Kevin-Robertson/Invoke-TheHash
 
 https://github.com/DanMcInerney/net-creds
 
-https://github.com/odedshimon/BruteShark - 
+https://github.com/odedshimon/BruteShark -
 
 https://github.com/lgandx/PCredz
 
@@ -1054,11 +1054,11 @@ https://github.com/med0x2e/genxlm
 
 https://github.com/med0x2e/GadgetToJScript
 
-https://github.com/rasta-mouse/GadgetToJScript - Optimized GadgetToJScript version 
+https://github.com/rasta-mouse/GadgetToJScript - Optimized GadgetToJScript version
 
 https://github.com/EgeBalci/sgn - Shikata ga nai (仕方がない) encoder ported into go with several improvements
 
-https://github.com/matterpreter/spotter - Spotter is a tool to wrap payloads in environmentally-keyed, AES256-encrypted launchers. 
+https://github.com/matterpreter/spotter - Spotter is a tool to wrap payloads in environmentally-keyed, AES256-encrypted launchers.
 
 https://github.com/s0lst1c3/dropengine - Malleable payload generation framework.
 
@@ -1496,7 +1496,7 @@ https://github.com/chipik/SAP_GW_RCE_exploit
 
 ## FPM port
 
-Found Port 9001 open? Try that: 
+Found Port 9001 open? Try that:
 
 https://github.com/hannob/fpmvuln - bash poc scripts to exploit open fpm ports
 
@@ -1512,7 +1512,7 @@ https://github.com/FlyfishSec/weblogic_rce - cve-2019-2725
 
 https://github.com/SukaraLin/CVE-2019-2890
 
-https://github.com/1337g/CVE-2017-10271 
+https://github.com/1337g/CVE-2017-10271
 
 https://github.com/LandGrey/CVE-2018-2894
 
@@ -1814,7 +1814,7 @@ https://github.com/ptresearch/AttackDetection
 
 https://github.com/MHaggis/hunt-detect-prevent
 
-https://github.com/JPCERTCC/LogonTracer - Investigate malicious Windows logon by visualizing and analyzing Windows event log 
+https://github.com/JPCERTCC/LogonTracer - Investigate malicious Windows logon by visualizing and analyzing Windows event log
 
 https://github.com/lithnet/ad-password-protection - AD Passwort Blacklisting
 
@@ -2134,13 +2134,13 @@ https://github.com/klsecservices/s7scan
 
 https://github.com/w3h/isf
 
-https://github.com/atimorin/scada-tools - 
+https://github.com/atimorin/scada-tools -
 
 # Network access control bypass
 
 https://github.com/scipag/nac_bypass
 
-# Jenkins 
+# Jenkins
 
 https://github.com/cedowens/Jenkins_Hunter_CSharp
 
@@ -2184,7 +2184,7 @@ https://github.com/shr3ddersec/Shr3dKit
 
 https://github.com/t94j0/satellite
 
-https://github.com/Cerbersec/DomainBorrowingC2 - Domain Borrowing is a new method to hide C2 traffic using CDN. It was first presented at Blackhat Asia 2021 by Junyu Zhou and Tianze Ding. 
+https://github.com/Cerbersec/DomainBorrowingC2 - Domain Borrowing is a new method to hide C2 traffic using CDN. It was first presented at Blackhat Asia 2021 by Junyu Zhou and Tianze Ding.
 
 https://github.com/Dliv3/DomainBorrowing - Domain Borrowing PoC
 
@@ -2235,7 +2235,7 @@ https://github.com/torque59/Nosql-Exploitation-Framework
 
 https://github.com/Charlie-belmer/nosqli - NoSql Injection CLI tool, for finding vulnerable websites using MongoDB.
 
-# XXE 
+# XXE
 
 https://github.com/luisfontes19/xxexploiter
 
@@ -2432,42 +2432,42 @@ https://github.com/google/tsunami-security-scanner
 15. [Data Only Attack: Neutralizing EtwTi Provider]([https://public.cnotools.studio/bring-your-own-vulnerable-kernel-driver-byovkd/exploits/data-only-attack-neutralizing-etwti-provider](https://public.cnotools.studio/bring-your-own-vulnerable-kernel-driver-byovkd/exploits/data-only-attack-neutralizing-etwti-provider "https://public.cnotools.studio/bring-your-own-vulnerable-kernel-driver-byovkd/exploits/data-only-attack-neutralizing-etwti-provider")
 16. [Beginner's Guide To EDR Evasion]([https://kylemistele.medium.com/a-beginners-guide-to-edr-evasion-b98cc076eb9a](https://kylemistele.medium.com/a-beginners-guide-to-edr-evasion-b98cc076eb9a "https://kylemistele.medium.com/a-beginners-guide-to-edr-evasion-b98cc076eb9a")
 17. [NTAPI Undocumented Functions]([http://undocumented.ntinternals.net/](http://undocumented.ntinternals.net/ "http://undocumented.ntinternals.net/")
-18. [Alertable I/O]([https://docs.microsoft.com/en-us/windows/win32/fileio/alertable-i-o](https://docs.microsoft.com/en-us/windows/win32/fileio/alertable-i-o "https://docs.microsoft.com/en-us/windows/win32/fileio/alertable-i-o")) 
-19. [ELAM - Microsoft]([https://docs.microsoft.com/en-us/windows-hardware/drivers/install/early-launch-antimalware](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/early-launch-antimalware "https://docs.microsoft.com/en-us/windows-hardware/drivers/install/early-launch-antimalware")) 
+18. [Alertable I/O]([https://docs.microsoft.com/en-us/windows/win32/fileio/alertable-i-o](https://docs.microsoft.com/en-us/windows/win32/fileio/alertable-i-o "https://docs.microsoft.com/en-us/windows/win32/fileio/alertable-i-o"))
+19. [ELAM - Microsoft]([https://docs.microsoft.com/en-us/windows-hardware/drivers/install/early-launch-antimalware](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/early-launch-antimalware "https://docs.microsoft.com/en-us/windows-hardware/drivers/install/early-launch-antimalware"))
 20. [APC Queue Code Injection]([https://www.ired.team/offensive-security/code-injection-process-injection/apc-queue-code-injection](https://www.ired.team/offensive-security/code-injection-process-injection/apc-queue-code-injection "https://www.ired.team/offensive-security/code-injection-process-injection/apc-queue-code-injection"))
-    
-21. [Master of Puppets Part II - How To Tamper The EDR]([https://www.infosec.tirol/master-of-puppets-part-ii-how-to-tamper-the-edr/](https://www.infosec.tirol/master-of-puppets-part-ii-how-to-tamper-the-edr/ "https://www.infosec.tirol/master-of-puppets-part-ii-how-to-tamper-the-edr/")) 
-22. [Evading EDR With Inline Hooks]([https://www.deepinstinct.com/blog/evading-antivirus-detection-with-inline-hooks](https://www.deepinstinct.com/blog/evading-antivirus-detection-with-inline-hooks "https://www.deepinstinct.com/blog/evading-antivirus-detection-with-inline-hooks")) 
-23. [Thread Local Storage - MSDN]([https://docs.microsoft.com/en-us/windows/win32/procthread/thread-local-storage](https://docs.microsoft.com/en-us/windows/win32/procthread/thread-local-storage "https://docs.microsoft.com/en-us/windows/win32/procthread/thread-local-storage")) 
-24. [Thread Local Storage 2 - Explicit TLS]([http://www.nynaeve.net/?p=181](http://www.nynaeve.net/?p=181 "http://www.nynaeve.net/?p=181")) 
-25. [OverviewInterception]([https://github.com/microsoft/detours/wiki/OverviewInterception](https://github.com/microsoft/detours/wiki/OverviewInterception "https://github.com/microsoft/detours/wiki/OverviewInterception")) 
-26. [EDR - A Closer Look At Protect Services]([https://www.infosec.tirol/edr-a-closer-look-at-protected-services/](https://www.infosec.tirol/edr-a-closer-look-at-protected-services/ "https://www.infosec.tirol/edr-a-closer-look-at-protected-services/")) 
-27. [FindETWProviderImage]([https://github.com/matterpreter/FindETWProviderImage](https://github.com/matterpreter/FindETWProviderImage "https://github.com/matterpreter/FindETWProviderImage")) 
-28. [ETW Bypasses]([https://kwcsec.gitbook.io/the-red-team-handbook/techniques/defense-evasion/disabling-patching-telemetry/etw-bypasses](https://kwcsec.gitbook.io/the-red-team-handbook/techniques/defense-evasion/disabling-patching-telemetry/etw-bypasses "https://kwcsec.gitbook.io/the-red-team-handbook/techniques/defense-evasion/disabling-patching-telemetry/etw-bypasses")) 
-29. [Another method of bypassing ETW]([https://modexp.wordpress.com/2020/04/08/red-teams-etw/)](https://modexp.wordpress.com/2020/04/08/red-teams-etw/)](https://modexp.wordpress.com/2020/04/08/red-teams-etw/)](https://modexp.wordpress.com/2020/04/08/red-teams-etw/) "https://modexp.wordpress.com/2020/04/08/red-teams-etw/)](https://modexp.wordpress.com/2020/04/08/red-teams-etw/)") 
+
+21. [Master of Puppets Part II - How To Tamper The EDR]([https://www.infosec.tirol/master-of-puppets-part-ii-how-to-tamper-the-edr/](https://www.infosec.tirol/master-of-puppets-part-ii-how-to-tamper-the-edr/ "https://www.infosec.tirol/master-of-puppets-part-ii-how-to-tamper-the-edr/"))
+22. [Evading EDR With Inline Hooks]([https://www.deepinstinct.com/blog/evading-antivirus-detection-with-inline-hooks](https://www.deepinstinct.com/blog/evading-antivirus-detection-with-inline-hooks "https://www.deepinstinct.com/blog/evading-antivirus-detection-with-inline-hooks"))
+23. [Thread Local Storage - MSDN]([https://docs.microsoft.com/en-us/windows/win32/procthread/thread-local-storage](https://docs.microsoft.com/en-us/windows/win32/procthread/thread-local-storage "https://docs.microsoft.com/en-us/windows/win32/procthread/thread-local-storage"))
+24. [Thread Local Storage 2 - Explicit TLS]([http://www.nynaeve.net/?p=181](http://www.nynaeve.net/?p=181 "http://www.nynaeve.net/?p=181"))
+25. [OverviewInterception]([https://github.com/microsoft/detours/wiki/OverviewInterception](https://github.com/microsoft/detours/wiki/OverviewInterception "https://github.com/microsoft/detours/wiki/OverviewInterception"))
+26. [EDR - A Closer Look At Protect Services]([https://www.infosec.tirol/edr-a-closer-look-at-protected-services/](https://www.infosec.tirol/edr-a-closer-look-at-protected-services/ "https://www.infosec.tirol/edr-a-closer-look-at-protected-services/"))
+27. [FindETWProviderImage]([https://github.com/matterpreter/FindETWProviderImage](https://github.com/matterpreter/FindETWProviderImage "https://github.com/matterpreter/FindETWProviderImage"))
+28. [ETW Bypasses]([https://kwcsec.gitbook.io/the-red-team-handbook/techniques/defense-evasion/disabling-patching-telemetry/etw-bypasses](https://kwcsec.gitbook.io/the-red-team-handbook/techniques/defense-evasion/disabling-patching-telemetry/etw-bypasses "https://kwcsec.gitbook.io/the-red-team-handbook/techniques/defense-evasion/disabling-patching-telemetry/etw-bypasses"))
+29. [Another method of bypassing ETW]([https://modexp.wordpress.com/2020/04/08/red-teams-etw/)](https://modexp.wordpress.com/2020/04/08/red-teams-etw/)](https://modexp.wordpress.com/2020/04/08/red-teams-etw/)](https://modexp.wordpress.com/2020/04/08/red-teams-etw/) "https://modexp.wordpress.com/2020/04/08/red-teams-etw/)](https://modexp.wordpress.com/2020/04/08/red-teams-etw/)")
 30. [Hiding Your .NET - ETW]([https://blog.xpnsec.com/hiding-your-dotnet-etw/](https://blog.xpnsec.com/hiding-your-dotnet-etw/ "https://blog.xpnsec.com/hiding-your-dotnet-etw/"))
-    
-31. [Ninja UUID Runner]([https://github.com/boku7/Ninja_UUID_Runner](https://github.com/boku7/Ninja_UUID_Runner "https://github.com/boku7/Ninja_UUID_Runner")) 
-32. [Unhook Import Address Table]([https://github.com/xalicex/Unhook-Import-Address-Table](https://github.com/xalicex/Unhook-Import-Address-Table "https://github.com/xalicex/Unhook-Import-Address-Table")) 
-33. [Full DLL Unhooking With C++]([https://www.ired.team/offensive-security/defense-evasion/how-to-unhook-a-dll-using-c++](https://www.ired.team/offensive-security/defense-evasion/how-to-unhook-a-dll-using-c++ "https://www.ired.team/offensive-security/defense-evasion/how-to-unhook-a-dll-using-c++")) 
-34. [Bypassing Cylance and Other EDR-AV]([https://www.ired.team/offensive-security/defense-evasion/bypassing-cylance-and-other-avs-edrs-by-unhooking-windows-apis](https://www.ired.team/offensive-security/defense-evasion/bypassing-cylance-and-other-avs-edrs-by-unhooking-windows-apis "https://www.ired.team/offensive-security/defense-evasion/bypassing-cylance-and-other-avs-edrs-by-unhooking-windows-apis")) 
-35. [Detecting Hooked Syscalls]([https://www.ired.team/offensive-security/defense-evasion/detecting-hooked-syscall-functions](https://www.ired.team/offensive-security/defense-evasion/detecting-hooked-syscall-functions "https://www.ired.team/offensive-security/defense-evasion/detecting-hooked-syscall-functions")) 
-36. [Windows X86-X64 System Call Table]([https://j00ru.vexillium.org/syscalls/nt/64/](https://j00ru.vexillium.org/syscalls/nt/64/ "https://j00ru.vexillium.org/syscalls/nt/64/")) 
-37. [Hell's Gate Technique]([https://vxug.fakedoma.in/papers/VXUG/Exclusive/HellsGate.pdf](https://vxug.fakedoma.in/papers/VXUG/Exclusive/HellsGate.pdf "https://vxug.fakedoma.in/papers/VXUG/Exclusive/HellsGate.pdf")) 
-38. [Calling Syscalls From Visual Studio]([https://www.ired.team/offensive-security/defense-evasion/using-syscalls-directly-from-visual-studio-to-bypass-avs-edrs](https://www.ired.team/offensive-security/defense-evasion/using-syscalls-directly-from-visual-studio-to-bypass-avs-edrs "https://www.ired.team/offensive-security/defense-evasion/using-syscalls-directly-from-visual-studio-to-bypass-avs-edrs")) 
-39. [PE Format - MSDN]([https://docs.microsoft.com/en-us/windows/win32/debug/pe-format](https://docs.microsoft.com/en-us/windows/win32/debug/pe-format "https://docs.microsoft.com/en-us/windows/win32/debug/pe-format")) 
+
+31. [Ninja UUID Runner]([https://github.com/boku7/Ninja_UUID_Runner](https://github.com/boku7/Ninja_UUID_Runner "https://github.com/boku7/Ninja_UUID_Runner"))
+32. [Unhook Import Address Table]([https://github.com/xalicex/Unhook-Import-Address-Table](https://github.com/xalicex/Unhook-Import-Address-Table "https://github.com/xalicex/Unhook-Import-Address-Table"))
+33. [Full DLL Unhooking With C++]([https://www.ired.team/offensive-security/defense-evasion/how-to-unhook-a-dll-using-c++](https://www.ired.team/offensive-security/defense-evasion/how-to-unhook-a-dll-using-c++ "https://www.ired.team/offensive-security/defense-evasion/how-to-unhook-a-dll-using-c++"))
+34. [Bypassing Cylance and Other EDR-AV]([https://www.ired.team/offensive-security/defense-evasion/bypassing-cylance-and-other-avs-edrs-by-unhooking-windows-apis](https://www.ired.team/offensive-security/defense-evasion/bypassing-cylance-and-other-avs-edrs-by-unhooking-windows-apis "https://www.ired.team/offensive-security/defense-evasion/bypassing-cylance-and-other-avs-edrs-by-unhooking-windows-apis"))
+35. [Detecting Hooked Syscalls]([https://www.ired.team/offensive-security/defense-evasion/detecting-hooked-syscall-functions](https://www.ired.team/offensive-security/defense-evasion/detecting-hooked-syscall-functions "https://www.ired.team/offensive-security/defense-evasion/detecting-hooked-syscall-functions"))
+36. [Windows X86-X64 System Call Table]([https://j00ru.vexillium.org/syscalls/nt/64/](https://j00ru.vexillium.org/syscalls/nt/64/ "https://j00ru.vexillium.org/syscalls/nt/64/"))
+37. [Hell's Gate Technique]([https://vxug.fakedoma.in/papers/VXUG/Exclusive/HellsGate.pdf](https://vxug.fakedoma.in/papers/VXUG/Exclusive/HellsGate.pdf "https://vxug.fakedoma.in/papers/VXUG/Exclusive/HellsGate.pdf"))
+38. [Calling Syscalls From Visual Studio]([https://www.ired.team/offensive-security/defense-evasion/using-syscalls-directly-from-visual-studio-to-bypass-avs-edrs](https://www.ired.team/offensive-security/defense-evasion/using-syscalls-directly-from-visual-studio-to-bypass-avs-edrs "https://www.ired.team/offensive-security/defense-evasion/using-syscalls-directly-from-visual-studio-to-bypass-avs-edrs"))
+39. [PE Format - MSDN]([https://docs.microsoft.com/en-us/windows/win32/debug/pe-format](https://docs.microsoft.com/en-us/windows/win32/debug/pe-format "https://docs.microsoft.com/en-us/windows/win32/debug/pe-format"))
 40. [PEB_LDR_DATA - MSDN]([https://docs.microsoft.com/en-us/windows/win32/api/winternl/ns-winternl-peb_ldr_data](https://docs.microsoft.com/en-us/windows/win32/api/winternl/ns-winternl-peb_ldr_data "https://docs.microsoft.com/en-us/windows/win32/api/winternl/ns-winternl-peb_ldr_data"))
-    
-41. [Bypassing EDR Hooks]([https://medium.com/@fsx30/bypass-edrs-memory-protection-introduction-to-hooking-2efb21acffd6](https://medium.com/@fsx30/bypass-edrs-memory-protection-introduction-to-hooking-2efb21acffd6 "https://medium.com/@fsx30/bypass-edrs-memory-protection-introduction-to-hooking-2efb21acffd6")) 
-42. [Blinding EDR On Windows]([https://synzack.github.io/Blinding-EDR-On-Windows/](https://synzack.github.io/Blinding-EDR-On-Windows/ "https://synzack.github.io/Blinding-EDR-On-Windows/")) 
-43. [Windows Kernel Ps Callbacks]([https://blog.deniable.org/posts/windows-callbacks/](https://blog.deniable.org/posts/windows-callbacks/ "https://blog.deniable.org/posts/windows-callbacks/")) 
-44. [Kernel Ps Callback Experiments]([https://github.com/uf0o/windows-ps-callbacks-experiments](https://github.com/uf0o/windows-ps-callbacks-experiments "https://github.com/uf0o/windows-ps-callbacks-experiments")) 
-45. [Direct Syscalls in BOFs]([https://outflank.nl/blog/2020/12/26/direct-syscalls-in-beacon-object-files/](https://outflank.nl/blog/2020/12/26/direct-syscalls-in-beacon-object-files/ "https://outflank.nl/blog/2020/12/26/direct-syscalls-in-beacon-object-files/")) 
-46. [Implementing Syscalls in ArtifactKit]([https://br-sn.github.io/Implementing-Syscalls-In-The-CobaltStrike-Artifact-Kit/](https://br-sn.github.io/Implementing-Syscalls-In-The-CobaltStrike-Artifact-Kit/ "https://br-sn.github.io/Implementing-Syscalls-In-The-CobaltStrike-Artifact-Kit/")) 
-47. [Cobalt Strike - InlineWhispers ArtifactKit]([https://www.youtube.com/watch?v=mZyMs2PP38w](https://www.youtube.com/watch?v=mZyMs2PP38w "https://www.youtube.com/watch?v=mZyMs2PP38w")) 
-48. [Using Inline Assembly in C/C++]([https://www.codeproject.com/articles/15971/using-inline-assembly-in-c-c](https://www.codeproject.com/articles/15971/using-inline-assembly-in-c-c "https://www.codeproject.com/articles/15971/using-inline-assembly-in-c-c")) 
-49. [InlineWhispers]([https://github.com/outflanknl/InlineWhispers](https://github.com/outflanknl/InlineWhispers "https://github.com/outflanknl/InlineWhispers")) 
-50. [Utilizing Syscalls in CSharp]([https://jhalon.github.io/utilizing-syscalls-in-csharp-1/](https://jhalon.github.io/utilizing-syscalls-in-csharp-1/ "https://jhalon.github.io/utilizing-syscalls-in-csharp-1/")) 
+
+41. [Bypassing EDR Hooks]([https://medium.com/@fsx30/bypass-edrs-memory-protection-introduction-to-hooking-2efb21acffd6](https://medium.com/@fsx30/bypass-edrs-memory-protection-introduction-to-hooking-2efb21acffd6 "https://medium.com/@fsx30/bypass-edrs-memory-protection-introduction-to-hooking-2efb21acffd6"))
+42. [Blinding EDR On Windows]([https://synzack.github.io/Blinding-EDR-On-Windows/](https://synzack.github.io/Blinding-EDR-On-Windows/ "https://synzack.github.io/Blinding-EDR-On-Windows/"))
+43. [Windows Kernel Ps Callbacks]([https://blog.deniable.org/posts/windows-callbacks/](https://blog.deniable.org/posts/windows-callbacks/ "https://blog.deniable.org/posts/windows-callbacks/"))
+44. [Kernel Ps Callback Experiments]([https://github.com/uf0o/windows-ps-callbacks-experiments](https://github.com/uf0o/windows-ps-callbacks-experiments "https://github.com/uf0o/windows-ps-callbacks-experiments"))
+45. [Direct Syscalls in BOFs]([https://outflank.nl/blog/2020/12/26/direct-syscalls-in-beacon-object-files/](https://outflank.nl/blog/2020/12/26/direct-syscalls-in-beacon-object-files/ "https://outflank.nl/blog/2020/12/26/direct-syscalls-in-beacon-object-files/"))
+46. [Implementing Syscalls in ArtifactKit]([https://br-sn.github.io/Implementing-Syscalls-In-The-CobaltStrike-Artifact-Kit/](https://br-sn.github.io/Implementing-Syscalls-In-The-CobaltStrike-Artifact-Kit/ "https://br-sn.github.io/Implementing-Syscalls-In-The-CobaltStrike-Artifact-Kit/"))
+47. [Cobalt Strike - InlineWhispers ArtifactKit]([https://www.youtube.com/watch?v=mZyMs2PP38w](https://www.youtube.com/watch?v=mZyMs2PP38w "https://www.youtube.com/watch?v=mZyMs2PP38w"))
+48. [Using Inline Assembly in C/C++]([https://www.codeproject.com/articles/15971/using-inline-assembly-in-c-c](https://www.codeproject.com/articles/15971/using-inline-assembly-in-c-c "https://www.codeproject.com/articles/15971/using-inline-assembly-in-c-c"))
+49. [InlineWhispers]([https://github.com/outflanknl/InlineWhispers](https://github.com/outflanknl/InlineWhispers "https://github.com/outflanknl/InlineWhispers"))
+50. [Utilizing Syscalls in CSharp]([https://jhalon.github.io/utilizing-syscalls-in-csharp-1/](https://jhalon.github.io/utilizing-syscalls-in-csharp-1/ "https://jhalon.github.io/utilizing-syscalls-in-csharp-1/"))
 51. [Direct Syscalls and sRDI]([https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/ "https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/"))
 
 

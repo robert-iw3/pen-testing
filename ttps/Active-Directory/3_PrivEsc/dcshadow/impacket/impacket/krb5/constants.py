@@ -45,7 +45,7 @@ class ApplicationTagNumbers(Enum):
     EncASRepPart   = 25
     EncTGSRepPart  = 26
     EncApRepPart   = 27
-    EncKrbPrivPart = 28 
+    EncKrbPrivPart = 28
     EncKrbCredPart = 29
     KRB_ERROR      = 30
 
@@ -102,7 +102,7 @@ class PreAuthenticationDataTypes(Enum):
     TD_REQ_SEQ                 = 108
     PA_PAC_REQUEST             = 128
     PA_FOR_USER                = 129
-    PA_FX_COOKIE               = 133 
+    PA_FX_COOKIE               = 133
     PA_FX_FAST                 = 136
     PA_FX_ERROR                = 137
     PA_ENCRYPTED_CHALLENGE     = 138
@@ -139,9 +139,9 @@ class AuthorizationDataType(Enum):
     #Reserved values                    = 9-63
     OSF_DCE                            = 64
     SESAME                             = 65
-    AD_OSF_DCE_PKI_CERTID              = 66 
-    AD_WIN2K_PAC                       = 128 
-    AD_ETYPE_NEGOTIATION               = 129 
+    AD_OSF_DCE_PKI_CERTID              = 66
+    AD_WIN2K_PAC                       = 128
+    AD_ETYPE_NEGOTIATION               = 129
 
 # 7.5.5.  Transited Encoding Types
 class TransitedEncodingTypes(Enum):
@@ -307,7 +307,7 @@ class ErrorCodes(Enum):
     KDC_ERR_MORE_PREAUTH_DATA_REQUIRED          = 91  # Additional pre-authentication data is required
     KDC_ERR_PREAUTH_BAD_AUTHENTICATION_SET      = 92  # KDC cannot accommodate requested pre-authentication data element
     KDC_ERR_UNKNOWN_CRITICAL_FAST_OPTIONS       = 93  # Reserved for PKINIT
- 
+
 ERROR_MESSAGES = {
     0  : ('KDC_ERR_NONE', 'No error'),
     1  : ('KDC_ERR_NAME_EXP', 'Client\'s entry in database has expired'),
@@ -387,7 +387,7 @@ ERROR_MESSAGES = {
     92 : ('KDC_ERR_PREAUTH_BAD_AUTHENTICATION_SET', 'KDC cannot accommodate requested pre-authentication data element'),
     93 : ('KDC_ERR_UNKNOWN_CRITICAL_FAST_OPTIONS', 'Unknown critical option'),
 }
- 
+
 class TicketFlags(Enum):
     reserved                 = 0
     forwardable              = 1

@@ -29,7 +29,7 @@ namespace peconv {
     t_pe_dump_mode detect_dump_mode(IN const BYTE* buffer, IN size_t buffer_size);
 
     /**
-    Dumps PE from the fiven buffer into a file. It expects the module base and size to be given. 
+    Dumps PE from the fiven buffer into a file. It expects the module base and size to be given.
     \param outputFilePath : name of the file where the dump should be saved
     \param buffer : the buffer containing the PE to be dumped. WARNING: the buffer may be preprocessed before dumping.
     \param buffer_size : the size of the given buffer

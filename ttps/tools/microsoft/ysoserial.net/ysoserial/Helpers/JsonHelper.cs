@@ -12,7 +12,7 @@ namespace ysoserial.Helpers
             /*
             xmlDocument = XmlParserNamespaceMinifier(xmlDocument);
             xmlDocument = XmlXSLTMinifier(xmlDocument);
-            
+
             */
 
             jsonString = JsonNetMinifier(jsonString);

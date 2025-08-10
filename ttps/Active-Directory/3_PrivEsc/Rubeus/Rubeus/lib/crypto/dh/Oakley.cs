@@ -9,7 +9,7 @@ namespace Kerberos.NET.Crypto
 {
     public static class Oakley
     {
-        public static class Group14 
+        public static class Group14
         {
             /*
              * https://tools.ietf.org/html/rfc3526#section-3

@@ -25,7 +25,7 @@ Spoof proc
     add r14, [rdi + 32]     ; stack size of our gadget frame
     sub r14, 20h            ; first stack arg is located at +0x28 from rsp, so we sub 0x20 from the offset. Loop will sub 0x8 each time
 
-    mov r10, rsp            
+    mov r10, rsp
     add r10, 30h            ; offset of stack arg added to rsp
 
     looping:
@@ -33,19 +33,19 @@ Spoof proc
         xor r15, r15            ; r15 will hold the offset + rsp base
         cmp r11, r13            ; comparing # of stack args added vs # of stack args we need to add
         je finish
-    
+
         ; ---------------------------------------------------------------------
         ; Getting location to move the stack arg to
         ; ---------------------------------------------------------------------
-        
+
         sub r14, 8          ; 1 arg means r11 is 0, r14 already 0x28 offset.
         mov r15, rsp        ; get current stack base
         sub r15, r14        ; subtract offset
-        
+
         ; ---------------------------------------------------------------------
         ; Procuring the stack arg
         ; ---------------------------------------------------------------------
-        
+
         add r10, 8
         push [r10]
         pop [r15]     ; move the stack arg into the right location
@@ -55,7 +55,7 @@ Spoof proc
         ; ---------------------------------------------------------------------
         add r11, 1
         jmp looping
-    
+
     finish:
 
     ; ----------------------------------------------------------------------
@@ -74,11 +74,11 @@ Spoof proc
     ; ----------------------------------------------------------------------
     ; RtlUserThreadStart + 0x14  frame
     ; ----------------------------------------------------------------------
-    
+
     sub    rsp, [rdi + 56]
     mov    r11, [rdi + 64]
     mov    [rsp], r11
-               
+
     ; ----------------------------------------------------------------------
     ; BaseThreadInitThunk + 0x21  frame
     ; ----------------------------------------------------------------------
@@ -90,7 +90,7 @@ Spoof proc
     ; ----------------------------------------------------------------------
     ; Gadget frame
     ; ----------------------------------------------------------------------
-    
+
     sub    rsp, [rdi + 48]
     mov    r11, [rdi + 80]
     mov    [rsp], r11

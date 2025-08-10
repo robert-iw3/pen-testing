@@ -1,6 +1,6 @@
 # Impacket - Collection of Python classes for working with network protocols.
 #
-# Copyright Fortra, LLC and its affiliated companies 
+# Copyright Fortra, LLC and its affiliated companies
 #
 # All rights reserved.
 #
@@ -48,7 +48,7 @@ class DCERPCStringBinding:
         options = match.group(4)
         if options:
             options = options.split(',')
-            
+
             self.__endpoint = options[0]
             try:
                 self.__endpoint.index('endpoint=')

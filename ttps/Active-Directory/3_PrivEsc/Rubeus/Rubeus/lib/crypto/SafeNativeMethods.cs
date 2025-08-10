@@ -10,7 +10,7 @@ internal static class SafeNativeMethods {
     //Based on code from http://www.infinitec.de/post/2010/11/22/Setting-the-PIN-of-a-smartcard-programmatically.aspx
     public static void SetPinForPrivateKey(this X509Certificate2 certificate, string pin) {
 
-        if (certificate == null) 
+        if (certificate == null)
             throw new ArgumentNullException("certificate");
 
 
@@ -55,7 +55,7 @@ internal static class SafeNativeMethods {
 
             rsaCng.Key.SetProperty(pinProperty);
 
-        } 
+        }
         */
     }
 

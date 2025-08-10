@@ -1,7 +1,7 @@
 
 MSSqlPwner is an advanced and versatile pentesting tool designed to seamlessly interact and pwn MSSQL servers.
 That tool is based on impacket, which allows attackers to authenticate to databases using clear-text passwords NTLM Hashes,  and kerberos tickets.
-With MSSqlPwner, users can execute custom commands through various methods, including custom assembly, `xp_cmdshell`, and `sp_oacreate(Ole Automation Procedures)` and much more. 
+With MSSqlPwner, users can execute custom commands through various methods, including custom assembly, `xp_cmdshell`, and `sp_oacreate(Ole Automation Procedures)` and much more.
 
 The tool starts with recursive enumeration on linked servers and possible impersonations in order to gather all the possible chains for command execution.
 
@@ -9,7 +9,7 @@ Also, the MSSqlPwner tool can be used for NTLM relay capabilities, utilizing fun
 
 This tool can be used for lateral movement assessments and exploration of linked servers.
 
-If the authenticated MSSQL user does not have permission to execute certain operations, the tool can find the right chain that will allows command execution. 
+If the authenticated MSSQL user does not have permission to execute certain operations, the tool can find the right chain that will allows command execution.
 For example, if your user cant execute commands in the current context, the tool will build a chain that will use a link server and connect back to our server with escelated privileges.
 
 
@@ -82,14 +82,14 @@ mssqlpwner -h
       - `execute_command` - Execute commands using custom assembly (Default).
       - `run_query` - Execute queries using custom assembly.
       - `run_query_system_service` - Execute queries using custom assembly as system user (Like SqlSVC).
-- 
+-
 - `inject-custom-asm` Inject code using custom assembly.
   - Required arguments:
       - `file_location` - The file location to inject.
   - Optional arguments:
   - `-procedure-name` - The procedure name to use (Default: `Inject`).
-  
-6. Direct Queries 
+
+6. Direct Queries
 - `direct-query` Execute direct queries
 - Required arguments:
     - `QUERY` - The query to execute.
@@ -111,7 +111,7 @@ mssqlpwner -h
 - If you want to use tickets, you should use Service Principal Name (SPN) format (Like MSSQLSvc/hostname.domain.com:1433).
 - If you use tickets, you not required to set passwords or hashes.
 - If you DONT use tickets, you should provide at least password file or hash file.
-  
+
 ## General optional arguments (Should be BEFORE the chosen function):
 - `-link-name` - The link server name to use
 - `-chain-id` - The chain ID to use
@@ -122,8 +122,8 @@ mssqlpwner -h
 
 
 ## Lateral Movement and Chain Exploration:
-MSSqlPwner provides opportunities for lateral movement assessments and exploration of linked servers. 
-In scenarios where the current session lacks administrative privileges, the tool attempts to find a chain that escalates its own privileges via linked servers. 
+MSSqlPwner provides opportunities for lateral movement assessments and exploration of linked servers.
+In scenarios where the current session lacks administrative privileges, the tool attempts to find a chain that escalates its own privileges via linked servers.
 If a session on a linked server has higher privileges, the tool can interact with the linked server and perform a linked query back to the host with elevated privileges, enabling lateral movement with the target server.
 
 ## Authentication Methods:
@@ -136,7 +136,7 @@ Supported by multiple authentication methods, including:
 
 The tool adapts to various scenarios and environments, verifying the effectiveness of authentication mechanisms.
 
-Take your MSSQL environment assessments to the next level with the power and versatility of MSSqlPwner. 
+Take your MSSQL environment assessments to the next level with the power and versatility of MSSqlPwner.
 Discover new possibilities for lateral movement, stealthy querying, and precise security evaluations with this the MSSqlPwner tool.
 
 
@@ -150,7 +150,7 @@ mssqlpwner corp.com/user:lab@192.168.1.65 -windows-auth interactive
 mssqlpwner corp.com/user:lab@192.168.1.65 -windows-auth  -max-impersonation-depth 2 interactive
 
 
-# Executing custom assembly on the current server with windows authentication and executing hostname command 
+# Executing custom assembly on the current server with windows authentication and executing hostname command
 mssqlpwner corp.com/user:lab@192.168.1.65 -windows-auth custom-asm hostname
 
 # Executing custom assembly on the current server with windows authentication and executing hostname command on the SRV01 linked server

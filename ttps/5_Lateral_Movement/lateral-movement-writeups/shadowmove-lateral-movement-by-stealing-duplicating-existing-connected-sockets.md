@@ -28,7 +28,7 @@ It's important to stress once more, the ShadowMove.exe **does not** **create any
 Below is the code [written](https://adepts.of0x.cc/shadowmove-hijack-socket/) by [Juan Manuel Fernández](https://www.twitter.com/@TheXC3LL) which I modified slightly, so that it would compile without errors in my development environment with Visual Studio 2019:
 
 ```cpp
-// PoC of ShadowMove Gateway by Juan Manuel Fernández (@TheXC3LL) 
+// PoC of ShadowMove Gateway by Juan Manuel Fernández (@TheXC3LL)
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>
@@ -139,7 +139,7 @@ SOCKET findTargetSocket(DWORD dwProcessId, LPSTR dstIP) {
 
 	printf("[+] Found [%d] handles in PID %d\n============================\n", handleInfo->HandleCount, dwProcessId);
 
-	// Iterate 
+	// Iterate
 	for (DWORD i = 0; i < handleInfo->HandleCount; i++) {
 
 		// Check if it is the desired type of handle

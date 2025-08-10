@@ -7,10 +7,10 @@ import os
 def read_exe_to_buffer(exe_path):
     if not os.path.isfile(exe_path):
         raise FileNotFoundError(f"Executable not found: {exe_path}")
-    
+
     with open(exe_path, 'rb') as f:
         buffer = f.read()
-    
+
     return buffer
 
 
@@ -42,7 +42,7 @@ class Instance:
         self.sKernel32DLL = b"kernel32.dll".ljust(32, b"\x00")
         self.sNtDLL = b"ntdll.dll".ljust(32, b"\x00")
         self.wsKernel32DLL = "KERNEL32.DLL".encode("utf-16le").ljust(64, b"\x00")
-        self.sKernelBaseDLL = b"kernelbase.dll".ljust(32, b"\x00")                      # cmd line arguments   
+        self.sKernelBaseDLL = b"kernelbase.dll".ljust(32, b"\x00")                      # cmd line arguments
         self.sMsvcrtDLL = b"msvcrt.dll".ljust(32, b"\x00")
 
         self.sGetProcAddress = b"GetProcAddress".ljust(32, b"\x00")
@@ -65,11 +65,11 @@ class Instance:
         self.sBaseThreadInitThunk = b"BaseThreadInitThunk".ljust(32, b"\x00")
         self.sRtlUserThreadStart = b"RtlUserThreadStart".ljust(32, b"\x00")
         self.sPrintf = b"printf".ljust(32, b"\x00")
-        self.sGetCommandLineA = b"GetCommandLineA".ljust(32, b"\x00") 
-        self.sGetCommandLineW = b"".ljust(32, b"\x00") 
+        self.sGetCommandLineA = b"GetCommandLineA".ljust(32, b"\x00")
+        self.sGetCommandLineW = b"".ljust(32, b"\x00")
         self.sRtlAddFunctionTable = b"RtlAddFunctionTable".ljust(32, b"\x00")
 
-        self.moduleSize = moduleSize 
+        self.moduleSize = moduleSize
 
         self.isModuleStompingUsed = 1
         self.sModuleToStomp = b"Windows.Storage.dll".ljust(32, b"\x00")
@@ -80,18 +80,18 @@ class Instance:
         self.sMagicBytes = b"\x4D\x5A".ljust(8, b"\x00")
         self.sGadget = b"\xFF\x23".ljust(8, b"\x00")
 
-        self.sDataSec = b".data".ljust(8, b"\x00") 
-        self.sPDataSec = b".pdata".ljust(8, b"\x00") 
+        self.sDataSec = b".data".ljust(8, b"\x00")
+        self.sPDataSec = b".pdata".ljust(8, b"\x00")
 
         if isDotNet:
             cmdLine = args
         else:
             cmdLine = "e " + args
-            
+
         print("Command line argument: ", cmdLine)
-        
-        self.sCmdLine = cmdLine.encode("utf-16le").ljust(2048, b"\x00") 
-        
+
+        self.sCmdLine = cmdLine.encode("utf-16le").ljust(2048, b"\x00")
+
 
         self.isDll = isDll
         self.sdllMethode = sdllMethode.encode("utf-8").ljust(256, b"\x00")
@@ -100,7 +100,7 @@ class Instance:
         self.dotnetLoaderSize = dotnetLoaderSize
         self.dotnetModuleSize = dotnetModuleSize
 
-        self.sDebug = b"debug\n".ljust(32, b"\x00") 
+        self.sDebug = b"debug\n".ljust(32, b"\x00")
 
     def pack(self):
         parts = [
@@ -110,7 +110,7 @@ class Instance:
             self.wsKernel32DLL,
             self.sKernelBaseDLL,
             self.sMsvcrtDLL,
-            
+
             self.sGetProcAddress,
             self.sGetModuleHandleA,
             self.sLoadLibraryA,
@@ -142,7 +142,7 @@ class Instance:
             struct.pack("B", self.isModuleStompingUsed),
             self.sModuleToStomp,
 
-            struct.pack("<I", self.instanceSize ),  
+            struct.pack("<I", self.instanceSize ),
             struct.pack("<I", self.loaderSize),
             self.sMagicBytes,
             self.sDataSec,
@@ -159,7 +159,7 @@ class Instance:
             self.sDebug,
             struct.pack("B", 0), # ptrModuleTst
             struct.pack("B", 0), # ptrDotNetModuleTst
-            
+
         ]
         blob = b"".join(parts)
         self.instanceSize = len(blob)
@@ -293,7 +293,7 @@ def is_dll_manual(data):
     pe_offset = e_lfanew + 4  # skip 'PE\0\0' signature
     characteristics_offset = pe_offset + 18
     characteristics = struct.unpack_from("<H", data, characteristics_offset)[0]
-    
+
     IMAGE_FILE_DLL = 0x2000
     return (characteristics & IMAGE_FILE_DLL) != 0
 

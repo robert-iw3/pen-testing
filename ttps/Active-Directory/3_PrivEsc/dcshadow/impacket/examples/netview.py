@@ -145,7 +145,7 @@ class USERENUM:
         dce.bind(samr.MSRPC_UUID_SAMR)
         try:
             resp = samr.hSamrConnect(dce)
-            serverHandle = resp['ServerHandle'] 
+            serverHandle = resp['ServerHandle']
 
             resp = samr.hSamrEnumerateDomainsInSamServer(dce, serverHandle)
             domains = resp['Buffer']['Buffer']
@@ -172,7 +172,7 @@ class USERENUM:
                     self.__machinesList.append(user['Name'][:-1])
                     logging.debug('Machine name - rid: %s - %d'% (user['Name'], user['RelativeId']))
 
-                enumerationContext = resp['EnumerationContext'] 
+                enumerationContext = resp['EnumerationContext']
                 status = resp['ErrorCode']
         except Exception as e:
             raise e
@@ -191,7 +191,7 @@ class USERENUM:
             # Just a single machine
             self.__machinesList.append(self.__options.target)
         logging.info("Got %d machines" % len(self.__machinesList))
-          
+
     def filterUsers(self):
         if self.__options.user is not None:
             self.__filterUsers = list()
@@ -208,7 +208,7 @@ class USERENUM:
         self.getTargets()
         self.filterUsers()
         #self.filterGroups()
-       
+
         # Up to here we should have figured out the scope of our work
         self.__targetsThreadEvent = Event()
         if self.__options.noloop is False:
@@ -230,15 +230,15 @@ class USERENUM:
                 self.__targets[machine]['Admin'] = True
                 self.__targets[machine]['Sessions'] = list()
                 self.__targets[machine]['LoggedIn'] = set()
-            
+
             for target in list(self.__targets.keys()):
                 try:
                     self.getSessions(target)
-                    self.getLoggedIn(target) 
+                    self.getLoggedIn(target)
                 except (SessionError, DCERPCException) as e:
                     # We will silently pass these ones, might be issues with Kerberos, or DCE
                     if str(e).find('LOGON_FAILURE') >=0:
-                        # For some reason our credentials don't work there, 
+                        # For some reason our credentials don't work there,
                         # taking it out from the list.
                         logging.error('STATUS_LOGON_FAILURE for %s, discarding' % target)
                         del(self.__targets[target])
@@ -250,7 +250,7 @@ class USERENUM:
                         del(self.__targets[target])
                     else:
                         logging.info(str(e))
-                    pass 
+                    pass
                 except KeyboardInterrupt:
                     raise
                 except Exception as e:
@@ -346,10 +346,10 @@ class USERENUM:
                 else:
                     print("%s: user %s logged off from host %s" % (target, userName, sourceIP))
                     printCRLF=True
-                
+
         if printCRLF is True:
             print()
-        
+
     def getLoggedIn(self, target):
         if self.__targets[target]['Admin'] is False:
             return
@@ -426,14 +426,14 @@ class USERENUM:
                 else:
                     print("%s: user %s\\%s logged off LOCALLY" % (target,logonDomain,userName))
                     printCRLF=True
-                
+
         if printCRLF is True:
             print()
 
     def stop(self):
         if self.__targetsThreadEvent is not None:
             self.__targetsThreadEvent.set()
-        
+
 
 # Process command-line arguments.
 if __name__ == '__main__':
@@ -508,6 +508,6 @@ if __name__ == '__main__':
         logging.error(e)
         executer.stop()
     except KeyboardInterrupt:
-        logging.info('Quitting.. please wait') 
+        logging.info('Quitting.. please wait')
         executer.stop()
     sys.exit(0)

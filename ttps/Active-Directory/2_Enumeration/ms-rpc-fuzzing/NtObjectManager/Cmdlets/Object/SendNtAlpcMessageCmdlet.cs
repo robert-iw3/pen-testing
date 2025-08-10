@@ -107,7 +107,7 @@ public class SendNtAlpcMessageCmdlet : PSCmdlet
             return null;
         }
         return recv_message;
-        
+
     }
 
     /// <summary>

@@ -20,7 +20,7 @@ namespace ysoserial.Generators
         public abstract string Finders();
         public abstract string Name();
         public abstract List<string> SupportedFormatters();
-        
+
         // This is used when we want a gadget to support incoming from another gadget
         public virtual string SupportedBridgedFormatter()
         {
@@ -115,7 +115,7 @@ namespace ysoserial.Generators
             {
                 return "[Finders: " + Finders() + "] [Contributors: " + Contributors() + "]";
             }
-            
+
         }
 
         public Boolean IsSupported(string formatter)
@@ -129,7 +129,7 @@ namespace ysoserial.Generators
         public object Serialize(object payloadObj, string formatter, InputArgs inputArgs)
         {
             MemoryStream stream = new MemoryStream();
-          
+
             if (formatter.ToLower().Equals("binaryformatter"))
             {
                 BinaryFormatter fmt = new BinaryFormatter();
@@ -143,8 +143,8 @@ namespace ysoserial.Generators
                 {
                     fmt.Serialize(stream, payloadObj);
                 }
-                
-                
+
+
                 if (inputArgs.Test)
                 {
                     try
@@ -153,7 +153,7 @@ namespace ysoserial.Generators
                         if (serializationBinder != null)
                             fmt.Binder = serializationBinder;
                         fmt.Deserialize(stream);
-                    } 
+                    }
                     catch(Exception err){
                         Debugging.ShowErrors(inputArgs, err);
                     }
@@ -261,7 +261,7 @@ namespace ysoserial.Generators
                 {
                     lf.Serialize(stream, payloadObj);
                 }
-                
+
                 if (inputArgs.Test)
                 {
                     try
@@ -282,6 +282,6 @@ namespace ysoserial.Generators
             }
         }
 
-        
+
     }
 }

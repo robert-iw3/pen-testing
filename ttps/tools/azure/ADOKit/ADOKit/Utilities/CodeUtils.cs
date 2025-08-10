@@ -115,7 +115,7 @@ namespace ADOKit.Utilities
                                             codeList.Add(new CodeResult(filePath, projectName, projectID, repoName, repoID, fullURL, codeContents));
                                         }
                                     }
-                                    
+
                                 }
                                 break;
                             case "StartArray":

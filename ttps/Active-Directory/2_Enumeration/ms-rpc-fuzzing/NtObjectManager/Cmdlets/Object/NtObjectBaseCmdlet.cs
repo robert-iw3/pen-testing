@@ -233,7 +233,7 @@ public abstract class NtObjectBaseCmdlet : NtObjectBaseNoPathCmdlet
         }
         return objects.ToArray();
     }
-    
+
     /// <summary>
     /// Overridden ProcessRecord method.
     /// </summary>

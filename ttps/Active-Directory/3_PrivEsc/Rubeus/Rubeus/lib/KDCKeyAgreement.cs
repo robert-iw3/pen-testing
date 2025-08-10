@@ -12,7 +12,7 @@ namespace Rubeus {
 
         ManagedDiffieHellmanOakley14 diffieHellman = new ManagedDiffieHellmanOakley14();
 
-        public KDCKeyAgreement() {                   
+        public KDCKeyAgreement() {
         }
 
         private static byte[] CalculateIntegrity(byte count, byte[] data) {
@@ -21,9 +21,9 @@ namespace Rubeus {
             input[0] = count;
             data.CopyTo(input, 1);
 
-            using (SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider()) { 
+            using (SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider()) {
                 return sha1.ComputeHash(input);
-            }            
+            }
         }
 
         private static byte[] kTruncate(int k, byte[] x) {
@@ -51,7 +51,7 @@ namespace Rubeus {
 
             return result;
         }
-  
+
         public byte[] GenerateKey(byte[] otherPublicKey, byte[] clientNonce, byte[] serverNonce, int size) {
 
             DiffieHellmanKey diffieHellmanKey = new DiffieHellmanKey();
@@ -61,13 +61,13 @@ namespace Rubeus {
 
             diffieHellman.ImportPartnerKey(diffieHellmanKey);
             byte[] sharedSecret = diffieHellman.GenerateAgreement();
-        
+
             byte[] x = new byte[sharedSecret.Length + clientNonce.Length + serverNonce.Length];
 
             sharedSecret.CopyTo(x, 0);
             clientNonce.CopyTo(x, sharedSecret.Length);
-            serverNonce.CopyTo(x, sharedSecret.Length + clientNonce.Length);                    
-          
+            serverNonce.CopyTo(x, sharedSecret.Length + clientNonce.Length);
+
             return kTruncate(size, x);
         }
     }

@@ -32,7 +32,7 @@ public:
 		return m_assemblyStore->getAssemblyInfo();
 	};
 
-protected:	
+protected:
 	DWORD count;
 
 private:

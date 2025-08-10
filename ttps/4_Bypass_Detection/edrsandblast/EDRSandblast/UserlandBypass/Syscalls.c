@@ -142,7 +142,7 @@ DWORD GetSyscallNumberFromExportOrdering(LPCSTR ntFunctionName) {
     }
     zwFunctionName[0] = 'Z';
     zwFunctionName[1] = 'w';
-    
+
     DWORD down = 0;
     DWORD up = syscallTableSize;
     while (up - down > 1) {

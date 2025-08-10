@@ -100,10 +100,10 @@ namespace Rubeus
 
         public void Encrypt(EncTicketPart encTicketPart, byte[] serviceKey) {
 
-            
-            //AuthorizationData ad_win2k_pac = new AuthorizationData(Interop.AuthorizationDataType.AD_WIN2K_PAC, pacs.Encode());           
-            //AuthorizationData ad_if_rel = new AuthorizationData(Interop.AuthorizationDataType.AD_IF_RELEVANT, ad_win2k_pac.Encode().Encode()); 
-            //enc_part.cipher = Crypto.KerberosEncrypt((Interop.KERB_ETYPE)enc_part.etype, Interop.KRB_KEY_USAGE_AS_REP_TGS_REP, serviceKey, ad_if_rel.Encode().Encode());              
+
+            //AuthorizationData ad_win2k_pac = new AuthorizationData(Interop.AuthorizationDataType.AD_WIN2K_PAC, pacs.Encode());
+            //AuthorizationData ad_if_rel = new AuthorizationData(Interop.AuthorizationDataType.AD_IF_RELEVANT, ad_win2k_pac.Encode().Encode());
+            //enc_part.cipher = Crypto.KerberosEncrypt((Interop.KERB_ETYPE)enc_part.etype, Interop.KRB_KEY_USAGE_AS_REP_TGS_REP, serviceKey, ad_if_rel.Encode().Encode());
         }
 
 

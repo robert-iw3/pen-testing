@@ -2,7 +2,7 @@
 ## Version: 1.00
 ## Compatibility: hashcat v0.48+, oclHashcat v1.31+
 ##
-## Description: 
+## Description:
 ##
 ## Handwritten ruleset, documented, optimized rule for use with princeprocessor
 ## This rule can be used as amplifier in case you're attacking a fast hash

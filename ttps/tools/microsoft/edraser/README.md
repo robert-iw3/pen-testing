@@ -7,7 +7,7 @@ It offers two modes of operation: automated and manual.
 
 ### Automated Mode
 
-In automated mode, EDRaser scans the C class of a given address space of IPs for vulnerable systems and attacks them automatically. 
+In automated mode, EDRaser scans the C class of a given address space of IPs for vulnerable systems and attacks them automatically.
 The attacks in auto mode are:
 
 - Remote deletion of webserver logs.
@@ -37,7 +37,7 @@ Arguments:
 - `--ip`: scan IP addresses in the specified range and attack vulnerable systems (default: localhost).
 - `--sigfile`: use the specified encrypted signature DB (default: signatures.db).
 - `--attack`: attack to be executed. The following attacks are available: ['vmx', 'vmdk', 'windows_security_event_log_remote',
-                   'windows_application_event_log_local', 'syslog', 
+                   'windows_application_event_log_local', 'syslog',
                    'access_logs', 'remote_db', 'local_db', 'remote_db_webserver']
 
 Optional arguments:
@@ -53,7 +53,7 @@ Optional arguments:
 Example:
 
 ```
-python edraser.py --attack windows_event_log --ip 192.168.1.133 
+python edraser.py --attack windows_event_log --ip 192.168.1.133
 
 python EDRaser.py -attack remote_db -db_type mysql -db_username test_user -db_password test_password -ip 192.168.1.10
 ```

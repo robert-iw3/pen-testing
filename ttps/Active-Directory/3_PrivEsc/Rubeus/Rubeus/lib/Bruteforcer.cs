@@ -91,7 +91,7 @@ namespace Rubeus
 
         private bool HandleKerberosError(KerberosErrorException ex, string username, string password)
         {
-            
+
 
             KRB_ERROR krbError = ex.krbError;
             bool ret = false;

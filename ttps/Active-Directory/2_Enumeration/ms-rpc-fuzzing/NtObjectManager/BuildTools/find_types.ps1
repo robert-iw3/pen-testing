@@ -43,7 +43,7 @@ function Find-MissingTypes {
             } else {
                 $ps_asm.GetType($n)
             }
-        
+
             if ($t -eq $null) {
                 Write-Host "$n missing."
             }

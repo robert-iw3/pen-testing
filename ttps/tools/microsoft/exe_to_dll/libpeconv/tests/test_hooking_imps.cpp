@@ -53,7 +53,7 @@ int tests::hook_testcase(LPCTSTR path)
 
     ULONGLONG ep_exp_offset = (ULONGLONG) loaded_pe + peconv::get_entry_point_rva(loaded_pe);
     DWORD (*imported_func)() = (DWORD (*)()) (ep_exp_offset);
-    
+
     std::cout << "Calling imported function:" <<std::endl;
     imported_func();
     peconv::free_pe_buffer(loaded_pe, v_size);

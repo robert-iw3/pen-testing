@@ -73,7 +73,7 @@ metadata-cleaner delete --folder my_photos --recursive
 ## 📊 Logging & Debugging
 
 - **Log File:** `logs/metadata_cleaner.log`
-- **Set Debug Mode:**  
+- **Set Debug Mode:**
   ```bash
   METADATA_CLEANER_LOG_LEVEL=DEBUG metadata-cleaner delete sample.jpg
   ```

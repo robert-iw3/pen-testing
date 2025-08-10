@@ -18,7 +18,7 @@ int tests::load_self()
     }
 
     printf("Loaded at: %p\n", loaded_pe);
-   
+
     // Now try to unmap the loaded image using libpeconv:
     size_t raw_size = 0;
     BYTE* unmapped = pe_virtual_to_raw(loaded_pe, v_size, (ULONGLONG)loaded_pe, raw_size, true);

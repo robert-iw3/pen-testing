@@ -279,26 +279,26 @@ class _DESCBC(_SimplifiedEnctype):
         checksum = cls.hashmod.new(basic_plaintext).digest()
         basic_plaintext = basic_plaintext[:len(confounder)] + checksum + basic_plaintext[len(confounder)+len(checksum):]
         return cls.basic_encrypt(key, basic_plaintext)
-        
-        
+
+
     @classmethod
     def decrypt(cls, key, keyusage, ciphertext):
         if len(ciphertext) < cls.blocksize + cls.macsize:
             raise ValueError('ciphertext too short')
-        
+
         complex_plaintext = cls.basic_decrypt(key, ciphertext)
         cofounder = complex_plaintext[:cls.padsize]
         mac = complex_plaintext[cls.padsize:cls.padsize+cls.macsize]
         message = complex_plaintext[cls.padsize+cls.macsize:]
-        
+
         expmac = cls.hashmod.new(cofounder+b'\x00'*cls.macsize+message).digest()
         if not _mac_equal(mac, expmac):
             raise InvalidChecksum('ciphertext integrity failure')
         return bytes(message)
-    
+
     @classmethod
     def mit_des_string_to_key(cls,string,salt):
-    
+
         def fixparity(deskey):
             temp = b''
             for i in range(len(deskey)):
@@ -308,7 +308,7 @@ class _DESCBC(_SimplifiedEnctype):
                 else:
                     temp+= b(chr(int(t[:7]+'0',2)))
             return temp
-    
+
         def addparity(l1):
             temp = list()
             for byte in l1:
@@ -318,14 +318,14 @@ class _DESCBC(_SimplifiedEnctype):
                     byte = (byte << 1)&0b11111110
                 temp.append(byte)
             return temp
-        
+
         def XOR(l1,l2):
             temp = list()
             for b1,b2 in zip(l1,l2):
                 temp.append((b1^b2)&0b01111111)
-            
+
             return temp
-        
+
         odd = True
         tempstring = [0,0,0,0,0,0,0,0]
         s = _zeropad(string + salt, cls.padsize)
@@ -338,22 +338,22 @@ class _DESCBC(_SimplifiedEnctype):
                     temp56.append(byte&0b01111111)
                 else:
                     temp56.append(ord(byte)&0b01111111)
-            
+
             #reverse
             if odd is False:
                 bintemp = b''
                 for byte in temp56:
                     bintemp += b(bin(byte)[2:].rjust(7,'0'))
                 bintemp = bintemp[::-1]
-                
+
                 temp56 = list()
                 for bits7 in [bintemp[i:i+7] for i in range(0, len(bintemp), 7)]:
                     temp56.append(int(bits7,2))
 
             odd = not odd
-                
+
             tempstring = XOR(tempstring,temp56)
-        
+
         tempkey = ''.join(chr(byte) for byte in addparity(tempstring))
         if _is_weak_des_key(tempkey):
             tempkey[7] = chr(ord(tempkey[7]) ^ 0xF0)
@@ -363,7 +363,7 @@ class _DESCBC(_SimplifiedEnctype):
         checksumkey = fixparity(checksumkey)
         if _is_weak_des_key(checksumkey):
             checksumkey[7] = chr(ord(checksumkey[7]) ^ 0xF0)
-        
+
         return Key(cls.enctype, checksumkey)
 
     @classmethod
@@ -377,7 +377,7 @@ class _DESCBC(_SimplifiedEnctype):
         assert len(ciphertext) % 8 == 0
         des = DES.new(key.contents, DES.MODE_CBC, b'\0' * 8)
         return des.decrypt(bytes(ciphertext))
-    
+
     @classmethod
     def string_to_key(cls, string, salt, params):
         if params is not None and params != b'':
@@ -389,8 +389,8 @@ class _DESCBC(_SimplifiedEnctype):
 
         key = cls.mit_des_string_to_key(string, salt)
         return key
-    
-    
+
+
 
 class _DES3CBC(_SimplifiedEnctype):
     enctype = Enctype.DES3

@@ -1,5 +1,5 @@
 # change-dir - changes the current directory. returns that we tried to change directories
-function func_cd 
+function func_cd
 {
     param([string] $directory) # the directory we are going to change to
 

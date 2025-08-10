@@ -186,7 +186,7 @@ NTSTATUS EnumEDRServices(fwBlockingRulesList* sFWEntries) {
                 free(lpServiceConfig);
                 lpServiceConfig = NULL;
             }
-            
+
             lpServiceConfig = (QUERY_SERVICE_CONFIG*)calloc(dwBytesNeeded, sizeof(BYTE));
             if (!lpServiceConfig) {
                 _putts_or_not(TEXT("[!] Failed to allocate memory to retrieve service configuration"));
@@ -213,8 +213,8 @@ NTSTATUS EnumEDRServices(fwBlockingRulesList* sFWEntries) {
             continue;
         }
         _tcscpy_s(serviceBinaryPathCopy, _countof(serviceBinaryPathCopy), lpServiceConfig->lpBinaryPathName);
-        
-        // replace \SystemRoot\ with %systemroot%\ 
+
+        // replace \SystemRoot\ with %systemroot%\
         TCHAR* prefix = TEXT("\\SystemRoot\\");
         SIZE_T prefix_len = _tcslen(prefix);
         if (!_tcsnicmp(serviceBinaryPathCopy, prefix, prefix_len)) {
@@ -224,15 +224,15 @@ NTSTATUS EnumEDRServices(fwBlockingRulesList* sFWEntries) {
             serviceBinaryPathCopy[prefix_len - 1] = '%';
         }
 
-        // Remove \\??\\ 
+        // Remove \\??\\
         prefix = TEXT("\\??\\");
         prefix_len = _tcslen(prefix);
         if (!_tcsnicmp(serviceBinaryPathCopy, prefix, prefix_len)) {
             SIZE_T sizeDisplacement = sizeof(TCHAR) * (_tcslen(serviceBinaryPathCopy) + 1 - (prefix_len));
             memmove(&serviceBinaryPathCopy[0], &serviceBinaryPathCopy[prefix_len], sizeDisplacement);
         }
-        
-        // insert %systemroot%\ before system32\ 
+
+        // insert %systemroot%\ before system32\
         prefix = TEXT("system32");
         prefix_len = _tcslen(prefix);
         if (!_tcsnicmp(serviceBinaryPathCopy, prefix, prefix_len)) {
@@ -255,7 +255,7 @@ NTSTATUS EnumEDRServices(fwBlockingRulesList* sFWEntries) {
             if ((positionSpace = _tcschr(serviceBinaryPathCopy, ' ')) != NULL) {
                 *positionSpace = '\0';
         }
-        
+
         returnValue = ExpandEnvironmentStrings(serviceBinaryPathCopy, serviceBinaryPath, _countof(serviceBinaryPath));
         if (!returnValue) {
             _tprintf_or_not(TEXT("[!] Error while attempting to expand service binary path \"%s\" (ExpandEnvironmentStrings failed: : 0x%08lx)\n"), serviceBinaryPathCopy, GetLastError());
@@ -300,7 +300,7 @@ NTSTATUS EnumEDRServices(fwBlockingRulesList* sFWEntries) {
 
         //_tprintf_or_not(TEXT("[*] Found service: name => \"%s\" | Display name => \"%s\".\n"), lpServices[dwIndex].lpServiceName, lpServices[dwIndex].lpDisplayName);
     }
-    
+
     if (!CloseServiceHandle(hSCManager)) {
         _tprintf_or_not(TEXT("[!] Error while closing handle on the SCM (CloseServiceHandle failed: 0x%08lx)\n"), GetLastError());
     }
@@ -382,7 +382,7 @@ HRESULT FirewallBlockEDR(fwBlockingRulesList* sFWEntries) {
     if (FAILED(hrStatus)) {
         _putts_or_not(TEXT("[!] An error occured while attempting to create Firewall blocking rules for EDR processes / services"));
     }
-        
+
 	return 0;
 }
 

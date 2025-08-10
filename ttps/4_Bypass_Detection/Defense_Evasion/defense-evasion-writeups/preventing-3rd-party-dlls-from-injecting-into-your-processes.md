@@ -18,7 +18,7 @@ int main()
 	PROCESS_INFORMATION pi = {};
 	STARTUPINFOEXA si = {};
 	SIZE_T attributeSize = 0;
-	
+
 	InitializeProcThreadAttributeList(NULL, 1, 0, &attributeSize);
 	PPROC_THREAD_ATTRIBUTE_LIST attributes = (PPROC_THREAD_ATTRIBUTE_LIST)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, attributeSize);
 	InitializeProcThreadAttributeList(attributes, 1, 0, &attributeSize);

@@ -23,16 +23,16 @@ IMAGE_DELAYLOAD_DESCRIPTOR* peconv::get_delayed_imps(IN const BYTE* modulePtr, I
 }
 
 template <typename T_FIELD, typename T_IMAGE_THUNK_DATA>
-bool parse_delayed_desc(BYTE* modulePtr, const size_t moduleSize, 
-    const ULONGLONG img_base, 
-    LPSTR lib_name, 
-    const T_FIELD ordinal_flag, 
-    IMAGE_DELAYLOAD_DESCRIPTOR *desc, 
+bool parse_delayed_desc(BYTE* modulePtr, const size_t moduleSize,
+    const ULONGLONG img_base,
+    LPSTR lib_name,
+    const T_FIELD ordinal_flag,
+    IMAGE_DELAYLOAD_DESCRIPTOR *desc,
     peconv::t_function_resolver* func_resolver
 )
 {
     ULONGLONG iat_addr = desc->ImportAddressTableRVA;
-    
+
     if (iat_addr > img_base) iat_addr -= img_base; // it may be either RVA or VA
 
     ULONGLONG thunk_addr = desc->ImportNameTableRVA;

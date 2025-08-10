@@ -7,10 +7,10 @@
 /* at Tue Jan 19 05:14:07 2038
  */
 /* Compiler settings for StorSvc.idl:
-    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0628 
+    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0628
     protocol : all , ms_ext, c_ext, robust
-    error checks: allocation ref bounds_check enum stub_data 
-    VC __declspec() decoration level: 
+    error checks: allocation ref bounds_check enum stub_data
+    VC __declspec() decoration level:
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
          DECLSPEC_UUID(), MIDL_INTERFACE()
 */
@@ -30,11 +30,11 @@
 #include <string.h>
 #include "StorSvc_h.h"
 
-#define TYPE_FORMAT_STRING_SIZE   69                                
-#define PROC_FORMAT_STRING_SIZE   1351                              
-#define EXPR_FORMAT_STRING_SIZE   1                                 
-#define TRANSMIT_AS_TABLE_SIZE    0            
-#define WIRE_MARSHAL_TABLE_SIZE   0            
+#define TYPE_FORMAT_STRING_SIZE   69
+#define PROC_FORMAT_STRING_SIZE   1351
+#define EXPR_FORMAT_STRING_SIZE   1
+#define TRANSMIT_AS_TABLE_SIZE    0
+#define WIRE_MARSHAL_TABLE_SIZE   0
 
 typedef struct _StorSvc_MIDL_TYPE_FORMAT_STRING
     {
@@ -55,10 +55,10 @@ typedef struct _StorSvc_MIDL_EXPR_FORMAT_STRING
     } StorSvc_MIDL_EXPR_FORMAT_STRING;
 
 
-static const RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax_2_0 = 
+static const RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax_2_0 =
 {{0x8A885D04,0x1CEB,0x11C9,{0x9F,0xE8,0x08,0x00,0x2B,0x10,0x48,0x60}},{2,0}};
 
-static const RPC_SYNTAX_IDENTIFIER  _NDR64_RpcTransferSyntax_1_0 = 
+static const RPC_SYNTAX_IDENTIFIER  _NDR64_RpcTransferSyntax_1_0 =
 {{0x71710533,0xbeba,0x4937,{0x83,0x19,0xb5,0xdb,0xef,0x9c,0xcc,0x36}},{1,0}};
 
 #if defined(_CONTROL_FLOW_GUARD_XFG)
@@ -1239,26 +1239,26 @@ static const StorSvc_MIDL_TYPE_FORMAT_STRING StorSvc__MIDL_TypeFormatString =
         0,
         {
 			NdrFcShort( 0x0 ),	/* 0 */
-/*  2 */	
+/*  2 */
 			0x11, 0xc,	/* FC_RP [alloced_on_stack] [simple_pointer] */
 /*  4 */	0x8,		/* FC_LONG */
 			0x5c,		/* FC_PAD */
-/*  6 */	
+/*  6 */
 			0x11, 0x0,	/* FC_RP */
 /*  8 */	NdrFcShort( 0x1a ),	/* Offset= 26 (34) */
-/* 10 */	
+/* 10 */
 			0x1d,		/* FC_SMFARRAY */
 			0x1,		/* 1 */
 /* 12 */	NdrFcShort( 0x208 ),	/* 520 */
 /* 14 */	0x5,		/* FC_WCHAR */
 			0x5b,		/* FC_END */
-/* 16 */	
+/* 16 */
 			0x1d,		/* FC_SMFARRAY */
 			0x0,		/* 0 */
 /* 18 */	NdrFcShort( 0x8 ),	/* 8 */
 /* 20 */	0x1,		/* FC_BYTE */
 			0x5b,		/* FC_END */
-/* 22 */	
+/* 22 */
 			0x15,		/* FC_STRUCT */
 			0x3,		/* 3 */
 /* 24 */	NdrFcShort( 0x10 ),	/* 16 */
@@ -1269,7 +1269,7 @@ static const StorSvc_MIDL_TYPE_FORMAT_STRING StorSvc__MIDL_TypeFormatString =
 /* 30 */	0x0,		/* 0 */
 			NdrFcShort( 0xfff1 ),	/* Offset= -15 (16) */
 			0x5b,		/* FC_END */
-/* 34 */	
+/* 34 */
 			0x1a,		/* FC_BOGUS_STRUCT */
 			0x7,		/* 7 */
 /* 36 */	NdrFcShort( 0x458 ),	/* 1112 */
@@ -1384,7 +1384,7 @@ static const RPC_DISPATCH_FUNCTION StorSvc_table[] =
     NdrServerCall2,
     0
     };
-static const RPC_DISPATCH_TABLE StorSvc_v0_0_DispatchTable = 
+static const RPC_DISPATCH_TABLE StorSvc_v0_0_DispatchTable =
     {
     36,
     (RPC_DISPATCH_FUNCTION*)StorSvc_table
@@ -1402,10 +1402,10 @@ static const RPC_DISPATCH_TABLE StorSvc_v0_0_DispatchTable =
 /* at Tue Jan 19 05:14:07 2038
  */
 /* Compiler settings for StorSvc.idl:
-    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0628 
+    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0628
     protocol : all , ms_ext, c_ext, robust
-    error checks: allocation ref bounds_check enum stub_data 
-    VC __declspec() decoration level: 
+    error checks: allocation ref bounds_check enum stub_data
+    VC __declspec() decoration level:
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
          DECLSPEC_UUID(), MIDL_INTERFACE()
 */
@@ -1428,13 +1428,13 @@ namespace {
 #endif
 
 
-typedef 
+typedef
 NDR64_FORMAT_CHAR
 __midl_frag85_t;
 extern const __midl_frag85_t __midl_frag85;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1443,13 +1443,13 @@ struct
 __midl_frag84_t;
 extern const __midl_frag84_t __midl_frag84;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag31_t;
 extern const __midl_frag31_t __midl_frag31;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1462,21 +1462,21 @@ struct
 __midl_frag27_t;
 extern const __midl_frag27_t __midl_frag27;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_STRUCTURE_HEADER_FORMAT frag1;
 }
 __midl_frag17_t;
 extern const __midl_frag17_t __midl_frag17;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag16_t;
 extern const __midl_frag16_t __midl_frag16;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1488,8 +1488,8 @@ struct
 __midl_frag13_t;
 extern const __midl_frag13_t __midl_frag13;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1500,7 +1500,7 @@ struct
 __midl_frag8_t;
 extern const __midl_frag8_t __midl_frag8;
 
-typedef 
+typedef
 NDR64_FORMAT_UINT32
 __midl_frag1_t;
 extern const __midl_frag1_t __midl_frag1;
@@ -1509,9 +1509,9 @@ static const __midl_frag85_t __midl_frag85 =
 0x5    /* FC64_INT32 */;
 
 static const __midl_frag84_t __midl_frag84 =
-{ 
+{
 /* SvcGetSmartAttributes */
-    { 
+    {
     /* SvcGetSmartAttributes */      /* procedure SvcGetSmartAttributes */
         (NDR64_UINT32) 17301568 /* 0x1080040 */,    /* explicit handle */ /* IsIntrepreted, HasReturn, HasExtensions */
         (NDR64_UINT32) 16 /* 0x10 */ ,  /* Stack size */
@@ -1522,9 +1522,9 @@ static const __midl_frag84_t __midl_frag84 =
         (NDR64_UINT16) 1 /* 0x1 */,
         (NDR64_UINT16) 8 /* 0x8 */
     },
-    { 
+    {
     /* struct _NDR64_BIND_AND_NOTIFY_EXTENSION */
-        { 
+        {
         /* struct _NDR64_BIND_AND_NOTIFY_EXTENSION */
             0x72,    /* FC64_BIND_PRIMITIVE */
             (NDR64_UINT8) 0 /* 0x0 */,
@@ -1534,10 +1534,10 @@ static const __midl_frag84_t __midl_frag84 =
         },
         (NDR64_UINT16) 0 /* 0x0 */      /* Notify index */
     },
-    { 
+    {
     /* long */      /* parameter long */
         &__midl_frag85,
-        { 
+        {
         /* long */
             0,
             0,
@@ -1561,7 +1561,7 @@ static const __midl_frag84_t __midl_frag84 =
 };
 
 static const __midl_frag31_t __midl_frag31 =
-{ 
+{
 /* *DWORD */
     0x20,    /* FC64_RP */
     (NDR64_UINT8) 12 /* 0xc */,
@@ -1570,9 +1570,9 @@ static const __midl_frag31_t __midl_frag31 =
 };
 
 static const __midl_frag27_t __midl_frag27 =
-{ 
+{
 /* SvcGetStorageSettings */
-    { 
+    {
     /* SvcGetStorageSettings */      /* procedure SvcGetStorageSettings */
         (NDR64_UINT32) 17301568 /* 0x1080040 */,    /* explicit handle */ /* IsIntrepreted, HasReturn, HasExtensions */
         (NDR64_UINT32) 48 /* 0x30 */ ,  /* Stack size */
@@ -1583,9 +1583,9 @@ static const __midl_frag27_t __midl_frag27 =
         (NDR64_UINT16) 5 /* 0x5 */,
         (NDR64_UINT16) 8 /* 0x8 */
     },
-    { 
+    {
     /* struct _NDR64_BIND_AND_NOTIFY_EXTENSION */
-        { 
+        {
         /* struct _NDR64_BIND_AND_NOTIFY_EXTENSION */
             0x72,    /* FC64_BIND_PRIMITIVE */
             (NDR64_UINT8) 0 /* 0x0 */,
@@ -1595,10 +1595,10 @@ static const __midl_frag27_t __midl_frag27 =
         },
         (NDR64_UINT16) 0 /* 0x0 */      /* Notify index */
     },
-    { 
+    {
     /* DeviceType */      /* parameter DeviceType */
         &__midl_frag85,
-        { 
+        {
         /* DeviceType */
             0,
             0,
@@ -1619,10 +1619,10 @@ static const __midl_frag27_t __midl_frag27 =
         (NDR64_UINT16) 0 /* 0x0 */,
         8 /* 0x8 */,   /* Stack offset */
     },
-    { 
+    {
     /* DeviceIndex */      /* parameter DeviceIndex */
         &__midl_frag85,
-        { 
+        {
         /* DeviceIndex */
             0,
             0,
@@ -1643,10 +1643,10 @@ static const __midl_frag27_t __midl_frag27 =
         (NDR64_UINT16) 0 /* 0x0 */,
         16 /* 0x10 */,   /* Stack offset */
     },
-    { 
+    {
     /* SettingsType */      /* parameter SettingsType */
         &__midl_frag85,
-        { 
+        {
         /* SettingsType */
             0,
             0,
@@ -1667,10 +1667,10 @@ static const __midl_frag27_t __midl_frag27 =
         (NDR64_UINT16) 0 /* 0x0 */,
         24 /* 0x18 */,   /* Stack offset */
     },
-    { 
+    {
     /* SettingsValue */      /* parameter SettingsValue */
         &__midl_frag85,
-        { 
+        {
         /* SettingsValue */
             0,
             0,
@@ -1691,10 +1691,10 @@ static const __midl_frag27_t __midl_frag27 =
         (NDR64_UINT16) 0 /* 0x0 */,
         32 /* 0x20 */,   /* Stack offset */
     },
-    { 
+    {
     /* long */      /* parameter long */
         &__midl_frag85,
-        { 
+        {
         /* long */
             0,
             0,
@@ -1718,13 +1718,13 @@ static const __midl_frag27_t __midl_frag27 =
 };
 
 static const __midl_frag17_t __midl_frag17 =
-{ 
+{
 /* STORAGE_DEVICE_INFO */
-    { 
+    {
     /* STORAGE_DEVICE_INFO */
         0x30,    /* FC64_STRUCT */
         (NDR64_UINT8) 7 /* 0x7 */,
-        { 
+        {
         /* STORAGE_DEVICE_INFO */
             0,
             0,
@@ -1741,7 +1741,7 @@ static const __midl_frag17_t __midl_frag17 =
 };
 
 static const __midl_frag16_t __midl_frag16 =
-{ 
+{
 /* *STORAGE_DEVICE_INFO */
     0x20,    /* FC64_RP */
     (NDR64_UINT8) 0 /* 0x0 */,
@@ -1750,9 +1750,9 @@ static const __midl_frag16_t __midl_frag16 =
 };
 
 static const __midl_frag13_t __midl_frag13 =
-{ 
+{
 /* SvcGetStorageDeviceInfo */
-    { 
+    {
     /* SvcGetStorageDeviceInfo */      /* procedure SvcGetStorageDeviceInfo */
         (NDR64_UINT32) 17301568 /* 0x1080040 */,    /* explicit handle */ /* IsIntrepreted, HasReturn, HasExtensions */
         (NDR64_UINT32) 40 /* 0x28 */ ,  /* Stack size */
@@ -1763,9 +1763,9 @@ static const __midl_frag13_t __midl_frag13 =
         (NDR64_UINT16) 4 /* 0x4 */,
         (NDR64_UINT16) 8 /* 0x8 */
     },
-    { 
+    {
     /* struct _NDR64_BIND_AND_NOTIFY_EXTENSION */
-        { 
+        {
         /* struct _NDR64_BIND_AND_NOTIFY_EXTENSION */
             0x72,    /* FC64_BIND_PRIMITIVE */
             (NDR64_UINT8) 0 /* 0x0 */,
@@ -1775,10 +1775,10 @@ static const __midl_frag13_t __midl_frag13 =
         },
         (NDR64_UINT16) 0 /* 0x0 */      /* Notify index */
     },
-    { 
+    {
     /* DeviceType */      /* parameter DeviceType */
         &__midl_frag85,
-        { 
+        {
         /* DeviceType */
             0,
             0,
@@ -1799,10 +1799,10 @@ static const __midl_frag13_t __midl_frag13 =
         (NDR64_UINT16) 0 /* 0x0 */,
         8 /* 0x8 */,   /* Stack offset */
     },
-    { 
+    {
     /* DeviceIndex */      /* parameter DeviceIndex */
         &__midl_frag85,
-        { 
+        {
         /* DeviceIndex */
             0,
             0,
@@ -1823,10 +1823,10 @@ static const __midl_frag13_t __midl_frag13 =
         (NDR64_UINT16) 0 /* 0x0 */,
         16 /* 0x10 */,   /* Stack offset */
     },
-    { 
+    {
     /* DeviceInfo */      /* parameter DeviceInfo */
         &__midl_frag17,
-        { 
+        {
         /* DeviceInfo */
             0,
             1,
@@ -1847,10 +1847,10 @@ static const __midl_frag13_t __midl_frag13 =
         (NDR64_UINT16) 0 /* 0x0 */,
         24 /* 0x18 */,   /* Stack offset */
     },
-    { 
+    {
     /* long */      /* parameter long */
         &__midl_frag85,
-        { 
+        {
         /* long */
             0,
             0,
@@ -1874,9 +1874,9 @@ static const __midl_frag13_t __midl_frag13 =
 };
 
 static const __midl_frag8_t __midl_frag8 =
-{ 
+{
 /* SvcGetStorageInstanceCount */
-    { 
+    {
     /* SvcGetStorageInstanceCount */      /* procedure SvcGetStorageInstanceCount */
         (NDR64_UINT32) 17301568 /* 0x1080040 */,    /* explicit handle */ /* IsIntrepreted, HasReturn, HasExtensions */
         (NDR64_UINT32) 32 /* 0x20 */ ,  /* Stack size */
@@ -1887,9 +1887,9 @@ static const __midl_frag8_t __midl_frag8 =
         (NDR64_UINT16) 3 /* 0x3 */,
         (NDR64_UINT16) 8 /* 0x8 */
     },
-    { 
+    {
     /* struct _NDR64_BIND_AND_NOTIFY_EXTENSION */
-        { 
+        {
         /* struct _NDR64_BIND_AND_NOTIFY_EXTENSION */
             0x72,    /* FC64_BIND_PRIMITIVE */
             (NDR64_UINT8) 0 /* 0x0 */,
@@ -1899,10 +1899,10 @@ static const __midl_frag8_t __midl_frag8 =
         },
         (NDR64_UINT16) 0 /* 0x0 */      /* Notify index */
     },
-    { 
+    {
     /* DeviceType */      /* parameter DeviceType */
         &__midl_frag85,
-        { 
+        {
         /* DeviceType */
             0,
             0,
@@ -1923,10 +1923,10 @@ static const __midl_frag8_t __midl_frag8 =
         (NDR64_UINT16) 0 /* 0x0 */,
         8 /* 0x8 */,   /* Stack offset */
     },
-    { 
+    {
     /* DevicesCount */      /* parameter DevicesCount */
         &__midl_frag85,
-        { 
+        {
         /* DevicesCount */
             0,
             0,
@@ -1947,10 +1947,10 @@ static const __midl_frag8_t __midl_frag8 =
         (NDR64_UINT16) 0 /* 0x0 */,
         16 /* 0x10 */,   /* Stack offset */
     },
-    { 
+    {
     /* long */      /* parameter long */
         &__midl_frag85,
-        { 
+        {
         /* long */
             0,
             0,
@@ -2027,7 +2027,7 @@ static const FormatInfoRef StorSvc_Ndr64ProcTable[] =
 #ifdef __cplusplus
 namespace {
 #endif
-static const MIDL_STUB_DESC StorSvc_StubDesc = 
+static const MIDL_STUB_DESC StorSvc_StubDesc =
     {
     (void *)& StorSvc___RpcServerInterface,
     MIDL_user_allocate,
@@ -2094,13 +2094,13 @@ static const RPC_DISPATCH_FUNCTION StorSvc_NDR64__table[] =
     NdrServerCallAll,
     0
     };
-static const RPC_DISPATCH_TABLE StorSvc_NDR64__v0_0_DispatchTable = 
+static const RPC_DISPATCH_TABLE StorSvc_NDR64__v0_0_DispatchTable =
     {
     36,
     (RPC_DISPATCH_FUNCTION*)StorSvc_NDR64__table
     };
 
-static const MIDL_SYNTAX_INFO StorSvc_SyntaxInfo [  2 ] = 
+static const MIDL_SYNTAX_INFO StorSvc_SyntaxInfo [  2 ] =
     {
     {
     {{0x8A885D04,0x1CEB,0x11C9,{0x9F,0xE8,0x08,0x00,0x2B,0x10,0x48,0x60}},{2,0}},
@@ -2125,7 +2125,7 @@ static const MIDL_SYNTAX_INFO StorSvc_SyntaxInfo [  2 ] =
     };
 
 
-static const SERVER_ROUTINE StorSvc_ServerRoutineTable[] = 
+static const SERVER_ROUTINE StorSvc_ServerRoutineTable[] =
     {
     (SERVER_ROUTINE)SvcMountVolume,
     (SERVER_ROUTINE)SvcDismountVolume,
@@ -2165,7 +2165,7 @@ static const SERVER_ROUTINE StorSvc_ServerRoutineTable[] =
     (SERVER_ROUTINE)SvcGetSmartAttributes
     };
 
-static const MIDL_SERVER_INFO StorSvc_ServerInfo = 
+static const MIDL_SERVER_INFO StorSvc_ServerInfo =
     {
     &StorSvc_StubDesc,
     StorSvc_ServerRoutineTable,

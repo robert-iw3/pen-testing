@@ -22,83 +22,83 @@ def rebind(f):
     functools.wraps(f)
     def rebinder(*args, **kwargs):
         return f(*args, **kwargs)
-        
+
     return rebinder
 
 class Field(object):
     def __init__(self, index):
         self.index = index
-    
+
     def __call__(self, k, d):
         getter = rebind(self.getter)
         getter_name = "get_" + k
         getter.__name__ = getter_name
         getter.__doc__ = "Get the %s field" % k
         d[getter_name] = getter
-        
+
         setter = rebind(self.setter)
         setter_name = "set_" + k
         setter.__name__ = setter_name
         setter.__doc__ = "Set the %s field" % k
         d["set_" + k] = setter
-        
+
         d[k] = property(getter, setter, doc="%s property" % k)
-        
+
 class Bit(Field):
     def __init__(self, index, bit_number):
         Field.__init__(self, index)
         self.mask = 2 ** bit_number
         self.off_mask = (~self.mask) & 0xff
-        
+
     def getter(self, o):
         return (o.header.get_byte(self.index) & self.mask) != 0
-    
+
     def setter(self, o, value=True):
         b = o.header.get_byte(self.index)
         if value:
             b |= self.mask
         else:
             b &= self.off_mask
-        
-        o.header.set_byte(self.index, b) 
+
+        o.header.set_byte(self.index, b)
 
 class Byte(Field):
-    
+
     def __init__(self, index):
         Field.__init__(self, index)
-        
+
     def getter(self, o):
         return o.header.get_byte(self.index)
-    
+
     def setter(self, o, value):
         o.header.set_byte(self.index, value)
-        
+
 class Word(Field):
     def __init__(self, index, order="!"):
         Field.__init__(self, index)
         self.order = order
-        
+
     def getter(self, o):
         return o.header.get_word(self.index, self.order)
-    
+
     def setter(self, o, value):
         o.header.set_word(self.index, value, self.order)
 
-class Long(Field):        
+class Long(Field):
     def __init__(self, index, order="!"):
-        Field.__init__(self, index)        
+        Field.__init__(self, index)
         self.order = order
-        
+
     def getter(self, o):
         return o.header.get_long(self.index, self.order)
-    
+
     def setter(self, o, value):
         o.header.set_long(self.index, value, self.order)
-        
+
 class ThreeBytesBigEndian(Field):
     def __init__(self, index):
         Field.__init__(self, index)
-                
+
     def getter(self, o):
         b=o.header.get_bytes()[self.index:self.index+3].tostring()
         #unpack requires a string argument of length 4 and b is 3 bytes long
@@ -109,7 +109,7 @@ class ThreeBytesBigEndian(Field):
         # clear the bits
         mask = ((~0xFFFFFF00) & 0xFF)
         masked = o.header.get_long(self.index, ">") & mask
-        # set the bits 
+        # set the bits
         nb = masked | ((value & 0x00FFFFFF) << 8)
         o.header.set_long(self.index, nb, ">")
 
@@ -122,24 +122,24 @@ class ProtocolPacketMetaklass(type):
             bases += (object,)
         for k,v in items:
             if isinstance(v, Field):
-                d["_fields"].append(k) 
+                d["_fields"].append(k)
                 v(k, d)
-                
+
         d["_fields"].sort()
-        
+
         def _fields_repr(self):
             return " ".join( "%s:%s" % (f, repr(getattr(self, f))) for f in self._fields )
         def __repr__(self):
-            
+
             return "<%(name)s %(fields)s \nchild:%(r_child)s>" % {
                 "name": name,
                 "fields": self._fields_repr(),
-                "r_child": repr(self.child()), 
+                "r_child": repr(self.child()),
             }
-        
+
         d["_fields_repr"] = _fields_repr
         d["__repr__"] = __repr__
-        
+
         return type.__new__(cls, name, bases, d)
 
 @add_metaclass(ProtocolPacketMetaklass)

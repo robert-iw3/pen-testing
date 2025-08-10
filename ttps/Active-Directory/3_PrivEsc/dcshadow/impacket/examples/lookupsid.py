@@ -91,7 +91,7 @@ class LSALookupSid:
         #dce.set_max_fragment_size(32)
 
         dce.bind(lsat.MSRPC_UUID_LSAT)
-        
+
         resp = lsad.hLsarOpenPolicy2(dce, MAXIMUM_ALLOWED | lsat.POLICY_LOOKUP_NAMES)
         policyHandle = resp['PolicyHandle']
 
@@ -109,9 +109,9 @@ class LSALookupSid:
         for j in range(maxRid//SIMULTANEOUS+1):
             if (maxRid - soFar) // SIMULTANEOUS == 0:
                 sidsToCheck = (maxRid - soFar) % SIMULTANEOUS
-            else: 
+            else:
                 sidsToCheck = SIMULTANEOUS
- 
+
             if sidsToCheck == 0:
                 break
 
@@ -126,7 +126,7 @@ class LSALookupSid:
                     continue
                 elif str(e).find('STATUS_SOME_NOT_MAPPED') >= 0:
                     resp = e.get_packet()
-                else: 
+                else:
                     raise
 
             for n, item in enumerate(resp['TranslatedNames']['Names']):

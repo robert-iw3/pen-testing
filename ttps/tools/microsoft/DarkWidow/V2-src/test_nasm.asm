@@ -83,7 +83,7 @@ finish:
     ; Adjusting the param struct for the fixup
     mov r11, rsi                    ; Copying function to call into r11
     mov [rdi + 8], r12              ; Real return address (in r12) is now moved into PRM.OG_retaddr
-    mov [rdi + 16], rbx             ; original rbx is stored into PRM.rbx 
+    mov [rdi + 16], rbx             ; original rbx is stored into PRM.rbx
     lea rbx, [fixup]                ; fixup asm function's address is moved into rbx register ; why rbx? -> rbx register = addr of PRM struct = PRM.Fixup
     mov [rdi], rbx                  ; Fixup member (PRM.Fixup) now holds the address of fixup asm function
     mov rbx, rdi                    ; Address of param struct (Fixup) is moved into rbx

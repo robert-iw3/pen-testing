@@ -135,7 +135,7 @@ bool threads_util::fetch_threads_info(IN DWORD pid, OUT std::map<DWORD, thread_i
 
 	const size_t thread_count = info->NumberOfThreads;
 	for (size_t i = 0; i < thread_count; i++) {
-		
+
 		const DWORD tid = (DWORD)((ULONGLONG)info->Threads[i].ClientId.UniqueThread);
 		auto itr = threads_info.find(tid);
 		if (itr == threads_info.end()) {

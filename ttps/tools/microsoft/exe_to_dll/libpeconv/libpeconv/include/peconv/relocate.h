@@ -31,7 +31,7 @@ namespace peconv {
     // Processs the relocation table and make your own callback on each relocation field
     bool process_relocation_table(IN PVOID modulePtr, IN SIZE_T moduleSize, IN RelocBlockCallback *callback);
 
-    /** 
+    /**
      Applies relocations on the PE in virtual format. Relocates it from the old base given to the new base given.
      If 0 was supplied as the old base, it assumes that the old base is the ImageBase given in the header.
      \param modulePtr : a buffer containing the PE to be relocated

@@ -23,7 +23,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Sets the reparse point buffer for file.</para>
-/// <para type="description">This cmdlet sets the reparse point buffer data for a file. 
+/// <para type="description">This cmdlet sets the reparse point buffer data for a file.
 /// The absolute path to the object in the NT object manager name space can be specified.
 /// To simplify calling it's also possible to specify the path in a Win32 format when using the -Win32Path parameter.</para>
 /// </summary>
@@ -76,7 +76,7 @@ public class SetNtFileReparsePointCmdlet : NewNtFileCmdlet
     /// <summary>
     /// <para type="description">Specify the target path for reparse point.</para>
     /// </summary>
-    [Parameter(Mandatory = true, ParameterSetName = "MountPoint", Position = 1), 
+    [Parameter(Mandatory = true, ParameterSetName = "MountPoint", Position = 1),
         Parameter(Mandatory = true, ParameterSetName = "Symlink", Position = 1)]
     public string TargetPath { get; set; }
 

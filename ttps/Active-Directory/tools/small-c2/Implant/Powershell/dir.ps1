@@ -8,5 +8,5 @@ function func_dir
     $res2 = $results.ToString()
 
     return $res2
-    
+
 }

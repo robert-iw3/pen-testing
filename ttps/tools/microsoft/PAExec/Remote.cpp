@@ -48,9 +48,9 @@ bool EstablishConnection(Settings& settings, LPCTSTR lpszRemote, LPCTSTR lpszRes
 				{
 					bConnected = true;
 					break;
-				}					
+				}
 			}
-	
+
 			WNetCloseEnum(hEnum);
 			if(bConnected)
 			{
@@ -97,7 +97,7 @@ bool EstablishConnection(Settings& settings, LPCTSTR lpszRemote, LPCTSTR lpszRes
 			return false;
 		}
 	}
-	else 
+	else
 	{
 		rc = WNetCancelConnection2(remoteResource, 0, FALSE);
 		return true;
@@ -157,7 +157,7 @@ bool CopyPAExecToRemote(Settings& settings, LPCWSTR targetComputer)
 	//try to use the credentials we were given (if any) so we don't try default credentials which might log in the Event Log
 	if((FALSE == settings.user.IsEmpty()) && (false == settings.bNeedToDetachFromAdmin))
 		EstablishConnection(settings, targetComputer, settings.targetShare, true);
-	
+
 	if(!BAD_HANDLE(settings.hUserImpersonated))
 	{
 		BOOL b = ImpersonateLoggedOnUser(settings.hUserImpersonated);
@@ -274,7 +274,7 @@ bool InstallAndStartRemoteService(LPCWSTR remoteServer, Settings& settings)
 	if(0 == wcscmp(remoteServer, L"."))
 		remoteServer = NULL;
 
-	//try to use given credentials (if any) so we don't try and connect using default user credentials 
+	//try to use given credentials (if any) so we don't try and connect using default user credentials
 	if((FALSE == settings.user.IsEmpty()) && ((false == settings.bNeedToDetachFromIPC) || (BAD_HANDLE(settings.hUserImpersonated))) )
 		EstablishConnection(settings, remoteServer, L"IPC$", true);
 
@@ -283,7 +283,7 @@ bool InstallAndStartRemoteService(LPCWSTR remoteServer, Settings& settings)
 
 	SC_HANDLE hSCM = ::OpenSCManager(remoteServer, NULL, SC_MANAGER_ALL_ACCESS);
 	DWORD gle = GetLastError();
-	
+
 	if(gbStop)
 	{
 		RevertToSelf();
@@ -294,7 +294,7 @@ bool InstallAndStartRemoteService(LPCWSTR remoteServer, Settings& settings)
 	{
 		Log(StrFormat(L"Failed to connect to Service Control Manager on %s.", remoteServer ? remoteServer : L"{local computer}"), gle);
 	}
-	
+
 	if(gbStop)
 	{
 		RevertToSelf();
@@ -309,7 +309,7 @@ bool InstallAndStartRemoteService(LPCWSTR remoteServer, Settings& settings)
 	if (BAD_HANDLE(hService))
 	{
 		DWORD serviceType = SERVICE_WIN32_OWN_PROCESS;
-		
+
 		//as of Vista, services can no longer be interacted with
 		//if( ((DWORD)-1 != settings.sessionToInteractWith) || (settings.bInteractive) )
 		//	serviceType |= SERVICE_INTERACTIVE_PROCESS;
@@ -326,11 +326,11 @@ bool InstallAndStartRemoteService(LPCWSTR remoteServer, Settings& settings)
 
 		hService = ::CreateService(
 						hSCM, remoteServiceName, remoteServiceName,
-						SERVICE_ALL_ACCESS, 
+						SERVICE_ALL_ACCESS,
 						serviceType,
 						SERVICE_DEMAND_START, SERVICE_ERROR_NORMAL,
 						svcExePath,
-						NULL, NULL, NULL, 
+						NULL, NULL, NULL,
 						NULL, NULL ); //using LocalSystem
 
 		DWORD gle = GetLastError();
@@ -379,7 +379,7 @@ bool SendSettings(LPCWSTR remoteServer, Settings& settings, HANDLE& hPipe, bool&
 
 	RemMsg response;
 	if(false == SendRequest(remoteServer, hPipe, msg, response, settings))
-		return false;	
+		return false;
 
 	if(MSGID_RESP_SEND_FILES == response.m_msgID)
 	{
@@ -409,25 +409,25 @@ bool SendRequest(LPCWSTR remoteServer, HANDLE& hPipe, RemMsg& msgOut, RemMsg& ms
 	if(BAD_HANDLE(hPipe)) //need to connect?
 	{
 		CString remoteServiceName = GetRemoteServiceName(settings);
-		CString pipeName = StrFormat(L"\\\\%s\\pipe\\%s", remoteServer, remoteServiceName + CString(".exe")); 
+		CString pipeName = StrFormat(L"\\\\%s\\pipe\\%s", remoteServer, remoteServiceName + CString(".exe"));
 		int count = 0;
-		while(true) 
-		{ 
-			hPipe = CreateFile( 
-						pipeName,   // pipe name 
-						GENERIC_READ |  // read and write access 
-						GENERIC_WRITE, 
-						0,              // no sharing 
+		while(true)
+		{
+			hPipe = CreateFile(
+						pipeName,   // pipe name
+						GENERIC_READ |  // read and write access
+						GENERIC_WRITE,
+						0,              // no sharing
 						NULL,           // default security attributes
-						OPEN_EXISTING,  // opens existing pipe 
+						OPEN_EXISTING,  // opens existing pipe
 						FILE_FLAG_OVERLAPPED, //using overlapped so we can poll gbStop flag too
-						NULL);          // no template file 
+						NULL);          // no template file
 
-			// Break if the pipe handle is valid. 
-			if(!BAD_HANDLE(hPipe)) 
-				break; 
+			// Break if the pipe handle is valid.
+			if(!BAD_HANDLE(hPipe))
+				break;
 
-			// Exit if an error other than ERROR_PIPE_BUSY occurs. 
+			// Exit if an error other than ERROR_PIPE_BUSY occurs.
 			gle = GetLastError();
 			if((ERROR_PIPE_BUSY != gle) && (ERROR_FILE_NOT_FOUND != gle))
 			{
@@ -443,19 +443,19 @@ bool SendRequest(LPCWSTR remoteServer, HANDLE& hPipe, RemMsg& msgOut, RemMsg& ms
 				return false;
 			}
 			Sleep(1000);
-		} 
+		}
 	}
 
 	//have a pipe so send
-	// The pipe connected; change to message-read mode. 
+	// The pipe connected; change to message-read mode.
 
-	DWORD dwMode = PIPE_READMODE_MESSAGE; 
-	BOOL fSuccess = SetNamedPipeHandleState( 
-								hPipe,    // pipe handle 
-								&dwMode,  // new pipe mode 
-								NULL,     // don't set maximum bytes 
-								NULL);    // don't set maximum time 
-	if (!fSuccess) 
+	DWORD dwMode = PIPE_READMODE_MESSAGE;
+	BOOL fSuccess = SetNamedPipeHandleState(
+								hPipe,    // pipe handle
+								&dwMode,  // new pipe mode
+								NULL,     // don't set maximum bytes
+								NULL);    // don't set maximum time
+	if (!fSuccess)
 	{
 		gle = GetLastError();
 		Log(StrFormat(L"Failed to set communication channel to %s.", remoteServer), gle);
@@ -472,15 +472,15 @@ bool SendRequest(LPCWSTR remoteServer, HANDLE& hPipe, RemMsg& msgOut, RemMsg& ms
 	DWORD totalLen = 0;
 	const BYTE* pDataToSend = msgOut.GetDataToSend(totalLen);
 	DWORD cbWritten = 0;
-	// Send a message to the pipe server. 
-	fSuccess = WriteFile( 
-						hPipe,     // pipe handle 
-						pDataToSend, // message 
-						totalLen,  // message length 
-						&cbWritten,// bytes written 
-						&ol);     
-	
-	if (!fSuccess) 
+	// Send a message to the pipe server.
+	fSuccess = WriteFile(
+						hPipe,     // pipe handle
+						pDataToSend, // message
+						totalLen,  // message length
+						&cbWritten,// bytes written
+						&ol);
+
+	if (!fSuccess)
 	{
 		gle = GetLastError();
 		if(ERROR_IO_PENDING != gle)
@@ -503,25 +503,25 @@ bool SendRequest(LPCWSTR remoteServer, HANDLE& hPipe, RemMsg& msgOut, RemMsg& ms
 			return false;
 		Sleep(100);
 	}
-	
+
 	bool bFirstRead = true;
-	do 
-	{ 
+	do
+	{
 		BYTE buffer[16384] = {0};
-		
+
 		ol.Offset = 0;
 		ol.OffsetHigh = 0;
 
 		DWORD cbRead = 0;
-		// Read from the pipe. 
-		fSuccess = ReadFile( 
-			hPipe,			// pipe handle 
-			buffer,			// buffer to receive reply 
-			sizeof(buffer), // size of buffer 
-			&cbRead,  // number of bytes read 
-			&ol);    
+		// Read from the pipe.
+		fSuccess = ReadFile(
+			hPipe,			// pipe handle
+			buffer,			// buffer to receive reply
+			sizeof(buffer), // size of buffer
+			&cbRead,  // number of bytes read
+			&ol);
 
-		if(!fSuccess) 
+		if(!fSuccess)
 		{
 			gle = GetLastError();
 			if(ERROR_IO_PENDING != gle)
@@ -563,7 +563,7 @@ bool SendRequest(LPCWSTR remoteServer, HANDLE& hPipe, RemMsg& msgOut, RemMsg& ms
 	} while( msgReturned.m_expectedLen != msgReturned.m_payload.size());
 
 	CloseHandle(hEvent);
-	return true; 
+	return true;
 }
 
 UINT WINAPI ListenOnRemotePipes(void* p)
@@ -608,7 +608,7 @@ void StartRemoteApp(LPCWSTR remoteServer, Settings& settings, HANDLE& hPipe, int
 
 	if(response.m_msgID == MSGID_OK)
 	{
-		response >> (DWORD&)appExitCode;		
+		response >> (DWORD&)appExitCode;
 		if(false == settings.bDontWaitForTerminate)
 			Log(StrFormat(L"%s returned %d (0x%08X)", settings.app, appExitCode, appExitCode), false);
 		else
@@ -625,7 +625,7 @@ void StartRemoteApp(LPCWSTR remoteServer, Settings& settings, HANDLE& hPipe, int
 		Log(StrFormat(L"Remote app failed to start.  Returned error:\r\n  %s", lastLog), true);
 		appExitCode = -9;
 	}
-	
+
 	SetEvent(lp.hStop);
 	int count = 0;
 	while(0 < lp.workerThreads)
@@ -668,7 +668,7 @@ bool SendFilesToRemote(LPCWSTR remoteServer, Settings& settings, HANDLE& hPipe)
 			if(FALSE == CopyFile(src, dest, FALSE))
 			{
 				DWORD gle = GetLastError();
-				
+
 				RevertToSelf();
 
 				Log(StrFormat(L"Failed to copy [%s] to [%s].", src, dest), gle);
@@ -797,7 +797,7 @@ void HandleMsg(RemMsg& msg, RemMsg& response, HANDLE hPipe)
 						TerminateProcess(pRemoteSettings->hProcess, (DWORD)-10);
 						break;
 					case WAIT_OBJECT_0: break;
-					default: Log(L"PAExec error waiting for app to exit", GetLastError()); 
+					default: Log(L"PAExec error waiting for app to exit", GetLastError());
 						break;
 					}
 					GetExitCodeProcess(pRemoteSettings->hProcess, &exitCode);
@@ -848,7 +848,7 @@ void HandleMsg(RemMsg& msg, RemMsg& response, HANDLE hPipe)
 	case MSGID_SETTINGS:
 		//the first call from the remote PAExec
 		pRemoteSettings->Serialize(msg, false);
-		
+
 		response.m_msgID = MSGID_OK;
 		if(gLogPath.IsEmpty())
 			gLogPath = pRemoteSettings->remoteLogPath;
@@ -993,7 +993,7 @@ const BYTE* RemMsg::GetDataToSend(DWORD& totalLen)
 		totalLen += sizeof(DWORD);
 	}
 
-	m_pBuff	= new BYTE[totalLen]; 
+	m_pBuff	= new BYTE[totalLen];
 	BYTE* pPtr = m_pBuff;
 
 	memcpy(pPtr, &m_msgID, sizeof(m_msgID));
@@ -1042,14 +1042,14 @@ void RemMsg::SetFromReceivedData(BYTE* pData, DWORD dataLen)
 	memcpy(&m_msgID, pData, sizeof(m_msgID));
 	pData += sizeof(m_msgID);
 	dataLen -= sizeof(m_msgID);
-	
+
 	if(MSGID_SETTINGS == m_msgID)
 	{
 		DWORD xorVal = 0;
 		memcpy(&xorVal, pData, sizeof(xorVal));
 		pData += sizeof(xorVal);
 		dataLen -= sizeof(xorVal);
-	
+
 		//flip the rest of the data
 		for(DWORD i = 0; i < dataLen - (sizeof(DWORD) - 1); i++)
 		{

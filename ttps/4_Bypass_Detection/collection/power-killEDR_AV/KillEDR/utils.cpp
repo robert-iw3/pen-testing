@@ -84,7 +84,7 @@ namespace utils
 		HANDLE handle = nullptr;
 		PVOID buffer = nullptr;
 
-		do 
+		do
 		{
 			// test open target process handle with limit access
 			handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);

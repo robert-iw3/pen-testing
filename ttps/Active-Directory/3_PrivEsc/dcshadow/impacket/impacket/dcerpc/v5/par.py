@@ -39,7 +39,7 @@ class DCERPCSessionError(DCERPCException):
         key = self.error_code
         if key in system_errors.ERROR_MESSAGES:
             error_msg_short = system_errors.ERROR_MESSAGES[key][0]
-            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1] 
+            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1]
             return 'RPRN SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             return 'RPRN SessionError: unknown error code: 0x%x' % self.error_code
@@ -410,7 +410,7 @@ class RpcAsyncGetPrinterDriverDirectory(NDRCALL):
        ('pDriverDirectory', PBYTE_ARRAY),
        ('cbBuf', DWORD)
    )
-   
+
 class RpcAsyncGetPrinterDriverDirectoryResponse(NDRCALL):
     structure = (
        ('pDriverDirectory', PBYTE_ARRAY),
@@ -634,7 +634,7 @@ def hRpcAsyncGetPrinterDriverDirectory(dce, pName, pEnvironment, Level):
         if str(e).find('ERROR_INSUFFICIENT_BUFFER') < 0:
             raise
         bytesNeeded = e.get_packet()['pcbNeeded']
-    
+
     # now do RpcGetPrinterDriverDirectory again
     request = RpcAsyncGetPrinterDriverDirectory()
     request['pName']            = checkNullString(pName)
@@ -642,5 +642,5 @@ def hRpcAsyncGetPrinterDriverDirectory(dce, pName, pEnvironment, Level):
     request['Level']            = Level
     request['pDriverDirectory'] = b'a' * bytesNeeded
     request['cbBuf']            = bytesNeeded
-    
+
     return dce.request(request, MSRPC_UUID_WINSPOOL)

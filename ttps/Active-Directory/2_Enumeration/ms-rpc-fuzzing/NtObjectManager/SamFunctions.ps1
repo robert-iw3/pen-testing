@@ -35,7 +35,7 @@ Connect to the SAM server on the system PRIMARYDC with maximum access.
 Connect-SamServer -Access EnumerateDomains
 Connect to the local SAM server with EnumerateDomains access.
 #>
-function Connect-SamServer { 
+function Connect-SamServer {
     [CmdletBinding()]
     param(
         [NtCoreLib.Win32.Security.Sam.SamServerAccessRights]$Access = "MaximumAllowed",
@@ -78,7 +78,7 @@ Get all Information only domain from the server.
 Get-SamDomain -Server $server -Name "FLUBBER"
 Get the FLUBBER domain object from the server.
 #>
-function Get-SamDomain { 
+function Get-SamDomain {
     [CmdletBinding(DefaultParameterSetName="All")]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -102,7 +102,7 @@ function Get-SamDomain {
     )
 
     if ($InfoOnly) {
-        $Server.EnumerateDomains() | ForEach-Object { 
+        $Server.EnumerateDomains() | ForEach-Object {
             [PSCustomObject]@{
                 Name = $_.Name
                 DomainId = $Server.LookupDomain($_.Name)
@@ -163,7 +163,7 @@ Get the ALICE user object from the server.
 Get-SamUser -Domain $domain -UserId 500
 Get the user object from the server with the user ID of 500.
 #>
-function Get-SamUser { 
+function Get-SamUser {
     [CmdletBinding(DefaultParameterSetName="All")]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -187,7 +187,7 @@ function Get-SamUser {
     )
 
     if ($InfoOnly) {
-        $Domain.EnumerateUsers() | ForEach-Object { 
+        $Domain.EnumerateUsers() | ForEach-Object {
             [PSCustomObject]@{
                 Name = $_.Name
                 Sid = Get-NtSid -Sddl ($Domain.LookupId($_.RelativeId).Sddl)
@@ -245,7 +245,7 @@ Get the USERS group object from the server.
 Get-SamGroup -Domain $domain -GroupId 501
 Get the group object from the server with the group ID of 501.
 #>
-function Get-SamGroup { 
+function Get-SamGroup {
     [CmdletBinding(DefaultParameterSetName="All")]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -266,7 +266,7 @@ function Get-SamGroup {
     )
 
     if ($InfoOnly) {
-        $Domain.EnumerateGroups() | ForEach-Object { 
+        $Domain.EnumerateGroups() | ForEach-Object {
             [PSCustomObject]@{
                 Name = $_.Name
                 Sid = Get-NtSid -Sddl ($Domain.LookupId($_.RelativeId).Sddl)
@@ -305,7 +305,7 @@ NtCoreLib.Win32.Security.Sam.SamGroupMember[]
 Get-SamGroupMember -Group $group
 Get members of the group objects.
 #>
-function Get-SamGroupMember { 
+function Get-SamGroupMember {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -330,7 +330,7 @@ NtCoreLib.Security.Authorization.Sid[]
 Get-SamGroupMember -Alias $alias
 Get members of the group objects.
 #>
-function Get-SamAliasMember { 
+function Get-SamAliasMember {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -374,7 +374,7 @@ Get the RESOURCE alias object from the server.
 Get-SamAlias -Domain $domain -AliasId 502
 Get the alias object from the server with the alias ID of 502.
 #>
-function Get-SamAlias { 
+function Get-SamAlias {
     [CmdletBinding(DefaultParameterSetName="All")]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -395,7 +395,7 @@ function Get-SamAlias {
     )
 
     if ($InfoOnly) {
-        $Domain.EnumerateAliases() | ForEach-Object { 
+        $Domain.EnumerateAliases() | ForEach-Object {
             [PSCustomObject]@{
                 Name = $_.Name
                 Sid = Get-NtSid -Sddl ($Domain.LookupId($_.RelativeId).Sddl)
@@ -443,7 +443,7 @@ Create the bob user in the domain.
 New-SamUser -Domain $domain -Name "FILBERT$" -AccountType Workstation
 Create the FILBERT$ computer account in the domain.
 #>
-function New-SamUser { 
+function New-SamUser {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]

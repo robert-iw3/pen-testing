@@ -185,7 +185,7 @@ namespace PsUtils
             if (!CredEnumerateW(Filter, Flags, out count, out pCredentials))
             {
                 Credentials = null;
-                return Marshal.GetHRForLastWin32Error(); 
+                return Marshal.GetHRForLastWin32Error();
             }
             CriticalCredentialHandle CredHandle = new CriticalCredentialHandle(pCredentials);
             Credentials = CredHandle.GetCredentials(count);
@@ -252,7 +252,7 @@ namespace PsUtils
         }
 
         /*
-         * Note: the Main() function is primarily for debugging and testing in a Visual 
+         * Note: the Main() function is primarily for debugging and testing in a Visual
          * Studio session.  Although it will work from PowerShell, it's not very useful.
          */
         public static void Main()
@@ -329,7 +329,7 @@ function Get-CredType
 												  "MAXIMUM",
 												  "MAXIMUM_EX")][String] $CredType
 	)
-	
+
 	switch($CredType)
 	{
 		"GENERIC" {return [PsUtils.CredMan+CRED_TYPE]::GENERIC}
@@ -351,7 +351,7 @@ function Get-CredPersist
 												  "LOCAL_MACHINE",
 												  "ENTERPRISE")][String] $CredPersist
 	)
-	
+
 	switch($CredPersist)
 	{
 		"SESSION" {return [PsUtils.CredMan+CRED_PERSIST]::SESSION}
@@ -373,7 +373,7 @@ function Del-Creds
 												  "MAXIMUM",
 												  "MAXIMUM_EX")][String] $CredType = "GENERIC"
 	)
-	
+
 	[Int] $Results = 0
 	try
 	{
@@ -399,7 +399,7 @@ function Enum-Creds
 	(
 		[Parameter(Mandatory=$false)][AllowEmptyString()][String] $Filter = [String]::Empty
 	)
-	
+
 	[PsUtils.CredMan+Credential[]] $Creds = [Array]::CreateInstance([PsUtils.CredMan+Credential], 0)
 	[Int] $Results = 0
 	try
@@ -439,7 +439,7 @@ function Read-Creds
 												  "MAXIMUM",
 												  "MAXIMUM_EX")][String] $CredType = "GENERIC"
 	)
-	
+
 	if("GENERIC" -ne $CredType -and 337 -lt $Target.Length) #CRED_MAX_DOMAIN_TARGET_NAME_LENGTH
 	{
 		[String] $Msg = "Target field is longer ($($Target.Length)) than allowed (max 337 characters)"
@@ -457,7 +457,7 @@ function Read-Creds
 	{
 		return $_
 	}
-	
+
 	switch($Results)
 	{
         0 {break}
@@ -514,8 +514,8 @@ function Write-Creds
     }
 	[String] $DomainName = [Net.NetworkInformation.IPGlobalProperties]::GetIPGlobalProperties().DomainName
 	[PsUtils.CredMan+Credential] $Cred = New-Object PsUtils.CredMan+Credential
-	switch($Target -eq $UserName -and 
-		   ("CRED_TYPE_DOMAIN_PASSWORD" -eq $CredType -or 
+	switch($Target -eq $UserName -and
+		   ("CRED_TYPE_DOMAIN_PASSWORD" -eq $CredType -or
 		    "CRED_TYPE_DOMAIN_CERTIFICATE" -eq $CredType))
 	{
 		$true  {$Cred.Flags = [PsUtils.CredMan+CRED_FLAGS]::USERNAME_TARGET}
@@ -596,7 +596,7 @@ Successfully wrote or updated credentials as:
 			return
 		}
 		# may be [Int32] or [Management.Automation.ErrorRecord]
-		[Object] $Results = Del-Creds $Target $CredType 
+		[Object] $Results = Del-Creds $Target $CredType
 		if(0 -eq $Results)
 		{
 			Write-Host "Successfully deleted credentials for '$Target'"
@@ -650,7 +650,7 @@ Found credentials as:
 		foreach($Cred in $Creds)
 		{
 			[String] $CredStr = @"
-			
+
 UserName  : $($Cred.UserName)
 Password  : $($Cred.CredentialBlob)
 Target    : $($Cred.TargetName.Substring($Cred.TargetName.IndexOf("=")+1))

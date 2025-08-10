@@ -103,8 +103,8 @@ public sealed class NewNtTransactionCmdlet : NtObjectBaseCmdletWithAccess<Transa
     /// <returns>The newly created object.</returns>
     protected override object CreateObject(ObjectAttributes obj_attributes)
     {
-        return NtTransaction.Create(obj_attributes, Access, UnitOfWork, 
-            TransactionManager, CreateFlags, IsolationLevel, 
+        return NtTransaction.Create(obj_attributes, Access, UnitOfWork,
+            TransactionManager, CreateFlags, IsolationLevel,
             IsolationFlags, Timeout, Description);
     }
 }

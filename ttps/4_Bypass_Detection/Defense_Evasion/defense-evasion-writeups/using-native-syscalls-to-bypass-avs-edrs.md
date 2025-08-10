@@ -62,22 +62,22 @@ Disassembling the address of the `NtCreateFile` in `ntdll` - note the highlighte
 Once we have the `SysNtCreateFile` procedure defined in assembly, we need to define the C function prototype that will call that assembly procedure. The `NtCreateFile` prototype per [MSDN](https://docs.microsoft.com/en-us/windows/win32/api/winternl/nf-winternl-ntcreatefile) is:
 
 ```cpp
-// Using the NtCreateFile prototype to define a prototype for SysNtCreateFile. 
+// Using the NtCreateFile prototype to define a prototype for SysNtCreateFile.
 // The prorotype name needs to match the procedure name defined in the syscalls.asm
-// EXTERN_C tells the compiler to link this function as a C function and use stdcall 
+// EXTERN_C tells the compiler to link this function as a C function and use stdcall
 // calling convention - Important!
 
 EXTERN_C NTSTATUS SysNtCreateFile(
-	PHANDLE FileHandle, 
-	ACCESS_MASK DesiredAccess, 
-	POBJECT_ATTRIBUTES ObjectAttributes, 
-	PIO_STATUS_BLOCK IoStatusBlock, 
-	PLARGE_INTEGER AllocationSize, 
-	ULONG FileAttributes, 
-	ULONG ShareAccess, 
-	ULONG CreateDisposition, 
-	ULONG CreateOptions, 
-	PVOID EaBuffer, 
+	PHANDLE FileHandle,
+	ACCESS_MASK DesiredAccess,
+	POBJECT_ATTRIBUTES ObjectAttributes,
+	PIO_STATUS_BLOCK IoStatusBlock,
+	PLARGE_INTEGER AllocationSize,
+	ULONG FileAttributes,
+	ULONG ShareAccess,
+	ULONG CreateDisposition,
+	ULONG CreateOptions,
+	PVOID EaBuffer,
 	ULONG EaLength
 );
 ```
@@ -100,16 +100,16 @@ Once the variables and structures are initialized, we are ready to invoke the `S
 
 ```cpp
 SysNtCreateFile(
-	&fileHandle, 
-	FILE_GENERIC_WRITE, 
-	&oa, 
-	&osb, 
-	0, 
-	FILE_ATTRIBUTE_NORMAL, 
-	FILE_SHARE_WRITE, 
-	FILE_OVERWRITE_IF, 
-	FILE_SYNCHRONOUS_IO_NONALERT, 
-	NULL, 
+	&fileHandle,
+	FILE_GENERIC_WRITE,
+	&oa,
+	&osb,
+	0,
+	FILE_ATTRIBUTE_NORMAL,
+	FILE_SHARE_WRITE,
+	FILE_OVERWRITE_IF,
+	FILE_SYNCHRONOUS_IO_NONALERT,
+	NULL,
 	0
 );
 ```
@@ -137,22 +137,22 @@ What this all means is that if an AV/EDR product had hooked `NtCreateFile` API c
 #pragma comment(lib, "ntdll")
 
 EXTERN_C NTSTATUS SysNtCreateFile(
-	PHANDLE FileHandle, 
-	ACCESS_MASK DesiredAccess, 
-	POBJECT_ATTRIBUTES ObjectAttributes, 
-	PIO_STATUS_BLOCK IoStatusBlock, 
-	PLARGE_INTEGER AllocationSize, 
-	ULONG FileAttributes, 
-	ULONG ShareAccess, 
-	ULONG CreateDisposition, 
-	ULONG CreateOptions, 
-	PVOID EaBuffer, 
+	PHANDLE FileHandle,
+	ACCESS_MASK DesiredAccess,
+	POBJECT_ATTRIBUTES ObjectAttributes,
+	PIO_STATUS_BLOCK IoStatusBlock,
+	PLARGE_INTEGER AllocationSize,
+	ULONG FileAttributes,
+	ULONG ShareAccess,
+	ULONG CreateDisposition,
+	ULONG CreateOptions,
+	PVOID EaBuffer,
 	ULONG EaLength);
 
 int main()
 {
 	FARPROC addr = GetProcAddress(LoadLibraryA("ntdll"), "NtCreateFile");
-	
+
 	OBJECT_ATTRIBUTES oa;
 	HANDLE fileHandle = NULL;
 	NTSTATUS status = NULL;
@@ -164,16 +164,16 @@ int main()
 	InitializeObjectAttributes(&oa, &fileName, OBJ_CASE_INSENSITIVE, NULL, NULL);
 
 	SysNtCreateFile(
-		&fileHandle, 
-		FILE_GENERIC_WRITE, 
-		&oa, 
-		&osb, 
-		0, 
-		FILE_ATTRIBUTE_NORMAL, 
-		FILE_SHARE_WRITE, 
-		FILE_OVERWRITE_IF, 
-		FILE_SYNCHRONOUS_IO_NONALERT, 
-		NULL, 
+		&fileHandle,
+		FILE_GENERIC_WRITE,
+		&oa,
+		&osb,
+		0,
+		FILE_ATTRIBUTE_NORMAL,
+		FILE_SHARE_WRITE,
+		FILE_OVERWRITE_IF,
+		FILE_SYNCHRONOUS_IO_NONALERT,
+		NULL,
 		0);
 
 	return 0;

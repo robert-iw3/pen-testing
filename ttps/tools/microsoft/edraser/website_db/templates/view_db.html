@@ -17,17 +17,17 @@
     <th>Username</th>
     <th>Password</th>
   </tr>
-  
+
   {% for item in data %}
   <tr>
     <td>{{ loop.index }}</td>
     {% for dat in item %}
       <td>{{dat}}</td>
     {% endfor %}
-    
+
   </tr>
   {% endfor %}
-  
+
 </table>
 {% else %}
   <h1> Failed to fetch data from DB!</h1>
@@ -36,4 +36,3 @@
 
 
 
-  

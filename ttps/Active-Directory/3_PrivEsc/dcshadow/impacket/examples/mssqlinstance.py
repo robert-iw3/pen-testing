@@ -40,7 +40,7 @@ if __name__ == '__main__':
     if len(sys.argv)==1:
         parser.print_help()
         sys.exit(1)
- 
+
     options = parser.parse_args()
 
     ms_sql = tds.MSSQL(options.host)

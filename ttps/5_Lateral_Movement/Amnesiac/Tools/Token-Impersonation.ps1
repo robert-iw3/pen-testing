@@ -70,7 +70,7 @@ public class Advapi32 {
 
     [DllImport("advapi32.dll", SetLastError = true)]
     public static extern bool ImpersonateLoggedOnUser(IntPtr hToken);
-    
+
     [DllImport("advapi32.dll", SetLastError = true)]
     public static extern bool RevertToSelf();
 
@@ -106,14 +106,14 @@ function Token-Impersonation {
 
         [Parameter(Mandatory=$false)]
         [switch]$StealToken,
-		
+
 		[Parameter(Mandatory=$false)]
         [switch]$MakeToken,
 
         [Parameter(Mandatory=$false)]
         [int]$ProcessID
     )
-	
+
     begin {
         # Check conditions to ensure correct input
         if ($Rev2Self -and ($StealToken -or $Username -or $Password -or $Domain -or $ProcessID)) {
@@ -162,7 +162,7 @@ function Token-Impersonation {
             Write-Output "[+] Impersonation successful using token from PID $ProcessID."
             return
         }
-		
+
 		if ($MakeToken) {
             $tokenHandle = [IntPtr]::Zero
             if (-not [Advapi32]::LogonUser($Username, $Domain, $Password, [LogonType]::LOGON32_LOGON_NEW_CREDENTIALS, [LogonProvider]::LOGON32_PROVIDER_DEFAULT, [ref]$tokenHandle)) {

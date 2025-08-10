@@ -58,7 +58,7 @@ public sealed class DsObjectAccessCheckResult
     /// Is the entry modifiable by the user in any way?
     /// </summary>
     public bool Modifiable => (MaximumGrantedAccess & (DirectoryServiceAccessRights.WriteDac |
-        DirectoryServiceAccessRights.WriteOwner | DirectoryServiceAccessRights.WriteProp | 
+        DirectoryServiceAccessRights.WriteOwner | DirectoryServiceAccessRights.WriteProp |
         DirectoryServiceAccessRights.Self | DirectoryServiceAccessRights.CreateChild | DirectoryServiceAccessRights.DeleteChild
         | DirectoryServiceAccessRights.Delete | DirectoryServiceAccessRights.DeleteTree)) != 0;
 
@@ -128,7 +128,7 @@ public sealed class DsObjectAccessCheckResult
     /// <summary>
     /// Get the list of writable attributes.
     /// </summary>
-    public IEnumerable<DirectoryServiceSchemaAttribute> WritableAttributes 
+    public IEnumerable<DirectoryServiceSchemaAttribute> WritableAttributes
         => Attributes.Where(a => a.IsAccessGranted(DirectoryServiceAccessRights.WriteProp)).Select(a => a.Object);
 
     /// <summary>

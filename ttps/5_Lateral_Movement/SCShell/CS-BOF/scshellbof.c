@@ -111,7 +111,7 @@ void go(char * args, int length) {
         }
         BeaconPrintf(CALLBACK_OUTPUT, "Service path was restored to \"%s\"\n", originalBinaryPath);
     }
-	
+
     kernel32$GlobalFree(lpqsc);
 #ifdef _IMP
     kernel32$CloseHandle(hToken);

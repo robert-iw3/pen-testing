@@ -112,7 +112,7 @@ bool restart_updated(IN LPSTR path)
         NULL, //lpThreadAttributes
         FALSE, //bInheritHandles
         0, //dwCreationFlags
-        NULL, //lpEnvironment 
+        NULL, //lpEnvironment
         NULL, //lpCurrentDirectory
         &si, //lpStartupInfo
         &pi //lpProcessInformation

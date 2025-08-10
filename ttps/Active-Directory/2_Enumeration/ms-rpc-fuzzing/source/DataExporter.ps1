@@ -20,14 +20,14 @@ This function exports Allowed fuzzed input to a json file
 #>
 function Export-AllowsFuzzedInput {
     param (
-        [string]$MethodName, 
-        [string]$RpcServerName, 
+        [string]$MethodName,
+        [string]$RpcServerName,
         [string]$RpcInterface,
-        [string]$Endpoint, 
-        [string]$ProcedureName, 
+        [string]$Endpoint,
+        [string]$ProcedureName,
         [string]$MethodDefinition,
         [string]$Service,
-        [string]$FuzzInput, 
+        [string]$FuzzInput,
         [string]$Output,
         [string]$windowsMessage,
         [string]$OutPath
@@ -53,7 +53,7 @@ function Export-AllowsFuzzedInput {
             New-Item -Path $directoryPath -ItemType Directory | Out-Null
         }
     }
-    process {        
+    process {
         # Read existing JSON or initialize a new hashtable
         if (Test-Path $jsonFile) {
             $jsonContent = Get-Content -Path $jsonFile -Raw
@@ -95,13 +95,13 @@ This function exports Access Denied fuzzed input to a json file
 #>
 function Export-AccessDeniedInput {
     param (
-        [string]$MethodName, 
+        [string]$MethodName,
         [string]$RpcServerName,
         [string]$RpcInterface,
-        [string]$Endpoint, 
-        [string]$ProcedureName, 
+        [string]$Endpoint,
+        [string]$ProcedureName,
         [string]$Service,
-        [string]$MethodDefinition, 
+        [string]$MethodDefinition,
         [string]$FuzzInput,
         [string]$OutPath
     )
@@ -121,7 +121,7 @@ function Export-AccessDeniedInput {
         $directoryPath = Split-Path -Path $jsonFile
         if (-not (Test-Path $directoryPath)) {
             New-Item -Path $directoryPath -ItemType Directory | Out-Null
-        } 
+        }
     }
     process {
         # Read existing JSON or initialize a new hashtable
@@ -152,7 +152,7 @@ function Export-AccessDeniedInput {
     }
     end {
         # Convert the data to JSON and save
-        $existingData | ConvertTo-Json -Depth 10 | Set-Content -Path $jsonFile -Encoding utf8    
+        $existingData | ConvertTo-Json -Depth 10 | Set-Content -Path $jsonFile -Encoding utf8
     }
 }
 
@@ -164,13 +164,13 @@ This function exports Error fuzzed input to a json file
 #>
 function Export-ErrorFuzzedInput {
     param (
-        [string]$MethodName, 
+        [string]$MethodName,
         [string]$RpcServerName,
         [string]$RpcInterface,
-        [string]$Endpoint, 
-        [string]$ProcedureName, 
+        [string]$Endpoint,
+        [string]$ProcedureName,
         [string]$Service,
-        [string]$MethodDefinition, 
+        [string]$MethodDefinition,
         [string]$FuzzInput,
         [string]$Errormessage,
         [string]$OutPath
@@ -238,7 +238,7 @@ This function exports parameters of a RPC method to a JSON file
 function Export-Parameters() {
     param (
         [string]$RpcServerName,
-        [string]$RpcInterface,        
+        [string]$RpcInterface,
         [string]$MethodName,
         $ParameterType,
         $Position,
@@ -251,7 +251,7 @@ function Export-Parameters() {
             ParameterType    = $ParameterType
             Position         = $Position
             Is               = $is
-        }    
+        }
 
         $jsonFile = "$OutPath\Parameters.json"
 

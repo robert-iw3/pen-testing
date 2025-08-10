@@ -244,7 +244,7 @@ class Ticket(object):
         return component
 
     def __str__(self):
-        return "<Ticket for %s vno %s>" % (str(self.service_principal), str(self.encrypted_part.kvno)) 
+        return "<Ticket for %s vno %s>" % (str(self.service_principal), str(self.encrypted_part.kvno))
 
 class KerberosTime(object):
     INDEFINITE = datetime.datetime(1970, 1, 1, 0, 0, 0)

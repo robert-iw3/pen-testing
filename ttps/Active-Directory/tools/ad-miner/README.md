@@ -75,7 +75,7 @@ To run AD Miner, you first need a neo4j database which contains the Active Direc
 </div>
 
  2. To set up your BloodHound environment (including the GUI and Neo4j database), [BloodHound Automation](https://github.com/Tanguy-Boisset/bloodhound-automation) is **highly recommended due to its seamless integration with the Graph Data Science plugin**. Though it is perfectly fine to use the default [BloodHound CE](https://github.com/SpecterOps/BloodHound) installation, be aware that you will miss out on the benefits of GDS (e.g., smarter pathfinding, improved execution speed, etc.).
- 
+
  4. By default, BloodHound creates a neo4j base accessible on port 7687.
 
 ## Installation and setup ##
@@ -114,7 +114,7 @@ To better handle large data sets, it is possible to enable multi-threading and a
 If password renewal policy is known, you can specify it using the `-r` parameter to ensure that password renewal controls align with your environment's settings (default is 90 days). For example, if the password policy is set to 180 days, you can use the following:
 
     AD-miner -c -cf My_Report -b bolt://server:7687 -u neo4j -p mypassword -r 180
-    
+
 > [!TIP]
 > The default password of the Bloodhound CE neo4j database is `bloodhoundcommunityedition` or `neo5j` if you use [BloodHound Automation](https://github.com/Tanguy-Boisset/bloodhound-automation)
 

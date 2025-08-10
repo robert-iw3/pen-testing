@@ -28,7 +28,7 @@ public enum WindowStationCheckMode
 /// <summary>
 /// <para type="synopsis">Get a list of Window Station an/or Desktops accessible by a specified token.</para>
 /// <para type="description">This cmdlet checks all Window Stations/Desktops and tries to determine
-/// if one or more specified tokens can access them. If no tokens are specified then the 
+/// if one or more specified tokens can access them. If no tokens are specified then the
 /// current process token is used. Note, this will only check the current session.</para>
 /// </summary>
 /// <example>
@@ -91,7 +91,7 @@ public class GetAccessibleWindowStation : CommonAccessBaseWithAccessCmdlet<Windo
     private protected override void RunAccessCheck(IEnumerable<TokenEntry> tokens)
     {
         NtType winsta_type = NtType.GetTypeByType<NtWindowStation>();
-        
+
         AccessMask winsta_access_rights = winsta_type.GenericMapping.MapMask(Access);
         bool check_winsta = CheckMode == WindowStationCheckMode.WindowStationOnly || CheckMode == WindowStationCheckMode.WindowStationAndDesktop;
         bool check_desktop = CheckMode == WindowStationCheckMode.DesktopOnly || CheckMode == WindowStationCheckMode.WindowStationAndDesktop;

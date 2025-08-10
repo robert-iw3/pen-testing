@@ -58,7 +58,7 @@ public enum ServiceAccountType
 
 /// <summary>
 /// <para type="synopsis">Open an NT token from different sources.</para>
-/// <para type="description">This cmdlet gets a token from one of multiple possible sources. You can specify either a Primary process token, a Thread impersonation token, an Effective token, 
+/// <para type="description">This cmdlet gets a token from one of multiple possible sources. You can specify either a Primary process token, a Thread impersonation token, an Effective token,
 /// a Clipboard token, a Logon/S4U token, the anonymous token, a lowbox or a filtered token.</para>
 /// <para>Note that tokens objects need to be disposed of after use, therefore capture them in Use-NtObject or manually Close them once used.</para>
 /// </summary>
@@ -314,7 +314,7 @@ public sealed class GetNtTokenCmdlet : PSCmdlet
     /// <summary>
     /// <para type="description">Specify additional group sids for logon token. Needs TCB privilege.</para>
     /// </summary>
-    [Parameter(ParameterSetName = "Logon"), 
+    [Parameter(ParameterSetName = "Logon"),
         Parameter(ParameterSetName = "Service")]
     [Alias("AdditionalGroups")]
     public Sid[] AdditionalGroup { get; set; }
@@ -370,8 +370,8 @@ public sealed class GetNtTokenCmdlet : PSCmdlet
     /// <summary>
     /// <para type="description">Specify the token to sandbox or query. If not specified then the current primary token is used.</para>
     /// </summary>
-    [Parameter(ParameterSetName = "LowBox"), 
-     Parameter(ParameterSetName = "Filtered"), 
+    [Parameter(ParameterSetName = "LowBox"),
+     Parameter(ParameterSetName = "Filtered"),
      Parameter(ParameterSetName = "AppContainer"),
      Parameter(ParameterSetName = "Linked")]
     public NtToken Token { get; set; }
@@ -586,7 +586,7 @@ public sealed class GetNtTokenCmdlet : PSCmdlet
         return GroupAttributes.Enabled | GroupAttributes.EnabledByDefault | GroupAttributes.Mandatory;
     }
 
-    private NtToken GetLogonToken(TokenAccessRights desired_access, string user, 
+    private NtToken GetLogonToken(TokenAccessRights desired_access, string user,
         string domain, SecureString password, SecurityLogonType logon_type)
     {
         IEnumerable<UserGroup> groups = null;
@@ -696,7 +696,7 @@ public sealed class GetNtTokenCmdlet : PSCmdlet
             return Win32Security.CreateAppContainerToken(token, package_sid, GetCapabilitySids());
         }
 
-        return token.CreateLowBoxToken(package_sid, GetCapabilitySids(), 
+        return token.CreateLowBoxToken(package_sid, GetCapabilitySids(),
             Handle ?? new NtObject[0], TokenAccessRights.MaximumAllowed);
     }
 

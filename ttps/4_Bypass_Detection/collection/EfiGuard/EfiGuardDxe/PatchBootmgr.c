@@ -234,7 +234,7 @@ HookedBootmgrImgArchStartBootApplication_Eight(
 
 //
 // Patches the Windows Boot Manager (either bootmgfw.efi or bootmgr.efi; normally the former unless booting a WIM file)
-// 
+//
 EFI_STATUS
 EFIAPI
 PatchBootManager(

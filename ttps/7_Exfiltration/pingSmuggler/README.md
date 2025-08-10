@@ -106,6 +106,6 @@ pip install -r requirements.txt
 ### Disclaimer
 
 Please use Ping Smuggler responsibly and only in accordance with applicable laws and regulations. Unauthorized or
-malicious use of this tool may result in legal consequences. 
-The authors of this tool are not responsible for any misuse or damage caused by Ping Smuggler. 
+malicious use of this tool may result in legal consequences.
+The authors of this tool are not responsible for any misuse or damage caused by Ping Smuggler.
 This tool is intended for educational and research purposes only.

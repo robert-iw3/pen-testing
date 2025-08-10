@@ -10,9 +10,9 @@ class Server:
         self.protocol = ""
 
     # This is the main function that is called by the framework. You can build out as many different
-    # functions, but they all need to be called from "serve". If there is a specific function or 
-    # class that must be seperated out from this file (ideally keep everything in here if possible), 
+    # functions, but they all need to be called from "serve". If there is a specific function or
+    # class that must be seperated out from this file (ideally keep everything in here if possible),
     # then add them to the serverlibs directory.
     def serve(self):
-        
+
         return

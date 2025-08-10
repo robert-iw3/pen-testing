@@ -25,7 +25,7 @@ public sealed class FirewallLayerGuid : FirewallObjectGuid
     /// Constructor.
     /// </summary>
     /// <param name="name">Name of the layer or a GUID</param>
-    public FirewallLayerGuid(string name) 
+    public FirewallLayerGuid(string name)
         : base(name, FirewallUtils.GetKnownLayerGuid)
     {
     }
@@ -34,7 +34,7 @@ public sealed class FirewallLayerGuid : FirewallObjectGuid
     /// Constructor.
     /// </summary>
     /// <param name="ale_layer">The pre-defined ALE layer.</param>
-    public FirewallLayerGuid(FirewallAleLayer ale_layer) 
+    public FirewallLayerGuid(FirewallAleLayer ale_layer)
         : base(FirewallUtils.GetLayerGuidForAleLayer(ale_layer))
     {
     }

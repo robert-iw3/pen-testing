@@ -80,7 +80,7 @@ namespace ysoserial.Generators
             {
                 // TBC
                 // placeholder for future implementation
-                
+
             }
             else
             {

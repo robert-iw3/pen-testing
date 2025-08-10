@@ -38,7 +38,7 @@ function Import-PML {
     $events = Import-Csv $FilePath
 
     # Filter events by Canary in the Path
-    $filteredEvents = $events | Where-Object { 
+    $filteredEvents = $events | Where-Object {
         $_.Path -like "*$Canary*"
     }
 

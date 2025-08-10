@@ -1,8 +1,8 @@
 # Penetration Test Report
 
-**Project:** {{ project.name }}  
-**Prepared for:** {{ client.name }}  
-**Prepared by:** {{ org.name }}  
+**Project:** {{ project.name }}
+**Prepared for:** {{ client.name }}
+**Prepared by:** {{ org.name }}
 **Date:** {{ date }}
 
 ---
@@ -10,7 +10,7 @@
 ## Revisions
 
 {% for version in reports %}
-- **{{ version.insert_ts }}**  
+- **{{ version.insert_ts }}**
   _{{ version.version_name }}_ — {{ version.version_description }}
 {% endfor %}
 
@@ -19,9 +19,9 @@
 ## Contacts
 
 {% for contact in contacts %}
-- **Name:** {{ contact.name }}  
-  **Phone:** {{ contact.phone }}  
-  **Email:** {{ contact.email }}  
+- **Name:** {{ contact.name }}
+  **Phone:** {{ contact.phone }}
+  **Email:** {{ contact.email }}
   **Role:** {{ contact.role }}
 
 {% endfor %}
@@ -31,7 +31,7 @@
 ## Pentesting Team
 
 {% for user in users %}
-- **{{ user.full_name }}**  
+- **{{ user.full_name }}**
   _{{ user.short_bio }}_
 {% endfor %}
 
@@ -60,19 +60,19 @@
 {% for vulnerability in vulnerabilities %}
 ### {{ vulnerability.summary }}
 
-- **Category:** {{ vulnerability.category_name }}  
-- **Severity:** {{ vulnerability.risk|capitalize }}  
-- **CVSS Score:** {{ vulnerability.cvss_score }}  
-- **OWASP Vector:** {{ vulnerability.owasp_vector }}  
+- **Category:** {{ vulnerability.category_name }}
+- **Severity:** {{ vulnerability.risk|capitalize }}
+- **CVSS Score:** {{ vulnerability.cvss_score }}
+- **OWASP Vector:** {{ vulnerability.owasp_vector }}
 - **OWASP Overall Rating:** {{ vulnerability.owasp_overall }}
 
-**Description:**  
+**Description:**
 {{ vulnerability.description }}
 
-**Proof of Concept:**  
+**Proof of Concept:**
 {{ vulnerability.proof_of_concept }}
 
-**Remediation:**  
+**Remediation:**
 {{ vulnerability.remediation }}
 
 ---

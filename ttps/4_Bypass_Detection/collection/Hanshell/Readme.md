@@ -2,7 +2,7 @@
 
 ## Summary
 
-ASP.NET web shell to abuse leaked token handles. 
+ASP.NET web shell to abuse leaked token handles.
 
 This shell is meant to be used to escape from the Application Pool Identity security context and perform privilege escalation after compromising a web app.
 

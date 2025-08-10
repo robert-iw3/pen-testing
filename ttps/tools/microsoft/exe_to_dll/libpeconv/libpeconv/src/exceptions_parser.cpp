@@ -56,14 +56,14 @@ namespace details {
 	    ULONG ImageSize;
 	    ULONG SEHandlerCount;
     } RTL_INVERTED_FUNCTION_TABLE_ENTRY_WIN8_PLUS_32, * PRTL_INVERTED_FUNCTION_TABLE_ENTRY_WIN8_PLUS_32;
-   
+
     typedef struct _RTL_INVERTED_FUNCTION_TABLE_ENTRY_WIN7_32 {
         PVOID ImageBase;
         ULONG ImageSize;
         ULONG SEHandlerCount;
         PVOID EntrySEHandlerTableEncoded;
     } RTL_INVERTED_FUNCTION_TABLE_ENTRY_WIN7_32, * PRTL_INVERTED_FUNCTION_TABLE_ENTRY_WIN7_32;
-    
+
     typedef struct _RTL_INVERTED_FUNCTION_TABLE_WIN7_32 {
         ULONG Count;
         ULONG MaxCount;

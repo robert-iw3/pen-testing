@@ -15,7 +15,7 @@ class CREDSSPCredential(UniCredential):
 	def build_context(self, *args, **kwargs):
 		spnego_cred = SPNEGOEXCredential(self.credentials)
 		if self.subprotocol.type == asyauthSubProtocol.NATIVE:
-			
+
 			credssp_ctx = CredSSPClientNative(self)
 			credssp_ctx.auth_ctx = spnego_cred.build_context()
 		else:

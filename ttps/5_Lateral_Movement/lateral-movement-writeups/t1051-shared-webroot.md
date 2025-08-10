@@ -13,7 +13,7 @@ Enumerating victim host `10.0.0.6` for any shares:
 smbclient -L //10.0.0.6 -U spot
 
 WARNING: The "syslog" option is deprecated
-Enter WORKGROUP\spot's password: 
+Enter WORKGROUP\spot's password:
 
 	Sharename       Type      Comment
 	---------       ----      -------
@@ -21,12 +21,12 @@ Enter WORKGROUP\spot's password:
 	C$              Disk      Default share
 	CertEnroll      Disk      Active Directory Certificate Services share
 	IPC$            IPC       Remote IPC
-	NETLOGON        Disk      Logon server share 
-	SYSVOL          Disk      Logon server share 
-	temp            Disk      
-	tools           Disk      
-	transcripts     Disk      
-	wwwroot         Disk      
+	NETLOGON        Disk      Logon server share
+	SYSVOL          Disk      Logon server share
+	temp            Disk
+	tools           Disk
+	transcripts     Disk
+	wwwroot         Disk
 ```
 {% endcode %}
 
@@ -37,7 +37,7 @@ Logging in to the `wwwroot` share:
 smbclient //10.0.0.6/wwwroot -U spot
 
 WARNING: The "syslog" option is deprecated
-Enter WORKGROUP\spot's password: 
+Enter WORKGROUP\spot's password:
 Try "help" to get a list of possible commands.
 smb: \> ls
   .                                   D        0  Sat Aug 25 16:57:52 2018

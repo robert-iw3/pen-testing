@@ -1,8 +1,8 @@
-#!/bin/bash  
-       
+#!/bin/bash
+
 
 #DESCRIPTION_START
-# Apply shikata 50 times and hide console window. 
+# Apply shikata 50 times and hide console window.
 #DESCRIPTION_END
 
 

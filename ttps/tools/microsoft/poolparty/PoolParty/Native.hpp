@@ -290,13 +290,13 @@ std::vector<BYTE> w_QueryInformation(const std::string QueryFunctionName, TQuery
 	auto Ntstatus = STATUS_INFO_LENGTH_MISMATCH;
 	std::vector<BYTE> Information;
 
-	do 
+	do
 	{
 		Information.resize(InformationLength);
 		Ntstatus = QueryFunction(QueryFunctionArgs..., Information.data(), InformationLength, &InformationLength);
 	} while (STATUS_INFO_LENGTH_MISMATCH == Ntstatus);
 
-	if (!NT_SUCCESS(Ntstatus)) 
+	if (!NT_SUCCESS(Ntstatus))
 	{
 		throw std::runtime_error(GetLastErrorString(QueryFunctionName, RtlNtStatusToDosError(Ntstatus)));
 	}

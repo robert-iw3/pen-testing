@@ -1,16 +1,16 @@
 ###############################################################################
-#                          SKINNY GUERRILLA C2 CLIENT                          
-#     _____ _    _                      _____                      _ _ _       
-#    / ____| |  (_)                    / ____|                    (_) | |      
-#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _ 
+#                          SKINNY GUERRILLA C2 CLIENT
+#     _____ _    _                      _____                      _ _ _
+#    / ____| |  (_)                    / ____|                    (_) | |
+#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _
 #    \___ \| |/ / | '_ \| '_ \| | | | | | |_ | | | |/ _ \ '__| '__| | | |/ _` |
 #    ____) |   <| | | | | | | | |_| | | |__| | |_| |  __/ |  | |  | | | | (_| |
 #   |_____/|_|\_\_|_| |_|_| |_|\__, |  \_____|\__,_|\___|_|  |_|  |_|_|_|\__,_|
-#                               __/ |                                          
-#                              |___/                                           
+#                               __/ |
+#                              |___/
 # SGCC Client python file
 # client.py
-# This file acts as a command line interface for users to send get and posts 
+# This file acts as a command line interface for users to send get and posts
 # requests to the server. This allows us to remotely store tasks in the sqlite
 # database and remotely query it to get the results.
 #
@@ -23,7 +23,7 @@
 import click
 # requests is used to make get and post requests to the server
 import requests
-# datetime is to get the current date and time in a formatted way, timezone is 
+# datetime is to get the current date and time in a formatted way, timezone is
 # used to make sure that we store data as zulu time for consistency.
 from datetime import datetime, timezone
 
@@ -60,7 +60,7 @@ def api_post_request(endpoint, payload):
 @click.group()
 def cli():
     pass
-    
+
 ############################# GET-HISTORY COMMAND #############################
 
 # what to run if we use "get-history"
@@ -70,7 +70,7 @@ def list_history():
     """List the history of tasks and their associated results."""
     api_endpoint = "/history"
     print(api_get_request(api_endpoint))
-    
+
 ############################## POST-TASKS COMMAND #############################
 
 # what to run if we use "post-tasks"
@@ -78,7 +78,7 @@ def list_history():
 # you'll need to specify -i, which is which implant to target by ID
 @click.option('-i', help='Which implant to target.')
 # you'll need to specify -t (in quotes preferred) which is what task to run
-# it'll separate option by a space with the task 
+# it'll separate option by a space with the task
 @click.option('-t', help='Which command to run.')
 def add_tasks(i, t):
     """Submit tasks to the listening post."""
@@ -99,7 +99,7 @@ def add_tasks(i, t):
         # gets current zulu time
         time = datetime.now(timezone.utc)
 
-        # combines the arguments as a comma-separated value string. 
+        # combines the arguments as a comma-separated value string.
         request_payload_string = f'{t[0]},{o},{time}'
 
         # if the command was to upload
@@ -138,16 +138,16 @@ def add_tasks(i, t):
             api_post_request(f'/socks/{i}', f'stop {0}')
             return ''
 
-    
+
         # posts our task string to the server
         api_post_request(api_endpoint, request_payload_string.encode())
 
-        
+
         # prints out what was sent to the server, for debugging and info purposes.
         # didn't use the variable because it would've been a lot of extra typing, but that
         # would be better...
         print('Sent the following task the server:\n',
-            '[task type]\t[task options]\t[implant id]\t [task time]\n', 
+            '[task type]\t[task options]\t[implant id]\t [task time]\n',
             f'{t[0]}\t\t{o}\t\t{i}\t\t{time}\n')
 
 ############################## NEW-IMPLANT COMMAND ############################
@@ -165,7 +165,7 @@ def new_implant(f, o, c):
     # initializes the sub uri of /implant that we will go to as an empty string
     # this accounts for if we can't find the format we want in the if/else below
     parsed_format = ""
-    
+
     # if we choose the powershell format, set parsed_format accordingly
     if f.lower() == 'powershell' or f.lower() == 'ps':
         parsed_format = 'ps'

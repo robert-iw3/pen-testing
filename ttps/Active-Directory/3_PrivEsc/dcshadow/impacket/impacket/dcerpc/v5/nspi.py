@@ -350,7 +350,7 @@ class PPropertyRow_r(NDRPOINTER):
     )
 
 # 2.3.3 PropertyRowSet_r
-class PropertyRowSet(NDRUniConformantArray): 
+class PropertyRowSet(NDRUniConformantArray):
     item = PropertyRow_r
 
 class PropertyRowSet_r(NDRSTRUCT):
@@ -374,7 +374,7 @@ class PRestriction_r(NDRPOINTER):
     )
 
 # 2.3.4.1 AndRestriction_r, OrRestriction_r
-class AndRestriction(NDRUniConformantArray): 
+class AndRestriction(NDRUniConformantArray):
     item = Restriction_r
 
 class PAndRestriction(NDRPOINTER):
@@ -808,10 +808,10 @@ class NspiGetSpecialTable(NDRCALL):
 
 class NspiGetSpecialTableResponse(NDRCALL):
     structure = (
-        # In Exchange 2013 / 2016 / 2019 lpVersion is 
+        # In Exchange 2013 / 2016 / 2019 lpVersion is
         # a RuntimeHelpers.GetHashCode value, and it will be
         # different each call
-        ('lpVersion', DWORD), 
+        ('lpVersion', DWORD),
         ('ppRows', PPropertyRowSet_r),
         ('ErrorCode', DWORD),
     )

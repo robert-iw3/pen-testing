@@ -65,7 +65,7 @@ class SAMR_RPC_SID(Structure):
         structure = (
             ('Value','6s'),
         )
-    
+
     structure = (
         ('Revision','<B'),
         ('SubAuthorityCount','<B'),
@@ -73,14 +73,14 @@ class SAMR_RPC_SID(Structure):
         ('SubLen','_-SubAuthority','self["SubAuthorityCount"]*4'),
         ('SubAuthority',':'),
     )
-    
+
 
     def formatCanonical(self):
         ans = 'S-%d-%d' % (self['Revision'], ord(self['IdentifierAuthority']['Value'][5:6]))
         for i in range(self['SubAuthorityCount']):
            ans += '-%d' % ( unpack('>L',self['SubAuthority'][i*4:i*4+4])[0])
         return ans
-    
+
 
 def read_attm_array(entry):
     if isinstance(entry, bytes):

@@ -14,12 +14,12 @@ using ysoserial.Helpers;
 
 /**
  * Author: Soroush Dalili (@irsdl)
- * 
- * Comments: 
+ *
+ * Comments:
  *  This is used when the MachineKey parameters have been stolen for example by downloading the web.config or machine.config file via another vulnerability
  *  This is not going to be useful when web.config sensitive parameters have been properly encrypted or when "AutoGenerate" has been used
  *  Also see https://soroush.secproject.com/blog/2019/04/exploiting-deserialisation-in-asp-net-via-viewstate/ for more details
- *  
+ *
  *  Kudos to Alvaro Muñoz for the support
  **/
 
@@ -365,7 +365,7 @@ namespace ysoserial.Plugins
 
             var _macKeyBytes = new byte[4];
 
-            // viewStateUserKey is normally the anti-CSRF parameter unless it is the same for all users! 
+            // viewStateUserKey is normally the anti-CSRF parameter unless it is the same for all users!
             if (viewStateUserKey != null)
             {
                 int count = Encoding.Unicode.GetByteCount(viewStateUserKey);
@@ -432,7 +432,7 @@ namespace ysoserial.Plugins
                     "Type: " + simulateGetTypeName(targetPagePath, IISAppInPath, pathIsClassName).ToUpperInvariant()
                 };
 
-            // viewStateUserKey is normally the anti-CSRF parameter unless it is the same for all users! 
+            // viewStateUserKey is normally the anti-CSRF parameter unless it is the same for all users!
             if (viewStateUserKey != null)
             {
                 Array.Resize(ref specificPurposes, specificPurposes.Length + 1);

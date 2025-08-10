@@ -16,7 +16,7 @@ import lief
 
 def section_injection_on_bytes(exe_bytes: bytearray, section_population, vector_t):
     """
-    Implementation of Section Injection practical manipulation. 
+    Implementation of Section Injection practical manipulation.
     Intended for use with genetic optimizer.
 
     Returns the bytes with the practical manipulation applied.

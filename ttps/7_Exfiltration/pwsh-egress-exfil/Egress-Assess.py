@@ -88,7 +88,7 @@ if __name__ == "__main__":
                     # protocol requested by the user
                     for proto_name, proto_module in the_conductor.client_protocols.items():
                         if proto_module.protocol == cli_parsed.client.lower():
-                            # If HTTP or HTTPS protocols, 
+                            # If HTTP or HTTPS protocols,
                             # encode generated data to utf-8 for POST request
                             if cli_parsed.client == "http" or cli_parsed.client == "https":
                                 generated_data = str.encode(generated_data)

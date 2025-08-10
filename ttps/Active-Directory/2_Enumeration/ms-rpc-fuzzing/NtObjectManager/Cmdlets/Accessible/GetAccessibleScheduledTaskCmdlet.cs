@@ -44,7 +44,7 @@ public enum TaskCheckMode
 /// <summary>
 /// <para type="synopsis">Get a list of scheduled tasks openable by a specified token.</para>
 /// <para type="description">This cmdlet checks all scheduled tasks and tries to determine
-/// if one or more specified tokens can open them. If no tokens are specified then the 
+/// if one or more specified tokens can open them. If no tokens are specified then the
 /// current process token is used.</para>
 /// </summary>
 /// <remarks>For best results this command should be run as an administrator.</remarks>

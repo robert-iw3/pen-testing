@@ -31,7 +31,7 @@ The most common usage of CMPivot is through the Configuration Manager console, w
 4. Read the data returned by the target in the results pane
 
 In the background, the data obtained from these queries is gathered either through WMI or by running a  PowerShell script on the client(s) as SYSTEM.
-   
+
 Additionally ConfigMgr exposes the AdminService REST API, which in turn exposes methods to perform CMPivot queries:
 
 `https://{managementPoint}/AdminService/v1.0/Device({deviceId})/AdminService.RunCMPivot`

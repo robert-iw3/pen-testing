@@ -32,7 +32,7 @@ int resolve_host(char* buffer, int buffer_size, SOCKADDR_IN* infc) {
         if (getaddrinfo(host, NULL, &hints, &r)) { return -1; }
         memcpy(&infc->sin_addr.s_addr, (char*)r->ai_addr->sa_data + 2,4);
         freeaddrinfo(r);
-    
+
     }
     else { return -1; }
 
@@ -45,7 +45,7 @@ void _stdcall newserver(connexion_details* det) {
     SOCKADDR_IN infc;
 
     if (resolve_host(det->d, det->sizep, &infc) == -1) { delete det; return; }
-    
+
     socket_details* sd = new socket_details;
     SOCKET server = socket(AF_INET, SOCK_STREAM, 0);
     if (connect(server, (sockaddr*)&infc, sizeof(infc)) == SOCKET_ERROR) {
@@ -129,7 +129,7 @@ int main(int argc,char *argv[])
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
+// Tips for Getting Started:
 //   1. Use the Solution Explorer window to add/manage files
 //   2. Use the Team Explorer window to connect to source control
 //   3. Use the Output window to see build output and other messages

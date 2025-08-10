@@ -48,7 +48,7 @@ typedef struct _TP_DIRECT
     UINT32 NumaNode;
     UINT8 IdealProcessor;
     char __PADDING__[3];
-} TP_DIRECT, * PTP_DIRECT; 
+} TP_DIRECT, * PTP_DIRECT;
 
 typedef struct _TPP_TIMER_SUBQUEUE
 {
@@ -181,7 +181,7 @@ typedef struct _TPP_BARRIER
     volatile union _TPP_FLAGS_COUNT Ptr;
     struct _RTL_SRWLOCK WaitLock;
     struct _TPP_ITE WaitList;
-} TPP_BARRIER, * PTPP_BARRIER; 
+} TPP_BARRIER, * PTPP_BARRIER;
 
 typedef struct _TP_CLEANUP_GROUP
 {

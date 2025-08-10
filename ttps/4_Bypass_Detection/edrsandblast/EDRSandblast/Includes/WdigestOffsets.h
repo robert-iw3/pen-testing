@@ -22,7 +22,7 @@ union WdigestOffsets {
 	struct {
 		// wdigest.dll's g_fParameter_UseLogonCredential
 		DWORD64 g_fParameter_UseLogonCredential;
-		// wdigest.dll's g_IsCredGuardEnabled 
+		// wdigest.dll's g_IsCredGuardEnabled
 		DWORD64 g_IsCredGuardEnabled;
 	} st;
 

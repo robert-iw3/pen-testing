@@ -17,7 +17,7 @@ namespace Rubeus {
             AsnElt parameters = AsnElt.Decode(Parameters);
 
             return AsnElt.Make(
-                AsnElt.SEQUENCE, new AsnElt[] { 
+                AsnElt.SEQUENCE, new AsnElt[] {
                     AsnElt.MakeOID(Algorithm.Value),
                     parameters}
                 );

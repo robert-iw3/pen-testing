@@ -19,7 +19,7 @@ nxc -h
 
 usage: nxc [-h] [-t THREADS] [--timeout TIMEOUT] [--jitter INTERVAL] [--no-progress] [--verbose] [--debug] [--version] {smb,ssh,ldap,ftp,wmi,winrm,rdp,vnc,mssql} ...
 
-    <-- Banner -->   
+    <-- Banner -->
 
 options:
   -h, --help            show this help message and exit

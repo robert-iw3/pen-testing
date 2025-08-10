@@ -1,6 +1,6 @@
 # BloodHound automation
 Automatically run and populate a new instance of BH CE.
-Tested on Ubuntu 22.04 and MacOS. 
+Tested on Ubuntu 22.04 and MacOS.
 
 ## How to run
 ```
@@ -50,7 +50,7 @@ The docker log are accessible in the */bloodhound-automation/projects/my_project
         #                        and is now accessible at :                         #
         #                             localhost:10001                               #
         #                             username : neo4j                              #
-        #                             password : neo5j                              # 
+        #                             password : neo5j                              #
         #                                                                           #
         #                 The BloodHound Web GUI is accessible at :                 #
         #                         http://localhost:8001                             #
@@ -59,7 +59,7 @@ The docker log are accessible in the */bloodhound-automation/projects/my_project
         #                         password : Chien2Sang<3                           #
         #                                                                           #
         #############################################################################
-          
+
 ```
 
 ### Import data

@@ -1,7 +1,7 @@
 ﻿//------------------------------------------------------------------------------
 // <copyright file="ICryptoAlgorithmFactory.cs" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>                                                                
+// </copyright>
 //------------------------------------------------------------------------------
 
 namespace System.Web.Security.Cryptography {
@@ -17,6 +17,6 @@ namespace System.Web.Security.Cryptography {
 
         // Gets a KeyedHashAlgorithm instance that can be used for signing / validation
          KeyedHashAlgorithm GetValidationAlgorithm();
-    
+
     }
 }

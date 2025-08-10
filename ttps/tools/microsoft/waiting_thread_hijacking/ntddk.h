@@ -227,7 +227,7 @@ RtlImageDirectoryEntryToData (
 NTSYSAPI
 NTSTATUS
 NTAPI
-RtlStringFromGUID( 
+RtlStringFromGUID(
 	IN REFGUID Guid,
 	OUT PUNICODE_STRING GuidString
 	);
@@ -1526,7 +1526,7 @@ typedef struct _SYSTEM_PROCESS_INFORMATION {
     ULONG_PTR UniqueProcessId;
     ULONG_PTR InheritedFromUniqueProcessId;
     ULONG HandleCount;
-    
+
     // Next part is platform dependent
 
     ULONG SessionId;

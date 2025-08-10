@@ -8,10 +8,10 @@ using ysoserial.Helpers;
 
 /**
  * Author: L@2uR1te (@2308652512)
- * 
-  * Comments: 
+ *
+  * Comments:
  *  This plugin is based on the existing SessionSecurityTokenHandler plugin.
- *  See `MachineKeySessionSecurityTokenHandler`: https://learn.microsoft.com/zh-cn/dotnet/api/system.identitymodel.services.tokens.machinekeysessionsecuritytokenhandler?view=netframework-4.8.1 
+ *  See `MachineKeySessionSecurityTokenHandler`: https://learn.microsoft.com/zh-cn/dotnet/api/system.identitymodel.services.tokens.machinekeysessionsecuritytokenhandler?view=netframework-4.8.1
  *  This PoC uses BinaryFormatter from TypeConfuseDelegate
  *  The Ysoserial.net tool includes an exploit plugin for the SessionSecurityTokenHandler security issue. However, due to the fact that SessionSecurityTokenHandler employs DPAPI for encryption and decryption, it is often difficult to exploit in most cases.
  *  Nevertheless, Microsoft's documentation on SessionSecurityTokenHandler mentions that for web scenarios requiring a similar security mechanism, one can use the MachineKeySessionSecurityTokenHandler.

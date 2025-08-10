@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Rubeus.Kerberos {
 
-    public class PACTYPE {        
+    public class PACTYPE {
         public int cBuffers;
         public int Version;
         public List<PacInfoBuffer> PacInfoBuffers;
@@ -65,10 +65,10 @@ namespace Rubeus.Kerberos {
                     case PacInfoBufferType.Requestor:
                         PacInfoBuffers.Add(new Requestor(pacData));
                         break;
-                }                             
+                }
             }
         }
-        
+
         public byte[] Encode() {
 
             BinaryWriter bw = new BinaryWriter(new MemoryStream());

@@ -122,13 +122,13 @@ namespace Rubeus.Ndr.Marshal
             _full_pointers = new Dictionary<int, object>();
             CheckDataRepresentation(data_represenation);
         }
-        public NdrUnmarshalBuffer(byte[] buffer) 
+        public NdrUnmarshalBuffer(byte[] buffer)
             : this(buffer,  new NdrDataRepresentation())
         {
         }
 
- 
-        public NdrUnmarshalBuffer(NdrPickledType pickled_type) 
+
+        public NdrUnmarshalBuffer(NdrPickledType pickled_type)
             : this(pickled_type.Data, pickled_type.DataRepresentation)
         {
         }
@@ -728,7 +728,7 @@ namespace Rubeus.Ndr.Marshal
         #region Dispose Support
         public virtual void Dispose()
         {
-         
+
         }
         #endregion
     }

@@ -114,16 +114,16 @@ run_test() {
     local name="$1"
     local cmd="$2"
     local expected_exit="$3"
-    
+
     # Replace ./landrun with landrun if using system binary
     if [ "$USE_SYSTEM_BINARY" = true ]; then
         cmd="${cmd//.\/landrun/landrun}"
     fi
-    
+
     print_status "Running test: $name"
     eval "$cmd"
     local exit_code=$?
-    
+
     if [ $exit_code -eq $expected_exit ]; then
         print_success "Test passed: $name"
         return 0
@@ -305,4 +305,4 @@ if [ "$KEEP_BINARY" = false ] && [ "$USE_SYSTEM_BINARY" = false ]; then
     rm -f landrun
 fi
 
-print_success "All tests completed!" 
+print_success "All tests completed!"

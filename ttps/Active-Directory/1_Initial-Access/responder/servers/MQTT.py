@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -72,7 +72,7 @@ def readVariableByteInteger(data, offset):
 
 		if(encodedByte & 128 == 0):
 			break
-	
+
 	return (value, offset)
 
 class MqttPacket:
@@ -113,11 +113,11 @@ class MqttPacket:
 
 		#MQTTv5 implements properties
 		if self.__protocolVersion > 4:
-			
+
 			#Skip all properties
 			propertiesLength, offset = readVariableByteInteger(data, offset)
 			offset+=propertiesLength
-		
+
 		#Get Client ID
 		self.clientId, offset = readString(data, offset)
 
@@ -130,11 +130,11 @@ class MqttPacket:
 			#MQTT v5 implements properties
 			if self.__protocolVersion > 4:
 				willProperties, offset = readVariableByteInteger(data, offset)
-			
+
 			#Skip will properties
 			offset = skipBinaryDataString(data, offset)
 			offset = skipBinaryDataString(data, offset)
-	
+
 		#Get Username
 		if (connectFlags & self.USERNAME_FLAG) > 0:
 			self.username, offset = readString(data, offset)
@@ -179,10 +179,10 @@ class MQTT(BaseRequestHandler):
 			#Skip non CONNECT packets
 			if controlPacketType != CONTROL_PACKET_TYPE_CONNECT:
 				return
-			
+
 			#Parse connect packet
 			packet = MqttPacket(data)
-			
+
 			#Skip if it contains invalid data
 			if not packet.isValid():
 				#Return response
@@ -195,7 +195,7 @@ class MQTT(BaseRequestHandler):
 				responsePacket = MQTTv5ResponsePacket()
 
 			self.request.send(NetworkSendBufferPython2or3(responsePacket))
-				
+
 			#Save to DB
 			SaveToDb(packet.data(self.client_address[0]))
 

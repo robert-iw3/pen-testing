@@ -19,7 +19,7 @@ def decrypt(ciphertext, type):
 				passphrase=line[:line.find(":")]
 				plaintextSalt=line[line.find(":")+1:]
 				salt=plaintextSalt.decode("hex")
-				
+
 				key = PBKDF2(passphrase, salt, 32)
 				iv = PBKDF2(passphrase, salt, 32 + 16)
 				iv = iv[32:]#Generate .Net specific IV
@@ -30,7 +30,7 @@ def decrypt(ciphertext, type):
 					plaintext=unpad(cipher.decrypt(ciphertext.decode("hex")))
 				else:
 					plaintext=unpad(cipher.decrypt(base64.b64decode(ciphertext)))
-				
+
 				if plaintext: #Break if decryption is found
 					#plaintext=plaintext.decode('ascii')
 					passphraseFound=passphrase

@@ -17,7 +17,7 @@ SignatureOpsError GetFileSigners(TCHAR* pFilePath, TCHAR* outSigners, size_t* sz
     TCHAR signerSeperator[] = TEXT(" | ");
     DWORD dwError = 0;
     BOOL returnStatus = 0;
-    
+
     returnStatus = CryptQueryObject(CERT_QUERY_OBJECT_FILE,
                                      pFilePath,
                                      CERT_QUERY_CONTENT_FLAG_PKCS7_SIGNED_EMBED,
@@ -41,14 +41,14 @@ SignatureOpsError GetFileSigners(TCHAR* pFilePath, TCHAR* outSigners, size_t* sz
             return E_KO;
         }
     }
-    
+
     // Check that the file has at least one Signer.
     returnStatus = CryptMsgGetParam(hCryptMsg, CMSG_SIGNER_COUNT_PARAM, 0, &dwCountSigners, &dwcbSz);
     if (!returnStatus) {
         _tprintf_or_not(TEXT("[!] Couldn't get number of signers of file \"%s\" (CryptMsgGetParam(CMSG_SIGNER_COUNT_PARAM) failed: 0x%08lx)\n"), pFilePath, GetLastError());
         goto cleanup;
     }
-     
+
     if (dwCountSigners == 0) {
         _tprintf_or_not(TEXT("[-] \"%s\" file is not digitally signed by at least one signer\n"), pFilePath);
         CryptMsgClose(hCryptMsg);
@@ -98,11 +98,11 @@ SignatureOpsError GetFileSigners(TCHAR* pFilePath, TCHAR* outSigners, size_t* sz
             goto cleanup;
         }
 
-        // Build CERT_INFO for certificate lookup using CertFindCertificateInStore. 
+        // Build CERT_INFO for certificate lookup using CertFindCertificateInStore.
         memset(&certificateInfo, 0, sizeof(CERT_INFO));
         certificateInfo.Issuer = pSignerInfo->Issuer;
         certificateInfo.SerialNumber = pSignerInfo->SerialNumber;
-        
+
         // Certificate lookup matching the Issuer and SerialNumber in hCertStore.
         pCertContext = CertFindCertificateInStore(hCertStore, X509_ASN_ENCODING | PKCS_7_ASN_ENCODING, 0, CERT_FIND_SUBJECT_CERT, &certificateInfo, NULL);
         if (!pCertContext) {

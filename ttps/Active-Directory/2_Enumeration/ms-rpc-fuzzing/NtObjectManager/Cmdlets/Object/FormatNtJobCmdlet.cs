@@ -22,7 +22,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Formats Job information.</para>
-/// <para type="description">This cmdlet formats the Job information. Can either take a list of jobs or 
+/// <para type="description">This cmdlet formats the Job information. Can either take a list of jobs or
 /// a process.</para>
 /// </summary>
 /// <example>

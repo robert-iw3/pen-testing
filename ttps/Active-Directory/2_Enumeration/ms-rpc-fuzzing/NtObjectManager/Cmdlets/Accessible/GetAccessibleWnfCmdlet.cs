@@ -23,7 +23,7 @@ namespace NtObjectManager.Cmdlets.Accessible;
 /// <summary>
 /// <para type="synopsis">Get a list of WNF notifications accessible by a specified token.</para>
 /// <para type="description">This cmdlet checks all WNF providers and tries to determine
-/// if one or more specified tokens can access them. If no tokens are specified then the 
+/// if one or more specified tokens can access them. If no tokens are specified then the
 /// current process token is used.</para>
 /// </summary>
 /// <example>

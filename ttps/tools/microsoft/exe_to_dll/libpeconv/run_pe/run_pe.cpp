@@ -22,7 +22,7 @@ bool create_suspended_process(IN LPCTSTR path, IN LPCTSTR cmdLine, OUT PROCESS_I
             NULL, //lpThreadAttributes
             FALSE, //bInheritHandles
             CREATE_SUSPENDED, //dwCreationFlags
-            NULL, //lpEnvironment 
+            NULL, //lpEnvironment
             NULL, //lpCurrentDirectory
             &si, //lpStartupInfo
             &pi //lpProcessInformation
@@ -151,11 +151,11 @@ typedef struct _PEB
     BOOLEAN SpareBool; // size : 1
                     // on 64bit here there is a padding to the sizeof ULONGLONG (DWORD64)
     HANDLE Mutant; // this field have DWORD size on 32bit, and ULONGLONG (DWORD64) size on 64bit
-                   
+
     PVOID ImageBaseAddress;
     [...]
     */
-    ULONGLONG img_base_offset = is32bit ? 
+    ULONGLONG img_base_offset = is32bit ?
         sizeof(DWORD) * 2
         : sizeof(ULONGLONG) * 2;
 
@@ -186,9 +186,9 @@ bool redirect_to_payload(BYTE* loaded_pe, PVOID load_base, PROCESS_INFORMATION &
 
     SIZE_T written = 0;
     //4. Write the payload's ImageBase into remote process' PEB:
-    if (!WriteProcessMemory(pi.hProcess, remote_img_base, 
-        &load_base, img_base_size, 
-        &written)) 
+    if (!WriteProcessMemory(pi.hProcess, remote_img_base,
+        &load_base, img_base_size,
+        &written))
     {
         std::cerr << "Cannot update ImageBaseAddress!\n";
         return false;

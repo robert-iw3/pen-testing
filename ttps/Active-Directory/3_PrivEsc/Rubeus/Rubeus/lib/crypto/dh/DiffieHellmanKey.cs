@@ -34,15 +34,15 @@ namespace Kerberos.NET.Crypto
 
         public byte[] PrivateComponent { get; set; }
 
-        public byte[] EncodePublicKey()            
+        public byte[] EncodePublicKey()
         {
             return AsnElt.MakeInteger(this.PublicComponent).Encode();
         }
 
         public static DiffieHellmanKey ParsePublicKey(byte[] data, int keyLength)
         {
-            AsnElt publicKeyAsn = AsnElt.Decode(data); 
-            
+            AsnElt publicKeyAsn = AsnElt.Decode(data);
+
             if(publicKeyAsn.TagValue != AsnElt.INTEGER) {
                 throw new ArgumentException("data doesn't appear to be an ASN.1 encoded INTERGER");
             }

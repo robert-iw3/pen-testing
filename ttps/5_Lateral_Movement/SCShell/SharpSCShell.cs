@@ -24,14 +24,14 @@ namespace SharpSCShell
 
         [DllImport("advapi32.dll", EntryPoint = "OpenSCManagerW", ExactSpelling = true, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern IntPtr OpenSCManager(
-            string lpMachineName, 
-            string lpDatabaseName, 
+            string lpMachineName,
+            string lpDatabaseName,
             uint dwDesiredAccess);
 
         [DllImport("advapi32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         static extern IntPtr OpenService(
-            IntPtr hSCManager, 
-            string lpServiceName, 
+            IntPtr hSCManager,
+            string lpServiceName,
             uint dwDesiredAccess);
 
         [DllImport("advapi32.dll",
@@ -153,7 +153,7 @@ namespace SharpSCShell
                 Console.WriteLine("SharpSCShell.exe target service payload domain username password");
                 Environment.Exit(0);
             }
-            
+
             string target = args[0];
             string ServiceName = args[1];
             string payload = args[2];
@@ -199,7 +199,7 @@ namespace SharpSCShell
             IntPtr schService = OpenService(SCMHandle, ServiceName, ((uint)SERVICE_ACCESS.SERVICE_ALL_ACCESS));
             Console.WriteLine("[*] SC_HANDLE Service 0x{0}", schService);
 
-            
+
             QueryServiceConfigStruct qscs = new QueryServiceConfigStruct();
             IntPtr qscPtr = Marshal.AllocCoTaskMem(0);
             int retCode = QueryServiceConfig(schService, qscPtr, 0, ref bytesNeeded);

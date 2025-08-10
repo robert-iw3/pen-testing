@@ -44,7 +44,7 @@ function ShadowHound-ADM {
         return
     }
 
-    if ($Certificates -and ($SplitSearch -or $LetterSplitSearch -or $Recurse -or $ParsedContainers -or $SearchBase)) { 
+    if ($Certificates -and ($SplitSearch -or $LetterSplitSearch -or $Recurse -or $ParsedContainers -or $SearchBase)) {
         Write-Error '[!] Certificate enumeration is done seprately from the rest of the enumeration.'
         return
     }
@@ -152,7 +152,7 @@ function ShadowHound-ADM {
             if ($Credential) { $dcSearchParams['Credential'] = $Credential }
 
             Perform-ADQuery -SearchParams $dcSearchParams -StreamWriter $streamWriter -Count $count -PrintingThreshold $printingThreshold
-                        
+
             # In letter split search we need to make sure the top level containers are included
             if ($LetterSplitSearch -eq $true) {
                 $topLevelContainers | ForEach-Object {
@@ -663,7 +663,7 @@ function Get-TopLevelContainers {
     try {
         $topLevelParams = $Params.Clone()
         $topLevelParams['SearchScope'] = 'OneLevel'
-        $TopLevelContainers = Get-ADObject @topLevelParams 
+        $TopLevelContainers = Get-ADObject @topLevelParams
         return $TopLevelContainers
     } catch {
         Write-Error "Failed to retrieve top-level containers: $_"

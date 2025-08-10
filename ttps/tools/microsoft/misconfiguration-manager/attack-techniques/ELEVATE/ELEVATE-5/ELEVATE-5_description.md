@@ -14,15 +14,15 @@ One of the following:
 - Connectivty to HTTP(s) on a Distribution Point
 
 And one of the following:
-- Valid Active Directory domain credentials 
+- Valid Active Directory domain credentials
 - Anonymous authentication enabled on the distribution point
 
 ## Summary
 SCCM sites may optionally be configured to support public-key infrastructure (PKI) certificates for secure communications. For deployments with internet-based site systems, PKI certificates are required. When deployed, the distribution point (DP) role requires its PKI certificate to support client authentication and for the private key to be exportable. The certificate is used by the DP to support communication with HTTPS enabled management points. During OSD task sequence media, the certificate is imported where required to support HTTPS communications to management points during operating system deployment. For environments that leverage Microsoft's PKI solution Active Directory Certificate Services (AD CS), the certificate generated for the DP role may be used to authenticate as the DP's host AD machine account. An attacker who is able to successfully recover the PKI certificate from the OSD task sequence variables file contents may gain control of the certificate's AD identity.
 
-## Impact 
+## Impact
 
- The impact of recovery is environment dependent. At a minimuim, based on Microsoft's [documentation](https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/network/pki-certificate-requirements#site-systems-that-have-a-distribution-point-installed) an attacker that recovers this certificate can impersonate a DP's AD identity and compromise the host system. 
+ The impact of recovery is environment dependent. At a minimuim, based on Microsoft's [documentation](https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/network/pki-certificate-requirements#site-systems-that-have-a-distribution-point-installed) an attacker that recovers this certificate can impersonate a DP's AD identity and compromise the host system.
 
 ## Defensive IDs
 - [DETECT-7: Monitor read access to the SMSTemp directory](../../../defense-techniques/DETECT/DETECT-7/detect-7_description.md)

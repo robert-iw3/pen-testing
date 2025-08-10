@@ -287,7 +287,7 @@ PR_CONTAINER_FLAGS_VALUES = {
 
 MAPI_PROPERTIES  = {
         # Field_1: (Field_2, Field_3, Field_4, Field_5, Field_6, Field_7, Field_8),
-        # 
+        #
         # Field_1 is PropertyId
         # Field_2 is PropertyType (unicode when possible)
         # Field_3 is Active Directory LDAP-Display-Name

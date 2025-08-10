@@ -15,7 +15,7 @@ namespace peconv {
     /**
     Check if the pointer redirects to a forwarder - if so, return the length, otherwise return 0.
     */
-    size_t forwarder_name_len(BYTE* fPtr); 
+    size_t forwarder_name_len(BYTE* fPtr);
 
     /**
     get the DLL name without the extension

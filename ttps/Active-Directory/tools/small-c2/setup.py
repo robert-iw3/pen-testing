@@ -1,25 +1,25 @@
 ###############################################################################
-#                          SKINNY GUERRILLA C2 SETUP                          
-#     _____ _    _                      _____                      _ _ _       
-#    / ____| |  (_)                    / ____|                    (_) | |      
-#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _ 
+#                          SKINNY GUERRILLA C2 SETUP
+#     _____ _    _                      _____                      _ _ _
+#    / ____| |  (_)                    / ____|                    (_) | |
+#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _
 #    \___ \| |/ / | '_ \| '_ \| | | | | | |_ | | | |/ _ \ '__| '__| | | |/ _` |
 #    ____) |   <| | | | | | | | |_| | | |__| | |_| |  __/ |  | |  | | | | (_| |
 #   |_____/|_|\_\_|_| |_|_| |_|\__, |  \_____|\__,_|\___|_|  |_|  |_|_|_|\__,_|
-#                               __/ |                                          
-#                              |___/                                           
+#                               __/ |
+#                              |___/
 #
 
 print("""###############################################################################
-                          SKINNY GUERRILLA C2 SETUP                          
-     _____ _    _                      _____                      _ _ _       
-    / ____| |  (_)                    / ____|                    (_) | |      
-   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _ 
+                          SKINNY GUERRILLA C2 SETUP
+     _____ _    _                      _____                      _ _ _
+    / ____| |  (_)                    / ____|                    (_) | |
+   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _
     \\___ \\| |/ / | '_ \\| '_ \\| | | | | | |_ | | | |/ _ \\ '__| '__| | | |/ _` |
     ____) |   <| | | | | | | | |_| | | |__| | |_| |  __/ |  | |  | | | | (_| |
    |_____/|_|\\_\\_|_| |_|_| |_|\\__, |  \\_____|\\__,_|\\___|_|  |_|  |_|_|_|\\__,_|
-                               __/ |                                          
-                              |___/                                           
+                               __/ |
+                              |___/
 ###############################################################################
 Setup.py: Used to delete all data or do initial setup
 """)
@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
         # stores in the dictionary
         c2_settings[key] = val
-        
+
     infile.close()
 
     # loads connection to mysql database
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     if are_you_sure.lower() in ['yes', 'y', 'ye', 'yeah', 'sure', 'totally', 'affirmative']:
 
         # makes a connection to the mysql database and initializes our cursor
-        mydb = sqlite3.connect("./Server/SGCC.db")                       
+        mydb = sqlite3.connect("./Server/SGCC.db")
         mycursor = mydb.cursor()
 
         # attempts to delete then recreate table, otherwise just creates
@@ -67,7 +67,7 @@ if __name__ == "__main__":
             mycursor.execute(create_table_str)
         except:
             mycursor.execute(create_table_str)
-            
+
         # if we can query the database, it should be successfully set up
         try:
 
@@ -87,7 +87,7 @@ if __name__ == "__main__":
             mycursor.execute(create_table_str)
         except:
             mycursor.execute(create_table_str)
-            
+
         # if we can query the database, it should be successfully set up
         try:
 
@@ -107,7 +107,7 @@ if __name__ == "__main__":
             mycursor.execute(create_table_str)
         except:
             mycursor.execute(create_table_str)
-            
+
         # if we can query the database, it should be successfully set up
         try:
 
@@ -129,7 +129,7 @@ if __name__ == "__main__":
             mycursor.execute(create_table_str)
         except:
             mycursor.execute(create_table_str)
-            
+
         # if we can query the database, it should be successfully set up
         try:
 
@@ -150,7 +150,7 @@ if __name__ == "__main__":
             mycursor.execute(create_table_str)
         except:
             mycursor.execute(create_table_str)
-            
+
         # if we can query the database, it should be successfully set up
         try:
 

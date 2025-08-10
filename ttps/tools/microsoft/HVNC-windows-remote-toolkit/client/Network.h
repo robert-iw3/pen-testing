@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include <winsock2.h>  
+#include <winsock2.h>
 static const unsigned char gc_magik[] = { 'M','E','L','T','E','D', 0 };
 
 enum Connection : int

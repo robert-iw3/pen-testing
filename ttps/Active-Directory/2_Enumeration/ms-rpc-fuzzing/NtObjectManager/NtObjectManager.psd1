@@ -59,9 +59,9 @@ FunctionsToExport = 'Get-AccessibleAlpcPort', 'Set-NtTokenPrivilege',
           'Import-NtObject', 'Export-NtObject', 'Get-ExecutionAlias', 'Set-ExecutionAlias', 'Set-ExecutionAlias', 'Show-NtToken', 'Show-NtSection',
           'Resolve-NtObjectAddress', 'Get-NtSecurityDescriptor', 'Get-NtSecurityDescriptorIntegrityLevel',
           'Set-NtSecurityDescriptor', 'Add-NtVirtualMemory', 'Get-NtVirtualMemory', 'Remove-NtVirtualMemory', 'Set-NtVirtualMemory',
-          'Read-NtVirtualMemory', 'Write-NtVirtualMemory', 'Get-EmbeddedAuthenticodeSignature', 'Get-NtSidName', 'New-SymbolResolver', 
+          'Read-NtVirtualMemory', 'Write-NtVirtualMemory', 'Get-EmbeddedAuthenticodeSignature', 'Get-NtSidName', 'New-SymbolResolver',
           'New-NdrParser', 'Format-NdrComplexType', 'Format-NdrProcedure', 'Format-NdrComProxy', 'Get-NdrComProxy', 'Get-NdrRpcServerInterface',
-          'Format-NdrRpcServerInterface', 'Get-NtWnf', 'Get-NtCachedSigningLevel', 
+          'Format-NdrRpcServerInterface', 'Get-NtWnf', 'Get-NtCachedSigningLevel',
           'Get-NtFilePathType', 'New-NtType', 'Get-NtAlpcServer', 'Get-RpcEndpoint', 'Get-RpcServer', 'Set-GlobalSymbolResolver',
           'Copy-NtToken', 'Get-RpcAlpcServer', 'Get-NtObjectFromHandle', 'Start-Win32ChildProcess', 'Get-NtKeyValue',
           'Start-NtFileOplock', 'Format-RpcServer', 'Get-NtProcessMitigationPolicy',
@@ -95,7 +95,7 @@ FunctionsToExport = 'Get-AccessibleAlpcPort', 'Set-NtTokenPrivilege',
           'Unprotect-LsaAuthToken', 'Get-KerberosTicket', 'Get-NdrComplexType', 'Get-NtProcessUser',
           'Get-NtProcessEnvironment', 'Split-Win32CommandLine', 'Send-NtWindowMessage', 'Get-NtKeyHive',
           'Backup-NtKey', 'Restore-NtKey', 'Enable-NtTokenVirtualization', 'Disable-NtTokenVirtualization',
-          'Read-NtFile', 'Write-NtFile', 'Get-FilterConnectionPort', 'Get-FilterDriver', 
+          'Read-NtFile', 'Write-NtFile', 'Get-FilterConnectionPort', 'Get-FilterDriver',
           'Get-FilterDriverInstance', 'Get-FilterDriverVolume', 'Get-FilterDriverVolumeInstance',
           'Add-NtEaBuffer', 'Remove-NtFileEa', 'Get-NtDeviceSetupClass', 'Get-NtDeviceNode',
           'Get-NtDeviceInterfaceClass', 'Get-NtDeviceProperty', 'Get-NtDeviceNodeChild',
@@ -117,10 +117,10 @@ FunctionsToExport = 'Get-AccessibleAlpcPort', 'Set-NtTokenPrivilege',
           'Get-RpcStringBinding', 'Start-Win32Service', 'Get-Win32ServiceConfig', 'Get-LsaContextSignature',
           'Test-LsaContextSignature', 'Protect-LsaContextMessage', 'Unprotect-LsaContextMessage',
           'New-LsaSecurityBuffer', 'Get-LsaSchannelCredential', 'Get-LsaCredSSPCredential',
-          'ConvertFrom-LsaSecurityBuffer', 'ConvertFrom-NtSid', 'Get-AppModelLoopbackException', 
+          'ConvertFrom-LsaSecurityBuffer', 'ConvertFrom-NtSid', 'Get-AppModelLoopbackException',
           'Add-AppModelLoopbackException', 'Remove-AppModelLoopbackException', 'Get-NtSDKName',
           'Wait-Win32Service', 'Send-Win32Service', 'Get-Win32ServiceTrigger', 'Set-Win32ServiceSecurityDescriptor',
-          'Restart-Win32Service', 'Test-Win32Service', 'Format-KerberosTicket', 'ConvertFrom-HexDump', 
+          'Restart-Win32Service', 'Test-Win32Service', 'Format-KerberosTicket', 'ConvertFrom-HexDump',
           'Get-Win32ModuleResource', 'Get-LsaPolicy', 'Connect-SamServer', 'Get-SamDomain', 'Get-SamUser',
           'Get-SamAlias', 'Get-SamGroup', 'Get-LsaPrivateData', 'Set-LsaPrivateData', 'Get-LsaAccount',
           'Get-LsaTrustedDomain', 'Get-LsaSecret', 'Get-SamAliasMember', 'Get-SamGroupMember',
@@ -135,7 +135,7 @@ FunctionsToExport = 'Get-AccessibleAlpcPort', 'Set-NtTokenPrivilege',
           'Reset-NtTokenGroup', 'Enable-NtTokenGroup', 'Disable-NtTokenGroup', 'Get-FwNetEvent',
           'Read-FwNetEvent', 'New-FwNetEventListener', 'Start-FwNetEventListener', 'Get-IPsecSaContext',
           'Get-FwEngineOption', 'Set-FwEngineOption', 'New-FwNetEventTemplate', 'Add-FwCondition',
-          'Get-FwCallout', 'Add-RpcClientSecurityContext', 'Set-RpcClientSecurityContext', 
+          'Get-FwCallout', 'Add-RpcClientSecurityContext', 'Set-RpcClientSecurityContext',
           'Get-RpcClientSecurityContext', 'Get-RpcServicePrincipalName', 'Get-FwProvider',
           'Update-Win32Environment', 'New-KerberosChecksum', 'New-KerberosPrincipalName',
           'New-KerberosAuthenticator', 'New-KerberosApRequest', 'New-KerberosTicket',
@@ -152,23 +152,23 @@ FunctionsToExport = 'Get-AccessibleAlpcPort', 'Set-NtTokenPrivilege',
           'Select-NtImageFile'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = 'Add-NtKeyHive', 'Get-NtDirectory', 'Get-NtEvent', 'Get-NtFile', 
-               'Get-NtFileReparsePoint', 'Get-NtHandle', 'Get-NtKey', 'Get-NtMutant', 
-               'Get-NtNamedPipeFile', 'Get-NtObject', 'Get-NtProcess', 
-               'Get-NtSemaphore', 'Get-NtStatus', 'Get-NtSymbolicLink', 
-               'Get-NtSymbolicLinkTarget', 'Get-NtThread', 'Get-NtToken', 'Get-NtType', 
-               'New-NtDirectory', 'New-NtEvent', 'New-NtFile', 'New-NtKey', 
-               'New-NtMailslotFile', 'New-NtMutant', 'New-NtNamedPipeFile', 
-               'New-NtSecurityDescriptor', 'New-NtSemaphore', 'New-NtSymbolicLink', 
+CmdletsToExport = 'Add-NtKeyHive', 'Get-NtDirectory', 'Get-NtEvent', 'Get-NtFile',
+               'Get-NtFileReparsePoint', 'Get-NtHandle', 'Get-NtKey', 'Get-NtMutant',
+               'Get-NtNamedPipeFile', 'Get-NtObject', 'Get-NtProcess',
+               'Get-NtSemaphore', 'Get-NtStatus', 'Get-NtSymbolicLink',
+               'Get-NtSymbolicLinkTarget', 'Get-NtThread', 'Get-NtToken', 'Get-NtType',
+               'New-NtDirectory', 'New-NtEvent', 'New-NtFile', 'New-NtKey',
+               'New-NtMailslotFile', 'New-NtMutant', 'New-NtNamedPipeFile',
+               'New-NtSecurityDescriptor', 'New-NtSemaphore', 'New-NtSymbolicLink',
                'Remove-NtFileReparsePoint', 'Start-NtWait', 'Use-NtObject',
                'Get-NtSid', 'Get-NtSection', 'New-NtSection', 'Get-AccessibleAlpcPort',
                'Get-AccessibleKey', 'Get-AccessibleProcess', 'Get-AccessibleFile',
                'Get-AccessibleObject', 'Get-NtAccessMask', 'Get-AccessibleDevice',
                'Get-AccessibleNamedPipe', 'Get-NtGrantedAccess', 'Get-NtJob', 'New-NtJob',
                'Get-AccessibleService', 'Get-AccessibleHandle', 'Remove-NtKeyHive', 'New-NtToken',
-               'Remove-NtFile', 'Get-NtDirectoryChild', 'Get-NtKeyChild', 'Add-DosDevice', 
+               'Remove-NtFile', 'Get-NtDirectoryChild', 'Get-NtKeyChild', 'Add-DosDevice',
                'Remove-DosDevice', 'Get-NtFileChild', 'Set-NtFileReparsePoint',
-               'Get-NtPartition', 'New-NtPartition', 'Get-NtWaitTimeout', 'New-NtTransaction', 
+               'Get-NtPartition', 'New-NtPartition', 'Get-NtWaitTimeout', 'New-NtTransaction',
                'Get-NtTransaction', 'New-NtTransactionManager', 'Get-NtTransactionManager',
                'Connect-NtAlpcClient', 'New-NtAlpcServer', 'New-NtAlpcPortAttributes',
                'New-NtAlpcMessage', 'Send-NtAlpcMessage', 'Receive-NtAlpcMessage',
@@ -181,7 +181,7 @@ CmdletsToExport = 'Add-NtKeyHive', 'Get-NtDirectory', 'Get-NtEvent', 'Get-NtFile
                'New-NtFileHardlink', 'Test-NetworkAccess', 'Get-AccessibleScheduledTask',
                'Compare-RpcServer', 'Select-RpcServer', 'Add-NtTokenSecurityAttribute',
                'Remove-NtTokenSecurityAttribute', 'Get-AccessibleEventTrace',
-               'Test-NtTokenImpersonation', 'Get-AccessibleToken', 'Set-NtProcessJob', 
+               'Test-NtTokenImpersonation', 'Get-AccessibleToken', 'Set-NtProcessJob',
                'Get-AccessibleWnf', 'Get-AccessibleWindowStation', 'Get-NtProcessJob',
                'Get-NtWindowStation', 'Get-NtDesktop', 'New-NtWindowStation',
                'New-NtDesktop', 'Get-Win32Error', 'Set-NtKeyValue', 'Remove-NtKey',
@@ -205,9 +205,9 @@ CmdletsToExport = 'Add-NtKeyHive', 'Get-NtDirectory', 'Get-NtEvent', 'Get-NtFile
                'Get-Win32GrantedAccess', 'Get-AccessibleFwObject', 'New-KerberosKdcProxy', 'Get-RpcProcess'
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = 'Get-NtEaBuffer', 'Set-NtEaBuffer', 'Get-AuthPackage', 'Read-AuthCredential', 'Get-AuthCredential', 
-                'Get-AuthCredentialHandle', 'Get-AuthClientContext', 'Get-AuthServerContext', 'Update-AuthClientContext', 
-                'Update-AuthServerContext', 'Get-AuthAccessToken', 'Get-AuthToken', 'Test-AuthContext', 'Format-AuthToken', 
+AliasesToExport = 'Get-NtEaBuffer', 'Set-NtEaBuffer', 'Get-AuthPackage', 'Read-AuthCredential', 'Get-AuthCredential',
+                'Get-AuthCredentialHandle', 'Get-AuthClientContext', 'Get-AuthServerContext', 'Update-AuthClientContext',
+                'Update-AuthServerContext', 'Get-AuthAccessToken', 'Get-AuthToken', 'Test-AuthContext', 'Format-AuthToken',
                 'Export-AuthToken', 'Import-AuthToken', 'Unprotect-AuthToken', 'Out-HexDump', 'Get-NtMappedSection',
                 'Unprotect-RC4'
 
@@ -232,12 +232,12 @@ PrivateData = @{
 
 NOTE: This version is a major refactor of the code. Scripts which only use exposed PowerShell commands
 should work when upgrading from v1 to v2, however if you use internal APIs it will almost certainly
-not work due to refactoring and renaming. Going forward it''s recommended to not rely on internal 
+not work due to refactoring and renaming. Going forward it''s recommended to not rely on internal
 APIs to work across releases.
 '
 
     } # End of PSData hashtable
-    
+
  } # End of PrivateData hashtable
 
 }

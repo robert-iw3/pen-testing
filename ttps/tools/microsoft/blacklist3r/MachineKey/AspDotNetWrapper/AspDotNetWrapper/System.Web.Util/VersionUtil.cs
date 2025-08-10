@@ -1,12 +1,12 @@
 ﻿//------------------------------------------------------------------------------
 // <copyright file="VersionUtil.cs" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>                                                                
+// </copyright>
 //------------------------------------------------------------------------------
 
 /*
  * Helper class for performing common operations on Version objects
- * 
+ *
  * Copyright (c) 2009 Microsoft Corporation
  */
 

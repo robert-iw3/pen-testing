@@ -48,7 +48,7 @@ Now on the machine you plan to use as a server, run `server.py` (with the argume
 
 The server has direct access to the sqlite backend of the C2 framework. The server also hosts all web pages used for the REST API.
 
-The wrapper script for the C2 server is `server.py`. 
+The wrapper script for the C2 server is `server.py`.
 
 The flask app that is hosted by server.py makes many calls to the classes in `resources.py`. `Resources.py` makes calls to functions within `sql_db.py` for interacting with the sqlite database and `crypto.py` for encrypting or decrypting data.
 
@@ -57,26 +57,26 @@ The sqlite database stores all our data in the database "SGCC.db" and the tables
 The flask app manages the following endpoints:
 
 1. /tasks : You will also need to specify /[implant_id] when querying.
-    
-    a.  On GET, /tasks will make a sqlite query for the rowid, task_type, and task_options for every task entry where the "results" column is equal to the default "pending". Before presenting to the end user, the C2 server will "sign" the task with a shared key by performing a SHA256 hash of string "[rowid],[task_type],[task_opt]" and then AES-256 encrypting it with a shared key with the implant. That hash is then base64 encoded, and inputed into another round of AES-256 encryption with the same shared key, and then base64 encoded again. This is done for each entry, with a newline character as the delimeter between entries. 
-    
+
+    a.  On GET, /tasks will make a sqlite query for the rowid, task_type, and task_options for every task entry where the "results" column is equal to the default "pending". Before presenting to the end user, the C2 server will "sign" the task with a shared key by performing a SHA256 hash of string "[rowid],[task_type],[task_opt]" and then AES-256 encrypting it with a shared key with the implant. That hash is then base64 encoded, and inputed into another round of AES-256 encryption with the same shared key, and then base64 encoded again. This is done for each entry, with a newline character as the delimeter between entries.
+
     b. On POST, /tasks will be updated with the requested task. This is done when a C2 client wants to have an implant run a specific task.
 
 2. /results : You will also need to specify [implant_id] when querying.
 
-    a. On GET, /results will return completed tasks in an html table and 200 status code. 
-    
+    a. On GET, /results will return completed tasks in an html table and 200 status code.
+
     b. On POST, /results will take the body of the request, base64 decode it, query the sqlite database for the implant id associated with the task_id, then use the shared key to AES-256 decrypt it. Then the implant will split the returned value of the results with the "signature" of the results from the implant. The base64 "signature" will be decoded, decrypted, and then if the hash is equal to the SHA256 hash of the results, then the results will be printed to the server terminal and the mysql database will be updated with the last time of results.
 
-3. /history : 
+3. /history :
 
-    a. On GET, /history will return a query result formatted into an HTML table of all the tasks and results in the mysql database. 
-    
+    a. On GET, /history will return a query result formatted into an HTML table of all the tasks and results in the mysql database.
+
     b. On POST, /history will return a 200 status code.
 4. /implants : you must also specify implant type
 
-    a. on GET, implants will return a 200 status code. 
-    
+    a. on GET, implants will return a 200 status code.
+
     b. On POST, /implants will generate a new auto-obfuscated implant based in the format specified by the request. The default save location is the Payloads folder.
 
 5. /socks : you must also specify implant id
@@ -106,7 +106,7 @@ The client interacts with the server via a REST API. The client will use the com
 2. post-tasks : sends a POST request to /tasks/[implant id] and has the server make a mysql entry to record that the implant has been requested to do the specific task. Use the -i for specifying the implant id and the -t for specifying the task. For tasks that require arguments make sure that the entire -t is in quotes, if you need to pass quotes, escape them with `\"`. The following tasks and syntax you can run are:
 
     a. `ipconfig` - use this to run `ipconfig /all` on the system
-    
+
     b. `whoami` - use this to run `whoami /all` on the system
 
     c. `dir [directory]` - use this to dir a specific directory or file using the `ls` powershell commandlet
@@ -121,11 +121,11 @@ The client interacts with the server via a REST API. The client will use the com
 
     h. `upload [local_file] [remote_file]` - uploads the local file from your client machine to the target as remote_file.
 
-    i. `cd [directory]` - changes the directory 
+    i. `cd [directory]` - changes the directory
 
     j. `iex [command]` - whatever follows iex is piped to it.
 
-    k. `socks-start [handler_port] [proxy_port] [cert.pem] [private.key]` - starts a socks proxy, will proxy over the C2 server port `[proxy_port]` and the implant will callback to `[handler_port]`. 
+    k. `socks-start [handler_port] [proxy_port] [cert.pem] [private.key]` - starts a socks proxy, will proxy over the C2 server port `[proxy_port]` and the implant will callback to `[handler_port]`.
 
     l. `socks-stop` - stops the socks proxy for this implant
 
@@ -134,7 +134,7 @@ The client interacts with the server via a REST API. The client will use the com
 ### Implants
 
 Implants are the executable or script that are run on the target machine that gives the SGCC user control over it. Implants run the following infinitely:
-1. get-tasks : gets the tasks awaiting it via a GET request to /tasks/[implant_id] on the C2 server. The HTML GET response is split over the newline character and if the task has data (to prevent operations on null data. Null data occurs in some formats when using the split function and can occur if there are no tasks awaiting the implant) the following operations are performed against it. 
+1. get-tasks : gets the tasks awaiting it via a GET request to /tasks/[implant_id] on the C2 server. The HTML GET response is split over the newline character and if the task has data (to prevent operations on null data. Null data occurs in some formats when using the split function and can occur if there are no tasks awaiting the implant) the following operations are performed against it.
 
     a. task string is base64 decoded
 
@@ -148,7 +148,7 @@ Implants are the executable or script that are run on the target machine that gi
     e. the jobs_list array is updated with this task string
 2. execute-jobs : the execute jobs function loops over each job in the jobs_list array and uses the task_type value to specify which function to execute next. The appropriate function is given job_args as arguments and the results are returned to execute-jobs. Execute-jobs will then chunk the data according to max_data_size. The response back to the server will be "signed" via a SHA-256 hashing and AES-256 encrypting with the shared key. The POST to /results will be a string with the values task_id, results_chunk, results_time, and the "signature" separated by the string ```<br>```. The result time is the current time of execution in UTC. The jobs_list entry will then be updated (if the chunked response did not contain all the data and there is still more results to be sent) with the full results, and the last byte that was sent (so chunking can resume at that byte). If the last byte is equal to "true" and not an integer value, then all data has been sent and the job will be removed from the job list.
 
-3. sleep : the implant will calculate a random value with the lowest value being (sleep * (1-jitter)) and the highest value being sleep, and then sleep for that amount of time. 
+3. sleep : the implant will calculate a random value with the lowest value being (sleep * (1-jitter)) and the highest value being sleep, and then sleep for that amount of time.
 
 #### Powershell
 

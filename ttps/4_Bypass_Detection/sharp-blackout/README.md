@@ -1,5 +1,5 @@
 # SharpBlackout
- Terminate AV/EDR leveraging BYOVD attack 
+ Terminate AV/EDR leveraging BYOVD attack
 
 
 > Note: This project is for educational purposes only.

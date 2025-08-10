@@ -1,5 +1,5 @@
 # Invoke-PowerDPAPI
-Invoke-PowerDPAPI is a PowerShell port of some [SharpDPAPI](https://github.com/GhostPack/SharpDPAPI) and [SharpSCCM](https://github.com/Mayyhem/SharpSCCM) functionality. 
+Invoke-PowerDPAPI is a PowerShell port of some [SharpDPAPI](https://github.com/GhostPack/SharpDPAPI) and [SharpSCCM](https://github.com/Mayyhem/SharpSCCM) functionality.
 
 For the moment this is limited to SYSTEM level functions such as triaging SYSTEM master keys and decrpypting the following secrets:
 
@@ -47,13 +47,13 @@ Invoke-PowerDPAPI MachineVaults
 [*] Triaging Vault Folder: C:\Windows\System32\config\systemprofile\AppData\Local\Microsoft\Vault\4BF4C442-9B8A-41A0-B380-DD4A704DDB28
 
   VaultID            : 4bf4c442-9b8a-41a0-b380-dd4a704ddb28
-  Name               : Web Credentials 
+  Name               : Web Credentials
     guidMasterKey    : {e922342f-143e-4b65-a25b-e83354a47007}
     size             : 324
     flags            : 0x20000000 (CRYPTPROTECT_SYSTEM)
     algHash/algCrypt : 32782 (CALG_SHA_512) / 26128 (CALG_AES_256)
-    description      : 
-    guidMasterKey    : 
+    description      :
+    guidMasterKey    :
     size             : 324
     flags            : 0x20000000 (CRYPTPROTECT_SYSTEM)
     algHash/algCrypt : 32782 (CALG_SHA_512) / 26128 (CALG_AES_256)
@@ -79,16 +79,16 @@ Folder       : C:\Windows\System32\config\systemprofile\AppData\Local\Microsoft\
     algHash/algCrypt : 32782 (CALG_SHA_512) / 26128 (CALG_AES_256)
     description      : Local Credential Data
 
-    guidMasterKey    : 
+    guidMasterKey    :
     size             : 264
     flags            : 0x00000030 (CRYPTPROTECT_SYSTEM)
     algHash/algCrypt : 32782 (CALG_SHA_512) / 26128 (CALG_AES_256)
     description      : Local Credential Data
     LastWritten      : 6/19/2025 12:18:59 AM
-    TargetName       : Domain:batch=TaskScheduler:Task:{52340B14-C919-4223-970B-103AAAFE2720} 
-    TargetAlias      : 
-    Comment          : 
-    UserName         : ludus\domainuser 
+    TargetName       : Domain:batch=TaskScheduler:Task:{52340B14-C919-4223-970B-103AAAFE2720}
+    TargetAlias      :
+    Comment          :
+    UserName         : ludus\domainuser
     Credential       : password
 ```
 &nbsp;
@@ -113,16 +113,16 @@ Invoke-PowerDPAPI SCCM_WMI -SaveTS # Saves Task Sequences in XML format to PWD
     size             : 266
     flags            : 0x00000000
     algHash/algCrypt : 32782 (CALG_SHA_512) / 26128 (CALG_AES_256)
-    description      :  
+    description      :
     guidMasterKey    : {8173b631-3636-4c96-81e7-ae2c8fd60632}
     size             : 250
     flags            : 0x00000000
     algHash/algCrypt : 32782 (CALG_SHA_512) / 26128 (CALG_AES_256)
-    description      :  
+    description      :
 
 
-    Network Access Username: ludus\sccm_naa_2 
-    Network Access Password: password123 
+    Network Access Username: ludus\sccm_naa_2
+    Network Access Password: password123
 
 [+] Found 2 Task Sequence(s)
 [+] Decrypting Task Sequences
@@ -131,9 +131,9 @@ Invoke-PowerDPAPI SCCM_WMI -SaveTS # Saves Task Sequences in XML format to PWD
     size             : 8042
     flags            : 0x00000000
     algHash/algCrypt : 32782 (CALG_SHA_512) / 26128 (CALG_AES_256)
-    description      :  
+    description      :
 
-[+]    Task Sequence: 
+[+]    Task Sequence:
 <sequence version="3.10">
   <step type="SMS_TaskSequence_RunCommandLineAction" name="Run SQL CMD" description="" runIn="WinPEandFullOS" successCodeList="0 3010" retryCount="0" runFromNet="false">
     <action>smsswd.exe /run: sqlcmd -S myserver.database.windows.net -d MyDatabase -U MyUserName -P MySecretPassword -Q "SELECT TOP 10 * FROM dbo.MyTable"</action>
@@ -161,22 +161,22 @@ Invoke-PowerDPAPI SCCM_Disk -SaveTS # Saves Task Sequences in XML format to PWD
     size             : 266
     flags            : 0x00000000
     algHash/algCrypt : 32782 (CALG_SHA_512) / 26128 (CALG_AES_256)
-    description      :  
+    description      :
     guidMasterKey    : {8173b631-3636-4c96-81e7-ae2c8fd60632}
     size             : 250
     flags            : 0x00000000
     algHash/algCrypt : 32782 (CALG_SHA_512) / 26128 (CALG_AES_256)
-    description      :  
+    description      :
 
-    NetworkAccessUsername: ludus\sccm_naa_2 
-    NetworkAccessPassword: password123 
+    NetworkAccessUsername: ludus\sccm_naa_2
+    NetworkAccessPassword: password123
 
 [+] Decrypting 1 task sequence secrets
     guidMasterKey    : {8173b631-3636-4c96-81e7-ae2c8fd60632}
     size             : 2154
     flags            : 0x00000000
     algHash/algCrypt : 32782 (CALG_SHA_512) / 26128 (CALG_AES_256)
-    description      :  
+    description      :
 
 <sequence version="3.10">
   <step type="SMS_TaskSequence_RunCommandLineAction" name="Run SQL CMD" description="" runIn="WinPEandFullOS" successCodeList="0 3010" retryCount="0" runFromNet="false">

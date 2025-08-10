@@ -58,7 +58,7 @@ BOOL GetProcessList(char *arg1 )
         cout << "[*] process found, exit: " << (ProcessName) << endl;
         return (TRUE);
     }
-    
+
   } while( Process32Next( hProcessSnap, &pe32 ) );
 
   CloseHandle( hProcessSnap );

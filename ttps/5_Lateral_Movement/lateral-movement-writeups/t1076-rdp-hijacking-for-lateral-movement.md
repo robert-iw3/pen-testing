@@ -24,7 +24,7 @@ We are now reconnected to the `spotless` session:
 
 ![](../../.gitbook/assets/rdp-spotless.png)
 
-Now this is where it gets interesting. It is possible to reconnect to a users session without knowing their password if you have `SYSTEM` level privileges on the system.   
+Now this is where it gets interesting. It is possible to reconnect to a users session without knowing their password if you have `SYSTEM` level privileges on the system.
 Let's elevate to `SYSTEM` using psexec \(privilege escalation exploits, service creation or any other technique will also do\):
 
 ```text

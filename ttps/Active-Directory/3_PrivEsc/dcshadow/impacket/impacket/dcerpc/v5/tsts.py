@@ -8,18 +8,18 @@
 #
 # Description:
 #   [MS-TSTS] Terminal Services Terminal Server Runtime Interface Protocol implementation
-# 
+#
 # Interface Implementation based on:
 #   [MS-TSTS] - v20210625: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-tsts/
 #   [MS-TSTS] – v20080207: https://docplayer.net/22134151-Ms-tsts-terminal-services-terminal-server-runtime-interface-protocol-specification.html
-# 
+#
 #   Some RPC Calls are marked with #COMMENT_LIKE tags with following meaning:
 #       #NOT_IMPLEMENTED : RPC Call or Structure is not implemented in current revision.
 #       #DOES_NOT_WORK   : I was unable to acheive documented response or properly construct RPC request.
 #       #OLD             : RPC Call was taken from [MS-TSTS] – v20080207 documentation, which might be deprecated.
-# 
+#
 #   Some not implemented RPC Calls and structures contains with multi-line comments for future work
-# 
+#
 # Author:
 #   Alexander Korznikov (@nopernik) https://korznikov.com
 #
@@ -108,16 +108,16 @@ FALLBACK_PS                          = 0x3
 FALLBACK_PCLANDPS                    = 0x4
 VIRTUALCHANNELNAME_LENGTH            = 7
 
-WINSTATION_QUERY        = 0x00000001    # WinStationQueryInformation() 
-WINSTATION_SET          = 0x00000002    # WinStationSetInformation() 
-WINSTATION_RESET        = 0x00000004    # WinStationReset() 
-WINSTATION_VIRTUAL      = 0x00000008    # read/write direct data 
-WINSTATION_SHADOW       = 0x00000010    # WinStationShadow() 
-WINSTATION_LOGON        = 0x00000020    # logon to WinStation 
-WINSTATION_LOGOFF       = 0x00000040    # WinStationLogoff() 
-WINSTATION_MSG          = 0x00000080    # WinStationMsg() 
-WINSTATION_CONNECT      = 0x00000100    # WinStationConnect() 
-WINSTATION_DISCONNECT   = 0x00000200    # WinStationDisconnect() 
+WINSTATION_QUERY        = 0x00000001    # WinStationQueryInformation()
+WINSTATION_SET          = 0x00000002    # WinStationSetInformation()
+WINSTATION_RESET        = 0x00000004    # WinStationReset()
+WINSTATION_VIRTUAL      = 0x00000008    # read/write direct data
+WINSTATION_SHADOW       = 0x00000010    # WinStationShadow()
+WINSTATION_LOGON        = 0x00000020    # logon to WinStation
+WINSTATION_LOGOFF       = 0x00000040    # WinStationLogoff()
+WINSTATION_MSG          = 0x00000080    # WinStationMsg()
+WINSTATION_CONNECT      = 0x00000100    # WinStationConnect()
+WINSTATION_DISCONNECT   = 0x00000200    # WinStationDisconnect()
 
 
 ################################################################################
@@ -235,7 +235,7 @@ class WSTR_STRIPPED(WSTR):
             return NDR.__getitem__(self,key)
 
 class LPWCHAR_STRIPPED(NDRPOINTER):
-    referent = ( 
+    referent = (
         ('Data', WIDESTR_STRIPPED),
     )
 
@@ -259,7 +259,7 @@ class WCHAR_ARRAY_32(WIDESTR_STRIPPED):
 class WCHAR_ARRAY_256(WIDESTR_STRIPPED):
     length = 256
 class WCHAR_ARRAY_33(WIDESTR_STRIPPED):
-    length = 33    
+    length = 33
 class WCHAR_ARRAY_21(WIDESTR_STRIPPED):
     length = 21
 class WCHAR_ARRAY_18(WIDESTR_STRIPPED):
@@ -310,7 +310,7 @@ class DCERPCSessionError(DCERPCException):
         key = self.error_code & 0xffff
         if key in system_errors.ERROR_MESSAGES:
             error_msg_short = system_errors.ERROR_MESSAGES[key][0]
-            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1] 
+            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1]
             return 'TSTS SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             return 'TSTS SessionError: unknown error code: 0x%x' % self.error_code
@@ -329,7 +329,7 @@ def getUnixTime(t):
 
 def enum2value(enum, key):
     return enum.enumItems._value2member_map_[key]._name_
-    
+
 class SID(TS_CHAR):
     def known_sid(self, sid):
         knownSids = {
@@ -501,7 +501,7 @@ class ADDRESSFAMILY_ENUM(NDRENUM):
         Packet                  = 65536
         Pup                     = 4
         Sna                     = 11
-        Unix	                = 1	
+        Unix	                = 1
         Unspecified             = 0
         VoiceView               = 18
 
@@ -638,7 +638,7 @@ BOUNDED_ULONG = ULONG #FIXME: typedef [range(0, 0x8000)] ULONG BOUNDED_ULONG; as
 
 # 2.2.1.17 UINT_PTR
 class UINT_PTR(NDRPOINTER):
-    referent = ( 
+    referent = (
         ('Data', UINT),
     )
 
@@ -774,7 +774,7 @@ class EXECENVDATA_LEVEL1(NDRSTRUCT):
         ('SessionName', WCHAR_ARRAY_33),
     )
 class PEXECENVDATA_LEVEL1(NDRPOINTER):
-    referent =  ( 
+    referent =  (
         ('Data', EXECENVDATA_LEVEL1),
     )
 # 2.2.2.6.1.2 EXECENVDATA_LEVEL2
@@ -790,7 +790,7 @@ class EXECENVDATA_LEVEL2(NDRSTRUCT):
         ('FarmName', WCHAR_ARRAY_33),
     )
 class PEXECENVDATA_LEVEL2(NDRPOINTER):
-    referent =  ( 
+    referent =  (
         ('Data', EXECENVDATA_LEVEL2),
     )
 # 2.2.2.6.1 ExecEnvData
@@ -814,7 +814,7 @@ class EXECENVDATA(NDRUniConformantArray):
     item = ExecEnvData_STRUCT
 
 class PEXECENVDATA(NDRPOINTER):
-    referent =  ( 
+    referent =  (
         ('Data', EXECENVDATA),
     )
 
@@ -849,7 +849,7 @@ class EXECENVDATAEX(NDRUniConformantArray):
     item = ExecEnvDataEx
 
 class PEXECENVDATAEX(NDRPOINTER):
-    referent =  ( 
+    referent =  (
         ('Data', EXECENVDATAEX),
     )
 
@@ -883,7 +883,7 @@ class LISTENERENUM(NDRUniConformantArray):
 class PLISTENERENUM(NDRPOINTER):
     referent = (
         ('Data', LISTENERENUM),
-    )    
+    )
 # 2.2.2.8 PLSMSESSIONINFORMATION
 class LSMSESSIONINFORMATION(NDRSTRUCT):
     structure = (
@@ -909,7 +909,7 @@ class TS_SYSTEMTIME(NDRSTRUCT):
         ('wMinute', USHORT),
         ('wSecond', USHORT),
         ('wMilliseconds', USHORT),
-    )  
+    )
 
 # 2.2.2.19.1 TS_TIME_ZONE_INFORMATION
 class TS_TIME_ZONE_INFORMATION(NDRSTRUCT):
@@ -921,7 +921,7 @@ class TS_TIME_ZONE_INFORMATION(NDRSTRUCT):
         ('DaylightName', WCHAR_ARRAY_32),
         ('DaylightDate', TS_SYSTEMTIME),
         ('DaylightBias', ULONG),
-    )  
+    )
 
 
 # 2.2.2.19 WINSTATIONCLIENT
@@ -992,7 +992,7 @@ class WINSTATIONCLIENT(NDRSTRUCT):
         ('clientDigProductId', WCHAR_CLIENT_PRODUCT_ID_LENGTH),
         ('PerformanceFlags', ULONG),
         ('ActiveInputLocale', ULONG),
-    )  
+    )
 
 class PWINSTATIONCLIENT(NDRPOINTER):
     referent = (
@@ -1055,7 +1055,7 @@ class LSM_SESSIONINFO_EX(NDRUNION):
     union = {
         1: ('LSM_SessionInfo_Level1', LSM_SESSIONINFO_EX_LEVEL1),
     }
-    
+
 
 # 2.2.2.9 PLSMSESSIONINFORMATION_EX
 class PLSMSESSIONINFORMATION_EX(NDRPOINTER):
@@ -1076,7 +1076,7 @@ class TNotificationId(NDRENUM):
         WTS_NOTIFY_LOGON                = 0x8        #Session logon notification
         WTS_NOTIFY_LOGOFF               = 0x10       #Session logoff notification
         WTS_NOTIFY_SHADOW_START         = 0x20       #Session shadow start notification
-        WTS_NOTIFY_SHADOW_STOP          = 0x40       #Session shadow stop notification 
+        WTS_NOTIFY_SHADOW_STOP          = 0x40       #Session shadow stop notification
         WTS_NOTIFY_TERMINATE            = 0x80       #Session termination notification
         WTS_NOTIFY_CONSOLE_CONNECT      = 0x100      #Console session connection notification
         WTS_NOTIFY_CONSOLE_DISCONNECT   = 0x200      #Console session disconnect notification
@@ -1090,7 +1090,7 @@ class SESSION_CHANGE(NDRSTRUCT):
         ('SessionId', LONG),
         ('TNotificationId', TNotificationId),
     )
-    
+
 class SESSION_CHANGE_ARRAY(NDRUniConformantArray):
     item = SESSION_CHANGE
 
@@ -1254,7 +1254,7 @@ class RCM_REMOTEADDRESS_UNION_CASE_IPV4(NDRSTRUCT):
     class _4CHAR(NDRSTRUCT):
         structure = (
             ('sin_zero', '4s=b""'),
-        )    
+        )
     structure = (
         ('sin_port', USHORT),
         ('sin_port2', USHORT),
@@ -1266,7 +1266,7 @@ class RCM_REMOTEADDRESS_UNION_CASE_IPV6(NDRSTRUCT):
     class _8CHAR(NDRSTRUCT):
         structure = (
             ('sin_zero', '8s=b""'),
-        )    
+        )
     structure = (
         ('sin_port', USHORT),
         ('in_addr', ULONG),
@@ -1321,7 +1321,7 @@ class TS_SYS_PROCESS_INFORMATION(NDRSTRUCT):
          ('CreateTime', LARGE_INTEGER),
          ('UserTime', LARGE_INTEGER),
          ('KernelTime', LARGE_INTEGER),
-         ('ImageNameSize', RPC_UNICODE_STRING), 
+         ('ImageNameSize', RPC_UNICODE_STRING),
          ('BasePriority', LONG),
          ('UniqueProcessId', DWORD),
          ('InheritedFromUniqueProcessId', DWORD),
@@ -1357,14 +1357,14 @@ class TS_ALL_PROCESSES_INFO(NDRSTRUCT):
         ('SizeOfSid', DWORD),
         ('pSid', TS_CHAR),
     )
- 
+
 class TS_ALL_PROCESSES_INFO_ARRAY(NDRUniConformantVaryingArray):
     item = TS_SYS_PROCESS_INFORMATION
 
 class PTS_ALL_PROCESSES_INFO(NDRPOINTER):
     referent = (
         ('Data', TS_ALL_PROCESSES_INFO_ARRAY),
-    )    
+    )
 
 
 #NOT_IMPLEMENTED 2.2.2.30 WINSTATIONCONFIG2
@@ -1772,7 +1772,7 @@ class RpcGetSessionIds(NDRCALL):
     opnum = 8
     structure = (
         ('handle_t', handle_t),
-        ('Filter', SESSION_FILTER), # who knows... 
+        ('Filter', SESSION_FILTER), # who knows...
         ('MaxEntries', ULONG),
     )
 class RpcGetSessionIdsResponse(NDRCALL):
@@ -1825,7 +1825,7 @@ class RpcGetAllSessionsExResponse(NDRCALL):
     structure = (
         ('Buffer', UNKNOWNDATA),
     )
-    
+
 # 3.5.4.1 RCMPublic bde95fdf-eee0-45de-9e12-e5a61cd0d4fe \pipe\TermSrv_API_service
 # 3.5.4.1.1 RpcGetClientData (Opnum 0)
 class RpcGetClientData(NDRCALL):
@@ -2120,7 +2120,7 @@ class RpcWinStationCloseServerResponse(NDRCALL):
         ('ErrorCode', BOOLEAN),
     )
 
-#FIXME 3.7.4.1.3 RpcIcaServerPing (Opnum 2) 
+#FIXME 3.7.4.1.3 RpcIcaServerPing (Opnum 2)
 # Expected TRUE got FALSE
 class RpcIcaServerPing(NDRCALL):
     opnum = 2
@@ -2147,7 +2147,7 @@ class RpcWinStationEnumerate(NDRCALL):
     [in, out] PULONG pByteCount,
     [in, out] PULONG pIndex
     );
-    '''    
+    '''
     opnum = 3
     structure = (
         ('hServer', SERVER_HANDLE),
@@ -2253,14 +2253,14 @@ class RpcWinStationSendMessage(NDRCALL):
         ('Style', DWORD),
         ('Timeout', DWORD),
         ('DoNotWait', BOOLEAN),
-    )    
+    )
 class RpcWinStationSendMessageResponse(NDRCALL):
     structure = (
         ('pResult', pResult_ENUM),
         ('pResponse', DWORD),
         ('ErrorCode', BOOLEAN),
     )
-    
+
 # 3.7.4.1.9 RpcLogonIdFromWinStationName (Opnum 8)
 class RpcLogonIdFromWinStationName(NDRCALL):
     opnum = 8
@@ -2322,13 +2322,13 @@ class RpcWinStationVirtualOpen(NDRCALL):
         ('Pid', DWORD),
         ('pVirtualName', TS_CHAR),
         ('NameSize', '<L=len(pVirtualName["Data"])'),
-    ) 
+    )
 class RpcWinStationVirtualOpenResponse(NDRCALL):
     structure = (
         ('pResult', pResult_ENUM),
         ('pHandle', ULONG),
         ('ErrorCode', BOOLEAN),
-    )    
+    )
 #OLD 3.6.4.1.13 RpcWinStationBeepOpen (Opnum 12)
 # Does not work remotely
 class RpcWinStationBeepOpen(NDRCALL):
@@ -2337,13 +2337,13 @@ class RpcWinStationBeepOpen(NDRCALL):
         ('hServer', SERVER_HANDLE),
         ('LogonId', DWORD),
         ('Pid', DWORD),
-    ) 
+    )
 class RpcWinStationBeepOpenResponse(NDRCALL):
     structure = (
         ('pResult', pResult_ENUM),
         ('pHandle', ULONG),
         ('ErrorCode', BOOLEAN),
-    ) 
+    )
 # 3.7.4.1.12 RpcWinStationDisconnect (Opnum 13)
 class RpcWinStationDisconnect(NDRCALL):
     opnum = 13
@@ -2371,7 +2371,7 @@ class RpcWinStationResetResponse(NDRCALL):
     structure = (
         ('pResult', pResult_ENUM),
         ('ErrorCode', BOOLEAN),
-    ) 
+    )
 # 3.7.4.1.14 RpcWinStationShutdownSystem (Opnum 15)
 class RpcWinStationShutdownSystem(NDRCALL):
     opnum = 15
@@ -2385,7 +2385,7 @@ class RpcWinStationShutdownSystemResponse(NDRCALL):
     structure = (
         ('pResult', pResult_ENUM),
         ('ErrorCode', BOOLEAN),
-    ) 
+    )
 # 3.7.4.1.15 RpcWinStationWaitSystemEvent (Opnum 16)
 class RpcWinStationWaitSystemEvent(NDRCALL):
     opnum = 16
@@ -2399,7 +2399,7 @@ class RpcWinStationWaitSystemEventResponse(NDRCALL):
         ('pResult', pResult_ENUM),
         ('pEventFlags', DWORD),
         ('ErrorCode', BOOLEAN),
-    ) 
+    )
 # 3.7.4.1.16 RpcWinStationShadow (Opnum 17)
 # Does not work :(
 class RpcWinStationShadow(NDRCALL):
@@ -2505,7 +2505,7 @@ class RpcWinStationQueryUpdateRequiredResponse(NDRCALL):
         ('ErrorCode', BOOLEAN),
     )
 #OLD 3.6.4.1.23 RpcWinStationCallback (Opnum 28)
-# Not tested 
+# Not tested
 class RpcWinStationCallback(NDRCALL):
     opnum = 28
     '''
@@ -2530,7 +2530,7 @@ class RpcWinStationCallbackResponse(NDRCALL):
         ('pResult', pResult_ENUM),
         ('ErrorCode', BOOLEAN),
     )
-    
+
 # 3.7.4.1.17 RpcWinStationBreakPoint (Opnum 29)
 class RpcWinStationBreakPoint(NDRCALL):
     opnum = 29
@@ -2568,7 +2568,7 @@ class RpcWinStationWaitForConnect(NDRCALL):
         ('ClientProcessId', DWORD),
     )
 
-class RpcWinStationWaitForConnectResponse(NDRCALL): 
+class RpcWinStationWaitForConnectResponse(NDRCALL):
     structure = (
         ('pResult', pResult_ENUM),
         ('ErrorCode', BOOLEAN),
@@ -2595,7 +2595,7 @@ class RpcWinStationNotifyLogon(NDRCALL):
         ('pfIsRedirected', DWORD),
     )
 
-class RpcWinStationNotifyLogonResponse(NDRCALL): 
+class RpcWinStationNotifyLogonResponse(NDRCALL):
     structure = (
         ('pResult', pResult_ENUM),
         ('pfIsRedirected', BOOLEAN),
@@ -2612,7 +2612,7 @@ class RpcWinStationNotifyLogoff(NDRCALL):
         ('ClientProcessId', DWORD),
     )
 
-class RpcWinStationNotifyLogoffResponse(NDRCALL): 
+class RpcWinStationNotifyLogoffResponse(NDRCALL):
     structure = (
         ('pResult', pResult_ENUM),
         ('ErrorCode', BOOLEAN),
@@ -3131,7 +3131,7 @@ def hRpcLogoff(dce, hSession):
             resp['ErrorCode'] = 0
             return resp
         raise e
-        
+
     return dce.request(request)
 
 # 3.3.4.1.6 RpcGetUserName (Opnum 5)
@@ -3208,21 +3208,21 @@ def hRpcGetSessionInformationEx(dce, SessionId):
     request['Level'] = 1
     return dce.request(request)
     '''
-    RpcGetSessionInformationExResponse 
-    LSMSessionInfoExPtr:            
-    tag:                             1 
-    LSM_SessionInfo_Level1:         
-        SessionState:                    State_Active 
-        SessionFlags:                    WTS_SESSIONSTATE_UNLOCK 
-        SessionName:                     'RDP-Tcp#0' 
-        DomainName:                      'W11-WKS' 
-        UserName:                        'john' 
-        ConnectTime:                     datetime.datetime(2022, 5, 9, 2, 34, 48, 700543) 
-        DisconnectTime:                  datetime.datetime(2022, 5, 9, 2, 34, 48, 547684) 
-        LogonTime:                       datetime.datetime(2022, 5, 9, 2, 23, 31, 119361) 
-        LastInputTime:                   datetime.datetime(1601, 1, 1, 2, 20, 54) 
-        ProtocolDataSize:                1816 
-        ProtocolData:                    
+    RpcGetSessionInformationExResponse
+    LSMSessionInfoExPtr:
+    tag:                             1
+    LSM_SessionInfo_Level1:
+        SessionState:                    State_Active
+        SessionFlags:                    WTS_SESSIONSTATE_UNLOCK
+        SessionName:                     'RDP-Tcp#0'
+        DomainName:                      'W11-WKS'
+        UserName:                        'john'
+        ConnectTime:                     datetime.datetime(2022, 5, 9, 2, 34, 48, 700543)
+        DisconnectTime:                  datetime.datetime(2022, 5, 9, 2, 34, 48, 547684)
+        LogonTime:                       datetime.datetime(2022, 5, 9, 2, 23, 31, 119361)
+        LastInputTime:                   datetime.datetime(1601, 1, 1, 2, 20, 54)
+        ProtocolDataSize:                1816
+        ProtocolData:
     '''
 
 # 3.3.4.2 TermSrvNotification (LSM Notification); \PIPE\LSM_API_service; 11899a43-2b68-4a76-92e3-a3d6ad8c26ce
@@ -3354,7 +3354,7 @@ def hRpcCloseListener(dce, phListener):
     request = RpcCloseListener()
     request['phListener'] = phListener
     return dce.request(request)
-    
+
 # 3.5.4.2.3 RpcStopListener (Opnum 2)
 def hRpcStopListener(dce, phListener):
     request = RpcStopListener()
@@ -3578,7 +3578,7 @@ def hRpcWinStationGetAllProcesses(dce, hServer):
             data = data[len(procInfo)+4:]
         elif e:
             data = data[len(procInfo)+8:]
-            
+
         procInfo = TS_SYS_PROCESS_INFORMATION()
         procInfo.fromString(data)
         procs.append(procInfo)

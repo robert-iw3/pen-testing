@@ -2,9 +2,9 @@
 	about_ManagingNtObjectLifetime
 
 SHORT DESCRIPTION
-	Various Cmdlets in this library return objects which hold references to system resources. Its 
+	Various Cmdlets in this library return objects which hold references to system resources. Its
 	common that resources will need to be left open while operating on them otherwise the kernel will
-	delete them. It's also important to ensure these resources don't leak. The library provides a few 
+	delete them. It's also important to ensure these resources don't leak. The library provides a few
 	techniques to manage the lifetime of a resource.
 
 LONG DESCRIPTION
@@ -28,13 +28,13 @@ LONG DESCRIPTION
 	The final lifetime management technique is by using Use-NtObject. This cmdlet takes an input object
 	(which can be from the pipeline) and executes a ScriptBlock with that object. Once the ScriptBlock
 	completes the input object will be disposed of. It can be used for NtObjects but also for anything
-	which implements IDisposable such as FileStream instances. It will also dispose enumerations of 
+	which implements IDisposable such as FileStream instances. It will also dispose enumerations of
 	IDisposable	objects.
 
 EXAMPLES
 	Example 1: Create a new event with a nested directory.
 
-	$ev = New-NtEvent \BaseNamedObjects\ABC\XYZ\EventName -CreateDirectories	
+	$ev = New-NtEvent \BaseNamedObjects\ABC\XYZ\EventName -CreateDirectories
 	try {
 	  # Print out created event
 	  $ev[0] | Format-List
@@ -42,7 +42,7 @@ EXAMPLES
 	  # Dispose objects
 	  $ev.Dispose()
 	}
-	
+
 	Example 2: Manage lifetime in a pipeline using -CloseRoot.
 	$software_key = Get-NtKey \Registry\Machine\Software | New-NtKey MyKey -CloseRoot
 	# Key object to \Registry\Machine\Software is automatically closed.

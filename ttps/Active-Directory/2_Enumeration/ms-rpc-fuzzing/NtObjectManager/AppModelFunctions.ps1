@@ -349,7 +349,7 @@ function Read-DesktopAppxManifest {
 .SYNOPSIS
 Get a list AppX packages with Desktop Bridge components.
 .DESCRIPTION
-This cmdlet gets a list of installed AppX packages which are either directly full trust applications or 
+This cmdlet gets a list of installed AppX packages which are either directly full trust applications or
 have an extension which can be used to run full trust applications.
 .PARAMETER AllUsers
 Specify getting information for all users, needs admin privileges.

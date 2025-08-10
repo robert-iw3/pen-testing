@@ -1,6 +1,6 @@
 beacon_command_register(
-    "inject-amsiBypass", 
-    "Bypass AMSI in a remote process with code injection.", 
+    "inject-amsiBypass",
+    "Bypass AMSI in a remote process with code injection.",
     "Synopsis: inject-amsiBypass PID"
 );
 

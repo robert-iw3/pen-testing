@@ -21,8 +21,8 @@
 #                   It's copied on the temp dir and parsed remotely.
 #
 #              The script initiates the services required for its working
-#              if they are not available (e.g. Remote Registry, even if it is 
-#              disabled). After the work is done, things are restored to the 
+#              if they are not available (e.g. Remote Registry, even if it is
+#              disabled). After the work is done, things are restored to the
 #              original state.
 #
 # Author:

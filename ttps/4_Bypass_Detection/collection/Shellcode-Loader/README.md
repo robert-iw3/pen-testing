@@ -6,7 +6,7 @@ __________
 - Open the project in Visual Studio or use the following command to compile the code using .NET SDK:
 ```
 csc shellcodeloader.cs /
-csc loader_update.cs / 
+csc loader_update.cs /
 ```
 
 **Alternatively, you can compile in Release mode for better optimization:
@@ -22,7 +22,7 @@ To avoid detection by advanced EDR solutions, consider using methods such as pro
 
 <img align="left" src="https://injectexp.dev/assets/img/logo/logo1.png">
 Contacts:
-injectexp.dev / 
-pro.injectexp.dev / 
+injectexp.dev /
+pro.injectexp.dev /
 Telegram: @Evi1Grey5 [support]
 Tox: 340EF1DCEEC5B395B9B45963F945C00238ADDEAC87C117F64F46206911474C61981D96420B72

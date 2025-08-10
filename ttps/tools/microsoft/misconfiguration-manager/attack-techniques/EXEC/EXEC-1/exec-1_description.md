@@ -97,7 +97,7 @@ Note that any user with the `Application Administrator` role can also perform th
 
     Note that by default, the application is executed in the context of the currently logged on user, but can be executed as `SYSTEM` using the `-s` option.
 
-    The path (`calc.exe`) can be substituted for a UNC path where a binary resides (e.g., a C2 agent binary on a readable file share, `\\share\bin.exe`). 
+    The path (`calc.exe`) can be substituted for a UNC path where a binary resides (e.g., a C2 agent binary on a readable file share, `\\share\bin.exe`).
 
     Alternatively, the installation path can be set to the path for PowerShell to execute a script in on the device.
 
@@ -152,7 +152,7 @@ Note that any user with the `Application Administrator` role can also perform th
     Installation paths can include other programs and their arguments as well, so there are many possible ways to abuse this functionality.
 
 ### EXEC-1.2
-This technique to elicit NTLM authentication is no different than application deployment via EXEC-1.1, except that the installation path of outher malicious application is set to a UNC path on a relay server that the attacker controls. That way, when each SCCM client in the deployment group attempts to install the new application, it sends NTLM authentication to the attacker's listening machine via SMB (or HTTP, if WebClient is enabled). This is advantageous in scenarios where execution of PowerShell or a C2 agent binary is blocked or could result in detection. 
+This technique to elicit NTLM authentication is no different than application deployment via EXEC-1.1, except that the installation path of outher malicious application is set to a UNC path on a relay server that the attacker controls. That way, when each SCCM client in the deployment group attempts to install the new application, it sends NTLM authentication to the attacker's listening machine via SMB (or HTTP, if WebClient is enabled). This is advantageous in scenarios where execution of PowerShell or a C2 agent binary is blocked or could result in detection.
 
 Because SCCM has an option to install application deployments either as the logged-on user, a specific user, or as SYSTEM, an attacker can capture/relay credentials for users associated with a specific computer using SCCM as well.
 

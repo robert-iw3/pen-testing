@@ -163,7 +163,7 @@ check is performed just at the wrong moment).
 ### EDR bypass through minifilters' callbacks unlinking
 The Windows Filter Manager system allows an EDR to load a "minifilter" driver and
 register callbacks in order to be notified of I/O operations, such as file opening,
-reading, writing, etc. 
+reading, writing, etc.
 
 Here is a quick sum-up of different internal structures used by the filter manager:
 - The Filter Manager establishes a "frame" (`_FLTP_FRAME`) as its root structure;
@@ -173,27 +173,27 @@ named pipes or remote file systems);
 - To each registered minifilter driver corresponds a "filter" structure (`_FLT_FILTER`),
 describing various properties such as its supported operations;
 - These minifilters are not all attached to each volume; an "instance" (`_FLT_INSTANCE`)
-structure is created to mark each of the 
+structure is created to mark each of the
 		filter<->volume associations;
 - Minifilters register callback functions that are to be executed before and/or after
  specific operations (file open, write, read, etc.). These callbacks are described in
 `_CALLBACK_NODE` structures, and can be accessed by different ways:
   - An array of all `_CALLBACK_NODE`s implemented by an instance of a minifilter
-    can be found in the `_FLT_INSTANCE` structure; the array is indexed by the IRP 
-    "major function" code, a constant representing the operations handled by the 
+    can be found in the `_FLT_INSTANCE` structure; the array is indexed by the IRP
+    "major function" code, a constant representing the operations handled by the
     callbacks (`IRP_MJ_CREATE`, `IRP_MJ_READ`, etc.).
   - Also, all `_CALLBACK_NODE`s implemented by instances linked to a specific volume
   are regrouped in linked lists, stored in the `_FLT_VOLUME.Callbacks.OperationLists`
   array indexed by IRP major function codes.
 
-These different structures are browsed by `EDRSandblast` to detect filters that are 
-associated with EDR-related drivers, and the callback nodes containing monitoring 
-functions are enumerated. To disable their effect, the nodes are unlinked from their 
+These different structures are browsed by `EDRSandblast` to detect filters that are
+associated with EDR-related drivers, and the callback nodes containing monitoring
+functions are enumerated. To disable their effect, the nodes are unlinked from their
 lists, making them temporarily invisible from the filter manager.
 
-This way, during a specified period, the EDR can be completely unaware of any file 
+This way, during a specified period, the EDR can be completely unaware of any file
 operations. A basic example would be the creation of an lsass memory dump file on disk,
-that would not trigger any analysis from the EDR, and thus no detection based on the 
+that would not trigger any analysis from the EDR, and thus no detection based on the
 file itself.
 
 ### EDR bypass through deactivation of the ETW Microsoft-Windows-Threat-Intelligence provider
@@ -255,7 +255,7 @@ NtProtectVirtualMemory   proc near
 loc_18009D1E5:
 	int 2Eh
 	retn
-NtProtectVirtualMemory   endp			
+NtProtectVirtualMemory   endp
 ```
 
 ```assembly
@@ -271,7 +271,7 @@ NtProtectVirtualMemory proc near
 loc_7FFCB44AD1E5:
 	int 2Eh
 	retn
-NtProtectVirtualMemory   endp			
+NtProtectVirtualMemory   endp
 ```
 
 #### Hooks detection
@@ -598,9 +598,9 @@ lift this requirement and reduce the tool's footprint.
 
 ### Vulnerable drivers
 
-EDRSandblast publicly implements the support of at least 3 vulnerable driver, `gdrv.sys` (default), 
+EDRSandblast publicly implements the support of at least 3 vulnerable driver, `gdrv.sys` (default),
 `RTCore64.sys` and `DBUtil_2_3.sys`. The driver actually used is decided before compilation
-of the tool (see `#define VULN_DRIVER <driver name>` in `includes/KernelMemoryPrimitive.h`). A copy 
+of the tool (see `#define VULN_DRIVER <driver name>` in `includes/KernelMemoryPrimitive.h`). A copy
 of the vulnerable driver should be downloaded and provided to EDRSandblast for its kernel operation
 to work.
 

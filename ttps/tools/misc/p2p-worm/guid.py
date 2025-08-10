@@ -33,12 +33,12 @@ class SSHBruteForce(Technique):
                 client = paramiko.SSHClient()
                 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                 if os.path.isfile(secret):
-                    
+
                     client.connect(ip, port=22, username=user,
                                    key_filename=secret,
                                    timeout=5, allow_agent=False, look_for_keys=False)
                 else:
-                    
+
                     client.connect(ip, port=22, username=user,
                                    password=secret,
                                    timeout=5, allow_agent=False, look_for_keys=False)

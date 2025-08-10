@@ -359,11 +359,11 @@ namespace Rubeus.Ndr
     {
         public RPC_SYNTAX_IDENTIFIER TransferSyntax;
         public IntPtr32 DispatchTable; // RPC_DISPATCH_TABLE
-        public IntPtr32 ProcString; // PFORMAT_STRING 
-        public IntPtr32 FmtStringOffset; // const unsigned short* 
-        public IntPtr32 TypeString; // PFORMAT_STRING 
-        public IntPtr32 aUserMarshalQuadruple; // const void* 
-        public IntPtr32 pMethodProperties; // const MIDL_INTERFACE_METHOD_PROPERTIES* 
+        public IntPtr32 ProcString; // PFORMAT_STRING
+        public IntPtr32 FmtStringOffset; // const unsigned short*
+        public IntPtr32 TypeString; // PFORMAT_STRING
+        public IntPtr32 aUserMarshalQuadruple; // const void*
+        public IntPtr32 pMethodProperties; // const MIDL_INTERFACE_METHOD_PROPERTIES*
         public IntPtr32 pReserved2;
 
         public MIDL_SYNTAX_INFO Convert()
@@ -388,11 +388,11 @@ namespace Rubeus.Ndr
     {
         public RPC_SYNTAX_IDENTIFIER TransferSyntax;
         public IntPtr DispatchTable; // RPC_DISPATCH_TABLE
-        public IntPtr ProcString; // PFORMAT_STRING 
-        public IntPtr FmtStringOffset; // const unsigned short* 
-        public IntPtr TypeString; // PFORMAT_STRING 
-        public IntPtr aUserMarshalQuadruple; // const void* 
-        public IntPtr pMethodProperties; // const MIDL_INTERFACE_METHOD_PROPERTIES* 
+        public IntPtr ProcString; // PFORMAT_STRING
+        public IntPtr FmtStringOffset; // const unsigned short*
+        public IntPtr TypeString; // PFORMAT_STRING
+        public IntPtr aUserMarshalQuadruple; // const void*
+        public IntPtr pMethodProperties; // const MIDL_INTERFACE_METHOD_PROPERTIES*
         public IntPtr pReserved2;
     }
 
@@ -583,7 +583,7 @@ namespace Rubeus.Ndr
         public RPC_SYNTAX_IDENTIFIER TransferSyntax;
         public IntPtr DispatchTable; // PRPC_DISPATCH_TABLE
         public int RpcProtseqEndpointCount;
-        public IntPtr RpcProtseqEndpoint; // PRPC_PROTSEQ_ENDPOINT 
+        public IntPtr RpcProtseqEndpoint; // PRPC_PROTSEQ_ENDPOINT
         public IntPtr DefaultManagerEpv;
         public IntPtr InterpreterInfo;    // MIDL_SERVER_INFO
         public int Flags;

@@ -41,7 +41,7 @@ public class ModifiedRpcServerResult
     /// </summary>
     public int AddedProcedureCount => AddedProcedure.Count;
 
-    internal ModifiedRpcServerResult(RpcServer server, RpcServer compare_server, 
+    internal ModifiedRpcServerResult(RpcServer server, RpcServer compare_server,
         IEnumerable<NdrProcedureDefinition> added_procedure)
     {
         Server = server;

@@ -27,7 +27,7 @@ environment by completing the following steps:
 
 
 > **Important note**
-> 
+>
 > Bear in mind that some remote tests are not idempotent, that means that they perform
 > changes on the target environment and the results of the tests depends on that. As an
 > example, some tests require the creation/modification/deletion of user accounts. If those
@@ -45,7 +45,7 @@ you can run all "local" test cases using the following command:
 
 Or run the "remote" test cases with the following command:
 
-      $ pytest -m "remote" 
+      $ pytest -m "remote"
 
 If all goes well, all test cases should pass.
 
@@ -100,12 +100,12 @@ main steps required:
 
 1. Make sure to disable the firewall on the interface you want to use for connecting
    to the Domain Controller.
-   
+
         PS C:\> Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False
 
 1. Install the Active Directory Domain Services on the target server.
-   
-        PS C:\> Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools 
+
+        PS C:\> Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools
 
 1. Make sure the server's Administrator user password meet the complexity policy, as it's required
    for promoting it to Domain Controller.
@@ -128,21 +128,21 @@ main steps required:
         PS C:\> Install-WindowsFeature -name DHCP -IncludeManagementTools
 
 1. Create the DHCP administration groups and authorize the server.
-   
+
         PS C:\> netsh dhcp add securitygroups
         PS C:\> Restart-Service dhcpserver
         PS C:\> Add-DhcpServerInDC -DnsName <Server Name> -IPAddress <IP Address>
         PS C:\> $Credential = Get-Credential
         PS C:\> Set-DhcpServerDnsCredential -Credential $Credential -ComputerName <Server Name>
 
-1. Be sure to enable and run the `RemoteRegistry` service on the target Domain 
+1. Be sure to enable and run the `RemoteRegistry` service on the target Domain
    Controller.
 
         PS C:\> Start-Service RemoteRegistry
 
 1. Create a Domain User with administrative rights. This is the user that will be used
    to run the remote tests. We make sure to enable AES Kerberos encryption type and add
-   it to the Domain Admins group. 
+   it to the Domain Admins group.
 
         PS C:\> $AdminUserName = "<Admin User Name>"
         PS C:\> $AdminAccountName = "<Admin Account Name>"
@@ -172,11 +172,11 @@ You can use self-signed certificates by:
 
    1. Creating a certificate request for the LDAP service, by editing the following
       configuration file:
-      
+
           ;----------------- request.inf -----------------
           [Version]
           Signature="$Windows NT$
-            
+
           [NewRequest]
           Subject = "CN=<DC fqdn>" ; replace with the FQDN of the DC
           KeySpec = 1
@@ -191,7 +191,7 @@ You can use self-signed certificates by:
           ProviderType = 12
           RequestType = PKCS10
           KeyUsage = 0xa0
-      
+
           [EnhancedKeyUsageExtension]
           OID=1.3.6.1.5.5.7.3.1 ; this is for Server Authentication
           ;-----------------------------------------------
@@ -202,13 +202,13 @@ You can use self-signed certificates by:
 
    1. Signing the LDAP service certificate with the CA, by creating the
       `v3ext.txt` configuration file:
-      
+
           keyUsage=digitalSignature,keyEncipherment
           extendedKeyUsage=serverAuth
           subjectKeyIdentifier=hash
 
       And running the following command:
-      
+
           $ openssl x509 -req -days 365 -in ldapcert.csr -CA ca_public.crt -CAkey ca_private.key -extfile v3ext.txt -set_serial 01 -out ldapcert.crt
 
    1. Copying and installing the new signed LDAP service certificate into
@@ -237,7 +237,7 @@ configured. Path to the configuration file to use when running tests can be then
 specified in the following ways:
 
   * Using the pytest `--remote-config` command-line option.
-  * Using the pytest `remote-config` option in `tox.ini`.  
+  * Using the pytest `remote-config` option in `tox.ini`.
   * Using the `REMOTE_CONFIG` environment variable.
   * Default to loading from `tests/dcetests.cg`.
 

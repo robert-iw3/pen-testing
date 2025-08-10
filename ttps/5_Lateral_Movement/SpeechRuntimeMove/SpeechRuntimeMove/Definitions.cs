@@ -39,7 +39,7 @@ namespace SpeechRuntimeMove
             public uint Flags;
         }
 
-        
+
         [ComImport(), Guid("884CCD87-B139-4937-A4BA-4F8E19513FBE"),
 InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)
 ]
@@ -1132,7 +1132,7 @@ InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)
             }
         }
 
-       
+
 
     }
 }

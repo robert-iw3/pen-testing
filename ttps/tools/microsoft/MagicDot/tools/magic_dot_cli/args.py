@@ -18,7 +18,7 @@ class ArgsCommands(Enum):
 def parse_args():
     parser = argparse.ArgumentParser(description="An unprivileged rootkit-like tool")
     commands_subparsers = parser.add_subparsers(title="command", dest="command", required=True)
-    
+
     impersonate_proc_parser = commands_subparsers.add_parser(ArgsCommands.CREATE_IMPERSONATED_PROCESS.name, help="Create a process that impersonates a different process. Both Task Manager and Process Explorer will display information about the target process to impersonate to")
     impersonate_proc_parser.add_argument("-exe-path", type=str, required=True, help="Path to the executable to run")
     impersonate_proc_parser.add_argument("-impersonate-to", type=str, required=True, help="Path to the executable that the process should impersonate to")

@@ -21,7 +21,7 @@ def Send (dst_ip, data, sequence=0, spoof_source=False, dst_port=MDNS_PORT, src_
 	payload = ""
 	payload += "\x00"  # TransID is 2 bytes. Using one for sequence.
 	payload += struct.pack('B', sequence)
-	
+
 	payload += "\x00\x00"  # Stndrt qry
 	payload += "\x00\x01"  # 1 questions
 	payload += "\x00\x00"  # 0 ans RRs
@@ -33,7 +33,7 @@ def Send (dst_ip, data, sequence=0, spoof_source=False, dst_port=MDNS_PORT, src_
 	payload += "\x00"  # Query Terminator
 	payload += "\x00\x0c"  # PTR request
 	payload += "\x00\x01"  # class IN
-	
+
 	if spoof_source is False:
 		pkt = IP(
 				dst = dst_ip

@@ -8,7 +8,7 @@
 #
 # Description:
 #   NT STATUS Errors from [MS-ERREF]. Ideally all the files
-#   should grab the error codes from here (big ToDo) 
+#   should grab the error codes from here (big ToDo)
 #
 
 ERROR_MESSAGES = {

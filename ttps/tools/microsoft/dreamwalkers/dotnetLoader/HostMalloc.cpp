@@ -12,13 +12,13 @@ MyHostMalloc::MyHostMalloc(void)
 
 MyHostMalloc::~MyHostMalloc(void)
 {
-	
+
 }
 
 
-HRESULT STDMETHODCALLTYPE MyHostMalloc::QueryInterface(REFIID vTableGuid, void** ppv) 
+HRESULT STDMETHODCALLTYPE MyHostMalloc::QueryInterface(REFIID vTableGuid, void** ppv)
 {
-	if (!IsEqualIID(vTableGuid, IID_IUnknown) && !IsEqualIID(vTableGuid, IID_IHostMalloc)) 
+	if (!IsEqualIID(vTableGuid, IID_IUnknown) && !IsEqualIID(vTableGuid, IID_IHostMalloc))
 	{
 		*ppv = 0;
 		return E_NOINTERFACE;
@@ -29,15 +29,15 @@ HRESULT STDMETHODCALLTYPE MyHostMalloc::QueryInterface(REFIID vTableGuid, void**
 }
 
 
-ULONG STDMETHODCALLTYPE MyHostMalloc::AddRef() 
+ULONG STDMETHODCALLTYPE MyHostMalloc::AddRef()
 {
 	return(++((MyHostMalloc*)this)->count);
 }
 
 
-ULONG STDMETHODCALLTYPE MyHostMalloc::Release() 
+ULONG STDMETHODCALLTYPE MyHostMalloc::Release()
 {
-	if (--this->count == 0) 
+	if (--this->count == 0)
 	{
 		GlobalFree(this);
 		return 0;
@@ -46,7 +46,7 @@ ULONG STDMETHODCALLTYPE MyHostMalloc::Release()
 }
 
 
-HRESULT MyHostMalloc::Alloc(SIZE_T cbSize, EMemoryCriticalLevel eCriticalLevel, void** ppMem) 
+HRESULT MyHostMalloc::Alloc(SIZE_T cbSize, EMemoryCriticalLevel eCriticalLevel, void** ppMem)
 {
 	LPVOID allocAddress = ::HeapAlloc(this->hHeap, 0, cbSize);
 	// std::cout << "MyHostMalloc::Alloc " << std::hex << allocAddress << std::endl;
@@ -58,38 +58,38 @@ HRESULT MyHostMalloc::Alloc(SIZE_T cbSize, EMemoryCriticalLevel eCriticalLevel, 
 	m_memAllocList.push_back(allocEntry);
 
 	*ppMem = allocAddress;
-	if (*ppMem == NULL) 
+	if (*ppMem == NULL)
 	{
 		return E_OUTOFMEMORY;
 	}
-	else 
+	else
 	{
 		return S_OK;
 	}
 }
 
 
-HRESULT MyHostMalloc::DebugAlloc(SIZE_T cbSize, EMemoryCriticalLevel       eCriticalLevel, char* pszFileName, int         iLineNo, void** ppMem) 
+HRESULT MyHostMalloc::DebugAlloc(SIZE_T cbSize, EMemoryCriticalLevel       eCriticalLevel, char* pszFileName, int         iLineNo, void** ppMem)
 {
 	// std::cout << "MyHostMalloc::DebugAlloc" << std::endl;
 
 	*ppMem = ::HeapAlloc(this->hHeap, 0, cbSize);
-	if (*ppMem == NULL) 
+	if (*ppMem == NULL)
 	{
 		return E_OUTOFMEMORY;
 	}
-	else 
+	else
 	{
 		return S_OK;
 	}
 }
 
 
-HRESULT MyHostMalloc::Free(void* pMem) 
+HRESULT MyHostMalloc::Free(void* pMem)
 {
 	// std::cout << "MyHostMalloc::Free" << std::endl;
 
-	if (!::HeapValidate(this->hHeap, 0, pMem)) 
+	if (!::HeapValidate(this->hHeap, 0, pMem))
 	{
 		// std::cout << "Detected corrupted heap" << std::endl;
 		return E_OUTOFMEMORY;

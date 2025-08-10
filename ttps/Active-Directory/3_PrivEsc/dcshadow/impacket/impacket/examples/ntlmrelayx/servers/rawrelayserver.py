@@ -213,8 +213,8 @@ class RAWRelayServer(Thread):
             rawport = self.config.listeningPort
         else:
             rawport = 6666
-            
-        LOG.info("Setting up RAW Server on port " + str(rawport))            
+
+        LOG.info("Setting up RAW Server on port " + str(rawport))
 
         # changed to read from the interfaceIP set in the configuration
         self.server = self.RAWServer((self.config.interfaceIp, rawport), self.RAWHandler, self.config)

@@ -405,7 +405,7 @@ class MiniImpacketShell(cmd.Cmd):
         retList = []
         retFiles = []
         retInt = 0
-        try:                
+        try:
             for LINE in self.smb.listPath(self.share, ip):
                 if(LINE.get_longname() == "." or LINE.get_longname() == ".."):
                     pass
@@ -445,13 +445,13 @@ class MiniImpacketShell(cmd.Cmd):
                 if(LINE.get_longname() == "." or LINE.get_longname() == ".."):
                     pass
                 else:
-                    totalFilesRead = totalFilesRead + 1 
+                    totalFilesRead = totalFilesRead + 1
                     folderList.append(filepath.strip("*") + LINE.get_longname())
             else:
                 print(filepath.strip("*") + LINE.get_longname())
         for ITEM in folderList:
             ITEM = ITEM + "/*"
-            try: 
+            try:
                 retList, retFiles, retInt = self.do_listFiles(self.share,ITEM)
                 for q in retList:
                     folderList.append(q)
@@ -530,7 +530,7 @@ class MiniImpacketShell(cmd.Cmd):
         self.do_ls(mask,display=False)
         if len(self.completion) == 0:
             LOG.error("No files found matching the provided mask")
-            return 
+            return
         for file_tuple in self.completion:
             if file_tuple[1] == 0:
                 filename = file_tuple[0]

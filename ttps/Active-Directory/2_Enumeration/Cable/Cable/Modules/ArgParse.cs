@@ -45,7 +45,7 @@ namespace Cable.Modules
                 "\t/delegate-to:<account>    - Target account to delegate access to\n" +
                 "\t/delegate-from:<account>  - Controlled account to delegate from\n" +
                 "\t/flush:<account>          - Operation to flush msDs-AllowedToActOnBehalfOfOtherIdentity on an account\n\n" +
-                
+
                 "dacl:\n" +
                 "\t/find                     - Find potentially vulnerable ACEs\n" +
                 "\t/object:<object>          - Object to perform DACL operations on\n" +
@@ -79,8 +79,8 @@ namespace Cable.Modules
 
         }
 
-        static List<string> sMods = new List<string> 
-        { 
+        static List<string> sMods = new List<string>
+        {
             "ldap",
             "kerberoast",
             "dclist",

@@ -151,7 +151,7 @@ Specify the name of the service.
 Specify to set the service control manager security descriptor.
 .PARAMETER SecurityInformation
 Specify the parts of the security descriptor to set.
-.PARAMETER SecurityDescriptor 
+.PARAMETER SecurityDescriptor
 The security descriptor to set.
 .PARAMETER MachineName
 Specify the target computer.
@@ -235,7 +235,7 @@ function Start-Win32Service {
                 $service_trigger.Trigger()
             }
         }
-        
+
         if (!$NoWait) {
             if (!(Wait-Win32Service -MachineName $MachineName -Name $Name -Status Running -TimeoutSec 30)) {
                 Write-Error "Service didn't start in time."
@@ -392,9 +392,9 @@ function Send-Win32Service {
                 "Continue" {
                     Wait-Win32Service -MachineName $MachineName -Name $Name -Status Running -TimeoutSec 30
                 }
-                default { 
+                default {
                     # Anything else we just return success.
-                    $true 
+                    $true
                 }
             }
 
@@ -559,7 +559,7 @@ NtCoreLib.Win32.Service.Triggers.ServiceTriggerInformation[]
 Get-Win32ServiceTrigger -Name "WebClient"
 Get the service triggers for the WebClient service.
 #>
-function Get-Win32ServiceTrigger { 
+function Get-Win32ServiceTrigger {
     [CmdletBinding(DefaultParameterSetName="FromName")]
     param(
         [Parameter(Mandatory, Position = 0, ParameterSetName="FromName")]
@@ -588,7 +588,7 @@ function Get-Win32ServiceTrigger {
 .SYNOPSIS
 Gets a list of win32 services.
 .DESCRIPTION
-This cmdlet gets a list of all win32 services. 
+This cmdlet gets a list of all win32 services.
 .PARAMETER State
 Specify the state of the services to get.
 .PARAMETER Type

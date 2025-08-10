@@ -36,7 +36,7 @@ namespace ysoserial.Helpers
                 {
                     strFullTypeName = shortenedFullTypeName;
                 }
-                    
+
             }
             catch
             {
@@ -50,7 +50,7 @@ namespace ysoserial.Helpers
         {
             if (strInput == null)
                 return strInput;
-            
+
             if (!System.Text.RegularExpressions.Regex.IsMatch(strInput, @"[,]\s*Version=[^,]+,\s*Culture=[^,]+,\s*PublicKeyToken=[a-z0-9]{16}"))
             {
                 // does not contain an assembly name
@@ -74,7 +74,7 @@ namespace ysoserial.Helpers
             {
                 strInput = strInput_noSpace;
             }
-            
+
 
             string strInput_simpleAsm = System.Text.RegularExpressions.Regex.Replace(strInput, @"[,]\s*Version=[^,]+,\s*Culture=[^,]+,\s*PublicKeyToken=[a-z0-9]{16}", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Multiline);
 
@@ -122,7 +122,7 @@ namespace ysoserial.Helpers
                         result = true;
                 }
                 catch { }
-                
+
             }
 
             return result;
@@ -186,7 +186,7 @@ namespace ysoserial.Helpers
 
             return result;
         }
-        
+
         private static string MinimiseJsonAndRunInit(string json_string, InputArgs inInputArgs, bool isErrOk, bool showInfo)
         {
             string myApp = inInputArgs.CmdFileName;
@@ -221,7 +221,7 @@ namespace ysoserial.Helpers
                 if (showInfo)
                     Console.WriteLine(sbSuccessResult);
                 sbSuccessResult.Clear();
-                
+
                 // nullify a Data object
                 sbSuccessResult.Append(DataObjectNullifyTester(ref jsonJArrayObj, myApp, isErrOk, valueExclusionList, showInfo));
                 if (showInfo)
@@ -370,7 +370,7 @@ namespace ysoserial.Helpers
                 var resultString = jsonJArrayObj.ToString();
                 Console.WriteLine(resultString);
                 */
-                    
+
             }
             else
             {
@@ -673,7 +673,7 @@ namespace ysoserial.Helpers
 
                             if (origValue.Contains(" "))
                             {
-                                // replace space in string if it contains a space    
+                                // replace space in string if it contains a space
                                 if (arrNum == -1)
                                 {
                                     currentPropItem.Value = origValue.Replace(" ", "");
@@ -896,7 +896,7 @@ namespace ysoserial.Helpers
                 /*
                 ms.Position = 0;
                 BinaryFormatter bf = new BinaryFormatter();
-                var task = Task.Run(() => bf.Deserialize(ms));              
+                var task = Task.Run(() => bf.Deserialize(ms));
                 //*/
 
                 var task = Task.Run(() => { try { SerializersHelper.BinaryFormatter_deserialize(ms.ToArray()); } catch (Exception e) { noError = false; } });

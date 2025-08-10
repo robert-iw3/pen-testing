@@ -181,14 +181,14 @@ struct _RTL_DRIVE_LETTER_CURDIR
     USHORT Length;                                                          //0x2
     ULONG TimeStamp;                                                        //0x4
     struct _STRING DosPath;                                                 //0x8
-}; 
+};
 
 //0x18 bytes (sizeof)
 struct _CURDIR
 {
     struct _UNICODE_STRING DosPath;                                         //0x0
     VOID* Handle;                                                           //0x10
-}; 
+};
 
 //0x440 bytes (sizeof)
 typedef struct _MY_RTL_USER_PROCESS_PARAMETERS {

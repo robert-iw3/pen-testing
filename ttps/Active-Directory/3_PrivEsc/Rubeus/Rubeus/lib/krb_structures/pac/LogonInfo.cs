@@ -22,11 +22,11 @@ namespace Rubeus.Kerberos.PAC {
         public LogonInfo(byte[] data) : base(data, PacInfoBufferType.LogonInfo) {
             Decode(data);
         }
-        
+
         public override byte[] Encode() {
             _Marshal_Helper mh = new _Marshal_Helper();
             mh.WriteReferent(KerbValidationInfo, new Action<_KERB_VALIDATION_INFO>(mh.WriteStruct));
-            return mh.ToPickledType().ToArray();            
+            return mh.ToPickledType().ToArray();
         }
 
         protected override void Decode(byte[] data) {

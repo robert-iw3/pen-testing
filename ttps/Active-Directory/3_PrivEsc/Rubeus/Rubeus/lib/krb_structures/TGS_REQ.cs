@@ -79,7 +79,7 @@ namespace Rubeus
                 req.req_body.etypes.Add(Interop.KERB_ETYPE.rc4_hmac_exp);
                 //req.req_body.etypes.Add(Interop.KERB_ETYPE.des_cbc_crc);
             }
-            // real traffic have these etypes except when requesting a TGT, then only 
+            // real traffic have these etypes except when requesting a TGT, then only
             else if ((opsec) && (parts.Length > 1) && (parts[0] != "krbtgt"))
             {
                 req.req_body.etypes.Add(Interop.KERB_ETYPE.aes256_cts_hmac_sha1);
@@ -114,7 +114,7 @@ namespace Rubeus
                 }
                 else
                 {
-                    req.req_body.sname.name_type = Helpers.StringToPrincipalType(serviceType); 
+                    req.req_body.sname.name_type = Helpers.StringToPrincipalType(serviceType);
                     req.req_body.sname.name_string.Add(userName);
                 }
 
@@ -264,7 +264,7 @@ namespace Rubeus
             }
 
             // moved so all PA-DATA sections are inserted after the request body has been completed, this is useful when
-            // forming opsec requests as they require a checksum of the request body within the authenticator and the 
+            // forming opsec requests as they require a checksum of the request body within the authenticator and the
             // PADATA-TGS-REQ should go before the other PA-DATA sections
             if (opsec && (!String.IsNullOrEmpty(s4uUser)))
             {
@@ -400,7 +400,7 @@ namespace Rubeus
             return null;
         }
 
-        
+
         public TGS_REQ(bool cname = true)
         {
             // default, for creation
@@ -440,7 +440,7 @@ namespace Rubeus
             AsnElt padata_ASNSeq = AsnElt.Make(AsnElt.SEQUENCE, padatas.ToArray());
             AsnElt padata_ASNSeq2 = AsnElt.Make(AsnElt.SEQUENCE, new[] { padata_ASNSeq });
             padata_ASNSeq = AsnElt.MakeImplicit(AsnElt.CONTEXT, 3, padata_ASNSeq2);
-            
+
 
             // req-body        [4] KDC-REQ-BODY
             AsnElt req_Body_ASN = req_body.Encode();

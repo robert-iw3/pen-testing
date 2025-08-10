@@ -7,7 +7,7 @@ Proof of concept Windows shellcode injector to bypass AV and EDR. Currently uses
 
 - Decrypts XOR shellcodes and injects into running process with passed PID
 - Use of Windows kernel timer call locations to syscalls through them (NtCreateTimer, NtOpenTimer, NtSetTimer, NtQueryTimer, NtCancelTimer)
-- Makes syscalls directly through assembly, avoiding the use of NTdll or Windows API to make calls   
+- Makes syscalls directly through assembly, avoiding the use of NTdll or Windows API to make calls
 - Built with x64 assmebly, Windows API, and standard C++ libraries
 
 ## Getting Started
@@ -25,8 +25,8 @@ Follow these simple steps to setup your environment and compile the injector:
 
 2. Create a new C++ Visual Studio project in the directory
 
-3. Open main.cpp and syscalls.asm as source files and wonka.h as a header file  
-   
+3. Open main.cpp and syscalls.asm as source files and wonka.h as a header file
+
 4. Make changes to necessary components (shellcode, XOR key)
 
 5. Follow compilation steps
@@ -34,13 +34,13 @@ Follow these simple steps to setup your environment and compile the injector:
 ### Compiling
 
 1. Right click on project name in Solution Explorer and click Build Dependencies --> Build Customizations
-  
+
 2. Check "masm" box and click Okay (see below)
 
    ![image](https://github.com/maxbarkouras/Syscall-Shellcode-Injector/assets/40187297/50cb96f4-3304-4d5f-ba76-9c5f592eace0)
 
 3. Right click syscalls.asm file in Solutions Explorer and click Properties
-   
+
 4. Set "Excluded From Build" to No, "Content" to Yes, and "Item Type" to Microsoft Macro Assembler (see below)
 
    ![image](https://github.com/maxbarkouras/Syscall-Shellcode-Injector/assets/40187297/bb34f9d9-1187-46c2-8e1a-2f38479b1435)

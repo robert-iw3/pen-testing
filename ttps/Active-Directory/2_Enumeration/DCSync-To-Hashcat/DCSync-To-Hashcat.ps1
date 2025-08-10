@@ -51,7 +51,7 @@ for($i = 0; $i -lt $File1.Count; $i++)
 
 Remove-Item -Path $LOGFILE
 Remove-Item -Path $HASHES
-Remove-Item -Path $USERS     
+Remove-Item -Path $USERS
 
 $Lines = Get-Content -Path $HASHCATFILE
 $lineCount = ($Lines | Measure-Object -Line).Lines

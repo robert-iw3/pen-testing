@@ -23,7 +23,7 @@ class NTDSEntry(object):
 
     def get_domain_id(self):
         return self.entry["tmp_domainID"]
-    
+
     def show_list(self, v_list):
         if v_list is not None:
             if isinstance(v_list, str):
@@ -52,7 +52,7 @@ class NTDSEntry(object):
 
     def is_rootdomain(self):
         return False
-    
+
     def is_domain(self):
         return False
 
@@ -73,18 +73,18 @@ class NTDSEntry(object):
 
     def get_SID(self):
         return None
-    
+
     def get_entry(self):
         return None
-    
+
     '''
     Methods pour traiter les entrées NTDS
     '''
     @staticmethod
     def decode_sidhistory(entry):
-        
+
         sidHistory = []
-        
+
         if entry:
             '''
             Impacket ne gère pas les multi value et ne renvoie pas les flags associés à une entrée, du coup faut tenter et voir si ca passe ...
@@ -113,7 +113,7 @@ class NTDSEntry(object):
         """
         #logger.info("get_security_descriptor: "+str(data))
         return unpack("<Q",data)[0]
-    
+
     @staticmethod
     def isutf_16le(data):
         try:
@@ -158,7 +158,7 @@ class NTDSEntry(object):
         t -= 116444736000000000
         t //= 10000000
 
-        # Bug - setting access time beyond Jan. 2038 
+        # Bug - setting access time beyond Jan. 2038
         # https://bugs.python.org/issue13471
         if t == 910692730085:
             return ""
@@ -179,7 +179,7 @@ class NTDSEntry(object):
             return dt.strftime("%Y-%m-%d %H:%M")
         else:
             return None
-    
+
     '''
     Exemple:
     maxPwdAge = (-1) x 10 days x 24 hours/day x 60 minutes/hour x 60 seconds/minute x 10,000,000 ticks/second = -8,640,000,000,000 ticks
@@ -188,7 +188,7 @@ class NTDSEntry(object):
     def format_duration(t):
         if t:
             t_s = -1 * t / 600000000
-            return int(t_s)            
+            return int(t_s)
         else:
             return None
 

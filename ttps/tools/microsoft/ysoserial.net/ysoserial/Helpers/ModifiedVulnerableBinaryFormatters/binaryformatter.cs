@@ -1,7 +1,7 @@
 // ==++==
-// 
+//
 //   Copyright (c) Microsoft Corporation.  All rights reserved.
-// 
+//
 // ==--==
 /*============================================================
  **
@@ -22,7 +22,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
     using System.Collections;
     using System.Collections.Generic;
     using System.Runtime.Serialization.Formatters;
-#if FEATURE_REMOTING    
+#if FEATURE_REMOTING
     using System.Runtime.Remoting.Proxies;
 #endif
     using System.Runtime.Remoting;
@@ -38,7 +38,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
 #if !FEATURE_REMOTING
         IFormatter
 #else
-        IRemotingFormatter 
+        IRemotingFormatter
 #endif
     {
 
@@ -116,7 +116,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
         [System.Security.SecurityCritical]  // auto-generated
         internal Object Deserialize(Stream serializationStream, HeaderHandler handler, bool fCheck)
         {
-#if FEATURE_REMOTING        
+#if FEATURE_REMOTING
             return Deserialize(serializationStream, handler, fCheck, null);
 #else
             if (serializationStream == null)
@@ -163,12 +163,12 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
             return Deserialize(serializationStream, handler, false);
         }
 
-#if FEATURE_REMOTING        
+#if FEATURE_REMOTING
         [System.Security.SecurityCritical]  // auto-generated_required
         [System.Runtime.InteropServices.ComVisible(false)]
         public Object UnsafeDeserializeMethodResponse(Stream serializationStream, HeaderHandler handler, IMethodCallMessage methodCallMessage) {
             return Deserialize(serializationStream, handler, false, methodCallMessage);
-        }         
+        }
 
         [System.Security.SecurityCritical]  // auto-generated
         internal Object Deserialize(Stream serializationStream, HeaderHandler handler, bool fCheck, IMethodCallMessage methodCallMessage) {
@@ -191,8 +191,8 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
             InternalFE formatterEnums = new InternalFE();
             formatterEnums.FEtypeFormat = m_typeFormat;
             formatterEnums.FEserializerTypeEnum = InternalSerializerTypeE.Binary;
-            formatterEnums.FEassemblyFormat = m_assemblyFormat;         
-            formatterEnums.FEsecurityLevel = m_securityLevel;            
+            formatterEnums.FEassemblyFormat = m_assemblyFormat;
+            formatterEnums.FEsecurityLevel = m_securityLevel;
 
                ObjectReader sor = new ObjectReader(serializationStream, m_surrogates, m_context, formatterEnums, m_binder);
             sor.crossAppDomainArray = m_crossAppDomainArray;

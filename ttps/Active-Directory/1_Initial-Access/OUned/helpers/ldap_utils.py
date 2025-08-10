@@ -28,7 +28,7 @@ def get_attribute(ldap_session, dn, attribute):
     except:
         logging.error(f"‼️  Error: couldn't find attribute {attribute} for dn {dn}. Things will probably break.")
         return None
-    
+
 
 def modify_attribute(ldap_session, dn, attribute, new_value):
     result = ldap_session.modify(dn, {attribute: [(MODIFY_REPLACE, [new_value])]})

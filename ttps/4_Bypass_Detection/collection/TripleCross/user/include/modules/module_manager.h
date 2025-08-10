@@ -79,7 +79,7 @@ extern module_config_attr_t module_config_attr;
 
 /**
  * @brief Installs the ebpf modules according to the module_config
- * 
+ *
  * @return 0 if ok, -1 if error
  */
 int setup_all_modules();
@@ -87,21 +87,21 @@ int setup_all_modules();
 /**
  * @brief Removes all hooks, independently on the module_config.
  * Useful for reloading the modules.
- * 
+ *
  * @return 0 if ok, -1 if error
  */
 int unhook_all_modules();
 
 /**
  * @brief Sets the module_config with all hooks activated
- * 
+ *
  * @return 0 if ok, -1 if error
  */
 int activate_all_modules_config();
 
 /**
  * @brief Sets the module_config with all hooks deactivated
- * 
+ *
  * @return 0 if ok, -1 if error
  */
 int deactivate_all_modules_config();

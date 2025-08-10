@@ -13,7 +13,7 @@ bool isWindows1124H2OrLater()
 
     RTL_OSVERSIONINFOW osVersionInfo = { 0 };
     osVersionInfo.dwOSVersionInfoSize = sizeof(RTL_OSVERSIONINFOW);
-    
+
     HMODULE hNtdll = GetModuleHandleA("ntdll");
     if (!hNtdll) return false; // should never happen
 
@@ -56,7 +56,7 @@ int _tmain(int argc, LPTSTR argv[])
 
     // cut out the parameters that are dedicated to the run_pe app only
     std::tstring trimmedCmdLine = cmdLine.substr(found, cmdLine.length());
-    
+
     std::tcout << TEXT("Payload: ") << payload_path << TEXT("\n");
     std::tcout << TEXT("Target: ") << target_path << TEXT("\n");
 

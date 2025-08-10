@@ -28,7 +28,7 @@
  * speedup for libraries that exports lots of functions.
  *
  * These portions are Copyright (C) 2013 Thomas Heller.
- * 
+ *
  * Maxime de Caumia Baillenx.: Made the code position-independent (PIC), simplified it for
  * proof-of-concept usage, added command line support, and implemented
  * evasion techniques to improve stealth.
@@ -85,7 +85,7 @@ typedef struct {
     BOOL initialized;
     BOOL isDLL;
     BOOL isRelocated;
-		
+
     struct ExportNameEntry *nameExportsTable;
     ExeEntryProc exeEntry;
     DWORD pageSize;
@@ -164,7 +164,7 @@ static inline void* MM_GetCommandLineA(INSTANCE* inst)
 //
 static inline PVOID FindModule(char* startAdd, ULONG size, char* pattern)
 {
-    for (ULONG x = 0; x < size - 1; x++) 
+    for (ULONG x = 0; x < size - 1; x++)
     {
         if (startAdd[x] == pattern[0] && startAdd[x + 1] == pattern[1])
         {
@@ -188,11 +188,11 @@ static inline PVOID FindModule(char* startAdd, ULONG size, char* pattern)
 // Do not treat memcpy as an intrinsic; use the function I provide
 #pragma function(memcpy)
 
-void* memcpy(void* dst, const void* src, size_t len) 
+void* memcpy(void* dst, const void* src, size_t len)
 {
     unsigned char* d = (unsigned char*)dst;
     const unsigned char* s = (const unsigned char*)src;
-    while (len--) 
+    while (len--)
     {
         *d++ = *s++;
     }
@@ -217,9 +217,9 @@ int memcmp(const void *s1, const void *s2, size_t n)
     const unsigned char *p1 = (const unsigned char *)s1;
     const unsigned char *p2 = (const unsigned char *)s2;
 
-    for (size_t i = 0; i < n; i++) 
+    for (size_t i = 0; i < n; i++)
     {
-        if (p1[i] != p2[i]) 
+        if (p1[i] != p2[i])
         {
             return (int)p1[i] - (int)p2[i];
         }
@@ -289,7 +289,7 @@ ULONG CalculateFunctionStackSize(PRUNTIME_FUNCTION pRuntimeFunction, const DWORD
         operationInfo = pUnwindInfo->UnwindCode[index].OpInfo;
         // [2] Loop over unwind codes and calculate
         // total stack space used by target Function.
-        switch (unwindOperation) 
+        switch (unwindOperation)
         {
             case UWOP_PUSH_NONVOL:
                 // UWOP_PUSH_NONVOL is 8 bytes.
@@ -404,10 +404,10 @@ Cleanup:
 //
 
 
-void SimpleWideToAnsi(const wchar_t* wide, char* ansi, const int maxLen) 
+void SimpleWideToAnsi(const wchar_t* wide, char* ansi, const int maxLen)
 {
     int i;
-    for (i = 0; i < maxLen - 1 && wide[i] != L'\0'; i++) 
+    for (i = 0; i < maxLen - 1 && wide[i] != L'\0'; i++)
     {
         // Assumes ASCII-only characters
         ansi[i] = (char)(wide[i] & 0xFF);
@@ -416,9 +416,9 @@ void SimpleWideToAnsi(const wchar_t* wide, char* ansi, const int maxLen)
 }
 
 
-void SimpleAnsiToWide(const char* ansi, wchar_t* wide) 
+void SimpleAnsiToWide(const char* ansi, wchar_t* wide)
 {
-    while (*ansi) 
+    while (*ansi)
     {
         *wide++ = (wchar_t)(unsigned char)(*ansi++);
     }
@@ -426,32 +426,32 @@ void SimpleAnsiToWide(const char* ansi, wchar_t* wide)
 }
 
 
-BOOL SetCommandLineSimple(INSTANCE* inst) 
+BOOL SetCommandLineSimple(INSTANCE* inst)
 {
-#ifdef _M_IX86 
+#ifdef _M_IX86
 	PPEB peb = (PEB *) __readfsdword(0x30);
 #else
 	PPEB peb = (PEB *)__readgsqword(0x60);
 #endif
 
-    if (!peb || !peb->ProcessParameters) 
+    if (!peb || !peb->ProcessParameters)
         return FALSE;
 
     HMODULE hMod = MM_LoadLibraryA(inst, (char*)inst->sKernelBaseDLL);
-    
+
 #ifdef DEBUG_OUTPUT
     printf("hMod: %p\n", hMod);
 #endif
 
-    if (!hMod) 
+    if (!hMod)
         return FALSE;
 
     // Parse PE headers
     PIMAGE_DOS_HEADER dos_header;
     PIMAGE_NT_HEADERS old_header;
     PIMAGE_SECTION_HEADER section;
-    dos_header = (PIMAGE_DOS_HEADER)hMod;    
-    old_header = (PIMAGE_NT_HEADERS)&((const unsigned char *)(hMod))[dos_header->e_lfanew];	
+    dos_header = (PIMAGE_DOS_HEADER)hMod;
+    old_header = (PIMAGE_NT_HEADERS)&((const unsigned char *)(hMod))[dos_header->e_lfanew];
     section = IMAGE_FIRST_SECTION(old_header);
 
 #ifdef DEBUG_OUTPUT
@@ -460,9 +460,9 @@ BOOL SetCommandLineSimple(INSTANCE* inst)
 
     // Find the .data section
     DWORD_PTR dataStart = 0, dataSize = 0;
-    for (WORD i = 0; i < old_header->FileHeader.NumberOfSections; i++, section++) 
+    for (WORD i = 0; i < old_header->FileHeader.NumberOfSections; i++, section++)
     {
-        if (memcmp(section->Name, inst->sDataSec, 5) == 0) 
+        if (memcmp(section->Name, inst->sDataSec, 5) == 0)
         {
             dataStart = (DWORD_PTR)hMod + section->VirtualAddress;
             dataSize  = section->Misc.VirtualSize;
@@ -470,7 +470,7 @@ BOOL SetCommandLineSimple(INSTANCE* inst)
         }
     }
 
-    if (!dataStart) 
+    if (!dataStart)
         return FALSE;
 
     // Get actual current command lines
@@ -501,19 +501,19 @@ BOOL SetCommandLineSimple(INSTANCE* inst)
 
     memcpy(newW, newCmdLine, lenW * sizeof(WCHAR));
     SimpleWideToAnsi(newCmdLine, newA, lenA);
-    
+
     // Scan .data section for matching wchar_t*/char* and patch them
-    for (DWORD_PTR i = dataStart; i < dataStart + dataSize - sizeof(PVOID); i += sizeof(PVOID)) 
+    for (DWORD_PTR i = dataStart; i < dataStart + dataSize - sizeof(PVOID); i += sizeof(PVOID))
     {
         PVOID* ptr = (PVOID*)i;
-        if (*ptr == (PVOID)curW) 
+        if (*ptr == (PVOID)curW)
         {
 #ifdef DEBUG_OUTPUT
             printf("-> FOUND CommandLine W: %p\n", (PVOID)i);
 #endif
             *ptr = newW;
-        } 
-        else if (*ptr == (PVOID)curA) 
+        }
+        else if (*ptr == (PVOID)curA)
         {
 #ifdef DEBUG_OUTPUT
             printf("-> FOUND CommandLine A: %p\n", (PVOID)i);
@@ -536,11 +536,11 @@ typedef void (*StandardEmptyFunction)();
 
 
 int Loader(INSTANCE* inst)
-{		
+{
 	GetProcAddress_t pGetProcAddress;
 	GetModuleHandleA_t pGetModuleHandle;
 	HMODULE moduleKernel32;
-	
+
 	moduleKernel32 = hlpGetModuleHandle((wchar_t*)inst->wsKernel32DLL);
 
     pGetProcAddress = (GetProcAddress_t)hlpGetProcAddress(moduleKernel32, (char*)inst->sGetProcAddress);
@@ -563,7 +563,7 @@ int Loader(INSTANCE* inst)
     inst->api.VirtualProtect = (VirtualProtect_t)hlpGetProcAddress(moduleKernel32, (char*)inst->sVirtualProtect);
     inst->api.GetCommandLineA = (GetCommandLineA_t)hlpGetProcAddress(moduleKernel32, (char*)inst->sGetCommandLineA);
     inst->api.RtlAddFunctionTable = (RtlAddFunctionTable_t)hlpGetProcAddress(moduleKernel32, (char*)inst->sRtlAddFunctionTable);
-	
+
     // For shellcode debug only
     // HMODULE msvcrt = inst->api.LoadLibraryA(inst->sMsvcrtDLL);
     // inst->api.Printf = (printf_t)pGetProcAddress(msvcrt, inst->sPrintf);
@@ -588,7 +588,7 @@ int Loader(INSTANCE* inst)
 
 #ifdef DEBUG_OUTPUT
     if(inst->ptrModuleTst)
-    {   
+    {
         printf("inst->ptrModuleTst %p\n", inst->ptrModuleTst);
         moduleAddress = inst->ptrModuleTst;
     }
@@ -617,7 +617,7 @@ int Loader(INSTANCE* inst)
     p.RUTS_retaddr = ReturnAddress;
 
     p.Gadget_ss = (PVOID)CalculateFunctionStackSizeWrapper(inst, p.trampoline);
-    
+
     //
     // DotNet
     //
@@ -630,7 +630,7 @@ int Loader(INSTANCE* inst)
 #ifdef DEBUG_OUTPUT
         // in case of debug the module will not be following the loader, because we are not in a shellcode
         if(inst->ptrDotNetModuleTst)
-        {   
+        {
             printf("inst->ptrDotNetModuleTst %p\n", inst->ptrDotNetModuleTst);
             dotnetModule = inst->ptrDotNetModuleTst;
         }
@@ -638,14 +638,14 @@ int Loader(INSTANCE* inst)
 
         if(!dotnetModule)
         {
-            return 0; 
+            return 0;
         }
 
         // Load module
         HMEMORYMODULE moduleHandle = MemoryLoadLibrary(inst, moduleAddress, inst->dotnetLoaderSize);
-        if (!moduleHandle) 
+        if (!moduleHandle)
         {
-            return 0; 
+            return 0;
         }
 
         void* func = MemoryGetProcAddress(inst, moduleHandle, inst->sdllMethode);
@@ -654,13 +654,13 @@ int Loader(INSTANCE* inst)
         // _loaderDotNetFunction(dotnetModule, inst->dotnetModuleSize, inst->sCmdLine);
 
         Spoof(dotnetModule, inst->dotnetModuleSize, inst->sCmdLine, NULL, &p, func, (PVOID)0);
-        
+
     }
     //
     // Unmanaged code
     //
     else
-    {   
+    {
         //
         // Exe
         //
@@ -671,9 +671,9 @@ int Loader(INSTANCE* inst)
 #endif
 
             BOOL err = SetCommandLineSimple(inst);
-            if (!err) 
+            if (!err)
             {
-                return 0; 
+                return 0;
             }
 
 #ifdef DEBUG_OUTPUT
@@ -681,18 +681,18 @@ int Loader(INSTANCE* inst)
 #endif
             // Load module
             HMEMORYMODULE moduleHandle = MemoryLoadLibrary(inst, moduleAddress, inst->moduleSize);
-            if (!moduleHandle) 
+            if (!moduleHandle)
             {
-                return 0; 
+                return 0;
             }
-                
+
 #ifdef DEBUG_OUTPUT
             printf("MemoryCallEntryPoint\n");
 #endif
 
             PMEMORYMODULE module = (PMEMORYMODULE)moduleHandle;
-	
-            if (module == NULL || module->isDLL || module->exeEntry == NULL || !module->isRelocated) 
+
+            if (module == NULL || module->isDLL || module->exeEntry == NULL || !module->isRelocated)
                 return 0;
 
             // module->exeEntry();
@@ -718,9 +718,9 @@ int Loader(INSTANCE* inst)
         {
             // Load module
             HMEMORYMODULE moduleHandle = MemoryLoadLibrary(inst, moduleAddress, inst->moduleSize);
-            if (!moduleHandle) 
+            if (!moduleHandle)
             {
-                return 0; 
+                return 0;
             }
 
             PMEMORYMODULE module = (PMEMORYMODULE)moduleHandle;
@@ -752,33 +752,33 @@ int Loader(INSTANCE* inst)
 #define GET_HEADER_DICTIONARY(module, idx)  &(module)->headers->OptionalHeader.DataDirectory[idx]
 
 
-static inline uintptr_t AlignValueDown(uintptr_t value, uintptr_t alignment) 
+static inline uintptr_t AlignValueDown(uintptr_t value, uintptr_t alignment)
 {
     return value & ~(alignment - 1);
 }
 
 
-static inline LPVOID AlignAddressDown(LPVOID address, uintptr_t alignment) 
+static inline LPVOID AlignAddressDown(LPVOID address, uintptr_t alignment)
 {
     return (LPVOID) AlignValueDown((uintptr_t) address, alignment);
 }
 
 
-static inline size_t AlignValueUp(size_t value, size_t alignment) 
+static inline size_t AlignValueUp(size_t value, size_t alignment)
 {
     return (value + alignment - 1) & ~(alignment - 1);
 }
 
 
-static inline void* OffsetPointer(void* data, ptrdiff_t offset) 
+static inline void* OffsetPointer(void* data, ptrdiff_t offset)
 {
     return (void*) ((uintptr_t) data + offset);
 }
 
 
-static inline BOOL CheckSize(size_t size, size_t expected) 
+static inline BOOL CheckSize(size_t size, size_t expected)
 {
-    if (size < expected) 
+    if (size < expected)
     {
         // SetLastError(ERROR_INVALID_DATA);
         return FALSE;
@@ -794,16 +794,16 @@ static inline BOOL CopySections(INSTANCE* inst ,const unsigned char *data, size_
     unsigned char *codeBase = module->codeBase;
     unsigned char *dest;
     PIMAGE_SECTION_HEADER section = IMAGE_FIRST_SECTION(module->headers);
-    for (i=0; i<module->headers->FileHeader.NumberOfSections; i++, section++) 
+    for (i=0; i<module->headers->FileHeader.NumberOfSections; i++, section++)
     {
-        if (section->SizeOfRawData == 0) 
+        if (section->SizeOfRawData == 0)
         {
             // section doesn't contain data in the dll itself, but may define
             // uninitialized data
             section_size = old_headers->OptionalHeader.SectionAlignment;
             if (section_size > 0) {
                 dest = codeBase + section->VirtualAddress;
-                if (dest == NULL) 
+                if (dest == NULL)
                 {
                     return FALSE;
                 }
@@ -822,14 +822,14 @@ static inline BOOL CopySections(INSTANCE* inst ,const unsigned char *data, size_
             continue;
         }
 
-        if (!CheckSize(size, section->PointerToRawData + section->SizeOfRawData)) 
+        if (!CheckSize(size, section->PointerToRawData + section->SizeOfRawData))
         {
             return FALSE;
         }
 
         // commit memory block and copy data from dll
         dest = codeBase + section->VirtualAddress;
-        if (dest == NULL) 
+        if (dest == NULL)
         {
             return FALSE;
         }
@@ -843,7 +843,7 @@ static inline BOOL CopySections(INSTANCE* inst ,const unsigned char *data, size_
         // again later when "PhysicalAddress" is used.
         section->Misc.PhysicalAddress = (DWORD) ((uintptr_t) dest & 0xffffffff);
 
-        if (memcmp(section->Name, inst->sPDataSec, 6) == 0) 
+        if (memcmp(section->Name, inst->sPDataSec, 6) == 0)
         {
 
             module->pdataStart = (PRUNTIME_FUNCTION)(codeBase + section->VirtualAddress);
@@ -861,16 +861,16 @@ static inline BOOL CopySections(INSTANCE* inst ,const unsigned char *data, size_
 }
 
 
-static inline SIZE_T GetRealSectionSize(PMEMORYMODULE module, PIMAGE_SECTION_HEADER section) 
+static inline SIZE_T GetRealSectionSize(PMEMORYMODULE module, PIMAGE_SECTION_HEADER section)
 {
     DWORD size = section->SizeOfRawData;
-    if (size == 0) 
+    if (size == 0)
     {
-        if (section->Characteristics & IMAGE_SCN_CNT_INITIALIZED_DATA) 
+        if (section->Characteristics & IMAGE_SCN_CNT_INITIALIZED_DATA)
         {
             size = module->headers->OptionalHeader.SizeOfInitializedData;
-        } 
-        else if (section->Characteristics & IMAGE_SCN_CNT_UNINITIALIZED_DATA) 
+        }
+        else if (section->Characteristics & IMAGE_SCN_CNT_UNINITIALIZED_DATA)
         {
             size = module->headers->OptionalHeader.SizeOfUninitializedData;
         }
@@ -879,26 +879,26 @@ static inline SIZE_T GetRealSectionSize(PMEMORYMODULE module, PIMAGE_SECTION_HEA
 }
 
 
-static inline BOOL FinalizeSection(INSTANCE* inst, PMEMORYMODULE module, PSECTIONFINALIZEDATA sectionData) 
+static inline BOOL FinalizeSection(INSTANCE* inst, PMEMORYMODULE module, PSECTIONFINALIZEDATA sectionData)
 {
     DWORD protect, oldProtect;
     BOOL executable;
     BOOL readable;
     BOOL writeable;
 
-    if (sectionData->size == 0) 
+    if (sectionData->size == 0)
     {
         return TRUE;
     }
 
-    if (sectionData->characteristics & IMAGE_SCN_MEM_DISCARDABLE) 
+    if (sectionData->characteristics & IMAGE_SCN_MEM_DISCARDABLE)
     {
         // section is not needed any more and can safely be freed
         if (sectionData->address == sectionData->alignedAddress &&
             (sectionData->last ||
              module->headers->OptionalHeader.SectionAlignment == module->pageSize ||
              (sectionData->size % module->pageSize) == 0)
-           ) 
+           )
         {
             // Only allowed to decommit whole pages
             MM_VirtualFree(inst, sectionData->address, sectionData->size, MEM_DECOMMIT);
@@ -949,7 +949,7 @@ static inline BOOL FinalizeSection(INSTANCE* inst, PMEMORYMODULE module, PSECTIO
     }
 
     // change memory access flags
-    if (MM_VirtualProtect(inst, sectionData->address, sectionData->size, protect, &oldProtect) == 0) 
+    if (MM_VirtualProtect(inst, sectionData->address, sectionData->size, protect, &oldProtect) == 0)
     {
         return FALSE;
     }
@@ -978,7 +978,7 @@ static inline BOOL FinalizeSections(INSTANCE* inst, PMEMORYMODULE module)
     section++;
 
     // loop through all sections and change access flags
-    for (i=1; i<module->headers->FileHeader.NumberOfSections; i++, section++) 
+    for (i=1; i<module->headers->FileHeader.NumberOfSections; i++, section++)
     {
         LPVOID sectionAddress = (LPVOID)((uintptr_t)section->Misc.PhysicalAddress | imageOffset);
         LPVOID alignedAddress = AlignAddressDown(sectionAddress, module->pageSize);
@@ -986,14 +986,14 @@ static inline BOOL FinalizeSections(INSTANCE* inst, PMEMORYMODULE module)
         // Combine access flags of all sections that share a page
         // TODO(fancycode): We currently share flags of a trailing large section
         //   with the page of a first small section. This should be optimized.
-        if (sectionData.alignedAddress == alignedAddress || (uintptr_t) sectionData.address + sectionData.size > (uintptr_t) alignedAddress) 
+        if (sectionData.alignedAddress == alignedAddress || (uintptr_t) sectionData.address + sectionData.size > (uintptr_t) alignedAddress)
         {
             // Section shares page with previous
-            if ((section->Characteristics & IMAGE_SCN_MEM_DISCARDABLE) == 0 || (sectionData.characteristics & IMAGE_SCN_MEM_DISCARDABLE) == 0) 
+            if ((section->Characteristics & IMAGE_SCN_MEM_DISCARDABLE) == 0 || (sectionData.characteristics & IMAGE_SCN_MEM_DISCARDABLE) == 0)
             {
                 sectionData.characteristics = (sectionData.characteristics | section->Characteristics) & ~IMAGE_SCN_MEM_DISCARDABLE;
-            } 
-            else 
+            }
+            else
             {
                 sectionData.characteristics |= section->Characteristics;
             }
@@ -1001,7 +1001,7 @@ static inline BOOL FinalizeSections(INSTANCE* inst, PMEMORYMODULE module)
             continue;
         }
 
-        if (!FinalizeSection(inst, module, &sectionData)) 
+        if (!FinalizeSection(inst, module, &sectionData))
         {
             return FALSE;
         }
@@ -1011,7 +1011,7 @@ static inline BOOL FinalizeSections(INSTANCE* inst, PMEMORYMODULE module)
         sectionData.characteristics = section->Characteristics;
     }
     sectionData.last = TRUE;
-    if (!FinalizeSection(inst, module, &sectionData)) 
+    if (!FinalizeSection(inst, module, &sectionData))
     {
         return FALSE;
     }
@@ -1026,16 +1026,16 @@ static inline BOOL ExecuteTLS(INSTANCE* inst, PMEMORYMODULE module)
     PIMAGE_TLS_CALLBACK* callback;
 
     PIMAGE_DATA_DIRECTORY directory = GET_HEADER_DICTIONARY(module, IMAGE_DIRECTORY_ENTRY_TLS);
-    if (directory->VirtualAddress == 0) 
+    if (directory->VirtualAddress == 0)
     {
         return TRUE;
     }
 
     tls = (PIMAGE_TLS_DIRECTORY) (codeBase + directory->VirtualAddress);
     callback = (PIMAGE_TLS_CALLBACK *) tls->AddressOfCallBacks;
-    if (callback) 
+    if (callback)
     {
-        while (*callback) 
+        while (*callback)
         {
             (*callback)((LPVOID) codeBase, DLL_PROCESS_ATTACH, NULL);
             callback++;
@@ -1051,13 +1051,13 @@ static inline BOOL PerformBaseRelocation(PMEMORYMODULE module, ptrdiff_t delta)
     PIMAGE_BASE_RELOCATION relocation;
 
     PIMAGE_DATA_DIRECTORY directory = GET_HEADER_DICTIONARY(module, IMAGE_DIRECTORY_ENTRY_BASERELOC);
-    if (directory->Size == 0) 
+    if (directory->Size == 0)
 	{
         return (delta == 0);
     }
 
     relocation = (PIMAGE_BASE_RELOCATION) (codeBase + directory->VirtualAddress);
-    for (; relocation->VirtualAddress > 0; ) 
+    for (; relocation->VirtualAddress > 0; )
     {
         DWORD i;
         unsigned char *dest = codeBase + relocation->VirtualAddress;
@@ -1111,7 +1111,7 @@ static inline BOOL BuildImportTable(INSTANCE* inst, PMEMORYMODULE module)
     BOOL result = TRUE;
 
     PIMAGE_DATA_DIRECTORY directory = GET_HEADER_DICTIONARY(module, IMAGE_DIRECTORY_ENTRY_IMPORT);
-    if (directory->Size == 0) 
+    if (directory->Size == 0)
     {
         return TRUE;
     }
@@ -1125,7 +1125,7 @@ static inline BOOL BuildImportTable(INSTANCE* inst, PMEMORYMODULE module)
         FARPROC *funcRef;
         HCUSTOMMODULE *tmp;
         HCUSTOMMODULE handle = MM_LoadLibraryA(inst, (LPCSTR) (codeBase + importDesc->Name));
-        if (handle == NULL) 
+        if (handle == NULL)
         {
             result = FALSE;
             break;
@@ -1134,22 +1134,22 @@ static inline BOOL BuildImportTable(INSTANCE* inst, PMEMORYMODULE module)
         SIZE_T newCount = module->numModules + 1;
         SIZE_T newSize = newCount * sizeof(HCUSTOMMODULE);
 
-        if (module->modules == NULL) 
+        if (module->modules == NULL)
         {
             tmp = (HCUSTOMMODULE *) MM_VirtualAlloc(inst, NULL, newSize, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-        } 
-        else 
+        }
+        else
         {
             tmp = (HCUSTOMMODULE *) MM_VirtualAlloc(inst, NULL, newSize, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-            if (tmp != NULL) 
+            if (tmp != NULL)
             {
                 SIZE_T oldSize = module->numModules * sizeof(HCUSTOMMODULE);
                 memcpy(tmp, module->modules, oldSize);
                 MM_VirtualFree(inst, module->modules, 0, MEM_RELEASE);
             }
         }
-		
-        if (tmp == NULL) 
+
+        if (tmp == NULL)
 		{
             result = FALSE;
             break;
@@ -1157,29 +1157,29 @@ static inline BOOL BuildImportTable(INSTANCE* inst, PMEMORYMODULE module)
         module->modules = tmp;
 
         module->modules[module->numModules++] = handle;
-        if (importDesc->OriginalFirstThunk) 
+        if (importDesc->OriginalFirstThunk)
         {
             thunkRef = (uintptr_t *) (codeBase + importDesc->OriginalFirstThunk);
             funcRef = (FARPROC *) (codeBase + importDesc->FirstThunk);
-        } 
-        else 
+        }
+        else
         {
             // no hint table
             thunkRef = (uintptr_t *) (codeBase + importDesc->FirstThunk);
             funcRef = (FARPROC *) (codeBase + importDesc->FirstThunk);
         }
-        for (; *thunkRef; thunkRef++, funcRef++) 
+        for (; *thunkRef; thunkRef++, funcRef++)
         {
-            if (IMAGE_SNAP_BY_ORDINAL(*thunkRef)) 
+            if (IMAGE_SNAP_BY_ORDINAL(*thunkRef))
             {
                 *funcRef = MM_GetProcAddress(inst, handle, (LPCSTR)IMAGE_ORDINAL(*thunkRef));
-            } 
-            else 
+            }
+            else
             {
                 PIMAGE_IMPORT_BY_NAME thunkData = (PIMAGE_IMPORT_BY_NAME) (codeBase + (*thunkRef));
                 *funcRef = MM_GetProcAddress(inst, handle, (LPCSTR)&thunkData->Name);
             }
-            if (*funcRef == 0) 
+            if (*funcRef == 0)
             {
                 result = FALSE;
                 break;
@@ -1209,62 +1209,62 @@ HMEMORYMODULE MemoryLoadLibrary(INSTANCE* inst, const void *data, size_t size)
     size_t lastSectionEnd = 0;
     size_t alignedImageSize;
 
-    if (!CheckSize(size, sizeof(IMAGE_DOS_HEADER))) 
+    if (!CheckSize(size, sizeof(IMAGE_DOS_HEADER)))
         return NULL;
 
     dos_header = (PIMAGE_DOS_HEADER)data;
     if (dos_header->e_magic != IMAGE_DOS_SIGNATURE)
         return NULL;
 
-    if (!CheckSize(size, dos_header->e_lfanew + sizeof(IMAGE_NT_HEADERS))) 
+    if (!CheckSize(size, dos_header->e_lfanew + sizeof(IMAGE_NT_HEADERS)))
         return NULL;
-    
+
     old_header = (PIMAGE_NT_HEADERS)&((const unsigned char *)(data))[dos_header->e_lfanew];
-    if (old_header->Signature != IMAGE_NT_SIGNATURE) 
+    if (old_header->Signature != IMAGE_NT_SIGNATURE)
         return NULL;
 
-    if (old_header->FileHeader.Machine != HOST_MACHINE) 
+    if (old_header->FileHeader.Machine != HOST_MACHINE)
         return NULL;
 
-    if (old_header->OptionalHeader.SectionAlignment & 1) 
+    if (old_header->OptionalHeader.SectionAlignment & 1)
         return NULL;
-	
+
     section = IMAGE_FIRST_SECTION(old_header);
     optionalSectionSize = old_header->OptionalHeader.SectionAlignment;
-    for (i=0; i<old_header->FileHeader.NumberOfSections; i++, section++) 
+    for (i=0; i<old_header->FileHeader.NumberOfSections; i++, section++)
     {
         size_t endOfSection;
-        if (section->SizeOfRawData == 0) 
+        if (section->SizeOfRawData == 0)
         {
             // Section without data in the DLL
             endOfSection = section->VirtualAddress + optionalSectionSize;
-        } 
-        else 
+        }
+        else
         {
             endOfSection = section->VirtualAddress + section->SizeOfRawData;
         }
 
-        if (endOfSection > lastSectionEnd) 
+        if (endOfSection > lastSectionEnd)
         {
             lastSectionEnd = endOfSection;
         }
     }
 
     alignedImageSize = AlignValueUp(old_header->OptionalHeader.SizeOfImage, 0x1000);
-    if (alignedImageSize != AlignValueUp(lastSectionEnd, 0x1000)) 
+    if (alignedImageSize != AlignValueUp(lastSectionEnd, 0x1000))
         return NULL;
-    
+
     if(inst->isModuleStompingUsed==0)
     {
         // reserve memory for image of library
         // XXX: is it correct to commit the complete memory region at once?
         //      calling DllEntry raises an exception if we don't...
         code = (unsigned char *)MM_VirtualAlloc(inst, (LPVOID)(old_header->OptionalHeader.ImageBase), alignedImageSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-        if (code == NULL) 
+        if (code == NULL)
         {
             // try to allocate memory at arbitrary position
             code = (unsigned char *)MM_VirtualAlloc(inst, NULL, alignedImageSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-            if (code == NULL) 
+            if (code == NULL)
                 return NULL;
         }
     }
@@ -1276,15 +1276,15 @@ HMEMORYMODULE MemoryLoadLibrary(INSTANCE* inst, const void *data, size_t size)
         HMODULE victimLib = MM_LoadLibraryA(inst, (char*)inst->sModuleToStomp);
         char * ptr = (char *) victimLib + 4096*2;
 
-        DWORD oldprotect = 0;		
+        DWORD oldprotect = 0;
         int ret = MM_VirtualProtect(inst, (char *)ptr, alignedImageSize+4096, PAGE_READWRITE, &oldprotect);
         __stosb(ptr, 0, alignedImageSize + 4096);
-        
+
         code = ptr;
     }
 
     result = (PMEMORYMODULE) MM_VirtualAlloc(inst, NULL, sizeof(MEMORYMODULE), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-    if (result == NULL) 
+    if (result == NULL)
         return NULL;
 
     result->codeBase = code;
@@ -1305,33 +1305,33 @@ HMEMORYMODULE MemoryLoadLibrary(INSTANCE* inst, const void *data, size_t size)
 
     // update position
     result->headers->OptionalHeader.ImageBase = (uintptr_t)code;
-	
+
     // copy sections from DLL file block to new memory location
-    if (!CopySections(inst, (const unsigned char *) data, size, old_header, result)) 
+    if (!CopySections(inst, (const unsigned char *) data, size, old_header, result))
 	    return NULL;
 
     // adjust base address of imported data
     locationDelta = (ptrdiff_t)(result->headers->OptionalHeader.ImageBase - old_header->OptionalHeader.ImageBase);
-    if (locationDelta != 0) 
+    if (locationDelta != 0)
 	{
         result->isRelocated = PerformBaseRelocation(result, locationDelta);
-    } 
-	else 
+    }
+	else
 	{
         result->isRelocated = TRUE;
     }
-		
+
     // load required dlls and adjust function table of imports
-    if (!BuildImportTable(inst, result)) 
+    if (!BuildImportTable(inst, result))
 	    return NULL;
-	
+
     // mark memory pages depending on section headers and release
     // sections that are marked as "discardable"
-    if (!FinalizeSections(inst, result)) 
+    if (!FinalizeSections(inst, result))
         return NULL;
-	
+
     // TLS callbacks are executed BEFORE the main loading
-    if (!ExecuteTLS(inst, result)) 
+    if (!ExecuteTLS(inst, result))
         return NULL;
 
     //
@@ -1343,8 +1343,8 @@ HMEMORYMODULE MemoryLoadLibrary(INSTANCE* inst, const void *data, size_t size)
     DWORD functionCount = result->pdataSize / sizeof(RUNTIME_FUNCTION);
     inst->api.RtlAddFunctionTable(result->pdataStart, functionCount, (DWORD64)result->codeBase);
 
-    // get entry point of loaded library	
-    if (result->headers->OptionalHeader.AddressOfEntryPoint != 0) 
+    // get entry point of loaded library
+    if (result->headers->OptionalHeader.AddressOfEntryPoint != 0)
     {
         if (result->isDLL) {
             DllEntryProc DllEntry = (DllEntryProc)(LPVOID)(code + result->headers->OptionalHeader.AddressOfEntryPoint);
@@ -1354,13 +1354,13 @@ HMEMORYMODULE MemoryLoadLibrary(INSTANCE* inst, const void *data, size_t size)
                 return NULL;
 
             result->initialized = TRUE;
-        } 
-        else 
+        }
+        else
         {
             result->exeEntry = (ExeEntryProc)(LPVOID)(code + result->headers->OptionalHeader.AddressOfEntryPoint);
         }
     }
-    else 
+    else
     {
         result->exeEntry = NULL;
     }
@@ -1388,8 +1388,8 @@ static int _find(const void *a, const void *b)
 static inline int MemoryCallEntryPoint(HMEMORYMODULE mod)
 {
     PMEMORYMODULE module = (PMEMORYMODULE)mod;
-	
-    if (module == NULL || module->isDLL || module->exeEntry == NULL || !module->isRelocated) 
+
+    if (module == NULL || module->isDLL || module->exeEntry == NULL || !module->isRelocated)
     {
         return -1;
     }
@@ -1413,20 +1413,20 @@ int strCmp(const char* s1, const char* s2)
 
 
 FARPROC MemoryGetProcAddress(INSTANCE* inst, HMEMORYMODULE mod, LPCSTR name)
-{	
+{
     PMEMORYMODULE module = (PMEMORYMODULE)mod;
     unsigned char *codeBase = module->codeBase;
     DWORD idx = 0;
     PIMAGE_EXPORT_DIRECTORY exports;
     PIMAGE_DATA_DIRECTORY directory = GET_HEADER_DICTIONARY(module, IMAGE_DIRECTORY_ENTRY_EXPORT);
-    if (directory->Size == 0) 
+    if (directory->Size == 0)
     {
         // no export table found
         return NULL;
     }
 
     exports = (PIMAGE_EXPORT_DIRECTORY) (codeBase + directory->VirtualAddress);
-    if (exports->NumberOfNames == 0 || exports->NumberOfFunctions == 0) 
+    if (exports->NumberOfNames == 0 || exports->NumberOfFunctions == 0)
     {
         // DLL doesn't export anything
         return NULL;
@@ -1435,50 +1435,50 @@ FARPROC MemoryGetProcAddress(INSTANCE* inst, HMEMORYMODULE mod, LPCSTR name)
     if (HIWORD(name) == 0)
     {
         // load function by ordinal value
-        if (LOWORD(name) < exports->Base) 
+        if (LOWORD(name) < exports->Base)
         {
             return NULL;
         }
-		
+
         idx = LOWORD(name) - exports->Base;
     }
-    else if (!exports->NumberOfNames) 
+    else if (!exports->NumberOfNames)
 	{
         return NULL;
-    } 
-	else 
+    }
+	else
 	{
         const struct ExportNameEntry *found;
 
         // Lazily build name table and sort it by names
-        if (!module->nameExportsTable) 
+        if (!module->nameExportsTable)
         {
             DWORD i;
             DWORD *nameRef = (DWORD *) (codeBase + exports->AddressOfNames);
             WORD *ordinal = (WORD *) (codeBase + exports->AddressOfNameOrdinals);
-            struct ExportNameEntry *entry = (struct ExportNameEntry*) MM_VirtualAlloc(inst, NULL, exports->NumberOfNames * sizeof(struct ExportNameEntry),	MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);		
-		
+            struct ExportNameEntry *entry = (struct ExportNameEntry*) MM_VirtualAlloc(inst, NULL, exports->NumberOfNames * sizeof(struct ExportNameEntry),	MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+
             module->nameExportsTable = entry;
-            if (!entry) 
+            if (!entry)
 			{
                 return NULL;
             }
-            for (i=0; i<exports->NumberOfNames; i++, nameRef++, ordinal++, entry++) 
+            for (i=0; i<exports->NumberOfNames; i++, nameRef++, ordinal++, entry++)
             {
                 entry->name = (const char *) (codeBase + (*nameRef));
                 entry->idx = *ordinal;
-            }            
-        } 
+            }
+        }
 
         for (int ii = 0; ii < exports->NumberOfNames; ii++)
         {
             if (strCmp(module->nameExportsTable[ii].name, name) == 0)
                 found = &module->nameExportsTable[ii];
         }
-		
+
         // search function name in list of exported names with binary search
 
-        if (!found) 
+        if (!found)
         {
             // exported symbol not found
             return NULL;
@@ -1487,7 +1487,7 @@ FARPROC MemoryGetProcAddress(INSTANCE* inst, HMEMORYMODULE mod, LPCSTR name)
         idx = found->idx;
     }
 
-    if (idx > exports->NumberOfFunctions) 
+    if (idx > exports->NumberOfFunctions)
     {
         // name <-> ordinal number don't match
         return NULL;
@@ -1501,7 +1501,7 @@ FARPROC MemoryGetProcAddress(INSTANCE* inst, HMEMORYMODULE mod, LPCSTR name)
 
 
 int testGenric(char* peFilename1, int isDll, char* methodeName, int isDotNet, char* cmdLine)
-{			
+{
     printf("[ ] testGenric %s %d %s %d %s\n", peFilename1, isDll, methodeName, isDotNet, cmdLine);
 
     INSTANCE* inst;
@@ -1544,11 +1544,11 @@ int testGenric(char* peFilename1, int isDll, char* methodeName, int isDotNet, ch
 	fseek(peFile, 0, SEEK_END);
 	long peFileSize = ftell(peFile);
 	fseek(peFile, 0, SEEK_SET);
-	
+
     void* peBuffer = VirtualAlloc(NULL, peFileSize, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 
 	fread(peBuffer , peFileSize, 1, peFile);
-	fclose(peFile);	
+	fclose(peFile);
 
     printf("[ ] Executable file: %s\n", peFilename1);
     printf("[ ] Executable size: %ld\n", peFileSize);
@@ -1578,15 +1578,15 @@ int testGenric(char* peFilename1, int isDll, char* methodeName, int isDotNet, ch
         fseek(peDotNetLoader, 0, SEEK_END);
         long peDotNetLoaderSize = ftell(peDotNetLoader);
         fseek(peDotNetLoader, 0, SEEK_SET);
-        
+
         void* peDotNetLoaderBuffer = VirtualAlloc(NULL, peDotNetLoaderSize, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 
         fread(peDotNetLoaderBuffer , peDotNetLoaderSize, 1, peDotNetLoader);
-        fclose(peDotNetLoader);	
+        fclose(peDotNetLoader);
 
         inst->ptrModuleTst = peDotNetLoaderBuffer;
         inst->dotnetLoaderSize = peDotNetLoaderSize;
-        
+
         inst->ptrDotNetModuleTst = peBuffer;
         inst->dotnetModuleSize = peFileSize;
 
@@ -1612,14 +1612,14 @@ int testGenric(char* peFilename1, int isDll, char* methodeName, int isDotNet, ch
     printf("[+] Loader launch\n");
 
     Loader(inst);
-    
+
 	return 0;
 }
 
 
 int main(int argc, char* argv[])
 {
-    if (argc < 6) 
+    if (argc < 6)
     {
         printf("Usage: %s <peFilename> <isDll> <methodName> <isDotNet> <cmdLine>\n", argv[0]);
         return 1;

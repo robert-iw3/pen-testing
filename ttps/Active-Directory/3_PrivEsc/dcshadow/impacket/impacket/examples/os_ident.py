@@ -39,7 +39,7 @@ class os_id_exception:
         return repr(self.value)
 
 class os_id_test:
-    
+
     def __init__(self, id):
         self.__id = id
         self.__my_packet = None
@@ -56,13 +56,13 @@ class os_id_test:
 
     def get_packet(self):
         return self.__my_packet
-        
+
     def process(self, packet):
         pass
 
     def add_result(self, name, value):
         self.__result_dict[name] = value
-                
+
     def get_id(self):
         return self.__id
     def is_mine(self, packet):
@@ -93,7 +93,7 @@ class icmp_request(os_id_test):
 
         self.__type = type
         self.icmp.set_icmp_type(type)
-        
+
         self.e.contains(self.i)
         self.i.contains(self.icmp)
         self.set_packet(self.e)
@@ -106,10 +106,10 @@ class icmp_request(os_id_test):
         if not ip or ip.get_ip_p() != ICMP.protocol:
             return 0
         icmp = ip.child()
-        
-        # icmp_request.type_filter is a dictionary that maps request 
+
+        # icmp_request.type_filter is a dictionary that maps request
         # type codes to the reply codes
-        
+
         if not icmp or \
            icmp.get_icmp_type() != icmp_request.type_filter[self.__type]:
             return 0
@@ -123,9 +123,9 @@ class icmp_request(os_id_test):
 
 
 class nmap2_icmp_echo_probe_1(icmp_request):
-    # The first one has the IP DF bit set, a type-of-service (TOS)  byte 
-    # value of zero, a code of nine (even though it should be zero), 
-    # the sequence number 295, a random IP ID and ICMP request identifier, 
+    # The first one has the IP DF bit set, a type-of-service (TOS)  byte
+    # value of zero, a code of nine (even though it should be zero),
+    # the sequence number 295, a random IP ID and ICMP request identifier,
     # and a random character repeated 120 times for the data payload.
     sequence_number = 295
     id = 0x5678
@@ -139,14 +139,14 @@ class nmap2_icmp_echo_probe_1(icmp_request):
         self.i.set_ip_id(nmap2_icmp_echo_probe_1.id)
         self.icmp.set_icmp_id(nmap2_icmp_echo_probe_1.id)
         self.icmp.contains(Data("I" * 120))
-        
+
     def process(self, packet):
         pass
 
 class nmap2_icmp_echo_probe_2(icmp_request):
-    # The second ping query is similar, except a TOS of four 
-    # (IP_TOS_RELIABILITY) is used, the code is zero, 150 bytes of data is 
-    # sent, and the IP ID, request ID, and sequence numbers are incremented 
+    # The second ping query is similar, except a TOS of four
+    # (IP_TOS_RELIABILITY) is used, the code is zero, 150 bytes of data is
+    # sent, and the IP ID, request ID, and sequence numbers are incremented
     # by one from the previous query values.
 
     def __init__(self, id, addresses):
@@ -158,7 +158,7 @@ class nmap2_icmp_echo_probe_2(icmp_request):
         self.i.set_ip_id(nmap2_icmp_echo_probe_1.id + 1)
         self.icmp.set_icmp_id(nmap2_icmp_echo_probe_1.id + 1)
         self.icmp.contains(Data("I" * 150))
-        
+
     def process(self, packet):
         pass
 
@@ -177,7 +177,7 @@ class udp_closed_probe(os_id_test):
         self.i.set_ip_dst(addresses[1])
         self.i.set_ip_id(udp_closed_probe.ip_id)
         self.u.set_uh_sport(id)
-        
+
         self.u.set_uh_dport( udp_closed )
 
         self.e.contains(self.i)
@@ -193,15 +193,15 @@ class udp_closed_probe(os_id_test):
         icmp = ip.child()
         if not icmp or icmp.get_icmp_type() != ICMP.ICMP_UNREACH:
             return 0
-  
+
         if icmp.get_icmp_code() != ICMP.ICMP_UNREACH_PORT:
             return 0;
-        
-        
+
+
         self.err_data = icmp.child()
         if not self.err_data:
             return 0
-        
+
 
         return 1
 
@@ -220,17 +220,17 @@ class tcp_probe(os_id_test):
         self.i.set_ip_id(0x2323) # HARDCODED
         self.t.set_th_sport(id)
 
-        if open_port:        
+        if open_port:
             self.target_port = tcp_ports[0]
         else:
             self.target_port = tcp_ports[1]
-                
+
         self.t.set_th_dport(self.target_port)
-        
+
         self.e.contains(self.i)
         self.i.contains(self.t)
         self.set_packet(self.e)
-        
+
         self.source_ip = addresses[0]
         self.target_ip = addresses[1]
 
@@ -253,7 +253,7 @@ class tcp_probe(os_id_test):
         if self.socket_match(ip, tcp):
             return 1
 
-        return 0        
+        return 0
 
 
 class nmap_tcp_probe(tcp_probe):
@@ -291,7 +291,7 @@ class nmap1_tcp_probe(nmap_tcp_probe):
     ]
 
     def __init__(self, id, addresses, tcp_ports, open_port):
-        nmap_tcp_probe.__init__(self, id, addresses, tcp_ports, open_port, 
+        nmap_tcp_probe.__init__(self, id, addresses, tcp_ports, open_port,
                                 self.sequence, self.tcp_options)
 
     def set_resp(self,resp):
@@ -366,14 +366,14 @@ class nmap2_tcp_probe(nmap_tcp_probe):
     acknowledgment = 0x181d4f7b
 
     def __init__(self, id, addresses, tcp_ports, open_port, sequence, options):
-        nmap_tcp_probe.__init__(self, id, addresses, tcp_ports, open_port, 
+        nmap_tcp_probe.__init__(self, id, addresses, tcp_ports, open_port,
                                 sequence, options)
         self.t.set_th_ack(self.acknowledgment)
 
     def set_resp(self,resp):
         # Responsiveness (R)
-        # This test simply records whether the target responded to a given probe. 
-        # Possible values are Y and N. If there is no reply, remaining fields 
+        # This test simply records whether the target responded to a given probe.
+        # Possible values are Y and N. If there is no reply, remaining fields
         # for the test are omitted.
         if resp:
             self.add_result("R", "Y")
@@ -409,17 +409,17 @@ class nmap2_ecn_probe(nmap_tcp_probe):
 
     # From: https://nmap.org/book/osdetect-methods.html
     # [...]
-    # This probe tests for explicit congestion notification (ECN) support 
-    # in the target TCP stack. ECN is a method for improving Internet 
-    # performance by allowing routers to signal congestion problems before 
-    # they start having to drop packets. It is documented in RFC 3168. 
-    # Nmap tests this by sending a SYN packet which also has the ECN CWR 
-    # and ECE congestion control flags set. For an unrelated (to ECN) test, 
-    # the urgent field value of 0xF7F5 is used even though the urgent flag 
-    # is not set. The acknowledgment number is zero, sequence number is 
-    # random, window size field is three, and the reserved bit which 
-    # immediately precedes the CWR bit is set. TCP options are WScale (10), 
-    # NOP, MSS (1460), SACK permitted, NOP, NOP. The probe is sent to an 
+    # This probe tests for explicit congestion notification (ECN) support
+    # in the target TCP stack. ECN is a method for improving Internet
+    # performance by allowing routers to signal congestion problems before
+    # they start having to drop packets. It is documented in RFC 3168.
+    # Nmap tests this by sending a SYN packet which also has the ECN CWR
+    # and ECE congestion control flags set. For an unrelated (to ECN) test,
+    # the urgent field value of 0xF7F5 is used even though the urgent flag
+    # is not set. The acknowledgment number is zero, sequence number is
+    # random, window size field is three, and the reserved bit which
+    # immediately precedes the CWR bit is set. TCP options are WScale (10),
+    # NOP, MSS (1460), SACK permitted, NOP, NOP. The probe is sent to an
     # open port.
     # [...]
     tcp_options = [
@@ -433,7 +433,7 @@ class nmap2_ecn_probe(nmap_tcp_probe):
 
 
     def __init__(self, id, addresses, tcp_ports):
-        nmap_tcp_probe.__init__(self, id, addresses, tcp_ports, 1, 
+        nmap_tcp_probe.__init__(self, id, addresses, tcp_ports, 1,
                                 0x8b6a, self.tcp_options)
         self.t.set_SYN()
         self.t.set_CWR()
@@ -480,10 +480,10 @@ class nmap2_tcp_tests:
 
     def get_df(self):
         # IP don't fragment bit (DF)
-        # The IP header contains a single bit which forbids routers from fragmenting 
-        # a packet. If the packet is too large for routers to handle, they will just 
+        # The IP header contains a single bit which forbids routers from fragmenting
+        # a packet. If the packet is too large for routers to handle, they will just
         # have to drop it (and ideally return a "destination unreachable,
-        # fragmentation needed" response). This test records Y if the bit is set, 
+        # fragmentation needed" response). This test records Y if the bit is set,
         # and N if it isn't.
         if self.__ip.get_ip_df():
             return "Y"
@@ -492,13 +492,13 @@ class nmap2_tcp_tests:
 
     def get_win(self):
         # TCP initial window size (W, W1-W6)
-        # This test simply records the 16-bit TCP window size of the received packet. 
+        # This test simply records the 16-bit TCP window size of the received packet.
         return "%X" % self.__tcp.get_th_win()
 
     def get_ack(self):
         # TCP acknowledgment number (A)
-        # This test is the same as S except that it tests how the acknowledgment 
-        # number in the response compares to the sequence number in the 
+        # This test is the same as S except that it tests how the acknowledgment
+        # number in the response compares to the sequence number in the
         # respective probe.
         # Value	Description
         # Z	    Acknowledgment number is zero.
@@ -516,10 +516,10 @@ class nmap2_tcp_tests:
 
     def get_seq(self):
         # TCP sequence number (S)
-        # This test examines the 32-bit sequence number field in the TCP 
-        # header. Rather than record the field value as some other tests 
-        # do, this one examines how it compares to the TCP acknowledgment 
-        # number from the probe that elicited the response. 
+        # This test examines the 32-bit sequence number field in the TCP
+        # header. Rather than record the field value as some other tests
+        # do, this one examines how it compares to the TCP acknowledgment
+        # number from the probe that elicited the response.
         # Value	    Description
         # Z	        Sequence number is zero.
         # A	        Sequence number is the same as the acknowledgment number in the probe.
@@ -536,10 +536,10 @@ class nmap2_tcp_tests:
 
     def get_flags(self):
         # TCP flags (F)
-        # This field records the TCP flags in the response. Each letter represents 
-        # one flag, and they occur in the same order as in a TCP packet (from 
-        # high-bit on the left, to the low ones). So the value SA represents the 
-        # SYN and ACK bits set, while the value AS is illegal (wrong order). 
+        # This field records the TCP flags in the response. Each letter represents
+        # one flag, and they occur in the same order as in a TCP packet (from
+        # high-bit on the left, to the low ones). So the value SA represents the
+        # SYN and ACK bits set, while the value AS is illegal (wrong order).
         # The possible flags are shown in Table 8.7.
         # Character	Flag name	            Flag byte value
         # E	        ECN Echo (ECE)	        64
@@ -549,7 +549,7 @@ class nmap2_tcp_tests:
         # R	        Reset (RST)	            4
         # S	        Synchronize (SYN)	    2
         # F	        Final (FIN)	            1
-        
+
         flags = ""
 
         if self.__tcp.get_ECE():
@@ -571,19 +571,19 @@ class nmap2_tcp_tests:
 
     def get_options(self):
         # Option Name	                    Character    Argument (if any)
-        # End of Options List (EOL)	        L	         
-        # No operation (NOP)	            N	         
-        # Maximum Segment Size (MSS)	    M	         The value is appended. Many systems 
+        # End of Options List (EOL)	        L
+        # No operation (NOP)	            N
+        # Maximum Segment Size (MSS)	    M	         The value is appended. Many systems
         #                                                echo the value used in the corresponding probe.
         # Window Scale (WS)	                W	         The actual value is appended.
-        # Timestamp (TS)	                T	         The T is followed by two binary characters 
-        #                                                representing the TSval and TSecr values respectively. 
-        #                                                The characters are 0 if the field is zero 
+        # Timestamp (TS)	                T	         The T is followed by two binary characters
+        #                                                representing the TSval and TSecr values respectively.
+        #                                                The characters are 0 if the field is zero
         #                                                and 1 otherwise.
-        # Selective ACK permitted (SACK)	S	        
+        # Selective ACK permitted (SACK)	S
 
         options = ""
-        
+
         for op in self.__tcp.get_options():
             if op.get_kind() == TCPOption.TCPOPT_EOL:
                 options += "L"
@@ -603,17 +603,17 @@ class nmap2_tcp_tests:
 
     def get_cc(self):
         # Explicit congestion notification (CC)
-        # This test is only used for the ECN probe. That probe is a SYN packet 
-        # which includes the CWR and ECE congestion control flags. When the 
-        # response SYN/ACK is received, those flags are examined to set the 
+        # This test is only used for the ECN probe. That probe is a SYN packet
+        # which includes the CWR and ECE congestion control flags. When the
+        # response SYN/ACK is received, those flags are examined to set the
         # CC (congestion control) test value as described in Table 8.3.
 
         # Table 8.3. CC test values
         # Value	Description
         # Y	    Only the ECE bit is set (not CWR). This host supports ECN.
-        # N	    Neither of these two bits is set. The target does not support 
+        # N	    Neither of these two bits is set. The target does not support
         #       ECN.
-        # S	    Both bits are set. The target does not support ECN, but it 
+        # S	    Both bits are set. The target does not support ECN, but it
         #       echoes back what it thinks is a reserved bit.
         # O	    The one remaining combination of these two bits (other).
         ece, cwr = self.__tcp.get_ECE(), self.__tcp.get_CWR()
@@ -628,20 +628,20 @@ class nmap2_tcp_tests:
 
     def get_quirks(self):
         # TCP miscellaneous quirks (Q)
-        # This tests for two quirks that a few implementations have in their 
-        # TCP stack. The first is that the reserved field in the TCP header 
-        # (right after the header length) is nonzero. This is particularly 
-        # likely to happen in response to the ECN test as that one sets a 
+        # This tests for two quirks that a few implementations have in their
+        # TCP stack. The first is that the reserved field in the TCP header
+        # (right after the header length) is nonzero. This is particularly
+        # likely to happen in response to the ECN test as that one sets a
         # reserved bit in the probe. If this is seen in a packet, an "R"
         # is recorded in the Q string.
 
-        # The other quirk Nmap tests for is a nonzero urgent pointer field 
-        # value when the URG flag is not set. This is also particularly 
-        # likely to be seen in response to the ECN probe, which sets a 
-        # non-zero urgent field. A "U" is appended to the Q string when 
+        # The other quirk Nmap tests for is a nonzero urgent pointer field
+        # value when the URG flag is not set. This is also particularly
+        # likely to be seen in response to the ECN probe, which sets a
+        # non-zero urgent field. A "U" is appended to the Q string when
         # this is seen.
 
-        # The Q string must always be generated in alphabetical order. 
+        # The Q string must always be generated in alphabetical order.
         # If no quirks are present, the Q test is empty but still shown.
 
         quirks = ""
@@ -664,11 +664,11 @@ class nmap2_tcp_probe_2_6(nmap2_tcp_probe):
 
     # From: https://nmap.org/book/osdetect-methods.html
     # [...]
-    # The six T2 through T7 tests each send one TCP probe packet. 
-    # With one exception, the TCP options data in each case is (in hex) 
-    # 03030A0102040109080AFFFFFFFF000000000402. 
-    # Those 20 bytes correspond to window scale (10), NOP, MSS (265), 
-    # Timestamp (TSval: 0xFFFFFFFF; TSecr: 0), then SACK permitted. 
+    # The six T2 through T7 tests each send one TCP probe packet.
+    # With one exception, the TCP options data in each case is (in hex)
+    # 03030A0102040109080AFFFFFFFF000000000402.
+    # Those 20 bytes correspond to window scale (10), NOP, MSS (265),
+    # Timestamp (TSval: 0xFFFFFFFF; TSecr: 0), then SACK permitted.
     # (...
     tcp_options = [
         TCPOption(TCPOption.TCPOPT_WINDOW, 0o12), #\003\003\012
@@ -679,7 +679,7 @@ class nmap2_tcp_probe_2_6(nmap2_tcp_probe):
     ]
 
     def __init__(self, id, addresses, tcp_ports, open_port):
-        nmap2_tcp_probe.__init__(self, id, addresses, tcp_ports, open_port, 
+        nmap2_tcp_probe.__init__(self, id, addresses, tcp_ports, open_port,
                                  self.sequence, self.tcp_options)
 
 class nmap2_tcp_probe_7(nmap2_tcp_probe):
@@ -698,7 +698,7 @@ class nmap2_tcp_probe_7(nmap2_tcp_probe):
     ]
 
     def __init__(self, id, addresses, tcp_ports, open_port):
-        nmap2_tcp_probe.__init__(self, id, addresses, tcp_ports, open_port, 
+        nmap2_tcp_probe.__init__(self, id, addresses, tcp_ports, open_port,
                                  self.sequence, self.tcp_options)
 
 class nmap_port_unreachable(udp_closed_probe):
@@ -786,7 +786,7 @@ class nmap1_port_unreachable(nmap_port_unreachable):
             self.add_result("UCK", "E")
         else:
             self.add_result("UCK", "F")
-            
+
         self.add_result("ULEN", udp.get_uh_ulen())
 
         if ip.child().child().child().child() == udp.child(): # Some systems meddle with the data
@@ -795,17 +795,17 @@ class nmap1_port_unreachable(nmap_port_unreachable):
             self.add_result("DAT", "F")
 
     def get_final_result(self):
-        return {self.test_id(): self.get_result_dict()}        
+        return {self.test_id(): self.get_result_dict()}
 
 class nmap2_port_unreachable(nmap_port_unreachable):
     # UDP (U1)
     # This probe is a UDP packet sent to a closed port. The character 'C'
-    # (0x43) is repeated 300 times for the data field. The IP ID value is 
-    # set to 0x1042 for operating systems which allow us to set this. If 
-    # the port is truly closed and there is no firewall in place, Nmap 
-    # expects to receive an ICMP port unreachable message in return. 
-    # That response is then subjected to the R, DF, T, TG, TOS, IPL, UN, 
-    # RIPL, RID, RIPCK, RUCK, RUL, and RUD tests. 
+    # (0x43) is repeated 300 times for the data field. The IP ID value is
+    # set to 0x1042 for operating systems which allow us to set this. If
+    # the port is truly closed and there is no firewall in place, Nmap
+    # expects to receive an ICMP port unreachable message in return.
+    # That response is then subjected to the R, DF, T, TG, TOS, IPL, UN,
+    # RIPL, RID, RIPCK, RUCK, RUL, and RUD tests.
     def __init__(self, id, addresses, ports):
         nmap_port_unreachable.__init__(self, id, addresses, ports)
         self.u.contains(Data("C" * 300))
@@ -841,70 +841,70 @@ class nmap2_port_unreachable(nmap_port_unreachable):
 
     # XXX T
         # IP initial time-to-live (T)
-        # IP packets contain a field named time-to-live (TTL) which is 
-        # decremented every time they traverse a router. If the field 
-        # reaches zero, the packet must be discarded. This prevents 
-        # packets from looping endlessly. Because operating systems differ 
-        # on which TTL they start with, it can be used for OS detection. 
-        # Nmap determines how many hops away it is from the target by 
-        # examining the ICMP port unreachable response to the U1 probe. 
-        # That response includes the original IP packet, including the 
-        # already-decremented TTL field, received by the target. By 
-        # subtracting that value from our as-sent TTL, we learn how many 
-        # hops away the machine is. Nmap then adds that hop distance to 
-        # the probe response TTL to determine what the initial TTL was 
-        # when that ICMP probe response packet was sent. That initial TTL 
+        # IP packets contain a field named time-to-live (TTL) which is
+        # decremented every time they traverse a router. If the field
+        # reaches zero, the packet must be discarded. This prevents
+        # packets from looping endlessly. Because operating systems differ
+        # on which TTL they start with, it can be used for OS detection.
+        # Nmap determines how many hops away it is from the target by
+        # examining the ICMP port unreachable response to the U1 probe.
+        # That response includes the original IP packet, including the
+        # already-decremented TTL field, received by the target. By
+        # subtracting that value from our as-sent TTL, we learn how many
+        # hops away the machine is. Nmap then adds that hop distance to
+        # the probe response TTL to determine what the initial TTL was
+        # when that ICMP probe response packet was sent. That initial TTL
         # value is stored in the fingerprint as the T result.
-        # Even though an eight-bit field like TTL can never hold values 
-        # greater than 0xFF, this test occasionally results in values of 
-        # 0x100 or higher. This occurs when a system (could be the source, 
+        # Even though an eight-bit field like TTL can never hold values
+        # greater than 0xFF, this test occasionally results in values of
+        # 0x100 or higher. This occurs when a system (could be the source,
         # a target, or a system in between) corrupts or otherwise fails to
-        # correctly decrement the TTL. It can also occur due to asymmetric 
+        # correctly decrement the TTL. It can also occur due to asymmetric
         # routes.
 
     # XXX TG
         # IP initial time-to-live guess (TG)
-        # It is not uncommon for Nmap to receive no response to the U1 probe, 
-        # which prevents Nmap from learning how many hops away a target is. 
-        # Firewalls and NAT devices love to block unsolicited UDP packets. 
-        # But since common TTL values are spread well apart and targets are 
-        # rarely more than 20 hops away, Nmap can make a pretty good guess 
-        # anyway. Most systems send packets with an initial TTL of 32, 60, 64, 
-        # 128, or 255. So the TTL value received in the response is rounded 
-        # up to the next value out of 32, 64, 128, or 255. 60 is not in that 
-        # list because it cannot be reliably distinguished from 64. It is 
-        # rarely seen anyway. 
-        # The resulting guess is stored in the TG field. This TTL guess field 
-        # is not printed in a subject fingerprint if the actual TTL (T) value 
+        # It is not uncommon for Nmap to receive no response to the U1 probe,
+        # which prevents Nmap from learning how many hops away a target is.
+        # Firewalls and NAT devices love to block unsolicited UDP packets.
+        # But since common TTL values are spread well apart and targets are
+        # rarely more than 20 hops away, Nmap can make a pretty good guess
+        # anyway. Most systems send packets with an initial TTL of 32, 60, 64,
+        # 128, or 255. So the TTL value received in the response is rounded
+        # up to the next value out of 32, 64, 128, or 255. 60 is not in that
+        # list because it cannot be reliably distinguished from 64. It is
+        # rarely seen anyway.
+        # The resulting guess is stored in the TG field. This TTL guess field
+        # is not printed in a subject fingerprint if the actual TTL (T) value
         # was discovered.
 
         # IP type of service (TOS)
-        # This test simply records the type of service byte from the 
-        # IP header of ICMP port unreachable packets. 
+        # This test simply records the type of service byte from the
+        # IP header of ICMP port unreachable packets.
         # This byte is described in RFC 791
         self.add_result("TOS", "%X" % ip.get_ip_tos())
 
         # IP total length (IPL)
-        # This test records the total length (in octets) of an IP packet. 
-        # It is only used for the port unreachable response elicited by the 
+        # This test records the total length (in octets) of an IP packet.
+        # It is only used for the port unreachable response elicited by the
         # U1 test.
         self.add_result("IPL", "%X" % ip.get_ip_len())
 
         # Unused port unreachable field nonzero (UN)
-        # An ICMP port unreachable message header is eight bytes long, but 
-        # only the first four are used. RFC 792 states that the last four 
-        # bytes must be zero. A few implementations (mostly ethernet switches 
-        # and some specialized embedded devices) set it anyway. The value of 
+        # An ICMP port unreachable message header is eight bytes long, but
+        # only the first four are used. RFC 792 states that the last four
+        # bytes must be zero. A few implementations (mostly ethernet switches
+        # and some specialized embedded devices) set it anyway. The value of
         # those last four bytes is recorded in this field.
-        self.add_result("UN", "%X" % icmp.get_icmp_void()) 
+        self.add_result("UN", "%X" % icmp.get_icmp_void())
 
         # Returned probe IP total length value (RIPL)
-        # ICMP port unreachable messages (as are sent in response to the U1 
-        # probe) are required to include the IP header which generated them. 
-        # This header should be returned just as they received it, but some 
-        # implementations send back a corrupted version due to changes they 
-        # made during IP processing. This test simply records the returned 
-        # IP total length value. If the correct value of 0x148 (328) is 
+        # ICMP port unreachable messages (as are sent in response to the U1
+        # probe) are required to include the IP header which generated them.
+        # This header should be returned just as they received it, but some
+        # implementations send back a corrupted version due to changes they
+        # made during IP processing. This test simply records the returned
+        # IP total length value. If the correct value of 0x148 (328) is
         # returned, the value G (for good) is stored instead of the actual value.
         if ip_orig.get_ip_len() == 0x148:
             self.add_result("RIPL","G")
@@ -912,24 +912,24 @@ class nmap2_port_unreachable(nmap_port_unreachable):
             self.add_result("RIPL", "%X" % ip_orig.get_ip_len())
 
         # Returned probe IP ID value (RID)
-        # The U1 probe has a static IP ID value of 0x1042. If that value is 
-        # returned in the port unreachable message, the value G is stored for 
-        # this test. Otherwise the exact value returned is stored. Some systems, 
-        # such as Solaris, manipulate IP ID values for raw IP packets that 
-        # Nmap sends. In such cases, this test is skipped. We have found 
-        # that some systems, particularly HP and Xerox printers, flip the bytes 
-        # and return 0x4210 instead. 
+        # The U1 probe has a static IP ID value of 0x1042. If that value is
+        # returned in the port unreachable message, the value G is stored for
+        # this test. Otherwise the exact value returned is stored. Some systems,
+        # such as Solaris, manipulate IP ID values for raw IP packets that
+        # Nmap sends. In such cases, this test is skipped. We have found
+        # that some systems, particularly HP and Xerox printers, flip the bytes
+        # and return 0x4210 instead.
         if 0x1042 == ip_orig.get_ip_id():
             self.add_result("RID", "G")
         else:
             self.add_result("RID", "%X" % ip_orig.get_ip_id())
 
         # Integrity of returned probe IP checksum value (RIPCK)
-        # The IP checksum is one value that we don't expect to remain the same 
-        # when returned in a port unreachable message. After all, each network 
-        # hop during transit changes the checksum as the TTL is decremented. 
-        # However, the checksum we receive should match the enclosing IP packet. 
-        # If it does, the value G (good) is stored for this test. If the returned 
+        # The IP checksum is one value that we don't expect to remain the same
+        # when returned in a port unreachable message. After all, each network
+        # hop during transit changes the checksum as the TTL is decremented.
+        # However, the checksum we receive should match the enclosing IP packet.
+        # If it does, the value G (good) is stored for this test. If the returned
         # value is zero, then Z is stored. Otherwise the result is I (invalid).
         ip_sum = ip_orig.get_ip_sum()
         ip_orig.set_ip_sum(0)
@@ -943,8 +943,8 @@ class nmap2_port_unreachable(nmap_port_unreachable):
             self.add_result("RIPCK", "I")
 
         # Integrity of returned probe UDP length and checksum (RUL and RUCK)
-        # The UDP header length and checksum values should be returned exactly 
-        # as they were sent. If so, G is recorded for these tests. Otherwise 
+        # The UDP header length and checksum values should be returned exactly
+        # as they were sent. If so, G is recorded for these tests. Otherwise
         # the value actually returned is recorded. The proper length is 0x134 (308).
         udp_sum = udp.get_uh_sum()
         udp.set_uh_sum(0)
@@ -955,15 +955,15 @@ class nmap2_port_unreachable(nmap_port_unreachable):
             self.add_result("RUCK", "G")
         else:
             self.add_result("RUCK", "%X" % udp_sum)
-            
+
         if udp.get_uh_ulen() == 0x134:
             self.add_result("RUL","G")
         else:
             self.add_result("RUL", "%X" % udp.get_uh_ulen())
 
         # Integrity of returned UDP data (RUD)
-        # If the UDP payload returned consists of 300 'C' (0x43) 
-        # characters as expected, a G is recorded for this test. 
+        # If the UDP payload returned consists of 300 'C' (0x43)
+        # characters as expected, a G is recorded for this test.
         # Otherwise I (invalid) is recorded.
         if ip.child().child().child().child() == udp.child():
             self.add_result("RUD", "G")
@@ -971,21 +971,21 @@ class nmap2_port_unreachable(nmap_port_unreachable):
             self.add_result("RUD", "I")
 
     def get_final_result(self):
-        return {self.test_id(): self.get_result_dict()}        
+        return {self.test_id(): self.get_result_dict()}
 
 class OS_ID:
 
     def __init__(self, target, ports):
         pcap_dev = lookupdev()
         self.p = open_live(pcap_dev, 600, 0, 3000)
-        
+
         self.__source = self.p.getlocalip()
         self.__target = target
-        
+
         self.p.setfilter("src host %s and dst host %s" % (target, self.__source), 1, 0xFFFFFF00)
         self.p.setmintocopy(10)
         self.decoder = EthDecoder()
-        
+
         self.tests_sent = []
         self.outstanding_count = 0
         self.results = {}
@@ -1002,10 +1002,10 @@ class OS_ID:
         self.current_id += 1
         self.current_id &= 0xFFFF
         return id
-        
+
     def send_tests(self, tests):
         self.outstanding_count = 0
-        
+
         for t_class in tests:
 
             # Ok, I need to know if the constructor accepts the parameter port
@@ -1025,7 +1025,7 @@ class OS_ID:
             data = self.p.next()[0]
             if data:
                 self.packet_handler(0, data)
-            else:                
+            else:
                 break
 
     def run(self):
@@ -1042,7 +1042,7 @@ class OS_ID:
 
     def packet_handler(self, len, data):
         packet = self.decoder.decode(data)
-        
+
         for t in self.tests_sent:
             if t.is_mine(packet):
                 t.process(packet)
@@ -1084,7 +1084,7 @@ class nmap1_tcp_open_2(nmap1_tcp_probe):
 class nmap2_tcp_open_2(nmap2_tcp_probe_2_6):
     # From: https://nmap.org/book/osdetect-methods.html
     # [...]
-    # T2 sends a TCP null (no flags set) packet with the IP DF bit set and a 
+    # T2 sends a TCP null (no flags set) packet with the IP DF bit set and a
     # window field of 128 to an open port.
     # ...
     def __init__(self, id, addresses, tcp_ports):
@@ -1108,7 +1108,7 @@ class nmap1_tcp_open_3(nmap1_tcp_probe):
 
 class nmap2_tcp_open_3(nmap2_tcp_probe_2_6):
     # ...
-    # T3 sends a TCP packet with the SYN, FIN, URG, and PSH flags set and a 
+    # T3 sends a TCP packet with the SYN, FIN, URG, and PSH flags set and a
     # window field of 256 to an open port. The IP DF bit is not set.
     # ...
     def __init__(self, id, addresses, tcp_ports ):
@@ -1133,7 +1133,7 @@ class nmap1_tcp_open_4(nmap1_tcp_probe):
 
 class nmap2_tcp_open_4(nmap2_tcp_probe_2_6):
     # ...
-    # T4 sends a TCP ACK packet with IP DF and a window field of 1024 to 
+    # T4 sends a TCP ACK packet with IP DF and a window field of 1024 to
     # an open port.
     # ...
     def __init__(self, id, addresses, tcp_ports ):
@@ -1193,7 +1193,7 @@ class nmap2_seq(nmap2_tcp_probe):
     IPID_SEQ_ZERO = 6 # Every packet that comes back has an IP.ID of 0 (eg Linux 2.4 does this)
 
     def __init__(self, id, addresses, tcp_ports, options):
-        nmap2_tcp_probe.__init__(self, id, addresses, tcp_ports, 1, 
+        nmap2_tcp_probe.__init__(self, id, addresses, tcp_ports, 1,
                                  id, options)
         self.t.set_SYN()
 
@@ -1201,11 +1201,11 @@ class nmap2_seq(nmap2_tcp_probe):
         raise Exception("Method process is meaningless for class %s." % self.__class__.__name__)
 
 class nmap2_seq_1(nmap2_seq):
-    # Packet #1: window scale (10), 
-    #            NOP, 
-    #            MSS (1460), 
-    #            timestamp (TSval: 0xFFFFFFFF; TSecr: 0), 
-    #            SACK permitted. 
+    # Packet #1: window scale (10),
+    #            NOP,
+    #            MSS (1460),
+    #            timestamp (TSval: 0xFFFFFFFF; TSecr: 0),
+    #            SACK permitted.
     # The window field is 1.
     tcp_options = [
         TCPOption(TCPOption.TCPOPT_WINDOW, 10),
@@ -1220,11 +1220,11 @@ class nmap2_seq_1(nmap2_seq):
         self.t.set_th_win(1)
 
 class nmap2_seq_2(nmap2_seq):
-    # Packet #2: MSS (1400), 
-    #            window scale (0), 
-    #            SACK permitted, 
-    #            timestamp (TSval: 0xFFFFFFFF; TSecr: 0), 
-    #            EOL. 
+    # Packet #2: MSS (1400),
+    #            window scale (0),
+    #            SACK permitted,
+    #            timestamp (TSval: 0xFFFFFFFF; TSecr: 0),
+    #            EOL.
     # The window field is 63.
     tcp_options = [
         TCPOption(TCPOption.TCPOPT_MAXSEG, 1400),
@@ -1239,12 +1239,12 @@ class nmap2_seq_2(nmap2_seq):
         self.t.set_th_win(63)
 
 class nmap2_seq_3(nmap2_seq):
-    # Packet #3: Timestamp (TSval: 0xFFFFFFFF; TSecr: 0), 
-    #            NOP, 
-    #            NOP, 
-    #            window scale (5), 
-    #            NOP, 
-    #            MSS (640). 
+    # Packet #3: Timestamp (TSval: 0xFFFFFFFF; TSecr: 0),
+    #            NOP,
+    #            NOP,
+    #            window scale (5),
+    #            NOP,
+    #            MSS (640).
     # The window field is 4.
     tcp_options = [
         TCPOption(TCPOption.TCPOPT_TIMESTAMP, 0xFFFFFFFF),
@@ -1260,10 +1260,10 @@ class nmap2_seq_3(nmap2_seq):
         self.t.set_th_win(4)
 
 class nmap2_seq_4(nmap2_seq):
-    # Packet #4: SACK permitted, 
-    #            Timestamp (TSval: 0xFFFFFFFF; TSecr: 0), 
-    #            window scale (10), 
-    #            EOL. 
+    # Packet #4: SACK permitted,
+    #            Timestamp (TSval: 0xFFFFFFFF; TSecr: 0),
+    #            window scale (10),
+    #            EOL.
     # The window field is 4.
     tcp_options = [
         TCPOption(TCPOption.TCPOPT_SACK_PERMITTED),
@@ -1275,13 +1275,13 @@ class nmap2_seq_4(nmap2_seq):
     def __init__(self, id, addresses, tcp_ports):
         nmap2_seq.__init__(self, id, addresses, tcp_ports, self.tcp_options)
         self.t.set_th_win(4)
-    
+
 class nmap2_seq_5(nmap2_seq):
-    # Packet #5: MSS (536), 
+    # Packet #5: MSS (536),
     #            SACK permitted,
-    #            Timestamp (TSval: 0xFFFFFFFF; TSecr: 0), 
-    #            window scale (10), 
-    #            EOL. 
+    #            Timestamp (TSval: 0xFFFFFFFF; TSecr: 0),
+    #            window scale (10),
+    #            EOL.
     # The window field is 16.
     tcp_options = [
         TCPOption(TCPOption.TCPOPT_MAXSEG, 536),
@@ -1294,11 +1294,11 @@ class nmap2_seq_5(nmap2_seq):
     def __init__(self, id, addresses, tcp_ports):
         nmap2_seq.__init__(self, id, addresses, tcp_ports, self.tcp_options)
         self.t.set_th_win(16)
-    
+
 class nmap2_seq_6(nmap2_seq):
-    # Packet #6: MSS (265), 
-    #            SACK permitted, 
-    #            Timestamp (TSval: 0xFFFFFFFF; TSecr: 0). 
+    # Packet #6: MSS (265),
+    #            SACK permitted,
+    #            Timestamp (TSval: 0xFFFFFFFF; TSecr: 0).
     # The window field is 512.
     tcp_options = [
         TCPOption(TCPOption.TCPOPT_MAXSEG, 265),
@@ -1334,7 +1334,7 @@ class nmap1_seq_container(os_id_test):
             ts_seqclass = self.pre_ts_seqclass
         else:
             ts_seqclass = self.ts_sequence()
-        
+
         if self.seq_num_responses >= 4:
             seq_seqclass = self.seq_sequence()
             if nmap1_seq.SEQ_UNKNOWN != seq_seqclass:
@@ -1538,7 +1538,7 @@ class nmap2_seq_container(os_id_test):
         return {self.test_id(): self.get_result_dict()}
 
     def calc_ti(self):
-        if self.seq_num_responses < 2: 
+        if self.seq_num_responses < 2:
             return
 
         ipidclasses = {
@@ -1558,7 +1558,7 @@ class nmap2_seq_container(os_id_test):
             prev_ipid = self.seq_responses[i-1].get_ipid()
             cur_ipid = self.seq_responses[i].get_ipid()
 
-            if prev_ipid != 0 or cur_ipid != 0: 
+            if prev_ipid != 0 or cur_ipid != 0:
                 null_ipids = 0
 
             if prev_ipid <= cur_ipid:
@@ -1570,14 +1570,14 @@ class nmap2_seq_container(os_id_test):
                 self.add_result('TI', ipidclasses[nmap2_seq.IPID_SEQ_RD])
                 return
 
-        if null_ipids: 
+        if null_ipids:
             self.add_result('TI', ipidclasses[nmap2_seq.IPID_SEQ_ZERO])
             return
 
         # Constant
         all_zero = 1
         for i in xrange(0, self.seq_num_responses - 1):
-            if ipid_diffs[i] != 0: 
+            if ipid_diffs[i] != 0:
                 all_zero = 0
                 break
 
@@ -1597,35 +1597,35 @@ class nmap2_seq_container(os_id_test):
         is_incremental = 1 # All diferences are less than 10
         is_ms = 1 # All diferences are multiples of 256 and no greater than 5120
         for i in xrange(0, self.seq_num_responses - 1):
-            if is_ms and ((ipid_diffs[i] > 5120) or (ipid_diffs[i] % 256) != 0): 
+            if is_ms and ((ipid_diffs[i] > 5120) or (ipid_diffs[i] % 256) != 0):
                 is_ms = 0
-            if is_incremental and ipid_diffs[i] > 9: 
+            if is_incremental and ipid_diffs[i] > 9:
                 is_incremental = 0
 
-        if is_ms: 
+        if is_ms:
             self.add_result('TI', ipidclasses[nmap2_seq.IPID_SEQ_BROKEN_INCR])
-        elif is_incremental: 
+        elif is_incremental:
             self.add_result('TI', ipidclasses[nmap2_seq.IPID_SEQ_INCR])
 
     def calc_ts(self):
-        # 1. If any of the responses have no timestamp option, TS 
+        # 1. If any of the responses have no timestamp option, TS
         #    is set to U (unsupported).
         # 2. If any of the timestamp values are zero, TS is set to 0.
-        # 3. If the average increments per second falls within the 
-        #    ranges 0-5.66, 70-150, or 150-350, TS is set to 1, 7, or 8, 
-        #    respectively. These three ranges get special treatment 
-        #    because they correspond to the 2 Hz, 100 Hz, and 200 Hz 
+        # 3. If the average increments per second falls within the
+        #    ranges 0-5.66, 70-150, or 150-350, TS is set to 1, 7, or 8,
+        #    respectively. These three ranges get special treatment
+        #    because they correspond to the 2 Hz, 100 Hz, and 200 Hz
         #    frequencies used by many hosts.
-        # 4. In all other cases, Nmap records the binary logarithm of 
-        #    the average increments per second, rounded to the nearest 
-        #    integer. Since most hosts use 1,000 Hz frequencies, A is 
+        # 4. In all other cases, Nmap records the binary logarithm of
+        #    the average increments per second, rounded to the nearest
+        #    integer. Since most hosts use 1,000 Hz frequencies, A is
         #    a common result.
 
-        if self.pre_ts_seqclass == nmap2_seq.TS_SEQ_ZERO: 
+        if self.pre_ts_seqclass == nmap2_seq.TS_SEQ_ZERO:
             self.add_result('TS', '0')
-        elif self.pre_ts_seqclass == nmap2_seq.TS_SEQ_UNSUPPORTED: 
+        elif self.pre_ts_seqclass == nmap2_seq.TS_SEQ_UNSUPPORTED:
             self.add_result('TS', 'U')
-        elif self.seq_num_responses < 2: 
+        elif self.seq_num_responses < 2:
             return
 
         avg_freq = 0.0
@@ -1635,7 +1635,7 @@ class nmap2_seq_container(os_id_test):
 
         LOG.info("The avg TCP TS HZ is: %f" % avg_freq)
 
-        if avg_freq <= 5.66: 
+        if avg_freq <= 5.66:
             self.add_result('TS', "1")
         elif 70 < avg_freq <= 150:
             self.add_result('TS', "7")
@@ -1757,8 +1757,8 @@ class nmap2_t1_container(os_id_test):
             return
 
         response = self.seq_responses[0]
-        tests = nmap2_tcp_tests(response.get_ip(), 
-                                response.get_tcp(), 
+        tests = nmap2_tcp_tests(response.get_ip(),
+                                response.get_tcp(),
                                 self.seq_base,
                                 nmap2_tcp_probe.acknowledgment)
         self.add_result("R", "Y")
@@ -1824,7 +1824,7 @@ class nmap2_icmp_container(os_id_test):
             self.add_result("TOSI","%X" % ip1.get_ip_tos())
         else:
             self.add_result("TOSI","O")
-        
+
         # Value	Description
         # Z	    Both code values are zero.
         # S	    Both code values are the same as in the corresponding probe.
@@ -1838,7 +1838,7 @@ class nmap2_icmp_container(os_id_test):
             self.add_result("CD","%X" % icmp1.get_icmp_code())
         else:
             self.add_result("CD","O")
-        
+
         # Value	Description
         # Z	    Both sequence numbers are set to 0.
         # S	    Both sequence numbers echo the ones from the probes.
@@ -1846,7 +1846,7 @@ class nmap2_icmp_container(os_id_test):
         # O	    Any other combination.
         if icmp1.get_icmp_seq() == 0 and icmp2.get_icmp_seq() == 0:
             self.add_result("SI","Z")
-        elif (icmp1.get_icmp_seq() == nmap2_icmp_echo_probe_1.sequence_number and 
+        elif (icmp1.get_icmp_seq() == nmap2_icmp_echo_probe_1.sequence_number and
               icmp2.get_icmp_seq() == nmap2_icmp_echo_probe_1.sequence_number + 1):
             self.add_result("SI","S")
         elif icmp1.get_icmp_seq() == icmp2.get_icmp_seq():
@@ -1885,7 +1885,7 @@ class nmap1_tcp_closed_1(nmap1_tcp_probe):
 
 class nmap2_tcp_closed_1(nmap2_tcp_probe_2_6):
     # ...
-    # T5 sends a TCP SYN packet without IP DF and a window field of 
+    # T5 sends a TCP SYN packet without IP DF and a window field of
     # 31337 to a closed port
     # ...
     def __init__(self, id, addresses, tcp_ports):
@@ -1910,7 +1910,7 @@ class nmap1_tcp_closed_2(nmap1_tcp_probe):
 
 class nmap2_tcp_closed_2(nmap2_tcp_probe_2_6):
     # ...
-    # T6 sends a TCP ACK packet with IP DF and a window field of 
+    # T6 sends a TCP ACK packet with IP DF and a window field of
     # 32768 to a closed port.
     # ...
     def __init__(self, id, addresses, tcp_ports):
@@ -1937,7 +1937,7 @@ class nmap1_tcp_closed_3(nmap1_tcp_probe):
 
 class nmap2_tcp_closed_3(nmap2_tcp_probe_7):
     # ...
-    # T7 sends a TCP packet with the FIN, PSH, and URG flags set and a 
+    # T7 sends a TCP packet with the FIN, PSH, and URG flags set and a
     # window field of 65535 to a closed port. The IP DF bit is not set.
     # ...
     def __init__(self, id, addresses, tcp_ports):
@@ -2039,14 +2039,14 @@ class NMAP2_Fingerprint:
             # ignore unknown response lines:
             if test not in sample:
                 continue
-        
+
             for field in self.__tests[test]:
                     # ignore unsupported fields:
                 if field not in sample[test] or \
                    test not in mp or \
                    field not in mp[test]:
                     continue
-            
+
                 ref = self.__tests[test][field]
                 value = sample[test][field]
 
@@ -2061,20 +2061,20 @@ class NMAP2_Fingerprint:
 
 class NMAP2_Fingerprint_Matcher:
     def __init__(self, filename):
-        self.__filename = filename                
+        self.__filename = filename
 
     def find_matches(self, res, threshold):
         output = []
 
         try:
             infile = open(self.__filename,"r")
-    
+
             mp = self.parse_mp(self.matchpoints(infile))
 
             for fingerprint in self.fingerprints(infile):
                 fp = self.parse_fp(fingerprint)
                 similarity = fp.compare(res, mp)
-                if similarity >= threshold: 
+                if similarity >= threshold:
                     print("\"%s\" matches with an accuracy of %.2f%%" \
                            % (fp.get_id(), similarity))
                     output.append((similarity / 100,
@@ -2093,7 +2093,7 @@ class NMAP2_Fingerprint_Matcher:
     def sections(self, infile, token):
         OUT = 0
         IN = 1
-        
+
         state = OUT
         output = []
 
@@ -2124,13 +2124,13 @@ class NMAP2_Fingerprint_Matcher:
     def parse_line(self, line):
         name = line[:line.find("(")]
         pairs = line[line.find("(") + 1 : line.find(")")]
-        
+
         test = {}
-        
+
         for pair in pairs.split("%"):
             pair = pair.split("=")
             test[pair[0]] = pair[1]
-       
+
         return (name, test)
 
     def parse_fp(self, fp):
@@ -2142,20 +2142,20 @@ class NMAP2_Fingerprint_Matcher:
             elif line.startswith("Fingerprint"):
                 fingerprint = line[len("Fingerprint") + 1:]
             elif line.startswith("Class"):
-                (vendor, 
-                 name, 
-                 family, 
+                (vendor,
+                 name,
+                 family,
                  device_type) = line[len("Class") + 1:].split("|")
-                os_class = NMAP2_OS_Class(vendor.strip(), 
-                                          name.strip(), 
-                                          family.strip(), 
-                                          device_type.strip()) 
+                os_class = NMAP2_OS_Class(vendor.strip(),
+                                          name.strip(),
+                                          family.strip(),
+                                          device_type.strip())
             else:
                 test = self.parse_line(line)
                 tests[test[0]] = test[1]
-        
+
         return NMAP2_Fingerprint(fingerprint, os_class, tests)
-            
+
     def parse_mp(self, fp):
         tests = {}
 
@@ -2167,5 +2167,5 @@ class NMAP2_Fingerprint_Matcher:
             else:
                 test = self.parse_line(line)
                 tests[test[0]] = test[1]
-        
+
         return tests

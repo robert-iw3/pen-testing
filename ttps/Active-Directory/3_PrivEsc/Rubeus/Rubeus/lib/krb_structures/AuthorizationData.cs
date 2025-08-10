@@ -14,7 +14,7 @@ namespace Rubeus
     {
         public AuthorizationData() { }
 
-        public AuthorizationData(Interop.AuthorizationDataType adtype) : this(adtype, null) 
+        public AuthorizationData(Interop.AuthorizationDataType adtype) : this(adtype, null)
         {
         }
 

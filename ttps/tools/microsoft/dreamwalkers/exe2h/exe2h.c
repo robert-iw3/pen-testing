@@ -87,8 +87,8 @@ void* OptHdr (void *map) {
 // return pointer to first section header
 PIMAGE_SECTION_HEADER SecHdr (void *map) {
     PIMAGE_NT_HEADERS nt = NtHdr(map);
-  
-    return (PIMAGE_SECTION_HEADER)((uint8_t*)&nt->OptionalHeader + 
+
+    return (PIMAGE_SECTION_HEADER)((uint8_t*)&nt->OptionalHeader +
     nt->FileHeader.SizeOfOptionalHeader);
 }
 
@@ -123,7 +123,7 @@ uint64_t ImgBase (void *map) {
 // valid dos header?
 int valid_dos_hdr (void *map) {
     PIMAGE_DOS_HEADER dos = DosHdr(map);
-    
+
     if (dos->e_magic != IMAGE_DOS_SIGNATURE) return 0;
     return (dos->e_lfanew != 0);
 }
@@ -135,9 +135,9 @@ int valid_nt_hdr (void *map) {
 
 uint32_t rva2ofs (void *map, uint32_t rva) {
     int i;
-    
+
     PIMAGE_SECTION_HEADER sh = SecHdr(map);
-    
+
     for (i=0; i<SecSize(map); i++) {
       if (rva >= sh[i].VirtualAddress && rva < sh[i].VirtualAddress + sh[i].SizeOfRawData)
       return sh[i].PointerToRawData + (rva - sh[i].VirtualAddress);
@@ -150,10 +150,10 @@ void bin2h(void *map, char *fname, void *bin, uint32_t len) {
     uint32_t  i;
     uint8_t   *p=(uint8_t*)bin;
     FILE      *fd;
-    
+
     memset(label, 0, sizeof(label));
     memset(file,  0, sizeof(file));
-    
+
 #if defined(WINDOWS)
     str = PathFindFileName(fname);
 #else
@@ -172,12 +172,12 @@ void bin2h(void *map, char *fname, void *bin, uint32_t len) {
       strcat(file,  is32(map) ? "_x86" : "_x64");
     }
     strcat(file, ".h");
-    
+
     fd = fopen(file, "wb");
-    
+
     if(fd != NULL) {
       fprintf(fd, "\nunsigned char %s[] = {", label);
-      
+
       for(i=0;i<len;i++) {
         if(!(i % 12)) fprintf(fd, "\n  ");
         fprintf(fd, "0x%02x", p[i]);
@@ -222,7 +222,7 @@ void bin2go(void* map, char* fname, void* bin, uint32_t len) {
 
 	if (fd != NULL) {
 		fprintf(fd, "package donut\n\n// %s - stub for EXE PE files\nvar %s = []byte{\n", label, label);
-		
+
 		for (i = 0; i < len; i++) {
 			if (!(i % 12)) fprintf(fd, "\n  ");
 			fprintf(fd, "0x%02x", p[i]);
@@ -242,10 +242,10 @@ void bin2array(void *map, char *fname, void *bin, uint32_t len) {
     uint32_t  i;
     uint32_t  *p=(uint32_t*)bin;
     FILE      *fd;
-    
+
     memset(label, 0, sizeof(label));
     memset(file,  0, sizeof(file));
-    
+
 #if defined(WINDOWS)
     str = PathFindFileName(fname);
 #else
@@ -259,26 +259,26 @@ void bin2array(void *map, char *fname, void *bin, uint32_t len) {
         file[i]  = tolower(str[i]);
       }
     }
-    
+
     strcat(file, ".h");
-    
+
     fd = fopen(file, "wb");
-    
+
     if(fd != NULL) {
       // align up by 4
       len = (len & -4) + 4;
       len >>= 2;
-      
+
       // declare the array
       fprintf(fd, "\nunsigned int %s[%i];\n\n", label, len);
-    
+
       // initialize array
       for(i=0; i<len; i++) {
         fprintf(fd, "%s[%i] = 0x%08" PRIX32 ";\n", label, i, p[i]);
       }
       fclose(fd);
       printf("  [ Saved array to %s\n", file);
-    } else printf("  [ unable to create file : %s\n", file);    
+    } else printf("  [ unable to create file : %s\n", file);
 }
 */
 // structure of COFF (.obj) file
@@ -311,15 +311,15 @@ int main (int argc, char *argv[]) {
     //PIMAGE_FILE_HEADER         fh;
     //PIMAGE_COFF_SYMBOLS_HEADER csh;
     uint32_t                   ofs, len;
-    
+
     if (argc != 2) {
       printf ("\n  [ usage: file2h <file.exe | file.bin>\n");
       return 0;
     }
-    
+
     // open file for reading
     fd = open(argv[1], O_RDONLY);
-    
+
     if(fd == 0) {
       printf("  [ unable to open %s\n", argv[1]);
       return 0;
@@ -327,7 +327,7 @@ int main (int argc, char *argv[]) {
     // if file has some data
     if(fstat(fd, &fs) == 0) {
       // map into memory
-      map = (uint8_t*)mmap(NULL, fs.st_size,  
+      map = (uint8_t*)mmap(NULL, fs.st_size,
         PROT_READ, MAP_PRIVATE, fd, 0);
       if(map != NULL) {
         if(valid_dos_hdr(map) && valid_nt_hdr(map)) {
@@ -341,7 +341,7 @@ int main (int argc, char *argv[]) {
             for(i=0; i<SecSize(map); i++) {
               if(strcmp((char*)sh[i].Name, ".text") == 0) {
                 ofs = rva2ofs(map, sh[i].VirtualAddress);
-                
+
                 if(ofs != -1) {
                   cs  = (map + ofs);
                   len = sh[i].Misc.VirtualSize;

@@ -163,7 +163,7 @@ void ExtractEndpointsInProcess(HANDLE Handle, RPC_SERVER_T* RpcServer, vector<ws
 		{
 			Endpoints.push_back(endpoint);
 		}
-		
+
 	}
 
 	delete[] addressDictBuffer;
@@ -215,7 +215,7 @@ void ExtractDataFromProcess(DWORD Pid, wstring& Name, HANDLE Handle, map<DWORD, 
 	RPC_SERVER_T* rpcServer = FindGlobalRpcServer(Handle);
 	if (nullptr == rpcServer)
 		return;
-	
+
 	vector<wstring> endpoints;
 	vector<wstring> interfaces;
 	ExtractEndpointsInProcess(Handle, rpcServer, endpoints);
@@ -232,7 +232,7 @@ void ExtractDataFromProcess(DWORD Pid, wstring& Name, HANDLE Handle, map<DWORD, 
 		serverData[L"UUIDs"] = interfaces;
 		RpcServers[Pid] = serverData;
 	}
-	
+
 	delete[] rpcServer->InterfaceDict.pArray;
 	delete rpcServer;
 }
@@ -358,7 +358,7 @@ void CompareProcsResults(map<DWORD, map<wstring, vector<wstring>>>& ProcsEarly, 
 			auto const& earlyServerData = (*serverDataIter).second;
 			auto const& earlyEndpoints = earlyServerData.at(L"Endpoints");
 			auto const& lateEndpoints = lateServerData.at(L"Endpoints");
-			auto const& earlyUuids = earlyServerData.at(L"UUIDs");		
+			auto const& earlyUuids = earlyServerData.at(L"UUIDs");
 			auto const& lateUuids = lateServerData.at(L"UUIDs");
 			if (lateEndpoints.size() > earlyEndpoints.size() || lateUuids.size() > earlyUuids.size())
 			{
@@ -377,7 +377,7 @@ void CompareProcsResults(map<DWORD, map<wstring, vector<wstring>>>& ProcsEarly, 
 					if (!endpointRegisteredEarly)
 						OutStream << L"          " << lateEndpoint << endl;
 				}
-				
+
 				OutStream << L"UUIDs: " << endl;
 				for (auto const& lateUuid : lateUuids)
 				{

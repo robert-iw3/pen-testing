@@ -1486,7 +1486,7 @@ function Import-KerberosTicket {
     if ($null -eq $cred) {
         return
     }
-    
+
     if ($Key -ne $null) {
         $cred.Decrypt($Key)
     } else {

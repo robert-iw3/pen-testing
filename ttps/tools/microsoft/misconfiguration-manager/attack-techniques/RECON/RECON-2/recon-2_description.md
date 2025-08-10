@@ -10,7 +10,7 @@ Enumerate SCCM roles via SMB
 - Valid Active Directory domain credentials
 
 ## Summary
-When certain site system roles are installed, part of the installation process involves configuring file shares on the host system. These shares contain detailed descriptions and unique naming conventions that may disclose what site they're deployed in and what roles are installed. Reviewing shares on potential site systems contributes to attack path discovery. 
+When certain site system roles are installed, part of the installation process involves configuring file shares on the host system. These shares contain detailed descriptions and unique naming conventions that may disclose what site they're deployed in and what roles are installed. Reviewing shares on potential site systems contributes to attack path discovery.
 
 ## Impact
 1. Profiling site system roles is a supplementary step in building potential attack paths.
@@ -69,7 +69,7 @@ SMSSIG$         SMS Site LAB DP 2/20/2024
 SMS_DP$         SMS Site LAB DP 2/20/2024
 ```
 ### Windows Server Update Services
-Windows Server Update Services file shares don't necessarily disclose what site they're in, or if they're enrolled at all, but the default file shares persist. Additionally, a site system can have multiple roles installed, so in some cases a system could have the WSUS and DP roles installed, which would correlate the site and roles. The host for the WSUS service is also granted the `smsdbrole_SUP` role in the site database, which is useful for identifying the site database when hosted remotely from the site server. 
+Windows Server Update Services file shares don't necessarily disclose what site they're in, or if they're enrolled at all, but the default file shares persist. Additionally, a site system can have multiple roles installed, so in some cases a system could have the WSUS and DP roles installed, which would correlate the site and roles. The host for the WSUS service is also granted the `smsdbrole_SUP` role in the site database, which is useful for identifying the site database when hosted remotely from the site server.
 ```
 Name                   Description
 ----                   -----------

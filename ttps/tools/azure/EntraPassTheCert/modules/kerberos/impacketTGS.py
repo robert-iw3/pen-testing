@@ -39,7 +39,7 @@ def getKerberosTGS(cipher, sessionKey, tgtResponse, gssAPIChecksumBuffer):
 
     clientName = Principal()
     clientName.from_asn1(decodedTGT, 'crealm', 'cname')
-    
+
     seq_set(authenticator, 'cname', clientName.components_to_asn1)
 
     now = datetime.datetime.utcnow()
@@ -67,10 +67,10 @@ def getKerberosTGS(cipher, sessionKey, tgtResponse, gssAPIChecksumBuffer):
     kerbFinished = KRB_FINISHED(kerbFinished)
 
     authenticator['cksum']['checksum'] = chkField.getData() + bytes.fromhex(GenerateExtensions(kerbFinished.dump()))
-    
+
     authenticator['subkey']['keytype'] = 18
     authenticator['subkey']['keyvalue'] = subKey
-    
+
     authenticator['seq-number'] = 682437742
 
     tokenIntegrity = LSAP_TOKEN_INFO_INTEGRITY()
@@ -110,4 +110,4 @@ def getKerberosTGS(cipher, sessionKey, tgtResponse, gssAPIChecksumBuffer):
     data = (apReqNegoEx.dump().hex())
 
     return data
-    
+

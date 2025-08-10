@@ -96,7 +96,7 @@ wstring GetServiceNameFromPid(DWORD Pid)
 	DWORD bytesNeeded = 0;
 	DWORD servicesCount = 0;
 	DWORD resumeHandle = 0;
-	
+
 	// Retrieve the requeired buffer size
 	BOOL success = EnumServicesStatusExW(g_ScHandle, SC_ENUM_PROCESS_INFO, SERVICE_WIN32, SERVICE_ACTIVE, nullptr, 0, &bytesNeeded, &servicesCount, &resumeHandle, nullptr);
 	while (!success)

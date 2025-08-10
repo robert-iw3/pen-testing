@@ -24,13 +24,13 @@ do
     ((i=i%N)); ((i++==0)) && wait
 
     ( cp $f output/
-    
+
     # generate adversarial example
     $genetic_optimizer -ss $section_size -pm $practical_manipulation -p $population_size output/$(basename "$f")
 
     # cleanup
     rm output/$(basename "$f")
-    # cleanup_techniques 
+    # cleanup_techniques
     ) &
 done
 

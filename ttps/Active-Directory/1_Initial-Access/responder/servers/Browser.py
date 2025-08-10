@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -79,11 +79,11 @@ def ParsePacket(Payload):
 	return ''
 
 
-def RAPThisDomain(Client,Domain):		
+def RAPThisDomain(Client,Domain):
 	PDC = RapFinger(Client,Domain,"\x00\x00\x00\x80")
 	if PDC is not None:
 		print(text("[LANMAN] Detected Domains: %s" % ', '.join(PDC)))
-	
+
 	SQL = RapFinger(Client,Domain,"\x04\x00\x00\x00")
 	if SQL is not None:
 		print(text("[LANMAN] Detected SQL Servers on domain %s: %s" % (Domain, ', '.join(SQL))))
@@ -180,7 +180,7 @@ def ParseDatagramNBTNames(data,Client):
 		Role1  = NBT_NS_Role(data[45:48])
 		Role2  = NBT_NS_Role(data[79:82])
 
-	
+
 		if Role2 == "Domain Controller" or Role2 == "Browser Election" or Role2 == "Local Master Browser" and settings.Config.AnalyzeMode:
 			print(text('[Analyze mode: Browser] Datagram Request from IP: %s hostname: %s via the: %s to: %s. Service: %s' % (Client.replace("::ffff:",""), Name, Role1, Domain, Role2)))
 			RAPInfo = RAPThisDomain(Client, Domain)

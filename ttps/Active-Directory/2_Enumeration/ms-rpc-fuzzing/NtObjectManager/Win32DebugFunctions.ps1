@@ -14,7 +14,7 @@
 
 $native_dir = if ([System.Environment]::OSVersion.Platform -eq 'Win32NT') {
     switch([NtCoreLib.NtSystemInfo]::ProcessorInformation.ProcessorArchitecture) {
-        "AMD64" { 
+        "AMD64" {
             "$PSScriptRoot\x64"
         }
         "Intel" {

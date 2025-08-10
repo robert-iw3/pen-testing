@@ -1,7 +1,7 @@
 # Kudos:
 # Parts of this code was inspired by the following project by @rubin_mor
 # https://github.com/morRubin/AzureADJoinedMachinePTC
-# 
+#
 
 # TODO: code needs cleanup, it is still in beta
 # TODO: add integrity checks and check certificate of the server
@@ -39,26 +39,26 @@ class SPNEGOEXClientNative:
 
 	def get_internal_seq(self):
 		return self.seq
-		
+
 	async def sign(self, data, message_no, direction = 'init'):
-		return self.gssapi.GSS_GetMIC(data, message_no)	
-		
+		return self.gssapi.GSS_GetMIC(data, message_no)
+
 	async def encrypt(self, data, message_no):
 		return self.gssapi.GSS_Wrap(data, message_no)
-		
-	async def decrypt(self, data, message_no, direction='init', auth_data=None):		
+
+	async def decrypt(self, data, message_no, direction='init', auth_data=None):
 		return self.gssapi.GSS_Unwrap(data, message_no, direction=direction, auth_data=auth_data)
-	
+
 	async def authenticate(self, authData, flags = None, spn = None):
 		if self.iteractions == 0:
 			self.iteractions += 1
-			
+
 			blob = SPNEGO_NegTokenInit()
 			blob['MechTypes'] = [
 				TypesMech['NEGOEX - SPNEGO Extended Negotiation Security Mechanism'],
                 TypesMech['NTLMSSP - Microsoft NTLM Security Support Provider']
 			]
-			
+
 			mechToken = self.helper.GenerateNegoExInit()
 			blob['MechToken'] = bytes.fromhex(mechToken)
 			return blob.getData(), True, None
@@ -66,18 +66,18 @@ class SPNEGOEXClientNative:
 		elif self.iteractions == 1:
 			self.iteractions += 1
 			mechToken = self.helper.GenerateNegoExKerberosAs(authData)
-			
+
 			blob = SPNEGO_NegTokenResp()
 			blob['ResponseToken'] = bytes.fromhex(mechToken)
 			return blob.getData(), True, None
-		
+
 		elif self.iteractions == 2:
 			self.iteractions += 1
 			blob = SPNEGO_NegTokenResp()
 			mechToken = self.helper.GenerateNegoExKerberosAp(authData)
 			blob['ResponseToken'] = bytes.fromhex(mechToken)
 			return blob.getData(), True, None
-		
+
 		elif self.iteractions == 3:
 			from minikerberos.protocol.encryption import _enctype_table, Key
 			from minikerberos.protocol.asn1_structs import EncAPRepPart
@@ -97,6 +97,6 @@ class SPNEGOEXClientNative:
 			self.session_key = Key(cipher.enctype, enc_part['subkey']['keyvalue'])
 			self.gssapi = get_gssapi(self.session_key)
 			return None, False, None
-		else:			
+		else:
 			return None, False, None
 

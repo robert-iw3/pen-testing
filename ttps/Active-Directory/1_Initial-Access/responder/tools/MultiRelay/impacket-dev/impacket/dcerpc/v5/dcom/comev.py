@@ -7,17 +7,17 @@
 # Author: Alberto Solino (@agsolino)
 #
 # Description:
-#   [MS-COMEV]: Component Object Model Plus (COM+) Event System Protocol. 
-#               This was used as a way to test the DCOM runtime. Further 
+#   [MS-COMEV]: Component Object Model Plus (COM+) Event System Protocol.
+#               This was used as a way to test the DCOM runtime. Further
 #               testing is needed to verify it is working as expected
 #
 #   Best way to learn how to use these calls is to grab the protocol standard
 #   so you understand what the call does, and then read the test case located
 #   at https://github.com/SecureAuthCorp/impacket/tree/master/tests/SMB_RPC
 #
-#   Since DCOM is like an OO RPC, instead of helper functions you will see the 
-#   classes described in the standards developed. 
-#   There are test cases for them too. 
+#   Since DCOM is like an OO RPC, instead of helper functions you will see the
+#   classes described in the standards developed.
+#   There are test cases for them too.
 #
 from __future__ import division
 from __future__ import print_function
@@ -37,7 +37,7 @@ class DCERPCSessionError(DCERPCException):
     def __str__( self ):
         if self.error_code in hresult_errors.ERROR_MESSAGES:
             error_msg_short = hresult_errors.ERROR_MESSAGES[self.error_code][0]
-            error_msg_verbose = hresult_errors.ERROR_MESSAGES[self.error_code][1] 
+            error_msg_verbose = hresult_errors.ERROR_MESSAGES[self.error_code][1]
             return 'COMEV SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             return 'COMEV SessionError: unknown error code: 0x%x' % self.error_code

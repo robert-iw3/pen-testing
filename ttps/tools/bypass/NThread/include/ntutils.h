@@ -9,10 +9,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -137,7 +137,7 @@ void *ntu_get_libc_base();
 
 /**
  * @brief Initialize global state for ntutils subsystem.
- * 
+ *
  * @return Error code.
  */
 nerror_t ntu_global_init(void);
@@ -149,7 +149,7 @@ void ntu_global_destroy(void);
 
 /**
  * @brief Initialize an ntutils instance for a target thread with required context.
- * 
+ *
  * @param thread_id ID of the target thread.
  * @param push_reg_offset Register offset to be used for pushing data to the stack.
  *        Determines which register will hold the `push_addr` value.
@@ -162,7 +162,7 @@ nerror_t ntu_init_ex(ntid_t thread_id, nthread_reg_offset_t push_reg_offset,
 
 /**
  * @brief Simplified version of ntu_init_ex using the best available register for argument pushing.
- * 
+ *
  * Internally calls `ntu_init_ex` with `NTHREAD_BEST_PUSH_REG` as the push register offset.
  *
  * @param thread_id ID of the target thread.
@@ -179,7 +179,7 @@ void ntu_destroy();
 
 /**
  * @brief Call a function inside the target thread with variable arguments (va_list).
- * 
+ *
  * @param ntutils Pointer to the ntutils instance.
  * @param func_addr Address of the target function to call.
  * @param arg_count Number of arguments to pass.
@@ -191,7 +191,7 @@ nerror_t ntu_call_v(ntutils_t *ntutils, void *func_addr, uint8_t arg_count,
 
 /**
  * @brief Call a function inside the target thread with variadic arguments.
- * 
+ *
  * @param ntutils Pointer to the ntutils instance.
  * @param function_address Address of the function to call.
  * @param arg_count Number of arguments to pass.
@@ -203,7 +203,7 @@ nerror_t ntu_call(ntutils_t *ntutils, void *function_address, uint8_t arg_count,
 
 /**
  * @brief Call a function with variable arguments and retrieve a return value.
- * 
+ *
  * @param func_addr Address of the function to call.
  * @param arg_count Number of arguments to pass.
  * @param args Variable argument list.
@@ -213,7 +213,7 @@ void *ntu_ucall_v(void *func_addr, uint8_t arg_count, va_list args);
 
 /**
  * @brief Call a function with variadic arguments and retrieve a return value.
- * 
+ *
  * @param func_addr Address of the function to call.
  * @param arg_count Number of arguments to pass.
  * @param ... Arguments to be passed.
@@ -226,7 +226,7 @@ void *_ntu_ucall(void *func_addr, uint8_t arg_count, ...);
 
 /**
  * @brief Fill a block of memory in the target process with a specified value.
- * 
+ *
  * @param dest Destination address.
  * @param fill Value to fill with.
  * @param length Number of bytes to fill.
@@ -236,7 +236,7 @@ void *ntu_memset(void *dest, int fill, size_t length);
 
 /**
  * @brief Allocate memory inside the target process.
- * 
+ *
  * @param size Number of bytes to allocate.
  * @return Pointer to allocated memory.
  */
@@ -244,14 +244,14 @@ void *ntu_malloc(size_t size);
 
 /**
  * @brief Free previously allocated memory inside the target process.
- * 
+ *
  * @param address Pointer to memory to free.
  */
 void ntu_free(void *address);
 
 /**
  * @brief Open a file stream inside the target process.
- * 
+ *
  * @param filename File path in the target process's memory.
  * @param mode Mode string in the target process's memory.
  * @return FILE pointer representing the opened file stream.
@@ -262,7 +262,7 @@ FILE *ntu_fopen(const nfile_path_t filename, const nfile_path_t mode);
 
 /**
  * @brief Read from a file stream into a buffer.
- * 
+ *
  * @param buffer Destination buffer.
  * @param size Size of each element.
  * @param count Number of elements to read.
@@ -273,7 +273,7 @@ size_t ntu_fread(void *buffer, size_t size, size_t count, FILE *fstream);
 
 /**
  * @brief Write data from a buffer into a file stream.
- * 
+ *
  * @param buffer Source buffer.
  * @param size Size of each element.
  * @param count Number of elements to write.
@@ -284,7 +284,7 @@ size_t ntu_fwrite(const void *buffer, size_t size, size_t count, FILE *fstream);
 
 /**
  * @brief Flush the file stream buffers.
- * 
+ *
  * @param fstream FILE pointer of the opened file stream.
  * @return 0 on success.
  */
@@ -292,7 +292,7 @@ int ntu_fflush(FILE *fstream);
 
 /**
  * @brief Close the opened file stream.
- * 
+ *
  * @param fstream FILE pointer to close.
  * @return 0 on success.
  */
@@ -300,7 +300,7 @@ int ntu_fclose(FILE *fstream);
 
 /**
  * @brief Allocate and copy a string into the target process memory.
- * 
+ *
  * @param str Source null-terminated string.
  * @return Pointer to the allocated string in target memory.
  */
@@ -308,7 +308,7 @@ void *ntu_alloc_str(const char *str);
 
 /**
  * @brief Write data to target memory and clear any remaining bytes with memset.
- * 
+ *
  * @param dest Destination memory address.
  * @param source Source data buffer.
  * @param length Number of bytes to write.

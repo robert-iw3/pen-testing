@@ -623,7 +623,7 @@ FARPROC GPARO(IN HMODULE hModule, IN int ordinal) {
     // getting the optional header
     IMAGE_OPTIONAL_HEADER	ImgOptHdr = pImgNtHdrs->OptionalHeader;
 
-    // we can get the optional header like this as well																								
+    // we can get the optional header like this as well
     // PIMAGE_OPTIONAL_HEADER	pImgOptHdr	= (PIMAGE_OPTIONAL_HEADER)((ULONG_PTR)pImgNtHdrs + sizeof(DWORD) + sizeof(IMAGE_FILE_HEADER));
 
     // getting the image export table

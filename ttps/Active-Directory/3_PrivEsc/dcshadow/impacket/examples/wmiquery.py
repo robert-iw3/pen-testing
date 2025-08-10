@@ -13,7 +13,7 @@
 #
 #       e.g.: select name from win32_account
 #       e.g.: describe win32_process
-# 
+#
 # Author:
 #   Alberto Solino (@agsolino)
 #
@@ -52,7 +52,7 @@ if __name__ == '__main__':
      exit                       - terminates the server process (and this session)
      describe {class}           - describes class
      ! {cmd}                    - executes a local shell cmd
-     """) 
+     """)
 
         def do_shell(self, s):
             os.system(s)
@@ -76,7 +76,7 @@ if __name__ == '__main__':
                 print(os.getcwd())
             else:
                 os.chdir(s)
-    
+
         def printReply(self, iEnum):
             printHeader = True
             while True:
@@ -89,7 +89,7 @@ if __name__ == '__main__':
                             print('%s |' % col, end=' ')
                         print()
                         printHeader = False
-                    print('|', end=' ') 
+                    print('|', end=' ')
                     for key in record:
                         if type(record[key]['value']) is list:
                             for item in record[key]['value']:
@@ -97,7 +97,7 @@ if __name__ == '__main__':
                             print(' |', end=' ')
                         else:
                             print('%s |' % record[key]['value'], end=' ')
-                    print() 
+                    print()
                 except Exception as e:
                     if logging.getLogger().level == logging.DEBUG:
                         import traceback
@@ -106,7 +106,7 @@ if __name__ == '__main__':
                         raise
                     else:
                         break
-            iEnum.RemRelease() 
+            iEnum.RemRelease()
 
         def default(self, line):
             line = line.strip('\n')
@@ -118,7 +118,7 @@ if __name__ == '__main__':
                 iEnumWbemClassObject.RemRelease()
             except Exception as e:
                 logging.error(str(e))
-         
+
         def emptyline(self):
             pass
 
@@ -157,7 +157,7 @@ if __name__ == '__main__':
     if len(sys.argv)==1:
         parser.print_help()
         sys.exit(1)
- 
+
     options = parser.parse_args()
 
     if options.debug is True:

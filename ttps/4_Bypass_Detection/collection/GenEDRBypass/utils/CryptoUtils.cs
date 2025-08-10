@@ -11,7 +11,7 @@ namespace GenEDRBypass.Utils
             {
                 aesAlg.Key = key;
                 aesAlg.IV = iv;
-                
+
                 ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
                 return PerformCryptography(encryptedData, decryptor);

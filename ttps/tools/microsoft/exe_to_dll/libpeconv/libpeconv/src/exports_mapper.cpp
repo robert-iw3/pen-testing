@@ -10,7 +10,7 @@ void ExportsMapper::print_va_to_func(std::stringstream &stream) const
     std::map<ULONGLONG, std::set<ExportedFunc>>::const_iterator itr;
 
     for (itr = va_to_func.begin(); itr != va_to_func.end(); ++itr) {
-        
+
         stream << std::hex << itr->first << " :\n";
 
         std::set<ExportedFunc>::const_iterator itr2;
@@ -41,7 +41,7 @@ ULONGLONG rebase_va(ULONGLONG va, ULONGLONG currBase, ULONGLONG targetBase)
 }
 
 size_t ExportsMapper::make_ord_lookup_tables(
-    PVOID modulePtr, 
+    PVOID modulePtr,
     size_t moduleSize,
     std::map<PDWORD, DWORD> &va_to_ord
     )
@@ -221,7 +221,7 @@ size_t ExportsMapper::add_to_lookup(std::string moduleName, HMODULE modulePtr, s
     size_t functCount = make_ord_lookup_tables(modulePtr, module_size, va_to_ord);
 
     //go through names:
-    
+
     size_t forwarded_ctr = 0;
     SIZE_T namesCount = exp->NumberOfNames;
 

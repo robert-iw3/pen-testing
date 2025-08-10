@@ -1,5 +1,5 @@
 function Get-AzureToken {
-    
+
     <#
     .DESCRIPTION
         Generate a device code to be used at https://www.microsoft.com/devicelogin. Once a user has successfully authenticated, you will be presented with a JSON Web Token JWT in the variable $response.
@@ -14,7 +14,7 @@ function Get-AzureToken {
         $Client,
         [Parameter(Mandatory=$False)]
         [String]
-        $ClientID = "d3590ed6-52b3-4102-aeff-aad2292ab01c",    
+        $ClientID = "d3590ed6-52b3-4102-aeff-aad2292ab01c",
         [Parameter(Mandatory=$False)]
         [String]
         $Resource = "https://graph.microsoft.com/",
@@ -41,12 +41,12 @@ function Get-AzureToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
     if($Client -eq "Outlook") {
@@ -69,7 +69,7 @@ function Get-AzureToken {
             "client_id" = "d3590ed6-52b3-4102-aeff-aad2292ab01c"
             "resource" =  "https://www.yammer.com/"
         }
-    }        
+    }
     elseif ($Client -eq "Custom") {
 
         $body=@{
@@ -78,47 +78,47 @@ function Get-AzureToken {
         }
     }
     elseif ($Client -eq "MSTeams") {
-        
+
         $body = @{
             "client_id" =     "1fec8e78-bce4-4aaf-ab1b-5451cc387264"
-            "resource" =      "https://api.spaces.skype.com/"   
+            "resource" =      "https://api.spaces.skype.com/"
         }
     }
     elseif ($Client -eq "Graph") {
-        
+
         $body = @{
             "client_id" =     "d3590ed6-52b3-4102-aeff-aad2292ab01c"
-            "resource" =      "https://graph.windows.net/"  
+            "resource" =      "https://graph.windows.net/"
         }
     }
     elseif ($Client -eq "MSGraph") {
-        
+
         $body = @{
             "client_id" =     "d3590ed6-52b3-4102-aeff-aad2292ab01c"
-            "resource" =      "https://graph.microsoft.com/"  
+            "resource" =      "https://graph.microsoft.com/"
         }
     }
     elseif ($Client -eq "DODMSGraph") {
-        
+
         $body = @{
             "client_id" =     "d3590ed6-52b3-4102-aeff-aad2292ab01c"
-            "resource" =      "https://dod-graph.microsoft.us"  
+            "resource" =      "https://dod-graph.microsoft.us"
         }
-    }   
+    }
     elseif ($Client -eq "AzureCoreManagement") {
-        
+
         $body = @{
             "client_id" =     "d3590ed6-52b3-4102-aeff-aad2292ab01c"
             "resource" =      "https://management.core.windows.net/"
         }
     }
     elseif ($Client -eq "AzureManagement") {
-        
+
         $body = @{
             "client_id" =     "84070985-06ea-473d-82fe-eb82b4011c9d"
             "resource" =      "https://management.azure.com/"
         }
-    }     
+    }
     if ($client -match "DOD") {
         # DOD Login Process
         $authResponse = Invoke-RestMethod -UseBasicParsing -Method Post -Uri "https://login.microsoftonline.us/common/oauth2/devicecode?api-version=1.0" -Headers $Headers -Body $body
@@ -131,7 +131,7 @@ function Get-AzureToken {
                 "client_id" =  $ClientID
                 "grant_type" = "urn:ietf:params:oauth:grant-type:device_code"
                 "code" =       $CaptureCode
-            } 
+            }
         } else {
             $body=@{
                 "client_id" =  $ClientID
@@ -148,7 +148,7 @@ function Get-AzureToken {
             {
                 Write-Error "Timeout occurred"
                 return
-            }          
+            }
             # Try to get the response. Will give 40x while pending so we need to try&catch
             try
             {
@@ -174,7 +174,7 @@ function Get-AzureToken {
             {
                 write-output $response
                 $jwt = $response.access_token
-                
+
                 $output = Invoke-ParseJWTtoken -token $jwt
                 $global:upn = $output.upn
                 write-output $upn
@@ -198,7 +198,7 @@ function Get-AzureToken {
                 "client_id" =  $ClientID
                 "grant_type" = "urn:ietf:params:oauth:grant-type:device_code"
                 "code" =       $CaptureCode
-            } 
+            }
         }
         else {
             $body=@{
@@ -207,7 +207,7 @@ function Get-AzureToken {
                 "code" =       $authResponse.device_code
             }
         }
-        
+
         while($continue)
         {
             Start-Sleep -Seconds $interval
@@ -217,7 +217,7 @@ function Get-AzureToken {
             {
                 Write-Error "Timeout occurred"
                 return
-            }          
+            }
             # Try to get the response. Will give 40x while pending so we need to try&catch
             try
             {
@@ -243,7 +243,7 @@ function Get-AzureToken {
             {
                 write-output $response
                 $jwt = $response.access_token
-                
+
                 $output = Invoke-ParseJWTtoken -token $jwt
                 $global:upn = $output.upn
                 write-output $upn
@@ -289,18 +289,18 @@ function Invoke-RefreshToSubstrateToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
     $Resource = "https://substrate.office.com/"
     $TenantId = Get-TenantID -domain $domain
     $authUrl = "https://login.microsoftonline.com/$($TenantId)"
-    
+
     Write-Output $refreshToken
     $body = @{
         "resource" =      $Resource
@@ -346,18 +346,18 @@ function Invoke-RefreshToYammerToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
     $Resource = "https://www.yammer.com/"
     $TenantId = Get-TenantID -domain $domain
     $authUrl = "https://login.microsoftonline.com/$($TenantId)"
-    
+
     Write-Output $refreshToken
     $body = @{
         "resource" =      $Resource
@@ -402,18 +402,18 @@ function Invoke-RefreshToMSManageToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
     $Resource = "https://enrollment.manage.microsoft.com/"
     $TenantId = Get-TenantID -domain $domain
     $authUrl = "https://login.microsoftonline.com/$($TenantId)"
-    
+
     Write-Output $refreshToken
     $body = @{
         "resource" =      $Resource
@@ -458,18 +458,18 @@ function Invoke-RefreshToMSTeamsToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
     $Resource = "https://api.spaces.skype.com/"
     $TenantId = Get-TenantID -domain $domain
     $authUrl = "https://login.microsoftonline.com/$($TenantId)"
-    
+
     Write-Output $refreshToken
     $body = @{
         "resource" =      $Resource
@@ -514,19 +514,19 @@ function Invoke-RefreshToOfficeManagementToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
     $Resource = "https://manage.office.com/"
     $TenantId = Get-TenantID -domain $domain
     $authUrl = "https://login.microsoftonline.com/$($TenantId)"
-    $global:refreshToken = $response.refresh_token 
-    
+    $global:refreshToken = $response.refresh_token
+
     $body = @{
         "resource" = $Resource
         "client_id" =     $ClientId
@@ -570,19 +570,19 @@ function Invoke-RefreshToOutlookToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
     $Resource = "https://outlook.office365.com/"
     $TenantId = Get-TenantID -domain $domain
     $authUrl = "https://login.microsoftonline.com/$($TenantId)"
-    $global:refreshToken = $response.refresh_token 
-    
+    $global:refreshToken = $response.refresh_token
+
     $body = @{
         "resource" = $Resource
         "client_id" =     $ClientId
@@ -626,20 +626,20 @@ function Invoke-RefreshToMSGraphToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
-      
+
     $Resource = "https://graph.microsoft.com/"
     $TenantId = Get-TenantID -domain $domain
     $authUrl = "https://login.microsoftonline.com/$($TenantId)"
-    $global:refreshToken = $response.refresh_token 
-    
+    $global:refreshToken = $response.refresh_token
+
     $body = @{
         "resource" = $Resource
         "client_id" =     $ClientId
@@ -684,12 +684,12 @@ function Invoke-RefreshToGraphToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
     $Resource = "https://graph.windows.net/"
@@ -740,12 +740,12 @@ function Invoke-RefreshToOfficeAppsToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
 
@@ -761,7 +761,7 @@ function Invoke-RefreshToOfficeAppsToken {
         "refresh_token" = $refreshToken
         "scope"=         "openid"
     }
-    
+
     $global:OfficeAppsToken = Invoke-RestMethod -UseBasicParsing -Method Post -Uri "$($authUrl)/oauth2/token?api-version=1.0" -Headers $Headers -Body $body2
     Write-Output $OfficeAppsToken
 }
@@ -798,18 +798,18 @@ function Invoke-RefreshToAzureCoreManagementToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
     $Resource = "https://management.core.windows.net/"
     $TenantId = Get-TenantID -domain $domain
     $authUrl = "https://login.microsoftonline.com/$($TenantId)"
-    $global:refreshToken = $response.refresh_token 
+    $global:refreshToken = $response.refresh_token
     Write-Output $refreshToken
     $body = @{
         "resource" =      $Resource
@@ -855,18 +855,18 @@ function Invoke-RefreshToAzureManagementToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
     $Resource = "https://management.azure.com/"
     $TenantId = Get-TenantID -domain $domain
     $authUrl = "https://login.microsoftonline.com/$($TenantId)"
-    $global:refreshToken = $response.refresh_token 
+    $global:refreshToken = $response.refresh_token
     Write-Output $refreshToken
     $body = @{
         "resource" =      $Resource
@@ -912,18 +912,18 @@ function Invoke-RefreshToMAMToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
     $Resource = "https://intunemam.microsoftonline.com/"
     $TenantId = Get-TenantID -domain $domain
     $authUrl = "https://login.microsoftonline.com/$($TenantId)"
-    $global:refreshToken = $response.refresh_token 
+    $global:refreshToken = $response.refresh_token
     Write-Output $refreshToken
     $body = @{
         "resource" =      $Resource
@@ -968,20 +968,20 @@ function Invoke-RefreshToDODMSGraphToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
-      
+
     $Resource = "https://dod-graph.microsoft.us"
     $TenantId = Get-TenantID -domain $domain
     $authUrl = "https://login.microsoftonline.us/$($TenantId)"
-    $global:refreshToken = $response.refresh_token 
-    
+    $global:refreshToken = $response.refresh_token
+
     $body = @{
         "resource" = $Resource
         "client_id" =     $ClientId
@@ -1028,12 +1028,12 @@ function Invoke-RefreshToSharepointOnlineToken {
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
-	}    
+	}
     $Headers=@{}
     $Headers["User-Agent"] = $UserAgent
 
@@ -1049,7 +1049,7 @@ function Invoke-RefreshToSharepointOnlineToken {
         "refresh_token" = $refreshToken
         "scope"=         "openid"
     }
-    
+
     $global:SPOToken = Invoke-RestMethod -UseBasicParsing -Method Post -Uri "$($authUrl)/oauth2/token?api-version=1.0" -Headers $Headers -Body $body2
     Write-Output $SPOToken
 }

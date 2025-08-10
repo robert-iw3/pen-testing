@@ -210,13 +210,13 @@ class RemoteShell(cmd.Cmd):
         self.transferClient = rpc.get_smb_connection()
         self.do_cd('')
 
-    def finish(self):        
+    def finish(self):
         # Just in case the ouput file is still in the share
         try:
             self.transferClient.deleteFile(self.__share, OUTPUT_FILENAME)
         except:
             pass
-        
+
         # Just in case the service is still created
         try:
            self.__scmr = self.__rpc.get_dce_rpc()
@@ -284,7 +284,7 @@ class RemoteShell(cmd.Cmd):
             data = self.__pwsh + b64encode(data.encode('utf-16le')).decode()
 
         batchFile = '%SYSTEMROOT%\\' + ''.join([random.choice(string.ascii_letters) for _ in range(8)]) + '.bat'
-                
+
         command = self.__shell + 'echo ' + data + ' ^> ' + self.__output + ' 2^>^&1 > ' + batchFile + ' & ' + \
                   self.__shell + batchFile
 

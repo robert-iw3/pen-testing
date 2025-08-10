@@ -19,7 +19,7 @@ namespace NtObjectManager.Utils;
 
 class SecurityDescriptorTransformAttribute : BaseTransformAttribute
 {
-    public SecurityDescriptorTransformAttribute() 
+    public SecurityDescriptorTransformAttribute()
         : base(typeof(SecurityDescriptor))
     {
     }

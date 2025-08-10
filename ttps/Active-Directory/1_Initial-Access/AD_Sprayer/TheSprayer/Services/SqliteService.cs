@@ -34,7 +34,7 @@ namespace TheSprayer.Services
             _db.SaveChanges();
         }
 
-        public async Task<bool> IsCredentialPairSprayed(string username, string password) 
+        public async Task<bool> IsCredentialPairSprayed(string username, string password)
         {
             return await _db.Attempts.AnyAsync(a => a.Username == username && a.Password == password);
         }

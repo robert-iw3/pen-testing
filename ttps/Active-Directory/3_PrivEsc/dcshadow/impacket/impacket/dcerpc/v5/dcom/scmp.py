@@ -39,7 +39,7 @@ class DCERPCSessionError(DCERPCException):
     def __str__( self ):
         if self.error_code in hresult_errors.ERROR_MESSAGES:
             error_msg_short = hresult_errors.ERROR_MESSAGES[self.error_code][0]
-            error_msg_verbose = hresult_errors.ERROR_MESSAGES[self.error_code][1] 
+            error_msg_verbose = hresult_errors.ERROR_MESSAGES[self.error_code][1]
             return 'SCMP SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             return 'SCMP SessionError: unknown error code: 0x%x' % self.error_code
@@ -256,7 +256,7 @@ class IVssEnumMgmtObject(IRemUnknown2):
         request['ORPCthis']['flags'] = 0
         request['celt'] = celt
         resp = self.request(request, self._iid, uuid = self.get_iPid())
-        return resp 
+        return resp
 
 class IVssEnumObject(IRemUnknown2):
     def __init__(self, interface):
@@ -270,7 +270,7 @@ class IVssEnumObject(IRemUnknown2):
         request['celt'] = celt
         dce = self.connect()
         resp = dce.request(request, self._iid, uuid = self.get_iPid())
-        return resp 
+        return resp
 
 class IVssSnapshotMgmt(IRemUnknown2):
     def __init__(self, interface):

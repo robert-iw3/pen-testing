@@ -40,7 +40,7 @@ class DCERPCSessionError(DCERPCException):
         key = self.error_code
         if key in system_errors.ERROR_MESSAGES:
             error_msg_short = system_errors.ERROR_MESSAGES[key][0]
-            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1] 
+            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1]
             return 'DSSP SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             return 'DSSP SessionError: unknown error code: 0x%x' % self.error_code
@@ -69,7 +69,7 @@ class DSROLE_MACHINE_ROLE(NDRENUM):
         DsRole_RoleMemberServer            = 3
         DsRole_RoleBackupDomainController  = 4
         DsRole_RolePrimaryDomainController = 5
-        
+
 # 2.2.1 DSROLER_PRIMARY_DOMAIN_INFO_BASIC
 class DSROLER_PRIMARY_DOMAIN_INFO_BASIC(NDRSTRUCT):
     structure = (
@@ -140,7 +140,7 @@ class DSROLER_PRIMARY_DOMAIN_INFORMATION(NDRUNION):
     commonHdr = (
         ('tag', DSROLE_PRIMARY_DOMAIN_INFO_LEVEL),
     )
-    
+
     union = {
         DSROLE_PRIMARY_DOMAIN_INFO_LEVEL.DsRolePrimaryDomainInfoBasic : ('DomainInfoBasic', DSROLER_PRIMARY_DOMAIN_INFO_BASIC),
         DSROLE_PRIMARY_DOMAIN_INFO_LEVEL.DsRoleUpgradeStatus          : ('UpgradStatusInfo', DSROLE_UPGRADE_STATUS_INFO),

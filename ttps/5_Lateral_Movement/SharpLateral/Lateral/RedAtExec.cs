@@ -6,8 +6,8 @@ using Task = Microsoft.Win32.TaskScheduler.Task;
 namespace SharpLateral
 {
     class Schedule
-    { 
-            public static void Schedule1(string[] args) { 
+    {
+            public static void Schedule1(string[] args) {
             if (args.Length < 1)
             {
                 Console.WriteLine("Usage: SharpLateral.exe schedule 192.168.31.134 C:\\windows\\system32\\notepad.exe ttt");

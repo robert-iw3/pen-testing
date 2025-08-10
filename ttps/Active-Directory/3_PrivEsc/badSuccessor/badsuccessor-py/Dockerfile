@@ -10,7 +10,7 @@ ENV PATH=/badsuccessor/bin:/usr/local/bin:/usr/bin:$PATH \
     PYTHONDONTWRITEBYTECODE=1 \
     LC_ALL=C.UTF-8 \
     LANG=C.UTF-8 \
-    TZ=UTC 
+    TZ=UTC
 
 RUN \
     apk add --no-cache \

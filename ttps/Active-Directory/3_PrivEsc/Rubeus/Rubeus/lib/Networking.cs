@@ -68,7 +68,7 @@ namespace Rubeus
                 try
                 {
                     // If we call GetHostAddresses with an empty string, it will return IP addresses for localhost instead of DC
-                    if (String.IsNullOrEmpty(DCName)) 
+                    if (String.IsNullOrEmpty(DCName))
                     {
                         Console.WriteLine("[X] Error: No domain controller could be located");
                         return null;
@@ -128,8 +128,8 @@ namespace Rubeus
                     client.Connect(ipEndPoint);
                     BinaryReader socketReader = new BinaryReader(client.GetStream());
                     BinaryWriter socketWriter = new BinaryWriter(client.GetStream());
-                    
-                    socketWriter.Write(System.Net.IPAddress.HostToNetworkOrder(data.Length));                   
+
+                    socketWriter.Write(System.Net.IPAddress.HostToNetworkOrder(data.Length));
                     socketWriter.Write(data);
 
                     int recordMark = System.Net.IPAddress.NetworkToHostOrder(socketReader.ReadInt32());
@@ -139,7 +139,7 @@ namespace Rubeus
                         Console.WriteLine("[X] Unexpected reserved bit set on response record mark from Domain Controller {0}:{1}, aborting", server, port);
                         return null;
                     }
-                    
+
                     byte[] responseRecord = socketReader.ReadBytes(recordSize);
 
                     if(responseRecord.Length != recordSize) {
@@ -159,7 +159,7 @@ namespace Rubeus
                 }
 
             }catch(FormatException fe) {
-                Console.WriteLine("[X] Error parsing IP address {0} : {1}", server, fe.Message);                
+                Console.WriteLine("[X] Error parsing IP address {0} : {1}", server, fe.Message);
             }
 
             return null;
@@ -199,7 +199,7 @@ namespace Rubeus
             if (String.IsNullOrEmpty(ldapPrefix) && String.IsNullOrEmpty(ldapOu))
             {
                 directoryObject = new DirectoryEntry();
-                
+
             }
             else //If we have a prefix (DC or domain), an OU path, or both
             {
@@ -222,14 +222,14 @@ namespace Rubeus
 
                 directoryObject = new DirectoryEntry(bindPath);
             }
-            
+
             if (cred != null)
             {
                 // if we're using alternate credentials for the connection
                 string userDomain = String.Format("{0}\\{1}", cred.Domain, cred.UserName);
                 directoryObject.Username = userDomain;
                 directoryObject.Password = cred.Password;
-             
+
                 // Removed credential validation check because it just caused problems and doesn't gain us anything (if invalid
                 // credentials are specified, the LDAP search will fail with "Logon failure: bad username or password" anyway)
 

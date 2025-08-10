@@ -276,13 +276,13 @@ def splitStructs(data, nego):
     for struct in structs:
         if struct == '':
             continue
-        nego.raiseSequenceNum() 
+        nego.raiseSequenceNum()
     for struct in structs:
         if struct == '':
             continue
         if struct.startswith("{0:0{1}x}".format(MessageTypes.CHALLENGE.value, 2)):
             structData = bytes("NEGOEXTS", 'utf-8').hex() + struct
-            
+
             exchange = Unpack(WST_EXCHANGE_MESSAGE, bytes.fromhex(structData))._fields_[2][1]
             # exchange starts from header + authscheme (40 + 16)
             # then we calculate ExchangeByteCount, ExchangeOffset, ExchangePad
@@ -292,4 +292,4 @@ def splitStructs(data, nego):
 def toLitEndian(hexStream):
     lis = [ hexStream[i:i+2] for i in range(0, len(hexStream), 2) ]
     lis.reverse()
-    return ''.join(lis) 
+    return ''.join(lis)

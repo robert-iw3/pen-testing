@@ -87,7 +87,7 @@ class Signature {
     $Item = Get-Item $Path
     $OutFile = "$($item.Directory)\bypassed.$($item.Name)"
 
-    [Console]::WriteLine("[*] $($item.Name) has malicious signature. start scanning $($Bytes.Length) bytes...")    
+    [Console]::WriteLine("[*] $($item.Name) has malicious signature. start scanning $($Bytes.Length) bytes...")
     $SplitEndOffset = [math]::Floor($Bytes.Length / 2)
     $LastGoodOffset = 0
 
@@ -124,7 +124,7 @@ class Signature {
 
         if ($LastGoodOffset -eq $SplitEndOffset) {
           [Console]::WriteLine("[+] maybe file hash is the signature")
-          $Bytes[$Bytes.Length - 1] = 0x90          
+          $Bytes[$Bytes.Length - 1] = 0x90
           if ($this.Av.IsMalicious($Bytes)) {
             [Console]::WriteLine("[-] appending nop code cannot bypasse the signature...")
           } else {
@@ -220,7 +220,7 @@ class Kaspersky{
 
 class Amsi{
     [bool] IsMalicious ($Bytes) {
-        $def = 
+        $def =
 @"
         [DllImport("amsi.dll", EntryPoint = "AmsiInitialize", CallingConvention = CallingConvention.StdCall)]
         public static extern int Initialize([MarshalAs(UnmanagedType.LPWStr)] string appName, out IntPtr context);
@@ -235,12 +235,12 @@ class Amsi{
         public static extern void Uninitialize(IntPtr context);
 
         [DllImport("amsi.dll", EntryPoint = "AmsiSc" + "anBuffer", CallingConvention = CallingConvention.StdCall)]
-        public static extern int Scan(IntPtr context, byte[] buffer, uint length, string contentName, IntPtr session, out IntPtr result);        
+        public static extern int Scan(IntPtr context, byte[] buffer, uint length, string contentName, IntPtr session, out IntPtr result);
 "@
         $amsi = add-type -memberDefinition $def -name "Amsi" -passthru
         $context = 0
         $session = 0
-        $result = 0        
+        $result = 0
         $amsi::Initialize("Remove-Signature", [ref]$context)
         $amsi::OpenSession($context, [ref]$session)
         $amsi::Scan($context, $Bytes, $bytes.Length, "sample", $session, [ref]$result)
@@ -274,7 +274,7 @@ class Util{
 class PEParser{
   # DOS header
   [uint16]$DOS_SIGNATURE = 0x5a4d
-  [uint32]$E_LFANEW_OFFSET = 0x3c # e_flanew = imagebase + 0x3c; 
+  [uint32]$E_LFANEW_OFFSET = 0x3c # e_flanew = imagebase + 0x3c;
   # NT header
   [uint32]$NT_SIGNATURE = 0x00004550
   [uint32]$NUMBER_OF_SECTIONS_OFFSET = 0x6 # numOfSections = imagebase + e_flanew + 0x6

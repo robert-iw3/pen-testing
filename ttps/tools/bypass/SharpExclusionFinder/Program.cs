@@ -25,7 +25,7 @@ class Program
 
   static StreamWriter logWriter = null;
 
-  static readonly object logWriterLock = new object(); 
+  static readonly object logWriterLock = new object();
 
   static void Main(string[] args)
   {
@@ -44,7 +44,7 @@ class Program
         if (int.TryParse(args[i + 1], out int threads))
         {
           maxThreads = threads;
-          i++; 
+          i++;
         }
       }
       else if (args[i] == "--depth" && i + 1 < args.Length)
@@ -52,13 +52,13 @@ class Program
         if (int.TryParse(args[i + 1], out int depth))
         {
           maxDepth = depth;
-          i++; 
+          i++;
         }
       }
       else if (args[i] == "--output" && i + 1 < args.Length)
       {
         outputFile = args[i + 1];
-        i++; 
+        i++;
       }
     }
 
@@ -77,7 +77,7 @@ class Program
 
     stopwatch.Start();
 
-    GetExcludedFoldersByTier(basePath, 0); 
+    GetExcludedFoldersByTier(basePath, 0);
 
     if (logWriter != null)
     {
@@ -119,9 +119,9 @@ class Program
     // Process each tier until all directories are scanned or max depth is reached
     while (directoriesByTier.Count > 0 && currentDepth <= maxDepth)
     {
-      var currentTier = directoriesByTier.Dequeue(); 
+      var currentTier = directoriesByTier.Dequeue();
 
-      totalDirectories += currentTier.Count; 
+      totalDirectories += currentTier.Count;
 
       // Filter out excluded directories before processing
       List<string> filteredDirectories = new List<string>();
@@ -129,10 +129,10 @@ class Program
       {
         if (!IsDirectoryExcluded(dir))
         {
-          filteredDirectories.Add(dir); 
+          filteredDirectories.Add(dir);
         }
       }
-      
+
       ProcessTierDirectories(filteredDirectories);
 
       List<string> nextTierDirectories = new List<string>();
@@ -242,9 +242,9 @@ class Program
     {
       if (excludedDirectories.Contains(currentDirectory))
       {
-        return true; 
+        return true;
       }
-      currentDirectory = Path.GetDirectoryName(currentDirectory); 
+      currentDirectory = Path.GetDirectoryName(currentDirectory);
     }
     return false;
   }
@@ -282,10 +282,10 @@ class Program
   {
     if (logWriter != null && (isError || message.Contains("[+] Folder")))
     {
-      lock (logWriterLock) 
+      lock (logWriterLock)
       {
         logWriter.WriteLine(message);
-        logWriter.Flush(); 
+        logWriter.Flush();
       }
     }
 

@@ -20,7 +20,7 @@ namespace GenEDRBypass.Core
             IntPtr allocatedMemory = VirtualAlloc(IntPtr.Zero, size, 0x3000, 0x40);
             if (allocatedMemory == IntPtr.Zero)
                 throw new Exception("Не удалось выделить память.");
-            
+
             Console.WriteLine($"Память выделена по адресу: {allocatedMemory}");
             return allocatedMemory;
         }

@@ -71,7 +71,7 @@ class DNSFlags():
     RCODE_SERVER_FAILURE    = int("0000000000000100", 2) # The name server was unable to process this query due to a problem with the name server.
     RCODE_NAME_ERROR        = int("0000000000001100", 2) # Meaningful only for responses from an authoritative name server, this code signifies that the domain name referenced in the query does not exist.
     RCODE_NOT_IMPLEMENTED   = int("0000000000000010", 2) # Not Implemented. The name server does not support the requested kind of query.
-    RCODE_REFUSED           = int("0000000000001010", 2) # The name server refuses to perform the specified operation for policy reasons. 
+    RCODE_REFUSED           = int("0000000000001010", 2) # The name server refuses to perform the specified operation for policy reasons.
     RCODE_YXDOMAIN          = int("0000000000000110", 2) # Name Exists when it should not.
     RCODE_YXRRSET           = int("0000000000001110", 2) # RR Set Exists when it should not.
     RCODE_NXRRSET           = int("0000000000000001", 2) # RR Set that should exist does not.
@@ -130,17 +130,17 @@ class DNSType():
     DHCID        = 49    # DHCP identifier.
     NSEC3        = 50
     NSEC3PARAM   = 51
-    
+
     HIP          = 55    # Host Identity Protocol.
     NINFO        = 56
     RKEY         = 57
-    
+
     SPF          = 99    # Sender Policy Framework.
     UINFO        = 100
     UID          = 101
     GID          = 102
     UNSPEC       = 103
-    
+
     TKEY         = 249
     TSIG         = 250   # Transaction Signature.
     IXFR         = 251   # Incremental transfer.
@@ -148,26 +148,26 @@ class DNSType():
     MAILB        = 253   # A request for mailbox-related records (MB, MG or MR).
     MAILA        = 254   # A request for mail agent RRs. Obsolete.
     ALL          = 255   # A request for all records.
-    
+
     DNSSEC       = 32768 # Trust Authorities.
     DNSSEC       = 32769 # DNSSEC Lookaside Validation.
-    
+
     @staticmethod
     def getTypeName(type):
         for item, value in list(DNSType.__dict__.items()):
             if value == type:
                 return item
-    
+
 
 class DNSClass():
     RESERVED     = 0
     IN           = 1 # Internet.
     CH           = 3 # Chaos.
     HS           = 4 # Hesiod.
-    
+
     NONE         = 254
     ANY          = 255 # QCLASS only
-    
+
     @staticmethod
     def getClassName(type):
         for item, value in list(DNSClass.__dict__.items()):
@@ -177,7 +177,7 @@ class DNSClass():
 class DNS(ProtocolPacket):
     '''The Message Header is present in all messages. Never empty.
     Contains various flags and values which control the transaction.'''
-    
+
     __TYPE_LEN       = 2 # Unsigned 16 bit value.
     __CLASS_LEN      = 2 # Unsigned 16 bit value.
     __POINTER_LEN    = 2 # A pointer is an unsigned 16-bit value.
@@ -192,26 +192,26 @@ class DNS(ProtocolPacket):
     __PREF_LEN       = 2 # Preference  Unsigned 16-bit integer.
     __IS_POINTER   = int("11000000", 2)
     __OFFSETMASK   = int("00111111", 2)
-    
+
     def __init__(self, aBuffer = None):
         self.__HEADER_BASE_SIZE = 12
         self.__TAIL_SIZE        = 0
         ProtocolPacket.__init__(self, self.__HEADER_BASE_SIZE, self.__TAIL_SIZE)
         if aBuffer:
             self.load_packet(aBuffer)
-    
+
     def get_transaction_id(self):
         'Get 16 bit message ID.'
         return self.header.get_word(0)
-    
+
     def set_transaction_id(self, value):
         'Set 16 bit message ID.'
         self.header.set_word(0, value)
-    
+
     def get_transaction_id_tcp(self):
         'Get 16 bit message ID.'
         return self.header.get_word(2)
-    
+
     def set_transaction_id_tcp(self, value):
         'Set 16 bit message ID.'
         self.header.set_word(2, value)
@@ -227,23 +227,23 @@ class DNS(ProtocolPacket):
     def get_flags_tcp(self):
         'Get 16 bit flags.'
         return self.header.get_word(4)
-    
+
     def set_flags_tcp(self, value):
         'Set 16 bit flags.'
         self.header.set_word(4, value)
-    
+
     def get_qdcount(self):
         'Get Unsigned 16 bit integer specifying the number of entries in the question section.'
         return self.header.get_word(4)
-    
+
     def set_qdcount(self, value):
         'Set Unsigned 16 bit integer specifying the number of entries in the question section.'
         self.header.set_word(4, value)
-    
+
     def get_qdcount_tcp(self):
         'Get Unsigned 16 bit integer specifying the number of entries in the question section.'
         return self.header.get_word(6)
-    
+
     def set_qdcount_tcp(self, value):
         'Set Unsigned 16 bit integer specifying the number of entries in the question section.'
         self.header.set_word(6, value)
@@ -251,31 +251,31 @@ class DNS(ProtocolPacket):
     def get_ancount(self):
         'Get Unsigned 16 bit integer specifying the number of resource records in the answer section'
         return self.header.get_word(6)
-    
+
     def set_ancount(self, value):
         'Set Unsigned 16 bit integer specifying the number of resource records in the answer section'
         self.header.set_word(6, value)
-    
+
     def get_nscount(self):
         'Get Unsigned 16 bit integer specifying the number of name server resource records in the authority section.'
         return self.header.get_word(8)
-    
+
     def set_nscount(self, value):
         'Set Unsigned 16 bit integer specifying the number of name server resource records in the authority section.'
         self.header.set_word(8, value)
-    
+
     def get_arcount(self):
         'Get Unsigned 16 bit integer specifying the number of resource records in the additional records section.'
         return self.header.get_word(10)
-    
+
     def set_arcount(self, value):
         'Set Unsigned 16 bit integer specifying the number of resource records in the additional records section.'
         self.header.set_word(10, value)
-    
+
     def get_questions(self):
         'Get a list of the DNS Question.'
         return self.__get_questions()[0]
-    
+
     def __get_questions(self):
         aux = []
         offset   = 0
@@ -340,33 +340,33 @@ class DNS(ProtocolPacket):
                 return (offset, name)
             else:
                 return (offset, name + b"." + unnamed)
-    
+
     def get_answers(self):
         return self.__get_answers()[0]
-    
+
     def get_authoritative(self):
         return self.__get_authoritative()[0]
-    
+
     def get_additionals(self):
         return self.__get_additionals()[0]
-    
+
     def __get_answers(self):
         offset  = self.__get_questions()[1] # get the initial offset
         ancount = self.get_ancount()
         return self.__process_answer_structure(offset, ancount)
-    
+
     def __get_authoritative(self):
         'Get a list of the DNS Authoritative.'
         offset  = self.__get_answers()[1] # get the initial offset
         nscount = self.get_nscount()
         return self.__process_answer_structure(offset, nscount)
-    
+
     def __get_additionals(self):
         'Get a list of the DNS Additional Records.'
         offset  = self.__get_authoritative()[1] # get the initial offset
         arcount = self.get_arcount()
         return self.__process_answer_structure(offset, arcount)
-    
+
     def __process_answer_structure(self, offset, num):
         aux  = []
         data = self.get_body_as_string()
@@ -375,19 +375,19 @@ class DNS(ProtocolPacket):
             qtype  = data[offset:offset+self.__TYPE_LEN]
             qtype  = struct.unpack("!H", qtype)[0]
             offset  += self.__TYPE_LEN
-            
+
             qclass = data[offset:offset+self.__CLASS_LEN]
             qclass = struct.unpack("!H", qclass)[0]
             offset  += self.__CLASS_LEN
-            
+
             qttl_raw = data[offset:offset+self.__TTL_LEN]
             qttl = struct.unpack("!L", qttl_raw)[0]
             offset  += self.__TTL_LEN
-            
+
             qrdlength = data[offset:offset+self.__RDLENGTH_LEN]
             qrdlength = struct.unpack("!H", qrdlength)[0]
             offset  += self.__RDLENGTH_LEN
-            
+
             qrdata = {}
             if qtype == DNSType.A:
                 # IP Address  Unsigned 32-bit value representing the IP address
@@ -441,40 +441,40 @@ class DNS(ProtocolPacket):
                 qrdata["RDATA"] = data[offset:offset+qrdlength]
                 offset  += qrdlength
                 aux.append((qname, qtype, udp_payload_size, ext_rcode, version, flags, qrdata))
-                continue   
+                continue
             else:
                 # We don't know how to parse it, just skip it
                 offset  += qrdlength
-                
+
             aux.append((qname, qtype, qclass, qttl, qrdata))
         return (aux, offset)
-    
+
     def get_header_size(self):
         return self.__HEADER_BASE_SIZE
-    
+
     def __str__(self):
         res = ""
-        
+
         id      = self.get_transaction_id()
         flags   = self.get_flags()
         qdcount = self.get_qdcount()
         ancount = self.get_ancount()
         nscount = self.get_nscount()
         arcount = self.get_arcount()
-        
+
         res += "DNS "
         if flags & DNSFlags.QR_RESPONSE:
             res += "RESPONSE\n"
         else:
             res += "QUERY\n"
-        
+
         res += " - Transaction ID -- [0x%04x] %d\n" % (id, id)
         res += " - Flags ----------- [0x%04x] %d\n" % (flags, flags)
         res += " - QdCount --------- [0x%04x] %d\n" % (qdcount, qdcount)
         res += " - AnCount --------- [0x%04x] %d\n" % (ancount, ancount)
         res += " - NsCount --------- [0x%04x] %d\n" % (nscount, nscount)
         res += " - ArCount --------- [0x%04x] %d\n" % (arcount, arcount)
-        
+
         if qdcount > 0:
             res += " - Questions:\n"
             questions = self.get_questions()
@@ -483,7 +483,7 @@ class DNS(ProtocolPacket):
                 qname, qtype, qclass = questions.pop()
                 format = (str(qname.decode('ascii')), DNSType.getTypeName(qtype), qtype, DNSClass.getClassName(qclass), qclass)
                 res += "  * Domain: %s - Type: %s [0x%04x] - Class: %s [0x%04x]\n" % format
-        
+
         if ancount > 0:
             res += " - Answers:\n"
             answers = self.get_answers()
@@ -492,7 +492,7 @@ class DNS(ProtocolPacket):
                 qname, qtype, qclass, qttl, qrdata = answers.pop()
                 format = (str(qname.decode('ascii')), DNSType.getTypeName(qtype), qtype, DNSClass.getClassName(qclass), qclass, qttl, repr(qrdata))
                 res += "  * Domain: %s - Type: %s [0x%04x] - Class: %s [0x%04x] - TTL: %d seconds - %s\n" % format
-        
+
         if nscount > 0:
             res += " - Authoritative:\n"
             authoritative = self.get_authoritative()
@@ -501,14 +501,14 @@ class DNS(ProtocolPacket):
                 qname, qtype, qclass, qttl, qrdata = authoritative.pop()
                 format = (str(qname.decode('ascii')), DNSType.getTypeName(qtype), qtype, DNSClass.getClassName(qclass), qclass, qttl, repr(qrdata))
                 res += "  * Domain: %s - Type: %s [0x%04x] - Class: %s [0x%04x] - TTL: %d seconds - %s\n" % format
-        
+
         if arcount > 0:
             res += " - Additionals:\n"
             additionals = self.get_additionals()
             for additional in additionals:
                 qtype = additional[1]
                 if qtype == DNSType.OPT:
-                    
+
                     qname, qtype, udp_payload_size, ext_rcode, version, flags, qrdata = additional
                     format = (DNSType.getTypeName(qtype), qtype, udp_payload_size, ext_rcode, version, flags, repr(qrdata['RDATA']))
                     res += "  * Name: <Root> - Type: %s [0x%04x] - udp payload size: [%d] - extended RCODE: [0x%02x] - EDNS0 version: [0x%02x] - Z Flags: [0x%02x] - RDATA: [%s]\n" % format
@@ -516,9 +516,9 @@ class DNS(ProtocolPacket):
                     qname, qtype, qclass, qttl, qrdata = additional
                     format = (str(qname.decode('ascii')), DNSType.getTypeName(qtype), qtype, DNSClass.getClassName(qclass), qclass, qttl, repr(qrdata))
                     res += "  * Domain: %s - Type: %s [0x%04x] - Class: %s [0x%04x] - TTL: %d seconds - %s\n" % format
-        
+
         return res
- 
+
     def __get_questions_raw(self):
         if self.get_qdcount() == 0:
             return ''
@@ -555,13 +555,13 @@ class DNS(ProtocolPacket):
         answers_raw = self.__get_answers_raw()
         authoritative_raw = self.__get_authoritative_raw()
         additionals_raw = self.__get_additionals_raw()
-        
+
         answers_raw += answer_raw
-        
+
         body = questions_raw + answers_raw + authoritative_raw + additionals_raw
         self.load_body(body) # It breaks children hierarchy
-        
-        # Increment the answer count  
+
+        # Increment the answer count
         cur_answer_count = self.get_ancount()+1
         self.set_ancount(cur_answer_count)
 

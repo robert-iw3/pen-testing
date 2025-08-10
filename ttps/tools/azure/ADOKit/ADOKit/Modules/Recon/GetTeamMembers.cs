@@ -56,7 +56,7 @@ namespace ADOKit.Modules.Recon
                             {
                                 Console.WriteLine("{0,50} | {1,50} | {2,50}", team.name, member.uniqueName, member.displayName);
                             }
-                            
+
                         }
 
                     }

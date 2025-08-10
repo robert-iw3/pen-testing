@@ -36,12 +36,12 @@ internal struct TokenEntry : IDisposable
         }
     }
 
-    public TokenEntry(NtToken token) 
+    public TokenEntry(NtToken token)
         : this(token, null)
     {
     }
 
-    public TokenEntry(NtToken token, NtProcess process) 
+    public TokenEntry(NtToken token, NtProcess process)
         : this(token, token, process)
     {
     }

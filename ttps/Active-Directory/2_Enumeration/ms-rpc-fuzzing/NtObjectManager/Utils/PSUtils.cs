@@ -68,7 +68,7 @@ public enum TextEncodingType
 /// </summary>
 public static class PSUtils
 {
-    internal static T InvokeWithArg<T>(this ScriptBlock script_block, T default_value, params object[] args) 
+    internal static T InvokeWithArg<T>(this ScriptBlock script_block, T default_value, params object[] args)
     {
         try
         {
@@ -388,7 +388,7 @@ public static class PSUtils
             config.AddInheritedHandle(inherited_obj);
         }
 
-        if (NtSystemInfo.OSVersion.Version.Build >= 22000 
+        if (NtSystemInfo.OSVersion.Version.Build >= 22000
             && NtSystemInfo.ProcessorInformation.ProcessorArchitecture == ProcessorAchitecture.ARM64)
         {
             config.MachineType = DllMachineType.ARM64;

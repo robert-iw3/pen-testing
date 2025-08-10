@@ -1390,7 +1390,7 @@ __pragma(clang diagnostic pop)
 #define PS_ATTRIBUTE_SECURE_PROCESS \
     PsAttributeValue(PsAttributeSecureProcess, FALSE, TRUE, FALSE)
 
-	
+
 	typedef enum _PS_STD_HANDLE_STATE
 	{
 		PsNeverDuplicate,

@@ -26,7 +26,7 @@ We can parse the `kernel.arch` sysctl to determine the arch.
 
 #### <img src="https://avatars.githubusercontent.com/u/121037831?u=c8a707b5460502b823b0b697147e94d616c7617d&v=4" width="50">[flipthewho](https://github.com/flipthewho) opened issue at [2024-08-25 10:58](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/157):
 
-realised issue #153 
+realised issue #153
 
 tested on `bullseye` image, also there is an default option for my ubutu. didnt cause any issuses with booting or something
 this option can reduces chances to local privelege escalation using null-pntr
@@ -103,7 +103,7 @@ Thanks!
 
 #### <img src="https://avatars.githubusercontent.com/u/67371653?v=4" width="50">[Willenst](https://github.com/Willenst) commented at [2024-08-27 13:47](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/155#issuecomment-2312613741):
 
-@a13xp0p0v, thanks a lot for your fixes, good additions with a great code practice, I've learned a lot! 
+@a13xp0p0v, thanks a lot for your fixes, good additions with a great code practice, I've learned a lot!
 All commits were squashed for a beautiful push request, so, just in case, they will be stored for some time here
 https://github.com/Willenst/kernel-hardening-checker/tree/test_CI
 
@@ -132,7 +132,7 @@ The commit: https://github.com/a13xp0p0v/kernel-hardening-checker/commit/f866b36
 
 #### <img src="https://avatars.githubusercontent.com/u/121037831?u=c8a707b5460502b823b0b697147e94d616c7617d&v=4" width="50">[flipthewho](https://github.com/flipthewho) opened issue at [2024-08-22 18:53](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/154):
 
-this release commit is an implementation of #149 
+this release commit is an implementation of #149
 
 basic things: `OK`is `cfi=kcfi` in __cmdline__. if this parameter is not set, we looking for `CONFIG_CFI_AUTO_DEFAULT` which should be off, it is equals to  `cfi=kcfi`, see [reference](https://patchew.org/linux/20240501000218.work.998-kees@kernel.org/)
 also for this Kconfig options we have some dependences, they are also added to check.
@@ -163,7 +163,7 @@ important thing: we should specify compiler (From Kees Cook's [slides](https://o
 
 #### <img src="https://avatars.githubusercontent.com/u/67371653?v=4" width="50">[Willenst](https://github.com/Willenst) opened issue at [2024-08-17 11:22](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/152):
 
-References #109 
+References #109
 
 Added a sysctl io_uring_disabled check, which I believe should be set to 2 for complete disabling. Fully disabling this option reduces the attack surface, as a limited io_uring could still be exploited from rooted namespaces, such as unsecured Docker containers for example. Also, this approach is recommended by Grsecurity and has been implemented in kconfig as fully disabled.
 
@@ -173,7 +173,7 @@ Added a sysctl io_uring_disabled check, which I believe should be set to 2 for c
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2024-08-18 15:03](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/152#issuecomment-2295292750):
 
-Hello @Willenst, 
+Hello @Willenst,
 
 Thanks a lot for your pull request!
 
@@ -206,7 +206,7 @@ Thank you!
 
 #### <img src="https://avatars.githubusercontent.com/u/67371653?v=4" width="50">[Willenst](https://github.com/Willenst) commented at [2024-08-19 15:09](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/152#issuecomment-2296813220):
 
-Thanks a lot for the detailed reply! This is my first experience working on a public opensource project, I apologize for the mistakes, seems like now this check works fine. I've merged my PR with the current master, also moved  `io_uring_disabled` check below the kspp ones, and added the comment about kconfig `IO_URING` compatibility. 
+Thanks a lot for the detailed reply! This is my first experience working on a public opensource project, I apologize for the mistakes, seems like now this check works fine. I've merged my PR with the current master, also moved  `io_uring_disabled` check below the kspp ones, and added the comment about kconfig `IO_URING` compatibility.
 ```
 $ ./kernel-hardening-checker -s /tmp/file1
 [+] Sysctl output file to check: /tmp/file1
@@ -220,7 +220,7 @@ kernel.io_uring_disabled                |sysctl |     2      |  grsec   |cut_att
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2024-08-25 13:05](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/152#issuecomment-2308828638):
 
-@Willenst, thanks! 
+@Willenst, thanks!
 
 The false positive error is fixed:
 1) with kconfig
@@ -261,7 +261,7 @@ Now we need some minor style fixes:
 1. Static analysis CI should work fine:
 
 ```
-$ pylint --recursive=y kernel_hardening_checker setup.py 
+$ pylint --recursive=y kernel_hardening_checker setup.py
 
 --------------------------------------------------------------------
 Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
@@ -271,7 +271,7 @@ I also verified it in the fork's workflow:
 
 ![image](https://github.com/user-attachments/assets/08e35f46-b78c-4199-8327-02b7e5dc53aa)
 
-2. Missing spaces added, similar to `kernel.modules_disabled` 
+2. Missing spaces added, similar to `kernel.modules_disabled`
 3. Word order corrected as suggested
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2024-08-29 06:35](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/152#issuecomment-2316820274):
@@ -294,7 +294,7 @@ Let's create a simple mechanism for checking that it contains the needed LSM mod
 The checking rule might look like this:
 ```
 l += [KconfigCheck('self_protection', 'kspp', 'LSM', '*lockdown*')]
-``` 
+```
 Here `'*lockdown*'` means that `lockdown` is in the comma-separated list.
 
 
@@ -328,7 +328,7 @@ Thanks!
 
 #### <img src="https://avatars.githubusercontent.com/u/1202023?v=4" width="50">[citypw](https://github.com/citypw) commented at [2024-08-11 18:56](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/150#issuecomment-2282855498):
 
-@a13xp0p0v It's been a while and it's good to see this project keep going on. 
+@a13xp0p0v It's been a while and it's good to see this project keep going on.
 
 Thanks for the review. Moved them into "ARM64". I don't have knowledge about if all armv7 hardware shipped SMMU by default or only the specific hardware like [ Exynos5 SoC]( https://genode.org/documentation/articles/arm_virtualization ) . I've only seen it's been deployed in arm64 at the moment.
 
@@ -353,7 +353,7 @@ Reference: https://www.phoronix.com/news/Linux-6.11-Hardening
 
 #### <img src="https://avatars.githubusercontent.com/u/121037831?u=c8a707b5460502b823b0b697147e94d616c7617d&v=4" width="50">[flipthewho](https://github.com/flipthewho) commented at [2024-08-22 18:57](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/149#issuecomment-2305433182):
 
-hello, @winterknife, @a13xp0p0v 
+hello, @winterknife, @a13xp0p0v
 i implemented this ussue in my fork and merged all commits from test branch to release
 now there is a #154 pull request into main repo
 
@@ -382,7 +382,7 @@ Merged!
 
 #### <img src="https://avatars.githubusercontent.com/u/77795961?v=4" width="50">[osevan](https://github.com/osevan) opened issue at [2024-07-15 06:58](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/147):
 
-The new SECURITY_PROC_MEM_RESTRICT_WRITES Kconfig option allows restricting writes to the mem file of processes unless the current process ptraces to that given task. 
+The new SECURITY_PROC_MEM_RESTRICT_WRITES Kconfig option allows restricting writes to the mem file of processes unless the current process ptraces to that given task.
 
 https://lore.kernel.org/lkml/20240712-vfs-procfs-ce7e6c7cf26b@brauner/
 
@@ -443,7 +443,7 @@ Closing. Thanks to @Willenst.
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) opened issue at [2024-07-03 15:21](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/144):
 
-I have an idea: to add a column `|with care|` for the options that may break some kernel functionality or introduce significant performance impact. 
+I have an idea: to add a column `|with care|` for the options that may break some kernel functionality or introduce significant performance impact.
 
 (refers to #137)
 
@@ -491,7 +491,7 @@ The logic is broken because the line doesn't match any of this regex:
         opt_is_off = re.compile(r"# CONFIG_[a-zA-Z0-9_]+ is not set$")
 ```
 
-Indeed, there is no character after `=`. 
+Indeed, there is no character after `=`.
 An other option would be to replace
 ```
 opt_is_on = re.compile(r"CONFIG_[a-zA-Z0-9_]+=.+$")
@@ -748,7 +748,7 @@ I've finished it and merged the branch.
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2024-06-09 08:50](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/137#issuecomment-2156397087):
 
-Hi @jvoisin, 
+Hi @jvoisin,
 
 Thanks for the idea!
 
@@ -805,7 +805,7 @@ I've finished the implementation:
  - added similar checks for the `cmdline` and `sysctl` files,
  - added the check that the `cmdline` file is not empty,
  - added the corresponding CI tests (to avoid loosing the test coverage).
- 
+
 Merged!
 
 
@@ -899,7 +899,7 @@ Let's return to this work after releasing a fresh version of kernel-hardening-ch
 
 -------------------------------------------------------------------------------
 
-# [\#129 Issue](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/129) `open`: Improve --kernel-version and --cmdline 
+# [\#129 Issue](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/129) `open`: Improve --kernel-version and --cmdline
 **Labels**: `new_feature`
 
 
@@ -935,7 +935,7 @@ It would be nice to have `--cmdline` and `--kernel-version` use default values w
 
 ```console
 $  # current behaviour
-$ python3 ./bin/kernel-hardening-checker -c /boot/config-* --kernel-version 
+$ python3 ./bin/kernel-hardening-checker -c /boot/config-* --kernel-version
 usage: kernel-hardening-checker [-h] [--version] [-m {verbose,json,show_ok,show_fail}] [-c CONFIG] [-l CMDLINE] [-s SYSCTL] [-v KERNEL_VERSION] [-p {X86_64,X86_32,ARM64,ARM}] [-g {X86_64,X86_32,ARM64,ARM}]
 kernel-hardening-checker: error: argument -v/--kernel-version: expected one argument
 $  # desired behaviour
@@ -1025,7 +1025,7 @@ First, all checks in `config_checklist` are ordered by `type`:
 In each `type`, the checks are ordered by `reason`:
 1. self_protection
 2. security_policy
-3. cut_attack_surface 
+3. cut_attack_surface
 4. harden_userspace
 
 In each `reason`, the checks are ordered by `decision` **starting from the most credible**:
@@ -1136,7 +1136,7 @@ https://github.com/a13xp0p0v/kernel-hardening-checker/actions/workflows/engine_u
 https://github.com/a13xp0p0v/kernel-hardening-checker/actions/workflows/functional_test_no-coverage.yml
 These should work for each pull request.
 
-But the original actions with the coverage control will fail anyway. 
+But the original actions with the coverage control will fail anyway.
 
 What do you think about that?
 
@@ -1276,7 +1276,7 @@ Having typing makes it easier to understand what's going on in the code, eg. "th
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2024-04-17 18:02](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/121#issuecomment-2061903203):
 
-Hi @jvoisin, 
+Hi @jvoisin,
 Thanks for the pull request! I like the idea.
 There is a CI error, could you have a look, please?
 
@@ -1302,7 +1302,7 @@ The error is because I didn't realise Python ≤3.9 was supported
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2024-05-12 12:32](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/121#issuecomment-2106231646):
 
 @jvoisin, thanks!
- 
+
 The CI scripts of `kernel-hardening-checker` run on Python versions that are currently officially supported.
 Should `kernel-hardening-checker` also support some older Python versions?
 
@@ -1323,7 +1323,7 @@ I separated the commits that:
  - fix mypy warnings,
  - do refactoring,
  - improve CI.
- 
+
 There should be no functional changes in this branch.
 The `kernel-hardening-checker` output should be the same before these changes and after them.
 
@@ -1346,14 +1346,14 @@ Otherwise, LGTM :)
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2024-05-13 23:45](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/121#issuecomment-2109008338):
 
 > Wow, you really went all-in!
-> 
+>
 > * I'm not sure it's worth duplicating the type checking step in several jobs. In fact, having it into its own job would make sense, so that it could be parallelized with the others.
 
 Agree, fixed in https://github.com/a13xp0p0v/kernel-hardening-checker/pull/121/commits/dda21ff0d50bbe01acf7305946124e5d13d1bb3b
 
 > * `-> None` is implicit, but I guess having it explicitly doesn't hurt.
 > * I don't think we really care about coverage: I added the typing annotations as always-up-to-date-comments, so that it's more clean what every function is doing/expecting. Reaching 100% typing information coverage will likely add way to many useless bloat.
-> 
+>
 > Otherwise, LGTM :)
 
 Cool, thanks!
@@ -1415,7 +1415,7 @@ There is separation between arch and show output.
 I have found the following obvious config that prevent booting a desktop.
 
 - CONFIG_FB
-- CONFIG_VT 
+- CONFIG_VT
 - CONFIG_KCMP # Selected by [y]: DRM [=y]
 
 There are of course a few more, but they are not necessary for booting.
@@ -1425,7 +1425,7 @@ CONFIG_USE_NS # firefox / unprivileged container like systemd-nspawn
 
 Another distinction is virtual machine desktop and virtual machine server.
 
-A server still needs CONFIG_FB to show boot display if something goes wrong in initrd, etc. Virtual machine server with serial does not. Certain cloud servers available for sale online have both serial and video options available, some none at all (SSH only). So this is a very usecase specific item.  
+A server still needs CONFIG_FB to show boot display if something goes wrong in initrd, etc. Virtual machine server with serial does not. Certain cloud servers available for sale online have both serial and video options available, some none at all (SSH only). So this is a very usecase specific item.
 
 This may be harder to add because many hypervisors such as Xen, KVM, Virtualbox, might require different kernel options enabled to function as expected.
 
@@ -1500,7 +1500,7 @@ Thanks!
 Hello, please consider these new options
 
 
-Intel's hardware vulnurability for Atom cores; Register File Data Sampling. 
+Intel's hardware vulnurability for Atom cores; Register File Data Sampling.
 
 https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00898.html
 
@@ -1579,7 +1579,7 @@ This pull request enhances the JSON output format, introducing a more structured
 
 The updated format provides a clearer, more actionable output for users and developers, streamlining the process of analyzing and acting upon the check results.
 
-Resolves: #108 
+Resolves: #108
 
 #### <img src="https://avatars.githubusercontent.com/u/75043245?u=bafdc3f767c3637f6a8d2b87c8f391145c555cf7&v=4" width="50">[krishjainx](https://github.com/krishjainx) commented at [2024-03-14 09:35](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/115#issuecomment-1997024947):
 
@@ -1622,7 +1622,7 @@ More information: https://docs.kernel.org/arch/x86/shstk.html
 
 #### <img src="https://avatars.githubusercontent.com/u/4741819?v=4" width="50">[asarubbo](https://github.com/asarubbo) opened issue at [2024-03-07 09:08](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/113):
 
-Hello @a13xp0p0v 
+Hello @a13xp0p0v
 
 I have two suggestions for [kernel-hardening-checker](https://github.com/a13xp0p0v/kernel-hardening-checker)
 
@@ -1644,8 +1644,8 @@ Thanks
 I had similar thoughts, the performance rating sounds sensible
 but is probably difficult to implement because you always have
 to ask yourself in which scenario you achieve a plus or not.
-I would say that someone who uses the suggestions does not 
-use them from a performance point of view but from a security 
+I would say that someone who uses the suggestions does not
+use them from a performance point of view but from a security
 point of view.
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2024-03-17 14:16](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/113#issuecomment-2002487325):
@@ -1701,7 +1701,7 @@ Despite restricting access to kernel logs, it seems like this kernel debug log f
 
 It is listed to be located on DebugFS, although, it can also live in ProcFS, as it is on my system without DebugFS, per docs.
 
-I also have `kernel.dmesg_restrict = 1` too. 
+I also have `kernel.dmesg_restrict = 1` too.
 
 Maybe this is an oversight from kernel developers? I don't know. I don't see any memory addresses in mine, they seem to be removed, but this file still should probably not be readable by all users?
 
@@ -1721,11 +1721,11 @@ Do you see security-sensitive data in it?
 
 Hello @a13xp0p0v ,
 
-After additional review, the file simply identifies some hardware information. I have updated the title to reflect. The original was in error. The user-readable sensitive security data is only on OS like Whonix, and is likely out of scope for this project. 
+After additional review, the file simply identifies some hardware information. I have updated the title to reflect. The original was in error. The user-readable sensitive security data is only on OS like Whonix, and is likely out of scope for this project.
 
-The file also interacts with the kernel when written to.  
+The file also interacts with the kernel when written to.
 
-It appears that if kernel debug logging is already disabled ( pr_debug()/dev_dbg(), print_hex_dump_debug()/print_hex_dump_bytes() calls not present or removed by other configs) , this file does not produce additional logs in dmesg. 
+It appears that if kernel debug logging is already disabled ( pr_debug()/dev_dbg(), print_hex_dump_debug()/print_hex_dump_bytes() calls not present or removed by other configs) , this file does not produce additional logs in dmesg.
 
 I tested with  commands such as `echo -n 'file svcsock.c line 1603 +p' > /proc/dynamic_debug/control`.
 
@@ -1747,7 +1747,7 @@ For now, closing the issue.
 
 #### <img src="https://avatars.githubusercontent.com/u/158655396?v=4" width="50">[wryMitts](https://github.com/wryMitts) opened issue at [2024-02-19 05:20](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/110):
 
-CONFIG_VMLINUX_MAP generates a system.map file, which contains debugging symbols, and other information that may leak information about the kernel. It is automatically generated with the kernel, and it is delivered in Debian packages for the kernel when built with the dpkg-deb mode of the kernel build system. 
+CONFIG_VMLINUX_MAP generates a system.map file, which contains debugging symbols, and other information that may leak information about the kernel. It is automatically generated with the kernel, and it is delivered in Debian packages for the kernel when built with the dpkg-deb mode of the kernel build system.
 
 Kicksecure OS has an automatic script to delete this file when a kernel is installed.
 
@@ -1756,7 +1756,7 @@ https://gitlab.tails.boum.org/tails/tails/-/issues/10951
 https://en.wikipedia.org/wiki/System.map
 
 The CONFIG_DEBUG_KERNEL option generates a similar, large debug file that can be installed along the kernel. It is not installed by default, although it is automatically created on the build system. It will cause similar damage to the a system.map file. Disabling this optional also speeds up kernel build time extensively, and reduces disk usage on the build system.
-https://wiki.ubuntu.com/Debug%20Symbol%20Packages 
+https://wiki.ubuntu.com/Debug%20Symbol%20Packages
 
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2024-02-19 12:56](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/110#issuecomment-1952397715):
@@ -1774,7 +1774,7 @@ Do you agree?
 
 #### <img src="https://avatars.githubusercontent.com/u/158655396?v=4" width="50">[wryMitts](https://github.com/wryMitts) commented at [2024-02-19 19:40](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/110#issuecomment-1953069373):
 
-Hi @a13xp0p0v 
+Hi @a13xp0p0v
 
 That is a fair compromise. It may also be a good idea to also mention somewhere that the build files should not be on the same machine where kernel security is required, as build files can reveal sensitive information too. Surely some users might build their kernels on the same machine they run the kernels, which negates security.
 
@@ -1843,7 +1843,7 @@ For the field names, I would recommend using something similar to the terms from
 =========================================================================================================================
 CONFIG_BUG                              |kconfig|     y      |defconfig | self_protection  | OK
 -------------------------------------------------------------------------------------------------------------------------
-``` 
+```
 
 Do you have some time and motivation to work on the pull request?
 
@@ -1910,7 +1910,7 @@ CONFIG_SLUB_DEBUG                       |kconfig|     y      |defconfig | self_p
 
 #### <img src="https://avatars.githubusercontent.com/u/3797768?v=4" width="50">[morfikov](https://github.com/morfikov) opened issue at [2024-02-07 11:28](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/107):
 
-It looks like a [new option was introduced for module signing](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f2b88bab69c86d4dab2bfd25a0e741d7df411f7a) with the kernel 6.7 release. 
+It looks like a [new option was introduced for module signing](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f2b88bab69c86d4dab2bfd25a0e741d7df411f7a) with the kernel 6.7 release.
 
 So basically we have now:
 
@@ -2097,7 +2097,7 @@ Hello @thestinger,
 Thanks again for your explanation.
 
 I added:
-  - the `MAGIC_SYSRQ_DEFAULT_ENABLE` check: https://github.com/a13xp0p0v/kernel-hardening-checker/commit/48ff85596d7c1ed707a74844cfac72d736d0c71c 
+  - the `MAGIC_SYSRQ_DEFAULT_ENABLE` check: https://github.com/a13xp0p0v/kernel-hardening-checker/commit/48ff85596d7c1ed707a74844cfac72d736d0c71c
   - the `kernel.sysrq` check: https://github.com/a13xp0p0v/kernel-hardening-checker/commit/538af12944c3a16f5707db51f49b1f4d053300d0
   - the `MAGIC_SYSRQ_SERIAL` check: https://github.com/a13xp0p0v/kernel-hardening-checker/commit/d995dd6eab4d14d8400abe16bbf14c3364f99fb6
 
@@ -2105,10 +2105,10 @@ Do you like it?
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2024-06-16 04:43](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/104#issuecomment-2171043838):
 
-By the way, the KSPP added this [recommendation](https://kernsec.org/wiki/index.php/Kernel_Self_Protection_Project/Recommended_Settings): 
+By the way, the KSPP added this [recommendation](https://kernsec.org/wiki/index.php/Kernel_Self_Protection_Project/Recommended_Settings):
 ```
 CONFIG_MAGIC_SYSRQ_DEFAULT_ENABLE=176
-``` 
+```
 It allows sync, remount read-only and reboot/poweroff.
 
 @thestinger, what do you think about it?
@@ -2120,7 +2120,7 @@ Hi @thestinger!
 Currently, these sysrq checks in `kernel-hardening-checker` are marked as my recommendations.
 But it would be nice to mark them as  `GrapheneOS` recommendations.
 Could you give a link to the GrapheneOS documentation or code enforcing this configuration?
-I would put it to the [references](https://github.com/a13xp0p0v/kernel-hardening-checker?tab=readme-ov-file#features). 
+I would put it to the [references](https://github.com/a13xp0p0v/kernel-hardening-checker?tab=readme-ov-file#features).
 
 And what do you think about `CONFIG_MAGIC_SYSRQ_DEFAULT_ENABLE=176` recommended by [KSPP](https://kspp.github.io/Recommended_Settings)?
 
@@ -2178,7 +2178,7 @@ https://github.com/GrapheneOS/kernel_common-6.6/commit/1b31f2c37ee57134f49f48a6b
 
 Hardware-level USB-C and pogo pins protection infrastructure:
 
-https://github.com/GrapheneOS/kernel_google-modules_soc_gs/commits/14/ and 
+https://github.com/GrapheneOS/kernel_google-modules_soc_gs/commits/14/ and
 https://github.com/GrapheneOS/kernel_gs/commits/14/  (USB-C driver)
 https://github.com/GrapheneOS/kernel_devices_google_tangorpro/commits/14/ (pogo pins driver)
 
@@ -2406,7 +2406,7 @@ Ah, it's because https://github.com/a13xp0p0v/kernel-hardening-checker/commit/22
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2024-01-16 21:31](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/100#issuecomment-1894544028):
 
-Right! 
+Right!
 I'll create a new tag very soon, and this will get into the new release of the tool.
 
 
@@ -2519,7 +2519,7 @@ Yes, SCHED_STACK_END_CHECK checks a magic value at certain times such as exiting
 
 This config has been removed recently.
 
-[master](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ae1914174a63a558113e80d24ccac2773f9f7b2b) 
+[master](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ae1914174a63a558113e80d24ccac2773f9f7b2b)
 
 [stable](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=linux-6.6.y&id=207f135d819344c03333246f784f6666e652e081)
 
@@ -2546,7 +2546,7 @@ $ diff config667 config668
 ---
 > # Linux/x86 6.6.8 Kernel Configuration
 5065,5066d5064
-< 
+<
 < # CONFIG_DEBUG_CREDENTIALS is not set
 ```
 
@@ -2819,7 +2819,7 @@ One more aspect: you need to compare this number in the `check()` method of the 
 #### <img src="https://avatars.githubusercontent.com/u/4372440?u=15d14bb4fbd7edc5b6fe55f5aa7d39d2933c6ad8&v=4" width="50">[hlein](https://github.com/hlein) commented at [2023-10-04 18:29](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/89#issuecomment-1747427507):
 
 > @hlein, thanks for your pull request.
-> 
+>
 > I think you need to adapt `detect_kernel_version()` to get the third number of the kernel version from the kconfig file.
 
 Oh, you are probably right. I didn't have access to the box or config in question any more, so fabricated some data I was testing against; my tests must have been incomplete / accidentally-successful.
@@ -2850,7 +2850,7 @@ Currently we complain when it is not found, like:
 I don't know an easier way to find which kernel first included that commit other than:
 
 ```
-$ egrep url .git/config 
+$ egrep url .git/config
         url = https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
 $ git tag --contains d0d583484d2ed9f5903edbbfa7e2a68f78b950b0 | head -n2
 v5.4.208
@@ -2895,7 +2895,7 @@ v5.4.208~21
 
 I didn't find backports of this commit to other stable branches.
 
-So, technically, it's not wrong to say that REFCOUNT_FULL was removed in v5.4.208 :) 
+So, technically, it's not wrong to say that REFCOUNT_FULL was removed in v5.4.208 :)
 
 I'll take a look at your pull request. Thanks a lot!
 
@@ -3123,15 +3123,15 @@ Looking forward to the fixes.
 @@             Coverage Diff             @@
 ##            master      #86      +/-   ##
 ===========================================
-- Coverage   100.00%   98.68%   -1.32%     
+- Coverage   100.00%   98.68%   -1.32%
 ===========================================
-  Files            6        5       -1     
-  Lines         1049      839     -210     
-  Branches       184      187       +3     
+  Files            6        5       -1
+  Lines         1049      839     -210
+  Branches       184      187       +3
 ===========================================
-- Hits          1049      828     -221     
-- Misses           0        5       +5     
-- Partials         0        6       +6     
+- Hits          1049      828     -221
+- Misses           0        5       +5
+- Partials         0        6       +6
 ```
 
 | [Flag](https://app.codecov.io/gh/a13xp0p0v/kconfig-hardened-check/pull/86/flags?src=pr&el=flags&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=Alexander+Popov) | Coverage Δ | |
@@ -3196,15 +3196,15 @@ It's time to give this project a new name that describes it better: **kernel-har
 @@            Coverage Diff             @@
 ##           master      #85      +/-   ##
 ==========================================
-- Coverage   99.81%   99.77%   -0.04%     
+- Coverage   99.81%   99.77%   -0.04%
 ==========================================
-  Files           6        2       -4     
-  Lines        1087      451     -636     
-  Branches      174        0     -174     
+  Files           6        2       -4
+  Lines        1087      451     -636
+  Branches      174        0     -174
 ==========================================
-- Hits         1085      450     -635     
-  Misses          1        1              
-+ Partials        1        0       -1     
+- Hits         1085      450     -635
+  Misses          1        1
++ Partials        1        0       -1
 ```
 
 | [Flag](https://app.codecov.io/gh/a13xp0p0v/kconfig-hardened-check/pull/85/flags?src=pr&el=flags&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=Alexander+Popov) | Coverage Δ | |
@@ -3242,33 +3242,33 @@ Link no longer appears to be up. I saved a cache for reference:
 
 ----
 
-RDK Linux Hardening specification 
-Created on June 21, 2022 
+RDK Linux Hardening specification
+Created on June 21, 2022
 1.	Ensure no hard-coded credentials are present in the clear
-2.	Ensure compliance with Comcast specifications for crypto and TLS 
+2.	Ensure compliance with Comcast specifications for crypto and TLS
 o	All STB connections to servers must be secured using TLS 1.2 or above, and verified to be correctly performing server certificate chain validation
-3.	Build with stack-smashing (at least for modules implementing security) 
+3.	Build with stack-smashing (at least for modules implementing security)
 o	Enable CONFIG_CC_STACKPROTECTOR, -fstack-protector-all, -Wstack-protector
 o	Libc function buffer overrun checks: _FORTIFY_SOURCE=2
 o	Initial requirement would be to enable this for all security sensitive modules with follow up to enable for the entire build.
 4.	Scan all non-OSS sources with static analyzer
-5.	Network port blocking 
-o	All ports not specifically used must be blocked by ipTables rules 
+5.	Network port blocking
+o	All ports not specifically used must be blocked by ipTables rules
 6.	Disable all unused devices (USB, Bluetooth, etc)
-7.	Implement multiuser/sandbox strategy (Restrict Linux process privileges) 
+7.	Implement multiuser/sandbox strategy (Restrict Linux process privileges)
 o	No applications/utilities within a sandbox should run as root or have any means to achieve root privileges.  Sandbox shall not contains hard links to outside files.  Every sandbox connected to external network shall contain its own firewall and shall be configured using a whitelist.
 o	Configure processes to the minimum capabilities and resources required for their operation.  Have unique user and group own service components/applications that need to be isolated.  Users have permissions to access the required device files only.  Shared files are access controlled using group permissions. Default permissions for newly created files include read/write/exec permissions for the owner only.  Always use setresuid() and setresgid() functions to change the current user and group. Always confirm the change with getresuid() and getresgid() function.  Users and groups must have unique ID’s
 o	In progress, containerization via LXC is being implemented for subset of RDK processes.  OEM may choose to use a technology other than LXC to sandbox their processes.
-8.	Vet all open source 
+8.	Vet all open source
 o	Currently being done using Whitesource tool
-9.	Disable kernel module load 
+9.	Disable kernel module load
 o	Making modules statically linked to the kernel would be a significant effort.
-o	Disable module load after boot using /proc/sys/kernel/module_disabled 
-10.	Disable kernel module unload 
+o	Disable module load after boot using /proc/sys/kernel/module_disabled
+10.	Disable kernel module unload
 o	Set CONFIG_MODULE_UNLOAD
-11.	Kernel module parameters must be R/O or trusted 
+11.	Kernel module parameters must be R/O or trusted
 o	Audit boot scripts to ensure loadable kernel module parameters are hard coded and don’t rely on data from persistent storage or other writable source
-12.	Remove kernel debugging and profiling options 
+12.	Remove kernel debugging and profiling options
 o	CONFIG_DEBUG_KERNEL CONFIG_MARKERS CONFIG_DEBUG_MEMLEAK CONFIG_KPROBES
 o	CONFIG_SLUB_DEBUG CONFIG_PROFILING CONFIG_DEBUG_FS CONFIG_KPTRACE
 o	CONFIG_KALLSYMS CONFIG_LTT CONFIG_UNUSED_SYMBOLS CONFIG_TRACE_IRQFLAGS_SUPPORT
@@ -3278,76 +3278,76 @@ o	CONFIG_CRASH_DUMP CONFIG_BUG CONFIG_SCSI_LOGGING CONFIG_ELF_CORE CONFIG_FULL_P
 o	CONFIG_TASKSTATUS CONFIG_AUDIT CONFIG_BSD_PROCESS_ACCT CONFIG_KEXEC
 o	CONFIG_EARLY_PRINTK CONFIG_IKCONFIG CONFIG_NETFILTER_DEBUG
 o	CONFIG_MTD_UBI_DEBUG CONFIG_B43_DEBUG CONFIG_SSB_DEBUG CONFIG_FB_INTEL_DEBUG
-o	CONFIG_TRACING CONFIG_PERF_EVENTS 
+o	CONFIG_TRACING CONFIG_PERF_EVENTS
 13.	Disable unused file system and block device support
-14.	Enable heap protection and pointer obfuscation features. 
+14.	Enable heap protection and pointer obfuscation features.
 o	Enabled by default in glibc.  Protects heap from buffer overflows.  Available in glibc 2.3.4 or above, Enabled using environment variable malloc_check_
 15.	Restrict /dev/mem to minimal regions of memory required
 16.	Remove support for /dev/kmem
-17.	Remove support for /dev/kcore 
+17.	Remove support for /dev/kcore
 o	Kernel core dumping should be disabled in production
 18.	Enable format, buffer, and object size checks
 19.	Restrict /proc to process owners (except for IDS)
-20.	Disable kernel configfs 
+20.	Disable kernel configfs
 o	Allows modification of kernel objects
-21.	Remove ldconfig from target filesystem and [ld.so](http://ld.so/).conf and [ld.so](http://ld.so/).cache should be empty 
+21.	Remove ldconfig from target filesystem and [ld.so](http://ld.so/).conf and [ld.so](http://ld.so/).cache should be empty
 o	Removes caching of symbolic links.  Will cause a performance hit.
 o	Impact: glibc changes. Would allow loading libraries from a non-standard library path even if we don’t use LD_LIBRARY_PATH.
 22.	Security critical software are compiled as PIE (Position Independent Executable), if supported
-23.	Kernel boots with “ro” in command line  
-o	Mount filesystem as readonly. 
-24.	Mount filesystems with minimal privileges. For example, filesystem containing no executable code shall have “noexec” option specified. 
+23.	Kernel boots with “ro” in command line
+o	Mount filesystem as readonly.
+24.	Mount filesystems with minimal privileges. For example, filesystem containing no executable code shall have “noexec” option specified.
 25.	Mount temporary storage (/tmp) shall in dedicated filesystem (eg. tmpfs) and its contents does not survive reboots
 26.	Flush cache after accessing sensitive data
-27.	No overlay of writable mounts on read-only data 
+27.	No overlay of writable mounts on read-only data
 28.	system directories such as /proc or /dev shall not be writable within a sandbox
 29.	Applications and utilities shall not have the setgid or setuid bit set
 30.	Configure default shell to /dev/null
 31.	Remove all unused executables and libraries
-32.	Disable PTRACE, General restriction on PTRACE should be applied at kernel level with Yama LSM  
-o	http://linux-audit.com/protect-ptrace-processes-kernel-yama-ptrace_scope/ 
+32.	Disable PTRACE, General restriction on PTRACE should be applied at kernel level with Yama LSM
+o	http://linux-audit.com/protect-ptrace-processes-kernel-yama-ptrace_scope/
 o	PTRACE is used by GDB.  Disable only for production builds.  Both compile time and runtime changes required (can restrict PTRACE to root if required)
 33.	Don’t use LD_LIBRARY_PATH (loads libraries from default locations only)
-34.	Full runtime path for non-standard libraries included in code image 
+34.	Full runtime path for non-standard libraries included in code image
 o	Use -rpath and -rpath-link
 35.	Mount filesystems with ro option and change permission temporarily when needed
 36.	Kernel init parameters / command line must be R/O and trusted
 37.	Restrict kernel syslog (dmesg) to root user only
-38.	Disable kernel debugfs 
+38.	Disable kernel debugfs
 o	Part of sysfs used to enable kernel debug messaging.  If printk is disabled this becomes irrelevant
-39.	Use ELF format only 
+39.	Use ELF format only
 o	May break scripts like Python
-40.	Dynamic linker configuration changes 
-o	Remove LD_DEBUG support from dynamic linker 
-o	Remove LD_PRELOAD support from dynamic linker 
-o	Remove LD_PROFILE support from the dynamic linker 
-o	Remove LD_AUDIT support from the dynamic linker 
+40.	Dynamic linker configuration changes
+o	Remove LD_DEBUG support from dynamic linker
+o	Remove LD_PRELOAD support from dynamic linker
+o	Remove LD_PROFILE support from the dynamic linker
+o	Remove LD_AUDIT support from the dynamic linker
 o	Remove LD_SHOW_AUXV support from the dynamic linker
-o	Remove LD_TRACE_LOADED_OBJECTS support from the dynamic linker 
-o	Link dynamic programs with -z now and -z relro options 
-41.	Hide restricted kernel pointers 
+o	Remove LD_TRACE_LOADED_OBJECTS support from the dynamic linker
+o	Link dynamic programs with -z now and -z relro options
+41.	Hide restricted kernel pointers
 o	Restricted pointers replaced with 0’s.
 o	Relates to printk handling of printing pointer values.  This is a runtime setting, enable/disable via /proc/sys/kernel/kptr_restrict
 42.	Review use of SYSFS, disable it if possible
 43.	Mark unchanging files in writable partition with “immutable”
-44.	Use all compiler security features 
+44.	Use all compiler security features
 o	Compile -wall, -Werror and fail on warnings (and possibly -Wextra)
-45.	Replace strcpy with strncpy 
+45.	Replace strcpy with strncpy
 o	All code should use safer, bounds checking versions of string library functions (such as strncpy instead of strcpy) to avoid potential buffer overruns.
-46.	Prevent file races, open temp files with O_CREAT | O_EXCL 
-o	Makes check for file existence and creation atomic.  Prevents multiple threads creating same file. 
+46.	Prevent file races, open temp files with O_CREAT | O_EXCL
+o	Makes check for file existence and creation atomic.  Prevents multiple threads creating same file.
 47.	Set sticky bit for temporary directories to prevent acc
 idental deletion
 o	Only owner and root can delete directory
 48.	Restrict kernel network settings to be the most restrictive possible
-49.	Limit temporary storage (tmpfs) memory size 
+49.	Limit temporary storage (tmpfs) memory size
 50.	Enable kernel ABI Version Check
-51.	Disable kernel symbol resolution 
+51.	Disable kernel symbol resolution
 o	Disable CONFIG_KALLSYMS
 o	Limits our ability to debug kernel crash dumps
-52.	Disable kernel crashdump 
-o	Disable CONFIG_CRASH_DUMP 
-53.	Minimum MMAPable address set to 4K min. 
+52.	Disable kernel crashdump
+o	Disable CONFIG_CRASH_DUMP
+53.	Minimum MMAPable address set to 4K min.
 o	This prevents mapping NULL address
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2023-11-22 10:16](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/84#issuecomment-1822479661):
@@ -3442,7 +3442,7 @@ Could you give a link to your commit? I'll help to rebase it.
 
 #### <img src="https://avatars.githubusercontent.com/u/5826484?u=2cc3ddef5824379423495733759ef362d0600078&v=4" width="50">[frakman1](https://github.com/frakman1) commented at [2023-09-03 16:16](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/81#issuecomment-1704345063):
 
-Thank you @a13xp0p0v. 
+Thank you @a13xp0p0v.
 I just checked and my changes were based on [this](https://github.com/a13xp0p0v/kconfig-hardened-check/blob/899752c13f4d1260d1a33985672b72b3a9cb60ec/kconfig_hardened_check/__init__.py) commit:
 ```
 * 899752c - (Sun Oct 2 21:45:13 2022 +0300) Also check 'nospectre_v2' with 'spectre_v2' - <Alexander Popov> (HEAD -> master, origin/master, origin/HEAD)
@@ -3576,15 +3576,15 @@ https://github.com/a13xp0p0v/kconfig-hardened-check/pull/86
 @@            Coverage Diff             @@
 ##           master      #80      +/-   ##
 ==========================================
-- Coverage   98.39%   98.16%   -0.24%     
+- Coverage   98.39%   98.16%   -0.24%
 ==========================================
-  Files           6        6              
-  Lines         812      818       +6     
-  Branches      160      161       +1     
+  Files           6        6
+  Lines         812      818       +6
+  Branches      160      161       +1
 ==========================================
-+ Hits          799      803       +4     
-- Misses          7        8       +1     
-- Partials        6        7       +1     
++ Hits          799      803       +4
+- Misses          7        8       +1
+- Partials        6        7       +1
 ```
 
 | Flag | Coverage Δ | |
@@ -3668,15 +3668,15 @@ First differing element 7:
 @@            Coverage Diff             @@
 ##           master      #78      +/-   ##
 ==========================================
-+ Coverage   92.79%   93.20%   +0.40%     
++ Coverage   92.79%   93.20%   +0.40%
 ==========================================
-  Files           3        3              
-  Lines         736      736              
-  Branches      171      171              
+  Files           3        3
+  Lines         736      736
+  Branches      171      171
 ==========================================
-+ Hits          683      686       +3     
-+ Misses         26       24       -2     
-+ Partials       27       26       -1     
++ Hits          683      686       +3
++ Misses         26       24       -2
++ Partials       27       26       -1
 ```
 
 | Flag | Coverage Δ | |
@@ -3724,15 +3724,15 @@ Has been tested on Ubuntu 20.04
 @@           Coverage Diff           @@
 ##           master      #77   +/-   ##
 =======================================
-  Coverage   92.79%   92.79%           
+  Coverage   92.79%   92.79%
 =======================================
-  Files           3        3           
-  Lines         736      736           
-  Branches      171      171           
+  Files           3        3
+  Lines         736      736
+  Branches      171      171
 =======================================
-  Hits          683      683           
-  Misses         26       26           
-  Partials       27       27           
+  Hits          683      683
+  Misses         26       26
+  Partials       27       27
 ```
 
 | Flag | Coverage Δ | |
@@ -3774,7 +3774,7 @@ Thanks, @d4rklynk!
 
 -------------------------------------------------------------------------------
 
-# [\#75 Issue](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/75) `closed`: Integrity Measurement Architecture 
+# [\#75 Issue](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/75) `closed`: Integrity Measurement Architecture
 **Labels**: `question`
 
 
@@ -3782,7 +3782,7 @@ Thanks, @d4rklynk!
 
 The Integrity Measurement Architecture is a subsystem that is responsible
  for calculating file hashes. this allows greater security . This option would be ideal
- to be integrated, 
+ to be integrated,
 
 Kernel Config -
 
@@ -3826,7 +3826,7 @@ CONFIG_EVM_LOAD_X509=y
 CONFIG_EVM_X509_PATH="/etc/keys/x509_evm.der"
 
 ```
-My system integrates this security 
+My system integrates this security
 https://sourceforge.net/projects/anti-ransomware/
 
 Thank you very much
@@ -3960,7 +3960,7 @@ $ bin/kconfig-hardened-check -c ~/lkd_kernels/kconfig.prod01/.config
 #### <img src="https://avatars.githubusercontent.com/u/77776927?v=4" width="50">[alpahca](https://github.com/alpahca) commented at [2022-10-11 07:42](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/73#issuecomment-1274233073):
 
 Oh thx.
-But... 
+But...
 VirtualBox:~/lkd_kernels/kconfig_prod01$ '/home/ked/kconfig-hardened-check/bin/kconfig-hardened-check' -c '/home/ked/lkd_kernels/kconfig_prod01'
 [+] Kconfig file to check: /home/ked/lkd_kernels/kconfig_prod01
 Traceback (most recent call last):
@@ -4026,9 +4026,9 @@ CONFIG_X86_SMAP                         |kconfig|     y      |defconfig | self_p
 
 
 
-The GCC_PLUGIN_RANDSTRUCT and GCC_PLUGIN_RANDSTRUCT_PERFORMANCE have changed now that CLANG has the feature. ( [commit](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=linux-5.19.y&id=595b893e2087de306d0781795fb8ec47873596a6) ). They are now nammed RANDSTRUCT_FULL and RANDSTRUCT_PERFORMANCE respectively. 
+The GCC_PLUGIN_RANDSTRUCT and GCC_PLUGIN_RANDSTRUCT_PERFORMANCE have changed now that CLANG has the feature. ( [commit](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=linux-5.19.y&id=595b893e2087de306d0781795fb8ec47873596a6) ). They are now nammed RANDSTRUCT_FULL and RANDSTRUCT_PERFORMANCE respectively.
 
-At the moment they don't fail but the new entries should be added in the script I think. 
+At the moment they don't fail but the new entries should be added in the script I think.
 ```
  grep RANDSTRUCT ./.config
 # CONFIG_RANDSTRUCT_NONE is not set
@@ -4266,7 +4266,7 @@ The `OptCheck` class inheritance now allows to implement this feature.
 
 Checking sysctl parameters is supported now:
 ```
-$ ./bin/kconfig-hardened-check 
+$ ./bin/kconfig-hardened-check
 usage: kconfig-hardened-check [-h] [--version] [-m {verbose,json,show_ok,show_fail}]
                               [-c CONFIG] [-l CMDLINE] [-s SYSCTL]
                               [-p {X86_64,X86_32,ARM64,ARM}]
@@ -4319,15 +4319,15 @@ This might resolve #63
 @@           Coverage Diff           @@
 ##           master      #64   +/-   ##
 =======================================
-  Coverage   98.08%   98.08%           
+  Coverage   98.08%   98.08%
 =======================================
-  Files           3        3           
-  Lines         625      625           
-  Branches      139      139           
+  Files           3        3
+  Lines         625      625
+  Branches      139      139
 =======================================
-  Hits          613      613           
-  Misses          5        5           
-  Partials        7        7           
+  Hits          613      613
+  Misses          5        5
+  Partials        7        7
 ```
 
 | Flag | Coverage Δ | |
@@ -4477,7 +4477,7 @@ I tested the installation of `kconfig-hardened-check` in a Docker container with
 It failed with the following error:
 
 ```
-a13x@dc92d9d74557:~/src/1/kconfig-hardened-check/contrib$ ./get-nix-kconfig.py 
+a13x@dc92d9d74557:~/src/1/kconfig-hardened-check/contrib$ ./get-nix-kconfig.py
 these 50 paths will be fetched (94.58 MiB download, 374.80 MiB unpacked):
   /nix/store/058drky7qcyd04rzqcmxh86xmifw96dx-glibc-2.34-115-bin
   /nix/store/1442kn5q9ah0bhhqm99f8nr76diczqgm-gnused-4.8
@@ -4653,10 +4653,10 @@ Signed-off-by: Denis Efremov <efremov@linux.com>
 @@            Coverage Diff             @@
 ##           master      #62      +/-   ##
 ==========================================
-+ Coverage   90.32%   90.33%   +0.01%     
++ Coverage   90.32%   90.33%   +0.01%
 ==========================================
-  Files           3        3              
-  Lines         589      590       +1     
+  Files           3        3
+  Lines         589      590       +1
   Branches      137      137              
 ==========================================
 + Hits          532      533       +1     

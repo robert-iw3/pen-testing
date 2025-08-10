@@ -74,7 +74,7 @@ deactivate
 
 into the terminal.
 
-#### Create the knowsmore bash 
+#### Create the knowsmore bash
 
 Create a script  on `/usr/local/bin/knowsmore`
 

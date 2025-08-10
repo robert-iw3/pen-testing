@@ -6,7 +6,7 @@ A lightweight toolkit of **Python 3** utilities for red‑team and lab work aga
 * The other three can run on **plain LDAP 389** or LDAPS – toggle with `--ssl` and change ports with `--port`.
 * All scripts support clear‑text credentials **or** pass‑the‑hash, expose a `--debug` flag for step‑by‑step output, and share a consistent argument style.
 
-> ⚠️ **Disclaimer**  
+> ⚠️ **Disclaimer**
 > These tools are provided **solely for authorised security‑testing and educational purposes**. You are entirely responsible for ensuring you have explicit permission to run them. The authors and maintainers accept **no liability** for misuse or damages.
 
 ---

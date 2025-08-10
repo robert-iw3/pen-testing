@@ -96,7 +96,7 @@ typedef struct _IMAGE_THUNK_DATA64
 {
 	union
 	{
-		UINT64 ForwarderString;			// UINT8* 
+		UINT64 ForwarderString;			// UINT8*
 		UINT64 Function;				// UINT32*
 		UINT64 Ordinal;
 		UINT64 AddressOfData;			// PIMAGE_IMPORT_BY_NAME
@@ -111,7 +111,7 @@ typedef struct _IMAGE_THUNK_DATA32
 {
 	union
 	{
-		UINT32 ForwarderString;			// UINT8*  
+		UINT32 ForwarderString;			// UINT8*
 		UINT32 Function;				// UINT32*
 		UINT32 Ordinal;
 		UINT32 AddressOfData;			// PIMAGE_IMPORT_BY_NAME

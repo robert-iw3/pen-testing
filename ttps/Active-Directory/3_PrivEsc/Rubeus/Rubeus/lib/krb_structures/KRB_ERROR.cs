@@ -25,7 +25,7 @@ namespace Rubeus
 
         public KRB_ERROR(byte[] errorBytes)
         {
-            
+
         }
 
         public KRB_ERROR(AsnElt body)

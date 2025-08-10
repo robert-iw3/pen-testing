@@ -358,7 +358,7 @@ print(check) # Boolean
 ### Communication
 
 #### ICMP TTL
-This method uses the TTL byte of the header of ICMP. It will probably not be useful for any exfiltration but can be very useful for communication with C2 for one byte responses or instructions. 
+This method uses the TTL byte of the header of ICMP. It will probably not be useful for any exfiltration but can be very useful for communication with C2 for one byte responses or instructions.
 
 ```python
 from pyexfil.Comm.icmp_ttl import ICMP_TTL
@@ -599,7 +599,7 @@ a.Send("Hello world")
 ### Physical
 
 #### 3.5mm Jack
-This module is for machines that are air-gapped from other networks and have severe hardening. It's meant to convert a file to a set of tones to be played through a 3.5mm jack and then be able to make sense of them. It also assumes that hardware devices are strictly limited and new device registration might trigger an alert. 
+This module is for machines that are air-gapped from other networks and have severe hardening. It's meant to convert a file to a set of tones to be played through a 3.5mm jack and then be able to make sense of them. It also assumes that hardware devices are strictly limited and new device registration might trigger an alert.
 
 In this example code, we use a 16-QAM modulation scheme to encode 4 bits per symbol. We generate a random digital signal consisting of 1024 bits and reshape it into a 2D array with 4 bits per symbol. We then QAM modulate the digital signal using the qammod() function in the scipy.signal library.
 
@@ -651,7 +651,7 @@ transmitter = UltrasonicTransmitter(fs=48000, fc=22000, symbol_duration=0.01, bi
 transmitter.transmit(transmitter.encode_data("Hello world!".encode('utf-8')))
 
 # Setting up the receiver to listen for ultrasonic data transmission
-receiver = UltrasonicReceiver(fs=48000, fc=22000, symbol_duration=0.01, bits_per_symbol=4, modulation_order=16) 
+receiver = UltrasonicReceiver(fs=48000, fc=22000, symbol_duration=0.01, bits_per_symbol=4, modulation_order=16)
                             # Do NOT change these settings!
 
 # Start receiving data

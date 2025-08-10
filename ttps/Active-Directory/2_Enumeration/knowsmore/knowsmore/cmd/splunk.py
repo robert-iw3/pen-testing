@@ -80,7 +80,7 @@ class Splunk(CmdBase):
                 socket.create_connection((url.hostname, url.port))
                 Logger.pl('     {C}splunk connection:{O} %s{W}' % url.hostname)
             except Exception as e:
-                Color.pl('{!} {R}error: Splunk server not found {O}%s{R}{W}\r\n' % e) 
+                Color.pl('{!} {R}error: Splunk server not found {O}%s{R}{W}\r\n' % e)
                 exit(1)
             # Passos s realizar aqui
             # 1 - Checar conexão com o Splunk

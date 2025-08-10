@@ -50,11 +50,11 @@ options:
 ```
 
 ## Installation
-There are multiple ways to install the tool. Either the tool comes as a package with your Linux distribution or you need to do a manual install. 
+There are multiple ways to install the tool. Either the tool comes as a package with your Linux distribution or you need to do a manual install.
 
 ### Kali Linux
 ```console
-apt install enum4linux-ng 
+apt install enum4linux-ng
 ```
 
 ### Archstrike
@@ -90,7 +90,7 @@ For a faster processing of YAML (optional!) also install (should come as a depen
 
 Some examples for specific Linux distributions installations are listed below. Alternatively, distribution-agnostic ways (python pip, python virtual env and Docker) are possible.
 
-### Linux distribution specific 
+### Linux distribution specific
 For all distribution examples below, LibYAML is already a dependency of the corresponding PyYaml package and will be therefore installed automatically.
 #### ArchLinux
 

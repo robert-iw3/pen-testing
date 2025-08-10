@@ -22,7 +22,7 @@ namespace Rubeus {
 
                 default:
                     throw new ArgumentException("Unexpected CHOICE value for PA-PK-AS-REP");
-            }          
+            }
         }
     }
 }

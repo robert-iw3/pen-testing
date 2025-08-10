@@ -22,7 +22,7 @@ namespace TheSprayer.Helpers
 
         public static string GetDomainController(string domainName)
         {
-            try 
+            try
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {

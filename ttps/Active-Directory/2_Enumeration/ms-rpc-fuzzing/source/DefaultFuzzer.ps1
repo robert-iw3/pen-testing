@@ -51,12 +51,12 @@ function Invoke-DefaultFuzzer {
 
     # Initialize DbgHelp DLL
     if (Test-Path "$env:systemdrive\Program Files (x86)\Windows Kits\10\Debuggers\x64\dbghelp.dll") {
-        Set-GlobalSymbolResolver -DbgHelpPath "$env:systemdrive\Program Files (x86)\Windows Kits\10\Debuggers\x64\dbghelp.dll"   
+        Set-GlobalSymbolResolver -DbgHelpPath "$env:systemdrive\Program Files (x86)\Windows Kits\10\Debuggers\x64\dbghelp.dll"
         Write-Host "[+] dbghelp.dll successfully initialized" -ForegroundColor Green
     } else {
         if ($DbgHelpPath) {
             try {
-                Set-GlobalSymbolResolver -DbgHelpPath $DbgHelpPath    
+                Set-GlobalSymbolResolver -DbgHelpPath $DbgHelpPath
                 Write-Host "[+] dbghelp.dll successfully initialized" -ForegroundColor Green
             } catch {
                 Write-host "[!] dbghelp.dll not found, please provide path using -DbgHelpPath" -ForegroundColor Red
@@ -68,7 +68,7 @@ function Invoke-DefaultFuzzer {
                 break
             }
         }
-    }   
+    }
 
     # Check if $outPath exists, if not make the directory
     if (-Not (Test-Path $OutPath)) {
@@ -82,11 +82,11 @@ function Invoke-DefaultFuzzer {
     if ($Blacklist) {
         $Blacklist = Get-Content $Blacklist
     }
-    
+
     # First, get all entries from the specified RpcServerData JSON file
-    foreach ($rpcServer in $ClientEntries.PSObject.Properties) {  
+    foreach ($rpcServer in $ClientEntries.PSObject.Properties) {
         $serverName = $rpcServer.Name
-        $interfaces = $rpcServer.Value 
+        $interfaces = $rpcServer.Value
 
         # Get the RPC server object
         try {
@@ -102,7 +102,7 @@ function Invoke-DefaultFuzzer {
         if (-not $rpcServerObj) {
             Write-Host "[!] Failed to retrieve RPC server for: $serverName" -ForegroundColor Red
             continue
-        } 
+        }
 
         # Now we loop over all interfaces of the RPC server
         foreach ($interfaceEntry in $interfaces) {
@@ -119,7 +119,7 @@ function Invoke-DefaultFuzzer {
 
             # Try to get the service from the RPC interface
             $service = $rpcInterface.ServiceName
-                
+
             # If NtObjectManager cannot find a service for the interface, make it "N.a."
             if ($service -eq "") {
                 $service = "N.a."
@@ -163,7 +163,7 @@ function Invoke-DefaultFuzzer {
                     # Display progress bar
                     $percentComplete = [math]::Round(($processedMethods / $totalMethods) * 100, 2)
                     Write-Progress -Activity "Fuzzing RPC Methods" -Status "Processing: $($method.Name)" -PercentComplete $percentComplete
-                        
+
                     # Fuzz
                     try {
                         # Loop trough number of iterations (for the input of parameters)
@@ -187,7 +187,7 @@ function Invoke-DefaultFuzzer {
                                 $methodDefinition = $Method.ToString()
                                 $inputResult = if ($params.Count -gt 0) {($params -join ", ")}  else { "No input" }
                                 $inputResult = $inputResult.replace('"', '')
-                                
+
                                 # Invoke RPC call
                                 # TODO: Implement job for each method invoke to support time outs
 
@@ -197,7 +197,7 @@ function Invoke-DefaultFuzzer {
                                     $logEntry = "RPCserver: $rpcServerName `nInterface: $RpcInterface `nProcedure: $procedureName`nParams: $inputResult`n------------------------`n"
                                     $logFilePath = "$OutPath\log.txt"
                                     $logEntry | Out-File -FilePath $logFilePath -Append -Encoding utf8
-                                    
+
                                     # Make the call
                                     $result = $Method.Invoke($Client, $params)
                                 } else {
@@ -217,12 +217,12 @@ function Invoke-DefaultFuzzer {
                                 } else {
                                     $allOutputResult = $result -replace '"', ''
                                 }
-        
+
                                 # Loop over each output result
                                 foreach ($value in $allOutputResult) {
                                     if ($value -match 'retval') {
                                         $value = $value.replace('retval: ', '')
-                                    } 
+                                    }
                                     try {
                                         # Check if the result is a Windows message
                                         $windowsMessage = [System.ComponentModel.Win32Exception]::new([Int]($value)).Message
@@ -236,9 +236,9 @@ function Invoke-DefaultFuzzer {
                                         $windowsMessage = "No Windows Message"
                                     }
                                 }
-        
+
                                 $outputResult = $allOutputResult
-        
+
                                 # Add Fuzzed results to Neo4j
                                 Export-AllowsFuzzedInput -MethodName $methodName `
                                                         -RpcServerName $rpcServerName `

@@ -62,7 +62,7 @@ VOID ReadMemoryPrimitive_DBUtil(SIZE_T Size, DWORD64 Address, PVOID Buffer) {
     }
     ReadCommand->Address = Address;
     ReadCommand->Offset = 0;
-    
+
     DWORD BytesReturned;
 
     if (Address < 0x0000800000000000) {

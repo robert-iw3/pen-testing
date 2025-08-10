@@ -99,9 +99,9 @@ void Log(LPCWSTR str, bool bForceODS)
 			ULARGE_INTEGER ui = {0};
 			ui.LowPart = GetFileSize(hf, &ui.HighPart);
 			if(0 == ui.QuadPart)
-				WriteFile(hf, &UTF8_BOM, sizeof(UTF8_BOM), &ignored, 0);  
+				WriteFile(hf, &UTF8_BOM, sizeof(UTF8_BOM), &ignored, 0);
 			SetFilePointer(hf, 0, 0, FILE_END);
-			
+
 			//now convert to UTF-8
 			DWORD len = WideCharToMultiByte(CP_UTF8, 0, s, wcslen(s), NULL, 0, NULL, NULL);
 			if(0 != len)
@@ -425,7 +425,7 @@ bool ReadTextFile(LPCWSTR fileName, CString& content)
 		pOrig = NULL;
 		pBuff = NULL;
 		CloseHandle(hf);
-		
+
 		return true;
 	}
 	else

@@ -59,11 +59,11 @@ pip setup.py --user install
   * [GQUIC](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#gquic) - [Google Quick UDP](https://www.chromium.org/quic) Internet Connections (Client Hello)
   * [MDNS Query](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#mdns-query) - *Can be used as broadcast.*
   * [AllJoyn](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#alljoyn). Name Service Protocol (IoT discovery) Version 0 ISAT.
-  * [PacketSize](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#packet-size). Using size of packet rather than actual data.  
+  * [PacketSize](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#packet-size). Using size of packet rather than actual data.
   * [UDP-Source-Port](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#udp-sport) Using the source port in UDP as a transmission medium.
   * [CertExchange](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#Certificate-Exchange) Leveraging certificate exchange function for short bursts of communication.
   * [DNSQ](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#DNSQ) Leveraging DNS Queries for communication.
-  * [ICMP_TTL](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#ICMP_TTL) Leveraging the TTL byte for communication. Very short but also stealthy. 
+  * [ICMP_TTL](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#ICMP_TTL) Leveraging the TTL byte for communication. Very short but also stealthy.
 * **Physical**
   * [Audio](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#audio) - *No listener*.
   * [QR Codes](https://github.com/ytisf/PyExfil/blob/master/USAGE.md#qr-codes)

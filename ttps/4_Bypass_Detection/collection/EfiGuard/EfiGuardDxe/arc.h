@@ -710,7 +710,7 @@ typedef struct _LOADER_HIVE_RECOVERY_INFO {
 		UINT32 SoftRebootConflict : 1;
 
 		//
-		// The most recent log from which recovery was performed as an 
+		// The most recent log from which recovery was performed as an
 		// HFILE_TYPE.
 		//
 		// i.e. For legacy recovery the individual log file recovery was
@@ -718,7 +718,7 @@ typedef struct _LOADER_HIVE_RECOVERY_INFO {
 		// sequence numbered entry was from.
 		//
 		UINT32 MostRecentLog : 3;
-		
+
 		UINT32 LoadedFromSnapshot : 1;
 
 		UINT32 Spare		: ((sizeof(UINT32) * 8) - 7);

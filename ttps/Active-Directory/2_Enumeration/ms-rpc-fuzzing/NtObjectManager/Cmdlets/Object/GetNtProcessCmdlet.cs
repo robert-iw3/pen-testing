@@ -98,7 +98,7 @@ public class GetNtProcessCmdlet : PSCmdlet
     /// <summary>
     /// <para type="description">Specify a process ID to open.</para>
     /// </summary>
-    [Parameter(Mandatory = true, Position = 0, ParameterSetName = "pid"), 
+    [Parameter(Mandatory = true, Position = 0, ParameterSetName = "pid"),
         Parameter(Mandatory = true, ParameterSetName = "pidinfo")]
     [Alias(new string[] { "pid" })]
     public int ProcessId { get; set; }
@@ -110,7 +110,7 @@ public class GetNtProcessCmdlet : PSCmdlet
     public SwitchParameter OpenParent { get; set; }
 
     /// <summary>
-    /// <para type="description">When opening a specific process choose whether to open its 
+    /// <para type="description">When opening a specific process choose whether to open its
     /// owner process (which is typically a console host) instead.</para>
     /// </summary>
     [Parameter(ParameterSetName = "pid"), Parameter(ParameterSetName = "current")]
@@ -144,9 +144,9 @@ public class GetNtProcessCmdlet : PSCmdlet
     /// <summary>
     /// <para type="description">Specify access rights for each process opened.</para>
     /// </summary>
-    [Parameter(ParameterSetName = "current"), 
-        Parameter(ParameterSetName = "all"), 
-        Parameter(ParameterSetName = "service"), 
+    [Parameter(ParameterSetName = "current"),
+        Parameter(ParameterSetName = "all"),
+        Parameter(ParameterSetName = "service"),
         Parameter(ParameterSetName = "pid"),
         Parameter(ParameterSetName = "next")]
     public ProcessAccessRights Access { get; set; }
@@ -154,7 +154,7 @@ public class GetNtProcessCmdlet : PSCmdlet
     /// <summary>
     /// <para type="description">Open current process.</para>
     /// </summary>
-    [Parameter(Mandatory = true, 
+    [Parameter(Mandatory = true,
         ParameterSetName = "current")]
     public SwitchParameter Current { get; set; }
 
@@ -167,7 +167,7 @@ public class GetNtProcessCmdlet : PSCmdlet
     /// <summary>
     /// <para type="description">Only get process information, do not open the objects.</para>
     /// </summary>
-    [Parameter(Mandatory = true, ParameterSetName = "infoonly"), 
+    [Parameter(Mandatory = true, ParameterSetName = "infoonly"),
         Parameter(Mandatory = true, ParameterSetName = "pidinfo"),
         Parameter(Mandatory = true, ParameterSetName = "nameinfo")]
     public SwitchParameter InfoOnly { get; set; }
@@ -225,8 +225,8 @@ public class GetNtProcessCmdlet : PSCmdlet
 
     private IEnumerable<NtObject> GetProcesses()
     {
-        if (string.IsNullOrWhiteSpace(Name) 
-            && string.IsNullOrWhiteSpace(CommandLine) 
+        if (string.IsNullOrWhiteSpace(Name)
+            && string.IsNullOrWhiteSpace(CommandLine)
             && FilterScript == null
             && !IgnoreDeadProcess
             && First <= 0)

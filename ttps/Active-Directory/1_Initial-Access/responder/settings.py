@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,7 @@ from utils import *
 __version__ = 'Responder 3.1.6.0'
 
 class Settings:
-	
+
 	def __init__(self):
 		self.ResponderPATH = os.path.dirname(__file__)
 		self.Bind_To = '0.0.0.0'
@@ -42,11 +42,11 @@ class Settings:
 		return str.upper() == 'ON'
 
 	def ExpandIPRanges(self):
-		def expand_ranges(lst):	
+		def expand_ranges(lst):
 			ret = []
 			for l in lst:
-				if ':' in l: #For IPv6 addresses, similar to the IPv4 version below but hex and pads :'s to expand shortend addresses 
-					while l.count(':') < 7: 
+				if ':' in l: #For IPv6 addresses, similar to the IPv4 version below but hex and pads :'s to expand shortend addresses
+					while l.count(':') < 7:
 						pos = l.find('::')
 						l = l[:pos] + ':' + l[pos:]
 					tab = l.split(':')
@@ -75,7 +75,7 @@ class Settings:
 													xaddr = re.sub('(^|:)0{1,4}', ':', xaddr, count = 7)#Compresses expanded IPv6 address
 													xaddr = re.sub(':{3,7}', '::', xaddr, count = 7)
 													ret.append(xaddr)
-				else:				
+				else:
 					tab = l.split('.')
 					x = {}
 					i = 0
@@ -181,7 +181,7 @@ class Settings:
 		# Lets add a default mode, which uses Windows default TTL for each protocols (set respectively in packets.py)
 		if options.TTL is None:
 			self.TTL = None
-			
+
 		# Random TTL
 		elif options.TTL.upper() == "RANDOM":
 			TTL = bytes.fromhex("000000"+format(random.randint(10,90),'x'))
@@ -194,7 +194,7 @@ class Settings:
 
 		#Do we have IPv6 for real?
 		self.IPv6 = utils.Probe_IPv6_socket()
-			
+
 		if self.Interface == "ALL":
 			self.Bind_To_ALL  = True
 		else:
@@ -210,7 +210,7 @@ class Settings:
 				self.IP_Pton6   = socket.inet_pton(socket.AF_INET6, self.OURIP)
 		else:
 			self.IP_Pton6   = socket.inet_pton(socket.AF_INET6, self.Bind_To6)
-		
+
 		#External IP
 		if self.ExternalIP:
 			if utils.IsIPv6IP(self.ExternalIP):
@@ -220,7 +220,7 @@ class Settings:
 			self.ExternalResponderIP = utils.RespondWithIP()
 		else:
 			self.ExternalResponderIP = self.Bind_To
-			
+
 		#External IPv6
 		if self.ExternalIP6:
 			self.ExternalIP6Pton = socket.inet_pton(socket.AF_INET6, self.ExternalIP6)
@@ -268,11 +268,11 @@ class Settings:
 		if len(self.WPAD_Script) == 0:
 			if self.WPAD_On_Off:
 				self.WPAD_Script = 'function FindProxyForURL(url, host){if ((host == "localhost") || shExpMatch(host, "localhost.*") ||(host == "127.0.0.1") || isPlainHostName(host)) return "DIRECT"; return "PROXY '+self.Bind_To+':3128; DIRECT";}'
-				
+
 			if self.ProxyAuth_On_Off:
 				self.WPAD_Script = 'function FindProxyForURL(url, host){if ((host == "localhost") || shExpMatch(host, "localhost.*") ||(host == "127.0.0.1") || isPlainHostName(host)) return "DIRECT"; return "PROXY '+self.Bind_To+':3128; DIRECT";}'
 
-		if self.Serve_Exe == True:	
+		if self.Serve_Exe == True:
 			if not os.path.exists(self.Html_Filename):
 				print(utils.color("/!\\ Warning: %s: file not found" % self.Html_Filename, 3, 1))
 
@@ -343,14 +343,14 @@ class Settings:
 
 		self.AnalyzeLogger = logging.getLogger('Analyze Log')
 		self.AnalyzeLogger.addHandler(ALog_Handler)
-		
+
 		# First time Responder run?
 		if os.path.isfile(self.ResponderPATH+'/Responder.db'):
 			pass
 		else:
 			#If it's the first time, generate SSL certs for this Responder session and send openssl output to /dev/null
 			Certs = os.system(self.ResponderPATH+"/certs/gen-self-signed-cert.sh >/dev/null 2>&1")
-		
+
 		try:
 			NetworkCard = subprocess.check_output(["ifconfig", "-a"])
 		except:

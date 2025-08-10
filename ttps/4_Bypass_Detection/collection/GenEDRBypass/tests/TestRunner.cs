@@ -8,7 +8,7 @@ class TestRunner
         TestMemoryManager.RunTests();
         TestEvasionTechniques.RunTests();
         TestShellInjector.RunTests();
-        
+
         Console.WriteLine("Все тесты выполнены.");
     }
 }

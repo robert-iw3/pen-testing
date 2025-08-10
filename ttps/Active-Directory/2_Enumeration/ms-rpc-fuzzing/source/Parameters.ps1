@@ -34,18 +34,18 @@ function Get-RpcParameters {
         [Parameter(ValueFromPipeline=$true, Mandatory=$true)]
         [NtCoreLib.Win32.Rpc.Server.RpcServer]$RpcServer,
         [Parameter(Mandatory=$false)]
-        [string]$target, 
-        [string]$DbgHelpPath,      
+        [string]$target,
+        [string]$DbgHelpPath,
         [string]$OutPath
     )
     begin {
         # Initialize DbgHelp DLL
         if (Test-Path "$env:systemdrive\Program Files (x86)\Windows Kits\10\Debuggers\x64\dbghelp.dll") {
-            Set-GlobalSymbolResolver -DbgHelpPath "$env:systemdrive\Program Files (x86)\Windows Kits\10\Debuggers\x64\dbghelp.dll"   
+            Set-GlobalSymbolResolver -DbgHelpPath "$env:systemdrive\Program Files (x86)\Windows Kits\10\Debuggers\x64\dbghelp.dll"
         } else {
             if ($DbgHelpPath) {
                 try {
-                    Set-GlobalSymbolResolver -DbgHelpPath $DbgHelpPath    
+                    Set-GlobalSymbolResolver -DbgHelpPath $DbgHelpPath
                 } catch {
                     Write-host "[!] dbghelp.dll not found, please provide path using -DbgHelpPath" -ForegroundColor Red
                     break
@@ -96,7 +96,7 @@ function Get-RpcParameters {
             # Get all methods for rpcinterface
             $client = Get-RpcClient $rpcInt
             $methods = $Client.GetType().GetMethods() | Where-Object { $_.IsPublic -and $_.DeclaringType -eq $Client.GetType() }
-            
+
             # Loop over each method and gather the parameters
 
             $outputParams = @()
@@ -133,7 +133,7 @@ function Get-RpcParameters {
             # Export input parameters
             foreach ($param in $inputParams) {
                 Export-Parameters -RpcServerName $rpcInt.Name -RpcInterface $rpcint.InterfaceId.Guid -MethodName $param.MethodName -Position $param.Name -ParameterType $param.FieldType -is "Input" -OutPath $OutPath
-            }        
+            }
         }
     }
 }

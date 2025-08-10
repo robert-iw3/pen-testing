@@ -47,15 +47,15 @@ namespace MDE_Enum
 
 
             Console.WriteLine(@"
-   __  ______  ____  _____  ____  ____  ___  
-  /  |/  / _ \/ __/ / __/ |/ / / / /  |/  /  
- / /|_/ / // / _/  / _//    / /_/ / /|_/ /   
-/_/  /_/____/___/ /___/_/|_/\____/_/  /_/    
-                                             
+   __  ______  ____  _____  ____  ____  ___
+  /  |/  / _ \/ __/ / __/ |/ / / / /  |/  /
+ / /|_/ / // / _/  / _//    / /_/ / /|_/ /
+/_/  /_/____/___/ /___/_/|_/\____/_/  /_/
+
  ");
 
             Console.WriteLine("By : @zux0x3a \n");
-        
+
             Console.WriteLine("------------------Retrieve Defender Exclusion Paths Using Event Logs -------------\n");
             Console.WriteLine("Local System  : MDE_Enum /local /paths ");
             Console.WriteLine("Local System / Check Access: MDE_Enum /local /paths /access");
@@ -89,13 +89,13 @@ namespace MDE_Enum
 
         public static string ExtractAsrRuleId(string message)
         {
-            string pattern = @"ID:\s*([0-9A-FA-f\-]+)"; // regex to extract ASR formatted rules. 
+            string pattern = @"ID:\s*([0-9A-FA-f\-]+)"; // regex to extract ASR formatted rules.
             Match match = Regex.Match(message, pattern);
             return match.Success ? match.Groups[1].Value : null;
         }
 
 
-        public static bool CheckWriteAccess(string path) // the following function would check if the excluded path can have write access to it 
+        public static bool CheckWriteAccess(string path) // the following function would check if the excluded path can have write access to it
         {
             try
             {
@@ -142,7 +142,7 @@ namespace MDE_Enum
 
             int idColumnWidth = data.Max(item => item.Item1.Length) + 2;
             int actionColumnWidth = data.Max(item => item.Item2.Length) + 2;
-            int nameColumnWidth = data.Max(item => item.Item3.Length) + 2; 
+            int nameColumnWidth = data.Max(item => item.Item3.Length) + 2;
 
             string separator = new string('-', idColumnWidth + actionColumnWidth + nameColumnWidth +  7);
             string header = $"| {"Enabled?".PadRight(idColumnWidth)} | {"ASR ID".PadRight(actionColumnWidth)} | {"Name".PadRight(nameColumnWidth)} |";

@@ -21,8 +21,8 @@
                     <th class="darkmode">Username</th><th class="darkmode">Domain</th>
                     <th class="darkmode">FQDN</th><th class="darkmode">PID</th><th class="darkmode">PPID</th><th class="darkmode">Task Type</th>
                     <th class="darkmode">Task Options</th><th class="darkmode">Task Time</th><th class="darkmode">Results Time</th>
-                    <th class="darkmode">Results</th> 
-    
+                    <th class="darkmode">Results</th>
+
                 <!-- Loops through each log entry, and shows us the logs -->
                 {% for log in logs %}
                 <tr>
@@ -44,7 +44,7 @@
                     <td class="darkmode" style=white-space:pre;>{{ log[14] }}</td>
                     <td class="darkmode" style=white-space:pre;>{{ log[16] }}</td>
                 </tr>
-            
+
                 {% endfor %}
             </table>
             </div>
@@ -60,8 +60,8 @@
         var boxes = document.querySelectorAll('.darkmode');
 
         // if we are in lightmode, change to darkmode
-        if (savedTheme === 'lightmode') 
-        {    
+        if (savedTheme === 'lightmode')
+        {
             boxes.forEach(box => {
                 box.classList.toggle('darkmode');
             });
@@ -78,7 +78,7 @@
             {
                 savedTheme = "darkmode";
             }
-            
+
             boxes.forEach(box => {
 
                 box.classList.toggle('darkmode');

@@ -10,7 +10,7 @@ Enumerate SCCM roles via HTTP
 - Valid Active Directory domain credentials
 
 ## Summary
-When certain site system roles are installed, part of the installation process involves configuring web services on the host system. Depending on the role, static and predictable URLs can be enumerated, and when a request is sent to the URL, it provides an expected response. Fuzzing these URLS on potential site systems contributes to attack path discovery. 
+When certain site system roles are installed, part of the installation process involves configuring web services on the host system. Depending on the role, static and predictable URLs can be enumerated, and when a request is sent to the URL, it provides an expected response. Fuzzing these URLS on potential site systems contributes to attack path discovery.
 
 ## Impact
 1. Profiling site system roles is a supplementary step in building potential attack paths
@@ -24,7 +24,7 @@ When certain site system roles are installed, part of the installation process i
 The following examples are a sampling and are not an exhaustive representation.
 
 ### Management Points
-Management points (MP) host several web applications for multiple functions, including client communication, policy distribution, and health monitoring. Site systems configured with this role have predictable URL paths that require authenticaiton when interacting.  
+Management points (MP) host several web applications for multiple functions, including client communication, policy distribution, and health monitoring. Site systems configured with this role have predictable URL paths that require authenticaiton when interacting.
 
 ```
 C:\Users\administrator.LAB>%systemroot%\system32\inetsrv\AppCmd.exe list app

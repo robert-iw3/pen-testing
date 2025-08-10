@@ -15,7 +15,7 @@ BUFF = "\x00"
 class PortNotAnInt(Exception):
 	def __init__(self, message=""):
 		self.message = message
-		
+
 	def __str__(self):
 		return "Exception: %s." % self.message
 
@@ -35,10 +35,10 @@ class Send:
 		else:
 			self.key = str(key)
 		self.port = port
-		
+
 		if type(self.port) is not int:
 			raise PortNotAnInt("Port is not an int")
-		
+
 		self.sock = None
 		self.compress = compress
 
@@ -52,16 +52,16 @@ class Send:
 		except Exception as e:
 			sys.stderr.write("Could not connect to %s:%s.\n" % (self.dest_ip, self.port))
 			return False
-		
+
 		sys.stdout.write("Connected to %s:%s.\n" % (self.dest_ip, self.port))
 		return True
-	
+
 	def send_string(self, message):
-		
+
 		# split into 2 bytes and prepare for sending
 		data = PrepString(message.encode('utf-8'), max_size=2, enc_key=self.key, compress=False)
 		pckts = data['Packets']
-		
+
 		# make them into the format we want to send
 		send_me = []
 		for indx, pckt in enumerate(pckts):
@@ -75,39 +75,39 @@ class Send:
 		# establish connection
 		check = self._establish_connection()
 		if not check: return False
-		
+
 		for packet in send_me:
 			dis_data = bytes(packet, 'utf-8')
 			self.wrapped_socket.send(dis_data)
-			
+
 		self.wrapped_socket.close()
 		self.wrapped_socket = None
 		self.sock.close()
 		self.sock = None
 		return True, send_me
-		
+
 	def Decode(self, decode_me):
 		if type(decode_me) is not list:
 			sys.stderr.write("'decode_me' needs to be a list type.\n")
 			return False
-		
+
 		# Recompile data
 		data = ""
 		for indx, packet in enumerate(decode_me):
-			
+
 			if packet.find(BUFF) == -1:
 				sys.stderr.write("Packet %s does not have a terminator.\n" % indx)
 				return False
-			
+
 			for ch in packet.split(BUFF)[:-1]:
 				data += chr(len(ch))
-		
+
 		# Decrypt:
 		if self.key is None:
 			data = data
 		else:
 			data = rc4(data, self.key)
-		
+
 		if self.compress:
 			try:
 				data = zlib.decompress(data)
@@ -116,11 +116,11 @@ class Send:
 				return False
 		else:
 			pass
-		
+
 		return data
-		
-		
-	
+
+
+
 
 class Listen():
 	pass

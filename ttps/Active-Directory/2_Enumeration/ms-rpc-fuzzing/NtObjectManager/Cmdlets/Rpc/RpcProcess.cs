@@ -78,7 +78,7 @@ public sealed class RpcProcess
     #endregion
 
     #region Internal Members
-    internal RpcProcess(int process_id, string image_path, 
+    internal RpcProcess(int process_id, string image_path,
         IEnumerable<RpcServer> servers, IEnumerable<RpcEndpoint> endpoints,
         Dictionary<RpcStringBinding, SecurityDescriptor> binding_security)
     {

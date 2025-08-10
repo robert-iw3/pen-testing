@@ -5,7 +5,7 @@
         {{ turbo() }}
     </head>
         <div class = "darkmode" id="history" style="margin-top: 20px; height: 600px; width:100%; overflow:auto;display: flex;flex-direction: column-reverse;">
-         
+
             {% for n in range(num_implants) %}
 
             <table id = "history{{ implants[n][0] }}" class="darkmode">
@@ -20,17 +20,17 @@
 
             {% for h in history[n] %}
             <tr id = "history{{ implants[n][0] }}">
-                
+
                 <td id = "history{{ implants[n][0] }}" class="darkmode" style="width:10%;white-space: pre-wrap;">{{ h[0] }}</td>
                 <td id = "history{{ implants[n][0] }}" class="darkmode" style="width:10%;white-space: pre-wrap;">{{ h[1] }}</td>
                 <td id = "history{{ implants[n][0] }}" class="darkmode" style="width:10%;white-space: pre-wrap;">{{ h[2] }}</td>
                 <td id = "history{{ implants[n][0] }}" class="darkmode" style="width:10%;white-space: pre-wrap;">{{ h[3] }}</td>
                 <td id = "history{{ implants[n][0] }}" class="darkmode" style="width:10%;white-space: pre-wrap;">{{ h[4] }}</td>
                 <td id = "history{{ implants[n][0] }}" class="darkmode" style="white-space: pre-wrap;">{{ h[5] }}</td>
-                
+
             </tr>
             {% endfor %}
-            
+
             </table>
 
             {% endfor %}
@@ -46,7 +46,7 @@
 
             var elements = document.querySelectorAll('[id^="history"]');
             var savedTheme = localStorage.getItem('theme');
-            
+
             for(let i = 0; i < elements.length; i++)
             {
                 if(elements[i].id === "history{{ implants[n][0]}}")
@@ -67,7 +67,7 @@
         {% endfor %}
 
         focused_implant = localStorage.getItem('focused_implant');
-        
+
         document.getElementById(focused_implant).click();
     </script>
 </html>

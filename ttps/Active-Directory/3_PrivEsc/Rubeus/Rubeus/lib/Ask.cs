@@ -52,7 +52,7 @@ namespace Rubeus {
                 // if AS-REQ without pre-auth worked don't bother sending AS-REQ with pre-auth
                 if (!preauth)
                 {
-                    Console.WriteLine("[*] Using {0} hash: {1}", etype, keyString);               
+                    Console.WriteLine("[*] Using {0} hash: {1}", etype, keyString);
                     Console.WriteLine("[*] Building AS-REQ (w/ preauth) for: '{0}\\{1}'", domain, userName);
                     AS_REQ userHashASREQ = AS_REQ.NewASReq(userName, domain, keyString, etype, opsec, changepw, pac, service, suppEtype, principalType);
                     return InnerTGT(userHashASREQ, etype, outfile, ptt, domainController, luid, describe, true, opsec, servicekey, false, proxyUrl);
@@ -69,7 +69,7 @@ namespace Rubeus {
                         PA_SUPERSEDED_BY_USER obj = (PA_SUPERSEDED_BY_USER)error.e_data[0].value;
                         Console.WriteLine("[*] {0} is superseded by {1}", userName, obj.name.name_string[0]);
                     }
-                    
+
                 }
                 catch
                 {
@@ -88,7 +88,7 @@ namespace Rubeus {
         {
             byte[] response = null;
             AS_REQ NoPreAuthASREQ = AS_REQ.NewASReq(userName, domain, suppEtype, opsec, service, principalType);
-          
+
             byte[] reqBytes = NoPreAuthASREQ.Encode().Encode();
 
             if (String.IsNullOrEmpty(proxyUrl))
@@ -165,7 +165,7 @@ namespace Rubeus {
         //CCob (@_EthicalChaos_):
         // Based on KerberosAsymmetricCredential::Get function from Kerberos.NET from here:
         // https://github.com/dotnet/Kerberos.NET/blob/v4.5.0/Kerberos.NET/Credentials/KerberosAsymmetricCredential.cs
-        // Additional functionality - If the certificate points to a file we assume PKCS12 certificate store 
+        // Additional functionality - If the certificate points to a file we assume PKCS12 certificate store
         // with private key otherwise use users certificate store along with any smartcard that maybe present.
         public static X509Certificate2 FindCertificate(string certificate, string storePassword) {
 
@@ -242,7 +242,7 @@ namespace Rubeus {
             return false;
         }
 
-        public static int GetKeySize(Interop.KERB_ETYPE etype) {           
+        public static int GetKeySize(Interop.KERB_ETYPE etype) {
             switch (etype) {
                  case Interop.KERB_ETYPE.des_cbc_md5:
                     return 7;
@@ -361,12 +361,12 @@ namespace Rubeus {
             } else {
                 services = service.Split(',');
             }
-            
+
             foreach (string sname in services) {
-                
+
                 if (kirbi != null) {
                     // request the new service ticket
-                    TGS(kirbi.enc_part.ticket_info[0].pname.name_string[0], kirbi.enc_part.ticket_info[0].prealm , kirbi?.tickets[0], kirbi?.enc_part.ticket_info[0].key.keyvalue, (Interop.KERB_ETYPE)kirbi?.enc_part.ticket_info[0].key.keytype, 
+                    TGS(kirbi.enc_part.ticket_info[0].pname.name_string[0], kirbi.enc_part.ticket_info[0].prealm , kirbi?.tickets[0], kirbi?.enc_part.ticket_info[0].key.keyvalue, (Interop.KERB_ETYPE)kirbi?.enc_part.ticket_info[0].key.keytype,
                         sname, requestEType, outfile, ptt, domainController, display, enterprise, roast, opsec, tgs, targetDomain, servicekey, asrepkey, u2u, targetUser, printargs, proxyUrl, keyList, dmsa, serviceType);
                 } else {
 
@@ -376,7 +376,7 @@ namespace Rubeus {
                     if (opsec) {
                         kdcOptions |= Interop.KdcOptions.CANONICALIZE;
                     }
-            
+
                     if (snameType == PRINCIPAL_TYPE.NT_X500_PRINCIPAL) {
                         finalSname = $"@@@{finalSname}";
                     }
@@ -384,7 +384,7 @@ namespace Rubeus {
                     var cred = LSA.RequestServiceTicket(lsaHandle, authPackage, targetLuid, finalSname, (uint)kdcOptions, false);
                     ProcessTicketResponse(cred.RawBytes, Convert.ToBase64String(cred.RawBytes), cred, ptt, servicekey, u2u, null, display, asrepkey, null, outfile, printargs, null);
                 }
-                
+
                 Console.WriteLine();
             }
         }
@@ -549,7 +549,7 @@ namespace Rubeus {
 
                 return ProcessTicketResponse(kirbiBytes, kirbiString, cred, ptt, servicekey, u2u, clientKey, display,
                     asrepkey, keyListHash, outfile, printargs, dmsaCurrentKeys);
-          
+
             }
             else if (responseTag == (int)Interop.KERB_MESSAGE_TYPE.ERROR)
             {
@@ -674,7 +674,7 @@ namespace Rubeus {
             // convert the key string to bytes
             byte[] key;
             if (GetPKInitRequest(asReq, out PA_PK_AS_REQ pkAsReq)) {
-                // generate the decryption key using Diffie Hellman shared secret 
+                // generate the decryption key using Diffie Hellman shared secret
                 // First find the padata type that is PK_AS_REP. Certain authentications can have multiple.
                 int i;
                 for (i = 0; i < rep.padata.Count; i++)
@@ -686,7 +686,7 @@ namespace Rubeus {
                 }
                 // Use the found padata type and convert to PK_AS_REP
                 PA_PK_AS_REP pkAsRep = (PA_PK_AS_REP)rep.padata[i].value;
-                key = pkAsReq.Agreement.GenerateKey(pkAsRep.DHRepInfo.KDCDHKeyInfo.SubjectPublicKey.DepadLeft(), new byte[0], 
+                key = pkAsReq.Agreement.GenerateKey(pkAsRep.DHRepInfo.KDCDHKeyInfo.SubjectPublicKey.DepadLeft(), new byte[0],
                     pkAsRep.DHRepInfo.ServerDHNonce, GetKeySize(etype));
             } else {
                 // convert the key string to bytes
@@ -700,7 +700,7 @@ namespace Rubeus {
             }
 
             // decrypt the enc_part containing the session key/etc.
-            
+
             byte[] outBytes;
 
             if (etype == Interop.KERB_ETYPE.des_cbc_md5)
@@ -737,7 +737,7 @@ namespace Rubeus {
                 if (ae.TagValue == 25)
                 {
                     decodeSuccess = true;
-                } 
+                }
             }
             catch (Exception ex)
             {
@@ -749,7 +749,7 @@ namespace Rubeus {
                 Console.WriteLine($"[X] Failed to decrypt TGT using supplied password/hash. If this TGT was requested with no preauth then the password supplied may be incorrect or the data was encrypted with a different type of encryption than expected");
                 return null;
             }
-           
+
             EncKDCRepPart encRepPart = new EncKDCRepPart(ae.Sub[0]);
 
             // now build the final KRB-CRED structure

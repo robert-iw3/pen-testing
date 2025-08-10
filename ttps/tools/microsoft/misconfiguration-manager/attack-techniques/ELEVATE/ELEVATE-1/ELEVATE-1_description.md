@@ -12,7 +12,7 @@ NTLM relay site server to SMB on site systems
 ### Coercion
 - Valid Active Directory domain credentials
 - Connectivity to SMB (TCP/445) on a coercion target:
-    - ELEVATE-1.1: Primary site server 
+    - ELEVATE-1.1: Primary site server
     - ELEVATE-1.2: Passive site server
 - Connectivity from the coercion target to SMB (TCP/445) on the relay server
 - Coercion target settings:

@@ -54,13 +54,13 @@ public class ServiceAccessCheckResult : CommonAccessCheckResult
     /// </summary>
     public string ServiceDll => Service.ServiceDll;
 
-    internal ServiceAccessCheckResult(string name, AccessMask granted_access, 
+    internal ServiceAccessCheckResult(string name, AccessMask granted_access,
         SecurityDescriptor sd, TokenInformation token_info,
-        ServiceAccessRights trigger_granted_access, 
+        ServiceAccessRights trigger_granted_access,
         ServiceAccessRights original_granted_access,
-        ServiceInstance service) 
+        ServiceInstance service)
         : base(name, ServiceUtils.SERVICE_NT_TYPE_NAME, granted_access,
-            ServiceUtils.GetServiceGenericMapping(), sd, 
+            ServiceUtils.GetServiceGenericMapping(), sd,
             typeof(ServiceAccessRights), false, token_info)
     {
         TriggerGrantedAccess = trigger_granted_access;

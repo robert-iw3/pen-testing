@@ -31,7 +31,7 @@ namespace peconv {
 
     /**
     Wrapper over ReadProcessMemory. Requires a handle with privilege PROCESS_VM_READ.
-    If reading of the full buffer_size was not possible, it will keep trying to read a smaller chunk, decreasing requested size on each attempt, 
+    If reading of the full buffer_size was not possible, it will keep trying to read a smaller chunk, decreasing requested size on each attempt,
     till the minimal_size is reached (it is a workaround for errors such as FAULTY_HARDWARE_CORRUPTED_PAGE).
     Returns how many bytes were successfuly read.
     \param processHandle : handle of the process where the memory of interest belongs
@@ -89,7 +89,7 @@ namespace peconv {
     bool read_remote_pe_header(HANDLE processHandle, LPVOID moduleBase, OUT BYTE* buffer, const size_t bufferSize, bool force_access = false);
 
     /**
-    Reads a PE section with a given number (sectionNum) from the remote module within the given process. 
+    Reads a PE section with a given number (sectionNum) from the remote module within the given process.
     The buffer of appropriate size is automatically allocated. After use, it should be freed by the function free_unaligned.
     The size of the buffer is writen into sectionSize.
     \param processHandle : the handle to the remote process
@@ -118,7 +118,7 @@ namespace peconv {
     */
     bool dump_remote_pe(
         IN LPCTSTR outputFilePath,
-        IN const HANDLE processHandle, 
+        IN const HANDLE processHandle,
         IN LPVOID moduleBase,
         IN OUT t_pe_dump_mode &dump_mode,
         IN OPTIONAL peconv::ExportsMapper* exportsMap = nullptr

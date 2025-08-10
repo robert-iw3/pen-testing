@@ -84,7 +84,7 @@ EDRSB_STATUS _InstallVulnerableDriver(EDRSB_CONTEXT* ctx) {
 // A passer dans le core?
 EDRSB_STATUS _LoadNtosKrnlOffsets(EDRSB_CONTEXT* ctx) {
     EDRSB_CONFIG* config = ctx->config;
-    
+
     EDRSB_STATUS status;
     BOOL offsetsLoaded = FALSE;
 
@@ -129,11 +129,11 @@ EDRSB_STATUS _LoadNtosKrnlOffsets(EDRSB_CONTEXT* ctx) {
     if (!offsetsLoaded && ctx->config->offsetRetrievalMethod.Internet) {
         _putts_or_not(TEXT("[+] Downloading kernel offsets from the MS Symbol Server (will drop a .pdb file in current directory)"));
         LoadNtoskrnlOffsetsFromInternet(FALSE);
-        
+
         if (!NtoskrnlNotifyRoutinesOffsetsArePresent()) {
             _putts_or_not(TEXT("[-] Downloading kernel offsets from the internet failed!"));
         }
-        
+
         else {
             _putts_or_not(TEXT("[+] Downloading kernel offsets succeeded!"));
             offsetsLoaded = TRUE;
@@ -521,7 +521,7 @@ EDRSB_STATUS Action_DisableCredGuard(_In_ EDRSB_CONTEXT* ctx) {
     }
 
     EDRSB_STATUS status;
-    
+
     if (disableCredGuardByPatchingLSASS()) {
         _putts_or_not(TEXT("[+] LSASS was patched and Credential Guard should be bypassed for future logins on the system."));
         status = EDRSB_SUCCESS;
@@ -629,7 +629,7 @@ EDRSB_STATUS _GetSafeNtFunctionbyUnhookingWithNtProtectVirtualMemory(_In_ LPCSTR
             nextFunctionRVA = someFunctionStartRVA;
         }
     }
-    
+
     // Check we did not cross a section boundary (last export in the section)
     IMAGE_SECTION_HEADER* textSection = PE_sectionHeader_fromRVA(ntdll_disk, functionRVA);
     DWORD textSectionEndRVA = textSection->VirtualAddress + textSection->Misc.VirtualSize;

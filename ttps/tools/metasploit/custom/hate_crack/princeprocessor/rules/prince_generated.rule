@@ -2,7 +2,7 @@
 ## Version: 1.00
 ## Compatibility: hashcat v0.48+, oclHashcat v1.31+
 ##
-## Description: 
+## Description:
 ##
 ## automatically generated ruleset, optimized rule for use with princeprocessor
 ## This rule can be used as amplifier in case you're attacking a fast hash
@@ -1524,7 +1524,7 @@ swh
 +4 r
 s0M
 s2m
-s7 
+s7
 se.
 seg
 sK9
@@ -2074,7 +2074,7 @@ scu
 *67 K
 *67 r
 *67 R4
-s- 
+s-
 s1/
 scu
 *67 T3
@@ -3561,7 +3561,7 @@ D3 l
 D3 R0
 D3 R2
 D3 R3
-s3 
+s3
 s85
 s9D
 sao
@@ -3619,7 +3619,7 @@ D4 R3
 s3v
 sah
 sah
-sg 
+sg
 sg-
 sj#
 skD
@@ -3673,8 +3673,8 @@ s63
 sa4
 sKp
 spz
-sr 
-sr 
+sr
+sr
 suw
 D5 t
 D5 T0
@@ -3683,7 +3683,7 @@ D5 x04
 D5 x12
 D5 x13
 D5 x54
-sr 
+sr
 D6
 ] D6
 D6 [
@@ -3767,7 +3767,7 @@ D8 *56
 D8 c
 D8 k
 D8 L0
-s3 
+s3
 D8 u
 D8 u x91
 D8 x23
@@ -4895,7 +4895,7 @@ r R6
 s0-
 s0+
 s0l
-s1 
+s1
 sa3
 sb9
 sbq
@@ -4932,7 +4932,7 @@ s!.
 s0-
 s0`
 s0<
-s0 
+s0
 s0_
 s0_
 s0-
@@ -5027,8 +5027,8 @@ s0z
 s0Z
 s1`
 s1=
-s1 
-s1 
+s1
+s1
 s1_
 s1-
 s1,
@@ -5113,7 +5113,7 @@ s1y
 s1y
 s1z
 s2<
-s2 
+s2
 s2_
 s2-
 s2,
@@ -5189,7 +5189,7 @@ s2z
 s2Z
 s2z
 s3`
-s3 
+s3
 s3_
 s3,
 s3!
@@ -5259,7 +5259,7 @@ s3X
 s3y
 s3Y
 s3z
-s4 
+s4
 s4_
 s4-
 s4,
@@ -5321,7 +5321,7 @@ s4y
 s4z
 s!5
 s5=
-s5 
+s5
 s5_
 s5,
 s5!
@@ -5423,7 +5423,7 @@ s6z
 s7+
 s!7
 s7=
-s7 
+s7
 s7-
 s7/
 s7.
@@ -5473,7 +5473,7 @@ s7r
 s7s
 s7W
 s7x
-s7 
+s7
 s7Y
 s!8
 s8-
@@ -5541,7 +5541,7 @@ s8x
 s8y
 s8z
 s8z
-s9 
+s9
 s9_
 s9-
 s9!
@@ -5574,7 +5574,7 @@ s9c
 s9d
 s9D
 s9d
-s9 
+s9
 s9.
 s9e
 s9E
@@ -5596,13 +5596,13 @@ s9u
 s9u
 s9w
 s9x
-s9 
+s9
 s9y
 s9z
 s9Z
 sa@
 sa=
-sa 
+sa
 sa-
 sa;
 sa?
@@ -5713,7 +5713,7 @@ sAy
 saz
 saZ
 saZ
-sb 
+sb
 sb-
 sb#
 sb0
@@ -5737,7 +5737,7 @@ sb9
 sba
 sbB
 sbc
-sb 
+sb
 sbC
 sbd
 sbd
@@ -5915,7 +5915,7 @@ sdY
 sdz
 sdZ
 sDz
-se 
+se
 se-
 se;
 se.
@@ -6081,7 +6081,7 @@ sgR
 sgs
 sgS
 sgt
-sg 
+sg
 sgT
 sgT
 sGt
@@ -6155,7 +6155,7 @@ shz
 shz
 shz
 shz
-si 
+si
 si-
 si;
 si!
@@ -6200,7 +6200,7 @@ sih
 sij
 sik
 sil
-si 
+si
 sim
 sin
 siN
@@ -6247,7 +6247,7 @@ sj9
 sjb
 sjB
 sjd
-sj 
+sj
 sjF
 sjF
 sjg
@@ -6332,7 +6332,7 @@ sky
 skz
 skz
 skZ
-sl 
+sl
 sl;
 sl!
 sl]
@@ -6564,7 +6564,7 @@ snX
 sny
 snz
 snz
-so 
+so
 so,
 so;
 so!
@@ -6693,7 +6693,7 @@ spW
 spY
 spz
 spZ
-sq 
+sq
 sq9
 sqb
 sqc
@@ -6703,7 +6703,7 @@ sqk
 sqm
 sQn
 sqt
-sr 
+sr
 sr[
 sr0
 sr0
@@ -6715,7 +6715,7 @@ sr4
 sr5
 sr5
 sr6
-sr 
+sr
 sr7
 sr8
 sra
@@ -6768,7 +6768,7 @@ srw
 srW
 srw
 srx
-sr 
+sr
 srx
 srX
 sry
@@ -6868,12 +6868,12 @@ ssy
 ssz
 ssZ
 ssz
-st 
+st
 st`
 st<
-st 
+st
 st,
-st 
+st
 st1
 s#_
 st1
@@ -7144,7 +7144,7 @@ szn
 szp
 szs
 szt
-sz 
+sz
 szu
 szw
 szw
@@ -7194,8 +7194,8 @@ T0 R5
 s3!
 se4
 sgK
-sM 
-so 
+sM
+so
 spR
 sr@
 st5
@@ -7726,7 +7726,7 @@ x03 L6
 x03 R1
 x03 R2
 x03 R3
-s2 
+s2
 sld
 x03 T6
 x04
@@ -7853,7 +7853,7 @@ x21 { l
 x21 l {
 x21 R5 D4
 x21 R7
-s5 
+s5
 scs
 scZ
 sm0
@@ -8075,7 +8075,7 @@ x42 L6
 x42 r
 x42 R5
 x42 R7
-sa 
+sa
 sdp
 sjb
 sjb
@@ -8150,8 +8150,8 @@ se6
 sh2
 sj4
 sjm
-so 
-so 
+so
+so
 ssa
 ssS
 x51 T1

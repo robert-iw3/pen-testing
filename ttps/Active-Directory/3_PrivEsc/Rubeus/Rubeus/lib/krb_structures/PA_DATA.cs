@@ -109,10 +109,10 @@ namespace Rubeus {
                 AsnElt.MakeInteger(agreement.P),
                 AsnElt.MakeInteger(agreement.G),
             }).Encode();
-     
-            authPack.ClientPublicValue = new KrbSubjectPublicKeyInfo(new KrbAlgorithmIdentifier(DiffieHellman, pubKeyInfo),            
+
+            authPack.ClientPublicValue = new KrbSubjectPublicKeyInfo(new KrbAlgorithmIdentifier(DiffieHellman, pubKeyInfo),
                 AsnElt.MakeInteger(agreement.Y).Encode());
-            
+
             type = Interop.PADATA_TYPE.PK_AS_REQ;
             value = new PA_PK_AS_REQ(authPack, pkInitCert, agreement, verifyCerts);
         }

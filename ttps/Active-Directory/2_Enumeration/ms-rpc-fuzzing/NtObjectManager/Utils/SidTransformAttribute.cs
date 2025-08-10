@@ -19,7 +19,7 @@ namespace NtObjectManager.Utils;
 
 class SidTransformAttribute : BaseTransformAttribute
 {
-    public SidTransformAttribute() 
+    public SidTransformAttribute()
         : base(typeof(Sid))
     {
     }

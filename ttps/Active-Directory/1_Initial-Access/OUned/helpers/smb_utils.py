@@ -50,9 +50,9 @@ def download_initial_gpo(smb_session, domain, gpo_id):
     except:
         logging.error(f"Unable to connect to SYSVOL share", exc_info=True)
         return False
-    
+
     path = domain + "/Policies/{" + gpo_id + "}"
-    
+
     try:
         shutil.rmtree(OUTPUT_DIR, ignore_errors=True)
         os.makedirs(OUTPUT_DIR, exist_ok=True)

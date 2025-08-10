@@ -1,4 +1,4 @@
-# Google Script Proxy to bypass restricted environments 
+# Google Script Proxy to bypass restricted environments
 
 
 ## Summary

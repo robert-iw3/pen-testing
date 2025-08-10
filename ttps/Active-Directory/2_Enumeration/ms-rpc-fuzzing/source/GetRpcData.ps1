@@ -43,12 +43,12 @@ function Get-RpcServerData {
     begin {
         # Initialize DbgHelp DLL
         if (Test-Path "$env:systemdrive\Program Files (x86)\Windows Kits\10\Debuggers\x64\dbghelp.dll") {
-            Set-GlobalSymbolResolver -DbgHelpPath "$env:systemdrive\Program Files (x86)\Windows Kits\10\Debuggers\x64\dbghelp.dll"   
+            Set-GlobalSymbolResolver -DbgHelpPath "$env:systemdrive\Program Files (x86)\Windows Kits\10\Debuggers\x64\dbghelp.dll"
             Write-Host "[+] dbghelp.dll successfully initialized" -ForegroundColor Green
         } else {
             if ($DbgHelpPath) {
                 try {
-                    Set-GlobalSymbolResolver -DbgHelpPath $DbgHelpPath    
+                    Set-GlobalSymbolResolver -DbgHelpPath $DbgHelpPath
                     Write-Host "[+] dbghelp.dll successfully initialized" -ForegroundColor Green
                 } catch {
                     Write-host "[!] dbghelp.dll not found, please provide path using -DbgHelpPath" -ForegroundColor Red
@@ -149,7 +149,7 @@ function Get-RpcServerData {
 
             # Get all methods for rpcinterface
             $client = Get-RpcClient $rpcInt -ErrorAction SilentlyContinue
-            
+
             if ($client) {
                 $methods = $Client.GetType().GetMethods() | Where-Object { $_.IsPublic -and $_.DeclaringType -eq $Client.GetType() } -ErrorAction SilentlyContinue
             }
@@ -230,7 +230,7 @@ function Get-RpcServerData {
         } catch {
             Write-Host "[!] Could not save results to output path, check your path" -ForegroundColor Red
             return
-        }        
+        }
 
         # Done
         Write-Host "[+] Saved RPC interfaces, Endpoints and Procedures of target to '$outpath\rpcServerData.json'" -ForegroundColor Green

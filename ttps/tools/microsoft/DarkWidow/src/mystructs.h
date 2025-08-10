@@ -192,7 +192,7 @@ typedef struct _PEB {
 /*
 // From: https://learn.microsoft.com/en-us/windows/win32/api/ntdef/ns-ntdef-list_entry
 typedef struct _LIST_ENTRY {
-	struct _LIST_ENTRY* Flink;	// Next Object -> *next 
+	struct _LIST_ENTRY* Flink;	// Next Object -> *next
 	struct _LIST_ENTRY* Blink;	// Previous Object -> *prev
 } LIST_ENTRY, * PLIST_ENTRY, PRLIST_ENTRY;
 */
@@ -270,7 +270,7 @@ typedef struct tagTHREADENTRY32 {
 //typedef THREADENTRY32* LPTHREADENTRY32;
 
 
-// ========================================== For NtQueryInformationThread ========================================== 
+// ========================================== For NtQueryInformationThread ==========================================
 
 // Taken From: https://github.com/reveng007/AQUARMOURY/blob/master/Goblin/Src/EventLog.h
 

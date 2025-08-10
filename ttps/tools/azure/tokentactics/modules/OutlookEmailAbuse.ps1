@@ -14,7 +14,7 @@ function Invoke-OpenOWAMailboxInBrowser
         [Parameter(Mandatory=$False)]
         [ValidateSet('Substrate','Outlook')]
         [String]$Resource='Substrate',
-        [Parameter(Mandatory=$False)] 
+        [Parameter(Mandatory=$False)]
         [switch]$OnlyReturnCookies,
         [Parameter(Mandatory=$False)]
         [ValidateSet('Mac','Windows','AndroidMobile','iPhone')]
@@ -38,13 +38,13 @@ function Invoke-OpenOWAMailboxInBrowser
                     $UserAgent = Forge-UserAgent -Device $Device
                 }
             }
-            else 
+            else
             {
                if ($Browser)
                {
-                    $UserAgent = Forge-UserAgent -Browser $Browser 
-               } 
-               else 
+                    $UserAgent = Forge-UserAgent -Browser $Browser
+               }
+               else
                {
                     $UserAgent = Forge-UserAgent
                }
@@ -71,7 +71,7 @@ function Invoke-OpenOWAMailboxInBrowser
             Write-Output ""
             Write-Output "----------------------------------------------------------------------------"
         }
-   }  
+   }
 }
 function Invoke-DumpOWAMailboxViaMSGraphApi
 {
@@ -110,8 +110,8 @@ function Invoke-DumpOWAMailboxViaMSGraphApi
         }
         else {
            if ($Browser) {
-                $UserAgent = Forge-UserAgent -Browser $Browser 
-           } 
+                $UserAgent = Forge-UserAgent -Browser $Browser
+           }
            else {
                 $UserAgent = Forge-UserAgent
            }

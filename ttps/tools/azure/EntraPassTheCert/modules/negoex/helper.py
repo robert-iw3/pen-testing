@@ -32,7 +32,7 @@ class NegoExHelper:
 
     def GenerateNegoExInitWithKerberosAs(self):
         issuer, self._asReq = build_as_req_negoEx(self._userCert, self._certPass, self._remoteComputer, self._dp)
-        
+
         metaData = generateMetaDataAsn(self._remoteComputer, issuer)
         self._dataToSend = self._nego.negoexAsRequest(metaData, self._asReq)
         return self._dataToSend
@@ -46,7 +46,7 @@ class NegoExHelper:
         self._nego.raiseSequenceNum()
         self._nego.raiseSequenceNum()
         dataToSend = self._nego.generateAPRequest(self._asReq)
-        
+
         self._dataToSend += dataToSend
         return dataToSend
 

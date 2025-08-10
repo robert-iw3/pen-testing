@@ -42,7 +42,7 @@ namespace PingCastle.RPC
         public string TranslatedName;
         public SID_NAME_USE Use;
     }
-    
+
     public class lsa : rpcapi
     {
 
@@ -370,7 +370,7 @@ namespace PingCastle.RPC
             LSA_DOMAIN_INFORMATION output = new LSA_DOMAIN_INFORMATION();
             output.DomainName = Marshal.PtrToStringUni(Buffer.buffer, Buffer.Length / 2);
             output.DomainSid = new SecurityIdentifier(Buffer.DomainSid);
-            
+
             if (Buffer.buffer != IntPtr.Zero && Buffer.MaximumLength > 0)
                 FreeMemory(Buffer.buffer);
             if (Buffer.DomainSid != IntPtr.Zero)
@@ -407,7 +407,7 @@ namespace PingCastle.RPC
                     IntPtr tempValue2 = IntPtr.Zero;
                     GCHandle handle2 = GCHandle.Alloc(tempValue2, GCHandleType.Pinned);
                     IntPtr tempValuePointer2 = handle2.AddrOfPinnedObject();
-                    
+
                     IntPtr tempValue4 = IntPtr.Zero;
                     GCHandle handle4 = GCHandle.Alloc(tempValue4, GCHandleType.Pinned);
                     IntPtr tempValuePointer4 = handle4.AddrOfPinnedObject();
@@ -506,7 +506,7 @@ namespace PingCastle.RPC
                 output[i].Use = (SID_NAME_USE) translatedName.Use;
                 output[i].DomainName = referencedDomainsString[translatedName.DomainIndex];
                 output[i].DomainSid = referencedDomainsSid[translatedName.DomainIndex];
-                
+
                 if (translatedName.buffer != IntPtr.Zero && translatedName.MaximumLength > 0)
                     FreeMemory(translatedName.buffer);
             }

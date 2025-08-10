@@ -10,13 +10,13 @@ function Access_Check {
 
   	$ErrorActionPreference = "SilentlyContinue"
 	$WarningPreference = "SilentlyContinue"
-	
+
 	if ($Targets) {
 		$Computers = $Targets
 		$Computers = $Computers -split ","
 		$Computers = $Computers | Sort-Object -Unique
 	}
-	
+
 	else{
 		$Computers = @()
         	$objSearcher = New-Object System.DirectoryServices.DirectorySearcher
@@ -35,16 +35,16 @@ function Access_Check {
         	$Computers = $objSearcher.FindAll() | ForEach-Object { $_.properties.dnshostname }
 		$Computers = $Computers | Sort-Object -Unique
 	}
-	
+
 	$Computers = $Computers | Where-Object { $_ -and $_.trim() }
 	$HostFQDN = [System.Net.Dns]::GetHostByName(($env:computerName)).HostName
 	$TempHostname = $HostFQDN -replace '\..*', ''
 	$Computers = $Computers | Where-Object {$_ -ne "$HostFQDN"}
 	$Computers = $Computers | Where-Object {$_ -ne "$TempHostname"}
-	
+
 	if($Method -eq "SMB"){$PortScan = 445;$Command = $null}
 	elseif($Method -eq "PSRemoting"){$PortScan = 5985}
-	
+
 	$runspacePool = [runspacefactory]::CreateRunspacePool(1, 10)
 	$runspacePool.Open()
 
@@ -86,13 +86,13 @@ function Access_Check {
 
 	$runspacePool.Close()
 	$runspacePool.Dispose()
-	
+
 	$ComputerAccess = @()
-	
+
 	if($Method -eq "PSRemoting"){
 		$ComputerAccess = Invoke-Command -ScriptBlock { [System.Net.Dns]::GetHostByName(($env:computerName)).HostName } -ComputerName $Computers -ErrorAction SilentlyContinue
 	}
-	
+
 	if($Method -eq "SMB"){
 		foreach($Computer in $Computers){
 			$Error.Clear()
@@ -107,7 +107,7 @@ function Access_Check {
 		Write-Output "[+] The current user has SMB Admin access on:"
 		Write-Output ""
 	}
-	
+
 	if($Method -eq "PSRemoting"){
 		Write-Output ""
 		Write-Output "[+] The current user has PSRemoting Admin access on:"

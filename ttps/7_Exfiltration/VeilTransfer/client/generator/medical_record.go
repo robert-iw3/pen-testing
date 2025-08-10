@@ -109,7 +109,7 @@ func GenerateMedicalRecords(numRecords int, language string) {
 	for i := 1; i <= numRecords; i++ {
 		record := generateData(i, language)
 		writer.Write(record)
-		time.Sleep(10 * time.Millisecond)		
+		time.Sleep(10 * time.Millisecond)
 	}
 
 	fmt.Printf("Successfully generated %d medical records and saved in %s\n", numRecords, fileName)

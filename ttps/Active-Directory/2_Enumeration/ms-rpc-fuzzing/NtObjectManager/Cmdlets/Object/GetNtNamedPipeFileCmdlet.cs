@@ -19,7 +19,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Opens an existing NT named pipe file object.</para>
-/// <para type="description">This cmdlet opens an existing NT named pipe file object. The absolute path to the object in the NT object manager name space can be specified. 
+/// <para type="description">This cmdlet opens an existing NT named pipe file object. The absolute path to the object in the NT object manager name space can be specified.
 /// It's also possible to open the object relative to an existing object by specified the -Root parameter. This only works if the caller has permission to access the
 /// pipe server object and the maximum number of instances is not exceeded.</para>
 /// </summary>

@@ -20,7 +20,7 @@ void print_elapsed_time() {
         first_call = 0;
         if (clock_gettime(CLOCK_MONOTONIC, &start) == -1){
             perror("clock_gettime");
-            return;   
+            return;
         }
     }
 
@@ -28,7 +28,7 @@ void print_elapsed_time() {
         perror("clock_gettime");
         return;
     }
-        
+
     secs = curr.tv_sec - start.tv_sec;
     nsecs = curr.tv_nsec - start.tv_nsec;
     if (nsecs < 0) {
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
         perror("clock_gettime");
         return -1;
     }
-       
+
     new_value.it_value.tv_sec = now.tv_sec +1;
     new_value.it_value.tv_nsec = now.tv_nsec;
     new_value.it_interval.tv_sec = 1;

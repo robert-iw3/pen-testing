@@ -92,8 +92,8 @@ namespace Rubeus
                     }
                 }
 
-                // If a runFor time is set and the monitoring interval is longer than the time remaining on the run, 
-                // the sleep interval will be adjusted down to however much time left in the run there is. 
+                // If a runFor time is set and the monitoring interval is longer than the time remaining on the run,
+                // the sleep interval will be adjusted down to however much time left in the run there is.
                 if (runFor > 0 && collectionStart.AddSeconds(this.runFor) < DateTime.Now.AddSeconds(monitorIntervalSeconds))
                 {
                     TimeSpan t = collectionStart.AddSeconds(this.runFor + 1) - DateTime.Now;

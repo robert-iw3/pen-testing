@@ -19,7 +19,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Creates a Window Station object by path.</para>
-/// <para type="description">This cmdlet creates a new Window Station object. The absolute path to the object in the NT object manager name space must be specified. 
+/// <para type="description">This cmdlet creates a new Window Station object. The absolute path to the object in the NT object manager name space must be specified.
 /// It's also possible to create the object relative to an existing object by specified the -Root parameter.</para>
 /// </summary>
 /// <example>
@@ -90,8 +90,8 @@ public sealed class NewNtWindowStationCmdlet : NtObjectBaseCmdletWithAccess<Wind
     /// <returns>The newly created object.</returns>
     protected override object CreateObject(ObjectAttributes obj_attributes)
     {
-        return NtWindowStation.Create(obj_attributes, Access, 
-            KeyboardLayoutDll ?? "kbdus.dll", 
+        return NtWindowStation.Create(obj_attributes, Access,
+            KeyboardLayoutDll ?? "kbdus.dll",
             LanguageId ?? 0x409, KeyboardLocale ?? 0x4090409);
     }
 }

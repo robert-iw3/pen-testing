@@ -39,8 +39,8 @@ bool CreateIOPipesInService(Settings& settings, LPCWSTR caller, DWORD pid)
 	// Create StdOut pipe
 	pipeName = StrFormat(L"\\\\.\\pipe\\PAExecOut%s%u", caller, pid);
 	settings.hStdOut = CreateNamedPipe(pipeName,
-		PIPE_ACCESS_OUTBOUND, 
-		gPIPE_TYPE, 
+		PIPE_ACCESS_OUTBOUND,
+		gPIPE_TYPE,
 		PIPE_UNLIMITED_INSTANCES,
 		0,
 		0,
@@ -53,8 +53,8 @@ bool CreateIOPipesInService(Settings& settings, LPCWSTR caller, DWORD pid)
 	// Create StdError pipe
 	pipeName = StrFormat(L"\\\\.\\pipe\\PAExecErr%s%u", caller, pid);
 	settings.hStdErr = CreateNamedPipe(pipeName,
-		PIPE_ACCESS_OUTBOUND, 
-		gPIPE_TYPE, 
+		PIPE_ACCESS_OUTBOUND,
+		gPIPE_TYPE,
 		PIPE_UNLIMITED_INSTANCES,
 		0,
 		0,
@@ -67,8 +67,8 @@ bool CreateIOPipesInService(Settings& settings, LPCWSTR caller, DWORD pid)
 	// Create StdIn pipe
 	pipeName = StrFormat(L"\\\\.\\pipe\\PAExecIn%s%u", caller, pid);
 	settings.hStdIn = CreateNamedPipe(pipeName,
-		PIPE_ACCESS_INBOUND, 
-		gPIPE_TYPE, 
+		PIPE_ACCESS_INBOUND,
+		gPIPE_TYPE,
 		PIPE_UNLIMITED_INSTANCES,
 		0,
 		0,
@@ -114,14 +114,14 @@ UINT WINAPI ListenRemoteOutPipeThread(void* p)
 	HANDLE hOutput = GetStdHandle( STD_OUTPUT_HANDLE );
 	char szBuffer[SIZEOF_BUFFER] = {0};
 	DWORD dwRead = 0;
-	
+
 	HANDLE hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
 
 	while(false == gbStop)
-	{ 
+	{
 		OVERLAPPED olR = {0};
 		olR.hEvent = hEvent;
-		if (!ReadFile( pLP->pSettings->hStdOut, szBuffer, SIZEOF_BUFFER - 1, &dwRead, &olR) || (dwRead == 0)) 
+		if (!ReadFile( pLP->pSettings->hStdOut, szBuffer, SIZEOF_BUFFER - 1, &dwRead, &olR) || (dwRead == 0))
 		{
 			DWORD dwErr = GetLastError();
 			if ( dwErr == ERROR_NO_DATA)
@@ -150,7 +150,7 @@ UINT WINAPI ListenRemoteOutPipeThread(void* p)
 
 				if ( GetConsoleScreenBufferInfo( hOutput, &sbi ) )
 				{
-					FillConsoleOutputCharacter( 
+					FillConsoleOutputCharacter(
 						hOutput,
 						_T(' '),
 						sbi.dwSize.X * sbi.dwSize.Y,
@@ -188,10 +188,10 @@ UINT WINAPI ListenRemoteOutPipeThread(void* p)
 		if(false == bSuppress)
 		{
 			// Send it to our stdout
-			fprintf(stdout, "%s", szBuffer); 
-			fflush(stdout); 
+			fprintf(stdout, "%s", szBuffer);
+			fflush(stdout);
 		}
-	} 
+	}
 
 	CloseHandle(hEvent);
 
@@ -213,10 +213,10 @@ UINT WINAPI ListenRemoteErrorPipeThread(void* p)
 	HANDLE hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
 
 	while(false == gbStop)
-	{ 
+	{
 		OVERLAPPED olR = {0};
 		olR.hEvent = hEvent;
-		if(!ReadFile( pLP->pSettings->hStdErr, szBuffer, SIZEOF_BUFFER - 1, &dwRead, &olR) || (dwRead == 0)) 
+		if(!ReadFile( pLP->pSettings->hStdErr, szBuffer, SIZEOF_BUFFER - 1, &dwRead, &olR) || (dwRead == 0))
 		{
 			DWORD dwErr = GetLastError();
 			if ( dwErr == ERROR_NO_DATA)
@@ -237,10 +237,10 @@ UINT WINAPI ListenRemoteErrorPipeThread(void* p)
 		szBuffer[ dwRead / sizeof(szBuffer[0]) ] = _T('\0');
 
 		// Write it to our stderr
-		fprintf(stderr, "%s", szBuffer); 
+		fprintf(stderr, "%s", szBuffer);
 		fflush(stderr);
-	} 
-	
+	}
+
 	CloseHandle(hEvent);
 
 	InterlockedDecrement(&pLP->workerThreads);
@@ -271,12 +271,12 @@ UINT WINAPI ListenRemoteStdInputPipeThread(void* p)
 
 	bool bWaitForKeyPress = true;
 	//detect if input redirected from file (in which case we don't want to wait for keyboard hits)
-	
+
 	//DWORD inputSize = GetFileSize(hInput, NULL);
 	//if(INVALID_FILE_SIZE != inputSize)
 	//	bWaitForKeyPress = false;
 	DWORD fileType = GetFileType(hInput);
-	if (FILE_TYPE_CHAR != fileType) 
+	if (FILE_TYPE_CHAR != fileType)
 		bWaitForKeyPress = false;
 
 	while(false == gbStop)
@@ -299,7 +299,7 @@ UINT WINAPI ListenRemoteStdInputPipeThread(void* p)
 
 		nBytesRead = 0;
 
-		if (FILE_TYPE_PIPE == fileType) 
+		if (FILE_TYPE_PIPE == fileType)
 		{
 			OVERLAPPED olR = { 0 };
 			olR.hEvent = hReadEvt;
@@ -322,7 +322,7 @@ UINT WINAPI ListenRemoteStdInputPipeThread(void* p)
 			_ASSERT(ret == WAIT_OBJECT_0 + 1); //data in buffer now
 			GetOverlappedResult(hInput, &olR, &nBytesRead, FALSE);
 		}
-		else 
+		else
 		{
 			//if ( !ReadConsole( hInput, szInputBuffer, SIZEOF_BUFFER, &nBytesRead, NULL ) ) -- returns UNICODE which is not what we want
 			if (!ReadFile(hInput, szInputBuffer, SIZEOF_BUFFER - 1, &nBytesRead, NULL))
@@ -357,7 +357,7 @@ UINT WINAPI ListenRemoteStdInputPipeThread(void* p)
 
 		if(gbStop)
 			break;
-		 
+
 		HANDLE waits[2];
 		waits[0] = pLP->hStop;
 		waits[1] = olW.hEvent;
@@ -367,8 +367,8 @@ UINT WINAPI ListenRemoteStdInputPipeThread(void* p)
 		_ASSERT(ret == WAIT_OBJECT_0 + 1); //write finished
 
 		FlushFileBuffers(pLP->pSettings->hStdIn);
-	} 
-	
+	}
+
 	CloseHandle(hWritePipe);
 	CloseHandle(hReadEvt);
 
@@ -404,13 +404,13 @@ BOOL ConnectToRemotePipes(ListenParam* pLP, DWORD dwRetryCount, DWORD dwRetryTim
 		if ( BAD_HANDLE(pLP->pSettings->hStdOut) )
 			if (WaitNamedPipe(remoteOutPipeName, NULL))
 			{
-				pLP->pSettings->hStdOut = CreateFile( 
+				pLP->pSettings->hStdOut = CreateFile(
 										remoteOutPipeName,
-										GENERIC_READ, 
+										GENERIC_READ,
 										0,
-										&SecAttrib, 
-										OPEN_EXISTING, 
-										FILE_ATTRIBUTE_NORMAL, 
+										&SecAttrib,
+										OPEN_EXISTING,
+										FILE_ATTRIBUTE_NORMAL,
 										NULL );
 				gle = GetLastError();
 			}
@@ -419,25 +419,25 @@ BOOL ConnectToRemotePipes(ListenParam* pLP, DWORD dwRetryCount, DWORD dwRetryTim
 		// Connects to Error pipe
 		if(BAD_HANDLE(pLP->pSettings->hStdErr) )
 			if ( WaitNamedPipe(remoteErrPipeName, NULL ) )
-				pLP->pSettings->hStdErr = CreateFile( 
+				pLP->pSettings->hStdErr = CreateFile(
 										remoteErrPipeName,
-										GENERIC_READ, 
+										GENERIC_READ,
 										0,
-										&SecAttrib, 
-										OPEN_EXISTING, 
-										FILE_ATTRIBUTE_NORMAL, 
+										&SecAttrib,
+										OPEN_EXISTING,
+										FILE_ATTRIBUTE_NORMAL,
 										NULL );
 
 		// Connects to StdIn pipe
 		if(BAD_HANDLE(pLP->pSettings->hStdIn))
 			if(WaitNamedPipe(remoteInPipeName, NULL ) )
-				pLP->pSettings->hStdIn = CreateFile( 
+				pLP->pSettings->hStdIn = CreateFile(
 										remoteInPipeName,
-										GENERIC_WRITE, 
+										GENERIC_WRITE,
 										0,
-										&SecAttrib, 
-										OPEN_EXISTING, 
-										FILE_ATTRIBUTE_NORMAL, 
+										&SecAttrib,
+										OPEN_EXISTING,
+										FILE_ATTRIBUTE_NORMAL,
 										NULL );
 
 		if(	!BAD_HANDLE(pLP->pSettings->hStdErr) &&
@@ -451,12 +451,12 @@ BOOL ConnectToRemotePipes(ListenParam* pLP, DWORD dwRetryCount, DWORD dwRetryTim
 
 	if (BAD_HANDLE(pLP->pSettings->hStdErr) ||
 		BAD_HANDLE(pLP->pSettings->hStdIn) ||
-		BAD_HANDLE(pLP->pSettings->hStdOut) || 
+		BAD_HANDLE(pLP->pSettings->hStdOut) ||
 		(WAIT_OBJECT_0 == WaitForSingleObject(pLP->hStop, 0)) ||
 		gbStop)
 	{
 		if((gbStop) || (WAIT_OBJECT_0 == WaitForSingleObject(pLP->hStop, 0)))
-			return false; 
+			return false;
 
 		CloseHandle(pLP->pSettings->hStdErr);
 		CloseHandle(pLP->pSettings->hStdIn);

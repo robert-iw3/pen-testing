@@ -50,7 +50,7 @@ const PatternInfo AMSI_PATTERNS[] = {
     // err handling
     { "AMSI_SUCCESS_CHECK", { 0x85, 0xC0, 0x79 }, { 0x85, 0xC0, 0xEB }, 3 },                   // test eax, eax; jns -> test eax, eax; jmp
 
-    // special patterns to force clean results 
+    // special patterns to force clean results
     { "AMSI_CMP_PATCH", { 0x0F, 0x84, 0x00, 0x00 }, { 0x90, 0xE9, 0x00, 0x00 }, 4 }           // je -> nop; jmp
 };
 

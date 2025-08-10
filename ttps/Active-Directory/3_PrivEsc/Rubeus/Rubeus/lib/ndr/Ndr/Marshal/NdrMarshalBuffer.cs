@@ -748,7 +748,7 @@ namespace Rubeus.Ndr.Marshal
             WriteInt32(var_int);
             WriteFixedPrimitiveArray<T>(array, var_int);
         }
-    
+
         public void WriteVaryingStructArray<T>(T[] array, long variance) where T : struct, INdrStructure
         {
             using (var queue = _deferred_writes.Push())

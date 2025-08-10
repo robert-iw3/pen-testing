@@ -4,7 +4,7 @@ The OUned project, an exploitation tool automating Organizational Units ACLs abu
 
 # Configuration file
 
-OUned arguments are provided through a configuration file - an example file is provided in the repository, `config.example.ini`. 
+OUned arguments are provided through a configuration file - an example file is provided in the repository, `config.example.ini`.
 
 Each entry is described by a comment, but for detailed configuration instruction, please refer to the article mentioned in the introduction above.
 ```ini
@@ -36,7 +36,7 @@ ldap_ip=192.168.125.245
 # Optional (used for sanity checks) - the hostname of the dummy domain controller
 ldap_hostname=WIN-TTEBC5VH747
 
-# The username and password of a domain administrator on the dummy domain controller 
+# The username and password of a domain administrator on the dummy domain controller
 ldap_username=ldapadm
 ldap_password=Password1!
 
@@ -70,9 +70,9 @@ smb_machine_password=some_very_long_random_password_with_percent_signs_escaped
 
 # OUned usage
 
-The only mandatory argument when running OUned is the `--config` flag indicating the path to the configuration file. 
+The only mandatory argument when running OUned is the `--config` flag indicating the path to the configuration file.
 
-The `--just-coerce` and `coerce-to` flags are used for SMB authentication coercion mode, in which OUned will force SMB authentication from 
+The `--just-coerce` and `coerce-to` flags are used for SMB authentication coercion mode, in which OUned will force SMB authentication from
 OU child objects to the specified destination - for more details, see the article linked in the introduction.
 
 Regarding the `--just-clean` flag, see the next section.
@@ -83,9 +83,9 @@ podman build -t ouned .
 podman run -it --name ouned ouned
 
 python3 ./OUned.py --help
-                                                                                                                                                                                    
- Usage: python3 ./OUned.py [OPTIONS]                                                                                                                                                          
-                                                                                                                                                                                    
+
+ Usage: python3 ./OUned.py [OPTIONS]
+
 ╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ *  --config               TEXT  The configuration file for OUned [default: None] [required]                                                                                      │
 │    --skip-checks                Do not perform the various checks related to the exploitation setup                                                                              │

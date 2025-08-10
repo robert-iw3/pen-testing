@@ -43,7 +43,7 @@ WORD SortSSN(LPVOID ntapiaddr)
 		return SystemCall;
 	}
 
-	// if (*((PBYTE)ntapiaddr) == 0xe9)	
+	// if (*((PBYTE)ntapiaddr) == 0xe9)
 
 	// If Hooked: jmp <instructions>
 	// opcode: \xe9...
@@ -51,13 +51,13 @@ WORD SortSSN(LPVOID ntapiaddr)
 	// Why So Many Checking of Jumps???
 	//
 	// 1. Hell's Gate or Modified Hells Gate, Halos Gate: Only Checks if first instruction is a JMP
-	// 
+	//
 	// 2. Modified Halos Gate, TartarusGate: Only Checks if first or third instruction is a JMP
-	// 
+	//
 	// 3. These Combination is again Modified from TartarusGate: Checks if first, third, eighth, tenth, twelveth instruction is a JMP
-	// 
-	// => More EDR bypass -> More EDR, More Diverse ways of hooking APIs 
-	// 
+	//
+	// => More EDR bypass -> More EDR, More Diverse ways of hooking APIs
+	//
 	if (*((PBYTE)ntapiaddr) == 0xe9 || *((PBYTE)ntapiaddr + 3) == 0xe9 || *((PBYTE)ntapiaddr + 8) == 0xe9 ||
 		*((PBYTE)ntapiaddr + 10) == 0xe9 || *((PBYTE)ntapiaddr + 12) == 0xe9)
 	{
@@ -119,7 +119,7 @@ DWORD64 GetsyscallInstr(LPVOID ntapiaddr)
 		return (INT_PTR)ntapiaddr + 0x12;    // Syscall
 	}
 
-	// if (*((PBYTE)ntapiaddr) == 0xe9)	
+	// if (*((PBYTE)ntapiaddr) == 0xe9)
 
 	// If Hooked: jmp <instructions>
 	// opcode: \xe9...
@@ -127,13 +127,13 @@ DWORD64 GetsyscallInstr(LPVOID ntapiaddr)
 	// Why So Many Checking of Jumps???
 	//
 	// 1. Hell's Gate or Modified Hells Gate, Halos Gate: Only Checks if first instruction is a JMP
-	// 
+	//
 	// 2. Modified Halos Gate, TartarusGate: Only Checks if first or third instruction is a JMP
-	// 
+	//
 	// 3. These Combination is again Modified from TartarusGate: Checks if first, third, eighth, tenth, twelveth instruction is a JMP
-	// 
-	// => More EDR bypass -> More EDR, More Diverse ways of hooking APIs 
-	// 
+	//
+	// => More EDR bypass -> More EDR, More Diverse ways of hooking APIs
+	//
 	if (*((PBYTE)ntapiaddr) == 0xe9 || *((PBYTE)ntapiaddr + 3) == 0xe9 || *((PBYTE)ntapiaddr + 8) == 0xe9 ||
 		*((PBYTE)ntapiaddr + 10) == 0xe9 || *((PBYTE)ntapiaddr + 12) == 0xe9)
 	{

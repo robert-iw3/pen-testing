@@ -31,12 +31,12 @@ internal class NtKeyContainer : NtObjectContainer
         return NtKey.Open(obja, desired_access, _open_for_backup ? KeyCreateOptions.BackupRestore : KeyCreateOptions.NonVolatile, throw_on_error);
     }
 
-    public NtKeyContainer() 
+    public NtKeyContainer()
         : this(NtKey.Open(@"\REGISTRY", null, KeyAccessRights.MaximumAllowed), false)
     {
     }
 
-    public NtKeyContainer(NtKey key, bool open_for_backup) 
+    public NtKeyContainer(NtKey key, bool open_for_backup)
         : base(key)
     {
         _key = key;

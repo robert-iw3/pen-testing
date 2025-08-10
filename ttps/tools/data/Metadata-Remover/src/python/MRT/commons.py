@@ -1,4 +1,4 @@
-""" 
+"""
 This is the common library developed to satisfy the needs of the main program.
 It contains the necessary standard libraries and other basic functions.
 """
@@ -23,11 +23,11 @@ _GPG_CMD: str
 # Sets up the global constants about the platform
 def setup():
     """
-    Sets up a bunch on constants depending on the platform. This is supposed to make the 
+    Sets up a bunch on constants depending on the platform. This is supposed to make the
         program have less 'if os.name == whatever' statements and also to concentrate all
-        hard-to-read elements into a single place. 
+        hard-to-read elements into a single place.
 
-        If you feel it negatively impacts on the readability and adds nothing 
+        If you feel it negatively impacts on the readability and adds nothing
         of value, hit me up on github
         and we'll discuss this."""
     global _PLAT
@@ -83,7 +83,7 @@ def cls():
 
 
 def get_website(cmd, web, snam, pkg):
-    """Prints the missing package's website so the user can 
+    """Prints the missing package's website so the user can
     download the tool."""
     if os.system(cmd + "> chk.mtd") != 0:
         cls()

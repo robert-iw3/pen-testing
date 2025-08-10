@@ -1,13 +1,13 @@
 ###############################################################################
-#                          SKINNY GUERRILLA C2 SERVER                          
-#     _____ _    _                      _____                      _ _ _       
-#    / ____| |  (_)                    / ____|                    (_) | |      
-#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _ 
+#                          SKINNY GUERRILLA C2 SERVER
+#     _____ _    _                      _____                      _ _ _
+#    / ____| |  (_)                    / ____|                    (_) | |
+#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _
 #    \___ \| |/ / | '_ \| '_ \| | | | | | |_ | | | |/ _ \ '__| '__| | | |/ _` |
 #    ____) |   <| | | | | | | | |_| | | |__| | |_| |  __/ |  | |  | | | | (_| |
 #   |_____/|_|\_\_|_| |_|_| |_|\__, |  \_____|\__,_|\___|_|  |_|  |_|_|_|\__,_|
-#                               __/ |                                          
-#                              |___/                                           
+#                               __/ |
+#                              |___/
 #
 # sql_db.py
 # several helper functions for interacting with the sqlite database
@@ -178,7 +178,7 @@ def get_finished_tasks():
 
 # function to get all tasks, regardless of status
 def get_all_tasks():
-    
+
     mydb = sqlite3.connect("SGCC.db")
     mycursor = mydb.cursor()
 

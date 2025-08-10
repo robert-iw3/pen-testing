@@ -38,8 +38,8 @@ public class FwObjectAccessCheckResult : CommonAccessCheckResult
     /// </summary>
     public string KeyName { get; }
 
-    internal FwObjectAccessCheckResult(string name, string description, Guid key, string key_name, FwObjectType fw_type, AccessMask granted_access, 
-        GenericMapping generic_mapping, SecurityDescriptor sd, bool is_directory, TokenInformation token_info) 
+    internal FwObjectAccessCheckResult(string name, string description, Guid key, string key_name, FwObjectType fw_type, AccessMask granted_access,
+        GenericMapping generic_mapping, SecurityDescriptor sd, bool is_directory, TokenInformation token_info)
         : base(name, fw_type.ToString(), granted_access, generic_mapping, sd, typeof(FirewallAccessRights), is_directory, token_info)
     {
         Description = description;

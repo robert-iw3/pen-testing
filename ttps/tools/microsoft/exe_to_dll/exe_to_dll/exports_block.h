@@ -41,7 +41,7 @@ public:
 
         exp->Name -= reloc_base;
         exp->Name += table_rva;
-        
+
         this->reloc_base = table_rva;
         return true;
     }

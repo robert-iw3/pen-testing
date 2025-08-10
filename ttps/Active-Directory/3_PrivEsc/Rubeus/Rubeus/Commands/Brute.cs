@@ -235,7 +235,7 @@ namespace Rubeus.Commands
                 {
                     throw new BruteArgumentException("[X] Credentials supplied for '" + userDomain + "' are invalid!");
                 }
-                
+
                 directoryObject.Username = userDomain;
                 directoryObject.Password = this.credPassword;
 
@@ -328,7 +328,7 @@ namespace Rubeus.Commands
 
     }
 
-    
+
     public class BruteforceConsoleReporter : IBruteforcerReporter
     {
 
@@ -381,7 +381,7 @@ namespace Rubeus.Commands
 
         public void ReportKrbError(string domain, string username, KRB_ERROR krbError)
         {
-            Console.WriteLine("\r\n[X] {0} KRB-ERROR ({1}) : {2}\r\n", username, 
+            Console.WriteLine("\r\n[X] {0} KRB-ERROR ({1}) : {2}\r\n", username,
                     krbError.error_code, (Interop.KERBEROS_ERROR)krbError.error_code);
         }
 

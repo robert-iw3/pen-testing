@@ -88,7 +88,7 @@ class PcapFile:
     def createHeaderOnce(self):
         if self.hdr is None:
            self.hdr = PCapFileHeader()
-    
+
     def writeHeaderOnce(self):
         if not self.wroteHeader:
            self.wroteHeader = True

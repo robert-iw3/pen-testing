@@ -34,7 +34,7 @@ class ServiceInstall:
             self.__binary_service_name = ''.join([random.choice(string.ascii_letters) for i in range(8)]) + '.exe'
         else:
             self.__binary_service_name = binary_service_name
-            
+
         self.__exeFile = exeFile
 
         # We might receive two different types of objects, always end up

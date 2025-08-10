@@ -4,13 +4,13 @@
 
 ---
 
-## 🚫 Disclaimer  
-This repository is provided for **educational purposes only** and intended for **authorized security research**.  
+## 🚫 Disclaimer
+This repository is provided for **educational purposes only** and intended for **authorized security research**.
 Use of these materials in unauthorized or illegal activities is **strictly prohibited**.
 
 ---
 
-## Description  
+## Description
 
 This project implements a multi-component self-propagating worm, consisting of:
 
@@ -112,24 +112,24 @@ The server component receives beacons from Go agents in JSON format, generates u
 
 
 # Packer
-packer_loader.exe is a self-extracting executable with a built in virtual machine.  
-It XOR encrypts any binary payload and bundles it with a loader into a single EXE.  
+packer_loader.exe is a self-extracting executable with a built in virtual machine.
+It XOR encrypts any binary payload and bundles it with a loader into a single EXE.
 When run the packed EXE, it automatically decrypts the payload and executes it in the VM.
 
 ## Features
 
-- Pack any binary into a self extracting EXE.  
-- XOR encryption of the payload at pack time and automatic decryption at run time.  
+- Pack any binary into a self extracting EXE.
+- XOR encryption of the payload at pack time and automatic decryption at run time.
 - Built in VM for a simple stack based bytecode:
-  - PUSH, ADD, SUB, MUL, DIV, PRINT, HALT  
+  - PUSH, ADD, SUB, MUL, DIV, PRINT, HALT
 - No external dependencies all code is contained in the EXE.
 
 ## Build on Windows / MinGW
 
 1. Place these files in one folder:
-   - vm.h, vm.c  
-   - packer_loader.c 
-   - Makefile  
+   - vm.h, vm.c
+   - packer_loader.c
+   - Makefile
 
 2. Open an MSYS2/MinGW shell and run:
    ```
@@ -164,7 +164,7 @@ When run the packed EXE, it automatically decrypts the payload and executes it i
 ## Working
 
 ```
-Build: 
+Build:
 make
 
 Pack:

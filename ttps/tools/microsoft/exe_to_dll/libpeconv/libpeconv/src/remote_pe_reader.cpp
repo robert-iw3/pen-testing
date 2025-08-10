@@ -265,10 +265,10 @@ bool peconv::read_remote_pe_header(HANDLE processHandle, LPVOID start_addr, OUT 
     const size_t min_size = nt_offset + nt_size;
 
     if (read_size < min_size) {
-        std::cerr << "[-] [" << std::dec << get_process_id(processHandle) 
-            << " ][" << std::hex << (ULONGLONG) start_addr 
-            << "] Read size: " << std::hex << read_size 
-            << " is smaller that the minimal size:" << get_hdrs_size(buffer) 
+        std::cerr << "[-] [" << std::dec << get_process_id(processHandle)
+            << " ][" << std::hex << (ULONGLONG) start_addr
+            << "] Read size: " << std::hex << read_size
+            << " is smaller that the minimal size:" << get_hdrs_size(buffer)
             << std::endl;
         return false;
     }
@@ -387,9 +387,9 @@ DWORD peconv::get_remote_image_size(IN const HANDLE processHandle, IN LPVOID sta
 
 bool peconv::dump_remote_pe(
     IN LPCTSTR out_path,
-    IN const HANDLE processHandle, 
+    IN const HANDLE processHandle,
     IN LPVOID start_addr,
-    IN OUT t_pe_dump_mode &dump_mode, 
+    IN OUT t_pe_dump_mode &dump_mode,
     IN OPTIONAL peconv::ExportsMapper* exportsMap)
 {
     DWORD mod_size = get_remote_image_size(processHandle, start_addr);

@@ -16,16 +16,16 @@ unsigned char *static_from_file(char *arg1, int *data_size) {
     #ifdef STATIC_PAYLOAD
     if(strcmp(arg1, "static_payload") == 0) {
         DEBUG_PRINT("Statically retrieving data from array buf[] in included file...\n");
-        *data_size = sizeof(buf) - 1;	
+        *data_size = sizeof(buf) - 1;
         return buf;
     }
     #endif
     // Deliver address and size of array key[] if key is requested
     // If the key is retrieved statically, the define is set by the build script to notify this function that array key[] is declared and known to the compiler.
-    #ifdef STATIC_KEY     
+    #ifdef STATIC_KEY
     if(strcmp(arg1, "static_key") == 0) {
         DEBUG_PRINT("Statically retrieving data from array key[] in included file...\n");
-        *data_size = sizeof(key) - 1;	
+        *data_size = sizeof(key) - 1;
         return key;
     }
     #endif
@@ -36,14 +36,14 @@ unsigned char *static_from_file(char *arg1, int *data_size) {
         DEBUG_PRINT("Statically retrieving data from array payload_info[] in included file...\n");
         *data_size = sizeof(payload_info) - 1;
         return payload_info;
-    }   
+    }
     #endif
     // Deliver address and size of array command[] if command is requested
     // If command is retrieved statically, the define is set by the build script to notify this function that array command[] is declared and known to the compiler.
     #ifdef STATIC_COMMAND
     if(strcmp(arg1, "static_command") == 0) {
         DEBUG_PRINT("Statically retrieving data from array command[] in included file...\n");
-        *data_size = sizeof(command) - 1;	
+        *data_size = sizeof(command) - 1;
         return command;
     }
     #endif

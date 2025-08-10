@@ -16,7 +16,7 @@ int UpdatePriv(LPCTSTR lpszPrivilege)
 
     if (!LookupPrivilegeValue(
         NULL,            // lookup privilege on local system
-        lpszPrivilege,   // privilege to lookup 
+        lpszPrivilege,   // privilege to lookup
         &luid))        // receives LUID of privilege
     {
         printf("\n[!] LookupPrivilegeValue error: (%u)\n", GetLastError());

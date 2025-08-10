@@ -23,21 +23,21 @@ protected:
 
 //here we don't want to use any functions imported form extenal modules
 
-typedef struct _LDR_MODULE { 
-    LIST_ENTRY  InLoadOrderModuleList;//   +0x00 
-    LIST_ENTRY  InMemoryOrderModuleList;// +0x08   
-    LIST_ENTRY  InInitializationOrderModuleList;// +0x10 
-    void*   BaseAddress; // +0x18 
-    void*   EntryPoint;  // +0x1c 
-    ULONG   SizeOfImage; 
-    UNICODE_STRING FullDllName; 
-    UNICODE_STRING BaseDllName; 
-    ULONG   Flags; 
-    SHORT   LoadCount; 
-    SHORT   TlsIndex; 
-    HANDLE  SectionHandle; 
-    ULONG   CheckSum; 
-    ULONG   TimeDateStamp; 
+typedef struct _LDR_MODULE {
+    LIST_ENTRY  InLoadOrderModuleList;//   +0x00
+    LIST_ENTRY  InMemoryOrderModuleList;// +0x08
+    LIST_ENTRY  InInitializationOrderModuleList;// +0x10
+    void*   BaseAddress; // +0x18
+    void*   EntryPoint;  // +0x1c
+    ULONG   SizeOfImage;
+    UNICODE_STRING FullDllName;
+    UNICODE_STRING BaseDllName;
+    ULONG   Flags;
+    SHORT   LoadCount;
+    SHORT   TlsIndex;
+    HANDLE  SectionHandle;
+    ULONG   CheckSum;
+    ULONG   TimeDateStamp;
 } LDR_MODULE, *PLDR_MODULE;
 
 inline PPEB get_peb()

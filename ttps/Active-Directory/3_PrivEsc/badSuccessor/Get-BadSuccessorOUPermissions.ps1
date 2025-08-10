@@ -7,7 +7,7 @@ function Get-BadSuccessorOUPermissions {
         Scans all Organizational Units (OUs) for Access Control Entries (ACEs) granting permissions that could allow creation of a delegated Managed Service Account (dMSA),
         enabling a potential BadSuccessor privilege escalation attack.
 
-        Built-in privileged identities (e.g., Domain Admins, Administrators, SYSTEM, Enterprise Admins) are excluded from results. 
+        Built-in privileged identities (e.g., Domain Admins, Administrators, SYSTEM, Enterprise Admins) are excluded from results.
         This script does not evaluate DENY ACEs and therefore, some false positives may occur.
 
         Note: We do not expand group membership and the permissions list used may not be exhaustive. Indirect rights such as WriteDACL on the OU are considered.
@@ -37,7 +37,7 @@ function Get-BadSuccessorOUPermissions {
             $SidCache[$IdentityReference] = $false
             return $false
         }
-        
+
         # Check excluded SID list and Enterprise Admins (RID 519)
         if (($sid -and ($excludedSids -contains $sid -or $sid.EndsWith("-519")))) {
             return $true
@@ -47,13 +47,13 @@ function Get-BadSuccessorOUPermissions {
         $SidCache[$IdentityReference] = $isExcluded   # remember result
         return $isExcluded
     }
-    
+
     $domainSID = (Get-ADDomain).DomainSID.Value
     $excludedSids = @(
         "$domainSID-512",       # Domain Admins
         "S-1-5-32-544",         # Builtin Administrators
         "S-1-5-18"              # Local SYSTEM
-    )    
+    )
 
     # Setup the specific rights we look for, and on which kind of objects - add more attributes' guids as needed
     $relevantObjectTypes = @{"00000000-0000-0000-0000-000000000000"="All Objects";
@@ -67,7 +67,7 @@ function Get-BadSuccessorOUPermissions {
 
     $allOUs = Get-ADOrganizationalUnit -Filter * -Properties ntSecurityDescriptor | Select-Object DistinguishedName, ntSecurityDescriptor
 
-    foreach ($ou in $allOUs) {     
+    foreach ($ou in $allOUs) {
         foreach ($ace in $ou.ntSecurityDescriptor.Access) {
             if ($ace.AccessControlType -ne "Allow") {
                 continue
@@ -77,11 +77,11 @@ function Get-BadSuccessorOUPermissions {
             }
             if (-not $relevantObjectTypes.ContainsKey($ace.ObjectType.Guid)) {
                 continue
-            }            
+            }
 
             $identity = $ace.IdentityReference.Value
-            if (Test-IsExcludedSID $identity) { 
-                continue 
+            if (Test-IsExcludedSID $identity) {
+                continue
             }
 
             if (-not $allowedIdentities.ContainsKey($identity)) {

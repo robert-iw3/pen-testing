@@ -21,7 +21,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Tests an access mask for empty or specific bits set.</para>
-/// <para type="description">This cmdlet tests if an access mask is empty or if one or all bits are set from a 
+/// <para type="description">This cmdlet tests if an access mask is empty or if one or all bits are set from a
 /// comparison access mask.</para>
 /// </summary>
 /// <example>

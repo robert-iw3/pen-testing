@@ -47,7 +47,7 @@ namespace Rubeus.Kerberos.PAC {
         public override byte[] Encode() {
             _Marshal_Helper mh = new _Marshal_Helper();
             mh.WriteReferent(s4u, new Action<_S4U_DELEGATION_INFO>(mh.WriteStruct));
-            return mh.ToPickledType().ToArray();           
-        }   
+            return mh.ToPickledType().ToArray();
+        }
     }
 }

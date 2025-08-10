@@ -56,7 +56,7 @@ logging.basicConfig(
 ################################################################
 
 def remove_metadata_from_zip(zip_path):
-    """ 
+    """
     Unzip -> Remove metadata from each entry -> Re-zip.
     (｡•̀ᴗ-)✧
     """
@@ -96,8 +96,8 @@ def remove_metadata_from_zip(zip_path):
 
 
 def remove_exif_jpeg(file_path):
-    """ 
-    Strip EXIF from JPEG without re-encoding 
+    """
+    Strip EXIF from JPEG without re-encoding
     ヾ(⌐■_■)ノ♪
     """
     try:
@@ -179,7 +179,7 @@ def remove_metadata_from_image(image_path):
 
 def remove_metadata_from_pdf(pdf_path):
     """
-    PDF: Read pages, rewrite them, omit doc info. 
+    PDF: Read pages, rewrite them, omit doc info.
     (／・ω・)／
     """
     try:
@@ -395,9 +395,9 @@ def remove_metadata_from_rtf(rtf_path):
 
 
 def remove_metadata_from_mp3(mp3_path):
-    """ 
+    """
     MP3: Delete ID3 tags with mutagen.
-    (＾▽＾) 
+    (＾▽＾)
     """
     try:
         logging.info(f"Processing MP3: {mp3_path}")
@@ -421,7 +421,7 @@ def remove_metadata_from_mp3(mp3_path):
 
 
 def remove_metadata_from_flac(flac_path):
-    """ 
+    """
     FLAC: Remove tags with mutagen.
     (｡•̀ᴗ-)✧
     """
@@ -468,8 +468,8 @@ def remove_metadata_from_xlsx(xlsx_path):
 ################################################################
 
 def remove_metadata(file_path):
-    """ 
-    Decide how to remove metadata based on file extension. 
+    """
+    Decide how to remove metadata based on file extension.
     (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
     """
     file_extension = os.path.splitext(file_path)[1].lower()
@@ -531,7 +531,7 @@ def remove_metadata(file_path):
 
 class MetadataRemovalApp:
     """
-    (づ｡◕‿‿◕｡)づ 
+    (づ｡◕‿‿◕｡)づ
     A Tkinter-based interface for removing metadata from multiple files.
     Parallel processing included for better performance.
     """
@@ -539,7 +539,7 @@ class MetadataRemovalApp:
     def __init__(self, master):
         """
         Initialize the main Tkinter window and UI elements.
-        Σ(＾∀＾) 
+        Σ(＾∀＾)
         """
         self.master = master
         self.master.title("Metadata Removal Tool - Production Ready & Cute!")
@@ -592,9 +592,9 @@ class MetadataRemovalApp:
         self.status_label.pack(fill=tk.X, pady=5)
 
     def select_files(self):
-        """ 
+        """
         Let user pick multiple files and display them in our listbox.
-        ٩(^ᴗ^)۶ 
+        ٩(^ᴗ^)۶
         """
         new_files = filedialog.askopenfilenames()
         if new_files:
@@ -603,8 +603,8 @@ class MetadataRemovalApp:
             self.status_label.config(text=f"{len(self.file_paths)} file(s) selected.")
 
     def clear_file_list(self):
-        """ 
-        Clear the list of files and the listbox. 
+        """
+        Clear the list of files and the listbox.
         (･ω･)つ⊂(･ω･)
         """
         self.file_paths.clear()
@@ -612,7 +612,7 @@ class MetadataRemovalApp:
         self.status_label.config(text="File list cleared.")
 
     def update_file_listbox(self):
-        """ 
+        """
         Refresh the listbox to show all selected file paths.
         (≧▽≦)
         """
@@ -622,7 +622,7 @@ class MetadataRemovalApp:
 
     def process_files(self):
         """
-        Remove metadata from each file in parallel. 
+        Remove metadata from each file in parallel.
         Update progress bar as we go.
         (ﾉ>ω<)ﾉ :｡･::･ﾟ’
         """
@@ -673,8 +673,8 @@ class MetadataRemovalApp:
 ################################################################
 
 def main():
-    """ 
-    Initiate the Tkinter loop. 
+    """
+    Initiate the Tkinter loop.
     ＼(￣▽￣)／
     """
     root = tk.Tk()

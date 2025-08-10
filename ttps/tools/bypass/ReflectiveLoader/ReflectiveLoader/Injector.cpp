@@ -26,7 +26,7 @@ BOOL ManualMap(HANDLE hProc, const char* szDllFile)
 		File.close();
 		return false;
 	}
-	
+
 	//ensure that our file has a valid size.
 	auto FileSize = File.tellg();
 	if (FileSize < 0x1000)
@@ -59,7 +59,7 @@ BOOL ManualMap(HANDLE hProc, const char* szDllFile)
 		delete[] pSrcData;
 		return false;
 	}
-	
+
 	//create pointers to the PE Optional Header, NtHeaders, and FileHeaders for mapping usage.
 	pOldNtHeader = reinterpret_cast<IMAGE_NT_HEADERS*>(pSrcData + reinterpret_cast<IMAGE_DOS_HEADER*>(pSrcData)->e_lfanew);
 	pOldOptHeader = &pOldNtHeader->OptionalHeader;
@@ -99,7 +99,7 @@ BOOL ManualMap(HANDLE hProc, const char* szDllFile)
 		return false;
 	}
 	printf("[*] Memory Allocation successful. Memory located at: [0x%p]\n", pTargetBase);
-	
+
 	//next we write the headers of our dll into the remote process.
 	printf("[*] Writing the Headers of our DLL into target process\n");
 	if (!WriteProcessMemory(hProc, pTargetBase, pSrcData, pOldOptHeader->SizeOfHeaders, nullptr))
@@ -110,7 +110,7 @@ BOOL ManualMap(HANDLE hProc, const char* szDllFile)
 
 	//write our sections into the remote process.
 	auto* pSectionHeader = IMAGE_FIRST_SECTION(pOldNtHeader);
-	
+
 	//for each section write it into the virtual address of our allocated memory in the remote process using the raw data from our dll file.
 	printf("[*] Attempting to write our sections into the remote process\n");
 	for (UINT i = 0; i != pOldFileHeader->NumberOfSections; i++, pSectionHeader++)
@@ -127,7 +127,7 @@ BOOL ManualMap(HANDLE hProc, const char* szDllFile)
 			}
 		}
 	}
-	
+
 	printf("[*] Sections written into memory.\n[*]Attempting to write our mapping data at end of image location: [0x%p]\n", pTargetBase + pOldOptHeader->SizeOfImage);
 	WriteProcessMemory(hProc, pTargetBase + pOldOptHeader->SizeOfImage, &mData, sizeof(mData), nullptr);
 
@@ -144,7 +144,7 @@ BOOL ManualMap(HANDLE hProc, const char* szDllFile)
 		free(pLoaderStub);
 		return false;
 	}
-	
+
 	printf("[*] Allocation successful. Loaderstub memory location: [0x%p]\n[*] Attempting to Write LoaderStub\n", pLoaderStub);
 	//write our loader stub into remote process' memory.
 	WriteProcessMemory(hProc, pLoaderStub, LoaderStub, 0x1000, nullptr);
@@ -210,7 +210,7 @@ void __stdcall LoaderStub(BYTE* imageBase)
 		{
 			return;
 		}
-		
+
 		//obtain a pointer to the relocation data. Using our mapped image + offset of relocation table's virtual address.
 		auto* pRelocData = reinterpret_cast<IMAGE_BASE_RELOCATION*>(pBase + pOpt->DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress);
 
@@ -251,7 +251,7 @@ void __stdcall LoaderStub(BYTE* imageBase)
 			//if the First thunk is null use the next one.
 			if (!pThunkRef)
 				pThunkRef = pFuncRef;
-			
+
 			//loop through each function.
 			for (; *pThunkRef; ++pThunkRef, ++pFuncRef)
 			{
@@ -281,7 +281,7 @@ void __stdcall LoaderStub(BYTE* imageBase)
 		auto* pCallBack = reinterpret_cast<PIMAGE_TLS_CALLBACK*>(pTLS->AddressOfCallBacks);
 		for (; pCallBack && *pCallBack; ++pCallBack)
 		{
-			(*pCallBack)(pBase, DLL_PROCESS_ATTACH, nullptr); 
+			(*pCallBack)(pBase, DLL_PROCESS_ATTACH, nullptr);
 		}
 	}
 

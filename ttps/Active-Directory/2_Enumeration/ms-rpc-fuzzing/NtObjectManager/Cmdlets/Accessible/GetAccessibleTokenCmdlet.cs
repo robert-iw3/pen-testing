@@ -101,8 +101,8 @@ public class TokenAccessCheckResult : CommonAccessCheckResult
     /// </summary>
     public Luid AuthenticationId => ProcessTokenInfo.AuthenticationId;
 
-    internal TokenAccessCheckResult(NtToken token, NtProcess process, AccessMask granted_access, SecurityDescriptor sd, 
-        TokenInformation token_info) 
+    internal TokenAccessCheckResult(NtToken token, NtProcess process, AccessMask granted_access, SecurityDescriptor sd,
+        TokenInformation token_info)
         : base($"{process.Name}:{process.ProcessId}", token.NtType.Name, granted_access, token.NtType.GenericMapping, sd,
             token.NtType.AccessRightsType, false, token_info)
     {
@@ -113,7 +113,7 @@ public class TokenAccessCheckResult : CommonAccessCheckResult
 /// <summary>
 /// <para type="synopsis">Get a list of tokens that can be opened by a specified token.</para>
 /// <para type="description">This cmdlet checks all processes for primary tokens tries to determine
-/// if one or more specified tokens can open them. If no tokens are specified then the 
+/// if one or more specified tokens can open them. If no tokens are specified then the
 /// current process token is used.</para>
 /// </summary>
 /// <remarks>For best results this command should be run as an administrator with SeDebugPrivilege, ideally as SYSTEM.</remarks>

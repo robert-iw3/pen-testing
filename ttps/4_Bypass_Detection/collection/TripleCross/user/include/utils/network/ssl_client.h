@@ -164,7 +164,7 @@ int client_run(char *hostname, uint16_t portnum) {
 					} else {
 						ERR_print_errors_fp(stderr);
 					}
-				}else if (strncmp(buf, CC_PROT_FIN, strlen(CC_PROT_FIN)) == 0) { 
+				}else if (strncmp(buf, CC_PROT_FIN, strlen(CC_PROT_FIN)) == 0) {
 					printf("Server requested to stop the connection\n");
 					connection_terminate = 1;
 				}else {

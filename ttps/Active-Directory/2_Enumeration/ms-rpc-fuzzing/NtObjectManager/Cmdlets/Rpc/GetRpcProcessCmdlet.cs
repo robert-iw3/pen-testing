@@ -53,12 +53,12 @@ public sealed class GetRpcProcessCmdlet : PSCmdlet
         public Dictionary<RpcSyntaxIdentifier, RpcServer> Servers { get; }
         public Dictionary<RpcStringBinding, SecurityDescriptor> BindingSecurity { get; }
 
-        private List<RpcServer> ParseModule(ProcessModule module, string dbghelp_path, 
+        private List<RpcServer> ParseModule(ProcessModule module, string dbghelp_path,
             string symbol_path, RpcServerParserFlags flags)
         {
             try
             {
-                return RpcServer.ParsePeFile(module.FileName, dbghelp_path, 
+                return RpcServer.ParsePeFile(module.FileName, dbghelp_path,
                     symbol_path, flags).ToList();
             }
             catch
@@ -131,7 +131,7 @@ public sealed class GetRpcProcessCmdlet : PSCmdlet
             var server_process = endpoint.GetServerProcess();
             if (!processes.ContainsKey(server_process.ProcessId))
             {
-                processes.Add(server_process.ProcessId, 
+                processes.Add(server_process.ProcessId,
                     new TempRpcProcess(server_process.ProcessId, server_process.ImagePath));
             }
             processes[server_process.ProcessId].Endpoints.Add(endpoint);
@@ -163,7 +163,7 @@ public sealed class GetRpcProcessCmdlet : PSCmdlet
             processes[alpc.ProcessId].Endpoints.AddRange(alpc.Endpoints);
             if (alpc.SecurityDescriptor != null)
             {
-                processes[alpc.ProcessId].BindingSecurity.Add(alpc.Endpoints.First().Binding, 
+                processes[alpc.ProcessId].BindingSecurity.Add(alpc.Endpoints.First().Binding,
                     alpc.SecurityDescriptor);
             }
         }

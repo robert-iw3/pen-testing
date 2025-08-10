@@ -191,7 +191,7 @@ class GetUserSPNs:
         # In short, we're interested in splitting the checksum and the rest of the encrypted data
         #
         # Regarding AES encryption type (AES128 CTS HMAC-SHA1 96 and AES256 CTS HMAC-SHA1 96)
-        # last 12 bytes of the encrypted ticket represent the checksum of the decrypted 
+        # last 12 bytes of the encrypted ticket represent the checksum of the decrypted
         # ticket
         if decodedTGS['ticket']['enc-part']['etype'] == constants.EncryptionTypes.rc4_hmac.value:
             entry = '$krb5tgs$%d$*%s$%s$%s*$%s$%s' % (
@@ -435,7 +435,7 @@ class GetUserSPNs:
             fd = open(self.__outputFileName, 'w+')
         else:
             fd = None
-            
+
         if self.__no_preauth:
             for username in usernames:
                 try:
@@ -459,7 +459,7 @@ class GetUserSPNs:
         else:
             # Get a TGT for the current user
             TGT = self.getTGT()
-            
+
             for username in usernames:
                 try:
                     principalName = Principal()

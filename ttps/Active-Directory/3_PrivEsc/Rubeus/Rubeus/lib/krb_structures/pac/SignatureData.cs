@@ -15,13 +15,13 @@ namespace Rubeus.Kerberos.PAC {
         {
             this.Type = type;
         }
-        
+
         public SignatureData(byte[] data, PacInfoBufferType type) : base(data, type) {
             Decode(data);
         }
 
         public override byte[] Encode() {
-            BinaryWriter bw = new BinaryWriter(new MemoryStream());            
+            BinaryWriter bw = new BinaryWriter(new MemoryStream());
             bw.Write((int)SignatureType);
             bw.Write(Signature);
             return ((MemoryStream)bw.BaseStream).ToArray();

@@ -98,7 +98,7 @@ class Credentials(CmdBase):
                 sql='select row_number() OVER (ORDER BY c.name) AS __line, c.name, p.password '
                     'from credentials as c '
                     'inner join passwords as p '
-                    'on c.password_id = p.password_id ' 
+                    'on c.password_id = p.password_id '
                     'where p.password <> "" and c.domain_id = ? '
                     'order by c.name ',
                 args=[r['domain_id']]

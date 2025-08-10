@@ -55,43 +55,43 @@ python parse_ntds.py -h
 
 ### Command-line Arguments
 
-- `-h, --help`  
+- `-h, --help`
   Show the help message and exit.
 
-- `-f NTDS_FILE, --file NTDS_FILE`  
+- `-f NTDS_FILE, --file NTDS_FILE`
   **Required**: Path to the `ntds.dit` file.
 
-- `-s SYSTEM_FILE, --system SYSTEM_FILE`  
+- `-s SYSTEM_FILE, --system SYSTEM_FILE`
   **Required**: Path to the `SYSTEM` hive file.
 
-- `-d DOMAIN, --domain DOMAIN`  
+- `-d DOMAIN, --domain DOMAIN`
   Domain name.
 
-- `-o OUTPUT_DIR, --output OUTPUT_DIR`  
+- `-o OUTPUT_DIR, --output OUTPUT_DIR`
   Output directory. Default is the current directory.
 
-- `-v, --verbose`  
+- `-v, --verbose`
   Increase output verbosity to DEBUG level.
 
-- `--dump-all`  
+- `--dump-all`
   Dump all data except ACL (default).
 
-- `--dump-users`  
+- `--dump-users`
   Dump user data.
 
-- `--dump-groups`  
+- `--dump-groups`
   Dump group data.
 
-- `--dump-trusts`  
+- `--dump-trusts`
   Dump trust data.
 
-- `--dump-domains`  
+- `--dump-domains`
   Dump domain data.
 
-- `--dump-ou`  
+- `--dump-ou`
   Dump OU/container data.
 
-- `--dump-acl`  
+- `--dump-acl`
   Dump ACL data (**required** -d option).
 
 ## Example

@@ -6,7 +6,7 @@
 //
 // CCob (@_EthicalChaos_) -     Updated slightly from original Kerberos.NET version to use BigInteger
 //                              from Mono library and not .NET, since System.Numerics is only available
-//                              since .NET 4.0+.  Also switched to raw byte arrays for .NET 2.0+ compatibility.   
+//                              since .NET 4.0+.  Also switched to raw byte arrays for .NET 2.0+ compatibility.
 //                              Mono's internal representation of data is in also in big endian format
 //                              so this class had to be updated to reflect that as .NET's BigInteger is little endian.
 //                              We are not particular bothered about security correctness of using ManagedDiffieHellman
@@ -150,7 +150,7 @@ namespace Kerberos.NET.Crypto {
         {
             int leadingZeros;
 
-            for(leadingZeros = 0; leadingZeros < data.Length; ++leadingZeros) {                
+            for(leadingZeros = 0; leadingZeros < data.Length; ++leadingZeros) {
                 if(!(data[leadingZeros] == 0 && data.Length > this.keyLength)) {
                     break;
                 }

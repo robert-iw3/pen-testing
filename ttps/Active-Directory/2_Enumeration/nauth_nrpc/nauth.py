@@ -42,7 +42,7 @@ def hNetrEnumerateTrustedDomainsEx(dce, serverName):
 def hDsrGetDcNameEx2(dce, computerName, accountName, allowableAccountControlBits, domainName, domainGuid, siteName,
                      flags):
     """
-    Rewrite helper fucntion for DsrGetDcNameEx2 call to prevent rasing exceptions by impacket 
+    Rewrite helper fucntion for DsrGetDcNameEx2 call to prevent rasing exceptions by impacket
     """
     request = DsrGetDcNameEx2()
     request['ComputerName'] = checkNullString(computerName)
@@ -127,7 +127,7 @@ class NAuthNRPC:
         output = {"DC Name": self.domain_info['DomainControllerName'][2:],
                   "DC IP": self.domain_info['DomainControllerAddress'][2:],
                   "Domain GUID": bin_to_string(self.domain_info['DomainGuid']),
-                  "Domain Name": self.domain_info['DomainName'], 
+                  "Domain Name": self.domain_info['DomainName'],
                   "Forest Name": self.domain_info['DnsForestName'],
                   "DC Site Name": self.domain_info['DcSiteName'],
                   "Client Site Name": self.domain_info['ClientSiteName']}
@@ -210,8 +210,8 @@ class NAuthNRPC:
 
     def domain_users_enumerator(self):
         """
-        Main function used for user enumeration. If we already have domain info, 
-        we pass it immediately to hDsrGetDcNameEx2 function. However, this function can also 
+        Main function used for user enumeration. If we already have domain info,
+        we pass it immediately to hDsrGetDcNameEx2 function. However, this function can also
         work with NULL values for almost all its parameters.
         """
         print("\n[*] User Accounts Enumeration\n" + "-" * 30)

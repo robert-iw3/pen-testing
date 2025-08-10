@@ -7,7 +7,7 @@ from pathlib import Path
 from colorama import Fore, Back, Style
 
 from src.project import Project
-    
+
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description="Automatically deploy a bloodhound instance and populate it with the SharpHound data")
@@ -25,7 +25,7 @@ if __name__=="__main__":
     parser_start.add_argument('-p', '--password', type=str, required=False, default="Chien2Sang<3", help="Custom password for the web interface (12 chars min. & all types of characters)")
     parser_start.add_argument('-t', '--timeout', type=int, required=False, default=180, help="The timeout delay while loading the container. Increase in case of low bandwidth (default: 180)")
     parser_start.add_argument('--no-gds', action="store_true", help="Create neo4j container without GDS plugin")
-    
+
     # Data
     parser_data = subparsers.add_parser('data', help="Feed data into the existing project")
     parser_data.add_argument('project', type=str, help="The project name")
@@ -70,7 +70,7 @@ if __name__=="__main__":
             print(Fore.YELLOW + f"   * password: {project.password}" + Style.RESET_ALL)
             print(Fore.YELLOW + f"   * GDS plugin: {'False' if project.no_gds else 'True'}" + Style.RESET_ALL)
             c += 1
-        
+
 
     elif args.subparser == "start":
         project = Project(name = args.project,
@@ -92,7 +92,7 @@ if __name__=="__main__":
             exit(1)
         jsons = project.extractZip(args.zip)
         project.uploadJSON(jsons)
-    
+
     elif args.subparser == "clear":
         try:
             with open(PROJECT_DIR / args.project / "project.pkl", "rb") as pkl_file:

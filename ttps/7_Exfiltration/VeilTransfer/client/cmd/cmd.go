@@ -13,11 +13,11 @@ import (
 
 func Main() {
     fmt.Println(`
- _____     _ _ _____                 ___         
-|  |  |___|_| |_   _|___ ___ ___ ___|  _|___ ___ 
+ _____     _ _ _____                 ___
+|  |  |___|_| |_   _|___ ___ ___ ___|  _|___ ___
 |  |  | -_| | | | | |  _| .'|   |_ -|  _| -_|  _|
- \___/|___|_|_| |_| |_| |__,|_|_|___|_| |___|_|  
-             v2.0 | by @infosecn1nja                              
+ \___/|___|_|_| |_| |_| |__,|_|_|___|_| |___|_|
+             v2.0 | by @infosecn1nja
     `)
     if len(os.Args) < 2 {
         fmt.Println("You must specify a command: transfer, generate-fake or create-zip")

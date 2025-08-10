@@ -124,7 +124,7 @@ SQL);
             ':cmd_id' => $commandId,
         ]);
     }
-    
+
     public function clearExecuted(string $uuid): void
     {
         $stmt = $this->pdo->prepare('DELETE FROM executed_commands WHERE host_uuid = :uuid');

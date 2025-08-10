@@ -516,7 +516,7 @@ def main():
                 auth_nt_hash = "31d6cfe0d16ae931b73c59d7e0c089c0"
             if auth_lm_hash == "":
                 auth_lm_hash = "aad3b435b51404eeaad3b435b51404ee"
-        
+
         use_kerb = args.use_kerberos
         if args.auth_aes_key is not None:
             use_kerb = True

@@ -30,7 +30,7 @@ size_t find_addresses_to_fill(FIELD_T call_via, FIELD_T thunk_addr, LPVOID modul
             //nothing to fill, probably the last record
             break;
         }
-       
+
         ULONGLONG searchedAddr = ULONGLONG(*call_via_val);
         if (exportsMap.find_export_by_va(searchedAddr) != nullptr) {
             addresses.insert(searchedAddr);
@@ -138,7 +138,7 @@ bool ImportedDllCoverage::findCoveringDll()
     return true;
 }
 
-size_t map_addresses_to_functions(std::set<ULONGLONG> &addresses, 
+size_t map_addresses_to_functions(std::set<ULONGLONG> &addresses,
     IN const std::string &chosenDll,
     IN const peconv::ExportsMapper& exportsMap,
     OUT std::map<ULONGLONG, std::set<ExportedFunc>> &addr_to_func,
@@ -160,8 +160,8 @@ size_t map_addresses_to_functions(std::set<ULONGLONG> &addresses,
             continue;
         }
 
-        for (std::set<ExportedFunc>::iterator strItr = exports_for_va->begin(); 
-            strItr != exports_for_va->end(); 
+        for (std::set<ExportedFunc>::iterator strItr = exports_for_va->begin();
+            strItr != exports_for_va->end();
             ++strItr)
         {
             std::string dll_name = strItr->libName;
@@ -250,7 +250,7 @@ bool peconv::fix_imports(IN OUT PVOID modulePtr, IN size_t moduleSize, IN const 
 #ifdef _DEBUG
         printf("Imported Lib: %x : %x : %x\n", lib_desc->FirstThunk, lib_desc->OriginalFirstThunk, lib_desc->Name);
 #endif
-        
+
         std::string lib_name = "";
         if (lib_desc->Name != 0) {
             LPSTR name_ptr = (LPSTR)((ULONGLONG) modulePtr + lib_desc->Name);

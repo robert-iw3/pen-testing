@@ -40,28 +40,28 @@ namespace WindowsDefenderEventLog_Enum
 
                 foreach (ManagementObject m in queryCollection)
                 {
-                    var asrRulesActions = m["AttackSurfaceReductionRules_Actions"] as byte[]; 
-                    var asrRulesGuids = m["AttackSurfaceReductionRules_Ids"] as string[]; 
+                    var asrRulesActions = m["AttackSurfaceReductionRules_Actions"] as byte[];
+                    var asrRulesGuids = m["AttackSurfaceReductionRules_Ids"] as string[];
                  //   var asrRulesNames = m["ASRRules_Names"];
 
-                   
 
 
-                    var AsrRData = new List<Tuple<string,string,string >> (); 
+
+                    var AsrRData = new List<Tuple<string,string,string >> ();
 
                     if (asrRulesActions != null)
                     {
                        string[] actions = (asrRulesActions as byte[])?.Select(b => b.ToString("X2")).ToArray();
-                       string[] guids = asrRulesGuids; 
+                       string[] guids = asrRulesGuids;
                       // string[] names = (string[])asrRulesNames;
-                    
+
 
 
                         for (int i = 0; i < actions.Length; i++)
                         {
 
-                            string id = guids[i].ToUpper(); 
-                            string names = funcs.AsrRuleDescriptions.ContainsKey(id.ToUpper()) ? funcs.AsrRuleDescriptions[id.ToUpper()] : "Unknown ASR Rule"; // this will check if the ID matches the name 
+                            string id = guids[i].ToUpper();
+                            string names = funcs.AsrRuleDescriptions.ContainsKey(id.ToUpper()) ? funcs.AsrRuleDescriptions[id.ToUpper()] : "Unknown ASR Rule"; // this will check if the ID matches the name
                             AsrRData.Add(new Tuple<string, string, string>(actions[i], id, names));
                         }
                     }
@@ -85,7 +85,7 @@ namespace WindowsDefenderEventLog_Enum
         }
 
 
-        static void Main(string[] args) 
+        static void Main(string[] args)
         {
             if (args.Length == 2 && args[0].ToLower() == "/local" && args[1].ToLower() == "/paths")
             {
@@ -99,15 +99,15 @@ namespace WindowsDefenderEventLog_Enum
 
             else if (args.Length == 3 && args[0].ToLower() == "/local" && args[1].ToLower() == "/asr" && args[2].ToLower() == "/alt")
             {
-                Console.WriteLine("[+] Enumerating ASR Rules on Local System"); 
+                Console.WriteLine("[+] Enumerating ASR Rules on Local System");
 
-                QueryAsrRules("localhost", null, null, null); 
+                QueryAsrRules("localhost", null, null, null);
 
             }
             else if (args.Length == 6 && args[4].ToLower() == "/asr" && args[5].ToLower() == "/alt")
             {
 
-                Console.WriteLine($@"[+] Enumerating ASR Rules on Remote System {args[0]} "); 
+                Console.WriteLine($@"[+] Enumerating ASR Rules on Remote System {args[0]} ");
                 QueryAsrRules(args[0], args[1], args[2], args[3]);
 
             }
@@ -135,24 +135,24 @@ namespace WindowsDefenderEventLog_Enum
             Console.WriteLine($@"
       ----------------------------------------
 
-      [!] Type : Local System Enumeration 
-      [!] Mode: {mode} Events 
+      [!] Type : Local System Enumeration
+      [!] Mode: {mode} Events
       ----------------------------------------
 
 ");
             int eventId = 0;
-            bool CheckAccessMode = false; 
+            bool CheckAccessMode = false;
 
             if (mode == "/paths") {
                  eventId = 5007;
             } else if (mode == "/asr")
             {
-                eventId = 1121; 
-            }   
+                eventId = 1121;
+            }
             else if ( mode == "/paths AND Check")
             {
-                eventId = 5007; 
-                CheckAccessMode = true; 
+                eventId = 5007;
+                CheckAccessMode = true;
 
             }
 
@@ -178,7 +178,7 @@ namespace WindowsDefenderEventLog_Enum
                 {
 
 
-                 
+
                     string message = eventInstance.FormatDescription();
 
 
@@ -197,7 +197,7 @@ namespace WindowsDefenderEventLog_Enum
                         }
 
 
-                    } 
+                    }
                     else if (eventId == 5007)
                     {
 
@@ -208,14 +208,14 @@ namespace WindowsDefenderEventLog_Enum
                         {
                             string found = match.Groups[1].Value;
 
-                            found = found.Split(' ')[0]; // this will remove 0x0  
+                            found = found.Split(' ')[0]; // this will remove 0x0
 
 
                             Console.WriteLine("[+] Exclusion Path: " + found);
                             Console.WriteLine("[!] Time Created: " + eventInstance.TimeCreated);
 
-                     
-                            // check if discovered paths are writable 
+
+                            // check if discovered paths are writable
                             if (CheckAccessMode == true)
                             {
                                 bool Access = funcs.CheckWriteAccess(found);
@@ -252,8 +252,8 @@ namespace WindowsDefenderEventLog_Enum
             string domain = args[3];
             string mode = args[4];
 
-            int eventId = 0; 
-            
+            int eventId = 0;
+
 
             if ( mode == "/paths")
             {
@@ -261,8 +261,8 @@ namespace WindowsDefenderEventLog_Enum
             }
             else if ( mode == "/asr")
             {
-                eventId = 1121; 
-            
+                eventId = 1121;
+
             }
             else
             {
@@ -274,11 +274,11 @@ namespace WindowsDefenderEventLog_Enum
             Console.WriteLine($@"
 
       ----------------------------------------
-      [+] Authenticating to : {args[0]} 
-      [!] Type : Remote Computer Enumeration 
-      [!] Mode : {mode}  
+      [+] Authenticating to : {args[0]}
+      [!] Type : Remote Computer Enumeration
+      [!] Mode : {mode}
       ----------------------------------------
-    
+
 
 ");
 
@@ -288,7 +288,7 @@ namespace WindowsDefenderEventLog_Enum
 
             SecureString securePassword = funcs.ConvertToSecureString(password);
 
-             
+
 
             // https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.eventing.reader.eventlogsession?view=net-8.0
 
@@ -346,6 +346,6 @@ namespace WindowsDefenderEventLog_Enum
             }
         }
 
-       
+
     }
 }

@@ -1,7 +1,7 @@
 ## Cobalt Strike BOF - Inject AMSI Bypass
 Cobalt Strike Beacon Object File (BOF) that bypasses AMSI in a remote process with code injection.
 
-#### Running inject-amsiBypass BOF from CobaltStrike 
+#### Running inject-amsiBypass BOF from CobaltStrike
   ![](images/runningBof.png)
 
 ### What does this do?

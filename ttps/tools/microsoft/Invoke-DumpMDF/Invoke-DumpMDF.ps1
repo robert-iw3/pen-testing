@@ -165,11 +165,11 @@ Invoke-DumpMDF
     }
     $Copied_MDF_Files = Get-ChildItem -Recurse -Path "$env:localAppData\*.mdf"
     foreach ($Copied_MDF_File in $Copied_MDF_Files) {
-    
+
         Get-MDFHashes -InputFile $Copied_MDF_File.fullName | FL
         Start-Sleep -Milliseconds 100
         Remove-Item -Force -Path $Copied_MDF_File -ErrorAction SilentlyContinue
-    
+
     }
 
 

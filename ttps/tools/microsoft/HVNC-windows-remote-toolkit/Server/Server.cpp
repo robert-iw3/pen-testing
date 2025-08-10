@@ -23,8 +23,8 @@ enum Connection { desktop, input, end };
 struct Client
 {
     SOCKET connections[Connection::end];
-    DWORD  uhid;            
-    HWND   hWnd;            
+    DWORD  uhid;
+    HWND   hWnd;
     BYTE*  pixels;
     DWORD  pixelsWidth, pixelsHeight;
     DWORD  screenWidth, screenHeight;
@@ -57,10 +57,10 @@ static const DWORD    gc_minWindowHeight = 600;
   //  startIexplore,
    // startPowershell,
 
-  //  menuShell        = 300, 
-  //  menuShellCommand = 301,  
-  //  menuFileManager  = 310,  
-//    menuDownloadFile = 311, 
+  //  menuShell        = 300,
+  //  menuShellCommand = 301,
+  //  menuFileManager  = 310,
+//    menuDownloadFile = 311,
  //   menuUploadFile   = 312,
  //   menuKeyloggerOn  = 320,
  //   menuKeyloggerOff = 321
@@ -94,10 +94,10 @@ int SendInt(SOCKET s, int i)
     while (sent < sizeof(i))
     {
         int r = send(s, p + sent, sizeof(i) - sent, 0);
-        if (r <= 0) return r;         
+        if (r <= 0) return r;
         sent += r;
     }
-    return sent;                       
+    return sent;
 }
 
 static bool RecvAll(SOCKET s, char* buf, int totalSize)
@@ -112,7 +112,7 @@ static bool RecvAll(SOCKET s, char* buf, int totalSize)
     return true;
 }
 
-static int RecvInt(SOCKET s, int& v)          
+static int RecvInt(SOCKET s, int& v)
 {
     return RecvAll(s, reinterpret_cast<char*>(&v), sizeof(v))
            ? sizeof(v)

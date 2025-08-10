@@ -7,8 +7,8 @@ namespace FormsEncryptor
     {
         static void Main(string[] args)
         {
-       
-            // Take an existing forms cookie 
+
+            // Take an existing forms cookie
             string encryptedTicket = "<ExistingEncryptedTicket>";
             string replacedUsername = "bob";
 

@@ -1,6 +1,6 @@
 # BOF Version of SCShell for Cobalt Strike
 
-## How to compile 
+## How to compile
 
 Use the provided [Makefile](./Makefile) (currently implemented
 for the Linux MinGW-w64 cross-compiler):

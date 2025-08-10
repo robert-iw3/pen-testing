@@ -40,7 +40,7 @@ class NTDSAbsContainer(NTDSEntry):
 
     def get_domain_id(self):
         return self.entry["tmp_domainID"]
-    
+
     @property
     def namee(self):
         return None
@@ -48,7 +48,7 @@ class NTDSAbsContainer(NTDSEntry):
     @namee.setter
     def name(self):
         return None
-    
+
     def get_type(self):
 
         if isinstance(self, NTDSContainer):
@@ -100,9 +100,9 @@ class NTDSOU(NTDSAbsContainer):
     @property
     def namee(self):
         return self.entry["OrganizationUnitName"]
-    
+
     def get_name(self):
         return self.entry["OrganizationUnitName"]
-    
+
     def is_ou(self):
         return True

@@ -12,7 +12,7 @@ Dump credentials from the site database
 - Access to the private key used for encryption stored on the primary site server
 
 ## Summary
-SCCM uses many different accounts for various purposes (e.g., network access accounts, domain join accounts, client push installation accounts, etc.). All of these credentials are stored in the `SC_UserAccount` table in the site MSSQL database as hex-encoded, encrypted blobs. The secrets in this table are encrypted with an RSA private key which is stored in the "Microsoft Systems Management Server" cryptographic service provider (CSP) container on the primary site server *for the site the account was added to*. 
+SCCM uses many different accounts for various purposes (e.g., network access accounts, domain join accounts, client push installation accounts, etc.). All of these credentials are stored in the `SC_UserAccount` table in the site MSSQL database as hex-encoded, encrypted blobs. The secrets in this table are encrypted with an RSA private key which is stored in the "Microsoft Systems Management Server" cryptographic service provider (CSP) container on the primary site server *for the site the account was added to*.
 
 For example, if there are two primary sites, `PS1` and `PS2`, and a network access account was added to `PS1`, the credentials can be decrypted by the primary site server for `PS1`, but not the site server for `PS2`. If a client push installation account is subsequently added to `PS2`, it cannot be decrypted using the key on the `PS1` site server and can only be decrypted on the `PS2` site server.
 
@@ -85,7 +85,7 @@ ID | SiteNumber | UserName | Password | Availability |
 The SQLRecon `DecryptCredentials` module can be used to decrypt the credentials.
 
 #### SCCMDecryptPoc (C#)
-Alternatively, use Adam Chester's `sccmdecryptpoc.cs` [gist](https://gist.github.com/xpn/5f497d2725a041922c427c3aaa3b37d1) to decrypt the blobs from the site server in the context of a member of the local Administrators group. 
+Alternatively, use Adam Chester's `sccmdecryptpoc.cs` [gist](https://gist.github.com/xpn/5f497d2725a041922c427c3aaa3b37d1) to decrypt the blobs from the site server in the context of a member of the local Administrators group.
 
 ```
 sccmdecryptpoc.exe 0C01000008000000010200001066000000A40000DC0179CE1BAE4E3922075FDCC257AC09A729F2BE5BF6240DF3FBA2DAA00AF28FDADEDA33297CC4CF9880B4FF5CC5CE1436BBAE4FF2B2DF08D8A7A74CB58D60E3524F8C0D0A93F62A064AFD4A9418F5FC72B2400507F4354398D66CD945C5B87AF7AF33299DD916EB474C4F92E50FF2809207841C83F678FED2094677F1D0D258AE3F6FF778A1F854B7B23B3634C05E5FDC635CCF7A4CC1F8946B84F8871FF82BA68322D6879781F69E99325CD7D8FBF61A3C894755592BA9182BC4E30E3328D0336559F92C206F43408F7A6D5FAF7E26C5E4B7820C60EECB8E01B979D71316D12B8D5CF4050A1249A35233E7CB9A65F6F467A5A3E05EB0ECB7496E66057B8764B9D538731F631C01E57D775738E5D6F0
@@ -106,7 +106,7 @@ function Invoke-Decrypt {
     param (
         [Parameter(Mandatory = $true, Position = 0)]
         [string]$Hex,
-        
+
         [Parameter(Mandatory = $false)]
         [switch]$UseSiteSystemKey = $false
     )

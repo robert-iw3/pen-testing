@@ -11,11 +11,11 @@
 void fopen_sandbox_evasion(char *arg1) {
     DEBUG_PRINT("Applying fopen sandbox evasion technique.\n");
     DEBUG_PRINT("Checking for file %s...\n", arg1);
-    
+
     FILE *fp = fopen(arg1, "rb");
 
     if (fp == NULL) {
-	    exit(0);	
+	    exit(0);
     }
 
     fclose(fp);

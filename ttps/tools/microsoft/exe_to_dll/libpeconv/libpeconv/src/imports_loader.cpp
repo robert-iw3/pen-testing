@@ -32,7 +32,7 @@ public:
 #else
             std::cerr << "[!] Cannot fill imports into 32 bit PE via 64 bit loader!\n";
             return false;
-#endif 
+#endif
         }
     }
 

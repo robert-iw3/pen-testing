@@ -330,7 +330,7 @@ DisablePatchGuard(
 			}
 
 			// Check if this is 'call KiMcaDeferredRecoveryService'
-			ZyanU64 OperandAddress = 0;	
+			ZyanU64 OperandAddress = 0;
 			if (Context.Instruction.mnemonic == ZYDIS_MNEMONIC_CALL &&
 				ZYAN_SUCCESS(ZydisCalcAbsoluteAddress(&Context.Instruction, &Context.Operands[0], Context.InstructionAddress, &OperandAddress)) &&
 				OperandAddress == (UINTN)KiMcaDeferredRecoveryService)
@@ -390,7 +390,7 @@ DisablePatchGuard(
 			ASSERT(SigKiSwInterrupt[SigKiSwInterruptCallOffset] == 0xE8 && SigKiSwInterrupt[SigKiSwInterruptCliOffset] == 0xFA);
 			CONST INT32 Relative = *(INT32*)(KiSwInterruptPatternAddress + SigKiSwInterruptCallOffset + 1);
 			KiSwInterruptDispatchAddress = KiSwInterruptPatternAddress + SigKiSwInterruptCliOffset + Relative;
-			
+
 			PRINT_KERNEL_PATCH_MSG(L"    Found KiSwInterrupt pattern at 0x%llX.\r\n", (UINTN)KiSwInterruptPatternAddress);
 		}
 
@@ -840,7 +840,7 @@ PatchNtoskrnl(
 			PRINT_KERNEL_PATCH_MSG(L"[PatchNtoskrnl] ERROR: Unsupported kernel image version.\r\n");
 			return EFI_UNSUPPORTED;
 		}
-		
+
 		if ((FileFlags & VS_FF_DEBUG) != 0)
 		{
 			// Do not patch checked kernels. There is too much difference in PG and DSE initialization code due to missing optimizations.

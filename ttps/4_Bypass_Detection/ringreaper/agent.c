@@ -327,7 +327,7 @@ void cmd_ps(struct io_uring *ring, int sockfd) {
 
 /*
 This cmd_kick function uses traditional calls (such as opendir, readdir, readlink and kill)
-because io_uring does not natively support directory reading and symbolic link reading operations. 
+because io_uring does not natively support directory reading and symbolic link reading operations.
 Therefore, these operations cannot be performed asynchronously with io_uring.
 
 However, data sending operations via socket are performed asynchronously using

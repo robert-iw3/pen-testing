@@ -17,7 +17,7 @@ class TestTCP(unittest.TestCase):
     def setUp(self):
         # Dummy TCP header with "Maximum Segment Size" Option and zero length
         self.frame = '\x12\x34\x00\x50\x00\x00\x00\x01\x00\x00\x00\x00\x60\x00\x00\x00\x8d\x5c\x00\x00\x02\x00\x00\x00'
-        
+
     def test_01(self):
         'Test TCP options parsing hangs'
         class it_hangs(Thread):

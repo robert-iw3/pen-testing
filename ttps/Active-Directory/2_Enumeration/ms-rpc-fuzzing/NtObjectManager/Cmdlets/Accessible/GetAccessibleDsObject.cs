@@ -272,9 +272,9 @@ public sealed class GetAccessibleDsObject : PSCmdlet, IDisposable
     private Func<string, bool>[] _include_filters;
     private Func<string, bool>[] _exclude_filters;
 
-    private static readonly ConcurrentDictionary<string, DsObjectInformation> _cached_info 
+    private static readonly ConcurrentDictionary<string, DsObjectInformation> _cached_info
         = new(StringComparer.OrdinalIgnoreCase);
-    private static readonly ConcurrentDictionary<Tuple<string, Sid>, List<Sid>> _cached_user_groups 
+    private static readonly ConcurrentDictionary<Tuple<string, Sid>, List<Sid>> _cached_user_groups
         = new();
 
     private static T[] GetPropertyValues<T>(SearchResult result, string name)
@@ -334,7 +334,7 @@ public sealed class GetAccessibleDsObject : PSCmdlet, IDisposable
 
     private AccessMask AccessCheckSingle(AuthZContext context, SecurityDescriptor sd, Sid object_sid, IDirectoryServiceObjectTree tree)
     {
-        return context.AccessCheck(sd, null, DirectoryServiceAccessRights.MaximumAllowed, object_sid, 
+        return context.AccessCheck(sd, null, DirectoryServiceAccessRights.MaximumAllowed, object_sid,
             tree?.ToObjectTypeTree()?.ToArray(), sd.NtType).First().GrantedAccess;
     }
 
@@ -383,7 +383,7 @@ public sealed class GetAccessibleDsObject : PSCmdlet, IDisposable
         }
     }
 
-    private void GetAccessCheckResult(string dn, string name, bool is_deleted, DsObjectInformation obj_info, 
+    private void GetAccessCheckResult(string dn, string name, bool is_deleted, DsObjectInformation obj_info,
         IEnumerable<DsObjectInformation> dynamic_aux_classes, SecurityDescriptor sd, Sid object_sid)
     {
         for(int i = 0; i < _context.Count; ++i)
@@ -398,11 +398,11 @@ public sealed class GetAccessibleDsObject : PSCmdlet, IDisposable
             var class_results = new List<DsObjectTypeAccessCheckResult<DirectoryServiceSchemaClass>>();
             var attr_results = new List<DsObjectTypeAccessCheckResult<DirectoryServiceSchemaAttribute>>();
 
-            MapResults(AccessCheck(ctx, sd, object_sid, obj_info.GetInferiorClasses()), obj_info, rights_results, class_results, 
+            MapResults(AccessCheck(ctx, sd, object_sid, obj_info.GetInferiorClasses()), obj_info, rights_results, class_results,
                 attr_results, dynamic_aux_classes, ref max_granted_access);
-            MapResults(AccessCheck(ctx, sd, object_sid, obj_info.GetExtendedRights()), obj_info, rights_results, class_results, 
+            MapResults(AccessCheck(ctx, sd, object_sid, obj_info.GetExtendedRights()), obj_info, rights_results, class_results,
                 attr_results, dynamic_aux_classes, ref max_granted_access);
-            MapResults(AccessCheck(ctx, sd, object_sid, obj_info.GetAttributes(dynamic_aux_classes)), obj_info, rights_results, 
+            MapResults(AccessCheck(ctx, sd, object_sid, obj_info.GetAttributes(dynamic_aux_classes)), obj_info, rights_results,
                 class_results, attr_results, dynamic_aux_classes, ref max_granted_access);
 
             if (max_granted_access.IsEmpty && !AllowEmptyAccess)
@@ -597,7 +597,7 @@ public sealed class GetAccessibleDsObject : PSCmdlet, IDisposable
 
     private void BuildAuthZContext()
     {
-        _resource_manager = string.IsNullOrWhiteSpace(Server) ? AuthZResourceManager.Create(GetType().Name, 
+        _resource_manager = string.IsNullOrWhiteSpace(Server) ? AuthZResourceManager.Create(GetType().Name,
             AuthZResourceManagerInitializeFlags.NoAudit | AuthZResourceManagerInitializeFlags.NoCentralAccessPolicies,
             null) : AuthZResourceManager.Create(Server, null, AuthZResourceManagerRemoteServiceType.Default);
 

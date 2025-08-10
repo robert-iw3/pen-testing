@@ -19,7 +19,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Create a new NT key symbolic link.</para>
-/// <para type="description">This cmdlet creates a new NT key symbolic link. The absolute path to the object in the NT object manager name space must be specified. 
+/// <para type="description">This cmdlet creates a new NT key symbolic link. The absolute path to the object in the NT object manager name space must be specified.
 /// It's also possible to create the object relative to an existing object by specified the -Root parameter. Unlike New-NtKey this will only return the created
 /// Key if PassThru is specified.</para>
 /// </summary>

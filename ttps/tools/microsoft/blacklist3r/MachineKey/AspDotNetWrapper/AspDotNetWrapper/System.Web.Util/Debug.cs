@@ -1,7 +1,7 @@
 ﻿//------------------------------------------------------------------------------
 // <copyright file="Debug.cs" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>                                                                
+// </copyright>
 //------------------------------------------------------------------------------
 
 namespace System.Web.Util
@@ -76,7 +76,7 @@ namespace System.Web.Util
             [DllImport("user32.dll", CharSet=System.Runtime.InteropServices.CharSet.Auto)]
             internal extern static bool PeekMessage([In, Out] ref MSG msg, HandleRef hwnd, int msgMin, int msgMax, int remove);
 
-            internal const int 
+            internal const int
                 MB_OK = 0x00000000,
                 MB_OKCANCEL = 0x00000001,
                 MB_ABORTRETRYIGNORE = 0x00000002,
@@ -266,8 +266,8 @@ namespace System.Web.Util
                 lock (s_lock) {
                     if (!s_inited) {
                         s_tableAlwaysValidate = new Hashtable();
-                        s_DumpArgs = new Type[1] {typeof(string)}; 
-                        s_ValidateArgs = new Type[0];              
+                        s_DumpArgs = new Type[1] {typeof(string)};
+                        s_ValidateArgs = new Type[0];
 
                         List<Tag> tagDefaults = new List<Tag>();
                         tagDefaults.Add(new Tag(TAG_ALL, TagValue.Disabled));
@@ -375,7 +375,7 @@ namespace System.Web.Util
                     s_tags = tags;
                     GetBuiltinTagValues();
 
-                    // Write tags out if there was an invalid value or 
+                    // Write tags out if there was an invalid value or
                     // not all default tags are present.
                     if (writeTags || (names != null && names.Length < tags.Count)) {
                         WriteTagsToRegistry();
@@ -389,7 +389,7 @@ namespace System.Web.Util
 
         private static void StartRegistryMonitor() {
             if (!s_monitor) {
-                Trace(TAG_DEBUG_VERBOSE, "WARNING: Registry monitoring disabled, changes during process execution will not be recognized."); 
+                Trace(TAG_DEBUG_VERBOSE, "WARNING: Registry monitoring disabled, changes during process execution will not be recognized.");
                 return;
             }
 
@@ -424,7 +424,7 @@ namespace System.Web.Util
                 s_notifyEvent = null;
             }
 
-            Trace(TAG_DEBUG_VERBOSE, "Registry monitoring stopped."); 
+            Trace(TAG_DEBUG_VERBOSE, "Registry monitoring stopped.");
         }
 
         public static void OnRegChangeKeyValue(object state, bool timedOut) {
@@ -460,8 +460,8 @@ namespace System.Web.Util
 
             // Listen for changes.
             result = NativeMethods.RegNotifyChangeKeyValue(
-                    s_regHandle, 
-                    true, 
+                    s_regHandle,
+                    true,
                     NativeMethods.REG_NOTIFY_CHANGE_NAME | NativeMethods.REG_NOTIFY_CHANGE_LAST_SET,
                     s_notifyEvent.SafeWaitHandle,
                     true);
@@ -488,7 +488,7 @@ namespace System.Web.Util
             Tag longestTag = null;
             int longestPrefix = -1;
             foreach (Tag tag in tags) {
-                if (    tag.PrefixLength > longestPrefix && 
+                if (    tag.PrefixLength > longestPrefix &&
                         0 == string.Compare(name, 0, tag.Name, 0, tag.PrefixLength, StringComparison.OrdinalIgnoreCase)) {
 
                     longestTag = tag;
@@ -626,7 +626,7 @@ namespace System.Web.Util
 
             string dialogFormat;
             if (!string.IsNullOrEmpty(fileName)) {
-                dialogFormat = 
+                dialogFormat =
 @"Failed expression: {0}
 File: {1}:{2}
 Component: {3}
@@ -637,7 +637,7 @@ Stack trace:
 A=Exit process R=Debug I=Continue";
             }
             else {
-                dialogFormat = 
+                dialogFormat =
 @"Failed expression: {0}
 (no file information available)
 Component: {3}
@@ -666,10 +666,10 @@ A=Exit process R=Debug I=Continue";
                         NativeMethods.PeekMessage(ref msg, new HandleRef(mbResult, IntPtr.Zero), 0, 0, NativeMethods.PM_REMOVE);
                     }
 
-                    mbResult.Result = NativeMethods.MessageBox(new HandleRef(mbResult, IntPtr.Zero), dialogMessage, PRODUCT + " Assertion",                
-                        NativeMethods.MB_SERVICE_NOTIFICATION | 
+                    mbResult.Result = NativeMethods.MessageBox(new HandleRef(mbResult, IntPtr.Zero), dialogMessage, PRODUCT + " Assertion",
+                        NativeMethods.MB_SERVICE_NOTIFICATION |
                         NativeMethods.MB_TOPMOST |
-                        NativeMethods.MB_ABORTRETRYIGNORE | 
+                        NativeMethods.MB_ABORTRETRYIGNORE |
                         NativeMethods.MB_ICONEXCLAMATION);
                 }
             );
@@ -838,7 +838,7 @@ A=Exit process R=Debug I=Continue";
         }
 
         //
-        // Returns true if the tag present. 
+        // Returns true if the tag present.
         // This function chekcs for an exact match.
         //
         [ResourceExposure(ResourceScope.None)]
@@ -875,7 +875,7 @@ A=Exit process R=Debug I=Continue";
                 System.Diagnostics.Debugger.Launch();
             }
             else {
-                System.Diagnostics.Debugger.Break();            
+                System.Diagnostics.Debugger.Break();
             }
 #endif
         }
@@ -887,7 +887,7 @@ A=Exit process R=Debug I=Continue";
         // validation in stress tests or other situations where you
         // may not have control over the debug tags that are enabled
         // on a particular machine.
-        // 
+        //
         [System.Diagnostics.Conditional("DBG")]
         internal static void AlwaysValidate(string tagName)
         {
@@ -937,7 +937,7 @@ A=Exit process R=Debug I=Continue";
                 type = obj.GetType();
 
                 mi = type.GetMethod(
-                        "DebugValidate", 
+                        "DebugValidate",
                         BindingFlags.NonPublic | BindingFlags.Instance,
                         null,
                         s_ValidateArgs,
@@ -979,10 +979,10 @@ A=Exit process R=Debug I=Continue";
 #if DBG
             EnsureInit();
 
-            if (    obj != null 
+            if (    obj != null
                     && (    IsTagEnabled("Validate")
-                            ||  (   !IsTagPresent("Validate") 
-                                    && (   s_tableAlwaysValidate[tagName] != null 
+                            ||  (   !IsTagPresent("Validate")
+                                    && (   s_tableAlwaysValidate[tagName] != null
                                            ||  IsTagEnabled(tagName))))) {
                 try {
                     Debug.Validate(obj);
@@ -1032,12 +1032,12 @@ A=Exit process R=Debug I=Continue";
             else {
                 type = obj.GetType();
                 mi = type.GetMethod(
-                        "DebugDescription", 
+                        "DebugDescription",
                         BindingFlags.NonPublic | BindingFlags.Instance,
                         null,
                         s_DumpArgs,
                         null);
-                        
+
                 if (mi == null || mi.ReturnType != typeof(string)) {
                     description = indent + obj.ToString();
                 }
@@ -1052,13 +1052,13 @@ A=Exit process R=Debug I=Continue";
 #endif
 
 
-        // 
+        //
         // Dumps an object to the debugger if the "Dump" tag is enabled,
         // or if the "Dump" tag is not present and the 'tag' is enabled.
-        // 
+        //
         // @param tagName  The tag to Dump with.
         // @param obj  The object to dump.
-        // 
+        //
         [System.Diagnostics.Conditional("DBG")]
         internal static void Dump(string tagName, Object obj)
         {

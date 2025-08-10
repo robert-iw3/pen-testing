@@ -2,7 +2,7 @@
 SoaPy is a Proof of Concept (PoC) tool for conducting offensive  interaction with Active Directory Web Services (ADWS) from Linux hosts. SoaPy includes previously undeveloped custom python implementations of a collection of Microsoft protocols required for interaction with the ADWS service. This includes but is not limited to: NNS (.NET NegotiateStream Protocol), NMF (.NET Message Framing Protocol), and NBFSE (.NET Binary Format: SOAP Extension).
 
 
-SoaPy can be primarily utilized to interact with ADWS for stealthy enumeration over a proxy into an internal Active Directory environment. Additionally SoaPy can perform targeted exploitation over ADWS, including `servicePrincipalName` writing for targeted Kerberoasting, `DON’T_REQ_PREAUTH` writing for targeted ASREP-Roasting, and the ability to write to `msDs-AllowedToActOnBehalfOfOtherIdentity` for Resource-Based Constrained Delegation attacks. 
+SoaPy can be primarily utilized to interact with ADWS for stealthy enumeration over a proxy into an internal Active Directory environment. Additionally SoaPy can perform targeted exploitation over ADWS, including `servicePrincipalName` writing for targeted Kerberoasting, `DON’T_REQ_PREAUTH` writing for targeted ASREP-Roasting, and the ability to write to `msDs-AllowedToActOnBehalfOfOtherIdentity` for Resource-Based Constrained Delegation attacks.
 
 
 
@@ -12,11 +12,11 @@ SoaPy can be primarily utilized to interact with ADWS for stealthy enumeration o
 
 ███████╗ ██████╗  █████╗ ██████╗ ██╗   ██╗
 ██╔════╝██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝
-███████╗██║   ██║███████║██████╔╝ ╚████╔╝ 
-╚════██║██║   ██║██╔══██║██╔═══╝   ╚██╔╝  
-███████║╚██████╔╝██║  ██║██║        ██║   
-╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝        ╚═╝   
-    
+███████╗██║   ██║███████║██████╔╝ ╚████╔╝
+╚════██║██║   ██║██╔══██║██╔═══╝   ╚██╔╝
+███████║╚██████╔╝██║  ██║██║        ██║
+╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝        ╚═╝
+
 usage: soapy [-h] [--debug] [--ts] [--hash nthash] [--users] [--computers] [--groups] [--constrained] [--unconstrained] [--spns] [--asreproastable] [--admins] [--rbcds]
              [-q query] [--filter attr,attr,...] [--rbcd source] [--spn value] [--asrep] [--account account] [--remove]
              connection

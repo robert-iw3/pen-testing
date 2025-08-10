@@ -193,7 +193,7 @@ public class GetAccessibleFileCmdlet : GetAccessiblePathCmdlet<FileAccessRights>
         }
     }
 
-    private void DumpDirectory(IEnumerable<TokenEntry> tokens, AccessMask access_rights, 
+    private void DumpDirectory(IEnumerable<TokenEntry> tokens, AccessMask access_rights,
         AccessMask dir_access_rights, NtFile file, FileOpenOptions options, int current_depth)
     {
         if (Stopping || current_depth <= 0)

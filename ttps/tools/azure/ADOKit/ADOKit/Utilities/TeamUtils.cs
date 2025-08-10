@@ -45,10 +45,10 @@ namespace ADOKit.Utilities
 
                 HttpWebRequest webRequest = null;
 
-                // loop until we don't have a continuationToken in the response. if we do, fetch more 
+                // loop until we don't have a continuationToken in the response. if we do, fetch more
                 do
                 {
-                    content = ""; // empty our buffer 
+                    content = ""; // empty our buffer
 
                     if (contToken != "")
                     {
@@ -87,7 +87,7 @@ namespace ADOKit.Utilities
                         content += reader.ReadToEnd();
 
                         // if there's a continuationToken header we need to send the request to get
-                        // a bit more ... and a bit more until there isn't a continuation token 
+                        // a bit more ... and a bit more until there isn't a continuation token
 
                         contToken = "";
                         // get the X-ms-continuationtoken header value
@@ -114,7 +114,7 @@ namespace ADOKit.Utilities
                     projID = "";
 
 
-                    // read the json results 
+                    // read the json results
                     while (jsonResult.Read())
                     {
                         switch (jsonResult.TokenType.ToString())
@@ -234,10 +234,10 @@ namespace ADOKit.Utilities
 
                 HttpWebRequest webRequest = null;
 
-                // loop until we don't have a continuationToken in the response. if we do, fetch more 
+                // loop until we don't have a continuationToken in the response. if we do, fetch more
                 do
                 {
-                    content = ""; // empty our buffer 
+                    content = ""; // empty our buffer
 
                     if (contToken != "")
                     {
@@ -276,7 +276,7 @@ namespace ADOKit.Utilities
                         content += reader.ReadToEnd();
 
                         // if there's a continuationToken header we need to send the request to get
-                        // a bit more ... and a bit more until there isn't a continuation token 
+                        // a bit more ... and a bit more until there isn't a continuation token
 
                         contToken = "";
                         // get the X-ms-continuationtoken header value
@@ -301,7 +301,7 @@ namespace ADOKit.Utilities
                     uniqueName = "";
 
 
-                    // read the json results 
+                    // read the json results
                     while (jsonResult.Read())
                     {
                         switch (jsonResult.TokenType.ToString())

@@ -49,7 +49,7 @@ BOOL RunningAsLocalSystem();
 
 
 
-void CleanUpInteractiveProcess(CleanupInteractive* pCI) 
+void CleanUpInteractiveProcess(CleanupInteractive* pCI)
 {
 	//SetTokenInformation(pCI->hUser, TokenSessionId, &pCI->origSessionID, sizeof(pCI->origSessionID));
 
@@ -81,7 +81,7 @@ BOOL CALLBACK EnumWindowStationsProc(LPWSTR lpszWindowStation, LPARAM lParam)
 }
 
 
-BOOL PrepForInteractiveProcess(Settings& settings, CleanupInteractive* pCI) 
+BOOL PrepForInteractiveProcess(Settings& settings, CleanupInteractive* pCI)
 {
 	EnablePrivilege(SE_TCB_NAME, NULL);
 
@@ -159,15 +159,15 @@ BOOL PrepForInteractiveProcess(Settings& settings, CleanupInteractive* pCI)
 //		goto Cleanup;
 //	}
 //
-//	LPCWSTR winStaToUse = L"WinSta0"; 
+//	LPCWSTR winStaToUse = L"WinSta0";
 //
 //	// Get a handle to the interactive window station.
 //	hwinsta = OpenWindowStation(
-//							winStaToUse,            // the interactive window station 
+//							winStaToUse,            // the interactive window station
 //							FALSE,                       // handle is not inheritable
 //							READ_CONTROL | WRITE_DAC | WINSTA_READATTRIBUTES);   // rights to read/write the DACL
 //
-//	if (BAD_HANDLE(hwinsta)) 
+//	if (BAD_HANDLE(hwinsta))
 //	{
 //		Log(StrFormat(L"Failed to open WinStation %s.", winStaToUse), GetLastError());
 //		EnumWindowStations(EnumWindowStationsProc, NULL);
@@ -181,7 +181,7 @@ BOOL PrepForInteractiveProcess(Settings& settings, CleanupInteractive* pCI)
 //	else
 //		Log(L"GetUserObjectInformation failed", GetLastError());
 //
-//	// To get the correct default desktop, set the caller's 
+//	// To get the correct default desktop, set the caller's
 //	// window station to the interactive window station.
 //	if (!SetProcessWindowStation(hwinsta))
 //	{
@@ -191,35 +191,35 @@ BOOL PrepForInteractiveProcess(Settings& settings, CleanupInteractive* pCI)
 //
 //	// Get a handle to the interactive desktop.
 //	hdesk = OpenDesktop(
-//					_T("default"),     // the interactive window station 
+//					_T("default"),     // the interactive window station
 //					0,             // no interaction with other desktop processes
 //					FALSE,         // handle is not inheritable
 //					READ_CONTROL | // request the rights to read and write the DACL
-//					WRITE_DAC | 
-//					DESKTOP_WRITEOBJECTS | 
+//					WRITE_DAC |
+//					DESKTOP_WRITEOBJECTS |
 //					DESKTOP_READOBJECTS);
 //
 //	DWORD gle = GetLastError();
 //
 //	// Restore the caller's window station.
-//	//if (!SetProcessWindowStation(hwinstaSave)) 
+//	//if (!SetProcessWindowStation(hwinstaSave))
 //	//	goto Cleanup;
 //
-//	if (BAD_HANDLE(hdesk)) 
+//	if (BAD_HANDLE(hdesk))
 //	{
 //		Log(L"Failed to get Default desktop.", gle);
 //		goto Cleanup;
 //	}
 //
 //	// Get the SID for the client's logon session.
-//	if (!GetLogonSID(pCI->hUser, &pSid)) 
+//	if (!GetLogonSID(pCI->hUser, &pSid))
 //	{
 //		Log(L"Failed to get login SID.", true);
 //		goto Cleanup;
 //	}
 //
 //	// Allow logon SID full access to interactive window station.
-//	if (! AddAceToWindowStation(hwinsta, pSid) ) 
+//	if (! AddAceToWindowStation(hwinsta, pSid) )
 //	{
 //		Log(L"Failed to add ACE to WinStation.", GetLastError());
 //		CloseWindowStation(hwinsta);
@@ -228,7 +228,7 @@ BOOL PrepForInteractiveProcess(Settings& settings, CleanupInteractive* pCI)
 //	}
 //
 //	// Allow logon SID full access to interactive desktop.
-//	if (! AddAceToDesktop(hdesk, pSid) ) 
+//	if (! AddAceToDesktop(hdesk, pSid) )
 //	{
 //		Log(L"Failed to add ACE to Desktop.", GetLastError());
 //		CloseDesktop(hdesk);
@@ -240,7 +240,7 @@ BOOL PrepForInteractiveProcess(Settings& settings, CleanupInteractive* pCI)
 //
 //	bResult = TRUE;
 //
-//Cleanup: 
+//Cleanup:
 ////	if (!BAD_HANDLE(hwinstaSave))
 ////		SetProcessWindowStation (hwinstaSave);
 //
@@ -1053,7 +1053,7 @@ BOOL RemoveAceFromDesktop(HDESK hdesk, PSID psid)
 
 
 
-BOOL GetLogonSID (HANDLE hToken, PSID *ppsid) 
+BOOL GetLogonSID (HANDLE hToken, PSID *ppsid)
 {
 	BOOL bSuccess = FALSE;
 	DWORD dwIndex;
@@ -1066,7 +1066,7 @@ BOOL GetLogonSID (HANDLE hToken, PSID *ppsid)
 		goto Cleanup;
 
 	GetTokenInformation(hToken, TokenUser, pTU, 0, &dwLength);
-	if (GetLastError() != ERROR_INSUFFICIENT_BUFFER) 
+	if (GetLastError() != ERROR_INSUFFICIENT_BUFFER)
 	{
 		Log(L"Failed to get login token information", GetLastError());
 		goto Cleanup;
@@ -1083,7 +1083,7 @@ BOOL GetLogonSID (HANDLE hToken, PSID *ppsid)
 		*ppsid = (PSID) HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, dwLength);
 		if (*ppsid == NULL)
 			goto Cleanup;
-		if (!CopySid(dwLength, *ppsid, pTU->User.Sid)) 
+		if (!CopySid(dwLength, *ppsid, pTU->User.Sid))
 		{
 			HeapFree(GetProcessHeap(), 0, (LPVOID)*ppsid);
 			goto Cleanup;
@@ -1097,13 +1097,13 @@ BOOL GetLogonSID (HANDLE hToken, PSID *ppsid)
 	// Get required buffer size and allocate the TOKEN_GROUPS buffer.
 	if (!GetTokenInformation(
 		hToken,         // handle to the access token
-		TokenGroups,    // get information about the token's groups 
+		TokenGroups,    // get information about the token's groups
 		(LPVOID) ptg,   // pointer to TOKEN_GROUPS buffer
 		0,              // size of buffer
 		&dwLength       // receives required buffer size
-		)) 
+		))
 	{
-		if (GetLastError() != ERROR_INSUFFICIENT_BUFFER) 
+		if (GetLastError() != ERROR_INSUFFICIENT_BUFFER)
 		{
 			Log(L"Failed to get login token information[2]", GetLastError());
 			goto Cleanup;
@@ -1119,20 +1119,20 @@ BOOL GetLogonSID (HANDLE hToken, PSID *ppsid)
 
 	if (!GetTokenInformation(
 		hToken,         // handle to the access token
-		TokenGroups,    // get information about the token's groups 
+		TokenGroups,    // get information about the token's groups
 		(LPVOID) ptg,   // pointer to TOKEN_GROUPS buffer
 		dwLength,       // size of buffer
 		&dwLength       // receives required buffer size
-		)) 
+		))
 	{
 		goto Cleanup;
 	}
 
 	// Loop through the groups to find the logon SID.
 
-	for (dwIndex = 0; dwIndex < ptg->GroupCount; dwIndex++) 
+	for (dwIndex = 0; dwIndex < ptg->GroupCount; dwIndex++)
 		if ((ptg->Groups[dwIndex].Attributes & SE_GROUP_LOGON_ID)
-			==  SE_GROUP_LOGON_ID) 
+			==  SE_GROUP_LOGON_ID)
 		{
 			// Found the logon SID; make a copy of it.
 
@@ -1140,7 +1140,7 @@ BOOL GetLogonSID (HANDLE hToken, PSID *ppsid)
 			*ppsid = (PSID) HeapAlloc(GetProcessHeap(),	HEAP_ZERO_MEMORY, dwLength);
 			if (*ppsid == NULL)
 				goto Cleanup;
-			if (!CopySid(dwLength, *ppsid, ptg->Groups[dwIndex].Sid)) 
+			if (!CopySid(dwLength, *ppsid, ptg->Groups[dwIndex].Sid))
 			{
 				HeapFree(GetProcessHeap(), 0, (LPVOID)*ppsid);
 				goto Cleanup;
@@ -1150,7 +1150,7 @@ BOOL GetLogonSID (HANDLE hToken, PSID *ppsid)
 		}
 
 
-Cleanup: 
+Cleanup:
 		if (ptg != NULL)
 			HeapFree(GetProcessHeap(), 0, (LPVOID)ptg);
 		ptg = NULL;
@@ -1162,7 +1162,7 @@ Cleanup:
 }
 
 
-VOID FreeLogonSID (PSID *ppsid) 
+VOID FreeLogonSID (PSID *ppsid)
 {
 	HeapFree(GetProcessHeap(), 0, (LPVOID)*ppsid);
 }

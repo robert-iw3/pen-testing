@@ -7,14 +7,14 @@ from magic_dot.file_utils import nt_path, dos_path
 from . import ntdll
 
 class UNICODE_STRING(Structure):
-    _fields_ = [('Length', USHORT), 
-				('MaximumLength', USHORT), 
+    _fields_ = [('Length', USHORT),
+				('MaximumLength', USHORT),
 				('Buffer', POINTER(WCHAR))]
-    
+
     def get_string(self):
         return ctypes.string_at(self.Buffer, self.Length).decode('utf-16-le')
-     
-     
+
+
 # class _RTL_USER_PROCESS_PARAMETERS(Structure):
 #     _fields_ = [
 #     ("MaximumLength", ULONG),
@@ -51,10 +51,10 @@ def RtlInitUnicodeString(dst_unicode_str, src_wchar_buffer):
 
 def nt_create_user_process(exe_path, custom_cmdline=None, current_directory=None, hide_console_window: bool = False, nt_process_create_flags: int = 0, nt_thread_create_flags: int = 0) -> HANDLE:
     exe_path = dos_path(exe_path)
-    
+
     if None == custom_cmdline:
         custom_cmdline = exe_path
-    
+
     if None == current_directory:
         current_directory = os.path.dirname(exe_path)
 

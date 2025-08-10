@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -60,7 +60,7 @@ class DNS(BaseRequestHandler):
 				soc.sendto(NetworkSendBufferPython2or3(buff), self.client_address)
 				ResolveName = re.sub('[^0-9a-zA-Z]+', '.', buff.fields["QuestionName"])
 				print(color("[*] [DNS] A OPT Record poisoned answer sent to: %-15s  Requested name: %s" % (self.client_address[0].replace("::ffff:",""), ResolveName), 2, 1))
-				
+
 			if ParseDNSType(NetworkRecvBufferPython2or3(data)) == "SRV":
 				buff = DNS_SRV_Ans()
 				buff.calculate(NetworkRecvBufferPython2or3(data))
@@ -92,7 +92,7 @@ class DNSTCP(BaseRequestHandler):
 		# Break out if we don't want to respond to this host
 		if RespondToThisIP(self.client_address[0]) is not True:
 			return None
-	
+
 		try:
 			data = self.request.recv(1024)
 			if ParseDNSType(NetworkRecvBufferPython2or3(data)) == "A":
@@ -108,7 +108,7 @@ class DNSTCP(BaseRequestHandler):
 				self.request.send(NetworkSendBufferPython2or3(buff))
 				ResolveName = re.sub('[^0-9a-zA-Z]+', '.', buff.fields["QuestionName"])
 				print(color("[*] [DNS] A OPT Record poisoned answer sent to: %-15s  Requested name: %s" % (self.client_address[0].replace("::ffff:",""), ResolveName), 2, 1))
-				
+
 			if ParseDNSType(NetworkRecvBufferPython2or3(data)) == "SRV":
 				buff = DNS_SRV_Ans()
 				buff.calculate(NetworkRecvBufferPython2or3(data))

@@ -98,7 +98,7 @@ MapFileSectionView(
 								ViewUnmap,
 								0,
 								PAGE_READONLY);
-	
+
 	if (Status == STATUS_IMAGE_NOT_AT_BASE)
 		Status = STATUS_SUCCESS;
 	if (!NT_SUCCESS(Status))

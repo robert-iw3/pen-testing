@@ -16,7 +16,7 @@ import lief
 
 def full_dos_on_bytes(exe_bytes: bytearray, section_population, vector_t):
     """
-    Implementation of Full DOS practical manipulation. 
+    Implementation of Full DOS practical manipulation.
     Intended for use with genetic optimizer.
 
     Returns the bytes with the practical manipulation applied.

@@ -2,30 +2,30 @@
 #include "../common/PEstructs.h"
 
 
-HMODULE WINAPI hlpGetModuleHandle(LPCWSTR sModuleName) 
+HMODULE WINAPI hlpGetModuleHandle(LPCWSTR sModuleName)
 {
 	// get the offset of Process Environment Block
-#ifdef _M_IX86 
+#ifdef _M_IX86
 	PEB * ProcEnvBlk = (PEB *) __readfsdword(0x30);
 #else
 	PEB * ProcEnvBlk = (PEB *)__readgsqword(0x60);
 #endif
 	PEB_LDR_DATA * Ldr = ProcEnvBlk->Ldr;
-		
+
 	// return base address of a calling module
-	if (sModuleName == NULL) 
+	if (sModuleName == NULL)
 		return (HMODULE) (ProcEnvBlk->ImageBaseAddress);
-	
+
 	LIST_ENTRY * ModuleList = &Ldr->InMemoryOrderModuleList;
 	LIST_ENTRY *  pStartListEntry = ModuleList->Flink;
 	LIST_ENTRY *  px;
-	for (px  = pStartListEntry;	px != ModuleList; px  = px->Flink)	
+	for (px  = pStartListEntry;	px != ModuleList; px  = px->Flink)
 	{
 		LDR_DATA_TABLE_ENTRY * pe = (LDR_DATA_TABLE_ENTRY *) ((BYTE *) px - sizeof(LIST_ENTRY));
 
 		const char * pbuff = (const char *) pe->BaseDllName.Buffer;
 		const char * pm = (const char *)sModuleName;
-		
+
 		if (strcmp(pbuff, pm) == 0)
 			return (HMODULE) pe->DllBase;
 	}
@@ -35,7 +35,7 @@ HMODULE WINAPI hlpGetModuleHandle(LPCWSTR sModuleName)
 }
 
 
-FARPROC WINAPI hlpGetProcAddress(HMODULE hMod, char * sProcName) 
+FARPROC WINAPI hlpGetProcAddress(HMODULE hMod, char * sProcName)
 {
 	char * pBaseAddr = (char *) hMod;
 
@@ -50,10 +50,10 @@ FARPROC WINAPI hlpGetProcAddress(HMODULE hMod, char * sProcName)
 	void *pProcAddr;
 
 	// resolve function by ordinal
-	if (((DWORD_PTR)sProcName >> 16) == 0) 
+	if (((DWORD_PTR)sProcName >> 16) == 0)
 	{
 		DWORD * pEAT = (DWORD *) (pBaseAddr + pExportDirAddr->AddressOfFunctions);
-		
+
 		WORD ordinal = (WORD) sProcName & 0xFFFF;	// convert to WORD
 		DWORD Base = pExportDirAddr->Base;			// first ordinal number
 
@@ -65,10 +65,10 @@ FARPROC WINAPI hlpGetProcAddress(HMODULE hMod, char * sProcName)
 		pProcAddr = (FARPROC) (pBaseAddr + (DWORD_PTR) pEAT[ordinal - Base]);
 	}
 	// resolve function by name
-	else 
+	else
 	{
 		pProcAddr = NULL;
-		
+
 		DWORD * pFuncNameTbl = (DWORD *) (pBaseAddr + pExportDirAddr->AddressOfNames);
 		WORD * pHintsTbl = (WORD *) (pBaseAddr + pExportDirAddr->AddressOfNameOrdinals);
 
@@ -76,11 +76,11 @@ FARPROC WINAPI hlpGetProcAddress(HMODULE hMod, char * sProcName)
 
 		// parse through table of function names
 		DWORD ii=254;
-		for (ii = 0; ii < pExportDirAddr->NumberOfNames; ii++) 
+		for (ii = 0; ii < pExportDirAddr->NumberOfNames; ii++)
 		{
 			char * sTmpFuncName = (char *) pBaseAddr + (DWORD_PTR) pFuncNameTbl[ii];
-	
-			if (strcmp(sProcName, sTmpFuncName) == 0)	
+
+			if (strcmp(sProcName, sTmpFuncName) == 0)
 			{
 				// found, get the function virtual address = RVA + BaseAddr
 				pProcAddr = (FARPROC) (pBaseAddr + (DWORD_PTR) pEAT[pHintsTbl[ii]]);

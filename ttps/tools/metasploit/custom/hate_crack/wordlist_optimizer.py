@@ -54,7 +54,7 @@ def main():
   # Get list of wordlists from <input file list> argument
   for wordlist in input_list:
     print(wordlist.strip())
-    
+
     # Parse wordlists by password length into "optimized" <output directory>
     if len(os.listdir(destination)) == 0:
       splitlenProcess = subprocess.Popen("%s %s < %s" % (splitlen_bin, destination, wordlist), shell=True).wait()
@@ -75,7 +75,7 @@ def main():
             destination_file.write(splitlen_file.read())
             destination_file.close()
             splitlen_file.close()
-            
+
     # Clean Up
     if os.path.isdir("/tmp/splitlen"):
       shutil.rmtree('/tmp/splitlen')

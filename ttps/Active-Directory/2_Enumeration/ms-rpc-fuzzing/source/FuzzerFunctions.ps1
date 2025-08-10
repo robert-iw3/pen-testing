@@ -95,7 +95,7 @@ Function Format-ParameterType {
         $minIntSize = 10,
         $maxIntSize = 100,
         $minByteArrLen = 100,
-        $maxByteArrLen = 1000   
+        $maxByteArrLen = 1000
     )
 
     # Process each parameter
@@ -134,7 +134,7 @@ Function Format-ParameterType {
         # Did the user specify his own parameters?
         elseif ($inputParameters) {
             if ($inputParameters.(($retval | Get-Member -MemberType Property | Where-Object { $_.Name -match '^p\d+$' }).Name).GetType().FullName -contains $parameter.ParameterType.FullName) {
-                return $inputParameters.p1 
+                return $inputParameters.p1
             }
         # None of the above, dynamically create an instance for the parameter
         } else {
@@ -163,7 +163,7 @@ Function Format-DefaultParameters {
         $minIntSize = 10,
         $maxIntSize = 100,
         $minByteArrLen = 100,
-        $maxByteArrLen = 1000  
+        $maxByteArrLen = 1000
     )
     # Process each parameter in a method (RPC procedure)
     process {
@@ -292,7 +292,7 @@ Function Format-SortedParameterType {
         elseif ($inputParameters) {
             Write-Verbose "  Format-SortedParameterType: Using '$inputParameters' which is not the primary mechanism for complex types now. Consider using InterfaceComplexParameters."
             return $inputParameters
-            
+
         # None of the above, dynamically create an instance for the parameter
         } else {
             return [System.Activator]::CreateInstance($Type)
@@ -353,10 +353,10 @@ function CallInputGenerator {
         $minIntSize,
         $maxIntSize,
         $minByteArrLen,
-        $maxByteArrLen        
-    ) 
+        $maxByteArrLen
+    )
     # $iterations is a global variable from Invoke-Fuzzer scope, so it should be accessible here
-    $value = GenerateInput -paramType $param -count $iterations -canary $Canary -minStrLen $minStrLen -maxStrLen $maxStrLen -minIntSize $minIntSize -maxIntSize $maxIntSize -minByteArrLen $minByteArrLen -maxByteArrLen $maxByteArrLen               
+    $value = GenerateInput -paramType $param -count $iterations -canary $Canary -minStrLen $minStrLen -maxStrLen $maxStrLen -minIntSize $minIntSize -maxIntSize $maxIntSize -minByteArrLen $minByteArrLen -maxByteArrLen $maxByteArrLen
     return $value
 }
 
@@ -370,7 +370,7 @@ function ConnectRpcClient {
     param (
         $client,
         $stringbinding
-    )    
+    )
     # Connect to the RPC server using the provided stringbinding
     try {
         if ($stringbinding -match "ncacn_np") {

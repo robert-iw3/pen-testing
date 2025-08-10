@@ -90,7 +90,7 @@ public sealed class NewNtResourceManagerCmdlet : NtObjectBaseCmdletWithAccess<Re
             CreateFlags |= ResourceManagerCreateOptions.Volatile;
         }
 
-        return NtResourceManager.Create(obj_attributes, Access, 
+        return NtResourceManager.Create(obj_attributes, Access,
             TransactionManager, ResourceManagerGuid,
             CreateFlags, Description);
     }

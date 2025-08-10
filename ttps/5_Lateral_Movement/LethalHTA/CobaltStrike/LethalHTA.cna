@@ -63,7 +63,7 @@ sub setup_stageless {
 	# the callback for this call. That's why we yield after.
 	artifact_stageless(%options["listener"], "raw", "x86", %options["proxy"], $this);
 	yield;
-	
+
 	# this function is now resumed after &artifact_stageless finished. $1 is our payload.
 	$payloadx86 = gzip($1);
 
@@ -71,7 +71,7 @@ sub setup_stageless {
 	# the callback for this call. That's why we yield after.
 	artifact_stageless(%options["listener"], "raw", "x64", %options["proxy"], $this);
 	yield;
-	
+
 	# this function is now resumed after &artifact_stageless finished. $1 is our payload.
 	$payloadx64 = gzip($1);
 

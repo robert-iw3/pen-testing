@@ -35,7 +35,7 @@ class ICMP_TTL:
 		except:
 			sys.stderr.write("You must be root to use raw_sockets.\n")
 			return False
-		
+
 		header = struct.pack("bbHHh", ICMP_ECHO_REQUEST_CODE, 0, 0, ICMP_ID, seq)
 		bytesInDouble = struct.calcsize("d")
 		data = "%s%s" % (SKIDDIE_PROTECTION, (ICMP_LEN_BYTES - len(SKIDDIE_PROTECTION) - bytesInDouble) * "S")
@@ -45,7 +45,7 @@ class ICMP_TTL:
 		packet = header + data
 		sock.sendto(packet, (self.dst_addr, 0))
 		return True
-			
+
 	def Run(self, data):
 		# Confirm that data is not bigger than 255 and that it is an int
 		if data <= 255 and isinstance(data, int):
@@ -54,7 +54,7 @@ class ICMP_TTL:
 				return True
 			else:
 				sys.stderr.write("Unknown error occured and was not able to send out the message.\n")
-		
+
 		else:
 			return False
 

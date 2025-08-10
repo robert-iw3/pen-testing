@@ -4,7 +4,7 @@
 
 ### Objectives
 
-The goal of libPEConv was to create a "swiss army knife" for custom loading of PE files. It gathers various helper functions that you can quickly integrate in your own loader. For example: remapping sections, applying relocations, loading imports, parsing resources. 
+The goal of libPEConv was to create a "swiss army knife" for custom loading of PE files. It gathers various helper functions that you can quickly integrate in your own loader. For example: remapping sections, applying relocations, loading imports, parsing resources.
 
 Not only it allows for loading PE files, but also for customizing of some steps, i.e. IAT hooking (by providing custom IAT resolvers), and functions redirection. Yet, it is NOT focused on inline hooking and should not be confused with libraries such as MS Detours or MinHook.
 
@@ -47,17 +47,17 @@ int main(int argc, char *argv[])
     if (!my_pe) {
         return -1;
     }
-	
+
     // if the loaded PE needs to access resources, you may need to connect it to the PEB:
     peconv::set_main_module_in_peb((HMODULE)my_pe);
-    
+
     // load delayed imports (if present):
     const ULONGLONG load_base = (ULONGLONG)my_pe;
     peconv::load_delayed_imports(my_pe, load_base);
-  
+
     // if needed, you can run TLS callbacks before the Entry Point:
     peconv::run_tls_callbacks(my_pe, v_size);
-	
+
     //calculate the Entry Point of the manually loaded module
     DWORD ep_rva = peconv::get_entry_point_rva(my_pe);
     if (!ep_rva) {

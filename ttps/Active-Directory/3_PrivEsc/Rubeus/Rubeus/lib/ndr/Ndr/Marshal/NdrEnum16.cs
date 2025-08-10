@@ -166,7 +166,7 @@ namespace Rubeus.Ndr.Marshal
         }
 
         /// <summary>
-        /// Compare 
+        /// Compare
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>

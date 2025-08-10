@@ -15,7 +15,7 @@ def index():
         except Exception as e:
             logging.error(e)
     return render_template('index.html')
-        
+
 @app.route('/view_data',methods=['GET'])
 def getdata():
     data = remote_db.fetch_data()
@@ -25,7 +25,7 @@ def getdata():
 def run_web_server(DB_server_ip: str, db_type: str, port: int, db_username: str, db_password: str, table_name: str):
     global remote_db
     table_name = table_name or SAMPLE_TABLE_NAME
-    
+
     remote_db = Database(db_type, DB_server_ip, port, db_username, db_password)
     remote_db.connect()
 
@@ -39,4 +39,3 @@ def run_web_server(DB_server_ip: str, db_type: str, port: int, db_username: str,
     remote_db.set_table(table_name)
 
     app.run('0.0.0.0',port=8080)
-    

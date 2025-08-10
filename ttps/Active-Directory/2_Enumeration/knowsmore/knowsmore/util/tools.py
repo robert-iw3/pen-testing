@@ -64,7 +64,7 @@ class Tools:
             name = name.replace('--', '-')
         return ''.join(filter(Tools.permited_char_filename, name))
 
-    @staticmethod     
+    @staticmethod
     def permited_char(s):
         if s.isalpha():
             return True

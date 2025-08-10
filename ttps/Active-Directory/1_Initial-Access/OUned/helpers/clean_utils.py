@@ -43,7 +43,7 @@ def clean(domain_ldap_session, ldap_server_ldap_session, save_file):
             result = unset_attribute(session, dn, key)
         else:
             result = modify_attribute(session, dn, key, to_clean[key]['old_value'])
-        
+
         if result is True:
             print(f"{bcolors.OKGREEN}[+] Successfully restored {key} on '{to_clean[key]['target']}'{bcolors.ENDC}")
         else:

@@ -30,7 +30,7 @@ internal class NtTypeArgumentCompleter : IArgumentCompleter
         return s;
     }
 
-    public IEnumerable<CompletionResult> CompleteArgument(string commandName, string parameterName, 
+    public IEnumerable<CompletionResult> CompleteArgument(string commandName, string parameterName,
         string wordToComplete, CommandAst commandAst, IDictionary fakeBoundParameters)
     {
         return NtType.GetTypes().Where(t => t.Name.StartsWith(wordToComplete))

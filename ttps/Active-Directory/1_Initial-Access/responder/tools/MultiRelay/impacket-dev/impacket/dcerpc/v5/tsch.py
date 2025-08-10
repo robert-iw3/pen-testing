@@ -14,9 +14,9 @@
 #   at https://github.com/SecureAuthCorp/impacket/tree/master/tests/SMB_RPC
 #
 #   Some calls have helper functions, which makes it even easier to use.
-#   They are located at the end of this file. 
+#   They are located at the end of this file.
 #   Helper functions start with "h"<name of the call>.
-#   There are test cases for them too. 
+#   There are test cases for them too.
 #
 from impacket.dcerpc.v5.ndr import NDRCALL, NDRSTRUCT, NDRPOINTER, NDRUniConformantArray
 from impacket.dcerpc.v5.dtypes import DWORD, LPWSTR, ULONG, WSTR, NULL, GUID, PSYSTEMTIME, SYSTEMTIME
@@ -146,7 +146,7 @@ TASK_IGNORE_REGISTRATION_TRIGGERS = 1<<(31-26)
 # 3.2.5.4.5 SchRpcSetSecurity (Opnum 4)
 TASK_DONT_ADD_PRINCIPAL_ACE = 1<<(31-27)
 SCH_FLAG_FOLDER             = 1<<(31-2)
-SCH_FLAG_TASK               = 1<<(31-1) 
+SCH_FLAG_TASK               = 1<<(31-1)
 
 # 3.2.5.4.7 SchRpcEnumFolders (Opnum 6)
 TASK_ENUM_HIDDEN = 1

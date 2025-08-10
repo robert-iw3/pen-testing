@@ -118,7 +118,7 @@ namespace ADOKit.Utilities
 
 	        // parse the JSON output and display results
 	        JsonTextReader jsonResult;
-	    
+
 	        string orgName = "";
             string orgID = "";
             string content = "";
@@ -129,7 +129,7 @@ namespace ADOKit.Utilities
             try
             {
                 // Retrieve memberId/publicAlias via REST API
-                string memberId = await getMemberId(credentials); 
+                string memberId = await getMemberId(credentials);
 
                 // Web request to get Organizations we have access to.
                 // https://learn.microsoft.com/en-us/rest/api/azure/devops/account/accounts/list?view=azure-devops-rest-7.1&tabs=HTTP
@@ -155,7 +155,7 @@ namespace ADOKit.Utilities
 
                 // parse the JSON output and display results
                 jsonResult = new JsonTextReader(new StringReader(content));
-                
+
                 // read the json results
                 while (jsonResult.Read())
                 {
@@ -165,7 +165,7 @@ namespace ADOKit.Utilities
                         case "StartObject":
                             break;
                         case "EndObject":
-                            
+
                             if (orgID != "" && orgName != "")
                             {
                                 orgList.Add(new Org(orgName, orgID));
@@ -241,12 +241,12 @@ namespace ADOKit.Utilities
 
 
             /*
-            
+
             Construct the endpoint URL.
             The endpoint was selected at random, valid endpoints include:
             aexprodcus1, aexprodeus21, aexprodea1, aexprodweu1, aexprodeau1, aexprodsin1, etc.
             Additional endpoints may be found via Google dorks or by inspecting the "X-VSS-DeploymentAffinity" cookie from aex.dev.azure.com.
-            
+
             */
 
             string endpoint = "";
@@ -258,7 +258,7 @@ namespace ADOKit.Utilities
             {
                 endpoint = aexEndpoint;
             }
-            
+
             string url = $"https://{endpoint}.vsaex.visualstudio.com";
 
             try

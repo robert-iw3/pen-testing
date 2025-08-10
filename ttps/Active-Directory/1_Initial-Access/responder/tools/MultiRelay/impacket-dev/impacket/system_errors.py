@@ -8,7 +8,7 @@
 #
 # Description:
 #   SYSTEM Errors from [MS-ERREF]. Ideally all the files
-#   should grab the error codes from here 
+#   should grab the error codes from here
 #
 
 ERROR_MESSAGES = {

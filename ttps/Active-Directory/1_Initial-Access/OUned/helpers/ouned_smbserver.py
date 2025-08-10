@@ -147,7 +147,7 @@ def getNetlogonSessionKey(domainIp, challenge, machineCredentials, authenticateM
 
     domainName = authenticateMessage['domain_name'].decode('utf-16le')
     logger.info(f"[INFO - NETLOGON] authenticateMessage domainName is: '{domainName}'")
-    
+
     try:
         av_pairs = authenticateMessage['ntlm'][44:]
         av_pairs = AV_PAIRS(av_pairs)
@@ -175,8 +175,8 @@ def getNetlogonSessionKey(domainIp, challenge, machineCredentials, authenticateM
         rpctransport.set_credentials(machineAccount,'', domainName, lmhash, nthash)
         logger.info(f"[INFO - NETLOGON] Machine credentials for Netlogon rpctransport set")
 
-    
-    
+
+
     dce = rpctransport.get_dce_rpc()
     dce.connect()
     logger.info(f"[INFO - NETLOGON] Connect() for rpctransport successful")
@@ -189,7 +189,7 @@ def getNetlogonSessionKey(domainIp, challenge, machineCredentials, authenticateM
 
     serverChallenge = resp['ServerChallenge']
     logger.info(f"[INFO - NETLOGON] Received server challenge: {serverChallenge}")
-    
+
     if machineHashes == '':
         ntHash = None
     else:
@@ -233,7 +233,7 @@ def getNetlogonSessionKey(domainIp, challenge, machineCredentials, authenticateM
     request['LogonInformation']['LogonNetworkTransitive']['LmChallenge'] = challenge
     request['LogonInformation']['LogonNetworkTransitive']['NtChallengeResponse'] = authenticateMessage['ntlm']
     request['LogonInformation']['LogonNetworkTransitive']['LmChallengeResponse'] = authenticateMessage['lanman']
-    
+
     authenticator = nrpc.NETLOGON_AUTHENTICATOR()
     #authenticator['Credential'] = nrpc.ComputeNetlogonCredentialAES(clientStoredCredential, sessionKey)
     authenticator['Credential'] = nrpc.ComputeNetlogonCredential(clientStoredCredential, sessionKey)
@@ -260,13 +260,13 @@ def getNetlogonSessionKey(domainIp, challenge, machineCredentials, authenticateM
 
     #logging.info("%s\\%s successfully validated through NETLOGON" % (
     #domainName, authenticateMessage['user_name'].decode('utf-16le')))
-    
+
     encryptedSessionKey = authenticateMessage['session_key']
     if encryptedSessionKey != '':
         signingKey = generateEncryptedSessionKey(
             resp['ValidationInformation']['ValidationSam4']['UserSessionKey'], encryptedSessionKey)
     else:
-        signingKey = resp['ValidationInformation']['ValidationSam4']['UserSessionKey'] 
+        signingKey = resp['ValidationInformation']['ValidationSam4']['UserSessionKey']
     logger.info(f"[INFO - NETLOGON] Retrieved the following signingKey: {signingKey}")
 
     return STATUS_SUCCESS, signingKey
@@ -3130,9 +3130,9 @@ class SMB2Commands:
                     connData['SignatureEnabled'] = True
                     connData['SigningSessionKey'] = sessionKey
                     connData['SignSequenceNumber'] = 1
-                
+
                 logger.warning(f"[*] Granted access to {authenticateMessage['domain_name'].decode('utf-16le')}\\{authenticateMessage['user_name'].decode('utf-16le')},{authenticateMessage['host_name'].decode('utf-16le')}")
-                
+
                 # This was the original credentials check function, that simply computed an NTLMv2 hash from known credentials
                 '''identity = authenticateMessage['user_name'].decode('utf-16le').lower()
                 # Do we have this user's credentials?
@@ -3142,7 +3142,7 @@ class SMB2Commands:
                     # Let's parse some data and keep it to ourselves in case it is asked
                     uid, lmhash, nthash = smbServer.getCredentials()[identity]
 
-                    
+
 
                     print("[DEBUG] Preparing to compute NTLMv2 to produce session key")
                     errorCode, sessionKey = computeNTLMv2(identity, lmhash, nthash, smbServer.getSMBChallenge(),
@@ -4000,7 +4000,7 @@ class SMB2Commands:
             else:
                 respSMBCommand = outputData
         else:
-        
+
             smbServer.log("Ioctl not implemented command: 0x%x" % ioctlRequest['CtlCode'], logging.DEBUG)
             errorCode = STATUS_INVALID_DEVICE_REQUEST
             respSMBCommand = smb2.SMB2Error()
@@ -5043,7 +5043,7 @@ class SimpleSMBServer:
             # Here we write a mini config for the server
             self.__smbConfig = configparser.ConfigParser()
             self.__smbConfig.add_section('global')
-            
+
             # The server_name will be the machineName, minus the trailing '$' symbol
             self.__smbConfig.set('global', 'server_name', machineName[:-1])
             self.__smbConfig.set('global', 'server_os', ''.join([random.choice(string.ascii_letters) for _ in range(8)]))

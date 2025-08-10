@@ -11,7 +11,7 @@
         <link href = "{{ url_for('static', filename='images/designer.png')}}", rel="icon"/>
     </head>
     <body class="darkmode">
-        
+
         <!-- writes the banner up top -->
         <ul class = "darkmode">
             <li class="darkmode"><img href="/", style="margin-right:30px;width:64px;height:64px" src="{{ url_for('static', filename='images/designer.png')}}", alt="Home"></li>
@@ -26,10 +26,10 @@
           <div class="form-popup" id="myForm">
             <form class="form-container">
               <h1>New Implant</h1>
-          
+
               <label><b>Format</b></label>
               <input class="darkmode" id = "implant_format" type="text" placeholder="(powershell)" name="format" required>
-          
+
               <label><b>Commands</b></label>
               <input class="darkmode" id = "implant_commands" type="text" placeholder="(enter commands or type all)" name="commands" required>
 
@@ -42,10 +42,10 @@
           </div>
 
 
-         <!-- loops through each implant and writes them to the interaction area --> 
+         <!-- loops through each implant and writes them to the interaction area -->
         <div class = "darkmode" style="max-height:250px; width:100%; overflow:auto;">
         <table class = "darkmode">
-            <tr><th class="darkmode">Implant ID</th><th class="darkmode">Implant Type</th><th class="darkmode" >IP Address</th><th class="darkmode">Hostname</th><th class="darkmode">Username</th><th class="darkmode">Notes</th><th class="darkmode">Interact!</th></tr>  
+            <tr><th class="darkmode">Implant ID</th><th class="darkmode">Implant Type</th><th class="darkmode" >IP Address</th><th class="darkmode">Hostname</th><th class="darkmode">Username</th><th class="darkmode">Notes</th><th class="darkmode">Interact!</th></tr>
 
             {% for implant in implants %}
 
@@ -58,7 +58,7 @@
                 <td class="darkmode" style=white-space:pre;>{{ implant[5] }}</td>
                 <td class="darkmode"><button class="darkmode" id="{{ implant[0] }}" type="button"> <img src="{{ url_for('static', filename='images/designer.png')}}" style="width:96px;height:96px;" alt="Interact!"></button></td>
             </tr>
-        
+
             {% endfor %}
         </table>
         </div>
@@ -67,10 +67,10 @@
         {% include "history.html" %}
         {% block content %}{% endblock %}
 
-        
-        
+
+
         <input id = "terminal" class = "darkmode" type="text" class="form-control" placeholder="Enter a command..." name="messageText" id="messageText" style="position:fixed; bottom: 2.5%; height:5%; width:99%;" autofocus/>
-        
+
     </body>
 
     <script>
@@ -86,7 +86,7 @@
                 // gets the input to the terminal, what command we want
                 var termainal_in = document.getElementById("terminal").value;
                 var request_string = termainal_in;
-        
+
                 // if our command was to upload
                 if(termainal_in.split(" ")[0] === 'upload')
                 {
@@ -97,23 +97,23 @@
                     input.onchange = function(e) {
                         // Handle the selected file(s) here
                         let file = e.target.files[0];
-                        
+
                         // creates a file reader
                         let reader = new FileReader();
 
                         // posts our read file to the /upload place
                         reader.onload = function (event) {
-                        
+
                             var res = reader.result;
 
                             fetch('http://192.168.11.130:5000/{{ upload_uri }}/' + focused_implant, { method: 'POST', body: res });
                         };
 
-                    
+
                     reader.readAsArrayBuffer(file);
-                    
+
                     document.body.removeChild(input);
-                    
+
                     };
                     document.body.appendChild(input);
                     input.click();
@@ -179,7 +179,7 @@
 
         // when we click the download implant button
         document.getElementById("implant_download").addEventListener("click", function() {
-            
+
             // gets the implant format
             var format = document.getElementById("implant_format").value.toLowerCase();
             document.getElementById("implant_format").value = '';
@@ -201,7 +201,7 @@
 
             // after obfuscation is complete, gets the file name and downloads from /implant
             var name = document.getElementById("implant_name").value;
-            document.getElementById("implant_name").value = ''; 
+            document.getElementById("implant_name").value = '';
 
             // downloads the appropriate implant
             downloadURI('http://192.168.11.130:5000/implant/' + format, name)
@@ -214,14 +214,14 @@
 
 
         // defines the function to focus the implant generator
-        function openForm() 
+        function openForm()
         {
             document.getElementById("myForm").style.display = "block";
             //document.getElementById("history").style.display = "none";
         }
 
         // defines the function to close the implant generator
-        function closeForm() 
+        function closeForm()
         {
             document.getElementById("myForm").style.display = "none";
             //document.getElementById("history").style.display ="block";
@@ -234,7 +234,7 @@
         try
         {
             if(focused_implant > 0)
-            { 
+            {
                 document.getElementById(focused_implant).click();
             }
         }
@@ -251,8 +251,8 @@
         var boxes = document.querySelectorAll('.darkmode');
 
         // toggles to lightmode if applicable
-        if (savedTheme === 'lightmode') 
-        {    
+        if (savedTheme === 'lightmode')
+        {
             boxes.forEach(box => {
                 box.classList.toggle('darkmode');
             });
@@ -260,7 +260,7 @@
 
         // when we click the toggle, toggles the theme
         button.addEventListener('click', () => {
-            
+
 
             if(savedTheme === "darkmode")
             {
@@ -275,7 +275,7 @@
 
                 box.classList.toggle('darkmode');
                 localStorage.setItem('theme', savedTheme);
-                
+
             });
         });
     </script>

@@ -23,7 +23,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Create a new security descriptor which can be used on NT objects.</para>
-/// <para type="description">This cmdlet creates a new instance of a SecurityDescriptor object. This can be 
+/// <para type="description">This cmdlet creates a new instance of a SecurityDescriptor object. This can be
 /// used directly with one of the New-Nt* cmdlets (via the -SecurityDescriptor parameter) or by calling
 /// SetSecurityDescriptor on an existing object (assume the object has been opened with the correct permissions.
 /// </para>
@@ -124,8 +124,8 @@ public sealed class NewNtSecurityDescriptorCmdlet : PSCmdlet
     /// <summary>
     /// <para type="description">Specify mapping the generic accesses based on the NT Type.</para>
     /// </summary>
-    [Parameter(ParameterSetName = "FromSddl"), 
-     Parameter(ParameterSetName = "FromBytes"), 
+    [Parameter(ParameterSetName = "FromSddl"),
+     Parameter(ParameterSetName = "FromBytes"),
      Parameter(ParameterSetName = "FromKey")]
     [Alias("MapType")]
     public SwitchParameter MapGeneric { get; set; }
@@ -136,7 +136,7 @@ public sealed class NewNtSecurityDescriptorCmdlet : PSCmdlet
     [Parameter(ParameterSetName = "FromToken"),
         Parameter(ParameterSetName = "FromSddl"),
         Parameter(ParameterSetName = "FromBase64"),
-        Parameter(ParameterSetName = "FromBytes"), 
+        Parameter(ParameterSetName = "FromBytes"),
         Parameter(ParameterSetName = "FromKey"),
         Parameter(ParameterSetName = "NewSd")]
     [ArgumentCompleter(typeof(NtTypeArgumentCompleter))]

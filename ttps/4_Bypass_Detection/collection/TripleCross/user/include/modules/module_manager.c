@@ -107,7 +107,7 @@ int activate_all_modules_config(){
     module_config.xdp_module.all = ON;
 
     //SCHED
-    module_config.sched_module.all = ON; 
+    module_config.sched_module.all = ON;
 
     //FS (File system)
     module_config.fs_module.all = ON;
@@ -126,7 +126,7 @@ int deactivate_all_modules_config(){
     //module_config.xdp_module.all = OFF;
 
     //SCHED
-    module_config.sched_module.all = OFF; 
+    module_config.sched_module.all = OFF;
 
     //FS (File system)
     module_config.fs_module.all = OFF;
@@ -176,5 +176,5 @@ int unhook_all_modules(){
         if(ret!=0) return -1;
     }
 
-    return 0;    
+    return 0;
 }

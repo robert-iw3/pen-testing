@@ -19,7 +19,7 @@ except pkg_resources.DistributionNotFound:
           "If running from source you should at least run \"python setup.py egg_info\"")
 BANNER = "Impacket v{} - Copyright 2023 Fortra\n".format(version)
 WARNING_BANNER = "".join(("===============================================================================\n",
-                          "  Warning: This functionality will be deprecated in the next Impacket version  \n", 
+                          "  Warning: This functionality will be deprecated in the next Impacket version  \n",
                           "===============================================================================\n"))
 
 def getInstallationPath():

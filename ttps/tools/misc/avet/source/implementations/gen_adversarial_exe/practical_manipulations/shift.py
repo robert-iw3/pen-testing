@@ -1,6 +1,6 @@
 """
 Implementation of Shift practical manipulation from
-Adversarial EXEmples: A Survey and Experimental Evaluation of 
+Adversarial EXEmples: A Survey and Experimental Evaluation of
 Practical Attacks on Machine Learning for Windows Malware Detection
 by Demetrio et al.
 
@@ -18,7 +18,7 @@ import lief
 
 def shift_on_bytes(exe_bytes: bytearray, section_population, vector_t):
     """
-    Implementation of Shift practical manipulation. 
+    Implementation of Shift practical manipulation.
     Intended for use with genetic optimizer.
 
     Returns the bytes with the practical manipulation applied.

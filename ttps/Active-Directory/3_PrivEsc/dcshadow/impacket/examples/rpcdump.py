@@ -49,7 +49,7 @@ class RPCDump:
         self.__lmhash = ''
         self.__nthash = ''
         self.__port = port
-        self.__stringbinding = '' 
+        self.__stringbinding = ''
         if hashes is not None:
             self.__lmhash, self.__nthash = hashes.split(':')
 
@@ -129,7 +129,7 @@ class RPCDump:
             else:
                 endpoints[tmpUUID]['Protocol'] = "N/A"
             #print("Transfer Syntax: %s" % entry['tower']['Floors'][1])
-     
+
         for endpoint in list(endpoints.keys()):
             print("Protocol: %s " % endpoints[endpoint]['Protocol'])
             print("Provider: %s " % endpoints[endpoint]['EXE'])
@@ -187,7 +187,7 @@ if __name__ == '__main__':
     if len(sys.argv)==1:
         parser.print_help()
         sys.exit(1)
- 
+
     options = parser.parse_args()
 
     if options.debug is True:

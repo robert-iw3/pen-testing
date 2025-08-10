@@ -1,11 +1,11 @@
 > [!WARNING]
 > This is meant for lab testing, for blue teams to work on identifying IoCs, event types, and behavior.
-> Also, this tool is provided as-is. No support is planned apart from standard review on pull requests you may want to create. 
+> Also, this tool is provided as-is. No support is planned apart from standard review on pull requests you may want to create.
 > Don't run this from a Windows host. Do it from linux, or from a VM (to avoid RPC services conflicts).
 
 # Background
 
-This project is meant to be a pure-python alternative to Mimikatz's dcshadow technique. This includes a custom Impacket with modified `crypto`, `gssapi` and `drsuapi` among other things. 
+This project is meant to be a pure-python alternative to Mimikatz's dcshadow technique. This includes a custom Impacket with modified `crypto`, `gssapi` and `drsuapi` among other things.
 
 [DCShadow](https://www.thehacker.recipes/ad/persistence/dcshadow/) is a powerful persistence technique that could be considered as a transport for other techniques such as [SID history](https://www.thehacker.recipes/ad/persistence/sid-history), [KRBTGT RBCD](https://www.thehacker.recipes/ad/persistence/kerberos/delegation-to-krbtgt), [ACE abuse](https://www.thehacker.recipes/ad/persistence/dacl), and more.
 
@@ -87,7 +87,7 @@ python3 dcshadow.py --json repl.json --domain "sevenkingdoms.local" --user "cers
 ```
 
 > [!TIP]
-> In this case, a `repl.json` file is used to specify the target objects and attributes. Alternatively, the tool supports inline options (e.g., `--object`, `--attribute`, and `--value`). 
+> In this case, a `repl.json` file is used to specify the target objects and attributes. Alternatively, the tool supports inline options (e.g., `--object`, `--attribute`, and `--value`).
 
 # Common errors
 
@@ -97,5 +97,5 @@ If the DRSReplicaAdd times out, it probably is a networking/firewall issue on th
 
 ## DRSReplicaAdd: rpc_s_access_denied
 
-You'd need to run Wireshark on the legit domain controller, but the most probably root cause is you're trying to run this on a Windows machine, meaning when the legit DC asks your rogue DC's epmapper for the port of the drsuapi endpoint, the answer is empty since it's your own windows machine's epmapper that's responding and not our custom one. 
+You'd need to run Wireshark on the legit domain controller, but the most probably root cause is you're trying to run this on a Windows machine, meaning when the legit DC asks your rogue DC's epmapper for the port of the drsuapi endpoint, the answer is empty since it's your own windows machine's epmapper that's responding and not our custom one.
 

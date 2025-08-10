@@ -11,10 +11,10 @@ class Database:
 
         if database_type.lower() not in SUPPORTED_DBs:
             raise TypeError(f"Error: {database_type} not supported.\nSupported DB's: {SUPPORTED_DBs}")
-        
+
         self.database_type = database_type
         self.database_name = database_name
-        self.table = None 
+        self.table = None
         self.host = host
         self.port = port
         self.username = username
@@ -29,7 +29,7 @@ class Database:
                             port= int(self.port),
                             user= self.username,
                             password= self.password)
-                
+
             elif self.database_type == 'mysql' or self.database_type == 'mariadb':
                 import mysql.connector
                 try:
@@ -46,7 +46,7 @@ class Database:
                             port= self.port,
                             user= self.username,
                             password= self.password)
-                        
+
                 except Exception as e:
                     raise ConnectionError(f"Failed to connect to {self.database_type} DB with the following connection string: {self.username}:{self.password}@{self.host}:{self.port}\n{e}")
 
@@ -63,7 +63,7 @@ class Database:
                     self.connection.autocommit = True
                 except Exception as e:
                     raise ConnectionError(f"Failed to connect to {self.database_type} DB with the following connection string: {self.username}:{self.password}@{self.host}:{self.port}\n{e}")
-                
+
             elif self.database_type == 'sqlite':
                 import sqlite3
                 if self.host == 'localhost':
@@ -79,7 +79,7 @@ class Database:
         self._run_SQL_command(f"FLUSH TABLES")
 
     def create_sample_database(self):
-        # Note that sqlite does not require explicit database creation 
+        # Note that sqlite does not require explicit database creation
         logging.info(f"Creating new DB: {SAMPLE_DB_NAME}")
         if not self.connection:
             self.connect()
@@ -88,11 +88,11 @@ class Database:
             self._mysql_create_sample_database(SAMPLE_DB_NAME)
         elif self.database_type == 'postgres':
             self._postgres_create_sample_database(SAMPLE_DB_NAME)
-        
-        
+
+
         self.database_name = SAMPLE_DB_NAME
         # Can add support for other databases here
-    
+
     def create_table(self, table_name: str, columns: dict):
         if not self.connection:
             self.connect()
@@ -106,11 +106,11 @@ class Database:
         self.table = table_name
         logging.info(f"Create table: {table_name}")
         # Add support for other databases here
-    
+
     def is_database_exists(self, database_name: str):
         res =  self._run_SQL_command(f"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '{database_name}'")
         len(res) > 0
-    
+
     def is_table_exists(self, table_name: str):
         res =  self._run_SQL_command(f"SELECT count(*) FROM information_schema.tables WHERE table_name = '{table_name}'")
         return res[0][0] > 0
@@ -118,7 +118,7 @@ class Database:
     def insert(self, table_name: str, data: dict):
         if not self.connection:
             self.connect()
-        
+
         if not self.table:
             self.table = table_name
 
@@ -173,14 +173,14 @@ class Database:
             self._run_SQL_command(query)
         except Exception as e:
             logging.error(e)
-        
+
     def _sql_insert(self, table_name: str, data: dict):
         cursor = self.connection.cursor()
         if self.database_type == "sqlite":
             placeholders = ', '.join(['?'] * len(data))
         else:
             placeholders = ', '.join(['%s'] * len(data))
-            
+
         columns = ', '.join(data.keys())
         values = tuple(data.values())
         query = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"
@@ -201,14 +201,14 @@ def run_local_database_attack(db_name: str, table_name: str , signature_DB: list
     sqlite_db.create_table(table_name,
                            {"id": "INTEGER PRIMARY KEY",
                             "name": "VARCHAR(65535)"})
-    
+
     for signature in signature_DB:
         sqlite_db.insert(table_name, {"name": signature.get_signature_data()})
 
 def run_remote_database_attack(signature_DB: list ,  DB_type: str , username: str , password: str, host: str, port: int, DB_name: str = None, table_name: str = None):
     """
     Connecting into a remote DB with the given credintials, and performing inseting malicous signatures attack.
-    
+
     :param ip: The IP address of the web server.
     :param port: The port number the web server, defualt = 80.
     :param log_insertion: The amount of times send the request to the web server, defualt = 10.
@@ -223,12 +223,12 @@ def run_remote_database_attack(signature_DB: list ,  DB_type: str , username: st
         logging.error(f"Error when tried to connect to the DB: {e}")
         logging.error(f"Make sure that remote connection to the DB is allowed")
         return
-    
+
     logging.info("Sucussfully connected to remote DB")
 
     if not DB_name:
         remote_db.create_sample_database()
-    
+
     if not table_name:
         remote_db.create_table(SAMPLE_TABLE_NAME,
                             {"id": "INTEGER",
@@ -238,11 +238,11 @@ def run_remote_database_attack(signature_DB: list ,  DB_type: str , username: st
         for signature in signature_DB:
             for i in range(DB_INSERTION_NUM):
                 remote_db.insert(table_name or SAMPLE_TABLE_NAME, {"id":i, "name": signature.get_signature_data()})
-                
+
             remote_db.flush_db_to_disk()
             logging.info(f"Inserted {DB_INSERTION_NUM} malicous strings to DB")
 
     except Exception as e:
         logging.error(e)
-    
+
     logging.info("Done")

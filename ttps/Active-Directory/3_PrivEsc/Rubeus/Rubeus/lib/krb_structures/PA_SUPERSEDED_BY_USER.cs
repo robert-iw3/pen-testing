@@ -19,7 +19,7 @@ namespace Rubeus
 			realm = null;
 		}
 
-		
+
 		public PA_SUPERSEDED_BY_USER(AsnElt body)
 		{
 			name = new PrincipalName(body.Sub[0].Sub[0]);

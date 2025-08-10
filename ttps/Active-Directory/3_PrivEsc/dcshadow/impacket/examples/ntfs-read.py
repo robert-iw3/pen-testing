@@ -1087,7 +1087,7 @@ class MiniShell(cmd.Cmd):
         if res is None:
             logging.error("Directory not found")
             self.pwd = oldpwd
-            return 
+            return
         if res.isDirectory() == 0:
             logging.error("Not a directory!")
             self.pwd = oldpwd
@@ -1131,7 +1131,7 @@ class MiniShell(cmd.Cmd):
             if display is True:
                 inode.displayName()
             self.completion.append((inode.FileName,inode.isDirectory()))
-            
+
     def complete_cd(self, text, line, begidx, endidx):
         return self.complete_get(text, line, begidx, endidx, include = 2)
 

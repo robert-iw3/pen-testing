@@ -91,7 +91,7 @@ wstring GetImpersonationLevel(HANDLE TokenHandle)
 	DWORD returnLength = 0;
 	if (!GetTokenInformation(TokenHandle, TokenImpersonationLevel, &levelEnum, sizeof(SECURITY_IMPERSONATION_LEVEL), &returnLength))
 	{
-		// Avoid throwing exception inside security callback and log error instead 
+		// Avoid throwing exception inside security callback and log error instead
 		cout << "GetTokenInformation for TokenImpersonationLevel failed " << TranslateCode(GetLastError()) << endl;
 		return impersonationLevel;
 	}
@@ -113,7 +113,7 @@ wstring GetImpersonationLevel(HANDLE TokenHandle)
 	return impersonationLevel;
 }
 
-// Impersonate the RPC client to open a handle to its token 
+// Impersonate the RPC client to open a handle to its token
 HANDLE GetRpcClientToken(RPC_BINDING_HANDLE BindingHandle)
 {
 	RPC_STATUS status = RpcImpersonateClient(BindingHandle);
@@ -170,7 +170,7 @@ RPC_STATUS RpcIfCallbackFn(
 }
 
 void RegisterServer(RPC_IF_HANDLE Interface, wchar_t* Protseq, wchar_t* Endpoint, wchar_t* Annotation)
-{	
+{
 	// Register the protocol sequence that will be used
 	RPC_STATUS rpcStatus = RpcServerUseProtseqEpW(reinterpret_cast<RPC_WSTR>(Protseq), RPC_C_PROTSEQ_MAX_REQS_DEFAULT, reinterpret_cast<RPC_WSTR>(Endpoint), nullptr);
 	if (RPC_S_OK != rpcStatus)
@@ -263,7 +263,7 @@ void QueryStatusService(const wstring& ServiceName)
 	}
 
 	wcout << ServiceName <<L" status: ";
-	switch (status.dwCurrentState) 
+	switch (status.dwCurrentState)
 	{
 	case SERVICE_STOPPED:
 		wcout << L"SERVICE_STOPPED" << endl;
@@ -298,7 +298,7 @@ void PrintHelp()
 
 int wmain(int argc, wchar_t* argv[])
 {
-	try 
+	try
 	{
 		wstring param1, param2;
 		switch (argc)
@@ -338,7 +338,7 @@ int wmain(int argc, wchar_t* argv[])
 				return EXIT_SUCCESS;
 			}
 		}
-		
+
 		wchar_t protseq[] = PROTSEC;
 		int interfacesCount = sizeof(INTERFACES) / sizeof(RPC_IF_HANDLE);
 		for (int i = 0; i < interfacesCount; i++)
@@ -392,7 +392,7 @@ long SvcGetStorageInstanceCount(
 	/* [in] */ STORAGE_DEVICE_TYPE DeviceType,
 	/* [out] */ LPDWORD DevicesCount) {
 	wcout << L"SvcGetStorageInstanceCount called" << endl;
-	
+
 	// Return specific values that will cause dosvc.dll!CServiceCallback::GetAppInstallPath to call GetStorageDeviceInfo
 	*DevicesCount = 1;
 	return 0;

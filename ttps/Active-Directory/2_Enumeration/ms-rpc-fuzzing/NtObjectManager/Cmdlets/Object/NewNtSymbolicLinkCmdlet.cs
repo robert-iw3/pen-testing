@@ -21,7 +21,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Create a new NT symbolic link object.</para>
-/// <para type="description">This cmdlet creates a new NT symbolic link object. The absolute path to the object in the NT object manager name space can be specified. 
+/// <para type="description">This cmdlet creates a new NT symbolic link object. The absolute path to the object in the NT object manager name space can be specified.
 /// It's also possible to create the object relative to an existing object by specified the -Root parameter. If no path is specified than an unnamed object will be created which
 /// can only be duplicated by handle.</para>
 /// </summary>

@@ -19,7 +19,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Create a new NT mailslot file object.</para>
-/// <para type="description">This cmdlet creates a new NT mailslot file object. The absolute path to the object in the NT object manager name space can be specified. 
+/// <para type="description">This cmdlet creates a new NT mailslot file object. The absolute path to the object in the NT object manager name space can be specified.
 /// It's also possible to open the object relative to an existing object by specified the -Root parameter.</para>
 /// </summary>
 /// <example>
@@ -40,7 +40,7 @@ public class NewNtMailslotFileCmdlet : GetNtFileCmdlet
     /// </summary>
     [Parameter]
     public int DefaultTimeoutMs { get; set; }
-    
+
     /// <summary>
     /// <para type="description">Specify the maximum message size (0 means any size)</para>
     /// </summary>
@@ -60,7 +60,7 @@ public class NewNtMailslotFileCmdlet : GetNtFileCmdlet
     /// <returns>The newly created object.</returns>
     protected override object CreateObject(ObjectAttributes obj_attributes)
     {
-        return NtFile.CreateMailslot(obj_attributes, Access, Options, 
+        return NtFile.CreateMailslot(obj_attributes, Access, Options,
             MaximumMessageSize, MailslotQuota, DefaultTimeoutMs);
     }
 

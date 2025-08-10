@@ -50,7 +50,7 @@ function Add-RpcACLEndpointNode {
         # Build the Access entries as a string
         $AccessEntries = ($ACL.Access | ForEach-Object {
             "`r`n$($_.IdentityReference) -> $($_.AccessControlType) -> $($_.FileSystemRights)"
-        }) -join ', '        
+        }) -join ', '
 
         $cypher = @"
             MERGE (endpoint:Endpoint { Name: `"$Endpoint`" })
@@ -140,7 +140,7 @@ function Add-FuzzedInputNodeFromJson {
     } elseif ($JsonFilePath -match "Error") {
         Add-ErrorFuzzedInputNodeFromJson($JsonFilePath)
     } elseif ($JsonFilePath -match "Parameters") {
-        Add-ParameterInputNodeFromJson($JsonFilePath)        
+        Add-ParameterInputNodeFromJson($JsonFilePath)
     } else {
         Write-Host "Error importing data to Neo4j, check your path $_"
     }
@@ -195,14 +195,14 @@ This cmdlet creates relationships for Allowed Fuzzed inputs in Neo4j
 #>
 function Add-AllowsFuzzedInputNode {
     param (
-        [string]$MethodName, 
+        [string]$MethodName,
         [string]$RpcServerName,
         [string]$RpcInterface,
-        [string]$Endpoint, 
-        [string]$ProcedureName, 
+        [string]$Endpoint,
+        [string]$ProcedureName,
         [string]$MethodDefinition,
         [string]$Service,
-        [string]$FuzzInput, 
+        [string]$FuzzInput,
         [string]$Output,
         [string]$windowsMessage
     )
@@ -214,10 +214,10 @@ function Add-AllowsFuzzedInputNode {
         MERGE (rpcInterface)-[:HAS_ENDPOINT]->(endpoint)
         MERGE (method:Method { Name: `"$MethodName`", Definition: `"$MethodDefinition`" })
         MERGE (rpcInterface)-[:WITH_METHOD]->(method)
-        CREATE (allowsinput:AllowsInput { 
-            Name: `"$MethodName`", 
-            Definition: `"$MethodDefinition`", 
-            FuzzInput: `"$FuzzInput`", 
+        CREATE (allowsinput:AllowsInput {
+            Name: `"$MethodName`",
+            Definition: `"$MethodDefinition`",
+            FuzzInput: `"$FuzzInput`",
             FuzzOutput: `"$Output`",
             Endpoint: `"$Endpoint`",
             WindowsMessage: `"$windowsMessage`"
@@ -227,7 +227,7 @@ function Add-AllowsFuzzedInputNode {
         FOREACH (_ IN CASE WHEN `"$Service`" <> 'N.a.' THEN [1] ELSE [] END |
             MERGE (service:Service { Name: `"$Service`" })
             MERGE (rpcServer)-[:SERVICE]->(service)
-        )        
+        )
 "@
     Invoke-CustomNeo4jQuery -Query $cypher | Out-Null
 }
@@ -280,12 +280,12 @@ This cmdlet creates relationships for Access Denied Fuzzed inputs in Neo4j
 #>
 function Add-AccessDeniedFuzzedInputNode {
     param (
-        [string]$MethodName, 
+        [string]$MethodName,
         [string]$RpcServerName,
         [string]$RpcInterface,
-        [string]$Endpoint, 
-        [string]$ProcedureName, 
-        [string]$MethodDefinition, 
+        [string]$Endpoint,
+        [string]$ProcedureName,
+        [string]$MethodDefinition,
         [string]$Service,
         [string]$FuzzInput
     )
@@ -297,9 +297,9 @@ function Add-AccessDeniedFuzzedInputNode {
         MERGE (rpcInterface)-[:HAS_ENDPOINT]->(endpoint)
         MERGE (method:Method { Name: `"$MethodName`", Definition: `"$MethodDefinition`" })
         MERGE (rpcInterface)-[:WITH_METHOD]->(method)
-        MERGE (accessdenied:AccessDenied { 
-            Name: `"$MethodName`", 
-            Definition: `"$MethodDefinition`", 
+        MERGE (accessdenied:AccessDenied {
+            Name: `"$MethodName`",
+            Definition: `"$MethodDefinition`",
             FuzzInput: `"$FuzzInput`",
             Endpoint: `"$Endpoint`"
         })
@@ -363,12 +363,12 @@ This cmdlet creates relationships for error Fuzzed inputs in Neo4j
 #>
 function Add-ErrorFuzzedInputNode {
     param (
-        [string]$MethodName, 
-        [string]$RpcServerName, 
+        [string]$MethodName,
+        [string]$RpcServerName,
         [string]$RpcInterface,
-        [string]$Endpoint, 
-        [string]$ProcedureName, 
-        [string]$MethodDefinition, 
+        [string]$Endpoint,
+        [string]$ProcedureName,
+        [string]$MethodDefinition,
         [string]$FuzzInput,
         [string]$Service,
         [string]$Errormessage
@@ -381,9 +381,9 @@ function Add-ErrorFuzzedInputNode {
     MERGE (rpcInterface)-[:HAS_ENDPOINT]->(endpoint)
     MERGE (method:Method { Name: `"$MethodName`", Definition: `"$MethodDefinition`" })
     MERGE (rpcInterface)-[:WITH_METHOD]->(method)
-    CREATE (error:Error { 
-        Name: `"$MethodName`", 
-        Definition: `"$MethodDefinition`", 
+    CREATE (error:Error {
+        Name: `"$MethodName`",
+        Definition: `"$MethodDefinition`",
         FuzzInput: `"$FuzzInput`",
         Endpoint: `"$Endpoint`",
         Error: `"$Errormessage`"
@@ -420,7 +420,7 @@ function Add-FunctionCallToAllowedInput {
         [PSObject]$PMLEvent,
         [string]$Canary
     )
-    
+
     # Extract the relevant details from the $Event object
     $ProcessName = $PMLEvent.'Process Name'
     $Path = $PMLEvent.Path
@@ -466,7 +466,7 @@ function Add-FunctionCallToAllowedInput {
                 AccessOptions: `"$AccessOptions"`
             })
             MERGE (allowsinput)-[:HIGH_PRIVILEGED_FILE_OP]->(highPrivilegedFileOp)
-"@  
+"@
     } else {
         # Find the existing 'AllowedInput' node by the method name and path
         $cypher = @"
@@ -484,7 +484,7 @@ function Add-FunctionCallToAllowedInput {
             MERGE (allowsinput)-[:CALLS_FUNCTION]->(functionCall)
 "@
     }
-    Invoke-CustomNeo4jQuery -Query $cypher | Out-Null   
+    Invoke-CustomNeo4jQuery -Query $cypher | Out-Null
 }
 
 <#

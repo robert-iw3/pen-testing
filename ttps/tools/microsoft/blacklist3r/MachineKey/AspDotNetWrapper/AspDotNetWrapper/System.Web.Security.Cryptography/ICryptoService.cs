@@ -1,7 +1,7 @@
 ﻿//------------------------------------------------------------------------------
 // <copyright file="ICryptoService.cs" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>                                                                
+// </copyright>
 //------------------------------------------------------------------------------
 
 namespace System.Web.Security.Cryptography {
@@ -17,6 +17,6 @@ namespace System.Web.Security.Cryptography {
 
         // Returns the unprotected form of some protected data by validating and undoing the cryptographic transformations that led to it.
         byte[] Unprotect(byte[] protectedData);
-    
+
     }
 }

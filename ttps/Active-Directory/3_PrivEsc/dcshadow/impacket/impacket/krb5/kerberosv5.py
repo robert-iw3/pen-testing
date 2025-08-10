@@ -163,11 +163,11 @@ def getKerberosTGT(clientName, password, domain, lmhash, nthash, aesKey='', kdcH
         aesKey = b''
 
     if nthash == b'':
-        # This is still confusing. I thought KDC_ERR_ETYPE_NOSUPP was enough, 
-        # but I found some systems that accepts all ciphers, and trigger an error 
+        # This is still confusing. I thought KDC_ERR_ETYPE_NOSUPP was enough,
+        # but I found some systems that accepts all ciphers, and trigger an error
         # when requesting subsequent TGS :(. More research needed.
         # So, in order to support more than one cypher, I'm setting aes first
-        # since most of the systems would accept it. If we're lucky and 
+        # since most of the systems would accept it. If we're lucky and
         # KDC_ERR_ETYPE_NOSUPP is returned, we will later try rc4.
         if aesKey != b'':
             if len(aesKey) == 32:
@@ -566,7 +566,7 @@ def getKerberosType1(username, password, domain, lmhash, nthash, aesKey='', TGT 
                     tgt, cipher, oldSessionKey, sessionKey = getKerberosTGT(userName, password, domain, lmhash, nthash, aesKey, kdcHost)
                 except KerberosError as e:
                     if e.getErrorCode() == constants.ErrorCodes.KDC_ERR_ETYPE_NOSUPP.value:
-                        # We might face this if the target does not support AES 
+                        # We might face this if the target does not support AES
                         # So, if that's the case we'll force using RC4 by converting
                         # the password to lm/nt hashes and hope for the best. If that's already
                         # done, byebye.
@@ -593,7 +593,7 @@ def getKerberosType1(username, password, domain, lmhash, nthash, aesKey='', TGT 
                 tgs, cipher, oldSessionKey, sessionKey = getKerberosTGS(serverName, domain, kdcHost, tgt, cipher, sessionKey)
             except KerberosError as e:
                 if e.getErrorCode() == constants.ErrorCodes.KDC_ERR_ETYPE_NOSUPP.value:
-                    # We might face this if the target does not support AES 
+                    # We might face this if the target does not support AES
                     # So, if that's the case we'll force using RC4 by converting
                     # the password to lm/nt hashes and hope for the best. If that's already
                     # done, byebye.
@@ -723,8 +723,8 @@ class KerberosError(SessionError):
                 nt_error = struct.unpack('<L', eData['data-value'].asOctets()[:4])[0]
 
                 if nt_error in nt_errors.ERROR_MESSAGES:
-                    error_msg_short = nt_errors.ERROR_MESSAGES[nt_error][0] 
-                    error_msg_verbose = nt_errors.ERROR_MESSAGES[nt_error][1] 
+                    error_msg_short = nt_errors.ERROR_MESSAGES[nt_error][0]
+                    error_msg_verbose = nt_errors.ERROR_MESSAGES[nt_error][1]
                     retString += '\nNT ERROR: code: 0x%x - %s - %s' % (nt_error, error_msg_short, error_msg_verbose)
                 else:
                     retString += '\nNT ERROR: unknown error code: 0x%x' % nt_error

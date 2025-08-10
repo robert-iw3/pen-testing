@@ -1,13 +1,13 @@
 ###############################################################################
-#                          SKINNY GUERRILLA C2 SERVER                          
-#     _____ _    _                      _____                      _ _ _       
-#    / ____| |  (_)                    / ____|                    (_) | |      
-#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _ 
+#                          SKINNY GUERRILLA C2 SERVER
+#     _____ _    _                      _____                      _ _ _
+#    / ____| |  (_)                    / ____|                    (_) | |
+#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _
 #    \___ \| |/ / | '_ \| '_ \| | | | | | |_ | | | |/ _ \ '__| '__| | | |/ _` |
 #    ____) |   <| | | | | | | | |_| | | |__| | |_| |  __/ |  | |  | | | | (_| |
 #   |_____/|_|\_\_|_| |_|_| |_|\__, |  \_____|\__,_|\___|_|  |_|  |_|_|_|\__,_|
-#                               __/ |                                          
-#                              |___/                                           
+#                               __/ |
+#                              |___/
 # obfuscate-powershell.py
 # one of many resources to obfuscate powrshell files
 # this script will randomize all variable and function names
@@ -24,7 +24,7 @@ def obf_powershell(infilePath, outfilePath):
 
     # list of 417 dictionary words
     replacement_words = []
-    
+
     infile = open('./src/wordlist.txt')
     for line in infile:
         replacement_words.append(line.strip())
@@ -41,7 +41,7 @@ def obf_powershell(infilePath, outfilePath):
     # of what has been replaced and what has not
     vars = dict()
 
-    # gets random letters and numbers 
+    # gets random letters and numbers
     randletters = string.ascii_lowercase + string.ascii_uppercase + "0123456789"
 
     # loops through every line in the powershell input script
@@ -86,7 +86,7 @@ def obf_powershell(infilePath, outfilePath):
 
             # if we found a variable and it is not already in our dictionary
             if isvar and word not in vars.keys():
-                
+
                 # if we have more dictionary words we can use, uses them. otherwise uses a random choice
                 if len(replacement_words) != 0:
                     vars[word] = '$' + replacement_words.pop(random.randint(0, len(replacement_words)-1))

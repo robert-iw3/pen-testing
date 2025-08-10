@@ -16,7 +16,7 @@ To set up, run the included setup script, or perform the following:
 Usage
 =====
 
-Blog posts are available here: 
+Blog posts are available here:
 
 * https://www.christophertruncer.com/egress-assess-testing-egress-data-detection-capabilities/
 * https://www.christophertruncer.com/egress-assess-action-via-powershell/
@@ -48,10 +48,10 @@ How the Protocols Attempt Exfil
 -----
 - SMTP - The client creates a mail message placing the data in the body of the message or if a file, as an attachment. The client then attempts to make an SMTP connection to the EgressAssess Server over port 25 (or an alternate port provided). The SMTP server does not require authentication and accepts the incoming connection and processes the email. The processing of the mail message takes the data from the body of the email or from the attached file in the mail message. This test does not attempt to send the email through the organizations email server.
 
-- SMTP_Outlook – (This module is only available in the PowerShell client). If an Outlook client has been previously configured, the PowerShell client creates a COM Object to Outlook (This may require a user to provide authentication depending on the configuration). The PowerShell client then will create a mail message with the data in the body of the email or if a file, as an attachment. Emails are sent from Outlook as the previously configured user. (Some security settings may notify the user that a program is trying to send emails in the background and needs to select allow). For this module to work an MX record needs to be created for the EgressAssess Server. The EgressAssess SMTP server accepts all email messages sent to the domain of the MX record and receives the email with the file attachments or the data as test in out the body of the email. 
+- SMTP_Outlook – (This module is only available in the PowerShell client). If an Outlook client has been previously configured, the PowerShell client creates a COM Object to Outlook (This may require a user to provide authentication depending on the configuration). The PowerShell client then will create a mail message with the data in the body of the email or if a file, as an attachment. Emails are sent from Outlook as the previously configured user. (Some security settings may notify the user that a program is trying to send emails in the background and needs to select allow). For this module to work an MX record needs to be created for the EgressAssess Server. The EgressAssess SMTP server accepts all email messages sent to the domain of the MX record and receives the email with the file attachments or the data as test in out the body of the email.
 `Invoke-EssessAgress -Client SMTPOutlook -IP <domain of SMTP Sever> -NoPing -DataType "ssn"`
 
-- ICMP - The data is broken up into bytes and base64 encoded and sent over the wire in an ICMP Type 8 ECHO request. the data is placed inside the data field of the packet. The ECHO requests are continuously made to the EgressAsess Server which receives the ICMP request and gathers the data and decodes it. 
+- ICMP - The data is broken up into bytes and base64 encoded and sent over the wire in an ICMP Type 8 ECHO request. the data is placed inside the data field of the packet. The ECHO requests are continuously made to the EgressAsess Server which receives the ICMP request and gathers the data and decodes it.
 
 - FTP - Data and files are upload to the EgressAssess FTP server following typical protocol usage. A username and password are used to access the server. See examples above.
 

@@ -67,7 +67,7 @@ The following prerequisites are required to deploy infrastructure with Forge:
 
 ```
 
-2. Create a `.env` environment file and customise your Forge instance. 
+2. Create a `.env` environment file and customise your Forge instance.
 ```bash
 chmod +x gen-env.sh && ./gen-env.sh
 ```

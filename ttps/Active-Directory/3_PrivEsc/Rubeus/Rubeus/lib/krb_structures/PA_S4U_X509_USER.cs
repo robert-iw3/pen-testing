@@ -10,7 +10,7 @@ namespace Rubeus
     //    checksum[1] Checksum
     //}
 
-    
+
     public class PA_S4U_X509_USER
     {
         public PA_S4U_X509_USER(byte[] key, string name, string realm, uint nonce, Interop.KERB_ETYPE eType = Interop.KERB_ETYPE.aes256_cts_hmac_sha1, bool dmsa = false)

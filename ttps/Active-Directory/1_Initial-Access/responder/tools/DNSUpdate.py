@@ -70,7 +70,7 @@ def new_A_record(type, serial):
 ddict1 = defaultdict(list)
 
 parser = argparse.ArgumentParser(description='Add/ Remove DNS records for an effective pawning with responder')
-    
+
 parser.add_argument("-DNS", type=str,help="IP address of the DNS server/ Domain Controller to connect to")
 parser.add_argument("-u","--user",type=str,help="Domain\\Username for authentication.")
 parser.add_argument("-p","--password",type=str,help="Password or LM:NTLM hash, will prompt if not specified")
@@ -97,7 +97,7 @@ if args.action in ['ad', 'rm']:
         if flag.lower() == 'y' or flag.lower() == 'yes':
             recordname = "*"
         else:
-            sys.exit(1)     
+            sys.exit(1)
     else:
         recordname = args.record
     if args.action == 'ad' and not args.data:
@@ -129,7 +129,7 @@ dnserver = ldap3.Server(args.DNS, get_info=ldap3.ALL)
 print('Connecting to host...')
 con = ldap3.Connection(dnserver, user=args.user, password=args.password, authentication=ldap3.NTLM)
 print('Binding to host')
-# Binding with the user context 
+# Binding with the user context
 if not con.bind():
     print('Bind failed, Check the Username and Password')
     print(con.result)
@@ -182,4 +182,3 @@ elif args.action == 'rm':
     con.delete(record_dn)
     if con.result['description'] == "success":
         print("Record deleted successfully")
-        

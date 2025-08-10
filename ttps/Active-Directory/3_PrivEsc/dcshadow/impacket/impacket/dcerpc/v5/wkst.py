@@ -40,7 +40,7 @@ class DCERPCSessionError(DCERPCException):
         key = self.error_code
         if key in system_errors.ERROR_MESSAGES:
             error_msg_short = system_errors.ERROR_MESSAGES[key][0]
-            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1] 
+            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1]
             return 'WKST SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             return 'WKST SessionError: unknown error code: 0x%x' % self.error_code
@@ -520,7 +520,7 @@ class NET_COMPUTER_NAME_ARRAY(NDRSTRUCT):
 
 class PNET_COMPUTER_NAME_ARRAY(NDRPOINTER):
     referent = (
-        ('Data', NET_COMPUTER_NAME_ARRAY), 
+        ('Data', NET_COMPUTER_NAME_ARRAY),
     )
 
 # 2.2.5.21 USE_INFO_0

@@ -19,7 +19,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Open a NT event object by path.</para>
-/// <para type="description">This cmdlet opens an existing NT event object. The absolute path to the object in the NT object manager name space must be specified. 
+/// <para type="description">This cmdlet opens an existing NT event object. The absolute path to the object in the NT object manager name space must be specified.
 /// It's also possible to create the object relative to an existing object by specified the -Root parameter.</para>
 /// </summary>
 /// <example>

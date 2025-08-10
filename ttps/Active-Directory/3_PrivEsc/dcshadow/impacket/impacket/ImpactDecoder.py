@@ -41,10 +41,10 @@ class Decoder:
     __decoded_protocol = None
     def decode(self, aBuffer):
         pass
-        
+
     def set_decoded_protocol(self, protocol):
         self.__decoded_protocol = protocol
-        
+
     def get_protocol(self, aprotocol):
         protocol = self.__decoded_protocol
         while protocol:
@@ -52,7 +52,7 @@ class Decoder:
                 break
             protocol=protocol.child()
         return protocol
-    
+
     def __str__(self):
         protocol = self.__decoded_protocol
         i=0
@@ -188,13 +188,13 @@ class IP6Decoder(Decoder):
     def decode(self, buffer):
         ip6_packet = IP6.IP6(buffer)
         self.set_decoded_protocol(ip6_packet)
-        start_pos = ip6_packet.get_header_size() 
+        start_pos = ip6_packet.get_header_size()
         end_pos = ip6_packet.get_payload_length() + start_pos
         contained_protocol = ip6_packet.get_next_header()
-        
+
         multi_protocol_decoder = IP6MultiProtocolDecoder(contained_protocol)
         child_packet = multi_protocol_decoder.decode(buffer[start_pos:end_pos])
-        
+
         ip6_packet.contains(child_packet)
         return ip6_packet
 
@@ -210,7 +210,7 @@ class HopByHopDecoder(Decoder):
 
         multi_protocol_decoder = IP6MultiProtocolDecoder(contained_protocol)
         child_packet = multi_protocol_decoder.decode(buffer[start_pos:])
-        
+
         hop_by_hop.contains(child_packet)
         return hop_by_hop
 
@@ -226,7 +226,7 @@ class DestinationOptionsDecoder(Decoder):
 
         multi_protocol_decoder = IP6MultiProtocolDecoder(contained_protocol)
         child_packet = multi_protocol_decoder.decode(buffer[start_pos:])
-        
+
         destination_options.contains(child_packet)
         return destination_options
 
@@ -242,7 +242,7 @@ class RoutingOptionsDecoder(Decoder):
 
         multi_protocol_decoder = IP6MultiProtocolDecoder(contained_protocol)
         child_packet = multi_protocol_decoder.decode(buffer[start_pos:])
-        
+
         routing_options.contains(child_packet)
         return routing_options
 
@@ -253,8 +253,8 @@ class ICMP6Decoder(Decoder):
     def decode(self, buffer):
         icmp6_packet = ICMP6.ICMP6(buffer)
         self.set_decoded_protocol(icmp6_packet)
-        start_pos = icmp6_packet.get_header_size() 
-                
+        start_pos = icmp6_packet.get_header_size()
+
         self.data_decoder = DataDecoder()
         child_packet = self.data_decoder.decode(buffer[start_pos:])
         icmp6_packet.contains(child_packet)
@@ -315,7 +315,7 @@ class IGMPDecoder(Decoder):
 class IPDecoderForICMP(Decoder):
     """This class was added to parse the IP header of ICMP unreachables packets
     If you use the "standard" IPDecoder, it might crash (see bug #4870) ImpactPacket.py
-    because the TCP header inside the IP header is incomplete"""    
+    because the TCP header inside the IP header is incomplete"""
     def __init__(self):
         pass
 
@@ -358,10 +358,10 @@ class DataDecoder(Decoder):
 class BaseDot11Decoder(Decoder):
     def __init__(self, key_manager=None):
         self.set_key_manager(key_manager)
-        
+
     def set_key_manager(self, key_manager):
         self.key_manager = key_manager
-        
+
     def find_key(self, bssid):
         try:
             key = self.key_manager.get_key(bssid)
@@ -376,16 +376,16 @@ class RadioTapDecoder(BaseDot11Decoder):
     def decode(self, aBuffer):
         rt = dot11.RadioTap(aBuffer)
         self.set_decoded_protocol( rt )
-        
+
         self.do11_decoder = Dot11Decoder()
         self.do11_decoder.set_key_manager(self.key_manager)
         flags=rt.get_flags()
         if flags is not None:
             fcs=flags&dot11.RadioTap.RTF_FLAGS.PROPERTY_FCS_AT_END
             self.do11_decoder.FCS_at_end(fcs)
-            
+
         packet = self.do11_decoder.decode(rt.get_body_as_string())
-    
+
         rt.contains(packet)
         return rt
 
@@ -393,23 +393,23 @@ class Dot11Decoder(BaseDot11Decoder):
     def __init__(self):
         BaseDot11Decoder.__init__(self)
         self.__FCS_at_end = True
-        
+
     def FCS_at_end(self, fcs_at_end=True):
-        self.__FCS_at_end=not not fcs_at_end 
-        
+        self.__FCS_at_end=not not fcs_at_end
+
     def decode(self, aBuffer):
         d = dot11.Dot11(aBuffer, self.__FCS_at_end)
         self.set_decoded_protocol( d )
-        
+
         type = d.get_type()
         if type == dot11.Dot11Types.DOT11_TYPE_CONTROL:
             dot11_control_decoder = Dot11ControlDecoder()
             packet = dot11_control_decoder.decode(d.body_string)
         elif type == dot11.Dot11Types.DOT11_TYPE_DATA:
             dot11_data_decoder = Dot11DataDecoder(self.key_manager)
-            
+
             dot11_data_decoder.set_dot11_hdr(d)
-            
+
             packet = dot11_data_decoder.decode(d.body_string)
         elif type == dot11.Dot11Types.DOT11_TYPE_MANAGEMENT:
             dot11_management_decoder = Dot11ManagementDecoder()
@@ -428,12 +428,12 @@ class Dot11ControlDecoder(BaseDot11Decoder):
         self.__FCS_at_end = True
 
     def FCS_at_end(self, fcs_at_end=True):
-        self.__FCS_at_end=not not fcs_at_end 
-    
+        self.__FCS_at_end=not not fcs_at_end
+
     def decode(self, aBuffer):
         d = dot11.Dot11(aBuffer, self.__FCS_at_end)
         self.set_decoded_protocol(d)
-        
+
         self.subtype = d.get_subtype()
         if self.subtype is dot11.Dot11Types.DOT11_SUBTYPE_CONTROL_CLEAR_TO_SEND:
             self.ctrl_cts_decoder = Dot11ControlFrameCTSDecoder()
@@ -456,14 +456,14 @@ class Dot11ControlDecoder(BaseDot11Decoder):
         else:
             data_decoder = DataDecoder()
             packet = data_decoder.decode(d.body_string)
-        
+
         d.contains(packet)
         return d
 
 class Dot11ControlFrameCTSDecoder(BaseDot11Decoder):
     def __init__(self):
         BaseDot11Decoder.__init__(self)
-    
+
     def decode(self, aBuffer):
         p = dot11.Dot11ControlFrameCTS(aBuffer)
         self.set_decoded_protocol(p)
@@ -472,7 +472,7 @@ class Dot11ControlFrameCTSDecoder(BaseDot11Decoder):
 class Dot11ControlFrameACKDecoder(BaseDot11Decoder):
     def __init__(self):
         BaseDot11Decoder.__init__(self)
-    
+
     def decode(self, aBuffer):
         p = dot11.Dot11ControlFrameACK(aBuffer)
         self.set_decoded_protocol(p)
@@ -481,7 +481,7 @@ class Dot11ControlFrameACKDecoder(BaseDot11Decoder):
 class Dot11ControlFrameRTSDecoder(BaseDot11Decoder):
     def __init__(self):
         BaseDot11Decoder.__init__(self)
-    
+
     def decode(self, aBuffer):
         p = dot11.Dot11ControlFrameRTS(aBuffer)
         self.set_decoded_protocol(p)
@@ -490,7 +490,7 @@ class Dot11ControlFrameRTSDecoder(BaseDot11Decoder):
 class Dot11ControlFramePSPollDecoder(BaseDot11Decoder):
     def __init__(self):
         BaseDot11Decoder.__init__(self)
-    
+
     def decode(self, aBuffer):
         p = dot11.Dot11ControlFramePSPoll(aBuffer)
         self.set_decoded_protocol(p)
@@ -499,7 +499,7 @@ class Dot11ControlFramePSPollDecoder(BaseDot11Decoder):
 class Dot11ControlFrameCFEndDecoder(BaseDot11Decoder):
     def __init__(self):
         BaseDot11Decoder.__init__(self)
-    
+
     def decode(self, aBuffer):
         p = dot11.Dot11ControlFrameCFEnd(aBuffer)
         self.set_decoded_protocol(p)
@@ -507,7 +507,7 @@ class Dot11ControlFrameCFEndDecoder(BaseDot11Decoder):
 class Dot11ControlFrameCFEndCFACKDecoder(BaseDot11Decoder):
     def __init__(self):
         BaseDot11Decoder.__init__(self)
-    
+
     def decode(self, aBuffer):
         p = dot11.Dot11ControlFrameCFEndCFACK(aBuffer)
         self.set_decoded_protocol(p)
@@ -516,10 +516,10 @@ class Dot11ControlFrameCFEndCFACKDecoder(BaseDot11Decoder):
 class Dot11DataDecoder(BaseDot11Decoder):
     def __init__(self, key_manager):
         BaseDot11Decoder.__init__(self, key_manager)
-        
+
     def set_dot11_hdr(self, dot11_obj):
         self.dot11 = dot11_obj
-        
+
     def decode(self, aBuffer):
         if self.dot11.get_fromDS() and self.dot11.get_toDS():
             if self.dot11.is_QoS_frame():
@@ -531,7 +531,7 @@ class Dot11DataDecoder(BaseDot11Decoder):
         else:
             p = dot11.Dot11DataFrame(aBuffer)
         self.set_decoded_protocol( p )
-        
+
         if not self.dot11.get_protectedFrame():
             self.llc_decoder = LLCDecoder()
             packet = self.llc_decoder.decode(p.body_string)
@@ -545,7 +545,7 @@ class Dot11DataDecoder(BaseDot11Decoder):
             else:
                 # WDS, this is the RA
                 bssid = p.get_address1()
-                
+
             wep_decoder = Dot11WEPDecoder(self.key_manager)
             wep_decoder.set_bssid(bssid)
             packet = wep_decoder.decode(p.body_string)
@@ -558,37 +558,37 @@ class Dot11DataDecoder(BaseDot11Decoder):
                     if packet is None:
                         data_decoder = DataDecoder()
                         packet = data_decoder.decode(p.body_string)
-        
+
         p.contains(packet)
         return p
-      
+
 class Dot11WEPDecoder(BaseDot11Decoder):
     def __init__(self, key_manager):
         BaseDot11Decoder.__init__(self, key_manager)
         self.bssid = None
-        
+
     def set_bssid(self, bssid):
         self.bssid = bssid
-        
+
     def decode(self, aBuffer):
         wep = dot11.Dot11WEP(aBuffer)
         self.set_decoded_protocol( wep )
-        
+
         if wep.is_WEP() is False:
             return None
-        
+
         key = self.find_key(self.bssid)
         if key:
             decoded_string=wep.get_decrypted_data(key)
-            
+
             wep_data = Dot11WEPDataDecoder()
             packet = wep_data.decode(decoded_string)
         else:
             data_decoder = DataDecoder()
             packet = data_decoder.decode(wep.body_string)
-        
+
         wep.contains(packet)
-        
+
         return wep
 
 class Dot11WEPDataDecoder(BaseDot11Decoder):

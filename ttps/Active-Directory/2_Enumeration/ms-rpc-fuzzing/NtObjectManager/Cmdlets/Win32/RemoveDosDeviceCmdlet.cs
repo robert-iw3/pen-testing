@@ -41,7 +41,7 @@ namespace NtObjectManager.Cmdlets.Win32;
 public class RemoveDosDeviceCmdlet : PSCmdlet
 {
     /// <summary>
-    /// <para type="description">The device name to create. If this string starts with a \ then the 
+    /// <para type="description">The device name to create. If this string starts with a \ then the
     /// symlink will be created relative to the root of the object manager.</para>
     /// </summary>
     [Parameter(Mandatory = true, Position = 0)]

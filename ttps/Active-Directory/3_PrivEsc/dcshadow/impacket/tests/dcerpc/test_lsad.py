@@ -915,7 +915,7 @@ class LSADTests(DCERPCTests):
         req['PolicyInformation']['PolicyAuditEventsInfo']['AuditingMode'] = oldValue
         resp2 = dce.request(req)
         resp2.dump()
-        ################################################################################ 
+        ################################################################################
 
         #request['InformationClass'] = lsad.POLICY_INFORMATION_CLASS.PolicyPrimaryDomainInformation
         #resp = dce.request(request)
@@ -939,7 +939,7 @@ class LSADTests(DCERPCTests):
         #resp2 = dce.request(req)
         #resp2.dump()
 
-        ################################################################################ 
+        ################################################################################
 
         #request['InformationClass'] = lsad.POLICY_INFORMATION_CLASS.PolicyAccountDomainInformation
         #resp = dce.request(request)
@@ -963,7 +963,7 @@ class LSADTests(DCERPCTests):
         #resp2 = dce.request(req)
         #resp2.dump()
 
-        ################################################################################ 
+        ################################################################################
 
         # ToDo rest of the Information Classes
 
@@ -1009,7 +1009,7 @@ class LSADTests(DCERPCTests):
         req['PolicyInformation']['PolicyAuditEventsInfo']['AuditingMode'] = oldValue
         resp2 = dce.request(req)
         resp2.dump()
-        ################################################################################ 
+        ################################################################################
 
         #request['InformationClass'] = lsad.POLICY_INFORMATION_CLASS.PolicyPrimaryDomainInformation
         #resp = dce.request(request)
@@ -1032,7 +1032,7 @@ class LSADTests(DCERPCTests):
         #resp2 = dce.request(req)
         #resp2.dump()
 
-        ################################################################################ 
+        ################################################################################
 
         #request['InformationClass'] = lsad.POLICY_INFORMATION_CLASS.PolicyAccountDomainInformation
         #resp = dce.request(request)
@@ -1056,7 +1056,7 @@ class LSADTests(DCERPCTests):
         #resp2 = dce.request(req)
         #resp2.dump()
 
-        ################################################################################ 
+        ################################################################################
 
         # ToDo rest of the Information Classes
 

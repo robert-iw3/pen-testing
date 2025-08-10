@@ -48,7 +48,7 @@ BOOL HttpsDownloadFullFile(LPCWSTR domain, LPCWSTR uri, PBYTE* output, SIZE_T* o
 		if (proxyConfig.lpszAutoConfigUrl != NULL)
 			autoProxyOptions.lpszAutoConfigUrl = proxyConfig.lpszAutoConfigUrl;
 
-		WCHAR szUrl[MAX_PATH] = { 0 }; 
+		WCHAR szUrl[MAX_PATH] = { 0 };
 		swprintf_s(szUrl, _countof(szUrl), L"https://%ws%ws", domain, uri);
 
 		WINHTTP_PROXY_INFO proxyInfo;

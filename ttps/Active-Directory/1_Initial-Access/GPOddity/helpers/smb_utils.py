@@ -67,7 +67,7 @@ def create_empty_gpo(smb_session, domain, gpo_id):
     except Exception as e:
         logging.error("Couldn't initialize empty GPO {} (maybe it does not exist?)".format(gpo_id), exc_info=True)
         raise e
-    
+
 
 def download_initial_gpo(smb_session, domain, gpo_id):
     try:
@@ -76,9 +76,9 @@ def download_initial_gpo(smb_session, domain, gpo_id):
     except Exception as e:
         logging.error(f"Unable to connect to SYSVOL share", exc_info=True)
         raise e
-    
+
     path = domain + "/Policies/{" + gpo_id + "}"
-    
+
     try:
         shutil.rmtree(OUTPUT_DIR, ignore_errors=True)
         os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -87,4 +87,3 @@ def download_initial_gpo(smb_session, domain, gpo_id):
     except Exception as e:
         logging.error("Couldn't clone GPO {} (maybe it does not exist?)".format(gpo_id), exc_info=True)
         raise e
-    

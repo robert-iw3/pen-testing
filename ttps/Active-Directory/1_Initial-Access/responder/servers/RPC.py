@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -74,11 +74,11 @@ def ParseRPCHash(data,client, Challenge):  #Parse NTLMSSP v1/v2
 		WriteHash    = '%s::%s:%s:%s:%s' % (Username, Domain, LMHash, SMBHash, codecs.encode(Challenge,'hex').decode('latin-1'))
 
 		SaveToDb({
-			'module': 'DCE-RPC', 
-			'type': 'NTLMv1-SSP', 
-			'client': client, 
-			'user': Domain+'\\'+Username, 
-			'hash': SMBHash, 
+			'module': 'DCE-RPC',
+			'type': 'NTLMv1-SSP',
+			'client': client,
+			'user': Domain+'\\'+Username,
+			'hash': SMBHash,
 			'fullhash': WriteHash,
 		})
 
@@ -94,11 +94,11 @@ def ParseRPCHash(data,client, Challenge):  #Parse NTLMSSP v1/v2
 		WriteHash    = '%s::%s:%s:%s:%s' % (Username, Domain, codecs.encode(Challenge,'hex').decode('latin-1'), SMBHash[:32], SMBHash[32:])
 
 		SaveToDb({
-			'module': 'DCE-RPC', 
-			'type': 'NTLMv2-SSP', 
-			'client': client, 
-			'user': Domain+'\\'+Username, 
-			'hash': SMBHash, 
+			'module': 'DCE-RPC',
+			'type': 'NTLMv2-SSP',
+			'client': client,
+			'user': Domain+'\\'+Username,
+			'hash': SMBHash,
 			'fullhash': WriteHash,
 		})
 

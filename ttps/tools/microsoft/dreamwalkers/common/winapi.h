@@ -186,13 +186,13 @@ typedef void (WINAPI* SysFreeString_t)(
 // imports from kernel32.dll
 typedef HMODULE(WINAPI* LoadLibraryA_t)(
     LPCSTR                lpLibFileName);
-	
+
 typedef BOOL(WINAPI* FreeLibrary_t)(
   HMODULE hLibModule);
-  
+
 typedef void (WINAPI* GetNativeSystemInfo_t)(
   LPSYSTEM_INFO lpSystemInfo);
-  
+
 typedef BOOL (WINAPI* IsBadReadPtr_t)(
   const VOID *lp,
   UINT_PTR   ucb);

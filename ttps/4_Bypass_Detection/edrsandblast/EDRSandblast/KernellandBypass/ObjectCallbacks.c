@@ -192,7 +192,7 @@ BOOL EnumEDRProcessAndThreadObjectsCallbacks(struct FOUND_EDR_CALLBACKS* FoundOb
         for (DWORD64 cbEntry = ReadMemoryDWORD64(ObjectType_Callbacks_List);
             cbEntry != ObjectType_Callbacks_List;
             cbEntry = ReadMemoryDWORD64(cbEntry)) {
-            
+
             DWORD64 ObjectTypeField = ReadMemoryDWORD64(cbEntry + Offset_CALLBACK_ENTRY_ITEM_ObjectType);
             if (ObjectTypeField != ObjectType) {
                 _putts_or_not(TEXT("Unexpected value in callback entry (ObjectTypeField), exiting..."));
@@ -207,7 +207,7 @@ BOOL EnumEDRProcessAndThreadObjectsCallbacks(struct FOUND_EDR_CALLBACKS* FoundOb
             case 2: // OB_OPERATION_HANDLE_DUPLICATE
                 OperationsString = TEXT("duplications");
                 break;
-            case 3: // OB_OPERATION_HANDLE_CREATE | OB_OPERATION_HANDLE_DUPLICATE 
+            case 3: // OB_OPERATION_HANDLE_CREATE | OB_OPERATION_HANDLE_DUPLICATE
                 OperationsString = TEXT("creations & duplications");
                 break;
             default:

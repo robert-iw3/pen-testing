@@ -106,7 +106,7 @@ class FindDelegation:
         else:
             s.logoff()
         return "%s.%s" % (s.getServerName(), s.getServerDNSDomainName())
-    
+
 
     def run(self):
         if self.__kdcHost is not None and self.__targetDomain == self.__domain:
@@ -170,7 +170,7 @@ class FindDelegation:
 
         answers = []
         logging.debug('Total of records returned %d' % len(resp))
-        
+
         for item in resp:
             if isinstance(item, ldapasn1.SearchResultEntry) is not True:
                 continue
@@ -203,7 +203,7 @@ class FindDelegation:
                             delegation = 'Constrained'
                         for delegRights in attribute['vals']:
                             rightsTo.append(str(delegRights))
-             
+
                     #not an elif as an object could both have rbcd and another type of delegation configured for the same object
                     if str(attribute['type']) == 'msDS-AllowedToActOnBehalfOfOtherIdentity':
                         rbcdRights = []
@@ -219,14 +219,14 @@ class FindDelegation:
                                 continue
                             rbcdRights.append(str(item2['attributes'][0]['vals'][0]))
                             rbcdObjType.append(str(item2['attributes'][1]['vals'][0]).split('=')[1].split(',')[0])
-							
+
                         if mustCommit is True:
                             if int(userAccountControl) & UF_ACCOUNTDISABLE:
                                 logging.debug('Bypassing disabled account %s ' % sAMAccountName)
                             else:
                                 for rights, objType in zip(rbcdRights,rbcdObjType):
                                     answers.append([rights, objType, 'Resource-Based Constrained', sAMAccountName])
-                        
+
                 #print unconstrained + constrained delegation relationships
                 if delegation in ['Unconstrained', 'Constrained', 'Constrained w/ Protocol Transition']:
                     if mustCommit is True:

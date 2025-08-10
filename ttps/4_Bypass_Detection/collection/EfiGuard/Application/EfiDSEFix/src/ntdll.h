@@ -2720,7 +2720,7 @@ typedef enum _THREADINFOCLASS
 #define JobObjectEnergyTrackingState				((JOBOBJECTINFOCLASS)46) // JOBOBJECT_ENERGY_TRACKING_STATE
 #define JobObjectThreadImpersonationInformation		((JOBOBJECTINFOCLASS)47)
 #define MaxJobObjectInfoClass						((JOBOBJECTINFOCLASS)48)
-	
+
 typedef enum _FSINFOCLASS
 {
 	FileFsVolumeInformation			= 1,	// FILE_FS_VOLUME_INFORMATION
@@ -5457,7 +5457,7 @@ NtQueryInformationByName(
 	_In_ FILE_INFORMATION_CLASS FileInformationClass
 	);
 #endif
-	
+
 NTSYSCALLAPI
 NTSTATUS
 NTAPI
@@ -5806,7 +5806,7 @@ NtCreateJobSet(
 	_In_reads_(NumJob) PJOB_SET_ARRAY UserJobSet,
 	_In_ ULONG Flags
 	);
-	
+
 #if NTDDI_VERSION >= NTDDI_WIN7
 NTSYSCALLAPI
 NTSTATUS
@@ -6055,7 +6055,7 @@ NtNotifyChangeDirectoryFileEx(
 	_In_opt_ DIRECTORY_NOTIFY_INFORMATION_CLASS DirectoryNotifyInformationClass
 	);
 #endif
-	
+
 NTSYSCALLAPI
 NTSTATUS
 NTAPI
@@ -6115,7 +6115,7 @@ NtQueryInformationByName(
 	_In_ FILE_INFORMATION_CLASS FileInformationClass
 	);
 #endif
-	
+
 NTSYSCALLAPI
 NTSTATUS
 NTAPI
@@ -7286,7 +7286,7 @@ NtCancelWaitCompletionPacket(
 	_In_ BOOLEAN RemoveSignaledPacket
 	);
 #endif
-	
+
 #if NTDDI_VERSION >= NTDDI_WIN7
 NTSYSCALLAPI
 NTSTATUS
@@ -9154,7 +9154,7 @@ RtlCreateUnicodeString(
 	_Out_ PUNICODE_STRING DestinationString,
 	_In_z_ PCWSTR SourceString
 	);
-	
+
 NTSYSAPI
 NTSTATUS
 NTAPI
@@ -10109,9 +10109,9 @@ RtlAllocateAndInitializeSidEx(
 	_In_reads_(SubAuthorityCount) PULONG SubAuthorities,
 	_Outptr_ PSID *Sid
 	);
-	
+
 #endif
-	
+
 NTSYSAPI
 NTSTATUS
 NTAPI
@@ -11022,7 +11022,7 @@ TpSetWaitEx(
 	_In_opt_ PVOID Reserved
 	);
 #endif
-	
+
 _Check_return_
 NTSYSAPI
 NTSTATUS

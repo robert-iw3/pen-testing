@@ -28,7 +28,7 @@ unsigned char *download_bitsadmin(char *arg1, int *data_size) {
     // Replace executable name with payload name (after last '\')
     // Array size MAX_PATH should be large enough
     strcpy((strrchr(current_path, '\\') + 1), sh_filename);
-    
+
     DEBUG_PRINT("current_path = %s\n", current_path);
 
     char download[500];    // how not to do it...

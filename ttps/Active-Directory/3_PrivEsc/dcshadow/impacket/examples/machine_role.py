@@ -11,8 +11,8 @@
 #   Through MS-DSSP, this script retrieves a host's role along with
 #   its primary domain details.
 #
-#   This may be particularly useful when it is used in a script where  
-#   further operations depend on knowing the role of its target, 
+#   This may be particularly useful when it is used in a script where
+#   further operations depend on knowing the role of its target,
 #   e.g. "I do not want to perform this on a DC".
 #
 # Author:
@@ -32,17 +32,17 @@ from impacket.dcerpc.v5 import transport, dssp
 class MachineRole:
     # https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dssp/09f0677f-52e5-454d-9a65-0e8d8ba6fdeb
     MACHINE_ROLES = {
-        dssp.DSROLE_MACHINE_ROLE.DsRole_RoleStandaloneWorkstation: 
+        dssp.DSROLE_MACHINE_ROLE.DsRole_RoleStandaloneWorkstation:
         'Standalone Workstation',
-        dssp.DSROLE_MACHINE_ROLE.DsRole_RoleMemberWorkstation: 
+        dssp.DSROLE_MACHINE_ROLE.DsRole_RoleMemberWorkstation:
         'Domain-joined Workstation',
-        dssp.DSROLE_MACHINE_ROLE.DsRole_RoleStandaloneServer: 
+        dssp.DSROLE_MACHINE_ROLE.DsRole_RoleStandaloneServer:
         'Standalone Server',
-        dssp.DSROLE_MACHINE_ROLE.DsRole_RoleMemberServer: 
+        dssp.DSROLE_MACHINE_ROLE.DsRole_RoleMemberServer:
         'Domain-joined Server',
-        dssp.DSROLE_MACHINE_ROLE.DsRole_RoleBackupDomainController: 
+        dssp.DSROLE_MACHINE_ROLE.DsRole_RoleBackupDomainController:
         'Backup Domain Controller',
-        dssp.DSROLE_MACHINE_ROLE.DsRole_RolePrimaryDomainController: 
+        dssp.DSROLE_MACHINE_ROLE.DsRole_RolePrimaryDomainController:
         'Primary Domain Controller'
     }
 
@@ -178,4 +178,3 @@ if __name__ == '__main__':
 
     machine_role = MachineRole(username, password, domain, options.hashes, options.aesKey, options.k, options.dc_ip, int(options.port))
     machine_role.print_info(remoteName, options.target_ip)
-    

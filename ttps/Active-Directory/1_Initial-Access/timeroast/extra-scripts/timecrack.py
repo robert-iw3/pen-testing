@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-"""Perform a simple dictionary attack against the output of timeroast.py. Neccessary because the NTP 'hash' format 
+"""Perform a simple dictionary attack against the output of timeroast.py. Neccessary because the NTP 'hash' format
 unfortunately does not fit into Hashcat or John right now.
 
-Not even remotely optimized, but still useful for cracking legacy default passwords (where the password is the computer 
+Not even remotely optimized, but still useful for cracking legacy default passwords (where the password is the computer
 name) or specific default passwords that are popular in an organisation.
 """
 
@@ -25,7 +25,7 @@ def md4(data : bytes) -> bytes:
 def compute_hash(password : str, salt : bytes) -> bytes:
   """Compute a legacy NTP authenticator 'hash'."""
   return hashlib.md5(md4(password.encode('utf-16le')) + salt).digest()
-    
+
 
 def try_crack(hashfile : TextIO, dictfile : TextIO) -> Generator[Tuple[int, str], None, None]:
   # Try each dictionary entry for each hash. dictfile is read iteratively while hashes are stored in RAM.
@@ -39,8 +39,8 @@ def try_crack(hashfile : TextIO, dictfile : TextIO) -> Generator[Tuple[int, str]
         sys.exit(1)
       rid, hashval, salt = m.group('rid', 'hashval', 'salt')
       hashes.append((int(rid), unhexlify(hashval), unhexlify(salt)))
-      
-  
+
+
   for password in dictfile:
     password = password.strip()
     for rid, hashval, salt in hashes:
@@ -51,8 +51,8 @@ def main():
   argparser = ArgumentParser(formatter_class=RawDescriptionHelpFormatter, description=\
 """Perform a simple dictionary attack against the output of timeroast.py.
 
-Not even remotely optimized, but still useful for cracking legacy default 
-passwords (where the password is the computer name) or specific default 
+Not even remotely optimized, but still useful for cracking legacy default
+passwords (where the password is the computer name) or specific default
 passwords that are popular in an organisation.
 """)
 

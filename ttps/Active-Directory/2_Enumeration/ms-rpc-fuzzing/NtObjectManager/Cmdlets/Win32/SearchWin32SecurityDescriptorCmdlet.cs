@@ -83,7 +83,7 @@ public sealed class SearchWin32SecurityDescriptorCmdlet : PSCmdlet
             return GenericMapping.Value;
         }
 
-        return Win32Security.GetNativeType(Type)?.GenericMapping 
+        return Win32Security.GetNativeType(Type)?.GenericMapping
             ?? throw new ArgumentException("Must specify a Generic Mapping for the type");
     }
 
@@ -94,7 +94,7 @@ public sealed class SearchWin32SecurityDescriptorCmdlet : PSCmdlet
     {
         if (SecurityDescriptor == null)
         {
-            SecurityDescriptor = Win32Security.GetSecurityInfo(Name, Type, 
+            SecurityDescriptor = Win32Security.GetSecurityInfo(Name, Type,
                 Sacl ? SecurityInformation.All : SecurityInformation.AllNoSacl);
         }
 

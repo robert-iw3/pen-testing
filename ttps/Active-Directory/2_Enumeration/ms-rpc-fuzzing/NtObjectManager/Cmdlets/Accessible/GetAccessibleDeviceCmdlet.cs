@@ -186,7 +186,7 @@ public class GetAccessibleDeviceCmdlet : CommonAccessBaseWithAccessCmdlet<FileDi
         }
     }
 
-    private void CheckAccessUnderImpersonation(TokenEntry token, string path, bool namespace_path, 
+    private void CheckAccessUnderImpersonation(TokenEntry token, string path, bool namespace_path,
         AccessMask access_rights, FileOpenOptions open_options, EaBuffer ea_buffer)
     {
         using var result = OpenUnderImpersonation(token, path, open_options, ea_buffer);
@@ -238,7 +238,7 @@ public class GetAccessibleDeviceCmdlet : CommonAccessBaseWithAccessCmdlet<FileDi
         {
             return;
         }
-        
+
         foreach (var entry in dir.Query())
         {
             if (entry.IsDirectory && Recurse)
@@ -265,7 +265,7 @@ public class GetAccessibleDeviceCmdlet : CommonAccessBaseWithAccessCmdlet<FileDi
             }
         }
     }
-    
+
     private static NtResult<NtDirectory> OpenDirectory(string path, NtObject root)
     {
         using ObjectAttributes obja = new(path,
@@ -366,7 +366,7 @@ public class GetAccessibleDeviceCmdlet : CommonAccessBaseWithAccessCmdlet<FileDi
                     {
                         foreach (string namespace_path in namespace_paths)
                         {
-                            CheckAccessUnderImpersonation(entry, pair.Key + @"\" + namespace_path, 
+                            CheckAccessUnderImpersonation(entry, pair.Key + @"\" + namespace_path,
                                 true, access_rights, OpenOptions, ea_buffer);
                         }
                     }

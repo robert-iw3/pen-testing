@@ -22,7 +22,7 @@ class OrderedDict(dict, DictMixin):
     def clear(self):
         self.__end = end = []
         end += [None, end, end]
-        self.__map = {} 
+        self.__map = {}
         dict.clear(self)
 
     def __setitem__(self, key, value):

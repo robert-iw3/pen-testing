@@ -36,7 +36,7 @@ pipx install git+https://github.com/garrettfoster13/sccmhunter/
 ```
 
 # References
-Huge thanks to the below for all their research and hard work and 
+Huge thanks to the below for all their research and hard work and
 <br>
 [@\_mayyhem](https://twitter.com/_Mayyhem)
 <br>

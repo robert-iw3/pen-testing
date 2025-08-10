@@ -193,7 +193,7 @@ The JSON export can then be used to restore the `msDs-KeyCredentialLink` attribu
 
 User objects can't edit their own `msDS-KeyCredentialLink` attribute. However, **computer objects can**. This means the following scenario could work: trigger an NTLM authentication from DC01, relay it to DC02, make pyWhisker edit DC01's attribute to create a Kerberos PKINIT pre-authentication backdoor on it.
 
-![](./.assets/user_cant_self_edit.png)  
+![](./.assets/user_cant_self_edit.png)
 
 Computer objects can edit their own `msDS-KeyCredentialLink` attribute but **can only add a KeyCredential if none already exists**.
 
@@ -204,7 +204,7 @@ If you encounter errors, make sure there is no time skew between your attacker h
 # Credits and references
 
  - Credits to [Dirk-jan](https://twitter.com/_dirkjan) for his work on [PKINITtools](https://github.com/dirkjanm/PKINITtools/). We initially planned on refactoring Impacket scripts (especially [gettgt.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/getTGT.py)) to implement asymmetric PKINIT pre-authentication for Kerberos. He saved us a huge deal of headaches by writing it before us!
- 
+
  - Credits to the whole team behind [Impacket](https://github.com/SecureAuthCorp/impacket/) and its contributors.
- 
+
  - Credits to [Elad Shamir](https://twitter.com/elad_shamir) who created the original C# tool ([Whisker](https://github.com/eladshamir/Whisker)) and to [Michael Grafnetter's](https://twitter.com/MGrafnetter) who made [DSInternals](https://github.com/MichaelGrafnetter/DSInternals), a library doing most of Whisker's heavy lifting. He also was the one who made the original Black Hat demo presenting the attack primitive.

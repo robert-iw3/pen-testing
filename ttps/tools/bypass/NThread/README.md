@@ -28,7 +28,7 @@ podman system prune -a
 
 ## 🚫 Code Injection? Not Needed.
 
-NThread does **not** rely on traditional code injection (e.g. shellcode, `VirtualAllocEx`, `CreateRemoteThread`, etc.).  
+NThread does **not** rely on traditional code injection (e.g. shellcode, `VirtualAllocEx`, `CreateRemoteThread`, etc.).
 Instead, it uses pre-existing threads and simple instruction sequences already present in most executables.
 
 If the target process already contains the following instruction pattern:
@@ -75,15 +75,15 @@ The `dllinjecter` example demonstrates how to perform DLL injection by hijacking
 
 ## TODO
 
-- **nttunnel**  
-  - Separate the currently intertwined `fschan` and `nttunnel` functions  
-    to create a more modular, channel-based architecture.  
+- **nttunnel**
+  - Separate the currently intertwined `fschan` and `nttunnel` functions
+    to create a more modular, channel-based architecture.
   - Enable adding different types of channels.
 
-- **ntutils**  
-  - Improve the `init` function to allow  
-    - More flexible and parameterized configurations.  
+- **ntutils**
+  - Improve the `init` function to allow
+    - More flexible and parameterized configurations.
     - Advanced initialization options.
 
-- **Linux support**  
+- **Linux support**
   - Consider developing a kernel module-based method for Linux.

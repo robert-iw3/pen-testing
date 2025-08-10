@@ -10,7 +10,7 @@
 #include "stdafx.h"
 #include "CmdLineParser.h"
 
-const TCHAR CCmdLineParser::m_sDelimeters[] = _T("-/"); //GLOK 
+const TCHAR CCmdLineParser::m_sDelimeters[] = _T("-/"); //GLOK
 const TCHAR CCmdLineParser::m_sQuotes[] = _T("\"");	// Can be _T("\"\'"),  for instance //GLOK
 const TCHAR CCmdLineParser::m_sValueSep[] = _T(" :="); // Space MUST be in set //GLOK
 
@@ -40,34 +40,34 @@ bool CCmdLineParser::Parse(LPCTSTR sCmdLine) {
 
 	int nArgs = 0;
 	LPCTSTR sCurrent = sCmdLine;
-	while(true) 
+	while(true)
 	{
 		// /Key:"arg"
-		if(_tcslen(sCurrent) == 0) 
+		if(_tcslen(sCurrent) == 0)
 			break;  // No data left
 
 		LPCTSTR sArg = _tcspbrk(sCurrent, m_sDelimeters);
 
-		if(!sArg) 
+		if(!sArg)
 			break; // No delimiters found
-		
+
 		sArg =  _tcsinc(sArg);
-		
+
 		// Key:"arg"
-		if(_tcslen(sArg) == 0) 
+		if(_tcslen(sArg) == 0)
 			break; // String ends with delimeter
 
 		LPCTSTR sVal = _tcspbrk(sArg, m_sValueSep);
-		if(sVal == NULL) 
+		if(sVal == NULL)
 		{ //Key ends command line
 			CCmdLineParser_String csKey(sArg);
-			if(!m_bCaseSensitive) 
+			if(!m_bCaseSensitive)
 				csKey.MakeLower();
-			
+
 			m_ValsMap.insert(CValsMap::value_type(csKey, sEmpty));
 			break;
-		} 
-		
+		}
+
 		//if here, we're on one of:
 		//white space
 		//real separator
@@ -89,12 +89,12 @@ bool CCmdLineParser::Parse(LPCTSTR sCmdLine) {
 			}
 		}
 
-		if(bNoVal) 
+		if(bNoVal)
 		{ // Key with no value or cmdline ends with /Key:
 			CCmdLineParser_String csKey(sArg, (int)(sVal - sArg));
-			if(!csKey.IsEmpty()) 
+			if(!csKey.IsEmpty())
 			{ // Prevent /: case
-				if(!m_bCaseSensitive) 
+				if(!m_bCaseSensitive)
 				{
 					csKey.MakeLower();
 				}
@@ -102,11 +102,11 @@ bool CCmdLineParser::Parse(LPCTSTR sCmdLine) {
 			}
 			sCurrent = _tcsinc(sVal);
 			continue;
-		} 
-		else 
+		}
+		else
 		{ // Key with value
 			CCmdLineParser_String csKey(sArg, (int)(sVal - sArg));
-			if(!m_bCaseSensitive) 
+			if(!m_bCaseSensitive)
 			{
 				csKey.MakeLower();
 			}
@@ -114,29 +114,29 @@ bool CCmdLineParser::Parse(LPCTSTR sCmdLine) {
 			sVal = _tcsinc(sVal);
 			// "arg"
 			LPCTSTR sQuote = _tcspbrk(sVal, m_sQuotes), sEndQuote(NULL);
-			if(sQuote == sVal) 
+			if(sQuote == sVal)
 			{ // Quoted String
 				sQuote = _tcsinc(sVal);
 				sEndQuote = _tcspbrk(sQuote, m_sQuotes);
-			} 
-			else 
+			}
+			else
 			{
 				sQuote = sVal;
 				sEndQuote = _tcschr(sQuote, _T(' '));
 			}
 
-			if(sEndQuote == NULL) 
+			if(sEndQuote == NULL)
 			{ // No end quotes or terminating space, take rest of string
 				CCmdLineParser_String csVal(sQuote);
-				if(!csKey.IsEmpty()) 
+				if(!csKey.IsEmpty())
 				{ // Prevent /:val case
 					m_ValsMap.insert(CValsMap::value_type(csKey, csVal));
 				}
 				break;
-			} 
-			else 
+			}
+			else
 			{ // End quote or space present
-				if(!csKey.IsEmpty()) 
+				if(!csKey.IsEmpty())
 				{	// Prevent /:"val" case
 					CCmdLineParser_String csVal(sQuote, (int)(sEndQuote - sQuote));
 					m_ValsMap.insert(CValsMap::value_type(csKey, csVal));

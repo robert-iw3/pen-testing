@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a customized version of the `secretsdump.py` script from the `impacket` Python library. It allows the extraction of secrets (NTDS.dit, SAM and .SYSTEM registry hives) from multiple Windows systems simultaneously. This customized version improves the original by accepting an input file with a list of target hosts and by supporting multithreading for faster operations. 
+This is a customized version of the `secretsdump.py` script from the `impacket` Python library. It allows the extraction of secrets (NTDS.dit, SAM and .SYSTEM registry hives) from multiple Windows systems simultaneously. This customized version improves the original by accepting an input file with a list of target hosts and by supporting multithreading for faster operations.
 
 ## Usage
 

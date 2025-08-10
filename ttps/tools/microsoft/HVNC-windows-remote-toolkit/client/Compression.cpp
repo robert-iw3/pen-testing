@@ -157,7 +157,7 @@ BYTE* CaptureScreen24(DWORD* width, DWORD* height)
     BitBlt(hMemDC, 0, 0, (int)*width, (int)*height,
            hScreenDC, 0, 0, SRCCOPY);
     SelectObject(hMemDC, oldObj);
-    size_t imageSize = (size_t)(*width) * (size_t)(*height) * 3; 
+    size_t imageSize = (size_t)(*width) * (size_t)(*height) * 3;
     BYTE* outBuf = (BYTE*)malloc(imageSize);
     if(outBuf)
     {

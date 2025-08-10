@@ -11,7 +11,7 @@ AMSI-PeParse-Patch.exe 1234            # By PID (you can use in powershell $pid)
 
 ## ⚙️ How It Works
 
-1. 🎯 **Target Process** 
+1. 🎯 **Target Process**
    - Opens handle to remote process with `PROCESS_ALL_ACCESS`
 
 2. 🔎 **Find amsi.dll**
@@ -24,7 +24,7 @@ AMSI-PeParse-Patch.exe 1234            # By PID (you can use in powershell $pid)
      2. Reads NT headers from base + e_lfanew offset
      3. Stores RVAs of import/export directories
    - Creates Pe structure with pointers to remote memory structures
-   
+
 4. 🔍 **Locate Function**
    - Reads export tables remotely
    - Searches for "AmsiScanBuffer" string
@@ -47,4 +47,4 @@ AMSI-PeParse-Patch.exe 1234            # By PID (you can use in powershell $pid)
 
 ## 📄 License
 
-Copyright © 2025 EvilBytecode. All rights reserved. 
+Copyright © 2025 EvilBytecode. All rights reserved.

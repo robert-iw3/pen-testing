@@ -99,7 +99,7 @@ public abstract class NtObjectBaseNoPathCmdlet : PSCmdlet, IDisposable
     {
         if (IsRawPath)
         {
-            return ObjectAttributes.CreateWithRawName(Convert.FromBase64String(path), attributes, 
+            return ObjectAttributes.CreateWithRawName(Convert.FromBase64String(path), attributes,
                 root, security_quality_of_service, security_descriptor);
         }
         return new ObjectAttributes(path, attributes, root, security_quality_of_service, security_descriptor);
@@ -114,7 +114,7 @@ public abstract class NtObjectBaseNoPathCmdlet : PSCmdlet, IDisposable
     /// <param name="security_quality_of_service">Security quality of service.</param>
     /// <param name="security_descriptor">Security descriptor.</param>
     /// <returns>The created object.</returns>
-    protected object CreateObject(string path, AttributeFlags attributes, NtObject root, 
+    protected object CreateObject(string path, AttributeFlags attributes, NtObject root,
         SecurityQualityOfService security_quality_of_service, SecurityDescriptor security_descriptor)
     {
         if (Inherit)

@@ -21,9 +21,9 @@ namespace SharpRDPHijack
                 string tsquery = "";
                 bool connect = true;
                 bool disconnect = false;
-                bool console = false; 
+                bool console = false;
                 bool shadow = false;
-                
+
 
                 foreach (string arg in args)
                 {
@@ -105,7 +105,7 @@ namespace SharpRDPHijack
                     }
                 }
 
-                //Perform WTS action 
+                //Perform WTS action
                 int res = -1;
                 if (disconnect)
                     res = Win32.WTSDisconnectSession(IntPtr.Zero, session, true);
@@ -408,10 +408,10 @@ namespace SharpRDPHijack
 
                 else if (activePolicy == -2)  //Remove value
                     key.DeleteValue(shadowValue);
-                
+
                 else //Restore policy
                     key.SetValue(shadowValue, activePolicy, RegistryValueKind.DWord);
-                
+
             }
             catch (Exception e)
             {

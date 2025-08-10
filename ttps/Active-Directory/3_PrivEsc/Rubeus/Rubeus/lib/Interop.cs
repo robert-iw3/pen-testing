@@ -442,7 +442,7 @@ namespace Rubeus {
             TokenRestrictedSids,
 
             /// <summary>
-            /// The buffer receives a DWORD value that indicates the Terminal Services session identifier that is associated with the token. 
+            /// The buffer receives a DWORD value that indicates the Terminal Services session identifier that is associated with the token.
             /// </summary>
             TokenSessionId,
 
@@ -467,7 +467,7 @@ namespace Rubeus {
             TokenAuditPolicy,
 
             /// <summary>
-            /// The buffer receives a TOKEN_ORIGIN value. 
+            /// The buffer receives a TOKEN_ORIGIN value.
             /// </summary>
             TokenOrigin,
 
@@ -507,7 +507,7 @@ namespace Rubeus {
             TokenVirtualizationEnabled,
 
             /// <summary>
-            /// The buffer receives a TOKEN_MANDATORY_LABEL structure that specifies the token's integrity level. 
+            /// The buffer receives a TOKEN_MANDATORY_LABEL structure that specifies the token's integrity level.
             /// </summary>
             TokenIntegrityLevel,
 
@@ -1478,7 +1478,7 @@ namespace Rubeus {
             public string Provider;
         }
 
-        
+
 
 
 

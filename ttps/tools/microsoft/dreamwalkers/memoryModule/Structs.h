@@ -13,7 +13,7 @@ typedef struct
     PVOID       Gadget_ss;         // 48
     PVOID       RUTS_ss;           // 56
     PVOID       RUTS_retaddr;      // 64
-    PVOID       ssn;               // 72  
+    PVOID       ssn;               // 72
     PVOID       trampoline;        // 80
     PVOID       rsi;               // 88
     PVOID       r12;               // 96

@@ -84,7 +84,7 @@ def string_to_uuidtup(s):
     """
     g = re.search(r"([A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}).*?([0-9]{1,5}\.[0-9]{1,5})",
                   s + " 1.0")
-    if g: 
+    if g:
         (u, v) = g.groups()
         return u, v
     return

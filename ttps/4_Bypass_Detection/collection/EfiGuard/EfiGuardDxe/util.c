@@ -165,7 +165,7 @@ CopyWpMem(
 	DisableWriteProtect(&WpEnabled, &CetEnabled);
 
 	VOID* Result = CopyMem(Destination, Source, Length);
-	
+
 	EnableWriteProtect(WpEnabled, CetEnabled);
 	return Result;
 }
@@ -182,7 +182,7 @@ SetWpMem(
 	DisableWriteProtect(&WpEnabled, &CetEnabled);
 
 	VOID* Result = SetMem(Destination, Length, Value);
-	
+
 	EnableWriteProtect(WpEnabled, CetEnabled);
 	return Result;
 }
@@ -523,7 +523,7 @@ BacktrackToFunctionStart(
 	PIMAGE_RUNTIME_FUNCTION_ENTRY FunctionEntry = NULL;
 	INT32 Low = 0;
 	INT32 High = (INT32)(FunctionTableSize / sizeof(IMAGE_RUNTIME_FUNCTION_ENTRY)) - 1;
-	
+
 	while (High >= Low)
 	{
 		CONST INT32 Middle = (Low + High) >> 1;
@@ -544,7 +544,7 @@ BacktrackToFunctionStart(
 		{
 			FunctionEntry = (PIMAGE_RUNTIME_FUNCTION_ENTRY)(FunctionEntry->u.UnwindData + ImageBase - 1);
 		}
-		
+
 		return (UINT8*)ImageBase + FunctionEntry->BeginAddress;
 	}
 

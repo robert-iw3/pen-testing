@@ -96,6 +96,6 @@ def write_scheduled_task(gpo_type, command, powershell):
         os.makedirs(os.path.join(OUTPUT_DIR, root_path, "Preferences", "ScheduledTasks"), exist_ok=True)
         st = ScheduledTask(gpo_type=gpo_type, powershell=powershell, command=command)
         new_content = st.generate_scheduled_task_xml()
-    
+
     with open(scheduled_tasks_path, "w") as f:
         f.write(new_content)

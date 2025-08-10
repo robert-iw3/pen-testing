@@ -12,8 +12,8 @@ Impacket is a collection of Python classes for working with network
 protocols. Impacket is focused on providing low-level
 programmatic access to the packets and for some protocols (e.g.
 SMB1-3 and MSRPC) the protocol implementation itself.
-Packets can be constructed from scratch, as well as parsed from 
-raw data, and the object-oriented API makes it simple to work with 
+Packets can be constructed from scratch, as well as parsed from
+raw data, and the object-oriented API makes it simple to work with
 deep hierarchies of protocols. The library provides a set of tools
 as examples of what can be done within the context of this library.
 
@@ -28,7 +28,7 @@ What protocols are featured?
  * Plain, NTLM and Kerberos authentications, using password/hashes/tickets/keys.
  * Portions/full implementation of the following MSRPC interfaces: EPM, DTYPES, LSAD, LSAT, NRPC, RRP, SAMR, SRVS, WKST, SCMR, BKRP, DHCPM, EVEN6, MGMT, SASEC, TSCH, DCOM, WMI, OXABREF, NSPI, OXNSPI.
  * Portions of TDS (MSSQL) and LDAP protocol implementations.
- 
+
 Maintainer
 ==========
 
@@ -74,7 +74,7 @@ In order to grab the latest stable release run:
 
     python3 -m pipx install impacket
 
-If you want to play with the unreleased changes, download the development 
+If you want to play with the unreleased changes, download the development
 version from the [master branch](https://github.com/fortra/impacket/tree/master),
 extract the package, and execute the following command from the
 directory where Impacket has been unpacked:

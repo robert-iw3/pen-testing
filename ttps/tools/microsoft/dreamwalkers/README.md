@@ -49,7 +49,7 @@ Big thanks to [@almounah](https://github.com/almounah) for his early support (ev
 ├── finalShellcode.bin     # Final compiled shellcode output
 ├── GenerateShellcode.py   # Python script to generate shellcode and input structure
 ├── memoryModule/          # Modified, position-independent MemoryModule loader
-├── shellcodeTester/       # Shellcode testing utilities 
+├── shellcodeTester/       # Shellcode testing utilities
 ├── testDll/               # Sample DLL payloads for testing loader
 ├── testExe/               # Sample EXE payloads for testing loader
 
@@ -106,7 +106,7 @@ Make sure to build the shellcode after any changes to the loader or input struct
 From "x64 Native Tools Command Prompt for VS 2022":
 
 ```
-.\compile.bat 
+.\compile.bat
 ```
 
 ---

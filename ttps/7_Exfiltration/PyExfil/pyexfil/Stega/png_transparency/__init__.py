@@ -21,7 +21,7 @@ TEST_OUTPUT_PATH            = 'output.png'
 
 
 class Encode(object):
-	
+
 	def __init__(self, key, data, png_file=TEST_PNG, output_path=TEST_OUTPUT_PATH, verbose=False):
 		if type(data) is not str:
 			raise("data parameter must be 'str' type.")
@@ -31,7 +31,7 @@ class Encode(object):
 		else:
 			self.generate_empty_image = False
 			self.png_path = png_file
-			
+
 		self.key                    = key
 		self.data                   = data
 		self.output_name            = output_path
@@ -39,9 +39,9 @@ class Encode(object):
 		self.encrypted_data         = None
 		self.encrypted_array        = []
 		self.line_count             = 1
-		
+
 		self.initialize()
-		
+
 	def initialize(self):
 		if not self.generate_empty_image:
 			if os.path.isfile(self.png_path):
@@ -49,16 +49,16 @@ class Encode(object):
 			else:
 				if self.verbose: sys.stderr.write("File path to '%s' was not found.\nWill continue with empty image.\n" % self.png_path)
 				self.generate_empty_image = True
-		
+
 		try:
 			self.encrypted_data = AESEncryptOFB(key=self.key, text=self.data)
 			self.encrypted_array = array.array('B', self.encrypted_data)
 		except Exception as e:
 			if self.verbose: sys.stderr.write("Error encrypting data with '%s'.\n" % str(e))
 			raise e
-		
+
 		self.line_count = int(len(self.encrypted_array)/MAX_IMAGE_ROW_LENGTH) + 1
-		
+
 	def Run(self):
 		finalArray = []
 		if not self.generate_empty_image:
@@ -68,14 +68,14 @@ class Encode(object):
 			pxlsArray = []
 			for line in range(0, len(self.encrypted_data) + 1 + len(TERMINATOR)):
 				pxlsArray.append([255, 255, 255, 0])
-		
+
 		# Add encrypted data
 		for index in range(0, len(self.encrypted_array)):
 			finalArray.append(  (pxlsArray[index][0],
 			                     pxlsArray[index][1],
 			                     pxlsArray[index][2],
 			                     self.encrypted_array[index]))
-		
+
 		# Add terminator
 		i = 0
 		for index in range(len(self.encrypted_array), len(self.encrypted_array) + len(TERMINATOR)):
@@ -83,17 +83,17 @@ class Encode(object):
 					(pxlsArray[index][0], pxlsArray[index][1], pxlsArray[index][2], TERMINATOR[i])
 			)
 			i += 1
-			
+
 		if len(self.encrypted_array) + len(TERMINATOR) < len(pxlsArray):
 			starting_point = len(self.encrypted_array) + len(TERMINATOR)
 			diff = len(pxlsArray) - starting_point
 			finalArray.extend(pxlsArray[starting_point:])
-		
+
 		if imgObj[1] * imgObj[2] < len(finalArray):
 			if self.verbose:
 				sys.stderr.write("Image size is too small for the size of the data.\n")
 			raise("Image too small for data.")
-		
+
 		else:
 			bg = Image.open(self.png_path, 'r')
 			text_img = Image.new('RGBA', (imgObj[1], imgObj[2]), (0, 0, 0, 0))
@@ -109,40 +109,40 @@ class Decode():
 		self.key            = key
 		self.file_path      = file_path
 		self.verbose        = verbose
-		
+
 	def Run(self):
 		if not os.path.isfile(self.file_path):
 			if self.verbose:
 				sys.stderr.write("File '%s' was not found.\n" % self.file_path)
 			return False
-		
+
 		try:
 			imgObj = _openImage(self.file_path)
 			pxlsArray = _image2pixelarray(imgObj[0])
 		except Exception as e:
 			if self.verbose: sys.stderr.write("Error reading file '%s'.\n%s\n" % (self.file_path, str(e)) )
 			return False
-		
+
 		search_array = []
 		for pixel in pxlsArray:
 			search_array.append(pixel[3])
-		
+
 		if _is_slice_in_list(s=TERMINATOR, l=search_array):
 			if self.verbose: sys.stdout.write("Found terminator in file. It seems like data is there.\n")
 		else:
 			if self.verbose: sys.stderr.write("Could not find terminator in the file. Is it encoded?\n")
 			return False
-		
+
 		terminator_as_binary = bytes(array.array('B', TERMINATOR))
 		encrypted_data_as_binary = bytes(array.array('B', search_array))
 		encrypted_data_as_binary = encrypted_data_as_binary[:encrypted_data_as_binary.find(terminator_as_binary)]
-		
+
 		try:
 			dec_data = AESDecryptOFB(key=self.key, text=encrypted_data_as_binary)
 		except Exception as e:
 			if self.verbose: sys.stderr.write("Could not decrypt data.\n%s.\n" % (str(e)))
 			return False
-		
+
 		if self.verbose: sys.stdout.write("Data decrypted.\n")
 		return dec_data
 

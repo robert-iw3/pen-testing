@@ -43,7 +43,7 @@ DWORD64 GetPspCreateProcessNotifyRoutineAddressUsingPattern(void) {
     DWORD64 LeaPspCreateProcessNotifyRoutineAddress = PatternSearchStartingFromAddress(PspSetCreateProcessNotifyRoutineAddress, 256, 0x0000000000008D48, 0x000000000000FFF8);
     DWORD64 PspCreateProcessNotifyRoutineAddress = ExtractRelativeAddress(LeaPspCreateProcessNotifyRoutineAddress, 3, 7);
     _tprintf_or_not(TEXT("[+] Pattern search found PspCreateProcessNotifyRoutine address: 0x%I64x\n"), PspCreateProcessNotifyRoutineAddress);
-    
+
     return PspCreateProcessNotifyRoutineAddress;
 }
 
@@ -59,7 +59,7 @@ DWORD64 GetPspCreateThreadNotifyRoutineAddressUsingPattern(void) {
     DWORD64 LeaPspCreateThreadNotifyRoutineAddress = PatternSearchStartingFromAddress(PspSetCreateThreadNotifyRoutineAddress, 256, 0x0000000000008D48, 0x000000000000FFF8);
     DWORD64 PspCreateThreadNotifyRoutineAddress = ExtractRelativeAddress(LeaPspCreateThreadNotifyRoutineAddress, 3, 7);
     _tprintf_or_not(TEXT("[+] Pattern search found PspCreateThreadNotifyRoutine address: 0x%I64x\n"), PspCreateThreadNotifyRoutineAddress);
-    
+
     return PspCreateThreadNotifyRoutineAddress;
 }
 
@@ -71,6 +71,6 @@ DWORD64 GetPspLoadImageNotifyRoutineAddressUsingPattern(void) {
     DWORD64 LeaPspLoadImageNotifyRoutineAddress = PatternSearchStartingFromAddress(PsSetLoadImageNotifyRoutineExAddress, 128, 0x0000000000008D48, 0x000000000000FFF8);
     DWORD64 PspLoadImageNotifyRoutineAddress = ExtractRelativeAddress(LeaPspLoadImageNotifyRoutineAddress, 3, 7);;
     _tprintf_or_not(TEXT("[+] Pattern search found PspLoadImageNotifyRoutine address: 0x%I64x\n"), PspLoadImageNotifyRoutineAddress);
-    
+
     return PspLoadImageNotifyRoutineAddress;
 }

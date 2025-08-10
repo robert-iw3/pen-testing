@@ -1,9 +1,9 @@
 ﻿# main block for socks connections
 [ScriptBlock]$SocksConnectionMgr = {
     param( $vars )
-    
+
     # copies the vars so they can be used in the runspace
-    $Script = 
+    $Script =
     {
             param( $vars )
             $vars.inStream.CopyTo($vars.outStream)
@@ -13,7 +13,7 @@
     $rsp = $vars.rsp
 
     # defines the get ip address function. this resolves ip address from domain name if needed
-    function func_get_ipaddress 
+    function func_get_ipaddress
     {
         param($socks_ip)
         if ($socks_ip -as [ipaddress])
@@ -40,13 +40,13 @@
 
         # per protocol, the first byte is supposed to be the socks buffer
         $socksVer = $buffer_small[0]
-        
+
         # if it is a socks5 proxy
         if ($socksVer -eq 5)
         {
             # performs socks5 protocol
             $cliStream.Read($buffer_small, 2, $buffer_small[1]) | Out-Null
-            for ($ctr = 2; $ctr -le $buffer_small[1] + 1; $ctr++) 
+            for ($ctr = 2; $ctr -le $buffer_small[1] + 1; $ctr++)
             {
                 if ($buffer_small[$ctr] -eq 0) {break}
             }
@@ -114,12 +114,12 @@
                 $buffer_small[5] = 0
                 $cliStream.Write($buffer_small, 0, 10)
                 $cliStream.Flush()
-                $srvStream = $tmpServ.GetStream() 
+                $srvStream = $tmpServ.GetStream()
                 $AsyncJobResult2 = $srvStream.CopyToAsync($cliStream)
                 $AsyncJobResult = $cliStream.CopyToAsync($srvStream)
                 $AsyncJobResult.AsyncWaitHandle.WaitOne()
                 $AsyncJobResult2.AsyncWaitHandle.WaitOne()
-                
+
             }
             else
             {
@@ -148,7 +148,7 @@
                 $cliStream.Read($buffer_small, 0, 1)
             }
             $tmpServ = New-Object System.Net.Sockets.TcpClient($destHost, $destPort)
-            
+
             if($tmpServ.Connected)
             {
                 $buffer_small[0] = 0
@@ -157,7 +157,7 @@
                 $buffer_small[3] = 0
                 $cliStream.Write($buffer_small, 0, 8)
                 $cliStream.Flush()
-                $srvStream = $tmpServ.GetStream() 
+                $srvStream = $tmpServ.GetStream()
                 $AsyncJobResult2 = $srvStream.CopyToAsync($cliStream)
                 $AsyncJobResult = $cliStream.CopyTo($srvStream)
                 $AsyncJobResult.AsyncWaitHandle.WaitOne()
@@ -172,13 +172,13 @@
     catch {
         #$_ >> "error.log"
     }
-    finally 
+    finally
     {
-        if ($client -ne $null) 
+        if ($client -ne $null)
         {
             $client.Dispose()
         }
-        if ($tmpServ -ne $null) 
+        if ($tmpServ -ne $null)
         {
             $tmpServ.Dispose()
         }
@@ -198,7 +198,7 @@ function func_socks{
             [Int] $max_retries = 0 )
 
     # everything here is wrapped in a try block in case we error out
-    try 
+    try
     {
 
         # initializes a try counter, current_try
@@ -221,7 +221,7 @@ function func_socks{
                 # creates a new tcp client for us to connect to
                 $client = New-Object System.Net.Sockets.TcpClient($remote_host, $remote_port)
                 $clear_clistream = $client.GetStream()
-                
+
                 if($cert_fingerprint -eq '')
                 {
                     $cliStream = New-Object System.Net.Security.SslStream($clear_clistream, $false, ({$true} -as[Net.Security.RemoteCertificateValidationCallback]));
@@ -230,10 +230,10 @@ function func_socks{
                 {
                     $cliStream = New-Object System.Net.Security.SslStream($clear_clistream, $false, ({return $args[1].GetCertHashString() -eq $cert_fingerprint } -as[Net.Security.RemoteCertificateValidationCallback]));
                 }
-                
+
                 # authenticates using TLSv1.2
                 $cliStream.AuthenticateAsClient($remote_host, $null, [Net.SecurityProtocolType]::Tls12, $false)
-                
+
                 # verbose mode, writes connected at this point
                 Write-Host "Connected"
 
@@ -252,17 +252,17 @@ function func_socks{
                 $est_request = [System.Text.Encoding]::Default.GetBytes("GET / HTTP/1.1`nHost: " + $remote_host + "`n`n")
                 # writes the establishment reqeuest to the buffer
                 $cliStream.Write($est_request, 0, $est_request.Length)
-                
+
                 # sets the read timeout and attempts to read the establishment request into the larger buffer
                 $cliStream.ReadTimeout = 1000
                 $cliStream.Read($buffer_large, 0, 122) | Out-Null
-                
+
                 # reads the message after
                 $cliStream.Read($buffer_small, 0, 5) | Out-Null
-                
+
                 # converst the small buffer message to text
                 $message = [System.Text.Encoding]::ASCII.GetString($buffer_small)
-                
+
                 # verbose mode writes the message to the terminal
                 Write-Host $message
 
@@ -326,12 +326,12 @@ function func_socks{
         write-host "Server closed."
 
         # cleans up everything
-        if ($client -ne $null) 
+        if ($client -ne $null)
         {
             $client.Dispose()
             $client = $null
         }
-        if ($PS3 -ne $null -and $AsyncJobResult3 -ne $null) 
+        if ($PS3 -ne $null -and $AsyncJobResult3 -ne $null)
         {
             $PS3.EndInvoke($AsyncJobResult3) | Out-Null
             $PS3.Runspace.Close()

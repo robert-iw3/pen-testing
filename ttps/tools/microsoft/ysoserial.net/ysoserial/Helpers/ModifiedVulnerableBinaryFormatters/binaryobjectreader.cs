@@ -1,7 +1,7 @@
 // ==++==
-// 
+//
 //   Copyright (c) Microsoft Corporation.  All rights reserved.
-// 
+//
 // ==--==
 /*============================================================
  **
@@ -75,13 +75,13 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 
         //MethodCall and MethodReturn are handled special for perf reasons
         private bool bFullDeserialization;
-//#if FEATURE_REMOTING        
+//#if FEATURE_REMOTING
         private bool bMethodCall;
         private bool bMethodReturn;
         private BinaryMethodCall binaryMethodCall;
         private BinaryMethodReturn binaryMethodReturn;
         private bool bIsCrossAppDomain;
-//#endif        
+//#endif
 
         private static FileIOPermission sfileIOPermission = new FileIOPermission(PermissionState.Unrestricted);
 
@@ -118,7 +118,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 
             }
         }
-//#if FEATURE_REMOTING        
+//#if FEATURE_REMOTING
         internal void SetMethodCall(BinaryMethodCall binaryMethodCall)
         {
             bMethodCall = true;
@@ -149,7 +149,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 
 #if !FEATURE_PAL //&& FEATURE_SERIALIZATION
             // This is a hack to allow us to write a type-limiting deserializer
-            // when we know exactly what type to expect at the head of the 
+            // when we know exactly what type to expect at the head of the
             // object graph.
             if (m_binder != null) {
                 Assembly mscorlibAsm = Assembly.Load("mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
@@ -213,7 +213,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 
 #if FEATURE_REMOTING
             if (!bMethodCall && !bMethodReturn)
-#endif                
+#endif
             {
                 if (TopObject == null)
                     throw new SerializationException(Environment.GetResourceString("Serialization_TopObject"));
@@ -234,7 +234,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             if (bFullDeserialization)
             {
                 m_objectManager.RaiseDeserializationEvent(); // This will raise both IDeserialization and [OnDeserialized] events
-            }                
+            }
 
             // Return the headers if there is a handler
             if (handler != null)
@@ -255,7 +255,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 #endif
             return TopObject;
         }
-#endif       
+#endif
 
 #if !FEATURE_REMOTING
         internal Object Deserialize(HeaderHandler handler, __BinaryParser serParser, bool fCheck)
@@ -318,7 +318,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 
 #if FEATURE_REMOTING
             if (!bMethodCall && !bMethodReturn)
-#endif                
+#endif
             {
                 if (TopObject == null)
                     throw new SerializationException(Environment.GetResourceString("Serialization_TopObject"));
@@ -589,7 +589,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                 CheckSerializable(pr.PRdtType);
 #if FEATURE_REMOTING
                     if (IsRemoting && formatterEnums.FEsecurityLevel != TypeFilterLevel.Full)
-                        pr.PRnewObj = FormatterServices.GetSafeUninitializedObject(pr.PRdtType);                                 
+                        pr.PRnewObj = FormatterServices.GetSafeUninitializedObject(pr.PRdtType);
                     else
 #endif
                 pr.PRnewObj = FormatterServices.GetUninitializedObject(pr.PRdtType);
@@ -617,7 +617,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 #endif
 
 #if _DEBUG
-            SerTrace.Log( this, "ParseObject Exit ");       
+            SerTrace.Log( this, "ParseObject Exit ");
 #endif
         }
 
@@ -710,7 +710,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             objectPr.PRobjectInfo.ObjectEnd();
 
 #if _DEBUG
-            SerTrace.Log( this, "ParseObjectEnd  Exit ",objectPr.PRnewObj.GetType()," id: ",objectPr.PRobjectId);       
+            SerTrace.Log( this, "ParseObjectEnd  Exit ",objectPr.PRnewObj.GetType()," id: ",objectPr.PRobjectId);
 #endif
         }
 
@@ -883,7 +883,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 #if FEATURE_REMOTING
             CheckSecurity(pr);
 #endif
-            SerTrace.Log( this, "ParseArray Exit");     
+            SerTrace.Log( this, "ParseArray Exit");
         }
 
 
@@ -897,7 +897,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             // indexMap 1 [0,0,1]
             // indexMap 2 [0,0,2]
             // indexMap 3 [0,0,3]
-            // indexMap 4 [0,1,0]       
+            // indexMap 4 [0,1,0]
             for (int irank = pr.PRrank - 1; irank > -1; irank--)
             {
                 // Find the current or lower dimension which can be incremented.
@@ -968,7 +968,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                     int[] fixupIndex = new int[objectPr.PRrank];
                     Array.Copy(objectPr.PRindexMap, 0, fixupIndex, 0, objectPr.PRrank);
 
-                    SerTrace.Log( this, "ParseArrayMember RecordArrayElementFixup objectId ",objectPr.PRobjectId," idRef ",pr.PRidRef);                                                         
+                    SerTrace.Log( this, "ParseArrayMember RecordArrayElementFixup objectId ",objectPr.PRobjectId," idRef ",pr.PRidRef);
                     m_objectManager.RecordArrayElementFixup(objectPr.PRobjectId, fixupIndex, pr.PRidRef);
                 }
                 else
@@ -996,7 +996,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                 {
                     if ((objectPr.PRarrayElementType.IsValueType) && (pr.PRarrayElementTypeCode == InternalPrimitiveTypeE.Invalid))
                     {
-#if _DEBUG                        
+#if _DEBUG
                         SerTrace.Log( "ParseArrayMember ValueType ObjectPr ",objectPr.PRnewObj," index ",objectPr.PRmemberIndex);
 #endif
                         pr.PRisValueTypeFixup = true; //Valuefixup
@@ -1004,11 +1004,11 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                     }
                     else
                     {
-#if _DEBUG                        
+#if _DEBUG
                         SerTrace.Log( "ParseArrayMember SetValue Nested, memberIndex ",objectPr.PRmemberIndex);
                         IndexTraceMessage("ParseArrayMember SetValue Nested ContainerObject "+objectPr.PRnewObj.GetType()+" "+objectPr.PRnewObj+" item Object "+pr.PRnewObj+" index ", objectPr.PRindexMap);
 
-                        stack.Dump();               
+                        stack.Dump();
                         SerTrace.Log( "ParseArrayMember SetValue Nested ContainerObject objectPr ",objectPr.Trace());
                         SerTrace.Log( "ParseArrayMember SetValue Nested ContainerObject pr ",pr.Trace());
 #endif
@@ -1050,7 +1050,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                         // Not nested and invalid, so it is an empty object
 #if FEATURE_REMOTING
                         if (IsRemoting && formatterEnums.FEsecurityLevel != TypeFilterLevel.Full)
-                            var = FormatterServices.GetSafeUninitializedObject(pr.PRdtType);                                 
+                            var = FormatterServices.GetSafeUninitializedObject(pr.PRdtType);
                         else
 #endif
                         var = FormatterServices.GetUninitializedObject(pr.PRdtType);
@@ -1092,7 +1092,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                             objectPr.PRobjectA[objectPr.PRindexMap[0]] = var;
                         }
                         else
-                            ((Array)objectPr.PRnewObj).SetValue(var, objectPr.PRindexMap); // Primitive type   
+                            ((Array)objectPr.PRnewObj).SetValue(var, objectPr.PRindexMap); // Primitive type
                         SerTrace.Log( this, "ParseArrayMember SetValue Primitive after");
                     }
                 }
@@ -1105,11 +1105,11 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             else
                 ParseError(pr, objectPr);
 
-#if _DEBUG                        
-            SerTrace.Log( "ParseArrayMember increment memberIndex ",objectPr.PRmemberIndex," ",objectPr.Trace());               
+#if _DEBUG
+            SerTrace.Log( "ParseArrayMember increment memberIndex ",objectPr.PRmemberIndex," ",objectPr.Trace());
 #endif
             objectPr.PRmemberIndex++;
-            SerTrace.Log( "ParseArrayMember Exit");     
+            SerTrace.Log( "ParseArrayMember Exit");
         }
 
         [System.Security.SecurityCritical]  // auto-generated
@@ -1136,7 +1136,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             if (objectPr != null)
                 objName = objectPr.PRname;
 
-#if _DEBUG                        
+#if _DEBUG
             SerTrace.Log( this, "ParseMember ",objectPr.PRobjectId," ",pr.PRname);
             SerTrace.Log( this, "ParseMember objectPr ",objectPr.Trace());
             SerTrace.Log( this, "ParseMember pr ",pr.Trace());
@@ -1189,20 +1189,20 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             }
             else if (pr.PRmemberValueEnum == InternalMemberValueE.Reference)
             {
-                SerTrace.Log( this, "ParseMember Reference Type member: ",pr.PRname);           
+                SerTrace.Log( this, "ParseMember Reference Type member: ",pr.PRname);
                 // See if object has already been instantiated
                 Object refObj = m_objectManager.GetObject(pr.PRidRef);
                 if (refObj == null)
                 {
                     SerTrace.Log( this, "ParseMember RecordFixup: ",pr.PRname);
-                    SerTrace.Log( this, "AddValue 3");                  
+                    SerTrace.Log( this, "AddValue 3");
                     objectPr.PRobjectInfo.AddValue(pr.PRname, null, ref objectPr.PRsi, ref objectPr.PRmemberData);
                     objectPr.PRobjectInfo.RecordFixup(objectPr.PRobjectId, pr.PRname, pr.PRidRef); // Object not instantiated
                 }
                 else
                 {
                     SerTrace.Log( this, "ParseMember Referenced Object Known ",pr.PRname," ",refObj);
-                    SerTrace.Log( this, "AddValue 5");              
+                    SerTrace.Log( this, "AddValue 5");
                     objectPr.PRobjectInfo.AddValue(pr.PRname, refObj, ref objectPr.PRsi, ref objectPr.PRmemberData);
                 }
             }
@@ -1215,7 +1215,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                 if (Object.ReferenceEquals(pr.PRdtType, Converter.typeofString))
                 {
                     ParseString(pr, objectPr);
-                    SerTrace.Log( this, "AddValue 6");              
+                    SerTrace.Log( this, "AddValue 6");
                     objectPr.PRobjectInfo.AddValue(pr.PRname, pr.PRvalue, ref objectPr.PRsi, ref objectPr.PRmemberData);
                 }
                 else if (pr.PRdtTypeCode == InternalPrimitiveTypeE.Invalid)
@@ -1223,7 +1223,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                     // The member field was an object put the value is Inline either  bin.Base64 or invalid
                     if (pr.PRarrayTypeEnum == InternalArrayTypeE.Base64)
                     {
-                        SerTrace.Log( this, "AddValue 7");                  
+                        SerTrace.Log( this, "AddValue 7");
                         objectPr.PRobjectInfo.AddValue(pr.PRname, Convert.FromBase64String(pr.PRvalue), ref objectPr.PRsi, ref objectPr.PRmemberData);
                     }
                     else if (Object.ReferenceEquals(pr.PRdtType, Converter.typeofObject))
@@ -1256,15 +1256,15 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                         var = pr.PRvarValue;
                     else
                         var = Converter.FromString(pr.PRvalue, pr.PRdtTypeCode);
-#if _DEBUG                        
+#if _DEBUG
                     // Not a string, convert the value
                     SerTrace.Log( this, "ParseMember Converting primitive and storing");
                     stack.Dump();
                     SerTrace.Log( this, "ParseMember pr "+pr.Trace());
                     SerTrace.Log( this, "ParseMember objectPr ",objectPr.Trace());
 
-                    SerTrace.Log( this, "AddValue 11");                 
-#endif                    
+                    SerTrace.Log( this, "AddValue 11");
+#endif
                     objectPr.PRobjectInfo.AddValue(pr.PRname, var, ref objectPr.PRsi, ref objectPr.PRmemberData);
                 }
             }
@@ -1300,7 +1300,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             // Process String class
             if ((!pr.PRisRegistered) && (pr.PRobjectId > 0))
             {
-                SerTrace.Log( this, "ParseString  RegisterObject ",pr.PRvalue," ",pr.PRobjectId);                           
+                SerTrace.Log( this, "ParseString  RegisterObject ",pr.PRvalue," ",pr.PRobjectId);
                 // String is treated as an object if it has an id
                 //m_objectManager.RegisterObject(pr.PRvalue, pr.PRobjectId);
                 RegisterObject(pr.PRvalue, pr, parentPr, true);
@@ -1341,7 +1341,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                         }
                     }
                 }
-                // SerializationInfo is always needed for ISerialization                        
+                // SerializationInfo is always needed for ISerialization
                 si = pr.PRsi;
 
                 SerTrace.Log( this, "RegisterObject 0bj ",obj," objectId ",pr.PRobjectId," si ", si," parentId ",parentId," memberInfo ",memberInfo, " indexMap "+indexMap);
@@ -1407,14 +1407,14 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
         {
             /*
             StringBuilder sb = StringBuilderCache.Acquire(10);
-            sb.Append("[");     
+            sb.Append("[");
             for (int i=0; i<index.Length; i++)
             {
                 sb.Append(index[i]);
                 if (i != index.Length -1)
                     sb.Append(",");
             }
-            sb.Append("]");             
+            sb.Append("]");
             SerTrace.Log( this, message," ", StringBuilderCache.GetStringAndRelease(sb));
             */
         }
@@ -1504,7 +1504,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                 if ((object)type == null)
                     return null;
 
-                // before adding it to cache, let us do the security check 
+                // before adding it to cache, let us do the security check
                 CheckTypeForwardedTo(assm, type.Assembly, type);
 
                 entry = new TypeNAssembly();
@@ -1600,7 +1600,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                         objectType = FormatterServices.GetTypeFromAssembly(sourceAssembly, name);
                     }
 
-                    // here let us do the security check 
+                    // here let us do the security check
                     if (objectType != null)
                     {
                         CheckTypeForwardedTo(sourceAssembly, objectType.Assembly, objectType);
@@ -1652,7 +1652,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                         throw new SecurityException() { Demanded = sourceAssembly.PermissionSet };
                     }
                 }
-            }         
+            }
             */
         }
 

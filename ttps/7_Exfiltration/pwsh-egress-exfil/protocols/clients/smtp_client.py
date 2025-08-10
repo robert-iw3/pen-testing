@@ -37,9 +37,9 @@ class Client:
                 self.file_transfer = cli_object.file.split('/')[-1]
 
     # transmit is the only required function within the object.  It is what
-    # called by the framework to transmit data.  However, you can create as 
+    # called by the framework to transmit data.  However, you can create as
     # many "sub functions" for transmit to invoke as needed.  "data_to_transmit"
-    # is a variable passed in by the framework which contains the data that 
+    # is a variable passed in by the framework which contains the data that
     # is to be sent out by the client.
     def transmit(self, data_to_transmit):
 

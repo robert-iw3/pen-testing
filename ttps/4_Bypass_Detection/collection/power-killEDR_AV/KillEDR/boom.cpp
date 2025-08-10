@@ -19,7 +19,7 @@ BOOL boom::kill(const wchar_t* name)
 
 	do
 	{
-		// Get Target ProcessId 
+		// Get Target ProcessId
 		pid = utils::GetPidByName(name);
 		if (pid == 0)
 		{

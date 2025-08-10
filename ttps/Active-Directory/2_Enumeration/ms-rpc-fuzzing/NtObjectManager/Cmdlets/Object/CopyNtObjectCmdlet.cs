@@ -157,7 +157,7 @@ public sealed class CopyNtObjectCmdlet : PSCmdlet
 
     private object GetHandle(IntPtr handle)
     {
-        return NtObject.DuplicateHandle(SourceProcess, handle, DestinationProcess, 
+        return NtObject.DuplicateHandle(SourceProcess, handle, DestinationProcess,
             GetDesiredAccess(), ObjectAttributes ?? 0, GetOptions());
     }
 

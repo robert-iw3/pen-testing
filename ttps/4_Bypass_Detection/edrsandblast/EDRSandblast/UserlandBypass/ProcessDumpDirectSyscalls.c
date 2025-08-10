@@ -37,7 +37,7 @@ BOOL appendToDump(DUMP_CONTEXT* dumpContext, const PVOID data, DWORD size) {
     writeAtRVA(dumpContext, dumpContext->RVA, data, size);
     dumpContext->RVA = newRVA;
     return TRUE;
-    
+
 }
 
 BOOL writeMiniDumpHeader(DUMP_CONTEXT* dumpContext) {
@@ -168,7 +168,7 @@ DWORD writeMiniDumpSystemInfoStream(DUMP_CONTEXT* dumpContext) {
     memcpy(CSDVersion->Buffer, peb.CSDVersion.Buffer, CSDVersionBufferLength);
     RVA CSDVersionRVA = dumpContext->RVA;
     appendToDump(dumpContext, CSDVersion, sizeof(MINIDUMP_STRING) + CSDVersionBufferLength);
-    
+
     // write our length in the MiniDumpSystemInfo directory
     writeAtRVA(dumpContext, sizeof(MINIDUMP_HEADER) + offsetof(MINIDUMP_DIRECTORY, Location.DataSize), &streamSize, sizeof(streamSize));
 
@@ -243,7 +243,7 @@ DWORD writeMiniDumpModuleListStream(DUMP_CONTEXT* dumpContext, PMODULE_INFO pmod
         module.Reserved0 = 0;
         module.Reserved1 = 0;
 
-        
+
         if (!appendToDump(dumpContext, &module, sizeof(module))) {
             _tprintf_or_not(TEXT("[-] Syscall process dump failed: couldn't write the ModuleListStream (write of module bytes failed)\n"));
             return STATUS_UNSUCCESSFUL;
@@ -316,7 +316,7 @@ DWORD writeMiniDumpMemory64ListStream(DUMP_CONTEXT* dumpContext, PMEMORY_PAGE_IN
     // write our RVA in the Memory64ListStream directory
     // header + 2 directories + streamType + Location.DataSize
     writeAtRVA(dumpContext, sizeof(MINIDUMP_HEADER) + sizeof(MINIDUMP_DIRECTORY) * 2 + offsetof(MINIDUMP_DIRECTORY, Location.Rva), &streamRVA, sizeof(streamRVA));
-    
+
     // dump all the selected memory Pages.
     currentMemoryPage = pmemoryPages;
     while (currentMemoryPage) {
@@ -350,7 +350,7 @@ DWORD writeMiniDumpMemory64ListStream(DUMP_CONTEXT* dumpContext, PMEMORY_PAGE_IN
         memset(buffer, 0, currentMemoryPage->dataSize);
         free(buffer);
         buffer = NULL;
-        
+
         currentMemoryPage = currentMemoryPage->next;
     }
 
@@ -360,7 +360,7 @@ DWORD writeMiniDumpMemory64ListStream(DUMP_CONTEXT* dumpContext, PMEMORY_PAGE_IN
 DWORD SandMiniDumpWriteDump(TCHAR* targetProcessName, WCHAR* dumpFilePath) {
     DWORD status = STATUS_UNSUCCESSFUL;
     DWORD targetProcessPID = 0;
-    
+
     PMODULE_INFO pmoduleList = NULL;
     PMEMORY_PAGE_INFO pmemoryPages = NULL;
 
@@ -398,7 +398,7 @@ DWORD SandMiniDumpWriteDump(TCHAR* targetProcessName, WCHAR* dumpFilePath) {
     wcscat_s(FilePath, _countof(FilePath), dumpFilePath);
 
     getUnicodeStringFromWCHAR(&dumpFilePathAsUnicodeStr, FilePath);
-    
+
     // Create the dump file to validate that the output path is correct beforing accessing the process to dump memory.
     InitializeObjectAttributes(&ObjectAttributesDumpFile, &dumpFilePathAsUnicodeStr, OBJ_CASE_INSENSITIVE, NULL, NULL);
     status = NtCreateFile(&hDumpFile, FILE_GENERIC_WRITE, &ObjectAttributesDumpFile, &IoStatusBlock, &AllocationSize, FILE_ATTRIBUTE_NORMAL, 0, FILE_OVERWRITE_IF, FILE_SYNCHRONOUS_IO_NONALERT, NULL, 0);
@@ -415,7 +415,7 @@ DWORD SandMiniDumpWriteDump(TCHAR* targetProcessName, WCHAR* dumpFilePath) {
     InitializeObjectAttributes(&ObjectAttributesProcess, NULL, 0, NULL, NULL);
     CLIENT_ID clientId = { 0 };
     clientId.ProcessId = UlongToHandle(targetProcessPID);
-    
+
     status = NtOpenProcess(&htargetProcess, PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_QUERY_INFORMATION, &ObjectAttributesProcess, &clientId);
     if (status == STATUS_ACCESS_DENIED) {
         _tprintf_or_not(TEXT("[-] Syscall process dump failed: access denied error while trying to get an handle on the target process (NtOpenProcesserror 0x%x).\n"), status);
@@ -496,7 +496,7 @@ cleanup:
     if (htargetProcess) {
         NtClose(htargetProcess);
     }
-    
+
     if (hDumpFile) {
         NtClose(hDumpFile);
     }

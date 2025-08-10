@@ -48,7 +48,7 @@ public sealed class NewNtPartitionCmdlet : NtObjectBaseCmdletWithAccess<MemoryPa
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NewNtPartitionCmdlet() 
+    public NewNtPartitionCmdlet()
     {
         PreferredNode = -1;
     }

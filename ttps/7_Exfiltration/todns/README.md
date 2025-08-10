@@ -1,7 +1,7 @@
 # ToDns
 
 ## Description
-A simple tool to transfer file over DNS. 
+A simple tool to transfer file over DNS.
 Unlike many others similar tools, no need for more than a command line or a small script for the client side. It is useful on a situation where you cannot even transfer a file and the clipboard is not shared.
 
 To download a file, the server will split it in multiple chunks (default max size is 250) and send the corresponding chunk according to the TXT query (\<numericalValue\>.\<domainName\>.\<tld\>).

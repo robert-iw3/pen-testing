@@ -46,7 +46,7 @@ python3 bruteforce/bruteforce.py -t https://mail.domain.com/EWS/Exchange.asmx -U
 
 
 
-## 3) GAL 
+## 3) GAL
 The Microsoft Exchange Global Address List (GAL) is a list of all end users and their respective email addresses within an Exchange Server organization that uses Microsoft Outlook for email.
 
 ### use exchanger.py [impacket](https://github.com/SecureAuthCorp/impacket)
@@ -54,9 +54,9 @@ The Microsoft Exchange Global Address List (GAL) is a list of all end users and 
 python GAL/exchanger.py DomainName/Username:"Password"@mail.domain.com nspi list-tables
 ```
 
-### use ruler 
+### use ruler
 ```
-GAL/ruler-linux64 --url https://mail.domain.com/autodiscover/autodiscover.xml --email Username@domain.com -d DomainName -u Username -p Password --debug --verbose  abk dump --output gal.txt 
+GAL/ruler-linux64 --url https://mail.domain.com/autodiscover/autodiscover.xml --email Username@domain.com -d DomainName -u Username -p Password --debug --verbose  abk dump --output gal.txt
 ```
 
 ### use ewsManage.py

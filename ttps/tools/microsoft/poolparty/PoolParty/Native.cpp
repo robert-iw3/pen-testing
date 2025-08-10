@@ -9,7 +9,7 @@ void w_ZwAssociateWaitCompletionPacket(
     NTSTATUS IoStatus,
     ULONG_PTR IoStatusInformation,
     PBOOLEAN AlreadySignaled
-) 
+)
 {
     NT_SUCCESS_OR_RAISE(
         "ZwAssociateWaitCompletionPacket",
@@ -53,10 +53,10 @@ HANDLE w_NtAlpcCreatePort(POBJECT_ATTRIBUTES ObjectAttributes, PALPC_PORT_ATTRIB
     return hAlpc;
 }
 
-void w_NtAlpcSetInformation(HANDLE hAlpc, ULONG PortInformationClass, PVOID PortInformation, ULONG Length) 
+void w_NtAlpcSetInformation(HANDLE hAlpc, ULONG PortInformationClass, PVOID PortInformation, ULONG Length)
 {
     NT_SUCCESS_OR_RAISE(
-        "NtAlpcSetInformation", 
+        "NtAlpcSetInformation",
          NtAlpcSetInformation(hAlpc, PortInformationClass, PortInformation, Length)
     );
 }
@@ -73,7 +73,7 @@ HANDLE w_NtAlpcConnectPort(
     PALPC_MESSAGE_ATTRIBUTES OutMessageAttributes,
     PALPC_MESSAGE_ATTRIBUTES InMessageAttributes,
     PLARGE_INTEGER Timeout
-) 
+)
 {
     HANDLE hAlpc;
     NT_SUCCESS_OR_RAISE(
@@ -99,9 +99,9 @@ BOOLEAN w_RtlAdjustPrivilege(ULONG Privilege, BOOLEAN Enable, BOOLEAN CurrentThr
 {
     BOOLEAN Enabled = NULL;
     NT_SUCCESS_OR_RAISE(
-        "RtlAdjustPrivilege", 
+        "RtlAdjustPrivilege",
         RtlAdjustPrivilege(
-            Privilege, 
+            Privilege,
             Enable,
             CurrentThread,
             &Enabled)
@@ -122,7 +122,7 @@ void w_ZwSetIoCompletion(HANDLE IoCompletionHandle, PVOID KeyContext, PVOID ApcC
     );
 }
 
-void w_NtSetTimer2(HANDLE TimerHandle, PLARGE_INTEGER DueTime, PLARGE_INTEGER Period, PT2_SET_PARAMETERS Parameters) 
+void w_NtSetTimer2(HANDLE TimerHandle, PLARGE_INTEGER DueTime, PLARGE_INTEGER Period, PT2_SET_PARAMETERS Parameters)
 {
     NT_SUCCESS_OR_RAISE(
         "NtSetTimer2",

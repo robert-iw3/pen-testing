@@ -14,9 +14,9 @@
 #   at https://github.com/SecureAuthCorp/impacket/tree/master/tests/SMB_RPC
 #
 #   Some calls have helper functions, which makes it even easier to use.
-#   They are located at the end of this file. 
+#   They are located at the end of this file.
 #   Helper functions start with "h"<name of the call>.
-#   There are test cases for them too. 
+#   There are test cases for them too.
 #
 from __future__ import division
 from __future__ import print_function
@@ -38,7 +38,7 @@ class DCERPCSessionError(DCERPCException):
         key = self.error_code
         if key in system_errors.ERROR_MESSAGES:
             error_msg_short = system_errors.ERROR_MESSAGES[key][0]
-            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1] 
+            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1]
             return 'SRVS SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             return 'SRVS SessionError: unknown error code: 0x%x' % self.error_code
@@ -279,7 +279,7 @@ PKT_ENTRY_TYPE_LOCAL_XPOINT   = 0x0800
 PKT_ENTRY_TYPE_MACH_SHARE     = 0x1000
 PKT_ENTRY_TYPE_OFFLINE        = 0x2000
 
-# 2.2.4.7 FILE_INFO_3 
+# 2.2.4.7 FILE_INFO_3
 # fi3_permissions
 PERM_FILE_READ   = 0x00000001
 PERM_FILE_WRITE  = 0x00000002
@@ -1782,7 +1782,7 @@ class WCHAR_ARRAY(NDRSTRUCT):
             return NDR.__getitem__(self,key)
 
     def getDataLen(self, data, offset=0):
-        return self["ActualCount"]*2 
+        return self["ActualCount"]*2
 
 
 class DISK_INFO(NDRSTRUCT):
@@ -3027,7 +3027,7 @@ OPNUMS = {
 def hNetrConnectionEnum(dce, qualifier, level, resumeHandle = 0, preferedMaximumLength = 0xffffffff):
     request = NetrConnectionEnum()
     request['ServerName'] = NULL
-    request['Qualifier'] = qualifier 
+    request['Qualifier'] = qualifier
     request['InfoStruct']['Level'] = level
     request['InfoStruct']['ConnectInfo']['tag'] = level
     request['PreferedMaximumLength'] = preferedMaximumLength

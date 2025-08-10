@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -73,8 +73,8 @@ class LLMNR(BaseRequestHandler):  # LLMNR Server class
 					LineHeader = "[Analyze mode: LLMNR]"
 					print(color("%s Request by %s for %s, ignoring" % (LineHeader, self.client_address[0].replace("::ffff:",""), Name), 2, 1))
 					SavePoisonersToDb({
-							'Poisoner': 'LLMNR', 
-							'SentToIp': self.client_address[0], 
+							'Poisoner': 'LLMNR',
+							'SentToIp': self.client_address[0],
 							'ForName': Name,
 							'AnalyzeMode': '1',
 							})
@@ -94,8 +94,8 @@ class LLMNR(BaseRequestHandler):  # LLMNR Server class
 						else:
 							print(color("%s  Poisoned answer sent to %s for name %s (spoofed answer name %s)" % (LineHeader, self.client_address[0].replace("::ffff:",""), Name, AnswerName), 2, 1))
 					SavePoisonersToDb({
-							'Poisoner': 'LLMNR', 
-							'SentToIp': self.client_address[0], 
+							'Poisoner': 'LLMNR',
+							'SentToIp': self.client_address[0],
 							'ForName': Name,
 							'AnalyzeMode': '0',
 							})
@@ -115,8 +115,8 @@ class LLMNR(BaseRequestHandler):  # LLMNR Server class
 						else:
 							print(color("%s  Poisoned answer sent to %s for name %s (spoofed answer name %s)" % (LineHeader, self.client_address[0].replace("::ffff:",""), Name, AnswerName), 2, 1))
 					SavePoisonersToDb({
-							'Poisoner': 'LLMNR6', 
-							'SentToIp': self.client_address[0], 
+							'Poisoner': 'LLMNR6',
+							'SentToIp': self.client_address[0],
 							'ForName': Name,
 							'AnalyzeMode': '0',
 							})

@@ -5,7 +5,7 @@ warnings.filterwarnings("ignore")
 
 def buildnumber_to_version(BuildNumber):
 #Reference:https://docs.microsoft.com/en-us/Exchange/new-features/build-numbers-and-release-dates?redirectedfrom=MSDN&view=exchserver-2019
-	
+
     strlist = BuildNumber.split('.')
 
     if int(strlist[0]) == 4:
@@ -52,7 +52,7 @@ def buildnumber_to_version(BuildNumber):
         elif int(strlist[1]) == 3:
             return 'Exchange Server 2010 SP3'
 
-    elif int(strlist[0]) == 15:        
+    elif int(strlist[0]) == 15:
         if int(strlist[1]) == 0:
             return 'Exchange Server 2013'
         elif int(strlist[1]) == 1:
@@ -62,9 +62,9 @@ def buildnumber_to_version(BuildNumber):
 
 def get_exchange_buildnumber(url):
     try:
-        
+
         r = requests.get(url, verify = False)
-        nPos1 = r.text.index('href="')       
+        nPos1 = r.text.index('href="')
         str1 = r.text[nPos1+9:nPos1+40]
         nPos2 = str1.index('/')
         nPos3 = str1.index('/themes/')
@@ -74,7 +74,7 @@ def get_exchange_buildnumber(url):
         print('Build number:%s'%(BuildNumber))
         result = buildnumber_to_version(BuildNumber)
         print(result)
-        
+
     except Exception as e:
          print('[!]Error:%s'%e)
 
@@ -88,4 +88,4 @@ if __name__ == '__main__':
         sys.exit(0)
     else:
         get_exchange_buildnumber(sys.argv[1])
-    
+

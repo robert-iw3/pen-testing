@@ -58,7 +58,7 @@ namespace PingCastle.RPC
         private bool EnumerateAccountUsingLsa(TypeOfEnumeration method, int MaximumNumber)
         {
             Trace.WriteLine("EnumerateAccountUsingLsa");
-            int UserEnumerated = 0; 
+            int UserEnumerated = 0;
             Int32 returnCode;
             IntPtr PolicyHandle = IntPtr.Zero;
             lsa lsa = new lsa();
@@ -127,7 +127,7 @@ namespace PingCastle.RPC
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         private bool EnumerateAccountUsingSamr(TypeOfEnumeration method, int MaximumNumber)
         {
-            Trace.WriteLine("EnumerateAccountUsingSamr"); 
+            Trace.WriteLine("EnumerateAccountUsingSamr");
             int UserEnumerated = 0;
             IntPtr ServerHandle = IntPtr.Zero;
             samr sam = new samr();
@@ -202,7 +202,7 @@ namespace PingCastle.RPC
             {
                 sam.SamrCloseHandle(ref ServerHandle);
             }
-            Trace.WriteLine("EnumerateAccountUsingSamr done"); 
+            Trace.WriteLine("EnumerateAccountUsingSamr done");
             return UserEnumerated > 0;
         }
 

@@ -37,7 +37,7 @@ nmapOSDB = '/usr/share/nmap/nmap-os-db'
 # Fingerprint = 'Siemens Gigaset SX541 or USRobotics USR9111 wireless DSL modem' # DFI=O U1(DF=N IPL=38)
 # Fingerprint = 'Apple Mac OS X 10.5.6 (Leopard) (Darwin 9.6.0)' # DFI=Y SI=S U1(DF=Y)
 
-Fingerprint = 'Sun Solaris 10 (SPARC)' 
+Fingerprint = 'Sun Solaris 10 (SPARC)'
 # Fingerprint = 'Sun Solaris 9 (x86)'
 
 # Fingerprint = '3Com OfficeConnect 3CRWER100-75 wireless broadband router'  # TI=Z DFI=N !SS TI=Z II=I
@@ -91,7 +91,7 @@ class Responder:
           try:
               while 1: self.template_onion.append (self.template_onion[-1].child ())
           except: pass
-       
+
           # print("Template: %s" % self.template_onion[O_ETH])
           # print("Options: %r" % self.template_onion[O_TCP].get_padded_options())
           # print("Flags: 0x%04x" % self.template_onion[O_TCP].get_th_flags())
@@ -334,7 +334,7 @@ class OpenTCPResponder(TCPResponder):
 class ClosedTCPResponder(TCPResponder):
    def isMine(self, in_onion):
        return (
-          TCPResponder.isMine(self, in_onion) and 
+          TCPResponder.isMine(self, in_onion) and
           in_onion[O_TCP].get_SYN() and
           not self.machine.isTCPPortOpen(in_onion[O_TCP].get_th_dport()))
 
@@ -377,7 +377,7 @@ class UDPCommandResponder(OpenUDPResponder):
        out_onion[O_UDP].contains(out_onion[O_UDP_DATA])
        if cmd == 'who':
           out_onion[O_UDP_DATA].set_data(self.machine.fingerprint.get_id())
-          
+
        return out_onion
 
 # NMAP2 specific responders
@@ -435,7 +435,7 @@ class NMAP2UDPResponder(ClosedUDPResponder):
        try:
           ruck = int(f['RUCK'], 16)
           out_onion[O_ICMP_DATA+1].set_uh_sum(ruck)
-       except: 
+       except:
           out_onion[O_ICMP_DATA+1].auto_checksum = 0
 
        # RUD. Assume original packet just quoted
@@ -478,7 +478,7 @@ class NMAP2ICMPResponder(ICMPResponder):
        out_onion = ICMPResponder.buildAnswer(self, in_onion)
 
        # assume DFI = N
-       try: dfi = f['DFI'] 
+       try: dfi = f['DFI']
        except: dfi = 'N'
 
        if   dfi == 'N': out_onion[O_IP].set_ip_df(False)
@@ -488,7 +488,7 @@ class NMAP2ICMPResponder(ICMPResponder):
        else: raise Exception('Unsupported IE(DFI=%s)' % dfi)
 
        # assume DLI = S
-       try: dli = f['DLI'] 
+       try: dli = f['DLI']
        except: dli = 'S'
 
        if   dli == 'S': out_onion[O_ICMP].contains(in_onion[O_ICMP_DATA])
@@ -497,7 +497,7 @@ class NMAP2ICMPResponder(ICMPResponder):
        self.setTTLFromFingerprint(out_onion)
 
        # assume SI = S
-       try: si = f['SI'] 
+       try: si = f['SI']
        except: si = 'S'
 
        if   si == 'S': out_onion[O_ICMP].set_icmp_seq(in_onion[O_ICMP].get_icmp_seq())
@@ -507,7 +507,7 @@ class NMAP2ICMPResponder(ICMPResponder):
            except: raise Exception('Unsupported IE(SI=%s)' % si)
 
        # assume CD = S
-       try: cd = f['CD'] 
+       try: cd = f['CD']
        except: cd = 'S'
 
        if   cd == 'Z': out_onion[O_ICMP].set_icmp_code(0)
@@ -518,7 +518,7 @@ class NMAP2ICMPResponder(ICMPResponder):
            except: raise Exception('Unsupported IE(CD=%s)' % cd)
 
        # assume TOSI = S
-       try: tosi = f['TOSI'] 
+       try: tosi = f['TOSI']
        except: tosi = 'S'
 
        if   tosi == 'Z': out_onion[O_IP].set_ip_tos(0)
@@ -571,7 +571,7 @@ class NMAP2TCPResponder(TCPResponder):
        try: options = f['O']
        except: options = ''
        self.setTCPOptions(out_onion, options)
-       
+
        # Test S: TCP Sequence number
        # Z: Sequence number is zero
        # A: Sequence number is the same as the ACK in the probe
@@ -598,10 +598,10 @@ class NMAP2TCPResponder(TCPResponder):
        # Test Q: Quirks
        # R: Reserved bit set (right after the header length)
        # U: Urgent pointer non-zero and URG flag clear
-       try: 
+       try:
           if 'R' in f['Q']: out_onion[O_TCP].set_flags(0x800)
        except: pass
-       try: 
+       try:
           if 'U' in f['Q']: out_onion[O_TCP].set_th_urp(0xffff)
        except: pass
 
@@ -623,7 +623,7 @@ class NMAP2TCPResponder(TCPResponder):
                crc = int(crc, 16)
                data  = 'TCP Port is closed\x00'
                data += uncrc32.compensate(data, crc)
-               data = ImpactPacket.Data(data) 
+               data = ImpactPacket.Data(data)
                out_onion.append(data)
                out_onion[O_TCP].contains(data)
        except:
@@ -633,7 +633,7 @@ class NMAP2TCPResponder(TCPResponder):
    def setTCPOptions(self, onion, options):
        def getValue(string, i):
            value = 0
-           
+
            idx = i
            for c in options[i:]:
                try:
@@ -812,7 +812,7 @@ class Machine:
            probe = tests[probeName]
            for test in probe:
                probe[test] = probe[test].split('|')[0]
-               
+
    def initSequenceGenerators(self):
        self.initIPIDGenerator()
        self.initTCPISNGenerator()

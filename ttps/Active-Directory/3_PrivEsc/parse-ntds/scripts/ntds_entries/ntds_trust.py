@@ -13,7 +13,7 @@ TRUST_ATT_TO_INTERNAL = {
     'trustAuthIncoming': 'ATTk589953', #bytes
     'trustAuthOutgoing': 'ATTk589959', #bytes
     'whenCreated': 'ATTl131074', #  create
-    'whenChanged':'ATTl131075', # change 
+    'whenChanged':'ATTl131075', # change
     'flatName': 'ATTm590335', #Actual name of the trust
     'PDNT_col':'PDNT_col',
     'tmp_domainID':'NCDNT_col',
@@ -38,7 +38,7 @@ def find_keys_sum(d, target, partial=[], used_keys=[]):
         return [target]
     s = sum(partial)
     # if the sum of the keys is equal to the target value, return the list of the keys
-    if s == target: 
+    if s == target:
         return partial
     if s >= target:
         return None # no solution
@@ -62,7 +62,7 @@ class NTDSTrust(NTDSEntry):
         super().__init__(dnt_col)
         self.entry = dict()
         self.domain_fullname = ""
-    
+
     def is_trust(self):
         return True
 
@@ -86,5 +86,5 @@ class NTDSTrust(NTDSEntry):
         #logger.debug(csv_entry)
         return csv_entry
 
-    
+
 

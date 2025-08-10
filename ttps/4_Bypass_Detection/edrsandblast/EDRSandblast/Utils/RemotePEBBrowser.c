@@ -17,7 +17,7 @@ PLDR_DATA_TABLE_ENTRY getPebLdrAddress(HANDLE hProcess) {
         _tprintf_or_not(TEXT("[-] Module parsing failed: couldn't get target process PEB address\n"));
         return NULL;
     }
-    
+
 #if _WIN64
     PVOID pPebLdrAddress = (PVOID)((ULONG_PTR) basicInfo.PebBaseAddress + offsetof(PEB64, Ldr));
 #else
@@ -53,7 +53,7 @@ PMODULE_INFO createModuleInfo(HANDLE hProcess, PLDR_DATA_TABLE_ENTRY ldrEntry) {
     NTSTATUS status = NtReadVirtualMemory(hProcess, (PVOID) ldrEntry->FullDllName.Buffer, newModuleInfo->dllName, ldrEntry->FullDllName.Length, NULL);
     if (!NT_SUCCESS(status)) {
         _tprintf_or_not(TEXT("[-] Module parsing failed: couldn't retrieve dllName from Ldr entry (NtReadVirtualMemory error 0x%x).\n"), status);
-        return NULL; 
+        return NULL;
     }
 
     return newModuleInfo;
@@ -80,7 +80,7 @@ PMODULE_INFO getModulesInLdrByInMemoryOrder(HANDLE hProcess) {
             _tprintf_or_not(TEXT("[-] Module parsing failed: couldn't get Ldr InLoadOrderModuleList first element address (NtReadVirtualMemory error 0x%x).\n"), status);
             return NULL;
         }
-    
+
         // Substract InMemoryOrderLinks offset to be at the top of the LDR_DATA_TABLE_ENTRY struct.
         pLdrCurrentEntryAddress = (PLDR_DATA_TABLE_ENTRY)(((PBYTE)pLdrCurrentEntryAddress) - offsetof(LDR_DATA_TABLE_ENTRY, InMemoryOrderLinks));
 
@@ -88,7 +88,7 @@ PMODULE_INFO getModulesInLdrByInMemoryOrder(HANDLE hProcess) {
         if (pLdrAddressInPeb == pLdrCurrentEntryAddress) {
             break;
         }
-        
+
         // Read LDR_DATA_TABLE_ENTRY data for the current element.
         status = NtReadVirtualMemory(hProcess, pLdrCurrentEntryAddress, &LdrCurrentEntry, sizeof(LDR_DATA_TABLE_ENTRY), NULL);
         if (!NT_SUCCESS(status)) {
@@ -130,7 +130,7 @@ PMEMORY_PAGE_INFO getMemoryPagesInfo(HANDLE hProcess, BOOL filterPage) {
 
     while (TRUE) {
         status = NtQueryVirtualMemory(hProcess, (PVOID)currentAddress, memoryInfoClass, &memoryBasicInfo, sizeof(memoryBasicInfo), NULL);
-        
+
         // The specified base address is outside the range of accessible addresses, iteration is finished.
         if (status == STATUS_INVALID_PARAMETER) {
             break;

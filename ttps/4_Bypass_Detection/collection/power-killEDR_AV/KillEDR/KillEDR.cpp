@@ -26,8 +26,8 @@ int main()
 		}
 
 		//
-		// BOOM!!!	
-		// 
+		// BOOM!!!
+		//
 		if (boom::instance()->kill(argv[1]))
 		{
 			std::cout << "Kill Success!\n";

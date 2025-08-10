@@ -43,7 +43,7 @@ class DataMatrixOverLSB():
 		self.SUCCESS    = 'success'
 		self.ERROR      = 'error'
 		self.INFO       = 'info'
-	
+
 	def _print(self, message, level='info') -> None:
 		message = message.strip()
 		if level == self.INFO:
@@ -63,7 +63,7 @@ class DataMatrixOverLSB():
 			return value & ~(1 << bit_index)
 		else:
 			return value
-	
+
 	def get_bit(self, value, bit_index=0):
 		if bit_index < 8:
 			return value & (1 << bit_index)
@@ -162,13 +162,13 @@ class DataMatrixOverLSB():
 		# os.remove(dm_file_path)
 		if self._VERBOSE:
 			self._print(f'Data was converted into DataMatrix and stored in memory.', level=self.SUCCESS)
-		
+
 		# zero the LSB of the pixels:
 		zeroed_pixels_array_original = self._zero_lsb(pixels_array_original)
 		self._save_pixels_to_image(zeroed_pixels_array_original,(h,w,3) ,'_2_zeroed.png')
 		if self._VERBOSE:
 			self._print(f'LSB of the pixels was zeroed.', level=self.INFO)
-		
+
 		# # convert data matrix pixels to pull up or down:
 		pixels_array_dm = self._pull_down_pixels(self._read_image_into_rgb_array(dm_file_path)[0])
 		if self._VERBOSE:

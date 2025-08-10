@@ -1,4 +1,4 @@
-#!/bin/bash        
+#!/bin/bash
 
 
 #DESCRIPTION_START
@@ -53,7 +53,7 @@ set_payload_info_source no_data
 # set shellcode binding technique
 set_payload_execution_method exec_shellcode
 
-# compile 
+# compile
 $win32_compiler -o output/downloadiexplorer_revhttps_win32.exe source/avet.c
 strip output/downloadiexplorer_revhttps_win32.exe
 

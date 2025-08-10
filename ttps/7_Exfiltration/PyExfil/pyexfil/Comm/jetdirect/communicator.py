@@ -44,7 +44,7 @@ class Broker():
 		self.client = client
 		self.port = port
 		self.host = host
-		
+
 
 	def parse_message(self, src, data):
 		"""
@@ -64,7 +64,7 @@ class Broker():
 	def listen_clients(self):
 		s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 		s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-		
+
 		logging.info("Listening on UDP %s:%s" % (self.host, self.port))
 		s.bind((self.host, self.port))
 		while True:

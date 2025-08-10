@@ -46,7 +46,7 @@ AspDotNetWrapper.exe --keypath MachineKeys.txt --encrypteddata 195A989biBjM_NAqq
 
 Sample Command
 ```console
-AspDotNetWrapper.exe --keypath MachineKeys.txt --encrypteddata CA387A93AD4214F356ED05C26C1E4D80F0804CD526766778B62D4F9213B87B5369755F95008A34644B9CA6B7646E191958A1AE14DB398AB943D3DB042EDA06EC4B5BEA9E3EB60E9877646AD4A50BE9435A2D3B4B3005836CBBBDA64A5E8738511211AA1F --decrypt --purpose=aspxauth 
+AspDotNetWrapper.exe --keypath MachineKeys.txt --encrypteddata CA387A93AD4214F356ED05C26C1E4D80F0804CD526766778B62D4F9213B87B5369755F95008A34644B9CA6B7646E191958A1AE14DB398AB943D3DB042EDA06EC4B5BEA9E3EB60E9877646AD4A50BE9435A2D3B4B3005836CBBBDA64A5E8738511211AA1F --decrypt --purpose=aspxauth
 
 --encrypteddata : value to decrypt using tool
 --decrypt : If you add this argumenet the tools try to decrypt the cookie
@@ -57,7 +57,7 @@ AspDotNetWrapper.exe --keypath MachineKeys.txt --encrypteddata CA387A93AD4214F35
 #
 #
 #
-#### After perform decryption for .aspxauth and .aspnet.applicationcookie value, The tool was stored decryption information in "DecryptText.txt". 
+#### After perform decryption for .aspxauth and .aspnet.applicationcookie value, The tool was stored decryption information in "DecryptText.txt".
 
 #### In order to re-generate cookies for other users, It is required to update the cookie information in "DecryptText.txt" file and then run the encryption utility of the tool as shown below:
 #
@@ -77,7 +77,7 @@ AspDotNetWrapper.exe --keypath MachineKeys.txt --encrypteddata /wEPDwUKLTkyMTY0M
 --encrypteddata : __VIEWSTATE parameter value of the target application
 --modifier : __VIWESTATEGENERATOR parameter value
 --purpose : viewstate to decode ViewState value
---legacy : Application built using ASP.Net < 4.5 framework 
+--legacy : Application built using ASP.Net < 4.5 framework
 --macdecode : To decode the ViewState value
 ````
 

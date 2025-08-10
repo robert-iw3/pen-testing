@@ -115,7 +115,7 @@ public class CommonAccessCheckResult
     public bool HasProcessTrustLabel { get; }
 
     internal CommonAccessCheckResult(string name, string type_name, AccessMask granted_access,
-        GenericMapping generic_mapping, SecurityDescriptor sd, 
+        GenericMapping generic_mapping, SecurityDescriptor sd,
         Type enum_type, bool is_directory, TokenInformation token_info)
     {
         Name = name;
@@ -127,8 +127,8 @@ public class CommonAccessCheckResult
         SecurityDescriptorBase64 = sd?.ToBase64() ?? string.Empty;
         Owner = sd?.Owner?.Sid.ToString() ?? string.Empty;
         IsRead = generic_mapping.HasRead(granted_access);
-        IsWrite = generic_mapping.HasWrite(granted_access) 
-            || granted_access.IsAccessGranted(GenericAccessRights.WriteDac) 
+        IsWrite = generic_mapping.HasWrite(granted_access)
+            || granted_access.IsAccessGranted(GenericAccessRights.WriteDac)
             || granted_access.IsAccessGranted(GenericAccessRights.WriteOwner)
             || granted_access.IsAccessGranted(GenericAccessRights.Delete);
         IsExecute = generic_mapping.HasExecute(granted_access);

@@ -42,31 +42,31 @@ Additionally, `%SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-WinRM%4Operat
 ```markup
 - <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 - <System>
-  <Provider Name="Microsoft-Windows-WinRM" Guid="{A7975C8F-AC13-49F1-87DA-5A984A4AB417}" /> 
-  <EventID>6</EventID> 
-  <Version>0</Version> 
-  <Level>4</Level> 
-  <Task>3</Task> 
-  <Opcode>1</Opcode> 
-  <Keywords>0x4000000000000002</Keywords> 
+  <Provider Name="Microsoft-Windows-WinRM" Guid="{A7975C8F-AC13-49F1-87DA-5A984A4AB417}" />
+  <EventID>6</EventID>
+  <Version>0</Version>
+  <Level>4</Level>
+  <Task>3</Task>
+  <Opcode>1</Opcode>
+  <Keywords>0x4000000000000002</Keywords>
 
   # connection iniation time
-  <TimeCreated SystemTime="2018-07-25T21:13:36.511895800Z" /> 
-  <EventRecordID>673</EventRecordID> 
+  <TimeCreated SystemTime="2018-07-25T21:13:36.511895800Z" />
+  <EventRecordID>673</EventRecordID>
 
   # a unique connection ID
-  <Correlation ActivityID="{037F878B-8DF6-4F1A-BA51-432C3CDDCB47}" /> 
+  <Correlation ActivityID="{037F878B-8DF6-4F1A-BA51-432C3CDDCB47}" />
 
   # process ID that initiated the connection
-  <Execution ProcessID="3172" ThreadID="2844" /> 
-  <Channel>Microsoft-Windows-WinRM/Operational</Channel> 
-  <Computer>PC-MANTVYDAS.offense.local</Computer> 
-  <Security UserID="S-1-5-21-1731862936-2585581443-184968265-1001" /> 
+  <Execution ProcessID="3172" ThreadID="2844" />
+  <Channel>Microsoft-Windows-WinRM/Operational</Channel>
+  <Computer>PC-MANTVYDAS.offense.local</Computer>
+  <Security UserID="S-1-5-21-1731862936-2585581443-184968265-1001" />
   </System>
 - <EventData>
 
   # remote host the connection was initiated to
-  <Data Name="connection">dc-mantvydas/wsman?PSVersion=5.1.14409.1005</Data> 
+  <Data Name="connection">dc-mantvydas/wsman?PSVersion=5.1.14409.1005</Data>
   </EventData>
   </Event>
 ```

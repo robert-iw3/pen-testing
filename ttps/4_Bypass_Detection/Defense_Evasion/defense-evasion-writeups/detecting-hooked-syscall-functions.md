@@ -97,7 +97,7 @@ if (*((unsigned char*)targetFunction) == 0xE9) // first byte is a jmp instructio
 	// E9 jump instruction has 32bit offset, relative to the address of the first instruction AFTER our jump instruction.
 	DWORD jumpTargetRelative = *((PDWORD)((char*)functionAddress + 1));
 	// Its possible for target to be 0x000025FF, which is jmp QWORD PTR [rip+0x0], or similar variants, this is not handled in this example
-	PDWORD jumpTarget = targetFunction + 5 /*Instruction pointer after our jmp instruction*/ + jumpTargetRelative;  
+	PDWORD jumpTarget = targetFunction + 5 /*Instruction pointer after our jmp instruction*/ + jumpTargetRelative;
 	char moduleNameBuffer[512];
 	GetMappedFileNameA(GetCurrentProcess(), jumpTarget, moduleNameBuffer, 512);
 }
@@ -135,7 +135,7 @@ Below is the code that we can compile and run on an endpoint running an AV/EDR t
 int main()
 {
 	PDWORD functionAddress = (PDWORD)0;
-	
+
 	// Get ntdll base address
 	HMODULE libraryBase = LoadLibraryA("ntdll");
 
@@ -158,7 +158,7 @@ int main()
 		DWORD functionNameRVA = addressOfNamesRVA[i];
 		DWORD_PTR functionNameVA = (DWORD_PTR)libraryBase + functionNameRVA;
 		char* functionName = (char*)functionNameVA;
-		
+
 		// Resolve exported function address
 		DWORD_PTR functionAddressRVA = 0;
 		functionAddressRVA = addresOfFunctionsRVA[addressOfNameOrdinalsRVA[i]];
@@ -172,23 +172,23 @@ int main()
 		{
 			// Check if the first 4 instructions of the exported function are the same as the sycall's prologue
 			if (memcmp(functionAddress, syscallPrologue, 4) != 0) {
-			
+
 				if (*((unsigned char*)functionAddress) == 0xE9) // first byte is a jmp instruction, where does it jump to?
 				{
 					DWORD jumpTargetRelative = *((PDWORD)((char*)functionAddress + 1));
-					PDWORD jumpTarget = functionAddress + 5 /*Instruction pointer after our jmp instruction*/ + jumpTargetRelative;  
+					PDWORD jumpTarget = functionAddress + 5 /*Instruction pointer after our jmp instruction*/ + jumpTargetRelative;
 					char moduleNameBuffer[512];
 					GetMappedFileNameA(GetCurrentProcess(), jumpTarget, moduleNameBuffer, 512);
-					
+
 					printf("Hooked: %s : %p into module %s\n", functionName, functionAddress, moduleNameBuffer);
 				}
 				else
 				{
 					printf("Potentially hooked: %s : %p\n", functionName, functionAddress);
 				}
-			
-			
-				
+
+
+
 			}
 		}
 	}

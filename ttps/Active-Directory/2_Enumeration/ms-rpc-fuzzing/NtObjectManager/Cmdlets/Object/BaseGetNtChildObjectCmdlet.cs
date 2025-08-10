@@ -51,7 +51,7 @@ public abstract class BaseGetNtChildObjectCmdlet<O, A> : PSCmdlet where A : Enum
     public int MaxDepth { get; set; }
 
     /// <summary>
-    /// <para type="description">Specify a script block to run for every child. The file object will automatically 
+    /// <para type="description">Specify a script block to run for every child. The file object will automatically
     /// be disposed once the vistor has executed. If you want to cancel enumeration return $false.</para>
     /// </summary>
     [Parameter]
@@ -101,7 +101,7 @@ public abstract class BaseGetNtChildObjectCmdlet<O, A> : PSCmdlet where A : Enum
         {
             return result.Value;
         }
-        
+
         return !Stopping;
     }
 

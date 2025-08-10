@@ -27,11 +27,11 @@ PFULL_TP_IO w_CreateThreadpoolIo(HANDLE hFile, PTP_WIN32_IO_CALLBACK pCallback, 
 	return pTpIo;
 }
 
-PFULL_TP_ALPC w_TpAllocAlpcCompletion(HANDLE hAlpc, PTP_ALPC_CALLBACK pCallback, PVOID pContext, PTP_CALLBACK_ENVIRON pCallbackEnviron) 
+PFULL_TP_ALPC w_TpAllocAlpcCompletion(HANDLE hAlpc, PTP_ALPC_CALLBACK pCallback, PVOID pContext, PTP_CALLBACK_ENVIRON pCallbackEnviron)
 {
 	PFULL_TP_ALPC pTpAlpc = { 0 };
 	const auto Ntstatus = TpAllocAlpcCompletion(&pTpAlpc, hAlpc, pCallback, pContext, pCallbackEnviron);
-	if (!NT_SUCCESS(Ntstatus)) 
+	if (!NT_SUCCESS(Ntstatus))
 	{
 		throw std::runtime_error(GetLastErrorString("TpAllocAlpcCompletion", RtlNtStatusToDosError(Ntstatus)));
 	}

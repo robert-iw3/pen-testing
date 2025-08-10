@@ -38,30 +38,30 @@ T0_BUILTIN_ASSETS_SID = [
     '551', # Backup Operators Group
 ]
 
-ACE_FLAGS = [ 
-    'GenericRead', 
-    'GenericWrite', 
-    'GenericExecute', 
-    'GenericAll', 
-    'AccessSACL', 
-    'Delete', 
-    'ReadControl', 
-    'WriteDAC', 
-    'Write Owner', 
-    'Synchronize', 
-    'AccessSystemSecurity', 
-    'MaximumAllowed', 
-    'StandardsRightsRequired', 
-    'StandardRightsAll', 
-    'SpecificRightsAll', 
-    'ADSRightDSCreateChild', 
-    'ADSRightDSDeleteChild', 
-    'ADSRightACTRLDSList', 
-    'ADSRightDSSelf', 
-    'ADSRightDSReadProp', 
-    'ADSRightDSWriteProp', 
-    'ADSRightDSDeleteTree', 
-    'ADSRightDSListObject', 
+ACE_FLAGS = [
+    'GenericRead',
+    'GenericWrite',
+    'GenericExecute',
+    'GenericAll',
+    'AccessSACL',
+    'Delete',
+    'ReadControl',
+    'WriteDAC',
+    'Write Owner',
+    'Synchronize',
+    'AccessSystemSecurity',
+    'MaximumAllowed',
+    'StandardsRightsRequired',
+    'StandardRightsAll',
+    'SpecificRightsAll',
+    'ADSRightDSCreateChild',
+    'ADSRightDSDeleteChild',
+    'ADSRightACTRLDSList',
+    'ADSRightDSSelf',
+    'ADSRightDSReadProp',
+    'ADSRightDSWriteProp',
+    'ADSRightDSDeleteTree',
+    'ADSRightDSListObject',
     'ADSRightDSControlAccess'
 ]
 
@@ -267,7 +267,7 @@ def acl_to_json(acl):
         acestr = acestr[size:]
         count -= 1
     return ACL
-    
+
 
 def sd_to_json(sd):
     jsd = {}
@@ -278,7 +278,7 @@ def sd_to_json(sd):
         jsd["Control"] = ctrl.to_json()
         if ctrl.SelfRelative:
             jsd["Owner"] = decode_sid(sd[owner:])
-            jsd["Group"] = decode_sid(sd[group:]) 
+            jsd["Group"] = decode_sid(sd[group:])
             if ctrl.SACLPresent:
                 jsd["SACL"] = acl_to_json(sd[saclofs:])
             if ctrl.DACLPresent:
@@ -462,7 +462,7 @@ class AccessMask(Flags):
         "ADSRightDSControlAccess":  0x00000100,
     }
 
-    
+
 
 class NTDSAcl(NTDSEntry):
 
@@ -471,7 +471,7 @@ class NTDSAcl(NTDSEntry):
         self.entry = dict()
 
     def get_entry(self):
-        
+
         csv_entry = {
             "domain": self.domain,
             "sd_id": self.entry["sd_id"],
@@ -482,4 +482,4 @@ class NTDSAcl(NTDSEntry):
             "owner": self.entry["owner"],
         }
         return csv_entry
-    
+

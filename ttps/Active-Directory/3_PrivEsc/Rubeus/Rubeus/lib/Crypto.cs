@@ -126,7 +126,7 @@ namespace Rubeus {
             if (eType == Interop.KERB_ETYPE.aes256_gcm_ghash_credguard)
                 throw new ArgumentException("Cannot decrypt Credential Guard blobs");
 
-            
+
             // locate the crypto system
             int status = Interop.CDLocateCSystem(eType, out pCSystemPtr);
             pCSystem = (Interop.KERB_ECRYPT)Marshal.PtrToStructure(pCSystemPtr, typeof(Interop.KERB_ECRYPT));

@@ -35,7 +35,7 @@ class EPMTests(DCERPCTests):
         request['Ifid'] = NULL
         request['vers_option'] = epm.RPC_C_VERS_ALL
         request['max_ents'] = 499
-      
+
         resp = dce.request(request)
         for entry in resp['entries']:
             tower = entry['tower']['tower_octet_string']

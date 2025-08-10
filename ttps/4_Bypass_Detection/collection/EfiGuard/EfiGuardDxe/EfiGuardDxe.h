@@ -94,7 +94,7 @@ extern UINT8 gBootmgrImgArchStartBootApplicationBackup[sizeof(gHookTemplate)];
 
 //
 // Patches the Windows Boot Manager: either bootmgfw.efi or bootmgr.efi; normally the former unless booting a WIM file
-// 
+//
 EFI_STATUS
 EFIAPI
 PatchBootManager(
@@ -126,7 +126,7 @@ HookedOslFwpKernelSetupPhase1(
 
 //
 // Patches winload.efi
-// 
+//
 EFI_STATUS
 EFIAPI
 PatchWinload(
@@ -184,7 +184,7 @@ BlStatusPrintNoop(
 
 //
 // Patches ntoskrnl.exe
-// 
+//
 EFI_STATUS
 EFIAPI
 PatchNtoskrnl(

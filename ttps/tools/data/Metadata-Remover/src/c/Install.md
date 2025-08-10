@@ -1,5 +1,5 @@
 
-Step 1: Install Codeblocks IDE from https://www.codeblocks.org/downloads/binaries/ , choose installer which ends with mingw-setup.exe 
+Step 1: Install Codeblocks IDE from https://www.codeblocks.org/downloads/binaries/ , choose installer which ends with mingw-setup.exe
 
 Step 2: Open run.c and build in code blocks.
 

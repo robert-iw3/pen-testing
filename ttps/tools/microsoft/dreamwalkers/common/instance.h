@@ -20,17 +20,17 @@
 #include "winapi.h"
 
 #pragma pack(push, 1)
-typedef struct _INSTANCE 
-{		
-	uint32_t    lenTest;  
-	
+typedef struct _INSTANCE
+{
+	uint32_t    lenTest;
+
 	// Could be encrypted to avoid detection
 	uint8_t sKernel32DLL[32];
 	uint8_t sNtDLL[32];
 	uint16_t wsKernel32DLL[32];
 	uint8_t sKernelBaseDLL[32];  	 // cmdline
 	uint8_t sMsvcrtDLL[32];  		 // printf
-	
+
 	uint8_t sGetProcAddress[32];
 	uint8_t sGetModuleHandleA[32];
 	uint8_t sLoadLibraryA[32];
@@ -54,8 +54,8 @@ typedef struct _INSTANCE
 	uint8_t sGetCommandLineA[32];		// cmdline
 	uint8_t sGetCommandLineW[32];		// cmdline
 	uint8_t sRtlAddFunctionTable[32];	// stack spoofing
-	
-    struct 
+
+    struct
     {
         LoadLibraryA_t                   LoadLibraryA;
 		FreeLibrary_t					 FreeLibrary;
@@ -90,7 +90,7 @@ typedef struct _INSTANCE
 	uint8_t sModuleToStomp[32];
 
 	// find the module that follow the loader
-	uint32_t instanceSize;  
+	uint32_t instanceSize;
 	uint32_t loaderSize;
 	uint8_t sMagicBytes[8];
 
@@ -112,7 +112,7 @@ typedef struct _INSTANCE
 	void* ptrModuleTst;			// LoaderTest
 	void* ptrDotNetModuleTst;	// LoaderTest
 
-	
+
 } INSTANCE;
 #pragma pack(pop)
 

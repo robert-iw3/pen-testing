@@ -26,7 +26,7 @@ public:
 	};
 
 	int updateTargetAssembly(ICLRAssemblyIdentityManager* identityManager, const std::string& data);
-	
+
 	LPWSTR getAssemblyInfo()
 	{
 		return m_assemblyInfo;
@@ -46,7 +46,7 @@ public:
 	{
 		return m_assembly.size();
 	};
-	
+
 private:
 	DWORD m_identityBufferSize;
 	LPWSTR m_assemblyInfo;
@@ -71,7 +71,7 @@ public:
 
 	virtual HRESULT STDMETHODCALLTYPE ProvideAssembly(AssemblyBindInfo* pBindInfo, UINT64* pAssemblyId, UINT64* pContext, IStream** ppStmAssemblyImage, IStream** ppStmPDB);
 	virtual HRESULT STDMETHODCALLTYPE ProvideModule(ModuleBindInfo* pBindInfo, DWORD* pdwModuleId, IStream** ppStmModuleImage, IStream** ppStmPDB);
-	
+
 	int setTargetAssembly(TargetAssembly * targetAssembly)
 	{
 		m_targetAssembly = targetAssembly;

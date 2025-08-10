@@ -122,7 +122,7 @@ class CryptoPEK(CryptoCommon):
                     cur_index += 1
                     pos += 20
         return PEK
-    
+
 class CryptoHash(CryptoCommon):
 
     def __init__(self, PEK):
@@ -194,7 +194,7 @@ class CryptoHash(CryptoCommon):
         return tmp_blob
 
     def __decrypt_hash(self, encryptedNTHash, entry, rid):
-        
+
         if encryptedNTHash['Header'][:4] == b'\x13\x00\x00\x00':
             # Win2016 TP4 decryption is different
             encryptedNTHash = self.CRYPTED_HASHW16(entry)
@@ -203,9 +203,9 @@ class CryptoHash(CryptoCommon):
                                                         encryptedNTHash['EncryptedHash'],
                                                         encryptedNTHash['KeyMaterial'])
         else:
-            tmp_hash = self.__removeRC4Layer(encryptedNTHash) 
+            tmp_hash = self.__removeRC4Layer(encryptedNTHash)
 
-        return tmp_hash       
+        return tmp_hash
 
     def decrypt_history(self, entry, rid):
         hashes = []
@@ -216,7 +216,7 @@ class CryptoHash(CryptoCommon):
                 for i in range(0, len(tmpHistory) // 16):
                     LMHash = self.__removeDESLayer(tmpHistory[i * 16:(i + 1) * 16], rid)
                     hashes.append(LMHash)
-            except struct.error as err: 
+            except struct.error as err:
                 print("decrypt_history "+err)
         return hashes
 

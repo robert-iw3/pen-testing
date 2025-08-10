@@ -30,9 +30,9 @@ class RC4():
             j = (j+self.state[i]) & 0xff
             self.state[i],self.state[j] = self.state[j],self.state[i] # SSWAP(i,j)
             out.append(char ^ self.state[(self.state[i] + self.state[j]) & 0xff])
-        
+
         return bytes(out)
-    
+
     def decrypt(self, data):
         # It's symmetric
         return self.encrypt(data)

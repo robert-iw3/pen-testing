@@ -31,7 +31,7 @@ def build_dictionary():
         # Add to dictionary
         BIP_DICTIONARY[wordlist[idx]] = hex_str
         BIP_REVERSE_DICTIONARY[hex_str] = wordlist[idx]
-    
+
     # Confirm minimum length
     if len(BIP_DICTIONARY) < 65536:
         print("Error: Wordlist too short")

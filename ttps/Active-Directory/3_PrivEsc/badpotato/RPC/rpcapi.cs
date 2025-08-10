@@ -50,7 +50,7 @@ namespace PingCastle.RPC
             public IntPtr Bind;
             public IntPtr Unbind;
         }
-        
+
 
         [StructLayout(LayoutKind.Sequential)]
         private struct RPC_VERSION
@@ -76,7 +76,7 @@ namespace PingCastle.RPC
             public RPC_VERSION SyntaxVersion;
         }
 
-        
+
 
         [StructLayout(LayoutKind.Sequential)]
         private struct RPC_CLIENT_INTERFACE

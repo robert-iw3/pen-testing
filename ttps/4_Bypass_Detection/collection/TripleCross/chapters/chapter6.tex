@@ -6,7 +6,7 @@ at user and kernel space. Although eBPF, the technology used for this
 rootkit, has been rarely explored before, some of the techniques presented
 here are equivalent (or mimic) those historically incorporated in classic
 rootkits, while others are also inspired by malicious uses of eBPF explored
-in recent research. 
+in recent research.
 
 In this chapter, we provide a comprehensive review of previous
 work on UNIX/Linux rootkits, their main types and most relevant examples.
@@ -126,7 +126,7 @@ to their capabilities at both the user- and kernel-space.
 Historically, kernel-mode rootkits in UNIX systems have been built as
 Loadable Kernel Modules (LKM), whose original purpose is to expand the
 capabilities of the kernel by adding new modules for specific tasks without
-the need of recompiling or even reloading the kernel. 
+the need of recompiling or even reloading the kernel.
 
 \subsection{SucKIT rootkit}
 Although the great majority of kernel-mode rootkits are loaded as LKMs,
@@ -273,7 +273,7 @@ space and the kernel space.
 After the creation of ebpfkit and during 2022, the computer security
 community has contributed to the creation of more eBPF rootkits, being
 Boopkit one of the best known, created by Kris Nóva and available publicly
-on GitHub \cite{boopkit}. 
+on GitHub \cite{boopkit}.
 
 Boopkit incorporates a network backdoor which can be operated via a remote
 boopkit-boop remote client. This backdoor incorporates C2 capabilities that

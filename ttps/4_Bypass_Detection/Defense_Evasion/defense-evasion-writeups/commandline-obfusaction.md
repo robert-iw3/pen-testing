@@ -96,7 +96,7 @@ We can use a builtin batch looping to extract the Powershell string from environ
 
 {% code title="@cmd" %}
 ```csharp
-set pSM 
+set pSM
 PSModulePath=C:\Users\mantvydas\Documents\WindowsPowerShell\Modules;....
 ```
 {% endcode %}
@@ -149,7 +149,7 @@ indexes = [0, 1, 2, 3, 2, 6, 2, 4, 5, 6, 0, 7, 1337]
 final = ""
 
 for index in indexes:
-    if index == 1337:        
+    if index == 1337:
         break
     final += dictionary[index]
 os.system(final)

@@ -98,7 +98,7 @@ def DecodePacket(packet_data, enc_key=DEFAULT_KEY, b64_flag=False):
             ret['fileData']['MD5'] = splitData[4]
             ret['packetNumber'] = splitData[1]
             return ret
-            
+
         try:
             data = rc4(data, enc_key)
         except ValueError as e:
@@ -249,7 +249,7 @@ def PrepString(data, max_size=DEFAULT_MAX_PACKET_SIZE, enc_key=DEFAULT_KEY, comp
                 exfiltration sorted by order.
     '''
     ret = {}
-    
+
     # Compute hashes and other meta data
     hash_raw = hashlib.md5(data).hexdigest()
     if enc_key != "":
@@ -257,18 +257,18 @@ def PrepString(data, max_size=DEFAULT_MAX_PACKET_SIZE, enc_key=DEFAULT_KEY, comp
         ret['EncryptionFlag'] = True
     else:
         ret['EncryptionFlag'] = False
-        
+
     if PY_VER is 3:
         if type(enc_key) is bytes:
             enc_key = enc_key.decode("utf-8")
         if type(data) is bytes:
             data = data.decode("utf-8")
-        
+
     if enc_key is None:
         compData = bytes(data, 'utf-8')
     else:
         compData = rc4(data, enc_key)
-    
+
     if compress:
         compData = zlib.compress(compData)
         compData = base64.b85encode(compData)

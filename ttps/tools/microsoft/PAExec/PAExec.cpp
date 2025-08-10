@@ -20,7 +20,7 @@
 ////////////////////////////////////////////////////////////////////////
 //v1.31 - Feb 19, 2025
 //    Better checking for impersonation handle value, which will quiet some false errors
-// 
+//
 //v1.30 - Feb 2, 2023
 //    Tried to make interactive work better.  Works OK if no username/password is given, and if running as the system account is wanted, but
 //    still doesn't work well when credentials are given.
@@ -148,7 +148,7 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 							TerminateProcess(settings.hProcess, (DWORD)-10);
 							break;
 						case WAIT_OBJECT_0: break;
-						default: Log(L"PAExec error waiting for app to exit", GetLastError()); 
+						default: Log(L"PAExec error waiting for app to exit", GetLastError());
 							break;
 						}
 						GetExitCodeProcess(settings.hProcess, (DWORD*)&exitCode);
@@ -327,7 +327,7 @@ void PrintCopyright()
 	if(0 != GetModuleFileName(NULL, filename, MAX_PATH * 4))
 	{
 		DWORD	handle;
-		DWORD verSize = GetFileVersionInfoSize(filename, &handle); 
+		DWORD verSize = GetFileVersionInfoSize(filename, &handle);
 		BYTE*	verInfo = new BYTE[verSize + 1];
 		if(GetFileVersionInfo(filename, NULL, verSize, verInfo))
 		{
@@ -337,7 +337,7 @@ void PrintCopyright()
 				ver = StrFormat(L"v%u.%u", ((WORD*)&(fileInfo->dwFileVersionMS))[1], ((WORD*)&(fileInfo->dwFileVersionMS))[0]);
 		}
 
-		delete [] verInfo;		
+		delete [] verInfo;
 		verInfo = NULL;
 	}
 
@@ -353,7 +353,7 @@ void PrintUsage()
 	HGLOBAL hG = LoadResource(NULL, hR);
 	_ASSERT(NULL != hG);
 	char* pCopy = new char[size + 1];
-	char* pB = (char*)LockResource(hG); 
+	char* pB = (char*)LockResource(hG);
 	memcpy(pCopy, pB, size);
 	pCopy[size] = '\0';
 	printf("\r\n");
@@ -401,7 +401,7 @@ bool GetTargetFileInfo(FileInfo& fi) //returns whether all files were found or n
 	hSrcFile = INVALID_HANDLE_VALUE;
 
 	DWORD	handle;
-	DWORD verSize = GetFileVersionInfoSize(fi.fullFilePath, &handle); 
+	DWORD verSize = GetFileVersionInfoSize(fi.fullFilePath, &handle);
 	BYTE* verInfo = new BYTE[verSize + 1];
 	if(GetFileVersionInfo(fi.fullFilePath, NULL, verSize, verInfo))
 	{
@@ -437,7 +437,7 @@ void RegressionTests()
 		settings.Serialize(msg1, false);
 
 		_ASSERT(settings.bCopyFiles); _ASSERT(settings.workingDir == L"C:\\Windows\\system32"); _ASSERT(0 == settings.app.CompareNoCase(L"cmd.exe"));
-		_ASSERT(settings.user == L"doug"); _ASSERT(settings.password == L"test"); 
+		_ASSERT(settings.user == L"doug"); _ASSERT(settings.password == L"test");
 	}
 
 	{
@@ -508,8 +508,8 @@ void RegressionTests()
 		msg1.m_bResetReadItr = true;
 		settings.Serialize(msg1, false);
 
-		_ASSERT(settings.bDontWaitForTerminate); 
-		_ASSERT(settings.allowedProcessors.size() == 2); 
+		_ASSERT(settings.bDontWaitForTerminate);
+		_ASSERT(settings.allowedProcessors.size() == 2);
 		_ASSERT(0 == settings.app.CompareNoCase(L"cmd.exe"));
 		_ASSERT(settings.appArgs == L"ping me");
 	}
@@ -537,8 +537,8 @@ void RegressionTests()
 		msg1.m_bResetReadItr = true;
 		settings.Serialize(msg1, false);
 
-		_ASSERT(settings.bCopyFiles); 
-		_ASSERT(settings.bCopyIfNewerOrHigherVer); 
+		_ASSERT(settings.bCopyFiles);
+		_ASSERT(settings.bCopyIfNewerOrHigherVer);
 		_ASSERT(settings.app == L"C:\\path with\\space \\cmd.exe");
 		_ASSERT(settings.appArgs.IsEmpty());
 	}
@@ -547,20 +547,20 @@ void RegressionTests()
 		Settings settings;
 		_ASSERT(ParseCommandLine(settings, L"\"C:\\dir with space\\PAExec.exe\" -u Doug -P TEST -c -v cmd.exe"));
 
-		_ASSERT(settings.bCopyFiles); 
-		_ASSERT(settings.bCopyIfNewerOrHigherVer); 
+		_ASSERT(settings.bCopyFiles);
+		_ASSERT(settings.bCopyIfNewerOrHigherVer);
 		_ASSERT(0 == settings.app.CompareNoCase(L"cmd.exe"));
-		_ASSERT(settings.appArgs.IsEmpty()); 
+		_ASSERT(settings.appArgs.IsEmpty());
 
 		RemMsg msg1;
 		settings.Serialize(msg1, true);
 		msg1.m_bResetReadItr = true;
 		settings.Serialize(msg1, false);
 
-		_ASSERT(settings.bCopyFiles); 
-		_ASSERT(settings.bCopyIfNewerOrHigherVer); 
+		_ASSERT(settings.bCopyFiles);
+		_ASSERT(settings.bCopyIfNewerOrHigherVer);
 		_ASSERT(0 == settings.app.CompareNoCase(L"cmd.exe"));
-		_ASSERT(settings.appArgs.IsEmpty()); 
+		_ASSERT(settings.appArgs.IsEmpty());
 	}
 
 	{
@@ -568,7 +568,7 @@ void RegressionTests()
 		_ASSERT(ParseCommandLine(settings, L"\"C:\\dir with space\\PAExec.exe\" -csrc C:\\Windows\\notepad.exe -c cmd.exe"));
 
 		_ASSERT(settings.bCopyFiles); _ASSERT(false == settings.bCopyIfNewerOrHigherVer); _ASSERT(0 == settings.app.CompareNoCase(L"cmd.exe"));
-		_ASSERT(settings.appArgs.IsEmpty()); 
+		_ASSERT(settings.appArgs.IsEmpty());
 		_ASSERT(0 == settings.srcFileInfos[0].fullFilePath.CompareNoCase(L"C:\\windows\\notepad.exe"));
 		_ASSERT(0 == settings.destFileInfos[0].filenameOnly.CompareNoCase(L"cmd.exe"));
 		_ASSERT(settings.destFileInfos[0].fullFilePath.IsEmpty());
@@ -580,7 +580,7 @@ void RegressionTests()
 		_ASSERT(ParseCommandLine(settings, L"\"C:\\dir with space\\PAExec.exe\" -clist debug\\regression1.txt -c myapp.exe"));
 
 		_ASSERT(settings.bCopyFiles); _ASSERT(false == settings.bCopyIfNewerOrHigherVer); _ASSERT(0 == settings.app.CompareNoCase(L"myapp.exe"));
-		_ASSERT(settings.appArgs.IsEmpty()); 
+		_ASSERT(settings.appArgs.IsEmpty());
 
 		_ASSERT(0 == settings.srcFileInfos[0].filenameOnly.CompareNoCase(L"paexec.exe")); //using paexec.exe so it is found in the debug folder
 		_ASSERT(0 == settings.srcFileInfos[1].filenameOnly.CompareNoCase(L"paexec.obj"));
@@ -606,7 +606,7 @@ void RegressionTests()
 		_ASSERT(ParseCommandLine(settings, L"\"C:\\dir with space\\PAExec.exe\" -clist debug\\regression2.txt -c myapp.exe"));
 
 		_ASSERT(settings.bCopyFiles); _ASSERT(false == settings.bCopyIfNewerOrHigherVer); _ASSERT(0 == settings.app.CompareNoCase(L"myapp.exe"));
-		_ASSERT(settings.appArgs.IsEmpty()); 
+		_ASSERT(settings.appArgs.IsEmpty());
 
 		_ASSERT(0 == settings.srcFileInfos[0].filenameOnly.CompareNoCase(L"paexec.exe"));
 		_ASSERT(0 == settings.destFileInfos[0].filenameOnly.CompareNoCase(L"myapp.exe")); //dest using different filename based on settings.app
@@ -623,11 +623,11 @@ void RegressionTests()
 
 		_ASSERT(ParseCommandLine(settings, L"\\dell8 C:\\Windows\\System32\\wevtutil.exe qe System /q:*^[System^[^(EventID=6008^)^]^] /f:text /c:1 /rd:true > c:\\temp\\tmpfile.txt 2>NUL"));
 
-		_ASSERT(false == settings.bCopyFiles); //ensure /c in the wevtutil.exe command line is not seen by PAExec's command line parsing 
+		_ASSERT(false == settings.bCopyFiles); //ensure /c in the wevtutil.exe command line is not seen by PAExec's command line parsing
 
-		_ASSERT(false == settings.bCopyIfNewerOrHigherVer); 
+		_ASSERT(false == settings.bCopyIfNewerOrHigherVer);
 		_ASSERT(0 == settings.app.CompareNoCase(L"C:\\Windows\\System32\\wevtutil.exe"));
-		_ASSERT(FALSE == settings.appArgs.IsEmpty()); 
+		_ASSERT(FALSE == settings.appArgs.IsEmpty());
 
 		_ASSERT(settings.destFileInfos.size() == settings.srcFileInfos.size());
 	}
@@ -637,11 +637,11 @@ void RegressionTests()
 
 		_ASSERT(ParseCommandLine(settings, L"\\\\dell8 C:\\Windows\\System32\\wevtutil.exe qe System /q:*^[System^[^(EventID=6008^)^]^] /f:text -c:1 /rd:true > c:\\temp\\tmpfile.txt 2>NUL"));
 
-		_ASSERT(false == settings.bCopyFiles); //ensure -c in the wevtutil.exe command line is not seen by PAExec's command line parsing 
+		_ASSERT(false == settings.bCopyFiles); //ensure -c in the wevtutil.exe command line is not seen by PAExec's command line parsing
 
-		_ASSERT(false == settings.bCopyIfNewerOrHigherVer); 
+		_ASSERT(false == settings.bCopyIfNewerOrHigherVer);
 		_ASSERT(0 == settings.app.CompareNoCase(L"C:\\Windows\\System32\\wevtutil.exe"));
-		_ASSERT(FALSE == settings.appArgs.IsEmpty()); 
+		_ASSERT(FALSE == settings.appArgs.IsEmpty());
 
 		_ASSERT(settings.destFileInfos.size() == settings.srcFileInfos.size());
 	}
@@ -651,11 +651,11 @@ void RegressionTests()
 
 		_ASSERT(ParseCommandLine(settings, L"\\\\dell8 CSCRIPT C:\\Windows\\System32\\eventquery.vbs /fi \"id eq 6008\" /l system 2^>NUL ^| find \"EventLog\""));
 
-		_ASSERT(false == settings.bCopyFiles); 
+		_ASSERT(false == settings.bCopyFiles);
 
-		_ASSERT(false == settings.bCopyIfNewerOrHigherVer); 
+		_ASSERT(false == settings.bCopyIfNewerOrHigherVer);
 		_ASSERT(0 == settings.app.CompareNoCase(L"CSCRIPT"));
-		_ASSERT(FALSE == settings.appArgs.IsEmpty()); 
+		_ASSERT(FALSE == settings.appArgs.IsEmpty());
 
 		_ASSERT(settings.destFileInfos.size() == settings.srcFileInfos.size());
 	}
@@ -666,7 +666,7 @@ void RegressionTests()
 		_ASSERT(ParseCommandLine(settings, L"\\\\dell8 -c -cnodel notepad.exe"));
 	}
 
-	
+
 	Log(L" --- end regression tests --- \r\n", false);
 }
 
@@ -712,7 +712,7 @@ bool Settings::ResolveFilePaths()
 
 	CString* pDir = &srcDir;
 	std::vector<FileInfo>* pFileList = &srcFileInfos;
-	
+
 	if(gbInService)
 	{
 #ifdef _DEBUG
@@ -743,11 +743,11 @@ bool Settings::ResolveFilePaths()
 				bAllFilesFound = false;
 		}
 
-		if(pFileList->begin() == itr) 
+		if(pFileList->begin() == itr)
 		{
 			if((false == bAllFilesFound) && (false == gbInService))
 				return false; //can't find the very first (executable target) file, so bail
-			
+
 			if(pDir->IsEmpty())
 			{
 				//figure out source/target dir based on this first file

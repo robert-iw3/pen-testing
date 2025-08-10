@@ -207,16 +207,16 @@ class SVCCTL:
                 display = self.__options.display + '\x00'
             else:
                 display = NULL
- 
+
             if self.__options.path is not None:
                 path = self.__options.path + '\x00'
             else:
                 path = NULL
- 
+
             if self.__options.start_name is not None:
                 start_name = self.__options.start_name + '\x00'
             else:
-                start_name = NULL 
+                start_name = NULL
 
             if self.__options.password is not None:
                 s = rpctransport.get_smb_connection()
@@ -229,7 +229,7 @@ class SVCCTL:
                 password = encryptSecret(key, password)
             else:
                 password = NULL
- 
+
 
             #resp = scmr.hRChangeServiceConfigW(rpc, serviceHandle,  display, path, service_type, start_type, start_name, password)
             scmr.hRChangeServiceConfigW(rpc, serviceHandle, service_type, start_type, scmr.SERVICE_ERROR_IGNORE, path,
@@ -242,7 +242,7 @@ class SVCCTL:
 
         dce.disconnect()
 
-        return 
+        return
 
 
 # Process command-line arguments.
@@ -261,7 +261,7 @@ if __name__ == '__main__':
     parser.add_argument('target', action='store', help='[[domain/]username[:password]@]<targetName or address>')
     parser.add_argument('-debug', action='store_true', help='Turn DEBUG output ON')
     subparsers = parser.add_subparsers(help='actions', dest='action')
- 
+
     # A start command
     start_parser = subparsers.add_parser('start', help='starts the service')
     start_parser.add_argument('-name', action='store', required=True, help='service name')
@@ -322,7 +322,7 @@ if __name__ == '__main__':
                        'name and you cannot resolve it')
     group.add_argument('-port', choices=['139', '445'], nargs='?', default='445', metavar="destination port",
                        help='Destination port to connect to SMB Server')
- 
+
     if len(sys.argv)==1:
         parser.print_help()
         sys.exit(1)

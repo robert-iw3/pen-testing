@@ -13,7 +13,7 @@
 #include <openssl/sha.h>
 #include <curl/curl.h>
 
-#define CHECK_INTERVAL 30  
+#define CHECK_INTERVAL 30
 static size_t write_cb(void *ptr, size_t size, size_t nmemb, FILE *stream) {
     return fwrite(ptr, size, nmemb, stream);
 }

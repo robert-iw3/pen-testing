@@ -199,7 +199,7 @@ int recvp(char* buff, int buff_len, SOCKET s) {
     int r;
 
     if (recvit(s, (char*)&packet_len, sizeof(packet_len)) == SOCKET_ERROR) { return -1; }
-    if (recvit(s, (char*)&id, sizeof(id)) == SOCKET_ERROR) { return -1; } 
+    if (recvit(s, (char*)&id, sizeof(id)) == SOCKET_ERROR) { return -1; }
 
     if (packet_len > buff_len) { return 2; }
 
@@ -251,7 +251,7 @@ int main(int argc,char *argv[])
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
+// Tips for Getting Started:
 //   1. Use the Solution Explorer window to add/manage files
 //   2. Use the Team Explorer window to connect to source control
 //   3. Use the Output window to see build output and other messages

@@ -6,7 +6,7 @@
 #include <vector>
 
 
-typedef enum 
+typedef enum
 {
 	MEM_ALLOC_LIST_HEAD,
 	MEM_ALLOC_MALLOC,
@@ -15,7 +15,7 @@ typedef enum
 } memAllocTracker;
 
 
-typedef struct _MemAllocEntry 
+typedef struct _MemAllocEntry
 {
 	SLIST_ENTRY allocEntry;
 	void* Address;

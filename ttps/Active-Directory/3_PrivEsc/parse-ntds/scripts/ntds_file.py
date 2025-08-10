@@ -53,7 +53,7 @@ def translate_builtin_sid(sid):
         "S-1-5-7" : "Anonymous Logon",
         "S-1-5-8" : "Proxy",
         "S-1-5-9" : "Enterprise Domain Controllers",
-        "S-1-5-10" : "Self", 
+        "S-1-5-10" : "Self",
         "S-1-5-11" : "Authenticated Users",
         "S-1-5-12" : "Restricted Code",
         "S-1-5-13" : "Terminal Server User",
@@ -77,7 +77,7 @@ def translate_builtin_sid(sid):
         "S-1-5-64-21": "Digest Authentication",
         "S-1-5-80": "NT Service",
         "S-1-5-80-0": "All Services",
-        "S-1-5-83-0": "NT VIRTUAL MACHINE\Virtual Machines"           
+        "S-1-5-83-0": "NT VIRTUAL MACHINE\Virtual Machines"
     }
     r = builtin_sids.get(sid)
     return sid if r is None else r
@@ -88,12 +88,12 @@ FIELDS = { # List of attributes to search
     'userPrincipalName':'ATTm590480',
     'primaryGroupID':'ATTj589922',
     'logonCount':'ATTj589993',
-    'adminCount':'ATTj589974', 
+    'adminCount':'ATTj589974',
     'lDAPDisplayName':'ATTm131532',
     'badPwdCount':'ATTj589836',
     'Description':'ATTm13',
     'userPrincipalName':'ATTm590480',
-    'comment':'ATTm589980', 
+    'comment':'ATTm589980',
     'info':'ATTm131153',
     'operatingSystem':'ATTm590187',
     'operatingSystemVersion':'ATTm590188',
@@ -104,7 +104,7 @@ FIELDS = { # List of attributes to search
     'objectGUID':'ATTk589826',
     # Delegation
     'allowedToDelegateTo': 'ATTm591611',
-    'allowedToActOnBehalfOfOtherIdentity': 'ATTp592006', # Resource-based Constrained Delegation 
+    'allowedToActOnBehalfOfOtherIdentity': 'ATTp592006', # Resource-based Constrained Delegation
     # SID
     'objectSID':'ATTr589970',
     'sIDHistory':'ATTr590433',
@@ -135,7 +135,7 @@ FIELDS = { # List of attributes to search
     'ntSecurityDescriptor':'ATTp131353',
     'badPasswordTime':'ATTq589873',
     ############
-    # tmp 
+    # tmp
     'tmp_domainID':'NCDNT_col',
     # Linking object OU / Orgs / Dom
     'PDNT_col':'PDNT_col',
@@ -151,7 +151,7 @@ SAM_USER_OBJECT							= 0x30000000
 SAM_MACHINE_ACCOUNT						= 0x30000001
 SAM_TRUST_ACCOUNT						= 0x30000002
 SAM_APP_BASIC_GROUP						= 0x40000000
-SAM_APP_QUERY_GROUP						= 0x40000001 
+SAM_APP_QUERY_GROUP						= 0x40000001
 
 ACCOUNT_GROUP_TYPES = ( SAM_GROUP_OBJECT , SAM_ALIAS_OBJECT, SAM_NON_SECURITY_GROUP_OBJECT)
 ACCOUNT_USER_TYPES = ( SAM_USER_OBJECT, SAM_MACHINE_ACCOUNT, SAM_TRUST_ACCOUNT )
@@ -167,7 +167,7 @@ def full_hex(b):
 
 
 class NTDSFile(object):
-    
+
     config = None
 
     def __init__(self, bootKey, ntdsFile, error_report):
@@ -190,8 +190,8 @@ class NTDSFile(object):
         self.__laps_admpwd = None
         self.__laps_admpwdexpirationtime = None
         self.__win2k12 = None
-        
-    
+
+
     def __iter__(self):
         self.n = 0
         return self
@@ -210,7 +210,7 @@ class NTDSFile(object):
         link_deltime = record_dict.get('link_deltime', None)
         link_metadata = record_dict.get('link_metadata', None)
         if link_deltime and link_deltime != 3038287259199220266:
-            if link_metadata is not None:             
+            if link_metadata is not None:
                 count = LINK_METADATA(link_metadata)["count"]
                 if count % 2 == 0:                   # if even row
                     # If the counter is even --> link deleted
@@ -236,10 +236,10 @@ class NTDSFile(object):
 
     def parse_linktable(self):
         print(colored("[+] Parsing linktable...", 'green',attrs=['bold']))
-        
+
         linktable = self.__ese_dissect.esentdb_open("link_table")
         for record in self.__ese_dissect.esentdb_read_records():
-            
+
             if record.as_dict()["link_base"] in LINK_TYPES:
                 master_indx = record.as_dict()["link_DNT"]
                 slave_indx = record.as_dict()["backlink_DNT"]
@@ -248,8 +248,8 @@ class NTDSFile(object):
                     continue
                 self.add_link(slave_indx, master_indx)
         print(colored("[+] Parsing linktable done.", 'green',attrs=['bold']))
-                
-                
+
+
     def get_current_domain_SID(self, report_dir_path, domain, dump_acl):
         """
         Extracts the SID for a given domain name from a CSV file and returns a list of all domain names.
@@ -259,7 +259,7 @@ class NTDSFile(object):
         - domain (str): The domain name for which to extract the SID.
 
         Returns:
-        - tuple: 
+        - tuple:
             - The SID for the given domain name, or None if not found.
             - A list of domain names found in the CSV.
         """
@@ -295,7 +295,7 @@ class NTDSFile(object):
             return None, selected_domain  # Return the list of domain names even if there's an error
         return domain_sid, selected_domain
 
-    @execution_time            
+    @execution_time
     def parse_sdtable(self):
         print(colored("[+] Parsing sdtable...", 'green',attrs=['bold']))
         self.__ese_dissect.esentdb_open("sd_table")
@@ -304,7 +304,7 @@ class NTDSFile(object):
         for sd_record in self.__ese_dissect.esentdb_read_records():
             try:
                 sd_value = full_hex(sd_record.get("sd_value"))
-                
+
                  # Adding SIDs from SACL
                 ntSecurityDescriptor = parse_ntSecurityDescriptor(sd_record.get("sd_value"))
                 ntSecurityDescriptor["sd_id"] = sd_record.get("sd_id")
@@ -314,18 +314,18 @@ class NTDSFile(object):
                 logger.error("ACL parsing error detected (NotImplementedError)")
             except IndexError:
                 logger.error("ACL parsing error detected (IndexError)")
-        acls_count = len(bulk_insert_list)               
+        acls_count = len(bulk_insert_list)
         logger.info(f"Parsing ACL done: {acls_count} ACLs")
         self.__ese_dissect.close()
         print(colored("[+] Parsing sdtable done.", 'green',attrs=['bold']))
-        
+
         return bulk_insert_list,acls_count  # Return the count of ACLs processed
 
     @execution_time
     def list_ace_raw(self, domain, domain_SID):
         seen_aces = set()
         parsed_sd_table,count = self.parse_sdtable()
-        for e in parsed_sd_table:            
+        for e in parsed_sd_table:
             if e['Type']['DACL Present']:
                 aceType = e['DACL']['ACEs'][0]['Type']
                 if 'Access Allowed' in aceType or 'Access Allowed Object' in aceType:
@@ -347,7 +347,7 @@ class NTDSFile(object):
                                     if ace not in seen_aces:
                                         seen_aces.add(ace)
                                         yield ace
-                                
+
 
 
     def decode_guid(s):
@@ -358,7 +358,7 @@ class NTDSFile(object):
     @execution_time
     def parse_datable(self):
         print(colored("[+] Parsing datatable...", 'green',attrs=['bold']))
-        
+
         # List of dynamic attributes that change from one NTDS to another
         ATTRIBUTES = {
             'LAPS_ADMPWD_REF': 'ms-Mcs-AdmPwd', # LAPS password legacy
@@ -372,7 +372,7 @@ class NTDSFile(object):
             # search LAPS
             if "ATTm131532" in record.as_dict() and record.as_dict()["ATTm131532"] is not None: # ATTm131532 = lDAPDisplayName
                 if ATTRIBUTES['LAPS_ADMPWD_REF'] in record.as_dict()["ATTm131532"]:
-                    logger.debug('LAPS ms-Mcs-AdmPwd found. Dynamique id = %s', record.as_dict()["ATTj591540"])  # ATTj591540 = msDS-IntId            
+                    logger.debug('LAPS ms-Mcs-AdmPwd found. Dynamique id = %s', record.as_dict()["ATTj591540"])  # ATTj591540 = msDS-IntId
                     self.__laps_references["laps_legacy_admpwd"] = record.as_dict()["ATTj591540"]
                 if ATTRIBUTES['LAPS_ADMPWDEXP_REF'] in record.as_dict()["ATTm131532"]:
                     logger.debug('LAPS ms-Mcs-AdmPwdExpirationTime found. Dynamique id = %s', record.as_dict()["ATTj591540"])
@@ -380,10 +380,10 @@ class NTDSFile(object):
                 if ATTRIBUTES['NEW_LAPS_ADMPWD_REF'] in record.as_dict()["ATTm131532"] and self.__laps_references["laps_admpwd"] is None:
                     logger.debug('NEW LAPS msLAPS-Password found. Dynamique id = %s', record.as_dict()["ATTj591540"])
                     self.__laps_references["laps_admpwd"] = record.as_dict()["ATTj591540"]
-                # we take the highest value if there are multiple (we don't know why there are multiple values sometimes)  
+                # we take the highest value if there are multiple (we don't know why there are multiple values sometimes)
                 if ATTRIBUTES['NEW_LAPS_ADMPWD_ENCRYPTED_REF'] in record.as_dict()["ATTm131532"] \
                     and (self.__laps_references["laps_admpwd_encrypted"] is None \
-                         or abs(self.__laps_references["laps_admpwd_encrypted"]) < abs(record.as_dict()["ATTj591540"])): 
+                         or abs(self.__laps_references["laps_admpwd_encrypted"]) < abs(record.as_dict()["ATTj591540"])):
                     logger.debug('NEW LAPS msLAPS-EncryptedPassword found. Dynamique id = %s', record.as_dict()["ATTj591540"])
                     self.__laps_references["laps_admpwd_encrypted"] = record.as_dict()["ATTj591540"]
                 if ATTRIBUTES['NEW_LAPS_ADMPWDEXP_REF'] in record.as_dict()["ATTm131532"]:
@@ -393,13 +393,13 @@ class NTDSFile(object):
                 self.__is_win2k12_or_sup(record)
             self.add_entry(record.as_dict())
         print(colored("[+] Parsing datatable done.", 'green',attrs=['bold']))
-            
-        
+
+
     '''
     Get type for entry:
     * OU (abscontainer)
     * Container (abscontainer)
-    * Domain 
+    * Domain
     * Group
     * User
     '''
@@ -407,12 +407,12 @@ class NTDSFile(object):
 
         dnt_col = raw_entry['DNT_col']
         # ATTc0 = objectClass. Values 65541 and 196631 and 655436 have been determined through testing, no doc seems to be available online
-        if 'ATTc0' in raw_entry:          
+        if 'ATTc0' in raw_entry:
             if isinstance(raw_entry['ATTc0'],int) and raw_entry['ATTc0'] == 65541:
                 return NTDSOU(dnt_col)
             elif isinstance(raw_entry['ATTc0'],list) and 65541 in raw_entry['ATTc0']: # == '040500010000000100': value when parsing with impacket
                 return NTDSOU(dnt_col)
-                
+
             elif isinstance(raw_entry['ATTc0'],int) and raw_entry['ATTc0'] == 196631:
                 return NTDSContainer(dnt_col)
             elif isinstance(raw_entry['ATTc0'],list) and 196631 in raw_entry['ATTc0']:
@@ -430,9 +430,9 @@ class NTDSFile(object):
             if raw_entry['ATTc0'] == '06000a000e0043000a0042000a0000000100':
                 logger.debug('DOMAIN found : %d', dnt_col)
                 # if a value is provided, we deduce that LAPS is installed
-                is_laps_installed = not all(value is None for value in self.__laps_references.values()) 
+                is_laps_installed = not all(value is None for value in self.__laps_references.values())
                 return NTDSDomain(dnt_col, is_laps_installed)
-        
+
         # If ATT_TRUST_AUTH_INCOMING or ATT_TRUST_AUTH_OUTGOING exist
         if ('ATTk589953' in raw_entry and raw_entry["ATTk589953"] is not None) or ('ATTk589959' in raw_entry and raw_entry["ATTk589959"] is not None):
             logger.debug('TRUST found : %d', dnt_col)
@@ -447,11 +447,11 @@ class NTDSFile(object):
         # from testing:
         # 805306368 = users
         # 805306370 = domain
-        # 536870912 = group 
-        # 805306369 = machine 
-        # 268435456 = group 
-        
-        if "ATTj590126" in raw_entry and raw_entry["ATTj590126"] is not None:            
+        # 536870912 = group
+        # 805306369 = machine
+        # 268435456 = group
+
+        if "ATTj590126" in raw_entry and raw_entry["ATTj590126"] is not None:
             if raw_entry["ATTj590126"] == 805306368 or raw_entry["ATTj590126"] == 805306369:  # in ACCOUNT_USER_TYPES :
                 return NTDSUsers(dnt_col, CryptoHash(self.__PEK), self.__laps_references, self.__win2k12)
             elif raw_entry["ATTj590126"] == 536870912 or raw_entry["ATTj590126"] == 268435456: # 536870912 is in ACCOUNT_GROUP_TYPES:
@@ -459,21 +459,21 @@ class NTDSFile(object):
             elif raw_entry["ATTj590126"] == 805306370:
                 logger.debug('DOMAIN found : %d', dnt_col)
                 # If a value is provided, we deduce that LAPS is installed
-                is_laps_installed = not all(value is None for value in self.__laps_references.values()) 
+                is_laps_installed = not all(value is None for value in self.__laps_references.values())
                 return NTDSDomain(dnt_col, is_laps_installed)
         if 'PDNT_col' in raw_entry:
-            # 2 == ROOT_OBJECT 
+            # 2 == ROOT_OBJECT
             # Should be universal ...
             if raw_entry['PDNT_col'] == 2:
                 # If a value is provided, we deduce that LAPS is installed
-                is_laps_installed = not all(value is None for value in self.__laps_references.values()) 
+                is_laps_installed = not all(value is None for value in self.__laps_references.values())
                 return NTDSDomain(dnt_col, is_laps_installed)
 
-        
+
         if 'RDNtyp_col' in raw_entry:
             if raw_entry['RDNtyp_col'] == 1376281:
                 # If a value is provided, we deduce that LAPS is installed
-                is_laps_installed = not all(value is None for value in self.__laps_references.values()) 
+                is_laps_installed = not all(value is None for value in self.__laps_references.values())
                 return NTDSDomain(dnt_col, is_laps_installed)
 
 
@@ -484,11 +484,11 @@ class NTDSFile(object):
         # Check for PEK entry
         try:
             if raw_entry['ATTk590689'] is not None:
-                
+
                 peklist =  raw_entry['ATTk590689']
                 self.__PEK = CryptoPEK.decrypt_PEK(peklist, self.__bootkey)
         except KeyError:
-            pass      
+            pass
 
         dnt_col = raw_entry['DNT_col']
         entryType = self.__get_type(raw_entry)
@@ -497,17 +497,17 @@ class NTDSFile(object):
             # Check if entry is malformated ... (thanks esedb)
             try:
                 if raw_entry['ATTr589970'] is not None:
-                    try:                        
+                    try:
                         SAMR_RPC_SID(raw_entry['ATTr589970'])
                     except:
                         self.__dump_entry_raw(raw_entry)
                         logger.error("Entry corrupted - esedb - %s" % dnt_col)
                         return
             except KeyError:
-                pass            
+                pass
 
             self.__ntds_entries[dnt_col] = entryType
-            
+
             for key, value in entryType.config.items():
                 try:
                     if raw_entry[value] is not None and isinstance(raw_entry[value], str):
@@ -515,7 +515,7 @@ class NTDSFile(object):
                     else:
                         entryType.entry[key] = raw_entry[value]
                 except KeyError:
-                    pass        
+                    pass
             self.__ntds_entries[dnt_col] = entryType
 
     def __add_element(self, key, array):
@@ -533,7 +533,7 @@ class NTDSFile(object):
             return ntds_entry
         except KeyError:
             test = "tac"
-        
+
         return None
 
     def __get_value(self, idx, name):
@@ -545,17 +545,17 @@ class NTDSFile(object):
             except KeyError:
                 logger.error("The attribute for the NTDS entry is not found : %d  / %s " % (idx, name))
                 logger.error(" > ntds_entry[%d].entry : %s " % (idx, ntds_entry.entry))
-        
+
         return None
 
     def update_ntdsentries(self):
         print(colored("[+] Update ntdsentries...", 'green',attrs=['bold']))
         self.__update_full_domainname()
-        
+
         self.__update_alldomains()
         self.__update_allsid()
         self.__update_primarygroups()
-        
+
         # Need the link table
         self.__update_alllinks()
 
@@ -572,11 +572,11 @@ class NTDSFile(object):
         self.__update_abscontainers()
 
     def __update_allsid(self):
-        for key, value in self.__ntds_entries.items():           
+        for key, value in self.__ntds_entries.items():
             SID = value.get_SID()
             if SID is not None:
                 try:
-                    if value.is_domain():               
+                    if value.is_domain():
                         sid = LDAP_SID(SID).formatCanonical()
                     elif value.is_user() or value.is_group():
                         sid = LDAP_SID(SID).formatCanonical()
@@ -589,7 +589,7 @@ class NTDSFile(object):
                     value.rid = 0
                     value.sid = "CORRUPTED"
                     continue
-                
+
     def __update_alldomains(self):
 
         logger.info("Building domains for users/groups ...")
@@ -609,7 +609,7 @@ class NTDSFile(object):
                 value_entry = value.entry
                 domain_fullname = value.entry["RDN"]
                 if "PDNT_col" in value_entry:
-                    
+
                     link_info = self.__get_entry(value_entry["PDNT_col"])
                     if link_info:
                         while not link_info.is_rootdomain():
@@ -619,7 +619,7 @@ class NTDSFile(object):
                                 break
                         if link_info:
                             domain_fullname = "%s.%s" % (domain_fullname, link_info.entry["RDN"])
-                        
+
                 value.domain_fullname = domain_fullname
 
 
@@ -634,7 +634,7 @@ class NTDSFile(object):
                     primary_entry = self.__get_entry(primaryGroupID)
                     if primary_entry is not None:
                         value.primarygroup = primary_entry.sid
-                    
+
 
                         if value and value.is_user():
                             self.__add_element(primaryGroupID, value.groups)
@@ -664,7 +664,7 @@ class NTDSFile(object):
                 else:
                     logger.debug("Containers missing : %s" % value_entry["PDNT_col"])
 
-    
+
     def __update_alllinks(self):
 
         # Process subgroups
@@ -675,11 +675,11 @@ class NTDSFile(object):
                         self.__process_subgroup(subgroup_key, key)
 
     def __process_subgroup(self, subgroup_key, top_group_key):
-        
+
         top_group = self.__get_entry(top_group_key)
         group = self.__ntds_entries[subgroup_key]
         self.__add_element(subgroup_key, top_group.subgroups)
-        
+
         # add sub sers:
         if len(group.users) > 0:
             for subuser in group.users:
@@ -697,13 +697,13 @@ class NTDSFile(object):
         for key, value in self.__ntds_entries.items():
             if value.is_user():
                 value.decryptHash()
-                
+
 
     def __get_array_dnt_sid(self, a_entry):
         """
         Function to retrieve the SID from the UID of an entry
         """
-        a_entrys_sid = [] 
+        a_entrys_sid = []
         for idx_entry in a_entry:
             entry_sid = self.__get_entry(idx_entry).sid
             a_entrys_sid.append(entry_sid)
@@ -715,7 +715,7 @@ class NTDSFile(object):
         """
         Fonction qui permet de récupérer le fullname et non les SID associés
         """
-        a_entrys_legacy = [] 
+        a_entrys_legacy = []
         for idx_entry in a_entry:
             entry = self.__get_entry(idx_entry)
             if entry:
@@ -754,7 +754,7 @@ class NTDSFile(object):
                 value.fulldomainname = "%s|%s|%s" % (value.domain, value.entry["cn"], key)
 
     def add_link(self, slave_idx, master_idx):
-        
+
 
         ntds_entry_master = self.__get_entry(master_idx)
         ntds_entry_slave = self.__get_entry(slave_idx)
@@ -773,7 +773,7 @@ class NTDSFile(object):
     def update_count_hashnt(self):
         a_hashnt_count = {}
         a_hashnt_count["all"] = []
-        
+
         for key, value in self.__ntds_entries.items():
             if value.is_user() and not value.is_disable():
                 if not value.domain in a_hashnt_count:
@@ -809,13 +809,13 @@ class NTDSFile(object):
                     ntdsReport.trusts.dump_entry(entry)
                 elif value.is_ou() or value.is_container():
                     ntdsReport.absContainers.dump_entry(entry)
-        
+
         ntdsReport.flush()
 
     @execution_time
     def dump_sqlite_correlations(self,report_dir_path):
         print(colored("[+] Creating sqlite Correlations table...", 'green',attrs=['bold']))
-        
+
         # Connect to SQLite database (or create it if it doesn't exist)
         conn = sqlite3.connect(report_dir_path+'/sqlite.db')
         cursor = conn.cursor()
@@ -837,15 +837,15 @@ class NTDSFile(object):
         cursor.execute('CREATE INDEX IF NOT EXISTS idx_name ON Correlations(name)')
         cursor.execute('CREATE INDEX IF NOT EXISTS idx_sd_id ON Correlations(sd_id)')
 
-        for key, value in self._NTDSFile__ntds_entries.items():     
+        for key, value in self._NTDSFile__ntds_entries.items():
             if value.is_user() or value.is_group():
                 domain = value.domain
                 raw_sid = value.get_SID()
                 if raw_sid is not None:
-                    sid = LDAP_SID(raw_sid).formatCanonical()                
+                    sid = LDAP_SID(raw_sid).formatCanonical()
                 if value.is_user():
                     name = value.get_login()
-                else:    
+                else:
                     # either returns the translation of a well-known SID in arg, or the arg
                     name = translate_builtin_sid(value.entry["cn"])
                 sd_id = value.get_security_descriptor(value.entry["ntSecurityDescriptor"])
@@ -870,17 +870,17 @@ class NTDSFile(object):
                 sid = entry['SID']
                 sd_id = entry['ntSecurityDescriptor']
                 cursor.execute("INSERT INTO Correlations (domain, SID, name, sd_id) VALUES (?, ?, ?, ?)", (domain, sid, name, sd_id))
-       
+
         # Commit the changes and close the connection to the database
         conn.commit()
         conn.close()
         print(colored("[+] Sqlite Correlations table created.", 'green',attrs=['bold']))
-        
+
 
     @execution_time
     def dump_csv_user(self,report_dir_path):
         print(colored("[+] Dumping users to CSV file...", 'green',attrs=['bold']))
-        
+
         headers_user = [
                         'domain', 'login', 'uid', 'SID', 'hashlm', 'hashnt', 'kerberosKeys', 'clearTextPwds', \
                         'servicePrincipalName', 'primarygroup', 'groups', 'groups_c', 'groups_legacy', 'logoncount', \
@@ -899,12 +899,12 @@ class NTDSFile(object):
                     entry = value.get_entry()
                     writer.writerow(entry)
         print(colored("[+] Users CSV file created.", 'green',attrs=['bold']))
-        
+
 
     @execution_time
     def dump_csv_group(self,report_dir_path):
         print(colored("[+] Dumping groups to CSV file...", 'green',attrs=['bold']))
-        
+
         headers_group = [
                             'domain', 'name', 'uid', 'SID', 'Users', 'Users_c', 'Users_names', 'SubGroups', \
                             'SubGroups_c', 'SubGroups_legacy', 'SubUsers', 'SubUsers_c', 'SubUsers_names', 'ntSecurityDescriptor'
@@ -915,15 +915,15 @@ class NTDSFile(object):
             writer.writeheader()
             for key, value in self._NTDSFile__ntds_entries.items():
                 if value.is_group():
-                    entry = value.get_entry()                    
+                    entry = value.get_entry()
                     writer.writerow(entry)
         print(colored("[+] Groups CSV file created.", 'green',attrs=['bold']))
-                    
+
 
     @execution_time
     def dump_csv_domain(self,report_dir_path):
         print(colored("[+] Dumping domains to CSV file...", 'green',attrs=['bold']))
-        
+
         headers_domain = [
                             'name', 'uid', 'SID', 'lockoutThreashold', 'forceLogoff', 'lockoutDuration', 'lockoutTime', \
                             'lockOutObservationWindow', 'maxPwdAge', 'minPwdAge', 'minPwdLength', 'pwdProperties', \
@@ -939,12 +939,12 @@ class NTDSFile(object):
                     # keep only interesting domains (it sorts out *.root-servers.net.* etc.)
                     if entry["SID"] is not None:
                         writer.writerow(entry)
-                     
+
 
     @execution_time
     def dump_csv_trust(self,report_dir_path):
         print(colored("[+] Dumping trusts to CSV file...", 'green',attrs=['bold']))
-        
+
         headers_trust = ['domain', 'name', 'trustPartner', 'trustType', 'trustDirection', 'trustAttributes', 'trustAuthIncoming', \
                          'trustAuthOutgoing', 'created', 'change']
         csv_file = report_dir_path+"/report_trusts.csv"
@@ -956,12 +956,12 @@ class NTDSFile(object):
                     entry = value.get_entry()
                     writer.writerow(entry)
         print(colored("[+] Trusts CSV file created.", 'green',attrs=['bold']))
-                      
+
 
     @execution_time
     def dump_csv_ou_container(self,report_dir_path):
         print(colored("[+] Dumping OU and containers to CSV file...", 'green',attrs=['bold']))
-        
+
         headers_ou_container = ['domain', 'domain_fullname', 'entry_type', 'name', 'users_sid', 'users_name', 'groups_sid', 'groups_name', \
                                 'ous', 'containers', 'ntSecurityDescriptor']
         # opening the sqlite db to search for correlations betweed SID and user/group names
@@ -975,60 +975,60 @@ class NTDSFile(object):
                 if value.is_ou() or value.is_container():
                     entry = value.get_entry()
                     domain = entry['domain']
-                    # Matching SID with user names    
-                    if entry['users'] != '':                 
-                        str_users_sid = entry['users']                    
+                    # Matching SID with user names
+                    if entry['users'] != '':
+                        str_users_sid = entry['users']
                         users_sid_list = [sid.strip() for sid in str_users_sid.split(',')]
                         list_users_name = []
                         for sid in users_sid_list:
-                            cursor.execute("SELECT name FROM Correlations WHERE SID = ? AND domain = ?", (sid,domain)) 
+                            cursor.execute("SELECT name FROM Correlations WHERE SID = ? AND domain = ?", (sid,domain))
                             res = cursor.fetchone()
                             try:
                                 res_user_name = res[0]
-                            except TypeError as e:    
+                            except TypeError as e:
                                 logger.debug("ntds_file dump_csv_ou_container res_user_name %s" % e)
-                                res_user_name = sid                                                                      
+                                res_user_name = sid
                             list_users_name.append(res_user_name)
                         str_users_name = ','.join(map(str, list_users_name))
                     else:
                         str_users_sid = ''
                         str_users_name = ''
                     # Matching SID with group names
-                    if entry['groups'] != '':    
+                    if entry['groups'] != '':
                         str_groups_sid = entry['groups']
-                        groups_sid_list = [sid.strip() for sid in str_groups_sid.split(',')]                        
-                        list_groups_name = []                        
+                        groups_sid_list = [sid.strip() for sid in str_groups_sid.split(',')]
+                        list_groups_name = []
                         for sid in groups_sid_list:
-                            cursor.execute("SELECT name FROM Correlations WHERE SID = ? AND domain = ?", (sid,domain)) 
-                            res = cursor.fetchone()  
+                            cursor.execute("SELECT name FROM Correlations WHERE SID = ? AND domain = ?", (sid,domain))
+                            res = cursor.fetchone()
                             try:
                                 res_group_name = res[0]
-                            except TypeError as e:    
+                            except TypeError as e:
                                 logger.debug("ntds_file dump_csv_ou_container res_group_name %s" % e)
-                                res_group_name = translate_builtin_sid(sid)       
-                            list_groups_name.append(res_group_name) 
+                                res_group_name = translate_builtin_sid(sid)
+                            list_groups_name.append(res_group_name)
                         str_groups_name = ','.join(map(str, list_groups_name))
                     else:
                         str_groups_sid = ''
-                        str_groups_name = ''                    
+                        str_groups_name = ''
                     domain_fullname = entry['domain_fullname']
                     entry_type = entry['entry_type']
-                    name = entry['name']                         
+                    name = entry['name']
                     ous = entry['ous']
                     containers = entry['containers']
                     ntSecurityDescriptor = entry['ntSecurityDescriptor']
                     line = (domain, domain_fullname, entry_type, name, str_users_sid, str_users_name, str_groups_sid,str_groups_name, ous, containers, ntSecurityDescriptor)
                     writer.writerow(line)
-                    
-        print(colored("[+] OU and containers CSV file created.", 'green',attrs=['bold']))
-                       
 
-                  
+        print(colored("[+] OU and containers CSV file created.", 'green',attrs=['bold']))
+
+
+
 
     @execution_time
     def dump_csv_suspicious_acl(self,report_dir_path,domain,domain_SID):
         print(colored("[+] Dumping suspicious ACEs to CSV file...", 'green',attrs=['bold']))
-        
+
         headers_acl = ['domain', 'sd_id', 'trustee', 'trustee_sid', 'permission', 'objectGuid', 'inheritedobjectGuid', 'target','owner', 'owner_sid']
         conn = sqlite3.connect(report_dir_path+'/sqlite.db')
         # Create a cursor object using the cursor method
@@ -1039,7 +1039,7 @@ class NTDSFile(object):
         with open(csv_file,'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(headers_acl)
-            
+
             for e in self.list_ace_raw(domain,domain_SID):
                 sd_id = e[1]
                 trustee_sid = e[2]
@@ -1054,7 +1054,7 @@ class NTDSFile(object):
                 res_trustee_name = cursor.fetchone()
                 try:
                     trustee_name = res_trustee_name[0]
-                except TypeError as e:    
+                except TypeError as e:
                     logger.debug("ntds_file dump_csv_acl trustee_name %s" % e)
                     trustee_name = trustee_sid
                 rid_trustee = trustee_sid.split("-")[-1]
@@ -1067,7 +1067,7 @@ class NTDSFile(object):
                 except TypeError as e:
                     logger.debug("ntds_file dump_csv_acl owner_name %s" % e)
                     owner_name = translate_builtin_sid(owner_sid)
-                
+
                 # finding each object name corresponding to the sd_id
                 cursor.execute("SELECT name FROM Correlations WHERE sd_id = ? AND domain = ?", (sd_id,domain))
                 res_target_name = cursor.fetchall()
@@ -1119,15 +1119,15 @@ class NTDSFile(object):
                             elif permission == "Ads Self Write":
                                 # AddMemberSelf
                                 if objectGuid == "Add/Remove member" or inheritedobjectGuid == "Add/Remove member":
-                                    writer.writerow(r)                        
+                                    writer.writerow(r)
                 else:
                     target_name = "not found"
         print(colored("[+] Suspicious ACEs CSV file created.", 'green',attrs=['bold']))
-         
+
 
     def dump_csv_global(self, report_dir_path, domain, domain_SID, dump_options):
         print(colored("[+] Dumping data to CSV files...", 'green', attrs=['bold']))
-        
+
         if dump_options['users']:
             self.dump_csv_user(report_dir_path)
         if dump_options['groups']:
@@ -1140,9 +1140,9 @@ class NTDSFile(object):
             self.dump_csv_ou_container(report_dir_path)
         if dump_options['acl']:
             self.dump_csv_suspicious_acl(report_dir_path, domain, domain_SID)
-        
+
         print(colored("[+] All CSV files created.", 'green', attrs=['bold']))
-          
+
 
     def __dump_entry_raw(self, raw_entry):
         return None

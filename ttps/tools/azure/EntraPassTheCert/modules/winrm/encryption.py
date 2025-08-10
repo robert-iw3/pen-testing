@@ -53,7 +53,7 @@ class Encryption(object):
         if protocol == "pku2u":  # Details under Negotiate [2.2.9.1.1] in MS-WSMV
             self.protocol_string = b"application/HTTP-SPNEGO-session-encrypted"
             self._build_message = self._build_pku2u_message
-            self._decrypt_message = self._decrypt_pku2u_message            
+            self._decrypt_message = self._decrypt_pku2u_message
         else:
             raise WinRMError("Encryption for protocol '%s' not supported in pywinrm" % protocol)
 
@@ -135,13 +135,13 @@ class Encryption(object):
             # remove the end MIME block if it exists
             if payload.endswith(self.MIME_BOUNDARY + b"--\r\n"):
                 payload = payload[: len(payload) - 24]
-            
+
 
             encrypted_data = payload.replace(b"\tContent-Type: application/octet-stream\r\n", b"")
             encrypted_data = encrypted_data.replace(b"Content-Type: application/octet-stream\r\n", b"")
-            
+
             decrypted_message = self._decrypt_message(encrypted_data, host)
-            
+
             message += decrypted_message
 
         return message
@@ -156,7 +156,7 @@ class Encryption(object):
         return message
 
     def _decrypt_pku2u_message(self, encrypted_data: bytes, host: str | bytes | None) -> bytes:
-        
+
         signature_length = struct.unpack("<i", encrypted_data[:4])[0]
         signature = encrypted_data[4 : signature_length + 4]
         encrypted_message = encrypted_data[signature_length + 4 :]
@@ -188,7 +188,7 @@ class Encryption(object):
         return signature_length + signature + sealed_message
 
     def _build_pku2u_message(self, message: bytes, host: str | bytes | None) -> bytes:
-        sealed_message, signature = self.session.auth.wrap(message)  # type: ignore[union-attr      
+        sealed_message, signature = self.session.auth.wrap(message)  # type: ignore[union-attr
         signature_length = struct.pack("<i", 60)
         return signature_length + signature + sealed_message
 

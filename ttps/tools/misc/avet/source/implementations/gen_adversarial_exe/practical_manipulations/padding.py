@@ -13,7 +13,7 @@ import sys
 
 def padding_on_bytes(exe_bytes: bytearray,  section_population, vector_t):
     """
-    Implementation of Padding practical manipulation. 
+    Implementation of Padding practical manipulation.
     Intended for use with genetic optimizer.
 
     Returns the bytes with the practical manipulation applied.

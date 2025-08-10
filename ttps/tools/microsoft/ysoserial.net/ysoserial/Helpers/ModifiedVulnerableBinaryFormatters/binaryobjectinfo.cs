@@ -121,7 +121,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             this.serObjectInfoInit = serObjectInfoInit;
             ISurrogateSelector surrogateSelectorTemp;
 
-#if  FEATURE_REMOTING        
+#if  FEATURE_REMOTING
             if (RemotingServices.IsTransparentProxy(obj))
                 objectType = Converter.typeofMarshalByRefObject;
             else
@@ -274,7 +274,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             // Using simple type rather than using full assembly name
             /*
             string fullTypeName = si.FullTypeName;
-            
+
             string assemblyString = si.AssemblyName;
             */
 
@@ -299,9 +299,9 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                     typeInformation = BinaryFormatter.GetTypeInformation(si.ObjectType);
                 }
                 assemblyString = BinaryFormatterMinifier.AssemblyOrTypeNameMinifier(typeInformation.AssemblyString);
-                
+
                 //assemblyString = typeInformation.AssemblyString;
-                
+
                 hasTypeForwardedFrom = typeInformation.HasTypeForwardedFrom;
             }
 
@@ -415,7 +415,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
         internal  String GetAssemblyString()
         {
             SerTrace.Log( this,objectInfoId," ", objectType," GetAssemblyString Entry isSi ",isSi, " ",cache.assemblyString);
-            
+
             this.binderAssemblyString = BinaryFormatterMinifier.AssemblyOrTypeNameMinifier(binderAssemblyString);
             return binderAssemblyString ?? cache.assemblyString;
         }
@@ -706,7 +706,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             int position = Position(name);
             if (position == -1)
                 return null;
-            
+
             if (isTyped)
                 type = cache.memberTypes[position];
             else
@@ -765,7 +765,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             }
             else
             {
-                SerTrace.Log( this,objectInfoId," ", objectType," RecordFixup  objectId ",objectId," name ",name," idRef ",idRef," isSi ",isSi);                                            
+                SerTrace.Log( this,objectInfoId," ", objectType," RecordFixup  objectId ",objectId," name ",name," idRef ",idRef," isSi ",isSi);
                 int position = Position(name);
                 if (position != -1)
                     objectManager.RecordFixup(objectId, cache.memberInfos[position], idRef);
@@ -813,7 +813,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             SerTrace.Log( this, objectInfoId," Position ",lastPosition," ",name);
             if (cache == null)
                 return -1;
-            
+
             if (cache.memberNames.Length >0 && cache.memberNames[lastPosition].Equals(name))
             {
                 return lastPosition;

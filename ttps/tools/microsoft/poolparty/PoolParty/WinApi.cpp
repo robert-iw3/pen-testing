@@ -3,10 +3,10 @@
 std::shared_ptr<HANDLE> w_OpenProcess(DWORD dwDesiredAccess, BOOL bInheritHandle, DWORD dwProcessId)
 {
 	const auto hTargetPid = RAISE_IF_HANDLE_INVALID(
-		"OpenProcess", 
+		"OpenProcess",
 		OpenProcess(
-			dwDesiredAccess, 
-			bInheritHandle, 
+			dwDesiredAccess,
+			bInheritHandle,
 			dwProcessId)
 	);
 
@@ -17,7 +17,7 @@ std::shared_ptr<HANDLE> w_DuplicateHandle(
 	HANDLE hSourceProcessHandle,
 	HANDLE hSourceHandle,
 	HANDLE hTargetProcessHandle,
-	DWORD dwDesiredAccess, 
+	DWORD dwDesiredAccess,
 	BOOL bInheritHandle,
 	DWORD dwOptions)
 {
@@ -47,7 +47,7 @@ std::shared_ptr<HANDLE> w_CreateEvent(LPSECURITY_ATTRIBUTES lpEventAttributes, B
 			bInitalState,
 			lpName)
 	);
-	
+
 	if (GetLastError() == ERROR_ALREADY_EXISTS)
 	{
 		std::printf("WARNING: The event `%S` already exists\n", lpName);
@@ -69,12 +69,12 @@ std::shared_ptr<HANDLE> w_CreateFile(
 	const auto hFile = RAISE_IF_HANDLE_INVALID(
 		"CreateFile",
 		CreateFile(
-			lpFileName, 
-			dwDesiredAccess, 
-			dwShareMode, 
-			lpSecurityAttributes, 
-			dwCreationDisposition, 
-			dwFlagsAndAttributes, 
+			lpFileName,
+			dwDesiredAccess,
+			dwShareMode,
+			lpSecurityAttributes,
+			dwCreationDisposition,
+			dwFlagsAndAttributes,
 			hTemplateFile)
 	);
 
@@ -83,13 +83,13 @@ std::shared_ptr<HANDLE> w_CreateFile(
 
 void w_WriteFile(HANDLE hFile, LPCVOID lpBuffer, DWORD dwNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten, LPOVERLAPPED lpOverlapped)
 {
-	if (!WriteFile(hFile, lpBuffer, dwNumberOfBytesToWrite, lpNumberOfBytesWritten, lpOverlapped)) 
+	if (!WriteFile(hFile, lpBuffer, dwNumberOfBytesToWrite, lpNumberOfBytesWritten, lpOverlapped))
 	{
 
 		/* file flag overlapped wont return true, yet the operation wont fail */
 		if (lpOverlapped)
 		{
-			if (GetLastError() == ERROR_IO_PENDING) 
+			if (GetLastError() == ERROR_IO_PENDING)
 			{
 				return;
 			}
@@ -107,7 +107,7 @@ std::shared_ptr<HANDLE> w_CreateJobObject(LPSECURITY_ATTRIBUTES lpJobAttributes,
 			lpName)
 	);
 
-	if (GetLastError() == ERROR_ALREADY_EXISTS) 
+	if (GetLastError() == ERROR_ALREADY_EXISTS)
 	{
 		std::printf("WARNING: The job `%S` already exists\n", lpName);
 	}
@@ -120,9 +120,9 @@ void w_SetInformationJobObject(HANDLE hJob, JOBOBJECTINFOCLASS JobObjectInformat
 	RAISE_IF_FALSE(
 		"SetInformationJobObject",
 		SetInformationJobObject(
-			hJob, 
-			JobObjectInformationClass, 
-			lpJobObjectInformation, 
+			hJob,
+			JobObjectInformationClass,
+			lpJobObjectInformation,
 			cbJobObjectInformationLength)
 	);
 
@@ -133,7 +133,7 @@ void w_AssignProcessToJobObject(HANDLE hJob, HANDLE hProcess)
 	RAISE_IF_FALSE(
 		"AssignProcessToJobObject",
 		AssignProcessToJobObject(
-			hJob, 
+			hJob,
 			hProcess)
 	);
 }
@@ -142,7 +142,7 @@ void w_AssignProcessToJobObject(HANDLE hJob, HANDLE hProcess)
 LPVOID w_VirtualAllocEx(HANDLE hTargetPid, SIZE_T szSizeOfChunk, DWORD dwAllocationType, DWORD dwProtect)
 {
 	const auto AllocatedMemory = VirtualAllocEx(hTargetPid, nullptr , szSizeOfChunk, dwAllocationType, dwProtect);
-	if (AllocatedMemory == NULL) 
+	if (AllocatedMemory == NULL)
 	{
 		throw std::runtime_error(GetLastErrorString("VirtualAllocEx", GetLastError()));
 	}
@@ -153,12 +153,12 @@ LPVOID w_VirtualAllocEx(HANDLE hTargetPid, SIZE_T szSizeOfChunk, DWORD dwAllocat
 void w_WriteProcessMemory(HANDLE hTargetPid, LPVOID AllocatedMemory, LPVOID pBuffer, SIZE_T szSizeOfBuffer)
 {
 	RAISE_IF_FALSE(
-		"WriteProcessMemory", 
+		"WriteProcessMemory",
 		WriteProcessMemory(
-			hTargetPid, 
-			AllocatedMemory, 
-			pBuffer, 
-			szSizeOfBuffer, 
+			hTargetPid,
+			AllocatedMemory,
+			pBuffer,
+			szSizeOfBuffer,
 			nullptr)
 	);
 }

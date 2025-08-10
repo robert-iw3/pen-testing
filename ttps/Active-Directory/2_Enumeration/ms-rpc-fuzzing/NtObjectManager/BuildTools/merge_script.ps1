@@ -20,7 +20,7 @@ function Remove-LeadingComment {
         $lines[$index..($lines.Count-1)]
     }
 }
-   
+
 try {
     $Path = Resolve-Path $Path -ErrorAction Stop
     $mod_path = "$Path\NtObjectManager.psm1"

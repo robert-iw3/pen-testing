@@ -40,7 +40,7 @@ Hierarchy takeover via NTLM coercion and relay from CAS to origin primary site s
 ## Summary
 In some situations, such as reaching limits for [client enrollment](https://learn.microsoft.com/en-us/mem/configmgr/core/plan-design/configs/size-and-scale-numbers#bkmk_pri), SCCM adminsitrators may choose to expand from single site into a hierarchy managed by a central administration site (CAS). A prerequisite for expansion is for the CAS's domain computer account to be a [local administrator](https://learn.microsoft.com/en-us/mem/configmgr/core/servers/deploy/install/prerequisites-for-installing-sites#computer-account-as-administrator) on the originating primary site server. This permission is only required during expansion of the site and can be removed when complete. Additionally, this permission is not required for any further sites joined to the hierarchy once complete. However, if a configuration exists where all site server hosts are a member of a security group that grants local administrator rights to each other, the CAS can be coerced and relayed to *any* child site.
 
-An attacker who is able to successfully coerce NTLM authentication from a CAS via SMB can escalate to "Full Administrator" by either: 
+An attacker who is able to successfully coerce NTLM authentication from a CAS via SMB can escalate to "Full Administrator" by either:
 1. Relaying the CAS to SMB on its originating child primary site
 2. Relaying the CAS to the AdminService on its originating child primary site
 
@@ -120,7 +120,7 @@ The "Full Administrator" security role is granted all permissions in Configurati
 3. From the attacker host, coerce NTLM authentication from the CAS via SMB, targeting the relay server's IP address:
     ```
     ┌──(root㉿DEKSTOP-2QO0YEUW)-[/opt/PetitPotam]
-    └─# python3 PetitPotam.py -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <CAS_SITE_SERVER_IP> 
+    └─# python3 PetitPotam.py -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <CAS_SITE_SERVER_IP>
 
     Trying pipe lsarpc
     [-] Connecting to ncacn_np:passive.internal.lab[\PIPE\lsarpc]

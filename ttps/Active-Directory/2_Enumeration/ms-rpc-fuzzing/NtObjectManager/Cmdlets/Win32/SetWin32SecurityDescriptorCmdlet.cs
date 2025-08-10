@@ -147,7 +147,7 @@ public sealed class SetWin32SecurityDescriptorCmdlet : PSCmdlet
         if (Type == SeObjectType.Service)
         {
             SecurityInformation &= SecurityInformation.Owner |
-                SecurityInformation.Group | SecurityInformation.Dacl | 
+                SecurityInformation.Group | SecurityInformation.Dacl |
                 SecurityInformation.Label | SecurityInformation.Sacl;
         }
 
@@ -160,7 +160,7 @@ public sealed class SetWin32SecurityDescriptorCmdlet : PSCmdlet
         if (do_callback || Action != TreeSecInfo.Set)
         {
             TreeProgressFunction fn = ProgressFunction;
-            NtStatus status = Win32Security.SetSecurityInfo(path, Type, SecurityInformation, SecurityDescriptor, Action, do_callback ? fn : null, 
+            NtStatus status = Win32Security.SetSecurityInfo(path, Type, SecurityInformation, SecurityDescriptor, Action, do_callback ? fn : null,
                 ShowProgress ? ProgressInvokeSetting.PrePostError : ProgressInvokeSetting.EveryObject, !PassThru);
             if (!PassThru)
             {

@@ -60,7 +60,7 @@ class Project:
                 if self.no_gds:
                     tmp_file = tmp_file.replace('- NEO4J_PLUGINS=["graph-data-science"]', '')
                 ofile.write(tmp_file)
-        
+
         with open("./templates/bloodhound.config.json", "r") as ifile:
             with open(self.source_directory / self.name / "bloodhound.config.json", "w") as ofile:
                 ofile.write(ifile.read()
@@ -138,7 +138,7 @@ class Project:
         }
 
         request0 = requests.put(self.base_url + f"/api/v2/bloodhound-users/{self.user_ID}/secret", headers=headers, data=json.dumps(passwData))
-        
+
         print(Fore.GREEN + f"[+] Changed admin password to : {self.password}" + Style.RESET_ALL)
         return
 
@@ -179,16 +179,16 @@ class Project:
             print(Fore.RED + f"[-] The chosen password '{self.password}' does not respect the complexity criteria\nYour password must be at least 12 characters long and must contain every type of characters (lowercase, uppercase, digit and special characters)" + Style.RESET_ALL)
             print('Exiting...')
             exit(1)
-        
+
         # Create projects directory
         if not utils.createDir(Path(__file__).parent, self.source_directory):
             print(Fore.RED + f'[-] The folder "{self.source_directory}" could not be created.')
             print(Style.RESET_ALL + 'Exiting...')
             exit(1)
-        
+
         # Create project directory
         self.createProject()
-        
+
         # Setup the docker files for the project
         self.dockerSetup()
         print(Fore.GREEN + "[+] Docker setup done" + Style.RESET_ALL)
@@ -209,7 +209,7 @@ class Project:
             print(Fore.RED + f"An error occurred: {e}")
             print(Style.RESET_ALL + 'Exiting...')
             exit(1)
-        
+
         # Get the default admin password
         adminPassword = self.getAdminPassword()
         print(Fore.GREEN + f"[+] Found admin temporary password : {adminPassword}" + Style.RESET_ALL)
@@ -221,7 +221,7 @@ class Project:
                 if "Server started successfully" in log:
                     print(Fore.GREEN + "[+] Web server launched successfully" + Style.RESET_ALL)
                     break
-        
+
         # Get the JWT token of the admin
         self.refreshJWT(adminPassword)
         print(Fore.GREEN + f"[+] Found JWT token : {self.jwt}" + Style.RESET_ALL)
@@ -235,7 +235,7 @@ class Project:
         # Enable NTLM feature
         self.enableNTLM()
 
-        print(Fore.GREEN + 
+        print(Fore.GREEN +
           f"""
         #############################################################################
         #                                                                           #
@@ -243,7 +243,7 @@ class Project:
         #                        and is now accessible at :                         #
         #                             localhost:{self.ports["bolt"]}{" " * (36 - len(str(self.ports["bolt"])))}#
         #                             username : neo4j                              #
-        #                             password : neo5j                              # 
+        #                             password : neo5j                              #
         #                                                                           #
         #                 The BloodHound Web GUI is accessible at :                 #
         #                         http://localhost:{self.ports["web"]}                             #
@@ -252,9 +252,9 @@ class Project:
         #                         password : {self.password}{" " * (39 - len(self.password))}#
         #                                                                           #
         #############################################################################
-          """ 
+          """
           + Style.RESET_ALL)
-        
+
         self.save()
         return
 
@@ -275,7 +275,7 @@ class Project:
         # Extract the contents of the zip file
         with zipfile.ZipFile(zip_file, 'r') as zip_ref:
             zip_ref.extractall(extract_directory)
-        
+
         file_list = os.listdir(extract_directory)
         json_files = [extract_directory / file for file in file_list if file.endswith(".json")]
 
@@ -305,7 +305,7 @@ class Project:
                 data = f.read().encode("utf-8")
                 request2 = requests.post(self.base_url + f"/api/v2/file-upload/{uploadId}", headers=headers, data=data)
                 print(Fore.GREEN + f"   [+] Successfully uploaded {file.name}" + Style.RESET_ALL)
-        
+
         request3 = requests.post(self.base_url + f"/api/v2/file-upload/{uploadId}/end", headers=headers)
 
         print(Fore.YELLOW + f"   [*] Waiting for BloodHound to ingest the data. This could take a few minutes." + Style.RESET_ALL)
@@ -318,7 +318,7 @@ class Project:
                 return
             else:
                 time.sleep(5)
-    
+
 
     def clear(self) -> None:
         """

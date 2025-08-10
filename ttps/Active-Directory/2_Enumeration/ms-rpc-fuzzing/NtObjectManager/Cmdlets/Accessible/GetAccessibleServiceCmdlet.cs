@@ -28,7 +28,7 @@ namespace NtObjectManager.Cmdlets.Accessible;
 /// <summary>
 /// <para type="synopsis">Get a list of services openable by a specified token.</para>
 /// <para type="description">This cmdlet checks all services and tries to determine
-/// if one or more specified tokens can open them. If no tokens are specified then the 
+/// if one or more specified tokens can open them. If no tokens are specified then the
 /// current process token is used.</para>
 /// </summary>
 /// <remarks>For best results this command should be run as an administrator.</remarks>
@@ -264,16 +264,16 @@ public class GetAccessibleServiceCmdlet : CommonAccessBaseWithAccessCmdlet<Servi
                 }
                 if (CheckFiles)
                 {
-                    if (!string.IsNullOrWhiteSpace(service.ImagePath) 
-                        && File.Exists(service.ImagePath) 
+                    if (!string.IsNullOrWhiteSpace(service.ImagePath)
+                        && File.Exists(service.ImagePath)
                         && checked_files.Add(service.ImagePath))
                     {
                         file_cmdlet.RunAccessCheckPathInternal(tokens, service.ImagePath);
                         file_cmdlet.RunAccessCheckPathInternal(tokens, Path.GetDirectoryName(service.ImagePath));
                     }
 
-                    if (!string.IsNullOrWhiteSpace(service.ServiceDll) 
-                        && File.Exists(service.ServiceDll) 
+                    if (!string.IsNullOrWhiteSpace(service.ServiceDll)
+                        && File.Exists(service.ServiceDll)
                         && checked_files.Add(service.ServiceDll))
                     {
                         file_cmdlet.RunAccessCheckPathInternal(tokens, service.ServiceDll);

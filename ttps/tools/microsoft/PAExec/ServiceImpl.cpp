@@ -83,28 +83,28 @@ UINT WINAPI PipeClientThreadProc(void* p)
 
 	bool bBail = false;
 
-	while(true) 
-	{ 
+	while(true)
+	{
 		RemMsg request, response;
 
 		BYTE buff[BUFF_SIZE_HINT] = {0};
 
-		// Read client requests from the pipe. 
+		// Read client requests from the pipe.
 		bool bFirstRead = true;
 		BOOL fSuccess = FALSE;
 		DWORD gle = 0;
-		do 
-		{ 
+		do
+		{
 			DWORD cbRead = 0;
-			// Read from the pipe. 
-			fSuccess = ReadFile( 
-				hPipe,			// pipe handle 
-				buff,			// buffer to receive reply 
-				sizeof(buff), // size of buffer 
-				&cbRead,  // number of bytes read 
-				NULL);    // not overlapped 
+			// Read from the pipe.
+			fSuccess = ReadFile(
+				hPipe,			// pipe handle
+				buff,			// buffer to receive reply
+				sizeof(buff), // size of buffer
+				&cbRead,  // number of bytes read
+				NULL);    // not overlapped
 
-			if (!fSuccess && GetLastError() != ERROR_MORE_DATA) 
+			if (!fSuccess && GetLastError() != ERROR_MORE_DATA)
 			{
 				gle = GetLastError();
 				Log(L"Error reading request from pipe -- stopping service", gle);
@@ -126,7 +126,7 @@ UINT WINAPI PipeClientThreadProc(void* p)
 			}
 			else
 				request.m_payload.insert(request.m_payload.end(), buff, buff + cbRead);
-		} while (!fSuccess);  // repeat loop if ERROR_MORE_DATA 
+		} while (!fSuccess);  // repeat loop if ERROR_MORE_DATA
 
 		if(bBail)
 			break;
@@ -136,14 +136,14 @@ UINT WINAPI PipeClientThreadProc(void* p)
 		DWORD totalLen = 0;
 		const BYTE* pDataToSend = response.GetDataToSend(totalLen);
 		DWORD cbWritten = 0;
-		// Send a message to the pipe server. 
-		fSuccess = WriteFile( 
-					hPipe,     // pipe handle 
-					pDataToSend, // message 
-					totalLen,  // message length 
-					&cbWritten,// bytes written 
-					NULL);     // not overlapped 
-		if (!fSuccess || (cbWritten != totalLen)) 
+		// Send a message to the pipe server.
+		fSuccess = WriteFile(
+					hPipe,     // pipe handle
+					pDataToSend, // message
+					totalLen,  // message length
+					&cbWritten,// bytes written
+					NULL);     // not overlapped
+		if (!fSuccess || (cbWritten != totalLen))
 		{
 			gle = GetLastError();
 			Log(L"Error sending data back -- stopping service.", gle);
@@ -152,13 +152,13 @@ UINT WINAPI PipeClientThreadProc(void* p)
 		}
 	}
 
-	// Flush the pipe to allow the client to read the pipe's contents 
-	// before disconnecting. Then disconnect the pipe, and close the 
-	// handle to this pipe instance. 
+	// Flush the pipe to allow the client to read the pipe's contents
+	// before disconnecting. Then disconnect the pipe, and close the
+	// handle to this pipe instance.
 
-	FlushFileBuffers(hPipe); 
-	DisconnectNamedPipe(hPipe); 
-	CloseHandle(hPipe); 
+	FlushFileBuffers(hPipe);
+	DisconnectNamedPipe(hPipe);
+	CloseHandle(hPipe);
 
 	if(bBail)
 		ServiceControlHandler(SERVICE_CONTROL_STOP);
@@ -204,25 +204,25 @@ VOID WINAPI ServiceMain(DWORD dwArgc, LPTSTR* lpszArgv)
 	CString pipename;
 	pipename.Format(L"\\\\.\\pipe\\%s", pC);
 
-	// The main loop creates an instance of the named pipe and 
-	// then waits for a client to connect to it. When the client 
-	// connects, a thread is created to handle communications 
-	// with that client, and the loop is repeated. 
+	// The main loop creates an instance of the named pipe and
+	// then waits for a client to connect to it. When the client
+	// connects, a thread is created to handle communications
+	// with that client, and the loop is repeated.
 	while(false == gbStop)
-	{ 
-		HANDLE hPipe = CreateNamedPipe( 
-							pipename,             // pipe name 
-							PIPE_ACCESS_DUPLEX,       // read/write access 
-							PIPE_TYPE_MESSAGE |       // message type pipe 
-							PIPE_READMODE_MESSAGE |   // message-read mode 
-							PIPE_WAIT,                // blocking mode 
-							PIPE_UNLIMITED_INSTANCES, // max. instances  
-							BUFF_SIZE_HINT,           // output buffer size 
-							BUFF_SIZE_HINT,           // input buffer size 
-							0,                        // client time-out 
-							NULL);                    // default security attribute 
+	{
+		HANDLE hPipe = CreateNamedPipe(
+							pipename,             // pipe name
+							PIPE_ACCESS_DUPLEX,       // read/write access
+							PIPE_TYPE_MESSAGE |       // message type pipe
+							PIPE_READMODE_MESSAGE |   // message-read mode
+							PIPE_WAIT,                // blocking mode
+							PIPE_UNLIMITED_INSTANCES, // max. instances
+							BUFF_SIZE_HINT,           // output buffer size
+							BUFF_SIZE_HINT,           // input buffer size
+							0,                        // client time-out
+							NULL);                    // default security attribute
 
-		if (BAD_HANDLE(hPipe)) 
+		if (BAD_HANDLE(hPipe))
 		{
 			CString msg;
 			msg.Format(L"PAExec failed to create pipe %s.", pipename);
@@ -237,26 +237,26 @@ VOID WINAPI ServiceMain(DWORD dwArgc, LPTSTR* lpszArgv)
 			Log(msg, false);
 		}
 
-		// Wait for the client to connect; if it succeeds, 
+		// Wait for the client to connect; if it succeeds,
 		// the function returns a nonzero value. If the function
-		// returns zero, GetLastError returns ERROR_PIPE_CONNECTED. 
-		BOOL fConnected = ConnectNamedPipe(hPipe, NULL) ? TRUE : (GetLastError() == ERROR_PIPE_CONNECTED); 
+		// returns zero, GetLastError returns ERROR_PIPE_CONNECTED.
+		BOOL fConnected = ConnectNamedPipe(hPipe, NULL) ? TRUE : (GetLastError() == ERROR_PIPE_CONNECTED);
 
-		if (fConnected) 
-		{ 
-			// Create a thread for this client. 
+		if (fConnected)
+		{
+			// Create a thread for this client.
 			HANDLE hThread = (HANDLE)_beginthreadex(NULL, 0, PipeClientThreadProc, hPipe, 0, NULL);
-			if (hThread == NULL) 
+			if (hThread == NULL)
 			{
 				gbStop = true;
 				continue;
 			}
-			else 
-				CloseHandle(hThread); 
-		} 
-		else 
-			// The client could not connect, so close the pipe. 
-			CloseHandle(hPipe); 
+			else
+				CloseHandle(hThread);
+		}
+		else
+			// The client could not connect, so close the pipe.
+			CloseHandle(hPipe);
 	}
 
 	Log(L"PAExec exiting loop.", false);
@@ -294,14 +294,14 @@ DWORD StartLocalService(CCmdLineParser& cmdParser)
 		ServiceMain(0, NULL);
 	}
 
-	//for some reason (probably because the service didn't or couldn't stop when requested, and then couldn't be deleted), we're seeing cases where the service definition 
+	//for some reason (probably because the service didn't or couldn't stop when requested, and then couldn't be deleted), we're seeing cases where the service definition
 	//still hangs around (ie a long list of PAExec-xx-yy in services.msc), so here we'll take an additional step and try to delete ourself
 	SC_HANDLE sch = OpenSCManager(NULL, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS);
 	if(NULL != sch)
 	{
 		DWORD myPID = GetCurrentProcessId();
 
-		BYTE buffer[63 * 1024] = {0};	
+		BYTE buffer[63 * 1024] = {0};
 		DWORD ignored;
 		DWORD serviceCount = 0;
 		DWORD resume = 0;

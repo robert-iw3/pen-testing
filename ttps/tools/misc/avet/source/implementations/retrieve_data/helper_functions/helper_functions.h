@@ -35,7 +35,7 @@ int get_filesize(char *fvalue) {
 	}
 	for (size = 0; (rc1 = getc(fp1)) != EOF; size++) {}
 	fclose(fp1);
-	
+
 	DEBUG_PRINT("get_filesize, filesize %s: %d\n", fvalue, size);
 
 	return size;
@@ -46,7 +46,7 @@ int get_filesize(char *fvalue) {
 // Automatically allocates memory for this
 unsigned char *load_textfile(char *fvalue, int size) {
 	DEBUG_PRINT("load_textfile called: fvalue: %s, size: %d\n", fvalue, size);
-	
+
 	//allocate buffer, open file, read file to the buffer, close the file
 	unsigned char *buffer = (unsigned char*) malloc(size+1);
 	int i, rc;
@@ -66,9 +66,9 @@ unsigned char *load_textfile(char *fvalue, int size) {
 		rc = getc(fp);
 		buffer[i] = rc;
 	}
-	
-	DEBUG_PRINT("%s\n",buffer);	
 
-	fclose(fp);	
+	DEBUG_PRINT("%s\n",buffer);
+
+	fclose(fp);
 	return buffer;
 }

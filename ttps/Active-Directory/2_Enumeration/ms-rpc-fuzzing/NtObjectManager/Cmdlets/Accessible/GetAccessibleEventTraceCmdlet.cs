@@ -26,7 +26,7 @@ namespace NtObjectManager.Cmdlets.Accessible;
 /// <summary>
 /// <para type="synopsis">Get a list of ETW providers accessible by a specified token.</para>
 /// <para type="description">This cmdlet checks all ETW providers and tries to determine
-/// if one or more specified tokens can access them. If no tokens are specified then the 
+/// if one or more specified tokens can access them. If no tokens are specified then the
 /// current process token is used.</para>
 /// </summary>
 /// <remarks>This will only work if run as an administrator.</remarks>
@@ -90,7 +90,7 @@ public class GetAccessibleEventTraceCmdlet : CommonAccessBaseWithAccessCmdlet<Tr
                     token.Token, type.GenericMapping);
                 if (IsAccessGranted(granted_access, access_rights))
                 {
-                    WriteObject(new EventTraceAccessCheckResult(provider, type, 
+                    WriteObject(new EventTraceAccessCheckResult(provider, type,
                         granted_access, sd, token.Information));
                 }
             }

@@ -28,8 +28,8 @@ In this lab I will write a simple program that will:
 Running the [Code](finding-all-rwx-protected-memory-regions.md#code) with breakpoint set on line 31 will be hit if the conditions on line 27 are met. The conditions we are checking for are:&#x20;
 
 ```cpp
-mbi.AllocationProtect == PAGE_EXECUTE_READWRITE 
-&& mbi.State == MEM_COMMIT 
+mbi.AllocationProtect == PAGE_EXECUTE_READWRITE
+&& mbi.State == MEM_COMMIT
 && mbi.Type == MEM_PRIVATE
 ```
 

@@ -21,7 +21,7 @@ namespace NtObjectManager.Provider;
 
 internal class ObjectManagerPSDriveInfo : PSDriveInfo
 {
-    public ObjectManagerPSDriveInfo(NtObject root, PSDriveInfo drive_info) 
+    public ObjectManagerPSDriveInfo(NtObject root, PSDriveInfo drive_info)
         : base(drive_info)
     {
         if (root is NtDirectory dir)

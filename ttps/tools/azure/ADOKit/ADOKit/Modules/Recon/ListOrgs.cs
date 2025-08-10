@@ -16,7 +16,7 @@ namespace ADOKit.Modules.Recon
             string mode = args.ContainsKey("mode") ? args["mode"].ToLower() : "";
 
             // Determine which aex endpoint to use based on operator input.
-            string aexEndpoint = args.ContainsKey("endpoint") ? args["endpoint"].ToLower() : ""; 
+            string aexEndpoint = args.ContainsKey("endpoint") ? args["endpoint"].ToLower() : "";
 
 
 

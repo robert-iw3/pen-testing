@@ -51,7 +51,7 @@ sudo apt-get install -y \
 # Set/Check NVIDIA configuration
 nvidia-ctk cdi generate --output=/var/run/cdi/nvidia.yaml
 nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
-chmod a+r /var/run/cdi/nvidia.yaml /var/run/cdi/nvidia.yaml 
+chmod a+r /var/run/cdi/nvidia.yaml /var/run/cdi/nvidia.yaml
 nvidia-smi -L
 nvidia-ctk cdi list
 ```
@@ -99,7 +99,7 @@ curl -Lx http://127.0.0.1:8118 http://checkip.amazonaws.com/
 ## through tor
 # note: tor/socat will have to be installed on target
 
-podman exec -it <some_name> /bin/bash 
+podman exec -it <some_name> /bin/bash
 
 # set vars, line 135 in Dockerfile sets the port
 LHOST=$(cat /var/lib/tor/hidden_service/hostname)

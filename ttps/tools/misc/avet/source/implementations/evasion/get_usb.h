@@ -20,7 +20,7 @@ void get_usb(char *arg1) {
         // number of Subkeys = number of mounted USB devices
         // Get number of subkeys
         if (RegQueryInfoKeyA(hKey, NULL, NULL, NULL, &numUsbDevices, NULL, NULL, NULL, NULL, NULL, NULL, NULL) == ERROR_SUCCESS) {
-        
+
         } else {
             DEBUG_PRINT("Unable to query subkey HKLM::SYSTEM\\ControlSet001\\Enum\\USBSTOR\n");
         }

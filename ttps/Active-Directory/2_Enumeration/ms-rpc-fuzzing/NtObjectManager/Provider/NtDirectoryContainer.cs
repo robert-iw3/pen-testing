@@ -29,7 +29,7 @@ internal sealed class NtDirectoryContainer : NtObjectContainer
     private const string REGISTRY_ROOT = @"REGISTRY";
     private const string REGISTRY_ROOT_DIR = @"REGISTRY\";
 
-    public NtDirectoryContainer(NtDirectory dir) 
+    public NtDirectoryContainer(NtDirectory dir)
         : base(dir)
     {
         _dir = dir;
@@ -166,7 +166,7 @@ internal sealed class NtDirectoryContainer : NtObjectContainer
         if (_root_dir && relative_path == "??")
             relative_path = "GLOBAL??";
 
-        return NtDirectory.Open(relative_path, _dir, 
+        return NtDirectory.Open(relative_path, _dir,
             DirectoryAccessRights.MaximumAllowed, throw_on_error).Map(Create);
     }
 

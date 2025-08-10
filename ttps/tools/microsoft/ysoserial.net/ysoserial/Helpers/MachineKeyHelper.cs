@@ -43,7 +43,7 @@ namespace ysoserial.Helpers
                         encryptionAlgorithm.Key = SP800_108.DeriveKey(HexToBinary(decryptionKey), primaryPurpose, specificPurposes);
 
 
-                        // If the caller didn't ask for a predictable IV, just let the algorithm itself choose one. 
+                        // If the caller didn't ask for a predictable IV, just let the algorithm itself choose one.
                         encryptionAlgorithm.GenerateIV();
                         // IV retrieval
                         byte[] iv = encryptionAlgorithm.IV;
@@ -307,7 +307,7 @@ namespace ysoserial.Helpers
             private readonly string[] _purposes;
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public static readonly string[] DefaultCookiePurposes =
             {

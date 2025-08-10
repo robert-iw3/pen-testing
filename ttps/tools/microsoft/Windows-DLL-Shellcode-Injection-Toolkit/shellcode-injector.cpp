@@ -7,16 +7,16 @@
 bool IsTargetProcessCompatible(DWORD pid) {
     BOOL isWow64 = FALSE;
     HANDLE hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid);
-    
+
     if (!hProcess) return false;
-    
+
     if (!IsWow64Process(hProcess, &isWow64)) {
         CloseHandle(hProcess);
         return false;
     }
-    
+
     CloseHandle(hProcess);
-    
+
 #ifdef _WIN64
     return !isWow64;
 #else

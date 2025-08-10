@@ -125,10 +125,10 @@ function Decode-DnWithBinary {
     param (
         [object]$dnWithBinary
     )
-    
+
     $binaryPart = $dnWithBinary.GetType().InvokeMember("BinaryValue", 'GetProperty', $null, $dnWithBinary, $null)
     $dnString = $dnWithBinary.GetType().InvokeMember("DNString", 'GetProperty', $null, $dnWithBinary, $null)
-    
+
     return @($binaryPart, $dnString)
 }
 
@@ -139,7 +139,7 @@ function List-KeyCredentials {
         [string]$domainController,
         [switch]$Install
     )
-    
+
     if (-not (Get-Module -ListAvailable -Name DSInternals)) {
         if($Install){
             Install-DSInternals
@@ -150,9 +150,9 @@ function List-KeyCredentials {
             break
         }
     }
-    
+
     Import-Module DSInternals
-    
+
     $targetObject = Locate-Account -username $target -domain $domain -domainController $domainController
     if (-not $targetObject) {
         throw "Target object not found"
@@ -173,9 +173,9 @@ function List-KeyCredentials {
             $decoded = Decode-DnWithBinary -dnWithBinary $keyCredential
             $binaryPart = $decoded[0]
             $dnString = $decoded[1]
-            
+
             $parsedKeyCredential = [DSInternals.Common.Data.KeyCredential]::new($binaryPart, $dnString)
-            
+
             if ($parsedKeyCredential.DeviceId -ne [guid]::Empty -and $parsedKeyCredential.CreationTime -gt [datetime]::MinValue) {
                 $keyCredentialList += $parsedKeyCredential
             }
@@ -202,7 +202,7 @@ function Clear-KeyCredentials {
         [switch]$Force,
         [switch]$Install
     )
-    
+
     if (-not (Get-Module -ListAvailable -Name DSInternals)) {
         if ($Install) {
             Install-DSInternals
@@ -212,9 +212,9 @@ function Clear-KeyCredentials {
             break
         }
     }
-    
+
     Import-Module DSInternals
-    
+
     $targetObject = Locate-Account -username $target -domain $domain -domainController $domainController
     if (-not $targetObject) {
         throw "Target object not found"
@@ -241,13 +241,13 @@ function Clear-KeyCredentials {
 
     try {
         Write-Host "[*] Updating the msDS-KeyCredentialLink attribute of the target object"
-        
+
         $found = $false
         for ($i = 0; $i -lt $targetObject.Properties["msDS-KeyCredentialLink"].Count; $i++) {
             $decoded = Decode-DnWithBinary -dnWithBinary $targetObject.Properties["msDS-KeyCredentialLink"][$i]
             $binaryPart = $decoded[0]
             $dnString = $decoded[1]
-            
+
             $keyCredential = [DSInternals.Common.Data.KeyCredential]::new($binaryPart, $dnString)
             if ($keyCredential.DeviceId -eq $deviceId) {
                 $targetObject.Properties["msDS-KeyCredentialLink"].RemoveAt($i)
@@ -277,7 +277,7 @@ function Add-KeyCredentials {
         [string]$password,
         [switch]$Install
     )
-    
+
     if (-not (Get-Module -ListAvailable -Name DSInternals)) {
         if($Install){
             Install-DSInternals
@@ -288,14 +288,14 @@ function Add-KeyCredentials {
             break
         }
     }
-    
+
     Import-Module DSInternals
-    
+
     if(!$path){
         $currentUser = [System.Environment]::UserName
         $path = "C:\Users\$currentUser\cert.pfx"
     }
-    
+
     if(!$password){$password = "P@ssw0rd!"}
 
     $targetObject = Locate-Account -username $target -domain $domain -domainController $dc

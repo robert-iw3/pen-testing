@@ -409,7 +409,7 @@ bpf\_tail\_call() & Jump to another eBPF program preserving the current stack\\
 In the previous subsection \ref{subsection:bpf_syscall} we introduced the new types of eBPF programs that are supported and that we will be developing for our offensive analysis. In this section, we will analyse in greater detail how eBPF is integrated in the Linux kernel in order to support these new functionalities.
 
 \subsection{XDP} \label{subsection:xdp}
-Express Data Path (XDP) programs are a novel type of eBPF program that allows for the lowest-latency traffic filtering and monitoring in the whole Linux kernel. In order to load an XDP program, a bpf() syscall with the command BPF\_PROG\_LOAD and the program type BPF\_PROG\_TYPE\_XDP must be issued. 
+Express Data Path (XDP) programs are a novel type of eBPF program that allows for the lowest-latency traffic filtering and monitoring in the whole Linux kernel. In order to load an XDP program, a bpf() syscall with the command BPF\_PROG\_LOAD and the program type BPF\_PROG\_TYPE\_XDP must be issued.
 
 These programs are directly attached to the Network Interface Controller (NIC) driver, and thus they can process the packet before any other module \cite{xdp_gentle_intro}.
 
@@ -523,14 +523,14 @@ Tracepoints are a technology in the Linux kernel that allows to hook functions i
 
 The list of tracepoint events available depends on the kernel version and can be visited under the directory \textit{/sys/kernel/debug/tracing/events}.
 
-It is particularly relevant for our later research that most of the system calls incorporate a tracepoint, both when they are called (\textit{enter} tracepoint) and when they are exited (\textit{exit} tracepoints). This means that, for a system call sys\_open, both the tracepoint sys\_enter\_open and sys\_exit\_open are available. 
+It is particularly relevant for our later research that most of the system calls incorporate a tracepoint, both when they are called (\textit{enter} tracepoint) and when they are exited (\textit{exit} tracepoints). This means that, for a system call sys\_open, both the tracepoint sys\_enter\_open and sys\_exit\_open are available.
 
 Also, note that the probe functions that are called when hitting a tracepoint receive some parameters related to the context on which the tracepoint is located. In the case of syscalls, these include the parameters with which the syscall was called (only for \textit{enter} syscalls, \textit{exit} ones will only have access to the return value). The exact parameters and their format which a probe function receives can be visited in the file \textit{/sys/kernel/debug/tracing/events/<subsystem>/<tracepoint>/format}. In the previous example with sys\_enter\_open, this is \textit{/sys/kernel/debug/tracing/events/syscalls/sys\_enter\_open/format}.
 
 In eBPF, a program can issue a bpf() syscall with the command BPF\_PROG\_LOAD and the program type BPF\_PROG\_TYPE\_TRACEPOINT, specifying which is the function with the tracepoint to attach to and an arbitrary function probe to call when it is hit. This function probe is defined by the user in the eBPF program submitted to the kernel.
 
 \subsection{Kprobes}
-Kprobes are another tracing technology of the Linux kernel whose functionality has been become available to eBPF programs. Similarly to tracepoints, kprobes enable to hook functions in the kernel, with the only difference that it is dynamically attached to any arbitrary function, rather than to a set of predefined positions \cite{kprobe_manual}. It does not require that kernel developers specifically mark a function to be probed, but rather kprobes can be attached to any instruction, with a short list of blacklisted exceptions. 
+Kprobes are another tracing technology of the Linux kernel whose functionality has been become available to eBPF programs. Similarly to tracepoints, kprobes enable to hook functions in the kernel, with the only difference that it is dynamically attached to any arbitrary function, rather than to a set of predefined positions \cite{kprobe_manual}. It does not require that kernel developers specifically mark a function to be probed, but rather kprobes can be attached to any instruction, with a short list of blacklisted exceptions.
 
 As it happened with tracepoints, the probe functions have access to the parameters of the original hooked function. Also, the kernel maintains a list of kernel symbols (addresses) which are relevant for tracing and that offer us insight into which functions we can probe. It can be visited under the file \textit{/proc/kallsyms}, which exports symbols of kernel functions and loaded kernel modules \cite{kallsyms_kernel}.
 
@@ -539,7 +539,7 @@ Also similarly, since tracepoints could be found in their \textit{enter} and \te
 In eBPF, a program can issue a bpf() syscall with the command BPF\_PROG\_LOAD and the program type BPF\_PROG\_TYPE\_KPROBE, specifying which is the function with the kprobe to attach to and an arbitrary function probe to call when it is hit. This function probe is defined by the user in the eBPF program submitted to the kernel.
 
 \subsection{Uprobes}
-Uprobes is the last of the main tracing technologies which has been become accessible to eBPF programs. They are the counterparts of Kprobes, allowing for tracing the execution of an specific instruction in the user space, instead of in the kernel. When the execution flow reaches a hooked instruction, a probe function is run. 
+Uprobes is the last of the main tracing technologies which has been become accessible to eBPF programs. They are the counterparts of Kprobes, allowing for tracing the execution of an specific instruction in the user space, instead of in the kernel. When the execution flow reaches a hooked instruction, a probe function is run.
 
 For setting an uprobe on a specific instruction of a program, we need to know three components:
 \begin{itemize}
@@ -553,7 +553,7 @@ Similarly to kprobes, uprobes have access to the parameters received by the hook
 In eBPF, programs can issue a bpf() syscall with the command BPF\_PROG\_LOAD and the program type BPF\_PROG\_TYPE\_UPROBE, specifying the function with the uprobe to attach to and an arbitrary function probe to call when it is hit. This function probe is also defined by the user in the eBPF program submitted to the kernel.
 
 \section{Developing eBPF programs}
-In Section \ref{section:modern_ebpf}, we discussed the overall architecture of the eBPF system which is now an integral part of the Linux kernel. We also studied the process which a piece of eBPF bytecode follows in order to be accepted in the kernel. However, for an eBPF developer, programming bytecode and working with bpf() calls natively is not an easy task, therefore an additional layer of abstraction was needed. 
+In Section \ref{section:modern_ebpf}, we discussed the overall architecture of the eBPF system which is now an integral part of the Linux kernel. We also studied the process which a piece of eBPF bytecode follows in order to be accepted in the kernel. However, for an eBPF developer, programming bytecode and working with bpf() calls natively is not an easy task, therefore an additional layer of abstraction was needed.
 
 Nowadays, there exist multiple popular alternatives for writing and running eBPF programs. We will overview which they are and proceed to analyse in further detail the option that we will use for the development of our rootkit.
 
@@ -767,7 +767,7 @@ Figure \ref{fig:mem_proc_arch} describes how virtual memory is distributed withi
 \end{itemize}
 
 \subsection{The process stack} \label{subsection:stack}
-Among all the sections we identified in a process virtual memory, the stack will be particularly relevant during our research. We will therefore study it now in detail. 
+Among all the sections we identified in a process virtual memory, the stack will be particularly relevant during our research. We will therefore study it now in detail.
 
 Firstly, we will present how the stack is structured, and which operations can be executed on it. Figure \ref{fig:stack_pres} presents a stack during the execution of a program. Table \ref{table:systemv_abi_other} explains the purpose of the most relevant registers related to the stack and program execution:
 
@@ -795,7 +795,7 @@ rbp & Base/Frame Pointer - Memory address of the start of the stack frame\\
 \label{table:systemv_abi_other}
 \end{table}
 
-As it can be observed in Figure \ref{fig:stack_pres}, the stack grows towards lower memory addresses, and it is organized in stack frames, delimited by the registers rsp and rbp. An stack frame is a division of the stack which contains all the data (variables, call arguments...) belonging to a single function execution. When a function is exited, its stack frame is removed, and if a function calls a nested function, then its stack frame is preserved and a new stack frame is inserted into the stack. 
+As it can be observed in Figure \ref{fig:stack_pres}, the stack grows towards lower memory addresses, and it is organized in stack frames, delimited by the registers rsp and rbp. An stack frame is a division of the stack which contains all the data (variables, call arguments...) belonging to a single function execution. When a function is exited, its stack frame is removed, and if a function calls a nested function, then its stack frame is preserved and a new stack frame is inserted into the stack.
 
 As Table \ref{table:systemv_abi_other} explains, the rbp and rsp registers are used for keeping track of the starting and final position of the current stack frame respectively. We can see in Figure \ref{fig:stack_pres} that their value is a memory address pointing to their stack positions. On the other hand, the rip register does not point to the stack, but rather to the .text section (see Figure \ref{fig:mem_proc_arch}), where it points to the next instruction to be executed. However, as we will now see, its value must also be stored in the stack frame when a nested function is called, since after the nested function exits we need to restore the execution in the same instruction of the original function.
 
@@ -830,7 +830,7 @@ As we mentioned, the stack stores function parameters, return addresses and loca
 \end{figure}
 
 \begin{enumerate}
-\item The function arguments are pushed into the stack. We can see them in the stack of Figure \ref{fig:stack} in reverse order. 
+\item The function arguments are pushed into the stack. We can see them in the stack of Figure \ref{fig:stack} in reverse order.
 \item The function is called:
 \begin{enumerate}
 	\item The value of register rip is pushed into the stack, so that it is saved for when the function exists. We can see it on Figure \ref{fig:stack} as 'ret'.
@@ -879,7 +879,7 @@ The stack buffer overflow is one of the most popular exploitation techniques to 
 \begin{lstlisting}[language=C, caption={Program vulnerable to buffer overflow.}, label={code:vuln_overflow}]
 void foo(char *bar){ // bar may be larger than 12 characters
    char buffer[12];
-   strcpy(buffer, bar); //no bounds checking 
+   strcpy(buffer, bar); //no bounds checking
 }
 
 int main(int argc, char *argv[]){
@@ -918,14 +918,14 @@ As we can observe in the figure, the attacker will take advantage of the buffer 
 \item When the function exits and ret is popped from the stack, the register rip will now point to the address of the buffer at the stack, processing the stack data as instructions part of a program. The malicious code will be executed.
 \end{itemize}
 
-Although the classic buffer overflow is one of the best-known techniques in binary exploitation, it is also one of the oldest and thus numerous protections have historically been incorporated to mitigate this type of exploits. This is why the attack presented here does not work work in a modern system anymore. 
+Although the classic buffer overflow is one of the best-known techniques in binary exploitation, it is also one of the oldest and thus numerous protections have historically been incorporated to mitigate this type of exploits. This is why the attack presented here does not work work in a modern system anymore.
 
 The reason is that one of the protections consists of the prohibition of executing code from the stack. By marking the stack as non-executable, in the case of rip pointing to an address in the stack any malicious code will not be run, even if an application was vulnerable to a buffer overflow. We will explain more in detail the main protections that nowadays are incorporated in modern systems in Section \ref{subsection:hardening_elf}.
 
 \subsection{Return oriented programming attacks} \label{subsection:rop}
 After the stack was marked non-executable, a new refined technique was invented to circumvent this restriction and adapt the classic buffer overflow to modern systems. In the end, attackers still maintained the ability to overflow the buffer in the stack of vulnerable applications, writing shellcode and overwriting ret, the only issue was that the shellcode could not be executed.
 
-Return Oriented Programming (ROP) is an exploitation technique that takes advantage of the fact that, even if malicious code in the stack cannot be executed, the attacker can still redirect the flow of execution by modifying ret to any other piece of executable code. The challenge for the attacker is executing malicious code, since any available executable instructions are either at the .text section (which will correspond to the normal functioning of the program) or at shared libraries, but none are useful for malware. 
+Return Oriented Programming (ROP) is an exploitation technique that takes advantage of the fact that, even if malicious code in the stack cannot be executed, the attacker can still redirect the flow of execution by modifying ret to any other piece of executable code. The challenge for the attacker is executing malicious code, since any available executable instructions are either at the .text section (which will correspond to the normal functioning of the program) or at shared libraries, but none are useful for malware.
 
 ROP tackles this challenge by designing a method of reconstructing malicious code from parts of already-existing code, as in a 'collage'. Assembly instructions are selected from multiple places, so that, when put together and executed sequentially, they recreate the shellcode which the attacker wants to execute. These pieces of code are called ROP gadgets, and consist of a set of arbitrary instructions followed by a final \textit{ret} instruction, which triggers the function exit and pops the value of ret. These gadgets may belong to any code in the process memory, usually selected between the code of the shared libraries (see Figure \ref{fig:stack}) to which the process is linked.
 
@@ -1088,7 +1088,7 @@ The commands used for this analysis and complete list of headers can be found in
 .data & Contains initialized static and global variables. & Alloc, Writable\\
 \hline
 .bss & Contains global and static variables which are uninitialized or initialized to zero. & Alloc, Writable\\
-\hline 
+\hline
 \end{tabular}
 \caption{Sections in an ELF file.}
 \label{table:elf_sec_headers}
@@ -1109,7 +1109,7 @@ $ objdump -d simple_timer
 4014d7:	e8 44 fc ff ff       	call   401120 <timerfd_settime@plt>
 \end{lstlisting}
 
-\item In the PLT stub, the flow of execution jumps to an address which is stored in the GOT section, which is the absolute address of the function at glibc. This address must be written there by the dynamic linker but, according to lazy binding, the first time to call this function the linker has not calculated that address yet. 
+\item In the PLT stub, the flow of execution jumps to an address which is stored in the GOT section, which is the absolute address of the function at glibc. This address must be written there by the dynamic linker but, according to lazy binding, the first time to call this function the linker has not calculated that address yet.
 
 \begin{figure}[htbp]
 	\centering
@@ -1145,7 +1145,7 @@ $ objdump -d simple_timer
 
 Therefore, in essence, when using lazy binding the dynamic linker will individually load into GOT the addresses of the functions at the shared libraries, during the first time they are called in the program. After that, the address will remain in the GOT section and will be used by the PLT for all subsequent calls.
 
-The reason lazy binding matters to us is because, as we will explain Section \ref{subsection:got_attack}, the GOT section is actually writable from an eBPF program. This is because this section specifically must be writeable at runtime for the dynamic linker to store the address once they are resolved. Therefore, we would be able to modify the GOT section from eBPF, redirecting the address at which the PLT jumps, and thus controlling the flow of execution in the program. 
+The reason lazy binding matters to us is because, as we will explain Section \ref{subsection:got_attack}, the GOT section is actually writable from an eBPF program. This is because this section specifically must be writeable at runtime for the dynamic linker to store the address once they are resolved. Therefore, we would be able to modify the GOT section from eBPF, redirecting the address at which the PLT jumps, and thus controlling the flow of execution in the program.
 
 \subsection{Hardening ELF binaries} \label{subsection:hardening_elf}
 During Section \ref{section:attacks_stack}, we presented multiple of the classic attacks at the stack such as buffer overflow and ROP. However, as we mentioned, during the years multiple hardening measures have been introduced into modern compilers, which attempt to mitigate these and other techniques. We will now present them so that, during the design of our rootkit, we can attempt to bypass all of these.
@@ -1161,7 +1161,7 @@ Table \ref{table:compilers} shows the compilers that we will be considering duri
 Clang/LLVM 12.0.0 (2021) & Stack canaries, DEP/NX, ASLR\\
 \hline
 GCC 10.3.0 (2021) & Stack canaries, DEP/NX, ASLR, PIE, Full RELRO\\
-\hline 
+\hline
 \end{tabular}
 \caption{Security features in C compilers used in the study.}
 \label{table:compilers}
@@ -1186,7 +1186,7 @@ In the context of a stack buffer overflow attack, the memory position of the sta
 Position Independent Executable is a mitigation introduced to reduce the ability of an attacker to locate symbols in virtual memory by randomizing the base address at which the program itself (including the .text section) is loaded. This base address determines an offset which is added to all memory addresses in the code, so that each instruction is located at an address + this offset. Therefore, all jumps are made using relative addresses \cite{aslr_pie_intro}.
 
 \textbf{RELRO}\\
-Relocation Read-Only is a hardening technique that mitigates the possibility of an attacker overwriting the GOT section, as we explained at Section \ref{subsection:elf_lazy_binding}. In order to achieve the lazy binding process is substituted by the linker resolving all entries in the GOT section right after the beginning of the execution, and then marking the .got section as read-only. 
+Relocation Read-Only is a hardening technique that mitigates the possibility of an attacker overwriting the GOT section, as we explained at Section \ref{subsection:elf_lazy_binding}. In order to achieve the lazy binding process is substituted by the linker resolving all entries in the GOT section right after the beginning of the execution, and then marking the .got section as read-only.
 
 Two settings for RELRO are the most widespread, either Partial RELRO (which only marks sections of the .got section not related to the PLT as read-only, leaving .got.plt writeable) or Full RELRO (which marks the .got section as read-only completely). Binaries with only Partial RELRO are still non-secure, as the address at which the PLT section jumps can still be overwriten (including from eBPF, as we will explain) \cite{relro_redhat}.
 
@@ -1216,7 +1216,7 @@ Note that the access control for the \textit{/proc/<pid>/} is governed by the va
 \hline
 1 & Only privileged processes or those belonging to that PID may access the any file. Unprivileged process can still list the directories at \textit{/proc}, finding the complete list of running processes.\\
 \hline
-2 & Only privileged processes or those belonging to that PID may access the any file. Unlike with setting '1', unprivileged users cannot list the directores at \textit{/proc} anymore.\\ 
+2 & Only privileged processes or those belonging to that PID may access the any file. Unlike with setting '1', unprivileged users cannot list the directores at \textit{/proc} anymore.\\
 \hline
 \end{tabular}
 \caption{Values for \textit{/proc/sys/kernel/yama/ptrace\_scope}.}

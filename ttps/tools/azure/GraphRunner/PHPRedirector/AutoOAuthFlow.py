@@ -8,7 +8,7 @@ from datetime import datetime
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-# DON'T RUN THIS IN YOUR WEB ROOT AS IT WILL OUTPUT ACCESS TOKENS 
+# DON'T RUN THIS IN YOUR WEB ROOT AS IT WILL OUTPUT ACCESS TOKENS
 # TO A FILE CALLED "access_tokens.txt" IN THE SAME DIRECTORY. IF
 # YOU DO THIS YOU MAY EXPOSE ACCESS TOKENS ON YOUR WEB SERVER.
 
@@ -94,14 +94,14 @@ class CodeFileHandler(FileSystemEventHandler):
                 # Check if the file is 'codes.txt' and delete it
                 if os.path.basename(event.src_path) == 'codes.txt':
                     os.remove(event.src_path)
-                    
+
                     if code_detected not in processed_codes:
                         print("\n[*] Detected new OAuth code. Now attempting to complete the OAuth flow...")
                         # Call the function to complete the OAuth flow
                         complete_oauth_flow(oauth_code_block)
                         processed_codes.add(code_detected)
                         print(code_detected)
-                    
+
                     # Call the function to complete the OAuth flow
                     complete_oauth_flow(oauth_code_block)
 
@@ -138,7 +138,7 @@ def main():
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
-    
+
 
 if __name__ == "__main__":
     main()

@@ -43,7 +43,7 @@ class DCERPCSessionError(DCERPCException):
         key = self.error_code
         if key in nt_errors.ERROR_MESSAGES:
             error_msg_short = nt_errors.ERROR_MESSAGES[key][0]
-            error_msg_verbose = nt_errors.ERROR_MESSAGES[key][1] 
+            error_msg_verbose = nt_errors.ERROR_MESSAGES[key][1]
             return 'LSAD SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             return 'LSAD SessionError: unknown error code: 0x%x' % self.error_code
@@ -197,10 +197,10 @@ SECURITY_CONTEXT_TRACKING_MODE = UCHAR
 # 2.2.3.7 SECURITY_QUALITY_OF_SERVICE
 class SECURITY_QUALITY_OF_SERVICE(NDRSTRUCT):
     structure = (
-        ('Length', DWORD), 
-        ('ImpersonationLevel', SECURITY_IMPERSONATION_LEVEL), 
-        ('ContextTrackingMode', SECURITY_CONTEXT_TRACKING_MODE), 
-        ('EffectiveOnly', UCHAR), 
+        ('Length', DWORD),
+        ('ImpersonationLevel', SECURITY_IMPERSONATION_LEVEL),
+        ('ContextTrackingMode', SECURITY_CONTEXT_TRACKING_MODE),
+        ('EffectiveOnly', UCHAR),
     )
 
 class PSECURITY_QUALITY_OF_SERVICE(NDRPOINTER):
@@ -211,19 +211,19 @@ class PSECURITY_QUALITY_OF_SERVICE(NDRPOINTER):
 # 2.2.2.4 LSAPR_OBJECT_ATTRIBUTES
 class LSAPR_OBJECT_ATTRIBUTES(NDRSTRUCT):
     structure = (
-        ('Length', DWORD), 
-        ('RootDirectory', LPWSTR), 
-        ('ObjectName', LPWSTR), 
-        ('Attributes', DWORD), 
-        ('SecurityDescriptor', PLSAPR_SECURITY_DESCRIPTOR), 
-        ('SecurityQualityOfService', PSECURITY_QUALITY_OF_SERVICE), 
+        ('Length', DWORD),
+        ('RootDirectory', LPWSTR),
+        ('ObjectName', LPWSTR),
+        ('Attributes', DWORD),
+        ('SecurityDescriptor', PLSAPR_SECURITY_DESCRIPTOR),
+        ('SecurityQualityOfService', PSECURITY_QUALITY_OF_SERVICE),
     )
 
 # 2.2.2.5 LSAPR_SR_SECURITY_DESCRIPTOR
 class LSAPR_SR_SECURITY_DESCRIPTOR(NDRSTRUCT):
     structure = (
-        ('Length', DWORD), 
-        ('SecurityDescriptor', LPBYTE), 
+        ('Length', DWORD),
+        ('SecurityDescriptor', LPBYTE),
     )
 
 class PLSAPR_SR_SECURITY_DESCRIPTOR(NDRPOINTER):
@@ -256,12 +256,12 @@ class POLICY_INFORMATION_CLASS(NDRENUM):
 # 2.2.4.3 POLICY_AUDIT_LOG_INFO
 class POLICY_AUDIT_LOG_INFO(NDRSTRUCT):
     structure = (
-        ('AuditLogPercentFull', DWORD), 
-        ('MaximumLogSize', DWORD), 
-        ('AuditRetentionPeriod', LARGE_INTEGER), 
-        ('AuditLogFullShutdownInProgress', UCHAR), 
-        ('TimeToShutdown', LARGE_INTEGER), 
-        ('NextAuditRecordId', DWORD), 
+        ('AuditLogPercentFull', DWORD),
+        ('MaximumLogSize', DWORD),
+        ('AuditRetentionPeriod', LARGE_INTEGER),
+        ('AuditLogFullShutdownInProgress', UCHAR),
+        ('TimeToShutdown', LARGE_INTEGER),
+        ('NextAuditRecordId', DWORD),
     )
 
 # 2.2.4.4 LSAPR_POLICY_AUDIT_EVENTS_INFO
@@ -275,29 +275,29 @@ class PDWORD_ARRAY(NDRPOINTER):
 
 class LSAPR_POLICY_AUDIT_EVENTS_INFO(NDRSTRUCT):
     structure = (
-        ('AuditingMode', UCHAR), 
-        ('EventAuditingOptions', PDWORD_ARRAY), 
-        ('MaximumAuditEventCount', DWORD), 
+        ('AuditingMode', UCHAR),
+        ('EventAuditingOptions', PDWORD_ARRAY),
+        ('MaximumAuditEventCount', DWORD),
     )
 
 # 2.2.4.5 LSAPR_POLICY_PRIMARY_DOM_INFO
 class LSAPR_POLICY_PRIMARY_DOM_INFO(NDRSTRUCT):
     structure = (
-        ('Name', RPC_UNICODE_STRING), 
-        ('Sid', PRPC_SID), 
+        ('Name', RPC_UNICODE_STRING),
+        ('Sid', PRPC_SID),
     )
 
 # 2.2.4.6 LSAPR_POLICY_ACCOUNT_DOM_INFO
 class LSAPR_POLICY_ACCOUNT_DOM_INFO(NDRSTRUCT):
     structure = (
-        ('DomainName', RPC_UNICODE_STRING), 
-        ('DomainSid', PRPC_SID), 
+        ('DomainName', RPC_UNICODE_STRING),
+        ('DomainSid', PRPC_SID),
     )
 
 # 2.2.4.7 LSAPR_POLICY_PD_ACCOUNT_INFO
 class LSAPR_POLICY_PD_ACCOUNT_INFO(NDRSTRUCT):
     structure = (
-        ('Name', RPC_UNICODE_STRING), 
+        ('Name', RPC_UNICODE_STRING),
     )
 
 # 2.2.4.8 POLICY_LSA_SERVER_ROLE
@@ -309,44 +309,44 @@ class POLICY_LSA_SERVER_ROLE(NDRENUM):
 # 2.2.4.9 POLICY_LSA_SERVER_ROLE_INFO
 class POLICY_LSA_SERVER_ROLE_INFO(NDRSTRUCT):
     structure = (
-        ('LsaServerRole', POLICY_LSA_SERVER_ROLE), 
+        ('LsaServerRole', POLICY_LSA_SERVER_ROLE),
     )
 
 # 2.2.4.10 LSAPR_POLICY_REPLICA_SRCE_INFO
 class LSAPR_POLICY_REPLICA_SRCE_INFO(NDRSTRUCT):
     structure = (
-        ('ReplicaSource', RPC_UNICODE_STRING), 
-        ('ReplicaAccountName', RPC_UNICODE_STRING), 
+        ('ReplicaSource', RPC_UNICODE_STRING),
+        ('ReplicaAccountName', RPC_UNICODE_STRING),
     )
 
 # 2.2.4.11 POLICY_MODIFICATION_INFO
 class POLICY_MODIFICATION_INFO(NDRSTRUCT):
     structure = (
-        ('ModifiedId', LARGE_INTEGER), 
-        ('DatabaseCreationTime', LARGE_INTEGER), 
+        ('ModifiedId', LARGE_INTEGER),
+        ('DatabaseCreationTime', LARGE_INTEGER),
     )
 
 # 2.2.4.12 POLICY_AUDIT_FULL_SET_INFO
 class POLICY_AUDIT_FULL_SET_INFO(NDRSTRUCT):
     structure = (
-        ('ShutDownOnFull', UCHAR), 
+        ('ShutDownOnFull', UCHAR),
     )
 
 # 2.2.4.13 POLICY_AUDIT_FULL_QUERY_INFO
 class POLICY_AUDIT_FULL_QUERY_INFO(NDRSTRUCT):
     structure = (
-        ('ShutDownOnFull', UCHAR), 
-        ('LogIsFull', UCHAR), 
+        ('ShutDownOnFull', UCHAR),
+        ('LogIsFull', UCHAR),
     )
 
 # 2.2.4.14 LSAPR_POLICY_DNS_DOMAIN_INFO
 class LSAPR_POLICY_DNS_DOMAIN_INFO(NDRSTRUCT):
     structure = (
-        ('Name', RPC_UNICODE_STRING), 
-        ('DnsDomainName', RPC_UNICODE_STRING), 
-        ('DnsForestName', RPC_UNICODE_STRING), 
-        ('DomainGuid', GUID), 
-        ('Sid', PRPC_SID), 
+        ('Name', RPC_UNICODE_STRING),
+        ('DnsDomainName', RPC_UNICODE_STRING),
+        ('DnsForestName', RPC_UNICODE_STRING),
+        ('DomainGuid', GUID),
+        ('Sid', PRPC_SID),
     )
 
 # 2.2.4.2 LSAPR_POLICY_INFORMATION
@@ -382,25 +382,25 @@ class POLICY_DOMAIN_INFORMATION_CLASS(NDRENUM):
 # 2.2.4.17 POLICY_DOMAIN_QUALITY_OF_SERVICE_INFO
 class POLICY_DOMAIN_QUALITY_OF_SERVICE_INFO(NDRSTRUCT):
     structure = (
-        ('QualityOfService', DWORD), 
+        ('QualityOfService', DWORD),
     )
 
 # 2.2.4.18 LSAPR_POLICY_DOMAIN_EFS_INFO
 class LSAPR_POLICY_DOMAIN_EFS_INFO(NDRSTRUCT):
     structure = (
-        ('InfoLength', DWORD), 
-        ('EfsBlob', LPBYTE), 
+        ('InfoLength', DWORD),
+        ('EfsBlob', LPBYTE),
     )
 
 # 2.2.4.19 POLICY_DOMAIN_KERBEROS_TICKET_INFO
 class POLICY_DOMAIN_KERBEROS_TICKET_INFO(NDRSTRUCT):
     structure = (
-        ('AuthenticationOptions', DWORD), 
-        ('MaxServiceTicketAge', LARGE_INTEGER), 
-        ('MaxTicketAge', LARGE_INTEGER), 
-        ('MaxRenewAge', LARGE_INTEGER), 
-        ('MaxClockSkew', LARGE_INTEGER), 
-        ('Reserved', LARGE_INTEGER), 
+        ('AuthenticationOptions', DWORD),
+        ('MaxServiceTicketAge', LARGE_INTEGER),
+        ('MaxTicketAge', LARGE_INTEGER),
+        ('MaxRenewAge', LARGE_INTEGER),
+        ('MaxClockSkew', LARGE_INTEGER),
+        ('Reserved', LARGE_INTEGER),
     )
 
 # 2.2.4.16 LSAPR_POLICY_DOMAIN_INFORMATION
@@ -432,7 +432,7 @@ class POLICY_AUDIT_EVENT_TYPE(NDRENUM):
 # 2.2.5.1 LSAPR_ACCOUNT_INFORMATION
 class LSAPR_ACCOUNT_INFORMATION(NDRSTRUCT):
     structure = (
-        ('Sid', PRPC_SID), 
+        ('Sid', PRPC_SID),
     )
 
 # 2.2.5.2 LSAPR_ACCOUNT_ENUM_BUFFER
@@ -446,8 +446,8 @@ class PLSAPR_ACCOUNT_INFORMATION_ARRAY(NDRPOINTER):
 
 class LSAPR_ACCOUNT_ENUM_BUFFER(NDRSTRUCT):
     structure = (
-        ('EntriesRead', ULONG), 
-        ('Information', PLSAPR_ACCOUNT_INFORMATION_ARRAY), 
+        ('EntriesRead', ULONG),
+        ('Information', PLSAPR_ACCOUNT_INFORMATION_ARRAY),
     )
 
 # 2.2.5.3 LSAPR_USER_RIGHT_SET
@@ -461,15 +461,15 @@ class PRPC_UNICODE_STRING_ARRAY(NDRPOINTER):
 
 class LSAPR_USER_RIGHT_SET(NDRSTRUCT):
     structure = (
-        ('EntriesRead', ULONG), 
-        ('UserRights', PRPC_UNICODE_STRING_ARRAY), 
+        ('EntriesRead', ULONG),
+        ('UserRights', PRPC_UNICODE_STRING_ARRAY),
     )
 
 # 2.2.5.4 LSAPR_LUID_AND_ATTRIBUTES
 class LSAPR_LUID_AND_ATTRIBUTES(NDRSTRUCT):
     structure = (
-        ('Luid', LUID), 
-        ('Attributes', ULONG), 
+        ('Luid', LUID),
+        ('Attributes', ULONG),
     )
 
 # 2.2.5.5 LSAPR_PRIVILEGE_SET
@@ -478,9 +478,9 @@ class LSAPR_LUID_AND_ATTRIBUTES_ARRAY(NDRUniConformantArray):
 
 class LSAPR_PRIVILEGE_SET(NDRSTRUCT):
     structure = (
-        ('PrivilegeCount', ULONG), 
-        ('Control', ULONG), 
-        ('Privilege', LSAPR_LUID_AND_ATTRIBUTES_ARRAY), 
+        ('PrivilegeCount', ULONG),
+        ('Control', ULONG),
+        ('Privilege', LSAPR_LUID_AND_ATTRIBUTES_ARRAY),
     )
 
 class PLSAPR_PRIVILEGE_SET(NDRPOINTER):
@@ -496,14 +496,14 @@ class PCHAR_ARRAY(NDRPOINTER):
 
 class LSAPR_CR_CIPHER_VALUE(NDRSTRUCT):
     structure = (
-        ('Length', LONG), 
-        ('MaximumLength', LONG), 
-        ('Buffer', PCHAR_ARRAY), 
+        ('Length', LONG),
+        ('MaximumLength', LONG),
+        ('Buffer', PCHAR_ARRAY),
     )
 
 class PLSAPR_CR_CIPHER_VALUE(NDRPOINTER):
     referent = (
-        ('Data', LSAPR_CR_CIPHER_VALUE), 
+        ('Data', LSAPR_CR_CIPHER_VALUE),
     )
 
 class PPLSAPR_CR_CIPHER_VALUE(NDRPOINTER):
@@ -514,8 +514,8 @@ class PPLSAPR_CR_CIPHER_VALUE(NDRPOINTER):
 # 2.2.7.1 LSAPR_TRUST_INFORMATION
 class LSAPR_TRUST_INFORMATION(NDRSTRUCT):
     structure = (
-        ('Name', RPC_UNICODE_STRING), 
-        ('Sid', PRPC_SID), 
+        ('Name', RPC_UNICODE_STRING),
+        ('Sid', PRPC_SID),
     )
 
 # 2.2.7.2 TRUSTED_INFORMATION_CLASS
@@ -538,27 +538,27 @@ class TRUSTED_INFORMATION_CLASS(NDRENUM):
 # 2.2.7.4 LSAPR_TRUSTED_DOMAIN_NAME_INFO
 class LSAPR_TRUSTED_DOMAIN_NAME_INFO(NDRSTRUCT):
     structure = (
-        ('Name', RPC_UNICODE_STRING), 
+        ('Name', RPC_UNICODE_STRING),
     )
 
 # 2.2.7.5 LSAPR_TRUSTED_CONTROLLERS_INFO
 class LSAPR_TRUSTED_CONTROLLERS_INFO(NDRSTRUCT):
     structure = (
-        ('Entries', ULONG), 
-        ('Names', PRPC_UNICODE_STRING_ARRAY), 
+        ('Entries', ULONG),
+        ('Names', PRPC_UNICODE_STRING_ARRAY),
     )
 
 # 2.2.7.6 TRUSTED_POSIX_OFFSET_INFO
 class TRUSTED_POSIX_OFFSET_INFO(NDRSTRUCT):
     structure = (
-        ('Offset', ULONG), 
+        ('Offset', ULONG),
     )
 
 # 2.2.7.7 LSAPR_TRUSTED_PASSWORD_INFO
 class LSAPR_TRUSTED_PASSWORD_INFO(NDRSTRUCT):
     structure = (
-        ('Password', PLSAPR_CR_CIPHER_VALUE), 
-        ('OldPassword', PLSAPR_CR_CIPHER_VALUE), 
+        ('Password', PLSAPR_CR_CIPHER_VALUE),
+        ('OldPassword', PLSAPR_CR_CIPHER_VALUE),
     )
 
 # 2.2.7.8 LSAPR_TRUSTED_DOMAIN_INFORMATION_BASIC
@@ -567,34 +567,34 @@ LSAPR_TRUSTED_DOMAIN_INFORMATION_BASIC = LSAPR_TRUST_INFORMATION
 # 2.2.7.9 LSAPR_TRUSTED_DOMAIN_INFORMATION_EX
 class LSAPR_TRUSTED_DOMAIN_INFORMATION_EX(NDRSTRUCT):
     structure = (
-        ('Name', RPC_UNICODE_STRING), 
-        ('FlatName', RPC_UNICODE_STRING), 
-        ('Sid', PRPC_SID), 
-        ('TrustDirection', ULONG), 
-        ('TrustType', ULONG), 
-        ('TrustAttributes', ULONG), 
+        ('Name', RPC_UNICODE_STRING),
+        ('FlatName', RPC_UNICODE_STRING),
+        ('Sid', PRPC_SID),
+        ('TrustDirection', ULONG),
+        ('TrustType', ULONG),
+        ('TrustAttributes', ULONG),
     )
 
 # 2.2.7.10 LSAPR_TRUSTED_DOMAIN_INFORMATION_EX2
 class LSAPR_TRUSTED_DOMAIN_INFORMATION_EX2(NDRSTRUCT):
     structure = (
-        ('Name', RPC_UNICODE_STRING), 
-        ('FlatName', RPC_UNICODE_STRING), 
-        ('Sid', PRPC_SID), 
-        ('TrustDirection', ULONG), 
-        ('TrustType', ULONG), 
-        ('TrustAttributes', ULONG), 
-        ('ForestTrustLength', ULONG), 
-        ('ForestTrustInfo', LPBYTE), 
+        ('Name', RPC_UNICODE_STRING),
+        ('FlatName', RPC_UNICODE_STRING),
+        ('Sid', PRPC_SID),
+        ('TrustDirection', ULONG),
+        ('TrustType', ULONG),
+        ('TrustAttributes', ULONG),
+        ('ForestTrustLength', ULONG),
+        ('ForestTrustInfo', LPBYTE),
     )
 
 # 2.2.7.17 LSAPR_AUTH_INFORMATION
 class LSAPR_AUTH_INFORMATION(NDRSTRUCT):
     structure = (
-        ('LastUpdateTime', LARGE_INTEGER), 
-        ('AuthType', ULONG), 
-        ('AuthInfoLength', ULONG), 
-        ('AuthInfo', LPBYTE), 
+        ('LastUpdateTime', LARGE_INTEGER),
+        ('AuthType', ULONG),
+        ('AuthInfoLength', ULONG),
+        ('AuthInfo', LPBYTE),
     )
 
 class PLSAPR_AUTH_INFORMATION(NDRPOINTER):
@@ -605,55 +605,55 @@ class PLSAPR_AUTH_INFORMATION(NDRPOINTER):
 # 2.2.7.11 LSAPR_TRUSTED_DOMAIN_AUTH_INFORMATION
 class LSAPR_TRUSTED_DOMAIN_AUTH_INFORMATION(NDRSTRUCT):
     structure = (
-        ('IncomingAuthInfos', ULONG), 
-        ('IncomingAuthenticationInformation', PLSAPR_AUTH_INFORMATION), 
-        ('IncomingPreviousAuthenticationInformation', PLSAPR_AUTH_INFORMATION), 
-        ('OutgoingAuthInfos', ULONG), 
-        ('OutgoingAuthenticationInformation', PLSAPR_AUTH_INFORMATION), 
-        ('OutgoingPreviousAuthenticationInformation', PLSAPR_AUTH_INFORMATION), 
+        ('IncomingAuthInfos', ULONG),
+        ('IncomingAuthenticationInformation', PLSAPR_AUTH_INFORMATION),
+        ('IncomingPreviousAuthenticationInformation', PLSAPR_AUTH_INFORMATION),
+        ('OutgoingAuthInfos', ULONG),
+        ('OutgoingAuthenticationInformation', PLSAPR_AUTH_INFORMATION),
+        ('OutgoingPreviousAuthenticationInformation', PLSAPR_AUTH_INFORMATION),
     )
 
 # 2.2.7.16 LSAPR_TRUSTED_DOMAIN_AUTH_BLOB
 class LSAPR_TRUSTED_DOMAIN_AUTH_BLOB(NDRSTRUCT):
     structure = (
-        ('AuthSize', ULONG), 
-        ('AuthBlob', LPBYTE), 
+        ('AuthSize', ULONG),
+        ('AuthBlob', LPBYTE),
     )
 
 # 2.2.7.12 LSAPR_TRUSTED_DOMAIN_AUTH_INFORMATION_INTERNAL
 class LSAPR_TRUSTED_DOMAIN_AUTH_INFORMATION_INTERNAL(NDRSTRUCT):
     structure = (
-        ('AuthBlob', LSAPR_TRUSTED_DOMAIN_AUTH_BLOB), 
+        ('AuthBlob', LSAPR_TRUSTED_DOMAIN_AUTH_BLOB),
     )
 
 # 2.2.7.13 LSAPR_TRUSTED_DOMAIN_FULL_INFORMATION
 class LSAPR_TRUSTED_DOMAIN_FULL_INFORMATION(NDRSTRUCT):
     structure = (
-        ('Information', LSAPR_TRUSTED_DOMAIN_INFORMATION_EX), 
-        ('PosixOffset', TRUSTED_POSIX_OFFSET_INFO), 
-        ('AuthInformation', LSAPR_TRUSTED_DOMAIN_AUTH_INFORMATION), 
+        ('Information', LSAPR_TRUSTED_DOMAIN_INFORMATION_EX),
+        ('PosixOffset', TRUSTED_POSIX_OFFSET_INFO),
+        ('AuthInformation', LSAPR_TRUSTED_DOMAIN_AUTH_INFORMATION),
     )
 
 # 2.2.7.14 LSAPR_TRUSTED_DOMAIN_FULL_INFORMATION_INTERNAL
 class LSAPR_TRUSTED_DOMAIN_FULL_INFORMATION_INTERNAL(NDRSTRUCT):
     structure = (
-        ('Information', LSAPR_TRUSTED_DOMAIN_INFORMATION_EX), 
-        ('PosixOffset', TRUSTED_POSIX_OFFSET_INFO), 
-        ('AuthInformation', LSAPR_TRUSTED_DOMAIN_AUTH_INFORMATION_INTERNAL), 
+        ('Information', LSAPR_TRUSTED_DOMAIN_INFORMATION_EX),
+        ('PosixOffset', TRUSTED_POSIX_OFFSET_INFO),
+        ('AuthInformation', LSAPR_TRUSTED_DOMAIN_AUTH_INFORMATION_INTERNAL),
     )
 
 # 2.2.7.15 LSAPR_TRUSTED_DOMAIN_FULL_INFORMATION2
 class LSAPR_TRUSTED_DOMAIN_FULL_INFORMATION2(NDRSTRUCT):
     structure = (
-        ('Information', LSAPR_TRUSTED_DOMAIN_INFORMATION_EX), 
-        ('PosixOffset', TRUSTED_POSIX_OFFSET_INFO), 
-        ('AuthInformation', LSAPR_TRUSTED_DOMAIN_AUTH_INFORMATION), 
+        ('Information', LSAPR_TRUSTED_DOMAIN_INFORMATION_EX),
+        ('PosixOffset', TRUSTED_POSIX_OFFSET_INFO),
+        ('AuthInformation', LSAPR_TRUSTED_DOMAIN_AUTH_INFORMATION),
     )
 
 # 2.2.7.18 TRUSTED_DOMAIN_SUPPORTED_ENCRYPTION_TYPES
 class TRUSTED_DOMAIN_SUPPORTED_ENCRYPTION_TYPES(NDRSTRUCT):
     structure = (
-        ('SupportedEncryptionTypes', ULONG), 
+        ('SupportedEncryptionTypes', ULONG),
     )
 
 # 2.2.7.3 LSAPR_TRUSTED_DOMAIN_INFO
@@ -685,8 +685,8 @@ class PLSAPR_TRUST_INFORMATION_ARRAY(NDRPOINTER):
 
 class LSAPR_TRUSTED_ENUM_BUFFER(NDRSTRUCT):
     structure = (
-        ('Entries', ULONG), 
-        ('Information', PLSAPR_TRUST_INFORMATION_ARRAY), 
+        ('Entries', ULONG),
+        ('Information', PLSAPR_TRUST_INFORMATION_ARRAY),
     )
 
 # 2.2.7.20 LSAPR_TRUSTED_ENUM_BUFFER_EX
@@ -700,8 +700,8 @@ class PLSAPR_TRUSTED_DOMAIN_INFORMATION_EX_ARRAY(NDRPOINTER):
 
 class LSAPR_TRUSTED_ENUM_BUFFER_EX(NDRSTRUCT):
     structure = (
-        ('Entries', ULONG), 
-        ('EnumerationBuffer', PLSAPR_TRUSTED_DOMAIN_INFORMATION_EX_ARRAY), 
+        ('Entries', ULONG),
+        ('EnumerationBuffer', PLSAPR_TRUSTED_DOMAIN_INFORMATION_EX_ARRAY),
     )
 
 # 2.2.7.22 LSA_FOREST_TRUST_RECORD_TYPE
@@ -714,9 +714,9 @@ class LSA_FOREST_TRUST_RECORD_TYPE(NDRENUM):
 # 2.2.7.24 LSA_FOREST_TRUST_DOMAIN_INFO
 class LSA_FOREST_TRUST_DOMAIN_INFO(NDRSTRUCT):
     structure = (
-        ('Sid', PRPC_SID), 
-        ('DnsName', LSA_UNICODE_STRING), 
-        ('NetbiosName', LSA_UNICODE_STRING), 
+        ('Sid', PRPC_SID),
+        ('DnsName', LSA_UNICODE_STRING),
+        ('NetbiosName', LSA_UNICODE_STRING),
     )
 
 # 2.2.7.21 LSA_FOREST_TRUST_RECORD
@@ -729,10 +729,10 @@ class LSA_FOREST_TRUST_DATA_UNION(NDRUNION):
 
 class LSA_FOREST_TRUST_RECORD(NDRSTRUCT):
     structure = (
-        ('Flags', ULONG), 
-        ('ForestTrustType', LSA_FOREST_TRUST_RECORD_TYPE), 
-        ('Time', LARGE_INTEGER), 
-        ('ForestTrustData', LSA_FOREST_TRUST_DATA_UNION), 
+        ('Flags', ULONG),
+        ('ForestTrustType', LSA_FOREST_TRUST_RECORD_TYPE),
+        ('Time', LARGE_INTEGER),
+        ('ForestTrustData', LSA_FOREST_TRUST_DATA_UNION),
     )
 
 class PLSA_FOREST_TRUST_RECORD(NDRPOINTER):
@@ -743,8 +743,8 @@ class PLSA_FOREST_TRUST_RECORD(NDRPOINTER):
 # 2.2.7.23 LSA_FOREST_TRUST_BINARY_DATA
 class LSA_FOREST_TRUST_BINARY_DATA(NDRSTRUCT):
     structure = (
-        ('Length', ULONG), 
-        ('Buffer', LPBYTE), 
+        ('Length', ULONG),
+        ('Buffer', LPBYTE),
     )
 
 # 2.2.7.25 LSA_FOREST_TRUST_INFORMATION
@@ -758,8 +758,8 @@ class PLSA_FOREST_TRUST_RECORD_ARRAY(NDRPOINTER):
 
 class LSA_FOREST_TRUST_INFORMATION(NDRSTRUCT):
     structure = (
-        ('RecordCount', ULONG), 
-        ('Entries', PLSA_FOREST_TRUST_RECORD_ARRAY), 
+        ('RecordCount', ULONG),
+        ('Entries', PLSA_FOREST_TRUST_RECORD_ARRAY),
     )
 
 class PLSA_FOREST_TRUST_INFORMATION(NDRPOINTER):
@@ -777,17 +777,17 @@ class LSA_FOREST_TRUST_COLLISION_RECORD_TYPE(NDRENUM):
 # 2.2.7.27 LSA_FOREST_TRUST_COLLISION_RECORD
 class LSA_FOREST_TRUST_COLLISION_RECORD(NDRSTRUCT):
     structure = (
-        ('Index', ULONG), 
-        ('Type', LSA_FOREST_TRUST_COLLISION_RECORD_TYPE), 
-        ('Flags', ULONG), 
-        ('Name', LSA_UNICODE_STRING), 
+        ('Index', ULONG),
+        ('Type', LSA_FOREST_TRUST_COLLISION_RECORD_TYPE),
+        ('Flags', ULONG),
+        ('Name', LSA_UNICODE_STRING),
     )
 
 # 2.2.8.1 LSAPR_POLICY_PRIVILEGE_DEF
 class LSAPR_POLICY_PRIVILEGE_DEF(NDRSTRUCT):
     structure = (
-        ('Name', RPC_UNICODE_STRING), 
-        ('LocalValue', LUID), 
+        ('Name', RPC_UNICODE_STRING),
+        ('LocalValue', LUID),
     )
 
 # 2.2.8.2 LSAPR_PRIVILEGE_ENUM_BUFFER
@@ -801,8 +801,8 @@ class PLSAPR_POLICY_PRIVILEGE_DEF_ARRAY(NDRPOINTER):
 
 class LSAPR_PRIVILEGE_ENUM_BUFFER(NDRSTRUCT):
     structure = (
-        ('Entries', ULONG), 
-        ('Privileges', PLSAPR_POLICY_PRIVILEGE_DEF_ARRAY), 
+        ('Entries', ULONG),
+        ('Privileges', PLSAPR_POLICY_PRIVILEGE_DEF_ARRAY),
     )
 
 

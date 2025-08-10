@@ -43,15 +43,15 @@ movegroup -group "cluster-sharer" -node "NODE1"
 
 ## Introduction
 
-Windows Server Failover Cluster (WSFC) is a Microsoft Windows feature that grants high availibility to resources or applications. Examples of clustered services include distributed file servers or MSSQL databases. Always-On Availability Groups (AG) are built on-top of WSFC services and provide alternate methods of high availability depending on the admin's needs. Standard deployments of WSFC create Active Directory machine accounts to represent cluster resources. These are known as the cluster name object (CNO) and virtual computer objects (VCO) and are commonly referred to as "cluster virtual accounts". 
+Windows Server Failover Cluster (WSFC) is a Microsoft Windows feature that grants high availibility to resources or applications. Examples of clustered services include distributed file servers or MSSQL databases. Always-On Availability Groups (AG) are built on-top of WSFC services and provide alternate methods of high availability depending on the admin's needs. Standard deployments of WSFC create Active Directory machine accounts to represent cluster resources. These are known as the cluster name object (CNO) and virtual computer objects (VCO) and are commonly referred to as "cluster virtual accounts".
 
 ## Cluster Virtual Accounts
 
-The CNO is created when the cluster is deployed and represents the cluster itself while the VCO represents a clustered service or application and is created when the role is deployed on the cluster.  A cluster may only have one CNO but may have one or more VCOs depending on the number of roles installed. For clarity, not all roles require use of a VCO and admins may choose to forego deployment such as for a MSSQL AG. When each account is created, an IP address is reserved in DHCP and a DNS entry is created that represents an access point. The 
+The CNO is created when the cluster is deployed and represents the cluster itself while the VCO represents a clustered service or application and is created when the role is deployed on the cluster.  A cluster may only have one CNO but may have one or more VCOs depending on the number of roles installed. For clarity, not all roles require use of a VCO and admins may choose to forego deployment such as for a MSSQL AG. When each account is created, an IP address is reserved in DHCP and a DNS entry is created that represents an access point. The
 
 ![](./images/cno.png)
 
-These access points, or namespaces, enable access to cluster resources. The CNO namespace provides an administrative access point and is how the cluster is managed while the VCO namespace provides standard access and is how clients interact with the the clustered role(s).  
+These access points, or namespaces, enable access to cluster resources. The CNO namespace provides an administrative access point and is how the cluster is managed while the VCO namespace provides standard access and is how clients interact with the the clustered role(s).
 
 ## Cluster Nodes
 

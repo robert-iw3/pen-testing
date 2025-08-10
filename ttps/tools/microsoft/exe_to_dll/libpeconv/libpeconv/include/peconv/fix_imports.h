@@ -30,7 +30,7 @@ namespace peconv {
     public:
         ImpsNotCovered() {}
         ~ImpsNotCovered() {}
-        
+
         /*
         Number of stored records
         */
@@ -45,7 +45,7 @@ namespace peconv {
     fix imports in the given module, using the given map of all available exports
     */
     bool fix_imports(IN OUT PVOID modulePtr, IN size_t moduleSize, IN const peconv::ExportsMapper& exportsMap, OUT OPTIONAL peconv::ImpsNotCovered* notCovered);
-    
+
     /**
     a helper class that allows to find out where the functions are imported from
     */
@@ -68,12 +68,12 @@ namespace peconv {
         */
         bool findCoveringDll();
 
-        /** 
-        Maps the addresses from the set to functions from the given DLL. 
+        /**
+        Maps the addresses from the set to functions from the given DLL.
         Results are saved into: addrToFunc.
         Addresses that could not be covered by the given DLL are saved into notFound.
         Before each execution, the content of involved variables is erased.
-        \param _mappedDllName : the name of the DLL that we will be used to mapping. This DLL is saved into mappedDllName. 
+        \param _mappedDllName : the name of the DLL that we will be used to mapping. This DLL is saved into mappedDllName.
         \return a number of covered functions
         */
         size_t mapAddressesToFunctions(const std::string &_mappedDllName);

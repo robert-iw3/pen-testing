@@ -7,14 +7,14 @@ assignees: ''
 
 ---
 
-### Configuration  
-impacket version:  
-Python version:  
-Target OS:  
+### Configuration
+impacket version:
+Python version:
+Target OS:
 
-### Debug Output With Command String  
-i.e.  
-smbexec -debug domain/user:password@127.0.0.1  
+### Debug Output With Command String
+i.e.
+smbexec -debug domain/user:password@127.0.0.1
 ```
 smbexec -debug domain/user:password@127.0.0.1
 [+] StringBinding ncacn_np:127.0.0.1[\pipe\svcctl]
@@ -28,8 +28,8 @@ Traceback (most recent call last):
 AttributeError: 'RemoteShell' object has no attribute 'do_net'
 ```
 
-### PCAP  
+### PCAP
 If applicable, add a packet capture to help explain your problem.
 
-### Additional context  
+### Additional context
 Space for additional context, investigative results, suspected issue.

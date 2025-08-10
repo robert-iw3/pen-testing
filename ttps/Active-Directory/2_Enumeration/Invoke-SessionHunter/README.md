@@ -33,7 +33,7 @@ You can optionally provide credentials in the following format
 Invoke-SessionHunter -CheckAsAdmin -UserName "ferrari\Administrator" -Password "P@ssw0rd!"
 ```
 
-Invoke-SessionHunter is designed to keep your host machine, your current user, and the provided username out of scope. 
+Invoke-SessionHunter is designed to keep your host machine, your current user, and the provided username out of scope.
 
 As a result, they won't show among the retrieved sessions.
 
@@ -92,7 +92,7 @@ Invoke-SessionHunter -Servers
 ```
 Invoke-SessionHunter -Workstations
 ```
-	
+
 ### Show active session for the specified user only
 
 ```

@@ -14,15 +14,15 @@
 #   at https://github.com/SecureAuthCorp/impacket/tree/master/tests/SMB_RPC
 #
 #   Some calls have helper functions, which makes it even easier to use.
-#   They are located at the end of this file. 
+#   They are located at the end of this file.
 #   Helper functions start with "h"<name of the call>.
-#   There are test cases for them too. 
+#   There are test cases for them too.
 #
 # ToDo:
 # [X] Use the same DCE connection for all the calls. Right now is connecting to the remote machine
 #     for each call, making it slower.
 #
-# [X] Implement a ping mechanism, otherwise the garbage collector at the server shuts down the objects if 
+# [X] Implement a ping mechanism, otherwise the garbage collector at the server shuts down the objects if
 #    not used, returning RPC_E_DISCONNECTED
 #
 from __future__ import division
@@ -180,7 +180,7 @@ class PCOMVERSION(NDRPOINTER):
     )
 
 # 2.2.13.1 ORPC_EXTENT
-# This MUST contain an array of bytes that form the extent data. 
+# This MUST contain an array of bytes that form the extent data.
 # The array size MUST be a multiple of 8 for alignment reasons.
 class BYTE_ARRAY(NDRUniConformantArray):
     item = 'c'
@@ -937,8 +937,8 @@ OPNUMS = {
 ################################################################################
 class DCOMConnection:
     """
-    This class represents a DCOM Connection. It is in charge of establishing the 
-    DCE connection against the portmap, and then launch a thread that will be 
+    This class represents a DCOM Connection. It is in charge of establishing the
+    DCE connection against the portmap, and then launch a thread that will be
     pinging the objects created against the target.
     In theory, there should be a single instance of this class for every target
     """
@@ -1018,7 +1018,7 @@ class DCOMConnection:
                 else:
                     objExporter.SimplePing(DCOMConnection.OID_SET[target]['setid'])
         except Exception as e:
-            # There might be exceptions when sending packets 
+            # There might be exceptions when sending packets
             # We should try to continue tho.
             LOG.error(str(e))
             pass

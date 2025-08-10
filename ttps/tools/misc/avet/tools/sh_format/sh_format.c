@@ -13,13 +13,13 @@ int main (int argc, char **argv)
     char line [ 500 ];
     while ( ( fgets ( line, sizeof line, file ) != NULL ) && (u<=1) )
     {
-      if (line[0]=='u')      
+      if (line[0]=='u')
 	u++;
 
-      
-      else if (line[0]=='\"')      
-        fputs ( line, stdout );           
-      
+
+      else if (line[0]=='\"')
+        fputs ( line, stdout );
+
     }
     fclose ( file );
   }

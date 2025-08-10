@@ -14,9 +14,9 @@
 #   at https://github.com/SecureAuthCorp/impacket/tree/master/tests/SMB_RPC
 #
 #   Some calls have helper functions, which makes it even easier to use.
-#   They are located at the end of this file. 
+#   They are located at the end of this file.
 #   Helper functions start with "h"<name of the call>.
-#   There are test cases for them too. 
+#   There are test cases for them too.
 #
 from impacket.dcerpc.v5.ndr import NDRCALL, NDRSTRUCT, NDRENUM, NDRUNION, NDRUniConformantArray, NDRUniFixedArray, \
     NDRPOINTER
@@ -37,7 +37,7 @@ class DCERPCSessionError(DCERPCException):
         key = self.error_code
         if key in system_errors.ERROR_MESSAGES:
             error_msg_short = system_errors.ERROR_MESSAGES[key][0]
-            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1] 
+            error_msg_verbose = system_errors.ERROR_MESSAGES[key][1]
             return 'WKST SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             return 'WKST SessionError: unknown error code: 0x%x' % self.error_code
@@ -517,7 +517,7 @@ class NET_COMPUTER_NAME_ARRAY(NDRSTRUCT):
 
 class PNET_COMPUTER_NAME_ARRAY(NDRPOINTER):
     referent = (
-        ('Data', NET_COMPUTER_NAME_ARRAY), 
+        ('Data', NET_COMPUTER_NAME_ARRAY),
     )
 
 # 2.2.5.21 USE_INFO_0

@@ -87,7 +87,7 @@ The below 3rd party libraries are used in this project.
 | Fody  | [https://github.com/Fody/Fody](https://github.com/Fody/Fody) | MIT License  |
 | Newtonsoft.Json  | [https://github.com/JamesNK/Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json) | MIT License  |
 
-### Pre-Compiled 
+### Pre-Compiled
 
 * Use the pre-compiled binary in Releases
 
@@ -98,7 +98,7 @@ Take the below steps to setup Visual Studio in order to compile the project your
 * Load the Visual Studio project up and go to "Tools" --> "NuGet Package Manager" --> "Package Manager Settings"
 * Go to "NuGet Package Manager" --> "Package Sources"
 * Add a package source with the URL `https://api.nuget.org/v3/index.json`
-* Install the Costura.Fody NuGet package. 
+* Install the Costura.Fody NuGet package.
   * `Install-Package Costura.Fody -Version 3.3.3`
 * Install the Newtonsoft.Json package
   * `Install-Package Newtonsoft.Json`
@@ -184,50 +184,50 @@ The below table shows the permissions required for each module.
 
 Attack Scenario | Module  | Special Permissions? | Notes
 --- |--- | --- | ---
-Recon | `check` |  No | 
+Recon | `check` |  No |
 Recon | `whoami` |  No |
-Recon | `listorgs` |  No | 
-Recon | `listrepo` |  No | 
-Recon | `searchrepo` |  No | 
-Recon | `listproject` |  No | 
-Recon | `searchproject` |  No | 
-Recon | `searchcode` |  No | 
-Recon | `searchfile` |  No | 
-Recon | `listuser` |  No | 
+Recon | `listorgs` |  No |
+Recon | `listrepo` |  No |
+Recon | `searchrepo` |  No |
+Recon | `listproject` |  No |
+Recon | `searchproject` |  No |
+Recon | `searchcode` |  No |
+Recon | `searchfile` |  No |
+Recon | `listuser` |  No |
 Recon | `searchuser` |  No |
-Recon | `listteam` |  No | 
+Recon | `listteam` |  No |
 Recon | `searchteam` |  No |
-Recon | `getteammembers` |  No | 
-Recon | `listgroup` |  No | 
+Recon | `getteammembers` |  No |
+Recon | `listgroup` |  No |
 Recon | `searchgroup` |  No |
 Recon | `getgroupmembers` |  No |
 Recon | `getpermissions` |  No |
-Recon | `creds` |  No | 
-Recon | `getbuildlogs` |  Yes - `Contributors` or `Readers` or `Build Administrators` or `Project Administrators` or `Project Team Member` or `Project Collection Test Service Accounts` or `Project Collection Build Service Accounts` or `Project Collection Build Administrators` or `Project Collection Service Accounts` or `Project Collection Administrators` | 
+Recon | `creds` |  No |
+Recon | `getbuildlogs` |  Yes - `Contributors` or `Readers` or `Build Administrators` or `Project Administrators` or `Project Team Member` or `Project Collection Test Service Accounts` or `Project Collection Build Service Accounts` or `Project Collection Build Administrators` or `Project Collection Service Accounts` or `Project Collection Administrators` |
 Recon | `listbuildlogs` |  Yes - `Contributors` or `Readers` or `Build Administrators` or `Project Administrators` or `Project Team Member` or `Project Collection Test Service Accounts` or `Project Collection Build Service Accounts` or `Project Collection Build Administrators` or `Project Collection Service Accounts` or `Project Collection Administrators` |
-Recon | `searchbuildlogs` |  Yes - `Contributors` or `Readers` or `Build Administrators` or `Project Administrators` or `Project Team Member` or `Project Collection Test Service Accounts` or `Project Collection Build Service Accounts` or `Project Collection Build Administrators` or `Project Collection Service Accounts` or `Project Collection Administrators` | 
-Persistence | `createpat` |  No | 
-Persistence | `listpat` |  No | 
-Persistence | `removepat` |  No | 
-Persistence | `createsshkey` |  No | 
-Persistence | `listsshkey` |  No | 
-Persistence | `removesshkey` |  No | 
-Privilege Escalation | `addprojectadmin` |  Yes - `Project Administrator`, `Project Collection Administrator` or `Project Collection Service Accounts` | 
-Privilege Escalation | `removeprojectadmin` |  Yes - `Project Administrator`, `Project Collection Administrator` or `Project Collection Service Accounts`  | 
-Privilege Escalation | `addbuildadmin` |  Yes - `Project Administrator`, `Project Collection Administrator` or `Project Collection Service Accounts`   | 
-Privilege Escalation | `removebuildadmin` |  Yes - `Project Administrator`, `Project Collection Administrator` or `Project Collection Service Accounts`   | 
-Privilege Escalation | `addcollectionadmin` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts`   | 
-Privilege Escalation | `removecollectionadmin` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts`   | 
-Privilege Escalation | `addcollectionbuildadmin` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts`  | 
-Privilege Escalation | `removecollectionbuildadmin` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts`   | 
-Privilege Escalation | `addcollectionbuildsvc` |  Yes - `Project Collection Administrator`, `Project Colection Build Administrators` or `Project Collection Service Accounts`  | 
-Privilege Escalation | `removecollectionbuildsvc` |  Yes - `Project Collection Administrator`, `Project Colection Build Administrators` or `Project Collection Service Accounts`   | 
-Privilege Escalation | `addcollectionsvc` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts`   | 
-Privilege Escalation | `removecollectionsvc` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts` | 
+Recon | `searchbuildlogs` |  Yes - `Contributors` or `Readers` or `Build Administrators` or `Project Administrators` or `Project Team Member` or `Project Collection Test Service Accounts` or `Project Collection Build Service Accounts` or `Project Collection Build Administrators` or `Project Collection Service Accounts` or `Project Collection Administrators` |
+Persistence | `createpat` |  No |
+Persistence | `listpat` |  No |
+Persistence | `removepat` |  No |
+Persistence | `createsshkey` |  No |
+Persistence | `listsshkey` |  No |
+Persistence | `removesshkey` |  No |
+Privilege Escalation | `addprojectadmin` |  Yes - `Project Administrator`, `Project Collection Administrator` or `Project Collection Service Accounts` |
+Privilege Escalation | `removeprojectadmin` |  Yes - `Project Administrator`, `Project Collection Administrator` or `Project Collection Service Accounts`  |
+Privilege Escalation | `addbuildadmin` |  Yes - `Project Administrator`, `Project Collection Administrator` or `Project Collection Service Accounts`   |
+Privilege Escalation | `removebuildadmin` |  Yes - `Project Administrator`, `Project Collection Administrator` or `Project Collection Service Accounts`   |
+Privilege Escalation | `addcollectionadmin` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts`   |
+Privilege Escalation | `removecollectionadmin` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts`   |
+Privilege Escalation | `addcollectionbuildadmin` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts`  |
+Privilege Escalation | `removecollectionbuildadmin` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts`   |
+Privilege Escalation | `addcollectionbuildsvc` |  Yes - `Project Collection Administrator`, `Project Colection Build Administrators` or `Project Collection Service Accounts`  |
+Privilege Escalation | `removecollectionbuildsvc` |  Yes - `Project Collection Administrator`, `Project Colection Build Administrators` or `Project Collection Service Accounts`   |
+Privilege Escalation | `addcollectionsvc` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts`   |
+Privilege Escalation | `removecollectionsvc` |  Yes - `Project Collection Administrator` or `Project Collection Service Accounts` |
 Privilege Escalation | `getpipelinevars` | Yes - `Contributors` or `Readers` or `Build Administrators` or `Project Administrators` or `Project Team Member` or `Project Collection Test Service Accounts` or `Project Collection Build Service Accounts` or `Project Collection Build Administrators` or `Project Collection Service Accounts` or `Project Collection Administrators` |
-Privilege Escalation | `getpipelinesecrets` |  Yes - `Contributors` or `Readers` or `Build Administrators` or `Project Administrators` or `Project Team Member` or `Project Collection Test Service Accounts` or `Project Collection Build Service Accounts` or `Project Collection Build Administrators` or `Project Collection Service Accounts` or `Project Collection Administrators` | 
+Privilege Escalation | `getpipelinesecrets` |  Yes - `Contributors` or `Readers` or `Build Administrators` or `Project Administrators` or `Project Team Member` or `Project Collection Test Service Accounts` or `Project Collection Build Service Accounts` or `Project Collection Build Administrators` or `Project Collection Service Accounts` or `Project Collection Administrators` |
 Privilege Escalation | `getvariablegroups` |  Yes - `Contributors` or `Readers` or `Build Administrators` or `Project Administrators` or `Project Team Member` or `Project Collection Test Service Accounts` or `Project Collection Build Service Accounts` or `Project Collection Build Administrators` or `Project Collection Service Accounts` or `Project Collection Administrators` |
-Privilege Escalation | `getserviceconnections` |  Yes - `Project Administrator`, `Project Collection Administrator` or `Project Collection Service Accounts` | 
+Privilege Escalation | `getserviceconnections` |  Yes - `Project Administrator`, `Project Collection Administrator` or `Project Collection Service Accounts` |
 
 
 ## Examples
@@ -334,10 +334,10 @@ Timestamp:      4/4/2023 11:33:12 AM
 
 #### Syntax
 
-Provide the `listorgs` module with the required authentication information. By default, this command lists only the organizations accessible with the provided access token. 
+Provide the `listorgs` module with the required authentication information. By default, this command lists only the organizations accessible with the provided access token.
 
 - Use **`/mode:aad`** to enumerate **all** DevOps organizations within the Azure AD tenant, regardless of direct access.
-- Use **`/endpoint:ENDPOINT_NAME`** to specify a custom AEX endpoint.  
+- Use **`/endpoint:ENDPOINT_NAME`** to specify a custom AEX endpoint.
   - Additional endpoints can be identified by inspecting the `"X-VSS-DeploymentAffinity"` cookie from `aex.dev.azure.com`.
 
 `ADOKit.exe listorgs /credential:"eyj0..." [/mode:aad] [/endpoint:ENDPOINT_NAME]`
@@ -355,7 +355,7 @@ Auth Type:      Azure Access Token
 Target URL:     https://app.vssps.visualstudio.com
 
 Timestamp:      3/14/2025 2:26:45 PM
-==================================================                                                                                                                                                 
+==================================================
 
 [*] INFO: Checking credentials provided
 
@@ -738,7 +738,7 @@ Timestamp:      5/31/2024 8:15:27 AM
 
 #### Syntax
 
-Provide the `listbuildlogs` module along with a `/project:` for a given project to list all the build logs for this project. If you would like to list them for all projects, specify `all` in the `/project:` argument. 
+Provide the `listbuildlogs` module along with a `/project:` for a given project to list all the build logs for this project. If you would like to list them for all projects, specify `all` in the `/project:` argument.
 
 `ADOKit.exe listbuildlogs /credential:apiKey /url:https://dev.azure.com/organizationName /project:"someProject"`
 
@@ -2301,7 +2301,7 @@ For detection guidance of the techniques used by the tool, see the X-Force Red [
 
 ## Roadmap
 
-* Support for Azure DevOps Server 
+* Support for Azure DevOps Server
 
 
 ## References

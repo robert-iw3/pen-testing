@@ -208,7 +208,7 @@ namespace Rubeus.Utilities.Text
         /// <param name="print_ascii">Print the ASCII text.</param>
         /// <param name="hide_repeating">Hide repeating lines.</param>
         /// <param name="address_offset">Offset for address printing.</param>
-        public HexDumpBuilder(bool print_header, bool print_address, bool print_ascii, bool hide_repeating, long address_offset) 
+        public HexDumpBuilder(bool print_header, bool print_address, bool print_ascii, bool hide_repeating, long address_offset)
             : this(new MemoryStream(), print_header, print_address, print_ascii, hide_repeating, address_offset)
         {
         }
@@ -224,7 +224,7 @@ namespace Rubeus.Utilities.Text
         /// <param name="print_ascii">Print the ASCII text.</param>
         /// <param name="hide_repeating">Hide repeating lines.</param>
         public HexDumpBuilder(SafeBuffer buffer, long offset, long length, bool print_header, bool print_address, bool print_ascii, bool hide_repeating)
-            : this(new UnmanagedMemoryStream(buffer, offset, length == 0 ? (long)buffer.ByteLength : length), 
+            : this(new UnmanagedMemoryStream(buffer, offset, length == 0 ? (long)buffer.ByteLength : length),
                   print_header, print_address, print_ascii, hide_repeating, buffer.DangerousGetHandle().ToInt64())
         {
             _address_offset = buffer.DangerousGetHandle().ToInt64();
@@ -307,7 +307,7 @@ namespace Rubeus.Utilities.Text
         /// <summary>
         /// Constructor.
         /// </summary>
-        public HexDumpBuilder() 
+        public HexDumpBuilder()
             : this(false, false, false, false, 0)
         {
         }

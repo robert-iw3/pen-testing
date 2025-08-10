@@ -94,7 +94,7 @@ public class GetAccessibleNamedPipeCmdlet : CommonAccessBaseWithAccessCmdlet<Fil
             return;
         }
 
-        AccessMask granted_access = NtSecurity.GetMaximumAccess(sd.Result, 
+        AccessMask granted_access = NtSecurity.GetMaximumAccess(sd.Result,
             token.Token, _file_type.GenericMapping);
         if (IsAccessGranted(granted_access, access_rights))
         {

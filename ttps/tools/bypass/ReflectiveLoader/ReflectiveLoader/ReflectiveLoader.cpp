@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
 			type = argv[i + 1];
 		}
 	}
-	
+
 	//make sure that the variables are not 0.
 	if (!(procName.size() > 0) || !(dllPath.size() > 0))
 	{
@@ -97,8 +97,8 @@ int main(int argc, char* argv[])
 
 	//attempt to find the target process ID.
 	printf("[*] Attempting to find Process ID of the Process [%s].\n", procName.c_str());
-	
-	
+
+
 	DWORD procId = ensureACisRunning(procName.c_str());
 	//make sure the process Id exists.
 	if (!procId)
@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
 
 	//attmept to open a handle to the process and find the base address.
 	printf("[*] Process ID found: [%d]!\n", procId);
-	
+
 
 	//open handle to the remote process.
 	printf("[*] Opening a Handle to the Process!\n");
@@ -137,7 +137,7 @@ int main(int argc, char* argv[])
 
 		if (hProc && hProc != INVALID_HANDLE_VALUE)
 		{
-			
+
 			void* loc = VirtualAllocEx(hProc, 0, MAX_PATH, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 
 			printf("[*] Virtual Memeory Allocated at location: %p\n", loc);

@@ -36,7 +36,7 @@ class Program
 
     static byte[] DecryptShellcode(byte[] encryptedShellcode)
     {
-        byte key = 0xAA; 
+        byte key = 0xAA;
         byte[] decryptedShellcode = new byte[encryptedShellcode.Length];
         for (int i = 0; i < encryptedShellcode.Length; i++)
         {

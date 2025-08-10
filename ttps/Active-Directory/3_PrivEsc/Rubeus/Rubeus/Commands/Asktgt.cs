@@ -24,7 +24,7 @@ namespace Rubeus.Commands
             string certificate = "";
             string servicekey = "";
             string principalType = "principal";
-            
+
             bool ptt = false;
             bool opsec = false;
             bool force = false;
@@ -136,7 +136,7 @@ namespace Rubeus.Commands
                 hash = arguments["/aes256"];
                 encType = Interop.KERB_ETYPE.aes256_cts_hmac_sha1;
             }
-            
+
             if (arguments.ContainsKey("/certificate")) {
                 certificate = arguments["/certificate"];
 
@@ -223,7 +223,7 @@ namespace Rubeus.Commands
                 suppEncType = encType;
             }
             if (arguments.ContainsKey("/principaltype")) {
-                principalType = arguments["/principaltype"]; 
+                principalType = arguments["/principaltype"];
             }
 
             if (arguments.ContainsKey("/createnetonly"))

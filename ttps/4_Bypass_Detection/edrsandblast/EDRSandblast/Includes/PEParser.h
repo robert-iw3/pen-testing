@@ -26,10 +26,10 @@ typedef VOID(*kernel_read_memory_func) (DWORD64 Address, PVOID Buffer, SIZE_T Si
 
 typedef struct PE_pointers {
 	BOOL isMemoryMapped;
-	
+
 	BOOL isInAnotherAddressSpace;
 	HANDLE hProcess;
-	
+
 	BOOL isInKernelLand;
 	kernel_read_memory_func kernel_read;
 

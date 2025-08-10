@@ -1,4 +1,4 @@
-# scepreq 
+# scepreq
 
 ![Python 3 only](https://img.shields.io/badge/python-3.7+-blue.svg)
 ![License: MIT](https://img.shields.io/pypi/l/scepreq.svg)

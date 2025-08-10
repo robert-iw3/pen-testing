@@ -9,10 +9,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,10 +28,10 @@
  *
  * This module provides advanced memory read/write capabilities by building on top
  * of the basic `ntutils` operations. It introduces a read mechanism and improves
- * write operations via a virtual tunnel abstraction. 
+ * write operations via a virtual tunnel abstraction.
  *
  * It uses `ntu_write_with_memset` internally for memory writes.
- * 
+ *
  * FSCHAN (File System Channel) refers to the logical memory communication channel
  * established between processes or within the same process context.
  */

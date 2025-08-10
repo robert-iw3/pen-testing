@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rubeus
 {
-     //KERB-PA-PAC-REQUEST ::= SEQUENCE { 
+     //KERB-PA-PAC-REQUEST ::= SEQUENCE {
      //    include-pac[0] BOOLEAN --If TRUE, and no pac present, include PAC.
      //                           --If FALSE, and PAC present, remove PAC
      //}
@@ -36,10 +36,10 @@ namespace Rubeus
             }
 
             AsnElt seq = AsnElt.Make(AsnElt.SEQUENCE, new AsnElt[] { ret });
-            
+
             return seq;
         }
-        
+
         public bool include_pac { get; set; }
     }
 }

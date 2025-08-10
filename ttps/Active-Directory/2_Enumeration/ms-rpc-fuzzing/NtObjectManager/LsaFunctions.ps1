@@ -159,7 +159,7 @@ function Get-LsaCredential {
             if ($UserName -ne "") {
                 $creds.UserName = $UserName
             }
-    
+
             if ($Domain -ne "") {
                 $creds.Domain = $Domain
             }
@@ -587,7 +587,7 @@ function Get-LsaAccessToken {
 .SYNOPSIS
 Gets an authentication token.
 .DESCRIPTION
-This cmdlet gets an authentication token from a context or from 
+This cmdlet gets an authentication token from a context or from
 an array of bytes.
 .PARAMETER Context
 The authentication context to extract token from. If combined with Token will parse according to
@@ -900,7 +900,7 @@ function Get-LsaContextSignature {
         switch($PSCmdlet.ParameterSetName) {
             "FromBytes" {
                 $Context.MakeSignature($sig_data, $SequenceNumber)
-            } 
+            }
             "FromBuffers" {
                 $Context.MakeSignature($Buffer, $SequenceNumber)
             }
@@ -1232,7 +1232,7 @@ Get the LSA policy object on the system PRIMARYDC with maximum access.
 Get-LsaPolicy -Access LookupNames
 Get the local LSA policy object with LookupNames access.
 #>
-function Get-LsaPolicy { 
+function Get-LsaPolicy {
     [CmdletBinding()]
     param(
         [NtCoreLib.Win32.Security.Policy.LsaPolicyAccessRights]$Access = "MaximumAllowed",
@@ -1269,7 +1269,7 @@ Get all information only account objects in the policy.
 Get-LsaAccount -Policy $policy -Sid "S-1-2-3-4"
 Get the account object by SID.
 #>
-function Get-LsaAccount { 
+function Get-LsaAccount {
     [CmdletBinding(DefaultParameterSetName="All")]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -1329,7 +1329,7 @@ Get the trusted domain object by SID.
 Get-LsaTrustedDomain -Policy $policy -Name "domain.local"
 Get the trusted domain object by name.
 #>
-function Get-LsaTrustedDomain { 
+function Get-LsaTrustedDomain {
     [CmdletBinding(DefaultParameterSetName="All")]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -1382,7 +1382,7 @@ NtCoreLib.Win32.Security.Policy.LsaSecret
 Get-LsaSecret -Policy $policy -Name '$SECRET_NAME'
 Get the secret by name.
 #>
-function Get-LsaSecret { 
+function Get-LsaSecret {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -1414,7 +1414,7 @@ NtCoreLib.Security.Authorization.SidName[]
 Get-LsaSid -Policy $policy -Name 'Administrator'
 Lookup the name Administrator in the policy.
 #>
-function Get-LsaSid { 
+function Get-LsaSid {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -1446,7 +1446,7 @@ NtCoreLib.Security.Authorization.SidName[]
 Get-LsaName -Policy $policy -Sid 'S-1-5-32-544'
 Lookup the SID S-1-5-32-544 in the policy.
 #>
-function Get-LsaName { 
+function Get-LsaName {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]
@@ -1483,7 +1483,7 @@ Get the LSA private data MYSECRET.
 Get-LsaPrivateData -Name "MYSECRET" -SystemName PRIMARYDC
 Get the LSA private data MYSECRET from the PRIMARYDC.
 #>
-function Get-LsaPrivateData { 
+function Get-LsaPrivateData {
     [CmdletBinding()]
     param(
         [Parameter(Position = 0, Mandatory)]
@@ -1516,7 +1516,7 @@ Set the LSA private data MYSECRET.
 Set-LsaPrivateData -Name "MYSECRET" -SystemName PRIMARYDC -Data 0, 1, 2, 3
 Set the LSA private data MYSECRET on PRIMARYDC.
 #>
-function Set-LsaPrivateData { 
+function Set-LsaPrivateData {
     [CmdletBinding()]
     param(
         [Parameter(Position = 0, Mandatory)]

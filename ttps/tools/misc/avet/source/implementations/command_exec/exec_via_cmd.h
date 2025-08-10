@@ -9,4 +9,4 @@ void exec_via_cmd(const char *command, int command_size) {
     DEBUG_PRINT("exec_via_cmd called.\n");
     DEBUG_PRINT("Passing command %s to cmd.exe\n", command);
     system(command);
-}    
+}

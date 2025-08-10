@@ -87,7 +87,7 @@ WVM_SystemCall_10_0_19045:        ; Windows 10.0.19045 (22H2)
 WVM_SystemCall_10_0_22000:        ; Windows 10.0.22000 (21H2 WIN 11)
 	mov eax, 003ah
 	jmp WVM_Epilogue
-WVM_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11) 
+WVM_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11)
 	mov eax, 003ah
 	jmp WVM_Epilogue
 WVM_SystemCall_10_0_22631:        ; Windows 10.0.22631 (23H2 WIN 11)
@@ -188,7 +188,7 @@ AVM_SystemCall_10_0_19045:        ; Windows 10.0.19045 (22H2)
 AVM_SystemCall_10_0_22000:        ; Windows 10.0.22000 (21H2 WIN 11)
 	mov eax, 0018h
 	jmp AVM_Epilogue
-AVM_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11) 
+AVM_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11)
 	mov eax, 0018h
 	jmp AVM_Epilogue
 AVM_SystemCall_10_0_22631:        ; Windows 10.0.22631 (23H2 WIN 11)
@@ -289,7 +289,7 @@ CT_SystemCall_10_0_19045:        ; Windows 10.0.19045 (22H2)
 CT_SystemCall_10_0_22000:        ; Windows 10.0.22000 (21H2 WIN 11)
 	mov eax, 00c6h
 	jmp CT_Epilogue
-CT_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11) 
+CT_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11)
 	mov eax, 00c7h
 	jmp CT_Epilogue
 CT_SystemCall_10_0_22631:        ; Windows 10.0.22631 (23H2 WIN 11)
@@ -308,7 +308,7 @@ WFSO PROC
 WFSO_Check_X_X_XXXX:							; Check major version.
 	cmp dword ptr [rax+118h], 10
 	je  WFSO_Check_10_0_XXXX
-	jmp WFSO_SystemCall_Unknown		
+	jmp WFSO_SystemCall_Unknown
 WFSO_Check_10_0_XXXX:							; Check build number for Windows 10.
 	cmp word ptr [rax+120h], 10240
 	je  WFSO_SystemCall_10_0_10240
@@ -390,7 +390,7 @@ WFSO_SystemCall_10_0_19045:        ; Windows 10.0.19045 (22H2)
 WFSO_SystemCall_10_0_22000:        ; Windows 10.0.22000 (21H2 WIN 11)
 	mov eax, 0004h
 	jmp WFSO_Epilogue
-WFSO_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11) 
+WFSO_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11)
 	mov eax, 0004h
 	jmp WFSO_Epilogue
 WFSO_SystemCall_10_0_22631:        ; Windows 10.0.22631 (23H2 WIN 11)
@@ -491,7 +491,7 @@ C_SystemCall_10_0_19045:        ; Windows 10.0.19045 (22H2)
 C_SystemCall_10_0_22000:        ; Windows 10.0.22000 (21H2 WIN 11)
 	mov eax, 000fh
 	jmp C_Epilogue
-C_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11) 
+C_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11)
 	mov eax, 000fh
 	jmp C_Epilogue
 C_SystemCall_10_0_22631:        ; Windows 10.0.22631 (23H2 WIN 11)
@@ -541,7 +541,7 @@ OP_Check_10_0_XXXX:						; Check build number for Windows 10.
 	cmp word ptr [rax+120h], 19045
 	je  OP_SystemCall_10_0_19045
 	cmp word ptr [rax+120h], 22000		; START OF WINDOWS 11
-	je  OP_SystemCall_10_0_22000	
+	je  OP_SystemCall_10_0_22000
 	cmp word ptr [rax+120h], 22621
 	je  OP_SystemCall_10_0_22621
 	cmp word ptr [rax+120h], 22631
@@ -592,7 +592,7 @@ OP_SystemCall_10_0_19045:        ; Windows 10.0.19045 (22H2)
 OP_SystemCall_10_0_22000:        ; Windows 10.0.22000 (21H2 WIN 11)
 	mov eax, 0026h
 	jmp OP_Epilogue
-OP_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11) 
+OP_SystemCall_10_0_22621:        ; Windows 10.0.22621 (22H2 WIN 11)
 	mov eax, 0026h
 	jmp OP_Epilogue
 OP_SystemCall_10_0_22631:        ; Windows 10.0.22631 (23H2 WIN 11)

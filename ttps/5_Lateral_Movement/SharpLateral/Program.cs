@@ -26,7 +26,7 @@ namespace SharpLateral
             if (command == "redwmi")
             {
                 // Example usage: Latrealmove redwmi 192.168.1.2 C:\myfile.exe
-                RedWMI.Redwmi1(args.Skip(1).ToArray()); 
+                RedWMI.Redwmi1(args.Skip(1).ToArray());
             }
             if (command == "redexec")
             {
@@ -41,7 +41,7 @@ namespace SharpLateral
             {
                RedDcom.Dcomexec(args.Skip(1).ToArray());
             }
-            else 
+            else
             {
                //boom
             }

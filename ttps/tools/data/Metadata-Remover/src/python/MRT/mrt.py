@@ -1,4 +1,4 @@
-""" 
+"""
 A cross-platform open source file Metadata remover that
 uses exiftool and ffmpeg to sanitize your files.
 """
@@ -42,7 +42,7 @@ def autoexif():
 
 
 def extract_metadata(file, mode='input'):
-    """Extracts metadata from the file and writes to file depending on 
+    """Extracts metadata from the file and writes to file depending on
        mode."""
     if os.system(f"{_EXIFTOOL} {file} > {mode}.txt") != 0:
         com.error(f"An error has occurred while running {_EXIFTOOL} on {mode}.txt.")
@@ -123,7 +123,7 @@ def single_file(file_name: str):
 
 # TODO: Add checks for each file
 def bulk():
-    """Handle multiple files by checking the if all files 
+    """Handle multiple files by checking the if all files
     are of the same type."""
     com.start()
     loc = input("Enter folder: ")

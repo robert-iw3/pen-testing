@@ -635,7 +635,7 @@ FindOslFwpKernelSetupPhase1(
 
 //
 // Patches winload.efi
-// 
+//
 EFI_STATUS
 EFIAPI
 PatchWinload(

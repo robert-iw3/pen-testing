@@ -307,7 +307,7 @@ namespace Cable.Modules
                                 }
                             }
                             Console.WriteLine($"\t|__ Object ACE Type: {rule.AccessControlType}");
-                            
+
                             Console.Write("\n");
                         }
                     }

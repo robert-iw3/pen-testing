@@ -151,9 +151,9 @@ typedef struct _PORT_MESSAGE_HEADER
 
 typedef struct _PORT_MESSAGE {
 	PORT_MESSAGE_HEADER Header;                 // 0x00
-	PCSR_CAPTURE_HEADER CaptureBuffer;			// 0x28 
-	CSR_API_NUMBER ApiNumber;					// 0x30 
-	ULONG ReturnValue;							// 0x34 
+	PCSR_CAPTURE_HEADER CaptureBuffer;			// 0x28
+	CSR_API_NUMBER ApiNumber;					// 0x30
+	ULONG ReturnValue;							// 0x34
 	ULONG64 Reserved;							// 0x38
 } PORT_MESSAGE, * PPORT_MESSAGE;
 

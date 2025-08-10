@@ -1,13 +1,13 @@
 ###############################################################################
-#                          SKINNY GUERRILLA C2 SERVER                          
-#     _____ _    _                      _____                      _ _ _       
-#    / ____| |  (_)                    / ____|                    (_) | |      
-#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _ 
+#                          SKINNY GUERRILLA C2 SERVER
+#     _____ _    _                      _____                      _ _ _
+#    / ____| |  (_)                    / ____|                    (_) | |
+#   | (___ | | ___ _ __  _ __  _   _  | |  __ _   _  ___ _ __ _ __ _| | | __ _
 #    \___ \| |/ / | '_ \| '_ \| | | | | | |_ | | | |/ _ \ '__| '__| | | |/ _` |
 #    ____) |   <| | | | | | | | |_| | | |__| | |_| |  __/ |  | |  | | | | (_| |
 #   |_____/|_|\_\_|_| |_|_| |_|\__, |  \_____|\__,_|\___|_|  |_|  |_|_|_|\__,_|
-#                               __/ |                                          
-#                              |___/                                           
+#                               __/ |
+#                              |___/
 # Cryptography File
 # crypto.py
 # helper functions that contain key management for server and implant
@@ -32,7 +32,7 @@ import base64
 
 # function to encrypt
 def encrypt(data, implant_id):
-    
+
     # gets the crypto keys
     aes_key_enc, aes_iv_enc = get_crypto(implant_id)
 
@@ -66,7 +66,7 @@ def decrypt(data, implant_id):
     # decryptes
     decrypted_data = unpad(cipher.decrypt(data), AES.block_size)
 
-    # returns decrypted data 
+    # returns decrypted data
     return decrypted_data
 
 

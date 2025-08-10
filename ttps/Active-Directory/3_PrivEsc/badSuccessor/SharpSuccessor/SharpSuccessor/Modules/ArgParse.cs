@@ -73,7 +73,7 @@ namespace SharpSuccessor.Modules
                                 string computer = null;
                                 string target = null;
                                 string path = null;
-                                string dMSAName = null; 
+                                string dMSAName = null;
                                 Dictionary<string, string> cmd = Parse(args);
 
                                 if (cmd == null)

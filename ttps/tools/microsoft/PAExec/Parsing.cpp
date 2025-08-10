@@ -61,7 +61,7 @@ bool GetComputerList(Settings& settings, LPCWSTR& cmdLine)
 
 	if(0 == wcsncmp(cmdLine, L"\\\\*", 3))
 	{
-		cmdLine += 3; 
+		cmdLine += 3;
 		//get server list from domain
 		SERVER_INFO_100* pInfo = NULL;
 		DWORD numServers = 0, total = 0;
@@ -89,7 +89,7 @@ bool GetComputerList(Settings& settings, LPCWSTR& cmdLine)
 			while(!iswspace(*cmdLine) && *cmdLine)
 				cmdLine++;
 			CString file = CString(fileStart).Left(cmdLine - fileStart);
-			
+
 			file = ExpandToFullPath(file); //search on path if no path specified
 
 			CString content;
@@ -151,7 +151,7 @@ Top:
 			//we're in a larger delimiter, so skip past this
 			pStart = pC + 1;
 			goto Top;
-		}			
+		}
 
 		while(iswspace(*pC) && *pC)
 			pC++;
@@ -175,14 +175,14 @@ Top:
 	return cmdLinePastCompList;
 }
 
-typedef struct 
+typedef struct
 {
 	LPCWSTR cmd;
 	bool	bCanHaveArgs;
 	bool	bMustHaveArgs;
 }CommandList;
 
-CommandList gSupportedCommands[] = 
+CommandList gSupportedCommands[] =
 {
 	{L"u", true, true},
 	{L"p", true, false},
@@ -276,7 +276,7 @@ bool SplitCommand(CString& restOfLine, LPCWSTR& paExecParams, LPCWSTR& appToRun)
 				Log(StrFormat(L"%s is not a recognized option", startOfCmd), true);
 				_ASSERT(0);
 				return false;
-			}				
+			}
 
 			ptr = (LPWSTR)EatWhiteSpace(ptr);
 			if(L'\0' == *ptr)
@@ -300,7 +300,7 @@ bool SplitCommand(CString& restOfLine, LPCWSTR& paExecParams, LPCWSTR& appToRun)
 								continue; //no argument
 						}
 					}
-					
+
 					bool bInQuote = false;
 					while((!iswspace(*ptr) || (*ptr == L'"') || bInQuote) && *ptr)
 					{
@@ -324,7 +324,7 @@ bool SplitCommand(CString& restOfLine, LPCWSTR& paExecParams, LPCWSTR& appToRun)
 			//must have found the start of the app
 			ptr[-1] = L'\0'; //terminate PAExec part
 			appToRun = ptr;
-			return true;			
+			return true;
 		}
 	}
 }
@@ -555,7 +555,7 @@ bool ParseCommandLine(Settings& settings, LPCWSTR cmdLine)
 				settings.targetSharePath = cmdParser.GetVal(L"sharepath");
 			}
 		}
-			
+
 
 		if(cmdParser.HasKey(L"csrc"))
 		{
@@ -570,7 +570,7 @@ bool ParseCommandLine(Settings& settings, LPCWSTR cmdLine)
 				Log(L"-csrc without value", true);
 				return false;
 			}
-		
+
 			//split tmp into directory and file
 			LPWSTR cPtr = (LPWSTR)wcsrchr(tmp.LockBuffer(), L'\\');
 			if(NULL != cPtr)
@@ -592,7 +592,7 @@ bool ParseCommandLine(Settings& settings, LPCWSTR cmdLine)
 				Log(L"-csrc and -clist are not compatible", true);
 				return false;
 			}
-			
+
 			if(false == settings.bCopyFiles)
 			{
 				Log(L"-clist without -c", true);
@@ -731,7 +731,7 @@ bool ParseCommandLine(Settings& settings, LPCWSTR cmdLine)
 			_ASSERT(false == settings.srcFileInfos.empty());
 			if(false == settings.srcFileInfos.empty())
 			{
-				std::vector<FileInfo>::iterator itr = settings.srcFileInfos.begin();  
+				std::vector<FileInfo>::iterator itr = settings.srcFileInfos.begin();
 				itr++; //skip over app (actual target executable) which we've already added to the list
 
 				//copy rest of files (from -clist) if any

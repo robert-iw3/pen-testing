@@ -101,7 +101,7 @@ class TestStructWithPad(NDRTest, unittest.TestCase):
 #            self.fields['Array2'].fields['Data'].item = RPC_UNICODE_STRING
 #            if data is not None:
 #                self.fromString(data)
-#        
+#
 #    def populate(self, a):
 #        array = []
 #        strstr = RPC_UNICODE_STRING()

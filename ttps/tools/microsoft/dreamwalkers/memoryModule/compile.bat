@@ -8,7 +8,7 @@ link /OUT:MemoryModule.exe -nologo -order:@order.txt -entry:Loader -fixed -subsy
 echo [+] Compiling LoaderTest
 
 :: Compile debug
-cl -DDEBUG_OUTPUT -Zp8 -c -nologo -Gy -Os -O1 -GR- -EHa -Oi -GS- helpers.c memoryModule.c 
+cl -DDEBUG_OUTPUT -Zp8 -c -nologo -Gy -Os -O1 -GR- -EHa -Oi -GS- helpers.c memoryModule.c
 link /OUT:LoaderTest.exe -nologo libvcruntime.lib libcmt.lib kernel32.lib -subsystem:console helpers.obj memoryModule.obj test.obj
 
 

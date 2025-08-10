@@ -15,9 +15,9 @@ std::shared_ptr<HANDLE> w_DuplicateHandle(HANDLE hSourceProcessHandle, HANDLE hS
 std::shared_ptr<HANDLE> w_CreateEvent(LPSECURITY_ATTRIBUTES lpEventAttributes, BOOL bManualReset, BOOL bInitalState, LPWSTR lpName);
 
 std::shared_ptr<HANDLE> w_CreateFile(
-	LPCWSTR lpFileName, 
-	DWORD dwDesiredAccess, 
-	DWORD dwShareMode, 
+	LPCWSTR lpFileName,
+	DWORD dwDesiredAccess,
+	DWORD dwShareMode,
 	LPSECURITY_ATTRIBUTES lpSecurityAttributes,
 	DWORD dwCreationDisposition,
 	DWORD dwFlagsAndAttributes,
@@ -72,10 +72,10 @@ std::unique_ptr<TStruct> w_ReadProcessMemory(HANDLE hTargetPid, LPVOID BaseAddre
 	RAISE_IF_FALSE(
 		"ReadProcessMemory",
 		ReadProcessMemory(
-			hTargetPid, 
-			BaseAddress, 
-			Buffer.get(), 
-			BufferSize, 
+			hTargetPid,
+			BaseAddress,
+			Buffer.get(),
+			BufferSize,
 			&szNumberOfBytesRead)
 	);
 

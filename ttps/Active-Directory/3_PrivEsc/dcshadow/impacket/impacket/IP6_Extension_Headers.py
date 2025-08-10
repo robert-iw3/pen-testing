@@ -18,7 +18,7 @@ class IP6_Extension_Header(Header):
 
     HEADER_TYPE_VALUE = -1
     EXTENSION_HEADER_FIELDS_SIZE = 2
-    
+
     EXTENSION_HEADER_DECODER = None
 
     def __init__(self, buffer = None):
@@ -39,18 +39,18 @@ class IP6_Extension_Header(Header):
         s += "Next Header: " + str(next_header_value) + "\n"
         s += "Header Extension Length: " + str(header_ext_length) + "\n"
         s += "Options:\n"
-        
+
         for option in self._option_list:
             option_str = str(option)
             option_str = option_str.split('\n')
             option_str = [(' ' * 4) + s for s in option_str]
             s += '\n'.join(option_str) + '\n'
-        
+
         return s
 
     def load_header(self, buffer):
         self.set_bytes_from_string(buffer[:self.get_headers_field_size()])
-        
+
         remaining_bytes = (self.get_header_extension_length() + 1) * 8
         remaining_bytes -= self.get_headers_field_size()
 
@@ -63,7 +63,7 @@ class IP6_Extension_Header(Header):
             if option_type == Option_PAD1.OPTION_TYPE_VALUE:
                 # Pad1
                 self._option_list.append(Option_PAD1())
-                
+
                 remaining_bytes -= 1
                 buffer = buffer[1:]
             else:
@@ -73,19 +73,19 @@ class IP6_Extension_Header(Header):
                 # of N-2 zero-valued octets.
                 option_length = buffer[1]
                 option_length += 2
-                
+
                 self._option_list.append(Option_PADN(option_length))
 
                 remaining_bytes -= option_length
                 buffer = buffer[option_length:]
-    
+
     def reset(self):
         pass
 
     @classmethod
     def get_header_type_value(cls):
         return cls.HEADER_TYPE_VALUE
-    
+
     @classmethod
     def get_extension_headers(cls):
         header_types = {}
@@ -100,7 +100,7 @@ class IP6_Extension_Header(Header):
                 # Else we extend the list of the obtained types
                 header_types.update(subclass_header_types)
         return header_types
-    
+
     @classmethod
     def get_decoder(cls):
         raise RuntimeError("Class method %s.get_decoder must be overridden." % cls)
@@ -128,10 +128,10 @@ class IP6_Extension_Header(Header):
 
     def set_header_extension_length(self, header_extension_length):
         self.set_byte(1, header_extension_length & 0xFF)
-    
+
     def add_option(self, option):
         self._option_list.append(option)
-    
+
     def get_options(self):
         return self._option_list
 
@@ -145,7 +145,7 @@ class IP6_Extension_Header(Header):
         header_bytes = self.get_buffer_as_string()
         for option in self._option_list:
             header_bytes += option.get_buffer_as_string()
-        
+
         if data:
             return header_bytes + data
         else:
@@ -155,7 +155,7 @@ class IP6_Extension_Header(Header):
         Header.contains(self, aHeader)
         if isinstance(aHeader, IP6_Extension_Header):
             self.set_next_header(aHeader.get_header_type())
-    
+
     def get_pseudo_header(self):
         # The pseudo-header only contains data from the IPv6 header.
         # So we pass the message to the parent until it reaches it.
@@ -178,7 +178,7 @@ class Extension_Option(PacketBuffer):
         s  = "Option Name: " + str(self.__class__.OPTION_DESCRIPTION) + "\n"
         s += "Option Type: " + str(option_type) + "\n"
         s += "Option Length: " + str(option_length) + "\n"
-        
+
         return s
 
     def set_option_type(self, option_type):
@@ -196,7 +196,7 @@ class Extension_Option(PacketBuffer):
     def set_data(self, data):
         self.set_option_length(len(data))
         option_bytes = self.get_bytes()
-        
+
         option_bytes = self.get_bytes()
         option_bytes[2:2+len(data)] = array.array('B', data)
         self.set_bytes(option_bytes)
@@ -247,7 +247,7 @@ class Basic_Extension_Header(IP6_Extension_Header):
         IP6_Extension_Header.add_option(self, option)
 
         self.add_padding()
-        
+
     def add_padding(self):
         required_octets = 8 - (self.get_header_size() % 8)
         if self.get_header_size() + required_octets > Basic_Extension_Header.MAX_HEADER_LEN:
@@ -266,7 +266,7 @@ class Basic_Extension_Header(IP6_Extension_Header):
 class Hop_By_Hop(Basic_Extension_Header):
     HEADER_TYPE_VALUE = 0x00
     HEADER_EXTENSION_DESCRIPTION = "Hop By Hop Options"
-    
+
     @classmethod
     def get_decoder(self):
         from impacket import ImpactDecoder
@@ -275,7 +275,7 @@ class Hop_By_Hop(Basic_Extension_Header):
 class Destination_Options(Basic_Extension_Header):
     HEADER_TYPE_VALUE = 0x3c
     HEADER_EXTENSION_DESCRIPTION = "Destination Options"
-    
+
     @classmethod
     def get_decoder(self):
         from impacket import ImpactDecoder
@@ -285,7 +285,7 @@ class Routing_Options(IP6_Extension_Header):
     HEADER_TYPE_VALUE = 0x2b
     HEADER_EXTENSION_DESCRIPTION = "Routing Options"
     ROUTING_OPTIONS_HEADER_FIELDS_SIZE = 8
-    
+
     def reset(self):
         self.set_next_header(0)
         self.set_header_extension_length(0)
@@ -307,7 +307,7 @@ class Routing_Options(IP6_Extension_Header):
         s += "Segments Left: " + str(segments_left) + "\n"
 
         return s
-        
+
     @classmethod
     def get_decoder(self):
         from . import ImpactDecoder

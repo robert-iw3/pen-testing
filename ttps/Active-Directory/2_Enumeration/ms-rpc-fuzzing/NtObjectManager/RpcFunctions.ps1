@@ -351,10 +351,10 @@ function Get-RpcServer {
                     if ($null -eq $proc.SafeHandle) {
                         throw "Can't open process $ProcessId"
                     }
-                    $proc.Modules | 
-                    % { 
+                    $proc.Modules |
+                    % {
                         Get-RpcServer -FullName $_.FileName -DbgHelpPath $DbgHelpPath -SymbolPath $SymbolPath `
-                            -IgnoreSymbols:$IgnoreSymbols -ResolveStructureNames:$ResolveStructureNames -SymSrvFallback:$SymSrvFallback 
+                            -IgnoreSymbols:$IgnoreSymbols -ResolveStructureNames:$ResolveStructureNames -SymSrvFallback:$SymSrvFallback
                     }
                 }
                 "FromServiceName" {
@@ -363,7 +363,7 @@ function Get-RpcServer {
                         throw "Service $ServiceName is not running."
                     } else {
                         Get-RpcServer -ProcessId $service.ProcessId -DbgHelpPath $DbgHelpPath -SymbolPath $SymbolPath `
-                            -IgnoreSymbols:$IgnoreSymbols -ResolveStructureNames:$ResolveStructureNames -SymSrvFallback:$SymSrvFallback 
+                            -IgnoreSymbols:$IgnoreSymbols -ResolveStructureNames:$ResolveStructureNames -SymSrvFallback:$SymSrvFallback
                     }
                 }
             }

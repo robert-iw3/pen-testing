@@ -54,7 +54,7 @@ namespace Rubeus.Kerberos.PAC {
 
             NdrPickledType npt = new NdrPickledType(plainCredData);
             _Unmarshal_Helper uh = new _Unmarshal_Helper(npt.Data);
-            CredentialInfo = uh.ReadReferentValue(uh.ReadStruct<_PAC_CREDENTIAL_DATA>,false);           
+            CredentialInfo = uh.ReadReferentValue(uh.ReadStruct<_PAC_CREDENTIAL_DATA>,false);
         }
     }
 }

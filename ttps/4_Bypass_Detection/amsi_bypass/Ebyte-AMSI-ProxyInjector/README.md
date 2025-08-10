@@ -14,11 +14,11 @@ The tool employs a function redirection approach instead of direct byte patching
 
 1. **Targeting**: Accepts a process ID (PID) as input to target a specific process
 
-2. **Thread Management**: 
+2. **Thread Management**:
    - Suspends all threads in the target process to prevent race conditions
    - Uses `NtSuspendThread` and `NtResumeThread` for atomic operations
 
-3. **AMSI Detection**: 
+3. **AMSI Detection**:
    - Locates `amsi.dll` in the target process
    - Calculates the offset of `AmsiScanBuffer` from the module base
    - Maps this offset to find the function in the target process
@@ -99,4 +99,4 @@ This tool is provided for educational and research purposes only. Use responsibl
 
 ## License
 
-This project is available under the MIT License. See the LICENSE file for details. 
+This project is available under the MIT License. See the LICENSE file for details.

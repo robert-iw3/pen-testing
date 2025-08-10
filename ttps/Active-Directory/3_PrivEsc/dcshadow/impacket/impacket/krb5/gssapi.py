@@ -106,7 +106,7 @@ class GSSAPI_RC4:
         pad = (4 - (len(data) % 4)) & 0x3
         padStr = b(chr(pad)) * pad
         data += padStr
- 
+
         token['SGN_ALG'] = GSS_HMAC
         if direction == 'init':
             token['SND_SEQ'] = struct.pack('>L', sequenceNumber) + b'\x00'*4
@@ -123,7 +123,7 @@ class GSSAPI_RC4:
         token['SND_SEQ'] = ARC4.new(Kseq).encrypt(token['SND_SEQ'])
         finalData = GSS_GETMIC_HEADER + token.getData()
         return finalData
-   
+
     def GSS_Wrap(self, sessionKey, data, sequenceNumber, direction='init', encrypt=True, authData=None):
         # Damn inacurate RFC, useful info from here
         # https://social.msdn.microsoft.com/Forums/en-US/fb98e8f4-e697-4652-bcb7-604e027e14cc/gsswrap-token-size-kerberos-and-rc4hmac?forum=os_windowsprotocols
@@ -159,7 +159,7 @@ class GSSAPI_RC4:
 
         Kcrypt = HMAC.new(Klocal,struct.pack('<L',0), MD5).digest()
         Kcrypt = HMAC.new(Kcrypt,struct.pack('>L', sequenceNumber), MD5).digest()
-        
+
         Sgn_Cksum = HMAC.new(Ksign, Sgn_Cksum, MD5).digest()
 
         token['SGN_CKSUM'] = Sgn_Cksum[:8]
@@ -178,7 +178,7 @@ class GSSAPI_RC4:
             Kseq = HMAC.new(Kseq, wrap['SGN_CKSUM'], MD5).digest()
 
             snd_seq = ARC4.new(Kseq).encrypt(wrap['SND_SEQ'])
- 
+
             Kcrypt = HMAC.new(Klocal,struct.pack('<L',0), MD5).digest()
             Kcrypt = HMAC.new(Kcrypt,snd_seq[:4], MD5).digest()
             rc4 = ARC4.new(Kcrypt)
@@ -234,9 +234,9 @@ class GSSAPI_AES():
         token['Flags'] = 4
         token['SND_SEQ'] = struct.pack('>Q',sequenceNumber)
         token['SGN_CKSUM'] = checkSumProfile.checksum(sessionKey, KG_USAGE_INITIATOR_SIGN, data + token.getData()[:16])
- 
+
         return token.getData()
-   
+
     def rotate(self, data, numBytes):
         numBytes %= len(data)
         left = len(data) - numBytes
@@ -254,7 +254,7 @@ class GSSAPI_AES():
         filler = b'\x00' * length
         return filler
 
-        
+
     def GSS_Wrap(self, sessionKey, data, sequenceNumber, direction='init', encrypt=True, acceptorSubkey=False, keyUsage=KG_USAGE_INITIATOR_SEAL, confounder=None, dce_rpc_header=None, auth_data_header=None):
         token = self.WRAP()
 
@@ -312,7 +312,7 @@ class GSSAPI_AES():
         enc2 = data
 
         cipherText = self.unrotate(enc1 + enc2, token['RRC'] + token['EC'])
-        
+
         # For Kerberos SSP: blob for HMAC calculation is different from blob for encryption.
         #   This is undocumented, and was identified by reversing cryptodll.dll
         #   no need to implement, assuming the other client is legit

@@ -802,7 +802,7 @@ class SMB3:
         self.__userCert = userCert
         self.__certPass = certPass
         self._doKerberos= True
-        
+
         remoteComputer = self._Connection['ServerName']
 
         sessionSetup = SMB2SessionSetup()
@@ -849,10 +849,10 @@ class SMB3:
                 NegoExKerberosApReq = negoExHelper.GenerateNegoExKerberosAp(ans)
             except:
                 return False
-            
+
             if not NegoExKerberosApReq:
                 return False
-            
+
             sessionSetup = SMB2SessionSetup()
             blob = SPNEGO_NegTokenResp()
 
@@ -862,7 +862,7 @@ class SMB3:
             sessionSetup['SecurityMode'] = 1
             sessionSetup['SecurityBufferLength'] = len(blob)
             sessionSetup['Buffer'] = blob.getData()
-            
+
             packet            = self.SMB_PACKET()
             packet['Command'] = SMB2_SESSION_SETUP
             packet['Flags']   = 16
@@ -870,10 +870,10 @@ class SMB3:
 
             packetID = self.sendSMB(packet)
             ans = self.recvSMB(packetID)
-           
+
             self._Session['Connection']      = self._NetBIOSSession.get_socket()
             return True
-        
+
             self._Session['SessionKey']  = sessionKey.contents[:16]
             if self._Session['SigningRequired'] is True and self._Connection['Dialect'] >= SMB2_DIALECT_30:
                 # If Connection.Dialect is "3.1.1", the case-sensitive ASCII string "SMBSigningKey" as the label;

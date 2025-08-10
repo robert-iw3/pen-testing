@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -58,7 +58,7 @@ elif options.OURIP == None and IsOsX() == True:
     print("\n\033[1m\033[31mOSX detected, -i mandatory option is missing\033[0m\n")
     parser.print_help()
     exit(-1)
-    
+
 elif options.ProxyAuth_On_Off and options.WPAD_On_Off:
     print("\n\033[1m\033[31mYou cannot use WPAD server and Proxy_Auth server at the same time, choose one of them.\033[0m\n")
     exit(-1)
@@ -172,7 +172,7 @@ class ThreadingUDPLLMNRServer(ThreadingMixIn, UDPServer):
 		MADDR  = '224.0.0.252'
 		MADDR6 = 'FF02:0:0:0:0:0:1:3'
 		self.socket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
-		self.socket.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 255)		
+		self.socket.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 255)
 		Join = self.socket.setsockopt(socket.IPPROTO_IP,socket.IP_ADD_MEMBERSHIP,socket.inet_aton(MADDR) + settings.Config.IP_aton)
 
 		#IPV6:
@@ -195,7 +195,7 @@ class ThreadingUDPLLMNRServer(ThreadingMixIn, UDPServer):
 			except:
 				pass
 		UDPServer.server_bind(self)
-		
+
 
 ThreadingUDPServer.allow_reuse_address = 1
 if Have_IPv6:
@@ -240,7 +240,7 @@ def serve_LLMNR_poisoner(host, port, handler):
 		server.serve_forever()
 	except:
 		print(color("[!] ", 1, 1) + "Error starting UDP server on port " + str(port) + ", check permissions or other servers running.")
-		
+
 def serve_thread_udp(host, port, handler):
 	try:
 		if OsInterfaceIsSupported():
@@ -314,7 +314,7 @@ def main():
 		    from poisoners.MDNS import MDNS
 		    threads.append(Thread(target=serve_MDNS_poisoner,  args=('', 5353, MDNS,)))
 
-		#// Vintage Responder BOWSER module, now disabled by default. 
+		#// Vintage Responder BOWSER module, now disabled by default.
 		#// Generate to much noise & easily detectable on the network when in analyze mode.
 		# Load Browser Listener
 		#from servers.Browser import Browser
@@ -423,7 +423,7 @@ def main():
 			print(color('[+] Responder is in analyze mode. No NBT-NS, LLMNR, MDNS requests will be poisoned.', 3, 1))
 		if settings.Config.Quiet_Mode:
 			print(color('[+] Responder is in quiet mode. No NBT-NS, LLMNR, MDNS messages will print to screen.', 3, 1))
-			
+
 
 		if settings.Config.DHCP_On_Off:
 			from poisoners.DHCP import DHCP

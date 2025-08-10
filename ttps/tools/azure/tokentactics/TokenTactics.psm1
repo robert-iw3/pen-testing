@@ -4,9 +4,9 @@ $version = $manifest.ModuleVersion
 $host.ui.RawUI.WindowTitle="TokenTactics $version"
 
 $banner=@"
-___  __        ___      ___       __  ___    __   __  
- |  /  \ |__/ |__  |\ |  |   /\  /  `  |  | /  ` /__` 
- |  \__/ |  \ |___ | \|  |  /~~\ \__,  |  | \__, .__/ 
+___  __        ___      ___       __  ___    __   __
+ |  /  \ |__/ |__  |\ |  |   /\  /  `  |  | /  ` /__`
+ |  \__/ |  \ |___ | \|  |  /~~\ \__,  |  | \__, .__/
 "@
 Write-Host $logo -ForegroundColor Red
 
@@ -15,7 +15,7 @@ Write-Host $logo -ForegroundColor Red
 $scripts = @(Get-ChildItem -Path $PSScriptRoot\modules\*.ps1 -ErrorAction SilentlyContinue)
 $c = 0
 foreach ($script in $scripts) {
-    Write-Progress -Activity "Importing script" -Status $script -PercentComplete (($c++/$scripts.count)*100) 
+    Write-Progress -Activity "Importing script" -Status $script -PercentComplete (($c++/$scripts.count)*100)
     try {
         . $script.FullName
     } catch {

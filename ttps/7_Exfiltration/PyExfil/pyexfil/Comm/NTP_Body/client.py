@@ -16,7 +16,7 @@ def Broadcast(data, to=SERVER, port=NTP_PORT, key=KEY):
     :param key: Key for AES-OFB mode. [str]
     :return: Boolean
     """
-	
+
 	if len(data) > 16:
 		chunks = _splitString(stri=data, length=16)
 	else:

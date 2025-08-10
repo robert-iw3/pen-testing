@@ -1,6 +1,6 @@
 # Authenticated TimeRoast (PowerShell)
 
-Slightly altered version of the TimeRoast PowerShell script originally published by Secura:  
+Slightly altered version of the TimeRoast PowerShell script originally published by Secura:
 https://github.com/SecuraBV/Timeroast
 
 This script performs SNTP-based time roasting against a Domain Controller (DC), targeting computer accounts via their RIDs and resolving those RIDs to hostnames using LDAP enumeration. The output includes hashes in a format compatible with Hashcat (`$sntp-ms$`) and includes the associated computer hostname for easier identification.

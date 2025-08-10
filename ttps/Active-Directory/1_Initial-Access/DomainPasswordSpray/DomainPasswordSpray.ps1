@@ -530,7 +530,7 @@ function Invoke-SpraySinglePassword
     $curr_user = 0
     if ($OutFile -ne ""-and -not $Quiet)
     {
-        Write-Host -ForegroundColor Yellow "[*] Writing successes to $OutFile"    
+        Write-Host -ForegroundColor Yellow "[*] Writing successes to $OutFile"
     }
     $RandNo = New-Object System.Random
 

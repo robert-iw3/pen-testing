@@ -10,7 +10,7 @@ namespace Rubeus
     //    cname[1] PrincipalName OPTIONAL,
     //    --Certificate mapping hints
     //    crealm[2] Realm,
-    //    subject-certificate[3] OCTET STRING OPTIONAL, 
+    //    subject-certificate[3] OCTET STRING OPTIONAL,
     //    options[4] BIT STRING OPTIONAL,
     //    ...
     //}
@@ -43,8 +43,8 @@ namespace Rubeus
                 // add unconditional_delegation
                 options |= Interop.PA_S4U_X509_USER_OPTIONS.UNCONDITIONAL_DELEGATION;
             }
-            
-            
+
+
         }
 
         public AsnElt Encode()

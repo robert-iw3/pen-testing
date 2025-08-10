@@ -51,7 +51,7 @@ class Negoex:
                                     112,  # should be calculated as all initiator nego
                                     self.convId16Byte
                                     )
-        
+
         struct_bytes = ctypes.string_at(ctypes.addressof(header), ctypes.sizeof(header))
         initnego = _WST_HELLO_MESSAGE(header,
                                       self.random32Byte,  # should be generateRandom(),
@@ -73,7 +73,7 @@ class Negoex:
                                      207,  # should be 112,  # should be calculated as all initiator nego
                                      self.convId16Byte
                                      )
-        
+
         exchange2 = WST_BYTE_VECTOR(64,  # should be ctypes.sizeof(header) + 8,
                                     int(len(data) / 2),
                                     0)
@@ -111,7 +111,7 @@ class Negoex:
                                      0,
                                      self.convId16Byte
                                      )
-        
+
         exchange2 = WST_BYTE_VECTOR(64,  # should be ctypes.sizeof(header) + 8,
                                     int(len(data) / 2),
                                     0)

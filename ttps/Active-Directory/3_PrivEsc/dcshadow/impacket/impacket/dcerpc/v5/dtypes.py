@@ -167,7 +167,7 @@ class WSTR(NDRSTRUCT):
         print(" %r" % (self['Data']), end=' ')
 
     def getDataLen(self, data, offset=0):
-        return self["ActualCount"]*2 
+        return self["ActualCount"]*2
 
     def __setitem__(self, key, value):
         if key == 'Data':
@@ -356,14 +356,14 @@ class RPC_UNICODE_STRING(NDRSTRUCT):
     # easier to use. It's exactly the same as defined. I changed the
     # Buffer name for Data, so users can write directly to the datatype
     # instead of writing to datatype['Buffer'].
-    # The drawback is you cannot directly access the Length and 
-    # MaximumLength fields. 
+    # The drawback is you cannot directly access the Length and
+    # MaximumLength fields.
     # If you really need it, you will need to do it this way:
     # class TT(NDRCALL):
     # structure = (
     #     ('str1', RPC_UNICODE_STRING),
     #  )
-    # 
+    #
     # nn = TT()
     # nn.fields['str1'].fields['MaximumLength'] = 30
     structure = (

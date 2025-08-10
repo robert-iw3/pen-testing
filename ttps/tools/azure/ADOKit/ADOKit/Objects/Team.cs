@@ -24,7 +24,7 @@ namespace ADOKit.Objects
             this.description = description;
             this.project = project;
             this.projID = projID;
- 
+
         }
 
     }

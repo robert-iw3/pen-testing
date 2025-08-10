@@ -10,7 +10,7 @@
 
 // Exits if debugger is present
 void is_debugger_present(char *arg1) {
-   
+
     if(!IsDebuggerPresent()) {
         DEBUG_PRINT("Proceed!\n");
     } else {

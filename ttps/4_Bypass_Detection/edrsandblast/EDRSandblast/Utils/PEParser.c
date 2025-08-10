@@ -393,7 +393,7 @@ PVOID PE_search_pattern(PE* pe, PBYTE pattern, size_t patternSize) {
 * Look for an instruction that references address targetRVA relatively from its own address, starting the search at fromRVA.
 * Searches a 8, 16 or 32 bits relative displacement that points to targetRVA (on x86_84, 64-bits relative displacements do not exist)
 * Returns the RVA of the reference (in the middle of the instruction)
-* 
+*
 * Example:
 *
 * PAGE:14084EA2B 45 33 FF                             xor     r15d, r15d

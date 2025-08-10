@@ -16,11 +16,11 @@ MyHostControl::~MyHostControl(void)
 };
 
 
-HRESULT STDMETHODCALLTYPE MyHostControl::QueryInterface(REFIID vTableGuid, void** ppv) 
+HRESULT STDMETHODCALLTYPE MyHostControl::QueryInterface(REFIID vTableGuid, void** ppv)
 {
 	// printf("MyHostControl_QueryInterface\n");
 
-	if (!IsEqualIID(vTableGuid, IID_IUnknown) && !IsEqualIID(vTableGuid, IID_IHostControl)) 
+	if (!IsEqualIID(vTableGuid, IID_IUnknown) && !IsEqualIID(vTableGuid, IID_IHostControl))
 	{
 		*ppv = 0;
 		return E_NOINTERFACE;
@@ -31,7 +31,7 @@ HRESULT STDMETHODCALLTYPE MyHostControl::QueryInterface(REFIID vTableGuid, void*
 }
 
 
-ULONG STDMETHODCALLTYPE MyHostControl::AddRef() 
+ULONG STDMETHODCALLTYPE MyHostControl::AddRef()
 {
 	// printf("MyHostControl_AddRef\n");
 
@@ -39,11 +39,11 @@ ULONG STDMETHODCALLTYPE MyHostControl::AddRef()
 }
 
 
-ULONG STDMETHODCALLTYPE MyHostControl::Release() 
+ULONG STDMETHODCALLTYPE MyHostControl::Release()
 {
 	// printf("MyHostControl_Release\n");
 
-	if (--((MyHostControl*)this)->count == 0) 
+	if (--((MyHostControl*)this)->count == 0)
 	{
 		GlobalFree(this);
 		return 0;
@@ -75,8 +75,8 @@ HRESULT STDMETHODCALLTYPE MyHostControl::GetHostManager(REFIID riid, void** ppOb
 }
 
 
-// //This has some fun uses left as an exercise for the reader :) 
-HRESULT MyHostControl::SetAppDomainManager(DWORD dwAppDomainID, IUnknown* pUnkAppDomainManager) 
+// //This has some fun uses left as an exercise for the reader :)
+HRESULT MyHostControl::SetAppDomainManager(DWORD dwAppDomainID, IUnknown* pUnkAppDomainManager)
 {
 	// printf("MyHostControl_SetAppDomainManager\n");
 

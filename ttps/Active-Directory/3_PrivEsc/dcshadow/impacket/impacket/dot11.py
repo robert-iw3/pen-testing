@@ -133,7 +133,7 @@ class Dot11Types():
         DOT11_TYPE_MANAGEMENT|DOT11_SUBTYPE_MANAGEMENT_RESERVED3<<2
     DOT11_TYPE_MANAGEMENT_SUBTYPE_RESERVED4 = \
         DOT11_TYPE_MANAGEMENT|DOT11_SUBTYPE_MANAGEMENT_RESERVED4<<2
-    
+
     # Control Types/SubTypes
     DOT11_TYPE_CONTROL                              = int("01",2)
     DOT11_SUBTYPE_CONTROL_RESERVED1                 = int("0000",2)
@@ -286,7 +286,7 @@ class Dot11Types():
     DOT11_TYPE_RESERVED_SUBTYPE_RESERVED16 = \
         DOT11_TYPE_RESERVED|DOT11_SUBTYPE_RESERVED_RESERVED16<<2
 
-class Dot11(ProtocolPacket):    
+class Dot11(ProtocolPacket):
     def __init__(self, aBuffer = None, FCS_at_end = True):
         header_size = 2
         self.__FCS_at_end=not not FCS_at_end # Is Boolean
@@ -294,11 +294,11 @@ class Dot11(ProtocolPacket):
             tail_size = 4
         else:
             tail_size = 0
-            
+
         ProtocolPacket.__init__(self, header_size,tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-        
+
     def get_order(self):
         "Return 802.11 frame 'Order' field"
         b = self.header.get_byte(1)
@@ -340,7 +340,7 @@ class Dot11(ProtocolPacket):
         # set the bits
         nb = masked | ((value & 0x01) << 5)
         self.header.set_byte(1, nb)
-        
+
     def get_powerManagement(self):
         "Return 802.11 frame 'Power Management' field"
         b = self.header.get_byte(1)
@@ -354,7 +354,7 @@ class Dot11(ProtocolPacket):
         # set the bits
         nb = masked | ((value & 0x01) << 4)
         self.header.set_byte(1, nb)
-  
+
     def get_retry(self):
         "Return 802.11 frame 'Retry' field"
         b = self.header.get_byte(1)
@@ -367,8 +367,8 @@ class Dot11(ProtocolPacket):
         masked = self.header.get_byte(1) & mask
         # set the bits
         nb = masked | ((value & 0x01) << 3)
-        self.header.set_byte(1, nb)   
-        
+        self.header.set_byte(1, nb)
+
     def get_moreFrag(self):
         "Return 802.11 frame 'More Fragments' field"
         b = self.header.get_byte(1)
@@ -381,8 +381,8 @@ class Dot11(ProtocolPacket):
         masked = self.header.get_byte(1) & mask
         # set the bits
         nb = masked | ((value & 0x01) << 2)
-        self.header.set_byte(1, nb)  
-               
+        self.header.set_byte(1, nb)
+
     def get_fromDS(self):
         "Return 802.11 frame 'from DS' field"
         b = self.header.get_byte(1)
@@ -396,7 +396,7 @@ class Dot11(ProtocolPacket):
         # set the bits
         nb = masked | ((value & 0x01) << 1)
         self.header.set_byte(1, nb)
-         
+
     def get_toDS(self):
         "Return 802.11 frame 'to DS' field"
         b = self.header.get_byte(1)
@@ -408,9 +408,9 @@ class Dot11(ProtocolPacket):
         mask = (~0x01) & 0xFF
         masked = self.header.get_byte(1) & mask
         # set the bits
-        nb = masked | (value & 0x01) 
-        self.header.set_byte(1, nb)    
-        
+        nb = masked | (value & 0x01)
+        self.header.set_byte(1, nb)
+
     def get_subtype(self):
         "Return 802.11 frame 'subtype' field"
         b = self.header.get_byte(0)
@@ -419,12 +419,12 @@ class Dot11(ProtocolPacket):
     def set_subtype(self, value):
         "Set 802.11 frame 'subtype' field"
         # clear the bits
-        mask = (~0xF0)&0xFF 
-        masked = self.header.get_byte(0) & mask 
+        mask = (~0xF0)&0xFF
+        masked = self.header.get_byte(0) & mask
         # set the bits
         nb = masked | ((value << 4) & 0xF0)
         self.header.set_byte(0, nb)
-        
+
     def get_type(self):
         "Return 802.11 frame 'type' field"
         b = self.header.get_byte(0)
@@ -433,8 +433,8 @@ class Dot11(ProtocolPacket):
     def set_type(self, value):
         "Set 802.11 frame 'type' field"
         # clear the bits
-        mask = (~0x0C)&0xFF 
-        masked = self.header.get_byte(0) & mask 
+        mask = (~0x0C)&0xFF
+        masked = self.header.get_byte(0) & mask
         # set the bits
         nb = masked | ((value << 2) & 0x0C)
         self.header.set_byte(0, nb)
@@ -447,8 +447,8 @@ class Dot11(ProtocolPacket):
     def set_type_n_subtype(self, value):
         "Set 802.11 frame 'Type and Subtype' field"
         # clear the bits
-        mask = (~0xFC)&0xFF 
-        masked = self.header.get_byte(0) & mask 
+        mask = (~0xFC)&0xFF
+        masked = self.header.get_byte(0) & mask
         # set the bits
         nb = masked | ((value << 2) & 0xFC)
         self.header.set_byte(0, nb)
@@ -461,15 +461,15 @@ class Dot11(ProtocolPacket):
     def set_version(self, value):
         "Set the 802.11 frame control 'Protocol version' field"
         # clear the bits
-        mask = (~0x03)&0xFF 
-        masked = self.header.get_byte(0) & mask 
+        mask = (~0x03)&0xFF
+        masked = self.header.get_byte(0) & mask
         # set the bits
         nb = masked | (value & 0x03)
         self.header.set_byte(0, nb)
-        
+
     def compute_checksum(self,bytes):
         crcle=crc32(bytes)&0xffffffff
-        # ggrr this crc32 is in little endian, convert it to big endian 
+        # ggrr this crc32 is in little endian, convert it to big endian
         crc=struct.pack('<L', crcle)
          # Convert to long
         (crc_long,) = struct.unpack('!L', crc)
@@ -477,47 +477,47 @@ class Dot11(ProtocolPacket):
 
     def is_QoS_frame(self):
         "Return 'True' if is an QoS data frame type"
-        
+
         b = self.header.get_byte(0)
-        return (b & 0x80) and True        
+        return (b & 0x80) and True
 
     def is_no_framebody_frame(self):
         "Return 'True' if it frame contain no Frame Body"
-        
+
         b = self.header.get_byte(0)
         return (b & 0x40) and True
 
     def is_cf_poll_frame(self):
         "Return 'True' if it frame is a CF_POLL frame"
-        
+
         b = self.header.get_byte(0)
         return (b & 0x20) and True
 
     def is_cf_ack_frame(self):
         "Return 'True' if it frame is a CF_ACK frame"
-        
+
         b = self.header.get_byte(0)
         return (b & 0x10) and True
-    
+
     def get_fcs(self):
         "Return 802.11 'FCS' field"
-        
+
         if not self.__FCS_at_end:
-            return None   
+            return None
 
         b = self.tail.get_long(-4, ">")
-        return b 
+        return b
 
     def set_fcs(self, value = None):
         "Set the 802.11 CTS control frame 'FCS' field. If value is None, is auto_checksum"
 
-        if not self.__FCS_at_end:   
+        if not self.__FCS_at_end:
             return
-        
+
         # calculate the FCS
         if value is None:
             payload = self.get_body_as_string()
-            crc32=self.compute_checksum(payload)            
+            crc32=self.compute_checksum(payload)
             value=crc32
 
         # set the bits
@@ -526,7 +526,7 @@ class Dot11(ProtocolPacket):
 
 class Dot11ControlFrameCTS(ProtocolPacket):
     "802.11 Clear-To-Send Control Frame"
-    
+
     def __init__(self, aBuffer = None):
         header_size = 8
         tail_size = 0
@@ -534,18 +534,18 @@ class Dot11ControlFrameCTS(ProtocolPacket):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-            
+
     def get_duration(self):
         "Return 802.11 CTS control frame 'Duration' field"
         b = self.header.get_word(0, "<")
-        return b 
+        return b
 
     def set_duration(self, value):
-        "Set the 802.11 CTS control frame 'Duration' field" 
+        "Set the 802.11 CTS control frame 'Duration' field"
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(0, nb, "<")
-        
+
     def get_ra(self):
         "Return 802.11 CTS control frame 48 bit 'Receiver Address' field as a 6 bytes array"
         return self.header.get_bytes()[2:8]
@@ -557,7 +557,7 @@ class Dot11ControlFrameCTS(ProtocolPacket):
 
 class Dot11ControlFrameACK(ProtocolPacket):
     "802.11 Acknowledgement Control Frame"
-        
+
     def __init__(self, aBuffer = None):
         header_size = 8
         tail_size = 0
@@ -565,18 +565,18 @@ class Dot11ControlFrameACK(ProtocolPacket):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-            
+
     def get_duration(self):
         "Return 802.11 ACK control frame 'Duration' field"
         b = self.header.get_word(0, "<")
-        return b 
+        return b
 
     def set_duration(self, value):
-        "Set the 802.11 ACK control frame 'Duration' field" 
+        "Set the 802.11 ACK control frame 'Duration' field"
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(0, nb, "<")
-        
+
     def get_ra(self):
         "Return 802.11 ACK control frame 48 bit 'Receiver Address' field as a 6 bytes array"
         return self.header.get_bytes()[2:8]
@@ -588,7 +588,7 @@ class Dot11ControlFrameACK(ProtocolPacket):
 
 class Dot11ControlFrameRTS(ProtocolPacket):
     "802.11 Request-To-Send Control Frame"
-        
+
     def __init__(self, aBuffer = None):
         header_size = 14
         tail_size = 0
@@ -596,18 +596,18 @@ class Dot11ControlFrameRTS(ProtocolPacket):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-    
+
     def get_duration(self):
         "Return 802.11 RTS control frame 'Duration' field"
         b = self.header.get_word(0, "<")
-        return b 
+        return b
 
     def set_duration(self, value):
-        "Set the 802.11 RTS control frame 'Duration' field" 
+        "Set the 802.11 RTS control frame 'Duration' field"
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(0, nb, "<")
-        
+
     def get_ra(self):
         "Return 802.11 RTS control frame 48 bit 'Receiver Address' field as a 6 bytes array"
         return self.header.get_bytes()[2:8]
@@ -624,15 +624,15 @@ class Dot11ControlFrameRTS(ProtocolPacket):
     def set_ta(self, value):
         "Set 802.11 RTS control frame 48 bit 'Transmitter Address' field as a 6 bytes array"
         for i in range(0, 6):
-            self.header.set_byte(8+i, value[i])            
+            self.header.set_byte(8+i, value[i])
 
 class Dot11ControlFramePSPoll(ProtocolPacket):
     "802.11 Power-Save Poll Control Frame"
-    
+
     def __init__(self, aBuffer = None):
         header_size = 14
         tail_size = 0
-        
+
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
@@ -642,16 +642,16 @@ class Dot11ControlFramePSPoll(ProtocolPacket):
         # the spec says "The AID value always has its two MSBs each set to 1."
         # TODO: Should we do check/modify it? Wireshark shows the only MSB to 0
         b = self.header.get_word(0, "<")
-        return b 
+        return b
 
     def set_aid(self, value):
-        "Set the 802.11 PSPoll control frame 'AID' field" 
+        "Set the 802.11 PSPoll control frame 'AID' field"
         # set the bits
         nb = value & 0xFFFF
         # the spec says "The AID value always has its two MSBs each set to 1."
         # TODO: Should we do check/modify it? Wireshark shows the only MSB to 0
         self.header.set_word(0, nb, "<")
-        
+
     def get_bssid(self):
         "Return 802.11 PSPoll control frame 48 bit 'BSS ID' field as a 6 bytes array"
         return self.header.get_bytes()[2:8]
@@ -668,15 +668,15 @@ class Dot11ControlFramePSPoll(ProtocolPacket):
     def set_ta(self, value):
         "Set 802.11 PSPoll control frame 48 bit 'Transmitter Address' field as a 6 bytes array"
         for i in range(0, 6):
-            self.header.set_byte(8+i, value[i])            
+            self.header.set_byte(8+i, value[i])
 
 class Dot11ControlFrameCFEnd(ProtocolPacket):
     "802.11 'Contention Free End' Control Frame"
-    
+
     def __init__(self, aBuffer = None):
         header_size = 14
         tail_size = 0
-    
+
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
@@ -684,14 +684,14 @@ class Dot11ControlFrameCFEnd(ProtocolPacket):
     def get_duration(self):
         "Return 802.11 CF-End control frame 'Duration' field"
         b = self.header.get_word(0, "<")
-        return b 
+        return b
 
     def set_duration(self, value):
-        "Set the 802.11 CF-End control frame 'Duration' field" 
+        "Set the 802.11 CF-End control frame 'Duration' field"
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(0, nb, "<")
-        
+
     def get_ra(self):
         "Return 802.11 CF-End control frame 48 bit 'Receiver Address' field as a 6 bytes array"
         return self.header.get_bytes()[2:8]
@@ -708,11 +708,11 @@ class Dot11ControlFrameCFEnd(ProtocolPacket):
     def set_bssid(self, value):
         "Set 802.11 CF-End control frame 48 bit 'BSS ID' field as a 6 bytes array"
         for i in range(0, 6):
-            self.header.set_byte(8+i, value[i])            
+            self.header.set_byte(8+i, value[i])
 
 class Dot11ControlFrameCFEndCFACK(ProtocolPacket):
     '802.11 \'CF-End + CF-ACK\' Control Frame'
-        
+
     def __init__(self, aBuffer = None):
         header_size = 14
         tail_size = 0
@@ -724,14 +724,14 @@ class Dot11ControlFrameCFEndCFACK(ProtocolPacket):
     def get_duration(self):
         'Return 802.11 \'CF-End+CF-ACK\' control frame \'Duration\' field'
         b = self.header.get_word(0, "<")
-        return b 
+        return b
 
     def set_duration(self, value):
-        'Set the 802.11 \'CF-End+CF-ACK\' control frame \'Duration\' field' 
+        'Set the 802.11 \'CF-End+CF-ACK\' control frame \'Duration\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(0, nb, "<")
-        
+
     def get_ra(self):
         'Return 802.11 \'CF-End+CF-ACK\' control frame 48 bit \'Receiver Address\' field as a 6 bytes array'
         return self.header.get_bytes()[2:8]
@@ -748,11 +748,11 @@ class Dot11ControlFrameCFEndCFACK(ProtocolPacket):
     def set_bssid(self, value):
         'Set 802.11 \'CF-End+CF-ACK\' control frame 48 bit \'BSS ID\' field as a 6 bytes array'
         for i in range(0, 6):
-            self.header.set_byte(8+i, value[i])            
+            self.header.set_byte(8+i, value[i])
 
 class Dot11DataFrame(ProtocolPacket):
     '802.11 Data Frame'
-    
+
     def __init__(self, aBuffer = None):
         header_size = 22
         tail_size = 0
@@ -760,18 +760,18 @@ class Dot11DataFrame(ProtocolPacket):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-        
+
     def get_duration(self):
         'Return 802.11 \'Data\' data frame \'Duration\' field'
         b = self.header.get_word(0, "<")
-        return b 
+        return b
 
     def set_duration(self, value):
-        'Set the 802.11 \'Data\' data frame \'Duration\' field' 
+        'Set the 802.11 \'Data\' data frame \'Duration\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(0, nb, "<")
-        
+
     def get_address1(self):
         'Return 802.11 \'Data\' data frame 48 bit \'Address1\' field as a 6 bytes array'
         return self.header.get_bytes()[2:8]
@@ -789,7 +789,7 @@ class Dot11DataFrame(ProtocolPacket):
         'Set 802.11 \'Data\' data frame 48 bit \'Address2\' field as a 6 bytes array'
         for i in range(0, 6):
             self.header.set_byte(8+i, value[i])
-            
+
     def get_address3(self):
         'Return 802.11 \'Data\' data frame 48 bit \'Address3\' field as a 6 bytes array'
         return self.header.get_bytes()[14: 20]
@@ -802,10 +802,10 @@ class Dot11DataFrame(ProtocolPacket):
     def get_sequence_control(self):
         'Return 802.11 \'Data\' data frame \'Sequence Control\' field'
         b = self.header.get_word(20, "<")
-        return b 
+        return b
 
     def set_sequence_control(self, value):
-        'Set the 802.11 \'Data\' data frame \'Sequence Control\' field' 
+        'Set the 802.11 \'Data\' data frame \'Sequence Control\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(20, nb, "<")
@@ -814,45 +814,45 @@ class Dot11DataFrame(ProtocolPacket):
         'Return 802.11 \'Data\' data frame \'Fragment Number\' subfield'
 
         b = self.header.get_word(20, "<")
-        return (b&0x000F) 
+        return (b&0x000F)
 
     def set_fragment_number(self, value):
-        'Set the 802.11 \'Data\' data frame \'Fragment Number\' subfield' 
+        'Set the 802.11 \'Data\' data frame \'Fragment Number\' subfield'
         # clear the bits
         mask = (~0x000F) & 0xFFFF
         masked = self.header.get_word(20, "<") & mask
-        # set the bits 
+        # set the bits
         nb = masked | (value & 0x000F)
         self.header.set_word(20, nb, "<")
-        
+
     def get_sequence_number(self):
         'Return 802.11 \'Data\' data frame \'Sequence Number\' subfield'
-        
+
         b = self.header.get_word(20, "<")
-        return ((b>>4) & 0xFFF) 
-    
+        return ((b>>4) & 0xFFF)
+
     def set_sequence_number(self, value):
-        'Set the 802.11 \'Data\' data frame \'Sequence Number\' subfield' 
+        'Set the 802.11 \'Data\' data frame \'Sequence Number\' subfield'
         # clear the bits
         mask = (~0xFFF0) & 0xFFFF
         masked = self.header.get_word(20, "<") & mask
-        # set the bits 
-        nb = masked | ((value & 0x0FFF ) << 4 ) 
+        # set the bits
+        nb = masked | ((value & 0x0FFF ) << 4 )
         self.header.set_word(20, nb, "<")
 
     def get_frame_body(self):
         'Return 802.11 \'Data\' data frame \'Frame Body\' field'
-        
+
         return self.get_body_as_string()
 
     def set_frame_body(self, data):
         'Set 802.11 \'Data\' data frame \'Frame Body\' field'
-        
+
         self.load_body(data)
 
 class Dot11DataQoSFrame(Dot11DataFrame):
     '802.11 Data QoS Frame'
-    
+
     def __init__(self, aBuffer = None):
         header_size = 24
         tail_size = 0
@@ -864,10 +864,10 @@ class Dot11DataQoSFrame(Dot11DataFrame):
     def get_QoS(self):
         'Return 802.11 \'Data\' data frame \'QoS\' field'
         b = self.header.get_word(22, "<")
-        return b 
+        return b
 
     def set_QoS(self, value):
-        'Set the 802.11 \'Data\' data frame \'QoS\' field' 
+        'Set the 802.11 \'Data\' data frame \'QoS\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(22, nb, "<")
@@ -882,11 +882,11 @@ class Dot11DataAddr4Frame(Dot11DataFrame):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-    
+
     def get_address4(self):
         'Return 802.11 \'Data\' data frame 48 bit \'Address4\' field as a 6 bytes array'
         return self.header.get_bytes()[22:28]
-        
+
     def set_address4(self, value):
         'Set 802.11 \'Data\' data frame 48 bit \'Address4\' field as a 6 bytes array'
         for i in range(0, 6):
@@ -902,14 +902,14 @@ class Dot11DataAddr4QoSFrame(Dot11DataAddr4Frame):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-    
+
     def get_QoS(self):
         'Return 802.11 \'Data\' data frame \'QoS\' field'
         b = self.header.get_word(28, "<")
-        return b 
+        return b
 
     def set_QoS(self, value):
-        'Set the 802.11 \'Data\' data frame \'QoS\' field' 
+        'Set the 802.11 \'Data\' data frame \'QoS\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(28, nb, "<")
@@ -952,7 +952,7 @@ class SAPTypes():
 
 class LLC(ProtocolPacket):
     '802.2 Logical Link Control (LLC) Frame'
-    
+
     DLC_UNNUMBERED_FRAMES = 0x03
 
     def __init__(self, aBuffer = None):
@@ -978,7 +978,7 @@ class LLC(ProtocolPacket):
     def set_SSAP(self, value):
         "Set the Source Service Access Point (SAP) of LLC frame"
         self.header.set_byte(1, value)
-    
+
     def get_control(self):
         "Get the Control field from LLC frame"
         return self.header.get_byte(2)
@@ -1010,7 +1010,7 @@ class SNAP(ProtocolPacket):
         # clear the bits
         mask = ((~0xFFFFFF00) & 0xFF)
         masked = self.header.get_long(0, ">") & mask
-        # set the bits 
+        # set the bits
         nb = masked | ((value & 0x00FFFFFF) << 8)
         self.header.set_long(0, nb)
 
@@ -1032,7 +1032,7 @@ class Dot11WEP(ProtocolPacket):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-        
+
     def is_WEP(self):
         'Return True if it\'s a WEP'
         # We already know that it's private.
@@ -1040,7 +1040,7 @@ class Dot11WEP(ProtocolPacket):
         # WPA/WPA2 have the ExtIV (Bit 5) enaled and WEP disabled
         b = self.header.get_byte(3)
         return not (b & 0x20)
-            
+
     def get_iv(self):
         'Return the \'WEP IV\' field'
         b = array_tobytes(self.header.get_bytes()[0:3])
@@ -1053,7 +1053,7 @@ class Dot11WEP(ProtocolPacket):
         # clear the bits
         mask = ((~0xFFFFFF00) & 0xFF)
         masked = self.header.get_long(0, ">") & mask
-        # set the bits 
+        # set the bits
         nb = masked | ((value & 0x00FFFFFF) << 8)
         self.header.set_long(0, nb)
 
@@ -1070,33 +1070,33 @@ class Dot11WEP(ProtocolPacket):
         # set the bits
         nb = masked | ((value & 0x03) << 6)
         self.header.set_byte(3, nb)
-    
+
     def get_decrypted_data(self, key_string):
         'Return \'WEP Data\' field decrypted'
 
-        # Needs to be at least 8 bytes of payload 
+        # Needs to be at least 8 bytes of payload
         if len(self.body_string)<8:
             return self.body_string
-        
-        # initialize the first bytes of the key from the IV 
-        # and copy rest of the WEP key (the secret part) 
-        
+
+        # initialize the first bytes of the key from the IV
+        # and copy rest of the WEP key (the secret part)
+
         # Convert IV to 3 bytes long string
         iv=struct.pack('>L',self.get_iv())[-3:]
         key=iv+key_string
         rc4=RC4(key)
         decrypted_data=rc4.decrypt(self.body_string)
-        
+
         return decrypted_data
-    
+
     def get_encrypted_data(self, key_string):
         # RC4 is symmetric
         return self.get_decrypted_data(key_string)
-    
+
     def encrypt_frame(self, key_string):
         enc = self.get_encrypted_data(key_string)
         self.load_body(enc)
-    
+
 class Dot11WEPData(ProtocolPacket):
     '802.11 WEP Data Part'
 
@@ -1107,12 +1107,12 @@ class Dot11WEPData(ProtocolPacket):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-        
+
     def get_icv(self):
         "Return 'WEP ICV' field"
-            
+
         b = self.tail.get_long(-4, ">")
-        return b 
+        return b
 
     def set_icv(self, value = None):
         "Set 'WEP ICV' field"
@@ -1124,15 +1124,15 @@ class Dot11WEPData(ProtocolPacket):
         # set the bits
         nb = value & 0xFFFFFFFF
         self.tail.set_long(-4, nb)
-    
+
     def get_computed_icv(self):
         crcle=crc32(self.body_string)&0xffffffff
-        # This crc32 is in little endian, convert it to big endian 
+        # This crc32 is in little endian, convert it to big endian
         crc=struct.pack('<L', crcle)
          # Convert to long
         (crc_long,) = struct.unpack('!L', crc)
         return crc_long
-    
+
     def check_icv(self):
         computed_icv=self.get_computed_icv()
         current_icv=self.get_icv()
@@ -1151,14 +1151,14 @@ class Dot11WPA(ProtocolPacket):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-        
+
     def is_WPA(self):
         'Return True if it\'s a WPA'
         # Now we must differentiate between WPA and WPA2
         # In WPA WEPSeed is set to (TSC1 | 0x20) & 0x7f.
         b = self.get_WEPSeed() == ((self.get_TSC1() | 0x20 ) & 0x7f)
         return (b and self.get_extIV())
-        
+
     def get_keyid(self):
         'Return the \'WPA KEY ID\' field'
         b = self.header.get_byte(3)
@@ -1177,23 +1177,23 @@ class Dot11WPA(ProtocolPacket):
         'Return \'WPA Data\' field decrypted'
         # TODO: Replace it with the decoded string
         return self.body_string
-    
+
     def get_TSC1(self):
         'Return the \'WPA TSC1\' field'
         b = self.header.get_byte(0)
         return (b & 0xFF)
-    
+
     def set_TSC1(self, value):
         'Set the \'WPA TSC1\' field'
         # set the bits
         nb = (value & 0xFF)
         self.header.set_byte(0, nb)
-        
+
     def get_WEPSeed(self):
         'Return the \'WPA WEPSeed\' field'
         b = self.header.get_byte(1)
         return (b & 0xFF)
-    
+
     def set_WEPSeed(self, value):
         'Set the \'WPA WEPSeed\' field'
         # set the bits
@@ -1204,7 +1204,7 @@ class Dot11WPA(ProtocolPacket):
         'Return the \'WPA TSC0\' field'
         b = self.header.get_byte(2)
         return (b & 0xFF)
-    
+
     def set_TSC0(self, value):
         'Set the \'WPA TSC0\' field'
         # set the bits
@@ -1224,12 +1224,12 @@ class Dot11WPA(ProtocolPacket):
         # set the bits
         nb = masked | ((value & 0x01) << 5)
         self.header.set_byte(3, nb)
-        
+
     def get_TSC2(self):
         'Return the \'WPA TSC2\' field'
         b = self.header.get_byte(4)
         return (b & 0xFF)
-    
+
     def set_TSC2(self, value):
         'Set the \'WPA TSC2\' field'
         # set the bits
@@ -1240,7 +1240,7 @@ class Dot11WPA(ProtocolPacket):
         'Return the \'WPA TSC3\' field'
         b = self.header.get_byte(5)
         return (b & 0xFF)
-    
+
     def set_TSC3(self, value):
         'Set the \'WPA TSC3\' field'
         # set the bits
@@ -1251,7 +1251,7 @@ class Dot11WPA(ProtocolPacket):
         'Return the \'WPA TSC4\' field'
         b = self.header.get_byte(6)
         return (b & 0xFF)
-    
+
     def set_TSC4(self, value):
         'Set the \'WPA TSC4\' field'
         # set the bits
@@ -1262,7 +1262,7 @@ class Dot11WPA(ProtocolPacket):
         'Return the \'WPA TSC5\' field'
         b = self.header.get_byte(7)
         return (b & 0xFF)
-    
+
     def set_TSC5(self, value):
         'Set the \'WPA TSC5\' field'
         # set the bits
@@ -1279,12 +1279,12 @@ class Dot11WPAData(ProtocolPacket):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-        
+
     def get_icv(self):
         "Return 'WPA ICV' field"
-            
+
         b = self.tail.get_long(-4, ">")
-        return b 
+        return b
 
     def set_icv(self, value = None):
         "Set 'WPA ICV' field"
@@ -1296,20 +1296,20 @@ class Dot11WPAData(ProtocolPacket):
         # set the bits
         nb = value & 0xFFFFFFFF
         self.tail.set_long(-4, nb)
-    
+
     def get_MIC(self):
         'Return the \'WPA2Data MIC\' field'
         return self.get_tail_as_string()[:8]
 
     def set_MIC(self, value):
         'Set the \'WPA2Data MIC\' field'
-        #Padding to 8 bytes with 0x00's 
+        #Padding to 8 bytes with 0x00's
         value.ljust(8,b'\x00')
         #Stripping to 8 bytes
         value=value[:8]
-        icv=self.tail.get_buffer_as_string()[-4:] 
+        icv=self.tail.get_buffer_as_string()[-4:]
         self.tail.set_bytes_from_string(value+icv)
-        
+
 class Dot11WPA2(ProtocolPacket):
     '802.11 WPA2'
 
@@ -1320,7 +1320,7 @@ class Dot11WPA2(ProtocolPacket):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-        
+
     def is_WPA2(self):
         'Return True if it\'s a WPA2'
         # Now we must differentiate between WPA and WPA2
@@ -1333,7 +1333,7 @@ class Dot11WPA2(ProtocolPacket):
         'Return the \'WPA2 extID\' field'
         b = self.header.get_byte(3)
         return ((b>>5) & 0x1)
-    
+
     def set_extIV(self, value):
         'Set the \'WPA2 extID\' field'
         # clear the bits
@@ -1342,7 +1342,7 @@ class Dot11WPA2(ProtocolPacket):
         # set the bits
         nb = masked | ((value & 0x01) << 5)
         self.header.set_byte(3, nb)
-        
+
     def get_keyid(self):
         'Return the \'WPA2 KEY ID\' field'
         b = self.header.get_byte(3)
@@ -1361,23 +1361,23 @@ class Dot11WPA2(ProtocolPacket):
         'Return \'WPA2 Data\' field decrypted'
         # TODO: Replace it with the decoded string
         return self.body_string
-    
+
     def get_PN0(self):
         'Return the \'WPA2 PN0\' field'
         b = self.header.get_byte(0)
         return (b & 0xFF)
-    
+
     def set_PN0(self, value):
         'Set the \'WPA2 PN0\' field'
         # set the bits
         nb = (value & 0xFF)
         self.header.set_byte(0, nb)
-        
+
     def get_PN1(self):
         'Return the \'WPA2 PN1\' field'
         b = self.header.get_byte(1)
         return (b & 0xFF)
-    
+
     def set_PN1(self, value):
         'Set the \'WPA2 PN1\' field'
         # set the bits
@@ -1388,7 +1388,7 @@ class Dot11WPA2(ProtocolPacket):
         'Return the \'WPA2 PN2\' field'
         b = self.header.get_byte(4)
         return (b & 0xFF)
-    
+
     def set_PN2(self, value):
         'Set the \'WPA2 PN2\' field'
         # set the bits
@@ -1399,7 +1399,7 @@ class Dot11WPA2(ProtocolPacket):
         'Return the \'WPA2 PN3\' field'
         b = self.header.get_byte(5)
         return (b & 0xFF)
-    
+
     def set_PN3(self, value):
         'Set the \'WPA2 PN3\' field'
         # set the bits
@@ -1410,7 +1410,7 @@ class Dot11WPA2(ProtocolPacket):
         'Return the \'WPA2 PN4\' field'
         b = self.header.get_byte(6)
         return (b & 0xFF)
-    
+
     def set_PN4(self, value):
         'Set the \'WPA2 PN4\' field'
         # set the bits
@@ -1421,7 +1421,7 @@ class Dot11WPA2(ProtocolPacket):
         'Return the \'WPA2 PN5\' field'
         b = self.header.get_byte(7)
         return (b & 0xFF)
-    
+
     def set_PN5(self, value):
         'Set the \'WPA2 PN5\' field'
         # set the bits
@@ -1438,14 +1438,14 @@ class Dot11WPA2Data(ProtocolPacket):
         ProtocolPacket.__init__(self, header_size, tail_size)
         if(aBuffer):
             self.load_packet(aBuffer)
-            
+
     def get_MIC(self):
         'Return the \'WPA2Data MIC\' field'
         return self.get_tail_as_string()
 
     def set_MIC(self, value):
         'Set the \'WPA2Data MIC\' field'
-        #Padding to 8 bytes with 0x00's 
+        #Padding to 8 bytes with 0x00's
         value.ljust(8,b'\x00')
         #Stripping to 8 bytes
         value=value[:8]
@@ -1544,7 +1544,7 @@ class RadioTap(ProtocolPacket):
     class RTF_FCS_IN_HEADER(__RadioTapField):
         BIT_NUMBER = 14
         STRUCTURE = "<L"
-        ALIGNMENT = 4   
+        ALIGNMENT = 4
 
     # clashes with HARDWARE_QUEUE
     class RTF_TX_FLAGS(__RadioTapField):
@@ -1563,7 +1563,7 @@ class RadioTap(ProtocolPacket):
         BIT_NUMBER = 16
         STRUCTURE = "<B"
 
-##    # clashes with RTS_RETRIES 
+##    # clashes with RTS_RETRIES
 ##    class RTF_RSSI(__RadioTapField):
 ##        BIT_NUMBER = 16
 ##        STRUCTURE = "<H"
@@ -1581,43 +1581,43 @@ class RadioTap(ProtocolPacket):
     class RTF_EXT(__RadioTapField):
         BIT_NUMBER = 31
         STRUCTURE = []
-    
+
     # Sort the list so the 'for' statement walk the list in the right order
     radiotap_fields = __RadioTapField.__subclasses__()
     radiotap_fields.sort(key= lambda x: x.BIT_NUMBER)
 
     def __init__(self, aBuffer = None):
-        header_size = self.__HEADER_BASE_SIZE 
+        header_size = self.__HEADER_BASE_SIZE
         tail_size = 0
-        
+
         if aBuffer:
             length = struct.unpack('<H', aBuffer[2:4])[0]
             header_size=length
-                    
+
             ProtocolPacket.__init__(self, header_size, tail_size)
             self.load_packet(aBuffer)
         else:
             ProtocolPacket.__init__(self, header_size, tail_size)
             self.set_version(0)
             self.__set_present(0x00000000)
-            
+
     def get_header_length(self):
         'Return the RadioTap header \'length\' field'
-        self.__update_header_length()        
+        self.__update_header_length()
         return self.header.get_word(2, "<")
-            
+
     def get_version(self):
         'Return the \'version\' field'
         b = self.header.get_byte(0)
         return b
-    
+
     def set_version(self, value):
         'Set the \'version\' field'
         nb = (value & 0xFF)
         self.header.set_byte(0, nb)
-        
+
         nb = (value & 0xFF)
-        
+
     def get_present(self, offset=_BASE_PRESENT_FLAGS_OFFSET):
         "Return RadioTap present bitmap field"
         present = self.header.get_long(offset, "<")
@@ -1641,7 +1641,7 @@ class RadioTap(ProtocolPacket):
         'Unset a \'present\' field bit'
         npresent=~(2**field.BIT_NUMBER) & self.get_present()
         self.header.set_long(4, npresent,'<')
-        
+
     def __align(self, val, align):
         return ( (((val) + ((align) - 1)) & ~((align) - 1)) - val )
 
@@ -1670,7 +1670,7 @@ class RadioTap(ProtocolPacket):
         is_present=self.get_present_bit(field)
         if is_present is False:
             return False
-                
+
         byte_pos=self.__get_field_position(field)
         if not byte_pos:
             return False
@@ -1680,37 +1680,37 @@ class RadioTap(ProtocolPacket):
         header=self.get_header_as_string()
         total_length = struct.calcsize(field.STRUCTURE)
         header=header[:byte_pos]+header[byte_pos+total_length:]
-        
+
         self.load_header(header)
 
     def __get_field_values( self, field ):
         is_present=self.get_present_bit(field)
         if is_present is False:
             return None
-        
+
         byte_pos=self.__get_field_position(field)
         header=self.get_header_as_string()
         total_length=struct.calcsize(field.STRUCTURE)
         v=header[ byte_pos:byte_pos+total_length ]
-        
+
         field_values = struct.unpack(field.STRUCTURE, v)
-        
+
         return field_values
 
     def __set_field_values( self, field, values ):
         if not hasattr(values,'__iter__'):
             raise Exception("arg 'values' is not iterable")
-        
+
         # It's for to known the qty of argument of a structure
         num_fields=len(''.join(c for c in field.STRUCTURE if c not in '=@!<>'))
 
         if len(values)!=num_fields:
             raise Exception("Field %s has exactly %d items"%(str(field),struct.calcsize(field.STRUCTURE)))
-        
+
         is_present=self.get_present_bit(field)
         if is_present is False:
             self.__set_present_bit(field)
-        
+
         byte_pos=self.__get_field_position(field)
         header=self.get_header_as_string()
         total_length=struct.calcsize(field.STRUCTURE)
@@ -1723,18 +1723,18 @@ class RadioTap(ProtocolPacket):
             header=header[:byte_pos]+new_str+header[byte_pos:]
         self.load_header(header)
 
-            
+
     def set_tsft( self, nvalue ):
         "Set the Value in microseconds of the MAC's 64-bit 802.11 "\
         "Time Synchronization Function timer when the first bit of "\
         "the MPDU arrived at the MAC"
         self.__set_field_values(RadioTap.RTF_TSFT, [nvalue])
-        
+
     def get_tsft( self ):
         "Get the Value in microseconds of the MAC's 64-bit 802.11 "\
         "Time Synchronization Function timer when the first bit of "\
         "the MPDU arrived at the MAC"
-        
+
         values=self.__get_field_values(RadioTap.RTF_TSFT)
         if not values:
             return None
@@ -1743,21 +1743,21 @@ class RadioTap(ProtocolPacket):
     def set_flags( self, nvalue ):
         "Set the properties of transmitted and received frames."
         self.__set_field_values(self.RTF_FLAGS, [nvalue])
-   
+
     def get_flags( self ):
         "Get the properties of transmitted and received frames."
         values=self.__get_field_values(self.RTF_FLAGS)
         if not values:
             return None
         return values[0]
-   
+
     def set_rate( self, nvalue ):
-        "Set the TX/RX data rate in 500 Kbps units" 
-        
+        "Set the TX/RX data rate in 500 Kbps units"
+
         self.__set_field_values(self.RTF_RATE, [nvalue])
-   
+
     def get_rate( self ):
-        "Get the TX/RX data rate in 500 Kbps units" 
+        "Get the TX/RX data rate in 500 Kbps units"
 
         values=self.__get_field_values(self.RTF_RATE)
         if not values:
@@ -1765,24 +1765,24 @@ class RadioTap(ProtocolPacket):
         return values[0]
 
     def set_channel( self, freq, flags ):
-        "Set the channel Tx/Rx frequency in MHz and the channel flags" 
+        "Set the channel Tx/Rx frequency in MHz and the channel flags"
 
         self.__set_field_values(self.RTF_CHANNEL, [freq, flags])
-   
+
     def get_channel( self ):
-        "Get the TX/RX data rate in 500 Kbps units" 
+        "Get the TX/RX data rate in 500 Kbps units"
 
         values=self.__get_field_values(self.RTF_CHANNEL)
 
         return values
 
     def set_FHSS( self, hop_set, hop_pattern ):
-        "Set the hop set and pattern for frequency-hopping radios" 
+        "Set the hop set and pattern for frequency-hopping radios"
 
         self.__set_field_values(self.RTF_FHSS, [hop_set, hop_pattern])
-   
+
     def get_FHSS( self ):
-        "Get the hop set and pattern for frequency-hopping radios" 
+        "Get the hop set and pattern for frequency-hopping radios"
 
         values=self.__get_field_values(self.RTF_FHSS)
 
@@ -1790,13 +1790,13 @@ class RadioTap(ProtocolPacket):
 
     def set_dBm_ant_signal( self, signal ):
         "Set the RF signal power at the antenna, decibel difference from an "\
-        "arbitrary, fixed reference." 
+        "arbitrary, fixed reference."
 
         self.__set_field_values(self.RTF_DBM_ANTSIGNAL, [signal])
-   
+
     def get_dBm_ant_signal( self ):
         "Get the RF signal power at the antenna, decibel difference from an "\
-        "arbitrary, fixed reference." 
+        "arbitrary, fixed reference."
 
         values=self.__get_field_values(self.RTF_DBM_ANTSIGNAL)
         if not values:
@@ -1808,7 +1808,7 @@ class RadioTap(ProtocolPacket):
         "arbitrary, fixed reference."
 
         self.__set_field_values(self.RTF_DBM_ANTNOISE, [signal])
-   
+
     def get_dBm_ant_noise( self ):
         "Get the RF noise power at the antenna, decibel difference from an "\
         "arbitrary, fixed reference."
@@ -1823,11 +1823,11 @@ class RadioTap(ProtocolPacket):
         "Called 'Signal Quality' in datasheets. "
 
         self.__set_field_values(self.RTF_LOCK_QUALITY, [quality])
-   
+
     def get_lock_quality( self ):
         "Get the quality of Barker code lock. "\
         "Called 'Signal Quality' in datasheets. "
-        
+
         values=self.__get_field_values(self.RTF_LOCK_QUALITY)
         if not values:
             return None
@@ -1838,11 +1838,11 @@ class RadioTap(ProtocolPacket):
         "set at factory calibration. 0 is max power."
 
         self.__set_field_values(self.RTF_TX_ATTENUATION, [power])
-   
+
     def get_tx_attenuation( self ):
         "Set the transmit power expressed as unitless distance from max power "\
         "set at factory calibration. 0 is max power."
-        
+
         values=self.__get_field_values(self.RTF_TX_ATTENUATION)
         if not values:
             return None
@@ -1853,11 +1853,11 @@ class RadioTap(ProtocolPacket):
         "set at factory calibration. 0 is max power. "
 
         self.__set_field_values(self.RTF_DB_TX_ATTENUATION, [power])
-   
+
     def get_dB_tx_attenuation( self ):
         "Set the transmit power expressed as decibel distance from max power "\
         "set at factory calibration. 0 is max power. "
-        
+
         values=self.__get_field_values(self.RTF_DB_TX_ATTENUATION)
         if not values:
             return None
@@ -1867,14 +1867,14 @@ class RadioTap(ProtocolPacket):
         "Set the transmit power expressed as dBm (decibels from a 1 milliwatt"\
         " reference). This is the absolute power level measured at the "\
         "antenna port."
-        
+
         self.__set_field_values(self.RTF_DBM_TX_POWER, [power])
-   
+
     def get_dBm_tx_power( self ):
         "Get the transmit power expressed as dBm (decibels from a 1 milliwatt"\
         " reference). This is the absolute power level measured at the "\
         "antenna port."
-        
+
         values=self.__get_field_values(self.RTF_DBM_TX_POWER)
         if not values:
             return None
@@ -1883,13 +1883,13 @@ class RadioTap(ProtocolPacket):
     def set_antenna( self, antenna_index ):
         "Set Rx/Tx antenna index for this packet. "\
         "The first antenna is antenna 0. "\
-        
+
         self.__set_field_values(self.RTF_ANTENNA, [antenna_index])
-   
+
     def get_antenna( self ):
         "Set Rx/Tx antenna index for this packet. "\
         "The first antenna is antenna 0. "\
-        
+
         values=self.__get_field_values(self.RTF_ANTENNA)
         if not values:
             return None
@@ -1897,13 +1897,13 @@ class RadioTap(ProtocolPacket):
 
     def set_dB_ant_signal( self, signal ):
         "Set the RF signal power at the antenna, decibel difference from an "\
-        "arbitrary, fixed reference." 
+        "arbitrary, fixed reference."
 
         self.__set_field_values(self.RTF_DB_ANTSIGNAL, [signal])
-   
+
     def get_dB_ant_signal( self ):
         "Get the RF signal power at the antenna, decibel difference from an "\
-        "arbitrary, fixed reference." 
+        "arbitrary, fixed reference."
 
         values=self.__get_field_values(self.RTF_DB_ANTSIGNAL)
         if not values:
@@ -1912,13 +1912,13 @@ class RadioTap(ProtocolPacket):
 
     def set_dB_ant_noise( self, signal ):
         "Set the RF noise power at the antenna, decibel difference from an "\
-        "arbitrary, fixed reference." 
+        "arbitrary, fixed reference."
 
         self.__set_field_values(self.RTF_DB_ANTNOISE, [signal])
-   
+
     def get_dB_ant_noise( self ):
         "Get the RF noise power at the antenna, decibel difference from an "\
-        "arbitrary, fixed reference." 
+        "arbitrary, fixed reference."
 
         values=self.__get_field_values(self.RTF_DB_ANTNOISE)
         if not values:
@@ -1926,12 +1926,12 @@ class RadioTap(ProtocolPacket):
         return values[0]
 
 ##    def set_rx_flags( self, flags ):
-##        "Set the properties of received frames." 
+##        "Set the properties of received frames."
 ##
 ##        self.__set_field_values(self.RTF_RX_FLAGS, [flags])
-##   
+##
 ##    def get_rx_flags( self ):
-##        "Get the properties of received frames." 
+##        "Get the properties of received frames."
 ##
 ##        values=self.__get_field_values(self.RTF_RX_FLAGS)
 ##        if not values:
@@ -1940,13 +1940,13 @@ class RadioTap(ProtocolPacket):
 
     def set_FCS_in_header( self, fcs ):
         "Set the Field containing the FCS of the frame (instead of it being "\
-        "appended to the frame as it would appear on the air.) " 
+        "appended to the frame as it would appear on the air.) "
 
         self.__set_field_values(self.RTF_FCS_IN_HEADER, [fcs])
-   
+
     def get_FCS_in_header( self ):
         "Get the Field containing the FCS of the frame (instead of it being "\
-        "appended to the frame as it would appear on the air.) " 
+        "appended to the frame as it would appear on the air.) "
 
         values=self.__get_field_values(self.RTF_FCS_IN_HEADER)
         if not values:
@@ -1954,37 +1954,37 @@ class RadioTap(ProtocolPacket):
         return values[0]
 
 ##    def set_RSSI( self, rssi, max_rssi ):
-##        "Set the received signal strength and the maximum for the hardware." 
-##        
+##        "Set the received signal strength and the maximum for the hardware."
+##
 ##        self.__set_field_values(self.RTF_RSSI, [rssi, max_rssi])
-##   
+##
 ##    def get_RSSI( self ):
-##        "Get the received signal strength and the maximum for the hardware." 
-##        
+##        "Get the received signal strength and the maximum for the hardware."
+##
 ##        values=self.__get_field_values(self.RTF_RSSI)
-##        
+##
 ##        return values
 
     def set_RTS_retries( self, retries):
-        "Set the number of RTS retries a transmitted frame used." 
-        
+        "Set the number of RTS retries a transmitted frame used."
+
         self.__set_field_values(self.RTF_RTS_RETRIES, [retries])
-   
+
     def get_RTS_retries( self ):
-        "Get the number of RTS retries a transmitted frame used." 
-        
+        "Get the number of RTS retries a transmitted frame used."
+
         values=self.__get_field_values(self.RTF_RTS_RETRIES)
         if not values:
             return None
         return values[0]
 
     def set_tx_flags( self, flags ):
-        "Set the properties of transmitted frames." 
+        "Set the properties of transmitted frames."
 
         self.__set_field_values(self.RTF_TX_FLAGS, [flags])
-   
+
     def get_tx_flags( self ):
-        "Get the properties of transmitted frames." 
+        "Get the properties of transmitted frames."
 
         values=self.__get_field_values(self.RTF_TX_FLAGS)
         if not values:
@@ -1992,24 +1992,24 @@ class RadioTap(ProtocolPacket):
         return values[0]
 
     def set_xchannel( self, flags, freq, channel, maxpower ):
-        "Set extended channel information: flags, freq, channel and maxpower" 
-        
+        "Set extended channel information: flags, freq, channel and maxpower"
+
         self.__set_field_values(self.RTF_XCHANNEL, [flags, freq, channel, maxpower] )
-   
+
     def get_xchannel( self ):
-        "Get extended channel information: flags, freq, channel and maxpower" 
-        
+        "Get extended channel information: flags, freq, channel and maxpower"
+
         values=self.__get_field_values(field=self.RTF_XCHANNEL)
 
         return values
 
     def set_data_retries( self, retries ):
-        "Set the number of data retries a transmitted frame used." 
+        "Set the number of data retries a transmitted frame used."
 
         self.__set_field_values(self.RTF_DATA_RETRIES, [retries])
-   
+
     def get_data_retries( self ):
-        "Get the number of data retries a transmitted frame used." 
+        "Get the number of data retries a transmitted frame used."
 
         values=self.__get_field_values(self.RTF_DATA_RETRIES)
         if not values:
@@ -2017,12 +2017,12 @@ class RadioTap(ProtocolPacket):
         return values[0]
 
     def set_hardware_queue( self, queue ):
-        "Set the hardware queue to send the frame on." 
+        "Set the hardware queue to send the frame on."
 
         self.__set_field_values(self.RTF_HARDWARE_QUEUE, [queue])
-   
+
 ##    def get_hardware_queue( self ):
-##        "Get the hardware queue to send the frame on." 
+##        "Get the hardware queue to send the frame on."
 ##
 ##        values=self.__get_field_values(self.RTF_HARDWARE_QUEUE)
 ##        if not values:
@@ -2039,7 +2039,7 @@ class RadioTap(ProtocolPacket):
 
 class Dot11ManagementFrame(ProtocolPacket):
     '802.11 Management Frame'
-    
+
     def __init__(self, aBuffer = None):
         header_size = 22
         tail_size = 0
@@ -2051,14 +2051,14 @@ class Dot11ManagementFrame(ProtocolPacket):
     def get_duration(self):
         'Return 802.11 Management frame \'Duration\' field'
         b = self.header.get_word(0, "<")
-        return b 
+        return b
 
     def set_duration(self, value):
-        'Set the 802.11 Management frame \'Duration\' field' 
+        'Set the 802.11 Management frame \'Duration\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(0, nb, "<")
-        
+
     def get_destination_address(self):
         'Return 802.11 Management frame \'Destination Address\' field as a 6 bytes array'
         return self.header.get_bytes()[2:8]
@@ -2076,7 +2076,7 @@ class Dot11ManagementFrame(ProtocolPacket):
         'Set 802.11 Management frame \'Source Address\' field as a 6 bytes array'
         for i in range(0, 6):
             self.header.set_byte(8+i, value[i])
-            
+
     def get_bssid(self):
         'Return 802.11 Management frame \'BSSID\' field as a 6 bytes array'
         return self.header.get_bytes()[14: 20]
@@ -2089,10 +2089,10 @@ class Dot11ManagementFrame(ProtocolPacket):
     def get_sequence_control(self):
         'Return 802.11 Management frame \'Sequence Control\' field'
         b = self.header.get_word(20, "<")
-        return b 
+        return b
 
     def set_sequence_control(self, value):
-        'Set the 802.11 Management frame \'Sequence Control\' field' 
+        'Set the 802.11 Management frame \'Sequence Control\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(20, nb, "<")
@@ -2101,40 +2101,40 @@ class Dot11ManagementFrame(ProtocolPacket):
         'Return 802.11 Management frame \'Fragment Number\' subfield'
 
         b = self.get_sequence_control()
-        return (b&0x000F) 
+        return (b&0x000F)
 
     def set_fragment_number(self, value):
-        'Set the 802.11 Management frame \'Fragment Number\' subfield' 
+        'Set the 802.11 Management frame \'Fragment Number\' subfield'
         # clear the bits
         mask = (~0x000F) & 0xFFFF
         masked = self.header.get_word(20, "<") & mask
-        # set the bits 
+        # set the bits
         nb = masked | (value & 0x000F)
         self.header.set_word(20, nb, "<")
-        
+
     def get_sequence_number(self):
         'Return 802.11 Management frame \'Sequence Number\' subfield'
-        
+
         b = self.get_sequence_control()
-        return ((b>>4) & 0xFFF) 
-    
+        return ((b>>4) & 0xFFF)
+
     def set_sequence_number(self, value):
-        'Set the 802.11 Management frame \'Sequence Number\' subfield' 
+        'Set the 802.11 Management frame \'Sequence Number\' subfield'
         # clear the bits
         mask = (~0xFFF0) & 0xFFFF
         masked = self.header.get_word(20, "<") & mask
-        # set the bits 
-        nb = masked | ((value & 0x0FFF ) << 4 ) 
+        # set the bits
+        nb = masked | ((value & 0x0FFF ) << 4 )
         self.header.set_word(20, nb, "<")
 
     def get_frame_body(self):
         'Return 802.11 Management frame \'Frame Body\' field'
-        
+
         return self.get_body_as_string()
 
     def set_frame_body(self, data):
         'Set 802.11 Management frame \'Frame Body\' field'
-        
+
         self.load_body(data)
 
 class DOT11_MANAGEMENT_ELEMENTS():
@@ -2155,7 +2155,7 @@ class DOT11_MANAGEMENT_ELEMENTS():
     TCLAS                   = 14
     SCHEDULE                = 15
     CHALLENGE_TEXT          = 16
-    # RESERVED                17-31 
+    # RESERVED                17-31
     POWER_CONSTRAINT        = 32
     POWER_CAPABILITY        = 33
     TPC_REQUEST             = 34
@@ -2180,16 +2180,16 @@ class DOT11_MANAGEMENT_ELEMENTS():
     #RESERVED                 128-220
     VENDOR_SPECIFIC         = 221
     #RESERVED                 222-255
-    
+
 class Dot11ManagementHelper(ProtocolPacket):
-        
+
     def __init__(self, header_size, tail_size, aBuffer = None):
         self.__HEADER_BASE_SIZE=header_size
-        
+
         if aBuffer:
             elements_length=self.__calculate_elements_length(aBuffer[self.__HEADER_BASE_SIZE:])
             header_size+=elements_length
-            
+
             ProtocolPacket.__init__(self, header_size, tail_size)
             self.load_packet(aBuffer)
         else:
@@ -2197,7 +2197,7 @@ class Dot11ManagementHelper(ProtocolPacket):
 
     def _find_element(self, elements, element_id ):
         remaining=len(elements)
-        
+
         offset=0
         while remaining > 0:
             (id,length)=struct.unpack("!BB",elements[offset:offset+2])
@@ -2221,7 +2221,7 @@ class Dot11ManagementHelper(ProtocolPacket):
             # element_id is None, then __find_tagged_parameter must return -1
             raise Exception("Internal Error %s"%match)
         return offset
-        
+
     def _get_elements_generator(self, element_id):
         elements=self.get_header_as_string()[self.__HEADER_BASE_SIZE:]
         gen_tp=self._find_element(elements, element_id )
@@ -2233,19 +2233,19 @@ class Dot11ManagementHelper(ProtocolPacket):
             value_end=offset+length
             value=elements[value_offset:value_end]
             yield value
-        
+
     def _get_element(self, element_id):
         gen_get_element=self._get_elements_generator(element_id)
         try:
             s=next(gen_get_element)
-            
+
             if s is None:
                 raise Exception("gen_get_element salio con None in _get_element!!!")
-            
+
             return s
         except StopIteration:
             pass
-            
+
         return None
 
     def delete_element(self, element_id, multiple = False):
@@ -2262,16 +2262,16 @@ class Dot11ManagementHelper(ProtocolPacket):
             found=True
             if multiple is False:
                 break
-            
+
         if not found:
             return  False
-        
+
         self.load_header(header)
         return True
-    
+
     def _set_element(self, element_id, value, replace = True):
         parameter=struct.pack('BB%ds'%len(value),element_id,len(value),value)
-        
+
         header=self.get_header_as_string()
         elements=header[self.__HEADER_BASE_SIZE:]
         gen_tp=self._find_element(elements, element_id )
@@ -2293,12 +2293,12 @@ class Dot11ManagementHelper(ProtocolPacket):
                 break
         if not found:
             # Append (found<0 Not found)
-            header=header+parameter        
+            header=header+parameter
         self.load_header(header)
 
 class Dot11ManagementBeacon(Dot11ManagementHelper):
     '802.11 Management Beacon Frame'
-        
+
     __HEADER_BASE_SIZE = 12 # minimal header size
 
     def __init__(self, aBuffer = None):
@@ -2307,12 +2307,12 @@ class Dot11ManagementBeacon(Dot11ManagementHelper):
         Dot11ManagementHelper.__init__(self, header_size, tail_size, aBuffer)
 
     def get_timestamp(self):
-        'Return the 802.11 Management Beacon frame \'Timestamp\' field' 
+        'Return the 802.11 Management Beacon frame \'Timestamp\' field'
         b = self.header.get_long_long(0, "<")
-        return b 
+        return b
 
     def set_timestamp(self, value):
-        'Set the 802.11 Management Beacon frame \'Timestamp\' field' 
+        'Set the 802.11 Management Beacon frame \'Timestamp\' field'
         # set the bits
         nb = value & 0xFFFFFFFFFFFFFFFF
         self.header.set_long_long(0, nb, "<")
@@ -2322,26 +2322,26 @@ class Dot11ManagementBeacon(Dot11ManagementHelper):
         'To convert it to seconds =>  secs = Beacon_Interval*1024/1000000'
 
         b = self.header.get_word(8, "<")
-        return b 
+        return b
 
     def set_beacon_interval(self, value):
-        'Set the 802.11 Management Beacon frame \'Beacon Interval\' field' 
+        'Set the 802.11 Management Beacon frame \'Beacon Interval\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(8, nb, "<")
 
     def get_capabilities(self):
         'Return the 802.11 Management Beacon frame \'Capability information\' field. '
-        
+
         b = self.header.get_word(10, "<")
-        return b 
+        return b
 
     def set_capabilities(self, value):
-        'Set the 802.11 Management Beacon frame \'Capability Information\' field' 
+        'Set the 802.11 Management Beacon frame \'Capability Information\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(10, nb, "<")
-        
+
     def get_ssid(self):
         "Get the 802.11 Management SSID element. "\
         "The SSID element indicates the identity of an ESS or IBSS."
@@ -2358,11 +2358,11 @@ class Dot11ManagementBeacon(Dot11ManagementHelper):
         s=self._get_element(DOT11_MANAGEMENT_ELEMENTS.SUPPORTED_RATES)
         if s is None:
             return None
-        
+
         rates=struct.unpack('%dB'%len(s),s)
         if not human_readable:
             return rates
-            
+
         rates_Mbs=tuple([(x&0x7F)*0.5 for x in rates])
         return rates_Mbs
 
@@ -2384,7 +2384,7 @@ class Dot11ManagementBeacon(Dot11ManagementHelper):
         s=self._get_element(DOT11_MANAGEMENT_ELEMENTS.DS_PARAMETER_SET)
         if s is None:
             return None
-        
+
         (ch,)=struct.unpack('B',s)
 
         return ch
@@ -2414,7 +2414,7 @@ class Dot11ManagementBeacon(Dot11ManagementHelper):
             return None
 
         (erp,) = struct.unpack('B',s)
-        
+
         return erp
 
     def set_erp(self, erp):
@@ -2453,23 +2453,23 @@ class Dot11ManagementBeacon(Dot11ManagementHelper):
         "The Vendor Specific information element is used to carry "\
         "information not defined in the standard within a single "\
         "defined format"
-        
+
         vs=[]
         gen_get_element=self._get_elements_generator(DOT11_MANAGEMENT_ELEMENTS.VENDOR_SPECIFIC)
         try:
             while 1:
                 s=next(gen_get_element)
-                
+
                 if s is None:
                     raise Exception("gen_get_element salio con None!!!")
-                
+
                 # OUI is 3 bytes
                 oui=s[:3]
                 data=s[3:]
                 vs.append((oui,data))
         except StopIteration:
             pass
-            
+
         return vs
 
     def add_vendor_specific(self, oui, data):
@@ -2477,7 +2477,7 @@ class Dot11ManagementBeacon(Dot11ManagementHelper):
         "The Vendor Specific information element is used to carry "\
         "information not defined in the standard within a single "\
         "defined format"
-        
+
         # 3 is the OUI length
         max_data_len=255-3
         data_len=len(data)
@@ -2486,12 +2486,12 @@ class Dot11ManagementBeacon(Dot11ManagementHelper):
             raise Exception("data allow up to %d bytes long" % max_data_len)
         if len(oui) > 3:
             raise Exception("oui is three bytes long")
-        
+
         self._set_element(DOT11_MANAGEMENT_ELEMENTS.VENDOR_SPECIFIC,oui+data, replace=False)
 
 class Dot11ManagementProbeRequest(Dot11ManagementHelper):
     '802.11 Management Probe Request Frame'
-        
+
     def __init__(self, aBuffer = None):
         header_size = 0
         tail_size = 0
@@ -2513,11 +2513,11 @@ class Dot11ManagementProbeRequest(Dot11ManagementHelper):
         s=self._get_element(DOT11_MANAGEMENT_ELEMENTS.SUPPORTED_RATES)
         if s is None:
             return None
-        
+
         rates=struct.unpack('%dB'%len(s),s)
         if not human_readable:
             return rates
-            
+
         rates_Mbs=tuple([(x&0x7F)*0.5 for x in rates])
         return rates_Mbs
 
@@ -2689,23 +2689,23 @@ class Dot11ManagementAuthentication(Dot11ManagementHelper):
         "The Vendor Specific information element is used to carry "\
         "information not defined in the standard within a single "\
         "defined format"
-        
+
         vs=[]
         gen_get_element=self._get_elements_generator(DOT11_MANAGEMENT_ELEMENTS.VENDOR_SPECIFIC)
         try:
             while 1:
                 s=next(gen_get_element)
-                
+
                 if s is None:
                     raise Exception("gen_get_element salio con None!!!")
-                
+
                 # OUI is 3 bytes
                 oui=s[:3]
                 data=s[3:]
                 vs.append((oui,data))
         except StopIteration:
             pass
-            
+
         return vs
 
     def add_vendor_specific(self, oui, data):
@@ -2713,7 +2713,7 @@ class Dot11ManagementAuthentication(Dot11ManagementHelper):
         "The Vendor Specific information element is used to carry "\
         "information not defined in the standard within a single "\
         "defined format"
-        
+
         # 3 is the OUI length
         max_data_len=255-3
         data_len=len(data)
@@ -2722,7 +2722,7 @@ class Dot11ManagementAuthentication(Dot11ManagementHelper):
             raise Exception("data allow up to %d bytes long" % max_data_len)
         if len(oui) > 3:
             raise Exception("oui is three bytes long")
-        
+
         self._set_element(DOT11_MANAGEMENT_ELEMENTS.VENDOR_SPECIFIC,oui+data, replace=False)
 
 class Dot11ManagementDisassociation(Dot11ManagementDeauthentication):
@@ -2733,7 +2733,7 @@ class Dot11ManagementDisassociation(Dot11ManagementDeauthentication):
 
 class Dot11ManagementAssociationRequest(Dot11ManagementHelper):
     '802.11 Management Association Request Frame'
-        
+
     __HEADER_BASE_SIZE = 4 # minimal header size
 
     def __init__(self, aBuffer = None):
@@ -2744,23 +2744,23 @@ class Dot11ManagementAssociationRequest(Dot11ManagementHelper):
     def get_capabilities(self):
         'Return the 802.11 Management Association Request Frame \'Capability information\' field. '
         b = self.header.get_word(0, "<")
-        return b 
+        return b
 
     def set_capabilities(self, value):
-        'Set the 802.11 Management Association Request Frame \'Capability Information\' field' 
+        'Set the 802.11 Management Association Request Frame \'Capability Information\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(0, nb, "<")
-        
+
     def get_listen_interval(self):
         'Return the 802.11 Management Association Request Frame \'Listen Interval\' field. '
         b = self.header.get_word(2, "<")
-        return b 
+        return b
 
     def set_listen_interval(self, value):
-        'Set the 802.11 Management Association Request Frame \'Listen Interval\' field' 
+        'Set the 802.11 Management Association Request Frame \'Listen Interval\' field'
         self.header.set_word(2, value, "<")
-        
+
     def get_ssid(self):
         "Get the 802.11 Management SSID element. "\
         "The SSID element indicates the identity of an ESS or IBSS."
@@ -2777,11 +2777,11 @@ class Dot11ManagementAssociationRequest(Dot11ManagementHelper):
         s=self._get_element(DOT11_MANAGEMENT_ELEMENTS.SUPPORTED_RATES)
         if s is None:
             return None
-        
+
         rates=struct.unpack('%dB'%len(s),s)
         if not human_readable:
             return rates
-            
+
         rates_Mbs=tuple([(x&0x7F)*0.5 for x in rates])
         return rates_Mbs
 
@@ -2813,23 +2813,23 @@ class Dot11ManagementAssociationRequest(Dot11ManagementHelper):
         "The Vendor Specific information element is used to carry "\
         "information not defined in the standard within a single "\
         "defined format"
-        
+
         vs=[]
         gen_get_element=self._get_elements_generator(DOT11_MANAGEMENT_ELEMENTS.VENDOR_SPECIFIC)
         try:
             while 1:
                 s=next(gen_get_element)
-                
+
                 if s is None:
                     raise Exception("gen_get_element salio con None!!!")
-                
+
                 # OUI is 3 bytes
                 oui=s[:3]
                 data=s[3:]
                 vs.append((oui,data))
         except StopIteration:
             pass
-            
+
         return vs
 
     def add_vendor_specific(self, oui, data):
@@ -2837,7 +2837,7 @@ class Dot11ManagementAssociationRequest(Dot11ManagementHelper):
         "The Vendor Specific information element is used to carry "\
         "information not defined in the standard within a single "\
         "defined format"
-        
+
         # 3 is the OUI length
         max_data_len=255-3
         data_len=len(data)
@@ -2846,12 +2846,12 @@ class Dot11ManagementAssociationRequest(Dot11ManagementHelper):
             raise Exception("data allow up to %d bytes long" % max_data_len)
         if len(oui) > 3:
             raise Exception("oui is three bytes long")
-        
+
         self._set_element(DOT11_MANAGEMENT_ELEMENTS.VENDOR_SPECIFIC,oui+data, replace=False)
 
 class Dot11ManagementAssociationResponse(Dot11ManagementHelper):
     '802.11 Management Association Response Frame'
-        
+
     __HEADER_BASE_SIZE = 6 # minimal header size
 
     def __init__(self, aBuffer = None):
@@ -2862,30 +2862,30 @@ class Dot11ManagementAssociationResponse(Dot11ManagementHelper):
     def get_capabilities(self):
         'Return the 802.11 Management Association Response Frame \'Capability information\' field. '
         b = self.header.get_word(0, "<")
-        return b 
+        return b
 
     def set_capabilities(self, value):
-        'Set the 802.11 Management Association Response Frame \'Capability Information\' field' 
+        'Set the 802.11 Management Association Response Frame \'Capability Information\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(0, nb, "<")
-        
+
     def get_status_code(self):
         'Return the 802.11 Management Association Response Frame \'Status Code\' field. '
         b = self.header.get_word(2, "<")
-        return b 
+        return b
 
     def set_status_code(self, value):
-        'Set the 802.11 Management Association Response Frame \'Status Code\' field' 
+        'Set the 802.11 Management Association Response Frame \'Status Code\' field'
         self.header.set_word(2, value, "<")
 
     def get_association_id(self):
         'Return the 802.11 Management Association Response Frame \'Association Id\' field. '
         b = self.header.get_word(4, "<")
-        return b 
+        return b
 
     def set_association_id(self, value):
-        'Set the 802.11 Management Association Response Frame \'Association Id\' field' 
+        'Set the 802.11 Management Association Response Frame \'Association Id\' field'
         self.header.set_word(4, value, "<")
 
     def get_supported_rates(self, human_readable=False):
@@ -2896,11 +2896,11 @@ class Dot11ManagementAssociationResponse(Dot11ManagementHelper):
         s=self._get_element(DOT11_MANAGEMENT_ELEMENTS.SUPPORTED_RATES)
         if s is None:
             return None
-        
+
         rates=struct.unpack('%dB'%len(s),s)
         if not human_readable:
             return rates
-            
+
         rates_Mbs=tuple([(x&0x7F)*0.5 for x in rates])
         return rates_Mbs
 
@@ -2921,23 +2921,23 @@ class Dot11ManagementAssociationResponse(Dot11ManagementHelper):
         "The Vendor Specific information element is used to carry "\
         "information not defined in the standard within a single "\
         "defined format"
-        
+
         vs=[]
         gen_get_element=self._get_elements_generator(DOT11_MANAGEMENT_ELEMENTS.VENDOR_SPECIFIC)
         try:
             while 1:
                 s=next(gen_get_element)
-                
+
                 if s is None:
                     raise Exception("gen_get_element salio con None!!!")
-                
+
                 # OUI is 3 bytes
                 oui=s[:3]
                 data=s[3:]
                 vs.append((oui,data))
         except StopIteration:
             pass
-            
+
         return vs
 
     def add_vendor_specific(self, oui, data):
@@ -2945,7 +2945,7 @@ class Dot11ManagementAssociationResponse(Dot11ManagementHelper):
         "The Vendor Specific information element is used to carry "\
         "information not defined in the standard within a single "\
         "defined format"
-        
+
         # 3 is the OUI length
         max_data_len=255-3
         data_len=len(data)
@@ -2953,12 +2953,12 @@ class Dot11ManagementAssociationResponse(Dot11ManagementHelper):
             raise Exception("data allow up to %d bytes long" % max_data_len)
         if len(oui) > 3:
             raise Exception("oui is three bytes long")
-        
+
         self._set_element(DOT11_MANAGEMENT_ELEMENTS.VENDOR_SPECIFIC,oui+data, replace=False)
 
 class Dot11ManagementReassociationRequest(Dot11ManagementHelper):
     '802.11 Management Reassociation Request Frame'
-        
+
     __HEADER_BASE_SIZE = 10 # minimal header size
 
     def __init__(self, aBuffer = None):
@@ -2969,10 +2969,10 @@ class Dot11ManagementReassociationRequest(Dot11ManagementHelper):
     def get_capabilities(self):
         'Return the 802.11 Management Reassociation Request Frame \'Capability information\' field. '
         b = self.header.get_word(0, "<")
-        return b 
+        return b
 
     def set_capabilities(self, value):
-        'Set the 802.11 Management Reassociation Request Frame \'Capability Information\' field' 
+        'Set the 802.11 Management Reassociation Request Frame \'Capability Information\' field'
         # set the bits
         nb = value & 0xFFFF
         self.header.set_word(0, nb, "<")
@@ -2980,10 +2980,10 @@ class Dot11ManagementReassociationRequest(Dot11ManagementHelper):
     def get_listen_interval(self):
         'Return the 802.11 Management Reassociation Request Frame \'Listen Interval\' field. '
         b = self.header.get_word(2, "<")
-        return b 
+        return b
 
     def set_listen_interval(self, value):
-        'Set the 802.11 Management Reassociation Request Frame \'Listen Interval\' field' 
+        'Set the 802.11 Management Reassociation Request Frame \'Listen Interval\' field'
         self.header.set_word(2, value, "<")
 
     def get_current_ap(self):
@@ -3011,11 +3011,11 @@ class Dot11ManagementReassociationRequest(Dot11ManagementHelper):
         s=self._get_element(DOT11_MANAGEMENT_ELEMENTS.SUPPORTED_RATES)
         if s is None:
             return None
-        
+
         rates=struct.unpack('%dB'%len(s),s)
         if not human_readable:
             return rates
-            
+
         rates_Mbs=tuple([(x&0x7F)*0.5 for x in rates])
         return rates_Mbs
 
@@ -3047,23 +3047,23 @@ class Dot11ManagementReassociationRequest(Dot11ManagementHelper):
         "The Vendor Specific information element is used to carry "\
         "information not defined in the standard within a single "\
         "defined format"
-        
+
         vs=[]
         gen_get_element=self._get_elements_generator(DOT11_MANAGEMENT_ELEMENTS.VENDOR_SPECIFIC)
         try:
             while 1:
                 s=next(gen_get_element)
-                
+
                 if s is None:
                     raise Exception("gen_get_element salio con None!!!")
-                
+
                 # OUI is 3 bytes
                 oui=s[:3]
                 data=s[3:]
                 vs.append((oui,data))
         except StopIteration:
             pass
-            
+
         return vs
 
     def add_vendor_specific(self, oui, data):
@@ -3071,7 +3071,7 @@ class Dot11ManagementReassociationRequest(Dot11ManagementHelper):
         "The Vendor Specific information element is used to carry "\
         "information not defined in the standard within a single "\
         "defined format"
-        
+
         # 3 is the OUI length
         max_data_len=255-3
         data_len=len(data)
@@ -3080,7 +3080,7 @@ class Dot11ManagementReassociationRequest(Dot11ManagementHelper):
             raise Exception("data allow up to %d bytes long" % max_data_len)
         if len(oui) > 3:
             raise Exception("oui is three bytes long")
-        
+
         self._set_element(DOT11_MANAGEMENT_ELEMENTS.VENDOR_SPECIFIC,oui+data, replace=False)
 
 class Dot11ManagementReassociationResponse(Dot11ManagementAssociationResponse):

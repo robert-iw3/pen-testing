@@ -96,7 +96,7 @@ bool GetUserHandle(Settings& settings, BOOL& bLoadedProfile, PROFILEINFO& profil
 {
 	DWORD gle = 0;
 
-	if(settings.bUseSystemAccount) 
+	if(settings.bUseSystemAccount)
 	{
 		if(BAD_HANDLE(settings.hUser)) //might already have hUser from a previous call
 		{
@@ -148,7 +148,7 @@ bool GetUserHandle(Settings& settings, BOOL& bLoadedProfile, PROFILEINFO& profil
 		else
 		{
 			//run as current user
-			
+
 			if(NULL != hCmdPipe)
 			{
 				BOOL b = ImpersonateNamedPipeClient(hCmdPipe);
@@ -319,7 +319,7 @@ bool StartProcess(Settings& settings, HANDLE hCmdPipe)
 #ifdef _DEBUG
 		if(0 != launchGLE)
 			Log(StrFormat(L"Launch (launchGLE=%u) params: user=[x%X] path=[%s] flags=[x%X], pEnv=[%s], dir=[%s], stdin=[x%X], stdout=[x%X], stderr=[x%X]",
-						launchGLE, (DWORD)settings.hUser, path, dwFlags, pEnvironment ? L"{env}" : L"{null}", startingDir ? startingDir : L"{null}", 
+						launchGLE, (DWORD)settings.hUser, path, dwFlags, pEnvironment ? L"{env}" : L"{null}", startingDir ? startingDir : L"{null}",
 						(DWORD)si.hStdInput, (DWORD)si.hStdOutput, (DWORD)si.hStdError), false);
 #endif
 
@@ -349,10 +349,10 @@ bool StartProcess(Settings& settings, HANDLE hCmdPipe)
 				path.UnlockBuffer();
 
 #ifdef _DEBUG
-				if(0 != launchGLE) 
+				if(0 != launchGLE)
 					Log(StrFormat(L"Launch (launchGLE=%u) params: user=[%s] domain=[%s] prof=[x%X] path=[%s] flags=[x%X], pEnv=[%s], dir=[%s], stdin=[x%X], stdout=[x%X], stderr=[x%X]",
-									launchGLE, user, domain, settings.bDontLoadProfile ? 0 : LOGON_WITH_PROFILE, 
-									path, dwFlags, pEnvironment ? L"{env}" : L"{null}", startingDir ? startingDir : L"{null}", 
+									launchGLE, user, domain, settings.bDontLoadProfile ? 0 : LOGON_WITH_PROFILE,
+									path, dwFlags, pEnvironment ? L"{env}" : L"{null}", startingDir ? startingDir : L"{null}",
 									(DWORD)si.hStdInput, (DWORD)si.hStdOutput, (DWORD)si.hStdError), false);
 #endif
 			}
@@ -388,7 +388,7 @@ bool StartProcess(Settings& settings, HANDLE hCmdPipe)
 #ifdef _DEBUG
 				if(0 != launchGLE)
 					Log(StrFormat(L"Launch (launchGLE=%u) params: user=[x%X] path=[%s] pEnv=[%s], dir=[%s], stdin=[x%X], stdout=[x%X], stderr=[x%X]",
-									launchGLE, (DWORD)settings.hUser, path, pEnvironment ? L"{env}" : L"{null}", startingDir ? startingDir : L"{null}", 
+									launchGLE, (DWORD)settings.hUser, path, pEnvironment ? L"{env}" : L"{null}", startingDir ? startingDir : L"{null}",
 									(DWORD)si.hStdInput, (DWORD)si.hStdOutput, (DWORD)si.hStdError), false);
 #endif
 				RevertToSelf();
@@ -418,7 +418,7 @@ bool StartProcess(Settings& settings, HANDLE hCmdPipe)
 //#ifdef _DEBUG
 			if(0 != launchGLE)
 				Log(StrFormat(L"Launch (launchGLE=%u) params: path=[%s] user=[%s], pEnv=[%s], dir=[%s], stdin=[x%X], stdout=[x%X], stderr=[x%X]",
-					launchGLE, path, settings.hUser ? L"{non-null}" : L"{null}", pEnvironment ? L"{env}" : L"{null}", startingDir ? startingDir : L"{null}", 
+					launchGLE, path, settings.hUser ? L"{non-null}" : L"{null}", pEnvironment ? L"{env}" : L"{null}", startingDir ? startingDir : L"{null}",
 					(DWORD)si.hStdInput, (DWORD)si.hStdOutput, (DWORD)si.hStdError), false);
 //#endif
 			path.UnlockBuffer();
@@ -539,7 +539,7 @@ HANDLE GetLocalSystemProcessToken()
 				try
 				{
 					CString name = GetTokenUserSID(hToken);
-					
+
 					//const wchar_t arg[] = L"NT AUTHORITY\\";
 					//if(0 == _wcsnicmp(name, arg, sizeof(arg)/sizeof(arg[0])-1))
 
@@ -558,7 +558,7 @@ HANDLE GetLocalSystemProcessToken()
 				gle = GetLastError();
 			CloseHandle(hToken);
 		}
-		else 
+		else
 			gle = GetLastError();
 		CloseHandle(hProcess);
 	}
@@ -675,7 +675,7 @@ bool ElevateUserToken(HANDLE& hEnvUser)
 
 		gle = GetLastError();
 		switch(gle)
-		{ 
+		{
 		case ERROR_INVALID_PARAMETER: //expected on 32-bit XP
 		case ERROR_INVALID_FUNCTION: //expected on 64-bit XP
 			break;

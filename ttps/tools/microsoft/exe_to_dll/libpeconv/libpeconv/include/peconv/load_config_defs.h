@@ -204,7 +204,7 @@ namespace peconv {
     } IMAGE_LOAD_CONFIG_DIR32_W7;
 
     /**
-    IMAGE_LOAD_CONFIG_DIR64: the Windows 7 version. 
+    IMAGE_LOAD_CONFIG_DIR64: the Windows 7 version.
     */
     typedef struct _IMAGE_LOAD_CONFIG_DIR64_W7 {
         DWORD      Size;

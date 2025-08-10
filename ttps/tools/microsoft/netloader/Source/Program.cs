@@ -140,7 +140,7 @@ public class NetLoader
 
     public static void Main(string[] args)
     {
-        
+
         PatchETW();
 
         PathAMSI();
@@ -450,5 +450,5 @@ public class NetLoader
         }
 
     }
-  
+
 }

@@ -9,7 +9,7 @@ PORT_LIST=(tcp:21 udp:53 tcp:88 udp:137 udp:138 tcp:139 tcp:143 tcp:445 tcp:389 
 SVC_LIST=()
 
 # check for running processes and kill them one by one
-# looping over everything rather than doing a mass kill because some processes may be 
+# looping over everything rather than doing a mass kill because some processes may be
 # children and may not need to be killed
 for port in ${PORT_LIST[@]}; do
 	PROC=$(lsof +c 0 -i $port | grep -m 1 -v 'launchd\|COMMAND' | cut -d' ' -f1)

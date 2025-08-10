@@ -1,7 +1,7 @@
 #pragma once
 #include <windows.h>
 //#include <winternl.h>
-#include <ctype.h> 
+#include <ctype.h>
 
 typedef struct
 {
@@ -14,7 +14,7 @@ typedef struct
     PVOID       Gadget_ss;         // 48
     PVOID       RUTS_ss;           // 56
     PVOID       RUTS_retaddr;      // 64
-    PVOID       ssn;               // 72  
+    PVOID       ssn;               // 72
     PVOID       trampoline;        // 80
     PVOID       rsi;               // 88
     PVOID       r12;               // 96
@@ -239,7 +239,7 @@ typedef struct _PEB {
 /*
 // From: https://learn.microsoft.com/en-us/windows/win32/api/ntdef/ns-ntdef-list_entry
 typedef struct _LIST_ENTRY {
-	struct _LIST_ENTRY* Flink;	// Next Object -> *next 
+	struct _LIST_ENTRY* Flink;	// Next Object -> *next
 	struct _LIST_ENTRY* Blink;	// Previous Object -> *prev
 } LIST_ENTRY, * PLIST_ENTRY, PRLIST_ENTRY;
 */
@@ -432,13 +432,13 @@ typedef enum _PS_ATTRIBUTE_NUM
 #define PS_ATTRIBUTE_BNO_ISOLATION PsAttributeValue(PsAttributeBnoIsolation, FALSE, TRUE, FALSE)
 #define PS_ATTRIBUTE_DESKTOP_APP_POLICY PsAttributeValue(PsAttributeDesktopAppPolicy, FALSE, TRUE, FALSE)
 
-// 
+//
 
 #define PS_ATTRIBUTE_CHPE PsAttributeValue(PsAttributeChpe, FALSE, TRUE, TRUE)
 #define PS_ATTRIBUTE_MITIGATION_AUDIT_OPTIONS PsAttributeValue(PsAttributeMitigationAuditOptions, FALSE, TRUE, FALSE)
 #define PS_ATTRIBUTE_MACHINE_TYPE PsAttributeValue(PsAttributeMachineType, FALSE, TRUE, TRUE)
 
-// 
+//
 
 #define RTL_USER_PROC_PARAMS_NORMALIZED 0x00000001      // indicates that the parameters passed to the process are already in a normalized form
 #define RTL_USER_PROC_PROFILE_USER 0x00000002           // enables user-mode profiling for the process
@@ -582,17 +582,17 @@ VOID _RtlInitUnicodeString(OUT PUNICODE_STRING UsStruct, IN OPTIONAL PCWSTR Buff
 }
 
 // For NtCreateUserProcess:
-typedef NTSTATUS(WINAPI* fnNtCreateUserProcess)(PHANDLE, PHANDLE, 
-                                                ACCESS_MASK, ACCESS_MASK, 
-                                                POBJECT_ATTRIBUTES, POBJECT_ATTRIBUTES, 
+typedef NTSTATUS(WINAPI* fnNtCreateUserProcess)(PHANDLE, PHANDLE,
+                                                ACCESS_MASK, ACCESS_MASK,
+                                                POBJECT_ATTRIBUTES, POBJECT_ATTRIBUTES,
                                                 ULONG, ULONG,
                                                 PRTL_USER_PROCESS_PARAMETERS,
-                                                PPS_CREATE_INFO, 
+                                                PPS_CREATE_INFO,
                                                 PPS_ATTRIBUTE_LIST);
 
 // For RtlCreateProcessParametersEx:
-typedef NTSTATUS(WINAPI* fnRtlCreateProcessParametersEx)(PRTL_USER_PROCESS_PARAMETERS*, 
-                                                PUNICODE_STRING, PUNICODE_STRING, PUNICODE_STRING, PUNICODE_STRING, 
+typedef NTSTATUS(WINAPI* fnRtlCreateProcessParametersEx)(PRTL_USER_PROCESS_PARAMETERS*,
+                                                PUNICODE_STRING, PUNICODE_STRING, PUNICODE_STRING, PUNICODE_STRING,
                                                 PVOID,
                                                 PUNICODE_STRING, PUNICODE_STRING, PUNICODE_STRING, PUNICODE_STRING,
                                                 ULONG);

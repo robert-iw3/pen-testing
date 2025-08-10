@@ -57,7 +57,7 @@ BOOL EnumEDRSpecificNotifyRoutineCallbacks(enum NtoskrnlOffsetType notifyRoutine
                     _putts_or_not(TEXT(""));
                 }
                 newFoundDriver.removed = FALSE;
-                
+
                 AddFoundKernelCallback(edrCallbacks, &newFoundDriver);
                 CurrentEDRCallbacksCount++;
             }
@@ -79,7 +79,7 @@ void RemoveOrRestoreSpecificEDRNotifyRoutineCallbacks(enum NtoskrnlOffsetType no
 
     for (DWORD i = 0; i < edrCallbacks->size; ++i) {
         struct KRNL_CALLBACK* cb = &edrCallbacks->EDR_CALLBACKS[i];
-        if (cb->type == NOTIFY_ROUTINE_CB && 
+        if (cb->type == NOTIFY_ROUTINE_CB &&
             cb->addresses.notify_routine.type == notifyRoutineType &&
             cb->removed == !remove) {
             _tprintf_or_not(TEXT("[+] [NotifyRoutines]\t%s callback of EDR driver \"%s\" [callback addr: 0x%I64x | callback struct: 0x%I64x | callback function: 0x%I64x]\n"),

@@ -25,7 +25,7 @@
 &emsp;TAKEOVER&#x2011;7.1: Coerce primary site server
 &emsp;TAKEOVER&#x2011;7.2: Coerce passive site server
 | [TAKEOVER&#x2011;8](./TAKEOVER-8/takeover-8_description.md) | Hierarchy takeover via NTLM coercion and relay HTTP to LDAP on domain controller |
-&emsp;TAKEOVER&#x2011;8.1: Coerce primary site server 
+&emsp;TAKEOVER&#x2011;8.1: Coerce primary site server
 &emsp;TAKEOVER&#x2011;8.2: Coerce SMS Provider
 &emsp;TAKEOVER&#x2011;8.3: Coerce passive site server
 &emsp;TAKEOVER&#x2011;8.4: Coerce site database server

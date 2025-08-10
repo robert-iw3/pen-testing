@@ -21,7 +21,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Get NT type information.</para>
-/// <para type="description">This cmdlet gets NT type information from the operating system. If run without parameters it'll retrieve all types. 
+/// <para type="description">This cmdlet gets NT type information from the operating system. If run without parameters it'll retrieve all types.
 /// You can limit it to only one type using the -TypeName parameter. By default it will used cached versions of the type information as
 /// most of the time you don't need information such as how many objects are created, however if you want that current information specify the
 /// -CurrentStatus parameter.</para>
@@ -53,7 +53,7 @@ public sealed class GetNtTypeCmdlet : Cmdlet
     public string[] TypeName { get; set; }
 
     /// <summary>
-    /// <para type="description">If set then will pull the latest information 
+    /// <para type="description">If set then will pull the latest information
     /// for the types rather than using cached data.</para>
     /// </summary>
     [Parameter]
@@ -75,7 +75,7 @@ public sealed class GetNtTypeCmdlet : Cmdlet
                 }
                 else
                 {
-                    WriteError(new ErrorRecord(new ArgumentException($"Invalid Type Name {name}"), 
+                    WriteError(new ErrorRecord(new ArgumentException($"Invalid Type Name {name}"),
                         "Invalid.Type", ErrorCategory.InvalidArgument, name));
                 }
             }

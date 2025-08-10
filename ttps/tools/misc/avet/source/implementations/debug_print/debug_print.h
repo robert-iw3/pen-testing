@@ -7,8 +7,8 @@
 
 
 #ifdef DEBUG
-    #include <stdio.h>        
-    
+    #include <stdio.h>
+
     #ifdef DEBUG_TO_FILE
         #include <stdarg.h>
 
@@ -18,12 +18,12 @@
             #define LOGFILE "C:\\users\\public\\avetdbg.txt"
         #endif
 
-        // Debug output is written to file instead when DEBUG_TO_FILE is set (as in avetsvc)       
+        // Debug output is written to file instead when DEBUG_TO_FILE is set (as in avetsvc)
         int DEBUG_PRINT(char *format, ...) {
             va_list args;
-            va_start(args, format);   
-         
-            FILE *logfile;            
+            va_start(args, format);
+
+            FILE *logfile;
 		    logfile = fopen(LOGFILE, "a+");
 		    if(logfile == NULL) {
 			    return -1;
@@ -34,12 +34,12 @@
             va_end(args);
 
 		    return 0;
-	    }        
+	    }
     #else
         // Debug output via printf
-        #define DEBUG_PRINT(...) printf(__VA_ARGS__)        
+        #define DEBUG_PRINT(...) printf(__VA_ARGS__)
     #endif
 #else
-    // Substitute function call with 0 expression, so that debug strings are purged from the executable   
+    // Substitute function call with 0 expression, so that debug strings are purged from the executable
     #define DEBUG_PRINT(...) 0
 #endif

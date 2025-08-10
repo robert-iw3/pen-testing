@@ -18,7 +18,7 @@ NC='\033[0m' # No Color
 waitForInput(){
    if [ "$press_key_to_continue" = true ]; then
       echo "Completed. Press any key to continue"
-      while [ true ] ; 
+      while [ true ] ;
       do
          read -t 3 -n 1
          if [ $? = 0 ] ; then

@@ -142,7 +142,7 @@ public class GetAccessibleObjectCmdlet : GetAccessiblePathCmdlet<GenericAccessRi
         }
     }
 
-    private void CheckAccess(TokenEntry token, NtObject obj, NtType type, bool is_directory, 
+    private void CheckAccess(TokenEntry token, NtObject obj, NtType type, bool is_directory,
         AccessMask access_rights, SecurityDescriptor sd)
     {
         AccessMask granted_access = NtSecurity.GetMaximumAccess(sd, token.Token, type.GenericMapping);
@@ -160,7 +160,7 @@ public class GetAccessibleObjectCmdlet : GetAccessiblePathCmdlet<GenericAccessRi
         return token.Token.RunUnderImpersonate(() => type.Open(obj_attributes, GenericAccessRights.MaximumAllowed, false));
     }
 
-    private void CheckAccessUnderImpersonation(TokenEntry token, NtType type, bool is_directory, 
+    private void CheckAccessUnderImpersonation(TokenEntry token, NtType type, bool is_directory,
         AccessMask access_rights, NtObject obj)
     {
         using var result = ReopenUnderImpersonation(token, type, obj);
@@ -224,7 +224,7 @@ public class GetAccessibleObjectCmdlet : GetAccessiblePathCmdlet<GenericAccessRi
         // TODO: Do we need a warning here?
     }
 
-    private void DumpDirectory(IEnumerable<TokenEntry> tokens, HashSet<string> type_filter, 
+    private void DumpDirectory(IEnumerable<TokenEntry> tokens, HashSet<string> type_filter,
         AccessMask access_rights, NtDirectory dir, int current_depth)
     {
         DumpObject(tokens, type_filter, access_rights, dir, true);
@@ -264,7 +264,7 @@ public class GetAccessibleObjectCmdlet : GetAccessiblePathCmdlet<GenericAccessRi
                 else
                 {
                     NtType type = entry.NtType;
-                    if (IsTypeFiltered(type.Name, type_filter) && !type.Name.Equals("Device", StringComparison.OrdinalIgnoreCase) 
+                    if (IsTypeFiltered(type.Name, type_filter) && !type.Name.Equals("Device", StringComparison.OrdinalIgnoreCase)
                                                                && !type.Name.Equals("Key", StringComparison.OrdinalIgnoreCase))
                     {
                         if (type.CanOpen)
@@ -349,7 +349,7 @@ public class GetAccessibleObjectCmdlet : GetAccessiblePathCmdlet<GenericAccessRi
         }
     }
 
-    private void CheckHandles(IEnumerable<TokenEntry> tokens, HashSet<string> type_filter, 
+    private void CheckHandles(IEnumerable<TokenEntry> tokens, HashSet<string> type_filter,
         HashSet<ulong> checked_objects, NtProcess process, IEnumerable<NtHandle> handles)
     {
         foreach (NtHandle handle in handles)
@@ -405,7 +405,7 @@ public class GetAccessibleObjectCmdlet : GetAccessiblePathCmdlet<GenericAccessRi
 
         HashSet<ulong> checked_objects = new();
         var handles = NtSystemInfo.GetHandles(-1, false).Where(h => IsTypeFiltered(h.ObjectType, type_filter)).GroupBy(h => h.ProcessId);
-        
+
         foreach (var group in handles)
         {
             if (Stopping)

@@ -165,7 +165,7 @@ public class TokenInformation
         return $"User: {User}";
     }
 
-    internal TokenInformation(NtToken token) 
+    internal TokenInformation(NtToken token)
         : this(token, null)
     {
     }

@@ -75,7 +75,7 @@ public class GetAccessibleKeyCmdlet : GetAccessiblePathCmdlet<KeyAccessRights>
         AccessMask granted_access = NtSecurity.GetMaximumAccess(sd, token.Token, type.GenericMapping);
         if (IsAccessGranted(granted_access, access_rights))
         {
-            WriteAccessCheckResult(FormatWin32Path ? key.Win32Path : key.FullPath, type.Name, granted_access, type.GenericMapping, 
+            WriteAccessCheckResult(FormatWin32Path ? key.Win32Path : key.FullPath, type.Name, granted_access, type.GenericMapping,
                 sd, typeof(KeyAccessRights), true, token.Information);
         }
     }

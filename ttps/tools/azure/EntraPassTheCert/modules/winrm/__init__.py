@@ -44,20 +44,20 @@ class WinRM(object):
             return True
         except Exception as e:
             raise e
-        
+
     def cmd_loop(self):
         crntdir = None
         while True:
             try:
                 result = self.run_cmd(f'cd', None)
-             
+
                 crntdir = result.std_out.decode('utf-8').replace('\r\n', '')
                 command = input(f"{crntdir}> ")
                 if command:
                     if command.strip().lower() in ['exit', 'quit']:
                         break
-                    
-                    result = self.run_cmd(command, None) 
+
+                    result = self.run_cmd(command, None)
                     print(result.std_out.decode('utf-8'))
 
                     if result.std_err:

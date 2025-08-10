@@ -24,7 +24,7 @@ namespace Rubeus
 			fetchInterval = DateTime.UtcNow;
         }
 
-		public PA_DMSA_KEY_PACKAGE(AsnElt body) 
+		public PA_DMSA_KEY_PACKAGE(AsnElt body)
 		{
 			currentKeys = new PA_KEY_LIST_REP(body.Sub[0].Sub[0]);
 			previousKeys = new PA_KEY_LIST_REP(body.Sub[1].Sub[0]);
@@ -44,7 +44,7 @@ namespace Rubeus
 			AsnElt expirationIntervalAsn = AsnElt.MakeTime(AsnElt.GeneralizedTime, expirationInterval);
 			AsnElt fetchIntervalAsn = AsnElt.MakeTime(AsnElt.GeneralizedTime, fetchInterval);
 
-			
+
 			AsnElt dmsaKeyPackageSeq = AsnElt.Make(AsnElt.SEQUENCE, new[] { currentKeysSeq, previousKeysSeq, expirationIntervalAsn, fetchIntervalAsn });
 			return dmsaKeyPackageSeq;
 		}

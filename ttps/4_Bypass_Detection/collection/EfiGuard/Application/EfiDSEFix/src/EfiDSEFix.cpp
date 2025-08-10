@@ -20,7 +20,7 @@ FindKernelModule(
 	NTSTATUS Status;
 	if ((Status = NtQuerySystemInformation(SystemModuleInformation, nullptr, 0, &Size)) != STATUS_INFO_LENGTH_MISMATCH)
 		return Status;
-	
+
 	const PRTL_PROCESS_MODULES Modules = static_cast<PRTL_PROCESS_MODULES>(RtlAllocateHeap(RtlProcessHeap(), HEAP_ZERO_MEMORY, 2 * static_cast<SIZE_T>(Size)));
 	Status = NtQuerySystemInformation(SystemModuleInformation,
 										Modules,
@@ -248,7 +248,7 @@ FindCiOptionsVariable(
 			Status = STATUS_NOT_FOUND;
 		}
 	}
-	
+
 Exit:
 	NtUnmapViewOfSection(NtCurrentProcess, MappedBase);
 	return Status;

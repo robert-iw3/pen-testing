@@ -16,7 +16,7 @@
 
 /*
 This function browses the internal structures of the Filter Manager to enumerate callbacks registered
-by EDR products. 
+by EDR products.
 
 To provide a quick context about the different internal structures:
 	- The Filter Manager establishes a "frame" (_FLTP_FRAME) as its root structure;
@@ -24,10 +24,10 @@ To provide a quick context about the different internal structures:
 		shadow copies, or special ones corresponding to named pipes or remote file systems);
 	- To each registered minifilter driver corresponds a "filter" structure (_FLT_FILTER), describing various properties such
 		as its supported operations;
-	- These minifilters are not all attached to each volume; an "instance" (_FLT_INSTANCE) structure is created to mark each of the 
+	- These minifilters are not all attached to each volume; an "instance" (_FLT_INSTANCE) structure is created to mark each of the
 		filter<->volume association;
 	- Minifilters register callback functions that are executed before and/or after specific operation (file open, write, read, etc.).
-		These callbacks are described in _CALLBACK_NODE structures. An array of all _CALLBACK_NODE implemented by an instance of a 
+		These callbacks are described in _CALLBACK_NODE structures. An array of all _CALLBACK_NODE implemented by an instance of a
 		minifilter can be found in _FLT_INSTANCE; the array indexed by the IRP "major function" code, a constant representing the operation
 		affected by the callback (IRP_MJ_CREATE, IRP_MJ_READ, etc.).
 		Moreover, all _CALLBACK_NODEs implemented by instances linked to a specific volume are regrouped in linked lists, stored in the
@@ -40,10 +40,10 @@ functions are executed.
 In order to detect EDR-related callbacks, the following function:
 	- Enumerates the frames (_FLTP_FRAME) thanks to a list stored in a global variable of fltmgr.sys: ((_GLOBALS*)&FltGlobals)->FrameList.rList
 	- Enumerates the filters (_FLT_FILTER) of the frame: ((_FLTP_FRAME*)currentFrame)->RegisteredFilters.rList
-	- Checks if the driver implementing the filter is EDR-related (checks the name of the module where 
+	- Checks if the driver implementing the filter is EDR-related (checks the name of the module where
 		(_FLT_FILTER*)currentFilter->DriverObject->DriverInit is implemented)
 	- If the driver is an EDR, enumerate all instances of the associated filter, by browsing ((_FLT_FILTER*)currentFilter)->InstanceList.rList
-	- For each instance, enumerate the CallbackNodes array, whose non-NULL entries directly point to _CALLBACK_NODEs in their respective 
+	- For each instance, enumerate the CallbackNodes array, whose non-NULL entries directly point to _CALLBACK_NODEs in their respective
 		lists in _FLT_VOLUME.Callbacks.OperationLists
 */
 BOOL EnumEDRMinifilterCallbacks(struct FOUND_EDR_CALLBACKS* foundEDRCallbacks, BOOL verbose) {
@@ -63,8 +63,8 @@ BOOL EnumEDRMinifilterCallbacks(struct FOUND_EDR_CALLBACKS* foundEDRCallbacks, B
 	}
 
 	_putts_or_not(TEXT("[*] [MinifilterCallbacks]\tEnumerating minifilters' frames, filters, instances and callback nodes:"));
-	DWORD64 frame_list_header = fltmgr_base 
-		+ g_fltmgrOffsets.st.FltGlobals 
+	DWORD64 frame_list_header = fltmgr_base
+		+ g_fltmgrOffsets.st.FltGlobals
 		+ g_fltmgrOffsets.st._GLOBALS_FrameList
 		+ g_fltmgrOffsets.st._FLT_RESOURCE_LIST_HEAD_rList;
 	for (DWORD64 current_frame_shifted = ReadMemoryDWORD64(frame_list_header);
@@ -175,8 +175,8 @@ void RemoveEDRMinifilterCallbacks(struct FOUND_EDR_CALLBACKS* edrCallbacks) {
 
 
 /*
-To restore the callbacks, we rely on the fact that the LIST_ENTRY of the _CALLBACK_NODE still points to the original previous 
-and next nodes in the list where is was unlinked from. We simply reinsert the nodes in the inverse order from which unlinked 
+To restore the callbacks, we rely on the fact that the LIST_ENTRY of the _CALLBACK_NODE still points to the original previous
+and next nodes in the list where is was unlinked from. We simply reinsert the nodes in the inverse order from which unlinked
 them to ensure the linked list consistency during the process.
 */
 BOOL RestoreEDRMinifilterCallbacks(struct FOUND_EDR_CALLBACKS* edrCallbacks) {

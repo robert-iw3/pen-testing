@@ -96,7 +96,7 @@ string
 Get-NtAccessMask 0x1 -AsSpecificAccess File | Get-NtSDKName
 Get the SDK names for an access mask.
 #>
-function Get-NtSDKName { 
+function Get-NtSDKName {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
@@ -122,7 +122,7 @@ byte[]
 1, 2, 3, 4 | Format-HexDump | ConvertFrom-HexDump
 Convert some bytes to a hex dump and back again.
 #>
-function ConvertFrom-HexDump { 
+function ConvertFrom-HexDump {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
@@ -522,7 +522,7 @@ function Get-IsPSCore {
 Protect a byte array using RC4.
 .DESCRIPTION
 This cmdlet used the RC4 encryption algorithm to protect a byte array. Note as encryption
-and decryption are symmetrical this function process encrypts and decrypts. Note this 
+and decryption are symmetrical this function process encrypts and decrypts. Note this
 returns the encrypted data, it doesn't encrypt place.
 .PARAMETER Data
 The bytes to encrypt.

@@ -126,7 +126,7 @@ namespace NotSoSecure.AspDotNetWrapper
                                 }
                             }
                             catch (Exception e)
-                            {   
+                            {
                                 Console.WriteLine("Error Decoding ViewState: " + e);
                             }
                         }
@@ -192,10 +192,10 @@ namespace NotSoSecure.AspDotNetWrapper
                     //Not needs as the exploit generated using ysoseria.net
                     break;
                 case EnumPurpose.UNKNOWN:
-                    
+
                     break;
                 default:
-                    
+
                     break;
             }
             return outputString;

@@ -91,7 +91,7 @@ public sealed class GetWin32SecurityDescriptorCmdlet : PSCmdlet
                 if (Type == SeObjectType.Service)
                 {
                     SecurityInformation &= SecurityInformation.Owner |
-                        SecurityInformation.Group | SecurityInformation.Dacl | 
+                        SecurityInformation.Group | SecurityInformation.Dacl |
                         SecurityInformation.Label | SecurityInformation.Sacl;
                 }
 

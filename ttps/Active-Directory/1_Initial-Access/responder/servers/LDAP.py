@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -103,11 +103,11 @@ def ParseLDAPHash(data,client, Challenge):  #Parse LDAP NTLMSSP v1/v2
 		WriteHash    = '%s::%s:%s:%s:%s' % (Username, Domain, LMHash, SMBHash, codecs.encode(Challenge,'hex').decode('latin-1'))
 
 		SaveToDb({
-			'module': 'LDAP', 
-			'type': 'NTLMv1-SSP', 
-			'client': client, 
-			'user': Domain+'\\'+Username, 
-			'hash': SMBHash, 
+			'module': 'LDAP',
+			'type': 'NTLMv1-SSP',
+			'client': client,
+			'user': Domain+'\\'+Username,
+			'hash': SMBHash,
 			'fullhash': WriteHash,
 		})
 
@@ -123,11 +123,11 @@ def ParseLDAPHash(data,client, Challenge):  #Parse LDAP NTLMSSP v1/v2
 		WriteHash    = '%s::%s:%s:%s:%s' % (Username, Domain, codecs.encode(Challenge,'hex').decode('latin-1'), SMBHash[:32], SMBHash[32:])
 
 		SaveToDb({
-			'module': 'LDAP', 
-			'type': 'NTLMv2-SSP', 
-			'client': client, 
-			'user': Domain+'\\'+Username, 
-			'hash': SMBHash, 
+			'module': 'LDAP',
+			'type': 'NTLMv2-SSP',
+			'client': client,
+			'user': Domain+'\\'+Username,
+			'hash': SMBHash,
 			'fullhash': WriteHash,
 		})
 	if LMhashLen < 2 and settings.Config.Verbose:
@@ -166,11 +166,11 @@ def ParseCLDAPPacket(data, client, Challenge):
 					'cleartext': Password,
 					'fullhash': UserDomain+':'+Password,
 				})
-			
+
 			if sasl == b'\xA3':
 				Buffer = ParseNTLM(data,client, Challenge)
 				return Buffer
-		
+
 		elif Operation == b'\x63':
 			Buffer = ParseSearch(data)
 			print(text('[CLDAP] Sent CLDAP pong to %s.'% client.replace("::ffff:","")))
@@ -220,11 +220,11 @@ def ParseLDAPPacket(data, client, Challenge):
 					'cleartext': Password,
 					'fullhash': UserDomain+':'+Password,
 				})
-			
+
 			if sasl == b'\xA3':
 				Buffer = ParseNTLM(data,client, Challenge)
 				return Buffer
-		
+
 		elif Operation == b'\x63':
 			Buffer = ParseSearch(data)
 			return Buffer

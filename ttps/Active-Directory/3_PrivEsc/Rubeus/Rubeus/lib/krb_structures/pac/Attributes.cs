@@ -5,7 +5,7 @@ namespace Rubeus.Kerberos.PAC
 {
     public class Attributes : PacInfoBuffer
     {
-        
+
         public uint Length { get; set; }
 
         public Interop.PacAttribute Flags { get; set; }

@@ -119,7 +119,7 @@ namespace Rubeus.Win32.Rpc
         /// <typeparam name="T">The type to dereference.</typeparam>
         /// <param name="t">The value to dereference.</param>
         /// <returns>The dereferenced result.</returns>
-        public static T DeRef<T>(NdrEmbeddedPointer<T> t) 
+        public static T DeRef<T>(NdrEmbeddedPointer<T> t)
         {
             return t.GetValue();
         }

@@ -146,7 +146,7 @@ class SAMRDump:
 
         try:
             resp = samr.hSamrConnect(dce)
-            serverHandle = resp['ServerHandle'] 
+            serverHandle = resp['ServerHandle']
 
             resp = samr.hSamrEnumerateDomainsInSamServer(dce, serverHandle)
             domains = resp['Buffer']['Buffer']
@@ -169,7 +169,7 @@ class SAMRDump:
                     resp = samr.hSamrEnumerateUsersInDomain(dce, domainHandle, enumerationContext = enumerationContext)
                 except DCERPCException as e:
                     if str(e).find('STATUS_MORE_ENTRIES') < 0:
-                        raise 
+                        raise
                     resp = e.get_packet()
 
                 for user in resp['Buffer']['Buffer']:
@@ -180,7 +180,7 @@ class SAMRDump:
                     entries.append(entry)
                     samr.hSamrCloseHandle(dce, r['UserHandle'])
 
-                enumerationContext = resp['EnumerationContext'] 
+                enumerationContext = resp['EnumerationContext']
                 status = resp['ErrorCode']
 
         except ListUsersException as e:

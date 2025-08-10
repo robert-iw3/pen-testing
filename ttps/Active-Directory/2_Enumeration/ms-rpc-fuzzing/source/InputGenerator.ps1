@@ -51,11 +51,11 @@ function GenerateInput {
             $newData += ($Canary + "_$randomString")
             return $newData
         }
-    }   
+    }
 
     # Generate random 32-bit Integer
     if ($paramType -eq [System.Int32]) {
-        for ($i = 0; $i -lt $count; $i++) {  
+        for ($i = 0; $i -lt $count; $i++) {
             $newData = Get-Random -Minimum $minIntSize -Maximum $maxIntSize
             return $newData
         }
@@ -66,7 +66,7 @@ function GenerateInput {
             $characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()~-=+?><,.;][{}_|"
             $stringLength = Get-Random -Minimum $minByteArrLen -Maximum $maxByteArrLen
             $randomString = -join (Get-Random -InputObject $characters.ToCharArray() -Count $stringLength)
-            $newData += ($Canary + "_$randomString")          
+            $newData += ($Canary + "_$randomString")
             $byteArrStr = ,([System.Text.Encoding]::UTF8.GetBytes($newData))
             return ,$byteArrStr
         }

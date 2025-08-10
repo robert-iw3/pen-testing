@@ -47,7 +47,7 @@ While Metadata Cleaner is currently CLI-based, we plan to introduce GUI options 
 
 ### **New Image Formats:**
 - **WEBP & HEIC:** Enhance support for modern image formats.
-  
+
 ### **Document Formats:**
 - **ODT & EPUB:** Extend metadata removal capabilities to additional document formats.
 

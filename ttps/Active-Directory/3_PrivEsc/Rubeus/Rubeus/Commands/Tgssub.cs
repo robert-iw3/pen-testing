@@ -46,7 +46,7 @@ namespace Rubeus.Commands
                 Console.WriteLine("\r\n[X] An /altservice:SNAME or /altservice:SNAME/host needs to be supplied!\r\n");
                 return;
             }
-            
+
             if(arguments.ContainsKey("/srealm"))
             {
                 srealm = arguments["/srealm"];

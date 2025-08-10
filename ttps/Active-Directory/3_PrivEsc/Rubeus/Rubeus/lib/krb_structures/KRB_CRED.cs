@@ -99,7 +99,7 @@ namespace Rubeus
             AsnElt etypeAsn = AsnElt.MakeInteger(0);
             AsnElt etypeSeq = AsnElt.Make(AsnElt.SEQUENCE, new AsnElt[] { etypeAsn });
             etypeSeq = AsnElt.MakeImplicit(AsnElt.CONTEXT, 0, etypeSeq);
-            
+
             AsnElt infoSeq = AsnElt.Make(AsnElt.SEQUENCE, new AsnElt[] { etypeSeq, blobSeq });
             AsnElt infoSeq2 = AsnElt.Make(AsnElt.SEQUENCE, new AsnElt[] { infoSeq });
             infoSeq2 = AsnElt.MakeImplicit(AsnElt.CONTEXT, 3, infoSeq2);

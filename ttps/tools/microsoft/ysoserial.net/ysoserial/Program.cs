@@ -151,7 +151,7 @@ namespace ysoserial
                     System.Environment.Exit(-1);
                 }
 
-                // Instantiate Plugin 
+                // Instantiate Plugin
                 IPlugin plugin = null;
                 try
                 {
@@ -307,10 +307,10 @@ namespace ysoserial
                         raw = generator.GenerateWithNoTest(current_formatter_name, inputArgs);
                     }
 
-                    
+
                 }
 
-                
+
 
                 // LosFormatter is already base64 encoded
                 if (outputformat.ToLower().Equals("base64") && formatter_name.ToLower().Equals("losformatter"))
@@ -344,7 +344,7 @@ namespace ysoserial
                                 {
                                     // only keeping the first part of formatter that contains alphanumerical to ignore variants or other descriptions
                                     string current_formatter_name = Regex.Split(formatter, @"[^\w$_\-.]")[0];
-                                    
+
                                     String payloadTitle = "(*) Gadget: " + gg.Name() + " - Formatter: " + current_formatter_name;
 
 

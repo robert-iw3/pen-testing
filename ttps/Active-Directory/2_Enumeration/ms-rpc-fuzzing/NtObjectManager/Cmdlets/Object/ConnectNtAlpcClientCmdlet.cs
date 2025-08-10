@@ -21,7 +21,7 @@ namespace NtObjectManager.Cmdlets.Object;
 
 /// <summary>
 /// <para type="synopsis">Connects to an ALPC server by path.</para>
-/// <para type="description">This cmdlet connects to an existing NT ALPC server. The absolute path to the object in the NT object manager name space must be specified. 
+/// <para type="description">This cmdlet connects to an existing NT ALPC server. The absolute path to the object in the NT object manager name space must be specified.
 /// It's also possible to create the object relative to an existing object by specified the -Root parameter (if running on Win8+).</para>
 /// </summary>
 /// <example>
@@ -62,7 +62,7 @@ public class ConnectNtAlpcClientCmdlet : NtObjectBaseCmdlet
         }
         else
         {
-            return NtAlpcClient.Connect(obj_attributes, HandleObjectAttributes, PortAttributes, Flags, ServerSecurityRequirements, 
+            return NtAlpcClient.Connect(obj_attributes, HandleObjectAttributes, PortAttributes, Flags, ServerSecurityRequirements,
                 ConnectionMessage, OutMessageAttributes, InMessageAttributes, Timeout);
         }
     }

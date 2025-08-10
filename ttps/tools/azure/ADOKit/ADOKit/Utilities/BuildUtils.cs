@@ -172,7 +172,7 @@ namespace ADOKit.Utilities
         // Downloads log to a file
         public static async Task downloadLog(string credentials, string project, string outfolder, BuildLog log)
         {
-            
+
             // ignore SSL errors
             ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
             ServicePointManager.Expect100Continue = true;
@@ -211,7 +211,7 @@ namespace ADOKit.Utilities
                     string content;
                     var reader = new StreamReader(myWebResponse.GetResponseStream());
                     content = reader.ReadToEnd();
-                 
+
                     // store to file with the filename containing all useful infos
                     string filePath = $"{outfolder}/{project}_{log.buildID}_{log.logID}.txt";
                     System.IO.File.WriteAllText(filePath, content);
@@ -270,7 +270,7 @@ namespace ADOKit.Utilities
                     var reader = new StreamReader(myWebResponse.GetResponseStream());
                     content = reader.ReadToEnd();
                     outputContent = content;
-                    
+
                 }
 
             }

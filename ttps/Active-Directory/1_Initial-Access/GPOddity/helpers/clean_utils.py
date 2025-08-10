@@ -32,7 +32,7 @@ def clean(ldap_session, gpo_dn, save_file):
             result = unset_attribute(ldap_session, gpo_dn, key)
         else:
             result = modify_attribute(ldap_session, gpo_dn, key, to_clean[key]['old_value'])
-        
+
         if result is True:
             print(f"{bcolors.OKGREEN}[+] Successfully restored {key}{bcolors.ENDC}")
         else:

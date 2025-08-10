@@ -29,7 +29,7 @@ namespace ADOKit.Utilities
 
 	    // parse the JSON output and display results
 	    JsonTextReader jsonResult;
-	    
+
 	    string propName = "";
 	    string description = "";
 	    string displayName = "";
@@ -58,22 +58,22 @@ namespace ADOKit.Utilities
 		    }
 		    else
 		    {
-			webRequest = (HttpWebRequest)System.Net.WebRequest.Create(url + "/_apis/graph/groups?api-version=7.0-preview.1");			
+			webRequest = (HttpWebRequest)System.Net.WebRequest.Create(url + "/_apis/graph/groups?api-version=7.0-preview.1");
 		    }
-		    
-		
+
+
 		    if (webRequest != null) {
 
 			// set header values
 			webRequest.Method = "GET";
 			webRequest.ContentType = "application/json";
 			webRequest.UserAgent = "ADOKit-21e233d4334f9703d1a3a42b6e2efd38";
-		    
+
 			// if cookie was provided
 			if (credentials.ToLower().Contains("userauthentication="))
 			{
 			    webRequest.Headers.Add("Cookie", "AadAuthenticationSet=false; " + credentials);
-			
+
 			}
 
 			// otherwise PAT was provided
@@ -84,13 +84,13 @@ namespace ADOKit.Utilities
 
 			// get web response
 			HttpWebResponse myWebResponse = (HttpWebResponse)await webRequest.GetResponseAsync();
-			
+
 			var reader = new StreamReader(myWebResponse.GetResponseStream());
 			content = reader.ReadToEnd();
 
 
 			 // if there's a continuationToken header we need to send the request to get
-                        // a bit more ... and a bit more until there isn't a continuation token 
+                        // a bit more ... and a bit more until there isn't a continuation token
 
                         contToken = "";
                         // get the X-ms-continuationtoken header value
@@ -187,7 +187,7 @@ namespace ADOKit.Utilities
                     }
 
                 }
-		
+
 		} while (contToken!="") ;
             }
             catch (Exception ex)
@@ -394,7 +394,7 @@ namespace ADOKit.Utilities
                     {
                         success = true;
                     }
-              
+
 
                 }
 

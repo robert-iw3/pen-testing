@@ -9,5 +9,5 @@ void decode_xor(const unsigned char *ciphertext, const int ciphertext_length, co
     DEBUG_PRINT("This is XOR decoder.\n");
 	for(int i = 0; i < ciphertext_length; i++) {
 		plaintext[i] = ciphertext[i] ^ key[i % key_length];
-	}	
+	}
 }

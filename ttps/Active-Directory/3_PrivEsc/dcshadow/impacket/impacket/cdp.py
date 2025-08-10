@@ -35,12 +35,12 @@ class CDPTypes:
     SystemName_Type     = 20
     SystemObjectId_Type = 21
     SnmpLocation        = 23
-    
+
 class CDP(Header):
-    
+
     Type = 0x2000
     OUI =  0x00000c
-    
+
     def __init__(self, aBuffer = None):
         Header.__init__(self, 8)
         if aBuffer:
@@ -59,20 +59,20 @@ class CDP(Header):
 
     def get_header_size(self):
         return 8
-        
+
     def get_version(self):
         return self.get_byte(0)
-        
+
     def get_ttl(self):
         return self.get_byte(1)
-        
+
     def get_checksum(self):
         return self.get_word(2)
 
     def get_type(self):
         return self.get_word(4)
-        
-    def get_lenght(self):      
+
+    def get_lenght(self):
         return self.get_word(6)
 
     def getElements(self):
@@ -84,7 +84,7 @@ class CDP(Header):
         for element in self._elements:
             tmp_str += "** Type:" + str(element.get_type()) + " " + str(element) + "\n"
         return tmp_str
-        
+
 
 def get_byte(buffer, offset):
     return unpack("!B", buffer[offset:offset+1])[0]
@@ -104,8 +104,8 @@ def mac_to_string(mac_bytes):
     for byte in bytes:
         s += '%02x:' % byte
     return s[0:-1]
-    
-    
+
+
 
 class CDPElement(Header):
 
@@ -124,21 +124,21 @@ class CDPElement(Header):
 
     def get_length(self):
         return self.get_word(2)
-                
-    def get_data(self):        
+
+    def get_data(self):
         return array_tobytes(self.get_bytes())[4:self.get_length()]
 
     def get_ip_address(self, offset = 0, ip = None):
         if not ip:
             ip = array_tobytes(self.get_bytes())[offset : offset + IP_ADDRESS_LENGTH]
         return socket.inet_ntoa( ip )
-        
+
 class CDPDevice(CDPElement):
     Type = 1
-    
+
     def get_type(self):
         return CDPDevice.Type
-    
+
     def get_device_id(self):
         return CDPElement.get_data(self)
 
@@ -147,7 +147,7 @@ class CDPDevice(CDPElement):
 
 class Address(CDPElement):
     Type = 2
-   
+
     def __init__(self, aBuffer = None):
         CDPElement.__init__(self, aBuffer)
         if aBuffer:
@@ -163,23 +163,23 @@ class Address(CDPElement):
 
     def get_type(self):
         return Address.Type
-    
+
     def get_number(self):
         return self.get_long(4)
-       
+
     def get_address_details(self):
         return self.address_details
-        
+
     def __str__(self):
         tmp_str = "Addresses:"
         for address_detail in self.address_details:
             tmp_str += "\n" + str(address_detail)
-        return tmp_str        
-        
-class AddressDetails():        
-          
-    PROTOCOL_IP = 0xcc          
-          
+        return tmp_str
+
+class AddressDetails():
+
+    PROTOCOL_IP = 0xcc
+
     @classmethod
     def create(cls, buff):
         a = AddressDetails(buff)
@@ -191,44 +191,44 @@ class AddressDetails():
             addr_length = unpack("!h", aBuffer[3:5])[0]
             self.total_length = addr_length + 5
             self.buffer = aBuffer[:self.total_length]
-    
+
     def get_total_length(self):
         return self.total_length
-        
+
     def get_protocol_type(self):
         return self.buffer[0:1]
-        
+
     def get_protocol_length(self):
         return get_byte( self.buffer, 1)
 
     def get_protocol(self):
         return get_byte( self.buffer, 2)
-        
+
     def get_address_length(self):
         return get_word( self.buffer, 3)
-        
+
     def get_address(self):
         address =  get_bytes( self.buffer, 5, self.get_address_length() )
         if  self.get_protocol()==AddressDetails.PROTOCOL_IP:
             return socket.inet_ntoa(address)
         else:
             LOG.error("Address not IP")
-            return address            
-            
+            return address
+
     def is_protocol_IP(self):
         return self.get_protocol()==AddressDetails.PROTOCOL_IP
-            
+
     def __str__(self):
-        return "Protocol Type:%r Protocol:%r Address Length:%r Address:%s" % (self.get_protocol_type(), self.get_protocol(), self.get_address_length(), self.get_address())            
-       
+        return "Protocol Type:%r Protocol:%r Address Length:%r Address:%s" % (self.get_protocol_type(), self.get_protocol(), self.get_address_length(), self.get_address())
+
 class Port(CDPElement):
     Type = 3
-    
+
     def get_type(self):
         return Port.Type
-    
+
     def get_port(self):
-        return CDPElement.get_data(self)                
+        return CDPElement.get_data(self)
 
     def __str__(self):
         return "Port:" + self.get_port()
@@ -236,11 +236,11 @@ class Port(CDPElement):
 
 class Capabilities(CDPElement):
     Type = 4
-    
+
     def __init__(self, aBuffer = None):
         CDPElement.__init__(self, aBuffer)
         self._capabilities_processed = False
-        
+
         self._router = False
         self._transparent_bridge = False
         self._source_route_bridge = False
@@ -249,17 +249,17 @@ class Capabilities(CDPElement):
         self._igmp_capable = False
         self._repeater = False
         self._init_capabilities()
-        
+
     def get_type(self):
         return Capabilities.Type
-    
+
     def get_capabilities(self):
-        return CDPElement.get_data(self)  
-        
+        return CDPElement.get_data(self)
+
     def _init_capabilities(self):
         if self._capabilities_processed:
             return
-        
+
         capabilities = unpack("!L", self.get_capabilities())[0]
         self._router = (capabilities & 0x1) > 0
         self._transparent_bridge = (capabilities & 0x02) > 0
@@ -277,7 +277,7 @@ class Capabilities(CDPElement):
 
     def is_source_route_bridge(self):
         return self._source_route_bridge
-        
+
     def is_switch(self):
         return self._switch
 
@@ -286,59 +286,59 @@ class Capabilities(CDPElement):
 
     def is_igmp_capable(self):
         return self._igmp_capable
-        
+
     def is_repeater(self):
         return self._repeater
 
-                 
+
     def __str__(self):
         return "Capabilities:" + self.get_capabilities()
-                 
-                                
+
+
 class SoftVersion(CDPElement):
     Type = 5
-    
+
     def get_type(self):
         return SoftVersion.Type
-    
+
     def get_version(self):
         return CDPElement.get_data(self)
 
     def __str__(self):
         return "Version:" + self.get_version()
 
-  
+
 class Platform(CDPElement):
     Type = 6
-    
+
     def get_type(self):
         return Platform.Type
-    
+
     def get_platform(self):
-        return CDPElement.get_data(self)                
+        return CDPElement.get_data(self)
 
     def __str__(self):
-        return "Platform:%r" % self.get_platform()                
-      
+        return "Platform:%r" % self.get_platform()
+
 
 class IpPrefix(CDPElement):
     Type = 7
-    
+
     def get_type(self):
         return IpPrefix .Type
-    
+
     def get_ip_prefix(self):
-        return CDPElement.get_ip_address(self, 4)                
+        return CDPElement.get_ip_address(self, 4)
 
     def get_bits(self):
-        return self.get_byte(8)        
-        
+        return self.get_byte(8)
+
     def __str__(self):
         return "IP Prefix/Gateway: %r/%d" % (self.get_ip_prefix(), self.get_bits())
-      
+
 class ProtocolHello(CDPElement):
     Type = 8
-    
+
     def get_type(self):
         return ProtocolHello.Type
 
@@ -356,45 +356,45 @@ class ProtocolHello(CDPElement):
 
     def get_cluster_command_mac(self):
         return array_tobytes(self.get_bytes())[20:20+6]
-            
+
     def get_switch_mac(self):
         return array_tobytes(self.get_bytes())[28:28+6]
-            
+
     def get_management_vlan(self):
         return self.get_word(36)
 
     def __str__(self):
         return "\n\n\nProcolHello: Master IP:%s version:%r subversion:%r status:%r Switch's Mac:%r Management VLAN:%r" \
          % (self.get_master_ip(), self.get_version(), self.get_sub_version(), self.get_status(), mac_to_string(self.get_switch_mac()), self.get_management_vlan())
-                      
+
 class VTPManagementDomain(CDPElement):
     Type = 9
-    
+
     def get_type(self):
         return VTPManagementDomain.Type
-    
+
     def get_domain(self):
-        return CDPElement.get_data(self)                  
-  
-  
+        return CDPElement.get_data(self)
+
+
 class Duplex(CDPElement):
     Type = 0xb
-    
+
     def get_type(self):
         return Duplex.Type
-    
+
     def get_duplex(self):
-        return CDPElement.get_data(self)                
-                
+        return CDPElement.get_data(self)
+
     def is_full_duplex(self):
         return self.get_duplex()==0x1
-        
+
 class VLAN(CDPElement):
     Type = 0xa
-                
+
     def get_type(self):
         return VLAN.Type
-        
+
     def get_vlan_number(self):
         return CDPElement.get_data(self)
 
@@ -402,7 +402,7 @@ class VLAN(CDPElement):
 
 class TrustBitmap(CDPElement):
     Type = 0x12
-    
+
     def get_type(self):
         return TrustBitmap.Type
 
@@ -414,7 +414,7 @@ class TrustBitmap(CDPElement):
 
 class UntrustedPortCoS(CDPElement):
     Type = 0x13
-    
+
     def get_type(self):
         return UntrustedPortCoS.Type
 
@@ -426,31 +426,31 @@ class UntrustedPortCoS(CDPElement):
 
 class ManagementAddresses(Address):
     Type = 0x16
-    
+
     def get_type(self):
         return ManagementAddresses.Type
-        
+
 class MTU(CDPElement):
     Type = 0x11
-    
+
     def get_type(self):
         return MTU.Type
-        
+
 class SystemName(CDPElement):
     Type = 0x14
-    
+
     def get_type(self):
         return SystemName.Type
 
 class SystemObjectId(CDPElement):
     Type = 0x15
-    
+
     def get_type(self):
         return SystemObjectId.Type
 
 class SnmpLocation(CDPElement):
     Type = 0x17
-    
+
     def get_type(self):
         return SnmpLocation.Type
 
@@ -462,12 +462,12 @@ class DummyCdpElement(CDPElement):
         return DummyCdpElement.Type
 
 class CDPElementFactory():
-    
+
     elementTypeMap = {
-                        CDPDevice.Type            : CDPDevice, 
+                        CDPDevice.Type            : CDPDevice,
                         Port.Type                 : Port,
                         Capabilities.Type         : Capabilities,
-                        Address.Type              : Address, 
+                        Address.Type              : Address,
                         SoftVersion.Type          : SoftVersion,
                         Platform.Type             : Platform,
                         IpPrefix.Type             : IpPrefix,
@@ -483,7 +483,7 @@ class CDPElementFactory():
                         SystemObjectId.Type       : SystemObjectId,
                         SnmpLocation.Type         : SnmpLocation
                      }
-    
+
     @classmethod
     def create(cls, aBuffer):
 #        print "CDPElementFactory.create aBuffer:", repr(aBuffer)
@@ -495,4 +495,4 @@ class CDPElementFactory():
         except KeyError:
             class_type = DummyCdpElement
             #raise Exception("CDP Element type %s not implemented" % _type)
-        return class_type( aBuffer )                   
+        return class_type( aBuffer )

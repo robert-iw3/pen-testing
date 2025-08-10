@@ -123,7 +123,7 @@ public class GetNtTransactionManagerCmdlet : NtObjectBaseCmdletWithAccess<Transa
                 identity = Identity;
                 break;
         }
-        return NtTransactionManager.Open(obj_attributes, Access, 
+        return NtTransactionManager.Open(obj_attributes, Access,
             logfile, identity, OpenFlags);
     }
 }

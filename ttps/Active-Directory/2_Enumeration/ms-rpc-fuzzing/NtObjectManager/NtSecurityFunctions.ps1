@@ -2117,7 +2117,7 @@ function Select-ObjectTypeTree {
         [Parameter(Position = 1, Mandatory)]
         [guid]$ObjectType
     )
-    
+
     $Tree.Find($ObjectType) | Write-Output
 }
 
@@ -2341,7 +2341,7 @@ None
 NtCoreLib.Win32.Security.Audit.AuditSubCategory
 NtCoreLib.Win32.Security.Audit.AuditPerUserSubCategory
 .EXAMPLE
-Set-NtAuditPolicy -Category 
+Set-NtAuditPolicy -Category
 Get all audit policy categories.
 .EXAMPLE
 Get-NtAuditPolicy -Category ObjectAccess

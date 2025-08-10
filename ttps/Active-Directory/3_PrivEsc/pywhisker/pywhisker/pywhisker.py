@@ -457,7 +457,7 @@ class ShadowCredentials(object):
                     out_pfx_file = path + ".pfx"
 
                     self.logger.info(f"Converting PEM -> PFX with cryptography: {out_pfx_file}")
-                    export_pfx_with_cryptography(pem_cert_file=pem_cert_file, 
+                    export_pfx_with_cryptography(pem_cert_file=pem_cert_file,
                                                  pem_key_file=pem_key_file,
                                                  pfx_password=password,
                                                  out_file=out_pfx_file)
@@ -756,7 +756,7 @@ class Logger(object):
     ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠘⣷⣿⣿⣷⠄⠄⢺⣇⠄⠄⠄⠄⠄⠄⠄⠄⠸⣿
     ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠹⣿⣿⡇⠄⠄⠸⣿⡄⠄⠈⠁⠄⠄⠄⠄⠄⣿
     ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢻⣿⡇⠄⠄⠄⢹⣧⠄⠄⠄⠄⠄⠄⠄⠄⠘⠀⠀⠀⠀⠀⠀
-    
+
 
     ⠀The best tools in the history of tools. Ever.
 """

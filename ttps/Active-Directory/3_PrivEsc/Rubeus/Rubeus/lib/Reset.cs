@@ -120,7 +120,7 @@ namespace Rubeus
 
             //KRV-PRIV
             bw.Write(changePrivBytes);
-            
+
             // KPASSWD_DEFAULT_PORT = 464
             byte[] response = Networking.SendBytes(dcIP, 464, ((MemoryStream)bw.BaseStream).ToArray());
             if (response == null)
@@ -167,7 +167,7 @@ namespace Rubeus
                     byte[] responseCodeBytes = decBytesAsn.Sub[0].Sub[0].Sub[0].GetOctetString();
 
                     br = new BinaryReader(new MemoryStream(responseCodeBytes));
-                    short resultCode = IPAddress.NetworkToHostOrder(br.ReadInt16());                            
+                    short resultCode = IPAddress.NetworkToHostOrder(br.ReadInt16());
                     if (resultCode == 0)
                     {
                         Console.WriteLine("[+] Password change success!");

@@ -202,7 +202,7 @@ class SAMRTests(DCERPCTests):
 
         with assertRaisesRegex(self, samr.DCERPCSessionError, "STATUS_NO_SUCH_DOMAIN"):
             dce.request(request)
-        
+
     def test_hSamrOpenDomain(self):
         dce, rpc_transport = self.connect()
         resp = samr.hSamrConnect(dce)
@@ -230,7 +230,7 @@ class SAMRTests(DCERPCTests):
         except samr.DCERPCSessionError as e:
             if str(e).find('STATUS_NO_SUCH_DOMAIN') < 0:
                 raise
-        
+
     def test_hSamrOpenGroup(self):
         dce, rpc_transport = self.connect()
         domainHandle = self.get_domain_handle(dce)
@@ -374,10 +374,10 @@ class SAMRTests(DCERPCTests):
                 resp4 = dce.request(request)
             except samr.DCERPCSessionError as e:
                 if str(e).find('STATUS_MORE_ENTRIES') < 0:
-                    raise 
+                    raise
                 resp4 = e.get_packet()
             resp4['Buffer'].dump()
-            request['EnumerationContext'] = resp4['EnumerationContext'] 
+            request['EnumerationContext'] = resp4['EnumerationContext']
             status = resp4['ErrorCode']
 
     def test_hSamrEnumerateGroupsInDomain(self):
@@ -399,10 +399,10 @@ class SAMRTests(DCERPCTests):
                 resp4 = dce.request(request)
             except samr.DCERPCSessionError as e:
                 if str(e).find('STATUS_MORE_ENTRIES') < 0:
-                    raise 
+                    raise
                 resp4 = e.get_packet()
             resp4['Buffer'].dump()
-            request['EnumerationContext'] = resp4['EnumerationContext'] 
+            request['EnumerationContext'] = resp4['EnumerationContext']
             status = resp4['ErrorCode']
 
     def test_hSamrEnumerateAliasesInDomain(self):
@@ -425,10 +425,10 @@ class SAMRTests(DCERPCTests):
                 resp4 = dce.request(request)
             except samr.DCERPCSessionError as e:
                 if str(e).find('STATUS_MORE_ENTRIES') < 0:
-                    raise 
+                    raise
                 resp4 = e.get_packet()
             resp4['Buffer'].dump()
-            request['EnumerationContext'] = resp4['EnumerationContext'] 
+            request['EnumerationContext'] = resp4['EnumerationContext']
             status = resp4['ErrorCode']
 
     def test_hSamrEnumerateUsersInDomain(self):
@@ -452,7 +452,7 @@ class SAMRTests(DCERPCTests):
         resp = dce.request(request)
         resp.dump()
         request = samr.SamrGetGroupsForUser()
-        request['UserHandle'] = resp['UserHandle'] 
+        request['UserHandle'] = resp['UserHandle']
         resp = dce.request(request)
         resp.dump()
 
@@ -741,7 +741,7 @@ class SAMRTests(DCERPCTests):
         resp['Buffer']['Password']['MaxPasswordAge']['LowPart'] = 11
         resp = samr.hSamrSetInformationDomain(dce, domainHandle, resp['Buffer'])
         resp.dump()
- 
+
         resp2 = samr.hSamrQueryInformationDomain(dce, domainHandle, samr.DOMAIN_INFORMATION_CLASS.DomainPasswordInformation)
         resp2.dump()
         self.assertEqual(11, resp2['Buffer']['Password']['MaxPasswordAge']['LowPart'])
@@ -749,8 +749,8 @@ class SAMRTests(DCERPCTests):
         resp2['Buffer']['Password']['MaxPasswordAge']['LowPart'] = 0
         resp = samr.hSamrSetInformationDomain(dce, domainHandle, resp2['Buffer'])
         resp.dump()
-   
-        ################################################################################ 
+
+        ################################################################################
         resp = samr.hSamrQueryInformationDomain(dce, domainHandle, samr.DOMAIN_INFORMATION_CLASS.DomainGeneralInformation)
         resp.dump()
 
@@ -758,11 +758,11 @@ class SAMRTests(DCERPCTests):
         with assertRaisesRegex(self, samr.DCERPCSessionError, "STATUS_INVALID_INFO_CLASS"):
             samr.hSamrSetInformationDomain(dce, domainHandle, resp['Buffer'])
 
-        ################################################################################ 
+        ################################################################################
         resp = samr.hSamrQueryInformationDomain(dce, domainHandle, samr.DOMAIN_INFORMATION_CLASS.DomainLogoffInformation)
         resp.dump()
 
-        oldData = resp['Buffer']['Logoff']['ForceLogoff']['LowPart'] 
+        oldData = resp['Buffer']['Logoff']['ForceLogoff']['LowPart']
 
         resp['Buffer']['Logoff']['ForceLogoff']['LowPart'] = 11
         resp = samr.hSamrSetInformationDomain(dce, domainHandle, resp['Buffer'])
@@ -777,7 +777,7 @@ class SAMRTests(DCERPCTests):
         resp = samr.hSamrSetInformationDomain(dce, domainHandle, resp2['Buffer'])
         resp.dump()
 
-        ################################################################################ 
+        ################################################################################
         resp = samr.hSamrQueryInformationDomain(dce, domainHandle, samr.DOMAIN_INFORMATION_CLASS.DomainOemInformation)
         resp.dump()
 
@@ -844,7 +844,7 @@ class SAMRTests(DCERPCTests):
         request['GroupInformationClass'] = samr.GROUP_INFORMATION_CLASS.GroupGeneralInformation
         resp = dce.request(request)
         resp.dump()
-        ################################################################################ 
+        ################################################################################
         request['GroupInformationClass'] = samr.GROUP_INFORMATION_CLASS.GroupNameInformation
         resp = dce.request(request)
         resp.dump()
@@ -868,7 +868,7 @@ class SAMRTests(DCERPCTests):
         resp = dce.request(req)
         resp.dump()
 
-        ################################################################################ 
+        ################################################################################
         request['GroupInformationClass'] = samr.GROUP_INFORMATION_CLASS.GroupAttributeInformation
         resp = dce.request(request)
         resp.dump()
@@ -891,7 +891,7 @@ class SAMRTests(DCERPCTests):
         resp = dce.request(req)
         resp.dump()
 
-        ################################################################################ 
+        ################################################################################
         request['GroupInformationClass'] = samr.GROUP_INFORMATION_CLASS.GroupAdminCommentInformation
         resp = dce.request(request)
         resp.dump()
@@ -916,7 +916,7 @@ class SAMRTests(DCERPCTests):
         resp = dce.request(req)
         resp.dump()
 
-        ################################################################################ 
+        ################################################################################
         request['GroupInformationClass'] = samr.GROUP_INFORMATION_CLASS.GroupReplicationInformation
         resp = dce.request(request)
         resp.dump()
@@ -934,7 +934,7 @@ class SAMRTests(DCERPCTests):
 
         resp = samr.hSamrQueryInformationGroup(dce, resp0['GroupHandle'], samr.GROUP_INFORMATION_CLASS.GroupGeneralInformation)
         resp.dump()
-        ################################################################################ 
+        ################################################################################
 
         resp = samr.hSamrQueryInformationGroup(dce, resp0['GroupHandle'], samr.GROUP_INFORMATION_CLASS.GroupNameInformation)
         resp.dump()
@@ -967,7 +967,7 @@ class SAMRTests(DCERPCTests):
         resp = samr.hSamrQueryInformationAlias(dce, resp0['AliasHandle'], samr.ALIAS_INFORMATION_CLASS.AliasGeneralInformation)
         resp.dump()
 
-        ################################################################################ 
+        ################################################################################
         resp = samr.hSamrQueryInformationAlias(dce, resp0['AliasHandle'], samr.ALIAS_INFORMATION_CLASS.AliasNameInformation)
         resp.dump()
         oldData = resp['Buffer']['Name']['Name']
@@ -1000,10 +1000,10 @@ class SAMRTests(DCERPCTests):
                 resp4 = dce.request(request)
             except samr.DCERPCSessionError as e:
                 if str(e).find('STATUS_MORE_ENTRIES') < 0:
-                    raise 
+                    raise
                 resp4 = e.get_packet()
             resp4['Buffer'].dump()
-            request['EnumerationContext'] = resp4['EnumerationContext'] 
+            request['EnumerationContext'] = resp4['EnumerationContext']
             status = resp4['ErrorCode']
 
         resp4.dump()
@@ -1020,7 +1020,7 @@ class SAMRTests(DCERPCTests):
         resp = dce.request(request)
         resp.dump()
 
-        ################################################################################ 
+        ################################################################################
         request['AliasInformationClass'] = samr.ALIAS_INFORMATION_CLASS.AliasNameInformation
         resp = dce.request(request)
         resp.dump()
@@ -1073,7 +1073,7 @@ class SAMRTests(DCERPCTests):
         domainHandle = self.get_domain_handle(dce)
         request = samr.SamrOpenUser()
         request['DomainHandle'] = domainHandle
-        #request['DesiredAccess'] =  samr.USER_READ_GENERAL | samr.USER_READ_PREFERENCES | samr.USER_READ_ACCOUNT | samr.USER_ALL_ACCESS | samr.USER_READ | samr.USER_READ_LOGON 
+        #request['DesiredAccess'] =  samr.USER_READ_GENERAL | samr.USER_READ_PREFERENCES | samr.USER_READ_ACCOUNT | samr.USER_ALL_ACCESS | samr.USER_READ | samr.USER_READ_LOGON
         request['DesiredAccess'] = \
             samr.USER_READ_GENERAL | samr.USER_READ_PREFERENCES | samr.USER_WRITE_PREFERENCES | samr.USER_READ_LOGON \
             | samr.USER_READ_ACCOUNT | samr.USER_WRITE_ACCOUNT | samr.USER_CHANGE_PASSWORD | samr.USER_FORCE_PASSWORD_CHANGE  \
@@ -1087,7 +1087,7 @@ class SAMRTests(DCERPCTests):
 
         request = samr.SamrQueryInformationUser2()
         request['UserHandle'] = resp['UserHandle']
-        userHandle = resp['UserHandle'] 
+        userHandle = resp['UserHandle']
         request['UserInformationClass'] = samr.USER_INFORMATION_CLASS.UserGeneralInformation
         resp = dce.request(request)
         resp.dump()
@@ -1157,7 +1157,7 @@ class SAMRTests(DCERPCTests):
         req = samr.SamrSetInformationUser2()
         req['UserHandle'] = userHandle
         req['UserInformationClass'] = samr.USER_INFORMATION_CLASS.UserAccountNameInformation
-        req['Buffer'] = resp['Buffer'] 
+        req['Buffer'] = resp['Buffer']
         req['Buffer']['AccountName']['UserName'] = self.test_string
         resp = dce.request(req)
         resp.dump()
@@ -1332,7 +1332,7 @@ class SAMRTests(DCERPCTests):
         req = samr.SamrSetInformationUser()
         req['UserHandle'] = userHandle
         req['UserInformationClass'] = samr.USER_INFORMATION_CLASS.UserPreferencesInformation
-        req['Buffer'] = resp['Buffer'] 
+        req['Buffer'] = resp['Buffer']
         req['Buffer']['Preferences']['UserComment'] = self.test_string
         resp = dce.request(req)
         resp.dump()
@@ -1495,10 +1495,10 @@ class SAMRTests(DCERPCTests):
                 resp4 = dce.request(request)
             except samr.DCERPCSessionError as e:
                 if str(e).find('STATUS_MORE_ENTRIES') < 0:
-                    raise 
+                    raise
                 resp4 = e.get_packet()
             resp4['Buffer'].dump()
-            request['EnumerationContext'] = resp4['EnumerationContext'] 
+            request['EnumerationContext'] = resp4['EnumerationContext']
             status = resp4['ErrorCode']
 
         request = samr.SamrOpenAlias()
@@ -1526,10 +1526,10 @@ class SAMRTests(DCERPCTests):
                 resp4 = dce.request(request)
             except samr.DCERPCSessionError as e:
                 if str(e).find('STATUS_MORE_ENTRIES') < 0:
-                    raise 
+                    raise
                 resp4 = e.get_packet()
             resp4['Buffer'].dump()
-            request['EnumerationContext'] = resp4['EnumerationContext'] 
+            request['EnumerationContext'] = resp4['EnumerationContext']
             status = resp4['ErrorCode']
 
         request = samr.SamrOpenAlias()
@@ -1671,7 +1671,7 @@ class SAMRTests(DCERPCTests):
         resp2.dump()
 
         request = samr.SamrRemoveMultipleMembersFromAlias()
-        request['AliasHandle'] = resp['AliasHandle'] 
+        request['AliasHandle'] = resp['AliasHandle']
         request['MembersBuffer']['Count'] = 2
         request['MembersBuffer']['Sids'].append(si)
         request['MembersBuffer']['Sids'].append(si2)
@@ -2101,7 +2101,7 @@ class SAMRTests(DCERPCTests):
         request = samr.SamrSetSecurityObject()
         request['ObjectHandle'] = userHandle
         request['SecurityInformation'] = dtypes.GROUP_SECURITY_INFORMATION
-        request['SecurityDescriptor'] = resp['SecurityDescriptor'] 
+        request['SecurityDescriptor'] = resp['SecurityDescriptor']
 
         try:
             resp = dce.request(request)
@@ -2162,7 +2162,7 @@ class SAMRTests(DCERPCTests):
         request['NewLmEncryptedWithOldLm'] = NULL
         request['NtPresent'] = 1
         request['OldNtEncryptedWithNewNt'] = crypto.SamEncryptNTLMHash(oldPwdHashNT, newPwdHashNT)
-        request['NewNtEncryptedWithOldNt'] = crypto.SamEncryptNTLMHash(newPwdHashNT, oldPwdHashNT) 
+        request['NewNtEncryptedWithOldNt'] = crypto.SamEncryptNTLMHash(newPwdHashNT, oldPwdHashNT)
         request['NtCrossEncryptionPresent'] = 0
         request['NewNtEncryptedWithNewLm'] = NULL
         request['LmCrossEncryptionPresent'] = 1
@@ -2260,7 +2260,7 @@ class SAMRTests(DCERPCTests):
         request['NewLmEncryptedWithOldLm'] = NULL
         request['NtPresent'] = 1
         request['OldNtEncryptedWithNewNt'] = crypto.SamEncryptNTLMHash(oldPwdHashNT, newPwdHashNT)
-        request['NewNtEncryptedWithOldNt'] = crypto.SamEncryptNTLMHash(newPwdHashNT, oldPwdHashNT) 
+        request['NewNtEncryptedWithOldNt'] = crypto.SamEncryptNTLMHash(newPwdHashNT, oldPwdHashNT)
         request['NtCrossEncryptionPresent'] = 0
         request['NewNtEncryptedWithNewLm'] = NULL
         request['LmCrossEncryptionPresent'] = 1
@@ -2334,7 +2334,7 @@ class SAMRTests(DCERPCTests):
         request['NewLmEncryptedWithOldLm'] = NULL
         request['NtPresent'] = 1
         request['OldNtEncryptedWithNewNt'] = crypto.SamEncryptNTLMHash(oldPwdHashNT, newPwdHashNT)
-        request['NewNtEncryptedWithOldNt'] = crypto.SamEncryptNTLMHash(newPwdHashNT, oldPwdHashNT) 
+        request['NewNtEncryptedWithOldNt'] = crypto.SamEncryptNTLMHash(newPwdHashNT, oldPwdHashNT)
         request['NtCrossEncryptionPresent'] = 0
         request['NewNtEncryptedWithNewLm'] = NULL
         request['LmCrossEncryptionPresent'] = 1

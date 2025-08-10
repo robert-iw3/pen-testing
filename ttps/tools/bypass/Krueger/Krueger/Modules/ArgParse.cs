@@ -145,8 +145,8 @@ namespace Krueger.Modules
                     Console.WriteLine("[!] Could not trigger reboot");
                 }
                 impersonationContext.Undo();
-                
-            }   
+
+            }
         }
     }
 }

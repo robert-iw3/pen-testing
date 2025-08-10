@@ -334,10 +334,10 @@ class Transport(object):
         response=None
         if self.auth_method == "pku2u" and session.auth.auth_done == False:
             while session.auth.interaction < 4:
-                
+
                 # start authentication via PKU2U
                 if response != None:
-                    try:   
+                    try:
                         session.auth.pre_token = base64.b64decode(response.headers['WWW-Authenticate'].split(' ')[1])
                     except Exception as e:
                         print('[-] failed to login. the target machine might not be Entra-joinned or P2P cert might be expired.')
@@ -347,11 +347,11 @@ class Transport(object):
                 prepared_request = session.prepare_request(request)
                 response = self._send_message_request(session, prepared_request)
                 session.auth.interaction += 1
-            
+
             session.auth.auth_done = True
             session.auth.setup_gssapi(base64.b64decode(response.headers['WWW-Authenticate'].split(' ')[1]))
             self.encryption = Encryption(session, self.auth_method)
-                        
+
         # urllib3 fails on SSL retries with unicode buffers- must send it a byte string
         # see https://github.com/shazow/urllib3/issues/717
         if isinstance(message, str):

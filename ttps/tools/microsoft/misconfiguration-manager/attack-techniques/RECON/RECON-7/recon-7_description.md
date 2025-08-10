@@ -36,7 +36,7 @@ Additionally, the registry key/value of `HKLM:\SOFTWARE\Microsoft\SMS\DP\Managem
 3. A resolved DP role can be a target for [sensitive information hunting in the Content Library](https://rzec.se/blog/looting-microsoft-configuration-manager)
 4. A resolved MP role can be a target for spoofing client enrollment [CRED-2](../../CRED/CRED-2/cred-2_description.md)
 5. A resolved MP site system role can be used to elevate privileges via credential relay attacks [ELEVATE-1](../../ELEVATE/ELEVATE-1/ELEVATE-1_description.md)
- 
+
 ## Defensive IDs
 - [DETECT-9: Monitor local object access for local SCCM logs and settings](../../../defense-techniques/DETECT/DETECT-9/detect-9_description.md)
 

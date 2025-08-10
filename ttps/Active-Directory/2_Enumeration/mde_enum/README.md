@@ -11,43 +11,43 @@ MDE_Enum is a comprehensive .NET tool designed to extract and display detailed i
 * **Detailed Output**: Presents information in a clear, tabulated format for easy reading and analysis.
 
 
-## Usage 
+## Usage
 
 ### Windows Defender exclusion paths
 This feature extracts the values from Windows Event ID 5007 logs. The tool uses regex pattern matching to accurately extract these values from the event description text.
 
-1. Enumerate exclusion paths locally 
+1. Enumerate exclusion paths locally
 ```
 MDE_Enum /local /paths
 
-MDE_Enum /local /paths /access (check if current user has write access) 
+MDE_Enum /local /paths /access (check if current user has write access)
 ```
 
 2. Enumerate exclusion paths on remote computers
 ```
-MDE_Enum <remoteComputer> <username> <password> <domain> /paths 
+MDE_Enum <remoteComputer> <username> <password> <domain> /paths
 ```
 
-### Triggered ASR Rules 
+### Triggered ASR Rules
 This feature extracts the values from Windows Event ID 1121 logs. The tool uses regex pattern matching to accurately extract these values from the event description text.
 
-1. Enumerate logged ASR rules locally 
+1. Enumerate logged ASR rules locally
 ```
-MDE_Enum /local /asr 
+MDE_Enum /local /asr
 ```
 
 2. Enumerate logged ASR rules on remote computers
 ```
-MDE_Enum <remoteComputer> <username> <password> <domain> /asr 
+MDE_Enum <remoteComputer> <username> <password> <domain> /asr
 ```
-### Enumerate ASR Rules 
+### Enumerate ASR Rules
 This feature extracts the Attack Surface Reduction (ASR) rules from the MSFT_MpPreference WMI class and provides a comprehensive status of the rules along with their corresponding names.
 
-1. Enumerate the rules locally 
+1. Enumerate the rules locally
 ```
-MDE_Enum /local /asr /alt 
+MDE_Enum /local /asr /alt
 ```
-2. Enumerate the rules on remote computers. 
+2. Enumerate the rules on remote computers.
 ```
-MDE_Enum <remoteComputer> <domain> <username> <password> /asr /alt 
+MDE_Enum <remoteComputer> <domain> <username> <password> /asr /alt
 ```

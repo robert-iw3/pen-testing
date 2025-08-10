@@ -58,7 +58,7 @@ public sealed class RemoveNtTokenSecurityAttributeCmdlet : PSCmdlet
         {
             Name = Attribute.Select(a => a.Name).ToArray();
         }
-        
+
         var builders = Name.Select(n => ClaimSecurityAttributeBuilder.Create(n, 0, new long[0]));
         var ops = Enumerable.Repeat(TokenSecurityAttributeOperation.Delete, Name.Length);
         Token.SetSecurityAttributes(builders, ops);

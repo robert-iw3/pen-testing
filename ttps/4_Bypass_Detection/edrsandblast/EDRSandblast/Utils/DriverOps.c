@@ -59,7 +59,7 @@ BOOL UninstallVulnerableDriver(void) {
     TCHAR* svcName = GetDriverServiceName();
 
     BOOL status = ServiceUninstall(svcName, 0);
-    
+
     if (!status) {
         PRINT_ERROR_AUTO(TEXT("ServiceUninstall"));
     }

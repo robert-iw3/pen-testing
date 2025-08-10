@@ -40,7 +40,7 @@ class CLUSTER_ENUM(NDRENUM):
         CLUSTER_ENUM_NETINTERFACE            = 0x00000020
         CLUSTER_ENUM_INTERNAL_NETWORK        = 0x80000000
         CLUSTER_ENUM_SHARED_VOLUME_RESOURCE  = 0x40000000
-        
+
 CLUSTER_TYPE_MAP = {
         'node': CLUSTER_ENUM.enumItems.CLUSTER_ENUM_NODE,
         'restype': CLUSTER_ENUM.enumItems.CLUSTER_ENUM_RESTYPE,
@@ -52,13 +52,13 @@ CLUSTER_TYPE_MAP = {
         'shared_volume': CLUSTER_ENUM.enumItems.CLUSTER_ENUM_SHARED_VOLUME_RESOURCE,
         }
 
-        
+
 
 # STRUCTURES
 
 class ENUM_ENTRY(NDRSTRUCT):
     structure = (
-        ('Type', DWORD),  
+        ('Type', DWORD),
         ('Name', LPWSTR),
     )
 
@@ -75,7 +75,7 @@ class PENUM_LIST(NDRPOINTER):
     referent = (
         ('Data', ENUM_LIST),
     )
-    
+
 # RPC CALLS
 
 class ApiGetClusterName(NDRCALL):
@@ -101,7 +101,7 @@ class ApiCreateEnumResponse(NDRCALL):
         ('rpc_status', ULONG),
         ('ErrorCode', ULONG),
     )
-    
+
 
 # HELPER FUNCTIONS
 #claude is OP
@@ -120,14 +120,14 @@ def parse_ndr(response, offset=0):
     referent_id = struct.unpack('<I', response[offset:offset+4])[0]
     if referent_id == 0:
         return "", offset + 4
-    
+
     max_count = struct.unpack('<I', response[offset+4:offset+8])[0]
     str_offset = struct.unpack('<I', response[offset+8:offset+12])[0]
     actual_count = struct.unpack('<I', response[offset+12:offset+16])[0]
-    
+
     str_data = response[offset+16:offset+16+(actual_count*2)]
     string = str_data.decode('utf-16-le').rstrip('\x00')
-    
+
     end_offset = offset + 16 + (actual_count * 2)
     end_offset += (4 - end_offset % 4) % 4
     return string, end_offset
@@ -170,13 +170,13 @@ def print_result(operation, success, details=None, error_msg=None):
     """Print operation result in table format"""
     status = "SUCCESS" if success else "FAILED"
     table_data = [["Operation", operation], ["Status", status]]
-    
+
     if details:
         table_data.extend([[k, v] for k, v in details.items()])
-    
+
     if error_msg:
         table_data.append(["Error", error_msg])
-    
+
     print(tabulate(table_data, headers=['Property', 'Value'], tablefmt='grid'))
 
 def print_error(operation, error_code, error_msg):
@@ -218,20 +218,20 @@ def cmrp_connect(username, password, domain, lmhash, nthash, doKerberos, dcHost,
         dce.set_auth_type(RPC_C_AUTHN_GSS_NEGOTIATE)
     else:
         dce.set_auth_type(RPC_C_AUTHN_WINNT)
-        
+
     dce.set_auth_level(RPC_C_AUTHN_LEVEL_PKT_PRIVACY)
     print(f"[-] Connecting to {sb}")
     try:
         dce.connect()
     except Exception as e:
-        print("Something went wrong, check error status => %s" % str(e))  
+        print("Something went wrong, check error status => %s" % str(e))
         return
     print("[+] Connected!")
     print(f"[+] Binding to {sb}")
     try:
         dce.bind(MSRPC_UUID_CMRP)
     except Exception as e:
-        print("Something went wrong, check error status => %s" % str(e)) 
+        print("Something went wrong, check error status => %s" % str(e))
         return
     print("[+] Successfully bound!")
     return dce
@@ -241,15 +241,15 @@ def cmrp_connect(username, password, domain, lmhash, nthash, doKerberos, dcHost,
 def OpenGroupEx_RawBytes(dce, group_name, desired_access=0x10000000):
     try:
         request_data = encode_ndr(group_name) + struct.pack('<I', desired_access)
-        
+
         response = rpc_call(dce, 119, request_data, "OpenGroupEx")
         if not response or len(response) < 32:
             print_error("Open Group", "N/A", "Invalid response or insufficient data")
             return None
-        
+
         granted_access, status, rpc_status = struct.unpack('<III', response[:12])
         context_handle = response[12:32]
-        
+
         if status == 0:
             details = {
                 "Group Name": group_name,
@@ -261,7 +261,7 @@ def OpenGroupEx_RawBytes(dce, group_name, desired_access=0x10000000):
             return context_handle
         else:
             check_response(status, "OpenGroupEx")
-        
+
     except DCERPCSessionError as e:
         print_error("Open Group", e.error_code if hasattr(e, 'error_code') else "N/A", str(e))
         return None
@@ -272,19 +272,19 @@ def GetGroupState_RawBytes(dce, group_handle):
     if not response:
         print_error("Get Group State", "N/A", "No response received")
         return None, None, -1
-    
+
     # Parse response: int32 state, string NodeName, uint32 rpc_status, uint32 return value
     state = struct.unpack('<i', response[0:4])[0]
-    
+
     node_name, str_end = parse_ndr(response, 4)
-    
+
     rpc_status = struct.unpack('<I', response[str_end:str_end+4])[0]
     error_code = struct.unpack('<I', response[str_end+4:str_end+8])[0]
-    
+
     # Group states
     state_names = {0: "Online", 1: "Offline", 2: "Failed", 3: "PartialOnline", 4: "Pending", 5: "Unknown"}
     state_name = state_names.get(state, f"Unknown({state})")
-    
+
     if error_code == 0:
         details = {
             "Handle": group_handle.hex(),
@@ -295,21 +295,21 @@ def GetGroupState_RawBytes(dce, group_handle):
         print_result("Get Group State", True, details)
     else:
         print_error("Get Group State", error_code, f"State: {state_name}, Node: {node_name}")
-    
+
     return state, node_name, error_code
-    
+
 def OpenNode_RawBytes(dce, node_name):
     """Open a handle to a cluster node"""
     request_data = encode_ndr(node_name)
-    
+
     response = rpc_call(dce, 66, request_data, "OpenNode")
     if not response or len(response) < 28:
         print_error("Open Node", "N/A", "Invalid response or insufficient data")
         return None
-    
+
     status, rpc_status = struct.unpack('<II', response[:8])
     node_handle = response[8:28]
-    
+
     if status == 0:
         details = {
             "Node Name": node_name,
@@ -320,25 +320,25 @@ def OpenNode_RawBytes(dce, node_name):
     else:
         print_error("Open Node", status, f"Failed to open node: {node_name}")
         return None
-  
-    
+
+
 def MoveGroupToNode_RawBytes(dce, group_handle, node_handle):
     """Move a cluster group to a specific node"""
     request_data = group_handle + node_handle  # 20 + 20 = 40 bytes
-    
+
     response = rpc_call(dce, 52, request_data, "MoveGroupToNode")
     if not response or len(response) < 8:
         print_error("Move Group", "N/A", "Invalid response or insufficient data")
         return -1
-    
+
     rpc_status, error_code = struct.unpack('<II', response[:8])
-    
+
     details = {
         "Group Handle": group_handle.hex(),
         "Node Handle": node_handle.hex(),
         "Error Code": f"0x{error_code:08x}"
     }
-    
+
     # Common error codes:
     if error_code == 0:
         details["Result"] = "Move operation completed successfully"
@@ -349,22 +349,22 @@ def MoveGroupToNode_RawBytes(dce, group_handle, node_handle):
         print_result("Move Group", True, details)
     else:
         print_error("Move Group", error_code, "Move operation failed")
-        
+
     return error_code
 
 def CreateClusterEnum(dce, enum_type):
     try:
         request = ApiCreateEnum()
         request['EnumType'] = enum_type
-        
+
         resp = dce.request(request)
-        
+
         if resp['ErrorCode'] != 0:
             check_response(resp['ErrorCode'], "CreateClusterEnum")
-        
+
         results = []
         return_enum = resp['ReturnEnum']
-        
+
         if return_enum and return_enum['EntryCount'] > 0:
             for entry in return_enum['Entry']:
                 name = entry['Name']
@@ -373,9 +373,9 @@ def CreateClusterEnum(dce, enum_type):
                 elif isinstance(name, str):
                     name = name.rstrip('\x00')
                 results.append({'name': name})
-        
+
         return json.dumps({'entries': results, 'count': len(results)})
-        
+
     except DCERPCSessionError as e:
         print(f"[-] {e}")
         return json.dumps({'entries': [], 'count': 0})
@@ -392,7 +392,7 @@ def GetClusterName(dce):
     except Exception as e:
         print(e)
 
-# SHELL 
+# SHELL
 
 class SHELL(cmd2.Cmd):
     hidden = ["alias", "help", "macro", "run_pyscript", "set", "shortcuts", "edit", "history", "quit", "run_script", "shell", "_relative_run_script", "eof"]
@@ -404,20 +404,20 @@ class SHELL(cmd2.Cmd):
         choices=list(CLUSTER_TYPE_MAP.keys()),
         help='Type of cluster resource to enumerate'
     )
-    
+
     movegroup_parser = argparse.ArgumentParser()
     movegroup_parser.add_argument('-group', action='store', help="Target group to move")
     movegroup_parser.add_argument('-node', action='store', help='Target node to move the group to')
-    
+
     def __init__(self, dce):
         self.dce = dce
         self.prompt = '# '
         super().__init__(allow_cli_args=False)
         self.hidden_commands = self.hidden
-        
+
     def do_exit(self, arg):
         """Exit the console."""
-        return True 
+        return True
 
     def do_help(self, arg):
         print("""
@@ -431,38 +431,38 @@ movegroup -group <name> -node <name> - move group to node
     def do_get_clustername(self, arg):
         result = GetClusterName(self.dce)
         table_print(result)
-    
+
     def do_get_groupstate(self, arg):
         if not arg:
             print("Usage: getgroupstate <group_name>")
             return
-        
+
         print(f"[*] Opening group: {arg}")
         group_handle = OpenGroupEx_RawBytes(self.dce, arg)
-        
+
         if group_handle:
             print(f"\n[*] Got group handle, now getting state...")
             GetGroupState_RawBytes(self.dce, group_handle)
-        
+
     @cmd2.with_argparser(enum_parser)
     def do_enum_cluster(self, args):
         enum_value = CLUSTER_TYPE_MAP[args.type]
         result = CreateClusterEnum(self.dce, enum_value.value)
         table_print(result)
-        
-    @cmd2.with_argparser(movegroup_parser)   
+
+    @cmd2.with_argparser(movegroup_parser)
     def do_movegroup(self, args):
         """Move a group to a node"""
         group_name, node_name = args.group, args.node
-        
+
         group_handle = OpenGroupEx_RawBytes(self.dce, group_name)
         if not group_handle:
             return
-            
+
         node_handle = OpenNode_RawBytes(self.dce, node_name)
         if not node_handle:
             return
-            
+
         MoveGroupToNode_RawBytes(self.dce, group_handle, node_handle)
 
 # MAIN
@@ -496,13 +496,13 @@ def main():
     if options.password == '' and options.username != '' and options.hashes is None and options.no_pass is not True:
         from getpass import getpass
         options.password = getpass("Password:")
-    
+
     dce = cmrp_connect(username=options.username, password=options.password, domain=options.domain, lmhash=lmhash, nthash=nthash, doKerberos=options.k, dcHost=options.dc_ip, targetIp=options.target_ip)
     if dce is not None:
         cli = SHELL(dce)
         cli.cmdloop()
     dce.disconnect()
-    sys.exit()   
-             
+    sys.exit()
+
 if __name__ == '__main__':
     main()

@@ -7,7 +7,7 @@
 
 
 // Investigates the number of CPU cores present on the system. If core count is lower than a specified number, the program exits.
-// 
+//
 // arg1:        Specifies the core number threshold. Program exits if core count is less than threshold.
 void get_cpu_cores(char *arg1) {
     SYSTEM_INFO sysinfo;

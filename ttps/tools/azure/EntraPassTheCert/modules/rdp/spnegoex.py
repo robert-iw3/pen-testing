@@ -9,7 +9,7 @@ class SPNEGOEXCredential(UniCredential):
 	def __init__(self, credentials:List[UniCredential] = [], subprotocol:SubProtocol = SubProtocolNative()):
 		UniCredential.__init__(self, protocol = asyauthProtocol.SPNEGOEX, subprotocol=subprotocol)
 		self.credentials = credentials
-	
+
 	def build_context(self, *args, **kwargs):
 		if self.subprotocol.type == asyauthSubProtocol.NATIVE:
 			sspi_ctx = SPNEGOEXClientNative(self.credentials[0])

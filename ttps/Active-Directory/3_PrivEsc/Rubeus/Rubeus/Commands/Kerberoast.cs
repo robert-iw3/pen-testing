@@ -156,7 +156,7 @@ namespace Rubeus.Commands
                 // limit the number of roastable users
                 resultLimit = Convert.ToInt32(arguments["/resultlimit"]);
             }
-            
+
             if (arguments.ContainsKey("/delay"))
             {
                 delay = Int32.Parse(arguments["/delay"]);

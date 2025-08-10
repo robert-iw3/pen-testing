@@ -87,9 +87,9 @@ namespace peconv {
         Assumes that the module was relocated to the same address as is the address of the given buffer (modulePtr).
         (A wrapper for the case if we are adding a DLL that was loaded within the current process.)
         \param moduleName : name of the DLL
-        \param modulePtr : buffer containing the DLL in a Virtual format. 
+        \param modulePtr : buffer containing the DLL in a Virtual format.
         */
-        size_t add_to_lookup(std::string moduleName, HMODULE modulePtr) 
+        size_t add_to_lookup(std::string moduleName, HMODULE modulePtr)
         {
             return add_to_lookup(moduleName, modulePtr, reinterpret_cast<ULONGLONG>(modulePtr));
         }
@@ -176,7 +176,7 @@ namespace peconv {
 
         void print_va_to_func(std::stringstream &stream) const;
         void print_func_to_va(std::stringstream &stream) const;
-        
+
 
     private:
         enum ADD_FUNC_RES { RES_INVALID = 0, RES_MAPPED = 1, RES_FORWARDED = 2 };
@@ -212,7 +212,7 @@ namespace peconv {
         A map associating an exported functions with its VA.
         */
         std::map<ExportedFunc, ULONGLONG> func_to_va;
-        
+
         /**
         A map associating DLL shortname with the base(s) at which it was mapped
         */

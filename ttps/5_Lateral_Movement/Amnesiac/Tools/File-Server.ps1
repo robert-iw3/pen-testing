@@ -60,15 +60,15 @@ public class SimpleFileServer
 "@ -Language CSharp
 
 function File-Server {
-	
+
 	param($Port, $Path)
-	
+
 	if(!$Port){$Port = 8080}
 	if(!$Path){$Path = $pwd}
 
 	# Now create an instance of this server in PowerShell and start it
 	$server = New-Object SimpleFileServer ([IPAddress]::Any, $Port)
 	$rootDirectory = $Path  # Set your files' directory here
-	
+
 	$server.Start($rootDirectory)
 }

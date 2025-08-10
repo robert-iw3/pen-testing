@@ -68,7 +68,7 @@ namespace ADOKit.Utilities
                     string name = "";
                     string type = "";
                     string id = "";
-            
+
 
                     // read the json results
                     while (jsonResult.Read())

@@ -62,7 +62,7 @@ set_payload_info_source from_command_line_raw
 # set payload execution method
 set_payload_execution_method inject_dll
 
-# compile 
+# compile
 $win32_compiler -o output/injectdll_targetfromcmd_execcalc_downloadpsh_fopen_gethostbyname_win32.exe source/avet.c -lws2_32
 strip output/injectdll_targetfromcmd_execcalc_downloadpsh_fopen_gethostbyname_win32.exe
 

@@ -1,7 +1,7 @@
 # RECON-5
 
 ## Description
-Locate users via SMS Provider 
+Locate users via SMS Provider
 
 ## MITRE ATT&CK TTPs
 - [TA0007](https://attack.mitre.org/tactics/TA0007/) - Discovery
@@ -15,14 +15,14 @@ Permitted security roles:
 - Read-only Analyst
 
 ## Summary
-Several SCCM security roles are granted permission to query SMS Providers for client data via WMI and the AdminService REST API. 
+Several SCCM security roles are granted permission to query SMS Providers for client data via WMI and the AdminService REST API.
 
 User device affinity is a relationship created between a client device and a user account to identify devices that users frequently access to perform their work (e.g., their workstations and laptops). These relationships can be manually imported into SCCM by administrators or an option can be configured to automatically create these relationships, by default when a user is logged on to a client device for 48 hours or more in a 30 day period. Administrators may also allow users to define their own primary devices through Software Center.
 
 Clients also periodically send their hardware inventory to their management point, which is stored in the site database and can be queried via an SMS Provider. The inventory contains the domain, username, and timestamp for the last account to log on.
 
 ## Impact
-Attributes that clients periodically report to their management point can be queried by attackers. Default attributes contain information that can inform further attacks (e.g., EXEC techniques, lateral movement), including the primary users on devices, the primary devices for users, and the last user to log on to devices. 
+Attributes that clients periodically report to their management point can be queried by attackers. Default attributes contain information that can inform further attacks (e.g., EXEC techniques, lateral movement), including the primary users on devices, the primary devices for users, and the last user to log on to devices.
 
 Attackers can assume that these users either have an active session or may log onto these systems again, in which case stored credentials in memory could be used to conduct further actions in the context of that user. For example, they could identify devices where a member of the `Domain Admins` group is the primary user or the last to log on and move laterally to the system or coerce NTLM authentication to compromise their account (EXEC-1).
 
@@ -59,7 +59,7 @@ UniqueUserName: mayyhem\sccmadmin
 -----------------------------------
 ```
 
-From this output, we can identify that `MAYYHEM\sccmadmin` has user device affinity on `CLIENT`. 
+From this output, we can identify that `MAYYHEM\sccmadmin` has user device affinity on `CLIENT`.
 
 To find which accounts have user device affinity on `CLIENT`, execute:
 
@@ -84,7 +84,7 @@ UniqueUserName: mayyhem\sccmadmin
 [+] Completed execution in 00:00:00.4523001
 ```
 
-From this output, we can identify that `MAYYHEM\sccmadmin` has user device affinity on `CLIENT`. 
+From this output, we can identify that `MAYYHEM\sccmadmin` has user device affinity on `CLIENT`.
 
 
 ### RECON-5.2
@@ -132,7 +132,7 @@ To find computers where the user `MAYYHEM\sccmadmin` was the last account to log
     [+] Completed execution in 00:00:00.5312592
     ```
 
-From this output, we can identify that `MAYYHEM\sccmadmin` was the last user to log on to `CLIENT`. 
+From this output, we can identify that `MAYYHEM\sccmadmin` was the last user to log on to `CLIENT`.
 
 However, the accuracy of the output of this command should not be treated as fact. The `LastLogonUser` attribute identifies the last account that logged into the system at the point in time the last data discovery collection was sent from the client to the management point (default: every 7 days), so it is likely going to be stale for devices with multiple daily users. Also, [apparently by design](https://learn.microsoft.com/en-us/archive/blogs/askds/the-lastlogontimestamp-attribute-what-it-was-designed-for-and-how-it-works), the `LastLogonTimestamp` attribute cannot be relied upon for near real-time accuracy.
 

@@ -6,13 +6,13 @@
 
 // return pointer to payload
 unsigned char* avet_decoder(const unsigned char *buffer, unsigned char *payload, int size)
-{    
+{
     DEBUG_PRINT("This is AVET decoder.\n");
 	int j=0;
 	payload=malloc((size/2));
 
 	DEBUG_PRINT("decode_payload, size for malloc: %d\nPayload output:\n", size/2);
-	
+
 	int i=0;
 	do
 	{
@@ -20,7 +20,7 @@ unsigned char* avet_decoder(const unsigned char *buffer, unsigned char *payload,
 		sprintf((char*)temp,"%c%c",buffer[i],buffer[i+1]);
 		payload[j] = strtoul(temp, NULL, 16);
 
-		DEBUG_PRINT("%x",payload[j]);		
+		DEBUG_PRINT("%x",payload[j]);
 
 		i+=2;
 		j++;

@@ -34,9 +34,9 @@ RtlStall(
 	IN UINTN Milliseconds
 	);
 
-// 
+//
 // Prints info about a loaded image
-// 
+//
 VOID
 EFIAPI
 PrintLoadedImageInfo(

@@ -18,22 +18,22 @@ class thelordseye:
 		    # If it does not, a new .auth file will be created and the specified api key will be written to it
 		    # Be sure to provide a valid API key
 		    if os.path.exists('.apikey.auth') and os.path.getsize('.apikey.auth') == 32: # > 0:
-		        exit(f'{colors.white}[{colors.green}!{colors.white}] Active authentication detected.\n\n**If you wish to re-authenticate with another api key, delete/edit the current {colors.green}.apikey.auth{colors.white} file.**{colors.reset}')     
-		            
+		        exit(f'{colors.white}[{colors.green}!{colors.white}] Active authentication detected.\n\n**If you wish to re-authenticate with another api key, delete/edit the current {colors.green}.apikey.auth{colors.white} file.**{colors.reset}')
+
 		    else:
 		        with open('.apikey.auth', 'w') as file:
 		            self.api_key = args.auth
 		            file.write(self.api_key)
 		            file.close()
 		        exit(f'{colors.white}[{colors.green}+{colors.white}] API key stored in {colors.green}.apikey.auth{colors.white}. Re-run program{colors.reset}')
-		        
+
 		else:
 		    with open('.apikey.auth', 'r') as file:
 		        self.api_key = file.readline().rstrip('\n')
-		
+
 		self.api = f"https://api.shodan.io/"
 		self.headers = {"User-Agent": f"random.choice(user_agents)"}
-		
+
 		# Main conditions
 		if args.query:
 			self.uri = f'{self.api}shodan/host/search?query={args.query}&page=1&key={self.api_key}'
@@ -46,8 +46,8 @@ class thelordseye:
 		else:
 			exit(f'{colors.white}thelordseye: use {colors.green}-h{colors.white}/{colors.green}--help{colors.white} to show usage.{colors.green}')
 
-				
-	# Return results relating to user search query	
+
+	# Return results relating to user search query
 	def query_results(self):
 		response = requests.get(self.uri).json()
 		if "matches" not in response:
@@ -60,7 +60,7 @@ class thelordseye:
 				for result in response["matches"]:
 				   data = f"""{colors.white}
 {result['org']}
-├──╼ L o c a t i o n 
+├──╼ L o c a t i o n
 ├─ Country: {colors.green}{result['location']['country_name']}{colors.white}
 ├─ City: {colors.green}{result['location']['city']}{colors.white}
 ├─ Country code: {colors.green}{result['location']['country_code']}{colors.white}
@@ -69,7 +69,7 @@ class thelordseye:
 ├─ Postal code: {colors.green}{result['location']['postal_code']}{colors.white}
 ├─ Longitude: {colors.red}{result['location']['longitude']}{colors.white}
 ├─ Latitude: {colors.red}{result['location']['latitude']}{colors.white}
-├──╼ N e t w o r k 
+├──╼ N e t w o r k
 ├─ IP Address: {colors.red}{result['ip_str']}{colors.white}
 ├─ OS: {colors.red}{result['os']}{colors.white}
 ├─ Hostnames: {colors.green}{result['hostnames']}{colors.white}
@@ -81,11 +81,11 @@ class thelordseye:
 				   count+=1
 				   print(f"{colors.white}{count}/{response['total']}{colors.green}")
 				   print(data)
-				   
+
 				   if args.output:
 				   	self.output(data)
-			    
-			    
+
+
 	# Return information related to target IP address
 	def ip(self):
 		response = requests.get(self.uri).json()
@@ -98,14 +98,14 @@ class thelordseye:
 				result = response['data'][0]
 				data = f"""{colors.white}
 {result['org']}
-├──╼ L o c a t i o n 
+├──╼ L o c a t i o n
 ├─ Country: {colors.green}{result['location']['country_name']}{colors.white}
 ├─ City: {colors.green}{result['location']['city']}{colors.white}
 ├─ Country code: {colors.green}{result['location']['country_code']}{colors.white}
 ├─ Region code: {colors.green}{result['location']['region_code']}{colors.white}
 ├─ Longitude: {colors.red}{result['location']['longitude']}{colors.white}
 ├─ Latitude: {colors.red}{result['location']['latitude']}{colors.white}
-├──╼ N e t w o r k 
+├──╼ N e t w o r k
 ├─ IP Address: {colors.red}{result['ip_str']}{colors.white}
 ├─ OS: {colors.red}{result['os']}{colors.white}
 ├─ Hostnames: {colors.green}{result['hostnames']}{colors.white}
@@ -116,11 +116,11 @@ class thelordseye:
 """
 				if args.output:
 				    self.output(data)
-				    
-				return data
-				    
 
-	# Write output to a file	
+				return data
+
+
+	# Write output to a file
 	def output(self,data):
 	    # TODO
 	    '''
@@ -133,9 +133,9 @@ class thelordseye:
 	    with open(args.output, "a") as file:
 	    	file.write(data)
 	    	file.close()
-	    	
-	 
-	# Fetch latest updates   	
+
+
+	# Fetch latest updates
 	def update(self):
 	    files_to_fetch = ['src/main.py','lib/headers.py','lib/banner.py','lib/colors.py','eye','requirements.txt','README.md','LICENSE']
 	    for file in tqdm(files_to_fetch,desc=f'{colors.white}[{colors.green}~{colors.white}] Fetching update(s){colors.reset}'):
@@ -143,10 +143,10 @@ class thelordseye:
 	    	with open(file,'wb') as script:
 	    	    script.write(data)
 	    	    script.close()
-	    	            
+
 	    print(f'{colors.white}[{colors.green}+{colors.white}] Update complete. Re-run program{colors.reset}')
-	    	
-	    		
+
+
 parser = argparse.ArgumentParser(description=f'{colors.white}IoT Device Scanner{colors.green}', epilog=f'{colors.white}this tool searches and returns detailed information about devices that are directly connected to the internet [IoT] (Smart TV\'s, Fridges, Webcams, Traffic Lights etc).{colors.reset}')
 parser.add_argument('-a','--auth',help=' api authentication with a valid shodan.io api key',metavar='<api_key>')
 parser.add_argument('-q','--query',help='search query', metavar='<query>')

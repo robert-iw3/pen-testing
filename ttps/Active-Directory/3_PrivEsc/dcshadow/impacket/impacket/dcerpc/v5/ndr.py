@@ -64,7 +64,7 @@ class NDR(object):
                self.fields[fieldName] = fieldTypeOrClass(isNDR64 = self._isNDR64)
             elif fieldTypeOrClass == ':':
                self.fields[fieldName] = b''
-            elif len(fieldTypeOrClass.split('=')) == 2: 
+            elif len(fieldTypeOrClass.split('=')) == 2:
                try:
                    self.fields[fieldName] = eval(fieldTypeOrClass.split('=')[1])
                except:
@@ -75,7 +75,7 @@ class NDR(object):
         if data is not None:
             self.fromString(data)
 
-    def changeTransferSyntax(self, newSyntax): 
+    def changeTransferSyntax(self, newSyntax):
         NDR64Syntax = uuidtup_to_bin(('71710533-BEBA-4937-8319-B5DBEF9CCC36', '1.0'))
         if newSyntax == NDR64Syntax:
             if self._isNDR64 is False:
@@ -103,7 +103,7 @@ class NDR(object):
                                 self.fields[fieldName].fields['Data'] = backupData
                             else:
                                 self[fieldName] = backupData
-  
+
         else:
             if self._isNDR64 is True:
                 # Ok, nothing for now
@@ -118,7 +118,7 @@ class NDR(object):
                 if isinstance(self.fields[key].fields['Data'], NDRPOINTER):
                     self.fields[key].fields['Data'] = value
         elif isinstance(value, NDR):
-            # It's not a null pointer, ok. Another NDR type, but it 
+            # It's not a null pointer, ok. Another NDR type, but it
             # must be the same same as the iteam already in place
             if self.fields[key].__class__.__name__ == value.__class__.__name__:
                 self.fields[key] = value
@@ -167,7 +167,7 @@ class NDR(object):
         ind = ' '*indent
         print("\n%s" % msg)
         for field in self.commonHdr+self.structure+self.referent:
-            i = field[0] 
+            i = field[0]
             if i in self.fields:
                 if isinstance(self.fields[i], NDR):
                     self.fields[i].dumpRaw('%s%s:{' % (ind,i), indent = indent + 4)
@@ -452,7 +452,7 @@ class NDRENUM(with_metaclass(EnumType, NDR)):
 
     # 2.2.5.2 NDR64 Simple Data Types
     # NDR64 supports all simple types defined by NDR (as specified in [C706] section 14.2)
-    # with the same alignment requirements except for enumerated types, which MUST be 
+    # with the same alignment requirements except for enumerated types, which MUST be
     # represented as signed long integers (4 octets) in NDR64.
     structure64 = (
         ('Data', '<L'),
@@ -683,7 +683,7 @@ class NDRArray(NDRCONSTRUCTEDTYPE):
             for num,j in enumerate(self.fields['Data']):
                if isinstance(j, NDR):
                    j.dump('%s' % ind, indent = indent + 4),
-                   print(",") 
+                   print(",")
                else:
                    print("%s %r," % (ind,j))
             print("%s]" % ind[:-4], end=' ')
@@ -696,8 +696,8 @@ class NDRArray(NDRCONSTRUCTEDTYPE):
     def getArraySize(self):
         return self.arraySize
 
-    def changeTransferSyntax(self, newSyntax): 
-        # Here we gotta go over each item in the array and change the TS 
+    def changeTransferSyntax(self, newSyntax):
+        # Here we gotta go over each item in the array and change the TS
         # Only if the item type is NDR
         if hasattr(self, 'item') and self.item is not None:
             if self.isNDR(self.item):
@@ -706,7 +706,7 @@ class NDRArray(NDRCONSTRUCTEDTYPE):
         return NDRCONSTRUCTEDTYPE.changeTransferSyntax(self, newSyntax)
 
     def getAlignment(self):
-        # Array alignment is the largest alignment of the array element type and 
+        # Array alignment is the largest alignment of the array element type and
         # the size information type, if any.
         align = 0
         # And now the item
@@ -964,8 +964,8 @@ class NDRUniConformantVaryingArray(NDRArray):
 # Varying Strings
 class NDRVaryingString(NDRUniVaryingArray):
     def getData(self, soFar = 0):
-        # The last element of a string is a terminator of the same size as the other elements. 
-        # If the string element size is one octet, the terminator is a NULL character. 
+        # The last element of a string is a terminator of the same size as the other elements.
+        # If the string element size is one octet, the terminator is a NULL character.
         # The terminator for a string of multi-byte characters is the array element zero (0).
         if self["Data"][-1:] != b'\x00':
             if PY3 and isinstance(self["Data"],list) is False:
@@ -977,7 +977,7 @@ class NDRVaryingString(NDRUniVaryingArray):
     def fromString(self, data, offset = 0):
         ret = NDRUniVaryingArray.fromString(self, data, offset)
         # Let's take out the last item
-        self["Data"] = self["Data"][:-1] 
+        self["Data"] = self["Data"][:-1]
         return ret
 
 # Conformant and Varying Strings
@@ -985,8 +985,8 @@ class NDRConformantVaryingString(NDRUniConformantVaryingArray):
     pass
 
 # Structures
-# Structures Containing a Conformant Array 
-# Structures Containing a Conformant and Varying Array 
+# Structures Containing a Conformant Array
+# Structures Containing a Conformant and Varying Array
 class NDRSTRUCT(NDRCONSTRUCTEDTYPE):
     def getData(self, soFar = 0):
         data = b''
@@ -994,15 +994,15 @@ class NDRSTRUCT(NDRCONSTRUCTEDTYPE):
         soFar0 = soFar
         # 14.3.7.1 Structures Containing a Conformant Array
         # A structure can contain a conformant array only as its last member.
-        # In the NDR representation of a structure that contains a conformant array, 
-        # the unsigned long integers that give maximum element counts for dimensions of the array 
-        # are moved to the beginning of the structure, and the array elements appear in place at 
+        # In the NDR representation of a structure that contains a conformant array,
+        # the unsigned long integers that give maximum element counts for dimensions of the array
+        # are moved to the beginning of the structure, and the array elements appear in place at
         # the end of the structure.
         # 14.3.7.2 Structures Containing a Conformant and Varying Array
         # A structure can contain a conformant and varying array only as its last member.
-        # In the NDR representation of a structure that contains a conformant and varying array, 
-        # the maximum counts for dimensions of the array are moved to the beginning of the structure, 
-        # but the offsets and actual counts remain in place at the end of the structure, 
+        # In the NDR representation of a structure that contains a conformant and varying array,
+        # the maximum counts for dimensions of the array are moved to the beginning of the structure,
+        # but the offsets and actual counts remain in place at the end of the structure,
         # immediately preceding the array elements
         lastItem = (self.commonHdr+self.structure)[-1][0]
         if isinstance(self.fields[lastItem], NDRUniConformantArray) or isinstance(self.fields[lastItem], NDRUniConformantVaryingArray):
@@ -1015,13 +1015,13 @@ class NDRSTRUCT(NDRCONSTRUCTEDTYPE):
                 arrayItemSize = 4
                 arrayPackStr = '<L'
 
-            # The size information is itself aligned according to the alignment rules for 
-            # primitive data types. (See Section 14.2.2 on page 620.) The data of the constructed 
-            # type is then aligned according to the alignment rules for the constructed type. 
-            # In other words, the size information precedes the structure and is aligned 
+            # The size information is itself aligned according to the alignment rules for
+            # primitive data types. (See Section 14.2.2 on page 620.) The data of the constructed
+            # type is then aligned according to the alignment rules for the constructed type.
+            # In other words, the size information precedes the structure and is aligned
             # independently of the structure alignment.
             # We need to check whether we need padding or not
-            pad0 = (arrayItemSize - (soFar % arrayItemSize)) % arrayItemSize 
+            pad0 = (arrayItemSize - (soFar % arrayItemSize)) % arrayItemSize
             if pad0 > 0:
                 soFar += pad0
                 arrayPadding = b'\xee'*pad0
@@ -1032,9 +1032,9 @@ class NDRSTRUCT(NDRCONSTRUCTEDTYPE):
         else:
             arrayItemSize = 0
 
-        # Now we need to align the structure 
+        # Now we need to align the structure
         # The alignment of a structure in the octet stream is the largest of the alignments of the fields it
-        # contains. These fields may also be constructed types. The same alignment rules apply 
+        # contains. These fields may also be constructed types. The same alignment rules apply
         # recursively to nested constructed types.
         alignment = self.getAlignment()
 
@@ -1095,15 +1095,15 @@ class NDRSTRUCT(NDRCONSTRUCTEDTYPE):
         offset0 = offset
         # 14.3.7.1 Structures Containing a Conformant Array
         # A structure can contain a conformant array only as its last member.
-        # In the NDR representation of a structure that contains a conformant array, 
-        # the unsigned long integers that give maximum element counts for dimensions of the array 
-        # are moved to the beginning of the structure, and the array elements appear in place at 
+        # In the NDR representation of a structure that contains a conformant array,
+        # the unsigned long integers that give maximum element counts for dimensions of the array
+        # are moved to the beginning of the structure, and the array elements appear in place at
         # the end of the structure.
         # 14.3.7.2 Structures Containing a Conformant and Varying Array
         # A structure can contain a conformant and varying array only as its last member.
-        # In the NDR representation of a structure that contains a conformant and varying array, 
-        # the maximum counts for dimensions of the array are moved to the beginning of the structure, 
-        # but the offsets and actual counts remain in place at the end of the structure, 
+        # In the NDR representation of a structure that contains a conformant and varying array,
+        # the maximum counts for dimensions of the array are moved to the beginning of the structure,
+        # but the offsets and actual counts remain in place at the end of the structure,
         # immediately preceding the array elements
         lastItem = (self.commonHdr+self.structure)[-1][0]
 
@@ -1133,9 +1133,9 @@ class NDRSTRUCT(NDRCONSTRUCTEDTYPE):
                 arrayUnPackStr = '<L'
 
             # The size information is itself aligned according to the alignment rules for
-            # primitive data types. (See Section 14.2.2 on page 620.) The data of the constructed 
-            # type is then aligned according to the alignment rules for the constructed type. 
-            # In other words, the size information precedes the structure and is aligned 
+            # primitive data types. (See Section 14.2.2 on page 620.) The data of the constructed
+            # type is then aligned according to the alignment rules for the constructed type.
+            # In other words, the size information precedes the structure and is aligned
             # independently of the structure alignment.
             # We need to check whether we need padding or not
             offset += (arrayItemSize - (offset % arrayItemSize)) % arrayItemSize
@@ -1154,7 +1154,7 @@ class NDRSTRUCT(NDRCONSTRUCTEDTYPE):
 
         # Now we need to align the structure
         # The alignment of a structure in the octet stream is the largest of the alignments of the fields it
-        # contains. These fields may also be constructed types. The same alignment rules apply 
+        # contains. These fields may also be constructed types. The same alignment rules apply
         # recursively to nested constructed types.
         alignment = self.getAlignment()
         if alignment > 0:
@@ -1204,7 +1204,7 @@ class NDRSTRUCT(NDRCONSTRUCTEDTYPE):
                 align = tmpAlign
         return align
 
-# Unions 
+# Unions
 class NDRUNION(NDRCONSTRUCTEDTYPE):
     commonHdr = (
         ('tag', NDRUSHORT),
@@ -1212,7 +1212,7 @@ class NDRUNION(NDRCONSTRUCTEDTYPE):
     commonHdr64 = (
         ('tag', NDRULONG),
     )
-   
+
     union = {
         # For example
         #1: ('pStatusChangeParam1', PSERVICE_NOTIFY_STATUS_CHANGE_PARAMS_1),
@@ -1242,7 +1242,7 @@ class NDRUNION(NDRCONSTRUCTEDTYPE):
                    self.fields[fieldName] = fieldTypeOrClass(isNDR64 = self._isNDR64)
             elif fieldTypeOrClass == ':':
                self.fields[fieldName] = None
-            elif len(fieldTypeOrClass.split('=')) == 2: 
+            elif len(fieldTypeOrClass.split('=')) == 2:
                try:
                    self.fields[fieldName] = eval(fieldTypeOrClass.split('=')[1])
                except:
@@ -1310,7 +1310,7 @@ class NDRUNION(NDRCONSTRUCTEDTYPE):
         # Now we need to align what's coming next.
         # This doesn't come from the documentation but from seeing the packets in the wire
         # for some reason, even if the next field is a SHORT, it should be aligned to
-        # a DWORD, or HYPER if NDR64. 
+        # a DWORD, or HYPER if NDR64.
         if self._isNDR64:
             align = 8
         else:
@@ -1389,7 +1389,7 @@ class NDRUNION(NDRCONSTRUCTEDTYPE):
         # Now we need to align what's coming next.
         # This doesn't come from the documentation but from seeing the packets in the wire
         # for some reason, even if the next field is a SHORT, it should be aligned to
-        # a DWORD, or HYPER if NDR64. 
+        # a DWORD, or HYPER if NDR64.
         if self._isNDR64:
             align = 8
         else:
@@ -1415,15 +1415,15 @@ class NDRUNION(NDRCONSTRUCTEDTYPE):
         return offset - offset0
 
     def getAlignment(self):
-        # Union alignment is the largest alignment of the union discriminator 
+        # Union alignment is the largest alignment of the union discriminator
         # and all of the union arms.
-        # WRONG, I'm calculating it just with the tag, if I do it with the 
+        # WRONG, I'm calculating it just with the tag, if I do it with the
         # arms I get bad stub data. Something wrong I'm doing or the standard
         # is wrong (most probably it's me :s )
         align = 0
         if self._isNDR64:
             fields =  self.commonHdr+self.structure
-        else: 
+        else:
             fields =  self.commonHdr
         for fieldName, fieldTypeOrClass in fields:
             if isinstance(self.fields[fieldName], NDR):
@@ -1439,7 +1439,7 @@ class NDRUNION(NDRCONSTRUCTEDTYPE):
                 if tmpAlign > align:
                     align = tmpAlign
         return align
-   
+
 # Pipes not implemented for now
 
 # Pointers
@@ -1487,7 +1487,7 @@ class NDRPOINTER(NDRSTRUCT):
         if topLevel is True:
             self.structure = self.referent
             self.referent = ()
-       
+
         if data is None:
             self.fields['ReferentID'] = random.randint(1,65535)
         else:

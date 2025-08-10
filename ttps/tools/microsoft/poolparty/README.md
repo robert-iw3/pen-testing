@@ -43,7 +43,7 @@ Insert TP_TIMER work item to process ID 1234
 ```
 
 ## Default Shellcode and Customization
-The default shellcode spawns a calculator via the [WinExec API](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-winexec). 
+The default shellcode spawns a calculator via the [WinExec API](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-winexec).
 
 To customize the executable to execute, change the path in the end of the `g_Shellcode` variable present in the main.cpp file.
 

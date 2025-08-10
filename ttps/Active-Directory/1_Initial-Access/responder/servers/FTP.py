@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -41,11 +41,11 @@ class FTP(BaseRequestHandler):
 				self.request.send(NetworkSendBufferPython2or3(Packet))
 
 				SaveToDb({
-					'module': 'FTP', 
-					'type': 'Cleartext', 
-					'client': self.client_address[0], 
-					'user': User, 
-					'cleartext': Pass, 
+					'module': 'FTP',
+					'type': 'Cleartext',
+					'client': self.client_address[0],
+					'user': User,
+					'cleartext': Pass,
 					'fullhash': User + ':' + Pass
 				})
 

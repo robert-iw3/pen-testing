@@ -20,6 +20,6 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 include = ["scepreq"]
-  
+
 [project.scripts]
 scepreq = "scepreq.main:main"

@@ -11,7 +11,7 @@ namespace ysoserial.Generators
 {
     public class SessionSecurityTokenGenerator : GenericGenerator
     {
-        // Although it looks similar to WindowsIdentityGenerator but "actor" does not work in this context 
+        // Although it looks similar to WindowsIdentityGenerator but "actor" does not work in this context
 
         public override List<string> SupportedFormatters()
         {
@@ -32,7 +32,7 @@ namespace ysoserial.Generators
         {
             return "Soroush Dalili";
         }
-        
+
         public override List<string> Labels()
         {
             return new List<string> { GadgetTypes.BridgeAndDerived };

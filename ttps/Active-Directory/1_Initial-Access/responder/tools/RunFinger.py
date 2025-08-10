@@ -102,7 +102,7 @@ def ParseNegotiateSMB2Ans(data):
 	if data[4:8] == b"\xfeSMB":
 		return True
 	else:
-		return False 
+		return False
 
 def SMB2SigningMandatory(data):
 	global SMB2signing
@@ -128,8 +128,8 @@ def WorkstationFingerPrint(data):
 
 def GetOsBuildNumber(data):
 	ProductBuild =  struct.unpack("<h",data)[0]
-	return ProductBuild 
-		
+	return ProductBuild
+
 def SaveRunFingerToDb(result):
 	for k in [ 'Protocol', 'Host', 'WindowsVersion', 'OsVer', 'DomainJoined', 'Bootime', 'Signing','NullSess', 'IsRPDOn', 'SMB1','MSSQL']:
 		if not k in result:
@@ -139,13 +139,13 @@ def SaveRunFingerToDb(result):
 	cursor.text_factory = sqlite3.Binary
 	res = cursor.execute("SELECT COUNT(*) AS count FROM RunFinger WHERE Protocol=? AND Host=? AND WindowsVersion=? AND OsVer=? AND DomainJoined=? AND Bootime=? AND Signing=? AND NullSess=? AND IsRDPOn=? AND SMB1=? AND MSSQL=?", (result['Protocol'], result['Host'], result['WindowsVersion'], result['OsVer'], result['DomainJoined'], result['Bootime'], result['Signing'], result['NullSess'], result['IsRDPOn'], result['SMB1'], result['MSSQL']))
 	(count,) = res.fetchone()
-        
+
 	if not count:
 		cursor.execute("INSERT INTO RunFinger VALUES(datetime('now'), ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)", (result['Protocol'], result['Host'], result['WindowsVersion'], result['OsVer'], result['DomainJoined'], result['Bootime'], result['Signing'], result['NullSess'], result['IsRDPOn'], result['SMB1'], result['MSSQL']))
 		cursor.commit()
 
 	cursor.close()
-		
+
 def ParseSMBNTLM2Exchange(data, host, bootime, signing):  #Parse SMB NTLMSSP Response
 	data = data.encode('latin-1')
 	SSPIStart  = data.find(b'NTLMSSP')
@@ -165,7 +165,7 @@ def ParseSMBNTLM2Exchange(data, host, bootime, signing):  #Parse SMB NTLMSSP Res
 	print(("[SMB2]:['{}', Os:'{}', Build:'{}', Domain:'{}', Bootime: '{}', Signing:'{}', RDP:'{}', SMB1:'{}', MSSQL:'{}']".format(host, WindowsVers, str(WindowsBuildVers), Domain, Bootime, signing, RDP,SMB1, SQL)))
 	SaveRunFingerToDb({
 				'Protocol': '[SMB2]',
-				'Host': host, 
+				'Host': host,
 				'WindowsVersion': WindowsVers,
 				'OsVer': str(WindowsBuildVers),
 				'DomainJoined': Domain,
@@ -385,7 +385,7 @@ def handle(data, host):
 		return buffer0
 
 	if data[28:29] == "\x02":
-		ParseSMBNTLM2Exchange(data, host[0], Bootime, SMB2signing) 
+		ParseSMBNTLM2Exchange(data, host[0], Bootime, SMB2signing)
 
 ##################
 def ShowSmallResults(Host):
@@ -399,7 +399,7 @@ def ShowSmallResults(Host):
 			print(("[SMB1]:['{}', Os:'{}', Domain:'{}', Signing:'{}', Null Session: '{}', RDP:'{}', MSSQL:'{}']".format(Host, OsVer, DomainJoined, Signing, NullSess,RDP, SQL)))
 			SaveRunFingerToDb({
 				'Protocol': '[SMB1]',
-				'Host': Host, 
+				'Host': Host,
 				'WindowsVersion':OsVer,
 				'OsVer': OsVer,
 				'DomainJoined':DomainJoined,
@@ -448,7 +448,7 @@ def RunFinger(Host):
                         proc.get()
                else:
                     ShowSmallResults(Ln)
-                    
+
     if Filename == None:
        m = re.search("/", str(Host))
        if m:
@@ -465,6 +465,6 @@ def RunFinger(Host):
                proc.get()
        else:
            ShowSmallResults(Host)
-           
-           
+
+
 RunFinger(Host)

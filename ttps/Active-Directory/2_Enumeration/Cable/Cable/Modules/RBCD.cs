@@ -57,7 +57,7 @@ namespace Cable.Modules
                 Console.WriteLine("[!] Cannot find Account to delegate from");
                 return;
             }
-            
+
             RawSecurityDescriptor rsd = new RawSecurityDescriptor("O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;" + sid + ")");
             Byte[] descriptor = new byte[rsd.BinaryLength];
             rsd.GetBinaryForm(descriptor, 0);

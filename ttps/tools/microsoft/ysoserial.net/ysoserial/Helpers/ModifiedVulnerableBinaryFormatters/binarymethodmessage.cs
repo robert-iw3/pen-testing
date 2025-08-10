@@ -1,7 +1,7 @@
 // ==++==
-// 
+//
 //   Copyright (c) Microsoft Corporation.  All rights reserved.
-// 
+//
 // ==--==
 #if FEATURE_REMOTING
 namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
@@ -64,7 +64,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
         {
             get {return _instArgs;}
         }
-        
+
         public Object MethodSignature
         {
             get {return _methodSignature;}
@@ -125,7 +125,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                 _logicalCallContext = new LogicalCallContext();
             else
                 _logicalCallContext = callContext;
-            
+
             _properties = properties;
         }
 
@@ -138,7 +138,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
         {
             get {return _returnValue;}
         }
-        
+
         public Object[] Args
         {
             get {return _args;}
@@ -164,5 +164,5 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
         }
     }
 }
-#endif //  FEATURE_REMOTING    
+#endif //  FEATURE_REMOTING
 

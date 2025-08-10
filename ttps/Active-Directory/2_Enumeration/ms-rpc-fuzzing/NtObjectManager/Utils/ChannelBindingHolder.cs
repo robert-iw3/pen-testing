@@ -53,7 +53,7 @@ public sealed class ChannelBindingHolder
     /// Constructor.
     /// </summary>
     /// <param name="value">The channel binding application data.</param>
-    public ChannelBindingHolder(object[] value) 
+    public ChannelBindingHolder(object[] value)
         : this(value.OfType<IConvertible>().Select(i => i.ToByte(null)).ToArray())
     {
     }

@@ -7,12 +7,12 @@
 #					Use forward dashes:	enable_debug_print to_file C:/path/file.txt
 function enable_debug_print() {
 	printf "\n#define DEBUG \n" >> source/debug_print/debug_print.include
-	
+
 	if [ "$1" = "to_file" ]
 	then
 		printf "\n#define DEBUG_TO_FILE \n" >> source/debug_print/debug_print.include
 		printf "\n#define LOGFILE \"$2\"" >> source/debug_print/debug_print.include
-	fi	
+	fi
 }
 
 # Adds an evasion technique to be included in the final avet executable
@@ -29,7 +29,7 @@ NUM_TECHNIQUES=0
 function add_evasion() {
  	# Set include in evasion.include to import the selected evasion technique implementation
 	printf "\n#include \"../implementations/evasion/$1.h\"\n" >> source/evasion/evasion.include
-	
+
 	# Write an assignment of the selected function to the evasion function array into the evasion.assign file
 	printf "\nevasion_functions[$NUM_TECHNIQUES] = $1;\n" >> source/evasion/evasion.assign
 
@@ -38,7 +38,7 @@ function add_evasion() {
     # The assignment is not done statically, but via strcpy. This keeps individual assignment operations independent from each other.
     printf "\n#include <string.h>\n" >> source/evasion/evasion.assign
     printf "\nstrcpy(evasion_function_args[$NUM_TECHNIQUES], \"%s\");\n" $2 >> source/evasion/evasion.assign
-	
+
 	# Increment technique counter
 	((NUM_TECHNIQUES=NUM_TECHNIQUES+1))
 }
@@ -54,14 +54,14 @@ function reset_evasion_technique_counter() {
 # First Argument: 	Name of the technique (= name of the file containing the respective code, without the file suffix)
 # Second Argument:  Can be used to deliver further data about the source, e.g. the file name when retrieving from a file or the URL when downloading from a URL
 function set_payload_source() {
-	printf "\n\n" >> source/get_payload/get_payload.include	
-	
+	printf "\n\n" >> source/get_payload/get_payload.include
+
 	# If payload is included statically, write payload data into get_payload.include file and set respective define
 	if [ $1 = "static_from_file" ]
 	then
 		cat $2 >> source/static_data/static_data.include
 		printf "\n#define STATIC_PAYLOAD \n" >> source/static_data/static_data.include
-	fi	
+	fi
 
     # Feature to set the payload directly in the build script.
     # We don't expect this to be used much, but wanted to align it with the outher set_source functions.
@@ -72,7 +72,7 @@ function set_payload_source() {
         printf "\n unsigned char buf[] = \"$2\";\n" >> source/static_data/static_data.include
 		printf "\n#define STATIC_PAYLOAD \n" >> source/get_payload/get_payload.include
 	fi
-		
+
 	# Set include in get_payload.include to import the needed data retrieval method
 	printf "\n#include \"../implementations/retrieve_data/$1.h\"\n" >> source/get_payload/get_payload.include
 	# Write an assignment of the selected function to get_payload into the get_payload.assign file
@@ -84,14 +84,14 @@ function set_payload_source() {
 # First Argument:	Name of the technique (=name of the file containing the respective code, without the file suffix)
 # Second Argument:	Can be used to deliver further data about the source, e.g. the file name when retrieving from a file or the URL when downloading from a URL
 function set_key_source() {
-	printf "\n\n" >> source/get_key/get_key.include	
-	
+	printf "\n\n" >> source/get_key/get_key.include
+
 	# If key is included statically, write key data into get_key.include file and set respective define
 	if [ $1 = "static_from_file" ]
 	then
     	cat $2 >> source/static_data/static_data.include
 		printf "\n#define STATIC_KEY \n" >> source/static_data/static_data.include
-	fi	
+	fi
 
     # Feature to set the key directly in the build script.
     # This avoids the file inclusion hustle.
@@ -101,7 +101,7 @@ function set_key_source() {
         printf "\n unsigned char key[] = \"$2\";\n" >> source/static_data/static_data.include
 		printf "\n#define STATIC_KEY \n" >> source/get_key/get_key.include
 	fi
-		
+
 	# Set include in get_key.include to import the needed data retrieval method
 	printf "\n#include \"../implementations/retrieve_data/$1.h\"\n" >> source/get_key/get_key.include
 	# Write an assignment of the selected function to get_key into the get_key.assign file
@@ -121,7 +121,7 @@ function set_command_source() {
 	then
     	cat $2 >> source/static_data/static_data.include
 		printf "\n#define STATIC_COMMAND \n" >> source/get_command/get_command.include
-	fi 
+	fi
 
     # Feature to set the command directly in the build script.
     # This avoids the file inclusion hustle.
@@ -146,7 +146,7 @@ function set_command_source() {
 # Second Argument:	Can be used to deliver further data about the source, e.g. the file name when retrieving from a file or the URL when downloading from a URL
 function set_payload_info_source() {
 	printf "\n\n" >> source/get_payload_info/get_payload_info.include
-	
+
 	# If payload info is included statically, write payload info data into get_payload_info.include file and set the respective define
 	if [ $1 = "static_from_file" ]
 	then
@@ -162,7 +162,7 @@ function set_payload_info_source() {
         printf "\n unsigned char payload_info[] = \"$2\";\n" >> source/static_data/static_data.include
 		printf "\n#define STATIC_PAYLOAD_INFO \n" >> source/get_payload_info/get_payload_info.include
 	fi
-	
+
 	# Set include in get_payload_info.include to import the needed data retrieval method
 	printf "\n#include \"../implementations/retrieve_data/$1.h\"\n" >> source/get_payload_info/get_payload_info.include
 	# Write an assignment of the selected function to get_payload_info into the get_payload_info.assign file
@@ -200,13 +200,13 @@ function set_decoder() {
 	# Set include in decode_payload.include to import the needed decoder method
 	printf "\n#include \"../implementations/encoding/$1/$1_decoder.h\"\n" >> source/decode_payload/decode_payload.include
 	# Write an assignment of the selected function to decode_payload into the decode_payload.assign
-	printf "\ndecode_payload = decode_$1;\n" >> source/decode_payload/decode_payload.assign	
+	printf "\ndecode_payload = decode_$1;\n" >> source/decode_payload/decode_payload.assign
 }
 
 
 # Specifies which command execution function should be used
 #
-# First Argument:   Name of the execution technique (= name of the folder containing the respective code) 
+# First Argument:   Name of the execution technique (= name of the folder containing the respective code)
 function set_command_exec() {
     # Set include in command_exec.include to import the needed command execution method
     printf "\n#include \"../implementations/command_exec/$1.h\"\n" >> source/command_exec/command_exec.include
@@ -228,7 +228,7 @@ function encode_payload() {
 function gen_adversarial_exe() {
 	if [[ $# -eq 0 ]] ; then
     	echo -e '\033[0;31mError at gen_adversarial_exe: No attack specified\033[0m'
-	else	
+	else
 		python3 source/implementations/gen_adversarial_exe/$1.py $2 $3
 	fi
 }
@@ -239,13 +239,13 @@ genetic_optimizer="python3 source/implementations/gen_adversarial_exe/genetic_op
 # Resets the contents of the administrativa include and assign files. To be called after payload compilation.
 function cleanup_techniques() {
 	echo "" > source/evasion/evasion.include
-	echo "" > source/evasion/evasion.assign	
+	echo "" > source/evasion/evasion.assign
     echo "" > source/command_exec/command_exec.include
-    echo "" > source/command_exec/command_exec.assign  
+    echo "" > source/command_exec/command_exec.assign
     echo "" > source/get_command/get_command.include
-    echo "" > source/get_command/get_command.assign 
+    echo "" > source/get_command/get_command.assign
 	echo "" > source/get_payload/get_payload.include
-	echo "" > source/get_payload/get_payload.assign	
+	echo "" > source/get_payload/get_payload.assign
 	echo "" > source/get_key/get_key.include
 	echo "" > source/get_key/get_key.assign
 	echo "" > source/decode_payload/decode_payload.include

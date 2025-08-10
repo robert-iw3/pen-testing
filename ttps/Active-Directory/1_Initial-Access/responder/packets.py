@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -89,7 +89,7 @@ class DNS_Ans(Packet):
 		self.fields["QuestionName"] = ''.join(data[12:].split('\x00')[:1])
 		self.fields["IP"] = RespondWithIPAton()
 		self.fields["IPLen"] = StructPython2or3(">h",self.fields["IP"])
-		
+
 # DNS Answer Packet OPT
 class DNS_AnsOPT(Packet):
 	fields = OrderedDict([
@@ -182,7 +182,7 @@ class DNS6_AnsOPT(Packet):
 		self.fields["QuestionName"] = ''.join(data[12:].split('\x00')[:1])
 		self.fields["IP"] = RespondWithIPPton()
 		self.fields["IPLen"] = StructPython2or3(">h",self.fields["IP"])
-		
+
 class DNS_SRV_Ans(Packet):
 	fields = OrderedDict([
 		("Tid",              ""),
@@ -302,7 +302,7 @@ class LLMNR6_Ans(Packet):
 		self.fields["IPLen"] = StructPython2or3(">h",self.fields["IP"])
 		self.fields["AnswerNameLen"] = StructPython2or3(">B",self.fields["AnswerName"])
 		self.fields["QuestionNameLen"] = StructPython2or3(">B",self.fields["QuestionName"])
-		
+
 # MDNS Answer Packet
 class MDNS_Ans(Packet):
 	fields = OrderedDict([
@@ -442,10 +442,10 @@ class IIS_Auth_401_Ans(Packet):
 <style type="text/css">
 <!--
 body{margin:0;font-size:.7em;font-family:Verdana, Arial, Helvetica, sans-serif;background:#EEEEEE;}
-fieldset{padding:0 15px 10px 15px;} 
+fieldset{padding:0 15px 10px 15px;}
 h1{font-size:2.4em;margin:0;color:#FFF;}
-h2{font-size:1.7em;margin:0;color:#CC0000;} 
-h3{font-size:1.2em;margin:10px 0 0 0;color:#000000;} 
+h2{font-size:1.7em;margin:0;color:#CC0000;}
+h3{font-size:1.2em;margin:10px 0 0 0;color:#000000;}
 #header{width:96%;margin:0 0 0 0;padding:6px 2% 6px 2%;font-family:"trebuchet MS", Verdana, sans-serif;color:#FFF;
 background-color:#555555;}
 #content{margin:0 0 0 2%;position:relative;}
@@ -539,10 +539,10 @@ class IIS_Basic_401_Ans(Packet):
 <style type="text/css">
 <!--
 body{margin:0;font-size:.7em;font-family:Verdana, Arial, Helvetica, sans-serif;background:#EEEEEE;}
-fieldset{padding:0 15px 10px 15px;} 
+fieldset{padding:0 15px 10px 15px;}
 h1{font-size:2.4em;margin:0;color:#FFF;}
-h2{font-size:1.7em;margin:0;color:#CC0000;} 
-h3{font-size:1.2em;margin:10px 0 0 0;color:#000000;} 
+h2{font-size:1.7em;margin:0;color:#CC0000;}
+h3{font-size:1.2em;margin:10px 0 0 0;color:#000000;}
 #header{width:96%;margin:0 0 0 0;padding:6px 2% 6px 2%;font-family:"trebuchet MS", Verdana, sans-serif;color:#FFF;
 background-color:#555555;}
 #content{margin:0 0 0 2%;position:relative;}
@@ -1115,7 +1115,7 @@ class CLDAPNetlogon(Packet):
 		("StatusASNStr",                  ""),
 		("SequenceHeader",                "\x30"),
 		("SequenceHeaderLenOfLen",        "\x84"),
-		("SequenceHeaderLen",             "\x00\x00\x00\x8b"), 
+		("SequenceHeaderLen",             "\x00\x00\x00\x8b"),
                 #Netlogon packet starts here....
 		("PartAttribHead",                "\x30"),
 		("PartAttribHeadLenofLen",        "\x84"),
@@ -1142,7 +1142,7 @@ class CLDAPNetlogon(Packet):
 		("NTLogonDomainNameShortNull",    "\x00"),
 		("NTLogonDomainNBTName",          "\x0F\x57\x49\x4E\x2D\x48\x51\x46\x42\x34\x4F\x52\x34\x4B\x49\x4D"),
 		("NTLogonDomainNBTNameNull",      "\x00"),
-		("NTLogonUsername",               "\x00"),		           
+		("NTLogonUsername",               "\x00"),
                 ("DCSiteName",                    "\x17\x44\x65\x66\x61\x75\x6C\x74\x2D\x46\x69\x72\x73\x74\x2D\x53\x69\x74\x65\x2D\x4E\x61\x6D\x65\x00"),#static 95% PDC use this.
 		("ClientSiteNamePtr",             "\xc0"),
 		("ClientSiteNamePtrOffset",       "\x50"),
@@ -1175,7 +1175,7 @@ class CLDAPNetlogon(Packet):
 		self.fields["SequenceHeaderLen"] = StructWithLenPython2or3(">L", len(CalculateNetlogonLen)+24)
 		self.fields["OpHeadASNIDLen"] = StructWithLenPython2or3(">L", len(CalculateNetlogonLen)+32)
 		self.fields["ParserHeadASNLen"] = StructWithLenPython2or3(">L", len(CalculateNetlogonLen)+42)
-		###### 
+		######
 		self.fields["ClientSiteNamePtrOffset"] = StructWithLenPython2or3(">B", len(CalculateNetlogonOffset)-1)
 
 ##### SMB Packets #####
@@ -1812,7 +1812,7 @@ class SMB2NegoAns(Packet):
 		("NegHintASNLen",             "\x28"),
 		("NegHintTag0ASNId",          "\xa0"),
 		("NegHintTag0ASNLen",         "\x26"),
-		("NegHintFinalASNId",         "\x1b"), 
+		("NegHintFinalASNId",         "\x1b"),
 		("NegHintFinalASNLen",        "\x24"),
 		("NegHintFinalASNStr",        "not_defined_in_RFC4178@please_ignore"),
 	])
@@ -1821,7 +1821,7 @@ class SMB2NegoAns(Packet):
 
 
 		StructLen = str(self.fields["Len"])+str(self.fields["Signing"])+str(self.fields["Dialect"])+str(self.fields["Reserved"])+str(self.fields["Guid"])+str(self.fields["Capabilities"])+str(self.fields["MaxTransSize"])+str(self.fields["MaxReadSize"])+str(self.fields["MaxWriteSize"])+str(self.fields["SystemTime"])+str(self.fields["BootTime"])+str(self.fields["SecBlobOffSet"])+str(self.fields["SecBlobLen"])+str(self.fields["Reserved2"])
-                 
+
 		SecBlobLen = str(self.fields["InitContextTokenASNId"])+str(self.fields["InitContextTokenASNLen"])+str(self.fields["ThisMechASNId"])+str(self.fields["ThisMechASNLen"])+str(self.fields["ThisMechASNStr"])+str(self.fields["SpNegoTokenASNId"])+str(self.fields["SpNegoTokenASNLen"])+str(self.fields["NegTokenASNId"])+str(self.fields["NegTokenASNLen"])+str(self.fields["NegTokenTag0ASNId"])+str(self.fields["NegTokenTag0ASNLen"])+str(self.fields["NegThisMechASNId"])+str(self.fields["NegThisMechASNLen"])+str(self.fields["NegThisMech2ASNId"])+str(self.fields["NegThisMech2ASNLen"])+str(self.fields["NegThisMech2ASNStr"])+str(self.fields["NegThisMech3ASNId"])+str(self.fields["NegThisMech3ASNLen"])+str(self.fields["NegThisMech3ASNStr"])+str(self.fields["NegThisMech4ASNId"])+str(self.fields["NegThisMech4ASNLen"])+str(self.fields["NegThisMech4ASNStr"])+str(self.fields["NegThisMech5ASNId"])+str(self.fields["NegThisMech5ASNLen"])+str(self.fields["NegThisMech5ASNStr"])+str(self.fields["NegTokenTag3ASNId"])+str(self.fields["NegTokenTag3ASNLen"])+str(self.fields["NegHintASNId"])+str(self.fields["NegHintASNLen"])+str(self.fields["NegHintTag0ASNId"])+str(self.fields["NegHintTag0ASNLen"])+str(self.fields["NegHintFinalASNId"])+str(self.fields["NegHintFinalASNLen"])+str(self.fields["NegHintFinalASNStr"])
 
 
@@ -1861,8 +1861,8 @@ class SMB2Session1Data(Packet):
 		("SessionFlag",     "\x00\x00"),
 		("SecBlobOffSet",   "\x48\x00"),
 		("SecBlobLen",      "\x06\x01"),
-		("ChoiceTagASNId",        "\xa1"), 
-		("ChoiceTagASNLenOfLen",  "\x82"), 
+		("ChoiceTagASNId",        "\xa1"),
+		("ChoiceTagASNLenOfLen",  "\x82"),
 		("ChoiceTagASNIdLen",     "\x01\x02"),
 		("NegTokenTagASNId",      "\x30"),
 		("NegTokenTagASNLenOfLen","\x81"),
@@ -1906,10 +1906,10 @@ class SMB2Session1Data(Packet):
 		("NTLMSSPNTLMChallengeAVPairsUnicodeStr",settings.Config.Domain),
 		("NTLMSSPNTLMChallengeAVPairs1Id","\x01\x00"),
 		("NTLMSSPNTLMChallengeAVPairs1Len","\x1e\x00"),
-		("NTLMSSPNTLMChallengeAVPairs1UnicodeStr",settings.Config.MachineName), 
+		("NTLMSSPNTLMChallengeAVPairs1UnicodeStr",settings.Config.MachineName),
 		("NTLMSSPNTLMChallengeAVPairs2Id","\x04\x00"),
 		("NTLMSSPNTLMChallengeAVPairs2Len","\x1e\x00"),
-		("NTLMSSPNTLMChallengeAVPairs2UnicodeStr",settings.Config.MachineName+'.'+settings.Config.DomainName), 
+		("NTLMSSPNTLMChallengeAVPairs2UnicodeStr",settings.Config.MachineName+'.'+settings.Config.DomainName),
 		("NTLMSSPNTLMChallengeAVPairs3Id","\x03\x00"),
 		("NTLMSSPNTLMChallengeAVPairs3Len","\x1e\x00"),
 		("NTLMSSPNTLMChallengeAVPairs3UnicodeStr", settings.Config.DomainName),
@@ -1963,7 +1963,7 @@ class SMB2Session1Data(Packet):
 		else:
 			self.fields["NegTokenTagASNLenOfLen"] = "\x81"
 			self.fields["NegTokenTagASNIdLen"] = StructWithLenPython2or3(">B", len(AsnLen+CalculateSecBlob)-7)
-                
+
 		tag2length = CalculateSecBlob+str(self.fields["Tag3ASNId"])+str(self.fields["Tag3ASNIdLenOfLen"])+str(self.fields["Tag3ASNIdLen"])
 
 		if len(tag2length) > 255:
@@ -1990,7 +1990,7 @@ class SMB2Session1Data(Packet):
 		self.fields["NTLMSSPNtTargetInfoBuffOffset"] = StructWithLenPython2or3("<i", len(CalculateOffsetWorkstation+str(self.fields["NTLMSSPNtWorkstationName"])))
 		self.fields["NTLMSSPNtTargetInfoLen"] = StructWithLenPython2or3("<h", len(CalculateLenAvpairs))
 		self.fields["NTLMSSPNtTargetInfoMaxLen"] = StructWithLenPython2or3("<h", len(CalculateLenAvpairs))
-		
+
 		##### IvPair Calculation:
 		self.fields["NTLMSSPNTLMChallengeAVPairs7Len"] = StructWithLenPython2or3("<h", len(str(self.fields["NTLMSSPNTLMChallengeAVPairs7UnicodeStr"])))
 		self.fields["NTLMSSPNTLMChallengeAVPairs5Len"] = StructWithLenPython2or3("<h", len(str(self.fields["NTLMSSPNTLMChallengeAVPairs5UnicodeStr"])))
@@ -2014,8 +2014,8 @@ class TPKT(Packet):
         ("Reserved", "\x00"),
         ("Length", "\x00\x24" ),
         ("Data", ""),
-    ])    
-    
+    ])
+
     def calculate(self):
         self.fields["Length"] = StructWithLenPython2or3(">h",len(str(self.fields["Data"]))+4)#Data+own header.
 
@@ -2028,8 +2028,8 @@ class X224(Packet):
         ("Class", "\x00"),
         ("Data", "")
     ])
-    
-    def calculate(self): 
+
+    def calculate(self):
         self.fields["Length"] = StructWithLenPython2or3(">B",len(str(self.fields["Data"]))+6)
 
 
@@ -2040,8 +2040,8 @@ class RDPNEGOAnswer(Packet):
         ("Length",        "\x08\x00"),
         ("SelectedProto", "\x02\x00\x00\x00"),#CredSSP
     ])
-    
-    def calculate(self): 
+
+    def calculate(self):
         self.fields["Length"] = StructWithLenPython2or3("<h",8)
 
 
@@ -2050,7 +2050,7 @@ class RDPNTLMChallengeAnswer(Packet):
 
 		("PacketStartASN",                            "\x30"),
 		("PacketStartASNLenOfLen",                    "\x81"),
-		("PacketStartASNStr",                         "\x01"), #Len of what follows... in this case, +20 since it's x81 lengths are >B 
+		("PacketStartASNStr",                         "\x01"), #Len of what follows... in this case, +20 since it's x81 lengths are >B
 		("PacketStartASNTag0",                        "\xa0"),
 		("PacketStartASNTag0Len",                     "\x03"), #Static for TSVersion
 		("PacketStartASNTag0Len2",                    "\x02"),
@@ -2065,8 +2065,8 @@ class RDPNTLMChallengeAnswer(Packet):
 		("OpHeadASNID",                               "\x30"),
 		("OpHeadASNIDLenOfLen",                       "\x81"),
 		("OpHeadASNIDLen",                            "\xf4"),
-		("StatusASNID",                               "\xa0"), 
-		("MatchedDN",                                 "\x81"), 
+		("StatusASNID",                               "\xa0"),
+		("MatchedDN",                                 "\x81"),
 		("ASNLen01",                                  "\xf1"),
 		("SequenceHeader",                            "\x04"),
 		("SequenceHeaderLenOfLen",                    "\x81"),
@@ -2252,7 +2252,7 @@ class RPCMapBindMapperAns(Packet):
         	("TowerIPAddressOpcode",  "\x09"),#IPv4 Opcode.
 		("TowerIPAddressBC2",     "\x04\x00"),
 		("TowerIPAddressStr",     ""), #IP Address
-		("TowerIPNull",           "\x00"), 
+		("TowerIPNull",           "\x00"),
 		("Data",                  ""),	#To here, exact same packet.
 		("Padding",               "\x00"),
 		("ErrorCode",             "\x00\x00\x00\x00"),# No error.

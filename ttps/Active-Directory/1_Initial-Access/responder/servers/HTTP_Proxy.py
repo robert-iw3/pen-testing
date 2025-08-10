@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -80,7 +80,7 @@ def InjectData(data, client, req_uri):
 	return data
 
 class ProxySock:
-	def __init__(self, socket, proxy_host, proxy_port) : 
+	def __init__(self, socket, proxy_host, proxy_port) :
 
 		# First, use the socket, without any change
 		self.socket = socket
@@ -98,10 +98,10 @@ class ProxySock:
 
 		# Store the real remote adress
 		self.host, self.port = address
-	   
-		# Try to connect to the proxy 
+
+		# Try to connect to the proxy
 		for (family, socktype, proto, canonname, sockaddr) in socket.getaddrinfo(
-			self.proxy_host, 
+			self.proxy_host,
 			self.proxy_port,
 			0, 0, socket.SOL_TCP):
 			try:
@@ -116,10 +116,10 @@ class ProxySock:
 			break
 		if not self.socket :
 			raise socket.error(msg)
-		
+
 		# Ask him to create a tunnel connection to the target host/port
 		self.socket.send(
-				("CONNECT %s:%d HTTP/1.1\r\n" + 
+				("CONNECT %s:%d HTTP/1.1\r\n" +
 				"Host: %s:%d\r\n\r\n") % (self.host, self.port, self.host, self.port))
 
 		# Get the response
@@ -127,7 +127,7 @@ class ProxySock:
 
 		# Parse the response
 		parts = resp.split()
-		
+
 		# Not 200 ?
 		if parts[1] != "200":
 			print(color("[!] Error response from upstream proxy: %s" % resp, 1))
@@ -139,59 +139,59 @@ class ProxySock:
 
 	def bind(self, *args) :
 		return self.socket.bind(*args)
-	
+
 	def close(self) :
 		return self.socket.close()
-	
+
 	def fileno(self) :
 		return self.socket.fileno()
 
 	def getsockname(self) :
 		return self.socket.getsockname()
-	
+
 	def getsockopt(self, *args) :
 		return self.socket.getsockopt(*args)
-	
+
 	def listen(self, *args) :
 		return self.socket.listen(*args)
-	
+
 	def makefile(self, *args) :
 		return self.socket.makefile(*args)
-	
+
 	def recv(self, *args) :
 		return self.socket.recv(*args)
-	
+
 	def recvfrom(self, *args) :
 		return self.socket.recvfrom(*args)
 
 	def recvfrom_into(self, *args) :
 		return self.socket.recvfrom_into(*args)
-	
+
 	def recv_into(self, *args) :
 		return self.socket.recv_into(buffer, *args)
-	
+
 	def send(self, *args) :
 		try: return self.socket.send(*args)
 		except: pass
-	
+
 	def sendall(self, *args) :
 		return self.socket.sendall(*args)
-	
+
 	def sendto(self, *args) :
 		return self.socket.sendto(*args)
-	
+
 	def setblocking(self, *args) :
 		return self.socket.setblocking(*args)
-	
+
 	def settimeout(self, *args) :
 		return self.socket.settimeout(*args)
-	
+
 	def gettimeout(self) :
 		return self.socket.gettimeout()
-	
+
 	def setsockopt(self, *args):
 		return self.socket.setsockopt(*args)
-	
+
 	def shutdown(self, *args):
 		return self.socket.shutdown(*args)
 
@@ -294,7 +294,7 @@ class HTTP_Proxy(BaseHTTPServer.BaseHTTPRequestHandler):
 				del self.headers['Proxy-Connection']
 				del self.headers['If-Range']
 				del self.headers['Range']
-				
+
 				for k, v in self.headers.items():
 					soc.send(NetworkSendBufferPython2or3("%s: %s\r\n" % (k.title(), v)))
 				soc.send(NetworkSendBufferPython2or3("\r\n"))

@@ -10,7 +10,7 @@ function Invoke-PPLKiller
     $OldConsoleOut = [Console]::Out
     $StringWriter = New-Object IO.StringWriter
     [Console]::SetOut($StringWriter)
-	
+
     [PPLKiller.Program]::main([string[]]$args)
 
     [Console]::SetOut($OldConsoleOut)

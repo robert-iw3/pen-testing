@@ -19,25 +19,25 @@
 #
 # Copyright and licensing note in remcomsvc.cpp:
 #
-# Copyright (c) 2006 Talha Tariq [ talha.tariq@gmail.com ] 
+# Copyright (c) 2006 Talha Tariq [ talha.tariq@gmail.com ]
 # All rights are reserved.
 #
-# Permission to use, copy, modify, and distribute this software 
-# for any purpose and without any fee is hereby granted, 
-# provided this notice is included in its entirety in the 
+# Permission to use, copy, modify, and distribute this software
+# for any purpose and without any fee is hereby granted,
+# provided this notice is included in its entirety in the
 # documentation and in the source files.
-# 
-# This software and any related documentation is provided "as is" 
-# without any warranty of any kind, either express or implied, 
-# including, without limitation, the implied warranties of 
-# merchantability or fitness for a particular purpose. The entire 
-# risk arising out of use or performance of the software remains 
-# with you. 
-# 
-# $Author:	Talha Tariq [ talha.tariq@gmail.com ] 
+#
+# This software and any related documentation is provided "as is"
+# without any warranty of any kind, either express or implied,
+# including, without limitation, the implied warranties of
+# merchantability or fitness for a particular purpose. The entire
+# risk arising out of use or performance of the software remains
+# with you.
+#
+# $Author:	Talha Tariq [ talha.tariq@gmail.com ]
 # 		uses some code from xCmd by Zoltan Csizmadia
-# $Revision:	Talha Tariq [ talha.tariq@gmail.com ] 	
-# $Revision:	Andres Ederra 
+# $Revision:	Talha Tariq [ talha.tariq@gmail.com ]
+# $Revision:	Andres Ederra
 #
 
 import binascii
@@ -58,7 +58,7 @@ class RemComSvc:
 
     def close(self):
         return
-        
+
 
 REMCOMSVC= b'4d5a90000300000004000000ffff0000b800000000000000400000000000' \
 b'000000000000000000000000000000000000000000000000000000000000d80000000e' \

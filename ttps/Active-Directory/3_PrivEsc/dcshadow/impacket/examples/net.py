@@ -9,7 +9,7 @@
 #
 # Description:
 #   Impacket alternative for windows net.exe commandline utility.
-#   Thanks to rpc protocol, the special feature of this tool is 
+#   Thanks to rpc protocol, the special feature of this tool is
 #   making net.exe functionalities available from remote computer.
 #
 #   e.g:
@@ -28,7 +28,7 @@
 #
 # Reference for:
 #   [MS-SAMR]
-# 
+#
 
 import sys
 import argparse
@@ -151,7 +151,7 @@ class User(SamrObject):
                 raise
         finally:
             self._close_domain()
-    
+
     def Query(self, name):
         domain_handle = self._open_domain(False)
         try:
@@ -171,7 +171,7 @@ class User(SamrObject):
                 si['SidPointer'] = group_sid
                 sidArray['Sids'].append(si)
                 samr.hSamrCloseHandle(self._dce, group_handle)
-            
+
             global_lookup_ids = samr.hSamrLookupIdsInDomain(self._dce, domain_handle, group_id_list)
             response.fields['GlobalGroups'] = list(map(lambda a: a['Data'], global_lookup_ids['Names']['Element']))
 
@@ -238,7 +238,7 @@ class Group(SamrObject):
                 raise
         finally:
             self._close_domain()
-    
+
     def Query(self, group_name):
         domain_handle = self._open_domain()
         try:
@@ -280,7 +280,7 @@ class Localgroup(Group):
                 raise
         finally:
             self._close_domain()
-    
+
     def Query(self, group_name):
         domain_handle = self._open_domain(True)
         try:
@@ -430,19 +430,19 @@ class Net:
             time = datetime.fromtimestamp(self.__getUnixTime(time))
             time = time.strftime("%m/%d/%Y %H:%M:%S %p")
         return time
-    
+
     def __format_logon_hours(self, s):
         logon_hours = ''.join(map(lambda b: b.hex(), s))
         if logon_hours == ('f' * 42):
             logon_hours = "All"
         return logon_hours
-    
+
     def __b2s(self, b):
         return "Yes" if b else "No"
 
     def __get_action_class(self, action):
         return getattr(sys.modules[__name__], action.capitalize())
-    
+
     def __is_option_present(self, options, option):
         return hasattr(options, option) and getattr(options, option)
 

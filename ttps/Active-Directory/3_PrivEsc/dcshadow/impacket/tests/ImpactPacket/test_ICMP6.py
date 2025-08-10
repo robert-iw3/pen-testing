@@ -12,9 +12,9 @@ from impacket import IP6, ImpactDecoder, ICMP6
 
 
 class TestICMP6(unittest.TestCase):
-        
+
     def setUp(self):
-        self.packet_list = self.generate_icmp6_constructed_packets()        
+        self.packet_list = self.generate_icmp6_constructed_packets()
         self.message_description_list = [
                              "Echo Request",
                              "Echo Reply",
@@ -49,8 +49,8 @@ class TestICMP6(unittest.TestCase):
                                [0x03, 0x01, 0x1F, 0xA9, 0x00, 0x00, 0x00, 0x00, 0xFE, 0x56, 0x88],
                                [0x02, 0x00, 0x1B, 0x96, 0x00, 0x00, 0x05, 0x14, 0xFE, 0x56, 0x88]#Packet too big
                                ]
-        
-    def encapsulate_icmp6_packet_in_ip6_packet(self, icmp6_packet):    
+
+    def encapsulate_icmp6_packet_in_ip6_packet(self, icmp6_packet):
         #Build IP6 reference packet (which will be used to construct the pseudo-header and checksum)
         ip6_packet = IP6.IP6()
         ip6_packet.set_traffic_class(0)
@@ -58,63 +58,63 @@ class TestICMP6(unittest.TestCase):
         ip6_packet.set_hop_limit(1)
         ip6_packet.set_ip_src("FE80::78F8:89D1:30FF:256B")
         ip6_packet.set_ip_dst("FF02::1")
-    
-        #Encapsulate ICMP6 packet in IP6 packet, calculate the checksum using the pseudo-header        
+
+        #Encapsulate ICMP6 packet in IP6 packet, calculate the checksum using the pseudo-header
         ip6_packet.contains(icmp6_packet)
         ip6_packet.set_next_header(ip6_packet.child().get_ip_protocol_number())
         ip6_packet.set_payload_length(ip6_packet.child().get_size())
         icmp6_packet.calculate_checksum()
         return ip6_packet
-        
+
     def compare_icmp6_packet_with_reference_buffer(self, icmp6_packet, reference_buffer, test_fail_message):
         #Encapsulate the packet, in order to compute the checksum
         ip6_packet = self.encapsulate_icmp6_packet_in_ip6_packet(icmp6_packet)
-        
+
         #Extract the header and payload bytes
         icmp6_header_buffer = ip6_packet.child().get_bytes().tolist()
         icmp6_payload_buffer = icmp6_packet.child().get_bytes().tolist()
         generated_buffer = icmp6_header_buffer + icmp6_payload_buffer
-        
+
         self.assertEqual(generated_buffer, reference_buffer, test_fail_message)
-        
+
     def generate_icmp6_constructed_packets(self):
         packet_list = []
-        
+
         arbitrary_data = [0xFE, 0x56, 0x88]
         echo_id = 1
         echo_sequence_number = 2
         icmp6_packet = ICMP6.ICMP6.Echo_Request(echo_id, echo_sequence_number, arbitrary_data)
-        packet_list.append(icmp6_packet)                
-        icmp6_packet = ICMP6.ICMP6.Echo_Reply(echo_id, echo_sequence_number, arbitrary_data)                
-        packet_list.append(icmp6_packet)        
+        packet_list.append(icmp6_packet)
+        icmp6_packet = ICMP6.ICMP6.Echo_Reply(echo_id, echo_sequence_number, arbitrary_data)
+        packet_list.append(icmp6_packet)
 
-        originating_packet_data = arbitrary_data        
+        originating_packet_data = arbitrary_data
         for code in range(0, 3):
             problem_pointer = 2
-            icmp6_packet = ICMP6.ICMP6.Parameter_Problem(code, problem_pointer, originating_packet_data)                
-            packet_list.append(icmp6_packet)        
+            icmp6_packet = ICMP6.ICMP6.Parameter_Problem(code, problem_pointer, originating_packet_data)
+            packet_list.append(icmp6_packet)
 
         for code in range(0, 7):
-            icmp6_packet = ICMP6.ICMP6.Destination_Unreachable(code, originating_packet_data)                
-            packet_list.append(icmp6_packet)        
-            
+            icmp6_packet = ICMP6.ICMP6.Destination_Unreachable(code, originating_packet_data)
+            packet_list.append(icmp6_packet)
+
         for code in range(0, 2):
-            icmp6_packet = ICMP6.ICMP6.Time_Exceeded(code, originating_packet_data)                
-            packet_list.append(icmp6_packet)        
-        
-        icmp6_packet = ICMP6.ICMP6.Packet_Too_Big(1300, originating_packet_data)                
-        packet_list.append(icmp6_packet)        
+            icmp6_packet = ICMP6.ICMP6.Time_Exceeded(code, originating_packet_data)
+            packet_list.append(icmp6_packet)
+
+        icmp6_packet = ICMP6.ICMP6.Packet_Too_Big(1300, originating_packet_data)
+        packet_list.append(icmp6_packet)
         return packet_list
 
 
-        
+
     def test_message_construction(self):
         for packet, reference, msg in zip(self.packet_list, self.reference_data_list, self.message_description_list):
             self.compare_icmp6_packet_with_reference_buffer(packet, reference, "ICMP6 creation of " + msg + " - Buffer mismatch")
-            
-    def test_message_decoding(self):                    
+
+    def test_message_decoding(self):
         d = ImpactDecoder.ICMP6Decoder()
-        
+
         msg_types = [
                      ICMP6.ICMP6.ECHO_REQUEST,
                      ICMP6.ICMP6.ECHO_REPLY,
@@ -132,10 +132,10 @@ class TestICMP6(unittest.TestCase):
                      ICMP6.ICMP6.TIME_EXCEEDED,
                      ICMP6.ICMP6.PACKET_TOO_BIG
                      ]
-        
+
         msg_codes = [
                     0,
-                    0,                    
+                    0,
                     ICMP6.ICMP6.ERRONEOUS_HEADER_FIELD_ENCOUNTERED,
                     ICMP6.ICMP6.UNRECOGNIZED_NEXT_HEADER_TYPE_ENCOUNTERED,
                     ICMP6.ICMP6.UNRECOGNIZED_IPV6_OPTION_ENCOUNTERED,
@@ -145,17 +145,17 @@ class TestICMP6(unittest.TestCase):
                     ICMP6.ICMP6.ADDRESS_UNREACHABLE,
                     ICMP6.ICMP6.PORT_UNREACHABLE,
                     ICMP6.ICMP6.SOURCE_ADDRESS_FAILED_INGRESS_EGRESS_POLICY,
-                    ICMP6.ICMP6.REJECT_ROUTE_TO_DESTINATION,    
+                    ICMP6.ICMP6.REJECT_ROUTE_TO_DESTINATION,
                     ICMP6.ICMP6.HOP_LIMIT_EXCEEDED_IN_TRANSIT,
                     ICMP6.ICMP6.FRAGMENT_REASSEMBLY_TIME_EXCEEDED,
                     0
                     ]
-        
+
         for i in range (0, len(self.reference_data_list)):
             p = d.decode(self.reference_data_list[i])
             self.assertEqual(p.get_type(), msg_types[i], self.message_description_list[i] + " - Msg type mismatch")
             self.assertEqual(p.get_code(), msg_codes[i], self.message_description_list[i] + " - Msg code mismatch")
-            
+
             if i in range(0, 2):
                 self.assertEqual(p.get_echo_id(), 1, self.message_description_list[i] + " - ID mismatch")
                 self.assertEqual(p.get_echo_sequence_number(), 2, self.message_description_list[i] + " - Sequence number mismatch")

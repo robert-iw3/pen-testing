@@ -16,13 +16,13 @@ However, with the below code, we can make it look as if the notepad.exe was spaw
 #include <TlHelp32.h>
 #include <iostream>
 
-int main() 
+int main()
 {
 	STARTUPINFOEXA si;
 	PROCESS_INFORMATION pi;
 	SIZE_T attributeSize;
 	ZeroMemory(&si, sizeof(STARTUPINFOEXA));
-	
+
 	HANDLE parentProcessHandle = OpenProcess(MAXIMUM_ALLOWED, false, 6200);
 
 	InitializeProcThreadAttributeList(NULL, 1, 0, &attributeSize);
@@ -123,7 +123,7 @@ namespace PPIDSpoofingDetection
                         int PID = int.Parse(messageBits[1]);
                         int PPID = int.Parse(messageBits[10]);
                         int realPPID = e.ProcessID;
-                        
+
                         // if ParentProcessId (red, PID 6200) != Execution Process ID (black, PID 11076)
                         if (PPID != realPPID)
                         {

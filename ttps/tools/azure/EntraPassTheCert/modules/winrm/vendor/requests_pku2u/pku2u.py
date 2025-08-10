@@ -16,7 +16,7 @@ class HttpPku2uAuth(AuthBase):
         self.gssapi = None
         self.seqno = 0
         return
-    
+
     def generate_token(self):
         if self.interaction == 1:
             # send negoinit
@@ -25,7 +25,7 @@ class HttpPku2uAuth(AuthBase):
                 TypesMech['NEGOEX - SPNEGO Extended Negotiation Security Mechanism'],
                 TypesMech['NTLMSSP - Microsoft NTLM Security Support Provider']
             ]
-            
+
             mechToken = self.helper.GenerateNegoExInit()
             blob['MechToken'] = bytes.fromhex(mechToken)
 
@@ -42,7 +42,7 @@ class HttpPku2uAuth(AuthBase):
 
         return blob.getData()
 
-    def wrap(self, message): 
+    def wrap(self, message):
         return self.gssapi.GSS_Wrap(message, self.seqno)
 
     def unwrap(self, message):

@@ -149,7 +149,7 @@ TASK_IGNORE_REGISTRATION_TRIGGERS = 1<<(31-26)
 # 3.2.5.4.5 SchRpcSetSecurity (Opnum 4)
 TASK_DONT_ADD_PRINCIPAL_ACE = 1<<(31-27)
 SCH_FLAG_FOLDER             = 1<<(31-2)
-SCH_FLAG_TASK               = 1<<(31-1) 
+SCH_FLAG_TASK               = 1<<(31-1)
 
 # 3.2.5.4.7 SchRpcEnumFolders (Opnum 6)
 TASK_ENUM_HIDDEN = 1

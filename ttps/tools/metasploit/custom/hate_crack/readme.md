@@ -1,8 +1,8 @@
 ```
-  ___ ___         __             _________                       __    
+  ___ ___         __             _________                       __
  /   |   \_____ _/  |_  ____     \_   ___ \____________    ____ |  | __
 /    ~    \__  \\   __\/ __ \    /    \  \/\_  __ \__  \ _/ ___\|  |/ /
-\    Y    // __ \|  | \  ___/    \     \____|  | \// __ \\  \___|    < 
+\    Y    // __ \|  | \  ___/    \     \____|  | \// __ \\  \___|    <
  \___|_  /(____  /__|  \___  >____\______  /|__|  (____  /\___  >__|_ \
        \/      \/          \/_____/      \/            \/     \/     \/
 ```
@@ -30,7 +30,7 @@ $ python wordlist_optimizer.py wordlists.txt ../optimized_wordlists
 ```
 -------------------------------------------------------------------
 ## Usage
-`$ ./hate_crack.py 
+`$ ./hate_crack.py
 usage: python hate_crack.py <hash_file> <hash_type>`
 
 The <hash_type> is attained by running `hashcat --help`
@@ -49,14 +49,14 @@ $ hashcat --help |grep -i ntlm
 ```
 $ ./hate_crack.py <hash file> 1000
 
-  ___ ___         __             _________                       __    
+  ___ ___         __             _________                       __
  /   |   \_____ _/  |_  ____     \_   ___ \____________    ____ |  | __
 /    ~    \__  \\   __\/ __ \    /    \  \/\_  __ \__  \ _/ ___\|  |/ /
-\    Y    // __ \|  | \  ___/    \     \____|  | \// __ \\  \___|    < 
+\    Y    // __ \|  | \  ___/    \     \____|  | \// __ \\  \___|    <
  \___|_  /(____  /__|  \___  >____\______  /|__|  (____  /\___  >__|_ \
        \/      \/          \/_____/      \/            \/     \/     \/
                           Version 1.09
-  
+
 
 	(1) Quick Crack
 	(2) Extensive Pure_Hate Methodology Crack
@@ -72,7 +72,7 @@ $ ./hate_crack.py <hash file> 1000
 	(12) Thorough Combinator Attack
 	(13) Bandrel Methodology
 
-    (95) Analyze hashes with Pipal 
+    (95) Analyze hashes with Pipal
 	(96) Export Output to Excel Format
 	(97) Display Cracked Hashes
 	(98) Display README
@@ -95,9 +95,9 @@ Which rule(s) would you like to run?
 (99) YOLO...run all of the rules
 Enter Comma separated list of rules you would like to run. To run rules chained use the + symbol.
 For example 1+1 will run best64.rule chained twice and 1,2 would run best64.rule and then d3ad0ne.rule sequentially.
-Choose wisely: 
+Choose wisely:
 ```
- 
+
 
 
 
@@ -114,7 +114,7 @@ Runs several attack methods provided by Martin Bos (formerly known as pure_hate)
   * Hybrid Attack
   * Extra - Just For Good Measure
     - Runs a dictionary attack using wordlists/rockyou.txt with chained "combinator.rule" and "InsidePro-PasswordsPro.rule" rules
-    
+
 #### Brute Force Attack
 Brute forces all characters with the choice of a minimum and maximum password length.
 
@@ -153,7 +153,7 @@ https://hashcat.net/events/p14-trondheim/prince-attack.pdf
 Runs a PRINCE attack using wordlists/rockyou.txt
 
 #### YOLO Combinator Attack
-Runs a continuous combinator attack using random wordlists from the 
+Runs a continuous combinator attack using random wordlists from the
 optimized wordlists for the left and right sides.
 
 #### Middle Combinator Attack
@@ -184,14 +184,14 @@ https://jeffh.net/2018/04/26/combinator_methods/
 and adding up to six additional characters at the end. Each word is limited to a total of five minutes.
   - Built in additional common words including seasons, months has been included as a customizable config.json entry
   - The default five minute time limit is customizable via the config.json
-  
+
 -------------------------------------------------------------------
 ### Version History
 Version 1.9
   Revamped the hate_crack output to increase processing speed exponentially combine_ntlm_output function for combining
   Introducing New Attack mode "Bandrel Methodology"
   Updated pipal function to output top x number of basewords
-     
+
 Version 1.08
   Added a Pipal menu Option to analyze hashes. https://github.com/digininja/pipal
 

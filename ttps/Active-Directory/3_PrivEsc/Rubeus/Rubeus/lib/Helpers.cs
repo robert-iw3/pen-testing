@@ -354,7 +354,7 @@ namespace Rubeus
             return SplitBaseAndExtension(filename)[1];
         }
 
-        // Splits filename by into a basename and extension 
+        // Splits filename by into a basename and extension
         // Returns an array representing [basename, extension]
         static public string[] SplitBaseAndExtension(string filename)
         {
@@ -397,7 +397,7 @@ namespace Rubeus
         public static void RandomDelayWithJitter(int delay, int jitter)
         {
             // given delay == ms and jitter = %, sleep for that amount
-            
+
             var timeToSleep = 0;
 
             if (delay == 0)

@@ -13,14 +13,14 @@ from asyauth.utils.paramprocessor import str_one, int_one, bool_one, int_list
 class KerberosCredential(UniCredential):
 	def __init__(self, secret, username, domain, stype:asyauthSecret, target:UniTarget = None, altname:str = None, altdomain:str = None, etypes:List[int] = [23,17,18], subprotocol:SubProtocol = SubProtocolNative(), certdata:str = None, keydata:str=None, cross_target:UniTarget = None, cross_realm:str = None):
 		UniCredential.__init__(
-			self, 
+			self,
 			secret = secret,
 			username = username,
 			domain = domain,
-			stype = stype,			
+			stype = stype,
 			protocol = asyauthProtocol.KERBEROS,
 			subprotocol = subprotocol)
-		
+
 		self.etypes = etypes
 		self.altname = altname
 		self.altdomain = altdomain
@@ -39,12 +39,12 @@ class KerberosCredential(UniCredential):
 			self.stype = asyauthSecret.RC4
 
 		self.sanity_check()
-	
+
 	def sanity_check(self):
 		if self.domain is None or self.domain == '':
 			raise Exception('Kerberos credential must have domain set! %s' % str(self))
 		if self.target is None or self.target.dc_ip is None:
-			raise Exception('Kerberos credential target must have dc_ip set!')		
+			raise Exception('Kerberos credential target must have dc_ip set!')
 
 	def get_pkinit(self):
 		# hidden import

@@ -90,7 +90,7 @@ namespace ysoserial.Generators
                     {
                         Debugging.ShowErrors(inputArgs, err);
                     }
-                    
+
                 }
 
                 return payload;
@@ -130,7 +130,7 @@ namespace ysoserial.Generators
                 BinaryFormatter fmt = new BinaryFormatter();
                 fmt.Serialize(stm, fakePropertyBagBinary);
             }
-            
+
             SetFakePropertyBagBinary(stm.ToArray());
         }
 

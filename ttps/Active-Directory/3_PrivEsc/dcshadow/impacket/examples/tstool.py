@@ -10,7 +10,7 @@
 # Description:
 #   Terminal Services manipulation tool.
 #   Initial idea was to provide similar functionality as the QWINSTA and other TS* windows commands:
-#   
+#
 #   qwinsta:  Display information about Remote Desktop Services sessions.
 #   tasklist: Display a list of currently running processes on the system.
 #   taskkill: Terminate tasks by process id (PID) or image name
@@ -159,16 +159,16 @@ class TSHandler:
         self.enumerate_sessions_info()
         if options.verbose:
             self.enumerate_sessions_config()
-        
+
         maxSessionNameLen = max([len(self.sessions[i]['SessionName'])+1 for i in self.sessions])
         maxSessionNameLen = maxSessionNameLen if len('SESSIONNAME') < maxSessionNameLen else len('SESSIONNAME')+1
-        
+
         # maxUsernameLen = max([len(self.sessions[i]['Username'])+1 for i in self.sessions])
         maxUsernameLen = max([len(self.sessions[i]['Username']+self.sessions[i]['Domain'])+1 for i in self.sessions])+1
 
         maxUsernameLen = maxUsernameLen if len('Username') < maxUsernameLen else len('Username')+1
-        
-        
+
+
         maxIdLen = max([len(str(i)) for i in self.sessions])
         maxIdLen = maxIdLen if len('ID') < maxIdLen else len('ID')+1
 
@@ -204,7 +204,7 @@ class TSHandler:
                 CONNTIME    = 'ConnectTime',
                 DISCTIME    = 'DisconnectTime',
             )
-        
+
         header2 = template.replace(' <','=<').format(
                 SESSIONNAME = '',
                 USERNAME    = '',
@@ -232,7 +232,7 @@ class TSHandler:
                               )
         result.append(header+header_verbose)
         result.append(header2+header2_verbose+'\n')
-        
+
         for i in self.sessions:
             connectTime = self.sessions[i]['ConnectTime']
             connectTime = connectTime.strftime(r'%Y/%m/%d %H:%M:%S') if connectTime.year > 1601 else 'None'
@@ -257,7 +257,7 @@ class TSHandler:
                                     REMOTEIP = self.sessions[i]['RemoteIp'],
                                     RESOLUTION = self.sessions[i]['Resolution'],
                                     TIMEZONE = self.sessions[i]['ClientTimeZone']
-                                )                
+                                )
             result.append(row+row_verbose)
 
         for row in result:
@@ -286,7 +286,7 @@ class TSHandler:
                             '{sessionuser: <%d} '
                             '{sid: <%d} '
                             '{workingset: <12}') % (maxImageNameLen, maxUserNameLen, maxSidLen)
-                           
+
                 print(template.format(imagename   = 'Image Name',
                                       pid         = 'PID',
                                       sessionName = 'SessName',
@@ -297,7 +297,7 @@ class TSHandler:
                                       workingset  = 'Mem Usage'
                             )
                      )
-                
+
                 print(template.replace(' <','=<').format(imagename   = '',
                                                          pid         = '',
                                                          sessionName = '',
@@ -340,7 +340,7 @@ class TSHandler:
                                 '{:,} K'.format(procInfo['WorkingSetSize']//1000),
                             )
                     print(row)
-        
+
 
     def do_taskkill(self):
         options = self.__options
@@ -428,7 +428,7 @@ class TSHandler:
             try:
                 print('Signing-out SessionID: %d ...' % options.session, end='')
                 session_handle = TSSession.hRpcOpenSession(options.session)
-                
+
                 if TSSession.hRpcLogoff(session_handle)['ErrorCode'] == 0:
                     print('OK')
                 else:
@@ -468,7 +468,7 @@ class TSHandler:
             except Exception as e:
                 print('FAIL')
                 LOG.error(str(e))
-    
+
 
     def do_msg(self):
         options = self.__options
@@ -487,7 +487,7 @@ class TSHandler:
                     LOG.error('Could not find SessionID: %d' % options.session)
                 else:
                     LOG.error(str(e))
-    
+
 
 if __name__ == '__main__':
 
@@ -512,7 +512,7 @@ if __name__ == '__main__':
     # tasklist: Display a list of currently running processes on the system.
     tasklist_parser = subparsers.add_parser('tasklist', help='Display a list of currently running processes on the system.')
     tasklist_parser.add_argument('-v', action='store_true', dest='verbose', help='Turn VERBOSE output ON')
- 
+
     # taskkill: Terminate tasks by process id (PID) or image name
     taskkill_parser = subparsers.add_parser('taskkill', help='Terminate tasks by process id (PID) or image name.')
     taskkill_parser.add_argument('-pid', action='store', metavar="PID", type=int, help='Specifies process id (PID)')
@@ -532,7 +532,7 @@ if __name__ == '__main__':
     # logoff: Sign out a Remote Desktop Services session
     logoff_parser = subparsers.add_parser('logoff', help='Sign out a Remote Desktop Services session.')
     logoff_parser.add_argument('-session', action='store', metavar="SessionID", type=int, required=True, help='SessionId to sign out')
-    
+
     # shutdown: Remote shutdown
     shutdown_parser = subparsers.add_parser('shutdown', help='Remote shutdown, affects ALL sessions and logged-in users!',
                         description="Send Remote Shutdown event. Affects ALL sessions and logged-in users!")

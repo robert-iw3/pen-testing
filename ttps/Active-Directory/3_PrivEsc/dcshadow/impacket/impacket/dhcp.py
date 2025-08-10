@@ -41,7 +41,7 @@ class DhcpPacket(ProtocolPacket, structure.Structure):
 
     DHCPDISCOVER= 1
     DHCPOFFER   = 2
-    DHCPREQUEST = 3 
+    DHCPREQUEST = 3
     DHCPDECLINE = 4
     DHCPACK     = 5
     DHCPNAK     = 6

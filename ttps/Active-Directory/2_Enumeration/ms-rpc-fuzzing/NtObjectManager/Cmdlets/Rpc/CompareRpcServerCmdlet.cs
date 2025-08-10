@@ -51,7 +51,7 @@ public class CompareRpcServerCmdlet : PSCmdlet
     {
         if (server.ProcedureCount > compare_server.ProcedureCount)
         {
-            return new ModifiedRpcServerResult(server, compare_server, 
+            return new ModifiedRpcServerResult(server, compare_server,
                 server.Procedures.Skip(compare_server.ProcedureCount));
         }
 

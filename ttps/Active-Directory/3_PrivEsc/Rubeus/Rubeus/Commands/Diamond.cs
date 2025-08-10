@@ -123,7 +123,7 @@ namespace Rubeus.Commands
                 hash = arguments["/aes256"];
                 encType = Interop.KERB_ETYPE.aes256_cts_hmac_sha1;
             }
-            
+
             if (arguments.ContainsKey("/certificate")) {
                 certificate = arguments["/certificate"];
             }
@@ -134,7 +134,7 @@ namespace Rubeus.Commands
             {
                 ticketUser = arguments["/ticketuser"];
             }
-            if (arguments.ContainsKey("/groups")) 
+            if (arguments.ContainsKey("/groups"))
             {
                 groups = arguments["/groups"];
             }

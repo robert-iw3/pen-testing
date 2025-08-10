@@ -559,7 +559,7 @@ Dump options:\n\
         _putts_or_not(TEXT("[+] Checking if EDR callbacks are registered on I/O events (minifilters)..."));
         foundMinifilterCallbacks = EnumEDRMinifilterCallbacks(foundEDRDrivers, verbose);
         _tprintf_or_not(TEXT("[+] [MinifilterCallbacks]\tMinifilter callbacks are %s !\n"), foundMinifilterCallbacks ? TEXT("present") : TEXT("not found"));
-        
+
         if (foundMinifilterCallbacks) {
 #if WriteMemoryPrimitiveIsAtomic
             isSafeToExecutePayloadKernelland = FALSE;
@@ -646,7 +646,7 @@ Dump options:\n\
 
                 HANDLE hThread = NULL;
 
-                // Set arguments for function call through 
+                // Set arguments for function call through
                 PVOID* pThreatArguments = calloc(2, sizeof(PVOID));
                 if (!pThreatArguments) {
                     _putts_or_not(TEXT("[!] A fatal error occurred while allocating memory for thread arguments"));

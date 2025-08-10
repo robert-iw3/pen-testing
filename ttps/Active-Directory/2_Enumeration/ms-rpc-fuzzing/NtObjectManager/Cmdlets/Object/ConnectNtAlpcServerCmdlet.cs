@@ -43,7 +43,7 @@ public class ConnectNtAlpcServerCmdlet : NtObjectBaseNoPathCmdlet
     /// <returns>The newly created object.</returns>
     protected override object CreateObject(ObjectAttributes obj_attributes)
     {
-        return Port.AcceptConnectPort(Flags, obj_attributes, PortAttributes, 
+        return Port.AcceptConnectPort(Flags, obj_attributes, PortAttributes,
             PortContext, ConnectionMessage, ConnectionAttributes, !Reject);
     }
 

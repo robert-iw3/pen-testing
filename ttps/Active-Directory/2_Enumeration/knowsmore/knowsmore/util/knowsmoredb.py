@@ -454,7 +454,7 @@ class KnowsMoreDB(Database):
         conn.commit()
 
         cursor.execute("""
-                    CREATE UNIQUE INDEX idx_bloodhound_edge_edge_id 
+                    CREATE UNIQUE INDEX idx_bloodhound_edge_edge_id
                     ON bloodhound_edge (edge_id);
                 """)
 

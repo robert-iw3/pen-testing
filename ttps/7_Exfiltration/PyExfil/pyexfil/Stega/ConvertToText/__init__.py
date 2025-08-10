@@ -25,7 +25,7 @@ def Load(f_name : str = None):
         print("Error: Could not open file")
         print(e)
         exit(1)
-    
+
     # Encrypt and compress
     f = zlib.compress(f.encode())
     # f = rc4(f, DEFAULT_KEY)
@@ -37,14 +37,14 @@ def Load(f_name : str = None):
     # pad with 0's
     if len(f) % 4 != 0:
         f = f.ljust(len(f) + (4 - len(f) % 4), '0')
-    
+
     # Split into 4 byte chunks
     f = [f[i:i+4] for i in range(0, len(f), 4)]
 
     # Convert to words
     f = [BIP_REVERSE_DICTIONARY[word] for word in f]
     return ' '.join(f)
-    
+
 
 def Decode(data: str):
     # Split into words

@@ -13,14 +13,14 @@ namespace ADOKit.Utilities
 
         /**
         * Parse the arguments
-        * 
+        *
         * */
         public static Dictionary<string, string> ParseArguments(IEnumerable<string> args)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
             foreach (string arg in args)
             {
-  
+
                 string[] parts = arg.Split(new char[] { _VALUE_SEPARATOR }, 2);
                 if (parts.Length == 2)
                 {
@@ -36,7 +36,7 @@ namespace ADOKit.Utilities
 
         /**
         * Generate module header
-        * 
+        *
         * */
         public static string GenerateHeader(string module, string credential, string url, string searchTerm, string project, string group, string user)
         {
@@ -88,7 +88,7 @@ namespace ADOKit.Utilities
 
         /**
         * print help
-        * 
+        *
         * */
         public static void HelpMe()
         {

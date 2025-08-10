@@ -70,7 +70,7 @@ class DCERPCSessionError(DCERPCException):
     def __str__( self ):
         if self.error_code in hresult_errors.ERROR_MESSAGES:
             error_msg_short = hresult_errors.ERROR_MESSAGES[self.error_code][0]
-            error_msg_verbose = hresult_errors.ERROR_MESSAGES[self.error_code][1] 
+            error_msg_verbose = hresult_errors.ERROR_MESSAGES[self.error_code][1]
             return 'WMI SessionError: code: 0x%x - %s - %s' % (self.error_code, error_msg_short, error_msg_verbose)
         else:
             # Let's see if we have it as WBEMSTATUS
@@ -426,7 +426,7 @@ class QUALIFIER_SET(Structure):
             data = data[len(itemn):]
 
         return qualifiers
- 
+
 # 2.2.20 ClassQualifierSet
 CLASS_QUALIFIER_SET = QUALIFIER_SET
 
@@ -498,7 +498,7 @@ class PROPERTY_LOOKUP_TABLE(Structure):
             pType &= (~CIM_ARRAY_FLAG)
             pType &= (~Inherited)
             sType = CIM_TYPE_TO_NAME[pType]
- 
+
             propItemDict['stype'] = sType
             propItemDict['name'] = propName
             propItemDict['type'] = propInfo['PropertyType']
@@ -506,7 +506,7 @@ class PROPERTY_LOOKUP_TABLE(Structure):
             propItemDict['inherited'] = propInfo['PropertyType'] & Inherited
             propItemDict['value'] = None
 
-            qualifiers = dict() 
+            qualifiers = dict()
             qualifiersBuf = propInfo['PropertyQualifierSet']['Qualifier']
             while len(qualifiersBuf) > 0:
                 record = QUALIFIER(qualifiersBuf)
@@ -532,8 +532,8 @@ HEAP_LENGTH = '<L=0'
 class HEAP(Structure):
     structure = (
         ('HeapLength', HEAP_LENGTH),
-        # HeapLength is a 32-bit value with the most significant bit always set 
-        # (using little-endian binary encoding for the 32-bit value), so that the 
+        # HeapLength is a 32-bit value with the most significant bit always set
+        # (using little-endian binary encoding for the 32-bit value), so that the
         # length is actually only 31 bits.
         ('_HeapItem','_-HeapItem', 'self["HeapLength"]&0x7fffffff'),
         ('HeapItem', ':'),
@@ -574,7 +574,7 @@ class CLASS_PART(Structure):
             dataSize = calcsize(unpackStr)
             try:
                 itemValue = unpack(unpackStr, valueTable[:dataSize])[0]
-            except: 
+            except:
                 LOG.error("getProperties: Error unpacking!!")
                 itemValue = 0xffffffff
 
@@ -583,7 +583,7 @@ class CLASS_PART(Structure):
                 properties[key]['value'] = "%s" % value
             valueTable = valueTable[dataSize:]
         return properties
-             
+
 # 2.2.39 MethodCount
 METHOD_COUNT = '<H=0'
 
@@ -672,7 +672,7 @@ class METHODS_PART(Structure):
                 if inputSignature['EncodingLength'] > 0:
                     methodDict['InParams'] = inputSignature['ObjectBlock']['ClassType']['CurrentClass'].getProperties()
                     methodDict['InParamsRaw'] = inputSignature['ObjectBlock']
-                    #print methodDict['InParams'] 
+                    #print methodDict['InParams']
                 else:
                     methodDict['InParams'] = None
             if itemn['OutputSignature'] != 0xffffffff:
@@ -888,7 +888,7 @@ class OBJECT_BLOCK(Structure):
                 # WMIO - 2.2.6 - 0x04 If this flag is set, the object has a Decoration block.
                 self.structure += self.decoration
             if ord(data[0:1]) & 0x01:
-                # The object is a CIM class. 
+                # The object is a CIM class.
                 self.structure += self.classType
             else:
                 self.structure += self.instanceType
@@ -936,13 +936,13 @@ class OBJECT_BLOCK(Structure):
                 else:
                     print('\n')
 
-        print() 
+        print()
         methods = pClass.getMethods()
         for methodName in methods:
             for qualifier in methods[methodName]['qualifiers']:
                 print('\t[%s]' % qualifier)
 
-            if methods[methodName]['InParams'] is None and methods[methodName]['OutParams'] is None: 
+            if methods[methodName]['InParams'] is None and methods[methodName]['OutParams'] is None:
                 print('\t%s %s();\n' % ('void', methodName))
             if methods[methodName]['InParams'] is None and len(methods[methodName]['OutParams']) == 1:
                 print('\t%s %s();\n' % (methods[methodName]['OutParams']['ReturnValue']['stype'], methodName))
@@ -953,7 +953,7 @@ class OBJECT_BLOCK(Structure):
                     #returnValue = (item for item in method['OutParams'] if item["name"] == "ReturnValue").next()
                     if 'ReturnValue' in methods[methodName]['OutParams']:
                         returnValue = methods[methodName]['OutParams']['ReturnValue']['stype']
- 
+
                 print('\t%s %s(\n' % (returnValue, methodName), end=' ')
                 if methods[methodName]['InParams'] is not None:
                     for pName  in methods[methodName]['InParams']:
@@ -989,7 +989,7 @@ class OBJECT_BLOCK(Structure):
             if currentName is not None:
                 self.ctCurrent = self.parseClass(ctCurrent, self['InstanceType'])
             return
-        else: 
+        else:
             ctParent = self['ClassType']['ParentClass']
             ctCurrent = self['ClassType']['CurrentClass']
 
@@ -1010,7 +1010,7 @@ class OBJECT_BLOCK(Structure):
             if currentName is not None:
                 self.printClass(ctCurrent, self['InstanceType'])
             return
-        else: 
+        else:
             ctParent = self['ClassType']['ParentClass']
             ctCurrent = self['ClassType']['CurrentClass']
 
@@ -2384,7 +2384,7 @@ class IWbemClassObject(IRemUnknown):
         if self.encodingUnit['ObjectBlock'].ctCurrent is None:
             return ()
         return self.encodingUnit['ObjectBlock'].ctCurrent['properties']
-    
+
     def getMethods(self):
         if self.encodingUnit['ObjectBlock'].ctCurrent is None:
             return ()
@@ -2396,7 +2396,7 @@ class IWbemClassObject(IRemUnknown):
         return (bool(null_default) << 1 | bool(inherited_default)) << (2 * index)
 
     def marshalMe(self):
-        # So, in theory, we have the OBJCUSTOM built, but 
+        # So, in theory, we have the OBJCUSTOM built, but
         # we need to update the values
         # That's what we'll do
 
@@ -2414,7 +2414,7 @@ class IWbemClassObject(IRemUnknown):
             propIsInherited = propRecord['inherited']
             print("PropName %r, Value: %r" % (propName,itemValue))
 
-            pType = propRecord['type'] & (~(CIM_ARRAY_FLAG|Inherited)) 
+            pType = propRecord['type'] & (~(CIM_ARRAY_FLAG|Inherited))
             if propRecord['type'] & CIM_ARRAY_FLAG:
                 # Not yet ready
                 packStr = HEAPREF[:-2]
@@ -2535,7 +2535,7 @@ class IWbemClassObject(IRemUnknown):
             for i, propName in enumerate(properties):
                 propRecord = properties[propName]
 
-                pType = propRecord['type'] & (~(CIM_ARRAY_FLAG|Inherited)) 
+                pType = propRecord['type'] & (~(CIM_ARRAY_FLAG|Inherited))
                 if propRecord['type'] & CIM_ARRAY_FLAG:
                     # Not yet ready
                     #print paramDefinition
@@ -2651,8 +2651,8 @@ class IWbemClassObject(IRemUnknown):
 
         @FunctionPool
         def innerMethod(staticArgs, *args):
-            classOrInstance = staticArgs[0] 
-            methodDefinition = staticArgs[1] 
+            classOrInstance = staticArgs[0]
+            methodDefinition = staticArgs[1]
             if methodDefinition['InParams'] is not None:
                 if len(args) != len(methodDefinition['InParams']):
                     LOG.error("Function called with %d parameters instead of %d!" % (len(args), len(methodDefinition['InParams'])))
@@ -2682,7 +2682,7 @@ class IWbemClassObject(IRemUnknown):
                     paramDefinition = list(methodDefinition['InParams'].values())[i]
                     inArg = args[i]
 
-                    pType = paramDefinition['type'] & (~(CIM_ARRAY_FLAG|Inherited)) 
+                    pType = paramDefinition['type'] & (~(CIM_ARRAY_FLAG|Inherited))
                     if paramDefinition['type'] & CIM_ARRAY_FLAG:
                         # Not yet ready
                         #print paramDefinition
@@ -2779,7 +2779,7 @@ class IWbemClassObject(IRemUnknown):
                 heapRecord = HEAP()
                 heapRecord['HeapLength'] = len(instanceHeap) | 0x80000000
                 heapRecord['HeapItem'] = instanceHeap
-                
+
                 instanceType['InstanceHeap'] = heapRecord
 
                 instanceType['EncodingLength'] = len(instanceType)
@@ -2843,7 +2843,7 @@ class IWbemClassObject(IRemUnknown):
            innerMethod.__name__ = methodName
            setattr(self,innerMethod.__name__,innerMethod[classOrInstance,methods[methodName]])
         #methods = self.encodingUnit['ObjectBlock']
- 
+
 
 class IWbemLoginClientID(IRemUnknown):
     def __init__(self, interface):

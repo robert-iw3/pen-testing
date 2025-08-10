@@ -8,7 +8,7 @@ using System.Security.Principal;
 
 namespace SpeechRuntimeMove
 {
-  
+
     static class RemoteRegistry
     {
         static void EnableRemoteRegistryViaWMI(string computerName, string username = null, string password = null)
@@ -213,7 +213,7 @@ namespace SpeechRuntimeMove
                 return false;
             }
         }
-        
+
         static List<string> getUsers(string computerName)
         {
             int timeout = 5000; // Timeout in milliseconds

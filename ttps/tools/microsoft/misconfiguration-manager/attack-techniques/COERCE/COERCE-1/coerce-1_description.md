@@ -25,7 +25,7 @@ This technique allows for taking over a machine object and privilege escalation 
 Some recommendations:
 
 Disable NTLM where possible
-Enforce Extended Protection for Authentication (EPA) along with SMB and LDAP signing. 
+Enforce Extended Protection for Authentication (EPA) along with SMB and LDAP signing.
 Prioritize Kerberos authentication and harden services like ADCS and IIS to block common relay paths.
 
 ## Examples

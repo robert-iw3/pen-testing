@@ -26,7 +26,7 @@ int make_test(int test_id, LPCTSTR test_arg)
         case 1:  return tests::load_self();
         case 2: return tests::deploy_self();
         case 3: return tests::brutforce_crackme_f4_3();
-        case 4: 
+        case 4:
             {
             peconv::export_based_resolver *exp_res = new peconv::export_based_resolver();
             int res = tests::deploy_self_ex((peconv::t_function_resolver*)exp_res);
@@ -65,11 +65,11 @@ int _tmain(int argc, LPCTSTR argv[])
         printf("Supply the test id!\n");
         return 0;
     }
-    
+
     int test_id = _tstoi(argv[1]);
     printf("Test ID: %d\n", test_id);
 
-    LPCTSTR test_arg = NULL; 
+    LPCTSTR test_arg = NULL;
     if (argc > 2) {
         test_arg = argv[2];
     }

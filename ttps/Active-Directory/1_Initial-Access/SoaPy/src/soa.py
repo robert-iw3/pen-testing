@@ -94,7 +94,7 @@ def set_spn(
     auth: NTLMAuth,
     remove: bool = False,
 ):
-    """Set a value in servicePrincipalName. Appends value to the 
+    """Set a value in servicePrincipalName. Appends value to the
     attribute rather than replacing.
 
     Args:
@@ -107,9 +107,9 @@ def set_spn(
     """
 
     dn = getAccountDN(target=target,username=username,ip=ip,domain=domain,auth=auth)
-    
+
     put_client = ADWSConnect.put_client(ip, domain, username, auth)
-    
+
     put_client.put(
         object_ref=dn,
         operation="add" if not remove else "delete",
@@ -117,7 +117,7 @@ def set_spn(
         data_type="string",
         value=value,
     )
-        
+
     print(
         f"[+] servicePrincipalName {value} {'removed' if remove else 'written'} successfully on {target}!"
     )
@@ -131,7 +131,7 @@ def set_asrep(
     remove: bool = False,
 ):
     """Set the DONT_REQ_PREAUTH (0x400000) flag on the target accounts
-    userAccountControl attribute. 
+    userAccountControl attribute.
 
     Args:
         target (str): target samAccountName
@@ -140,7 +140,7 @@ def set_asrep(
         auth (NTLMAuth): authentication method
         remove (bool): Whether to remove the value
     """
-    
+
     """First get current userAccountControl value"""
     get_accounts_queries = f"(sAMAccountName={target})"
     pull_client = ADWSConnect.pull_client(ip, domain, username, auth)
@@ -154,14 +154,14 @@ def set_asrep(
     for item in pull_et.findall(".//addata:user", namespaces=NAMESPACES):
         uac = item.find(
             ".//addata:userAccountControl/ad:value",
-            namespaces=NAMESPACES,   
+            namespaces=NAMESPACES,
         )
         distinguishedName_elem = item.find(
             ".//addata:distinguishedName/ad:value", namespaces=NAMESPACES
         )
-    
+
     dn = distinguishedName_elem.text
-    
+
     """Then write"""
     put_client = ADWSConnect.put_client(ip, domain, username, auth)
     if not remove:
@@ -184,7 +184,7 @@ def set_asrep(
             data_type="string",
             value=newUac,
         )
-    
+
     print(
         f"[+] DONT_REQ_PREAUTH {'removed' if remove else 'written'} successfully!"
     )
@@ -299,10 +299,10 @@ def run_cli():
     print("""
 ███████╗ ██████╗  █████╗ ██████╗ ██╗   ██╗
 ██╔════╝██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝
-███████╗██║   ██║███████║██████╔╝ ╚████╔╝ 
-╚════██║██║   ██║██╔══██║██╔═══╝   ╚██╔╝  
-███████║╚██████╔╝██║  ██║██║        ██║   
-╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝        ╚═╝   
+███████╗██║   ██║███████║██████╔╝ ╚████╔╝
+╚════██║██║   ██║██╔══██║██╔═══╝   ╚██╔╝
+███████║╚██████╔╝██║  ██║██║        ██║
+╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝        ╚═╝
     """)
 
     parser = argparse.ArgumentParser(
@@ -315,13 +315,13 @@ def run_cli():
         help="domain/username[:password]@<targetName or address>",
     )
     parser.add_argument(
-        "--debug", 
-        action="store_true", 
+        "--debug",
+        action="store_true",
         help="Turn DEBUG output ON"
     )
     parser.add_argument(
-        "--ts", 
-        action="store_true", 
+        "--ts",
+        action="store_true",
         help="Adds timestamp to every logging output."
     )
     parser.add_argument(
@@ -334,7 +334,7 @@ def run_cli():
     enum = parser.add_argument_group('Enumeration')
     enum.add_argument(
         "--users",
-        action="store_true", 
+        action="store_true",
         help="Enumerate user objects"
     )
     enum.add_argument(
@@ -343,8 +343,8 @@ def run_cli():
         help="Enumerate computer objects"
     )
     enum.add_argument(
-        "--groups", 
-        action="store_true", 
+        "--groups",
+        action="store_true",
         help="Enumerate group objects"
     )
     enum.add_argument(
@@ -358,23 +358,23 @@ def run_cli():
         help="Enumerate objects with the TRUSTED_FOR_DELEGATION flag set",
     )
     enum.add_argument(
-        "--spns", 
-        action="store_true", 
+        "--spns",
+        action="store_true",
         help="Enumerate accounts with the servicePrincipalName attribute set"
     )
     enum.add_argument(
-        "--asreproastable", 
-        action="store_true", 
+        "--asreproastable",
+        action="store_true",
         help="Enumerate accounts with the DONT_REQ_PREAUTH flag set"
     )
     enum.add_argument(
-        "--admins", 
-        action="store_true", 
+        "--admins",
+        action="store_true",
         help="Enumerate high privilege accounts"
     )
     enum.add_argument(
-        "--rbcds", 
-        action="store_true", 
+        "--rbcds",
+        action="store_true",
         help="Enumerate accounts with msDs-AllowedToActOnBehalfOfOtherIdentity set"
     )
     enum.add_argument(
@@ -472,7 +472,7 @@ def run_cli():
         raise SystemExit()
 
     auth = NTLMAuth(password=password, hashes=options.hash)
-    
+
     if options.rbcd != None:
         if not options.account:
             logging.critical(
@@ -495,7 +495,7 @@ def run_cli():
                 'Please specify an account with "--account"'
             )
             raise SystemExit()
-        
+
         set_spn(
             ip=remoteName,
             domain=domain,
@@ -511,7 +511,7 @@ def run_cli():
                 'Please specify an account with "--account"'
             )
             raise SystemExit()
-        
+
         set_asrep(
             ip=remoteName,
             domain=domain,
@@ -524,7 +524,7 @@ def run_cli():
         if not ldap_query:
             logging.critical("Query can not be None")
             raise SystemExit()
-       
+
         client = ADWSConnect.pull_client(
             ip=remoteName,
             domain=domain,
@@ -549,7 +549,7 @@ def run_cli():
                 attributes: list = [x.strip() for x in options.filter.split(",")]
             else:
                 attributes = ["samaccountname", "distinguishedName", "objectsid"]
-                
+
             client.pull(current_query, attributes, print_incrementally=True)
 
 

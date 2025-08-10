@@ -34,7 +34,7 @@ sudo podman system reset -f
 - Dual IPv6/IPv4 stack.
 
 - Built-in SMB Auth server.
-	
+
 Supports NTLMv1, NTLMv2 hashes with Extended Security NTLMSSP by default. Successfully tested from Windows 95 to Server 2022, Samba and Mac OSX Lion. Clear text password is supported for NT4, and LM hashing downgrade when the --lm option is set. If --disable-ess is set, extended session security will be disabled for NTLMv1 authentication. SMBv2 has also been implemented and is supported by default.
 
 - Built-in MSSQL Auth server.
@@ -65,7 +65,7 @@ This modules will collect clear text credentials.
 
 - Built-in DNS server.
 
-This server will answer type SRV and A queries. This is really handy when it's combined with ARP spoofing. 
+This server will answer type SRV and A queries. This is really handy when it's combined with ARP spoofing.
 
 - Built-in WPAD Proxy Server.
 
@@ -89,7 +89,7 @@ DHCP Inform Spoofing. Allows you to let the real DHCP Server issue IP addresses,
 
 - Analyze mode.
 
-This module allows you to see NBT-NS, BROWSER, LLMNR, DNS requests on the network without poisoning any responses. Also, you can map domains, MSSQL servers, workstations passively, see if ICMP Redirects attacks are plausible on your subnet. 
+This module allows you to see NBT-NS, BROWSER, LLMNR, DNS requests on the network without poisoning any responses. Also, you can map domains, MSSQL servers, workstations passively, see if ICMP Redirects attacks are plausible on your subnet.
 
 ## Hashes ##
 

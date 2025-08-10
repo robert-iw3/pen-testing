@@ -117,9 +117,9 @@ class WMIPERSISTENCE:
             activeScript.ScriptingEngine = 'VBScript'
             activeScript.CreatorSID = [1, 2, 0, 0, 0, 0, 0, 5, 32, 0, 0, 0, 32, 2, 0, 0]
             activeScript.ScriptText = options.vbs.read()
-            self.checkError('Adding ActiveScriptEventConsumer %s'% self.__options.name, 
+            self.checkError('Adding ActiveScriptEventConsumer %s'% self.__options.name,
                 iWbemServices.PutInstance(activeScript.marshalMe()))
-        
+
             if options.filter is not None:
                 eventFilter, _ = iWbemServices.GetObject('__EventFilter')
                 eventFilter = eventFilter.SpawnInstance()
@@ -202,7 +202,7 @@ if __name__ == '__main__':
                                                                             '(128 or 256 bits)')
     group.add_argument('-dc-ip', action='store',metavar = "ip address",  help='IP Address of the domain controller. If '
                        'ommited it use the domain part (FQDN) specified in the target parameter')
- 
+
     if len(sys.argv)==1:
         parser.print_help()
         sys.exit(1)

@@ -30,7 +30,7 @@ class Encoder:
             sends dictionaries with mex responses
 
             We should prefer to not use a dict if possible.
-    
+
     """
 
     def _extract_dict_from_xml(self) -> dict[int, str]:

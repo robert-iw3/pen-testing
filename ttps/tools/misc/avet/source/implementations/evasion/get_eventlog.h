@@ -7,11 +7,11 @@
 
 
 // Investigates the number of eventlogs present on the system. If eventlog count is lower than a specified number, the program exits.
-// 
+//
 // arg1:        Specifies the eventlog number threshold. Program exits if eventlog count is less than threshold.
 void get_eventlog(char *arg1) {
     DEBUG_PRINT("Applying get_eventlog evasion technique.\n");
-  
+
     char *call = "powershell.exe ";
     char *pwsh = "$lines = Get-WinEvent -ListLog * ^| measure-object -line; echo $lines.Lines";
     char *command = (char *) malloc(strlen(pwsh) + strlen(call) + 1);
@@ -32,7 +32,7 @@ void get_eventlog(char *arg1) {
     while (fgets(buf, 128, fp) != NULL) {
         strcat(retval, buf);
     }
-    
+
     long eventlog_count = strtol(retval, NULL, 10);
     DEBUG_PRINT("%d\n", eventlog_count);
 

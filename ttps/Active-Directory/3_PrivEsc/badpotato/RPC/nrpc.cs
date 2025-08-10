@@ -116,7 +116,7 @@ namespace PingCastle.RPC
 		[SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
 		public Int32 DsrEnumerateDomainTrusts(string server, int flag, out List<TrustedDomain> domains)
         {
-			IntPtr result = IntPtr.Zero; 
+			IntPtr result = IntPtr.Zero;
 			domains = null;
 			IntPtr intptrServer = Marshal.StringToHGlobalUni(server);
 			NETLOGON_TRUSTED_DOMAIN_ARRAY output = new NETLOGON_TRUSTED_DOMAIN_ARRAY();
