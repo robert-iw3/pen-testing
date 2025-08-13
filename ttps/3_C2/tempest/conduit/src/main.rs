@@ -952,7 +952,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                                     }
                                 }
                             }
-                            
+
                             terminal.draw(|f| draw_dashboard(f, f.size(), &imp_info, &mut app))?;
                         },
                         Some(info) = rx.recv() => {
@@ -965,7 +965,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                             //println!("Received message from ui_refresh_rx");
 
                             app.add_output(new_output); // Update the command_output with new data
-                            
+
                         terminal.draw(|f| draw_dashboard(f, f.size(), &imp_info, &mut app))?;
                 }
                     }

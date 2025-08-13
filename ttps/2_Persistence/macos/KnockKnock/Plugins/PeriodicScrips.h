@@ -11,7 +11,7 @@
 
 @interface PeriodicScripts : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

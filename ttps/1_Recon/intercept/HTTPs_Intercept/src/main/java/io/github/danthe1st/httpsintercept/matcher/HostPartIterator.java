@@ -10,12 +10,12 @@ final class HostPartIterator<T> extends IteratingIterator<T> {
 	private int index = 0;
 	private Iterator<T> current = Collections.emptyIterator();
 	private final Map<String, List<T>> hostParts;
-	
+
 	HostPartIterator(String hostname, Map<String, List<T>> hostParts) {
 		this.hostname = hostname;
 		this.hostParts = hostParts;
 	}
-	
+
 	@Override
 	protected Iterator<T> findNextIterator() {
 		if(current.hasNext()){
@@ -36,7 +36,7 @@ final class HostPartIterator<T> extends IteratingIterator<T> {
 		}while(nextIndex() != -1);
 		return Collections.emptyIterator();
 	}
-	
+
 	private int nextIndex() {
 		index = hostname.indexOf('.', index);
 		if(index != -1){

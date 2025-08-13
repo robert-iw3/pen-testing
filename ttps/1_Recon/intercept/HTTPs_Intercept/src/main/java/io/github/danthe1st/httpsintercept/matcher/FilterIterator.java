@@ -12,12 +12,12 @@ final class FilterIterator<@NonNull T> implements Iterator<T> {
 	private final Iterator<@NonNull T> iterator;
 	private final Predicate<@NonNull T> filter;
 	private @Nullable T current;
-	
+
 	public FilterIterator(Iterator<@NonNull T> iterator, Predicate<@NonNull T> filter) {
 		this.iterator = iterator;
 		this.filter = filter;
 	}
-	
+
 	@Override
 	@EnsuresNonNullIf(expression = "current", result = true)
 	public boolean hasNext() {
@@ -33,7 +33,7 @@ final class FilterIterator<@NonNull T> implements Iterator<T> {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public T next() {
 		if(!hasNext()){
@@ -43,5 +43,5 @@ final class FilterIterator<@NonNull T> implements Iterator<T> {
 		current = null;
 		return ret;
 	}
-	
+
 }

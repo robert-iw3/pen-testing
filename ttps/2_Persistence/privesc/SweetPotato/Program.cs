@@ -9,7 +9,7 @@ using static SweetPotato.ImpersonationToken;
 namespace SweetPotato {
     class Program {
 
-        static void PrintHelp(OptionSet options) {                
+        static void PrintHelp(OptionSet options) {
             options.WriteOptionDescriptions(Console.Out);
         }
 
@@ -27,7 +27,7 @@ namespace SweetPotato {
             Console.WriteLine(
                 "SweetPotato by @_EthicalChaos_\n" +
                  "  Orignal RottenPotato code and exploit by @foxglovesec\n" +
-                 "  Weaponized JuciyPotato by @decoder_it and @Guitro along with BITS WinRM discovery\n" + 
+                 "  Weaponized JuciyPotato by @decoder_it and @Guitro along with BITS WinRM discovery\n" +
                  "  PrintSpoofer discovery and original exploit by @itm4n\n" +
                  "  EfsRpc built on EfsPotato by @zcgonvh and PetitPotam by @topotam"
                 );

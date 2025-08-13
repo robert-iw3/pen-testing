@@ -6,7 +6,7 @@
 
 ## Featured Technical Article
 📝 **[Lights Out and Stalled Factories: Using M.A.T.R.I.X to Learn About Modbus Vulnerabilities](https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/lights-out-and-stalled-factories-using-matrix-to-learn-about-modbus-vulnerabilities/)**
-Check out the Trustwave SpiderLabs technical article that demonstrates M.A.T.R.I.X in action against a vulnerable Modbus TCP server dockerized target. The article provides detailed walkthroughs of each attack module, complete with practical examples and security insights tailored to industrial control systems in the energy and manufacturing sectors. A must-read for anyone looking to understand the practical applications of this tool in ICS security testing. 
+Check out the Trustwave SpiderLabs technical article that demonstrates M.A.T.R.I.X in action against a vulnerable Modbus TCP server dockerized target. The article provides detailed walkthroughs of each attack module, complete with practical examples and security insights tailored to industrial control systems in the energy and manufacturing sectors. A must-read for anyone looking to understand the practical applications of this tool in ICS security testing.
 
 
 # M.A.T.R.I.X
@@ -51,7 +51,7 @@ $ python3 matrix.py -h
     ║  Modbus Attack Tool for Remote Industrial eXploitation  ║
     ║                     By Ghost                            ║
     ╚═════════════════════════════════════════════════════════╝
-    
+
 usage: matrix.py [-h] [-H HOST] [-p PORT] -a {read,coil,register,overflow,dos,replay,spoof} [-v] [-t THREADS] [-f FILE] [-s SPOOF_IP] [-i INTERFACE] [--standalone]
 
 M.A.T.R.I.X - Modbus Attack Tool for Remote Industrial eXploitation
@@ -211,7 +211,7 @@ The arrows between components represent import relationships, showing how the mo
 
 The workflow diagram outlines the execution process for each attack type:
 
-- **Unauthorized Read Attack**: 
+- **Unauthorized Read Attack**:
   - Connects to the target Modbus server
   - Sequentially reads values from coils, discrete inputs, holding registers, and input registers
   - Reports the discovered information

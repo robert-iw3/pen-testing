@@ -5,7 +5,7 @@
 # Description: Brute force users with a list of passwords
 # License: GNU GPL
 # Version: 1.0
-# Functions Used: su_try_pwd 
+# Functions Used: su_try_pwd
 # Global Variables: $PASSWORD, $top2000pwds
 # Initial Functions:
 # Generated Global Variables: $BFUSER, $TRIES

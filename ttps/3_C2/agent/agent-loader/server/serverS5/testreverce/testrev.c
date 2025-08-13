@@ -772,7 +772,7 @@ int main(int argc, char* argv[]) {
     const char* password = (argc > 2) ? argv[2] : obfuscate_get(SERVER_PASSWORD);
     const char* ip       = (argc > 3) ? argv[3] : obfuscate_get(SERVER_REMOTE_IP);
     USHORT port          = (argc > 4) ? (USHORT)atoi(argv[4]) : SERVER_REMOTE_PORT;
-    
+
     SOCKS5_SERVER_REV* server = StartReverseSocks5(login, password, ip, port);
     if (!server) return 1;
     PrintInfo("Running... press Enter to stop");

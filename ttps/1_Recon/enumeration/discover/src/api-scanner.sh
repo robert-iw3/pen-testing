@@ -295,8 +295,8 @@ EOF
         STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL" -H "User-Agent: $USER_AGENT" --connect-timeout 3 -m 7)
 
         # Check for success or interesting responses
-        if [[ "$STATUS" == "200" || "$STATUS" == "201" || "$STATUS" == "204" || 
-              "$STATUS" == "301" || "$STATUS" == "302" || "$STATUS" == "307" || 
+        if [[ "$STATUS" == "200" || "$STATUS" == "201" || "$STATUS" == "204" ||
+              "$STATUS" == "301" || "$STATUS" == "302" || "$STATUS" == "307" ||
               "$STATUS" == "401" || "$STATUS" == "403" ]]; then
 
             # Create safe filename from path

@@ -15,15 +15,15 @@
 
 if [ "$is_tencent_cvm" = "Yes" ]; then
   tencent_req=""
-  if [ "$(command -v curl)" ]; then 
+  if [ "$(command -v curl)" ]; then
     tencent_req='curl --connect-timeout 2 -sfkG'
   elif [ "$(command -v wget)" ]; then
     tencent_req='wget -q --timeout 2 --tries 1  -O -'
-  else 
+  else
     echo "Neither curl nor wget were found, I can't enumerate the metadata service :("
   fi
 
-  
+
     print_2title "Tencent CVM Enumeration"
     print_info "https://cloud.tencent.com/document/product/213/4934"
     # Todo: print_info "Hacktricks Documents needs to be updated"
@@ -55,7 +55,7 @@ if [ "$is_tencent_cvm" = "Yes" ]; then
       echo "  Mac public ips: "$(eval $tencent_req http://169.254.0.23/latest/meta-data/network/interfaces/macs/$mac_tencent/public-ipv4s)
       echo "  Mac vpc id: "$(eval $tencent_req http://169.254.0.23/latest/meta-data/network/interfaces/macs/$mac_tencent/vpc-id)
       echo "  Mac subnet id: "$(eval $tencent_req http://169.254.0.23/latest/meta-data/network/interfaces/macs/$mac_tencent/subnet-id)
-      
+
       for lipv4 in $(eval $tencent_req  http://169.254.0.23/latest/meta-data/network/interfaces/macs/$mac_tencent/local-ipv4s); do
         echo "  Mac local ips: "$(eval $tencent_req http://169.254.0.23/latest/meta-data/network/interfaces/macs/$mac_tencent/local-ipv4s/$lipv4/local-ipv4)
         echo "  Mac gateways: "$(eval $tencent_req http://169.254.0.23/latest/meta-data/network/interfaces/macs/$mac_tencent/local-ipv4s/$lipv4/gateway)
@@ -68,7 +68,7 @@ if [ "$is_tencent_cvm" = "Yes" ]; then
 
     echo ""
     print_3title "Service account "
-    for sa_tencent in $(eval $tencent_req "http://169.254.0.23/latest/meta-data/cam/security-credentials/"); do 
+    for sa_tencent in $(eval $tencent_req "http://169.254.0.23/latest/meta-data/cam/security-credentials/"); do
       echo "  Name: $sa_tencent"
       echo "  STS Token: "$(eval $tencent_req "http://169.254.0.23/latest/meta-data/cam/security-credentials/$sa_tencent")
       echo "  =============="

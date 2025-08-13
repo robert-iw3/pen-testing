@@ -30,14 +30,14 @@
     {
         //set name
         self.name = PLUGIN_NAME;
-        
+
         //set description
         self.description = PLUGIN_DESCRIPTION;
-        
+
         //set icon
         self.icon = PLUGIN_ICON;
     }
-    
+
     return self;
 }
 
@@ -46,11 +46,11 @@
 {
     //output from crontab
     NSData* taskOutput = nil;
-    
+
     //cron file
     // for now, just current user's
     NSString* cronFile = nil;
-    
+
     //root?
     // scan all user's cron jobs
     if(0 == geteuid())
@@ -60,7 +60,7 @@
         {
             //path
             cronFile = [NSString stringWithFormat:@"%@/%@", CRON_FILES_DIRECTORY, user];
-            
+
             //exec cron
             // pass in user
             taskOutput = execTask(CRONTAB, @[@"-l", @"-u", user], NULL);
@@ -70,19 +70,19 @@
                 //skip
                 continue;
             }
-            
+
             //process
             [self processJobs:taskOutput path:cronFile];
         }
     }
-    
+
     //no root
     // only scan current user's
     else
     {
         //init cron file to current user
         cronFile = [NSString stringWithFormat:@"%@/%@", CRON_FILES_DIRECTORY, NSUserName()];
-        
+
         //exec cron
         // just for current user
         taskOutput = execTask(CRONTAB, @[@"-l"], NULL);
@@ -92,13 +92,13 @@
             //bail
             goto bail;
         }
-        
+
         //process
         [self processJobs:taskOutput path:cronFile];
     }
-    
+
 bail:
-    
+
     return;
 }
 
@@ -107,13 +107,13 @@ bail:
 {
     //converted to string
     NSString* cronJobs = nil;
-    
+
     //Command obj
     Command* commandObj = nil;
-    
+
     //convert to (trimmed) string
     cronJobs = [[[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
+
     //sanity check
     // ->skip blank results
     if( (nil == cronJobs) ||
@@ -122,7 +122,7 @@ bail:
         //bail
         goto bail;
     }
-    
+
     //create Command obj for each
     //  ->and call back up into UI to add
     for(NSString* cronJob in [cronJobs componentsSeparatedByString:@"\n"])
@@ -134,24 +134,24 @@ bail:
             //skip
             continue;
         }
-        
+
         //create Command object for job
         commandObj = [[Command alloc] initWithParams:@{KEY_RESULT_PLUGIN:self, KEY_RESULT_COMMAND:cronJob, KEY_RESULT_PATH:path}];
-        
+
         //skip Command objects that err'd out for any reason
         if(nil == commandObj)
         {
             //skip
             continue;
         }
-        
+
         //process item
         // ->save and report to UI
         [super processItem:commandObj];
     }
-    
+
 bail:
-    
+
     return;
 }
 
@@ -161,14 +161,14 @@ bail:
 {
     //flag
     BOOL isValidJob = NO;
-    
+
     //make sure length is decent
     if(0 == possibleJob.length)
     {
         //bail
         goto bail;
     }
-    
+
     //lines should usually start with a number
     // ->unless a '*', or '@'
     if(YES != isnumber([possibleJob characterAtIndex:0]))
@@ -182,14 +182,14 @@ bail:
             goto bail;
         }
     }
-    
+
     //happy
     // ->appears to be a valid job
     isValidJob = YES;
-    
+
 //bail
 bail:
-    
+
     return isValidJob;
 }
 

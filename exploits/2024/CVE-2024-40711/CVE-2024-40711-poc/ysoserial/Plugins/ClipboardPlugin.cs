@@ -11,10 +11,10 @@ using ysoserial.Helpers;
 
 /**
  * Author: Soroush Dalili (@irsdl) from NCC Group (@NCCGroupInfosec)
- * 
- * Comments: 
+ *
+ * Comments:
  *  This was released as a PoC for NCC Group's research on `Use of Deserialisation in .NET Framework Methods` (December 2018)
- *  See `DataObject.SetData Method`: https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.dataobject.setdata 
+ *  See `DataObject.SetData Method`: https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.dataobject.setdata
  *  Security note was added after being reported: https://github.com/dotnet/dotnet-api-docs/pull/502
  *  It was possible to copy other objects into the clipboard but this plugin only utilises one method that is used in the DataSetMarshal class
  *  The object will be copied to the clipboard and can be pasted into other affected applications such as Windows PowerShell ISE

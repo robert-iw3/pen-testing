@@ -1,7 +1,7 @@
 # Dispatch Redirector Demo
 
 ## Overview
-The following code provides a sample C2 over HTTPS to demonstrate Dispatch's Reverse Proxy functionality. 
+The following code provides a sample C2 over HTTPS to demonstrate Dispatch's Reverse Proxy functionality.
 
 - Accepts connections multiple from clients
 - Routes traffic through front-end proxies (e.g., NGINX, CDN)

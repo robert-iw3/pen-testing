@@ -14,7 +14,7 @@ const linkedPagesHandler = async (url) => {
   $('a[href]').each((i, link) => {
     const href = $(link).attr('href');
     const absoluteUrl = urlLib.resolve(url, href);
-    
+
     // Check if absolute / relative, append to appropriate map or increment occurrence count
     if (absoluteUrl.startsWith(url)) {
       const count = internalLinksMap.get(absoluteUrl) || 0;

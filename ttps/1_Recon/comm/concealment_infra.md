@@ -67,7 +67,7 @@ post-up iptables -t nat -A PREROUTING -i $real_adapter_name -p tcp --dport 443 -
 post-down iptables -t nat -D PREROUTING -i $real_adapter_name -p tcp --dport 443 -j DNAT --to $openbsd_firewall_ip:443
 
 ## HTTP Traffic Forwarding (Port 80)
-# 
+#
 post-up iptables -t nat -A PREROUTING -i $real_adapter_name -p tcp --dport 80 -j DNAT --to $openbsd_firewall_ip:80
 post-down iptables -t nat -D PREROUTING -i $real_adapter_name -p tcp --dport 80 -j DNAT --to $openbsd_firewall_ip:80
 
@@ -113,7 +113,7 @@ post-down iptables -t nat -D PREROUTING -i $real_adapter_name -p udp --dport 518
 
 ### B. System Automation
 #### B.1. OpenBSD Cronjobs
--  add via `crontab -e`  
+-  add via `crontab -e`
 ```
 # System Startup Jobs
 # - WireGuard VPN startup (30s delay to ensure network is ready)
@@ -125,7 +125,7 @@ post-down iptables -t nat -D PREROUTING -i $real_adapter_name -p udp --dport 518
 # - Check for available patches
 # - Apply system patches
 # - Update installed packages
-30 13 * * * /usr/sbin/syspatch -c 
+30 13 * * * /usr/sbin/syspatch -c
 32 13 * * * /usr/sbin/syspatch
 35 13 * * * /usr/sbin/pkg_add -u
 ```
@@ -146,7 +146,7 @@ post-down iptables -t nat -D PREROUTING -i $real_adapter_name -p udp --dport 518
 @reboot /bin/sleep 155 && /bin/sh /usr/local/asn_allow.sh
 @reboot /bin/sleep 157 && /bin/sh /usr/local/phone-ip-check.sh
 
-*/4 * * * * /bin/sh /usr/local/asn_allow.sh 
+*/4 * * * * /bin/sh /usr/local/asn_allow.sh
 */4 * * * * /bin/sh /usr/local/phone-ip-check.sh
 ```
 
@@ -264,7 +264,7 @@ log "=== asn_allow.sh done ==="
 #### B.3. Phone IP Check Script
 - This script monitors IP changes for mobile devices
 - Save as `/usr/local/phone-ip-check.sh`
-  
+
 ```sh
 #!/bin/sh
 
@@ -308,7 +308,7 @@ fi
 ```
 
 - You edit the pf rules on ` /etc/pf.conf ` and check via  `pfctl -nf /etc/pf.conf` and  load them via  `pfctl -f  /etc/pf.conf` | non - webserver example
-  
+
 #### C2A
 
 ```
@@ -316,7 +316,7 @@ fi
 #
 # See pf.conf(5) and /etc/examples/pf.conf
 
-#-----  examples start #----- 
+#-----  examples start #-----
 #ban evil like:
 #table <abusive_ips> persist
 #block quick from <abusive_ips>
@@ -376,7 +376,7 @@ match out on egress inet from $wireguard_net to any nat-to (egress:0)
 
 # allow trojan-gfw / hystria2
 pass in log on vio0 proto { tcp, udp } from <dynamic_hosts> to (vio0) port {443} keep state
-# allow DOT 
+# allow DOT
 pass in log on vio0 proto { tcp, udp } from <dynamic_hosts> to (vio0) port {853} keep state
 
 # ---- WireGuard Rules ----
@@ -394,7 +394,7 @@ pass out on $wireguard_iface from any to $wireguard_net keep state
 pass out on vio0 keep state
 ```
 
-#### C2B 
+#### C2B
 
 ```
 # $OpenBSD: pf.conf,v 1.55 2017/12/03
@@ -518,7 +518,7 @@ resolver_sequence() {
         log "Attempting resolution via $resolver"
         ip=$(dig +time=$DNS_TIMEOUT +short @"$resolver" "$fqdn" 2>/dev/null | \
             grep -E '^([0-9]{1,3}\.){3}[0-9]{1,3}$' | head -1)
-        
+
         [ -n "$ip" ] && validate_ip "$ip" && { echo "$ip"; return 0; }
         sleep $RESOLVER_DELAY
     done
@@ -554,7 +554,7 @@ resolve_with_fallback() {
     log "Initiating RIPE API query for $fqdn"
     response=$(curl $CURL_OPTIONS "$RIPE_API_URL?resource=$fqdn&type=A")
     ripe_ip=$(echo "$response" | jq -r '.data.records[0][0].value' 2>/dev/null)
-    
+
     if validate_ip "$ripe_ip"; then
         log "RIPE resolution successful: $ripe_ip"
         echo "$ripe_ip"
@@ -637,7 +637,7 @@ PublicKey = CLIENT1_PUBLIC_KEY_HERE
 AllowedIPs = 10.0.0.2/32
 
 [Peer]
-# Client 2  
+# Client 2
 PublicKey = CLIENT2_PUBLIC_KEY_HERE
 AllowedIPs = 10.0.0.3/32
 
@@ -688,7 +688,7 @@ PersistentKeepalive = 25
 ```
 
 ### F. DNS Configuration
-#### F.0: (builtin) unbound 
+#### F.0: (builtin) unbound
 
 - configure on `/var/unbound/etc/unbound.conf`
 
@@ -712,7 +712,7 @@ server:
   do-ip6: no
   do-udp: yes
   do-tcp: yes
- 
+
  # Access control
   access-control: 127.0.0.1 allow
   access-control: 10.0.0.0/24 allow
@@ -777,7 +777,7 @@ forward-zone:
 
 #### F.1: greed DNS on another Linux box
 - use adguard via docker or podman
-``` 
+```
 #!/bin/bash
 
 # =========================================================================
@@ -859,17 +859,17 @@ dns:
   bind_hosts:
     - 0.0.0.0
   port: 53
-  
+
   # Statistics and query logging
   statistics_interval: 24h
   querylog_enabled: true
   querylog_file_enabled: true
   querylog_interval: 2160h
   querylog_size_memory: 1000
-  
+
   # Anonymization
   anonymize_client_ip: true
-  
+
   # Performance settings
   protection_enabled: true
   blocking_mode: default
@@ -878,19 +878,19 @@ dns:
   blocked_response_ttl: 10
   parental_block_host: family-block.dns.adguard.com
   safebrowsing_block_host: standard-block.dns.adguard.com
-  
+
   # Rewrites and custom rules
   rewrites: []
   blocked_services: []
   upstream_timeout: 10s
-  
+
   # Bootstrap DNS
   bootstrap_dns:
     - 1.1.1.1:53
     - 8.8.8.8:53
     - 2606:4700:4700::1111
     - 2001:4860:4860::8888
-  
+
   # Upstream DNS servers with DoT/DoH
   upstream_dns:
     - tls://1.1.1.1
@@ -901,45 +901,45 @@ dns:
     - https://dns.google/dns-query
     - tls://9.9.9.9
     - https://dns.quad9.net/dns-query
-  
+
   # Upstream mode
   upstream_mode: load_balance
   fastest_timeout: 1s
-  
+
   # Cache settings
   cache_size: 4194304
   cache_ttl_min: 0
   cache_ttl_max: 86400
   cache_optimistic: true
-  
+
   # DNSSEC
   enable_dnssec: true
-  
+
   # EDNS Client Subnet
   edns_client_subnet:
     custom_ip: ""
     enabled: false
     use_custom: false
-  
+
   # Rate limiting
   ratelimit: 20
   ratelimit_whitelist: []
-  
+
   # Refuse ANY requests
   refuse_any: true
-  
+
   # IPv6 settings
   resolve_clients: true
   use_private_ptr_resolvers: true
   local_ptr_upstreams: []
-  
+
   # Filtering settings
   filtering_enabled: true
   filters_update_interval: 24
   parental_enabled: false
   safesearch_enabled: false
   safebrowsing_enabled: true
-  
+
   # Custom filtering rules
   user_rules:
     - "||example-ads.com^"
@@ -966,7 +966,7 @@ filters:
     url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
     name: AdGuard DNS filter
     id: 1
-  
+
   - enabled: true
     url: https://raw.githubusercontent.com/AdguardTeam/cname-trackers/master/combined_disguised_trackers_justdomains.txt
     name: AdGuard CNAME-cloaked trackers
@@ -1076,7 +1076,7 @@ sleep 10
 # Verify container is running
 if podman ps --format "{{.Names}}" | grep -q "^${CONTAINER_NAME}$"; then
     log "✓ AdGuard Home container started successfully"
-    
+
     # Display connection information
     log "=== AdGuard Home Access Information ==="
     log "Web Interface: http://localhost:3000"
@@ -1092,15 +1092,15 @@ if podman ps --format "{{.Names}}" | grep -q "^${CONTAINER_NAME}$"; then
     log "Certificate files:"
     log "Certificate: ${ADGUARD_DIR}/ssl/server.crt"
     log "Private Key: ${ADGUARD_DIR}/ssl/server.key"
-    
+
     # Show container status
     log "=== Container Status ==="
     podman ps --filter "name=${CONTAINER_NAME}" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
-    
+
     # Show resource usage
     log "=== Resource Usage ==="
     podman stats --no-stream "${CONTAINER_NAME}" --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}"
-    
+
 else
     log "✗ Failed to start AdGuard Home container"
     log "Container logs:"
@@ -1180,7 +1180,7 @@ http_port                10.0.0.1:3128
 tcp_outgoing_address     10.0.0.1
 visible_hostname         your-server.local
 via                      off
-forwarded_for            delete    
+forwarded_for            delete
 follow_x_forwarded_for   deny all
 httpd_suppress_version_string on
 #connection_auth          allow none
@@ -1254,7 +1254,7 @@ request_header_access    DNT                       deny all
 request_header_access    X-Forwarded-For           deny all
 request_header_access    Proxy-Connection          deny all
 request_header_access    Upgrade-Insecure-Requests deny all
-request_header_access    If-None-Match             deny all   
+request_header_access    If-None-Match             deny all
 request_header_access    Cache-Control             deny all
 request_header_access    Pragma                    deny all
 request_header_access    Purpose                   deny all
@@ -1384,7 +1384,7 @@ request_header_replace   Sec-Fetch-Site "same-site"
 ############################################################################
 
 # --------- Adjust this to the exit country of your proxy chain ----------
-export TZ=America/New_York 
+export TZ=America/New_York
 
 # --------- Proxy chain ---------------------------------------------------
 P1="10.1.0.1:3128"
@@ -1429,7 +1429,7 @@ chmod +x ~/.local/share/applications/brave-hardened.desktop
 
 # CN privacy protocols
 - gameplan: expose 443 on the pf for dynamic hosts only -> nginx/haproxy does 443to8080 -> singbox provides trojan-gfw/hysteria2 on 8080
-  
+
 - the singbox project can do hysteria2 and trojan-gfw:
 ```
 git clone https://github.com/SagerNet/sing-box.git
@@ -1459,7 +1459,7 @@ go mod tidy
 # Build for OpenBSD with reproducible build flags
 GOOS=openbsd GOARCH=amd64 go build -a -trimpath -ldflags="-buildid=" -tags "with_quic with_utls with_reality_server" -o sing-box ./cmd/sing-box
 ```
-  
+
 # Chose Nginx or HAProxy
 - choose one or the other: HAProxy cannot proxy UDP in freemium as far as I know? via nginx you can (hysteria2)
 
@@ -1767,8 +1767,8 @@ backend sing
 ```
 # optional: singbox runner
 
-- B: here is an experimental runner script to be added to a: NON root user &&  NON root cornjob 
-- `./runv6.sh` 
+- B: here is an experimental runner script to be added to a: NON root user &&  NON root cornjob
+- `./runv6.sh`
 ```
 #!/bin/sh
 
@@ -1817,7 +1817,7 @@ FIRST_RUN=1
 
 # Function to log messages
 log() {
-  echo "$(date +%Y-%m-%d_%H:%M:%S): $1" 
+  echo "$(date +%Y-%m-%d_%H:%M:%S): $1"
 }
 
 # Function to rebuild the sing-box binary
@@ -2010,7 +2010,7 @@ ssh -D 3128 my-server
 # Show dynamic hosts table contents
 pfctl -t dynamic_hosts -T show
 
-# Show ASN table contents  
+# Show ASN table contents
 pfctl -t asn -T show
 
 # Show Cloudflare IPs table
@@ -2052,7 +2052,7 @@ pfctl -v -sr
 # Start WireGuard interface
 sh /etc/netstart wg0
 
-# Stop WireGuard interface  
+# Stop WireGuard interface
 ifconfig wg0 destroy
 
 # Restart WireGuard interface
@@ -2071,7 +2071,7 @@ wg showconf wg0
 # Monitor firewall update logs
 tail -f /usr/local/firewall_update.log
 
-# Monitor ASN update logs  
+# Monitor ASN update logs
 tail -f /usr/local/asn_update.log
 
 # Monitor system messages for phone-ip-check
@@ -2095,7 +2095,7 @@ ifconfig wg0
 # Show WireGuard configuration
 wg showconf wg0
 
-# Show WireGuard 
+# Show WireGuard
 wg show
 
 # Check if using kernel implementation
@@ -2218,9 +2218,9 @@ vmstat -m
 pfctl -s states | grep CLOSED
 
 # Shutdowns
-/sbin/halt -p 
+/sbin/halt -p
 
-shutdown -r now 
+shutdown -r now
 ```
 
 good luck

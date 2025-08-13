@@ -14,7 +14,7 @@
 
 // Possible values - STATIC, DYNAMIC
 // Static call hider stores the function pointers inside a static storager (.data section basically) which is very optimized
-// Dynamic call hider inits function pointer arrays in runtime 
+// Dynamic call hider inits function pointer arrays in runtime
 #define CALL_HIDE_MODE STATIC
 
 // Possible values - true/false
@@ -28,7 +28,7 @@
 
 // Without forceinline the compiler will mostly ignore inline methods
 #if FORCE_INLINE == true
-#if defined(_MSC_VER) && !defined(__clang__) 
+#if defined(_MSC_VER) && !defined(__clang__)
 #define INLINE __forceinline // Visual C++
 #else
 #define INLINE __attribute__((always_inline)) inline // GCC/G++/CLANG
@@ -218,7 +218,7 @@ namespace meta {
     template<class T>
     struct add_pointer : decltype(try_add_pointer<T>(0)) {};
 
-    // Helpers from C++14 
+    // Helpers from C++14
     template<class T>
     using remove_cv_t = typename remove_cv<T>::type;
     template<class T>

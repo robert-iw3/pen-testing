@@ -32,16 +32,16 @@ pub fn meta_aes(
 
     let decryption_function =
         "fn aes_256_decrypt(buf: &Vec<u8>, key: &[u8; 32], iv: &[u8; 16]) -> Vec<u8> {
-        let cipher = Cipher::new_256(key);    
+        let cipher = Cipher::new_256(key);
         let decrypted = cipher.cbc_decrypt(iv, &buf);
-    
+
         decrypted
     }"
         .to_string();
 
     let main = format!(
         "let key: [u8;32] = {:?};
-    let iv: [u8;16] = {:?};   
+    let iv: [u8;16] = {:?};
     vec = aes_256_decrypt(&vec, &key, &iv);
     ",
         key, iv

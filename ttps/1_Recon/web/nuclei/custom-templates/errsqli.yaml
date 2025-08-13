@@ -7,7 +7,7 @@ info:
 
 requests:
   - method: GET
-    path: 
+    path:
       - "{{BaseURL}}"
 
     payloads:
@@ -497,7 +497,7 @@ requests:
           - "SQ200: No table "
           - "Virtuoso S0002 Error"
           - "\\[(Virtuoso Driver|Virtuoso iODBC Driver)\\]\\[Virtuoso Server\\]"
-      
+
       - type: regex
         name: HQLSQL
         regex:

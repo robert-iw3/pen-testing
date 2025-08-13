@@ -80,7 +80,7 @@ statement1
 pattern:statement[0-9]+
 statement3")]
 fn test() {
-    
+
 }
 ```
 

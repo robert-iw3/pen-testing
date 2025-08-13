@@ -32,21 +32,21 @@ if [ "$PSTORAGE_MYSQL" ] || [ "$DEBUG" ]; then
           cat "$f"
         fi
       done
-      
+
       for f in $(find $d -name user.MYD 2>/dev/null); do
         if [ -r "$f" ]; then
           echo "We can read the Mysql Hashes from $f" | sed -${E} "s,.*,${SED_RED},"
           grep -oaE "[-_\.\*a-zA-Z0-9]{3,}" "$f" | grep -v "mysql_native_password"
         fi
       done
-      
+
       for f in $(grep -lr "user\s*=" $d 2>/dev/null | grep -v "debian.cnf"); do
         if [ -r "$f" ]; then
           u=$(cat "$f" | grep -v "#" | grep "user" | grep "=" 2>/dev/null)
           echo "From '$f' Mysql user: $u" | sed -${E} "s,$sh_usrs,${SED_LIGHT_CYAN}," | sed -${E} "s,$nosh_usrs,${SED_BLUE}," | sed -${E} "s,$knw_usrs,${SED_GREEN}," | sed "s,$USER,${SED_LIGHT_MAGENTA}," | sed "s,root,${SED_RED},"
         fi
       done
-      
+
       for f in $(find $d -name my.cnf 2>/dev/null); do
         if [ -r "$f" ]; then
           echo "Found readable $f"
@@ -54,7 +54,7 @@ if [ "$PSTORAGE_MYSQL" ] || [ "$DEBUG" ]; then
         fi
       done
     fi
-    
+
     mysqlexec=$(whereis lib_mysqludf_sys.so 2>/dev/null | grep -Ev '^lib_mysqludf_sys.so:$' | grep "lib_mysqludf_sys\.so")
     if [ "$mysqlexec" ]; then
       echo "Found $mysqlexec. $(whereis lib_mysqludf_sys.so)"

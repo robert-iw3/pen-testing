@@ -41,7 +41,7 @@ int PrintRoutes()
         Error = KERNEL32$GetLastError();
         goto Error;
     }
-    
+
 
     if (((Error = IPHLPAPI$GetAdaptersInfo(pAdapterInfo, &adaptOutBufLen)) == NO_ERROR) &&
         ((Error = IPHLPAPI$GetIpForwardTable(IpForwardTable, &Size, TRUE)) == NO_ERROR))
@@ -87,7 +87,7 @@ int PrintRoutes()
                       Gateway,
                       IpForwardTable->table[i].dwForwardIfIndex,
                       IpForwardTable->table[i].dwForwardMetric1 );
-            
+
         }
 		internal_printf("Default Gateway:%18s\n", DefGate);
 		internal_printf("===========================================================================\n");
@@ -105,10 +105,10 @@ Error:
     }
 }
 
-VOID go( 
-	IN PCHAR Buffer, 
-	IN ULONG Length 
-) 
+VOID go(
+	IN PCHAR Buffer,
+	IN ULONG Length
+)
 {
 	if(!bofstart())
 	{

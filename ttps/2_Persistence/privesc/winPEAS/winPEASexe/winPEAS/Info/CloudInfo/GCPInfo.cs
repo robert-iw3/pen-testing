@@ -12,12 +12,12 @@ namespace winPEAS.Info.CloudInfo
 
         const string GCP_BASE_URL = "http://{URL_BASE}/";
         const string GCP_FOLDER = "C:\\Program Files\\Google\\Compute Engine\\";
-        
+
         /*
              C:\Program Files\Google\Compute Engine\agent\GCEWindowsAgent.exe"
              C:\Program Files\Google\OSConfig\google_osconfig_agent.exe"
-             c:\Program Files (x86)\Google\Cloud SDK" 
-             http://metadata.google.internal         
+             c:\Program Files (x86)\Google\Cloud SDK"
+             http://metadata.google.internal
          */
 
         public override bool IsCloud => Directory.Exists(GCP_FOLDER);
@@ -63,7 +63,7 @@ namespace winPEAS.Info.CloudInfo
                 }
             }
 
-            return _endpointData;          
+            return _endpointData;
         }
 
         private List<EndpointData> GetServiceAccountsMetadataInfo()
@@ -109,7 +109,7 @@ namespace winPEAS.Info.CloudInfo
 
             var networkEndpointUrlBase = "instance/network-interfaces";
             var url = $"{METADATA_URL_BASE}/{networkEndpointUrlBase}";
-            var ifaces = CreateMetadataAPIRequest(url, "GET", new WebHeaderCollection { { "X-Google-Metadata-Request", "True" } });            
+            var ifaces = CreateMetadataAPIRequest(url, "GET", new WebHeaderCollection { { "X-Google-Metadata-Request", "True" } });
 
             foreach (var iface in ifaces.Trim().Split('\n'))
             {
@@ -166,7 +166,7 @@ namespace winPEAS.Info.CloudInfo
         }
 
         private List<EndpointData> GetGCProjectMetadataInfo()
-        {            
+        {
             var metadataEndpoints = new List<Tuple<string, string, bool>>()
             {
                  new Tuple<string, string, bool>("Project-ID", "project/project-id", false),

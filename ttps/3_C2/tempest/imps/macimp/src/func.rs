@@ -15,7 +15,7 @@ pub fn get_username() -> String {
     if pw.is_null() {
         panic!("Failed to get user information");
     }
-    
+
     let username_cstr = unsafe { CStr::from_ptr((*pw).pw_name as *const c_char) };
     let username_str = username_cstr.to_string_lossy().into_owned();
 

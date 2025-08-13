@@ -2,7 +2,7 @@
 # ID: IP_Files_ACLs
 # Author: Carlos Polop
 # Last Update: 22-08-2023
-# Description: Files with ACLs 
+# Description: Files with ACLs
 # License: GNU GPL
 # Version: 1.0
 # Functions Used: echo_not_found, print_2title, print_info

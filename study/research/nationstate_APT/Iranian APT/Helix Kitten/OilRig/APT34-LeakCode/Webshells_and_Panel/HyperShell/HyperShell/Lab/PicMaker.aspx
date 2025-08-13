@@ -62,7 +62,7 @@ top: 47px;
         }
     </style>
     <script>
-        
+
             //var colorNum = ['e0e0e0', 'a0c0e0', '80a0e0', 'c0e0e0', 'a06040', 'e0a080', 'a0a0c0', '008000', '606080', '202020', 'c0c0e0', '800000', 'e00000'];
             var a = -1;
             var color = [
@@ -165,7 +165,7 @@ top: 47px;
         var withBlock = color[0].length;
         function hyperSonic(id)
         {
-            
+
             var maker = document.getElementById(id);
             maker.style.width = (size * withBlock) + "px";
             maker.style.height = (size * heightBlock) + "px";
@@ -380,7 +380,7 @@ top: 47px;
                 document.getElementById('body').appendChild(temp);
             }
 
-            
+
             if (a.getAttribute('ch') == 't')
             {
                 a.setAttribute('ch', '');
@@ -448,7 +448,7 @@ top: 47px;
             pixDraw('Maker2', color, 's');
             //maker();
             //pixDraw('Maker2', colorBill, 'b');
-            
+
         }
     </script>
 </head>

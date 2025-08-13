@@ -8,7 +8,7 @@ namespace ShellcodeInject
     {
 
 
-        // Exitpatcher function stolen from From Nettitudes RunPE -> https://github.com/nettitude/RunPE 
+        // Exitpatcher function stolen from From Nettitudes RunPE -> https://github.com/nettitude/RunPE
 
         internal const uint PAGE_EXECUTE_READWRITE = 0x40;
 
@@ -64,7 +64,7 @@ namespace ShellcodeInject
             var exitThreadPatchBytes = new List<byte>() { 0x48, 0xC7, 0xC1, 0x00, 0x00, 0x00, 0x00, 0x48, 0xB8 };
             /*
                 mov rcx, 0x0 #takes first arg
-                mov rax, <ExitThread> # 
+                mov rax, <ExitThread> #
                 push rax
                 ret
              */

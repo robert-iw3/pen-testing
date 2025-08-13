@@ -308,7 +308,7 @@ namespace TeamFiltration.Modules
                     _databaseHandle.WriteLog(new Log("ENUM", $"Dehashed search returned no results!", ""));
                     Environment.Exit(0);
                 }
-                    
+
 
                 var validEmailAccounts = dehashedData.entries.Select(x => x.email.FirstOrDefault()).Distinct().Where(a => Helpers.Generic.IsValidEmail(a));
                 foreach (var email in validEmailAccounts)

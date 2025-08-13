@@ -26,7 +26,7 @@ def import_hackerone_programs_task(handles, project_slug, is_sync = False):
 
 		if not creds:
 			raise Exception("HackerOne API credentials not configured")
-		
+
 		username, api_key = creds
 
 		response = requests.get(
@@ -64,7 +64,7 @@ def import_hackerone_programs_task(handles, project_slug, is_sync = False):
 					# we need to filter the scope that are supported by reNgine now
 					if asset_type in HACKERONE_ALLOWED_ASSET_TYPES and eligible_for_submission:
 						assets.append(asset_identifier)
-					
+
 					# in some cases asset_type is OTHER and may contain the asset
 					elif asset_type == 'OTHER' and ('.' in asset_identifier or asset_identifier.startswith('http')):
 						assets.append(asset_identifier)
@@ -144,11 +144,11 @@ def sync_bookmarked_programs_task(project_slug):
 		url = f'https://api.hackerone.com/v1/hackers/programs?&page[size]=100'
 		headers = {'Accept': 'application/json'}
 		bookmarked_programs = []
-		
+
 		credentials = get_hackerone_key_username()
 		if not credentials:
 			raise Exception("HackerOne API credentials not configured")
-		
+
 		username, api_key = credentials
 
 		while url:
@@ -167,7 +167,7 @@ def sync_bookmarked_programs_task(project_slug):
 			programs = data['data']
 			bookmarked = [p for p in programs if p['attributes']['bookmarked']]
 			bookmarked_programs.extend(bookmarked)
-			
+
 			url = data['links'].get('next')
 
 		return bookmarked_programs

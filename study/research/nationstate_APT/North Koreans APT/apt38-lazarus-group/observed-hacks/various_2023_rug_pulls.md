@@ -6,7 +6,7 @@ Tags:: 🎙️ Contagious Interview?
 ---
 
 
-## Onchain 
+## Onchain
 
 - 2023-Mar-02 ARBI Token Rug Pull - $100,000
 - 2023-Apr-22 Fashion AI Rug Pull
@@ -48,7 +48,7 @@ https://wearecultdao.medium.com/0xblock-exploited-5da3d0bbc00e#:~:text=It%20is%2
 
 ## ArbiSwap Rug Pull
 - https://arbiscan.io/tx/0x54ca307057b38110f60fce515ba35321fde82b876b4a2abf77368924903216e1
-- ArbiSwap deployers minted 1 trillion ARBI before Rug Pull, and then converted ARBI into USDC, which caused a sharp drop in ARBI in the USDC/ARBI transaction pair. In the next block, the robot passed USDC to ARBI then traded ETH for spatial arbitrage, making a profit of 68.47 ETH. 
+- ArbiSwap deployers minted 1 trillion ARBI before Rug Pull, and then converted ARBI into USDC, which caused a sharp drop in ARBI in the USDC/ARBI transaction pair. In the next block, the robot passed USDC to ARBI then traded ETH for spatial arbitrage, making a profit of 68.47 ETH.
 - ArbiSwap has transferred 84 ETH to the Ethereum mainnet and sent it to TornadoCash.
 - 0x8a60f91178da2F9de3D7a825380B7CE03933724F - "ARBI Token Rug Pull" on Etherscan
 - 0x6cd36b9459dfef332479d50bec129932285a1656 - receives from [ARBI Token Rug Pull](0x8a60f91178da2F9de3D7a825380B7CE03933724F) and [Cult DAO Deployer](0x0d31a41c93e483a69e10d067e353a9c489962f67). Sends to [LunaFi Hacker](0x0a0ed79f9fbbcc6b44a054d2608031818e391b3b)

@@ -35,7 +35,7 @@ class Proxyfire
 {
 public:
 	Vector<TunnelData> tunnels;
-	
+
 	void ProcessTunnels(Packer* packer);
 
 	void  CheckProxy(Packer* packer);

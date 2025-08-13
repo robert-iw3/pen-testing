@@ -73,7 +73,7 @@ All Tornado Cash withdrawals for the month of January 2021 were reviewed and no 
 
 ![TRM forensics graph](https://zachxbt.mirror.xyz/_next/image?url=https%3A%2F%2Fimages.mirror-media.xyz%2Fpublication-images%2FmDZpreD7D-Brv2SeNgSKi.png&w=3840&q=75)
 
-Through a series of transactions, the funds sitting in `0x05492cbc8fb228103744ecca0df62473b2858810` were transferred through intermediary addresses and consolidated with funds from other Lazarus Group thefts before USDT was deposited to the P2P marketplace Paxful via deposit addresses `0x246569f8b420c8d850c475c53d0d59973b3f08fc` and `0x593dc5e1ad81667bbfc90739dd2c09c926920e3b` beginning in July 2022. 
+Through a series of transactions, the funds sitting in `0x05492cbc8fb228103744ecca0df62473b2858810` were transferred through intermediary addresses and consolidated with funds from other Lazarus Group thefts before USDT was deposited to the P2P marketplace Paxful via deposit addresses `0x246569f8b420c8d850c475c53d0d59973b3f08fc` and `0x593dc5e1ad81667bbfc90739dd2c09c926920e3b` beginning in July 2022.
 
 In April 2023 they began using Noones deposit address `0x2e1155cf5374cba058a04fd03ebd0ba19afe580d`. They continue slowly transferring USDT in batches until November 2023.
 

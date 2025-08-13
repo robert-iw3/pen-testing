@@ -31,13 +31,13 @@
     {
         //set name
         self.name = PLUGIN_NAME;
-        
+
         //set description
         self.description = PLUGIN_DESCRIPTION;
-        
+
         //set icon
         self.icon = PLUGIN_ICON;
-    
+
         //load ql framework
         // and resolve '_QLCopyServerStatistics' function
         if(YES == [[NSBundle bundleWithPath:QUICKLOOK_FRAMEWORK] load])
@@ -46,7 +46,7 @@
             copyServerStats = dlsym(RTLD_NEXT, "_QLCopyServerStatistics");
         }
     }
-    
+
     return self;
 }
 
@@ -55,24 +55,24 @@
 {
     //stats (from QL server)
     NSDictionary* stats = nil;
-    
+
     //all ql plugins
     NSDictionary* plugins = nil;
-    
+
     //unique plugins
     // same plugin can be registered multiple times
     NSMutableSet* uniquePlugins = nil;
-    
+
     //plugin path
     NSString* pluginPath = nil;
-    
+
     //range
     // needed for parsing plugin paths
     NSRange range = {0};
-    
+
     //File obj
     File* fileObj = nil;
-    
+
     //alloc
     uniquePlugins = [NSMutableSet set];
 
@@ -84,7 +84,7 @@
         //bail
         goto bail;
     }
-    
+
     //process all plugins
     for(NSString* key in stats)
     {
@@ -96,7 +96,7 @@
             //skip
             continue;
         }
-        
+
         //process each plugin
         // have to parse path a bit...
         for(NSString* name in plugins)
@@ -104,7 +104,7 @@
             //extract path
             // format is path (#)
             pluginPath = plugins[name];
-            
+
             //find offset of last " (
             range = [pluginPath rangeOfString:@" (" options:NSBackwardsSearch];
             if(NSNotFound == range.location)
@@ -112,39 +112,39 @@
                 //skip
                 continue;
             }
-            
+
             //grab just path part
             pluginPath = [pluginPath substringWithRange:NSMakeRange(0, range.location)];
-            
+
             //skipping already reported plugins
             if(YES == [uniquePlugins containsObject:pluginPath])
             {
                 //skip
                 continue;
             }
-            
+
             //new
             // add plugin path
             [uniquePlugins addObject:pluginPath];
-            
+
             //create File object for plugin
             fileObj = [[File alloc] initWithParams:@{KEY_RESULT_PLUGIN:self, KEY_RESULT_PATH:pluginPath}];
-            
+
             //skip File objects that err'd out for any reason
             if(nil == fileObj)
             {
                 //skip
                 continue;
             }
-            
+
             //process item
             // save & report to UI
             [super processItem:fileObj];
         }
     }
-    
+
 bail:
-    
+
     return;
 }
 

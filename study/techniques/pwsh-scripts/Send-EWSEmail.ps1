@@ -9,7 +9,7 @@ function Send-EWSEmail {
 <#
     .DESCRIPTION
         Send an email using EWS
-    
+
     .EXAMPLE
         Import-Module -Name 'C:\Program Files\Microsoft\Exchange\Web Services\2.2\Microsoft.Exchange.WebServices.dll'
         Import-Module .\Send-EWSEmail.ps1
@@ -41,7 +41,7 @@ function Send-EWSEmail {
         $EXCHService = New-Object -TypeName Microsoft.Exchange.WebServices.Data.ExchangeService
         $Credential = Get-Credential
     }
-    
+
     PROCESS {
         $Provider=New-Object Microsoft.CSharp.CSharpCodeProvider
         $Compiler=$Provider.CreateCompiler()
@@ -53,26 +53,26 @@ function Send-EWSEmail {
         $TASource=@'
 namespace Local.ToolkitExtensions.Net.CertificatePolicy{
 public class TrustAll : System.Net.ICertificatePolicy {
-public TrustAll() { 
+public TrustAll() {
 }
 public bool CheckValidationResult(System.Net.ServicePoint sp,
-System.Security.Cryptography.X509Certificates.X509Certificate cert, 
+System.Security.Cryptography.X509Certificates.X509Certificate cert,
 System.Net.WebRequest req, int problem) {
 return true;
 }
 }
 }
-'@ 
+'@
         $TAResults=$Provider.CompileAssemblyFromSource($Params,$TASource)
         $TAAssembly=$TAResults.CompiledAssembly
-        
+
         $TrustAll=$TAAssembly.CreateInstance("Local.ToolkitExtensions.Net.CertificatePolicy.TrustAll")
         [System.Net.ServicePointManager]::CertificatePolicy=$TrustAll
         Write-Output "Sending...."
         $EXCHService.Credentials = New-Object -TypeName Microsoft.Exchange.WebServices.Data.WebCredentials -ArgumentList $Credential.UserName, $Credential.GetNetworkCredential().Password
         $EXCHService.AutodiscoverUrl($Credential.UserName, {$true})
         $EXCHService.Url = $ServiceURL
-        
+
         $eMail = New-Object -TypeName Microsoft.Exchange.WebServices.Data.EmailMessage -ArgumentList $EXCHService
         $eMail.Subject = $Subject
         $eMail.Body = $EmailBody
@@ -85,5 +85,5 @@ return true;
 
     END {
         Write-Output "Finished"
-    }   
+    }
 }

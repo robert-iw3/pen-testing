@@ -3,7 +3,7 @@
 
 beacon_command_register("WdToggle", "Patch lsass to enable WDigest credential caching and to circumvent Credential Guard (if enabled).",
 	"Synopsis: WdToggle\n\n" .
-	"Enable WDigest credential caching and circumvent Credential Guard (if enabled).\n\n");    
+	"Enable WDigest credential caching and circumvent Credential Guard (if enabled).\n\n");
 
 alias WdToggle {
     $bid = $1;

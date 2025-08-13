@@ -465,7 +465,7 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.digests
                 X[i] = 0;
             }
         }
-		
+
 		public override IMemoable Copy()
 		{
 			return new RipeMD128Digest(this);

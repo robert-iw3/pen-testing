@@ -33,14 +33,14 @@ NSString* const STARTUP_SCRIPTS_SEARCH_FILES[] = {@"/etc/rc.cleanup", @"/etc/rc.
     {
         //set name
         self.name = PLUGIN_NAME;
-        
+
         //set description
         self.description = PLUGIN_DESCRIPTION;
-        
+
         //set icon
         self.icon = PLUGIN_ICON;
     }
-    
+
     return self;
 }
 
@@ -58,19 +58,19 @@ NSString* const STARTUP_SCRIPTS_SEARCH_FILES[] = {@"/etc/rc.cleanup", @"/etc/rc.
         //create File object for each file
         // ->note these generally shouldn't exist (on default install)
         fileObj = [[File alloc] initWithParams:@{KEY_RESULT_PLUGIN:self, KEY_RESULT_PATH:STARTUP_SCRIPTS_SEARCH_FILES[i]}];
-            
+
         //skip File objects that err'd out for any reason
         if(nil == fileObj)
         {
             //skip
             continue;
         }
-        
+
         //process item
         // ->save and report to UI
         [super processItem:fileObj];
     }
-    
+
     return;
 }
 

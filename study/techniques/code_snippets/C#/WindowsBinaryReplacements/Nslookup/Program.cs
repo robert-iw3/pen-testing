@@ -38,7 +38,7 @@ namespace Nslookup
                 Console.WriteLine("[!] Error: DNS server could not be contacted");
                 return;
             }
-            
+
             foreach(var answer in result.Answers)
             {
                 Console.WriteLine(answer);

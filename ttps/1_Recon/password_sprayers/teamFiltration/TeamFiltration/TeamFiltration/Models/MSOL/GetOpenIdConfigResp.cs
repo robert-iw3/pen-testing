@@ -36,5 +36,5 @@ namespace TeamFiltration.Models.MSOL
         public string rbac_url { get; set; }
     }
 
-    
+
 }

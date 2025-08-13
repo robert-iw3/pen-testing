@@ -63,7 +63,7 @@ void getIPInfo(){
 				}
 			}
 			internal_printf(  "\t%s\n", p->IpAddressList.IpAddress.String);
-			
+
 	}
 	internal_printf(  "Hostname: \t%s\n", pFixedInfo->HostName);
 	internal_printf(  "DNS Suffix: \t%s\n", pFixedInfo->DomainName);
@@ -86,10 +86,10 @@ void getIPInfo(){
 }
 
 
-VOID go( 
-	IN PCHAR Buffer, 
-	IN ULONG Length 
-) 
+VOID go(
+	IN PCHAR Buffer,
+	IN ULONG Length
+)
 {
 	if(!bofstart())
 	{

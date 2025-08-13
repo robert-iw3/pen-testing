@@ -1,18 +1,18 @@
 # Chromium Extension C2 Suite
 
-> **Chromium extension, a separate C2 with a web panel for it.  
-> Loader for the extension that works with the separate C2 + web panel,  
+> **Chromium extension, a separate C2 with a web panel for it.
+> Loader for the extension that works with the separate C2 + web panel,
 > and can also work *without* the extension by executing commands and locking into the system.**
 
 ---
 
 ## Components
 
-1. **extension** – browser extension itself  
-2. **loader** – installer/agent that deploys the extension and executes commands  
-3. **loaderPanel** – server + web panel that control the loader  
-4. **scrypt** – additional utilities  
-5. **server** – server + web panel that control the extension  
+1. **extension** – browser extension itself
+2. **loader** – installer/agent that deploys the extension and executes commands
+3. **loaderPanel** – server + web panel that control the loader
+4. **scrypt** – additional utilities
+5. **server** – server + web panel that control the extension
 
 > *Each directory above has its own `README.md` describing the internals.*
 

@@ -11,21 +11,21 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 public class HttpResponseContentAccessor {
 	private ByteBuf contentBuf;
 	private byte @Nullable [] bytes;
-	
+
 	public HttpResponseContentAccessor(FullHttpResponse res) {
 		contentBuf = res.content();
 	}
-	
+
 	public byte[] getBytes() {
 		ensureBytesPresent();
 		return Arrays.copyOf(bytes, bytes.length);
 	}
-	
+
 	public String getAsString() {
 		ensureBytesPresent();
 		return new String(bytes, StandardCharsets.UTF_8);
 	}
-	
+
 	@EnsuresNonNull("bytes")
 	private void ensureBytesPresent() {
 		if(bytes == null){

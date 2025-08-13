@@ -6,7 +6,7 @@ function scan {
     Small Portscanner mainly based on the work of Niklas Goude https://twitter.com/ngoude
     To directly run it in memory run:
     iex(new-object net.webclient).downloadstring("https://raw.githubusercontent.com/LuemmelSec/Pentest-Tools-Collection/main/tools/portscan.ps1")
-        
+
     .PARAMETER IPStart
     Your starting IP
 
@@ -24,10 +24,10 @@ function scan {
 
     .PARAMETER PortScan
     Perform a PortScan. If no ports are specified with the -ports parameter, the default ports will be scanned
-    
+
     .PARAMETER Ports
     Ports That should be scanned, default values are:
-    21,22,23,53,80,139,389,443,445,636,1433,3128,8080,3389,5985 
+    21,22,23,53,80,139,389,443,445,636,1433,3128,8080,3389,5985
 
     .PARAMETER forceportscan
     Port scan anyways, no matter if ping succeeded
@@ -55,10 +55,10 @@ function scan {
 
     .EXAMPLE
     scan -file .\ips.txt -PortScan -Ports 22,3389,5985
-    
+
     .EXAMPLE
     scan -File .\ips.txt -dns -forcedns -PortScan -forceportscan -TimeOut 10 -v
-    
+
     .LINK
     https://github.com/LuemmelSec
 
@@ -108,8 +108,8 @@ Write-Host -ForegroundColor DarkCyan "::::    ::: ::::    ::::      :::     ::::
 Write-Host -ForegroundColor DarkCyan ":+:+:   :+: +:+:+: :+:+:+   :+: :+:   :+:    :+: "
 Write-Host -ForegroundColor DarkCyan ":+:+:+  +:+ +:+ +:+:+ +:+  +:+   +:+  +:+    +:+ "
 Write-Host -ForegroundColor DarkCyan "+#+ +:+ +#+ +#+  +:+  +#+ +#++:++#++: +#++:++#+  "
-Write-Host -ForegroundColor DarkCyan "+#+  +#+#+# +#+       +#+ +#+     +#+ +#+   "     
-Write-Host -ForegroundColor DarkCyan "#+#   #+#+# #+#       #+# #+#     #+# #+#  "      
+Write-Host -ForegroundColor DarkCyan "+#+  +#+#+# +#+       +#+ +#+     +#+ +#+   "
+Write-Host -ForegroundColor DarkCyan "#+#   #+#+# #+#       #+# #+#     #+# #+#  "
 Write-Host -ForegroundColor DarkCyan "###    #### ###       ### ###     ### ### "
 Write-Host -ForegroundColor DarkCyan "                                                "
 Write-Host -ForegroundColor DarkGray "A small and portable portscanner by @LuemmelSec "
@@ -143,7 +143,7 @@ $totalresults | Select-Object IP,DNS,PING,@{Expression={$_.PORTS -join ';'}} | e
 }
 }
 
-# loop procedure for when we give a file with IPs 
+# loop procedure for when we give a file with IPs
 elseif($File){
     foreach($line in get-content $file){
         $ip = $line
@@ -166,8 +166,8 @@ $ping = New-Object System.Net.Networkinformation.Ping
 $Highlight = @{
     True = 'Red'
     False = 'Cyan'
-}    
-            
+}
+
 ### Try to ping
 try{
 $pingStatus = $ping.Send($ip,$TimeOut)
@@ -235,18 +235,18 @@ if($DNS){
   $openPorts = "no open ports"
   $Global:portcheck = $FALSE
   }
-  
+
   if($DNS) {
     try{
         $hostName = ([System.Net.DNS]::EndGetHostEntry([IAsyncResult]$getHostEntry)).HostName
-         
+
         }
     catch{
         }
     }
-### End Portscan 
+### End Portscan
 
-### Format stuff          
+### Format stuff
 $1 = $ip;
 $2 = $hostName;
 $3 = $pingsuccess;
@@ -256,19 +256,19 @@ $4 = $openPorts
 if($v){
     Write-Host("`nHere is your intermediate results: ")
     if(($hostname -ne "no DNS" -and $hostname -ne ""-and $hostname -ne $null) -and ($pingsuccess -eq "Success") -and ($ports)){
-    Write-Host "IP: $1 " -ForegroundColor green ;Write-Host "DNS: $2 " -ForegroundColor green ;Write-Host "PING: $3 " -ForegroundColor green ; Write-Host "PORTS: $4 " -ForegroundColor green 
+    Write-Host "IP: $1 " -ForegroundColor green ;Write-Host "DNS: $2 " -ForegroundColor green ;Write-Host "PING: $3 " -ForegroundColor green ; Write-Host "PORTS: $4 " -ForegroundColor green
     }
     elseif(($hostname -ne "no DNS" -and $hostname -ne ""-and $hostname -ne $null) -and ($pingsuccess -eq "Success") -and ($ports -eq "no open ports")){
-    Write-Host "IP: $1 " -ForegroundColor green ;Write-Host "DNS: $2 " -ForegroundColor green ;Write-Host "PING: $3 " -ForegroundColor green ; Write-Host "PORTS: $4 " -ForegroundColor Red 
+    Write-Host "IP: $1 " -ForegroundColor green ;Write-Host "DNS: $2 " -ForegroundColor green ;Write-Host "PING: $3 " -ForegroundColor green ; Write-Host "PORTS: $4 " -ForegroundColor Red
     }
     elseif(($hostname -eq "no DNS" -or $hostname -eq "" -or $hostname -eq $null) -and ($pingsuccess -eq "Success") -and ($ports -eq "no open ports")){
-    Write-Host "IP: $1 " -ForegroundColor green ;Write-Host "DNS: $2 " -ForegroundColor Red ;Write-Host "PING: $3 " -ForegroundColor green ; Write-Host "PORTS: $4 " -ForegroundColor Red 
+    Write-Host "IP: $1 " -ForegroundColor green ;Write-Host "DNS: $2 " -ForegroundColor Red ;Write-Host "PING: $3 " -ForegroundColor green ; Write-Host "PORTS: $4 " -ForegroundColor Red
     }
     elseif(($hostname -eq "no DNS" -or $hostname -eq "" -or $hostname -eq $null) -and ($pingsuccess -eq "Success") -and ($ports)){
-    Write-Host "IP: $1 " -ForegroundColor green ;Write-Host "DNS: $2 " -ForegroundColor Red ;Write-Host "PING: $3 " -ForegroundColor green ; Write-Host "PORTS: $4 " -ForegroundColor green  
+    Write-Host "IP: $1 " -ForegroundColor green ;Write-Host "DNS: $2 " -ForegroundColor Red ;Write-Host "PING: $3 " -ForegroundColor green ; Write-Host "PORTS: $4 " -ForegroundColor green
     }
     else{
-    Write-Host "IP: $1 " -ForegroundColor green ;Write-Host "DNS: $2 " -ForegroundColor Red ;Write-Host "PING: $3 " -ForegroundColor Red ; Write-Host "PORTS: $4 " -ForegroundColor Red  
+    Write-Host "IP: $1 " -ForegroundColor green ;Write-Host "DNS: $2 " -ForegroundColor Red ;Write-Host "PING: $3 " -ForegroundColor Red ; Write-Host "PORTS: $4 " -ForegroundColor Red
     }
 }
 # Return Object to fill our endresults table
@@ -278,7 +278,7 @@ if($v){
     $Global:obj | Add-Member NoteProperty -Name PING -Value $3
     $Global:obj | Add-Member NoteProperty -Name PORTS -Value $4
 
-### Clean variables 
+### Clean variables
 $openports = ""
 $hostname = ""
 

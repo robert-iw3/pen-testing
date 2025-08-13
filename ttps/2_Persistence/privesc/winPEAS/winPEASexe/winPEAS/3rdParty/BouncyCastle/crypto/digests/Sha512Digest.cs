@@ -85,7 +85,7 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.digests
             H7 = 0x1f83d9abfb41bd6b;
             H8 = 0x5be0cd19137e2179;
         }
-		
+
 		public override IMemoable Copy()
 		{
 			return new Sha512Digest(this);

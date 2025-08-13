@@ -35,22 +35,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-          
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt 
+          pip install -r requirements.txt
 
       # Fetch GitHub Actor's Username
       - name: Get GitHub Username
         id: get_user
         run: echo "GITHUB_USER=${GITHUB_ACTOR}" >> $GITHUB_ENV
-      
+
       # Fetch GitHub Actor's SSH Keys
       - name: Fetch GitHub SSH Keys
         id: fetch_keys

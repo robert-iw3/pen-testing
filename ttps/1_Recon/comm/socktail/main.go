@@ -66,14 +66,14 @@ func generateHostname() string {
 	// Generate a random hostname - a bit of entropy
 	prefixes := []string{"web", "api", "cdn", "mail", "ftp", "db", "cache", "proxy", "gw", "vpn"}
 	suffixes := []string{"srv", "node", "host", "box", "vm", "sys"}
-	
+
 	randBytes := make([]byte, 4)
 	rand.Read(randBytes)
-	
+
 	prefixIdx := int(randBytes[0]) % len(prefixes)
 	suffixIdx := int(randBytes[1]) % len(suffixes)
 	num := int(randBytes[2])%100 + 1
-	
+
 	return fmt.Sprintf("%s-%s-%02d", prefixes[prefixIdx], suffixes[suffixIdx], num)
 }
 
@@ -85,7 +85,7 @@ func getSystemHostname() string {
 			return hostname
 		}
 	}
-	
+
 	return generateHostname()
 }
 
@@ -93,11 +93,11 @@ func NewSOCKS5Proxy(hostname, authkey string) *SOCKS5Proxy {
 	if hostname == "" {
 		hostname = getSystemHostname()
 	}
-	
+
 	if authkey == "" {
 		authkey = deobfuscateAuthKey()
 	}
-	
+
 	s := &tsnet.Server{
 		Hostname: hostname,
 		AuthKey:  authkey,
@@ -333,12 +333,12 @@ func main() {
 	}
 
 	proxy := NewSOCKS5Proxy(hostname, authkey)
-	
+
 	if hostname == "" {
 		hostname = getSystemHostname()
 	}
 	log.Printf("Starting proxy as %s", hostname)
-	
+
 	if err := proxy.Start(DEFAULT_PORT); err != nil {
 		log.Fatalf("Proxy failed: %v", err)
 	}

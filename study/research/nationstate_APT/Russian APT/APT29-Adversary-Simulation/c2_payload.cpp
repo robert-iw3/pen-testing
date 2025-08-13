@@ -48,8 +48,8 @@ bool send_to_dropbox(const std::string& data) {
 
     sockaddr_in server;
     server.sin_family = AF_INET;
-    server.sin_port = htons(443); 
-    server.sin_addr.s_addr = inet_addr("162.125.5.14"); 
+    server.sin_port = htons(443);
+    server.sin_addr.s_addr = inet_addr("162.125.5.14");
 
     if (connect(sock, (SOCKADDR *)&server, sizeof(server)) == SOCKET_ERROR) {
         std::cerr << "Error: connection failed\n";

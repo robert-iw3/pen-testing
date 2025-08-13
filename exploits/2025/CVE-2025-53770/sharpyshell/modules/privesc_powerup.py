@@ -14,26 +14,26 @@ class Privesc_powerup(Module):
     complete_help = r"""
         Author:     @PowerShellMafia
         Link:       https://github.com/PowerShellMafia/PowerSploit/blob/dev/Privesc/PowerUp.ps1
-        
-        
+
+
         This module run the Powerup.ps1 script in order to find all possible misconfiguration that can
         lead to a privilege escalation.
         The output of this module will be just informative, no automatic privesc exploitation will be performed.
-        Running this module with different users can lead to different results. So it's possible to specify 
+        Running this module with different users can lead to different results. So it's possible to specify
         a user to runas this module.
         If no users are provided this module will run under the application pool running user.
-        
-        
+
+
         Usage:
             #privesc_powerup [username] [password] [domain] [custom_command]
-        
+
         Positional arguments:
             username                username of the user to runas the process
             password                password of the user to runas the process
             domain                  domain of the user to runas the process
             custom_command          the command to run within the module
                                     Default: ';Invoke-PrivescAudit -Format List'
-                                        
+
         Examples:
             Run powerup as the current user
                 #privesc_powerup

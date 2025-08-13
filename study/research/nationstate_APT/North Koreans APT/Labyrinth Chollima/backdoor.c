@@ -41,9 +41,9 @@ int main() {
     // Read the key (32 bytes) and nonce (12 bytes) from the file
     BYTE Buffer[32];
     DWORD NumberOfBytesRead;
-    if (!ReadFile(v2, Buffer, 0x20u, &NumberOfBytesRead, OLL) || 
-        NumberOfBytesRead != 32 || 
-        !ReadFile(v2, v11, 0xCu, &NumberOfBytesRead, OLL) || 
+    if (!ReadFile(v2, Buffer, 0x20u, &NumberOfBytesRead, OLL) ||
+        NumberOfBytesRead != 32 ||
+        !ReadFile(v2, v11, 0xCu, &NumberOfBytesRead, OLL) ||
         NumberOfBytesRead != 12) {
         CloseHandle(v2);
         return 0xFFFFFFFFLL;

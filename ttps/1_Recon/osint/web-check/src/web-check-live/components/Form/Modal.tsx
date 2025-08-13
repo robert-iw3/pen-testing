@@ -22,7 +22,7 @@ const Overlay = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   animation: fadeIn 0.5s;
-  
+
   @keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}

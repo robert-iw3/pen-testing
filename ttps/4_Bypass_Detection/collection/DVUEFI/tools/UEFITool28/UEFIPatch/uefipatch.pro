@@ -43,4 +43,4 @@ HEADERS  += uefipatch.h \
  ../LZMA/x86Convert.h \
  ../Tiano/EfiTianoDecompress.h \
  ../Tiano/EfiTianoCompress.h
- 
+

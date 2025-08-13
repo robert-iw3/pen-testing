@@ -10,7 +10,7 @@ pip install dnslib
 <copy dns_redir>
 cd dns_redir
 <edit config.json>
-screen 
+screen
 python dnsd.py config.json <original nameserver>
 <exit screen (Ctrl+A -> Ctrl_D)>
 
@@ -90,7 +90,7 @@ vim squid.conf
 		#icap_service basic_resp respmod_precache bypass=1 icap://127.0.0.1:1344/basic
 
 		adaptation_service_chain service_req password_req basic_req
-		#adaptation_service_chain service_resp 
+		#adaptation_service_chain service_resp
 
 		adaptation_access service_req allow all
 		#adaptation_access service_resp allow all

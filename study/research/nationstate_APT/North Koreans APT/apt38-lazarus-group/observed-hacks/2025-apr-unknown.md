@@ -23,7 +23,7 @@ Tags:: 🔑 SquidSquad
 
 ## Timeline
 
-- Apr 23, 2025 02:20 - 0xf7d Theft 
+- Apr 23, 2025 02:20 - 0xf7d Theft
 
 - May 19, 2025 12:51 - 0xf7d Swaps DAI for ETH
 
@@ -33,4 +33,4 @@ Tags:: 🔑 SquidSquad
 
 - May 21, 2025 06:52 - 0xf7d Dust to 0x0567f82dacbfef43b9bf7d6659637d0155fba156
 
-- May 22, 2025 11:29 - 0xe45 1x0.1 from Tornado Cash to 
+- May 22, 2025 11:29 - 0xe45 1x0.1 from Tornado Cash to

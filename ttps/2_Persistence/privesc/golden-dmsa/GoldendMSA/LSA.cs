@@ -19,7 +19,7 @@ namespace GoldendMSA {
 
                 Interop.LsaConnectUntrusted(out lsaHandle);
                 Interop.RevertToSelf();
-            
+
             } else {
                 Interop.LsaConnectUntrusted(out lsaHandle);
             }

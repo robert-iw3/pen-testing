@@ -1,8 +1,8 @@
 # Chrome App-Bound Encryption (ABE) - Technical Deep Dive & Research Notes
 
-**Project:** [Chrome App-Bound Encryption Decryption](https://github.com/xaitax/Chrome-App-Bound-Encryption-Decryption/)  
-**Author:** Alexander 'xaitax' Hagenah    
-**Last Updated:** 12 May 2025  
+**Project:** [Chrome App-Bound Encryption Decryption](https://github.com/xaitax/Chrome-App-Bound-Encryption-Decryption/)
+**Author:** Alexander 'xaitax' Hagenah
+**Last Updated:** 12 May 2025
 
 Based on my project's v0.7.0 analysis, incorporating insights from Google's ABE design documents, public announcements, Chromium source code, and related security research.
 
@@ -215,21 +215,21 @@ Insights from Google's design documents and the Chromium source code (`elevator.
     - The `IElevator` interface, as potentially defined by Chrome, would include methods like `EncryptData` and `DecryptData`. An illustrative C++ stub, similar to what's in `chrome_decrypt.cpp`, is:
         ```cpp
         // Illustrative C++ MIDL_INTERFACE definition stub from chrome_decrypt.cpp
-        MIDL_INTERFACE("A949CB4E-C4F9-44C4-B213-6BF8AA9AC69C") 
+        MIDL_INTERFACE("A949CB4E-C4F9-44C4-B213-6BF8AA9AC69C")
         IElevator : public IUnknown
         {
         public:
             // Method for Chrome's recovery mechanisms, not directly used for decryption by this tool.
             virtual HRESULT STDMETHODCALLTYPE RunRecoveryCRXElevated(
-                const WCHAR *crx_path, const WCHAR *browser_appid, /* ...other params... */) = 0; 
-            
+                const WCHAR *crx_path, const WCHAR *browser_appid, /* ...other params... */) = 0;
+
             // Method used by Chrome to initially encrypt the app_bound_key.
             virtual HRESULT STDMETHODCALLTYPE EncryptData(
                 ProtectionLevel protection_level, // Specifies the type of protection to apply
                 const BSTR plaintext,
                 BSTR *ciphertext,
                 DWORD *last_error) = 0;
-            
+
             // The key method utilized by this tool to decrypt the app_bound_key.
             virtual HRESULT STDMETHODCALLTYPE DecryptData(
                 const BSTR ciphertext, // DPAPI-wrapped app_bound_key blob from Local State

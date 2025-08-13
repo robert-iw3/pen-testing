@@ -63,7 +63,7 @@ VOID BeaconOutputStreamW() {
 			goto CleanUp;
 		}
 
-		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {		
+		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {
 			goto CleanUp;
 		}
 
@@ -115,7 +115,7 @@ long EfsRpcOpenFileRaw(
 		0x00000001
 		};
 
-	const MIDL_STUB_DESC efsrpc_StubDesc = 
+	const MIDL_STUB_DESC efsrpc_StubDesc =
 		{
 		(void *)& efsrpc___RpcClientInterface,
 		MIDL_user_allocate,
@@ -179,7 +179,7 @@ DWORD EfsRpcQueryRecoveryAgents(
 		0x00000001
 		};
 
-	const MIDL_STUB_DESC efsrpc_StubDesc = 
+	const MIDL_STUB_DESC efsrpc_StubDesc =
 		{
 		(void *)& efsrpc___RpcClientInterface,
 		MIDL_user_allocate,

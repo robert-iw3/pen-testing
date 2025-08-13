@@ -15,13 +15,13 @@ namespace MonkeyWorks.Unmanaged.Headers
             THREAD_QUERY_INFORMATION = 0x0040,
             THREAD_SET_THREAD_TOKEN = 0x0080,
             THREAD_IMPERSONATE = 0x0100,
-            THREAD_DIRECT_IMPERSONATION = 0x0200,                       
+            THREAD_DIRECT_IMPERSONATION = 0x0200,
             THREAD_SET_LIMITED_INFORMATION = 0x0400,
             THREAD_QUERY_LIMITED_INFORMATION = 0x0800,
             THREAD_ALL_ACCESS = 0x1FFFFF,
 
             DELETE = 0x00010000L,
-            READ_CONTROL = 0x00020000L,           
+            READ_CONTROL = 0x00020000L,
             WRITE_DAC = 0x00040000L,
             WRITE_OWNER = 0x00080000L,
             SYNCHRONIZE = 0x00100000L

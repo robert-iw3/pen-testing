@@ -4,16 +4,16 @@ DEBUGCFLAGS=/Zi /MTd /D_DEBUG /EHsc /std:c++17
 !IF "$(PROCESSOR_ARCHITECTURE)" != "x86" && "$(PROCESSOR_ARCHITECTURE)" != "AMD64"
 !ERROR Only x86 and AMD64 architectures are supported or the PROCESSOR_ARCHITECTURE environment variable is not set.
 !ELSEIF "$(PROCESSOR_ARCHITECTURE)" == "AMD64"
-OUTDIR=..\x64\Release\ 
-IMDIR=x64\Release\ 
-DOUTDIR=..\x64\Debug\ 
-DIMDIR=x64\Debug\ 
+OUTDIR=..\x64\Release\
+IMDIR=x64\Release\
+DOUTDIR=..\x64\Debug\
+DIMDIR=x64\Debug\
 OUTEXT=.x64.o
 !ELSE
-OUTDIR=..\Release\ 
-IMDIR=Release\ 
-DIMDIR=Debug\ 
-DOUTDIR=..\Debug\ 
+OUTDIR=..\Release\
+IMDIR=Release\
+DIMDIR=Debug\
+DOUTDIR=..\Debug\
 OUTEXT=.x86.o
 !ENDIF
 

@@ -71,7 +71,7 @@ namespace Ls
                     if(sizeCharLength < biggestFileSize.ToString().Length)
                     {
                         sizeCharLength = biggestFileSize.ToString().Length;
-                    } 
+                    }
                 }
                 foreach(string item in dirContents)
                 {
@@ -112,7 +112,7 @@ namespace Ls
                     {
                         Console.WriteLine(lastWrite + "   <Dir>    " + owner + new string(' ', biggestOwnerSize - owner.ToString().Length) + "   " + new string('.', sizeCharLength) + "   " + relativepath);
                     }
-                    
+
                 }
             }
             return;

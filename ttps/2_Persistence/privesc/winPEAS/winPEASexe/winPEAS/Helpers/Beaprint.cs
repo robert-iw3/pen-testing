@@ -40,10 +40,10 @@ namespace winPEAS.Helpers
         /////////////////////////////////
         public static void PrintBanner()
         {
-            Console.WriteLine(BLUE + string.Format(@"     
+            Console.WriteLine(BLUE + string.Format(@"
                {0}((((((((((((((((((((((((((((((((
         {0}(((((((((((((((((((((((((((((((((((((((((((
-      {0}(((((((((((((({2}**********/{1}##########{0}(((((((((((((   
+      {0}(((((((((((((({2}**********/{1}##########{0}(((((((((((((
     {0}(((((((((((({2}********************/{1}#######{0}(((((((((((
     {0}(((((((({2}******************{3}/@@@@@/{0}{2}****{1}######{0}((((((((((
     {0}(((((({2}********************{3}@@@@@@@@@@/{0}{2}***,{1}####{0}((((((((((
@@ -80,7 +80,7 @@ namespace winPEAS.Helpers
             Console.WriteLine(GREEN + string.Format(@"
        /---------------------------------------------------------------------------------\
        |                             {1}Do you like PEASS?{0}                                  |
-       |---------------------------------------------------------------------------------| 
+       |---------------------------------------------------------------------------------|
        |         {3}Learn Cloud Hacking{0}       :     {2}training.hacktricks.xyz {0}                |
        |         {3}Follow on Twitter{0}         :     {2}@hacktricks_live{0}                        |
        |         {3}Respect on HTB{0}            :     {2}SirBroccoli            {0}                 |
@@ -135,7 +135,7 @@ namespace winPEAS.Helpers
             Console.WriteLine(LCYAN + "        filesinfo" + GRAY + "            Search generic files that can contains credentials" + NOCOLOR);
             Console.WriteLine(LCYAN + "        fileanalysis" + GRAY + "         [NOT RUN BY DEFAULT] Search specific files that can contains credentials and for regexes inside files. Might take several minutes." + NOCOLOR);
             Console.WriteLine(LCYAN + "        all" + GRAY + "                  Run all checks the previous check including fileanalysis." + NOCOLOR);
-            
+
             Console.WriteLine();
             Console.WriteLine(LCYAN + "        quiet" + GRAY + "                Do not print banner" + NOCOLOR);
             Console.WriteLine(LCYAN + "        notcolor" + GRAY + "             Don't use ansi colors (all white)" + NOCOLOR);
@@ -187,7 +187,7 @@ namespace winPEAS.Helpers
         public static void LinkPrint(string link, string comment = "")
         {
             // print_info
-            //Console.WriteLine(YELLOW + "   [?] " + LBLUE + comment + " " + LYELLOW + link + NOCOLOR);            
+            //Console.WriteLine(YELLOW + "   [?] " + LBLUE + comment + " " + LYELLOW + link + NOCOLOR);
             Console.WriteLine($"{LCYAN}╚ {LBLUE}{comment} {LYELLOW}{link}{NOCOLOR}");
         }
 

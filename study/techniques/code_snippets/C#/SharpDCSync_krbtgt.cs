@@ -1382,7 +1382,7 @@ namespace drsrdotnet
             {
                 case ATT.ATT_WHEN_CREATED:
                 case ATT.ATT_WHEN_CHANGED:
-                    //    var test = BitConverter.ToInt64(data, 0);    
+                    //    var test = BitConverter.ToInt64(data, 0);
                     //string stringdate = UnicodeEncoding.Default.GetString(data);
                     //    DateTime d = DateTime.ParseExact(stringdate, "yyyyMMddHHmmss.f'Z'", CultureInfo.InvariantCulture);
                     //    DecodedReplicationData.Add(att.ToString(), d);
@@ -1458,7 +1458,7 @@ namespace drsrdotnet
         public static void ShowUsage()
         {
             string Usage = @"
-Use DRSR protocol to ask a domain controller to get the krbtgt's hash. 
+Use DRSR protocol to ask a domain controller to get the krbtgt's hash.
 Reference:https://github.com/vletoux/MakeMeEnterpriseAdmin
 Usage:
     <dc fqdn> <domain name>

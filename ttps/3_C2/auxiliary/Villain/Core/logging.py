@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 #
-# Author: Panagiotis Chartas (t3l3machus) 
+# Author: Panagiotis Chartas (t3l3machus)
 #
-# This script is part of the "Villain C2 Framework": 
+# This script is part of the "Villain C2 Framework":
 # https://github.com/t3l3machus/Villain
 
 import os
@@ -59,9 +59,9 @@ class HoaxShell_Implants_Logger:
             except Exception as e:
                 print(e)
                 pass
-        
+
         return False
-            
+
 
 
 def clear_metadata():
@@ -71,7 +71,7 @@ def clear_metadata():
             os.remove(HoaxShell_Implants_Logger.generated_implants_file)
     except:
         return False
-    
+
     return True
 
 

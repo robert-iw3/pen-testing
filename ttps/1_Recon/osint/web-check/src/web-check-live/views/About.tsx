@@ -80,7 +80,7 @@ const Section = styled(StyledCard)`
     }
   }
   .example-screenshot {
-    float: right; 
+    float: right;
     display: inline-flex;
     flex-direction: column;
     clear: both;
@@ -162,7 +162,7 @@ const About = (): JSX.Element => {
           to help with the ongoing hosting and development costs.
         </p>
       </Section>
-      
+
       <Heading as="h2" size="medium" color={colors.primary}>Features</Heading>
       <Section>
         {featureIntro.map((fi: string, i: number) => (<p key={i}>{fi}</p>))}
@@ -185,7 +185,7 @@ const About = (): JSX.Element => {
               <figure className="example-screenshot">
                 <img className="screenshot" src={section.screenshot} alt={`Example Screenshot ${section.title}`} />
                 <figcaption>Fig.{sectionIndex + 1} - Example of {section.title}</figcaption>
-              </figure> 
+              </figure>
             }
             {section.description && <>
               <Heading as="h4" size="small">Description</Heading>

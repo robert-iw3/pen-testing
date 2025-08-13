@@ -1,20 +1,20 @@
-// 
-// 
-//       Copyright (c) 1996-99 Intel Corp.            
-// 
-// 
+//
+//
+//       Copyright (c) 1996-99 Intel Corp.
+//
+//
 //Module Name:
-// 
+//
 //   palproc.h
-// 
+//
 //Abstract:
-// 
+//
 //   This module contains generic macros for an IA64 assembly writer.
-// 
-// 
+//
+//
 //Revision History
-// 
- 
+//
+
 #ifndef _PALPROC_H
 #define _PALPROC_H
 
@@ -48,4 +48,4 @@ name:
 #define PAL_MC_RESUME                                   0x001a
 #define PAL_MC_REGISTER_MEM                             0x001b
 
-#endif  // _PALPROC_H 
+#endif  // _PALPROC_H

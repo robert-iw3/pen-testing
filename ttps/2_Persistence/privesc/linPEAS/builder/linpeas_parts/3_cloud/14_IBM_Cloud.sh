@@ -23,13 +23,13 @@ if [ "$is_ibm_vm" = "Yes" ]; then
     TOKEN_HEADER="Authorization: Bearer $IBM_TOKEN"
     ACCEPT_HEADER="Accept: application/json"
     URL="http://169.254.169.254/latest/meta-data"
-    
+
     ibm_req=""
     if [ "$(command -v curl || echo -n '')" ]; then
         ibm_req="curl -s -f -L -H '$TOKEN_HEADER' -H '$ACCEPT_HEADER'"
     elif [ "$(command -v wget || echo -n '')" ]; then
         ibm_req="wget -q -O - --header '$TOKEN_HEADER' -H '$ACCEPT_HEADER'"
-    else 
+    else
         echo "Neither curl nor wget were found, I can't enumerate the metadata service :("
     fi
 

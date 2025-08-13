@@ -5,11 +5,11 @@
 <html dir="<%=(UserContext != null && UserContext.IsRtl) ? "rtl" : "ltr"%>">
 
 <% 	// Any urls to resources in this file, must be absolute urls.  The error page can load as a response to any request
-	// made by the client, since it does by an internal redirect on the server and not as a 302 issued to the client.  
-	// Therefore, there is no way of knowing where a relative url will take you.  For example, this page can load as a 
-	// result of this request "http://servername/owa/auth/logon.aspx" or this request 
+	// made by the client, since it does by an internal redirect on the server and not as a 302 issued to the client.
+	// Therefore, there is no way of knowing where a relative url will take you.  For example, this page can load as a
+	// result of this request "http://servername/owa/auth/logon.aspx" or this request
 	// "http://servername/owa/ev.owa?oeh=1&ae=dostuff"
-	//	
+	//
 %>
 
 <head>

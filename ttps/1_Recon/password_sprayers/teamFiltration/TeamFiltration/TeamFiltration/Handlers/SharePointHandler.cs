@@ -55,7 +55,7 @@ namespace TeamFiltration.Handlers
             _sharePointClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {getBearToken.access_token}");
         }
 
-  
+
 
         public async Task<DownloadUrlResp> GetDownloadInfo(string baseUrl)
         {

@@ -11,7 +11,7 @@
 
 @interface LoginItems : PluginBase
 {
-    
+
 }
 
 /* PROPERTIES */

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/92536790-efb0-44c0-8d53-fc8b0d1e8683" alt="PANIX logo"width="1010" height="750"> 
+  <img src="https://github.com/user-attachments/assets/92536790-efb0-44c0-8d53-fc8b0d1e8683" alt="PANIX logo"width="1010" height="750">
   <h1 align="center"><a href="https://github.com/Aegrah/PANIX/">PANIX - Persistence Against *NIX</a></h1>
 </p>
 
@@ -141,7 +141,7 @@ Root User Options:
   --git                  Git hook/pager persistence
   --grub                 GRUB bootloader persistence
   --initd                SysV Init (init.d) persistence
-  --initramfs            Initramfs persistence 
+  --initramfs            Initramfs persistence
   --ld-preload           LD_PRELOAD backdoor persistence"
   --lkm                  Loadable Kernel Module (LKM) persistence
   --malicious-container  Docker container with host escape"
@@ -155,7 +155,7 @@ Root User Options:
   --polkit               Allow pkexec as any user through Polkit
   --rc-local             Run Control (rc.local) persistence
   --reverse-shell        Reverse shell persistence (supports multiple LOLBins)"
-  --rootkit              Diamorphine (LKM) rootkit persistence 
+  --rootkit              Diamorphine (LKM) rootkit persistence
   --shell-profile        Shell profile persistence
   --ssh-key              SSH key persistence
   --sudoers              Sudoers persistence
@@ -275,12 +275,12 @@ PANIX can clean its mess through the `--revert` command. Both for seperate modul
 ```
 ruben@ubuntu2204:~$ sudo ./panix.sh --revert rootkit
 
-######################### [+] Reverting rootkit module... ######################### 
+######################### [+] Reverting rootkit module... #########################
 
-[+] Sending 'kill -63 0' to unload the rootkit module... 
+[+] Sending 'kill -63 0' to unload the rootkit module...
 [+] Signal sent successfully.
 [+] Identifying loaded rootkit kernel modules in /dev/shm/.rk...
-[+] Unloading rootkit rkit... 
+[+] Unloading rootkit rkit...
 [+] Kernel module 'rkit' unloaded successfully.
 [+] Rootkit rkit unloaded successfully.
 [+] Removing kernel module files from /dev/shm/.rk...
@@ -328,15 +328,15 @@ Error: 'at' binary is not present. Cannot revert 'at' jobs.
 ```
 
 ## MITRE ATT&CK Matrix
-PANIX has a built-in MITRE ATT&CK matrix that displays the techniques and sub-techniques available. 
+PANIX has a built-in MITRE ATT&CK matrix that displays the techniques and sub-techniques available.
 
 ```
 ruben@ubuntu2204:~$ ./panix.sh --mitre-matrix
 
 MITRE ATT&CK Matrix - Persistence Techniques Supported by PANIX
 
-Persistence Method        Technique Name                           Technique ID    Sub-technique Name                       Sub-technique ID     URL                                                                   
--------------------       --------------                           -------------   -----------------                        ---------------      ---------------------------------------------                         
+Persistence Method        Technique Name                           Technique ID    Sub-technique Name                       Sub-technique ID     URL
+-------------------       --------------                           -------------   -----------------                        ---------------      ---------------------------------------------
 --at                      Scheduled Task                           T1053           At                                       T1053.002            https://attack.mitre.org/techniques/T1053/002
 --authorized-keys         Account Manipulation                     T1098           SSH Authorized Keys                      T1098.004            https://attack.mitre.org/techniques/T1098/004
 --backdoor-user           Create Account                           T1136           Local Account                            T1136.001            https://attack.mitre.org/techniques/T1136/001
@@ -373,7 +373,7 @@ Persistence Method        Technique Name                           Technique ID 
 --systemd                 Create or Modify System Process          T1543           Systemd Service                          T1543.002            https://attack.mitre.org/techniques/T1543/002
 --udev                    Event Triggered Execution                T1546           Udev Rules                               T1546.017            https://attack.mitre.org/techniques/T1546/017
 --web-shell               Server Software Component                T1505           Web Shell                                T1505.003            https://attack.mitre.org/techniques/T1505/003
---xdg                     Boot or Logon Autostart Execution        T1547           XDG Autostart Entries                    T1547.013            https://attack.mitre.org/techniques/T1547/013                     
+--xdg                     Boot or Logon Autostart Execution        T1547           XDG Autostart Entries                    T1547.013            https://attack.mitre.org/techniques/T1547/013
 
 Legend:
 Technique: High-level MITRE ATT&CK technique.
@@ -386,7 +386,7 @@ URL: Link to the official MITRE ATT&CK page for further details.
 # Publications and Resources
 Publications in which PANIX is leveraged:
 
-- [Linux Detection Engineering - A Primer on Persistence Mechanisms](https://www.elastic.co/security-labs/primer-on-persistence-mechanisms)  
+- [Linux Detection Engineering - A Primer on Persistence Mechanisms](https://www.elastic.co/security-labs/primer-on-persistence-mechanisms)
 - [Linux Detection Engineering - A Sequel on Persistence Mechanisms](https://www.elastic.co/security-labs/sequel-on-persistence-mechanisms)
 - [Linux Detection Engineering - A Continuation on Persistence Mechanisms](https://www.elastic.co/security-labs/continuation-on-persistence-mechanisms)
 - [Linux Detection Engineering - Approaching the Summit on Persistence Mechanisms](https://www.elastic.co/security-labs/approaching-the-summit-on-persistence)

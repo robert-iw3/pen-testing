@@ -7,7 +7,7 @@ namespace TeamFiltration.Models.TeamFiltration
 {
 
 
- 
+
     public class SharpChromeCookieObject
     {
         public string domain { get; set; }
@@ -22,7 +22,7 @@ namespace TeamFiltration.Models.TeamFiltration
         public string value { get; set; }
         public float expirationDate { get; set; }
 
-        
+
     }
 
     public class CookieQuickManagerObject

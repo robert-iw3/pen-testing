@@ -148,7 +148,7 @@ namespace TeamFiltration
 
                 else if (args.Contains("--database"))
                     Database.DatabaseStart(args);
-                
+
             }
 
         }

@@ -88,7 +88,7 @@ The MCUBootApp programming can be done similarly to described in `Readme.md`:
                             -f ${OPENOCD}/scripts/target/psoc6_2m.cfg \
                             -c "init; psoc6 sflash_restrictions 1" \
                             -c "init; reset init; program PATH_TO_APPLICATION.hex" \
-                            -c "resume; reset; exit" 
+                            -c "resume; reset; exit"
 
 There is a NULL-pointer placed for SMIF configuration pointer in TOC2 (Table Of Contents, `cy_serial_flash_prog.c`).
 This is done to force CY8PROTO-062-4343W DAP Link firmware to program external memory with hardcoded values.

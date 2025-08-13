@@ -8,7 +8,7 @@ This tool is based on the following excellent blog posts:
 
 [Exploring Mimikatz - Part 1 - WDigest](https://blog.xpnsec.com/exploring-mimikatz-part-1/)
 
-[Bypassing Credential Guard](https://teamhydra.blog/2020/08/25/bypassing-credential-guard/) 
+[Bypassing Credential Guard](https://teamhydra.blog/2020/08/25/bypassing-credential-guard/)
 
 Utilizing direct systems calls via inline assembly in BOF code provides a more opsec safe way of interacting with the LSASS process. Using direct system calls avoids AV/EDR software intercepting user-mode API calls.
 

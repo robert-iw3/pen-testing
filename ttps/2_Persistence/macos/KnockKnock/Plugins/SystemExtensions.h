@@ -12,7 +12,7 @@
 
 @interface SystemExtensions : PluginBase
 {
-    
+
 }
 
 @end

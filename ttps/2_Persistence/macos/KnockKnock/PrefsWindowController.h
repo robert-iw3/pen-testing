@@ -10,7 +10,7 @@
 
 @interface PrefsWindowController : NSWindowController <NSWindowDelegate>
 {
-    
+
 }
 
 /* METHODS */

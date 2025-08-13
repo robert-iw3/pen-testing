@@ -114,7 +114,7 @@ alias scepter-init {
     # All binaries are stored in bins/
 
     # Build rdll path; This needs rework if you want to support x86 for whatever reason
-    # The server must have the interface IP, PORT, username, password, input pipe and outputpipe names stomped in 
+    # The server must have the interface IP, PORT, username, password, input pipe and outputpipe names stomped in
     $rdll_path = getFileProper(script_resource("."), "bins", "x64", $server_dll_name);
 
     $rdll_path_out = getFileProper(script_resource("."), "out", "x64", $server_dll_name);
@@ -240,7 +240,7 @@ alias scepter-init {
     bshinject($beacon_id, $pid, $barch, $rdll_path_out);
 
     $ssh_inited = 1;
-    
+
     println("[SCEPTER] SSH server initiated.");
 }
 

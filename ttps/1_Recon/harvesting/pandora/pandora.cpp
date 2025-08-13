@@ -27,9 +27,9 @@ int main() {
     cout << "Pandora finished. Press Enter to exit...";
     cin.ignore();
     cin.get();
-    
-    
-    
+
+
+
 
     return 0;
 }

@@ -8,16 +8,16 @@ import base64
 def rc4_decrypt(key,data):
 	cipher = ARC4(key)
 	return cipher.decrypt(data)
-	
+
 def return_key(data):
-	
+
 	pattern = "[a-zA-Z]{84}"
 	match_object = re.search(pattern,data)
 	string = data[match_object.start():match_object.end()]
 
 	pattern = "[a-z]{33}"
 	match_object = re.search(pattern,data)
-	string += data[match_object.start():match_object.end()+1] 
+	string += data[match_object.start():match_object.end()+1]
 
 	return hashlib.md5(string).hexdigest()
 
@@ -53,7 +53,7 @@ def decrypt_shellcode(shellcode,key):
 		i+=1
 	return base64_shellcode
 
-	
+
 def main():
 
 	f = open("shellcode.bin","wb")

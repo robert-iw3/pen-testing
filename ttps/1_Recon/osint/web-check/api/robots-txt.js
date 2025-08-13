@@ -14,7 +14,7 @@ const parseRobotsTxt = (content) => {
         lbl: match[1],
         val: match[2],
       };
-      
+
       rules.push(rule);
     } else {
       match = line.match(/^(User-agent):\s*(\S*)$/i);
@@ -23,7 +23,7 @@ const parseRobotsTxt = (content) => {
           lbl: match[1],
           val: match[2],
         };
-        
+
         rules.push(rule);
       }
     }

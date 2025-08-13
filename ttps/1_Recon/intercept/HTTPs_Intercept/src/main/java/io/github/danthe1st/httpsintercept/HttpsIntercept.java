@@ -23,28 +23,28 @@ import org.slf4j.LoggerFactory;
 public class HttpsIntercept {
 	private static final int LOCAL_PORT = Integer.getInteger("localPort", 1337);
 	private static final Logger LOG = LoggerFactory.getLogger(HttpsIntercept.class);
-	
+
 	public static void main(String[] args) throws InterruptedException, IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException {
-		
+
 		Config config = Config.load(Path.of("intercept.yaml"));
-		
+
 		EventLoopGroup bossGroup = new NioEventLoopGroup(r -> Thread.ofVirtual().unstarted(r));// NOSONAR using shutdownGracefully instead of close
 		EventLoopGroup workerGroup = new NioEventLoopGroup(r -> Thread.ofVirtual().unstarted(r));// NOSONAR using shutdownGracefully instead of close
-		
+
 		try{// NOSONAR using shutdownGracefully instead of close
 			Bootstrap clientBootstrap = new Bootstrap()
 				.group(workerGroup)
 				.channel(NioSocketChannel.class);
-			
+
 			ServerBootstrap serverBootstrap = new ServerBootstrap();
 			ChannelFuture serverFuture = serverBootstrap.group(bossGroup, workerGroup)
 				.channel(NioServerSocketChannel.class)
 				.childHandler(new ServerHandlersInit(clientBootstrap, config))
 				.childOption(ChannelOption.AUTO_READ, true)
 				.bind(LOCAL_PORT).sync();
-			
+
 			LOG.info("Https intercept is ready");
-			
+
 			serverFuture.channel().closeFuture().sync();
 		}finally{
 			bossGroup.shutdownGracefully();

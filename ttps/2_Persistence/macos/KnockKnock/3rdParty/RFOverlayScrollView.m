@@ -19,7 +19,7 @@ static NSComparisonResult scrollerAboveSiblingViewsComparator(NSView *view1, NSV
     } else if ([view2 isKindOfClass:[RFOverlayScroller class]]) {
         return NSOrderedAscending;
     }
-    
+
     return NSOrderedSame;
 }
 
@@ -48,7 +48,7 @@ static NSComparisonResult scrollerAboveSiblingViewsComparator(NSView *view1, NSV
     // Restore original scroller width
     method_exchangeImplementations(class_getClassMethod([RFOverlayScroller class], @selector(scrollerWidthForControlSize:scrollerStyle:)),
                                    class_getClassMethod([RFOverlayScroller class], @selector(zeroWidth)));
-    
+
     // Resize vertical scroller
     CGFloat width = [RFOverlayScroller scrollerWidthForControlSize:self.verticalScroller.controlSize
                                                          scrollerStyle:self.verticalScroller.scrollerStyle];
@@ -58,7 +58,7 @@ static NSComparisonResult scrollerAboveSiblingViewsComparator(NSView *view1, NSV
         width,
         self.bounds.size.height - self.headerOffset
     }];
-    
+
     // Move scroller to front
     [self sortSubviewsUsingFunction:scrollerAboveSiblingViewsComparator
                             context:NULL];

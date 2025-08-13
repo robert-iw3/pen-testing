@@ -63,7 +63,7 @@ def notify_update(message, notify_obj):
 
     if teams_webhook is not None:
         teams_update(message, operator, teams_webhook)
-    
+
     if keybase_webhook is not None:
         keybase_update(message, operator, keybase_webhook)
 

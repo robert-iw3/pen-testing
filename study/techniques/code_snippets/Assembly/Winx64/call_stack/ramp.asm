@@ -1,5 +1,5 @@
 section .text
-default rel 
+default rel
 bits 64
 
 global onRamp

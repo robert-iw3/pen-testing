@@ -33,7 +33,7 @@ def add_custom_headers(pluginargs, headers):
             headers[header] = pluginargs["custom-headers"][header]
 
     if "xforwardedfor" in pluginargs.keys():
-        headers["X-My-X-Forwarded-For"] = pluginargs["xforwardedfor"]        
+        headers["X-My-X-Forwarded-For"] = pluginargs["xforwardedfor"]
 
     return headers
 

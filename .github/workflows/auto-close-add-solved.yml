@@ -39,13 +39,13 @@ jobs:
                 }
               }
             `;
-            
+
             const variables = {
               owner: context.repo.owner,
               repo: context.repo.repo,
               prNumber: context.payload.pull_request.number
             };
-            
+
             const result = await github.graphql(query, variables);
             const linkedIssues = result.repository.pullRequest.closingIssuesReferences.nodes.map(issue => issue.number);
             if (linkedIssues.length > 0) {
@@ -61,7 +61,7 @@ jobs:
                 issuesInDescription.push(match[2]);
               }
               issuesInDescription = [...new Set(issuesInDescription)];
-            
+
               core.setOutput("issue_numbers", issuesInDescription.join(' '));
             }
   auto_close_and_solve:

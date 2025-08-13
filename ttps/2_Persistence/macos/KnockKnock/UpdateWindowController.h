@@ -11,7 +11,7 @@
 
 @interface UpdateWindowController : NSWindowController <NSWindowDelegate>
 {
-    
+
 }
 
 /* PROPERTIES */

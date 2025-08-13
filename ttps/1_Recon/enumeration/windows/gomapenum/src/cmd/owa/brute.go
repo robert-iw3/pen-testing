@@ -12,7 +12,7 @@ import (
 var bruteCmd = &cobra.Command{
 	Use:   "brute",
 	Short: "Authentication on Exchange",
-	Long: `Authenticate with basic authentication on multiple endpoints. 
+	Long: `Authenticate with basic authentication on multiple endpoints.
 Beware of account locking. No locking information is returned and therefore no failsafes could be set up.
 Credits: https://github.com/busterb/msmailprobe`,
 	Example: `go run main.go owa brute -u users -p pass -t mail.contoso.com -s 10 -o validUsers

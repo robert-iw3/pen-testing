@@ -21,7 +21,7 @@ Because this is a research c2, the project moves at a slower pace and runs into 
 
 ##### Check the 'SetupGuide.md' for quick setup (TODO)
 The setup guide is being rewritten for public release.
-For now, the Anvil server has a README that will help you get started standing up the server. With the server built, you 'cargo build --release' conduit, connect to Anvil, and use the build function to build implants. 
+For now, the Anvil server has a README that will help you get started standing up the server. With the server built, you 'cargo build --release' conduit, connect to Anvil, and use the build function to build implants.
 More documentation is on the way.
 
 Now I will provide a bit of a roadmap and current architecture.
@@ -29,7 +29,7 @@ Now I will provide a bit of a roadmap and current architecture.
 ##### Current Tech Stack: (100% Rust)
 
 1. Server: **Anvil**
-   
+
    - actix.rs & tokio
    - https
    - api for imps (implants)
@@ -38,7 +38,7 @@ Now I will provide a bit of a roadmap and current architecture.
    - sqlite db (rusqlite)
 
 2. Implant: **Imp**
-   
+
    - platform-specific imps (windows, linux, mac)
    - payload options as executable, dll, or shellcode (shellcode - windows only)
    - simple, yet effective design
@@ -46,7 +46,7 @@ Now I will provide a bit of a roadmap and current architecture.
    - modular builds, moving toward giving operators control over granular options
 
 3. TUI Client: **conduit**
-   
+
    - main way of interacting with the server
    - Terminal User Interface (TUI) with realtime dashboard display
    - user friendly
@@ -68,7 +68,7 @@ AI modules - TBD
 - process injections - 1 custom injection I wrote based on a combination and modification of existing techniques, so far released. more to come.
 - custom credential harvesting. *in progress. early PoCs complete. will add*
 - AI support modules (may release as seperate libraries/crates)
-- logging for command and output history (conduit side). 
+- logging for command and output history (conduit side).
 - options for comms and listener start/stop
 
 ##### CREDITS (direct code contributions)
@@ -82,7 +82,7 @@ note - the repos used here are forks, because they are modified versions to inte
 Anybody I missed, please ping me to be added to credits
 
 ##### CREDITS (inspiration / education)
-- 5pider (@C5pider) 
+- 5pider (@C5pider)
 - Austin Hudson (ilove2pwn_)
 - Trickster0 (@trickster012)
 - memN0ps (@memN0ps)

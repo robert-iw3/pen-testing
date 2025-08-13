@@ -12,7 +12,7 @@
 
 @interface File : ItemBase
 {
-    
+
 }
 
 /* PROPERTIES */

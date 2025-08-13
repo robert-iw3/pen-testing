@@ -5,7 +5,7 @@ auth_tokens:
   - domain: 'sec565.rocks'
     path: '/api/auth/validate-token'
     name: 'token'
-    header: 'Authorization'  
+    header: 'Authorization'
     type: 'http'
 auth_urls:
   - '/sensitive-data'
@@ -16,7 +16,7 @@ credentials:
   username:
     key: ''
     search: '"email":"([^"]*)'
-    type: 'json'    
+    type: 'json'
   password:
     key: ''
     search: '"password":"([^"]*)'
@@ -25,7 +25,7 @@ credentials:
     key: 'mfaToken'
     search: '"mfaToken":"([^"]*)'
     type: 'json'
-   
+
 login:
   domain: 'sec565.rocks'
   path: '/login'

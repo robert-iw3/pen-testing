@@ -35,7 +35,7 @@ rule APT_Lazarus_VBA_Malware_Oct19_1 {
       $s16 = "$p = New-Object System.Diagnostics.Process" fullword ascii
       $s17 = "$scmd=[System.Text.ASCIIEncoding]::UTF8.GetString($buf,12,$nmlen)" fullword ascii
       $s18 = "$rq=[System.Net.WebRequest]::create($pxy + \"?v=\" + $unm)" fullword ascii
-      $s19 = "$ip=(Test-Connection -ComputerName $hs -Count 1  | Select -ExpandProperty IPV4Address).Address" fullword ascii  
+      $s19 = "$ip=(Test-Connection -ComputerName $hs -Count 1  | Select -ExpandProperty IPV4Address).Address" fullword ascii
    condition:
       uint16(0) == 0xcfd0 and filesize < 5000KB and
       1 of ($x*) and 4 of them
@@ -67,7 +67,7 @@ rule APT_Lazarus_PS1_Malware_Oct19_1 {
       $s16 = "$global:tid=Get-Random -Minimum 128 -Maximum 16383" fullword ascii
       $s17 = "a; name=`\"file`\"; filename=`\"\" + $fnm + \"`\"`r`nContent-Type: octet-stream`r`n`r`n\")" fullword ascii
       $s18 = "$rq.ContentLength=$pbdy.Length + $bds + $ebdy.Length;" fullword ascii
-      $s19 = "\"`r`nContent-Disposition: form-data; name=`\"_webident_s`\"`r`n`r`n\" + $rid + \"`r`n--\" + $bdy + \"`r`nContent-Disposition: f" ascii 
+      $s19 = "\"`r`nContent-Disposition: form-data; name=`\"_webident_s`\"`r`n`r`n\" + $rid + \"`r`n--\" + $bdy + \"`r`nContent-Disposition: f" ascii
     condition:
       uint16(0) == 0xbbef and filesize < 30KB and
       8 of them
@@ -223,7 +223,7 @@ rule APT_Lazarus_macOS_Yort_Malware_Oct19_1 {
       $s15 = "_ReplyGetConfig" fullword ascii
       $s16 = "_ReplyOtherShellCmd" fullword ascii
       $s17 = "content-type: multipart/form-data" fullword ascii
-      $s18 = "GetMsgHeaderSize" fullword ascii  
+      $s18 = "GetMsgHeaderSize" fullword ascii
    condition:
       uint16(0) == 0xfacf and filesize < 80KB and
       8 of them

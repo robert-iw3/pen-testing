@@ -60,7 +60,7 @@ namespace winPEAS.Info.ApplicationInfo
             new List<string> {"HKCU", @"Software\Microsoft\Windows\CurrentVersion\RunOnceService"},
             new List<string> {"HKCU", @"Software\Wow6432Node\Microsoft\Windows\CurrentVersion\RunService"},
             new List<string> {"HKCU", @"Software\Wow6432Node\Microsoft\Windows\CurrentVersion\RunOnceService"},
-            
+
             //Special Autorun
             new List<string> {"HKLM", @"Software\Microsoft\Windows\CurrentVersion\RunOnceEx"},
             new List<string> {"HKLM", @"Software\Wow6432Node\Microsoft\Windows\CurrentVersion\RunOnceEx"},
@@ -71,12 +71,12 @@ namespace winPEAS.Info.ApplicationInfo
             //RunServices
             new List<string> {"HKLM", @"Software\Microsoft\Windows\CurrentVersion\RunServices"},
 
-            new List<string> {"HKCU", @"Software\Microsoft\Windows\CurrentVersion\RunServices"},            
+            new List<string> {"HKCU", @"Software\Microsoft\Windows\CurrentVersion\RunServices"},
 
-            //RunServicesOnce 
+            //RunServicesOnce
             new List<string> {"HKLM", @"Software\Microsoft\Windows\CurrentVersion\RunServicesOnce"},
 
-            new List<string> {"HKCU", @"Software\Microsoft\Windows\CurrentVersion\RunServicesOnce"},            
+            new List<string> {"HKCU", @"Software\Microsoft\Windows\CurrentVersion\RunServicesOnce"},
 
             //Startup Path
             new List<string> {"HKLM", @"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Startup"},
@@ -84,7 +84,7 @@ namespace winPEAS.Info.ApplicationInfo
 
             new List<string> {"HKCU", @"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders", "Common Startup"},
             new List<string> {"HKCU", @"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Startup"},
-            
+
 
             //Winlogon
             new List<string> {"HKLM", @"Software\Microsoft\Windows NT\CurrentVersion\Winlogon", "Userinit"},    // key = Winlogo, Value = Userinit

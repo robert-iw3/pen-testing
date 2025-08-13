@@ -26,8 +26,8 @@ namespace Tokenvator
         internal const UInt32 PROCESS_VM_READ                     = 0x0010;
         internal const UInt32 PROCESS_VM_WRITE                    = 0x0020;
 
-        //Token 
-        
+        //Token
+
         //https://docs.microsoft.com/en-us/windows/desktop/secauthz/standard-access-rights
         internal const UInt32 STANDARD_RIGHTS_ALL         = (DELETE | READ_CONTROL | WRITE_DAC | WRITE_OWNER | SYNCHRONIZE);
         internal const UInt32 STANDARD_RIGHTS_EXECUTE     = READ_CONTROL;

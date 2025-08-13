@@ -4,7 +4,7 @@ from rolepermissions.checkers import has_permission
 
 class HasPermission(BasePermission):
 	"""
-		This is a custom permission class for DRF that checks if the user 
+		This is a custom permission class for DRF that checks if the user
 		has the required permission.
 		Usage in drf views:
 		permission_classes = [HasPermission]

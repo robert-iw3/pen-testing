@@ -75,7 +75,7 @@ namespace ysoserial.Helpers
                 Console.Error.WriteLine(e.Message);
                 Environment.Exit(-1);
             }
-            
+
             return assemblyBytes;
         }
     }

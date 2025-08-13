@@ -146,7 +146,7 @@ DivU64x32 (
     return Dividend / Divisor;
 #else
     UINT32      Rem;
-    UINT32      bit;        
+    UINT32      bit;
 
     ASSERT (Divisor != 0);
     ASSERT ((Divisor >> 31) == 0);
@@ -159,16 +159,16 @@ DivU64x32 (
     for (bit=0; bit < 64; bit++) {
         _asm {
             shl     dword ptr Dividend[0], 1    ; shift rem:dividend left one
-            rcl     dword ptr Dividend[4], 1    
-            rcl     dword ptr Rem, 1            
+            rcl     dword ptr Dividend[4], 1
+            rcl     dword ptr Rem, 1
 
             mov     eax, Rem
             cmp     eax, Divisor                ; Is Rem >= Divisor?
             cmc                                 ; No - do nothing
-            sbb     eax, eax                    ; Else, 
+            sbb     eax, eax                    ; Else,
             sub     dword ptr Dividend[0], eax  ;   set low bit in dividen
             and     eax, Divisor                ; and
-            sub     Rem, eax                    ;   subtract divisor 
+            sub     Rem, eax                    ;   subtract divisor
         }
     }
 

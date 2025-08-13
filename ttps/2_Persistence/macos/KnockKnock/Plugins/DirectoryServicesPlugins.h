@@ -12,7 +12,7 @@
 
 @interface DirectoryServicesPlugins : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

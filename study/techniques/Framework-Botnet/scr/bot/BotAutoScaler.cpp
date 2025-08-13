@@ -8,7 +8,7 @@
 #include <nlohmann/json.hpp>
 #include <future>
 
-BotAutoScaler::BotAutoScaler(int maxBots) 
+BotAutoScaler::BotAutoScaler(int maxBots)
     : maxBots(maxBots), cpuLimit(0), memoryLimit(0), parallelTaskLimit(0) {}
 
 void BotAutoScaler::scaleUp(int count) {

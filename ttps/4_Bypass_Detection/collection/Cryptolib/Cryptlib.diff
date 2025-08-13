@@ -9,20 +9,20 @@ index 68bc25a..1abe78e 100644
 -  return ReallocatePool ((UINTN) size, (UINTN) size, ptr);
 +  return ReallocatePool (ptr, (UINTN) size, (UINTN) size);
  }
- 
+
  /* De-allocates or frees a memory block */
 diff --git a/Cryptlib/SysCall/TimerWrapper.c b/Cryptlib/SysCall/TimerWrapper.c
 index 805e6b4..bb7bcba 100644
 --- a/Cryptlib/SysCall/TimerWrapper.c
 +++ b/Cryptlib/SysCall/TimerWrapper.c
 @@ -13,9 +13,7 @@ WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
- 
+
  **/
- 
+
 -#include <Uefi.h>
  #include <OpenSslSupport.h>
 -#include <Library/UefiRuntimeServicesTableLib.h>
- 
+
  //
  // -- Time Management Routines --
 @@ -78,7 +76,7 @@ time_t time (time_t *timer)
@@ -31,7 +31,7 @@ index 805e6b4..bb7bcba 100644
    //
 -  gRT->GetTime (&Time, NULL);
 +  uefi_call_wrapper(RT->GetTime, 2, &Time, NULL);
- 
+
    //
    // Years Handling
 diff --git a/Cryptlib/SysCall/CrtWrapper.c b/Cryptlib/SysCall/CrtWrapper.c
@@ -41,7 +41,7 @@ index fb446b6..5a8322d 100644
 @@ -293,16 +293,6 @@ size_t fwrite (const void *buffer, size_t size, size_t count, FILE *stream)
  //  -- Dummy OpenSSL Support Routines --
  //
- 
+
 -int BIO_printf (void *bio, const char *format, ...)
 -{
 -  return 0;

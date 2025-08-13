@@ -11,7 +11,7 @@ namespace Tokenvator
     // This is mostly pulled from a stack exchange question
     ////////////////////////////////////////////////////////////////////////////////
     class TabComplete
-    {        
+    {
         private static Assembly assembly = Assembly.GetExecutingAssembly();
 
         private List<String> scrollback = new List<String>();

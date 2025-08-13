@@ -21,7 +21,7 @@ if [ "$is_do" = "Yes" ]; then
       do_req='curl -s -f -L '
   elif [ "$(command -v wget || echo -n '')" ]; then
       do_req='wget -q -O - '
-  else 
+  else
       echo "Neither curl nor wget were found, I can't enumerate the metadata service :("
   fi
 

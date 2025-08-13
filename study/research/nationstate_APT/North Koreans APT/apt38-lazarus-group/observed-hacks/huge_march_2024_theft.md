@@ -16,7 +16,7 @@ Tags:: 🔑 SquidSquad
 
 - Mar 2024: Thefts from hot wallets
 
-- Apr 2024: Unstake, steal huge batch, drains Ledger (Apr 23rd) 
+- Apr 2024: Unstake, steal huge batch, drains Ledger (Apr 23rd)
 
 - WEIRD -- All the EVM stuff is still held in Gnosis safes??????????????????????????????????????????????????????
 
@@ -28,7 +28,7 @@ Tags:: 🔑 SquidSquad
 - 23bfae249ec266f903bd8315103ea6472109bacf83a0bb3ebabc25b90d3b849c Largest hw theft
 
 
-### BTC 
+### BTC
 
 - bc1q7p6pu066e8pxu8ary5yyrvk8zzfw5tf6zs2sck
 - bc1q3es0nhjq3gmhwf83mhd6d0wk9chdlfykaeuzld

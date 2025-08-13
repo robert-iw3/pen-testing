@@ -9,7 +9,7 @@ Amount Stolen:: $122k
 
 ## Details
 
-for GERA you have this oct 18 hack 
+for GERA you have this oct 18 hack
 
 0xb8c324554f8bcd001584aa3917ef9f5f6d3a3053 -> bc1qp8k0fd49yw4q88prm5lgu7yjj0uwqcmvtnc06c
 

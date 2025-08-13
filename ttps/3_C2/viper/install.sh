@@ -168,7 +168,7 @@ optimize_system() {
 
 # VIPER installation
 install_viper() {
-    color_echo "\nStarting VIPER installation..." 
+    color_echo "\nStarting VIPER installation..."
 
     # Interactive password input
     while true; do
@@ -176,7 +176,7 @@ install_viper() {
         echo
         read -sp "Confirm password: " viper_pass_confirm
         echo
-        
+
         if [[ "$viper_pass" != "$viper_pass_confirm" ]]; then
             color_echo "Password mismatch, please try again" red
         elif [[ ${#viper_pass} -lt 8 ]]; then
@@ -315,5 +315,5 @@ install_docker
 optimize_system
 install_viper
 
-color_echo "\nAll deployments completed successfully!" 
+color_echo "\nAll deployments completed successfully!"
 exit 0

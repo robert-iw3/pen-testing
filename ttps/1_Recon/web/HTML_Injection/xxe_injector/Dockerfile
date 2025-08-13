@@ -3,7 +3,7 @@
 ARG repo="docker.io" \
     base_image="alpine:3.22" \
     image_hash="eafc1edb577d2e9b458664a15f23ea1c370214193226069eb22921169fc7e43f"
-    
+
 FROM ${repo}/${base_image}@sha256:${image_hash}
 
 ARG url
@@ -41,7 +41,7 @@ RUN \
     python3 -m pip install --upgrade tabulate; \
     rm -rf /var/cache/apk/* /root/.cache/*
 
-COPY . .    
+COPY . .
 
 CMD [ "bash", "-c", "python3 ./html_injection.py -u ${URL} --hpp --htmli --xxe" ]
 # podman build -t htmli --build-arg url=https://someurl.url .

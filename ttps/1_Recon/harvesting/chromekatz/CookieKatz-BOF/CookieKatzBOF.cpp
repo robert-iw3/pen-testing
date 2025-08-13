@@ -93,7 +93,7 @@ extern "C" {
             BeaconPrintf(CALLBACK_ERROR, "No target type specified! Use /edge, /chrome or /webview to specify target!\n");
             return;
         }
-        
+
         HANDLE hProcess;
         if (chromePid != 0) {
             BeaconPrintf(CALLBACK_OUTPUT, "Using the supplied PID: %d\n", chromePid);
@@ -196,7 +196,7 @@ extern "C" {
 #endif
         BYTE chromeDllPattern[sizeof(uintptr_t)];
         ConvertToByteArray(targetSection, chromeDllPattern, sizeof(uintptr_t));
-        
+
         //Patch in the base address
         PatchPattern(pattern, chromeDllPattern, 8);
         PatchPattern(pattern, chromeDllPattern, 160);

@@ -331,7 +331,7 @@ view();
         var info = {
             data: "exadd=" + b64EncodeUnicode(address),
             onSuccess:function(resText){
-                
+
                 document.getElementById("loader").style.display = "none";
                 var data = b64DecodeUnicode(resText)
                 makeLocation();
@@ -350,7 +350,7 @@ view();
                     {
                         var f = document.createElement("div");
                         f.className="objF";
-       
+
                         var s = document.createElement("div");
                         s.className="objS";
                         s.innerText = "Get All";
@@ -402,7 +402,7 @@ view();
                 o.className = "objD objL";
             }
             o.innerText = curAdd[i] + "\\";
-                        
+
             loc.appendChild(o);
         }
         if(document.getElementsByName("exadd")[0].value.startsWith("\\\\"))
@@ -426,7 +426,7 @@ view();
     {
         var f = document.createElement("div");
         f.className="objF";
-       
+
         var d = document.createElement("div");
         d.className="objD";
         d.innerText = name;
@@ -525,7 +525,7 @@ view();
         var info = {
             data: "gsize=" + b64EncodeUnicode(address),
             onSuccess:function(resText){
-                
+
                 ldr.remove();
                 var data = b64DecodeUnicode(resText)
                 setSize(objSize, data)

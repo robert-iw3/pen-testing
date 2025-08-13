@@ -26,11 +26,11 @@ DECLSPEC_IMPORT INT WINAPI OLEAUT32$SystemTimeToVariantTime(LPSYSTEMTIME lpSyste
 
 //ACTIVEDS
 typedef HRESULT (WINAPI *_ADsOpenObject)(
-	LPCWSTR lpszPathName, 
-	LPCWSTR lpszUserName, 
-	LPCWSTR lpszPassword, 
-	DWORD dwReserved, 
-	REFIID riid, 
+	LPCWSTR lpszPathName,
+	LPCWSTR lpszUserName,
+	LPCWSTR lpszPassword,
+	DWORD dwReserved,
+	REFIID riid,
 	void **ppObject
 	);
 

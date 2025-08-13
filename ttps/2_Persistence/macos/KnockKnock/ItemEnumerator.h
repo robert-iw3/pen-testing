@@ -10,7 +10,7 @@
 
 @interface ItemEnumerator : NSObject
 {
-    
+
 }
 
 /* iVars */

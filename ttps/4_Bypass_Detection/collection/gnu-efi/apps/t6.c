@@ -21,8 +21,8 @@ efi_main (EFI_HANDLE image, EFI_SYSTEM_TABLE *systab)
 	InitializeLib(image, systab);
 	status = uefi_call_wrapper(systab->BootServices->HandleProtocol,
 				3,
-				image, 
-				&LoadedImageProtocol, 
+				image,
+				&LoadedImageProtocol,
 				(void **) &loaded_image);
 	if (EFI_ERROR(status)) {
 		Print(L"handleprotocol: %r\n", status);

@@ -136,8 +136,8 @@ KeyboardTranslatorWriter::KeyboardTranslatorWriter(QIODevice *destination)
     _writer = new QTextStream(_destination);
 }
 
-KeyboardTranslatorWriter::~KeyboardTranslatorWriter() { 
-    delete _writer; 
+KeyboardTranslatorWriter::~KeyboardTranslatorWriter() {
+    delete _writer;
 }
 
 void KeyboardTranslatorWriter::writeHeader(const QString &description) {
@@ -348,12 +348,12 @@ bool KeyboardTranslatorReader::parseAsKeyCode(const QString &item, int &keyCode)
     return true;
 }
 
-QString KeyboardTranslatorReader::description() const { 
+QString KeyboardTranslatorReader::description() const {
     return _description;
 }
 
-bool KeyboardTranslatorReader::hasNextEntry() const { 
-    return _hasNext; 
+bool KeyboardTranslatorReader::hasNextEntry() const {
+    return _hasNext;
 }
 
 KeyboardTranslator::Entry KeyboardTranslatorReader::createEntry(const QString &condition,
@@ -387,8 +387,8 @@ KeyboardTranslator::Entry KeyboardTranslatorReader::nextEntry() {
     return entry;
 }
 
-bool KeyboardTranslatorReader::parseError() { 
-    return false; 
+bool KeyboardTranslatorReader::parseError() {
+    return false;
 }
 
 QList<KeyboardTranslatorReader::Token> KeyboardTranslatorReader::tokenize(const QString &line) {
@@ -585,7 +585,7 @@ QByteArray KeyboardTranslator::Entry::unescape(const QByteArray &input) const {
                     replacement[0] = (char)charValue;
                     charsToRemove = 2 + static_cast<int>(strlen(hexDigits));
                     break;
-                } 
+                }
                 default:
                     escapedChar = false;
                     break;
@@ -694,16 +694,16 @@ void KeyboardTranslator::setDescription(const QString &description) {
     _description = description;
 }
 
-QString KeyboardTranslator::description() const { 
-    return _description; 
+QString KeyboardTranslator::description() const {
+    return _description;
 }
 
-void KeyboardTranslator::setName(const QString &name) { 
-    _name = name; 
+void KeyboardTranslator::setName(const QString &name) {
+    _name = name;
 }
 
-QString KeyboardTranslator::name() const { 
-    return _name; 
+QString KeyboardTranslator::name() const {
+    return _name;
 }
 
 QList<KeyboardTranslator::Entry> KeyboardTranslator::entries() const {

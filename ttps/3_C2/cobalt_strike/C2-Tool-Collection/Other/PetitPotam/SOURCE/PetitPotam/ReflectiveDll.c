@@ -3,7 +3,7 @@
 #undef  UNICODE
 #define UNICODE
 
-#include <windows.h> 
+#include <windows.h>
 #include <stdio.h>
 
 #include "ReflectiveLoader.h"

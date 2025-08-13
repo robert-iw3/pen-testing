@@ -11,7 +11,7 @@ if __name__ == "__main__":
     pe = pefile.PE(sys.argv[1], fast_load=True)
     pe.parse_data_directories(directories=d)
 
-    rt_rcdata_idx = [ 
+    rt_rcdata_idx = [
         entry.id for entry in
         pe.DIRECTORY_ENTRY_RESOURCE.entries].index(pefile.RESOURCE_TYPE['RT_RCDATA'])
 

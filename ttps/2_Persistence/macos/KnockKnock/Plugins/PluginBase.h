@@ -12,7 +12,7 @@
 
 @interface PluginBase : NSObject
 {
-    
+
 }
 
 //callback

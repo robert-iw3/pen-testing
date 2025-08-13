@@ -213,7 +213,7 @@ public:
 
 private:
     static const QByteArray defaultTranslatorText;
-    
+
     QString get_kb_layout_dir();
     void findTranslators();
     KeyboardTranslator* loadTranslator(const QString& name);
@@ -226,12 +226,12 @@ private:
     bool _haveLoadedAll;
 };
 
-inline int KeyboardTranslator::Entry::keyCode() const { 
-    return _keyCode; 
+inline int KeyboardTranslator::Entry::keyCode() const {
+    return _keyCode;
 }
 
-inline void KeyboardTranslator::Entry::setKeyCode(int keyCode) { 
-    _keyCode = keyCode; 
+inline void KeyboardTranslator::Entry::setKeyCode(int keyCode) {
+    _keyCode = keyCode;
 }
 
 inline void KeyboardTranslator::Entry::setModifiers( Qt::KeyboardModifiers modifier ) {
@@ -239,7 +239,7 @@ inline void KeyboardTranslator::Entry::setModifiers( Qt::KeyboardModifiers modif
 }
 
 inline Qt::KeyboardModifiers KeyboardTranslator::Entry::modifiers() const {
-    return _modifiers; 
+    return _modifiers;
 }
 
 inline void  KeyboardTranslator::Entry::setModifierMask( Qt::KeyboardModifiers mask ) {
@@ -247,7 +247,7 @@ inline void  KeyboardTranslator::Entry::setModifierMask( Qt::KeyboardModifiers m
 }
 
 inline Qt::KeyboardModifiers KeyboardTranslator::Entry::modifierMask() const {
-    return _modifierMask; 
+    return _modifierMask;
 }
 
 inline bool KeyboardTranslator::Entry::isNull() const {
@@ -258,8 +258,8 @@ inline void KeyboardTranslator::Entry::setCommand( Command command ) {
     _command = command;
 }
 
-inline KeyboardTranslator::Command KeyboardTranslator::Entry::command() const { 
-    return _command; 
+inline KeyboardTranslator::Command KeyboardTranslator::Entry::command() const {
+    return _command;
 }
 
 inline void KeyboardTranslator::Entry::setText( const QByteArray& text ) {
@@ -292,16 +292,16 @@ inline void KeyboardTranslator::Entry::setState( States state ) {
     _state = state;
 }
 
-inline KeyboardTranslator::States KeyboardTranslator::Entry::state() const { 
-    return _state; 
+inline KeyboardTranslator::States KeyboardTranslator::Entry::state() const {
+    return _state;
 }
 
 inline void KeyboardTranslator::Entry::setStateMask( States stateMask ) {
     _stateMask = stateMask;
 }
 
-inline KeyboardTranslator::States KeyboardTranslator::Entry::stateMask() const { 
-    return _stateMask; 
+inline KeyboardTranslator::States KeyboardTranslator::Entry::stateMask() const {
+    return _stateMask;
 }
 
 Q_DECLARE_METATYPE(KeyboardTranslator::Entry)

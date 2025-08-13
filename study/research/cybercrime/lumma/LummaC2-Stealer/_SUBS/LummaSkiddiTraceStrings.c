@@ -82,7 +82,7 @@ PWSTR *GetFilePath(wchar_t *Src)
 
   allocatedMem = malloc((unsigned __int64)(unsigned int)(strLength - 6 * removeCount + 1) >> 31 != 0 ? -1 : 2 * (strLength - 6 * removeCount + 1));
   result = allocatedMem;
-  
+
   if (!allocatedMem)
     return result;
 
@@ -154,7 +154,7 @@ PWSTR *GetFilePath(wchar_t *Src)
 
 
 =========================================================
-= calls 
+= calls
 
 
 
@@ -166,15 +166,15 @@ PWSTR *GetFilePath(wchar_t *Src)
 
     from a function that related to Stealing etc...:
       - int16_t* eax = GetFilePath(u"Meedx765taMaedx765sk");
-      - int16_t* eax_1 = GetFilePath(u"ejbalbakoplchlghecdaedx765lmeeeajnimhm");  
+      - int16_t* eax_1 = GetFilePath(u"ejbalbakoplchlghecdaedx765lmeeeajnimhm");
       - int16_t* eax_2 = GetFilePath(u"Meedx765taMaedx765sk");
       - int16_t* eax_3 = GetFilePath(u"nkbihfbeogaeaoehlefedx765nkodbefgpgknn");
       - int16_t* eax_4 = GetFilePath(u"Troedx765nLiedx765nk");
       - int16_t* eax_5 = GetFilePath(u"ibnejdfjmmkpcnlpebklmnkoeoihofec");
       - PWSTR var_14_3 = GetFilePath(u"Ronedx765in Walledx765et");
-      - int16_t* eax_7 = GetFilePath(u"fnjhmkhhmkbedx765jkkabndcnnogagogbneec");    
-      - PWSTR var_14_4 = GetFilePath(u"Binedx765ance Chaedx765in Waledx765let");     
-      - int16_t* eax_9 = GetFilePath(u"fhbohimaelbohpjbbldcngcnapnedx765dodjp");     
+      - int16_t* eax_7 = GetFilePath(u"fnjhmkhhmkbedx765jkkabndcnnogagogbneec");
+      - PWSTR var_14_4 = GetFilePath(u"Binedx765ance Chaedx765in Waledx765let");
+      - int16_t* eax_9 = GetFilePath(u"fhbohimaelbohpjbbldcngcnapnedx765dodjp");
       - PWSTR var_14_5 = GetFilePath(u"Coinbedx765ase");
       - int16_t* eax_14 = GetFilePath(u"hnfanknocfeedx765ofbddgcijnmedx765hnfnkdnaad");
       - int16_t* eax_50 = GetFilePath(u"Eedx765OS Authentiedx765cator");

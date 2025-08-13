@@ -50,7 +50,7 @@ LibGetSalWakeupVector (
 
 VOID *
 LibSearchSalSystemTable (
-    IN  UINT8   EntryType  
+    IN  UINT8   EntryType
     );
 
 

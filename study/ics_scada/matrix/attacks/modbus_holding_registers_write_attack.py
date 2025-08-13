@@ -54,12 +54,12 @@ class ModbusUnauthorizedHoldingRegisterWriter:
         if self.connect():
             logger.info("\nWriting values to Modbus server...")
             self.write_holding_registers()
-            
+
             time.sleep(0.5)  # Small delay before reading
-            
+
             logger.info("\nReading values back...")
             self.read_holding_registers()
-            
+
             self.client.close()
         else:
             logger.error("Failed to connect to Modbus server")

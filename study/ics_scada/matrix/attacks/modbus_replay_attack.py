@@ -23,7 +23,7 @@ class ModbusReplyAttacker:
 
         modbus_request_packets = []
         packet_count = 0
-        
+
         for packet in packets:
             if TCP in packet and packet[TCP].payload:
                 raw_data = bytes(packet[TCP].payload)
@@ -82,7 +82,7 @@ class ModbusReplyAttacker:
                     logger.info("\n" + self.decode_response(func_code, response))
             except Exception as e:
                 logger.error("Error during replay: %s", str(e))
-            
+
             time.sleep(0.1)
         self.client.close()
         logger.info("\nReplay attack completed")
@@ -120,7 +120,7 @@ if __name__ == "__main__":
         logger.error("This script requires root privileges to replay packets")
         logger.error("Please run with sudo")
         sys.exit(1)
-    
+
     attacker = ModbusReplyAttacker()
     modbus_packets = attacker.load_modbus_packets()
     if attacker.connect_to_target():

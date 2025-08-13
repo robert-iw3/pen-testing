@@ -36,7 +36,7 @@ import Screenshots from "./Screenshots.astro"
   // Select the form and input elements from the DOM
   const form = document.getElementById('live-start');
   const urlInput = document.getElementById('url-input') as HTMLInputElement;
-    
+
   // Submit Event - called when user submits form with a valid URL
   // Gets and checks the URL, then redirects user to /check/:url
   form?.addEventListener('submit', (event) => {
@@ -47,7 +47,7 @@ import Screenshots from "./Screenshots.astro"
       window.location.href = `/check/${encodedUrl}`;
     }
   });
-  
+
   // User presses enter, forgets to add protocol
   // Will add https:// to the URL, and retry form submit
   urlInput?.addEventListener('keydown', (event) => {

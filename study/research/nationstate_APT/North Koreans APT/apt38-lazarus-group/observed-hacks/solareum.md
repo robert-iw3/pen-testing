@@ -24,7 +24,7 @@ Upon further investigation, it was determined that all of the compromised BONKBO
 
 Solareum speculated that the exploits may have been linked to compromised Telegram bot tokens, which could have allowed the attackers to obtain private keys from message history.
 
-The Solareum team has been less forthcoming with information and initially denied they had been exploited. Eventually they accepted, "There maybe a chance we got exploited." They have not been helpful in the investigation. 
+The Solareum team has been less forthcoming with information and initially denied they had been exploited. Eventually they accepted, "There maybe a chance we got exploited." They have not been helpful in the investigation.
 
 Solareum later wrote that they would be closing the project, and deleted their website. This drew some criticism from users who accused them of doing nothing to investigate the hack, or even being responsible themselves. The project wrote on Twitter, "We at #SOLAREUM team can clarify that we DO NOT steal money." Ah, well, in that case....
 

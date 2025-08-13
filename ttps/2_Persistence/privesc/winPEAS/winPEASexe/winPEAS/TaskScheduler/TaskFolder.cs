@@ -415,13 +415,13 @@ namespace winPEAS.TaskScheduler
         /// // Create a new task definition for the local machine and assign properties
         /// TaskDefinition td = TaskService.Instance.NewTask();
         /// td.RegistrationInfo.Description = "Does something";
-        /// 
+        ///
         /// // Add a trigger that, starting tomorrow, will fire every other week on Monday and Saturday
         /// td.Triggers.Add(new WeeklyTrigger(DaysOfTheWeek.Monday | DaysOfTheWeek.Saturday, 2));
-        /// 
+        ///
         /// // Create an action that will launch Notepad whenever the trigger fires
         /// td.Actions.Add("notepad.exe", "c:\\test.log");
-        /// 
+        ///
         /// // Register the task in the root folder of the local machine using the current user and the S4U logon type
         /// TaskService.Instance.RootFolder.RegisterTaskDefinition("Test", td);
         /// ]]></code></example>
@@ -460,13 +460,13 @@ namespace winPEAS.TaskScheduler
         /// // Create a new task definition for the local machine and assign properties
         /// TaskDefinition td = TaskService.Instance.NewTask();
         /// td.RegistrationInfo.Description = "Does something";
-        /// 
+        ///
         /// // Add a trigger that, starting tomorrow, will fire every other week on Monday and Saturday
         /// td.Triggers.Add(new WeeklyTrigger(DaysOfTheWeek.Monday | DaysOfTheWeek.Saturday, 2));
-        /// 
+        ///
         /// // Create an action that will launch Notepad whenever the trigger fires
         /// td.Actions.Add("notepad.exe", "c:\\test.log");
-        /// 
+        ///
         /// // Register the task in the root folder of the local machine using the current user and the S4U logon type
         /// TaskService.Instance.RootFolder.RegisterTaskDefinition("Test", td);
         /// ]]></code>

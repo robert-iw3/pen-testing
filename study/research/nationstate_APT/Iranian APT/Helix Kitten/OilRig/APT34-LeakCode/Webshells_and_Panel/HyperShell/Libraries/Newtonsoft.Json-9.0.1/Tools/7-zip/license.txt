@@ -7,8 +7,8 @@
 
       7za.exe is distributed under the GNU LGPL license
 
-      Notes: 
-        You can use 7-Zip on any computer, including a computer in a commercial 
+      Notes:
+        You can use 7-Zip on any computer, including a computer in a commercial
         organization. You don't need to register or pay for 7-Zip.
 
 

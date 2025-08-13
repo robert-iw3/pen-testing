@@ -23,10 +23,10 @@ static inline void cipher(char *data, size_t size, uint64_t key) {
 }
 
 typedef struct {
-    char *data;      
-    size_t size;     
-    uint64_t key;    
-    int encrypted;   
+    char *data;
+    size_t size;
+    uint64_t key;
+    int encrypted;
 } obfuscated_data_t;
 
 static inline obfuscated_data_t *obfuscate_create(const char *literal, uint64_t key) {

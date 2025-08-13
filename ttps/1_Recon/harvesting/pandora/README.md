@@ -37,7 +37,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is a red team tool that assists in gathering credentials from different password managers. They are separated into three categories, Windows 10 desktop applications, browsers, and browser plugins. This may work on other OS, like Linux, but it is not tested yet. In this release (v1.0), the tool supports 14 password managers, with 18 different implementations (e.g., the tool could dump credentials either from the desktop app, or the browser plugin of the same product). Specifically, in most cases, password managers must be up and unlocked for the tool to work. 
+This is a red team tool that assists in gathering credentials from different password managers. They are separated into three categories, Windows 10 desktop applications, browsers, and browser plugins. This may work on other OS, like Linux, but it is not tested yet. In this release (v1.0), the tool supports 14 password managers, with 18 different implementations (e.g., the tool could dump credentials either from the desktop app, or the browser plugin of the same product). Specifically, in most cases, password managers must be up and unlocked for the tool to work.
 
 The tool can be executed in Full, Fast, and Local modes. Full mode dumps and checks all processes of this password manager. Fast mode checks the most common process that usually contains the credentials. Local mode checks the dump file locally. Also, local mode has the "merge" option that can assist in merging multiple dump files into one, before doing the analysis. Additionally, the tool can check if a directory of a password manager exists to assist the user in identifying which password manager can be used in this host. The tool will only need common **user's permissions** to be able to dump a process from a password manager. Only the 1Password desktop app requires high integrity privileges for the user to be able to dump the process.
 
@@ -102,9 +102,9 @@ The code is structured as follows:
 
 It should be noted that in some cases password managers store in plaintext other types of data, like credit card details, addresses, Wi-Fi passwords etc. Users should be wary of such attacks and should not execute untrusted files, enable 2FA, etc.
 
-Regarding the exploits, the methodology is simple, i.e., the purpose is to identify a pattern or a keyword that would pinpoint the relevant credentials within the dump file. Each password manager is different, so, each exploitation method differs. However, the concept is the same, i.e., finding the relevant pattern can pinpoint the credentials within this file. In some cases, the exploit finds when the credentials start and then gathers the next bytes, say 100. I did some extensive testing to identify these values correctly, but they may differ in a real-case scenario. Open an issue if you want to propose another password manager to be included in this tool which contains credentials in plaintext format within the process. 
+Regarding the exploits, the methodology is simple, i.e., the purpose is to identify a pattern or a keyword that would pinpoint the relevant credentials within the dump file. Each password manager is different, so, each exploitation method differs. However, the concept is the same, i.e., finding the relevant pattern can pinpoint the credentials within this file. In some cases, the exploit finds when the credentials start and then gathers the next bytes, say 100. I did some extensive testing to identify these values correctly, but they may differ in a real-case scenario. Open an issue if you want to propose another password manager to be included in this tool which contains credentials in plaintext format within the process.
 
-Note that the tool will delete the relevant 'app.dmp' file at the end of execution. Consider commenting out this line in the code 'remove("app.dmp");', in case you want to keep the relevant dump file. Generally, it is advised to first execute the code in a constrained environment in which the master/entry credentials will be known, observe the relevant output, and then execute it in another host. 
+Note that the tool will delete the relevant 'app.dmp' file at the end of execution. Consider commenting out this line in the code 'remove("app.dmp");', in case you want to keep the relevant dump file. Generally, it is advised to first execute the code in a constrained environment in which the master/entry credentials will be known, observe the relevant output, and then execute it in another host.
 
 Any further details can be found in our research work titled ["Keep your memory dump shut: Unveiling data leaks in password managers"](https://arxiv.org/abs/2404.00423)
 
@@ -112,7 +112,7 @@ Any further details can be found in our research work titled ["Keep your memory 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-To use this tool, simply execute the compiled executable in the relevant host and type the name of the password manager. Based on the password manager, there are some requirements for the tool to be able to extract credentials. However, I kept in most cases password managers who needed basic interaction to store their credentials in the memory of their process. After executing the tool, it will automatically dump the relevant process based on the chosen password manager, print the credentials in the cmd, and save them into a file (the location of the file is the current folder of the .exe). 
+To use this tool, simply execute the compiled executable in the relevant host and type the name of the password manager. Based on the password manager, there are some requirements for the tool to be able to extract credentials. However, I kept in most cases password managers who needed basic interaction to store their credentials in the memory of their process. After executing the tool, it will automatically dump the relevant process based on the chosen password manager, print the credentials in the cmd, and save them into a file (the location of the file is the current folder of the .exe).
 
 Three videos have been uploaded to assist in how this tool works. The videos depict the phase in which an attacker would be able to gather the credentials from a password manager. In the case of Avira and similar password managers, this can be done without any user interaction (check relevant video).
 
@@ -165,7 +165,7 @@ This section is devoted to any prerequisites the tool will need to be able to du
 
 ### 1Password
 
-1Password process needs high integrity privileges for the tool to be able to dump the relevant process and extract the credentials. To extract the credentials, I opened the app, entered the master password, and waited for at least 1 min. Then, I executed the tool to dump the credentials. The following screenshot illustrates the execution of the tool when the relevant app is running. Hidden data refers to the master password. Note that the output data may contain redudant characters at the end of the returned string; in the screenshot only the last character is not included in the master password. It should also be noted that the tool cannot extract the master password if the user pasted in the relevant field. For some reason, 1password does not store the master password in the process, if the user pasted it. Regarding 1Password plugin, master credentials are available. 
+1Password process needs high integrity privileges for the tool to be able to dump the relevant process and extract the credentials. To extract the credentials, I opened the app, entered the master password, and waited for at least 1 min. Then, I executed the tool to dump the credentials. The following screenshot illustrates the execution of the tool when the relevant app is running. Hidden data refers to the master password. Note that the output data may contain redudant characters at the end of the returned string; in the screenshot only the last character is not included in the master password. It should also be noted that the tool cannot extract the master password if the user pasted in the relevant field. For some reason, 1password does not store the master password in the process, if the user pasted it. Regarding 1Password plugin, master credentials are available.
 
 ![1password](https://github.com/user-attachments/assets/9821e913-db58-4bde-b01f-34e529a42e69)
 
@@ -187,7 +187,7 @@ Bitdefender stores entries only when they are needed, like when the user is visi
 
 ### Bitwarden
 
-Bitwarden imports all entries immediately when the vault is unlocked. Some entries will be shown multiple times, as the tool finds them and dumps them from the dump file. 
+Bitwarden imports all entries immediately when the vault is unlocked. Some entries will be shown multiple times, as the tool finds them and dumps them from the dump file.
 
 ![bitwarden](https://github.com/efchatz/pandora/assets/43434138/b3ad4474-fd07-461e-99bd-06f2fd74a1f4)
 
@@ -220,7 +220,7 @@ Note that the password manager page must be visited once, i.e., even if the pass
 MSEdge is different, i.e., only the browser needs to be open. It is not required for someone to visit the password manager page. MSEdge seems to preload the password manager immediately when opens. As a result, the tool can extract all entries, having the same output as with the other two browsers.
 
 
-### Dashlane 
+### Dashlane
 
 When Dashlane is unlocked and interacted in any way, for the next 1 minute, entries will be available. After that, only the master password remains in the process. Depending on the case, the tool will gather the relevant credentials as depicted in the following screenshots. The first screenshot illustrates the case when the master password is available and the second screenshot when entries are.
 
@@ -230,7 +230,7 @@ When Dashlane is unlocked and interacted in any way, for the next 1 minute, entr
 
 ### Enpass
 
-Regarding Enpass, the app automatically selects the last entry the user has clicked before closing the app. As a result, it is possible with minimum user interaction (simply by opening the app), to extract this entry from the process. It should be noted that sometimes the app does not autoselect the last entry when the user opens it. So, to speed up the recording process, the user manually selects an entry. This issue is fixed in v6.11.3. 
+Regarding Enpass, the app automatically selects the last entry the user has clicked before closing the app. As a result, it is possible with minimum user interaction (simply by opening the app), to extract this entry from the process. It should be noted that sometimes the app does not autoselect the last entry when the user opens it. So, to speed up the recording process, the user manually selects an entry. This issue is fixed in v6.11.3.
 
 https://github.com/user-attachments/assets/613d8b78-8716-4950-a055-3526ef7aab9c
 
@@ -270,7 +270,7 @@ LastPass automatically logins the user into the vault, when the Chrome browser o
 
 ### Norton
 
-Norton uses keywords to store credentials. So, the following screenshot illustrates the credentials the tool dumped. An important fact was that Norton password manager automatically stored the username and password of the user's Norton account within the vault. So, since all relevant entries are available, if the user did not delete the entry with their Norton account username/password, then the tool will extract them too. These are the credentials that were removed from the console output. Wait 30 sec after starting the browser to extract the credentials with the tool. This relevant version asks the user to enter the master password every time they open the browser. 
+Norton uses keywords to store credentials. So, the following screenshot illustrates the credentials the tool dumped. An important fact was that Norton password manager automatically stored the username and password of the user's Norton account within the vault. So, since all relevant entries are available, if the user did not delete the entry with their Norton account username/password, then the tool will extract them too. These are the credentials that were removed from the console output. Wait 30 sec after starting the browser to extract the credentials with the tool. This relevant version asks the user to enter the master password every time they open the browser.
 
 ![123123](https://github.com/user-attachments/assets/e9923364-23af-497d-95a8-3fad9d2d3617)
 
@@ -287,7 +287,7 @@ In the new version of the tool, the master username can be also extracted from t
 
 https://github.com/efchatz/pandora/assets/43434138/f8f3b7fa-41f7-4182-9845-3430ec33486b
 
-The video was paused to shorten the size. First, the passwordboss app is executed, I entered then the master password and minimized the app. After that, I executed the tool and waited 3-4 min. As can be observed, the tool retrieved all relevant entries. Some of them, like Amazon were empty, but others like Facebook, Google, and a custom one named aegean were filled with the username and password of the user. Usually, entries with data, contain the "[]" symbol. 
+The video was paused to shorten the size. First, the passwordboss app is executed, I entered then the master password and minimized the app. After that, I executed the tool and waited 3-4 min. As can be observed, the tool retrieved all relevant entries. Some of them, like Amazon were empty, but others like Facebook, Google, and a custom one named aegean were filled with the username and password of the user. Usually, entries with data, contain the "[]" symbol.
 
 
 ### Roboform

@@ -76,7 +76,7 @@ void runPerformanceTest(int numMessages, int numThreads) {
         EmailSender emailSender;
         SMSSender smsSender;
         TelegramSender telegramSender;
-        
+
         for (int i = 0; i < numMessages; ++i) {
             auto start = std::chrono::high_resolution_clock::now();
             try {

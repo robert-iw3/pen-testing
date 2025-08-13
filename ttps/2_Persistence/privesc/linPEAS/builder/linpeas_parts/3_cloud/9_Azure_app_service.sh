@@ -1,4 +1,4 @@
-# Title: Cloud - Azure App Service 
+# Title: Cloud - Azure App Service
 # ID: CL_Azure_app_service
 # Author: Carlos Polop
 # Last Update: 22-08-2023
@@ -25,7 +25,7 @@ if [ "$is_az_app" = "Yes" ]; then
       az_req="curl -s -f -L -H '$HEADER'"
   elif [ "$(command -v wget || echo -n '')" ]; then
       az_req="wget -q -O - --header '$HEADER'"
-  else 
+  else
       echo "Neither curl nor wget were found, I can't enumerate the metadata service :("
   fi
 

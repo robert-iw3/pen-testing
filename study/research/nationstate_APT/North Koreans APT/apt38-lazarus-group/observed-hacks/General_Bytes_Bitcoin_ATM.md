@@ -4,7 +4,7 @@ Date:: March 17th, 2023
 
 Amount Stolen:: $1.8M
 
-Compromised via 0-day to take over individual ATM machines 
+Compromised via 0-day to take over individual ATM machines
 
 General Bytes, a maker of crypto ATM machines, that got so thoroughly hacked that they are now shutting down their cloud service offering. Poolz got hit with a now rare integer overflow exploit while ParaSpace narrowly avoided a $5M hack if not for attacker messing up transaction gas fees allowing BlockSec to rescue funds at risk!
 

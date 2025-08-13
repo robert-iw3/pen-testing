@@ -5,7 +5,7 @@ cert() {
   FILENAME=${2:-app}
 
   echo "Creating new certificate for ${COMMON_NAME}"
-  
+
   # Generate a new RSA key pair if does not exist
   if ! test -f ${CERT}_rsa.key; then
     openssl genrsa -out ${FILENAME}.key 4096

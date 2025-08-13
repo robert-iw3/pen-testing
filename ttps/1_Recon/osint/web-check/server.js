@@ -168,7 +168,7 @@ if (process.env.DISABLE_GUI && process.env.DISABLE_GUI !== 'false') {
     }).catch(async err => {
       renderPlaceholderPage(res, 'notCompiledSsrHandler', err.message);
     });
-  });  
+  });
 }
 
 // Handle SPA routing

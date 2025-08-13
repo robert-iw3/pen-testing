@@ -11,7 +11,7 @@ def main():
     parser.add_argument('-u', '--user-data', dest='user_data', help='Data to pass to the target function', default='dave')
     parser.add_argument('-c', '--clear-header', dest='clear_header', action='store_true', help='Clear the PE header on load')
     parser.add_argument('-i', '--obfuscate-imports', dest='obfuscate_imports', action='store_true', help='Randomize import dependency load order', default=False)
-    parser.add_argument('-d', '--import-delay', dest='import_delay', help='Number of seconds to pause between loading imports', type=int, default=0)    
+    parser.add_argument('-d', '--import-delay', dest='import_delay', help='Number of seconds to pause between loading imports', type=int, default=0)
     arguments = parser.parse_args()
 
     input_dll = arguments.input_dll

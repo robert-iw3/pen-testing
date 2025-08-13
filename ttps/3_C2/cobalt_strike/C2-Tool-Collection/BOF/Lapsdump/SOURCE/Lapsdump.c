@@ -60,7 +60,7 @@ HRESULT GetLapsPwd(IDirectorySearch* pContainerToSearch, LPWSTR lpwFilter) {
 		goto CleanUp;
 	}
 
-	if (SUCCEEDED(hr)) {	
+	if (SUCCEEDED(hr)) {
 		// Call IDirectorySearch::GetNextRow() to retrieve the next row of data.
 		hr = pContainerToSearch->lpVtbl->GetFirstRow(pContainerToSearch, hSearch);
 		if (SUCCEEDED(hr)) {
@@ -72,7 +72,7 @@ HRESULT GetLapsPwd(IDirectorySearch* pContainerToSearch, LPWSTR lpwFilter) {
 				while (pContainerToSearch->lpVtbl->GetNextColumnName(pContainerToSearch, hSearch, &pszColumn) != S_ADS_NOMORE_COLUMNS) {
 					hr = pContainerToSearch->lpVtbl->GetColumn(pContainerToSearch, hSearch, pszColumn, &col);
 					if (SUCCEEDED(hr)) {
-						switch (col.dwADsType) 
+						switch (col.dwADsType)
 						{
 							case ADSTYPE_PRINTABLE_STRING:
 								for (x = 0; x < col.dwNumValues; x++) {
@@ -110,7 +110,7 @@ HRESULT GetLapsPwd(IDirectorySearch* pContainerToSearch, LPWSTR lpwFilter) {
 					if (pszColumn != NULL) {
 						FreeADsMem(pszColumn);
 					}
-				}		
+				}
 				// Get the next row
 				hr = pContainerToSearch->lpVtbl->GetNextRow(pContainerToSearch, hSearch);
 			}
@@ -122,7 +122,7 @@ HRESULT GetLapsPwd(IDirectorySearch* pContainerToSearch, LPWSTR lpwFilter) {
 	if (SUCCEEDED(hr) && 0 == iCount) {
 		hr = S_FALSE;
 	}
-	
+
 	if (!bLapsFound) {
 		hr = S_FALSE;
 	}
@@ -154,7 +154,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 
 	// Parse Arguments
 	datap parser;
-	BeaconDataParse(&parser, Args, Length);	
+	BeaconDataParse(&parser, Args, Length);
 	lpwComputername = (WCHAR*)BeaconDataExtract(&parser, NULL);
 
 	// Initialize COM.

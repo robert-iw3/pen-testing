@@ -153,7 +153,7 @@ export const parseRobotsTxt = (content: string): { robots: RowProps[] } => {
         lbl: match[1],
         val: match[2],
       };
-      
+
       rules.push(rule);
     } else {
       match = line.match(/^(User-agent):\s*(\S*)$/i);
@@ -162,7 +162,7 @@ export const parseRobotsTxt = (content: string): { robots: RowProps[] } => {
           lbl: match[1],
           val: match[2],
         };
-        
+
         rules.push(rule);
       }
     }

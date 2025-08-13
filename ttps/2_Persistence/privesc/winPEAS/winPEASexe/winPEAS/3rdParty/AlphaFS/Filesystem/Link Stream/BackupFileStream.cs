@@ -1,22 +1,22 @@
 /*  Copyright (C) 2008-2018 Peter Palotas, Jeffrey Jangli, Alexandr Normuradov
- *  
- *  Permission is hereby granted, free of charge, to any person obtaining a copy 
- *  of this software and associated documentation files (the "Software"), to deal 
- *  in the Software without restriction, including without limitation the rights 
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
- *  copies of the Software, and to permit persons to whom the Software is 
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *  
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *  
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
- *  THE SOFTWARE. 
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
  */
 
 using Alphaleonis.Win32.Security;
@@ -35,8 +35,8 @@ using SecurityNativeMethods = Alphaleonis.Win32.Security.NativeMethods;
 namespace Alphaleonis.Win32.Filesystem
 {
    /// <summary>The <see cref="BackupFileStream"/> provides access to data associated with a specific file or directory, including security information and alternative data streams, for backup and restore operations.</summary>
-   /// <remarks>This class uses the <see href="http://msdn.microsoft.com/en-us/library/aa362509(VS.85).aspx">BackupRead</see>, 
-   /// <see href="http://msdn.microsoft.com/en-us/library/aa362510(VS.85).aspx">BackupSeek</see> and 
+   /// <remarks>This class uses the <see href="http://msdn.microsoft.com/en-us/library/aa362509(VS.85).aspx">BackupRead</see>,
+   /// <see href="http://msdn.microsoft.com/en-us/library/aa362510(VS.85).aspx">BackupSeek</see> and
    /// <see href="http://msdn.microsoft.com/en-us/library/aa362511(VS.85).aspx">BackupWrite</see> functions from the Win32 API to provide access to the file or directory.
    /// </remarks>
    public sealed class BackupFileStream : Stream
@@ -235,8 +235,8 @@ namespace Alphaleonis.Win32.Filesystem
       {
          throw new NotSupportedException(Resources.No_Stream_Seeking_Support);
       }
-      
-      
+
+
 
 
       /// <summary>Gets a value indicating whether the current stream supports reading.</summary>
@@ -246,7 +246,7 @@ namespace Alphaleonis.Win32.Filesystem
          get { return _canRead; }
       }
 
-      /// <summary>Gets a value indicating whether the current stream supports seeking.</summary>        
+      /// <summary>Gets a value indicating whether the current stream supports seeking.</summary>
       /// <returns>This method always returns <c>false</c>.</returns>
       public override bool CanSeek
       {
@@ -261,7 +261,7 @@ namespace Alphaleonis.Win32.Filesystem
       }
 
       /// <summary>Gets a <see cref="SafeFileHandle"/> object that represents the operating system file handle for the file that the current <see cref="BackupFileStream"/> object encapsulates.</summary>
-      /// <value>A <see cref="SafeFileHandle"/> object that represents the operating system file handle for the file that 
+      /// <value>A <see cref="SafeFileHandle"/> object that represents the operating system file handle for the file that
       /// the current <see cref="BackupFileStream"/> object encapsulates.</value>
       private SafeFileHandle SafeFileHandle { get; set; }
 
@@ -335,7 +335,7 @@ namespace Alphaleonis.Win32.Filesystem
             uint numberOfBytesRead;
 
             var success = NativeMethods.BackupRead(SafeFileHandle, safeBuffer, (uint) safeBuffer.Capacity, out numberOfBytesRead, false, processSecurity, ref _context);
-            
+
             var lastError = Marshal.GetLastWin32Error();
             if (!success)
                NativeError.ThrowException(lastError);
@@ -362,7 +362,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <exception cref="System.ArgumentOutOfRangeException"/>
       /// <exception cref="NotSupportedException"/>
       /// <exception cref="ObjectDisposedException"/>
-      /// <remarks>This method will not process the access-control list (ACL) data for the file or directory.</remarks>      
+      /// <remarks>This method will not process the access-control list (ACL) data for the file or directory.</remarks>
       public override void Write(byte[] buffer, int offset, int count)
       {
          Write(buffer, offset, count, false);
@@ -373,9 +373,9 @@ namespace Alphaleonis.Win32.Filesystem
       /// <param name="buffer">An array of bytes. This method copies <paramref name="count"/> bytes from <paramref name="buffer"/> to the current stream.</param>
       /// <param name="offset">The zero-based byte offset in <paramref name="buffer"/> at which to begin copying bytes to the current stream.</param>
       /// <param name="count">The number of bytes to be written to the current stream.</param>
-      /// <param name="processSecurity">Specifies whether the function will restore the access-control list (ACL) data for the file or directory. 
-      /// If this is <c>true</c> you need to specify <see cref="FileSystemRights.TakeOwnership"/> and <see cref="FileSystemRights.ChangePermissions"/> access when 
-      /// opening the file or directory handle. If the handle does not have those access rights, the operating system denies 
+      /// <param name="processSecurity">Specifies whether the function will restore the access-control list (ACL) data for the file or directory.
+      /// If this is <c>true</c> you need to specify <see cref="FileSystemRights.TakeOwnership"/> and <see cref="FileSystemRights.ChangePermissions"/> access when
+      /// opening the file or directory handle. If the handle does not have those access rights, the operating system denies
       /// access to the ACL data, and ACL data restoration will not occur.</param>
       /// <exception cref="ArgumentException"/>
       /// <exception cref="ArgumentNullException"/>
@@ -406,7 +406,7 @@ namespace Alphaleonis.Win32.Filesystem
             uint bytesWritten;
 
             var success = NativeMethods.BackupWrite(SafeFileHandle, safeBuffer, (uint)safeBuffer.Capacity, out bytesWritten, false, processSecurity, ref _context);
-            
+
             var lastError = Marshal.GetLastWin32Error();
             if (!success)
                NativeError.ThrowException(lastError);
@@ -428,9 +428,9 @@ namespace Alphaleonis.Win32.Filesystem
       /// <summary>Skips ahead the specified number of bytes from the current stream.</summary>
       /// <remarks><para>This method represents the Win32 API implementation of <see href="http://msdn.microsoft.com/en-us/library/aa362509(VS.85).aspx">BackupSeek</see>.</para>
       /// <para>
-      /// Applications use the <see cref="Skip"/> method to skip portions of a data stream that cause errors. This function does not 
-      /// seek across stream headers. For example, this function cannot be used to skip the stream name. If an application 
-      /// attempts to seek past the end of a substream, the function fails, the return value indicates the actual number of bytes 
+      /// Applications use the <see cref="Skip"/> method to skip portions of a data stream that cause errors. This function does not
+      /// seek across stream headers. For example, this function cannot be used to skip the stream name. If an application
+      /// attempts to seek past the end of a substream, the function fails, the return value indicates the actual number of bytes
       /// the function seeks, and the file position is placed at the start of the next stream header.
       /// </para>
       /// </remarks>
@@ -486,7 +486,7 @@ namespace Alphaleonis.Win32.Filesystem
             var length = SecurityNativeMethods.GetSecurityDescriptorLength(pSecurityDescriptor);
             var managedBuffer = new byte[length];
 
-            
+
             // .CopyTo() does not work there?
             if (null != pSecurityDescriptor)
                pSecurityDescriptor.CopyTo(managedBuffer, 0, (int) length);
@@ -562,10 +562,10 @@ namespace Alphaleonis.Win32.Filesystem
 
 
       /// <summary>Reads a stream header from the current <see cref="BackupFileStream"/>.</summary>
-      /// <returns>The stream header read from the current <see cref="BackupFileStream"/>, or <c>null</c> if the end-of-file 
+      /// <returns>The stream header read from the current <see cref="BackupFileStream"/>, or <c>null</c> if the end-of-file
       /// was reached before the required number of bytes of a header could be read.</returns>
       /// <exception cref="IOException"/>
-      /// <remarks>The stream must be positioned at where an actual header starts for the returned object to represent valid 
+      /// <remarks>The stream must be positioned at where an actual header starts for the returned object to represent valid
       /// information.</remarks>
       [SecurityCritical]
       public BackupStreamInfo ReadStreamInfo()
@@ -628,7 +628,7 @@ namespace Alphaleonis.Win32.Filesystem
          if (disposing)
          {
             // If one of the constructors previously threw an exception,
-            // than the object hasn't been initialized properly and call from finalize will fail.         
+            // than the object hasn't been initialized properly and call from finalize will fail.
 
             if (null != SafeFileHandle && !SafeFileHandle.IsInvalid)
             {
@@ -658,7 +658,7 @@ namespace Alphaleonis.Win32.Filesystem
 
          base.Dispose(disposing);
       }
-      
+
       #endregion // Disposable Members
    }
 }

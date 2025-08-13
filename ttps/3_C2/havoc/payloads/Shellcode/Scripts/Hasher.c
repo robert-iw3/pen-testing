@@ -21,12 +21,12 @@ void ToUpperString(char * temp) {
   }
 }
 
-int main(int argc, char** argv) 
+int main(int argc, char** argv)
 {
   if (argc < 2)
     return 0;
 
   ToUpperString(argv[1]);
-  printf("\n[+] Hashed %s ==> 0x%x\n\n", argv[1], Hash( argv[1] )); 
+  printf("\n[+] Hashed %s ==> 0x%x\n\n", argv[1], Hash( argv[1] ));
   return 0;
 }

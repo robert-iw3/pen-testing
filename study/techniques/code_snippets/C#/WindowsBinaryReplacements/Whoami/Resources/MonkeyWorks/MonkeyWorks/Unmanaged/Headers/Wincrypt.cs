@@ -19,7 +19,7 @@ namespace MonkeyWorks.Unmanaged.Headers
     sealed class Wincrypt
     {
         [StructLayout(LayoutKind.Sequential)]
-        public struct _CRYPTOAPI_BLOB 
+        public struct _CRYPTOAPI_BLOB
         {
             public DWORD cbData;
             public BYTE pbData;
@@ -32,6 +32,6 @@ namespace MonkeyWorks.Unmanaged.Headers
             public  DWORD dwPromptFlags;
             public  HWND hwndApp;
             public  LPCWSTR szPrompt;
-        } 
+        }
     }
 }

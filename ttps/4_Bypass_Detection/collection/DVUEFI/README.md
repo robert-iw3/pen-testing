@@ -30,7 +30,7 @@ Clone this repository using
 git clone --recursive git@github.com:hacking-support/DVUEFI.git # ssh
 ```
 
-or 
+or
 
 ```console
 git clone --recursive https://github.com/hacking-support/DVUEFI.git # https

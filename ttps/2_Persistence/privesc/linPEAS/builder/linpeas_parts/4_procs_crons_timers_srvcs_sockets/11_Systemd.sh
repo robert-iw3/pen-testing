@@ -75,8 +75,8 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     # Check for systemd services running as root
     print_list "Services running as root? ..... "$NC
     if check_systemctl; then
-        systemctl list-units --type=service --state=running 2>/dev/null | 
-        grep -E "root|0:0" | 
+        systemctl list-units --type=service --state=running 2>/dev/null |
+        grep -E "root|0:0" |
         while read -r line; do
             service=$(echo "$line" | awk '{print $1}')
             user=$(systemctl show "$service" -p User 2>/dev/null | cut -d= -f2)
@@ -90,8 +90,8 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     # Check for systemd services with dangerous capabilities
     print_list "Running services with dangerous capabilities? ... "$NC
     if check_systemctl; then
-        systemctl list-units --type=service --state=running 2>/dev/null | 
-        grep -E "\.service" | 
+        systemctl list-units --type=service --state=running 2>/dev/null |
+        grep -E "\.service" |
         while read -r line; do
             service=$(echo "$line" | awk '{print $1}')
             caps=$(systemctl show "$service" -p CapabilityBoundingSet 2>/dev/null | cut -d= -f2)
@@ -107,20 +107,20 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     # Check for systemd services with writable paths
     print_list "Services with writable paths? . "$NC
     if check_systemctl; then
-        systemctl list-units --type=service --state=running 2>/dev/null | 
-        grep -E "\.service" | 
+        systemctl list-units --type=service --state=running 2>/dev/null |
+        grep -E "\.service" |
         while read -r line; do
             service=$(echo "$line" | awk '{print $1}')
             service_file=$(get_service_file "$service")
             if [ -n "$service_file" ]; then
                 # Check ExecStart paths
-                grep -E "ExecStart|ExecStartPre|ExecStartPost" "$service_file" 2>/dev/null | 
+                grep -E "ExecStart|ExecStartPre|ExecStartPost" "$service_file" 2>/dev/null |
                 while read -r exec_line; do
                     # Extract the first word after ExecStart* as the command
                     cmd=$(echo "$exec_line" | awk '{print $2}' | tr -d '"')
                     # Extract the rest as arguments
                     args=$(echo "$exec_line" | awk '{$1=$2=""; print $0}' | tr -d '"')
-                    
+
                     # Only check the command path, not arguments
                     if [ -n "$cmd" ] && [ -w "$cmd" ]; then
                         echo "$service: $cmd (from $exec_line)" | sed -${E} "s,.*,${SED_RED},g"
@@ -141,8 +141,8 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     print_2title "Systemd PATH"
     print_info "https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html#systemd-path---relative-paths"
     if check_systemctl; then
-        systemctl show-environment 2>/dev/null | 
-        grep "PATH" | 
+        systemctl show-environment 2>/dev/null |
+        grep "PATH" |
         while read -r path_line; do
             echo "$path_line" | sed -${E} "s,$Wfolders\|\./\|\.:\|:\.,${SED_RED_YELLOW},g"
             # Store writable paths for later use

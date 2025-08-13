@@ -18,7 +18,7 @@ WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 TreeItem::TreeItem(const UINT8 type, const UINT8 subtype, const UINT8 compression,
     const QString & name, const QString & text, const QString & info,
     const QByteArray & header, const QByteArray & body,
-    TreeItem *parent) : 
+    TreeItem *parent) :
     itemAction(Actions::NoAction),
     itemType(type),
     itemSubtype(subtype),

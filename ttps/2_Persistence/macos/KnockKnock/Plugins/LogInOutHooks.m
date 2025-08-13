@@ -38,14 +38,14 @@ NSString* const HOOK_SEARCH_FILES[] = {@"/Library/Preferences/com.apple.loginwin
     {
         //set name
         self.name = PLUGIN_NAME;
-        
+
         //set description
         self.description = PLUGIN_DESCRIPTION;
-        
+
         //set icon
         self.icon = PLUGIN_ICON;
     }
-    
+
     return self;
 }
 
@@ -54,21 +54,21 @@ NSString* const HOOK_SEARCH_FILES[] = {@"/Library/Preferences/com.apple.loginwin
 {
     //plist data
     NSDictionary* plistContents = nil;
-    
+
     //iterate over all login/out file
     // ->get all hooks and process em
     for(NSString* loginWindowPlist in expandPaths(HOOK_SEARCH_FILES, sizeof(HOOK_SEARCH_FILES)/sizeof(HOOK_SEARCH_FILES[0])))
     {
         //load plist contents
         plistContents = [NSDictionary dictionaryWithContentsOfFile:loginWindowPlist];
-        
+
         //process login hook
         if(nil != plistContents[@"LoginHook"])
         {
             //process
             [self processHook:plistContents[@"LoginHook"] parentFile:loginWindowPlist];
         }
-        
+
         //process logout hook
         if(nil != plistContents[@"LogoutHook"])
         {
@@ -76,9 +76,9 @@ NSString* const HOOK_SEARCH_FILES[] = {@"/Library/Preferences/com.apple.loginwin
             [self processHook:plistContents[@"LogoutHook"] parentFile:loginWindowPlist];
         }
     }
-    
+
 bail:
-    
+
     return;
 }
 
@@ -88,7 +88,7 @@ bail:
 {
     //File or Command Obj
     ItemBase* item = nil;
-    
+
     //hook payload will usually will be a file
     if(YES == [[NSFileManager defaultManager] fileExistsAtPath:payload])
     {
@@ -102,20 +102,20 @@ bail:
         //create Command object for hook
         item = [[Command alloc] initWithParams:@{KEY_RESULT_PLUGIN:self, KEY_RESULT_COMMAND:payload, KEY_RESULT_PATH:parentFile}];
     }
-    
+
     //ignore items w/ errors
     if(nil == item)
     {
         //ignore
         goto bail;
     }
-    
+
     //save and report to UI
     [super processItem:item];
-    
+
 //bail
 bail:
-    
+
     return;
 }
 

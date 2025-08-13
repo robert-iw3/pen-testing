@@ -3,7 +3,7 @@
 ARG repo="docker.io" \
     base_image="alpine:3.22" \
     image_hash="eafc1edb577d2e9b458664a15f23ea1c370214193226069eb22921169fc7e43f"
-    
+
 FROM ${repo}/${base_image}@sha256:${image_hash}
 
 ARG filename
@@ -15,7 +15,7 @@ ENV PATH=/htmlsmuggle/bin:/usr/local/bin:/usr/bin:$PATH \
     LC_ALL=C.UTF-8 \
     LANG=C.UTF-8 \
     TZ=UTC \
-    FILENAME=$filename \ 
+    FILENAME=$filename \
     FILEPATH=$filepath
 
 RUN \
@@ -44,7 +44,7 @@ RUN \
     python3 -m pip install --upgrade pyinstaller; \
     rm -rf /var/cache/apk/* /root/.cache/*
 
-COPY . .    
+COPY . .
 
 CMD [ "bash", "-c", "python3 ./HtmlSmuggling.py ${FILENAME} ${FILEPATH}" ]
 # podman build -t htmlsmuggle --build-arg filename=important_notes.txt --build-arg filepath=c:\Users\Neo\Desktop\important_notes.txt .

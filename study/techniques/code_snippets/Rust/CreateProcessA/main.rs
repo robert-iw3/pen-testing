@@ -28,14 +28,14 @@ fn main() {
   let mut attrsize: SIZE_T = Default::default();
   let mut pi = PROCESS_INFORMATION::default();
   let mut si = STARTUPINFOEXA::default();
-  
+
   unsafe{
 
     si.lpAttributeList = windows::Win32::System::Threading::LPPROC_THREAD_ATTRIBUTE_LIST(HeapAlloc(GetProcessHeap().ok(), HEAP_GENERATE_EXCEPTIONS, attrsize));
     si.StartupInfo.cb = mem::size_of::<STARTUPINFOEXA>() as u32;
 
     InitializeProcThreadAttributeList(si.lpAttributeList, 1, 0, &mut attrsize);
-    
+
     CreateProcessA(
       PCSTR::null(),
       PSTR(String::from("notepad.exe\0").as_mut_ptr()),

@@ -85,7 +85,7 @@ List IPv4 routes
 
 ```
 routeprint
-``` 
+```
 
 ## uptime
 

@@ -127,12 +127,12 @@ kernel. You'll need:
   - kernel built with `CONFIG_DEBUG_INFO_BTF=y` option;
   - you can check if your kernel has BTF built-in by looking for
     `/sys/kernel/btf/vmlinux` file:
-  
+
 ```shell
 $ ls -la /sys/kernel/btf/vmlinux
 -r--r--r--. 1 root root 3541561 Jun  2 18:16 /sys/kernel/btf/vmlinux
 ```
-  
+
 To develop and build BPF programs, you'll need Clang/LLVM 10+. The following
 distributions have Clang/LLVM 10+ packaged by default:
   - Fedora 32+

@@ -6,7 +6,7 @@
 # License: GNU GPL
 # Version: 1.0
 # Functions Used:
-# Global Variables: 
+# Global Variables:
 # Initial Functions:
 # Generated Global Variables: $sudovB
 # Fat linpeas: 0

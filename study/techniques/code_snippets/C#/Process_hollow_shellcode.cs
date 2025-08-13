@@ -179,7 +179,7 @@ namespace Hollowing
         }
 
         /***
-         *  Attempts to create an RWX section of the given size 
+         *  Attempts to create an RWX section of the given size
          */
         public static bool CreateSection(uint size)
         {
@@ -210,7 +210,7 @@ namespace Hollowing
         }
 
         /***
-         * Copies the shellcode buffer into the section 
+         * Copies the shellcode buffer into the section
          */
         public static void CopyShellcode(byte[] buf)
         {

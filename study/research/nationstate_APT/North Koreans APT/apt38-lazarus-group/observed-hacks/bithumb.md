@@ -8,9 +8,9 @@ The best I have ever been able to parse out, the four separate hacks are as foll
 
 - June 29th, 2017: ~$7 million or more. Or maybe 30k PII records - Attributed to DPRK in 2023 UN Report
 
-- December 2017: the South Korean government attributed the attack(s) to DPRK. 
+- December 2017: the South Korean government attributed the attack(s) to DPRK.
 
-- January 16th, 2018: Recorded Future, a security firm known for analyzing state-sponsored attacks, attributed the attack to the Lazarus Group 
+- January 16th, 2018: Recorded Future, a security firm known for analyzing state-sponsored attacks, attributed the attack to the Lazarus Group
 
 - June 19th, 2018 - $31 million - ~2000 BTC - goes to YoBit
 
@@ -21,13 +21,13 @@ The best I have ever been able to parse out, the four separate hacks are as foll
 
 ---
 
-## Details 
+## Details
 
 Bithumb has said regarding either the June 2018 hack or March 2019 hack that:
 
 > The attackers gained access to an employee’s personal computer. This may be the malicious HWP document researched and documented.
 
-> Bithumb believes the hack was an Inside Job and funds might have been moved by individuals associated with the company. 
+> Bithumb believes the hack was an Inside Job and funds might have been moved by individuals associated with the company.
 
 
 
@@ -54,7 +54,7 @@ Attribution:: UN Security Council - August 30th, 2019 2019 Midterm Report - http
 
 ## Details
 
-Approximately $31 million in virtual currency was stolen from BitHumb, a South Korean cryptocurrency exchange, marking the third theft in the last 16 months. 
+Approximately $31 million in virtual currency was stolen from BitHumb, a South Korean cryptocurrency exchange, marking the third theft in the last 16 months.
 
 In August 2019, the UN Security Council Panel of Experts indicated DPRK-affiliated actors were behind the theft. Proceeds were laundered through a separate crypto-currency exchange called YoBit. The company stated they would compensate customers affected.
 
@@ -72,13 +72,13 @@ Reports within South Korea have suggested the the thefts from Bithumb started wi
 
 Bithumb - > YoBit - 1,993 BTC was moved from Bithumb Hackers to YoBit over 68 transactions
 
-However, on June 19th, 2018 the majority of these transactions switched to using a fee of exactly 0.1 BTC - a fee notable for its size and the fact that it only used one decimal place. 
+However, on June 19th, 2018 the majority of these transactions switched to using a fee of exactly 0.1 BTC - a fee notable for its size and the fact that it only used one decimal place.
 
 Over the 19th and 20th of June, 400 transactions of this type sent funds from Bithumb to a single bitcoin wallet made up of 70 addresses.
 
-This wallet received a total of 1,993 BTC from Bithumb - close to the 2,016 BTC reported to have been lost. 
+This wallet received a total of 1,993 BTC from Bithumb - close to the 2,016 BTC reported to have been lost.
 
-These “stolen funds remained dormant in the suspected hacker’s wallet for over a month, before being sent to a cryptocurrency exchange called YoBit. 
+These “stolen funds remained dormant in the suspected hacker’s wallet for over a month, before being sent to a cryptocurrency exchange called YoBit.
 
 The entire 1,993 BTC was moved into YoBit over 68 transactions, between August 2nd, 2018 and August 6th, 2018.
 
@@ -108,11 +108,11 @@ https://news.bitcoin.com/north-korean-hackers-threatened-bithumb-16m-ransom-amid
 
 # March 29th, 2019 - Bithumb - CEX Hack - $19.4M
 
-Attribution:: UN Security Council 
+Attribution:: UN Security Council
 
 ## Details
 
-According to a report from CoinDesk Korea, Bithumb may have also lost 20.2 million XRP in the recent breach. 
+According to a report from CoinDesk Korea, Bithumb may have also lost 20.2 million XRP in the recent breach.
 
 Based on currently available information, the attackers appear to have made off with around three million EOS, worth $13.4 million at the time of the hack, and another 20 million Ripple coins (XRP), worth another $6 million
 
@@ -124,7 +124,7 @@ A cryptocurrency exchange company attacked with a malicious document containing 
 
 These Windows malware samples were delivered using malicious HWP (Korean Hangul Word Processor format) documents exploiting a known PostScript vulnerability.
 
-The heist came less than a year after another massive hack: $31 million in late 2018. 
+The heist came less than a year after another massive hack: $31 million in late 2018.
 
 Update (09:30 UTC, April 1, 2019): According to a report from CoinDesk Korea, Bithumb may have also lost 20.2 million XRP in the recent breach. The XRP, worth $6.2 million at current prices, was moved from Bithumb's wallet on March 29 in transactions that can be seen on XRPSCAN. The exchange is not yet confirming or denying the report. The odds of Bithumb managing to retrieve the stolen funds may be small, according to crypto security expert Cosine Yu, co-founder of security firm SlowMist. The hacker has already managed to “launder” most of the stolen EOS and XRP, Yu said, meaning the assets have been transferred to a large number of addresses that are not necessarily owned by any exchanges
 

@@ -282,7 +282,7 @@ BOOL NewTGS_REQ(char* userName, char* domain, char* sname, Ticket providedTicket
     req.req_body.etypes_count = 0;
     int etypeIndex = 0;
 
-    
+
         req.req_body.etypes_count += 4;
         req.req_body.etypes = MemAlloc(sizeof(int) * req.req_body.etypes_count);
         if (!req.req_body.etypes) {

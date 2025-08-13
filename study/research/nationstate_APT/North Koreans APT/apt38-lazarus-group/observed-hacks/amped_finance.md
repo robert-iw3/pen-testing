@@ -1,4 +1,4 @@
-# Amped Finance 
+# Amped Finance
 
 Amount Stolen:: $370,000
 

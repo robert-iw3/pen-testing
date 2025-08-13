@@ -30,11 +30,11 @@ import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 
 public class CertificateGenerator {
-	
+
 	private CertificateGenerator() {
 		// utility class cannot be instantiated
 	}
-	
+
 	// modified version of certificate generation from article "Create HTTPS Certificates in Java with Bouncy Castle"
 	// by Roman Stoffel: https://gamlor.info/posts-output/2019-10-29-java-create-certs-bouncy/en/
 	public static X509Certificate createCertificate(KeyPair certKeyPair, String domain, KeyPair issuerKeyPair, X509Certificate issuerCert, boolean isCA) throws CertIOException, OperatorCreationException, CertificateException {
@@ -43,10 +43,10 @@ public class CertificateGenerator {
 		BigInteger serialNumber = BigInteger.valueOf(System.currentTimeMillis());
 		Instant validFrom = Instant.now();
 		Instant validUntil = validFrom.plus(10 * 360, ChronoUnit.DAYS);
-		
+
 		X500Name issuerName = new JcaX509CertificateHolder(((X509Certificate) issuerCert)).getSubject();
 		PrivateKey issuerKey = issuerKeyPair.getPrivate();
-		
+
 		// The cert builder to build up our certificate information
 		JcaX509v3CertificateBuilder builder = new JcaX509v3CertificateBuilder(
 				issuerName,
@@ -54,7 +54,7 @@ public class CertificateGenerator {
 				Date.from(validFrom), Date.from(validUntil),
 				name, certKeyPair.getPublic()
 		);
-		
+
 		// Make the cert to a Cert Authority to sign more certs when needed
 		if(isCA){
 			builder.addExtension(Extension.basicConstraints, true, new BasicConstraints(isCA));
@@ -66,13 +66,13 @@ public class CertificateGenerator {
 					new GeneralNames(new GeneralName(GeneralName.dNSName, domain))
 			);
 		}
-		
+
 		// Finally, sign the certificate:
 		ContentSigner signer = new JcaContentSignerBuilder("SHA256WithRSA").build(issuerKey);
 		X509CertificateHolder certHolder = builder.build(signer);
 		return new JcaX509CertificateConverter().getCertificate(certHolder);
 	}
-	
+
 	/**
 	 * Creates information about the X509 certificate subject
 	 * @return the certificate subject encoded in a {@link X500Name}
@@ -89,10 +89,10 @@ public class CertificateGenerator {
 				) }
 		);
 	}
-	
+
 	public static KeyPair generateKeyPair() throws NoSuchAlgorithmException {
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
 		return keyGen.generateKeyPair();
 	}
-	
+
 }

@@ -24,12 +24,12 @@ namespace TeamFiltration.Models.TeamFiltration
             {
                 Title = inputParams.conversation.Title,
                 id = Helpers.Generic.StringToGUID(inputParams.conversation.Id).ToString(),
-                Messages = buffMessages.Where(x => 
-                !x.Content.Contains(":orgid:") 
+                Messages = buffMessages.Where(x =>
+                !x.Content.Contains(":orgid:")
                 && !string.IsNullOrEmpty(x.Content)
                 && !x.Content.Equals("<partlist alt =\"\"></partlist>")).OrderBy(x => x.Sent).ToList()
 
-                
+
 
             };
         }
@@ -41,7 +41,7 @@ namespace TeamFiltration.Models.TeamFiltration
         public string FromId { get; set; }
         public DateTime Sent { get; set; }
         public string Content { get; set; }
-    
+
         public List<string> Attachments { get; set; }
 
         public static explicit operator MessagesSimple((ChatMessages chatMessage, WorkingWithResp workingWithResp) inputParams)

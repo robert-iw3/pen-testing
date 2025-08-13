@@ -13,12 +13,12 @@ Please checkout the [wiki](https://adaptix-framework.gitbook.io/adaptix-framewor
 
 
 ## Features
-* Server/Client Architecture for Multiplayer Support 
-* Cross-platform GUI client 
-* Fully encrypted communications 
+* Server/Client Architecture for Multiplayer Support
+* Cross-platform GUI client
+* Fully encrypted communications
 * Listener and Agents as Plugin (Extender)
-* Client extensibility for adding new tools 
-* Task and Jobs storage 
+* Client extensibility for adding new tools
+* Task and Jobs storage
 * Files and Process browsers
 * Socks4 / Socks5 / Socks5 Auth support
 * Local and Reverse port forwarding support
@@ -42,7 +42,7 @@ Official [Extension-Kit](https://github.com/Adaptix-Framework/Extension-Kit) on 
 
 
 ## Current Extenders
-* HTTP/S Beacon Listener 
+* HTTP/S Beacon Listener
 * SMB Beacon Listener
 * TCP Beacon Listener
 * Beacon Agent

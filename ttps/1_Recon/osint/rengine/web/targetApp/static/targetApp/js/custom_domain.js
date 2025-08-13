@@ -90,7 +90,7 @@ function deleteMultipleTargets(slug) {
             showConfirmButton: false,
             allowOutsideClick: false,
           });
-          
+
           setTimeout(() => {
             const deleteForm = document.getElementById("multiple_targets_form");
             deleteForm.action = `/target/${slug}/delete/multiple`;

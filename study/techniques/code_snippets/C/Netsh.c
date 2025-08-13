@@ -43,7 +43,7 @@ DWORD addEntry(LPSTR source, LPSTR destination) {
 	HKEY hKey = NULL;
 	LSTATUS retStatus = 0;
 	DWORD ret = -1;
-	
+
 	retStatus = RegCreateKeyExA(HKEY_LOCAL_MACHINE, v4tov4, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL);
 	if (retStatus == ERROR_SUCCESS) {
 		retStatus = (RegSetValueExA(hKey, source, 0, REG_SZ, (LPBYTE)destination, strlen(destination) + 1));

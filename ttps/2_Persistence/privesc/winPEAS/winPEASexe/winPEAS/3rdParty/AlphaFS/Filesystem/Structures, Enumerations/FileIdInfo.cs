@@ -1,22 +1,22 @@
 /*  Copyright (C) 2008-2018 Peter Palotas, Jeffrey Jangli, Alexandr Normuradov
- *  
- *  Permission is hereby granted, free of charge, to any person obtaining a copy 
- *  of this software and associated documentation files (the "Software"), to deal 
- *  in the Software without restriction, including without limitation the rights 
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
- *  copies of the Software, and to permit persons to whom the Software is 
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *  
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *  
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
- *  THE SOFTWARE. 
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
  */
 
 using System;
@@ -67,7 +67,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <param name="fileId">The array containing the bytes.</param>
       /// <param name="startIndex">The starting index.</param>
       /// <param name="count">The number of bytes to convert.</param>
-      /// <param name="value">The output value.</param>        
+      /// <param name="value">The output value.</param>
       private static void ArrayToLong(byte[] fileId, int startIndex, int count, out long value)
       {
          value = 0;
@@ -79,7 +79,7 @@ namespace Alphaleonis.Win32.Filesystem
 
       /// <summary>Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.</summary>
       /// <param name="obj">An object to compare with this instance.</param>
-      /// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings: Value Meaning Less than zero This instance precedes <paramref name="obj"/> in the sort order. Zero This instance occurs in the same position in the sort order as <paramref name="obj" />. Greater than zero This instance follows <paramref name="obj"/> in the sort order.</returns>        
+      /// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings: Value Meaning Less than zero This instance precedes <paramref name="obj"/> in the sort order. Zero This instance occurs in the same position in the sort order as <paramref name="obj" />. Greater than zero This instance follows <paramref name="obj"/> in the sort order.</returns>
       public int CompareTo(object obj)
       {
          if (null == obj)
@@ -94,7 +94,7 @@ namespace Alphaleonis.Win32.Filesystem
 
       /// <summary>Compares the current object with another object of the same type.</summary>
       /// <param name="other">An object to compare with this object.</param>
-      /// <returns>A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />.</returns>        
+      /// <returns>A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />.</returns>
       public int CompareTo(FileIdInfo other)
       {
          return _volumeSerialNumber != other._volumeSerialNumber
@@ -158,7 +158,7 @@ namespace Alphaleonis.Win32.Filesystem
       {
          return obj is FileIdInfo && Equals((FileIdInfo) obj);
       }
-      
+
 
       /// <summary>Indicates whether the values of two specified <see cref="FileIdInfo"/> objects are equal.</summary>
       /// <param name="first">The first object to compare.</param>

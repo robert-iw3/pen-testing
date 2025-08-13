@@ -1,5 +1,5 @@
 # Patch string format
-# FileGuid SectionType PatchType:FindPatternOrOffset:ReplacePattern 
+# FileGuid SectionType PatchType:FindPatternOrOffset:ReplacePattern
 # Please ensure that the latest symbol in patch string is space
 
 # Possible section types:
@@ -26,7 +26,7 @@
 #----------------------------------------------------------------------------------
 
 # SiInit | Gemini Lake
-299D6F8B-2EC9-4E40-9EC6-DDAA7EBF5FD9 10 P:B93A0000000F320D00000400:B93A0000000F320D00000600 
+299D6F8B-2EC9-4E40-9EC6-DDAA7EBF5FD9 10 P:B93A0000000F320D00000400:B93A0000000F320D00000600
 
 #----------------------------------------------------------------------------------
 # Broken EFI_SIMPLE_POINTER_PROTOCOL implementation patches
@@ -34,4 +34,4 @@
 #----------------------------------------------------------------------------------
 
 # UHCD | ASUS Z87-Pro
-580DD900-385D-11D7-883A-00500473D4EB 10 P:807A3200745C807A4000:807A32007506807A4000 
+580DD900-385D-11D7-883A-00500473D4EB 10 P:807A3200745C807A4000:807A32007506807A4000

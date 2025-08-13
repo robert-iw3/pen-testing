@@ -26,7 +26,7 @@ namespace TeamFiltration.Models.TeamFiltration
         public List<ChatMessages> chatMessagesArray { get; set; }
     }
 
- 
+
 
     public class FileData
     {
@@ -38,7 +38,7 @@ namespace TeamFiltration.Models.TeamFiltration
         public string title { get; set; }
         public string state { get; set; }
         public string objectUrl { get; set; }
-    
+
         public string itemid { get; set; }
         public string fileName { get; set; }
         public string fileType { get; set; }
@@ -49,7 +49,7 @@ namespace TeamFiltration.Models.TeamFiltration
         public Filechicletstate fileChicletState { get; set; }
     }
 
- 
+
 
     public class Fileinfo
     {
@@ -103,7 +103,7 @@ namespace TeamFiltration.Models.TeamFiltration
                 ContentType = v.contenttype,
                 FileObject = (v.properties?.files != null) ? JsonConvert.DeserializeObject<List<FileData>>(v.properties?.files) : null,
                 Properties = v.properties,
-               
+
 
             };
         }

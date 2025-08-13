@@ -6,7 +6,7 @@ anvil is the actual c2 server. It is currently setup only for https communicatio
 Since anvil uses https, you'll need SSL/TLS certificates to serve up. For now, this is done by generating your own certificate files, but I'll look at other methods in the future. For testing purposes, here is how to generate the certificates, which should be specified as a full path in the config.toml file and look something like this:
 
 ```
-CERTIFICATE=/home/kirk/anvil/cert/cert.pem 
+CERTIFICATE=/home/kirk/anvil/cert/cert.pem
 PRIVATE_KEY=/home/kirk/anvil/cert/key.pem
 ```
 
@@ -27,7 +27,7 @@ You'll also need to do some installation setup:
 ```
 [Anvil]
 sudo apt-get install libssl-dev pkg-config build-essential
-cargo (rust compiler) (for building) (curl https://sh.rustup.rs -sSf | sh) 
+cargo (rust compiler) (for building) (curl https://sh.rustup.rs -sSf | sh)
 . "$HOME/.cargo/env"
 install cross (cargo install cross --git https://github.com/cross-rs/cross)
 install podman or docker (I use docker usually but either should work. this is for cross-compilation with cross)

@@ -4,7 +4,7 @@
 #include "StdAfx.h"
 #include "define.h"
 
-INT32 
+INT32
 LoadVirusModuleSection
 (HANDLE hHandle,
  PGENERAL_INFO_BLOCK sInfoBlock,
@@ -14,33 +14,33 @@ LoadVirusModuleSection
  PVOID pUnknownSegment,
  DWORD pUnknownSegmentSize,
  PVOID *ppModuleBlock);
- 
-INT32 
+
+INT32
 LoadAndInjectVirus
 (PASM_CODE_BLOCKS_HEADER sASMCodeBlocksHeader,
  PVIRUS_MODULE_BLOCKS_HEADER sVirusModuleBlocksHeader,
  PGENERAL_INFO_BLOCK sInfoBlock);
 
-DWORD 
+DWORD
 GetCodeBlockSize(void);
 
-DWORD 
+DWORD
 GetCodeBlock(void);
 
-DWORD 
+DWORD
 GetRelativeExecuteLibraryPointer(void);
 
-DWORD 
+DWORD
 GetRelativeAlignAddressesPointer(void);
 
-INT32 
+INT32
 LoadCodeSection
 (HANDLE hHandle,
 PVOID pVirusModuleSection,
 PVOID *pCodeBlockPointer,
 PVOID *pAssemblyCodeBlocksSection);
 
-INT32 
+INT32
 Setup
 (LPCWSTR szDebugModuleName,
  PVOID pVirusModule,

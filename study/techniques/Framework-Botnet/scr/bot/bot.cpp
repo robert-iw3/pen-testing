@@ -521,7 +521,7 @@ void Bot::sendData(const std::string &data, const std::string &serverUrl) {
     if (curl) {
         curl_easy_setopt(curl, CURLOPT_URL, serverUrl.c_str());
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
-        curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10L); 
+        curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10L);
         res = curl_easy_perform(curl);
         curl_easy_cleanup(curl);
         if (res != CURLE_OK) {

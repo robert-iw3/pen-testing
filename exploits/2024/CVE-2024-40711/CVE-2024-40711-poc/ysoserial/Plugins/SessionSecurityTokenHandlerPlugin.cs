@@ -10,10 +10,10 @@ using ysoserial.Helpers;
 
 /**
  * Author: Soroush Dalili (@irsdl)
- * 
- * Comments: 
+ *
+ * Comments:
  *  This was released as a PoC for NCC Group's research on `Use of Deserialisation in .NET Framework Methods` (December 2018)
- *  See `SessionSecurityTokenHandler.ReadToken Method`: https://docs.microsoft.com/en-us/dotnet/api/system.identitymodel.tokens.sessionsecuritytokenhandler.readtoken 
+ *  See `SessionSecurityTokenHandler.ReadToken Method`: https://docs.microsoft.com/en-us/dotnet/api/system.identitymodel.tokens.sessionsecuritytokenhandler.readtoken
  *  Security note was added after being reported: https://github.com/dotnet/dotnet-api-docs/pull/502
  *  This PoC uses BinaryFormatter from TypeConfuseDelegate
  *  As it uses Data Protection API (DPAPI) that requires current account credentials. Without that, it will not be possible to create a valid cookie. Therefore, it might be very rare that this issue can become actually useful.
@@ -104,7 +104,7 @@ namespace ysoserial.Plugins
             byte[] encryptedEncoded = myProtectedDataCookieTransform.Encode(deflateEncoded);
             payload = String.Format(payload, Convert.ToBase64String(encryptedEncoded));
 
-            
+
             if (minify)
             {
                 payload = XmlHelper.Minify(payload, null, null);

@@ -241,11 +241,11 @@ func main() {
 	}
 
 	proxy := NewSOCKS5Proxy(hostname, authkey)
-	
+
 	log.Printf("Starting SOCKS5 proxy with hostname: %s", hostname)
 	log.Printf("Connecting to Tailscale network...")
 	log.Printf("Proxy will be available on port %s once connected", port)
-	
+
 	if err := proxy.Start(port); err != nil {
 		log.Fatalf("Failed to start proxy: %v", err)
 	}

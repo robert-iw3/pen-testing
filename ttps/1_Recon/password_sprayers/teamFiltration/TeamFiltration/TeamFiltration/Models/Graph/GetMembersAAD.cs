@@ -23,15 +23,15 @@ namespace TeamFiltration.Models.Graph
         public bool? accountEnabled { get; set; }
         public string city { get; set; }
         public string companyName { get; set; }
-      
+
         public string department { get; set; }
         public string displayName { get; set; }
         public string facsimileTelephoneNumber { get; set; }
         public string givenName { get; set; }
         public string immutableId { get; set; }
         public string jobTitle { get; set; }
-  
-    
+
+
         public string mail { get; set; }
         public string mailNickname { get; set; }
         public string mobile { get; set; }
@@ -43,7 +43,7 @@ namespace TeamFiltration.Models.Graph
         public string physicalDeliveryOfficeName { get; set; }
         public string postalCode { get; set; }
         public string[] proxyAddresses { get; set; }
-    
+
         public string sipProxyAddress { get; set; }
         public string state { get; set; }
         public string streetAddress { get; set; }
@@ -57,7 +57,7 @@ namespace TeamFiltration.Models.Graph
 
     }
 
-  
 
-  
+
+
 }

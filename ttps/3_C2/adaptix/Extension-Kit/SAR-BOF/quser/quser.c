@@ -25,7 +25,7 @@ void PrintLogonTime(LARGE_INTEGER logonTime)
 }
 
 void go(char * args, int alen)
-{	
+{
     if(!bofstart()){
         return;
     }
@@ -85,7 +85,7 @@ void go(char * args, int alen)
 			else {
 				getResult = WTSAPI32$WTSQuerySessionInformationA(hTarget, si.SessionId, WTSSessionInfo, &sessionInfo, &bytesReturned);
 				if (getResult) {
-					wtsInfo = (WTSINFO*)sessionInfo;					
+					wtsInfo = (WTSINFO*)sessionInfo;
 					WTSAPI32$WTSFreeMemory(sessionInfo);
 				}
 			}
@@ -96,7 +96,7 @@ void go(char * args, int alen)
 				addrFamily = "InterNetwork";
 			else if(clientAddressStruct->AddressFamily == 17)
 				addrFamily = "NetBios";
-			else 
+			else
 				addrFamily = "Unknown";
 			if(strlen(userName)){
 				if(si.State == WTSActive)
@@ -107,7 +107,7 @@ void go(char * args, int alen)
 					stateInfo = "Disconnected";
 				else if(si.State == WTSIdle)
 					stateInfo = "Idle";
-				else 
+				else
 					stateInfo = "Unknown";
 				if(addrFamily == "Unspecified"){
                     internal_printf("%-20s%-25s%-15s%-15i%-15s%-18s%-25s", userDomain, userName, si.pWinStationName, si.SessionId, stateInfo, "-", "-");

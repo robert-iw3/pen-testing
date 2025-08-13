@@ -16,15 +16,15 @@
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1020)
 #pragma once
-#endif 
+#endif
 
 #ifdef __cplusplus
 extern "C"{
-#endif 
+#endif
 
 
 #ifndef __DefaultIfName_INTERFACE_DEFINED__
-#define __DefaultIfName_INTERFACE_DEFINED__ 
+#define __DefaultIfName_INTERFACE_DEFINED__
 
 typedef struct Struct_22_t
     {

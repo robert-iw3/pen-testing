@@ -48,9 +48,9 @@ Many traditional covert command and control channels suffer from speed and detec
 
 # 🔍 How Does It Work?
 
-TURNt provides a suite of utilities — e.g. turnt-controller, turnt-relay, etc. — that enable tunneling arbitrary traffic through TURN servers hosted by third-party web conferencing providers such as Zoom or Microsoft Teams. This allows interactive command-and-control traffic to be relayed through trusted infrastructure that is often exempt from deep inspection by security tools due to high traffic volume and vendor-recommended allowlisting. 
+TURNt provides a suite of utilities — e.g. turnt-controller, turnt-relay, etc. — that enable tunneling arbitrary traffic through TURN servers hosted by third-party web conferencing providers such as Zoom or Microsoft Teams. This allows interactive command-and-control traffic to be relayed through trusted infrastructure that is often exempt from deep inspection by security tools due to high traffic volume and vendor-recommended allowlisting.
 
-TURN (Traversal Using Relays around NAT) is commonly used in web conferencing to facilitate connectivity between clients when direct peer-to-peer communication is blocked by NAT or firewall configurations. When a client cannot establish a UDP connection to a media server due to restrictive egress controls, it can instead proxy its traffic through a TURN server — typically over TCP or TLS — to bypass these restrictions. 
+TURN (Traversal Using Relays around NAT) is commonly used in web conferencing to facilitate connectivity between clients when direct peer-to-peer communication is blocked by NAT or firewall configurations. When a client cannot establish a UDP connection to a media server due to restrictive egress controls, it can instead proxy its traffic through a TURN server — typically over TCP or TLS — to bypass these restrictions.
 
 In particular, many TURN servers are configured to accept connections on port 443 using TURNS (TURN over TLS over TCP), allowing traffic to blend in with standard HTTPS flows. This provides an effective channel for covert tunneling, leveraging infrastructure that is often assumed to be benign.
 
@@ -92,7 +92,7 @@ This section walks through how to use the TURNT utilities to establish a SOCKS5 
 
 ### Step 1: Obtain TURN Credentials for Microsoft Teams
 
-The turn-credentials utility can be leveraged to obtain TURN server credentials from Microsoft Teams. These credentials can the be leveraged by the controller in order to establish a tunnel with the relay for SOCKS proxying. The  turnt-credentials command will save the credentials to `config.yaml` by default in the current directory by default. You can specify a different output file using the `-o` or `--output` flag. Below is an example command being used to generate MSTeams TURN server credentials and save them to the msteams_credentials.yaml file. 
+The turn-credentials utility can be leveraged to obtain TURN server credentials from Microsoft Teams. These credentials can the be leveraged by the controller in order to establish a tunnel with the relay for SOCKS proxying. The  turnt-credentials command will save the credentials to `config.yaml` by default in the current directory by default. You can specify a different output file using the `-o` or `--output` flag. Below is an example command being used to generate MSTeams TURN server credentials and save them to the msteams_credentials.yaml file.
 
 ```bash
 turnt-credentials msteams -o msteams_credentials.yaml
@@ -204,7 +204,7 @@ A quick way to test both local and remote port-forwarding is using Python's buil
    > rportfwd add 8888 127.0.0.1:8080
    ```
    This opens port 8888 on the remote machine and forwards all connections back to your local Python server.
-   
+
    Any system on the remote network can now browse to `http://<relay-ip>:8888` and access your local web server.
 
 > 💡 **Red Team Use Cases**: Remote port-forwarding is particularly valuable for offensive operations like NTLM relay attacks, hosting internal phishing pages, setting up listeners for reverse shells from other compromised systems, or exposing C2 infrastructure to internal targets.

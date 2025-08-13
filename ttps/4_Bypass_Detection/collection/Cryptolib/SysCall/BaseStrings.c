@@ -32,7 +32,7 @@ AsciiStrnCpy(CHAR8 *Destination, const CHAR8 *Source, UINTN count)
 
 	for (i=0; i < count && Source[i] != '\0'; i++)
 		Destination[i] = Source[i];
-	for ( ; i < count; i++) 
+	for ( ; i < count; i++)
 		Destination[i] = '\0';
 
 	return Destination;

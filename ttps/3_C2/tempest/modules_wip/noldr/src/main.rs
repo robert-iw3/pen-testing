@@ -49,7 +49,7 @@ to get a pointer to the TEB, which we can use to get a pointer to the PEB. */
 // For this proof of concept, we will call NtCreateProcess and launch calculator
 
 // The first step is to get the TEB by calling NtCurrentTEB
-/* 
+/*
 #[macro_use]
 extern crate memoffset;
 
@@ -59,7 +59,7 @@ macro_rules! container_of {
     }};
 }
 */
-/* 
+/*
 type PHANDLE = *mut HANDLE;
 type ACCESS_MASK = u32;
 type POBJECT_ATTRIBUTES = *mut c_void;
@@ -81,7 +81,7 @@ type NtCreateProcessType = unsafe extern "system" fn(
 fn main() {
 
     //gather command line arguments into an array
-/* 
+/*
     let args: Vec<String> = std::env::args().collect();
 
     //if no args are given, print usage and exit
@@ -115,7 +115,7 @@ fn main() {
         get_function_address(dll_base, &function_name).unwrap();
 
     println!("function_address: {:?}", function_address);
-    
+
     let mut peb_address: *const PEB = std::ptr::null();
 
     peb_address = unsafe { (*teb).ProcessEnvironmentBlock }; // Correct way to get PEB address

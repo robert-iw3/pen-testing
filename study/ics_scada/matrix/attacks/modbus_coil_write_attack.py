@@ -23,7 +23,7 @@ class ModbusUnauthorizedCoilWriter:
         except Exception as e:
             logger.error(f"Connection failed: {e}")
             return False
-    
+
     def write_coils(self, start_addr=0):
         """Write coil values: First 4 ON, Last 4 OFF"""
         values = [True] * 4 + [False] * 4
@@ -55,12 +55,12 @@ class ModbusUnauthorizedCoilWriter:
         if self.connect():
             logger.info("\nWriting values to Modbus server...")
             self.write_coils()
-            
+
             time.sleep(0.5)  # Small delay before reading
-            
+
             logger.info("\nReading values back...")
             self.read_coils()
-            
+
             self.client.close()
         else:
             logger.error("Failed to connect to Modbus server")

@@ -4,19 +4,19 @@ function Publish-MrMOFToSMB {
 <#
 .SYNOPSIS
     Publishes a DSC MOF configuration file to the pull server that's configured on a target node(s).
- 
+
 .DESCRIPTION
     Publish-MrMOFToSMB is an advanced PowerShell function that publishes one or more MOF configuration files
     to the an SMB DSC server by determining the ConfigurationID (GUID) that's configured on the target node along
     with the UNC path of the SMB pull server and creates the necessary checksum along with copying the MOF and
     checksum to the pull server.
- 
+
 .PARAMETER ConfigurationPath
     The folder path on the local computer that contains the mof configuration files.
 
 .PARAMETER ComputerName
     The computer name of the target node that the DSC configuration is created for.
- 
+
 .EXAMPLE
      Publish-MrMOFToSMB -ConfigurationPath 'C:\MyMofFiles'
 
@@ -28,13 +28,13 @@ function Publish-MrMOFToSMB {
 
 .EXAMPLE
      MyDscConfiguration -Param1 Value1 -Parm2 Value2 | Publish-MrMOFToSMB
- 
+
 .INPUTS
     String
- 
+
 .OUTPUTS
     None
- 
+
 .NOTES
     Author:  Mike F Robbins
     Website: http://mikefrobbins.com
@@ -71,13 +71,13 @@ function Publish-MrMOFToSMB {
             catch {
                 Write-Error -Message "An error has occurred. Error details: $_.Exception.Message"
                 continue
-            }        
-            
+            }
+
             $servermof = "$ConfigurationPath\$Computer.mof"
 
             if (-not(Get-ChildItem -Path $servermof -ErrorAction SilentlyContinue)) {
                 Write-Error -Message "Unable to find MOF file for $Computer in location: $ConfigurationPath"
-            } 
+            }
             elseif ($LCMConfig.RefreshMode -ne 'Pull') {
                 Write-Error -Message "The LCM on $Computer is not configured for DSC pull mode."
             }
@@ -110,7 +110,7 @@ function Publish-MrMOFToSMB {
                         Copy-Item -Path $servermof -Destination $guidmof -ErrorAction Stop
                     }
                     catch {
-                        Write-Error -Message "An error has occurred. Error details: $_.Exception.Message"                    
+                        Write-Error -Message "An error has occurred. Error details: $_.Exception.Message"
                     }
 
                 }

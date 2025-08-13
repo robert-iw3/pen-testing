@@ -22,7 +22,7 @@ if [ -f "/etc/doas.conf" ] || [ -f "/usr/local/etc/doas.conf" ] || [ "$DEBUG" ];
   if [ -n "$doas_bin" ]; then
     doas_dir_name=$(dirname "$doas_bin")
     echo "Doas binary found at: $doas_bin" | sed -${E} "s,.*,${SED_LIGHT_CYAN},g"
-    
+
     # Check doas binary permissions
     if [ -u "$doas_bin" ]; then
       echo "Doas binary has SUID bit set!" | sed -${E} "s,.*,${SED_RED},g"

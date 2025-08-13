@@ -16,7 +16,7 @@ def validate(pluginargs, args):
     if not 'url' in pluginargs.keys() or not 'content-type' in pluginargs.keys():
         error = "Missing url or content-type, specify as --url https://target.com/endpoint/to/test.ext and --content-type (form/json)\nYou can also specify the body with --body. Ex.: --body \"username={USER}&password={PASS}\" or --body {\"username\":\"{USER}\",\"password\":\"{PASS}\"}"
         return False, error, None
-    
+
     # Validate content-type
     if pluginargs['content-type'].lower() not in content_types:
         error = "content-type must be form or json"
@@ -40,9 +40,9 @@ def validate(pluginargs, args):
         if "{USER}" not in pluginargs['body'] or "{PASS}" not in pluginargs['body']:
             error = "Body must contain {USER} and {PASS} placeholders"
             return False, error, None
-        
+
     return True, None, pluginargs
-        
+
 
 
 def testconnect(pluginargs, args, api_dict, useragent):

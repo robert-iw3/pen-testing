@@ -23,13 +23,13 @@
 
     //set path in ui
     self.path.stringValue = self.plist;
-    
+
     //set inset
     self.contents.textContainerInset = NSMakeSize(0, 10);
-    
+
     //set font
     self.contents.font = [NSFont fontWithName:@"Menlo" size:13];
-    
+
     //add plist
     self.contents.string = [[NSDictionary dictionaryWithContentsOfFile:self.plist] description];
     if(0 == self.contents.string.length)
@@ -47,7 +47,7 @@
 {
     //end sheet
     [self.window.sheetParent endSheet:self.window returnCode:NSModalResponseOK];
-    
+
     return;
 }
 

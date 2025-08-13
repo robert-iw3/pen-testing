@@ -55,13 +55,13 @@ void SetupAndEnumWindowProps(void)
 
     // Get the top-level window
     hWnd = GetTopWindow(NULL);
-    
+
     if (hWnd == NULL) {
         fprintf(stderr, "Failed to get the top-level window.\n");
         VirtualFree(enumFunc, 0, MEM_RELEASE);
         return;
     }
-    
+
     // Enumerate properties
     if (!EnumPropsExW(hWnd, enumFunc, 0)) {
         fprintf(stderr, "EnumPropsExW failed.\n");

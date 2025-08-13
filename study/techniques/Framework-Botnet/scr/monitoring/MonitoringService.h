@@ -13,7 +13,7 @@ class MonitoringService {
 public:
     MonitoringService();
     ~MonitoringService();
-    
+
     void startMonitoring();
     void stopMonitoring();
     void collectMetrics();

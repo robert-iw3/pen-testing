@@ -8,7 +8,7 @@ using MonkeyWorks.Unmanaged.Libraries;
 namespace Tokenvator
 {
     class CheckPrivileges
-    {            
+    {
         ////////////////////////////////////////////////////////////////////////////////
         //
         ////////////////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ namespace Tokenvator
                 Console.WriteLine("Running as SYSTEM");
                 return true;
             }
-            
+
         }
 
         ////////////////////////////////////////////////////////////////////////////////
@@ -234,7 +234,7 @@ namespace Tokenvator
             {
                 Marshal.FreeHGlobal(lpTokenInformation);
             }
-            
+
             Console.WriteLine("[+] User: ");
             String sid, account;
             sid = account = String.Empty;

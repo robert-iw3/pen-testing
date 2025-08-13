@@ -81,7 +81,7 @@ I used the GoogleDrive C2 (Command and Control) API as a means to establish a co
 
 ## The fifth stage (payload with reverse shell)
 
-This payload is a simple reverse shell written in Rust it creates a TCP connection to a command and control (C2) server and listens for commands to execute on the infected machine, the payload first sets up the IP address and port number of the C2 server. 
+This payload is a simple reverse shell written in Rust it creates a TCP connection to a command and control (C2) server and listens for commands to execute on the infected machine, the payload first sets up the IP address and port number of the C2 server.
 
 When a command is received, it is executed using the cmd command in Windows. The output of the command is captured and sent back to the C2 server, the loop continues until the connection is closed by the C2 server or an error occurs while receiving data from the server.
 

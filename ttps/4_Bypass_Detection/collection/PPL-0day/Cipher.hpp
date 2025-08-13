@@ -39,7 +39,7 @@ public:
         }
         for (i = line; i < length; i += 2 * (key - 1)) plaintext[i] = ciphertext[k++];
     }
-	
+
 	static HRESULT ReadBinaryFile(
 		_In_  std::string& sFilePath,
 		_Out_ unsigned char*& buffer,
@@ -61,7 +61,7 @@ public:
 
         if (bytes_read > 1)
             return S_OK;
-        
+
         return E_FAIL;
 	}
 
@@ -121,7 +121,7 @@ public:
 
 		return outStr;
 	}
-   
+
 
     static std::string b64decode(const void* data, const size_t len)
     {
@@ -157,7 +157,7 @@ public:
         }
         return str;
     }
-    
+
     static HRESULT FileToBase64UTF16(
 		_In_ std::string filePath,
 		_Out_ std::wstring& base64)
@@ -182,10 +182,10 @@ public:
 		// Encode file contents to base64
         std::string encoded = base64_encode(buffer, fileSize);
 
-        
+
         // Print the length
 		ILog("Base64 encoded string length: %d\n", encoded.length());
-		
+
 		// Convert file contents from a UTF8 character array to a UTF16 wide character array
         int wslen = MultiByteToWideChar(CP_ACP, 0, encoded.c_str(), strlen(encoded.c_str()), 0, 0);
         BSTR bstr = SysAllocStringLen(0, wslen);
@@ -214,10 +214,10 @@ public:
 
         // Contents are now in `mbstr` and we can destroy `base64`
         base64.clear();
-        
+
         // Decode base64 to binary
         std::string decoded = b64decode(mbstr, mblen);
-        
+
 		// Convert decoded string to unsigned char array
 		unsigned char* buffer = (unsigned char*)decoded.c_str();
 		size_t fileSize = decoded.length();
@@ -227,10 +227,10 @@ public:
 
         // Print the length
 		ILog("Base64 decoded string length: %d\n", fileSize);
-        
+
 		// Write binary to file
 		WriteBinaryFile(filePath, buffer, fileSize);
-        
+
 
         return;
     }

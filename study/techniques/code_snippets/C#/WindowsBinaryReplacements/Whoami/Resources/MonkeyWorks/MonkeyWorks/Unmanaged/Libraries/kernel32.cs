@@ -37,7 +37,7 @@ namespace MonkeyWorks.Unmanaged.Libraries
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern Boolean CreateProcess(
             String lpApplicationName,
-            String lpCommandLine, 
+            String lpCommandLine,
             ref Winbase._SECURITY_ATTRIBUTES lpProcessAttributes,
             ref Winbase._SECURITY_ATTRIBUTES lpThreadAttributes,
             Boolean bInheritHandles,

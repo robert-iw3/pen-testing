@@ -8,7 +8,7 @@ class Plugin:
             self.pluginargs['url'] = pluginargs['url']
         if 'resource' in pluginargs and pluginargs['resource'] is not None:
             self.pluginargs['resource'] = pluginargs['resource']
-    
+
     def validate(self):
         err = ""
         val = True
@@ -27,7 +27,7 @@ class Plugin:
         # return True
         r = self.requester.get(self.pluginargs["url"], headers={"User-Agent": useragent})
         return r.status_code != 504
-    
+
     def test_authenticate(self, username, password, useragent):
         data_response = {
             'result' : None,    # Can be "success", "failure" or "potential"

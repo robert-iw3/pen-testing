@@ -181,7 +181,7 @@ Looking at the event logs, a logon type 2 \(interactive\) is observed amongst th
 
 ## Observations
 
-Network logons do not get cached in memory except for when using `PsExec` with alternate credentials specified via the `-u` switch. 
+Network logons do not get cached in memory except for when using `PsExec` with alternate credentials specified via the `-u` switch.
 
 Interactive and remote interactive logons do get cached and can get easily dumped with Mimikatz.
 

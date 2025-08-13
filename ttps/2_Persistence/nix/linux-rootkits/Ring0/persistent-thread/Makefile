@@ -1,5 +1,5 @@
 obj-m := lkm.o
-CC = gcc -Wall 
+CC = gcc -Wall
 KDIR := /lib/modules/$(shell uname -r)/build
 PWD := $(shell pwd)
 

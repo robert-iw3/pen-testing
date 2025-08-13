@@ -1,4 +1,4 @@
-/** 
+/**
  * Helper functions to determine if a string is a valid web address,
  * and what type of address it is: URL, IPv4, IPv6 or none of those.
  */
@@ -39,7 +39,7 @@ const isIpV4 = (value: string): boolean => {
 /* Checks if a given string looks like an IP Version 6 Address */
 const isIPv6 = (value: string): boolean => {
   const components = value.split(':');
-  
+
   if ((components.length < 2 || components.length > 8) ||
     ((components[0] !== '' || components[1] !== '')
       && !components[0].match(/^[\da-f]{1,4}/i))

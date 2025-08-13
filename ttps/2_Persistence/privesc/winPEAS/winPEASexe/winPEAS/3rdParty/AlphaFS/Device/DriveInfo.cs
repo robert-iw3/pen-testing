@@ -1,22 +1,22 @@
 /*  Copyright (C) 2008-2018 Peter Palotas, Jeffrey Jangli, Alexandr Normuradov
- *  
- *  Permission is hereby granted, free of charge, to any person obtaining a copy 
- *  of this software and associated documentation files (the "Software"), to deal 
- *  in the Software without restriction, including without limitation the rights 
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
- *  copies of the Software, and to permit persons to whom the Software is 
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *  
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *  
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
- *  THE SOFTWARE. 
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
  */
 
 using System;
@@ -124,7 +124,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// IsReady indicates whether a drive is ready. For example, it indicates whether a CD is in a CD drive or whether
       /// a removable storage device is ready for read/write operations. If you do not test whether a drive is ready, and
       /// it is not ready, querying the drive using DriveInfo will raise an IOException.
-      /// 
+      ///
       /// Do not rely on IsReady() to avoid catching exceptions from other members such as TotalSize, TotalFreeSpace, and DriveFormat.
       /// Between the time that your code checks IsReady and then accesses one of the other properties
       /// (even if the access occurs immediately after the check), a drive may have been disconnected or a disk may have been removed.
@@ -220,7 +220,7 @@ namespace Alphaleonis.Win32.Filesystem
          get
          {
             return !IsDosDeviceSubstitute && DriveType == DriveType.Network ||
-               
+
                    // Handle Host devices with file systems: FAT/FAT32, UDF (CDRom), ...
                    Name.StartsWith(Path.UncPrefix, StringComparison.Ordinal) && DriveType == DriveType.NoRootDirectory && DriveFormat.Equals(DriveType.Unknown.ToString(), StringComparison.OrdinalIgnoreCase);
          }
@@ -275,7 +275,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <returns>
       ///   An IEnumerable of type <see cref="Alphaleonis.Win32.Filesystem.DriveInfo"/> that represents
       ///   the logical drives on the Computer.
-      /// </returns>      
+      /// </returns>
       [SecurityCritical]
       public static IEnumerable<DriveInfo> EnumerateDrives(bool fromEnvironment, bool isReady)
       {
@@ -409,7 +409,7 @@ namespace Alphaleonis.Win32.Filesystem
 
          return type == 0 && mode > 0 ? string.Empty : null;
       }
-      
+
       #endregion // Private
    }
 }

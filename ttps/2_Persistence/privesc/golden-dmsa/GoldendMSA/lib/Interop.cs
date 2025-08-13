@@ -63,7 +63,7 @@ namespace GoldendMSA {
             // TODO: constrained delegation?
         }
 
-        
+
         [Flags]
         public enum KdcOptions : uint
         {
@@ -136,7 +136,7 @@ namespace GoldendMSA {
             aes256_gcm_ghash_credguard = -180
         }
 
-        
+
         // from https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-pac/311aab27-ebdf-47f7-b939-13dc99b15341
         [Flags]
         public enum KERB_SID_AND_ATTRIBUTES_Attributes

@@ -95,7 +95,7 @@ namespace winPEAS.Info.CloudInfo
 
             return _endpointDataList;
         }
-        
+
 
         public override Dictionary<string, List<EndpointData>> EndpointDataList()
         {

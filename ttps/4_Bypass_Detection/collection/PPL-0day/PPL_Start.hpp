@@ -217,7 +217,7 @@ namespace PPL_Start
 
             return FALSE;
         }
-        
+
         if (!SetThreadProcessPrivilege(L"SeDebugPrivilege", true))
         {
             ILog("Failed to enable SeDebugPrivilege: %d\n", GetLastError());
@@ -277,7 +277,7 @@ namespace PPL_Start
         // Initialize STARTUPINFO
         ZeroMemory(&si, sizeof(STARTUPINFO));
 
-        // Start the child process. 
+        // Start the child process.
         bSuccess = CreateProcess(
             NULL,   // No module name (use command line)
             commandLine,        // Command line
@@ -286,7 +286,7 @@ namespace PPL_Start
             FALSE,          // Set handle inheritance to FALSE
             CREATE_SUSPENDED, // Creation flags
             NULL,           // Use parent's environment block
-            NULL,           // Use parent's starting directory 
+            NULL,           // Use parent's starting directory
             &si,            // Pointer to STARTUPINFO structure
             &pi             // Pointer to PROCESS_INFORMATION structure (removed extra parentheses)
         );

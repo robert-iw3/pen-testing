@@ -1,4 +1,4 @@
-//manual compile: csc /reference:/opt/microsoft/powershell/7/System.Management.Automation.dll,/usr/lib/mono/4.5.1-api/Facades/System.Runtime.dll /out:Stager.dll Stager.cs 
+//manual compile: csc /reference:/opt/microsoft/powershell/7/System.Management.Automation.dll,/usr/lib/mono/4.5.1-api/Facades/System.Runtime.dll /out:Stager.dll Stager.cs
 
 using System;
 using System.Management.Automation;

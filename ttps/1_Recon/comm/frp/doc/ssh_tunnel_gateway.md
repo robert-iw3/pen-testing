@@ -68,7 +68,7 @@ This sets up a proxy on frps that listens on port 9090 and proxies local service
 ```bash
 frp (via SSH) (Ctrl+C to quit)
 
-User: 
+User:
 ProxyName: test-tcp
 Type: tcp
 RemoteAddress: :9090

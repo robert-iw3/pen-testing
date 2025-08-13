@@ -7,7 +7,7 @@ function Invoke-SSHCommand {
 
 .Parameter IP
     The string containing the IP or hostname of the target server.
-    
+
 .Parameter Username
     The username for the ssh server
 

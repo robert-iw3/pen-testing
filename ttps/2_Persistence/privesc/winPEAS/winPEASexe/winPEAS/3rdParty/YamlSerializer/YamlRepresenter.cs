@@ -79,7 +79,7 @@ namespace System.Yaml.Serialization
                 if ( !appeared.ContainsKey(obj) )
                     appeared.Add(obj, node);
         }
-        Dictionary<object, YamlNode> appeared = 
+        Dictionary<object, YamlNode> appeared =
             new Dictionary<object, YamlNode>(TypeUtils.EqualityComparerByRef<object>.Default);
 
         YamlNode ObjectToNodeSub(object obj, Type expect)
@@ -109,12 +109,12 @@ namespace System.Yaml.Serialization
                 return n;
             }
 
-            // TypeConverterAttribute 
+            // TypeConverterAttribute
             if ( EasyTypeConverter.IsTypeConverterSpecified(type) )
                 return str(TypeNameToYamlTag(type), config.TypeConverter.ConvertToString(obj));
 
             // array
-            if ( type.IsArray ) 
+            if ( type.IsArray )
                 return CreateArrayNode((Array)obj);
 
             if ( type == typeof(Dictionary<object, object>) )

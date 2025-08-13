@@ -37,7 +37,7 @@ BeenThere
 ClusterRollout
 ControllerServlet
 DynaCacheESI
-DynaCacheESI/esiInavlidator 
+DynaCacheESI/esiInavlidator
 DynamicQuery/EmployeeFinder
 DynamicQuery/EmployeeFinder/*
 DynamicQuery/docs/*

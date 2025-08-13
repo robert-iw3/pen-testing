@@ -37,7 +37,7 @@ namespace MonkeyWorks.Unmanaged.Libraries
             IntPtr hVault,
             ref Guid guid,
             IntPtr SchemaId,
-            IntPtr Resource, 
+            IntPtr Resource,
             IntPtr Identity,
             IntPtr PackageSid,
             //IntPtr unknownPtr,

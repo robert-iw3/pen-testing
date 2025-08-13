@@ -38,9 +38,9 @@ April 2021: Bitcoin-themed spear phishing emails targeting Ukrainian government 
 
 Second the attackers exploited the Zero-day vulnerability (CVE-2017-11882) is a vulnerability in Microsoft Office, specifically affecting Microsoft Office 2007 Service Pack 3, Microsoft Office 2010 Service Pack 2, Microsoft Office 2013 Service Pack 1, and Microsoft Office 2016. This vulnerability is classified as a memory corruption issue that occurs due to improper handling of objects in memory.
 
-Exploitation repository: https://github.com/0x09AL/CVE-2017-11882-metasploit?tab=readme-ov-file 
+Exploitation repository: https://github.com/0x09AL/CVE-2017-11882-metasploit?tab=readme-ov-file
 
-This vulnerability allow an attacker to run arbitrary code in the context of the current user by failing to properly handle objects in memory, I then placed a Word file in the 
+This vulnerability allow an attacker to run arbitrary code in the context of the current user by failing to properly handle objects in memory, I then placed a Word file in the
 phishing email, including links to Zip files containing malicious shortcuts (LNK).
 
 
@@ -110,7 +110,7 @@ SaintBot is a recently discovered malware loader, documented in April 2021 by Ma
 
 ## The fifth stage (disable windows defender)
 
-This batch file is used to disable Windows Defender functionality. It accomplishes this by executing multiple commands via CMD that modify registry keys and disabling Windows Defender scheduled tasks. 
+This batch file is used to disable Windows Defender functionality. It accomplishes this by executing multiple commands via CMD that modify registry keys and disabling Windows Defender scheduled tasks.
 
 
 ![Screenshot from 2024-06-18 08-31-01](https://github.com/S3N4T0R-0X0/Ember-Bear-APT/assets/121706460/2d3ddff9-2068-432a-ad13-907844e5d376)

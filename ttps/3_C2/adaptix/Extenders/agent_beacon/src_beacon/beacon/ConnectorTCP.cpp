@@ -99,7 +99,7 @@ void ConnectorTCP::SendData(BYTE* data, ULONG data_size)
     this->recvSize = 0;
 
     if (data && data_size) {
-		
+
 		if (this->functions->send(this->ClientSocket, (const char*)&data_size, 4, 0) != -1) {
 			DWORD index = 0;
 			DWORD size = 0;
@@ -204,7 +204,7 @@ void ConnectorTCP::RecvClear()
 	if (this->recvData && this->allocaSize) {
 		if (this->recvSize > 0)
 			memset(this->recvData, 0, this->recvSize);
-		else 
+		else
 			memset(this->recvData, 0, this->allocaSize);
 	}
 }

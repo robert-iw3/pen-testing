@@ -12,7 +12,7 @@ A BOF tool that can be used to collect passwords using CredUIPromptForWindowsCre
 Running the tools is straightforward. Once you imported the CNA script using Cobalt Strike's Script Manager, they are available as Cobalt Strike commands that can be executed within a beacon. This tools supports the following commands:
 
 * `Askcreds [optional reason]`
-  
+
 ## Examples
 * Just ask with default reason: `Askcreds`
 * Ask with a specific reason: `Askcreds Gimme Your Password!`

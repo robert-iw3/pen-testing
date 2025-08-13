@@ -64,7 +64,7 @@ namespace MonkeyWorks.Unmanaged.Headers
             public LARGE_INTEGER PasswordLastSet;
             public LARGE_INTEGER PasswordCanChange;
             public LARGE_INTEGER PasswordMustChange;
-            */ 
+            */
         }
     }
 }

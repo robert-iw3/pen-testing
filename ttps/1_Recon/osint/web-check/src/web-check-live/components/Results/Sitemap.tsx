@@ -35,7 +35,7 @@ const SitemapCard = (props: {data: any, title: string, actionButtons: any }): JS
       return urlObj.pathname;
     } catch (e) {
       return url;
-    }    
+    }
   };
 
   return (
@@ -46,7 +46,7 @@ const SitemapCard = (props: {data: any, title: string, actionButtons: any }): JS
         })
       }
       { siteMapIndex && <p>
-        This site returns a sitemap index, which is a list of sitemaps.  
+        This site returns a sitemap index, which is a list of sitemaps.
       </p>}
       {
         siteMapIndex && siteMapIndex.map((subpage: any, index: number) => {

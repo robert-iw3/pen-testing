@@ -77,7 +77,7 @@ int boot_read_image_header_hook(int img_index, int slot,
  *
  * @param img_index the index of the image pair
  * @param slot slot number
- * 
+ *
  * @retval FIH_SUCCESS: image is valid, skip direct validation
  *         FIH_FAILURE: image is invalid, skip direct validation
  *         FIH_BOOT_HOOK_REGULAR: follow the normal execution path.

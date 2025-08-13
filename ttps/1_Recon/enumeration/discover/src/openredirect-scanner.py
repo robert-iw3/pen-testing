@@ -181,12 +181,12 @@ USER_AGENTS = [
 # Banner function
 def print_banner():
     print(f"""
-{CYAN}  
-  ____                ___         ___             __ 
+{CYAN}
+  ____                ___         ___             __
  / __ \___  ___ ___  / _ \___ ___/ (_)______ ____/ /_
 / /_/ / _ \/ -_) _ \/ , _/ -_) _  / / __/ -_) __/ __/
-\____/ .__/\__/_//_/_/|_|\__/\_,_/_/_/  \__/\__/\__/ 
-    /_/                                              
+\____/ .__/\__/_//_/_/|_|\__/\_,_/_/_/  \__/\__/\__/
+    /_/
 {BLUE}  Open Redirect Scanner |  | {CURRENT_DATE} {CURRENT_TIME}{NC}
     """)
 
@@ -214,17 +214,17 @@ def get_random_user_agent():
 def create_session():
     """Create a configured requests session"""
     session = requests.Session()
-    
+
     retry_strategy = Retry(
         total=MAX_RETRIES,
         backoff_factor=1,
         status_forcelist=[429, 500, 502, 503, 504],
     )
-    
+
     adapter = HTTPAdapter(max_retries=retry_strategy)
     session.mount("http://", adapter)
     session.mount("https://", adapter)
-    
+
     session.headers.update({
         'User-Agent': get_random_user_agent(),
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -233,7 +233,7 @@ def create_session():
         'Connection': 'keep-alive',
         'Upgrade-Insecure-Requests': '1'
     })
-    
+
     return session
 
 def ensure_output_dir():
@@ -281,11 +281,11 @@ def analyze_redirect(response, payload):
     """Analyze redirect response for vulnerabilities"""
     if not is_redirect_response(response):
         return False, "No redirect detected"
-    
+
     location = response.headers.get('Location', '')
     if not location:
         return False, "Empty location header"
-    
+
     payload_indicators = [
         'target.com',
         'malicious.example.com',
@@ -295,32 +295,32 @@ def analyze_redirect(response, payload):
         '169.254.169.254',
         payload.replace('https://', '').replace('http://', '').replace('//', '').replace('\\\\', '')
     ]
-    
+
     location_lower = location.lower()
     for indicator in payload_indicators:
         if indicator.lower() in location_lower:
             return True, f"Vulnerable - redirects to: {location}"
-    
+
     if 'javascript:' in location_lower:
         return True, f"JavaScript execution detected: {location}"
-    
+
     if location.startswith('data:'):
         return True, f"Data URI redirect detected: {location[:100]}..."
-    
+
     return False, f"Safe redirect to: {location}"
 
 def test_url_with_payload(session, base_url, param, payload):
     """Test a single URL with a specific payload"""
     global total_tested
-    
+
     if stop_scanning:
         return None
-    
+
     try:
         parsed = urlparse(base_url)
         query_params = parse_qs(parsed.query)
         query_params[param] = [payload]
-        
+
         new_query = urlencode(query_params, doseq=True)
         test_url = urlunparse((
             parsed.scheme,
@@ -330,19 +330,19 @@ def test_url_with_payload(session, base_url, param, payload):
             new_query,
             parsed.fragment
         ))
-        
+
         response = session.get(
             test_url,
             allow_redirects=False,
             timeout=REQUEST_TIMEOUT,
             verify=False
         )
-        
+
         with results_lock:
             total_tested += 1
-        
+
         is_vulnerable, details = analyze_redirect(response, payload)
-        
+
         if is_vulnerable:
             result = {
                 'url': test_url,
@@ -354,33 +354,33 @@ def test_url_with_payload(session, base_url, param, payload):
                 'details': details,
                 'timestamp': datetime.now().isoformat()
             }
-            
+
             with results_lock:
                 vulnerable_urls.append(result)
-            
+
             print_success(f"VULNERABLE: {base_url} - Parameter: {param} - {details}")
             return result
-        
+
         time.sleep(DELAY_BETWEEN_REQUESTS)
-        
+
     except requests.exceptions.Timeout:
         print_warning(f"Timeout testing {base_url} with parameter {param}")
     except requests.exceptions.RequestException as e:
         print_error(f"Request failed for {base_url}: {str(e)}")
     except Exception as e:
         print_error(f"Unexpected error testing {base_url}: {str(e)}")
-    
+
     return None
 
 def scan_url(session, base_url, parameters, payloads, max_workers=10):
     """Scan a single URL with all parameters and payloads"""
     print_info(f"Scanning URL: {base_url}")
     print_info(f"Testing {len(parameters)} parameters with {len(payloads)} payloads")
-    
+
     results = []
     total_tests = len(parameters) * len(payloads)
     completed_tests = 0
-    
+
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         future_to_test = {}
         for param in parameters:
@@ -389,37 +389,37 @@ def scan_url(session, base_url, parameters, payloads, max_workers=10):
                     break
                 future = executor.submit(test_url_with_payload, session, base_url, param, payload)
                 future_to_test[future] = (param, payload)
-        
+
         for future in as_completed(future_to_test):
             if stop_scanning:
                 break
-            
+
             completed_tests += 1
             param, payload = future_to_test[future]
-            
+
             try:
                 result = future.result()
                 if result:
                     results.append(result)
             except Exception as e:
                 print_error(f"Error processing test for {param} with {payload}: {e}")
-            
+
             if completed_tests % 50 == 0 or completed_tests == total_tests:
                 progress = (completed_tests / total_tests) * 100
                 print_info(f"Progress: {completed_tests}/{total_tests} tests ({progress:.1f}%)")
-    
+
     return results
 
 def save_results(results, output_format='all'):
     """Save results in various formats"""
     ensure_output_dir()
-    
+
     if not results:
         print_warning("No vulnerabilities found to save")
         return
-    
+
     base_filename = os.path.join(OUTPUT_DIR, f"openredirect_results_{CURRENT_DATE}_{int(time.time())}")
-    
+
     if output_format in ['txt', 'all']:
         txt_file = f"{base_filename}.txt"
         try:
@@ -428,7 +428,7 @@ def save_results(results, output_format='all'):
                 f.write(f"Scan Date: {CURRENT_DATE} {CURRENT_TIME}\n")
                 f.write(f"Total Vulnerabilities Found: {len(results)}\n")
                 f.write("="*80 + "\n\n")
-                
+
                 for i, result in enumerate(results, 1):
                     f.write(f"Vulnerability #{i}\n")
                     f.write(f"URL: {result['url']}\n")
@@ -440,11 +440,11 @@ def save_results(results, output_format='all'):
                     f.write(f"Details: {result['details']}\n")
                     f.write(f"Timestamp: {result['timestamp']}\n")
                     f.write("-"*50 + "\n\n")
-            
+
             print_success(f"Results saved to: {txt_file}")
         except Exception as e:
             print_error(f"Error saving TXT results: {e}")
-    
+
     if output_format in ['json', 'all']:
         json_file = f"{base_filename}.json"
         try:
@@ -457,18 +457,18 @@ def save_results(results, output_format='all'):
                     },
                     'vulnerabilities': results
                 }, f, indent=2)
-            
+
             print_success(f"Results saved to: {json_file}")
         except Exception as e:
             print_error(f"Error saving JSON results: {e}")
-    
+
     if output_format in ['csv', 'all']:
         csv_file = f"{base_filename}.csv"
         try:
             with open(csv_file, 'w', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
                 writer.writerow(['URL', 'Base URL', 'Parameter', 'Payload', 'Status Code', 'Location', 'Details', 'Timestamp'])
-                
+
                 for result in results:
                     writer.writerow([
                         result['url'],
@@ -480,7 +480,7 @@ def save_results(results, output_format='all'):
                         result['details'],
                         result['timestamp']
                     ])
-            
+
             print_success(f"Results saved to: {csv_file}")
         except Exception as e:
             print_error(f"Error saving CSV results: {e}")
@@ -489,7 +489,7 @@ def main():
     """Main function"""
     # Display banner
     print_banner()
-    
+
     parser = argparse.ArgumentParser(
         description="Simple Open Redirect Scanner",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -501,18 +501,18 @@ Examples:
   python3 openredirect_scanner.py -f urls.txt -o json
         """
     )
-    
+
     parser.add_argument('-u', '--url', help='Target URL to test')
     parser.add_argument('-d', '--domain', help='Target domain to test')
     parser.add_argument('-f', '--file', help='File containing URLs to test')
     parser.add_argument('-w', '--wordlist', help='Custom parameter wordlist')
     parser.add_argument('-o', '--output', choices=['txt', 'json', 'csv', 'all'], default='all', help='Output format (default: all)')
-    
+
     args = parser.parse_args()
-    
+
     # Set up signal handler
     signal.signal(signal.SIGINT, signal_handler)
-    
+
     # Collect targets
     targets = []
     if args.url:
@@ -524,44 +524,44 @@ Examples:
     else:
         print_error("No target specified. Use -u, -d, or -f option.")
         sys.exit(1)
-    
+
     if not targets:
         print_error("No valid targets found.")
         sys.exit(1)
-    
+
     # Collect parameters
     parameters = list(REDIRECT_PARAMS)
     if args.wordlist:
         custom_params = load_wordlist(args.wordlist)
         parameters.extend(custom_params)
-    
+
     # Remove duplicates
     parameters = list(dict.fromkeys(parameters))
-    
+
     # Use built-in payloads
     payloads = list(PAYLOADS)
-    
+
     print_info(f"Starting scan with {len(targets)} targets, {len(parameters)} parameters, {len(payloads)} payloads")
-    
+
     # Perform scan
     start_time = time.time()
     session = create_session()
     all_results = []
-    
+
     for i, target in enumerate(targets, 1):
         if stop_scanning:
             break
-        
+
         print_info(f"[{i}/{len(targets)}] Scanning: {target}")
         results = scan_url(session, target, parameters, payloads, max_workers=10)
         all_results.extend(results)
-    
+
     # Save and report results
     duration = time.time() - start_time
     print_info(f"Scan completed in {duration:.2f} seconds")
     print_info(f"Total tests performed: {total_tested:,}")
     print_info(f"Found {len(all_results)} vulnerabilities")
-    
+
     if all_results:
         save_results(all_results, args.output)
         print_success(f"Found {len(all_results)} open redirect vulnerabilities")

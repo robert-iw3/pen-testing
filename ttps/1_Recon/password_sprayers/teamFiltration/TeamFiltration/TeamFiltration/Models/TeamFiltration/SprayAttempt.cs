@@ -15,7 +15,7 @@ namespace TeamFiltration.Models.TeamFiltration
         public string Username { get; set; }
         public string Password { get; set; }
 
-  
+
 
         public static explicit operator SprayAttemptPretty(SprayAttempt v)
         {

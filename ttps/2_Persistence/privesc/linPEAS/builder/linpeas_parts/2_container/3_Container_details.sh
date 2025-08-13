@@ -73,30 +73,30 @@ else
     if [ "$lxccontainers" -ne "0" ]; then containerCounts="${containerCounts}lxc($lxccontainers) "; fi
     if [ "$rktcontainers" -ne "0" ]; then containerCounts="${containerCounts}rkt($rktcontainers) "; fi
     echo "Yes $containerCounts" | sed -${E} "s,.*,${SED_RED},"
-    
+
     # List any running containers with more details
-    if [ "$dockercontainers" -ne "0" ]; then 
+    if [ "$dockercontainers" -ne "0" ]; then
         echo "Running Docker Containers" | sed -${E} "s,.*,${SED_RED},"
         docker ps -a 2>/dev/null
         #echo "Docker Container Details" | sed -${E} "s,.*,${SED_RED},"
         #docker inspect $(docker ps -q) 2>/dev/null | grep -E "Privileged|CapAdd|CapDrop|SecurityOpt|HostConfig" | sed -${E} "s,true|privileged|host,${SED_RED},g"
         echo ""
     fi
-    if [ "$podmancontainers" -ne "0" ]; then 
+    if [ "$podmancontainers" -ne "0" ]; then
         echo "Running Podman Containers" | sed -${E} "s,.*,${SED_RED},"
         podman ps -a 2>/dev/null
         #echo "Podman Container Details" | sed -${E} "s,.*,${SED_RED},"
         #podman inspect $(podman ps -q) 2>/dev/null | grep -E "Privileged|CapAdd|CapDrop|SecurityOpt|HostConfig" | sed -${E} "s,true|privileged|host,${SED_RED},g"
         echo ""
     fi
-    if [ "$lxccontainers" -ne "0" ]; then 
+    if [ "$lxccontainers" -ne "0" ]; then
         echo "Running LXC Containers" | sed -${E} "s,.*,${SED_RED},"
         lxc list 2>/dev/null
         #echo "LXC Container Details" | sed -${E} "s,.*,${SED_RED},"
         #lxc config show $(lxc list -c n --format csv) 2>/dev/null | grep -E "security.privileged|security.capabilities|security.syscalls" | sed -${E} "s,true|privileged|host,${SED_RED},g"
         echo ""
     fi
-    if [ "$rktcontainers" -ne "0" ]; then 
+    if [ "$rktcontainers" -ne "0" ]; then
         echo "Running RKT Containers" | sed -${E} "s,.*,${SED_RED},"
         rkt list 2>/dev/null
         #echo "RKT Container Details" | sed -${E} "s,.*,${SED_RED},"

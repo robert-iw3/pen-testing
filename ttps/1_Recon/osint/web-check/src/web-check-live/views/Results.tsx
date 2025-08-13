@@ -204,7 +204,7 @@ const Results = (props: { address?: string } ): JSX.Element => {
         if (!(window as any).webCheck) (window as any).webCheck = {};
         if (data) (window as any).webCheck[job] = data;
       }
-  
+
       if (newState === 'error') {
         console.log(
           `%cFetch Error - ${job}%c\n\n${timeString}%c The ${job} job failed `
@@ -249,7 +249,7 @@ const Results = (props: { address?: string } ): JSX.Element => {
   const urlTypeOnly = ['url'] as AddressType[]; // Many jobs only run with these address types
 
   const api = import.meta.env.PUBLIC_API_ENDPOINT || '/api'; // Where is the API hosted?
-  
+
   // Fetch and parse IP address for given URL
   const [ipAddress, setIpAddress] = useMotherHook({
     jobId: 'get-ip',
@@ -267,7 +267,7 @@ const Results = (props: { address?: string } ): JSX.Element => {
     if (addressType === 'ipV4' && address) {
       setIpAddress(address);
     }
-  }, [address, addressType, setIpAddress]);  
+  }, [address, addressType, setIpAddress]);
 
   // Get IP address location info
   const [locationResults, updateLocationResults] = useMotherHook<ServerLocation>({
@@ -865,11 +865,11 @@ const Results = (props: { address?: string } ): JSX.Element => {
     setModalContent(content);
     setModalOpen(true);
   };
-  
+
   return (
     <ResultsOuter>
       <Nav>
-      { address && 
+      { address &&
         <Heading color={colors.textColor} size="medium">
           { addressType === 'url' && <a target="_blank" rel="noreferrer" href={address}><img width="32px" src={`https://icon.horse/icon/${makeSiteName(address)}`} alt="" /></a> }
           {makeSiteName(address)}
@@ -894,10 +894,10 @@ const Results = (props: { address?: string } ): JSX.Element => {
         </div>
         <div className="one-half">
         <span className="group-label">Search</span>
-        <input 
-          type="text" 
-          placeholder="Filter Results" 
-          value={searchTerm} 
+        <input
+          type="text"
+          placeholder="Filter Results"
+          value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <span className="toggle-filters" onClick={() => setShowFilters(false)}>Hide</span>

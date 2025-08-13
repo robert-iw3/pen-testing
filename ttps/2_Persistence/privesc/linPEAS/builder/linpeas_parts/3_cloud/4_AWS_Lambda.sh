@@ -8,7 +8,7 @@
 # Functions Used: check_aws_lambda, print_2title
 # Global Variables: $is_aws_lambda
 # Initial Functions: check_aws_lambda
-# Generated Global Variables: 
+# Generated Global Variables:
 # Fat linpeas: 0
 # Small linpeas: 0
 

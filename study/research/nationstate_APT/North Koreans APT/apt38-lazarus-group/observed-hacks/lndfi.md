@@ -50,13 +50,13 @@ Malicious Developers
 
 - spaceboy00@gmail.com
 
-- TG @MaoDan007 
+- TG @MaoDan007
 
 - TG-ID 5089966453
 
 - Feb 21 2024 -> Dеvеlорer @full_dev09
 
-- Mar 16 2024 -> Solаna Dеvеlopеr @Solana_crazy 
+- Mar 16 2024 -> Solаna Dеvеlopеr @Solana_crazy
 
 - Mar 16 2024 -> Sol Crаzy @MaoDan007
 
@@ -115,9 +115,9 @@ Malicious Developers
 
 ## Indicators
 
-- 45.153.229.45 on 2025-05-13 04:53:47 UTC 
+- 45.153.229.45 on 2025-05-13 04:53:47 UTC
 
-- 27.122.13.212 on 2025-05-10 02:48:54 UTC associated with cryptospaceboy00@gmail.com 
+- 27.122.13.212 on 2025-05-10 02:48:54 UTC associated with cryptospaceboy00@gmail.com
 
 - 0xbd9e29232fead658f8b3c32b0869ab46cb5ac81f
 

@@ -1,7 +1,7 @@
 from sqlmap_ai.ui import (
-    print_warning, 
-    print_info, 
-    handle_timeout_ui, 
+    print_warning,
+    print_info,
+    handle_timeout_ui,
     handle_no_data_timeout_ui
 )
 def handle_timeout_response(report, target_url, runner):
@@ -38,4 +38,4 @@ def handle_timeout_response(report, target_url, runner):
             return False, None
         else:
             print_warning("Invalid choice. Stopping here.")
-            return False, None 
+            return False, None

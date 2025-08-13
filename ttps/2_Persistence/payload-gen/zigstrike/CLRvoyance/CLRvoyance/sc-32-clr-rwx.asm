@@ -2,7 +2,7 @@ BITS 32
 
 %define RUNTIMEVERSION_VALUE "v4.0.30319"
 
-; RWX version of clrhosting. This requires the page to have PAGE_EXECUTE_READWRITE in order to 
+; RWX version of clrhosting. This requires the page to have PAGE_EXECUTE_READWRITE in order to
 ; populate COM pointers and build the lookup table. We currently don't use this in
 ; clr_shellcode.py, but we're keeping it around just in case.
 

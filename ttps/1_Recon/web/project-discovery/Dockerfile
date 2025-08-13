@@ -114,11 +114,11 @@ FROM ${repo}/${base_image}@sha256:${image_hash} AS go-builder
 RUN apk add --no-cache ca-certificates
 
 ENV GOLANG_VERSION 1.24.0
-	
+
 # don't auto-upgrade the gotoolchain
 # https://github.com/docker-library/golang/issues/472
 ENV GOTOOLCHAIN=local
-	
+
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 COPY --from=go-compiler /target/ /
@@ -163,7 +163,7 @@ RUN \
     clamscan -rvi -l /home/discovery/last_scan.log --exclude-dir="^/sys|^/dev" /; \
     chown discovery:discovery /home/discovery/last_scan.log; \
 	chown -R discovery:discovery /usr/local/bin; \
-    grep -Hrn " FOUND" /home/discovery/last_scan.log; \ 
+    grep -Hrn " FOUND" /home/discovery/last_scan.log; \
     apk del --no-network --purge clamav freshclam; \
 	rm -rf /var/cache/apk/*
 

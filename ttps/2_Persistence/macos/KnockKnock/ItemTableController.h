@@ -13,7 +13,7 @@
 
 @interface ItemTableController : NSObject <NSTableViewDataSource, NSTableViewDelegate>
 {
-    
+
 }
 
 //category table view

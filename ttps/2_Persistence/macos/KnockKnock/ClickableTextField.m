@@ -19,12 +19,12 @@
         //bail
         goto bail;
     }
-    
+
     //set as 'hand cursor'
     [self addCursorRect:[self bounds] cursor:[NSCursor pointingHandCursor]];
-    
+
 bail:
-    
+
     return;
 }
 

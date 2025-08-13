@@ -13,7 +13,7 @@
             color: #00ff00;
             margin: 0;
             padding: 20px;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
             background-size: 20px 20px;
@@ -573,10 +573,10 @@ h1 {
             <div class="radio-button-group">
                 <input type="radio" id="hijack_thread" name="injection_method" value="hijack_thread">
                 <label for="hijack_thread" data-tooltip="Hijack Thread: This technique involves taking control of an existing thread within the target process. It redirects the thread's execution to the injected shellcode. This method is stealthy as it doesn't create new threads, potentially evading some detection mechanisms. However, it may impact the stability of the hijacked thread's original function.">Local Thread</label>
-                
+
                 <input type="radio" id="local_mapping" name="injection_method" value="local_mapping">
                 <label for="local_mapping" data-tooltip=" 1.Create Mapped Section in Target Process.&#10;
-                2.Copy Shellcode to the mapped section.&#10; 
+                2.Copy Shellcode to the mapped section.&#10;
                 3.Execute the shellcode.">Local Mapping</label>
                 <input type="radio" id="remote_mapping" name="injection_method" value="remote_mapping">
                 <label for="remote_mapping" data-tooltip="1. Create a new process in the target machine.&#10;
@@ -589,18 +589,18 @@ h1 {
                 <input type="radio" id="early_cascade" name="injection_method" value="early_cascade">
                 <label for="early_cascade" data-tooltip="injecting and executing code in the early stages of process creation before loading EDRs for their user mode detection measures. EarlyCascade technique forces enabling the Shim engine, allowing to hijack a Shim engine callback.">Early Cascade</label>
             </div>
-            
+
             <div id="process-input" class="process-input" style="display: none;">
                 <label for="process-name">Target Process Name:</label>
                 <input type="text" id="process-name" name="process_name" placeholder="Enter process name (e.g., notepad.exe)" />
             </div>
-            
+
             <hr class="separator">
-            
+
             <div class="protection-options">
                 <input type="checkbox" id="enable_protection" name="enable_protection">
                 <label for="enable_protection" class="protection-label">Enable Sandbox Protection</label>
-                
+
                 <div class="sub-options" id="protection_choices">
                     <div class="checkbox-group">
                         <input type="checkbox" id="tpm_check" name="protection_features" value="tpm_check" disabled>
@@ -608,7 +608,7 @@ h1 {
                             <i class="fas fa-microchip"></i> TPM Protection
                         </label>
                     </div>
-                    
+
                     <div class="checkbox-group">
                         <input type="checkbox" id="domain_check" name="protection_features" value="domain_check" disabled>
                         <label for="domain_check" data-tooltip="Domain Check: Verifies if the machine is domain-joined or Azure AD joined. Sandbox environments typically aren't connected to any domain.">
@@ -622,10 +622,10 @@ h1 {
                 <input type="checkbox" id="enable_additional_options" name="enable_additional_options" value="runtime_protection">
                 <label for="enable_additional_options" class="additional-options-label">Enable Runtime Protection</label>
             </div>
-            
+
             <hr class="separator">
-            
-            <label for="extension">Select the output format:</label> 
+
+            <label for="extension">Select the output format:</label>
             <div class="format-selection">
                 <div class="format-option">
                     <input type="radio" id="format-xll" name="extension" value="xll" checked>
@@ -660,7 +660,7 @@ h1 {
             <button type="submit">Compile</button>
         </form>
     </div>
-   
+
 
     <div id="notification">Compiling...it could take a while depending on the size of the shellcode</div>
 
@@ -680,30 +680,30 @@ h1 {
 function validateContent(content) {
         const invalidChars = ['"', '(', ')', ';'];
         let foundChars = [];
-        
+
         for (let char of invalidChars) {
             if (content.includes(char)) {
                 foundChars.push(char);
             }
         }
-        
+
         return foundChars;
     }
 
-  
+
     document.querySelector('textarea[name="content"]').addEventListener('input', function() {
         const invalidChars = validateContent(this.value);
-        
+
         if (invalidChars.length > 0) {
             const notification = document.getElementById('notification');
             notification.style.backgroundColor = '#ff0000';
             notification.textContent = `Please remove invalid characters: ${invalidChars.join(' ')}`;
             notification.style.display = 'block';
             notification.style.opacity = '1';
-            
+
             // Disable the submit button
             document.querySelector('button[type="submit"]').disabled = true;
-            
+
             // Add visual indication to textarea
             this.style.borderColor = '#ff0000';
             this.style.boxShadow = '0 0 10px #ff0000';
@@ -711,21 +711,21 @@ function validateContent(content) {
             const notification = document.getElementById('notification');
             notification.style.display = 'none';
             notification.style.opacity = '0';
-            
+
             // Re-enable the submit button
             document.querySelector('button[type="submit"]').disabled = false;
-            
+
             // Reset textarea styling
             this.style.borderColor = '#00ff00';
             this.style.boxShadow = '0 0 10px #00ff00';
         }
     });
 
-   
+
     document.getElementById('compileForm').addEventListener('submit', function(e) {
         const content = this.querySelector('textarea[name="content"]').value;
         const invalidChars = validateContent(content);
-        
+
         if (invalidChars.length > 0) {
             e.preventDefault();
             const notification = document.getElementById('notification');
@@ -736,16 +736,16 @@ function validateContent(content) {
             return;
         }
 
-     
+
     });
 
 
         document.getElementById('compileForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const enableProtection = document.getElementById('enable_protection');
             const protectionFeatures = document.querySelectorAll('input[name="protection_features"]:checked');
-            
+
             // Validate sandbox protection
             if (!enableProtection.checked || protectionFeatures.length === 0) {
                 const notification = document.getElementById('notification');
@@ -755,10 +755,10 @@ function validateContent(content) {
                 notification.style.opacity = '1';
                 return false;
             }
-            
+
             // Proceed with form submission if validation passes
             const formData = new FormData(this);
-            
+
             // Show notification
             var notification = document.getElementById('notification');
             notification.style.display = 'block';
@@ -799,7 +799,7 @@ function validateContent(content) {
                 console.error('Error:', error);
                 notification.textContent = error.message || 'Compilation failed';
                 notification.style.backgroundColor = '#ff0000';
-                setTimeout(() => { 
+                setTimeout(() => {
                     notification.style.opacity = '0';
                     setTimeout(() => { notification.style.display = 'none'; }, 500);
                 }, 3000);
@@ -809,7 +809,7 @@ function validateContent(content) {
         document.getElementById('enable_protection').addEventListener('change', function() {
             const protectionChoices = document.getElementById('protection_choices');
             const checkboxes = protectionChoices.querySelectorAll('input[type="checkbox"]');
-            
+
             if (this.checked) {
                 protectionChoices.style.display = 'block';
                 checkboxes.forEach(checkbox => checkbox.disabled = false);
@@ -841,20 +841,20 @@ function validateContent(content) {
                     hexString += '\\x' + bytes[i].toString(16).padStart(2, '0');
                 }
                 document.querySelector('textarea[name="content"]').value = hexString;
-                
+
                 // Show temporary conversion notification
                 const notification = document.getElementById('notification');
                 notification.style.backgroundColor = '#00ff00';
                 notification.textContent = 'Shellcode converted successfully!';
                 notification.style.display = 'block';
                 notification.style.opacity = '1';
-                
+
                 // Hide notification after a shorter delay (1 second)
                 setTimeout(() => {
                     notification.style.opacity = '0';
-                    setTimeout(() => { 
+                    setTimeout(() => {
                         notification.style.display = 'none';
-                       
+
                         notification.innerHTML = `
                             <div id="notification-text">Compiling...it could take a while depending on the size of the shellcode</div>
                             <div id="notification-progress"></div>
@@ -865,11 +865,11 @@ function validateContent(content) {
             reader.readAsArrayBuffer(file);
         }
 
-        
+
         document.getElementById('toggleFormat').addEventListener('click', function() {
             let textarea = document.querySelector('textarea[name="content"]');
             let content = textarea.value;
-            
+
             if (this.textContent.includes('Manual')) {
                 this.innerHTML = '<i class="fas fa-exchange-alt"></i> Raw Format';
                 textarea.placeholder = "Enter comma-separated shellcode (\\x41\\x42...)";
@@ -877,7 +877,7 @@ function validateContent(content) {
                 this.innerHTML = '<i class="fas fa-exchange-alt"></i> Manual Input';
                 textarea.placeholder = "Enter raw shellcode";
             }
-            
+
             if (content) {
                 if (content.includes('\\x')) {
                     // Convert from hex to raw
@@ -893,19 +893,19 @@ function validateContent(content) {
             }
         });
 
-       
+
         document.getElementById('uploadShellcode').addEventListener('click', function() {
             document.getElementById('shellcodeFile').click();
         });
 
-   
+
         document.getElementById('shellcodeFile').addEventListener('change', function(e) {
             if (e.target.files.length > 0) {
                 handleRawShellcodeFile(e.target.files[0]);
             }
         });
 
-       
+
         const textarea = document.querySelector('textarea[name="content"]');
         textarea.addEventListener('dragover', function(e) {
             e.preventDefault();
@@ -923,7 +923,7 @@ function validateContent(content) {
             e.preventDefault();
             this.style.borderColor = '#00ff00';
             this.style.boxShadow = '0 0 10px #00ff00';
-            
+
             if (e.dataTransfer.files.length > 0) {
                 handleRawShellcodeFile(e.dataTransfer.files[0]);
             }

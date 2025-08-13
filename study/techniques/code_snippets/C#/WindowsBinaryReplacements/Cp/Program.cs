@@ -140,7 +140,7 @@ namespace Cp
                     Console.WriteLine("[!] Error: unexpected exception when copying file: " + file.Name);
                     Console.WriteLine(e);
                 }
-                
+
             }
 
             // If copying subdirectories, copy them and their contents to new location.

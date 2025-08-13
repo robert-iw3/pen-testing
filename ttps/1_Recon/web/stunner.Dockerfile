@@ -3,7 +3,7 @@
 ARG repo="docker.io" \
     base_image="alpine:3.22" \
     image_hash="eafc1edb577d2e9b458664a15f23ea1c370214193226069eb22921169fc7e43f"
-    
+
 FROM ${repo}/${base_image}@sha256:${image_hash} AS go-builder
 
 ENV CGO_ENABLED=0
@@ -47,4 +47,4 @@ LABEL \
                                     --username value, -u value    username for the turn server \
                                     --password value, -p value    password for the turn server \
                                     --help, -h                    show help (default: false)'
-# see https://github.com/firefart/stunner/blob/main/Readme.md 
+# see https://github.com/firefart/stunner/blob/main/Readme.md

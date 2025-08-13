@@ -36,11 +36,11 @@ DECLSPEC_IMPORT DWORD WINAPI NETAPI32$NetApiBufferFree(LPVOID Buffer);
 
 //ACTIVEDS
 typedef HRESULT (WINAPI *_ADsOpenObject)(
-	LPCWSTR lpszPathName, 
-	LPCWSTR lpszUserName, 
-	LPCWSTR lpszPassword, 
-	DWORD dwReserved, 
-	REFIID riid, 
+	LPCWSTR lpszPathName,
+	LPCWSTR lpszUserName,
+	LPCWSTR lpszPassword,
+	DWORD dwReserved,
+	REFIID riid,
 	void **ppObject
 	);
 

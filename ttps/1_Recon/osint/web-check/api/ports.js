@@ -29,14 +29,14 @@ async function checkPort(port, domain) {
             socket.destroy();
             reject(e);
         });
-        
+
         socket.connect(port, domain);
     });
 }
 
 const portsHandler = async (url, event, context) => {
   const domain = url.replace(/(^\w+:|^)\/\//, '');
-  
+
   const delay = ms => new Promise(res => setTimeout(res, ms));
   const timeout = delay(9000);
 
@@ -72,11 +72,11 @@ const portsHandler = async (url, event, context) => {
   if(timeoutReached){
     return errorResponse('The function timed out before completing.');
   }
-  
+
   // Sort openPorts and failedPorts before returning
   openPorts.sort((a, b) => a - b);
   failedPorts.sort((a, b) => a - b);
-  
+
   return { openPorts, failedPorts };
 };
 

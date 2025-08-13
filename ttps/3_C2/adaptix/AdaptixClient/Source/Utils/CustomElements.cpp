@@ -101,16 +101,16 @@ TextEditConsole::TextEditConsole(QWidget* parent, int maxLines, bool noWrap, boo
 
 void TextEditConsole::createContextMenu(const QPoint &pos) {
     QMenu *menu = new QMenu(this);
-    
+
     QAction *copyAction = menu->addAction("Copy         (Ctrl + C)");
     connect(copyAction, &QAction::triggered, this, [this]() { copy(); });
-    
+
     QAction *selectAllAction = menu->addAction("Select All   (Ctrl + A)");
     connect(selectAllAction, &QAction::triggered, this, [this]() { selectAll(); });
 
     QAction *findAction = menu->addAction("Find         (Ctrl + F)");
     connect(findAction, &QAction::triggered, this, [this]() { emit ctx_find(); });
-    
+
     QAction *clearAction = menu->addAction("Clear        (Ctrl + L)");
     connect(clearAction, &QAction::triggered, this, [this]() { clear(); });
 
@@ -126,7 +126,7 @@ void TextEditConsole::createContextMenu(const QPoint &pos) {
         if (ok)
             setBufferSize(newSize);
     });
-    
+
     QAction *noWrapAction = menu->addAction("No Wrap");
     noWrapAction->setCheckable(true);
     noWrapAction->setChecked(noWrap);
@@ -134,12 +134,12 @@ void TextEditConsole::createContextMenu(const QPoint &pos) {
         noWrap = checked;
         setLineWrapMode(checked ? QTextEdit::NoWrap : QTextEdit::WidgetWidth);
     });
-    
+
     QAction *autoScrollAction = menu->addAction("Auto scroll");
     autoScrollAction->setCheckable(true);
     autoScrollAction->setChecked(autoScroll);
     connect(autoScrollAction, &QAction::toggled, this, &TextEditConsole::setAutoScrollEnabled);
-    
+
     menu->exec(mapToGlobal(pos));
     delete menu;
 }
@@ -174,10 +174,10 @@ bool TextEditConsole::isNoWrapEnabled() const {
 void TextEditConsole::appendPlain(const QString& text)
 {
     bool atBottom = verticalScrollBar()->value() == verticalScrollBar()->maximum();
-    
+
     cachedCursor.movePosition(QTextCursor::End);
     cachedCursor.insertText(text, QTextCharFormat());
-    
+
     trimExcessLines();
 
     if (autoScroll || atBottom)

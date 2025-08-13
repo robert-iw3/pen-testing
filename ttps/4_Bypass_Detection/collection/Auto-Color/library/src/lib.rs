@@ -30,8 +30,8 @@ where
             // If already in a hook, bypass and execute the real function
             return f2();
         }
-        *flag.borrow_mut() = true; 
-        let result = f().unwrap_or_else(f2); 
+        *flag.borrow_mut() = true;
+        let result = f().unwrap_or_else(f2);
         *flag.borrow_mut() = false;
         result
     })
@@ -92,7 +92,7 @@ fn init() {
                 "info" => log::LevelFilter::Info,
                 "debug" => log::LevelFilter::Debug,
                 "trace" => log::LevelFilter::Trace,
-                _ => log::LevelFilter::Off,    
+                _ => log::LevelFilter::Off,
             })
             .init();
     }

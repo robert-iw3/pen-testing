@@ -12,7 +12,7 @@ dd6d7af00ef4ca89a319a230cdd094275c3a1d365807fe5b34133324bdaa0229
 c9d5dc956841e000bfd8762e2f0b48b66c79b79500e894b4efa7fb9ba17e4e9e
 a6a0fbfee08367046d3d26fb4b4cf7779f7fb6eaf7e60e1d9b6bf31c5be5b63e
 fe1b011fe089969d960d2dce2a61020725a02e15dbc812ee6b6ecc6a98875392
-Shells: 
+Shells:
 hxxps://202.183.235.31/owa/auth/signout.aspx
 hxxps://202.183.235.4/owa/auth/signout.aspx
 hxxps://122.146.71.136/owa/auth/error3.aspx
@@ -129,7 +129,7 @@ hxxps://webmail.gov.jo/owa/auth/getidtokens.aspx
 hxxps://www.tra.gov.ae/signin.aspx
 hxxps://www.zakatfund.gov.ae/zfp/web/tofollowup.aspx
 hxxps://mail.zayed.org.ae/owa/auth/espw.aspx
-hxxps://mail.primus.com.jo/owa/auth/getidtoken.aspx 
+hxxps://mail.primus.com.jo/owa/auth/getidtoken.aspx
 C2 Servers
 185.56.91.61
 46.165.246.196

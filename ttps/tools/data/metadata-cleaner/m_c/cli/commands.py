@@ -46,7 +46,7 @@ def edit_metadata(file, changes):
     if changes_dict is None:
         click.echo("Invalid JSON format. Please check and try again.")
         return
-    
+
     try:
         result = MetadataProcessor().edit_metadata(file, changes_dict)
         if result:

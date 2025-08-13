@@ -29,7 +29,7 @@ parse_proc_route() {
             metric=$(echo "$line" | awk '{print $6}')
             ref=$(echo "$line" | awk '{print $7}')
             use=$(echo "$line" | awk '{print $8}')
-            
+
             # Print formatted output
             printf "%-18s %-15s %-15s %-6s %-6s %-6s %-6s %s\n" "$dest" "$gw" "$mask" "$flags" "$metric" "$ref" "$use" "$iface"
         fi
@@ -51,7 +51,7 @@ parse_proc_arp() {
             hwaddr=$(echo "$line" | awk '{print $4}')
             mask=$(echo "$line" | awk '{print $5}')
             device=$(echo "$line" | awk '{print $6}')
-            
+
             # Print formatted output
             printf "%-15s %-11s %-9s %-18s %-8s %s\n" "$ip" "$hwtype" "$flags" "$hwaddr" "$mask" "$device"
         fi
@@ -103,7 +103,7 @@ get_network_neighbors() {
 
     # Additional neighbor discovery methods
     print_3title "Additional Neighbor Information"
-    
+
     # Check for IPv6 neighbors if available
     if [ -f "/proc/net/ipv6_neigh" ]; then
         echo "IPv6 Neighbors:"

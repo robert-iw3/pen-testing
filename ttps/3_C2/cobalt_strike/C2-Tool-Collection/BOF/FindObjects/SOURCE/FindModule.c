@@ -62,7 +62,7 @@ VOID BeaconOutputStreamW() {
 			goto CleanUp;
 		}
 
-		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {		
+		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {
 			goto CleanUp;
 		}
 
@@ -236,7 +236,7 @@ BOOL EnumerateProcessModules(HANDLE hProcess, LPCWSTR lpwModuleName, PUNICODE_ST
 		return FALSE;
 	}
 
-	while (Current != ListHead) 
+	while (Current != ListHead)
 	{
 		// Read the current module.
 		status = ZwReadVirtualMemory(hProcess, CONTAINING_RECORD(Current, LDR_DATA_TABLE_ENTRY, InLoadOrderLinks), &LoaderModule, sizeof(LoaderModule), NULL);
@@ -257,7 +257,7 @@ BOOL EnumerateProcessModules(HANDLE hProcess, LPCWSTR lpwModuleName, PUNICODE_ST
 				"    ProcessID:   %lu\n"
 				"    ImagePath:   %ls\n"
 				"    ModuleName:  %ls\n\n", uProcName, ulPid, wcImagePathName, wcFullDllName);
-			
+
 			bResult = TRUE;
 		}
 
@@ -344,7 +344,7 @@ BOOL EnumerateProcessModulesFromWoW64(_In_ HANDLE hProcess, LPCWSTR lpwModuleNam
 				"    ProcessID:   %lu\n"
 				"    ImagePath:   %ls\n"
 				"    ModuleName:  %ls\n\n", uProcName, ulPid, wcImagePathName, wcFullDllName);
-			
+
 			bResult = TRUE;
 		}
 
@@ -430,12 +430,12 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 		if ((ULONG)(ULONG_PTR)pProcInfo->ProcessId == ulCurPid) {
 			continue;
 		}
-		
+
 		// Don't trigger sysmon by touching lsass or winlogon
 		if (RtlEqualUnicodeString(&pProcInfo->ProcessName, &uLsass, TRUE)) {
 			continue;
 		}
-		
+
 		if (RtlEqualUnicodeString(&pProcInfo->ProcessName, &uWinlogon, TRUE)) {
 			continue;
 		}
@@ -463,7 +463,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 
 			ZwClose(hProcess);
 		}
-		
+
 		if (pProcInfo->NextEntryDelta == 0) {
 			break;
 		}

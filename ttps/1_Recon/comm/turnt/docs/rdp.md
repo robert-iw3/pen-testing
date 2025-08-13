@@ -84,7 +84,7 @@ Clean up the port forward to free resources:
 
 - **Do not use `rportfwd`** for this case. RDP requires connections *initiated from the local side*, so only `lportfwd` is appropriate.
 - You can create multiple simultaneous forwards if needed:
-  
+
   ```bash
   lportfwd add 13389 192.168.1.105:3389
   lportfwd add 13390 192.168.1.106:3389

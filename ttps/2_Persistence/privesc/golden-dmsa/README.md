@@ -1,28 +1,28 @@
 # Golden dMSA
 
-This tool exploits a new attack against delegated Managed Service Accounts called the "Golden DMSA" attack. The technique allows attackers to generate passwords for all associated dMSAs offline. 
+This tool exploits a new attack against delegated Managed Service Accounts called the "Golden DMSA" attack. The technique allows attackers to generate passwords for all associated dMSAs offline.
 
 
 ## Attack steps
-Phase 1: Key Material Extraction  (pre requirement of the attack) 
+Phase 1: Key Material Extraction  (pre requirement of the attack)
 
 * Dump the KDS Root Key from the DC
 
-Phase 2: Enumerate dMSA accounts  
+Phase 2: Enumerate dMSA accounts
 
-* Brute-force or use LDAP to discover data on dMSA accounts in the forest - SamAccountName and SID. 
+* Brute-force or use LDAP to discover data on dMSA accounts in the forest - SamAccountName and SID.
 
-Phase 3: ManagedPasswordID guessing  
+Phase 3: ManagedPasswordID guessing
 
-* Create a wordlist of possible values and identify the correct managedPasswordId and password hashes through targeted guessing. 
+* Create a wordlist of possible values and identify the correct managedPasswordId and password hashes through targeted guessing.
 
-Phase 4: Password Generation  
+Phase 4: Password Generation
 
-* Generate valid passwords for any gMSA and dMSA associated with the compromised key.  
+* Generate valid passwords for any gMSA and dMSA associated with the compromised key.
 
 ## Build
 
-* Compile the tool with platform target of x64. 
+* Compile the tool with platform target of x64.
 * Tool was tested against target Framework of .NET Framework 4.7.2.
 * When copying the tool's executable to the remote machine, please make sure to also copy the CommandLine.dll that is located in GoldendMSA folder.
 
@@ -32,7 +32,7 @@ Couple examples of useful commands:
 
 Computation of gMSA's passwords based on KDS Root key and ManadgedPasswordID:
 ```
-$ GoldendMSA.exe compute  -s <sid> -k <KDS Root key> -d <domain name> -m <ManadgedPasswordID> 
+$ GoldendMSA.exe compute  -s <sid> -k <KDS Root key> -d <domain name> -m <ManadgedPasswordID>
 ```
 
 Converts a base64 password of dMSA/ gMSA to NTLM, AES128, AES256:

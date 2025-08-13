@@ -24,7 +24,7 @@ podman exec dork sitedorks -cat medi -file sitedorks-nl.csv -query somekeyword
 ```
 
 # Google Dorks
-Don't know what to look for? 
+Don't know what to look for?
 Try:
 * https://twitter.com/search?q=%23googledork%20OR%20%23googledorks
 * https://gbhackers.com/latest-google-dorks-list

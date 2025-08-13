@@ -11,13 +11,13 @@ Role Variables
 
 A list of all the variables can be found in ./defaults/main.yml.
 
-`cs_dir` - Cobalt Strike container directory 
+`cs_dir` - Cobalt Strike container directory
 
 `cs_ports` - Cobalt Strike container ports
 
 `cs_hostname` - Cobalt Strike container hostname
 
-`cs_container_name` - Cobalt Strike container name 
+`cs_container_name` - Cobalt Strike container name
 
 `cs_key` - Cobalt Strike teamserver license key (REQUIRED)
 

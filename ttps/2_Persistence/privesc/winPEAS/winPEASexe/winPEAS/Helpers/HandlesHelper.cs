@@ -230,7 +230,7 @@ namespace winPEAS.Helpers
                     vulnHandler.reason = "THREAD_DIRECT_IMPERSONATION";
                 }
 
-                //THREAD_GET_CONTEXT & THREAD_SET_CONTEXT 
+                //THREAD_GET_CONTEXT & THREAD_SET_CONTEXT
                 else if (((h.GrantedAccess & 0x0008) == h.GrantedAccess) && ((h.GrantedAccess & 0x0010) == h.GrantedAccess))
                 {
                     vulnHandler.isVuln = true;
@@ -261,7 +261,7 @@ namespace winPEAS.Helpers
 
             else if (typeName == "section")
             {
-                // Perms from 
+                // Perms from
                 // https://docs.microsoft.com/en-us/windows/win32/secauthz/standard-access-rights
                 // https://docs.microsoft.com/en-us/windows/win32/secauthz/access-mask-format
                 // https://github.com/lab52io/LeakedHandlesFinder/blob/master/LeakedHandlesFinder/LeakedHandlesFinder.cpp

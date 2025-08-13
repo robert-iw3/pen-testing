@@ -29,29 +29,29 @@ checkProcSysBreakouts(){
     run_unshare="No"
   fi
 
-  if [ "$(ls -l /sys/fs/cgroup/*/release_agent 2>/dev/null)" ]; then 
+  if [ "$(ls -l /sys/fs/cgroup/*/release_agent 2>/dev/null)" ]; then
     release_agent_breakout1="Yes"
-  else 
+  else
     release_agent_breakout1="No"
   fi
-  
+
   release_agent_breakout2="No"
   mkdir /tmp/cgroup_3628d4
   mount -t cgroup -o memory cgroup /tmp/cgroup_3628d4 2>/dev/null
-  if [ $? -eq 0 ]; then 
-    release_agent_breakout2="Yes"; 
+  if [ $? -eq 0 ]; then
+    release_agent_breakout2="Yes";
     rm -rf /tmp/cgroup_3628d4
-  else 
+  else
     mount -t cgroup -o rdma cgroup /tmp/cgroup_3628d4 2>/dev/null
-    if [ $? -eq 0 ]; then 
-      release_agent_breakout2="Yes"; 
+    if [ $? -eq 0 ]; then
+      release_agent_breakout2="Yes";
       rm -rf /tmp/cgroup_3628d4
-    else 
+    else
       checkCreateReleaseAgent
     fi
   fi
   rm -rf /tmp/cgroup_3628d4 2>/dev/null
-  
+
   core_pattern_breakout="$( (echo -n '' > /proc/sys/kernel/core_pattern && echo Yes) 2>/dev/null || echo No)"
   modprobe_present="$(ls -l `cat /proc/sys/kernel/modprobe` 2>/dev/null || echo No)"
   panic_on_oom_dos="$( (echo -n '' > /proc/sys/vm/panic_on_oom && echo Yes) 2>/dev/null || echo No)"

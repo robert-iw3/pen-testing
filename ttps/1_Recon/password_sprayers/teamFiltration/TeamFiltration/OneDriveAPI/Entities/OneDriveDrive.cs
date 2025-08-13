@@ -16,7 +16,7 @@ namespace KoenZomers.OneDrive.Api.Entities
         public string Id { get; set; }
 
         /// <summary>
-        /// Enumerated value that identifies the type of drive account. OneDrive drives will show as personal. 
+        /// Enumerated value that identifies the type of drive account. OneDrive drives will show as personal.
         /// </summary>
         [JsonProperty("driveType"), JsonConverter(typeof(StringEnumConverter))]
         public OneDriveDriveType DriveType { get; set; }

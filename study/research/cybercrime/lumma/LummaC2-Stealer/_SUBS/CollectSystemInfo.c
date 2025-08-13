@@ -91,7 +91,7 @@ CHAR *__thiscall CollectSystemInfo(DWORD *SharedBuff)
   languageInfo_1 = (char *)calloc(0x55u, 1u);
   wcstombs(languageInfo_1, languageBuffer, 0x55u);
 
-  /* LOL  
+  /* LOL
        __builtin_strncpy(edi_38, "- La", 4);
        void* edi_39 = (char*)edi_38 + 4;
        char const* const esi_29 = "nguage: ";
@@ -102,7 +102,7 @@ CHAR *__thiscall CollectSystemInfo(DWORD *SharedBuff)
        *(uint8_t*)((char*)edi_40 + 4) = *(uint8_t*)((char*)esi_30 + 4);
     Bravoo niggers
   */
-  
+
   strcat(fullOutpt, "- Language: ");
   strcat(fullOutpt, languageInfo_1);
   *(_WORD *)&fullOutpt[strlen(fullOutpt)] = 10;

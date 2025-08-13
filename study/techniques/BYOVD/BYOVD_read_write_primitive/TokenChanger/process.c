@@ -18,7 +18,7 @@ const wchar_t* g_EDRNames[] = {
 	L"SenseTVM.exe",                // Threat & Vulnerability Management
 
 	// Elastic EDR
-	L"elastic-agent.exe",       // Core Elastic Agent 
+	L"elastic-agent.exe",       // Core Elastic Agent
 	L"elastic-endpoint.exe",    // Elastic Endpoint Security (EDR component)
 	L"filebeat.exe",            // Collects and ships log files
 	L"metricbeat.exe",          // Collects system and service metrics
@@ -37,7 +37,7 @@ const SIZE_T g_EDRCount = sizeof(g_EDRNames) / sizeof(g_EDRNames[0]);
 BOOL CheckIfProcessExists(IN DWORD dwPID) {
 
 	HANDLE hProcess = NULL;	// Handle to process
-	
+
 	// Open handle to process
 	// https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-openprocess
 	hProcess = OpenProcess(
@@ -57,7 +57,7 @@ BOOL CheckIfProcessExists(IN DWORD dwPID) {
 			return FALSE;
 		}
 		else if (err == ERROR_ACCESS_DENIED) {
-			// Process exists, but we don’t have permission to open it
+			// Process exists, but we donï¿½t have permission to open it
 			return TRUE;
 		}
 	}
@@ -99,7 +99,7 @@ BOOL EnumerateEDRProcessesPID(OUT PPROCESS_ENTRY* ppProcessList, OUT DWORD* pdwP
 	//info_t("GetProcAddress - Received address to NtQuerySystemInformation 0x%p", pNtQuerySystemInformation);
 
 	// https://learn.microsoft.com/en-us/windows/win32/api/winternl/nf-winternl-ntquerysysteminformation
-	// First NtQuerySystemInformation call, which fails but will save the 
+	// First NtQuerySystemInformation call, which fails but will save the
 	// This will fail with STATUS_INFO_LENGTH_MISMATCH
 	// But it will provide information about how much memory to allocate (uReturnLen1)
 	pNtQuerySystemInformation(
@@ -129,7 +129,7 @@ BOOL EnumerateEDRProcessesPID(OUT PPROCESS_ENTRY* ppProcessList, OUT DWORD* pdwP
 	// Calling NtQuerySystemInformation with the correct arguments, the output will be saved to 'pSystemProcInfo'
 	STATUS = pNtQuerySystemInformation(
 		SystemProcessInformation,	// Returns an array of SYSTEM_PROCESS_INFORMATION structures, one for each process running in the system.
-		pSystemProcInfo,			// A pointer to a buffer that receives the requested information. 
+		pSystemProcInfo,			// A pointer to a buffer that receives the requested information.
 		uReturnLen1,				// Size of the buffer pointed to by the SystemInformation parameter, in bytes.
 		&uReturnLen2				// Size returned
 	);
@@ -155,7 +155,7 @@ BOOL EnumerateEDRProcessesPID(OUT PPROCESS_ENTRY* ppProcessList, OUT DWORD* pdwP
 			for (DWORD i = 0; i < g_EDRCount; i++) {
 				if (_wcsicmp(pTemp->ImageName.Buffer, g_EDRNames[i]) == 0) {
 
-					// Only count if we haven’t seen this one before
+					// Only count if we havenï¿½t seen this one before
 					if (!pbSeen[i]) {
 						pbSeen[i] = TRUE;
 						dwCount++;
@@ -234,7 +234,7 @@ BOOL EnumerateEDRProcessesPID(OUT PPROCESS_ENTRY* ppProcessList, OUT DWORD* pdwP
 			break;
 		}
 
-		// From Docs: The start of the next item in the array is the address of the previous item plus the value in the NextEntryOffset member. 
+		// From Docs: The start of the next item in the array is the address of the previous item plus the value in the NextEntryOffset member.
 		// https://learn.microsoft.com/en-us/windows/win32/api/winternl/ns-winternl-system_process_information
 		pTemp = (PSYSTEM_PROCESS_INFORMATION)((ULONG_PTR)pTemp + pTemp->NextEntryOffset);
 	}
@@ -277,7 +277,7 @@ BOOL GetRemoteProcessPID(IN LPCWSTR szTargetProcName, OUT DWORD* pdwPid) {
 	HANDLE							hGetProcessHeap		= NULL;	// Handle to process heap
 	ULONG							uReturnLen1			= NULL; // Stores the size of system information 1st NtQuerySystemInformation call
 	ULONG							uReturnLen2			= NULL;	// Stores size of system information 2nd NtQuerySystemInformation call
-	PSYSTEM_PROCESS_INFORMATION		SystemProcInfo		= NULL; // A pointer to memoery which receives the requested information. 
+	PSYSTEM_PROCESS_INFORMATION		SystemProcInfo		= NULL; // A pointer to memoery which receives the requested information.
 	PVOID							pValueToFree		= NULL; // Save initial value of SystemProcInfo to free later
 	HANDLE							hProcess			= NULL; // Stores handle to the target process
 
@@ -301,7 +301,7 @@ BOOL GetRemoteProcessPID(IN LPCWSTR szTargetProcName, OUT DWORD* pdwPid) {
 	//info_t("GetProcAddress - Received address to NtQuerySystemInformation 0x%p", pNtQuerySystemInformation);
 
 	// https://learn.microsoft.com/en-us/windows/win32/api/winternl/nf-winternl-ntquerysysteminformation
-	// First NtQuerySystemInformation call, which fails but will save the 
+	// First NtQuerySystemInformation call, which fails but will save the
 	// This will fail with STATUS_INFO_LENGTH_MISMATCH
 	// But it will provide information about how much memory to allocate (uReturnLen1)
 	pNtQuerySystemInformation(
@@ -333,7 +333,7 @@ BOOL GetRemoteProcessPID(IN LPCWSTR szTargetProcName, OUT DWORD* pdwPid) {
 	// Calling NtQuerySystemInformation with the correct arguments, the output will be saved to 'SystemProcInfo'
 	STATUS = pNtQuerySystemInformation(
 		SystemProcessInformation,	// Returns an array of SYSTEM_PROCESS_INFORMATION structures, one for each process running in the system.
-		SystemProcInfo,				// A pointer to a buffer that receives the requested information. 
+		SystemProcInfo,				// A pointer to a buffer that receives the requested information.
 		uReturnLen1,				// Size of the buffer pointed to by the SystemInformation parameter, in bytes.
 		&uReturnLen2				// Size returned
 	);
@@ -368,7 +368,7 @@ BOOL GetRemoteProcessPID(IN LPCWSTR szTargetProcName, OUT DWORD* pdwPid) {
 			break;
 		}
 
-		// From Docs: The start of the next item in the array is the address of the previous item plus the value in the NextEntryOffset member. 
+		// From Docs: The start of the next item in the array is the address of the previous item plus the value in the NextEntryOffset member.
 		SystemProcInfo = (PSYSTEM_PROCESS_INFORMATION)((ULONG_PTR)SystemProcInfo + SystemProcInfo->NextEntryOffset);
 	}
 

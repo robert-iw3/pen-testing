@@ -19,7 +19,7 @@ namespace MonkeyWorks.Unmanaged.Headers
 {
     sealed class Winnt
     {
-        //Token 
+        //Token
         //http://www.pinvoke.net/default.aspx/advapi32.openprocesstoken
         public const DWORD STANDARD_RIGHTS_REQUIRED = 0x000F0000;
         public const DWORD STANDARD_RIGHTS_READ = 0x00020000;
@@ -149,35 +149,35 @@ namespace MonkeyWorks.Unmanaged.Headers
         public struct CONTEXT
         {
             public CONTEXT_FLAGS ContextFlags;
-            // Retrieved by CONTEXT_DEBUG_REGISTERS 
+            // Retrieved by CONTEXT_DEBUG_REGISTERS
             public uint Dr0;
             public uint Dr1;
             public uint Dr2;
             public uint Dr3;
             public uint Dr6;
             public uint Dr7;
-            // Retrieved by CONTEXT_FLOATING_POINT 
+            // Retrieved by CONTEXT_FLOATING_POINT
             public _FLOATING_SAVE_AREA FloatSave;
-            // Retrieved by CONTEXT_SEGMENTS 
+            // Retrieved by CONTEXT_SEGMENTS
             public uint SegGs;
             public uint SegFs;
             public uint SegEs;
             public uint SegDs;
-            // Retrieved by CONTEXT_INTEGER 
+            // Retrieved by CONTEXT_INTEGER
             public uint Edi;
             public uint Esi;
             public uint Ebx;
             public uint Edx;
             public uint Ecx;
             public uint Eax;
-            // Retrieved by CONTEXT_CONTROL 
+            // Retrieved by CONTEXT_CONTROL
             public uint Ebp;
             public uint Eip;
             public uint SegCs;
             public uint EFlags;
             public uint Esp;
             public uint SegSs;
-            // Retrieved by CONTEXT_EXTENDED_REGISTERS 
+            // Retrieved by CONTEXT_EXTENDED_REGISTERS
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 512)]
             public byte[] ExtendedRegisters;
         }

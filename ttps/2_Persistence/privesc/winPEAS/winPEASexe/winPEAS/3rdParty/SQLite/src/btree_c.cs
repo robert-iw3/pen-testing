@@ -49,7 +49,7 @@ namespace winPEAS._3rdParty.SQLite.src
     ** Set this global variable to 1 to enable tracing using the TRACE
     ** macro.
     */
-#if TRACE 
+#if TRACE
 static bool sqlite3BtreeTrace=false;  /* True to enable tracing */
 //# define TRACE(X)  if(sqlite3BtreeTrace){printf X;fflush(stdout);}
 static void TRACE(string X, params object[] ap) { if (sqlite3BtreeTrace)  printf(X, ap); }

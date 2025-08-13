@@ -129,7 +129,7 @@ namespace winPEAS.KnownFileCreds
             else
             {
                 string[] subKeys = RegistryHelper.GetRegSubkeys("HKCU", "Software\\SimonTatham\\PuTTY\\Sessions\\");
-                RegistryKey selfKey = Registry.CurrentUser.OpenSubKey(@"Software\\SimonTatham\\PuTTY\\Sessions"); // extract own Sessions registry keys           
+                RegistryKey selfKey = Registry.CurrentUser.OpenSubKey(@"Software\\SimonTatham\\PuTTY\\Sessions"); // extract own Sessions registry keys
 
                 if (selfKey != null)
                 {
@@ -146,7 +146,7 @@ namespace winPEAS.KnownFileCreds
                     }
                     selfKey.Close();
                 }
-                
+
                 foreach (string sessionName in subKeys)
                 {
                     Dictionary<string, string> putty_sess = new Dictionary<string, string>()

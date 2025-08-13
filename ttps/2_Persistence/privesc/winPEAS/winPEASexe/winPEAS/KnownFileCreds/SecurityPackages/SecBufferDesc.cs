@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace winPEAS.KnownFileCreds.SecurityPackages
 {
-    // SecBufferDesc structure - https://docs.microsoft.com/en-us/windows/win32/api/sspi/ns-sspi-secbufferdesc    
+    // SecBufferDesc structure - https://docs.microsoft.com/en-us/windows/win32/api/sspi/ns-sspi-secbufferdesc
     [StructLayout(LayoutKind.Sequential)]
     public struct SecBufferDesc : IDisposable
     {

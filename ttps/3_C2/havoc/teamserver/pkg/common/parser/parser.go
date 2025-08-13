@@ -33,7 +33,7 @@ func (p *Parser) CanIRead(ReadTypes []ReadType) bool {
 	number    := 0
 	BytesRead := 0
 	TotalSize := p.Length()
-	
+
 	for _, Type := range ReadTypes {
 		switch Type {
 		case ReadInt32:

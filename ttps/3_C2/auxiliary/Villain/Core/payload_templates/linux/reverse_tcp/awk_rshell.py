@@ -12,7 +12,7 @@ class Payload:
     meta = {
         'handler' : 'netcat',
         'type' : 'awk-reverse-tcp',
-        'os' : 'linux'   
+        'os' : 'linux'
     }
 
     config = {}

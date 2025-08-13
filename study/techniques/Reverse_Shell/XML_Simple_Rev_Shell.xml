@@ -10,7 +10,7 @@ To execute: C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe XML_Simple
  TaskFactory="CodeTaskFactory"
  AssemblyFile="C:\Windows\Microsoft.Net\Framework\v4.0.30319\Microsoft.Build.Tasks.v4.0.dll" >
  <Task>
- 
+
  <Code Type="Class" Language="cs">
  <![CDATA[
 using System;

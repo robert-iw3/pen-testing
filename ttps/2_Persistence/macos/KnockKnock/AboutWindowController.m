@@ -1,6 +1,6 @@
 //
 //  file: AboutWindowController.m
-//  project: KnockKnock 
+//  project: KnockKnock
 //  description: about window display/controller
 //
 //  created by Patrick Wardle
@@ -31,7 +31,7 @@
 {
     //super
     [super windowDidLoad];
-    
+
     //not in dark mode?
     // make window white
     if(YES != isDarkMode())
@@ -39,25 +39,25 @@
         //make white
         self.window.backgroundColor = NSColor.whiteColor;
     }
-    
+
     //set version sting
     self.versionLabel.stringValue =  [NSString stringWithFormat:@"Version: %@", getAppVersion()];
-    
+
     //load patrons
     self.patrons.string = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"patrons" ofType:@"txt"] encoding:NSUTF8StringEncoding error:NULL];
-    
+
     //make 'support us' default
     [self.supportUs setKeyEquivalent:@"\r"];
-    
+
     //make first responder
     // calling this without a timeout sometimes fails :/
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (100 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
-        
+
         //and make it first responder
         [self.window makeFirstResponder:self.supportUs];
-        
+
     });
-    
+
     return;
 }
 
@@ -66,10 +66,10 @@
 -(void)windowWillClose:(NSNotification *)notification
 {
     #pragma unused(notification)
-    
+
     //make un-modal
     [[NSApplication sharedApplication] stopModal];
-    
+
     return;
 }
 
@@ -84,7 +84,7 @@
         // invokes user's default browser
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:PATREON_URL]];
     }
-    
+
     //more info button
     else if(((NSButton*)sender).tag == BUTTON_MORE_INFO)
     {

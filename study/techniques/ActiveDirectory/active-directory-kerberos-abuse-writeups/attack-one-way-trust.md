@@ -3,7 +3,7 @@ If an attacker has administrative access to FORESTB which trusts FORESTA, the at
 
 ![](<https://images.squarespace-cdn.com/content/v1/5bbb4a7301232c6e6c8757fa/61a0233f-edd8-40b6-b6ae-8592a29875bd/Picture3.png>)
 
-This technique is not limited to forest trust but works over any domain/forest one-way trust in the direction trusting -> trusted. 
+This technique is not limited to forest trust but works over any domain/forest one-way trust in the direction trusting -> trusted.
 
 The trust protections (SID filtering, disabled SID history, and disabled TGT delegation) do not mitigate the technique.
 

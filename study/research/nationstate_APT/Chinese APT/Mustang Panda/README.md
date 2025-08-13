@@ -89,15 +89,15 @@ To create a payload similar to the ToneShell backdoor and incorporate the functi
 ToneShell Backdoor initializes data and dynamically allocates memory for a function pointer (PROPENUMPROCEXW), using it to enumerate window properties. It includes functions for dummy data handling, debug message output, and simulating file archiving with a password (without actual implementation). Key operations include:
 
   1.Data Handling: Obtains and processes dummy data.
-  
+
   2.Memory Management: Allocates memory for executing function pointers.
-  
+
   3.Window Enumeration: Uses EnumPropsExW() to list window properties.
-  
+
   4.Debugging: Outputs static messages for diagnostics.
 
     manual compile: x86_64-w64-mingw32-gcc -o ToneShellBackdoor.exe ToneShellBackdoor.c -lwinhttp
-    
+
 
 ## The third stage (execution technique)
 

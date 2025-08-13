@@ -75,7 +75,7 @@ void arp()
 		BeaconPrintf(CALLBACK_ERROR, "Error code: %d", ret);
 		BeaconPrintf(CALLBACK_ERROR, "Could not get ipnet table info");
 		goto END;
-	}	
+	}
 	row = ipNetTableInfo->table;
 	for (p=0; p < ipNetTableInfo->dwNumEntries; p++)
 	{
@@ -85,7 +85,7 @@ void arp()
 			internal_printf("\nInteface  --- 0x%X\n",row->dwIndex);
 			internal_printf("%-24s%-24s%-24s\n","Internet Address","Physical Address", "Type");
 		}
-		
+
 		print_ip_from_int(row->dwAddr);
 
 		if (row->dwPhysAddrLen > 0)
@@ -103,13 +103,13 @@ void arp()
 
 
 	END:
-		if(ipNetTableInfo){ intFree(ipNetTableInfo);}	
+		if(ipNetTableInfo){ intFree(ipNetTableInfo);}
 }
 
-VOID go( 
-	IN PCHAR Buffer, 
-	IN ULONG Length 
-) 
+VOID go(
+	IN PCHAR Buffer,
+	IN ULONG Length
+)
 {
 	if(!bofstart())
 	{

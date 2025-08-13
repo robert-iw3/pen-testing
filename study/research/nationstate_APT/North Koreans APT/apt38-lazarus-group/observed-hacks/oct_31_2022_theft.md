@@ -43,7 +43,7 @@ Receives from Feb 10 2022 Victim 0xffd1ba573d6e7baf3369e1fe013ea6c3d6faa7df
 - 0xe29029486aaa7ad87f2f277313454cad79d15413
 
 
-Theft: 
+Theft:
 - 0xb0213db41c17e68fad949139699a6f90b5705211
 
 

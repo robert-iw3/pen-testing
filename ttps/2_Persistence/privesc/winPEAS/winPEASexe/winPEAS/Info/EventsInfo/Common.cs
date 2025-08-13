@@ -7,7 +7,7 @@ namespace winPEAS.Info.EventsInfo
         public static Regex[] GetInterestingProcessArgsRegex()
         {
             // helper that returns the set of "sensitive" cmdline regular expressions
-            // adapted from @djhohnstein's EventLogParser project - https://github.com/djhohnstein/EventLogParser/blob/master/EventLogParser/EventLogHelpers.cs           
+            // adapted from @djhohnstein's EventLogParser project - https://github.com/djhohnstein/EventLogParser/blob/master/EventLogParser/EventLogHelpers.cs
             var globalOptions = RegexOptions.IgnoreCase & RegexOptions.Multiline;
 
             Regex[] processCmdLineRegex =

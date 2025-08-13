@@ -90,7 +90,7 @@ setup_initd_backdoor() {
 		# Required-Start:       \$remote_fs \$syslog \$network
 		# Required-Stop:        \$remote_fs \$syslog
 		# Default-Start:        2 3 4 5
-		# Default-Stop:        
+		# Default-Stop:
 		# Short-Description:    OpenBSD Secure Shell server
 		### END INIT INFO
 

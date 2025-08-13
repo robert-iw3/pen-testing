@@ -29,7 +29,7 @@ In this lab, we are going to explore and try to exploit most of the above ACEs.
 Using powerview, let's check if our attacking user `spotless` has `GenericAll rights` on the AD object for the user `delegate`:
 
 ```csharp
-Get-ObjectAcl -SamAccountName delegate -ResolveGUIDs | ? {$_.ActiveDirectoryRights -eq "GenericAll"}  
+Get-ObjectAcl -SamAccountName delegate -ResolveGUIDs | ? {$_.ActiveDirectoryRights -eq "GenericAll"}
 ```
 
 We can see that indeed our user `spotless` has the `GenericAll` rights, effectively enabling the attacker to take over the account:

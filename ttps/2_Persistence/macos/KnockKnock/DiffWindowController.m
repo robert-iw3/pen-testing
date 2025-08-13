@@ -15,7 +15,7 @@
 {
     //center
     [self.window center];
-    
+
     return;
 }
 
@@ -28,13 +28,13 @@
 
     //set path in ui
     //self.path.stringValue = self.plist;
-    
+
     //set inset
     self.contents.textContainerInset = NSMakeSize(0, 10);
-    
+
     //set font
     self.contents.font = [NSFont fontWithName:@"Menlo" size:13];
-    
+
     //add plist
     self.contents.string = self.differences;//[[NSDictionary dictionaryWithContentsOfFile:self.plist] description];
     /*
@@ -53,7 +53,7 @@
 -(IBAction)close:(id)sender
 {
     [self.window close];
-    
+
     return;
 }
 

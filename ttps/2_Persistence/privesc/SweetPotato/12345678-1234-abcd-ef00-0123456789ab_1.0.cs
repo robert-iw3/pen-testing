@@ -16,7 +16,7 @@
 
 namespace rpc_12345678_1234_abcd_ef00_0123456789ab_1_0
 {
-    
+
     #region Marshal Helpers
     internal class _Marshal_Helper : NtApiDotNet.Ndr.Marshal.NdrMarshalBuffer
     {
@@ -563,11 +563,11 @@ namespace rpc_12345678_1234_abcd_ef00_0123456789ab_1_0
     }
     internal class _Unmarshal_Helper : NtApiDotNet.Ndr.Marshal.NdrUnmarshalBuffer
     {
-        public _Unmarshal_Helper(NtApiDotNet.Win32.Rpc.RpcClientResponse r) : 
+        public _Unmarshal_Helper(NtApiDotNet.Win32.Rpc.RpcClientResponse r) :
                 base(r.NdrBuffer, r.Handles, r.DataRepresentation)
         {
         }
-        public _Unmarshal_Helper(byte[] ba) : 
+        public _Unmarshal_Helper(byte[] ba) :
                 base(ba)
         {
         }
@@ -1511,28 +1511,28 @@ namespace rpc_12345678_1234_abcd_ef00_0123456789ab_1_0
             return new Struct_5();
         }
         public Struct_5(
-                    int Member0, 
-                    string Member8, 
-                    string Member10, 
-                    string Member18, 
-                    string Member20, 
-                    string Member28, 
-                    string Member30, 
-                    string Member38, 
-                    string Member40, 
-                    string Member48, 
-                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member50, 
-                    string Member58, 
-                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member60, 
-                    int Member68, 
-                    int Member6C, 
-                    int Member70, 
-                    int Member74, 
-                    int Member78, 
-                    int Member7C, 
-                    int Member80, 
-                    Struct_4 Member84, 
-                    int Member94, 
+                    int Member0,
+                    string Member8,
+                    string Member10,
+                    string Member18,
+                    string Member20,
+                    string Member28,
+                    string Member30,
+                    string Member38,
+                    string Member40,
+                    string Member48,
+                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member50,
+                    string Member58,
+                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member60,
+                    int Member68,
+                    int Member6C,
+                    int Member70,
+                    int Member74,
+                    int Member78,
+                    int Member7C,
+                    int Member80,
+                    Struct_4 Member84,
+                    int Member94,
                     int Member98)
         {
             this.Member0 = Member0;
@@ -1697,29 +1697,29 @@ namespace rpc_12345678_1234_abcd_ef00_0123456789ab_1_0
             return new Struct_7();
         }
         public Struct_7(
-                    int Member0, 
-                    string Member8, 
-                    string Member10, 
-                    string Member18, 
-                    string Member20, 
-                    string Member28, 
-                    string Member30, 
-                    string Member38, 
-                    string Member40, 
-                    string Member48, 
-                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member50, 
-                    string Member58, 
-                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member60, 
-                    int Member68, 
-                    int Member6C, 
-                    int Member70, 
-                    int Member74, 
-                    int Member78, 
-                    int Member7C, 
-                    int Member80, 
-                    Struct_4 Member84, 
-                    int Member94, 
-                    int Member98, 
+                    int Member0,
+                    string Member8,
+                    string Member10,
+                    string Member18,
+                    string Member20,
+                    string Member28,
+                    string Member30,
+                    string Member38,
+                    string Member40,
+                    string Member48,
+                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member50,
+                    string Member58,
+                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member60,
+                    int Member68,
+                    int Member6C,
+                    int Member70,
+                    int Member74,
+                    int Member78,
+                    int Member7C,
+                    int Member80,
+                    Struct_4 Member84,
+                    int Member94,
+                    int Member98,
                     int Member9C)
         {
             this.Member0 = Member0;
@@ -2059,34 +2059,34 @@ namespace rpc_12345678_1234_abcd_ef00_0123456789ab_1_0
             return new Struct_10();
         }
         public Struct_10(
-                    string Member0, 
-                    string Member8, 
-                    int Member10, 
-                    int Member14, 
-                    int Member18, 
-                    Struct_4 Member1C, 
-                    int Member2C, 
-                    int Member30, 
-                    int Member34, 
-                    int Member38, 
-                    int Member3C, 
-                    int Member40, 
-                    int Member44, 
-                    int Member48, 
-                    int Member4C, 
-                    int Member50, 
-                    int Member54, 
-                    int Member58, 
-                    int Member5C, 
-                    int Member60, 
-                    int Member64, 
-                    int Member68, 
-                    int Member6C, 
-                    int Member70, 
-                    short Member74, 
-                    short Member76, 
-                    int Member78, 
-                    int Member7C, 
+                    string Member0,
+                    string Member8,
+                    int Member10,
+                    int Member14,
+                    int Member18,
+                    Struct_4 Member1C,
+                    int Member2C,
+                    int Member30,
+                    int Member34,
+                    int Member38,
+                    int Member3C,
+                    int Member40,
+                    int Member44,
+                    int Member48,
+                    int Member4C,
+                    int Member50,
+                    int Member54,
+                    int Member58,
+                    int Member5C,
+                    int Member60,
+                    int Member64,
+                    int Member68,
+                    int Member6C,
+                    int Member70,
+                    short Member74,
+                    short Member76,
+                    int Member78,
+                    int Member7C,
                     int Member80)
         {
             this.Member0 = Member0;
@@ -2252,26 +2252,26 @@ namespace rpc_12345678_1234_abcd_ef00_0123456789ab_1_0
             return new Struct_12();
         }
         public Struct_12(
-                    string Member0, 
-                    string Member8, 
-                    string Member10, 
-                    string Member18, 
-                    string Member20, 
-                    string Member28, 
-                    string Member30, 
-                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member38, 
-                    string Member40, 
-                    string Member48, 
-                    string Member50, 
-                    string Member58, 
-                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member60, 
-                    int Member68, 
-                    int Member6C, 
-                    int Member70, 
-                    int Member74, 
-                    int Member78, 
-                    int Member7C, 
-                    int Member80, 
+                    string Member0,
+                    string Member8,
+                    string Member10,
+                    string Member18,
+                    string Member20,
+                    string Member28,
+                    string Member30,
+                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member38,
+                    string Member40,
+                    string Member48,
+                    string Member50,
+                    string Member58,
+                    NtApiDotNet.Ndr.Marshal.NdrUInt3264 Member60,
+                    int Member68,
+                    int Member6C,
+                    int Member70,
+                    int Member74,
+                    int Member78,
+                    int Member7C,
+                    int Member80,
                     int Member84)
         {
             this.Member0 = Member0;
@@ -2990,24 +2990,24 @@ namespace rpc_12345678_1234_abcd_ef00_0123456789ab_1_0
             return new Struct_25();
         }
         public Struct_25(
-                    int Member0, 
-                    string Member8, 
-                    string Member10, 
-                    string Member18, 
-                    string Member20, 
-                    string Member28, 
-                    string Member30, 
-                    string Member38, 
-                    string Member40, 
-                    int Member48, 
-                    char[] Member50, 
-                    int Member58, 
-                    char[] Member60, 
-                    Struct_26 Member68, 
-                    long Member70, 
-                    string Member78, 
-                    string Member80, 
-                    string Member88, 
+                    int Member0,
+                    string Member8,
+                    string Member10,
+                    string Member18,
+                    string Member20,
+                    string Member28,
+                    string Member30,
+                    string Member38,
+                    string Member40,
+                    int Member48,
+                    char[] Member50,
+                    int Member58,
+                    char[] Member60,
+                    Struct_26 Member68,
+                    long Member70,
+                    string Member78,
+                    string Member80,
+                    string Member88,
                     string Member90)
         {
             this.Member0 = Member0;
@@ -3179,34 +3179,34 @@ namespace rpc_12345678_1234_abcd_ef00_0123456789ab_1_0
             return new Struct_27();
         }
         public Struct_27(
-                    int Member0, 
-                    string Member8, 
-                    string Member10, 
-                    string Member18, 
-                    string Member20, 
-                    string Member28, 
-                    string Member30, 
-                    string Member38, 
-                    string Member40, 
-                    int Member48, 
-                    char[] Member50, 
-                    int Member58, 
-                    char[] Member60, 
-                    Struct_26 Member68, 
-                    long Member70, 
-                    string Member78, 
-                    string Member80, 
-                    string Member88, 
-                    string Member90, 
-                    string Member98, 
-                    string MemberA0, 
-                    int MemberA8, 
-                    char[] MemberB0, 
-                    string MemberB8, 
-                    int MemberC0, 
-                    int MemberC4, 
-                    char[] MemberC8, 
-                    Struct_26 MemberD0, 
+                    int Member0,
+                    string Member8,
+                    string Member10,
+                    string Member18,
+                    string Member20,
+                    string Member28,
+                    string Member30,
+                    string Member38,
+                    string Member40,
+                    int Member48,
+                    char[] Member50,
+                    int Member58,
+                    char[] Member60,
+                    Struct_26 Member68,
+                    long Member70,
+                    string Member78,
+                    string Member80,
+                    string Member88,
+                    string Member90,
+                    string Member98,
+                    string MemberA0,
+                    int MemberA8,
+                    char[] MemberB0,
+                    string MemberB8,
+                    int MemberC0,
+                    int MemberC4,
+                    char[] MemberC8,
+                    Struct_26 MemberD0,
                     long MemberD8)
         {
             this.Member0 = Member0;
@@ -6620,7 +6620,7 @@ namespace rpc_12345678_1234_abcd_ef00_0123456789ab_1_0
     #region Client Implementation
     public sealed class Client : NtApiDotNet.Win32.Rpc.RpcClientBase
     {
-        public Client() : 
+        public Client() :
                 base("12345678-1234-abcd-ef00-0123456789ab", 1, 0)
         {
         }
@@ -6653,7 +6653,7 @@ namespace rpc_12345678_1234_abcd_ef00_0123456789ab_1_0
             _Unmarshal_Helper u = SendReceive(65, m);
             return u.ReadInt32();
         }
-        
+
         public int RpcClosePrinter(ref NtApiDotNet.Ndr.Marshal.NdrContextHandle p0) {
             _Marshal_Helper m = new _Marshal_Helper();
             m.WriteContextHandle(p0);

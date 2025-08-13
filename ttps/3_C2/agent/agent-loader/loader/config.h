@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-// reverse shell 
+// reverse shell
 #define RSHELL_PORT            4444
 
 // SOCKS5 клиента

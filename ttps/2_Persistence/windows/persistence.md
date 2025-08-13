@@ -557,7 +557,7 @@ goto :eof
 :noAdmin
 echo Current user permissions to execute this .BAT file are inadequate.
 echo This .BAT file must be run with administrative privileges.
-echo Exit now, right click on this .BAT file, and select "Run as administrator".  
+echo Exit now, right click on this .BAT file, and select "Run as administrator".
 pause >nul
 
 :theEnd

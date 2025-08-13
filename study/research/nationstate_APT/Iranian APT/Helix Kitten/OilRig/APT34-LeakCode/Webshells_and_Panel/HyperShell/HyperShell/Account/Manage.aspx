@@ -58,14 +58,14 @@
                             for details on setting up this ASP.NET application to support two-factor authentication.
                         </p>
                         <% if (TwoFactorEnabled)
-                          { %> 
+                          { %>
                         <%--
                         Enabled
                         <asp:LinkButton Text="[Disable]" runat="server" CommandArgument="false" OnClick="TwoFactorDisable_Click" />
                         --%>
                         <% }
                           else
-                          { %> 
+                          { %>
                         <%--
                         Disabled
                         <asp:LinkButton Text="[Enable]" CommandArgument="true" OnClick="TwoFactorEnable_Click" runat="server" />

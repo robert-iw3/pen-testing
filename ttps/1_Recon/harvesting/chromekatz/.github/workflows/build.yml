@@ -22,15 +22,15 @@ jobs:
         run: |
           cpp_files=$(find . -type f -wholename "*-BOF/*.cpp")
           found=0
-          for file in $cpp_files; 
+          for file in $cpp_files;
           do
-              if grep -Hn "%zu" "$file"; 
+              if grep -Hn "%zu" "$file";
               then
                   found=1
               fi
           done
 
-          if [ $found -eq 1 ]; 
+          if [ $found -eq 1 ];
           then
               echo "Found %zu in file. Beacon does not support this, change it to %Iu"
               exit 1
@@ -48,10 +48,10 @@ jobs:
         run: |
           mkdir release
           cd CookieKatz-BOF && nmake all
-          cd .. 
+          cd ..
           mv x64\Release\* release\
           cd CredentialKatz-BOF && nmake all
-          cd .. 
+          cd ..
           mv x64\Release\* release\
       - name: ZipIt
         uses: thedoctor0/zip-release@0.7.5

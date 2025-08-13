@@ -58,7 +58,7 @@ The control system ports table combines the previous two tables and sorts the en
 | TCP/5052           |           Telvent OASyS DNA           |
 | TCP/5065           |           Telvent OASyS DNA           |
 | TCP/5450           |           OSIsoft PI Server           |
-| TCP/UDP/9600       |           OMRON FINS protocol         |    
+| TCP/UDP/9600       |           OMRON FINS protocol         |
 | TCP/10307          |            ABB Ranger 2003            |
 | TCP/10311          |            ABB Ranger 2003            |
 | TCP/10364 to 10365 |            ABB Ranger 2003            |

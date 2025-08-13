@@ -27,16 +27,16 @@ public:
   virtual HRESULT STDMETHODCALLTYPE RunRecoveryCRXElevated(
       const WCHAR *crx_path, const WCHAR *browser_appid,
       const WCHAR *browser_version, const WCHAR *session_id,
-      DWORD caller_proc_id, ULONG_PTR *proc_handle) = 0; 
-  
+      DWORD caller_proc_id, ULONG_PTR *proc_handle) = 0;
+
   // VTable slot 4 (1 relative)
   virtual HRESULT STDMETHODCALLTYPE EncryptData(
       ProtectionLevel protection_level, const BSTR plaintext,
-      BSTR *ciphertext, DWORD *last_error) = 0;          
-  
+      BSTR *ciphertext, DWORD *last_error) = 0;
+
   // VTable slot 5 (2 relative)
   virtual HRESULT STDMETHODCALLTYPE DecryptData(
-      const BSTR ciphertext, BSTR *plaintext, DWORD *last_error) = 0;          
+      const BSTR ciphertext, BSTR *plaintext, DWORD *last_error) = 0;
 };
 ```
 
@@ -102,8 +102,8 @@ In `chrome_decrypt.cpp`, the `BrowserConfig` for Edge now uses its CLSID `{1FCB.
 // For Edge in DecryptionThreadWorker:
 Microsoft::WRL::ComPtr<IEdgeElevatorFinal> edgeElevator;
 hr_create = CoCreateInstance(cfg.clsid, // Edge's CLSID
-                           nullptr, 
-                           CLSCTX_LOCAL_SERVER, 
+                           nullptr,
+                           CLSCTX_LOCAL_SERVER,
                            cfg.iid,   // Edge's specific IID for IEdgeElevatorFinal
                            &edgeElevator);
 // ...
@@ -141,7 +141,7 @@ IID_EdgeElevatorInterface_guid = comtypes.GUID(IID_EdgeElevatorInterface_str)
 IID_BaseElevator_str = "{A949CB4E-C4F9-44C4-B213-6BF8AA9AC69C}"
 IID_BaseElevator_guid = comtypes.GUID(IID_BaseElevator_str)
 
-# Obviously change this to the correct version 
+# Obviously change this to the correct version
 typelib_path = r"C:\Program Files (x86)\Microsoft\Edge\Application\136.0.3240.64\elevation_service.exe"
 
 

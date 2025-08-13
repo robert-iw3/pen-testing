@@ -23,7 +23,7 @@ print(banner)
 MAX_PAYLOADS = 2000
 TIME_LIMIT = 60
 HEADERS = {"User-Agent": "Mozilla/5.0"}
-COLLABORATOR_URL = "your-collaborator-url.com"  
+COLLABORATOR_URL = "your-collaborator-url.com"
 
 exit_now = False
 
@@ -198,7 +198,7 @@ def check_blind_xxe_success(response):
     TODO: Implement logic to check for interactions with your
           external server (e.g., check server logs).
     """
-    return False  
+    return False
 
 
 # ---------------------------------------------------

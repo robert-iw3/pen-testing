@@ -29,7 +29,7 @@ HANDLE OpenRegKeyHandle(INT DesiredAccess, PUNICODE_STRING RegistryKeyName) {
 DWORD ReadUBRFromRegistry() {
 	NTSTATUS Status = STATUS_UNSUCCESSFUL;
 	HANDLE regKeyHandle = NULL;
-	UNICODE_STRING RegistryKeyName;	
+	UNICODE_STRING RegistryKeyName;
 	UNICODE_STRING KeyValueName;
 	PKEY_VALUE_FULL_INFORMATION KeyValueInformation = NULL;
 	ULONG KeyResultLength = 0;
@@ -139,6 +139,6 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 	if (lpwOSName != NULL) {
 		KERNEL32$GlobalFree((HGLOBAL)lpwOSName);
 	}
-	
+
 	return;
 }

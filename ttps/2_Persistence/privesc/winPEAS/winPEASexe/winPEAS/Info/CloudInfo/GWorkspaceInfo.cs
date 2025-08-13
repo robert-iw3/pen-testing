@@ -48,7 +48,7 @@ namespace winPEAS.Info.CloudInfo
             {
                 workspaceRegValues.Add($"HKU Workspace user", System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             }
-                
+
             for (int i = 0; i < users3.Length; i++)
             {
                 workspaceRegValues.Add($"    HKU-Email{i}", Helpers.Registry.RegistryHelper.GetRegValue("HCKU", @"SOFTWARE\Google\Accounts\"+ users3[i], @"email"));
@@ -119,7 +119,7 @@ namespace winPEAS.Info.CloudInfo
         public static bool CheckIfGCPWUsers()
         {
             string[] check = Helpers.Registry.RegistryHelper.GetRegSubkeys("HKLM", @"SOFTWARE\Google\GCPW\Users");
-            return check != null && check.Length > 0; 
+            return check != null && check.Length > 0;
         }
 
         public override Dictionary<string, List<EndpointData>> EndpointDataList()
@@ -291,7 +291,7 @@ namespace winPEAS.Info.CloudInfo
                 int len2 = gcm.DoFinal(plaintext, len);
 
                 string plaintextString = Encoding.ASCII.GetString(plaintext, 0, len+len2-mac.Length);
-                
+
 
                 return plaintextString;
             }

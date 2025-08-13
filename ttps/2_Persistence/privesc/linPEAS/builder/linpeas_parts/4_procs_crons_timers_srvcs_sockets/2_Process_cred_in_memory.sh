@@ -40,7 +40,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     proc_user=$(stat -c '%U' "/proc/$pid" 2>/dev/null)
     proc_cmd=$(cat "/proc/$pid/cmdline" 2>/dev/null | tr '\0' ' ' | head -c 100)
     [ -z "$proc_user" ] || [ -z "$proc_cmd" ] && continue
-    
+
     # Skip processes that start with "sed " or contain "linpeas.sh"
     echo "$proc_cmd" | grep -q "^sed " && continue
     echo "$proc_cmd" | grep -q "linpeas.sh" && continue
@@ -48,7 +48,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     # Variable to store unique files for this process
     seen_files=""
     found_cred_files=""
-    
+
     # Check for open credential files
     for fd in /proc/$pid/fd/*; do
       [ ! -e "$fd" ] && continue

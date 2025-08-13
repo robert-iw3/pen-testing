@@ -38,23 +38,23 @@
 //exception handler
 // show alert and log error
 void uncaughtExceptionHandler(NSException* exception) {
-    
+
     //alert
     NSAlert* alert = nil;
-    
+
     //alloc/init alert
     alert = [NSAlert alertWithMessageText:NSLocalizedString(@"ERROR:\nKnockKnock Encountered a Fatal Error", @"KnockKnock Encountered a Fatal Error") defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Exception: %@",@"Exception: %@"), exception];
-    
+
     //show it
     [alert runModal];
-    
+
     //log
     os_log_error(OS_LOG_DEFAULT, "KnockKnock crash: %{public}@", exception);
     os_log_error(OS_LOG_DEFAULT, "KnockKnock crash (stack trace): %{public}@", [exception callStackSymbols]);
-    
+
     //bye
     exit(EXIT_FAILURE);
-    
+
     return;
 }
 
@@ -64,13 +64,13 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //center
     [self.window center];
-    
+
     //make it key window
     [self.window makeKeyAndOrderFront:self];
 
     //make window front
     [NSApp activateIgnoringOtherApps:YES];
-    
+
     return;
 }
 
@@ -79,22 +79,22 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //defaults
     NSUserDefaults* defaults = nil;
-    
+
     //set exception handler
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-    
+
     //init filter object
     itemFilter = [[Filter alloc] init];
-    
+
     //init virus total object
     virusTotalObj = [[VirusTotal alloc] init];
-    
+
     //init array for virus total threads
     vtThreads = [NSMutableArray array];
-    
+
     //alloc shared item enumerator
     sharedItemEnumerator = [[ItemEnumerator alloc] init];
-    
+
     //load defaults
     defaults = [NSUserDefaults standardUserDefaults];
 
@@ -104,22 +104,22 @@ void uncaughtExceptionHandler(NSException* exception) {
     {
         //set key
         [defaults setBool:YES forKey:NOT_FIRST_TIME];
-        
+
         //set delegate
         self.friends.delegate = self;
-        
+
         //show friends window
         [self.friends makeKeyAndOrderFront:self];
-        
+
         //then make action button first responder
         [self.friends makeFirstResponder:self.closeButton];
-        
+
         //close after a few seconds
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            
+
             //close to hide
             [self.friends close];
-            
+
         });
     }
     //asked for full disk access yet?
@@ -127,17 +127,17 @@ void uncaughtExceptionHandler(NSException* exception) {
     {
         //set key
         [defaults setBool:YES forKey:REQUESTED_FULL_DISK_ACCESS];
-        
+
         //request access
         // delay, so UI completes rendering
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 100 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-            
+
             //request access
             [self requestFullDiskAcces];
-            
+
         });
     }
-    
+
     //check for update
     // unless user has turn off via prefs
     if(YES != [defaults boolForKey:PREF_DISABLE_UPDATE_CHECK])
@@ -149,45 +149,45 @@ void uncaughtExceptionHandler(NSException* exception) {
     //kick off thread to begin enumerating shared objects
     // ->this takes awhile, so do it now/first!
     [sharedItemEnumerator start];
-    
+
     //instantiate all plugins objects
     self.plugins = [self instantiatePlugins];
-    
+
     //set selected plugin to first
     self.selectedPlugin = [self.plugins firstObject];
 
     //pre-populate category table w/ each plugin title
     [self.categoryTableController initTable:self.plugins];
-    
+
     //make category table active/selected
     [[self.categoryTableController.categoryTableView window] makeFirstResponder:self.categoryTableController.categoryTableView];
-    
+
     //hide status msg
     // ->when user clicks scan, will show up..
     [self.statusText setStringValue:@""];
-    
+
     //hide progress indicator
     self.progressIndicator.hidden = YES;
-    
+
     //set label text to 'Start Scan'
     self.scanButtonLabel.stringValue = NSLocalizedString(@"Start Scan", @"Start Scan");
 
     //set version info
     [self.versionString setStringValue:[NSString stringWithFormat:NSLocalizedString(@"version: %@", @"version: %@"), getAppVersion()]];
-    
+
     //init tracking areas
     [self initTrackingAreas];
-    
+
     //set delegate
     // ->ensures our 'windowWillClose' method, which has logic to fully exit app
     self.window.delegate = self;
-    
+
     //alloc/init prefs
     prefsWindowController = [[PrefsWindowController alloc] initWithWindowNibName:@"PrefsWindow"];
-    
+
     //register defaults
     [self.prefsWindowController registerDefaults];
-    
+
     //load prefs
     [self.prefsWindowController loadPreferences];
 
@@ -205,7 +205,7 @@ void uncaughtExceptionHandler(NSException* exception) {
 
 //window close handler
 -(void)windowWillClose:(NSNotification *)notification {
-    
+
     //closing friends window?
     // request full disk access
     if(self.friends == notification.object)
@@ -213,13 +213,13 @@ void uncaughtExceptionHandler(NSException* exception) {
         //request access
         // delay ensures (friends) window will close
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (100 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
-            
+
             //request access
             [self requestFullDiskAcces];
-            
+
         });
     }
-    
+
     return;
 }
 
@@ -234,10 +234,10 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //request
     __block NSAlert* infoAlert = nil;
-    
+
     //once
     static dispatch_once_t once;
-    
+
     //show request once
     dispatch_once(&once, ^
     {
@@ -246,19 +246,19 @@ void uncaughtExceptionHandler(NSException* exception) {
         {
             //alloc alert
             infoAlert = [[NSAlert alloc] init];
-            
+
             //main text
             infoAlert.messageText = NSLocalizedString(@"Open 'System Preferences' to give KnockKnock Full Disk Access?", @"Open 'System Preferences' to give KnockKnock Full Disk Access?");
-            
+
             //detailed test
             infoAlert.informativeText = NSLocalizedString(@"This allows the app to perform a comprehensive scan.\n\nIn System Preferences:\r ▪ Click the 🔒 to authenticate\r ▪ Click the ➕ to add KnockKnock.app\n", @"This allows the app to perform a comprehensive scan.\n\nIn System Preferences:\r ▪ Click the 🔒 to authenticate\r ▪ Click the ➕ to add KnockKnock.app\n");
-            
+
             //ok button
             [infoAlert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
-            
+
             //alert button
             [infoAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
-            
+
             //show 'alert' and capture user response
             // user clicked 'OK'? -> open System Preferences
             if(NSAlertFirstButtonReturn == [infoAlert runModal])
@@ -268,7 +268,7 @@ void uncaughtExceptionHandler(NSException* exception) {
             }
         }
     });
-    
+
     return;
 }
 
@@ -278,42 +278,42 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //tracking area for buttons
     NSTrackingArea* trackingArea = nil;
-    
+
     //init tracking area
     // ->for scan button
     trackingArea = [[NSTrackingArea alloc] initWithRect:[self.scanButton bounds] options:(NSTrackingInVisibleRect|NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways) owner:self userInfo:@{@"tag":[NSNumber numberWithUnsignedInteger:self.scanButton.tag]}];
-    
+
     //add tracking area to scan button
     [self.scanButton addTrackingArea:trackingArea];
 
     //init tracking area
     // ->for preference button
     trackingArea = [[NSTrackingArea alloc] initWithRect:[self.showSettingsButton bounds] options:(NSTrackingInVisibleRect|NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways) owner:self userInfo:@{@"tag":[NSNumber numberWithUnsignedInteger:self.showSettingsButton.tag]}];
-    
+
     //add tracking area to pref button
     [self.showSettingsButton addTrackingArea:trackingArea];
-    
+
     //init tracking area
     // ->for save results button
     trackingArea = [[NSTrackingArea alloc] initWithRect:[self.saveButton bounds] options:(NSTrackingInVisibleRect|NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways) owner:self userInfo:@{@"tag":[NSNumber numberWithUnsignedInteger:self.saveButton.tag]}];
-    
+
     //add tracking area to save button
     [self.saveButton addTrackingArea:trackingArea];
-    
+
     //init tracking area
     // ->for save results button
     trackingArea = [[NSTrackingArea alloc] initWithRect:[self.compareButton bounds] options:(NSTrackingInVisibleRect|NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways) owner:self userInfo:@{@"tag":[NSNumber numberWithUnsignedInteger:self.compareButton.tag]}];
-    
+
     //add tracking area to save button
     [self.compareButton addTrackingArea:trackingArea];
 
     //init tracking area
     // ->for logo button
     trackingArea = [[NSTrackingArea alloc] initWithRect:[self.logoButton bounds] options:(NSTrackingInVisibleRect|NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways) owner:self userInfo:@{@"tag":[NSNumber numberWithUnsignedInteger:self.logoButton.tag]}];
-    
+
     //add tracking area to logo button
     [self.logoButton addTrackingArea:trackingArea];
-    
+
     return;
 }
 
@@ -328,11 +328,11 @@ void uncaughtExceptionHandler(NSException* exception) {
     {
         //show
         [self.progressIndicator setHidden:NO];
-        
+
         //start spinner
         [self.progressIndicator startAnimation:nil];
     }
-    
+
     return;
 }
 
@@ -341,30 +341,30 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //plugin objects
     NSMutableArray* pluginObjects = nil;
-    
+
     //number of plugins
     NSUInteger pluginCount = 0;
-    
+
     //plugin object
     PluginBase* pluginObj = nil;
-    
+
     //init array
     pluginObjects = [NSMutableArray array];
-    
+
     //get number of plugins
     pluginCount = sizeof(SUPPORTED_PLUGINS)/sizeof(SUPPORTED_PLUGINS[0]);
-    
+
     //iterate over all supported plugin names
     // ->init and save each
     for(NSUInteger i=0; i < pluginCount; i++)
     {
         //init plugin
         pluginObj = [[NSClassFromString(SUPPORTED_PLUGINS[i]) alloc] init];
-        
+
         //save it
         [pluginObjects addObject:pluginObj];
     }
-    
+
     return pluginObjects;
 }
 
@@ -381,11 +381,11 @@ void uncaughtExceptionHandler(NSException* exception) {
             //remove all results
             [plugin reset];
         }
-        
+
         //update the UI
         // reset tables/reflect the started state
         [self startScanUI];
-        
+
         //start scan
         // kicks off background scanner thread
         [self startScan];
@@ -397,12 +397,12 @@ void uncaughtExceptionHandler(NSException* exception) {
     {
         //complete scan
         [self completeScan];
-        
+
         //update the UI
         // ->reflect the stopped state & and display stats
         [self stopScanUI:SCAN_MSG_STOPPED];
     }
-    
+
     return;
 }
 
@@ -412,7 +412,7 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //alloc scanner thread
     scannerThread = [[NSThread alloc] initWithTarget:self selector:@selector(scan) object:nil];
-    
+
     //on secondary runs
     // ->always restart shared enumerator
     if(YES == self.secondaryScan)
@@ -420,14 +420,14 @@ void uncaughtExceptionHandler(NSException* exception) {
         //start it
         [sharedItemEnumerator start];
     }
-    
+
     //start scanner thread
     [self.scannerThread start];
-    
+
     //set flag
     // ->indicates that this isn't first scan
     self.secondaryScan = YES;
-    
+
     return;
 }
 
@@ -437,10 +437,10 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //flag indicating an active VT thread
     BOOL activeThread = NO;
-    
+
     //set scan flag
     self.isConnected = isNetworkConnected();
-    
+
     //iterate over all plugins
     // ->invoke's each scan message
     for(PluginBase* plugin in self.plugins)
@@ -448,31 +448,31 @@ void uncaughtExceptionHandler(NSException* exception) {
         //pool
         @autoreleasepool
         {
-        
+
         //exit if scanner (self) thread was cancelled
         if(YES == [[NSThread currentThread] isCancelled])
         {
             //exit
             [NSThread exit];
         }
-        
+
         //update scanner msg
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+
             //show
             self.statusText.hidden = NO;
-            
+
             //update
             [self.statusText setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Scanning: %@"), plugin.name]];
-            
+
         });
-        
+
         //set callback
         plugin.callback = ^(ItemBase* item)
         {
             [self itemFound:item];
         };
-            
+
         //scan
         // will invoke callback as items are found
         [plugin scan];
@@ -485,10 +485,10 @@ void uncaughtExceptionHandler(NSException* exception) {
             //do query
             [self queryVT:plugin];
         }
-            
+
         }//pool
     }
-    
+
     //if VT querying is enabled (default) and network is available
     // ->wait till all VT threads are done
     if( (YES != self.prefsWindowController.disableVTQueries) &&
@@ -496,22 +496,22 @@ void uncaughtExceptionHandler(NSException* exception) {
     {
         //update scanner msg
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+
             //update
             [self.statusText setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Awaiting VirusTotal results", @"Awaiting VirusTotal results")]];
-            
+
         });
-        
+
         //nap
         // ->VT threads take some time to spawn/process
         [NSThread sleepForTimeInterval:3.0f];
-        
+
         //wait for all VT threads to exit
         while(YES)
         {
             //reset flag
             activeThread = NO;
-            
+
             //sync
             @synchronized(self.vtThreads)
             {
@@ -524,14 +524,14 @@ void uncaughtExceptionHandler(NSException* exception) {
                     {
                         //set flag
                         activeThread = YES;
-                        
+
                         //bail
                         break;
                     }
                 }
-                
+
             }//sync
-            
+
             //check flag
             if(YES != activeThread)
             {
@@ -539,21 +539,21 @@ void uncaughtExceptionHandler(NSException* exception) {
                 // ->bail
                 break;
             }
-            
+
             //exit if scanner (self) thread was cancelled
             if(YES == [[NSThread currentThread] isCancelled])
             {
                 //exit
                 [NSThread exit];
             }
-            
+
             //nap
             [NSThread sleepForTimeInterval:0.5];
-            
+
         }//active thread
-        
+
     }//VT scanning enabled
-    
+
     //complete scan logic and show result
     // ->but *only* if scan wasn't stopped
     if(YES != [[NSThread currentThread] isCancelled])
@@ -564,15 +564,15 @@ void uncaughtExceptionHandler(NSException* exception) {
         //stop ui & show informational alert
         // ->executed on main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+
             //update the UI
             // ->reflect the stopped state
             [self stopScanUI:SCAN_MSG_COMPLETE];
-            
+
         });
-        
+
     }//scan not stopped by user
-    
+
     return;
 }
 
@@ -581,21 +581,21 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //virus total thread
     NSThread* virusTotalThread = nil;
-    
+
     //alloc thread
     // ->will query virus total to get info about all detected items
     virusTotalThread = [[NSThread alloc] initWithTarget:virusTotalObj selector:@selector(getInfo:) object:plugin];
-    
+
     //start thread
     [virusTotalThread start];
-    
+
     //sync
     @synchronized(self.vtThreads)
     {
         //save it into array
         [self.vtThreads addObject:virusTotalThread];
     }
-    
+
     return;
 }
 
@@ -606,7 +606,7 @@ void uncaughtExceptionHandler(NSException* exception) {
     //open URL
     // ->invokes user's default browser
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://objective-see.org"]];
-    
+
     return;
 }
 
@@ -617,7 +617,7 @@ void uncaughtExceptionHandler(NSException* exception) {
     //item backing item table
     // ->depending on flilter status, either all items, or just known ones
     NSArray* tableItems = nil;
-    
+
     //only show refresh table if
     // a) filter is not enabled (e.g. show all)
     // b) filtering is enable, but item is unknown
@@ -641,34 +641,34 @@ void uncaughtExceptionHandler(NSException* exception) {
         //reload category table (on main thread)
         // ->this will result in the 'total' being updated
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+
             @synchronized (self) {
-                
+
                 //begin updates
                 [self.itemTableController.itemTableView beginUpdates];
-                
+
                 //update category table row
                 // ->this will result in the 'total' being updated
                 [self.categoryTableController.categoryTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:[self.plugins indexOfObject:item.plugin]] columnIndexes:[NSIndexSet indexSetWithIndex:0]];
-                
+
                 //if this plugin is currently the selected one (in the category table)
                 // ->update the item row
                 if(self.selectedPlugin == item.plugin)
                 {
                     //first tell item table the # of items have changed
                     [self.itemTableController.itemTableView noteNumberOfRowsChanged];
-                    
+
                     //reload just the new row
                     [self.itemTableController.itemTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:(tableItems.count-1)] columnIndexes:[NSIndexSet indexSetWithIndex:0]];
                 }
-                
+
                 //end updates
                 [self.itemTableController.itemTableView endUpdates];
-                
+
             }//sync
         });
     }
-    
+
     return;
 }
 
@@ -689,11 +689,11 @@ void uncaughtExceptionHandler(NSException* exception) {
     {
         //scroll to top of item table
         [self.itemTableController scrollToTop];
-            
+
         //reload item table
         [self.itemTableController.itemTableView reloadData];
     }
-    
+
     return;
 }
 
@@ -702,41 +702,41 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //row index
     __block NSUInteger rowIndex = NSNotFound;
-    
+
     //current items
     __block NSArray* tableItems = nil;
-    
+
     //reload category table
     [self.categoryTableController customReload];
-    
+
     //check if active plugin matches
     if(fileObj.plugin == self.selectedPlugin)
     {
         //get current items
         tableItems = [self.itemTableController getTableItems];
-            
+
         //sync
         @synchronized (tableItems) {
-            
+
             //find index of item
             rowIndex = [tableItems indexOfObject:fileObj];
-            
+
         } //sync
-        
+
         //reload row
         if(NSNotFound != rowIndex)
         {
             //start table updates
             [self.itemTableController.itemTableView beginUpdates];
-        
+
             //update
             [self.itemTableController.itemTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:rowIndex] columnIndexes:[NSIndexSet indexSetWithIndex:0]];
-        
+
             //end table updates
             [self.itemTableController.itemTableView endUpdates];
         }
     }
-    
+
     return;
 }
 
@@ -746,13 +746,13 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //save selected plugin
     self.selectedPlugin = self.plugins[rowIndex];
-    
+
     //scroll to top of item table
     [self.itemTableController scrollToTop];
-    
+
     //reload item table
     [self.itemTableController.itemTableView reloadData];
-    
+
     return;
 }
 
@@ -763,24 +763,24 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //currently selected category
     NSUInteger selectedCategory = 0;
-    
+
     //get currently selected category
     selectedCategory = self.categoryTableController.categoryTableView.selectedRow;
-    
+
     //reload category table
     [self.categoryTableController customReload];
-    
+
     //reloading the category table resets the selected plugin
     // ->so manually (re)set it here
     self.selectedPlugin = self.plugins[selectedCategory];
-    
+
     //reload item table
     [self.itemTableController.itemTableView reloadData];
-    
+
     //(re)check network connectivity
     // ->set iVar
     self.isConnected = isNetworkConnected();
-    
+
     //if VT query was never done (e.g. scan was started w/ pref disabled) and network is available
     // ->kick off VT queries now
     if( (0 == self.vtThreads.count) &&
@@ -795,7 +795,7 @@ void uncaughtExceptionHandler(NSException* exception) {
             [self queryVT:plugin];
         }
     }
-    
+
     return;
 }
 
@@ -810,48 +810,48 @@ void uncaughtExceptionHandler(NSException* exception) {
         //reset
         self.statusTextConstraint.constant = 56;
     }
-    
+
     //reset category table
     [self.categoryTableController.categoryTableView reloadData];
-    
+
     //reset item table
     [self.itemTableController.itemTableView reloadData];
-    
+
     //close results window
     if(YES == [self.resultsWindowController.window isVisible])
     {
         //close
         [self.resultsWindowController.window close];
     }
-    
+
     //show progress indicator
     self.progressIndicator.hidden = NO;
-    
+
     //start spinner
     [self.progressIndicator startAnimation:nil];
-    
+
     //set status msg
     // ->scanning started
     [self.statusText setStringValue:SCAN_MSG_STARTED];
-    
+
     //update button's image
     self.scanButton.image = [NSImage imageNamed:@"stopScan"];
-    
+
     //update button's backgroud image
     self.scanButton.alternateImage = [NSImage imageNamed:@"stopScanBG"];
-    
+
     //set label text to 'Stop Scan'
     self.scanButtonLabel.stringValue = NSLocalizedString(@"Stop Scan", @"Stop Scan");
-    
+
     //disable gear (show prefs) button
     self.showSettingsButton.enabled = NO;
-    
+
     //disable save button
     self.saveButton.enabled = NO;
-    
+
     //disable compare button
     self.compareButton.enabled = NO;
-    
+
     return;
 }
 
@@ -861,14 +861,14 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //tell enumerator to stop
     [sharedItemEnumerator stop];
-    
+
     //cancel enumerator thread
     if(YES == [sharedItemEnumerator.enumeratorThread isExecuting])
     {
         //cancel
         [sharedItemEnumerator.enumeratorThread cancel];
     }
-    
+
     //sync to cancel all VT threads
     @synchronized(self.vtThreads)
     {
@@ -883,10 +883,10 @@ void uncaughtExceptionHandler(NSException* exception) {
             }
         }
     }
-    
+
     //remove all VT threads
     [self.vtThreads removeAllObjects];
-    
+
     //when invoked from the UI (e.g. 'Stop Scan' was clicked)
     // ->cancel scanner thread
     if([NSThread currentThread] != self.scannerThread)
@@ -898,7 +898,7 @@ void uncaughtExceptionHandler(NSException* exception) {
             [self.scannerThread cancel];
         }
     }
-    
+
     return;
 }
 
@@ -908,34 +908,34 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //stop spinner
     [self.progressIndicator stopAnimation:nil];
-    
+
     //hide progress indicator
     self.progressIndicator.hidden = YES;
-    
+
     //shift over status msg
     self.statusTextConstraint.constant = 10;
-    
+
     //set status msg
     [self.statusText setStringValue:statusMsg];
-    
+
     //update button's image
     self.scanButton.image = [NSImage imageNamed:@"startScan"];
-    
+
     //update button's backgroud image
     self.scanButton.alternateImage = [NSImage imageNamed:@"startScanBG"];
-    
+
     //set label text to 'Start Scan'
     self.scanButtonLabel.stringValue = NSLocalizedString(@"Start Scan", @"Start Scan");
-    
+
     //(re)enable gear (show prefs) button
     self.showSettingsButton.enabled = YES;
-    
+
     //(re)enable save button
     self.saveButton.enabled = YES;
-    
+
     //enable compare button
     self.compareButton.enabled = YES;
-    
+
     //only show scan stats for completed scan
     if(YES == [statusMsg isEqualToString:SCAN_MSG_COMPLETE])
     {
@@ -951,22 +951,22 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //detailed results msg
     NSMutableString* details = nil;
-    
+
     //unknown items message
     NSString* vtDetails = nil;
-    
+
     //item count
     NSUInteger items = 0;
-    
+
     //flagged item count
     NSUInteger flaggedItems =  0;
-    
+
     //unknown items
     NSMutableArray* unknownItems = nil;
-    
+
     //init
     unknownItems = [NSMutableArray array];
-    
+
     //iterate over all plugins
     // sum up their item counts and flag items count
     for(PluginBase* plugin in self.plugins)
@@ -976,10 +976,10 @@ void uncaughtExceptionHandler(NSException* exception) {
         {
             //add up
             items += plugin.allItems.count;
-            
+
             //add plugin's flagged items
             flaggedItems += plugin.flaggedItems.count;
-            
+
             //add unknown file items
             // plugins will only have one type, so can just check first
             if(YES == [[plugin.unknownItems firstObject] isKindOfClass:[File class]])
@@ -987,7 +987,7 @@ void uncaughtExceptionHandler(NSException* exception) {
                 //add
                 [unknownItems addObjectsFromArray:plugin.unknownItems];
             }
-        
+
             //init detailed msg
             details = [NSMutableString stringWithFormat:NSLocalizedString(@"Found %lu persistent items", @"Found %lu persistent items"), (unsigned long)items];
         }
@@ -996,10 +996,10 @@ void uncaughtExceptionHandler(NSException* exception) {
         {
             //add up
             items += plugin.untrustedItems.count;
-            
+
             //sync
             @synchronized (plugin.untrustedItems) {
-                
+
                 //manually check if each untrusted item is flagged/unknown
                 for(ItemBase* item in plugin.untrustedItems)
                 {
@@ -1009,7 +1009,7 @@ void uncaughtExceptionHandler(NSException* exception) {
                         //inc
                         flaggedItems++;
                     }
-                    
+
                     //check if item is unknown
                     // but has to be a File* object
                     if(YES == [item isKindOfClass:[File class]])
@@ -1022,14 +1022,14 @@ void uncaughtExceptionHandler(NSException* exception) {
                         }
                     }
                 }
-                
+
             } //sync
-            
+
             //init detailed msg
             details = [NSMutableString stringWithFormat:NSLocalizedString(@"Found %lu persistent (non-OS) items", @"Found %lu persistent (non-OS) items"), (unsigned long)items];
         }
     }
-    
+
     //remove any dups from unknown items
     [self removeDuplicates:unknownItems];
 
@@ -1052,25 +1052,25 @@ void uncaughtExceptionHandler(NSException* exception) {
             vtDetails = [NSString stringWithFormat:NSLocalizedString(@"VirusTotal:\r\n %lu flagged item(s)\r\n %lu unknown item(s)", @"VirusTotal:\r\n %lu flagged item(s)\r\n %lu unknown item(s)"), flaggedItems, unknownItems.count];
         }
     }
-    
+
     //alloc/init
     resultsWindowController = [[ResultsWindowController alloc] initWithWindowNibName:@"ResultsWindow"];
-        
+
     //set details
     self.resultsWindowController.details = details;
-        
+
     //set vt details
     self.resultsWindowController.vtDetails = vtDetails;
-    
+
     //set unknown items
     self.resultsWindowController.unknownItems = unknownItems;
-    
+
     //show it
     [self.resultsWindowController showWindow:self];
-    
+
     //make front/visible
     [self.resultsWindowController.window setLevel:NSPopUpMenuWindowLevel];
-    
+
     return;
 }
 
@@ -1079,7 +1079,7 @@ void uncaughtExceptionHandler(NSException* exception) {
 -(void)removeDuplicates:(NSMutableArray<File *>*)files
 {
     NSMutableSet *uniquePaths = [NSMutableSet set];
-    
+
     //interate backwards to remove in place
     for (NSInteger i = files.count - 1; i >= 0; i--)
     {
@@ -1101,7 +1101,7 @@ void uncaughtExceptionHandler(NSException* exception) {
     //mouse entered
     // ->highlight (visual) state
     [self buttonAppearance:theEvent shouldReset:NO];
-    
+
     return;
 }
 
@@ -1111,7 +1111,7 @@ void uncaughtExceptionHandler(NSException* exception) {
     //mouse exited
     // ->so reset button to original (visual) state
     [self buttonAppearance:theEvent shouldReset:YES];
-    
+
     return;
 }
 
@@ -1120,16 +1120,16 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //tag
     NSUInteger tag = 0;
-    
+
     //image name
     NSString* imageName =  nil;
-    
+
     //button
     NSButton* button = nil;
-    
+
     //extract tag
     tag = [((NSDictionary*)theEvent.userData)[@"tag"] unsignedIntegerValue];
-    
+
     //restore button back to default (visual) state
     if(YES == shouldReset)
     {
@@ -1149,7 +1149,7 @@ void uncaughtExceptionHandler(NSException* exception) {
                 //set
                 imageName = @"startScan";
             }
-            
+
         }
         //set original preferences image
         else if(PREF_BUTTON_TAG == tag)
@@ -1157,21 +1157,21 @@ void uncaughtExceptionHandler(NSException* exception) {
             //set
             imageName = @"Preferences";
         }
-        
+
         //set original save image
         else if(SAVE_BUTTON_TAG == tag)
         {
             //set
             imageName = @"Save";
         }
-        
+
         //set orginal compare image
         else if(COMPARE_BUTTON_TAG == tag)
         {
             //set
             imageName = @"Compare";
         }
-        
+
         //set original logo image
         else if(LOGO_BUTTON_TAG == tag)
         {
@@ -1190,7 +1190,7 @@ void uncaughtExceptionHandler(NSException* exception) {
             {
                 //set
                 imageName = @"stopScanOver";
-                
+
             }
             //scan not running
             else
@@ -1211,14 +1211,14 @@ void uncaughtExceptionHandler(NSException* exception) {
             //set
             imageName = @"SaveAlternate";
         }
-        
+
         //set mouse over compare image
         else if(COMPARE_BUTTON_TAG == tag)
         {
             //set
             imageName = @"CompareAlternate";
         }
-        
+
         //set mouse over logo image
         else if(LOGO_BUTTON_TAG == tag)
         {
@@ -1226,19 +1226,19 @@ void uncaughtExceptionHandler(NSException* exception) {
             imageName = @"logoAppleOver";
         }
     }
-    
+
     //set image
-    
+
     //grab button
     button = [[[self window] contentView] viewWithTag:tag];
-    
+
     if(YES == [button isEnabled])
     {
         //set
         [button setImage:[NSImage imageNamed:imageName]];
     }
-    
-    return;    
+
+    return;
 }
 
 
@@ -1249,25 +1249,25 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //save panel
     NSSavePanel *panel = nil;
-    
+
     //save results popup
     __block NSAlert* alert = nil;
-    
+
     //output
     __block NSMutableString* output = nil;
-    
+
     //error
     __block NSError* error = nil;
-    
+
     //create panel
     panel = [NSSavePanel savePanel];
-    
+
     //default to desktop
     panel.directoryURL = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains (NSDesktopDirectory, NSUserDomainMask, YES) firstObject]];
-    
+
     //suggest file name
     [panel setNameFieldStringValue:OUTPUT_FILE];
-    
+
     //show panel
     // ->completion handler will invoked when user clicks 'ok'
     [panel beginWithCompletionHandler:^(NSInteger result)
@@ -1277,7 +1277,7 @@ void uncaughtExceptionHandler(NSException* exception) {
          {
              //convert scan to JSON
              output = [self scanToJSON];
-            
+
              //save JSON to disk
              if(YES == [output writeToURL:[panel URL] atomically:YES encoding:NSUTF8StringEncoding error:&error])
              {
@@ -1289,25 +1289,25 @@ void uncaughtExceptionHandler(NSException* exception) {
              {
                 //err msg
                 NSLog(@"ERROR: saving output to %@ failed with %@", [panel URL], error);
-                
+
                 //init alert
                 alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle:@"Ok"];
-                
+
                 //error msg
                 alert.messageText = NSLocalizedString(@"ERROR: failed to save output", @"ERROR: failed to save output");
-                
+
                 //error details
                 alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Details: %@", @"Details: %@"), error];
-                
+
                 //show popup
                 [alert runModal];
              }
-            
+
          }//clicked 'ok' (to save)
-    
+
      }]; //panel callback
-    
+
     return;
 }
 
@@ -1316,16 +1316,16 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //json
     NSMutableString* json = nil;
-    
+
     //plugin's items
     NSArray* items = nil;
-    
+
     //init
     json = [NSMutableString string];
-    
+
     //start json
     [json appendString:@"{"];
-    
+
     //iterate over all plugins
     // ->format/add items to output
     for(PluginBase* plugin in self.plugins)
@@ -1344,48 +1344,48 @@ void uncaughtExceptionHandler(NSException* exception) {
             //set
             items = plugin.untrustedItems;
         }
-        
+
         //add plugin name
         [json appendString:[NSString stringWithFormat:@"\"%@\":[", plugin.name]];
-    
+
         //sync
         // ->since array will be reset if user clicks 'stop' scan
         @synchronized(items)
         {
-        
+
         //iterate over all items
         // ->convert to JSON/append to output
         for(ItemBase* item in items)
         {
             //add item
             [json appendFormat:@"{%@},", [item toJSON]];
-            
+
         }//all plugin items
-            
+
         }//sync
-        
+
         //remove last ','
         if(YES == [json hasSuffix:@","])
         {
             //remove
             [json deleteCharactersInRange:NSMakeRange(json.length-1, 1)];
         }
-        
+
         //terminate list
         [json appendString:@"],"];
 
     }//all plugins
-    
+
     //remove last ','
     if(YES == [json hasSuffix:@","])
     {
         //remove
         [json deleteCharactersInRange:NSMakeRange(json.length-1, 1)];
     }
-    
+
     //terminate list/output
     [json appendString:@"}"];
-    
+
     return json;
 }
 
@@ -1401,10 +1401,10 @@ void uncaughtExceptionHandler(NSException* exception) {
         //alloc/init
         aboutWindowController = [[AboutWindowController alloc] initWithWindowNibName:@"AboutWindow"];
     }
-    
+
     //center window
     [[self.aboutWindowController window] center];
-    
+
     //show it
     [self.aboutWindowController showWindow:self];
 
@@ -1417,7 +1417,7 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //show it
     [self.prefsWindowController showWindow:self];
-    
+
     //make modal
     [[NSApplication sharedApplication] runModalForWindow:self.prefsWindowController.window];
 
@@ -1429,51 +1429,51 @@ void uncaughtExceptionHandler(NSException* exception) {
 {
     //error
     NSError* error = nil;
-    
+
     //flag
     BOOL errors = NO;
-    
+
     //alert
     NSAlert* alert = nil;
-    
+
     //previous scan
     NSString* prevScan = nil;
     NSDictionary* prevScanContents = nil;
-    
+
     //added items
     NSMutableArray* addedItems = nil;
-    
+
     //removed items
     NSMutableArray* removedItems = nil;
-    
+
     //diff results
     NSMutableString* differences = nil;
-    
+
     //'browse' panel
     NSOpenPanel *panel = nil;
-    
+
     //init
     differences = [NSMutableString string];
-    
+
     //init panel
     panel = [NSOpenPanel openPanel];
-    
+
     //allow files
     panel.canChooseFiles = YES;
-    
+
     //disallow directories
     panel.canChooseDirectories = NO;
-    
+
     //disable multiple selections
     panel.allowsMultipleSelection = NO;
-    
+
     //can open app bundles
     panel.treatsFilePackagesAsDirectories = YES;
-    
+
     //default to desktop
     // as this where scans are suggested to be saved
     panel.directoryURL = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains (NSDesktopDirectory, NSUserDomainMask, YES) firstObject]];
-    
+
     //show panel
     // but bail on cancel
     if(NSModalResponseCancel == [panel runModal])
@@ -1481,7 +1481,7 @@ void uncaughtExceptionHandler(NSException* exception) {
         //bail
         goto bail;
     }
-    
+
     //load previous scan
     prevScan = [NSString stringWithContentsOfURL:panel.URL encoding:NSUTF8StringEncoding error:&error];
     if(nil == prevScan)
@@ -1490,7 +1490,7 @@ void uncaughtExceptionHandler(NSException* exception) {
         errors = YES;
         goto bail;
     }
-    
+
     //serialize json
     prevScanContents = [NSJSONSerialization JSONObjectWithData:[prevScan dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     if(YES != [prevScanContents isKindOfClass:[NSDictionary class]])
@@ -1499,11 +1499,11 @@ void uncaughtExceptionHandler(NSException* exception) {
         errors = YES;
         goto bail;
     }
-    
+
     //init
     addedItems = [NSMutableArray array];
     removedItems = [NSMutableArray array];
-    
+
     //compare
     // for now, only adds / removes
     for(PluginBase* plugin in self.plugins)
@@ -1511,18 +1511,18 @@ void uncaughtExceptionHandler(NSException* exception) {
         //vars
         NSArray* prevItems = nil;
         NSArray* currentItems = nil;
-        
+
         NSSet *prevPaths = nil;
         NSSet *currentPaths = nil;
-        
+
         NSMutableSet *addedPaths = nil;
         NSMutableSet *removedPaths = nil;
-        
+
         NSMutableDictionary* addedItem = nil;
         NSMutableDictionary* removedItem = nil;
-        
+
         NSString* key = plugin.name;
-        
+
         //trusted items?
         if(YES == self.prefsWindowController.showTrustedItems)
         {
@@ -1536,15 +1536,15 @@ void uncaughtExceptionHandler(NSException* exception) {
             //set
             currentItems = plugin.untrustedItems;
         }
-        
+
         prevItems = prevScanContents[key];
-        
+
         prevPaths = [NSSet setWithArray:[prevItems valueForKey:@"path"]];
         currentPaths = [NSSet setWithArray:[currentItems valueForKey:@"path"]];
 
         addedPaths = [currentPaths mutableCopy];
         [addedPaths minusSet:prevPaths];
-        
+
         removedPaths = [prevPaths mutableCopy];
         [removedPaths minusSet:currentPaths];
 
@@ -1557,7 +1557,7 @@ void uncaughtExceptionHandler(NSException* exception) {
                 //skip
                 continue;
             }
-        
+
             //convert to dictionary
             addedItem = [[NSJSONSerialization JSONObjectWithData:[[NSString stringWithFormat:@"{%@}", [currentItem toJSON]] dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil] mutableCopy];
             if(nil == addedItem)
@@ -1565,14 +1565,14 @@ void uncaughtExceptionHandler(NSException* exception) {
                 //skip
                 continue;
             }
-                
+
             //add key
             addedItem[@"key"] = key;
-                
+
             //add
             [addedItems addObject:addedItem];
         }
-        
+
         //save removed items
         for(NSDictionary* prevItem in prevItems)
         {
@@ -1582,16 +1582,16 @@ void uncaughtExceptionHandler(NSException* exception) {
                 //skip
                 continue;
             }
-            
+
             //make copy
             removedItem = [prevItem mutableCopy];
             removedItem[@"key"] = key;
-                
+
             //add
             [removedItems addObject:removedItem];
         }
     }
-    
+
     //any changes
     if( (0 == addedItems.count) &&
         (0 == removedItems.count) )
@@ -1599,13 +1599,13 @@ void uncaughtExceptionHandler(NSException* exception) {
         //no changes
         differences = [NSLocalizedString(@"No Changes Detected", @"No Changes Detected") mutableCopy];
     }
-    
+
     //any added items?
     if(0 != addedItems.count)
     {
         //msg
         [differences appendString:NSLocalizedString(@"NEW ITEMS:\r\n", @"NEW ITEMS:\r\n")];
-        
+
         //add each item
         for(NSDictionary* item in addedItems)
         {
@@ -1613,13 +1613,13 @@ void uncaughtExceptionHandler(NSException* exception) {
             [differences appendString:[NSString stringWithFormat:@"(%@): %@\r\n", [item[@"key"] substringToIndex:[item[@"key"] length]-1], item.description]];
         }
     }
-    
+
     //any removed items
     if(0 != removedItems.count)
     {
         //msg
         [differences appendString:NSLocalizedString(@"REMOVED ITEMS:\r\n", @"REMOVED ITEMS:\r\n")];
-        
+
         //add each item
         for(NSDictionary* item in removedItems)
         {
@@ -1630,32 +1630,32 @@ void uncaughtExceptionHandler(NSException* exception) {
 
     //alloc window controller
     self.diffWindowController = [[DiffWindowController alloc] initWithWindowNibName:@"DiffWindow"];
-    
+
     //set text (differences)
     self.diffWindowController.differences = differences;
-    
+
     //show window
     [self.diffWindowController showWindow:self];
-    
+
 bail:
-    
+
     //any errors?
     // show alert
     if(YES == errors)
     {
         //init alert
         alert = [[NSAlert alloc] init];
-       
+
         //ok
         [alert addButtonWithTitle:@"Ok"];
-        
+
         //error msg
         alert.messageText = NSLocalizedString(@"ERROR: Failed to compare scans", @"ERROR: Failed to compare scans");
-        
+
         //show popup
         [alert runModal];
     }
-    
+
     return;
 }
 
@@ -1665,7 +1665,7 @@ bail:
 {
     //enable
     BOOL bEnabled = YES;
-    
+
     //check if item is 'Preferences'
     if(PREF_MENU_ITEM_TAG == item.tag)
     {
@@ -1686,19 +1686,19 @@ bail:
 {
     //update obj
     Update* update = nil;
-    
+
     //init update obj
     update = [[Update alloc] init];
-    
+
     //check for update
     // ->'updateResponse newVersion:' method will be called when check is done
     [update checkForUpdate:^(NSUInteger result, NSString* newVersion) {
-        
+
         //process response
         [self updateResponse:result newVersion:newVersion alwaysShow:(nil != sender)];
-        
+
     }];
-    
+
     return;
 }
 
@@ -1708,45 +1708,45 @@ bail:
 {
     //details
     NSString* details = nil;
-    
+
     //action
     NSString* action = nil;
-    
+
     //handle response
     // new version, show popup
     switch(result)
     {
         //error
         case UPDATE_ERROR:
-            
+
             //set details
             details = NSLocalizedString(@"error, failed to check for an update.", @"error, failed to check for an update.");
-            
+
             //set action
             action = NSLocalizedString(@"Close", @"Close");
-            
+
             break;
-            
+
         //no updates
         case UPDATE_NOTHING_NEW:
-            
+
             //set details
             details = [NSString stringWithFormat:NSLocalizedString(@"You're all up to date! (v%@)", @"You're all up to date! (v%@)"), getAppVersion()];
-            
+
             //set action
             action = NSLocalizedString(@"Close", @"Close");
-            
+
             break;
-            
+
         //new version
         case UPDATE_NEW_VERSION:
-            
+
             //set details
             details = [NSString stringWithFormat:NSLocalizedString(@"a new version (%@) is available!", @"a new version (%@) is available!"), newVersion];
-            
+
             //set action
             action = NSLocalizedString(@"Update", @"Update");
-            
+
             break;
     }
 
@@ -1757,20 +1757,20 @@ bail:
     {
         //alloc update window
         updateWindowController = [[UpdateWindowController alloc] initWithWindowNibName:@"UpdateWindow"];
-        
+
         //configure
         [self.updateWindowController configure:details buttonTitle:action];
-        
+
         //center window
         [[self.updateWindowController window] center];
-        
+
         //show it
         [self.updateWindowController showWindow:self];
-        
+
         //make front/visible
         [self.updateWindowController.window setLevel:NSPopUpMenuWindowLevel];
     }
-    
+
     return;
 }
 

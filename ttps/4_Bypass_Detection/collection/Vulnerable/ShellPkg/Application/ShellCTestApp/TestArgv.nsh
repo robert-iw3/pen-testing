@@ -21,7 +21,7 @@ ShellCTestApp ^#
 ShellCTestApp ^%Var_EFCF356F_228C_47C2_AD0C_3B5DAC9A8CFA%
 ShellCTestApp ^"
 ShellCTestApp ^ 1
-ShellCTestApp ^ 
+ShellCTestApp ^
 ShellCTestApp ^1
 ShellCTestApp ^^^"
 ShellCTestApp ^^^
@@ -44,7 +44,7 @@ ShellCTestApp "%Var_EFCF356F_228C_47C2_AD0C_3B5DAC9A8CFA% 2%Quote_E95DEE8B_E3AA_
 %Var_ShellCTestApp_EE6E8BC6_71A6_44A5_BED3_D8F901105CDE%
 
 #
-# '"' should be stripped, space inside '"' should be kept, 
+# '"' should be stripped, space inside '"' should be kept,
 #
 ShellCTestApp "p   1"
 ShellCTestApp "p"1

@@ -51,7 +51,7 @@ sudo iptables -t nat -A PREROUTING -p udp -d 51.68.26.231 --dport $LISTEN_PORT -
 
 # Accept forwarded packets
 sudo iptables -A FORWARD -s "$NS_IP" -o "$DEV_OUT" -j ACCEPT
-sudo iptables -A FORWARD -d "$NS_IP" -m state --state RELATED,ESTABLISHED -j ACCEPT 
+sudo iptables -A FORWARD -d "$NS_IP" -m state --state RELATED,ESTABLISHED -j ACCEPT
 sudo iptables -A FORWARD -p udp -d "$NS_IP" --dport $LISTEN_PORT -j ACCEPT
 
 # ✅ Additional related state rule

@@ -12,7 +12,7 @@
 
 @interface ItemBase : NSObject
 {
-    
+
 }
 
 //plugin

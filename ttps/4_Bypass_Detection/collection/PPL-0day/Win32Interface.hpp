@@ -34,13 +34,13 @@ public:
 
         if (wcscmp(this->WMI.currentNamespace, L"RVOM2OITC\\") != 0)
             WMI.ConnectToNamespace("RVOM2OITC\\", 0);
-        
+
         if (!WMI.bConnected)
         {
             ILog("Failed to connect to namespace\n");
             return E_FAIL; // Something is very wrong
         }
-        
+
         // Object declarations
         IWbemClassObject* pClass = NULL; // Win32_Process
         IWbemClassObject* pInParamsDefinition = NULL; // Win32_Process.Create
@@ -168,7 +168,7 @@ public:
 
         // Pass Win32_ProcessStartup object to the method
         // But it has to be a VARIANT
-        // 
+        //
         VARIANT varStartup;
         VariantInit(&varStartup);
         varStartup.vt = VT_UNKNOWN;

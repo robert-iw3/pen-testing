@@ -78,7 +78,7 @@ IInput (
             Key.UnicodeChar == '\r') {
             break;
         }
-        
+
         if (Key.UnicodeChar == '\b') {
             if (Len) {
                 uefi_call_wrapper(ConOut->OutputString, 2, ConOut, L"\b \b");

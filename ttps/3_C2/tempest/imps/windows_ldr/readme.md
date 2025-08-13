@@ -1,7 +1,7 @@
 compile dll with:
 cargo rustc --lib --release -- -C relocation-model=pic
 
-compile exe with: 
+compile exe with:
 cargo rustc --bin rawimp_dev_copy --release -- -C relocation-model=pic
 
 cross-compilation command (testing - requires cross, podman, and Cross.toml):

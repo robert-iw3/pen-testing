@@ -3,7 +3,7 @@
 %define APPDOMAIN_NAME "aXbpOzzF"
 
 segment .text
-	
+
 	; setup environment, reserve stack space
 	sub rsp, STACKSPACE + ROUND_EVEN(APIFUNCTIONCOUNT) * POINTERSIZE
 	jmp execunet

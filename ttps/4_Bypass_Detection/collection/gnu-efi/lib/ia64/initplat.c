@@ -1,7 +1,7 @@
 /*++
 
 Copyright (c) 1999  Intel Corporation
-    
+
 Module Name:
 
     initplat.c

@@ -26,8 +26,8 @@ namespace KoenZomers.OneDrive.Api.Entities
         [JsonProperty("authentication_token")]
         public string AuthenticationToken { get; set; }
 
-      
 
-        
+
+
     }
 }

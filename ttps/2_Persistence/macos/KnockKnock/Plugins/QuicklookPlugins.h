@@ -21,7 +21,7 @@ static QLCopyServerStatistics copyServerStats = NULL;
 
 @interface QuicklookPlugins : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

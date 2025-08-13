@@ -94,7 +94,7 @@ namespace KoenZomers.OneDrive.Api.Entities
         public OneDriveImageFacet Image { get; set; }
 
         /// <summary>
-        ///  Photo metadata, if the item is a photo. Read-only. 
+        ///  Photo metadata, if the item is a photo. Read-only.
         /// </summary>
         [JsonProperty("photo", NullValueHandling = NullValueHandling.Ignore)]
         public OneDrivePhotoFacet Photo { get; set; }

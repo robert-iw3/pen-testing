@@ -5,7 +5,7 @@
 # Description: List of known dbus services to search for
 # License: GNU GPL
 # Version: 1.0
-# Functions Used: 
+# Functions Used:
 # Global Variables:
 # Initial Functions:
 # Generated Global Variables: $dbuslistG

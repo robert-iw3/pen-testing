@@ -18,23 +18,23 @@ From: Dan @ Pantera Capital
 
 Subject: Pantera Capital Investment Agreement (Protected)
 
-Ankitt Gaur, founder and CEO of Layer 2 DeFi lending protocol EasyFi (EASY), said, 
+Ankitt Gaur, founder and CEO of Layer 2 DeFi lending protocol EasyFi (EASY), said,
 
 > “On April 19, team members reported that a large number of EASY tokens were transferred from the official EasyFi wallet to the Ethereum network and several unknowns on the Polygon network
 
 > The hacker successfully obtained the administrator key and transferred $6 million of existing liquid funds in the form of USD/DAI/USDT from the protocol pool, and transferred 298 Ten thousand EASY tokens (approximately 30% of the total supply of EASY tokens, currently valued at 40.9 million U.S
 
-> By stealing the private keys to EasyFi’s MetaMask admin account, hackers were able to extract $6M in USD, DAI, and USDT, plus 2.98M EASY tokens, all of which amounted to around $81M 
+> By stealing the private keys to EasyFi’s MetaMask admin account, hackers were able to extract $6M in USD, DAI, and USDT, plus 2.98M EASY tokens, all of which amounted to around $81M
 
-> The machine that was compromised to gain the keys was offline most of the time, only being switched on to perform official transfers for the project 
+> The machine that was compromised to gain the keys was offline most of the time, only being switched on to perform official transfers for the project
 
 > When the attack was carried out, the machine had been offline for more than a week And because it wasn’t actively used when the attack was carried out, this delayed the platform’s response and allowed the hacker to drain the assets from the protocol. get access to admin keys and remove existing liquidity to the tune of $6 million from protocol pools in USD / DAI / USDT and transfer 2.98 Million EASY tokens.
 
-> While most metamask attacks phish private keys / mnemonic phrases by tricking into downloading a malicious version, this is not the case here 
+> While most metamask attacks phish private keys / mnemonic phrases by tricking into downloading a malicious version, this is not the case here
 
-> My computer was compromised and MetaMask was altered from the disk 
+> My computer was compromised and MetaMask was altered from the disk
 
-> The physical machine was not tampered with, and it seems to be the issue with some remote access as might have been previously used on Hugh Karp 
+> The physical machine was not tampered with, and it seems to be the issue with some remote access as might have been previously used on Hugh Karp
 
 > From the initial investigations, it looks like hackers are extremely sophisticated and quite likely working as part of a larger group."
 
@@ -74,7 +74,7 @@ The token was upgraded to ‘EZ 2.0’ four days later, making the hacker’s ex
 - 0x313d06759af5696d6ee3f5965408e9C5b658Fb7E - Post ChipMixer Consolidation
 - 0xe0c79066488a15b70361ad8268d713b05944a4fe - Post ChipMixer Consolidation
 - 0x38720d56899d46cad253d08f7cd6cc89d2c83190
-- 0xaAa51A89c7D3342E0c4e6084713Aa44248a7A232 
+- 0xaAa51A89c7D3342E0c4e6084713Aa44248a7A232
 - 0x27a9d7D17D72a5A67115dBF381b121B51D8b5Dd8 - Binance Deposit
 - 0xabEF0DF725EF5d2f0354c59ea3cCB161aBc11515 - Binance Deposit
 - 0xec592C8f4204B46Be7C3dcD4E6Fc6C1f3Ab773A9 - Binance Deposit

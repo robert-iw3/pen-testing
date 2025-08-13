@@ -13,22 +13,22 @@ class Module(Singleton):
     # Override these properties
     _exception_class = ModuleException
     short_help = "Short Help"
-    complete_help = r""" 
+    complete_help = r"""
             Complete Help
             Usage:
                 #command command [args]
         """
-    '''runtime_code must have the class name "SharPyShell" and the main function name "ExecRuntime". The ExecRuntime 
+    '''runtime_code must have the class name "SharPyShell" and the main function name "ExecRuntime". The ExecRuntime
        function will be the code run on the server and it must return results in byte[] type '''
     _runtime_code = r"""
                 using System;using System.IO;using System.Diagnostics;using System.Text;
                 public class SharPyShell
-                {                    
+                {
                     string DynamicFunc(string arg)
                     {
                         return "Override the Runtime Code: " + arg;
                     }
-                    
+
                     public byte[] ExecRuntime()
                     {
                         string output_func=DynamicFunc(@"%s");

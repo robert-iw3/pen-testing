@@ -68,38 +68,38 @@ function Get-ExchangeVersionInfo {
         # Function to search for a match in build numbers for a given version
         function CheckForMatch {
             param ($versionToCheck, $blocks, [ref]$foundMatch)
-        
+
             foreach ($block in $blocks) {
                 $blockContent = $block.Groups[1].Value
-        
+
                 # Ensure we match the exact version
                 if ($blockContent -match [regex]::Escape($versionToCheck)) {
-        
+
                     # Extract Product Name (inside <a> tag, correctly stripping &nbsp;)
                     $productMatch = [regex]::Match($blockContent, '<a[^>]*>(.*?)</a>')
-        
+
                     # Extract all <td> values (to correctly get the second <td> as Release Date)
                     $tdMatches = [regex]::Matches($blockContent, '<td[^>]*>(.*?)</td>')
-        
+
                     # Extract the exact Build Number (not the long format)
                     $versionMatch = [regex]::Match($blockContent, '\d+\.\d+\.\d+\.\d+')
-        
+
                     if ($productMatch.Success -and $versionMatch.Success -and $tdMatches.Count -ge 2) {
                         # Clean up Product Name (strip &nbsp; and trim spaces)
                         $product = $productMatch.Groups[1].Value -replace "&nbsp;", "" -replace "^\s+", "" -replace "", ""
-        
+
                         # Get correct Release Date (the second <td> value)
                         $releaseDate = $tdMatches[1].Groups[1].Value.Trim()
-        
+
                         # Extract version correctly
                         $version = $versionMatch.Value
-        
+
                         # Output the exact match
                         Write-Host "`nMatch Found!" -ForegroundColor Green
                         Write-Host "Product: $product"
                         Write-Host "Build Number: $version"
                         Write-Host "Release Date: $releaseDate"
-        
+
                         $foundMatch.Value = $true
                         break
                     }
@@ -150,7 +150,7 @@ function Get-AuthDomain {
             }
 
             # Invoke the web request
-            $response = Invoke-WebRequest @requestParams -ErrorAction Stop 
+            $response = Invoke-WebRequest @requestParams -ErrorAction Stop
 
         } catch {
             $response = $_.Exception.Response

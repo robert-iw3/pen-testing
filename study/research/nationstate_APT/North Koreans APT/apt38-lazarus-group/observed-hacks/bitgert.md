@@ -2,7 +2,7 @@
 
 Date:: August 7th, 2023
 
-Amount Stolen:: $437,518 
+Amount Stolen:: $437,518
 
 Tags:: 🎙️
 

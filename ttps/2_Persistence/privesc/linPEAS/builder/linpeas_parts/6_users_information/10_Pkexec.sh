@@ -26,7 +26,7 @@ if [ -n "$pkexec_bin" ]; then
     echo "Pkexec binary has SUID bit set!" | sed -${E} "s,.*,${SED_RED},g"
   fi
   ls -l "$pkexec_bin" 2>/dev/null
-  
+
   # Check polkit version for known vulnerabilities
   if command -v pkexec >/dev/null 2>&1; then
     pkexec --version 2>/dev/null

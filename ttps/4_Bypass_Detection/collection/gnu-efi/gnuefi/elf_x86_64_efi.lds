@@ -10,8 +10,8 @@ SECTIONS
   .hash : { *(.hash) }
   .gnu.hash : { *(.gnu.hash) }
   . = ALIGN(4096);
-  .eh_frame : 
-  { 
+  .eh_frame :
+  {
     *(.eh_frame)
   }
   . = ALIGN(4096);

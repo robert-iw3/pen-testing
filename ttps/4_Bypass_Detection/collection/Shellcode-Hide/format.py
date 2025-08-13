@@ -1,9 +1,9 @@
 import sys
 
 def printResult(content):
-    
+
     print('unsigned char shellcode[] = { 0x' + ', 0x'.join(hex(x)[2:] for x in content) + ' };')
-    
+
 try:
     file = open(sys.argv[1], "rb")
     content = file.read()

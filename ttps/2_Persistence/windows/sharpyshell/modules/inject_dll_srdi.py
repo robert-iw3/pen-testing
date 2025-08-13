@@ -223,8 +223,8 @@ class Inject_dll_srdi(Inject_shellcode):
     complete_help = r"""
         Author:    @monoxgas
         Link:      https://github.com/monoxgas/sRDI
-              
-              
+
+
         Inject a generic DLL into a remote process.
         This module converts a generic DLL into a position independent Shellcode ready to be injected.
         You can choose to create a new process or use a pid of an existing process as a host process.
@@ -236,11 +236,11 @@ class Inject_dll_srdi(Inject_shellcode):
                                         VirtualAllocEx(RW) -> WriteProcessMemory -> VirtualProtect(RX) -> CreateRemoteThread
         Note that when you try to inject into an existing process you should ensure you have the rights to open
         a handle to that process otherwise the injection cannot be performed.
-        
-        
+
+
         Usage:
             #inject_dll_srdi dll_path [injection_type] [remote_process]
-        
+
         Positional arguments:
             dll_path                    name of a .dll module in the 'dll/' directory
                                         the DLL must contain a ReflectiveLoader exported function

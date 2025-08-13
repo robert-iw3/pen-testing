@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace winPEAS.Info.NetworkInfo.NetworkScanner
 {
     internal class NetPinger
-    {     
+    {
         private int PingTimeout = 1000;
-        
+
         public List<string> HostsAlive = new List<string>();
 
         private List<string> ipRange = new List<string>();
@@ -38,7 +38,7 @@ namespace winPEAS.Info.NetworkInfo.NetworkScanner
                 var task = PingAndUpdateStatus(p, ip);
                 tasks.Add(task);
             }
-            
+
             await Task.WhenAll(tasks);
         }
 
@@ -48,7 +48,7 @@ namespace winPEAS.Info.NetworkInfo.NetworkScanner
 
             if (reply.Status == IPStatus.Success)
             {
-                HostsAlive.Add(ip);             
+                HostsAlive.Add(ip);
                 await Console.Out.WriteLineAsync(ip);
             }
         }

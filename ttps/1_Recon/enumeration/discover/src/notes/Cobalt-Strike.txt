@@ -132,7 +132,7 @@ Parameters in <> are mandatory, those in [] are optional
 sudo ./teamserver <IP> <password> [Malleable C2 profile] [kill date for Beacons yyyy-mm-dd]
 sudo ./teamserver 192.168.1.5 password123 third-party/FortyNorthSecurity-C2concealer/random.profile 2022-12-31
 
-When the team server starts, it will display the SHA256 hash of the SSL cert. 
+When the team server starts, it will display the SHA256 hash of the SSL cert.
 Share this hash with teammates and have them validate the hash when connecting.
 
 - Remove old data and Beacons (optional)
@@ -183,7 +183,7 @@ socat -T 5 udp4-listen:53,fork udp4:<team server IP>:53     Redirector 3
 Create a Java Keystore file. Use the fully qualified domain name of your Beacon server.
 keytool -genkey -keyalg RSA -keysize 2048 -keystore domain.store
 
-Generate a Certificate Signing Request (CSR). Submit this file to your SSL certificate vendor. 
+Generate a Certificate Signing Request (CSR). Submit this file to your SSL certificate vendor.
 They will verify that you are who you say are and issue a certificate.
 keytool -certreq -keyalg RSA -file domain.csr -keystore domain.store
 
@@ -192,7 +192,7 @@ keytool -import -trustcacerts -alias FILE -file FILE.crt -keystore domain.store
 
 Install your Domain Certificate.
 keytool -import -trustcacerts -alias mykey -file domain.crt -keystore domain.store
- 
+
 Cobalt Strike expects to find the Java Keystore file in the same folder as your Malleable C2 profiles.
 /opt/cobaltstrike/malleable-c2-profiles
 

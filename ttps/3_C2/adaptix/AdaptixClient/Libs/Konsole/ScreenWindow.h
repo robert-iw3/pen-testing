@@ -53,7 +53,7 @@ public:
     int getCursorY() const;
     void setCursorX(int x);
     void setCursorY(int y);
-    
+
     bool atEndOfOutput() const;
 
     void scrollTo( int line );

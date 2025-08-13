@@ -30,15 +30,15 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 	// Parse Arguments
 	datap parser;
 	BeaconDataParse(&parser, Args, Length);
-	
+
 	lpwComputername = (WCHAR*)BeaconDataExtract(&parser, NULL);
 	if (lpwComputername != NULL){
 		nStatus = NetWkstaGetInfo(lpwComputername, dwLevel, (LPBYTE*)&pBuf);
 		if (nStatus == NERR_Success) {
-			BeaconPrintf(CALLBACK_OUTPUT, 
-				"Platform: %d, " 
-				"Version: %d.%d, " 
-				"Name: %ls, " 
+			BeaconPrintf(CALLBACK_OUTPUT,
+				"Platform: %d, "
+				"Version: %d.%d, "
+				"Name: %ls, "
 				"Domain: %ls\n", pBuf->wki100_platform_id, pBuf->wki100_ver_major, pBuf->wki100_ver_minor, pBuf->wki100_computername, pBuf->wki100_langroup);
 		}
 		else {

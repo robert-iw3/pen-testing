@@ -5,10 +5,10 @@
 /* at Tue Jan 19 04:14:07 2038
  */
 /* Compiler settings for ms-efsrpc.idl:
-    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0622 
+    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0622
     protocol : dce , ms_ext, c_ext, robust
-    error checks: allocation ref bounds_check enum stub_data 
-    VC __declspec() decoration level: 
+    error checks: allocation ref bounds_check enum stub_data
+    VC __declspec() decoration level:
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
          DECLSPEC_UUID(), MIDL_INTERFACE()
 */
@@ -30,11 +30,11 @@
 
 #include "ms-efsrpc_h.h"
 
-#define TYPE_FORMAT_STRING_SIZE   497                               
-#define PROC_FORMAT_STRING_SIZE   1795                              
-#define EXPR_FORMAT_STRING_SIZE   1                                 
-#define TRANSMIT_AS_TABLE_SIZE    0            
-#define WIRE_MARSHAL_TABLE_SIZE   0            
+#define TYPE_FORMAT_STRING_SIZE   497
+#define PROC_FORMAT_STRING_SIZE   1795
+#define EXPR_FORMAT_STRING_SIZE   1
+#define TRANSMIT_AS_TABLE_SIZE    0
+#define WIRE_MARSHAL_TABLE_SIZE   0
 
 typedef struct _ms2Defsrpc_MIDL_TYPE_FORMAT_STRING
     {
@@ -55,7 +55,7 @@ typedef struct _ms2Defsrpc_MIDL_EXPR_FORMAT_STRING
     } ms2Defsrpc_MIDL_EXPR_FORMAT_STRING;
 
 
-const RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax = 
+const RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax =
 {{0x8A885D04,0x1CEB,0x11C9,{0x9F,0xE8,0x08,0x00,0x2B,0x10,0x48,0x60}},{2,0}};
 
 
@@ -63,7 +63,7 @@ extern const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatStrin
 extern const ms2Defsrpc_MIDL_PROC_FORMAT_STRING ms2Defsrpc__MIDL_ProcFormatString;
 extern const ms2Defsrpc_MIDL_EXPR_FORMAT_STRING ms2Defsrpc__MIDL_ExprFormatString;
 
-#define GENERIC_BINDING_TABLE_SIZE   0            
+#define GENERIC_BINDING_TABLE_SIZE   0
 
 
 /* Standard interface: efsrpc, ver. 1.0,
@@ -1518,23 +1518,23 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
         0,
         {
 			NdrFcShort( 0x0 ),	/* 0 */
-/*  2 */	
+/*  2 */
 			0x11, 0x4,	/* FC_RP [alloced_on_stack] */
 /*  4 */	NdrFcShort( 0x2 ),	/* Offset= 2 (6) */
 /*  6 */	0x30,		/* FC_BIND_CONTEXT */
 			0xa0,		/* Ctxt flags:  via ptr, out, */
 /*  8 */	0x0,		/* 0 */
 			0x0,		/* 0 */
-/* 10 */	
+/* 10 */
 			0x11, 0x8,	/* FC_RP [simple_pointer] */
-/* 12 */	
+/* 12 */
 			0x25,		/* FC_C_WSTRING */
 			0x5c,		/* FC_PAD */
 /* 14 */	0x30,		/* FC_BIND_CONTEXT */
 			0x41,		/* Ctxt flags:  in, can't be null */
 /* 16 */	0x0,		/* 0 */
 			0x0,		/* 0 */
-/* 18 */	
+/* 18 */
 			0x11, 0x4,	/* FC_RP [alloced_on_stack] */
 /* 20 */	NdrFcShort( 0x4 ),	/* Offset= 4 (24) */
 /* 22 */	0x2,		/* FC_CHAR */
@@ -1544,7 +1544,7 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 /* 26 */	NdrFcShort( 0xfffc ),	/* Offset= -4 (22) */
 /* 28 */	NdrFcShort( 0x1 ),	/* 1 */
 /* 30 */	NdrFcShort( 0x1 ),	/* 1 */
-/* 32 */	
+/* 32 */
 			0x11, 0x0,	/* FC_RP */
 /* 34 */	NdrFcShort( 0x4 ),	/* Offset= 4 (38) */
 /* 36 */	0x2,		/* FC_CHAR */
@@ -1554,30 +1554,30 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 /* 40 */	NdrFcShort( 0xfffc ),	/* Offset= -4 (36) */
 /* 42 */	NdrFcShort( 0x1 ),	/* 1 */
 /* 44 */	NdrFcShort( 0x1 ),	/* 1 */
-/* 46 */	
+/* 46 */
 			0x11, 0x4,	/* FC_RP [alloced_on_stack] */
 /* 48 */	NdrFcShort( 0x2 ),	/* Offset= 2 (50) */
 /* 50 */	0x30,		/* FC_BIND_CONTEXT */
 			0xe1,		/* Ctxt flags:  via ptr, in, out, can't be null */
 /* 52 */	0x0,		/* 0 */
 			0x0,		/* 0 */
-/* 54 */	
+/* 54 */
 			0x11, 0x14,	/* FC_RP [alloced_on_stack] [pointer_deref] */
 /* 56 */	NdrFcShort( 0x2 ),	/* Offset= 2 (58) */
-/* 58 */	
+/* 58 */
 			0x12, 0x0,	/* FC_UP */
 /* 60 */	NdrFcShort( 0x90 ),	/* Offset= 144 (204) */
 /* 62 */	0xb7,		/* FC_RANGE */
 			0x8,		/* 8 */
 /* 64 */	NdrFcLong( 0x0 ),	/* 0 */
 /* 68 */	NdrFcLong( 0x1f4 ),	/* 500 */
-/* 72 */	
+/* 72 */
 			0x1d,		/* FC_SMFARRAY */
 			0x0,		/* 0 */
 /* 74 */	NdrFcShort( 0x6 ),	/* 6 */
 /* 76 */	0x1,		/* FC_BYTE */
 			0x5b,		/* FC_END */
-/* 78 */	
+/* 78 */
 			0x15,		/* FC_STRUCT */
 			0x0,		/* 0 */
 /* 80 */	NdrFcShort( 0x6 ),	/* 6 */
@@ -1586,7 +1586,7 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 /* 84 */	NdrFcShort( 0xfff4 ),	/* Offset= -12 (72) */
 /* 86 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 88 */	
+/* 88 */
 			0x1b,		/* FC_CARRAY */
 			0x3,		/* 3 */
 /* 90 */	NdrFcShort( 0x4 ),	/* 4 */
@@ -1596,7 +1596,7 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 /* 96 */	NdrFcShort( 0x1 ),	/* Corr flags:  early, */
 /* 98 */	0x8,		/* FC_LONG */
 			0x5b,		/* FC_END */
-/* 100 */	
+/* 100 */
 			0x17,		/* FC_CSTRUCT */
 			0x3,		/* 3 */
 /* 102 */	NdrFcShort( 0x8 ),	/* 8 */
@@ -1612,7 +1612,7 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x8,		/* 8 */
 /* 116 */	NdrFcLong( 0x0 ),	/* 0 */
 /* 120 */	NdrFcLong( 0x64 ),	/* 100 */
-/* 124 */	
+/* 124 */
 			0x1b,		/* FC_CARRAY */
 			0x0,		/* 0 */
 /* 126 */	NdrFcShort( 0x1 ),	/* 1 */
@@ -1622,7 +1622,7 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 /* 132 */	NdrFcShort( 0x1 ),	/* Corr flags:  early, */
 /* 134 */	0x2,		/* FC_CHAR */
 			0x5b,		/* FC_END */
-/* 136 */	
+/* 136 */
 			0x1a,		/* FC_BOGUS_STRUCT */
 			0x3,		/* 3 */
 /* 138 */	NdrFcShort( 0x10 ),	/* 16 */
@@ -1635,10 +1635,10 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x36,		/* FC_POINTER */
 /* 150 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 152 */	
+/* 152 */
 			0x12, 0x0,	/* FC_UP */
 /* 154 */	NdrFcShort( 0xffe2 ),	/* Offset= -30 (124) */
-/* 156 */	
+/* 156 */
 			0x1a,		/* FC_BOGUS_STRUCT */
 			0x3,		/* 3 */
 /* 158 */	NdrFcShort( 0x20 ),	/* 32 */
@@ -1650,18 +1650,18 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x36,		/* FC_POINTER */
 /* 168 */	0x36,		/* FC_POINTER */
 			0x5b,		/* FC_END */
-/* 170 */	
+/* 170 */
 			0x12, 0x0,	/* FC_UP */
 /* 172 */	NdrFcShort( 0xffb8 ),	/* Offset= -72 (100) */
-/* 174 */	
+/* 174 */
 			0x12, 0x0,	/* FC_UP */
 /* 176 */	NdrFcShort( 0xffd8 ),	/* Offset= -40 (136) */
-/* 178 */	
+/* 178 */
 			0x12, 0x8,	/* FC_UP [simple_pointer] */
-/* 180 */	
+/* 180 */
 			0x25,		/* FC_C_WSTRING */
 			0x5c,		/* FC_PAD */
-/* 182 */	
+/* 182 */
 			0x21,		/* FC_BOGUS_ARRAY */
 			0x3,		/* 3 */
 /* 184 */	NdrFcShort( 0x0 ),	/* 0 */
@@ -1671,12 +1671,12 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 /* 190 */	NdrFcShort( 0x1 ),	/* Corr flags:  early, */
 /* 192 */	NdrFcLong( 0xffffffff ),	/* -1 */
 /* 196 */	NdrFcShort( 0x0 ),	/* Corr flags:  */
-/* 198 */	
+/* 198 */
 			0x12, 0x0,	/* FC_UP */
 /* 200 */	NdrFcShort( 0xffd4 ),	/* Offset= -44 (156) */
 /* 202 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 204 */	
+/* 204 */
 			0x1a,		/* FC_BOGUS_STRUCT */
 			0x3,		/* 3 */
 /* 206 */	NdrFcShort( 0x10 ),	/* 16 */
@@ -1689,13 +1689,13 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x36,		/* FC_POINTER */
 /* 218 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 220 */	
+/* 220 */
 			0x12, 0x0,	/* FC_UP */
 /* 222 */	NdrFcShort( 0xffd8 ),	/* Offset= -40 (182) */
-/* 224 */	
+/* 224 */
 			0x11, 0x0,	/* FC_RP */
 /* 226 */	NdrFcShort( 0xffea ),	/* Offset= -22 (204) */
-/* 228 */	
+/* 228 */
 			0x11, 0x0,	/* FC_RP */
 /* 230 */	NdrFcShort( 0x62 ),	/* Offset= 98 (328) */
 /* 232 */	0xb7,		/* FC_RANGE */
@@ -1706,7 +1706,7 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x8,		/* 8 */
 /* 244 */	NdrFcLong( 0x0 ),	/* 0 */
 /* 248 */	NdrFcLong( 0x8000 ),	/* 32768 */
-/* 252 */	
+/* 252 */
 			0x1b,		/* FC_CARRAY */
 			0x0,		/* 0 */
 /* 254 */	NdrFcShort( 0x1 ),	/* 1 */
@@ -1716,7 +1716,7 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 /* 260 */	NdrFcShort( 0x1 ),	/* Corr flags:  early, */
 /* 262 */	0x2,		/* FC_CHAR */
 			0x5b,		/* FC_END */
-/* 264 */	
+/* 264 */
 			0x1a,		/* FC_BOGUS_STRUCT */
 			0x3,		/* 3 */
 /* 266 */	NdrFcShort( 0x10 ),	/* 16 */
@@ -1729,10 +1729,10 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x36,		/* FC_POINTER */
 /* 278 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 280 */	
+/* 280 */
 			0x12, 0x0,	/* FC_UP */
 /* 282 */	NdrFcShort( 0xffe2 ),	/* Offset= -30 (252) */
-/* 284 */	
+/* 284 */
 			0x1a,		/* FC_BOGUS_STRUCT */
 			0x3,		/* 3 */
 /* 286 */	NdrFcShort( 0x18 ),	/* 24 */
@@ -1744,13 +1744,13 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x36,		/* FC_POINTER */
 /* 296 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 298 */	
+/* 298 */
 			0x12, 0x0,	/* FC_UP */
 /* 300 */	NdrFcShort( 0xff38 ),	/* Offset= -200 (100) */
-/* 302 */	
+/* 302 */
 			0x12, 0x0,	/* FC_UP */
 /* 304 */	NdrFcShort( 0xffd8 ),	/* Offset= -40 (264) */
-/* 306 */	
+/* 306 */
 			0x21,		/* FC_BOGUS_ARRAY */
 			0x3,		/* 3 */
 /* 308 */	NdrFcShort( 0x0 ),	/* 0 */
@@ -1760,12 +1760,12 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 /* 314 */	NdrFcShort( 0x1 ),	/* Corr flags:  early, */
 /* 316 */	NdrFcLong( 0xffffffff ),	/* -1 */
 /* 320 */	NdrFcShort( 0x0 ),	/* Corr flags:  */
-/* 322 */	
+/* 322 */
 			0x12, 0x0,	/* FC_UP */
 /* 324 */	NdrFcShort( 0xffd8 ),	/* Offset= -40 (284) */
 /* 326 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 328 */	
+/* 328 */
 			0x1a,		/* FC_BOGUS_STRUCT */
 			0x3,		/* 3 */
 /* 330 */	NdrFcShort( 0x10 ),	/* 16 */
@@ -1778,17 +1778,17 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x36,		/* FC_POINTER */
 /* 342 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 344 */	
+/* 344 */
 			0x12, 0x0,	/* FC_UP */
 /* 346 */	NdrFcShort( 0xffd8 ),	/* Offset= -40 (306) */
-/* 348 */	
+/* 348 */
 			0x12, 0x0,	/* FC_UP */
 /* 350 */	NdrFcShort( 0xc ),	/* Offset= 12 (362) */
 /* 352 */	0xb7,		/* FC_RANGE */
 			0x8,		/* 8 */
 /* 354 */	NdrFcLong( 0x0 ),	/* 0 */
 /* 358 */	NdrFcLong( 0x41000 ),	/* 266240 */
-/* 362 */	
+/* 362 */
 			0x1a,		/* FC_BOGUS_STRUCT */
 			0x3,		/* 3 */
 /* 364 */	NdrFcShort( 0x10 ),	/* 16 */
@@ -1801,19 +1801,19 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x36,		/* FC_POINTER */
 /* 376 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 378 */	
+/* 378 */
 			0x12, 0x0,	/* FC_UP */
 /* 380 */	NdrFcShort( 0xff00 ),	/* Offset= -256 (124) */
-/* 382 */	
+/* 382 */
 			0x11, 0x14,	/* FC_RP [alloced_on_stack] [pointer_deref] */
 /* 384 */	NdrFcShort( 0xffdc ),	/* Offset= -36 (348) */
-/* 386 */	
+/* 386 */
 			0x11, 0x0,	/* FC_RP */
 /* 388 */	NdrFcShort( 0xffe6 ),	/* Offset= -26 (362) */
-/* 390 */	
+/* 390 */
 			0x12, 0x0,	/* FC_UP */
 /* 392 */	NdrFcShort( 0x2 ),	/* Offset= 2 (394) */
-/* 394 */	
+/* 394 */
 			0x1a,		/* FC_BOGUS_STRUCT */
 			0x3,		/* 3 */
 /* 396 */	NdrFcShort( 0x20 ),	/* 32 */
@@ -1825,30 +1825,30 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x36,		/* FC_POINTER */
 /* 406 */	0x36,		/* FC_POINTER */
 			0x5b,		/* FC_END */
-/* 408 */	
+/* 408 */
 			0x12, 0x0,	/* FC_UP */
 /* 410 */	NdrFcShort( 0xff32 ),	/* Offset= -206 (204) */
-/* 412 */	
+/* 412 */
 			0x12, 0x0,	/* FC_UP */
 /* 414 */	NdrFcShort( 0xff7e ),	/* Offset= -130 (284) */
-/* 416 */	
+/* 416 */
 			0x12, 0x0,	/* FC_UP */
 /* 418 */	NdrFcShort( 0xffc8 ),	/* Offset= -56 (362) */
-/* 420 */	
+/* 420 */
 			0x12, 0x8,	/* FC_UP [simple_pointer] */
-/* 422 */	
+/* 422 */
 			0x25,		/* FC_C_WSTRING */
 			0x5c,		/* FC_PAD */
-/* 424 */	
+/* 424 */
 			0x11, 0x14,	/* FC_RP [alloced_on_stack] [pointer_deref] */
 /* 426 */	NdrFcShort( 0x2 ),	/* Offset= 2 (428) */
-/* 428 */	
+/* 428 */
 			0x12, 0x10,	/* FC_UP [pointer_deref] */
 /* 430 */	NdrFcShort( 0x2 ),	/* Offset= 2 (432) */
-/* 432 */	
+/* 432 */
 			0x12, 0x0,	/* FC_UP */
 /* 434 */	NdrFcShort( 0x2e ),	/* Offset= 46 (480) */
-/* 436 */	
+/* 436 */
 			0x1a,		/* FC_BOGUS_STRUCT */
 			0x3,		/* 3 */
 /* 438 */	NdrFcShort( 0x18 ),	/* 24 */
@@ -1860,15 +1860,15 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x36,		/* FC_POINTER */
 /* 448 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 450 */	
+/* 450 */
 			0x12, 0x0,	/* FC_UP */
 /* 452 */	NdrFcShort( 0xfea0 ),	/* Offset= -352 (100) */
-/* 454 */	
+/* 454 */
 			0x12, 0x8,	/* FC_UP [simple_pointer] */
-/* 456 */	
+/* 456 */
 			0x25,		/* FC_C_WSTRING */
 			0x5c,		/* FC_PAD */
-/* 458 */	
+/* 458 */
 			0x21,		/* FC_BOGUS_ARRAY */
 			0x3,		/* 3 */
 /* 460 */	NdrFcShort( 0x0 ),	/* 0 */
@@ -1878,12 +1878,12 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 /* 466 */	NdrFcShort( 0x1 ),	/* Corr flags:  early, */
 /* 468 */	NdrFcLong( 0xffffffff ),	/* -1 */
 /* 472 */	NdrFcShort( 0x0 ),	/* Corr flags:  */
-/* 474 */	
+/* 474 */
 			0x12, 0x0,	/* FC_UP */
 /* 476 */	NdrFcShort( 0xffd8 ),	/* Offset= -40 (436) */
 /* 478 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 480 */	
+/* 480 */
 			0x1a,		/* FC_BOGUS_STRUCT */
 			0x3,		/* 3 */
 /* 482 */	NdrFcShort( 0x10 ),	/* 16 */
@@ -1893,7 +1893,7 @@ const ms2Defsrpc_MIDL_TYPE_FORMAT_STRING ms2Defsrpc__MIDL_TypeFormatString =
 			0x40,		/* FC_STRUCTPAD4 */
 /* 490 */	0x36,		/* FC_POINTER */
 			0x5b,		/* FC_END */
-/* 492 */	
+/* 492 */
 			0x12, 0x0,	/* FC_UP */
 /* 494 */	NdrFcShort( 0xffdc ),	/* Offset= -36 (458) */
 

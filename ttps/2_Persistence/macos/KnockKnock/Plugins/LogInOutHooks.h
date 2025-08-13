@@ -11,7 +11,7 @@
 
 @interface LogInOutHooks : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

@@ -44,7 +44,7 @@ printf "%s\n" "$sgids_files" | while read s; do
         echo "$s (Unknown SGID binary)" | sed -${E} "s,/.*,${SED_RED},"
         printf $ITALIC
         if ! [ "$FAST" ]; then
-        
+
           if [ "$STRINGS" ]; then
             $STRINGS "$sname" | sort | uniq | while read sline; do
               sline_first="$(echo $sline | cut -d ' ' -f1)"
@@ -84,7 +84,7 @@ printf "%s\n" "$sgids_files" | while read s; do
             echo "----------------------------------------------------------------------------------------"
             echo ""
           fi
-        
+
         fi
       fi
     fi

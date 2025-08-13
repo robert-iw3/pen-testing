@@ -13,7 +13,7 @@ func obfuscateAuthKey(key string) {
 	for i, b := range data {
 		result[i] = b ^ xorKey[i%len(xorKey)]
 	}
-	
+
 	fmt.Println("Replace the obfuscatedAuthKey variable in main.go with:")
 	fmt.Print("var obfuscatedAuthKey = []byte{")
 	for i, b := range result {
@@ -30,7 +30,7 @@ func main() {
 		fmt.Println("Usage: go run obfuscate_key.go <your-tailscale-auth-key>")
 		os.Exit(1)
 	}
-	
+
 	authKey := os.Args[1]
 	fmt.Printf("Obfuscating key: %s\n", authKey)
 	obfuscateAuthKey(authKey)

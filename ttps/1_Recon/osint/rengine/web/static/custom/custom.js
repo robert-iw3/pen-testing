@@ -634,7 +634,7 @@ function get_interesting_subdomains(project, target_id, scan_history_id) {
 				return `<a href="https://` + data + `" class="text-primary" target="_blank">` + data + `</a>` + tech_badge;
 			},
 			"targets": 0
-		}, 
+		},
 		{
 			"render": function(data, type, row) {
 				return htmlEncode(data);
@@ -722,7 +722,7 @@ function get_interesting_endpoints(project, target_id, scan_history_id) {
 				return "<a href='" + data + "' target='_blank' class='text-primary'>" + url + "</a>";
 			},
 			"targets": 0
-		}, 
+		},
 		{
 			"render": function(data, type, row) {
 				return htmlEncode(data);
@@ -1484,7 +1484,7 @@ function fetch_whois(domain_name, force_reload_whois=false) {
 
 function get_target_whois(domain_name) {
 	const url = `/api/tools/whois/?format=json&target=${domain_name}`;
-	
+
 	Swal.fire({
 		title: `Fetching WHOIS details for ${domain_name}...`,
 		allowOutsideClick: false,
@@ -1535,7 +1535,7 @@ function get_target_whois(domain_name) {
 
 function get_domain_whois(domain_name, show_add_target_btn = false) {
 	const url = `/api/tools/whois/?format=json&target=${domain_name}`;
-	
+
 	Swal.fire({
 		title: `Fetching WHOIS details for ${domain_name}...`,
 		allowOutsideClick: false,
@@ -1929,7 +1929,7 @@ function show_quick_add_target_modal() {
 			<label for="target_description_modal" class="form-label">Description (Optional)</label>
 			<input class="form-control" type="text" id="target_description_modal" required="" placeholder="Target Description">
 		</div>
-		
+
 		<div class="mb-3">
 			<label for="h1_handle_modal" class="form-label">Hackerone Target Team Handle (Optional)</label>
 			<input class="form-control" type="text" id="h1_handle_modal" placeholder="hackerone.com/team_handle, Only enter team_handle after /">
@@ -2880,8 +2880,8 @@ function render_vuln_offcanvas(vuln){
 	body += `<p><b>ID: </b>${vuln.id}</p>`;
 	body += `<p><b>Discovered on: </b>${vuln.discovered_date}</p>`;
 	body += `<p><b>URL: </b>
-		<a href="${htmlEncode(vuln.http_url)}" 
-			target="_blank" 
+		<a href="${htmlEncode(vuln.http_url)}"
+			target="_blank"
 			rel="noopener noreferrer">
 			${split_into_lines(htmlEncode(vuln.http_url), 150)}
 		</a></p>`;
@@ -3091,7 +3091,7 @@ function render_vuln_offcanvas(vuln){
 
 	http_request = http_request.replace(new RegExp('\r?\n','g'), '<br />');
 	http_response = http_response.replace(new RegExp('&#13;&#10;','g'), '<br />');
-	
+
 	http_request = htmlEncode(http_request);
 	http_response = htmlEncode(http_response);
 
@@ -3414,7 +3414,7 @@ async function test_hackerone() {
 	const apiKey = $("#key_hackerone");
 	const fields = [username, apiKey];
 
-	const isValid = fields.every(field => field.val().trim().length > 0); 
+	const isValid = fields.every(field => field.val().trim().length > 0);
 	fields.forEach(field => {
 		field.toggleClass("is-invalid", field.val().trim().length === 0);
 	});
@@ -3442,11 +3442,11 @@ async function test_hackerone() {
 					api_key: apiKey.val().trim()
 				}),
 				});
-	
+
 				if (!response.ok) {
 				throw new Error('Network response was not ok');
 				}
-	
+
 				const data = await response.json();
 				return data;
 			} catch (error) {
@@ -3459,12 +3459,12 @@ async function test_hackerone() {
 		if (result.isConfirmed) {
 			const data = result.value;
 			const isWorking = data.status === 200;
-	
+
 			fields.forEach(field => {
 			field.toggleClass("is-valid", isWorking);
 			field.toggleClass("is-invalid", !isWorking);
 			});
-	
+
 			await Swal.fire({
 			title: isWorking ? 'Success' : 'Error',
 			text: isWorking

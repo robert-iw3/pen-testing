@@ -9,7 +9,7 @@ intitle:"index of" members OR accounts
 inurl:/shared/help.php
 inurl:public
 intitle:index.of inbox
-intitle:"Server Administration" 
+intitle:"Server Administration"
 inurl:passwd.txt
 robots.txt
 php-addressbook "This is the addressbook for *" -warning

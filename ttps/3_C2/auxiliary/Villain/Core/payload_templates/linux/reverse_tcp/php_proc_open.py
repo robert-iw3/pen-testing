@@ -12,7 +12,7 @@ class Payload:
     meta = {
         'handler' : 'netcat',
         'type' : 'php-proc-open',
-        'os' : 'linux'  
+        'os' : 'linux'
     }
 
     config = {}

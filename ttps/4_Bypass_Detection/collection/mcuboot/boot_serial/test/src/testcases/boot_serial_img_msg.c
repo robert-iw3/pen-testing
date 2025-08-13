@@ -35,7 +35,7 @@ TEST_CASE(boot_serial_img_msg)
      * 00000018  63 6c 65 6e 1a 00 01 14  |clen....|
      * 00000020  e8 63 6f 66 66 00        |.coff.|
      */
-    static const uint8_t payload[] = { 
+    static const uint8_t payload[] = {
         0xa3, 0x64, 0x64, 0x61, 0x74, 0x61, 0x58, 0x10,
         /* 16 bytes of image data starts here. */
         0xa5, 0xa5, 0xa5, 0xa5, 0xa5, 0xa5, 0xa5, 0xa5,

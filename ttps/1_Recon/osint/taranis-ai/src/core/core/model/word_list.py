@@ -136,14 +136,14 @@ class WordList(BaseModel):
         data["usage"] = self.get_usage_list()
         data.pop("entries", None)
         return data
-    
+
     @classmethod
     def from_dict(cls, data: dict) -> "WordList":
         if 'entries' in data:
             data['entries'] = WordListEntry.load_multiple(data['entries'])
 
         word_list = cls(
-            id=data.get('id'), 
+            id=data.get('id'),
             name=data.get('name', ''),
             description=data.get('description'),
             usage=data.get('usage', 0),

@@ -78,12 +78,12 @@ podman exec burpsuite curl -s -X POST "http://$BURP_HOST:$BURP_PORT/$BURP_APIKEY
 -d "{\"scope\":{\"include\":[{\"rule\":\"https://$TARGET:443\"}],\"type\":\"SimpleScope\"},\"urls\":[\"https://$TARGET:$WEBPORT\"]}"
 fi
 
-for a in {1..30}; do 
+for a in {1..30}; do
 podman exec burpsuite echo -n "[-] SCAN #$a: "
 podman exec burpsuite curl -sI "http://$BURP_HOST:$BURP_PORT/$BURP_APIKEY/v0.1/scan/$a" | grep HTTP | awk '{print $2}'
   podman exec burpsuite BURP_STATUS=$(curl -s http://$BURP_HOST:$BURP_PORT/$BURP_APIKEY/v0.1/scan/$a \
     | grep -o -P "crawl_and_audit.{1,100}" | cut -d\" -f3 | grep "remaining")
-while [[ ${#podman exec burpsuite BURP_STATUS} -gt "5" ]]; do 
+while [[ ${#podman exec burpsuite BURP_STATUS} -gt "5" ]]; do
   podman exec burpsuite BURP_STATUS=$(curl -s http://$BURP_HOST:$BURP_PORT/$BURP_APIKEY/v0.1/scan/$a \
     | grep -o -P "crawl_and_audit.{1,100}" | cut -d\" -f3 | grep "remaining")
   podman exec burpsuite BURP_STATUS_FULL=$(curl -s http://$BURP_HOST:$BURP_PORT/$BURP_APIKEY/v0.1/scan/$a \

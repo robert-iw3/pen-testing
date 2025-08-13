@@ -29,17 +29,17 @@
     {
         //alloc
         allItems = [NSMutableArray array];
-        
+
         //alloc
         untrustedItems = [NSMutableArray array];
-        
+
         //alloc
         unknownItems = [NSMutableArray array];
-        
+
         //alloc
         flaggedItems = [NSMutableArray array];
     }
-    
+
     return self;
 }
 
@@ -53,18 +53,18 @@
     {
         //remove all items
         [self.allItems removeAllObjects];
-        
+
     }//sync
-    
+
     //sync
     // ->VT threads might still be accessing
     @synchronized(self.untrustedItems)
     {
         //remove unknown items
         [self.untrustedItems removeAllObjects];
-        
+
     }//sync
-    
+
     //sync
     // ->VT threads might still be accessing
     @synchronized(self.unknownItems)
@@ -72,7 +72,7 @@
         //remove flagged items
         [self.unknownItems removeAllObjects];
     }
-    
+
     //sync
     // ->VT threads might still be accessing
     @synchronized(self.flaggedItems)
@@ -80,7 +80,7 @@
         //remove flagged items
         [self.flaggedItems removeAllObjects];
     }
-    
+
     return;
 }
 
@@ -96,7 +96,7 @@
         //exit
         [NSThread exit];
     }
-    
+
     //sync
     // ->just to be safe
     @synchronized(self.allItems)
@@ -104,7 +104,7 @@
         //save item into 'allItems'
         [self.allItems addObject:item];
     }
-    
+
     //for unknown items
     // ->save seperately as well
     if(YES != item.isTrusted)
@@ -117,14 +117,14 @@
             [self.untrustedItems addObject:item];
         }
     }
-    
+
     //invoke callback
     if(nil != self.callback)
     {
         //invoke
         self.callback(item);
     }
-    
+
     return;
 }
 

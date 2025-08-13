@@ -36,7 +36,7 @@ void Downloader::ProcessDownloader(Packer* packer)
 {
 	if ( !this->downloads.size() )
 		return;
-	
+
 	for (int i = 0; i < downloads.size(); i++) {
 		BOOL close = false;
 		if (downloads[i].state == DOWNLOAD_STATE_RUNNING) {

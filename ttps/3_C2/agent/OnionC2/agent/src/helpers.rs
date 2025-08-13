@@ -24,9 +24,9 @@ pub async fn load_id() -> Option<String> {
     };
 
     let mut buf_reader = BufReader::new(file);
-    
+
     let mut contents = String::new();
-    
+
     match buf_reader.read_to_string(&mut contents).await {
         Ok(_) => {
             return Some(contents);

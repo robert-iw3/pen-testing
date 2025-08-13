@@ -48,7 +48,7 @@ _start:
 	;;		// avoid WAW on CFM
 	add out1=out1,gp
 	br.call.sptk.few rp=_relocate
-.Lret0:	
+.Lret0:
 	cmp.ne p6,p0=r0,r8		// r8 == EFI_SUCCESS?
 (p6)	br.cond.sptk.few .exit		// no ->
 

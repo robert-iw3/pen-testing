@@ -23,7 +23,7 @@ namespace ConnectBack
 					using(StreamReader rdr = new StreamReader(stream))
 					{
 						streamWriter = new StreamWriter(stream);
-						
+
 						StringBuilder strInput = new StringBuilder();
 
 						Process p = new Process();

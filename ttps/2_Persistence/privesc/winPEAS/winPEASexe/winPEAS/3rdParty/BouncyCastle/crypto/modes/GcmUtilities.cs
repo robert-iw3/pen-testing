@@ -187,7 +187,7 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.modes
              * "Three-way recursion" as described in "Batch binary Edwards", Daniel J. Bernstein.
              *
              * Without access to the high part of a 64x64 product x * y, we use a bit reversal to calculate it:
-             *     rev(x) * rev(y) == rev((x * y) << 1) 
+             *     rev(x) * rev(y) == rev((x * y) << 1)
              */
 
             ulong x0 = x[0], x1 = x[1];

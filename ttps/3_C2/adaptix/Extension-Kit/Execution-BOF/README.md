@@ -13,7 +13,7 @@ execute-assembly <binary> [params]
 ```
 
 ![](./_img/02.png)
- 
+
 The defaults are set as follows in `execute-assembly/inlineExecute-Assembly.c` to change them, edit and recompile.
 
 ```

@@ -91,7 +91,7 @@ private:
     static const char* const translatedColorNames[TABLE_COLORS];
 
     static const ColorEntry defaultTable[];
-    
+
     ColorScheme& operator=(const ColorScheme&) = delete;
 };
 

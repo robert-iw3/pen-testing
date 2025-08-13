@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "net.h"
-#include "config.h"  
+#include "config.h"
 #include <winhttp.h>
 #include <stdlib.h>
 #include <string.h>

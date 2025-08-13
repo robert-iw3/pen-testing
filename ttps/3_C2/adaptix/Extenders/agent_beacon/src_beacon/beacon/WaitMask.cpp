@@ -1,6 +1,6 @@
 #include "WaitMask.h"
 
-void WaitMask(ULONG worktime, ULONG sleepTime, ULONG jitter) 
+void WaitMask(ULONG worktime, ULONG sleepTime, ULONG jitter)
 {
     ULONG maxSleepTime = 0;
     if (worktime) {
@@ -20,7 +20,7 @@ void WaitMask(ULONG worktime, ULONG sleepTime, ULONG jitter)
     mySleep(maxSleepTime);
 }
 
-void mySleep(ULONG ms) 
+void mySleep(ULONG ms)
 {
     ApiWin->Sleep(ms);
 }

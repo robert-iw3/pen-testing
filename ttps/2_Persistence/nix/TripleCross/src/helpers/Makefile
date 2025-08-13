@@ -19,13 +19,13 @@ simple_open.o: simple_open.c $(HEADERS)
 	gcc -g -c simple_open.c
 
 simple_open: simple_open.o
-	gcc -g -o simple_open simple_open.o	
+	gcc -g -o simple_open simple_open.o
 
 simple_execve.o: simple_open.c $(HEADERS)
 	gcc -g -c simple_execve.c
 
 simple_execve: simple_execve.o
-	gcc -g -o simple_execve simple_execve.o	
+	gcc -g -o simple_execve simple_execve.o
 
 execve_hijack.o: execve_hijack.c $(HEADERS)
 	gcc -g -c execve_hijack.c

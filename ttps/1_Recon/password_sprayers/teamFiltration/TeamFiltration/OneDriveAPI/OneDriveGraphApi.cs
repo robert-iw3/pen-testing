@@ -44,7 +44,7 @@ namespace KoenZomers.OneDrive.Api
         /// </summary>
         public new static long MaximumBasicFileUploadSizeInBytes = 4 * 1024;
 
-    
+
 
         /// <summary>
         /// Size of the chunks to upload when using the resumable upload method. Must be a multiple of 327680 bytes. See https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/api/driveitem_createuploadsession#best-practices
@@ -151,7 +151,7 @@ namespace KoenZomers.OneDrive.Api
                 queryBuilder.Add("client_secret", ClientSecret);
             return await PostToTokenEndPoint(queryBuilder);
 
-            
+
         }
 
         #endregion
@@ -237,7 +237,7 @@ namespace KoenZomers.OneDrive.Api
 
         /// <summary>
         /// Adds permissions to a OneDrive item
-        /// </summary>        
+        /// </summary>
         /// <param name="item">The OneDrive item to add the permission to</param>
         /// <param name="permissionRequest">Details of the request for permission</param>
         /// <returns>Collection with OneDrivePermissionResponse objects representing the granted permissions</returns>
@@ -251,7 +251,7 @@ namespace KoenZomers.OneDrive.Api
 
         /// <summary>
         /// Adds permissions to a OneDrive item
-        /// </summary>        
+        /// </summary>
         /// <param name="itemPath">The path to the OneDrive item to add the permission to</param>
         /// <param name="permissionRequest">Details of the request for permission</param>
         /// <returns>Collection with OneDrivePermissionResponse objects representing the granted permissions</returns>
@@ -427,7 +427,7 @@ namespace KoenZomers.OneDrive.Api
             var completeUrl = string.Concat(OneDriveApiBaseUrl, "drive/items/", item.Id, "/permissions/", permissionId);
 
             var result = await SendMessageReturnBool(null, HttpMethod.Delete, completeUrl, HttpStatusCode.NoContent);
-            return result;            
+            return result;
         }
 
         /// <summary>
@@ -639,7 +639,7 @@ namespace KoenZomers.OneDrive.Api
             // Verify which upload method should be used
             if (fileStream.Length <= MaximumBasicFileUploadSizeInBytes)
             {
-                // Use the basic upload method                
+                // Use the basic upload method
                 return await UploadFileToAppFolderViaSimpleUpload(fileStream, fileName);
             }
 
@@ -1023,8 +1023,8 @@ namespace KoenZomers.OneDrive.Api
                 {
                     FilenameConflictBehavior = nameConflictBehavior
                 }
-            };   
-            
+            };
+
             // Call the Graph API webservice
             var result = await SendMessageReturnOneDriveItem<OneDriveUploadSession>(uploadItemContainer, HttpMethod.Post, oneDriveUrl, HttpStatusCode.OK);
             return result;

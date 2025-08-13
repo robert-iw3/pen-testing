@@ -4,7 +4,7 @@ class Plugin:
         self.pluginargs = pluginargs
         if self.pluginargs is None:
             self.pluginargs = dict()
-    
+
     def validate(self):
         #
         # Plugin Args

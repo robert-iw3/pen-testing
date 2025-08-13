@@ -8,7 +8,7 @@
 
   <img src="assets/Screenshots/FullSessionGraph.jpeg" width="90%" /><br />
   <img src="assets/Screenshots/MultiUserAgentControl.png" width="90%" /><br />
-  
+
 </div>
 
 > :warning: Havoc is in an early state of release. Breaking changes may be made to APIs/core structures as the framework matures.
@@ -43,7 +43,7 @@ See the [Installation](https://havocframework.com/docs/installation) docs for in
 - Multiplayer
 - Payload generation (exe/shellcode/dll)
 - HTTP/HTTPS listeners
-- Customizable C2 profiles 
+- Customizable C2 profiles
 - External C2
 
 #### Demon
@@ -58,7 +58,7 @@ See the [Installation](https://havocframework.com/docs/installation) docs for in
 - Variety of built-in post-exploitation commands
 - Patching Amsi/Etw via Hardware breakpoints
 - Proxy library loading
-- Stack duplication during sleep. 
+- Stack duplication during sleep.
 
 <div align="center">
   <img src="assets/Screenshots/SessionConsoleHelp.png" width="90%" /><br />
@@ -76,19 +76,19 @@ See the [Installation](https://havocframework.com/docs/installation) docs for in
 
 ### Community
 
-You can join the official [Havoc Discord](https://discord.gg/z3PF3NRDE5) to chat with the community! 
+You can join the official [Havoc Discord](https://discord.gg/z3PF3NRDE5) to chat with the community!
 
 ### Contributing
 
-To contribute to the Havoc Framework, please review the guidelines in [Contributing.md](https://github.com/HavocFramework/Havoc/blob/main/CONTRIBUTING.MD) and then open a pull-request! 
+To contribute to the Havoc Framework, please review the guidelines in [Contributing.md](https://github.com/HavocFramework/Havoc/blob/main/CONTRIBUTING.MD) and then open a pull-request!
 
 ### Note
 
-Please do not open any issues regarding detection. 
+Please do not open any issues regarding detection.
 
-The Havoc Framework hasn't been developed to be evasive. Rather it has been designed to be as malleable & modular as possible. Giving the operator the capability to add custom features or modules that evades their targets detection system. 
+The Havoc Framework hasn't been developed to be evasive. Rather it has been designed to be as malleable & modular as possible. Giving the operator the capability to add custom features or modules that evades their targets detection system.
 
-### Sponsors 
+### Sponsors
 JetBrains has sponsored this project by providing us with OSS licenses for Havoc development.
 
 <img width="400" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.png" alt="JetBrains logo.">

@@ -31,7 +31,7 @@ SharPyShell is a post-exploitation framework written in Python that are capable 
 
   - Generate obfuscated webshell (generate);
   - Simulate a windows terminal as an interaction for the webshell (interact).
-  
+
   The main aim of this framework is providing the penetration tester a series of tools to ease the post exploitation phase once an exploitation has been succesfull against an IIS webserver.
   <br>
   <br>
@@ -99,23 +99,23 @@ Generated with asciiflow.com
 ## Modules
 
 ```
- #download               Download a file from the server                                            
- #exec_cmd               Run a cmd.exe /c command on the server                                     
- #exec_ps                Run a powershell.exe -nop -noni -enc 'base64command' on the server         
- #inject_dll_reflective  Inject a reflective DLL in a new (or existing) process                     
- #inject_dll_srdi        Inject a generic DLL in a new (or existing) process                        
- #inject_shellcode       Inject shellcode in a new (or existing) process                            
- #invoke_ps_module       Run a ps1 script on the target server                                      
- #invoke_ps_module_as    Run a ps1 script on the target server as a specific user                   
- #lateral_psexec         Run psexec binary to move laterally                                        
- #lateral_wmi            Run builtin WMI command to move laterally                                  
- #mimikatz               Run an offline version of mimikatz directly in memory                      
- #net_portscan           Run a port scan using regular sockets, based (pretty) loosely on nmap      
- #privesc_juicy_potato   Launch InMem Juicy Potato attack trying to impersonate NT AUTHORITY\SYSTEM 
- #privesc_powerup        Run Powerup module to assess all misconfiguration for privesc              
- #runas                  Run a cmd.exe /c command spawning a new process as a specific user         
- #runas_ps               Run a powershell.exe -enc spawning a new process as a specific user        
- #upload                 Upload a file to the server 
+ #download               Download a file from the server
+ #exec_cmd               Run a cmd.exe /c command on the server
+ #exec_ps                Run a powershell.exe -nop -noni -enc 'base64command' on the server
+ #inject_dll_reflective  Inject a reflective DLL in a new (or existing) process
+ #inject_dll_srdi        Inject a generic DLL in a new (or existing) process
+ #inject_shellcode       Inject shellcode in a new (or existing) process
+ #invoke_ps_module       Run a ps1 script on the target server
+ #invoke_ps_module_as    Run a ps1 script on the target server as a specific user
+ #lateral_psexec         Run psexec binary to move laterally
+ #lateral_wmi            Run builtin WMI command to move laterally
+ #mimikatz               Run an offline version of mimikatz directly in memory
+ #net_portscan           Run a port scan using regular sockets, based (pretty) loosely on nmap
+ #privesc_juicy_potato   Launch InMem Juicy Potato attack trying to impersonate NT AUTHORITY\SYSTEM
+ #privesc_powerup        Run Powerup module to assess all misconfiguration for privesc
+ #runas                  Run a cmd.exe /c command spawning a new process as a specific user
+ #runas_ps               Run a powershell.exe -enc spawning a new process as a specific user
+ #upload                 Upload a file to the server
 ```
 
 

@@ -10,13 +10,13 @@ Tags:: 🔑 SquidSquad
 
 ## Details
 
-> ⚠️ SECURITY ALERT ⚠️ Please be aware: 
+> ⚠️ SECURITY ALERT ⚠️ Please be aware:
 > This account, @Wei_ADot, which is a personal account belong to the CEO of Adot, has been hacked on X.
 > 🚫 All current posts from @Wei_ADot are NOT associated with Adot's CEO or the official company
 > ❌ DO NOT click any links or send funds to from @Wei_ADot
 > 🔒 We are working hard to regain control of our CEO's account
 > If you encounter suspicious activity: 👉 Please report immediately
-> For verified updates, please follow official 
+> For verified updates, please follow official
 > @Adot_web3
 > Thank you for your vigilance and support. We will resume normal operations as soon as possible.
 

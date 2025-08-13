@@ -31,7 +31,7 @@ class AzureRecon:
         self.sharepoint = "sharepoint.com"
         self.office365 = "outlook.office365.com"
 
-        if args.gov: 
+        if args.gov:
             self.autodiscover = "autodiscover-s.office365.us"
             self.ms_login = "login.microsoftonline.us"
             self.graph_api = "graph.microsoftazure.us"
@@ -71,7 +71,7 @@ class AzureRecon:
                     if self.debug:
                         print("ERROR: Response is not valid JSON, returning empty config.")
                     return {}
-                
+
         except HTTPError as e:
             if self.debug:
                 print(f"ERROR: HTTP error {e.code} when accessing {url}")
@@ -84,7 +84,7 @@ class AzureRecon:
             if self.debug:
                 print(f"ERROR: Unexpected exception: {e}")
             return {}
-                
+
 
     def check_sharepoint(self) -> bool:
         """Check if Sharepoint is accessible"""
@@ -129,11 +129,11 @@ class AzureRecon:
     def check_app_services(self) -> Dict:
         """Check for Azure App Services"""
         results = {}
-        
+
         # Only check tenant-specific app service
         tenant_base = self.domain.split('.')[0]
         app_service_url = f"https://{tenant_base}.azurewebsites.net"
-        
+
         try:
             request = Request(app_service_url, headers={"User-agent": "Mozilla/5.0"})
             try:
@@ -146,13 +146,13 @@ class AzureRecon:
                     results[app_service_url] = "not_found"
         except Exception:
             results[app_service_url] = "not_found"
-            
+
         return results
 
     def check_teams_presence(self) -> Dict[str, bool]:
         """Check for Teams and Skype for Business presence"""
         results = {"teams": False, "skype": False}
-        
+
         # Check Teams
         try:
             lyncdiscover = f"lyncdiscover.{self.domain}"
@@ -175,7 +175,7 @@ class AzureRecon:
         """Check for Azure Storage Accounts"""
         common_prefixes = ['storage', 'blob', 'data', self.domain_prefix]
         results = []
-        
+
         for prefix in common_prefixes:
             try:
                 # unclear if impacted by GOV/CN tenancies
@@ -269,7 +269,7 @@ class AzureRecon:
             "device_registration": f"https://enterpriseregistration.windows.net/{tenant_id}/join",
             "device_management": f"https://enrollment.manage.microsoft.com/{tenant_id}/enrollmentserver/discovery.svc"
         }
-        
+
         results = {}
         for name, url in endpoints.items():
             try:
@@ -307,7 +307,7 @@ class AzureRecon:
             "login": f"https://{self.ms_login}/{tenant_id}/saml2",
             "federation_metadata": f"https://{self.ms_login}/{tenant_id}/federationmetadata/2007-06/federationmetadata.xml"
         }
-        
+
         results = {}
         for name, url in endpoints.items():
             try:
@@ -330,7 +330,7 @@ class AzureRecon:
             "exchange_legacy": f"https://{self.office365}/EWS/Exchange.asmx/{tenant_id}",
             "activesync": f"https://{self.office365}/Microsoft-Server-ActiveSync/{tenant_id}"
         }
-        
+
         results = {}
         for name, url in endpoints.items():
             try:
@@ -356,7 +356,7 @@ class AzureRecon:
             "container_registry": f"https://{self.domain_prefix}.azurecr.io",
             "cognitive_services": f"https://{self.domain_prefix}.cognitiveservices.azure.com"
         }
-        
+
         results = {}
         for name, url in services.items():
             try:
@@ -379,7 +379,7 @@ class AzureRecon:
             "standard_endpoint": {"status": "not_found", "details": None},
             "custom_domain": {"status": "not_found", "details": None}
         }
-        
+
         # Check standard B2C tenant endpoint
         standard_url = f"https://{domain}.b2clogin.com"
         try:
@@ -407,7 +407,7 @@ class AzureRecon:
             custom_url = f"https://login.{domain}"
             response = urlopen(Request(custom_url, headers={"User-agent": "Mozilla/5.0"}))
             content = response.read().decode().lower()
-            
+
             # Look for B2C indicators in response
             b2c_indicators = ["b2c", "azure ad b2c", "microsoftonline", "login.microsoftonline"]
             if any(indicator in content for indicator in b2c_indicators):
@@ -436,11 +436,11 @@ class AzureRecon:
     def check_aad_connect_status(self) -> Dict[str, str]:
         """Check Azure AD Connect configuration using getuserrealm endpoint"""
         results = {}
-        
+
         # Create a test email using the domain
         test_email = f"nonexistent@{self.domain}"
         url = f"https://{self.ms_login}/getuserrealm.srf?login={test_email}"
-        
+
         try:
             response = urlopen(Request(url, headers={"User-agent": "Mozilla/5.0"}))
             if response.status == 200:
@@ -450,7 +450,7 @@ class AzureRecon:
                 results["domain_type"] = data.get("DomainType", "Unknown")
                 results["federation_brand_name"] = data.get("FederationBrandName", "Unknown")
                 results["cloud_instance"] = data.get("CloudInstanceName", "Unknown")
-                
+
                 # Check if hybrid identity is configured
                 if "DomainType" in data and data["DomainType"] == "Federated":
                     results["hybrid_config"] = "Federated (Hybrid Identity)"
@@ -458,16 +458,16 @@ class AzureRecon:
                     results["hybrid_config"] = "Managed (Cloud Only)"
                 else:
                     results["hybrid_config"] = "Unknown"
-                    
+
                 # Try to get authentication methods
                 if "AuthURL" in data:
                     results["auth_url"] = data["AuthURL"]
                 if "FederationGlobalVersion" in data:
                     results["federation_version"] = data["FederationGlobalVersion"]
-                    
+
         except Exception as e:
             results["error"] = str(e)
-            
+
         return results
 
     def check_aad_applications(self, tenant_id: str = None) -> Dict[str, Any]:
@@ -482,7 +482,7 @@ class AzureRecon:
             "insights": [],
             "endpoints": {}  # Store accessible endpoints
         }
-        
+
         # If no tenant_id provided, try to get it from the domain
         if not tenant_id:
             try:
@@ -512,7 +512,7 @@ class AzureRecon:
                 if app_ids:
                     results["enterprise_apps"]["exposed_apps"] = app_ids
                     results["insights"].append("Found exposed enterprise application IDs - Potential OAuth abuse targets")
-                    
+
                     # Check each app for multi-tenant configuration
                     for app_id in app_ids:
                         try:
@@ -569,7 +569,7 @@ class AzureRecon:
                         if any(p in scope.lower() for p in ["mail", "files", "directory", "user_impersonation", "full"]):
                             results["permission_grants"].append(scope)
                             results["insights"].append(f"High-privilege OAuth scope found: {scope}")
-                    
+
                     if results["permission_grants"]:
                         results["insights"].append("High-privilege OAuth scopes detected - Review for potential abuse vectors")
         except Exception as e:
@@ -590,14 +590,14 @@ class AzureRecon:
         except Exception:
             return None
 
-    def get_domains(self, domain): 
+    def get_domains(self, domain):
         # Create a valid HTTP request
         # Example from: https://github.com/thalpius/Microsoft-Defender-for-Identity-Check-Instance.
         body = f"""<?xml version="1.0" encoding="utf-8"?>
-        <soap:Envelope xmlns:exm="http://schemas.microsoft.com/exchange/services/2006/messages" 
-            xmlns:ext="http://schemas.microsoft.com/exchange/services/2006/types" 
-            xmlns:a="http://www.w3.org/2005/08/addressing" 
-            xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" 
+        <soap:Envelope xmlns:exm="http://schemas.microsoft.com/exchange/services/2006/messages"
+            xmlns:ext="http://schemas.microsoft.com/exchange/services/2006/types"
+            xmlns:a="http://www.w3.org/2005/08/addressing"
+            xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
             <soap:Header>
                 <a:RequestedServerVersion>Exchange2010</a:RequestedServerVersion>
@@ -633,7 +633,7 @@ class AzureRecon:
             with urlopen(httprequest) as response:
                 response = response.read().decode()
         except Exception:
-            if args.json: 
+            if args.json:
                 print(json.dumps({"error":"Unable to execute request. Wrong domain"},indent=1))
             else:
                 print("[-] Unable to execute request. Wrong domain?")
@@ -668,7 +668,7 @@ class AzureRecon:
             "details": None,
             "redteam_implications": []
         }
-        
+
         try:
             # Check for MDI sensor endpoint
 
@@ -682,7 +682,7 @@ class AzureRecon:
                 ]
         except Exception:
             pass
-            
+
         return results
 
     def run_all_checks(self) -> Dict:
@@ -715,8 +715,8 @@ class AzureRecon:
             },
             "communication_services": self.check_teams_presence(),
             "mdi_instance": self.check_mdi_instance(),
-            "domains": self.domains, 
-            "tenant": self.tenant_name, 
+            "domains": self.domains,
+            "tenant": self.tenant_name,
             "tenant_id": self.tenant_id
         }
 
@@ -732,7 +732,7 @@ class AzureRecon:
         tenant_id = None
         if "tenant_id" in results:
             tenant_id = results["tenant_id"]
-        
+
         if tenant_id:
             # Additional Azure/M365 checks that require tenant ID
             results["tenant_config"] = {
@@ -750,9 +750,9 @@ def print_recon_results(results: Dict, json_output: bool = False) -> None:
     if json_output:
         print(json.dumps(results, indent=2))
         return
-    
-    azure_config = results.get("azure_ad_config", {})  
-    
+
+    azure_config = results.get("azure_ad_config", {})
+
     # Safely get tenant_region_scope, defaulting to "Unknown" if missing
     tenant_region_scope = azure_config.get("tenant_region_scope", "Unknown")
 
@@ -764,7 +764,7 @@ def print_recon_results(results: Dict, json_output: bool = False) -> None:
         print(f"Tenant Name: {results['tenant']}")
     if results.get("tenant_id"):
         print(f"Tenant ID: {results['tenant_id']}")
-    
+
     print("\n[+] Federation Information:")
     if results["federation_info"]["name_space_type"]:
         print(f"Namespace Type: {results['federation_info']['name_space_type']}")
@@ -787,7 +787,7 @@ def print_recon_results(results: Dict, json_output: bool = False) -> None:
             auth_type = results["aad_connect"].get('name_space_type', 'Unknown')
             print(f"  Identity Configuration: {config}")
             print(f"  Authentication Type: {auth_type}")
-            
+
             # Add contextual insights based on configuration
             if auth_type.lower() == "managed":
                 print("\n  [!] Identity Insights:")
@@ -799,7 +799,7 @@ def print_recon_results(results: Dict, json_output: bool = False) -> None:
                 print("  * Hybrid identity configuration detected - On-premises AD integration")
                 print("  * Authentication may be handled by on-premises ADFS")
                 print("  * Consider both cloud and on-premises attack vectors")
-            
+
             if results["aad_connect"].get("auth_url"):
                 print(f"\n  Federation Auth URL: {results['aad_connect']['auth_url']}")
             if results["aad_connect"].get("federation_version"):
@@ -809,12 +809,12 @@ def print_recon_results(results: Dict, json_output: bool = False) -> None:
 
     print("\n[+] Microsoft 365 Services:")
     print(f"SharePoint Detected: {'Yes' if results['m365_services']['sharepoint'] else 'No'}")
-    
+
     if results["m365_services"]["mx_records"]:
         print("\nMX Records:")
         for record in results["m365_services"]["mx_records"]:
             print(f"  - {record}")
-    
+
     if results["m365_services"]["txt_records"]:
         print("\nRelevant TXT Records:")
         for record in results["m365_services"]["txt_records"]:
@@ -827,22 +827,22 @@ def print_recon_results(results: Dict, json_output: bool = False) -> None:
     print(f"\n[+] Microsoft 365 Usage: {'Confirmed' if results['uses_microsoft_365'] else 'Not Detected'}")
 
     print("\n[+] Azure Services:")
-    
+
     if results["azure_services"]["app_services"]:
         print("\nAzure App Services:")
         for app, status in results["azure_services"]["app_services"].items():
             print(f"  - {app} ({status})")
-    
+
     if results["azure_services"]["storage_accounts"]:
         print("\nAzure Storage Accounts:")
         for storage in results["azure_services"]["storage_accounts"]:
             print(f"  - {storage['url']} ({storage['status']})")
-    
+
     if results["azure_services"]["power_apps"]:
         print("\nPower Apps Portals:")
         for portal in results["azure_services"]["power_apps"]:
             print(f"  - {portal}")
-    
+
     if results["azure_services"]["cdn_endpoints"]:
         print("\nAzure CDN Endpoints:")
         for cdn in results["azure_services"]["cdn_endpoints"]:
@@ -850,12 +850,12 @@ def print_recon_results(results: Dict, json_output: bool = False) -> None:
 
     print("\nAzure B2C Configuration:")
     if "b2c_configuration" in results["azure_services"]:
-        print("  Standard B2C Endpoint:", 
+        print("  Standard B2C Endpoint:",
               f"{results['azure_services']['b2c_configuration']['standard_endpoint']['status']} "
               f"({results['azure_services']['b2c_configuration']['standard_endpoint']['details']})")
         if results['azure_services']['b2c_configuration']['standard_endpoint']['status'] == 'found':
             print(f"    URL: {results['azure_services']['b2c_configuration']['standard_endpoint']['url']}")
-        print("  Custom Domain Login:", 
+        print("  Custom Domain Login:",
               f"{results['azure_services']['b2c_configuration']['custom_domain']['status']} "
               f"({results['azure_services']['b2c_configuration']['custom_domain']['details']})")
         if results['azure_services']['b2c_configuration']['custom_domain']['status'] == 'found':
@@ -925,14 +925,14 @@ def main():
 
     domain = args.domain
     json_out = {}
-    
+
     if not args.json:
         print("[+] Running Azure/M365 Reconnaissance...")
 
     # Run reconnaissance first
     recon = AzureRecon(domain, args)
     recon_results = recon.run_all_checks()
-    
+
     if not args.json:
         print_recon_results(recon_results)
     else:

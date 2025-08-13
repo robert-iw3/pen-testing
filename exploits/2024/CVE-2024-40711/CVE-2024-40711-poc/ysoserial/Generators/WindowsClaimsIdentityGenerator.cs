@@ -15,7 +15,7 @@ namespace ysoserial.Generators
             return "Requires Microsoft.IdentityModel.Claims namespace (not default GAC)";
 
             // This is similar to WindowsIdentityGenerator but based on Microsoft.IdentityModel.Claims.WindowsClaimsIdentity
-            // "actor" has the same effect as "bootstrapContext" but is shorter. 
+            // "actor" has the same effect as "bootstrapContext" but is shorter.
         }
 
         public override OptionSet Options()
@@ -85,13 +85,13 @@ namespace ysoserial.Generators
                 {
                     obj = new WindowsClaimsIdentityMarshal_var1(b64encoded);
                 }
-                 
+
                 return Serialize(obj, formatter, inputArgs);
             }
             else if (formatter.ToLower().Equals("json.net"))
             {
                 string payload = "";
-                
+
 
                 if (variant_number == 2)
                 {
@@ -110,7 +110,7 @@ namespace ysoserial.Generators
 
                 if (inputArgs.Minify)
                 {
-                    
+
                     if (inputArgs.UseSimpleType)
                     {
                         payload = JsonHelper.Minify(payload, new string[] { "Microsoft.IdentityModel" }, null);
@@ -184,7 +184,7 @@ namespace ysoserial.Generators
             }
             else if (formatter.ToLower().Equals("netdatacontractserializer"))
             {
-                
+
                 string payload = "";
                 if (variant_number == 2)
                 {

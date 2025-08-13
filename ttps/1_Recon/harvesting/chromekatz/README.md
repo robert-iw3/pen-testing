@@ -16,7 +16,7 @@ Google doesn't want to pay bounties and my cats are hungry. But you can support 
 ## CredentialKatz - Dump credential manager contents from memory
 
 CredentialKatz is a project that allows operators to dump all credentials from Credential Manager of Chrome and Edge.
-Most of the time Chromium based browsers keep your passwords in the credential manager encrypted until they are needed, either viewed in the credential manager, or auto filled to a login form. But for whatever reason, `passwords_with_matching_reused_credentials_` of `PasswordReuseDetectorImpl` class is populated with all credentials from the credential manager, in **plain text**. This will include all credentials that you have added to the password manager locally. If you have logged in the browser with your account, this will also include all the passwords you have ever synced with that account. 
+Most of the time Chromium based browsers keep your passwords in the credential manager encrypted until they are needed, either viewed in the credential manager, or auto filled to a login form. But for whatever reason, `passwords_with_matching_reused_credentials_` of `PasswordReuseDetectorImpl` class is populated with all credentials from the credential manager, in **plain text**. This will include all credentials that you have added to the password manager locally. If you have logged in the browser with your account, this will also include all the passwords you have ever synced with that account.
 
 There are few perks in accessing credentials in this way.:
  1. Dump credentials of other user's browsers when running elevated
@@ -77,7 +77,7 @@ You need to dump the Chrome/Edge main process. Hint: It is the one with the smal
 ## CookieKatz - Dump cookies directly from memory
 
 CookieKatz is a project that allows operators to dump cookies from Chrome, Edge or Msedgewebview2 directly from the process memory.
-Chromium based browsers load all their cookies from the on-disk cookie database on startup. 
+Chromium based browsers load all their cookies from the on-disk cookie database on startup.
 
 The benefits of this approach are:
  1. Support dumping cookies from Chrome's Incogntio and Edge's In-Private processes
@@ -152,7 +152,7 @@ To target correct process for creating the minidump, you can use the following P
 Download the latest release build of the ChrokeKatz BOFs [here](https://github.com/Meckazin/ChromeKatz/releases/latest). The zip file includes compiled BOFs and the CNA script to run them.
 
 ## Build your own
-You may build both projects on Visual Studio with Release or Debug configuration and x64 platform. 
+You may build both projects on Visual Studio with Release or Debug configuration and x64 platform.
 
 BOF version has been developed with Cobalt Strike's Visual Studio template [bof-vs](https://github.com/Cobalt-Strike/bof-vs). This means that Debug configuration for the *-BOFs will generate an exe instead of the COFF file. You can read more about the use of the Visual Studio template [here](https://www.cobaltstrike.com/blog/simplifying-bof-development).
 

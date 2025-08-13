@@ -252,7 +252,7 @@ public slots:
     #endif
     }
     void setMessageParentWidget(QWidget *parent) { messageParentWidget = parent; }
-    
+
     void set_fix_quardCRT_issue33(bool fix) { _fix_quardCRT_issue33 = fix; }
 
 signals:

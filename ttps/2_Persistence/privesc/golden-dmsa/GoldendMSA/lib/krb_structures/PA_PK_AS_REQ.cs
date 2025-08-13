@@ -19,7 +19,7 @@ namespace GoldendMSA {
                     AuthPack.Encode().Encode()
                 )
             );
-            
+
             var signer = new CmsSigner(PKCert);
             if(!VerifyCerts)
             {

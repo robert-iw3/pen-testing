@@ -40,11 +40,11 @@ stage {
     set userwx "false";
     set smartinject "false";
     set allocator "VirtualAlloc";
-    
+
     #TCP and SMB beacons will obfuscate themselves while they wait for a new connection.
     #They will also obfuscate themselves while they wait to read information from their parent Beacon.
     set sleep_mask "false";
-    
+
     set checksum       "1968945";
     set compile_time   "26 Jul 2021 18:09:30";
     set entry_point    "1099888";
@@ -52,7 +52,7 @@ stage {
     set image_size_x64 "2072576";
     set name           "InProcessClient.dll";
     set rich_header    "\xd5\x71\x0e\xb3\x91\x10\x60\xe0\x91\x10\x60\xe0\x91\x10\x60\xe0\x85\x7b\x63\xe1\x84\x10\x60\xe0\x85\x7b\x65\xe1\x24\x10\x60\xe0\x48\x64\x64\xe1\x83\x10\x60\xe0\x48\x64\x63\xe1\x9d\x10\x60\xe0\xf7\x7f\x9d\xe0\x92\x10\x60\xe0\x4a\x64\x61\xe1\x93\x10\x60\xe0\x85\x7b\x64\xe1\xb2\x10\x60\xe0\x85\x7b\x61\xe1\x94\x10\x60\xe0\x48\x64\x65\xe1\x0e\x10\x60\xe0\xfb\x78\x65\xe1\x80\x10\x60\xe0\x85\x7b\x66\xe1\x93\x10\x60\xe0\x91\x10\x61\xe0\x5c\x11\x60\xe0\x4a\x64\x69\xe1\x03\x10\x60\xe0\x4a\x64\x63\xe1\x93\x10\x60\xe0\x4a\x64\x60\xe1\x90\x10\x60\xe0\x4a\x64\x9f\xe0\x90\x10\x60\xe0\x91\x10\xf7\xe0\x90\x10\x60\xe0\x4a\x64\x62\xe1\x90\x10\x60\xe0\x52\x69\x63\x68\x91\x10\x60\xe0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-    
+
     transform-x86 {
         prepend "\x90\x90\x90"; # NOP, NOP!
         strrep "ReflectiveLoader" "";
@@ -274,28 +274,28 @@ process-inject {
 
 post-ex {
     # control the temporary process we spawn to
-    
+
     set spawnto_x86 "%windir%\\syswow64\\backgroundtaskhost.exe";
     set spawnto_x64 "%windir%\\sysnative\\backgroundtaskhost.exe";
 
     # change the permissions and content of our post-ex DLLs
     set obfuscate "true";
- 
+
     # pass key function pointers from Beacon to its child jobs
     set smartinject "false";
- 
+
     # disable AMSI in powerpick, execute-assembly, and psinject
     set amsi_disable "false";
-    
-    # control the method used to log keystrokes 
+
+    # control the method used to log keystrokes
     set keylogger "SetWindowsHookEx";
 
     set thread_hint "ntdll!RtlUserThreadStart+0x21";
 }
- 
+
 http-config {
     #set "true" if teamserver is behind redirector
-    set trust_x_forwarded_for "true";           
+    set trust_x_forwarded_for "true";
 }
 http-get {
 

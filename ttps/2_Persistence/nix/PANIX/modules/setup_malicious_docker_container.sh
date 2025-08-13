@@ -83,5 +83,5 @@ setup_malicious_docker_container() {
 	echo "[+] Malicious Docker container created and running."
 	echo "[+] Reverse shell is executed every minute."
 	echo "[+] To escape the container with root privileges, run '/usr/local/bin/escape.sh'."
-	echo "[+] Docker container persistence established!" 
+	echo "[+] Docker container persistence established!"
 }

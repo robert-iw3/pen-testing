@@ -404,7 +404,7 @@ public class AsnElt {
 	public static AsnElt Decode(byte[] buf, int off, int len,
 		bool exactLength)
 	{
-		
+
 		int tc, tv, valOff, valLen, objLen;
 		bool cons;
 		objLen = Decode(buf, off, len,
@@ -604,7 +604,7 @@ public class AsnElt {
 		byte[] r = new byte[EncodedLength];
 		Encode(r, 0);
 
-		
+
 		return r;
 	}
 

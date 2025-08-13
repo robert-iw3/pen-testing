@@ -19,21 +19,21 @@ A fast web fuzzer written in Go.
 
 ```bash
 podman build -t ffuf .
-podman run -it --name ffuf ffuf 
+podman run -it --name ffuf ffuf
 ```
 
 ## Example usage
 
-The usage examples below show just the simplest tasks you can accomplish using `ffuf`. 
+The usage examples below show just the simplest tasks you can accomplish using `ffuf`.
 
 More elaborate documentation that goes through many features with a lot of examples is
 available in the ffuf wiki at [https://github.com/ffuf/ffuf/wiki](https://github.com/ffuf/ffuf/wiki)
 
 For more extensive documentation, with real life usage examples and tips, be sure to check out the awesome guide:
-"[Everything you need to know about FFUF](https://codingo.io/tools/ffuf/bounty/2020/09/17/everything-you-need-to-know-about-ffuf.html)" by 
+"[Everything you need to know about FFUF](https://codingo.io/tools/ffuf/bounty/2020/09/17/everything-you-need-to-know-about-ffuf.html)" by
 Michael Skelton ([@codingo](https://github.com/codingo)).
 
-You can also practise your ffuf scans against a live host with different lessons and use cases either locally by using the docker container https://github.com/adamtlangley/ffufme or against the live hosted version at http://ffuf.me created by Adam Langley [@adamtlangley](https://twitter.com/adamtlangley).  
+You can also practise your ffuf scans against a live host with different lessons and use cases either locally by using the docker container https://github.com/adamtlangley/ffufme or against the live hosted version at http://ffuf.me created by Adam Langley [@adamtlangley](https://twitter.com/adamtlangley).
 
 ### Typical directory discovery
 
@@ -118,11 +118,11 @@ ffuf --input-cmd 'cat $FFUF_NUM.txt' -H "Content-Type: application/json" -X POST
 ### Configuration files
 
 When running ffuf, it first checks if a default configuration file exists. Default path for a `ffufrc` file is
-`$XDG_CONFIG_HOME/ffuf/ffufrc`.  You can configure one or multiple options in this file, and they will be applied on 
-every subsequent ffuf job. An example of ffufrc file can be found 
-[here](https://github.com/ffuf/ffuf/blob/master/ffufrc.example). 
+`$XDG_CONFIG_HOME/ffuf/ffufrc`.  You can configure one or multiple options in this file, and they will be applied on
+every subsequent ffuf job. An example of ffufrc file can be found
+[here](https://github.com/ffuf/ffuf/blob/master/ffufrc.example).
 
-A more detailed description about configuration file locations can be found in the wiki: 
+A more detailed description about configuration file locations can be found in the wiki:
 [https://github.com/ffuf/ffuf/wiki/Configuration](https://github.com/ffuf/ffuf/wiki/Configuration)
 
 The configuration options provided on the command line override the ones loaded from the default `ffufrc` file.
@@ -131,7 +131,7 @@ In this case, the `-H` values provided on the command line will be _appended_ to
 
 Additionally, in case you wish to use bunch of configuration files for different use cases, you can do this by defining
 the configuration file path using `-config` command line flag that takes the file path to the configuration file as its
-parameter. 
+parameter.
 
 <p align="center">
   <img width="250" src="_img/ffuf_juggling_250.png">
@@ -254,26 +254,26 @@ type "help" for a list of commands, or ENTER to resume.
 > help
 
 available commands:
- afc  [value]             - append to status code filter 
- fc   [value]             - (re)configure status code filter 
- afl  [value]             - append to line count filter 
- fl   [value]             - (re)configure line count filter 
- afw  [value]             - append to word count filter 
- fw   [value]             - (re)configure word count filter 
- afs  [value]             - append to size filter 
- fs   [value]             - (re)configure size filter 
- aft  [value]             - append to time filter 
- ft   [value]             - (re)configure time filter 
+ afc  [value]             - append to status code filter
+ fc   [value]             - (re)configure status code filter
+ afl  [value]             - append to line count filter
+ fl   [value]             - (re)configure line count filter
+ afw  [value]             - append to word count filter
+ fw   [value]             - (re)configure word count filter
+ afs  [value]             - append to size filter
+ fs   [value]             - (re)configure size filter
+ aft  [value]             - append to time filter
+ ft   [value]             - (re)configure time filter
  rate [value]             - adjust rate of requests per second (active: 0)
  queueshow                - show job queue
  queuedel [number]        - delete a job in the queue
  queueskip                - advance to the next queued job
  restart                  - restart and resume the current ffuf job
- resume                   - resume current ffuf job (or: ENTER) 
+ resume                   - resume current ffuf job (or: ENTER)
  show                     - show results for the current job
  savejson [filename]      - save current matches to a file
  help                     - you are looking at it
-> 
+>
 ```
 
 in this mode, filters can be reconfigured, queue managed and the current state saved to disk.
@@ -281,7 +281,7 @@ in this mode, filters can be reconfigured, queue managed and the current state s
 When (re)configuring the filters, they get applied posthumously and all the false positive matches from memory that
 would have been filtered out by the newly added filters get deleted.
 
-The new state of matches can be printed out with a command `show` that will print out all the matches as like they 
+The new state of matches can be printed out with a command `show` that will print out all the matches as like they
 would have been found by `ffuf`.
 
 As "negative" matches are not stored to memory, relaxing the filters cannot unfortunately bring back the lost matches.

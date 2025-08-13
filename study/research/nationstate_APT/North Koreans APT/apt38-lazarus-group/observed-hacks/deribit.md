@@ -43,9 +43,9 @@ Client assets and cold addresses were not affected, and the loss will be paid by
 
 - 0x86fab5bb2d7e9c6c6306e5f2592d2b8197500184 500 2022-11-07
 - 0x9361504d506fa4d698f7f170ac12af9b0494b57c 300 2022-11-07
-- 0x919cc60e5d7160b4c9ae9573ac35ceffd4a4a5c1 400 2022-11-09 
-- 0x4b481f949573be546c812ac1ef7591e703922414 600 2022-11-09 
-- 0xe7dc8b738d42e0c036a51cbd547bd59c73d9d413 300 2022-11-09 
+- 0x919cc60e5d7160b4c9ae9573ac35ceffd4a4a5c1 400 2022-11-09
+- 0x4b481f949573be546c812ac1ef7591e703922414 600 2022-11-09
+- 0xe7dc8b738d42e0c036a51cbd547bd59c73d9d413 300 2022-11-09
 - 0x0dd33923e608ffdf617b9e73d55125de8962907e 400 2022-11-09
 - 0x224450824c591a91eebd9bc85e6187909f29ea8d 400 2022-11-10
 - 0x899ededf3de6c1a4f9338604eaaf3976ee315575 300 2022-11-10
@@ -79,7 +79,7 @@ Client assets and cold addresses were not affected, and the loss will be paid by
 
 > Laundering Stage 3
 
-> 38. As described above, once the stolen funds were withdrawn from Tornado Cash, the NKCA (and/or their money laundering co-conspirators) used a variety of services to convert the stolen funds to USDT on the Tron blockchain. These transfers occurred in three different waves, separated by assets being frozen by law enforcement. 
+> 38. As described above, once the stolen funds were withdrawn from Tornado Cash, the NKCA (and/or their money laundering co-conspirators) used a variety of services to convert the stolen funds to USDT on the Tron blockchain. These transfers occurred in three different waves, separated by assets being frozen by law enforcement.
 
 > Wave 1
 

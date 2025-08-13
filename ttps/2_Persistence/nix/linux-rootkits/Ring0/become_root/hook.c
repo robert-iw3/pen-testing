@@ -47,7 +47,7 @@ static struct ftrace_hook hooks[] = {
 };
 
 static int __init mangekyou_init(void){
-        int error; 
+        int error;
         error = fh_install_hooks(hooks, ARRAY_SIZE(hooks));
         if(error){
                 return error;

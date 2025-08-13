@@ -1,12 +1,12 @@
 # Overview
 
-OAuthSeeker has three primary deployment modes/use-cases that can be leveraged during red team engagements. These can be broken down into three scenarios referred to as external unverified application, internal unverified application, and external verified application. In this guide we discuss each of these exploitation steps in-depth including the possible attack paths from each perspective and the steps required to configure an application under each condition. 
+OAuthSeeker has three primary deployment modes/use-cases that can be leveraged during red team engagements. These can be broken down into three scenarios referred to as external unverified application, internal unverified application, and external verified application. In this guide we discuss each of these exploitation steps in-depth including the possible attack paths from each perspective and the steps required to configure an application under each condition.
 
 # Exploitation Scenarios
 
-The diagram given below shows the various attack paths that are possible from various positions leveraging a malicious OAuth application under the previusly mentioned three exploitation scenarios of external unverified application, internal unverified application, and external verified application. The most common scenarios are either going to be leveraging this capability to obtain initial access through either an unverified or verified external application. For an unverified external application this just gives you the ability to list users, but if the tenant permits installation of external verified applications (the default setting) you can trick a user into installing an external verified application to gain access to their Office365 and Azure resources. 
+The diagram given below shows the various attack paths that are possible from various positions leveraging a malicious OAuth application under the previusly mentioned three exploitation scenarios of external unverified application, internal unverified application, and external verified application. The most common scenarios are either going to be leveraging this capability to obtain initial access through either an unverified or verified external application. For an unverified external application this just gives you the ability to list users, but if the tenant permits installation of external verified applications (the default setting) you can trick a user into installing an external verified application to gain access to their Office365 and Azure resources.
 
-The other common use-case is after gaining internal access you can leverage the ability for unprivileged users to create internal unverified OAuth applications to perform internal phishing to compromise other users within the tenant. Unfortunately, this isn't possible for the context of a verified external application since the ability to create new OAuth applications within a tenant requires admin consent for approval. However, it would be possible to pivot into internal phishing with an unverified internal OAuth application after gaining initial access through another method such as through a device code phishing attack. 
+The other common use-case is after gaining internal access you can leverage the ability for unprivileged users to create internal unverified OAuth applications to perform internal phishing to compromise other users within the tenant. Unfortunately, this isn't possible for the context of a verified external application since the ability to create new OAuth applications within a tenant requires admin consent for approval. However, it would be possible to pivot into internal phishing with an unverified internal OAuth application after gaining initial access through another method such as through a device code phishing attack.
 
 ![OAuthAttackPaths](https://github.com/user-attachments/assets/275b8937-1402-4ce2-91c0-5f3eb9fa39e0)
 
@@ -17,7 +17,7 @@ The other common use-case is after gaining internal access you can leverage the 
 In this section, we discuss how to perform phishing using OAuth applications to achieve initial access within an environment. The setup process is idential for our three use-cases of an external unverified application, internal unverified application, or an external verified application. There are just some small differences in behavior such as if you are setting up an internal unveriied application you will need a JWT for your compromised user account within the victim tenant or with a verified application after you provision and configure the instance you will need to submit a Microsoft Partner network identifier to verify the application.
 
 ## Provisioning a Phishing Domain
- 
+
 Before deploying OAuthSeeker we will need to provision a domain name which we can leverage within the application. This is because for external phishing attacks we need to leverage an HTTPS url for redirect_url because of security restrictions imposed by Microsoft. It's not necessary to leverage HTTPS when the redirect_url points to say http://localhost:8080/callback which is more useful in scenarios where you want to leverage OAuthSeeker as a covert persistence mechanism or for debugging purposes. If you attempt to leverage an HTTP redirect URL to authenticate to an external application you will see the following error message:
 
 ```
@@ -71,7 +71,7 @@ User.ReadBasic.All
 Mail.Read
 ```
 
-The `--scopes` file should only list Graph API permissions and if you would like to also request Azure user_impersonation privileges you will need to specify the `--azure` argument along with the customized `--scopes` flag for a custom list of graph scopes. 
+The `--scopes` file should only list Graph API permissions and if you would like to also request Azure user_impersonation privileges you will need to specify the `--azure` argument along with the customized `--scopes` flag for a custom list of graph scopes.
 
 ## Post Exploitation Leveraging OAuthPillage Utility
 
@@ -190,12 +190,12 @@ The admin credentials are generated during installation or can be configured man
 
 # Tweaking Configuration Options
 
-After installation, you can modify the OAuthSeeker configuration by editing the environment file located at /etc/oauthseeker/oauthseeker.env. After making changes, restart the service for them to take effect. You can monitor the service status and logs using standard systemd commands. By default you shouldn't need to modify any of these configuration options, but it's useful to be aware where and how they can be modified. 
+After installation, you can modify the OAuthSeeker configuration by editing the environment file located at /etc/oauthseeker/oauthseeker.env. After making changes, restart the service for them to take effect. You can monitor the service status and logs using standard systemd commands. By default you shouldn't need to modify any of these configuration options, but it's useful to be aware where and how they can be modified.
 
 Example configuration modification process:
 
 ```bash
-$ sudo vim /etc/oauthseeker/oauthseeker.env 
+$ sudo vim /etc/oauthseeker/oauthseeker.env
 $ sudo service oauthseeker restart
 $ journalctl -u oauthseeker
 ...

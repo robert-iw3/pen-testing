@@ -1,22 +1,22 @@
 /*  Copyright (C) 2008-2018 Peter Palotas, Jeffrey Jangli, Alexandr Normuradov
- *  
- *  Permission is hereby granted, free of charge, to any person obtaining a copy 
- *  of this software and associated documentation files (the "Software"), to deal 
- *  in the Software without restriction, including without limitation the rights 
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
- *  copies of the Software, and to permit persons to whom the Software is 
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *  
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *  
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
- *  THE SOFTWARE. 
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
  */
 
 using System;
@@ -76,7 +76,7 @@ namespace Alphaleonis.Win32.Filesystem
          IsRelativePath = !Path.IsPathRooted(OriginalInputPath, false);
 
          RelativeAbsolutePrefix = IsRelativePath ? InputPath.Replace(OriginalInputPath, string.Empty) : null;
-         
+
          SearchPattern = searchPattern.TrimEnd(Path.TrimEndChars); // .NET behaviour.
 
          FileSystemObjectType = null;
@@ -176,7 +176,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <value>Gets a value indicating whether the specified path string contains absolute or relative path information.</value>
       public bool IsRelativePath { get; private set; }
 
-      
+
       /// <summary>Gets or sets the initial path to the folder.</summary>
       /// <value>The initial path to the file or folder in long path format.</value>
       public string OriginalInputPath { get; private set; }
@@ -190,7 +190,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <summary>Gets or sets the absolute full path prefix of the relative path.</summary>
       private string RelativeAbsolutePrefix { get; set; }
 
-      
+
       /// <summary>Gets or sets a value indicating which <see cref="NativeMethods.FINDEX_INFO_LEVELS"/> to use.</summary>
       /// <value><c>true</c> indicates a folder object, <c>false</c> indicates a file object.</value>
       public bool IsDirectory { get; private set; }
@@ -460,7 +460,7 @@ namespace Alphaleonis.Win32.Filesystem
                // The algorithmic complexity of this is O(1). It doesn't loop over elements.
 
                var pathLp = dirs.Dequeue();
-               
+
 
                using (var handle = FindFirstFile(pathLp + Path.WildcardStarMatchAll, out win32FindData, out lastError))
                {

@@ -4,7 +4,7 @@ Date:: August 29th, 2020
 
 ## Details
 
-> So another Canadian exchange appears to have been hacked a couple months ago. Hasn't been publicly reported yet. 
+> So another Canadian exchange appears to have been hacked a couple months ago. Hasn't been publicly reported yet.
 
 > 8.33 BTC stolen from Coinberry's hot wallet & sent to 1KcTk7kJMjYaCV3FXo5bzpjaZs2aK18ntz.
 

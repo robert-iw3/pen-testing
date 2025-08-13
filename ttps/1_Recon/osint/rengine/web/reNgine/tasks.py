@@ -95,11 +95,11 @@ def initiate_scan(
 		# Get path filter
 		starting_point_path = starting_point_path.rstrip('/')
 
-		# for live scan scan history id is passed as scan_history_id 
+		# for live scan scan history id is passed as scan_history_id
 		# and no need to create scan_history object
-	
+
 		if scan_type == SCHEDULED_SCAN: # scheduled
-			# we need to create scan_history object for each scheduled scan 
+			# we need to create scan_history object for each scheduled scan
 			scan_history_id = create_scan_object(
 				host_id=domain_id,
 				engine_id=engine_id,
@@ -521,7 +521,7 @@ def subdomain_discovery(
 				logger.error(f'Missing {{OUTPUT}} placeholders in {tool} configuration. Skipping.')
 				continue
 
-			
+
 			cmd = cmd.replace('{TARGET}', host)
 			cmd = cmd.replace('{OUTPUT}', f'{self.results_dir}/subdomains_{tool}.txt')
 			cmd = cmd.replace('{PATH}', custom_tool.github_clone_path) if '{PATH}' in cmd else cmd
@@ -1520,7 +1520,7 @@ def nmap(
 		host=host,
 		input_file=input_file,
 		output_file=output_file_xml)
-	
+
 	if not nmap_cmd:
 		logger.error('Could not build nmap command')
 		return
@@ -1834,7 +1834,7 @@ def fetch_url(self, urls=[], ctx={}, description=None):
 	custom_headers = self.yaml_configuration.get(CUSTOM_HEADERS, [])
 	'''
 	# TODO: Remove custom_header in next major release
-		support for custom_header will be remove in next major release, 
+		support for custom_header will be remove in next major release,
 		as of now it will be supported for backward compatibility
 		only custom_headers will be supported
 	'''
@@ -2408,7 +2408,7 @@ def nuclei_scan(self, urls=[], ctx={}, description=None):
 	custom_headers = self.yaml_configuration.get(CUSTOM_HEADERS, [])
 	'''
 	# TODO: Remove custom_header in next major release
-		support for custom_header will be remove in next major release, 
+		support for custom_header will be remove in next major release,
 		as of now it will be supported for backward compatibility
 		only custom_headers will be supported
 	'''
@@ -2536,7 +2536,7 @@ def dalfox_xss_scan(self, urls=[], ctx={}, description=None):
 	custom_headers = self.yaml_configuration.get(CUSTOM_HEADERS, [])
 	'''
 	# TODO: Remove custom_header in next major release
-		support for custom_header will be remove in next major release, 
+		support for custom_header will be remove in next major release,
 		as of now it will be supported for backward compatibility
 		only custom_headers will be supported
 	'''
@@ -2672,7 +2672,7 @@ def crlfuzz_scan(self, urls=[], ctx={}, description=None):
 	custom_headers = self.yaml_configuration.get(CUSTOM_HEADERS, [])
 	'''
 	# TODO: Remove custom_header in next major release
-		support for custom_header will be remove in next major release, 
+		support for custom_header will be remove in next major release,
 		as of now it will be supported for backward compatibility
 		only custom_headers will be supported
 	'''
@@ -2858,7 +2858,7 @@ def http_crawl(
 	custom_headers = self.yaml_configuration.get(CUSTOM_HEADERS, [])
 	'''
 	# TODO: Remove custom_header in next major release
-		support for custom_header will be remove in next major release, 
+		support for custom_header will be remove in next major release,
 		as of now it will be supported for backward compatibility
 		only custom_headers will be supported
 	'''
@@ -3130,13 +3130,13 @@ def send_scan_notif(
 			scan_history_id,
 			subscan_id,
 			**opts)
-	
+
 def generate_inapp_notification(scan, subscan, status, engine, fields):
 	scan_type = "Subscan" if subscan else "Scan"
 	domain = subscan.domain.name if subscan else scan.domain.name
 	duration_msg = None
 	redirect_link = None
-	
+
 	if status == 'RUNNING':
 		title = f"{scan_type} Started"
 		description = f"{scan_type} has been initiated for {domain}"
@@ -3807,7 +3807,7 @@ def query_whois(target, force_reload_whois=False):
 			domain_info = get_domain_info_from_db(target)
 			if domain_info:
 				return format_whois_response(domain_info)
-			
+
 		# Query WHOIS information as not found in db
 		logger.info(f'Whois info not found in db')
 		logger.info(f'Querying WHOIS information for {target} from WHOIS server...')
@@ -3852,7 +3852,7 @@ def query_whois(target, force_reload_whois=False):
 
 		if 'tlsx_related_domain' in locals():
 			related_domains += tlsx_related_domain
-		
+
 		whois_data = whois_data.get('data', {})
 
 		# related domains can also be fetched from whois_data
@@ -3870,8 +3870,8 @@ def query_whois(target, force_reload_whois=False):
 	except Exception as e:
 		logger.error(f'An error occurred while querying WHOIS information for {target}: {str(e)}')
 		return {
-			'status': False, 
-			'target': target, 
+			'status': False,
+			'target': target,
 			'result': f'An error occurred while querying WHOIS information for {target}: {str(e)}'
 		}
 
@@ -3880,21 +3880,21 @@ def fetch_related_tlds_and_domains(domain):
 	"""
 	Fetch related TLDs and domains using TLSx.
 	related domains are those that are not part of related TLDs.
-	
+
 	Args:
 		domain (str): The domain to find related TLDs and domains for.
-	
+
 	Returns:
 		tuple: A tuple containing two lists (related_tlds, related_domains).
 	"""
 	logger.info(f"Fetching related TLDs and domains for {domain}")
 	related_tlds = set()
 	related_domains = set()
-	
+
 	# Extract the base domain
 	extracted = tldextract.extract(domain)
 	base_domain = f"{extracted.domain}.{extracted.suffix}"
-	
+
 	cmd = f'tlsx -san -cn -silent -ro -host {domain}'
 	_, result = run_command(cmd, shell=True)
 
@@ -3905,7 +3905,7 @@ def fetch_related_tlds_and_domains(domain):
 					continue
 				extracted_result = tldextract.extract(line)
 				full_domain = f"{extracted_result.domain}.{extracted_result.suffix}"
-				
+
 				if extracted_result.domain == extracted.domain:
 					if full_domain != base_domain:
 						related_tlds.add(full_domain)
@@ -3914,7 +3914,7 @@ def fetch_related_tlds_and_domains(domain):
 		except Exception as e:
 			logger.error(f"An error occurred while fetching related TLDs and domains for {domain}: {str(e)}")
 			continue
-	
+
 	logger.info(f"Found {len(related_tlds)} related TLDs and {len(related_domains)} related domains for {domain}")
 	return list(related_tlds), list(related_domains)
 
@@ -3936,55 +3936,55 @@ def fetch_whois_data_using_netlas(target):
 
 	try:
 		_, result = run_command(command, remove_ansi_sequence=True)
-		
+
 		# catch errors
 		if 'Failed to parse response data' in result:
 			return {
-				'status': False, 
+				'status': False,
 				'message': 'Netlas limit exceeded.'
 			}
-		
+
 		if 'api key doesn\'t exist' in result:
 			return {
-				'status': False, 
+				'status': False,
 				'message': 'Invalid Netlas API Key!'
 			}
-		
+
 		if 'Request limit' in result:
 			return {
-				'status': False, 
+				'status': False,
 				'message': 'Netlas request limit exceeded.'
 			}
-		
+
 		data = json.loads(result)
 
 		if not data:
 			return {
-				'status': False, 
+				'status': False,
 				'message': 'No data available for the given domain or IP.'
 			}
 		# if 'whois' not in data:
 		# 	return {
-		# 		'status': False, 
+		# 		'status': False,
 		# 		'message': 'Invalid domain or no WHOIS data available.'
 		# 	}
 
 		return {
-			'status': True, 
+			'status': True,
 			'data': data
 		}
 
 	except json.JSONDecodeError:
 		return {
-			'status': False, 
+			'status': False,
 			'message': 'Failed to parse JSON response from Netlas.'
 		}
 	except Exception as e:
 		return {
-			'status': False, 
+			'status': False,
 			'message': f'An error occurred while fetching WHOIS data: {str(e)}'
 		}
-	
+
 
 @app.task(name='remove_duplicate_endpoints', bind=False, queue='remove_duplicate_endpoints_queue')
 def remove_duplicate_endpoints(
@@ -4051,11 +4051,11 @@ def remove_duplicate_endpoints(
 
 @app.task(name='run_command', bind=False, queue='run_command_queue')
 def run_command(
-		cmd, 
-		cwd=None, 
-		shell=False, 
-		history_file=None, 
-		scan_id=None, 
+		cmd,
+		cwd=None,
+		shell=False,
+		history_file=None,
+		scan_id=None,
 		activity_id=None,
 		remove_ansi_sequence=False
 	):

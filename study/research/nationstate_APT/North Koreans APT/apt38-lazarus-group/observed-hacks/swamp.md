@@ -53,11 +53,11 @@ Unauthorized Withdrawal: https://swamps-explorer.tc.l2aas.com/tx/0x759eca9ce4017
 
 Massive Token Transfers:
 
-First Major Transfer (May-22-2024 03:51:29 AM +2 UTC): 
+First Major Transfer (May-22-2024 03:51:29 AM +2 UTC):
 Diverted 173,871,089 GSWP to an external wallet, initiating the large-scale theft.
 https://swamps-explorer.tc.l2aas.com/tx/0xe6d00d7876c2e71a62f4168a33d7e1d3b4f212383308d054aa206a1e5c9a2892
 
-Second Major Transfer (May-22-2024 03:57:35 AM +2 UTC): 
+Second Major Transfer (May-22-2024 03:57:35 AM +2 UTC):
 Further transferred 100,000,000 GSWP, consolidating the stolen assets.
 https://swamps-explorer.tc.l2aas.com/tx/0x1c43608b0394dcd45348d00d9890af365eae2c8719cf476ddea1f062e30a9a3b
 

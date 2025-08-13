@@ -15,7 +15,7 @@ namespace GoldendMSA
 		// fetch-interval[4] KerberosTime,
 		// }
 
-		public PA_DMSA_KEY_PACKAGE(AsnElt body) 
+		public PA_DMSA_KEY_PACKAGE(AsnElt body)
 		{
 			currentKeys = new PA_KEY_LIST_REP(body.Sub[0].Sub[0]);
 			previousKeys = new PA_KEY_LIST_REP(body.Sub[1].Sub[0]);

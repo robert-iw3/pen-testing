@@ -8,8 +8,8 @@ ScreenWindow::ScreenWindow(QObject *parent)
       _currentLine(0), _trackOutput(true), _scrollCount(0) {
 }
 
-ScreenWindow::~ScreenWindow() { 
-    delete[] _windowBuffer; 
+ScreenWindow::~ScreenWindow() {
+    delete[] _windowBuffer;
 }
 
 void ScreenWindow::setScreen(Screen *screen) {
@@ -17,8 +17,8 @@ void ScreenWindow::setScreen(Screen *screen) {
   _screen = screen;
 }
 
-Screen *ScreenWindow::screen() const { 
-    return _screen; 
+Screen *ScreenWindow::screen() const {
+    return _screen;
 }
 
 Character *ScreenWindow::getImage() {
@@ -103,8 +103,8 @@ void ScreenWindow::clearSelection() {
     emit selectionChanged();
 }
 
-bool ScreenWindow::isClearSelection() { 
-    return _screen->isClearSelection(); 
+bool ScreenWindow::isClearSelection() {
+    return _screen->isClearSelection();
 }
 
 void ScreenWindow::setWindowLines(int lines) {
@@ -112,20 +112,20 @@ void ScreenWindow::setWindowLines(int lines) {
     _windowLines = lines;
 }
 
-int ScreenWindow::windowLines() const { 
-    return _windowLines; 
+int ScreenWindow::windowLines() const {
+    return _windowLines;
 }
 
-int ScreenWindow::windowColumns() const { 
-    return _screen->getColumns(); 
+int ScreenWindow::windowColumns() const {
+    return _screen->getColumns();
 }
 
 int ScreenWindow::lineCount() const {
     return _screen->getHistLines() + _screen->getLines();
 }
 
-int ScreenWindow::columnCount() const { 
-    return _screen->getColumns(); 
+int ScreenWindow::columnCount() const {
+    return _screen->getColumns();
 }
 
 QPoint ScreenWindow::cursorPosition() const {

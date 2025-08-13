@@ -18,7 +18,7 @@ namespace GoldendMSA {
             using (SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider()) {
                 paChecksum = sha1.ComputeHash(RequestBody.Encode().Encode());
             }
-        
+
             AsnElt asnCTime = AsnElt.MakeString(AsnElt.GeneralizedTime, CTime.ToString("yyyyMMddHHmmssZ"));
 
             return AsnElt.Make(AsnElt.SEQUENCE, new AsnElt[] {
@@ -26,7 +26,7 @@ namespace GoldendMSA {
                     AsnElt.Make(AsnElt.CONTEXT,1, new AsnElt[]{ asnCTime } ),
                     AsnElt.Make(AsnElt.CONTEXT,2, new AsnElt[]{ AsnElt.MakeInteger(Nonce) } ),
                     AsnElt.Make(AsnElt.CONTEXT,3, new AsnElt[]{ AsnElt.MakeBlob(paChecksum) })
-                });        
+                });
         }
     }
 }

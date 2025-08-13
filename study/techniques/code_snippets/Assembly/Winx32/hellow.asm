@@ -14,14 +14,14 @@ _other:
         call    _printf
         pop     edi
         ret
-_main:                           
+_main:
         push    _main+0xc
-        mov     edi, _other           
+        mov     edi, _other
         jmp     edi
         push    _main+0x18
         mov     edi, _other_2
         jmp     edi
-        add     esp, 4            
-        ret                       
+        add     esp, 4
+        ret
         ; compile with  nasm -f win32 hellow.asm
         ; link with  gcc hellow.obj -o hellow.exe

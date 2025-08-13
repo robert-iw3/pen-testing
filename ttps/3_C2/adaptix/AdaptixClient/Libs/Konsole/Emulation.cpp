@@ -40,12 +40,12 @@ Emulation::Emulation()
     });
 }
 
-bool Emulation::programUsesMouse() const { 
-    return _usesMouse; 
+bool Emulation::programUsesMouse() const {
+    return _usesMouse;
 }
 
-void Emulation::usesMouseChanged(bool usesMouse) { 
-    _usesMouse = usesMouse; 
+void Emulation::usesMouseChanged(bool usesMouse) {
+    _usesMouse = usesMouse;
 }
 
 bool Emulation::programBracketedPasteMode() const {
@@ -141,8 +141,8 @@ void Emulation::setKeyBindings(const QString &name) {
     }
 }
 
-QString Emulation::keyBindings() const { 
-    return _keyTranslator->name(); 
+QString Emulation::keyBindings() const {
+    return _keyTranslator->name();
 }
 
 void Emulation::receiveChar(wchar_t c) {
@@ -257,8 +257,8 @@ void Emulation::bufferedUpdate() {
     }
 }
 
-char Emulation::eraseChar() const { 
-    return '\b'; 
+char Emulation::eraseChar() const {
+    return '\b';
 }
 
 void Emulation::setImageSize(int lines, int columns) {
@@ -305,7 +305,7 @@ bool ExtendedCharTable::extendedCharMatch(uint hash , uint* unicodePoints , usho
     return true;
 }
 
-uint ExtendedCharTable::createExtendedChar(uint* unicodePoints , ushort length) {    
+uint ExtendedCharTable::createExtendedChar(uint* unicodePoints , ushort length) {
     uint hash = extendedCharHash(unicodePoints,length);
     const uint initialHash = hash;
     bool triedCleaningSolution = false;

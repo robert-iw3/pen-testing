@@ -118,7 +118,7 @@ void TelegramSender::sendHTTPRequest(const std::string &url, const std::map<std:
             for (const auto& field : fields) {
                 postFields += field.first + "=" + curl_easy_escape(curl, field.second.c_str(), field.second.length()) + "&";
             }
-            postFields.pop_back(); 
+            postFields.pop_back();
             curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postFields.c_str());
         }
 
@@ -166,7 +166,7 @@ bool TelegramSender::retryOnFailure(const std::string &recipient, const std::str
         } catch (const std::exception &e) {
             Logger::log(Logger::WARNING, "Retrying send message: " + std::string(e.what()));
             --retries;
-            std::this_thread::sleep_for(std::chrono::seconds(1)); 
+            std::this_thread::sleep_for(std::chrono::seconds(1));
         }
     }
     return false;

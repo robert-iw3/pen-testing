@@ -94,7 +94,7 @@ install:
 .PHONY:	$(SUBDIRS) clean depend
 
 #
-# on both platforms you must use gcc 3.0 or higher 
+# on both platforms you must use gcc 3.0 or higher
 #
 check_gcc:
 ifeq ($(GCC_VERSION),2)

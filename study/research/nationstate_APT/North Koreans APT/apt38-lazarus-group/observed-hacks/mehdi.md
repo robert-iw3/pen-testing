@@ -27,9 +27,9 @@ Tags:: 🔑
 
 > They told me to update Zoom to fix the audio issue.
 
-> That’s when it happened when I update. 
+> That’s when it happened when I update.
 
-> Six wallets drained (my fault for not keeping things more buttoned up) 
+> Six wallets drained (my fault for not keeping things more buttoned up)
 
 > My laptop compromised completely.
 
@@ -39,9 +39,9 @@ Tags:: 🔑
 
 > And the worst part?While my wallet was being emptied, the hacker kept chatting on Telegram like nothing was wrong.
 
-> He even joked: “Let’s catch up at SG” 
+> He even joked: “Let’s catch up at SG”
 
-> It was surreal and completely Violating. But in the darkest moment, whitehat hackers stepped up — complete strangers offering help when I was at my lowest 
+> It was surreal and completely Violating. But in the darkest moment, whitehat hackers stepped up — complete strangers offering help when I was at my lowest
 
 > Turns out I was compromised by DPRK affiliated threat know as dangrouspassword
 
@@ -52,7 +52,7 @@ Tags:: 🔑
 ![](../images/2025-06-12_mehdi.jpeg)
 
 
-Persona: Alex Lin 
+Persona: Alex Lin
 
 - Seems to have had their Telegram taken over May 29, 2025
 

@@ -2,9 +2,9 @@
 ARG repo="docker.io" \
     base_image="alpine:3.22" \
     image_hash="eafc1edb577d2e9b458664a15f23ea1c370214193226069eb22921169fc7e43f"
-    
+
 FROM ${repo}/${base_image}@sha256:${image_hash} AS go-builder
-    
+
 ENV GOPATH=/usr/local/bin/go
 
 RUN \
@@ -24,7 +24,7 @@ RUN \
     # go install -tags pac . ; \
     rm -rf /var/cache/apk/*; \
     rm -rf ${GOPATH}/src/
-    
+
 FROM ${repo}/${base_image}@sha256:${image_hash}
 
 RUN \

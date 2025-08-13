@@ -30,31 +30,31 @@ const parseDNSKeyData = (data: string) => {
 
   // Algorithm
   switch (algorithm) {
-    case 5: 
+    case 5:
       algorithmMeaning = 'RSA/SHA-1';
       break;
-    case 7: 
+    case 7:
       algorithmMeaning = 'RSASHA1-NSEC3-SHA1';
       break;
-    case 8: 
+    case 8:
       algorithmMeaning = 'RSA/SHA-256';
       break;
-    case 10: 
+    case 10:
       algorithmMeaning = 'RSA/SHA-512';
       break;
-    case 13: 
+    case 13:
       algorithmMeaning = 'ECDSA Curve P-256 with SHA-256';
       break;
-    case 14: 
+    case 14:
       algorithmMeaning = 'ECDSA Curve P-384 with SHA-384';
       break;
-    case 15: 
+    case 15:
       algorithmMeaning = 'Ed25519';
       break;
-    case 16: 
+    case 16:
       algorithmMeaning = 'Ed448';
       break;
-    default: 
+    default:
       algorithmMeaning = 'Unknown';
       break;
   }
@@ -105,7 +105,7 @@ const getRecordTypeName = (typeCode: number): string => {
 
 const parseDSData = (dsData: string) => {
   const parts = dsData.split(' ');
-  
+
   const keyTag = parts[0];
   const algorithm = getAlgorithmName(parseInt(parts[1], 10));
   const digestType = getDigestTypeName(parseInt(parts[2], 10));

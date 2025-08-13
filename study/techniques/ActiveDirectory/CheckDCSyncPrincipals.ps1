@@ -46,7 +46,7 @@ function Get-ObjectTypeFromSID($sid) {
 }
 
 
-function Check-DCSync-Principals ($domainName){ 
+function Check-DCSync-Principals ($domainName){
     $extendedRightsCheck = "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" # This is the GUID used in the ACE for DS-Replication-Get-Changes-All -> https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/1522b774-6464-41a3-87a5-1e5633c3fbbb
     $usersWithExtendedRights = @()
     # Get domain controller name

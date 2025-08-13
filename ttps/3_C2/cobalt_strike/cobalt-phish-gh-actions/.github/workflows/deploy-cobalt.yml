@@ -31,7 +31,7 @@ jobs:
       - name: Set Execution Permissions
         run: |
           chmod +x _services/deploy/*.sh
-          
+
       - name: Install Dependencies
         run: |
           ./_services/deploy/install_dependencies.sh

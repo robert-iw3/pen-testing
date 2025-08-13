@@ -17,7 +17,7 @@ namespace GoldendMSA
     //                        -- NOTE: not empty --,
     //    req-body        [4] KDC-REQ-BODY
     //}
-    
+
     public class AS_REQ
     {
 
@@ -28,7 +28,7 @@ namespace GoldendMSA
 
             // set pre-auth
             AS_REQ req = new AS_REQ(keyString, etype, false, true);
-            
+
             // req.padata.Add()
 
             // set the username to request a TGT for
@@ -43,13 +43,13 @@ namespace GoldendMSA
             req.req_body.sname.name_type = Interop.PRINCIPAL_TYPE.NT_SRV_INST;
             req.req_body.sname.name_string.Add("krbtgt");
             req.req_body.sname.name_string.Add(domain);
-            
+
 
             // add in our encryption type
             req.req_body.etypes.Add(suppEtype);
-            
 
-            return req; 
+
+            return req;
         }
 
 
@@ -60,13 +60,13 @@ namespace GoldendMSA
             msg_type = (long)Interop.KERB_MESSAGE_TYPE.AS_REQ;
 
             padata = new List<PA_DATA>();
-            
+
             // add the encrypted timestamp
             padata.Add(new PA_DATA(keyString, etype));
 
             // add the include-pac == true
             padata.Add(new PA_DATA(pac));
-            
+
             req_body = new KDCReqBody(true, opsec);
 
             this.keyString = keyString;
@@ -123,7 +123,7 @@ namespace GoldendMSA
 
         public KDCReqBody req_body { get; set; }
 
-        //Ugly hack to make keyString available to 
+        //Ugly hack to make keyString available to
         //the generic InnerTGT function
         public string keyString { get; set; }
     }

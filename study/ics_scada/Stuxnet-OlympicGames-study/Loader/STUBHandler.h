@@ -3,8 +3,8 @@
 
 #include "StdAfx.h"
 
-typedef 
-struct 
+typedef
+struct
 SCoreHeader {
 	DWORD HeaderLength;
 	DWORD SectionLength;
@@ -19,12 +19,12 @@ SCoreHeader {
 
 void Core_Load(void);
 
-void 
+void
 Core_Crypt
 (BYTE *lpStream,
  DWORD dwLength);
- 
-BOOL 
+
+BOOL
 Core_GetDLL
 (LPVOID *ppCore,
  INT32 *pCoreLen);

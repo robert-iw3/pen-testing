@@ -6,7 +6,7 @@ namespace GoldendMSA
 {
     class PA_KEY_LIST_REQ
     {
-        // KERB-KEY-LIST-REQ::= SEQUENCE OF Int32 -- encryption type -- 
+        // KERB-KEY-LIST-REQ::= SEQUENCE OF Int32 -- encryption type --
 
         public AsnElt Encode()
         {

@@ -36,7 +36,7 @@ namespace TeamFiltration.Modules
             {
 
                 int options = 0;
-          
+
                 foreach (var loginObject in validLogins)
                 {
                     Console.WriteLine($"    |-> {options++} - {loginObject.Username}");

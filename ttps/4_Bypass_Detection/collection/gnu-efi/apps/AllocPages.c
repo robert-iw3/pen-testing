@@ -121,7 +121,7 @@ efi_main (EFI_HANDLE image, EFI_SYSTEM_TABLE *systab)
 	InitializeLib(image, systab);
 
 	Print(L"AllocatePage: __AllocType__ __MemType__ __NumPages__ [__Addr__]\n");
-	Print(L"__AllocType__ {0,1,2} -- Any, MaxAddr, Addr\n"); 
+	Print(L"__AllocType__ {0,1,2} -- Any, MaxAddr, Addr\n");
 	Print(L"__MemType__   {0..13}, Reserved ==0, LCode==1, LData==2, BSCode==3, BSData==4, ...\n");
 	Print(L"__NumPages__  {0..%x}\n", MAX_NUM_PAGES);
 	Print(L"[__Addr__]     0... %llx\n", MAX_ADDR);

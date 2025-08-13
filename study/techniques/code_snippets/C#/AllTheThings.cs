@@ -78,7 +78,7 @@ public class Thing0
 		Process p = Process.Start("cmd.exe");
 		SetWindowText(p.MainWindowHandle, a);
     }
-	
+
 	[DllImport("user32.dll")]
 	static extern int SetWindowText(IntPtr hWnd, string text);
 
@@ -96,13 +96,13 @@ public class Things : System.Configuration.Install.Installer
 
 
     }
-	
+
 	public override string HelpText {
 		get {
 				Thing0.ExecParam("InstallUtil Uninstall");
 				return "Executed: HelpText property\n";
 			}
-		
+
 	   }
 }
 
@@ -141,18 +141,18 @@ class Exports
     //rundll32 entry point
     public static void EntryPoint(IntPtr hwnd, IntPtr hinst, string lpszCmdLine, int nCmdShow)
     {
-        Thing0.ExecParam("EntryPoint"); 
+        Thing0.ExecParam("EntryPoint");
     }
 
     public static bool DllRegisterServer()
     {
-        Thing0.ExecParam("DllRegisterServer"); 
+        Thing0.ExecParam("DllRegisterServer");
         return true;
     }
 
     public static bool DllUnregisterServer()
     {
-        Thing0.ExecParam("DllUnregisterServer"); 
+        Thing0.ExecParam("DllUnregisterServer");
         return true;
     }
 

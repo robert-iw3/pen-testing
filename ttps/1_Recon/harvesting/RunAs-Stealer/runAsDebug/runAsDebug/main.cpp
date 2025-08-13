@@ -111,7 +111,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         if (pid) {
             StartDebugger(pid);
         }
-        Sleep(3000); 
+        Sleep(3000);
     }
     return 0;
 }

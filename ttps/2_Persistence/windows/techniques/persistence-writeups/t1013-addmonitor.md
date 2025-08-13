@@ -21,7 +21,7 @@ Writing and compiling a simple C++ code that will register the monitor port:
 #include "stdafx.h"
 #include "Windows.h"
 
-int main() {	
+int main() {
 	MONITOR_INFO_2 monitorInfo;
 	TCHAR env[12] = TEXT("Windows x64");
 	TCHAR name[12] = TEXT("evilMonitor");

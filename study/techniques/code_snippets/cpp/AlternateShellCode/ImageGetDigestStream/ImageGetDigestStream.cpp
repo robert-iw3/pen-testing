@@ -41,7 +41,7 @@ int main() {
 
         ::ImageGetDigestStream(hImg, CERT_PE_IMAGE_DIGEST_ALL_IMPORT_INFO, (DIGEST_FUNCTION)addr, &dummy);
         ::CloseHandle(dummy);
-    
+
     }
 
     ::CloseHandle(hImg);

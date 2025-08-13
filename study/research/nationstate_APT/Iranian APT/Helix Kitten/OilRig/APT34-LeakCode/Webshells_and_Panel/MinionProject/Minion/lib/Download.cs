@@ -316,7 +316,7 @@ namespace Minion.lib
                     _threadStarted = true;
                     string tempPath = Utility.CheckDirectory(url, DownloadTemp);
 
-                    
+
                     // TODO: there is a time, that All file done but BufferList is not empty
                     //while (!AllDone(guid, url, parts) || BufferList.Count > 0)
                     while (!AllDone(guid, url, parts))
@@ -375,7 +375,7 @@ namespace Minion.lib
                         // TODO: is this async file write ok? is the 4096 buffer size good ?
                         using (FileStream streamLocal = new FileStream(filenameLocal, FileMode.Open,FileAccess.Write /*, FileShare.Write, 2048 * 1024, true*/))
                         {
-                            // Set the stream position to the end of the file.        
+                            // Set the stream position to the end of the file.
                             streamLocal.Seek(streamLocal.Length, SeekOrigin.Begin);
 
                             for (var i = 1; i < parts.Count; i++)
@@ -488,7 +488,7 @@ namespace Minion.lib
 
                                 //byte[] buff = new byte[downloadInfo.BufferSize * 1024];
                                 byte[] buff = new byte[4096 * 1024]; // 4MB
-                                
+
                                 int readLength = 0;
 
                                 // COMMENT : if we dont put this (downloadInfo.CurrentPosition <= downloadInfo.EndPosition), after all byte are done we read from stream for no resone one time
@@ -842,7 +842,7 @@ namespace Minion.lib
 
                 if(output.Parts.Count > 0)
                     output.Percent = Math.Round(output.Percent / output.Parts.Count, 2);
-                
+
                 output.FileSize = Utility.SizeFix(output.TotalSize);
 
                 if (output.StartDate != null)

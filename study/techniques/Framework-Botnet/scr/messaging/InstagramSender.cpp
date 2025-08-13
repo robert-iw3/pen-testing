@@ -126,7 +126,7 @@ std::string InstagramSender::buildTemplateMessagePayload(const std::string &reci
     for (const auto &param : params) {
         payload += "\"" + param.first + "\":\"" + param.second + "\",";
     }
-    payload.pop_back(); 
+    payload.pop_back();
     payload += "}}}";
     return payload;
 }
@@ -169,7 +169,7 @@ std::string InstagramSender::prepareMessage(const std::string &message) {
         } else {
             encodedMessage << c;
         }
-   
+
     }
     return encodedMessage.str();
 }

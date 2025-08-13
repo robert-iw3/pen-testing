@@ -23,7 +23,7 @@ void JobsController::ProcessJobs(Packer* packer)
 			packer->Pack32(COMMAND_JOB);
 			packer->Pack8(JOB_STATE_RUNNING);
 			packer->PackBytes((BYTE*)buffer, available);
-			
+
 			MemFreeLocal(&buffer, available);
         }
 

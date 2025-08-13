@@ -6,7 +6,7 @@ requests.packages.urllib3.disable_warnings(requests.packages.urllib3.exceptions.
 def extract_error(desc):
 
     return desc.split(":")[0].strip()
-    
+
 
 def msol_authenticate(url, username, password, useragent, pluginargs):
 
@@ -83,7 +83,7 @@ def msol_authenticate(url, username, password, useragent, pluginargs):
                 # Access successful but blocked by CAP
                 data_response['result'] = "success"
                 data_response['output'] = f"[+] SUCCESS ({error_code}): {username}:{password} - NOTE: The response indicates token access is blocked by CAP"
-                data_response['valid_user'] = True  
+                data_response['valid_user'] = True
 
             elif "AADSTS50076" in error:
                 # Microsoft MFA response
@@ -125,7 +125,7 @@ def msol_authenticate(url, username, password, useragent, pluginargs):
                 data_response['result'] = "success"
                 data_response['output'] = f"[+] SUCCESS ({error_code}): {username}:{password} - NOTE: The user is disabled."
                 data_response['valid_user'] = True
-                
+
             else:
                 # Unknown errors
                 data_response['result'] = "failure"

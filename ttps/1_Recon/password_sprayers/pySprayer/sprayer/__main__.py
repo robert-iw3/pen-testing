@@ -36,12 +36,12 @@ def try_login(username, password, domain, lmhash, nthash, target, results, port)
 
 def parseArgs():
     print("""
-       _____                                 
+       _____
       / ___/____  _________ ___  _____  _____
       \__ \/ __ \/ ___/ __ `/ / / / _ \/ ___/  v%s
-     ___/ / /_/ / /  / /_/ / /_/ /  __/ /    
-    /____/ .___/_/   \__,_/\__, /\___/_/     
-        /_/               /____/             
+     ___/ / /_/ / /  / /_/ / /_/ /  __/ /
+    /____/ .___/_/   \__,_/\__, /\___/_/
+        /_/               /____/
     """ % VERSION)
 
     parser = argparse.ArgumentParser(description="Multithreaded spraying of a password on all accounts of a domain")

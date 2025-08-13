@@ -47,7 +47,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 
             return serParser.RunModifiedAdvanced(ignoreErrors);
         }
-        
+
 
         public static MemoryStream AdvancedBinaryFormatterObjectToStream(List<AdvancedBinaryFormatterObject> abfoList)
         {
@@ -170,7 +170,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             }
             return jsonNetStr;
         }
-        
+
         public static byte[] Calculate7BitEncodedInt(int value)
         {
             // it cannot be more than 5 bytes according to [MS-NRBF]
@@ -212,7 +212,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             return result;
         }
     }
-    
+
     [Serializable]
     // The Data property is the only one that matters for serialization/deserialization
     public class AdvancedBinaryFormatterObject
@@ -233,7 +233,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
         public bool IsPrimitive = false;
 
         [NonSerialized]
-        // This field can be used to minimize the Json.NET output 
+        // This field can be used to minimize the Json.NET output
         // It will not serialize informational items when it is set to false
         public bool KeepInfoFieldsForJson = true;
 
@@ -275,7 +275,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 
                     obj = formatter.Deserialize(ms);
                 }
-                
+
                 _data = obj;
 
                 //*/

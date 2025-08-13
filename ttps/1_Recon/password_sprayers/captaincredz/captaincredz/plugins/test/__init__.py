@@ -2,7 +2,7 @@ class Plugin:
     def __init__(self, requester, pluginargs):
         self.requester = requester
         self.pluginargs = pluginargs
-    
+
     def validate(self):
         """
         This functions verifies if the plugin args are correctly defined
@@ -19,7 +19,7 @@ class Plugin:
         # return True
         r = self.requester.get(self.pluginargs["url"] + "/check", headers={"User-Agent": useragent})
         return r.status_code == 200
-    
+
     def test_authenticate(self, username, password, useragent):
         """
         This functions authenticates and returns data_response

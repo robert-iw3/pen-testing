@@ -8,14 +8,14 @@ Module Name:
 
 Abstract:
 
-    EFI Hell to remap runtime address into the new virual address space 
+    EFI Hell to remap runtime address into the new virual address space
     that was registered by the OS for RT calls.
 
-    So the code image needs to be relocated. All pointers need to be 
-    manually fixed up since the address map changes. 
+    So the code image needs to be relocated. All pointers need to be
+    manually fixed up since the address map changes.
 
     GOOD LUCK NOT HAVING BUGS IN YOUR CODE! PLEASE TEST A LOT. MAKE SURE
-    EXIT BOOTSERVICES OVER WRITES ALL BOOTSERVICE MEMORY & DATA SPACES WHEN 
+    EXIT BOOTSERVICES OVER WRITES ALL BOOTSERVICE MEMORY & DATA SPACES WHEN
     YOU TEST.
 
 Revision History
@@ -91,12 +91,12 @@ RtConvertList (
         NextLink = Link->Flink;
 
         ConvertPointer (
-            Link->Flink == ListHead ? DebugDisposition : 0, 
+            Link->Flink == ListHead ? DebugDisposition : 0,
             (VOID **)&Link->Flink
             );
 
         ConvertPointer (
-            Link->Blink == ListHead ? DebugDisposition : 0, 
+            Link->Blink == ListHead ? DebugDisposition : 0,
             (VOID **)&Link->Blink
             );
 

@@ -12,35 +12,35 @@ import org.slf4j.LoggerFactory;
  * Handles the response of the outgoing/forwarded request
  */
 final class ResponseHandler extends ChannelInboundHandlerAdapter {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ResponseHandler.class);
-	
+
 	private final ChannelHandlerContext originalClientContext;
 	private final Iterable<PostForwardRule> postForwardRules;
-	
+
 	private final FullHttpRequest fullHttpRequest;
-	
+
 	public ResponseHandler(ChannelHandlerContext originalClientContext, FullHttpRequest fullHttpRequest, Iterable<PostForwardRule> postForwardRules) {
 		this.originalClientContext = originalClientContext;
 		this.fullHttpRequest = fullHttpRequest;
 		this.postForwardRules = postForwardRules;
 	}
-	
+
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		LOG.debug("read: {}", msg);
-		
+
 		if(msg instanceof FullHttpResponse res){
 			processRules(res);
 		}else{
 			LOG.error("respose message not assignable to FullHttpResponse: {}", msg);
 			originalClientContext.writeAndFlush(msg);
 		}
-		
+
 		originalClientContext.channel().close();
 		ctx.channel().close();
 	}
-	
+
 	private void processRules(FullHttpResponse res) {
 		HttpResponseContentAccessor contentAccessor = new HttpResponseContentAccessor(res);
 		for(PostForwardRule rule : postForwardRules){
@@ -50,7 +50,7 @@ final class ResponseHandler extends ChannelInboundHandlerAdapter {
 		}
 		originalClientContext.writeAndFlush(res);
 	}
-	
+
 	@Override
 	public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
 		LOG.debug("channel unregistered");

@@ -91,7 +91,7 @@ const SslCertCard = (props: { data: any, title: string, actionButtons: any }): J
       { serialNumber && <DataRow lbl="Serial Num" val={serialNumber} /> }
       { fingerprint && <DataRow lbl="Fingerprint" val={fingerprint} /> }
       { ext_key_usage && <ListRow title="Extended Key Usage" list={getExtendedKeyUsage(ext_key_usage)} /> }
-      
+
     </Card>
   );
 }

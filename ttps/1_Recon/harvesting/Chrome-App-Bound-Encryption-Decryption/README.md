@@ -4,7 +4,7 @@
 
 A proof-of-concept tool to decrypt **App-Bound Encrypted (ABE)** cookies, passwords, and payment methods from Chromium-based browsers (Chrome, Brave, Edge). This is achieved entirely in user-mode with no administrator rights required.
 
-If you find this useful, I’d appreciate a coffee:  
+If you find this useful, I’d appreciate a coffee:
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M61EP5XL)
 
 ## 🛡️ Background
@@ -21,11 +21,11 @@ These path-validation checks prevent any external tool — even with direct DPAP
 
 **This project** injects a DLL into the running browser process using **Reflective DLL Injection (RDI)**. The RDI technique for x64 is based on [Stephen Fewer's original work](https://github.com/stephenfewer/ReflectiveDLLInjection), and for ARM64, it utilizes my method detailed in [ARM64-ReflectiveDLLInjection](https://github.com/xaitax/ARM64-ReflectiveDLLInjection). Once injected, the DLL:
 
-1.  **Injector (`chrome_inject.exe`):** 
+1.  **Injector (`chrome_inject.exe`):**
     * The payload DLL is not stored on disk. Instead, it is **encrypted with ChaCha20** and embedded directly into the injector's executable as a resource during compilation.
     * At runtime, the injector loads this encrypted resource into memory, decrypts it, and uses a **direct syscall engine** to perform a Reflective DLL Injection (RDI) of the payload into the target browser process.
     * This in-memory, fileless approach completely avoids on-disk artifacts for the payload, defeating static analysis and common EDR heuristics.
-2.  **Injected Payload (In-Memory):** 
+2.  **Injected Payload (In-Memory):**
     * Once running in the browser's address space, the payload uses its privileged position to invoke the browser's internal IElevator COM server.
     * Because the request originates from within the trusted process, the COM server successfully decrypts the App-Bound master key.
     * The payload then uses this key to decrypt all sensitive data (cookies, passwords, payments) across all user profiles and streams the results back to the injector.
@@ -69,7 +69,7 @@ For a comprehensive understanding of Chrome's App-Bound Encryption, the intricac
 - 👥 Support for multiple browser profiles (Default, Profile 1, Profile 2, etc.)
 - 📁 Customizable output directory for extracted data.
 - 🛠️ No admin privileges required.
-  
+
 
 ![image](https://github.com/user-attachments/assets/c2388201-ada9-4ac1-b242-de8f3b0d434f)
 
@@ -81,7 +81,7 @@ For a comprehensive understanding of Chrome's App-Bound Encryption, the intricac
 | **Brave**          | 1.79.126 (137.0.7151.119)    |
 | **Microsoft Edge** | 138.0.3351.42                |
 
-> [!NOTE]  
+> [!NOTE]
 > The injector requires the target browser to be **running** unless you use `--start-browser`.
 
 ## 🔧 Build Instructions

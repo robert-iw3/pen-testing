@@ -57,7 +57,7 @@ namespace ysoserial.Generators
          byte[] asmData = LocalCodeCompiler.GetAsmBytes(files);
          byte[] gzipAsmData = Gzip(asmData);
          string base64GzipAsmData = Convert.ToBase64String(gzipAsmData);
-         
+
 
          var xmlResourceDict = @"<ResourceDictionary
 xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""

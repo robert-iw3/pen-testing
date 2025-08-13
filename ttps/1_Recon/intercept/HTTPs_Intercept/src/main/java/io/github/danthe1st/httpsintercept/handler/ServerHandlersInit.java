@@ -29,25 +29,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ServerHandlersInit extends ChannelInitializer<SocketChannel> {
-	
+
 	static final Logger LOG = LoggerFactory.getLogger(ServerHandlersInit.class);
-	
+
 	private final Bootstrap clientBootstrapTemplate;
 	private final SNIHandlerMapping sniMapping;
-	
+
 	private final HostMatcher<Object> ignoredHostMatcher;
 	private final HostMatcher<PreForwardRule> preForwardMatcher;
 	private final HostMatcher<PostForwardRule> postForwardMatcher;
-	
+
 	public ServerHandlersInit(Bootstrap clientBootstrap, Config config) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException, UnrecoverableKeyException {
 		this.clientBootstrapTemplate = clientBootstrap;
 		sniMapping = SNIHandlerMapping.createMapping();
-		
+
 		preForwardMatcher = createMatcherFromRules(config.preForwardRules());
 		postForwardMatcher = createMatcherFromRules(config.postForwardRules());
 		ignoredHostMatcher = new HostMatcher<>(List.of(Map.entry(config.ignoredHosts(), new Object())), false);
 	}
-	
+
 	private <T extends ProcessingRule> HostMatcher<T> createMatcherFromRules(@UnderInitialization ServerHandlersInit this, List<T> ruleList) {
 		List<Map.Entry<HostMatcherConfig, T>> rules = new ArrayList<>();
 		for(T rule : ruleList){
@@ -59,7 +59,7 @@ public class ServerHandlersInit extends ChannelInitializer<SocketChannel> {
 		}
 		return new HostMatcher<>(rules, true);
 	}
-	
+
 	@Override
 	protected void initChannel(SocketChannel socketChannel) throws Exception {
 		SniHandler sniHandler = new CustomSniHandler(sniMapping, clientBootstrapTemplate, ignoredHostMatcher);

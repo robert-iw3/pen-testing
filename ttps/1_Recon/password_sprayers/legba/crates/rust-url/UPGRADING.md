@@ -41,7 +41,7 @@ versions.
     ```
 
     After upgrading:
-	
+
     ```rust
     let url = Url::parse("http://github.com:80").unwrap();
     let stream = TcpStream::connect(url.socket_addrs(|| match url.scheme() {

@@ -19,7 +19,7 @@ class PEASLoaded:
                         **filerecord["value"]
                     )
                 )
-            
+
             name = record["name"]
             self.peasrecords.append(
                 PEASRecord(

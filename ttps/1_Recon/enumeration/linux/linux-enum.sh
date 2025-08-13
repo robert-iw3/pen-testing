@@ -14,16 +14,16 @@ redbold=$'\e[2;31m'
 banner () {
 	echo "
 
-░▒▓███████▓▒░ ░▒▓██████▓▒░ ░▒▓███████▓▒░▒▓████████▓▒░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████████████▓▒░  
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░   ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░ 
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░   ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░ 
-░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░   ░▒▓█▓▒░   ░▒▓██████▓▒░ ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░ 
-░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░   ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░ 
-░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░   ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░ 
-░▒▓█▓▒░       ░▒▓██████▓▒░░▒▓███████▓▒░   ░▒▓█▓▒░   ░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░ 
-                                                                                                                 
-                                                                                                                 
-version: 2.2                                                                        
+░▒▓███████▓▒░ ░▒▓██████▓▒░ ░▒▓███████▓▒░▒▓████████▓▒░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████████████▓▒░
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░   ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░   ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░
+░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░   ░▒▓█▓▒░   ░▒▓██████▓▒░ ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░
+░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░   ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░
+░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░   ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░
+░▒▓█▓▒░       ░▒▓██████▓▒░░▒▓███████▓▒░   ░▒▓█▓▒░   ░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░
+
+
+version: 2.2
 	"
 	echo ""
 	echo "Welcome to Postenum. Type 'help' for available commands."
@@ -32,9 +32,9 @@ version: 2.2
 CURRENT_MODULE=""
 CURRENT_VERSION="2.2"
 declare -A MODULE_DESCRIPTIONS
-history=() 
-history_index=0 
-current_input="" 
+history=()
+history_index=0
+current_input=""
 
 function DirtyCow(){
 	echo $redintensy"Linux Kernel 2.6.22 < 3.9 Dirty Cow$white - https://www.exploit-db.com/exploits/40839"
@@ -53,7 +53,7 @@ function Exploits2x(){
 	echo $redintensy"Linux Kernel 2.4.x/2.6.x$white - https://www.exploit-db.com/exploits/9545"
 	echo $redintensy"UDEV < 1.4.1 (1)$white - https://www.exploit-db.com/exploits/8478"
 	echo $redintensy"UDEV < 1.4.1 (2)$white - https://www.exploit-db.com/exploits/8572"
-	echo $redintensy"UDEV < 1.4.1 (Metasploit)$white - https://www.exploit-db.com/exploits/21848"	
+	echo $redintensy"UDEV < 1.4.1 (Metasploit)$white - https://www.exploit-db.com/exploits/21848"
 	echo $redintensy"Linux Kernel 2.6 < 2.6.19$white - https://www.exploit-db.com/exploits/9542"
 	echo $redintensy"Linux Kernel 2.6.0 < 2.6.31(1)$white - https://www.exploit-db.com/exploits/33321"
 	echo $redintensy"Linux Kernel 2.6.x (2)$white - https://www.exploit-db.com/exploits/33322"
@@ -185,14 +185,14 @@ function OperatingSystem(){
 	if [ "$RELEASE" ]; then
 		echo $yellowintensy"[+] The distribution type and version:"$white
 		echo -e "$RELEASE\n"
-	fi 
+	fi
 
 	CPUINFO=$(lscpu 2>/dev/null)
 	if [ "$CPUINFO" ]; then
 		echo $yellowintensy"[+] CPU architecture information from sysfs and /proc/cpuinfo:"$white
 		echo -e "$CPUINFO\n"
 	fi
-	
+
 	UNAME=$(uname -a 2>/dev/null)
 	if [ "$UNAME" ]; then
 		echo $yellowintensy"[+] The kernel:"$white
@@ -379,7 +379,7 @@ function AppsAndServices(){
 		if [ "$CRONDTAB" ]; then
 			echo $yellowintensy"[+] Root's cron jobs:"$white
 			echo -e "$CRONDTAB\n"
-		fi	
+		fi
 	fi
 
 	CRONTAB=$(cat /etc/crontab 2>/dev/null)
@@ -398,25 +398,25 @@ function AppsAndServices(){
 	if [ "$CRONDHOURLY" ]; then
 		echo $yellowintensy"[+] View hourly cron jobs:"$white
 		echo -e "$CRONDHOURLY\n"
-	fi 
+	fi
 
 	CRONDMONTHLY=$(for x in "/etc/cron.monthly"; do ls -l "$x"; done | grep -v "total " 2>/dev/null)
 	if [ "$CRONDMONTHLY" ]; then
 		echo $yellowintensy"[+] View monthly cron jobs:"$white
 		echo -e "$CRONDMONTHLY\n"
-	fi 
+	fi
 
 	CRONDWEEKLY=$(for x in "/etc/cron.weekly"; do ls -l "$x"; done | grep -v "total " 2>/dev/null)
 	if [ "$CRONDWEEKLY" ]; then
 		echo $yellowintensy"[+] View weekly cron jobs:"$white
 		echo -e "$CRONDWEEKLY\n"
-	fi 
+	fi
 
 	WRITEABLECRONJOB=$(find /etc/cron* -type f -perm -o+w -exec ls -l {} \;)
 	if [ "$WRITEABLECRONJOB" ]; then
 		echo $yellowintensy"[+] Find world-writeable cron jobs:"$white
 		echo -e "$WRITEABLECRONJOB\n"
-	fi 
+	fi
 
 	AUX=$(ps aux 2>/dev/null)
 	if [ "$AUX" ]; then
@@ -444,7 +444,7 @@ function AppsAndServices(){
 }
 
 function CommAndNet(){
-	echo $boldgrn"[-] COMMUNICATING and NETWORKING"$white	
+	echo $boldgrn"[-] COMMUNICATING and NETWORKING"$white
 	IFCONFIG=$(ifconfig -a 2>/dev/null)
 	if [ "$IFCONFIG" ]; then
 		echo $yellowintensy"[+] Display all interfaces which are currently available:"$white
@@ -480,7 +480,7 @@ function CommAndNet(){
 		echo $yellowintensy"[+] SELinux enabled - status:"$white
 		echo -e "$SELinux\n"
 	fi
-	
+
 	Execshield=$(grep "exec-shield" /etc/sysctl.conf)
 	if [ "$Execshield" ]; then
 		echo $yellowintensy"[+] Execshield enabled:"$white
@@ -498,7 +498,7 @@ function CommAndNet(){
 		echo $yellowintensy"[+] Get DNS domain or the FQDN:"$white
 		echo -e "$DNS\n"
 	fi
-	
+
 	NETSTAT=$(netstat -antup 2>/dev/null)
 	if [ "$NETSTAT" ]; then
 		echo $yellowintensy"[+] Display all TCP/UDP connected sockets and PID/program:"$white
@@ -545,7 +545,7 @@ function CommAndNet(){
 	ROUTE=$(route -nee 2>/dev/null)
 	if [ "$ROUTE" ]; then
 		echo $yellowintensy"[+] Display IP routing table:"$white
-		echo -e "$ROUTE\n" 
+		echo -e "$ROUTE\n"
 	fi
 }
 
@@ -689,7 +689,7 @@ function ConfidentialInfoAndUser(){
 		$ROOTMAIL=$(ls -l /var/mail/root | grep -v "total " 2>/dev/null)
 		echo -e $redintensy"$ROOTMAIL"$white
 	fi
-	
+
 	ROOTDIR=$(for x in "/root"; do ls -lh "$x"; done 2>/dev/null)
 	if [ "$ROOTDIR" ]; then
 		echo $yellowintensy"[+] Check if /root is accessible:"$white
@@ -749,7 +749,7 @@ function ConfidentialInfoAndUser(){
     	if [ -d "$usersshfolder" ]; then
         	echo -e "${yellowintensy}[+] Any private-key info - $usersshfolder:${white}"
         	ls -ld "$usersshfolder"
-        
+
 	        for file in "$usersshfolder"/*; do
 	            if [ -r "$file" ] && [ -f "$file" ]; then
 	                echo -e "${redintensy}$(ls -l "$file") READABLE\n${white}"
@@ -757,7 +757,7 @@ function ConfidentialInfoAndUser(){
 	        done
     	fi
 	done
-        
+
 	if [ -d /root/.ssh ]; then
 	    echo -e "${yellowintensy}[+] Any private-key info - /root/.ssh/:${white}"
 	    ls -ld /root/.ssh/
@@ -782,7 +782,7 @@ function ConfidentialInfoAndUser(){
         echo $yellowintensy"[+] SSH hijacking is possible:"$white
         echo -e $redintensy"$SSHAGENT\n"$white
     fi
-	
+
 	PGPKEY=$(ls -l /home/*/.gnupg/secring.gpgs 2>/dev/null)
 	if [ "$PGPKEY" ]; then
         echo $yellowintensy"[+] PGP keys:"$white
@@ -812,7 +812,7 @@ function ConfidentialInfoAndUser(){
  		echo $yellowintensy"[+] Current umask value:"$white
  		echo -e "$UMASKVALUE\n"
   	fi
-	
+
 	RHOSTUSR=$(find /home -iname "*.rhosts" -exec ls -la {} \; 2>/dev/null)
 	if [ "$RHOSTUSR" ]; then
 		echo $yellowintensy"[+] Accessible rhosts config file(s):"$white
@@ -1024,7 +1024,7 @@ function FileSystem(){
 		echo -e "$EXECUTABLE\n"
 	fi
 
-	
+
 	FILEWRITABLE=$(find / -path /proc -prune -o -perm -0002 ! -type l -ls 2>/dev/null)
 	if [ "$FILEWRITABLE" ]; then
 		echo $yellowintensy"[+] World-writable files - 0002:"$white
@@ -1323,7 +1323,7 @@ function TryingAccess(){
 	if [ "$MYSQLCONNECTNOPASS" ]; then
 		echo $yellowintensy"[+] Connect to MYSQL as root and non-pass:"$white
 	  	echo $redintensy"[!] We can connect to the local MYSQL service as 'root' and without a password."$white
-	  	echo -e "$MYSQLCONNECTNOPASS\n" 
+	  	echo -e "$MYSQLCONNECTNOPASS\n"
 	fi
 
 	POSTCON1=$(psql -U postgres template0 -c 'select version()' 2>/dev/null | grep version)
@@ -1506,11 +1506,11 @@ function _complete_input() {
     for match in "${matches[@]}"; do
       printf "%s\n" "$match"
     done
-    echo 
+    echo
   fi
 
   if (( ${#matches[@]} == 1 )); then
-    READLINE_LINE="${line%$word}${matches[0]} " 
+    READLINE_LINE="${line%$word}${matches[0]} "
     READLINE_POINT=${#READLINE_LINE}
   fi
 }
@@ -1557,12 +1557,12 @@ while true; do
     add_to_history "$pcommand"
 
     if [[ $pcommand == \!* ]]; then
-        command="${pcommand:1}" 
+        command="${pcommand:1}"
         echo "[Executing: $command]"
         eval "$command"
     else
         cmd="${pcommand%% *}"
-        args="${pcommand#* }" 
+        args="${pcommand#* }"
 
         case $cmd in
             use) use_module "$args" ;;

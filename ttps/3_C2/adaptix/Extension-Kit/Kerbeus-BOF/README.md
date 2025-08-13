@@ -59,7 +59,7 @@ kerbeus renew /ticket:BASE64 [/dc:DC] [/ptt]
 
 ## Constrained delegation abuse
 
-If a user (or computer) account is configured for constrained delegation (i.e. has a SPN value in its msds-allowedtodelegateto field) this action can be used to abuse access to the target SPN/server. 
+If a user (or computer) account is configured for constrained delegation (i.e. has a SPN value in its msds-allowedtodelegateto field) this action can be used to abuse access to the target SPN/server.
 
 A **TL;DR** explanation is that an account with constrained delegation enabled is allowed to request tickets _to itself_ as any user, in a process known as S4U2self. In order for an account to be allowed to do this, it has to have **TrustedToAuthForDelegation** enabled in it's useraccountcontrol property, something that only elevated users can modify by default. This ticket has the **FORWARDABLE** flag set by default. The service can then use this specially requested ticket to request a service ticket to any service principal name (SPN) specified in the account's **msds-allowedtodelegateto** field. So long story short, if you have control of an account with **TrustedToAuthForDelegation** set and a value in **msds-allowedtodelegateto**, you can pretend to be any user in the domain to the SPNs set in the account's **msds-allowedtodelegateto** field.
 
@@ -67,7 +67,7 @@ S4U2self ticket can then be used as a `/tgs:Y` parameter (base64 blob) to execut
 
 The `/altservice` parameter allows us to substitute in any service name we want in the resulting KRB-CRED file. One or more alternate service names can be supplied, comma separated (`/altservice:cifs,HOST,...`).
 
-To form the TGS-REQ's more inline with genuine requests, the `/opsec` flag can be used. 
+To form the TGS-REQ's more inline with genuine requests, the `/opsec` flag can be used.
 
 It is possible, in certain cirsumstances, to use an S4U2Self ticket to impersonate protected users in order to escalate privileges on the requesting system, as discussed [here](https://exploit.ph/revisiting-delegate-2-thyself.html). For this purpose, the `/self` flag and `/altservice:X` argument can be used to generate a usable service ticket.
 

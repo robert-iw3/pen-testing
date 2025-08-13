@@ -9,6 +9,6 @@ This can be used in  post-compromise, for example, you already got root, loaded 
 
 <p align="center"><img src="image.png"></p>
 
-In short, this LKM (Loadable Kernel Module) creates a char device called `/dev/givemeroot`. The device allows users to write strings to it, and if the string is "root", the process that wrote to the device will have its credentials set to those of the root user. 
+In short, this LKM (Loadable Kernel Module) creates a char device called `/dev/givemeroot`. The device allows users to write strings to it, and if the string is "root", the process that wrote to the device will have its credentials set to those of the root user.
 
 Btw, the device supports only the `write` operation, implemented via the `x_write` function, where the command is interpreted and actioned based on the input string.

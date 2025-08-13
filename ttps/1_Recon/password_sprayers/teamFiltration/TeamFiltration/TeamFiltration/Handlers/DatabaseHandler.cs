@@ -89,7 +89,7 @@ namespace TeamFiltration.Handlers
 
         }
 
-        
+
         public List<PulledTokens> TokensAvailable(SprayAttempt accObject)
         {
 
@@ -300,7 +300,7 @@ namespace TeamFiltration.Handlers
             var resourceHost = new Uri(resource).Host;
             return pulledTokens.Find(x => x.Username.ToLower().Equals(Username.ToLower()) && x.ResourceUri.Contains(resourceHost)).OrderByDescending(x => x.DateTime).ToList();
         }
-        
+
 
         internal bool DeleteToken(PulledTokens token)
         {

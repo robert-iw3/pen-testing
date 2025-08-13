@@ -30,6 +30,6 @@ rule APT_APT_27_Nov_2020_1 {
      $s18 = "getgrgid@@GLIBC_2.2.5" fullword ascii
      $s19 = "ReConnect" fullword ascii
      $s20 = "getsockopt@@GLIBC_2.2.5" fullword ascii
- condition: 
-    uint16(0) == 0x457f and filesize > 20KB and 12 of them 
+ condition:
+    uint16(0) == 0x457f and filesize > 20KB and 12 of them
 }

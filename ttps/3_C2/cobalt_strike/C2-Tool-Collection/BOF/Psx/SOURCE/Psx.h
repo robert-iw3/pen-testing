@@ -403,9 +403,9 @@ EXTERN_C NTSTATUS ZwQueryInformationProcess(
 	);
 
 EXTERN_C NTSTATUS ZwOpenProcess(
-	PHANDLE ProcessHandle, 
-	ACCESS_MASK DesiredAccess, 
-	POBJECT_ATTRIBUTES ObjectAttributes, 
+	PHANDLE ProcessHandle,
+	ACCESS_MASK DesiredAccess,
+	POBJECT_ATTRIBUTES ObjectAttributes,
 	PCLIENT_ID ClientId
 	);
 
@@ -427,34 +427,34 @@ EXTERN_C NTSTATUS ZwAdjustPrivilegesToken(
 	);
 
 EXTERN_C NTSTATUS ZwAllocateVirtualMemory(
-	HANDLE ProcessHandle, 
-	PVOID *BaseAddress, 
-	ULONG_PTR ZeroBits, 
-	PSIZE_T RegionSize, 
-	ULONG AllocationType, 
+	HANDLE ProcessHandle,
+	PVOID *BaseAddress,
+	ULONG_PTR ZeroBits,
+	PSIZE_T RegionSize,
+	ULONG AllocationType,
 	ULONG Protect
 	);
 
 EXTERN_C NTSTATUS ZwFreeVirtualMemory(
-	HANDLE ProcessHandle, 
-	PVOID *BaseAddress, 
-	IN OUT PSIZE_T RegionSize, 
+	HANDLE ProcessHandle,
+	PVOID *BaseAddress,
+	IN OUT PSIZE_T RegionSize,
 	ULONG FreeType
 	);
 
 EXTERN_C NTSTATUS ZwReadVirtualMemory(
-	HANDLE hProcess, 
-	PVOID lpBaseAddress, 
-	PVOID lpBuffer, 
-	SIZE_T NumberOfBytesToRead, 
+	HANDLE hProcess,
+	PVOID lpBaseAddress,
+	PVOID lpBuffer,
+	SIZE_T NumberOfBytesToRead,
 	PSIZE_T NumberOfBytesRead
 	);
 
 EXTERN_C NTSTATUS ZwWriteVirtualMemory(
-	HANDLE hProcess, 
-	PVOID lpBaseAddress, 
-	PVOID lpBuffer, 
-	SIZE_T NumberOfBytesToWrite, 
+	HANDLE hProcess,
+	PVOID lpBaseAddress,
+	PVOID lpBuffer,
+	SIZE_T NumberOfBytesToWrite,
 	PSIZE_T NumberOfBytesWrite
 	);
 

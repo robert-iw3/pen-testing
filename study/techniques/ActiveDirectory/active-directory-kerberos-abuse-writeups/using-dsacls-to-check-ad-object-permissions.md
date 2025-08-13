@@ -112,7 +112,7 @@ $password = "123456"
             Write-Host "[-] Invalid Credentials for $_ : $password" -foreground red
         } else {
             Write-Host "[+] Working Credentials for $_ : $password" -foreground green
-        }        
+        }
     }
 }
 ```

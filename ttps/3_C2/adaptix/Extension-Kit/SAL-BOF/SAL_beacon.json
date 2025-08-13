@@ -181,7 +181,7 @@
         {
             "type": "command",
             "agents": ["beacon"],
-      
+
             "command": "useridletime",
             "description": "Shows how long the user as been idle, displayed in seconds, minutes, hours and days.",
             "message": "BOF implementation: useridletime",

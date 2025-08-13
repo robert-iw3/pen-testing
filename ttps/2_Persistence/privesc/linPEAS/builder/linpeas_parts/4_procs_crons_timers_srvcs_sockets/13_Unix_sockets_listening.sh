@@ -27,28 +27,28 @@ if ! [ "$IAMROOT" ]; then
         get_socket_perms() {
             local socket="$1"
             local perms=""
-            
+
             # Check read permission
             if [ -r "$socket" ]; then
                 perms="Read "
             fi
-            
+
             # Check write permission
             if [ -w "$socket" ]; then
                 perms="${perms}Write "
             fi
-            
+
             # Check execute permission
             if [ -x "$socket" ]; then
                 perms="${perms}Execute "
             fi
-            
+
             # Check socket mode
             local mode=$(stat -c "%a" "$socket" 2>/dev/null)
             if [ "$mode" = "777" ] || [ "$mode" = "666" ]; then
                 perms="${perms}(Weak Permissions: $mode) "
             fi
-            
+
             echo "$perms"
         }
 
@@ -56,7 +56,7 @@ if ! [ "$IAMROOT" ]; then
         check_socket_connectivity() {
             local socket="$1"
             local perms="$2"
-            
+
             if [ "$EXTRA_CHECKS" ] && command -v curl >/dev/null 2>&1; then
                 # Try to connect to the socket
                 if curl -v --unix-socket "$socket" --max-time 1 http:/linpeas 2>&1 | grep -iq "Permission denied"; then
@@ -65,7 +65,7 @@ if ! [ "$IAMROOT" ]; then
                     perms="${perms} - Can Connect"
                 fi
             fi
-            
+
             echo "$perms"
         }
 
@@ -74,7 +74,7 @@ if ! [ "$IAMROOT" ]; then
             local socket="$1"
             local owner="$2"
             local response=""
-            
+
             # Try to get HTTP response
             if command -v curl >/dev/null 2>&1; then
                 response=$(curl --max-time 2 --unix-socket "$socket" http:/index 2>/dev/null)
@@ -91,7 +91,7 @@ if ! [ "$IAMROOT" ]; then
             local socket="$1"
             local owner=""
             local group=""
-            
+
             if [ -e "$socket" ]; then
                 owner=$(ls -l "$socket" 2>/dev/null | awk '{print $3}')
                 group=$(ls -l "$socket" 2>/dev/null | awk '{print $4}')
@@ -126,19 +126,19 @@ if ! [ "$IAMROOT" ]; then
                 perms=$(get_socket_perms "$socket")
                 perms=$(check_socket_connectivity "$socket" "$perms")
                 owner_info=$(get_socket_owner "$socket")
-                
+
                 # Print socket information
                 if [ -z "$perms" ]; then
                     echo "$socket" | sed -${E} "s,$socket,${SED_GREEN},g"
                 else
                     echo "$socket" | sed -${E} "s,$socket,${SED_RED},g"
                     echo "  └─(${RED}${perms}${NC})" | sed -${E} "s,Cannot Connect,${SED_GREEN},g"
-                    
+
                     # Analyze socket protocol if we can connect
                     if echo "$perms" | grep -q "Can Connect"; then
                         analyze_socket_protocol "$socket" "$owner_info"
                     fi
-                    
+
                     # Highlight dangerous ownership
                     if echo "$owner_info" | grep -q "root"; then
                         echo "  └─(${RED}Owned by root${NC})"

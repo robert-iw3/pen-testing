@@ -20,8 +20,8 @@ revert_pam() {
 			"/usr/lib/x86_64-linux-gnu/security/pam_unix.so"
 			"/lib64/security/pam_unix.so"
 		)
-		
-		# Revert pam_unix.so with the pam_unix.so.bak backup 
+
+		# Revert pam_unix.so with the pam_unix.so.bak backup
 		for pam_module in "${pam_module_paths[@]}"; do
 			if [[ -f "$pam_module.bak" ]]; then
 				mv -f "$pam_module.bak" "$pam_module"

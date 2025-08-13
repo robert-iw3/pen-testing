@@ -4,6 +4,6 @@
 
 extern Agent* g_Agent;
 
-void AgentMain(); 
+void AgentMain();
 
 void AgentClear(int method);

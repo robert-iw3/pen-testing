@@ -13,7 +13,7 @@ index 1bf666b..297ccaf 100644
 --- a/grub-core/Makefile.core.def
 +++ b/grub-core/Makefile.core.def
 @@ -1711,9 +1711,7 @@ module = {
- 
+
  module = {
    name = linux;
 -  i386_pc = loader/i386/pc/linux.c;
@@ -24,11 +24,11 @@ index 1bf666b..297ccaf 100644
    i386_pc = lib/i386/pc/vesa_modes_table.c;
    mips = loader/mips/linux.c;
 @@ -1728,8 +1726,15 @@ module = {
- 
+
    common = loader/linux.c;
    common = lib/cmdline.c;
 +};
- 
+
 +module = {
 +  name = linuxefi;
 +  efi = loader/i386/efi/linux.c;
@@ -37,7 +37,7 @@ index 1bf666b..297ccaf 100644
 +  enable = i386_efi;
 +  enable = x86_64_efi;
  };
- 
+
  module = {
 diff --git a/grub-core/loader/i386/efi/linux.c b/grub-core/loader/i386/efi/linux.c
 index 851bce7..918b662 100644
@@ -46,10 +46,10 @@ index 851bce7..918b662 100644
 @@ -375,30 +375,21 @@ grub_cmd_linux (grub_command_t cmd __attribute__ ((unused)),
    return grub_errno;
  }
- 
+
 -static grub_command_t cmd_linux, cmd_initrd;
  static grub_command_t cmd_linuxefi, cmd_initrdefi;
- 
+
 -GRUB_MOD_INIT(linux)
 +GRUB_MOD_INIT(linuxefi)
  {
@@ -67,7 +67,7 @@ index 851bce7..918b662 100644
                             0, N_("Load initrd."));
    my_mod = mod;
  }
- 
+
 -GRUB_MOD_FINI(linux)
 +GRUB_MOD_FINI(linuxefi)
  {
@@ -76,6 +76,6 @@ index 851bce7..918b662 100644
 -  grub_unregister_command (cmd_initrd);
    grub_unregister_command (cmd_initrdefi);
  }
--- 
+--
 2.20.1
 

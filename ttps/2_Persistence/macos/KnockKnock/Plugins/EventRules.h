@@ -13,7 +13,7 @@
 
 @interface EventRules : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

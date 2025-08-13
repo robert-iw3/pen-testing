@@ -114,7 +114,7 @@ bea_wls_internal/WLDummyInitJVMIDs
 bea_wls_internal/WebServiceServlet
 bea_wls_internal/a2e2gp2r2/x.jsp
 bea_wls_internal/classes/
-bea_wls_internal/classes/ 
+bea_wls_internal/classes/
 bea_wls_internal/classes/*
 bea_wls_internal/classes/META-INF/MANIFEST.MF
 bea_wls_internal/com/*

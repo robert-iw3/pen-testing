@@ -457,7 +457,7 @@ namespace TeamFiltration.Handlers
                 //Query all tokens for this given resource
                 List<PulledTokens> tokenQueryList = _databaseHandler.QueryToken(username, targetResource);
 
-                //Filter out the ones that are not valid 
+                //Filter out the ones that are not valid
                 IEnumerable<PulledTokens> validTokenQueryList = tokenQueryList.Where(x => Helpers.Generic.IsTokenValid(x.ResponseData, x.DateTime));
 
                 if (validTokenQueryList.Count() > 0)
@@ -572,7 +572,7 @@ namespace TeamFiltration.Handlers
                 //Query all tokens for this given resource
                 List<PulledTokens> tokenQueryList = _databaseHandler.QueryToken(username, resURI);
 
-                //Filter out the ones that are not valid 
+                //Filter out the ones that are not valid
                 IEnumerable<PulledTokens> validTokenQueryList = tokenQueryList.Where(x => Helpers.Generic.IsTokenValid(x.ResponseData, x.DateTime));
 
                 if (validTokenQueryList.Count() > 0)

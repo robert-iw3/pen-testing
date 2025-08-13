@@ -3470,7 +3470,7 @@ rc = SQLITE_CORRUPT_BKPT;
               rc = sqlite3BtreeCursor( pX, p2, wrFlag, pKeyInfo, pCur.pCursor );
               pCur.pKeyInfo = pKeyInfo;
               /* Since it performs no memory allocation or IO, the only values that
-              ** sqlite3BtreeCursor() may return are SQLITE_EMPTY and SQLITE_OK. 
+              ** sqlite3BtreeCursor() may return are SQLITE_EMPTY and SQLITE_OK.
               ** SQLITE_EMPTY is only returned when attempting to open the table
               ** rooted at page 1 of a zero-byte database.  */
               Debug.Assert( rc==SQLITE_EMPTY || rc==SQLITE_OK );
@@ -5792,7 +5792,7 @@ case OP_TableLock:
 {
 u8 isWriteLock = (u8)pOp.p3;
 if( isWriteLock || 0==(db.flags&SQLITE_ReadUncommitted) ){
-int p1 = pOp.p1; 
+int p1 = pOp.p1;
 Debug.Assert( p1 >= 0 && p1 < db.nDb );
 Debug.Assert( ( p.btreeMask & ( 1 << p1 ) ) != 0 );
 Debug.Assert( isWriteLock == 0 || isWriteLock == 1 );

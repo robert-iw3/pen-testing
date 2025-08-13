@@ -154,7 +154,7 @@ SharpPELoaderGenerater will determine whether the exe is 32-bit or 64-bit and th
             public UInt16 SizeOfOptionalHeader;
             public UInt16 Characteristics;
         }
- 
+
         /// <summary>
         /// The DOS header
         /// </summary>

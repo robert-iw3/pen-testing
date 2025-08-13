@@ -35,13 +35,13 @@ for binary in "${BINARIES[@]}"; do
   read -r NAME SRC STRIP <<< "$binary"
   for platform in "${PLATFORMS[@]}"; do
     read -r GOOS GOARCH <<< "$platform"
-    
+
     # Skip unsupported darwin/386
     if [[ "$GOOS" == "darwin" && "$GOARCH" == "386" ]]; then
       echo "⚠️  Skipping unsupported target darwin/386"
       continue
     fi
-    
+
     # Skip non-relay binaries on Windows
     if [[ "$GOOS" == "windows" && "$NAME" != "turnt-relay" ]]; then
       echo "⚠️  Skipping $NAME for Windows platform"
@@ -53,15 +53,15 @@ for binary in "${BINARIES[@]}"; do
       echo "⚠️  Skipping admin binary for Windows platform"
       continue
     fi
-    
+
     EXT=""
     [ "$GOOS" == "windows" ] && EXT=".exe"
     OUTFILE_BASE="${OUTPUT_DIR}/${NAME}-${GOOS}-${GOARCH}${EXT}"
-    
+
     if [[ "$STRIP" == "yes" ]]; then
       echo "🔨 Building stripped $OUTFILE_BASE..."
       GOOS=$GOOS GOARCH=$GOARCH go build -ldflags="-s -w" -o "$OUTFILE_BASE" "$SRC"
-      
+
       # For turnt-relay on Windows (except ARM64), build both UPX and non-UPX versions
       if [[ "$NAME" == "turnt-relay" && "$GOOS" == "windows" && "$GOARCH" != "arm64" ]]; then
         # Add non-UPX version to zip
@@ -70,7 +70,7 @@ for binary in "${BINARIES[@]}"; do
           "linux") zip -j "$OUTPUT_DIR/turnt-linux.zip" "$OUTFILE_BASE" ;;
           "darwin") zip -j "$OUTPUT_DIR/turnt-macos.zip" "$OUTFILE_BASE" ;;
         esac
-        
+
         # Create and add UPX version
         OUTFILE_UPX="${OUTPUT_DIR}/${NAME}-${GOOS}-${GOARCH}-upx${EXT}"
         cp "$OUTFILE_BASE" "$OUTFILE_UPX"

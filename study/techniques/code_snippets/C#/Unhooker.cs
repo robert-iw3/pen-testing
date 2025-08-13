@@ -194,14 +194,14 @@ public class PEReader
 
         public string Section
         {
-            get { 
+            get {
                 int i = Name.Length - 1;
                 while (Name[i] == 0) {
                     --i;
                 }
                 char[] NameCleaned = new char[i+1];
                 Array.Copy(Name, NameCleaned, i+1);
-                return new string(NameCleaned); 
+                return new string(NameCleaned);
             }
         }
     }
@@ -230,11 +230,11 @@ public class PEReader
 
     private IMAGE_FILE_HEADER fileHeader;
 
-    /// Optional 32 bit file header 
+    /// Optional 32 bit file header
 
     private IMAGE_OPTIONAL_HEADER32 optionalHeader32;
 
-    /// Optional 64 bit file header 
+    /// Optional 64 bit file header
 
     private IMAGE_OPTIONAL_HEADER64 optionalHeader64;
 

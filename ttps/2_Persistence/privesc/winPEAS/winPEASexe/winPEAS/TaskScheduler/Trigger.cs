@@ -687,7 +687,7 @@ namespace winPEAS.TaskScheduler
     ///<![CDATA[
     /// // Add a general logon trigger
     /// LogonTrigger lt1 = new LogonTrigger();
-    /// 
+    ///
     /// // V2 only: Add a delayed logon trigger for a specific user
     /// LogonTrigger lt2 = new LogonTrigger { UserId = "LocalUser" };
     /// lt2.Delay = TimeSpan.FromMinutes(15);
@@ -1442,7 +1442,7 @@ namespace winPEAS.TaskScheduler
     /// tt.Repetition.Duration = TimeSpan.FromDays(1); // Default is TimeSpan.Zero (or never)
     /// // Set the task to end even if running when the duration is over
     /// tt.Repetition.StopAtDurationEnd = true; // Default is false;
-    /// 
+    ///
     /// // Do the same as above with a constructor
     /// tt = new TimeTrigger(new DateTime().Now.AddHours(1)) { Repetition = new RepetitionPattern(TimeSpan.FromMinutes(30), TimeSpan.FromDays(1), true) };
     ///]]>

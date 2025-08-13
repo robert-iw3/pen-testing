@@ -521,8 +521,8 @@ typedef struct _PROCESSOR_NUMBER {
 
 #if _WIN32_WINNT >= 0x0501
 
-#define ANSI_NULL ((CHAR)0)     
-#define UNICODE_NULL ((WCHAR)0) 
+#define ANSI_NULL ((CHAR)0)
+#define UNICODE_NULL ((WCHAR)0)
 
 #ifndef UNICODE_STRING_MAX_BYTES
 #define UNICODE_STRING_MAX_BYTES ((USHORT) 65534)
@@ -853,7 +853,7 @@ typedef struct _PROCESSOR_NUMBER {
 #define FSCTL_CSV_TUNNEL_REQUEST            CTL_CODE(FILE_DEVICE_FILE_SYSTEM, 145, METHOD_BUFFERED, FILE_ANY_ACCESS) // CSV_TUNNEL_REQUEST
 #define FSCTL_IS_CSV_FILE                   CTL_CODE(FILE_DEVICE_FILE_SYSTEM, 146, METHOD_BUFFERED, FILE_ANY_ACCESS) // IS_CSV_FILE
 
-#define FSCTL_QUERY_FILE_SYSTEM_RECOGNITION CTL_CODE(FILE_DEVICE_FILE_SYSTEM, 147, METHOD_BUFFERED, FILE_ANY_ACCESS) // 
+#define FSCTL_QUERY_FILE_SYSTEM_RECOGNITION CTL_CODE(FILE_DEVICE_FILE_SYSTEM, 147, METHOD_BUFFERED, FILE_ANY_ACCESS) //
 #define FSCTL_CSV_GET_VOLUME_PATH_NAME      CTL_CODE(FILE_DEVICE_FILE_SYSTEM, 148, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define FSCTL_CSV_GET_VOLUME_NAME_FOR_VOLUME_MOUNT_POINT CTL_CODE(FILE_DEVICE_FILE_SYSTEM, 149, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define FSCTL_CSV_GET_VOLUME_PATH_NAMES_FOR_VOLUME_NAME CTL_CODE(FILE_DEVICE_FILE_SYSTEM, 150,  METHOD_BUFFERED, FILE_ANY_ACCESS)
@@ -1680,7 +1680,7 @@ typedef struct _TXFS_MODIFY_RM {
 typedef struct _TXFS_QUERY_RM_INFORMATION {
 
 	ULONG BytesRequired;
-	
+
 	ULONGLONG TailLsn;
 	ULONGLONG CurrentLsn;
 	ULONGLONG ArchiveTailLsn;
@@ -2850,19 +2850,19 @@ typedef enum _PROCESS_TLS_INFORMATION_TYPE
 } PROCESS_TLS_INFORMATION_TYPE;
 
 
-#define PROCESS_TERMINATE         (0x0001)  
-#define PROCESS_CREATE_THREAD     (0x0002)  
-#define PROCESS_SET_SESSIONID     (0x0004)  
-#define PROCESS_VM_OPERATION      (0x0008)  
-#define PROCESS_VM_READ           (0x0010)  
+#define PROCESS_TERMINATE         (0x0001)
+#define PROCESS_CREATE_THREAD     (0x0002)
+#define PROCESS_SET_SESSIONID     (0x0004)
+#define PROCESS_VM_OPERATION      (0x0008)
+#define PROCESS_VM_READ           (0x0010)
 #define PROCESS_VM_WRITE          (0x0020)
 #define PROCESS_DUP_HANDLE        (0x0040)
-#define PROCESS_CREATE_PROCESS    (0x0080)  
-#define PROCESS_SET_QUOTA         (0x0100)  
-#define PROCESS_SET_INFORMATION   (0x0200)  
-#define PROCESS_QUERY_INFORMATION (0x0400)  
+#define PROCESS_CREATE_PROCESS    (0x0080)
+#define PROCESS_SET_QUOTA         (0x0100)
+#define PROCESS_SET_INFORMATION   (0x0200)
+#define PROCESS_QUERY_INFORMATION (0x0400)
 #define PROCESS_SET_PORT          (0x0800)
-#define PROCESS_SUSPEND_RESUME    (0x0800)  
+#define PROCESS_SUSPEND_RESUME    (0x0800)
 
 #define NtCurrentThread() ( (HANDLE)(LONG_PTR) -2 )
 #define NtCurrentProcess() ( (HANDLE)(LONG_PTR) -1 )
@@ -2879,13 +2879,13 @@ typedef enum _PROCESS_TLS_INFORMATION_TYPE
 #define NtCurrentPID() __readgsqword(0x20)
 #endif
 
-#define THREAD_TERMINATE               (0x0001)  
-#define THREAD_SUSPEND_RESUME          (0x0002)  
+#define THREAD_TERMINATE               (0x0001)
+#define THREAD_SUSPEND_RESUME          (0x0002)
 #define THREAD_ALERT                   (0x0004)
-#define THREAD_GET_CONTEXT             (0x0008)  
-#define THREAD_SET_CONTEXT             (0x0010)  
-#define THREAD_SET_INFORMATION         (0x0020)  
-#define THREAD_QUERY_INFORMATION       (0x0040)  
+#define THREAD_GET_CONTEXT             (0x0008)
+#define THREAD_SET_CONTEXT             (0x0010)
+#define THREAD_SET_INFORMATION         (0x0020)
+#define THREAD_QUERY_INFORMATION       (0x0040)
 #define THREAD_SET_THREAD_TOKEN        (0x0080)
 #define THREAD_IMPERSONATE             (0x0100)
 #define THREAD_DIRECT_IMPERSONATION    (0x0200)
@@ -3269,8 +3269,8 @@ typedef struct _REMOTE_PORT_VIEW {
 } REMOTE_PORT_VIEW, *PREMOTE_PORT_VIEW;
 
 #define IO_COMPLETION_QUERY_STATE   0x0001
-#define IO_COMPLETION_MODIFY_STATE  0x0002  
-#define IO_COMPLETION_ALL_ACCESS (STANDARD_RIGHTS_REQUIRED|SYNCHRONIZE|0x3) 
+#define IO_COMPLETION_MODIFY_STATE  0x0002
+#define IO_COMPLETION_ALL_ACCESS (STANDARD_RIGHTS_REQUIRED|SYNCHRONIZE|0x3)
 
 typedef enum _IO_COMPLETION_INFORMATION_CLASS {
 	IoCompletionBasicInformation
@@ -4752,23 +4752,23 @@ typedef struct _SYSTEM_LOGICAL_PROCESSOR_INFORMATION {
 
 #define PROCESSOR_ARCHITECTURE_UNKNOWN 0xFFFF
 
-#define PF_FLOATING_POINT_PRECISION_ERRATA  0   
-#define PF_FLOATING_POINT_EMULATED          1   
-#define PF_COMPARE_EXCHANGE_DOUBLE          2   
-#define PF_MMX_INSTRUCTIONS_AVAILABLE       3   
-#define PF_PPC_MOVEMEM_64BIT_OK             4   
-#define PF_ALPHA_BYTE_INSTRUCTIONS          5   
-#define PF_XMMI_INSTRUCTIONS_AVAILABLE      6   
-#define PF_3DNOW_INSTRUCTIONS_AVAILABLE     7   
-#define PF_RDTSC_INSTRUCTION_AVAILABLE      8   
-#define PF_PAE_ENABLED                      9   
-#define PF_XMMI64_INSTRUCTIONS_AVAILABLE   10   
-#define PF_SSE_DAZ_MODE_AVAILABLE          11   
-#define PF_NX_ENABLED                      12   
-#define PF_SSE3_INSTRUCTIONS_AVAILABLE     13   
-#define PF_COMPARE_EXCHANGE128             14   
-#define PF_COMPARE64_EXCHANGE128           15   
-#define PF_CHANNELS_ENABLED                16   
+#define PF_FLOATING_POINT_PRECISION_ERRATA  0
+#define PF_FLOATING_POINT_EMULATED          1
+#define PF_COMPARE_EXCHANGE_DOUBLE          2
+#define PF_MMX_INSTRUCTIONS_AVAILABLE       3
+#define PF_PPC_MOVEMEM_64BIT_OK             4
+#define PF_ALPHA_BYTE_INSTRUCTIONS          5
+#define PF_XMMI_INSTRUCTIONS_AVAILABLE      6
+#define PF_3DNOW_INSTRUCTIONS_AVAILABLE     7
+#define PF_RDTSC_INSTRUCTION_AVAILABLE      8
+#define PF_PAE_ENABLED                      9
+#define PF_XMMI64_INSTRUCTIONS_AVAILABLE   10
+#define PF_SSE_DAZ_MODE_AVAILABLE          11
+#define PF_NX_ENABLED                      12
+#define PF_SSE3_INSTRUCTIONS_AVAILABLE     13
+#define PF_COMPARE_EXCHANGE128             14
+#define PF_COMPARE64_EXCHANGE128           15
+#define PF_CHANNELS_ENABLED                16
 
 typedef struct _MEMORY_BASIC_INFORMATION
 {
@@ -5091,13 +5091,13 @@ typedef struct _SYSTEM_HOTPATCH_CODE_INFORMATION {
 			ULONG DescriptorsCount;
 			HOTPATCH_HOOK_DESCRIPTOR CodeDescriptors[1]; // variable size structure
 		} CodeInfo;
-		
+
 		struct
 		{
 			USHORT NameOffset;
 			USHORT NameLength;
 		} KernelInfo;
-		
+
 		struct
 		{
 			USHORT NameOffset;
@@ -5105,7 +5105,7 @@ typedef struct _SYSTEM_HOTPATCH_CODE_INFORMATION {
 			USHORT TargetNameOffset;
 			USHORT TargetNameLength;
 		} UserModeInfo;
-		
+
 		struct
 		{
 			HANDLE FileHandle1;
@@ -5938,7 +5938,7 @@ typedef struct _PORT_DATA_INFORMATION {
 
 #define CSR_APINUMBER_TO_APITABLEINDEX( ApiNumber ) \
 	((ULONG)((USHORT)(ApiNumber)))
-	
+
 typedef struct _CSR_NT_SESSION
 {
 	struct _LIST_ENTRY SessionLink;
@@ -10092,7 +10092,7 @@ typedef struct _SECTION_IMAGE_INFORMATION {
 	union
 	{
 		UCHAR	ImageFlags;
-		struct 
+		struct
 		{
 			BOOLEAN ComPlusNativeReady : 1;
 			BOOLEAN ComPlusILOnly : 1;
@@ -10551,12 +10551,12 @@ typedef struct _HEAP_VIRTUAL_ALLOC_ENTRY
 // #define XSTATE_LEGACY_FLOATING_POINT        0
 // #define XSTATE_LEGACY_SSE                   1
 // #define XSTATE_GSSE                         2
-// 
+//
 // #define XSTATE_MASK_LEGACY_FLOATING_POINT   (1i64 << (XSTATE_LEGACY_FLOATING_POINT))
 // #define XSTATE_MASK_LEGACY_SSE              (1i64 << (XSTATE_LEGACY_SSE))
 // #define XSTATE_MASK_LEGACY                  (XSTATE_MASK_LEGACY_FLOATING_POINT | XSTATE_MASK_LEGACY_SSE)
 // #define XSTATE_MASK_GSSE                    (1i64 << (XSTATE_GSSE))
-// 
+//
 // #define MAXIMUM_XSTATE_FEATURES             64
 
 
@@ -11137,9 +11137,9 @@ typedef struct _RTL_MEMORY_ZONE_SEGMENT
 } RTL_MEMORY_ZONE_SEGMENT, *PRTL_MEMORY_ZONE_SEGMENT;
 
 #if defined(_WINNT_) && defined(_MSC_VER) && (_MSC_VER < 1300)
-typedef struct _RTL_SRWLOCK {                            
-	PVOID Ptr;                                       
-} RTL_SRWLOCK, *PRTL_SRWLOCK; 
+typedef struct _RTL_SRWLOCK {
+	PVOID Ptr;
+} RTL_SRWLOCK, *PRTL_SRWLOCK;
 #endif
 
 typedef struct _RTL_MEMORY_ZONE
@@ -11427,7 +11427,7 @@ RtlGetIntegerAtom(
 	//
 	// EVENT_DATA_DESCRIPTOR is used to pass in user data items
 	// in events.
-	// 
+	//
 
 	typedef struct _EVENT_DATA_DESCRIPTOR
 	{
@@ -11451,7 +11451,7 @@ RtlGetIntegerAtom(
 	//
 	// EVENT_FILTER_DESCRIPTOR is used to pass in enable filter
 	// data item to a user callback function.
-	// 
+	//
 	typedef struct _EVENT_FILTER_DESCRIPTOR
 	{
 		ULONG_PTR   Ptr;
@@ -11491,7 +11491,7 @@ typedef struct _HOTPATCH_HEADER
 	ULONG_PTR OrigTargetBaseAddress;
 	ULONG TargetNameRva;
 	ULONG ModuleIdMethod;
-	union { 
+	union {
 		ULONG Filler;
 	} TargetModuleIdValue;
 } HOTPATCH_HEADER, *PHOTPATCH_HEADER;
@@ -22041,7 +22041,7 @@ NTSTATUS
 RtlGetVersion(
 	OUT PRTL_OSVERSIONINFOW lpVersionInformation
 	);
-		
+
 NTSTATUS
 NTAPI
 ZwWow64QueryInformationProcess64(
@@ -22146,7 +22146,7 @@ ZwWow64CsrFreeCaptureBuffer(
 
 NTSTATUS
 NTAPI
-ZwWow64CsrIdentifyAlertableThread( 
+ZwWow64CsrIdentifyAlertableThread(
     void
     );
 
@@ -22383,8 +22383,8 @@ RtlRandomEx(
     PULONG Seed
 );
 
-//NTSYSAPI 
-//NTSTATUS 
+//NTSYSAPI
+//NTSTATUS
 //RtlIpv4StringToAddressA(
 //    PCSTR   S,
 //    BOOLEAN Strict,

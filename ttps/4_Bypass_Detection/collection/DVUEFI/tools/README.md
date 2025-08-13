@@ -4,7 +4,7 @@
 We include two versions of the same tool, UEFITool, as it is widely useful for firmware analysis and image modification.
 
 `UEFITool` represents the latest and great version of UEFITool that works best for analyzing images.
-It automatically resolves many GUIDs making it easy to narrow down what we want to analyze. 
+It automatically resolves many GUIDs making it easy to narrow down what we want to analyze.
 
 `UEFITool28` uses an outdated engine, but it is capable of modifying the UEFI images and not just analyzing them.
 We can insert, replace, and remove files from the image with just a few clicks.

@@ -39,15 +39,15 @@ int main() {
 
 	std::wcout << "Creating named pipe " << pipeName << std::endl;
 	serverPipe = CreateNamedPipe(pipeName, PIPE_ACCESS_DUPLEX, PIPE_TYPE_MESSAGE, 1, 2048, 2048, 0, NULL);
-	
+
 	isPipeConnected = ConnectNamedPipe(serverPipe, NULL);
 	if (isPipeConnected) {
 		std::wcout << "Incoming connection to " << pipeName << std::endl;
 	}
-	
+
 	std::wcout << "Sending message: " << message << std::endl;
 	WriteFile(serverPipe, message, messageLenght, &bytesWritten, NULL);
-	
+
 	return 0;
 }
 ```
@@ -71,7 +71,7 @@ int main()
 
 	std::wcout << "Connecting to " << pipeName << std::endl;
 	clientPipe = CreateFile(pipeName, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
-	
+
 	while (isPipeRead) {
 		isPipeRead = ReadFile(clientPipe, &message, MESSAGE_SIZE, &bytesRead, NULL);
 		std::wcout << "Received message: " << message;
@@ -131,18 +131,18 @@ int main() {
 
 	std::wcout << "Creating named pipe " << pipeName << std::endl;
 	serverPipe = CreateNamedPipe(pipeName, PIPE_ACCESS_DUPLEX, PIPE_TYPE_MESSAGE, 1, 2048, 2048, 0, NULL);
-	
+
 	isPipeConnected = ConnectNamedPipe(serverPipe, NULL);
 	if (isPipeConnected) {
 		std::wcout << "Incoming connection to " << pipeName << std::endl;
 	}
-	
+
 	std::wcout << "Sending message: " << message << std::endl;
 	WriteFile(serverPipe, message, messageLenght, &bytesWritten, NULL);
-	
+
 	std::wcout << "Impersonating the client..." << std::endl;
 	ImpersonateNamedPipeClient(serverPipe);
-	err = GetLastError();	
+	err = GetLastError();
 
 	STARTUPINFO	si = {};
 	wchar_t command[] = L"C:\\Windows\\system32\\notepad.exe";
@@ -161,7 +161,7 @@ Running the server and connecting to it with the client that is running under ad
 Not so fast - unfortunately, I was not able to properly duplicate the token and use it to our advantage with the following code:
 
 ```cpp
-	HANDLE 
+	HANDLE
 		threadToken = NULL,
 		duplicatedToken = NULL;
 

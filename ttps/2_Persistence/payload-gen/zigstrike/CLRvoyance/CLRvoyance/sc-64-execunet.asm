@@ -70,7 +70,7 @@ execunet:
 	mov [rsi+0x28], rax
 
 	; resolve LoadLibraryA
-	mov rsi, [gs:0x28]	
+	mov rsi, [gs:0x28]
 	add rsi, LOADLIBRARYA
 	LOOKUP_API KERNEL32DLL, KERNEL32_LOADLIBRARYA, rsi
 
@@ -235,7 +235,7 @@ execunet:
 	jz done
 	mov rsi, [gs:0x28]
 	mov [rsi+SAFEARRAY], rax
-	
+
 	; SafeArrayAccessData(pSafeArray, &lpSafeData)
 	mov rdx, [gs:0x28]
 	add rdx, SAFEDATA

@@ -7,7 +7,7 @@ This is a simulation of attack by (Primitive Bear) APT group targeting the State
 
 This attack included several stages including Create an SFX file with Word File inside it. This Word File contains VBS script which is responsible for command and control and make obfuscation VBS script payload before putting it inside the word file this sent through spear phishing attack and make remote communication by utilizes DES encryption for secure data transmission between the attacker server and the target.
 
-1. Create the Word Document: Write a Word document (.doc or .docx) containing the macro with the obfuscated VBS payload. The macro should be designed to execute the payload when the document is opened. 
+1. Create the Word Document: Write a Word document (.doc or .docx) containing the macro with the obfuscated VBS payload. The macro should be designed to execute the payload when the document is opened.
 
 2. Create a VBScript payload designed to establish a reverse connection to the Command and Control (C2) server.
 
@@ -18,7 +18,7 @@ Add the Word document containing the macro and the obfuscated VBS payload to the
 
 5. Place the obfuscated VBS payload and word file inside the SFX archive to send to the target.
 
-6. Final result make remote communication by utilizes DES encryption for secure data transmission between the attacker server and the target. 
+6. Final result make remote communication by utilizes DES encryption for secure data transmission between the attacker server and the target.
 
 
 ![word-image-4](https://github.com/S3N4T0R-0X0/Primitive-Bear-APT/assets/121706460/9e4ac08a-9ae5-4b39-ad41-ed9d82cc65b6)

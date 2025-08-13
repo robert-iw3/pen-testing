@@ -257,8 +257,8 @@ BOOL LoadFunc() {
 
     CDLocateCSystem = GetProcAddress(crypt, "CDLocateCSystem");
     if (!CDLocateCSystem) goto failed;
-    
-    
+
+
 
     HMODULE ntdll = GetModuleHandleA("ntdll.dll");
     if (!ntdll) goto failed;

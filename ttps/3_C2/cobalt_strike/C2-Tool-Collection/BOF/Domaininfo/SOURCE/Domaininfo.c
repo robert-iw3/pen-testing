@@ -59,7 +59,7 @@ VOID BeaconOutputStreamW() {
 			goto CleanUp;
 		}
 
-		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {		
+		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {
 			goto CleanUp;
 		}
 
@@ -81,7 +81,7 @@ CleanUp:
 }
 
 
-VOID go(IN PCHAR Args, IN ULONG Length) { 
+VOID go(IN PCHAR Args, IN ULONG Length) {
 	DWORD dwRet = 0;
 	PDOMAIN_CONTROLLER_INFOW pdcInfo;
 
@@ -182,9 +182,9 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 				LPSOCKET_ADDRESS rgSocketAddresses;
 
 				dwRet = NETAPI32$DsGetDcNextW(
-					hGetDc, 
-					&ulSocketCount, 
-					&rgSocketAddresses, 
+					hGetDc,
+					&ulSocketCount,
+					&rgSocketAddresses,
 					&pszDnsHostName);
 
 				if (ERROR_SUCCESS == dwRet) {
@@ -271,7 +271,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 
 			//Print final Output
 			BeaconOutputStreamW();
-			
+
 			NetFreeAadJoinInformation(ppJoinInfo);
 		}
 	}

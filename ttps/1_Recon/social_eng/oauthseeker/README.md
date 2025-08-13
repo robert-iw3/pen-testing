@@ -1,6 +1,6 @@
 # OAuthSeeker
 
-**OAuthSeeker** is an red team tool for performing phishing attacks using malicious OAuth applications to compromise user identities within Microsoft Azure and Office365. 
+**OAuthSeeker** is an red team tool for performing phishing attacks using malicious OAuth applications to compromise user identities within Microsoft Azure and Office365.
 
 ## 🚀 Key Features
 
@@ -42,7 +42,7 @@ OAuthSeeker obtains valid Microsoft Graph API credentials inclduing a JWT and re
 
 ### GraphRunner
 
-[GraphRunner](https://www.blackhillsinfosec.com/introducing-graphrunner/) is a post-exploitation toolkit for Microsoft 365, allowing attackers to leverage authenticated access to Microsoft's Graph API. With GraphRunner, operators can search and export data from emails, SharePoint, and Teams, enumerate user permissions, deploy malicious applications, and more. It’s a powerful way to pillage compromised accounts and maintain persistence within a Microsoft 365 environment. Black Hills Information Security originally developed this tool, and they have an informative webcast titled [GraphRunner: A Post-Exploitation Toolset for M365](https://www.youtube.com/watch?v=o29jzC3deS0) discussing the tool's usage and common attack paths. 
+[GraphRunner](https://www.blackhillsinfosec.com/introducing-graphrunner/) is a post-exploitation toolkit for Microsoft 365, allowing attackers to leverage authenticated access to Microsoft's Graph API. With GraphRunner, operators can search and export data from emails, SharePoint, and Teams, enumerate user permissions, deploy malicious applications, and more. It’s a powerful way to pillage compromised accounts and maintain persistence within a Microsoft 365 environment. Black Hills Information Security originally developed this tool, and they have an informative webcast titled [GraphRunner: A Post-Exploitation Toolset for M365](https://www.youtube.com/watch?v=o29jzC3deS0) discussing the tool's usage and common attack paths.
 
 ### GraphSpy
 
@@ -50,7 +50,7 @@ OAuthSeeker obtains valid Microsoft Graph API credentials inclduing a JWT and re
 
 ### OAuthAzure
 
-OAuthAzure is a utility that can be leveraged alongside OAuthSeeker for post-exploitation and enumeration of resources within an Azure environment. OAuthSeeker allows you to perform a phishing attack where you can request user_impersonation privileges within Microsoft Azure which then allows you to access all Azure resources on behalf of the victim user account. OAuthSeeker by default requests Graph API tokens as the requested token audience for the JWT can either be for the Microsoft Graph API or for Microsoft Azure, but not both at the same time. By default, we request Graph API access within OAuthSeeker, but OAuthAzure can then be leveraged to exchange the obtained JWT and Refresh token for a Microsoft Azure token for access to Azure impersonation capabilities. 
+OAuthAzure is a utility that can be leveraged alongside OAuthSeeker for post-exploitation and enumeration of resources within an Azure environment. OAuthSeeker allows you to perform a phishing attack where you can request user_impersonation privileges within Microsoft Azure which then allows you to access all Azure resources on behalf of the victim user account. OAuthSeeker by default requests Graph API tokens as the requested token audience for the JWT can either be for the Microsoft Graph API or for Microsoft Azure, but not both at the same time. By default, we request Graph API access within OAuthSeeker, but OAuthAzure can then be leveraged to exchange the obtained JWT and Refresh token for a Microsoft Azure token for access to Azure impersonation capabilities.
 
 ### OAuthPillage
 

@@ -45,7 +45,7 @@ Telegram, Twitter, Facebook were taken over by the threat actors at the time of 
 - EufBg931199Akw1vtusuXMUktGTp45Po3GiL1rNWbsBT SOLANA
 
 
-### Theft 
+### Theft
 
 - 6v4R3z5ahHqx3pbxMpYQMu26cuQoonLX2Rqq7WF35yzp SOLANA
 - 0x53d2094b31429a13e739358b16354d8e0826b25a ETH ARB BASE ($700k)
@@ -59,7 +59,7 @@ Telegram, Twitter, Facebook were taken over by the threat actors at the time of 
 
 - 0xb1cf7880351e6d16313c03a6686b4c8a5ba6372a ETH - Funds Holder / Consolidation
 
-### Laundry 
+### Laundry
 
 - 0xbc1b0a3d3dcf3bbceee12ea74fe077817205546f ETH Laundry (Oct 04 2024)
 - 0x052a6392c5c272ae69d42291179a37a18ff597a0 ETH Laundry (Oct 15 2024)

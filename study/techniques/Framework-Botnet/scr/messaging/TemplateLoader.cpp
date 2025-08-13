@@ -93,12 +93,12 @@ void TemplateLoader::logOperation(const std::string &operation, bool success, co
 }
 
 std::string TemplateLoader::encryptTemplate(const std::string &templateContent) {
-    std::string key = "your_encryption_key"; 
+    std::string key = "your_encryption_key";
     return EncryptionUtils::encryptString(templateContent, key);
 }
 
 std::string TemplateLoader::decryptTemplate(const std::string &encryptedContent) {
-    std::string key = "your_encryption_key"; 
+    std::string key = "your_encryption_key";
     return EncryptionUtils::decryptString(encryptedContent, key);
 }
 

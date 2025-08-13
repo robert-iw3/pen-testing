@@ -4,7 +4,7 @@
 # Last Update: 22-08-2023
 # Description: Check which files have been downloaded
 # License: GNU GPL
-# Version: 1.0 
+# Version: 1.0
 # Functions Used: print_2title
 # Global Variables: $MACPEAS
 # Initial Functions:

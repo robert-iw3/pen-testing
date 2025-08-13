@@ -25,7 +25,7 @@ class Node : public QGraphicsItem
 public:
     QString      NodeID       = QString();
     NodeItemType NodeType     = NodeItemType::Nothing;
-    Edge*        NodeEdge     = nullptr; 
+    Edge*        NodeEdge     = nullptr;
     Node*        Parent       = nullptr; // Pointer to the parent node of the current node. Null for the root.
     Node*        Thread       = nullptr; // For extreme left or right nodes, used to provide a successor node in a contour.
     Node*        Ancestor     = this;    // During the tree layout, it points to the node's ancestor that is used to determine how far apart different subtrees should be.
@@ -34,7 +34,7 @@ public:
     double       Modifier     = 0;       // Amount to adjust a node's y-coordinate, based on the positions of its descendants.
     double       Shift        = 0;       // Amount to move subtrees apart to avoid overlaps.
     double       Change       = 0;       // Rate of change in shift amount, used to evenly distribute shifts among siblings.
-    
+
     std::vector<Node*> Children = std::vector<Node*>();
 
     HavocNamespace::Util::SessionItem Session;

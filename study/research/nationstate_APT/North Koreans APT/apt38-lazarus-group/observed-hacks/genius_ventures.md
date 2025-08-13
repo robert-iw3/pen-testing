@@ -27,17 +27,17 @@ From a glance, it looks like if they have the deployer they can basically contro
 The Founder/CEO and project spoke about the exploit a bit on Twitter/X, though given the reality that we **know** the founder/CEO's ENS name was drained of funds back in January, best to put this shitshow in the pile with the rest of the shitshows and not trust anything he claims.
 
 > 🚨 Important Announcement 🚨
-> Due to a recent exploit, a hacker was able to mint fake $GNUS tokens on Fantom, transfer via Axelar Bridge to Ethereum and Polygon, and sell into existing liquidity pools. 
-> We will be conducting a snapshot at the block preceding the exploit. 
-> To ensure fairness, please refrain from purchasing $GNUS tokens post-exploit, as we'll be issuing a new token. 
-> Stay tuned for further updates. 
-> #GNUSes #CryptoSecurity 
+> Due to a recent exploit, a hacker was able to mint fake $GNUS tokens on Fantom, transfer via Axelar Bridge to Ethereum and Polygon, and sell into existing liquidity pools.
+> We will be conducting a snapshot at the block preceding the exploit.
+> To ensure fairness, please refrain from purchasing $GNUS tokens post-exploit, as we'll be issuing a new token.
+> Stay tuned for further updates.
+> #GNUSes #CryptoSecurity
 > cc: @axelarnetwork
 
 – [X:GnusAI - May 5, 2024 13:53 UTC](https://twitter.com/gnusai/status/1787118358862942361)
 
 
-> We've figured out that the hackers got the devs 0x18 deployment wallet during a discord hack. Apparently the hackers can watch private messages on discord. 
+> We've figured out that the hackers got the devs 0x18 deployment wallet during a discord hack. Apparently the hackers can watch private messages on discord.
 > This 0x18 was not the owners of the smart contract, but enabled them to launch exact address on FTM of the Axelar Token  Minter Manager contract.
 > I think we have a quick fix.
 > I'll be putting up $500k Eth into liquidity for the new pool, once we are sure it can't be hacked again.
@@ -48,9 +48,9 @@ The Founder/CEO and project spoke about the exploit a bit on Twitter/X, though g
 
 
 > It turns out that the https://GNUS.ai contract wasn't hacked/compromised.
-> The Axelar Management contract was duplicated on the FTM network. The deployer wallet may have been compromised so that it could be deployed to the same contract address.  
+> The Axelar Management contract was duplicated on the FTM network. The deployer wallet may have been compromised so that it could be deployed to the same contract address.
 > But I'm also analyzing everything to make sure there isn't a way to deploy on Fantom using an exploit similar to this:
-> https://medium.com/@solidity101/100daysofsolidity-081-deploying-different-contracts-at-the-same-address-a-solidity-deep-dive-3a954d0c3709#:~:text=To%20deploy%20different%20contracts%20at,address%20for%20multiple%20contract%20deployments. 
+> https://medium.com/@solidity101/100daysofsolidity-081-deploying-different-contracts-at-the-same-address-a-solidity-deep-dive-3a954d0c3709#:~:text=To%20deploy%20different%20contracts%20at,address%20for%20multiple%20contract%20deployments.
 > We've disabled the bridging on Polygon and Ethereum; the base, BSC liquidity, and contracts were not affected.
 
 – [X:SuperGeniusEth (CEO/Founder) - May 5, 2024 19:09 UTC](https://twitter.com/SuperGeniusEth/status/1787197943524810994 )
@@ -130,7 +130,7 @@ The Founder/CEO and project spoke about the exploit a bit on Twitter/X, though g
 - H3LzaZuxS9BfZ8JzLsqhc46aFtF5rNm2sr1Dxw1NekVz - SOL, Lbank Depo
 - 4UiA16jTfsCQBrpfSwBdjqy5hDdiewourLqpYcruUMd4 - SOL, Lbank Depo
 - 96XmfuerVssWLnspGaJj7ZaJNoRPtdwRRTyCqk1b9dks - SOL, from 2UbUrp
-- Hp1Fxs9esqj98qVWBwbwj63xafEfcqA36q2Wd5h9obvX - SOL, from 8LUB, 
+- Hp1Fxs9esqj98qVWBwbwj63xafEfcqA36q2Wd5h9obvX - SOL, from 8LUB,
 - 7aq2KJ4K3idSSvAFDvAoAfZhG5iUHASNFnXcGQRXGKa4 - SOL, from 5dzS, Unk Service Depo
 - 8NX3rUKskuyNgiYWRsRHXmG9rCPSYrtPdguEMiBHcqtr - SOL, from G284, Bybit Depo
 - TKFJS6HZE9cnXn5ShM7LW9AcaCUTywwVRq - Tron, ss

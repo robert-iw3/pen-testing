@@ -13,5 +13,5 @@ fn test_open_allow() {
     let path = CString::new("/etc/passwd").unwrap();
     let fd = unsafe { libc::open(path.as_ptr() as *const c_char, O_RDONLY) };
     assert!(fd >= 0, "Expected open to succeed for /etc/passwd");
-    unsafe { libc::close(fd) }; 
+    unsafe { libc::close(fd) };
 }

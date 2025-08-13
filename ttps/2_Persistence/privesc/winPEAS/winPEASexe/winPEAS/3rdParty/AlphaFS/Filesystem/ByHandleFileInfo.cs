@@ -1,22 +1,22 @@
 /*  Copyright (C) 2008-2018 Peter Palotas, Jeffrey Jangli, Alexandr Normuradov
- *  
- *  Permission is hereby granted, free of charge, to any person obtaining a copy 
- *  of this software and associated documentation files (the "Software"), to deal 
- *  in the Software without restriction, including without limitation the rights 
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
- *  copies of the Software, and to permit persons to whom the Software is 
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *  
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *  
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
- *  THE SOFTWARE. 
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
  */
 
 using System;
@@ -63,9 +63,9 @@ namespace Alphaleonis.Win32.Filesystem
 
 
       /// <summary>Gets the time this entry was last accessed.
-      /// For a file, the structure specifies the last time that a file is read from or written to. 
-      /// For a directory, the structure specifies when the directory is created. 
-      /// For both files and directories, the specified date is correct, but the time of day is always set to midnight. 
+      /// For a file, the structure specifies the last time that a file is read from or written to.
+      /// For a directory, the structure specifies when the directory is created.
+      /// For both files and directories, the specified date is correct, but the time of day is always set to midnight.
       /// If the underlying file system does not support the last access time, this member is zero (0).
       /// </summary>
       /// <value>The time this entry was last accessed.</value>
@@ -76,9 +76,9 @@ namespace Alphaleonis.Win32.Filesystem
 
 
       /// <summary>Gets the time, in coordinated universal time (UTC), this entry was last accessed.
-      /// For a file, the structure specifies the last time that a file is read from or written to. 
-      /// For a directory, the structure specifies when the directory is created. 
-      /// For both files and directories, the specified date is correct, but the time of day is always set to midnight. 
+      /// For a file, the structure specifies the last time that a file is read from or written to.
+      /// For a directory, the structure specifies when the directory is created.
+      /// For both files and directories, the specified date is correct, but the time of day is always set to midnight.
       /// If the underlying file system does not support the last access time, this member is zero (0).
       /// </summary>
       /// <value>The time, in coordinated universal time (UTC), this entry was last accessed.</value>
@@ -86,8 +86,8 @@ namespace Alphaleonis.Win32.Filesystem
 
 
       /// <summary>Gets the time this entry was last modified.
-      /// For a file, the structure specifies the last time that a file is written to. 
-      /// For a directory, the structure specifies when the directory is created. 
+      /// For a file, the structure specifies the last time that a file is written to.
+      /// For a directory, the structure specifies when the directory is created.
       /// If the underlying file system does not support the last access time, this member is zero (0).
       /// </summary>
       /// <value>The time this entry was last modified.</value>
@@ -98,8 +98,8 @@ namespace Alphaleonis.Win32.Filesystem
 
 
       /// <summary>Gets the time, in coordinated universal time (UTC), this entry was last modified.
-      /// For a file, the structure specifies the last time that a file is written to. 
-      /// For a directory, the structure specifies when the directory is created. 
+      /// For a file, the structure specifies the last time that a file is written to.
+      /// For a directory, the structure specifies when the directory is created.
       /// If the underlying file system does not support the last access time, this member is zero (0).
       /// </summary>
       /// <value>The time, in coordinated universal time (UTC), this entry was last modified.</value>
@@ -122,8 +122,8 @@ namespace Alphaleonis.Win32.Filesystem
 
 
       /// <summary>
-      /// Gets the unique identifier associated with the file. The identifier and the volume serial number uniquely identify a 
-      /// file on a single computer. To determine whether two open handles represent the same file, combine the identifier 
+      /// Gets the unique identifier associated with the file. The identifier and the volume serial number uniquely identify a
+      /// file on a single computer. To determine whether two open handles represent the same file, combine the identifier
       /// and the volume serial number for each file and compare them.
       /// </summary>
       /// <value>The unique identifier of the file.</value>

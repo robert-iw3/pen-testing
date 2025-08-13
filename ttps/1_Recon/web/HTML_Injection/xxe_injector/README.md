@@ -13,8 +13,8 @@
 pip install -r requirements.txt
 ```
 
-replace collaborator url line 26: COLLABORATOR_URL = "your-collaborator-url.com"  
-replace redirct url line 353: "https://www.example.com"  
+replace collaborator url line 26: COLLABORATOR_URL = "your-collaborator-url.com"
+replace redirct url line 353: "https://www.example.com"
 
 ## Usage
 
@@ -25,7 +25,7 @@ replace redirct url line 353: "https://www.example.com"
 - `-u`, `--url`: The target website URL.
 - `--hpp`:  Enable HTTP Parameter Pollution testing.
 - `--htmli`: Enable HTML Injection testing.
-- `--xxe`: Enable XXE Injection testing. 
+- `--xxe`: Enable XXE Injection testing.
 
 **Examples:**
 
@@ -34,5 +34,5 @@ replace redirct url line 353: "https://www.example.com"
   python htmli.py -u "https://example.com" --hpp --htmli --xxe
 
 ## Important Notes
-Use this tool ethically and responsibly.                                                           
+Use this tool ethically and responsibly.
 

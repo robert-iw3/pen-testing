@@ -21,7 +21,7 @@ if [ "$is_aws_codebuild" = "Yes" ]; then
       aws_req="curl -s -f"
   elif [ "$(command -v wget || echo -n '')" ]; then
       aws_req="wget -q -O -"
-  else 
+  else
       echo "Neither curl nor wget were found, I can't enumerate the metadata service :("
       echo "The addresses are in /codebuild/output/tmp/env.sh"
   fi

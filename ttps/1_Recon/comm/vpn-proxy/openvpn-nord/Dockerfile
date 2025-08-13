@@ -39,10 +39,10 @@ RUN \
     curl -L ${S6_OVERLAY_NOARCH_URL} -o /tmp/${S6_OVERLAY_NOARCH_TAR_FILE}; \
     curl -L ${S6_OVERLAY_ARCH_URL} -o /tmp/${S6_OVERLAY_ARCH_TAR_FILE}; \
     curl -L ${S6_OVERLAY_SYMLINKS_NOARCH_URL} -o /tmp/${S6_OVERLAY_SYMLINKS_NOARCH_TAR_FILE}; \
-    curl -L ${S6_OVERLAY_SYMLINKS_ARCH_URL} -o /tmp/${S6_OVERLAY_SYMLINKS_ARCH_TAR_FILE}; \    
+    curl -L ${S6_OVERLAY_SYMLINKS_ARCH_URL} -o /tmp/${S6_OVERLAY_SYMLINKS_ARCH_TAR_FILE}; \
     tar -C /root-out -Jxpf /tmp/${S6_OVERLAY_NOARCH_TAR_FILE}; \
     tar -C /root-out -Jxpf /tmp/${S6_OVERLAY_ARCH_TAR_FILE}; \
-    tar -C /root-out -Jxpf /tmp/${S6_OVERLAY_SYMLINKS_NOARCH_TAR_FILE}; \    
+    tar -C /root-out -Jxpf /tmp/${S6_OVERLAY_SYMLINKS_NOARCH_TAR_FILE}; \
     tar -C /root-out -Jxpf /tmp/${S6_OVERLAY_SYMLINKS_ARCH_TAR_FILE}
 
 ADD rootfs /root-out

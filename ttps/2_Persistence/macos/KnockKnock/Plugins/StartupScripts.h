@@ -11,7 +11,7 @@
 
 @interface StartupScripts : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

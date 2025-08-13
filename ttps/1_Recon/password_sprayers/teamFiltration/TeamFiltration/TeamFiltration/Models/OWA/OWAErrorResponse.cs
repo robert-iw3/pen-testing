@@ -17,5 +17,5 @@ namespace TeamFiltration.Models.OWA
         public string message { get; set; }
     }
 
-   
+
 }

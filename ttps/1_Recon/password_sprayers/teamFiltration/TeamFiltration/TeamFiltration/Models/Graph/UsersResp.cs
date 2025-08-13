@@ -30,5 +30,5 @@ namespace TeamFiltration.Models.Graph
         public string id { get; set; }
     }
 
-  
+
 }

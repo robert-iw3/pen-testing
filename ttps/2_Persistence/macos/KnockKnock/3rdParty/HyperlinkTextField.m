@@ -53,7 +53,7 @@
     {
         [self _hyperlinkTextFieldInit];
     }
-    
+
     return self;
 }
 
@@ -64,7 +64,7 @@
     {
         [self _hyperlinkTextFieldInit];
     }
-    
+
     return self;
 }
 
@@ -105,7 +105,7 @@
             }
         }
     }];
-    
+
     return [hyperlinkInfos count] ? hyperlinkInfos : nil;
 }
 
@@ -115,10 +115,10 @@
     // Font used for displaying and frame calculations must match
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedStringValue];
     NSFont *font = [attributedString attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL];
-    
+
     if (!font)
         [attributedString addAttribute:NSFontAttributeName value:self.font range:NSMakeRange(0, [attributedString length])];
-    
+
     NSRect textViewFrame = [self.cell titleRectForBounds:self.bounds];
     NSTextView *textView = [[NSTextView alloc] initWithFrame:textViewFrame];
     [textView.textStorage setAttributedString:attributedString];
@@ -135,7 +135,7 @@
     NSTextView *textView = self.textView;
     NSPoint localPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     NSUInteger index = [textView.layoutManager characterIndexForPoint:localPoint inTextContainer:textView.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
-    
+
     if (index != NSNotFound)
     {
         for (NSDictionary *info in self.hyperlinkInfos)

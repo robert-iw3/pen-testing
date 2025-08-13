@@ -46,7 +46,7 @@ get_hosts_info() {
 # Function to get DNS information
 get_dns_info() {
     print_3title "DNS Configuration"
-    
+
     # Get resolv.conf information
     if [ -f "/etc/resolv.conf" ]; then
         echo "DNS Servers (resolv.conf):"

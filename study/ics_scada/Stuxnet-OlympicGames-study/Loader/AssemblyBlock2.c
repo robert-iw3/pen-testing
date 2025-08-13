@@ -378,7 +378,7 @@ __ASM_REF_6(void)
 		inc     eax
 		jmp     short __REF_2
 
-	__REF_1: 
+	__REF_1:
 		xor     eax, eax
 
 	__REF_2:

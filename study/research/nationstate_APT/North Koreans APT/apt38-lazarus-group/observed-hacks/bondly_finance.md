@@ -12,7 +12,7 @@ Tags:: 🔑
 
 ## Details
 
-On Wednesday, July 14th 2021, Bondly Finance fell victim to an attack from a malicious actor (Attacker) leading to the transfer of 373,088,023 $BONDLY tokens from the Bondly Staking Rewards contract, 200,460,000 of which were used to mint zenBONDLY in a sophisticated attack on the MANTRA DAO ZENTEREST platform. 
+On Wednesday, July 14th 2021, Bondly Finance fell victim to an attack from a malicious actor (Attacker) leading to the transfer of 373,088,023 $BONDLY tokens from the Bondly Staking Rewards contract, 200,460,000 of which were used to mint zenBONDLY in a sophisticated attack on the MANTRA DAO ZENTEREST platform.
 
 Bondly Finance believes that the attacker obtained access to the password account belonging to Bondly CEO Brandon Smith through a carefully planned strategy. The password account contains the assistance of his hardware wallet. Recalling the phrase to restore the phrase, after copying, allowed the attacker to access the BONDLY smart contract, and the company wallet that was also leaked, resulting in the minting of 373 million BONDLY tokens, or $5M
 
@@ -20,7 +20,7 @@ Hacker got access to a devs password and then manipulated a smart contract from 
 
 The breach also extended to a number of Bondly-held wallets, which were also compromised during the attack.
 
-Upon initial investigation we believe the Attacker, through a well-orchestrated strategy, gained access to a password account belonging to Brandon Smith, CEO of Bondly. 
+Upon initial investigation we believe the Attacker, through a well-orchestrated strategy, gained access to a password account belonging to Brandon Smith, CEO of Bondly.
 
 The password account contained a mnemonic recovery phrase for his hardware wallet, which when replicated allowed the assailant access to the $BONDLY smart contract, as well as corporate wallets that were also compromised.
 
@@ -92,10 +92,10 @@ The password account contained a mnemonic recovery phrase for his hardware walle
 ## Connections
 
 - On Polygon, The first transaction in [bZx exploiter 0x0acc0e5faa09cb1976237c3a9af3d3d4b2f35fa5] is from [Bondly Exploiter 0xc433D50DD0614c81EE314289eC82Aa63710D25e8]
-- This exploit was very similar to bzx’s: the hacker got access to a devs password and then manipulated a smart contract from the protocol. 
+- This exploit was very similar to bzx’s: the hacker got access to a devs password and then manipulated a smart contract from the protocol.
 
 0x0adab45946372c2be1b94eead4b385210a8ebf0b (Nexus Mutual Hacker) ->
-- 0xdf22e8de755535ca3dcc500336aaabbfc2a6e6bc -> 
-- 0x558d63df14bb5ec2172d2996ae7931e416c985cf -> 
+- 0xdf22e8de755535ca3dcc500336aaabbfc2a6e6bc ->
+- 0x558d63df14bb5ec2172d2996ae7931e416c985cf ->
 - **0x190b71ecffeb8bcde68be86bc959e06baddaea6a**
 

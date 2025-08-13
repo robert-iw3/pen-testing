@@ -6,7 +6,7 @@ Amount Stolen:: $7,090,000
 
 Tags:: 🍎 Applejeus
 
-Attribution:: UN Security Council 
+Attribution:: UN Security Council
 
 Laundered Via:: Wasabi
 
@@ -24,11 +24,11 @@ DragonEX is a cryptocurrency exchange based in Singapore. It has been active sin
 
 Singapore-Based Crypto Exchange DragonEx Has Been Hacked Used software called “WorldBit-Bot” to carry out its active attacks wb-invest.net and wb-bot.org
 
-Lazarus created a fake company claiming to offer an automated cryptocurrency trading bot called Worldbit-bot, complete with a slick website and social media presence for made up employees. 
+Lazarus created a fake company claiming to offer an automated cryptocurrency trading bot called Worldbit-bot, complete with a slick website and social media presence for made up employees.
 
 The Chinese security service provider 360 Security has issued a warning that a large number of crypto exchanges have been targeted by the North Korean hacker group Lazarus / ATP-C-26 and that the number is still rising after the recent hacks of crypto exchanges DragonEx, Etbox and BiKi.
 
-The analysis by the 360 Advanced Threat Response Team detailed that the attacking group registered two domains, `wb-invest.net` and `wb-bot.org`, last October in preparation for the attacks. 
+The analysis by the 360 Advanced Threat Response Team detailed that the attacking group registered two domains, `wb-invest.net` and `wb-bot.org`, last October in preparation for the attacks.
 
 Then they faked the cryptocurrency trading software WorldBit-Bot based on the open-sourced “Qt Bitcoin Trader” which was embedded with malicious code. The malicious software was then camouflaged within a regular automated crypto trading platform under the domains of wb-invest.net and wb-bot.org, which kept normal operation for half a year.
 
@@ -100,7 +100,7 @@ Employing the HODL technique, these hackers waited to sell a large proportion of
 - https://blog.chainalysis.com/reports/cryptocurrency-exchange-hacks-2019
 - https://blogs.360.cn/post/apt-c-26.html
 - https://coindesk.com/singapore-based-crypto-exchange-dragonex-has-been-hacked
-- https://coingeek.com/dragonex-exchange-shuts-downconfirms-its-been-hacked/ 
+- https://coingeek.com/dragonex-exchange-shuts-downconfirms-its-been-hacked/
 - https://cointelegraph.com/news/singapore-crypto-exchange-dragonex-reports-hack-of-both-platform-user-assets
 - https://cryptonews.com/news/dragonex-hack-usd-7-million-in-crypto-stolen-compensations-i-3605.htm
 - https://cryptoxdirectory.com/dragonex

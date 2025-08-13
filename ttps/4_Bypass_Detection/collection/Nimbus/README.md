@@ -23,7 +23,7 @@ Encrypt your raw shellcode:
 $ nim r aes_encrypt.nim calc.bin
 ```
 
-or 
+or
 
 ```sh
 $ python3 aes_encrypt.py calc.bin

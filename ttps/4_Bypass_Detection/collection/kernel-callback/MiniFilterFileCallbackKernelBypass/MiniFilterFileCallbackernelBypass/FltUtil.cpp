@@ -71,7 +71,7 @@ PVOID FltManager::ResolveFltmgrGlobals(LPVOID lpkFltMgrBase)
 	//fffff800`350c90fd 488d0d9476fcff  lea     rcx, [FLTMGR!FltGlobals + 0x58 (fffff800`35090798)]
 	//fffff800`350c9104 4c8b154d10fdff  mov     r10, qword ptr[FLTMGR!_imp_ExAcquireFastResourceShared(fffff800`3509a158)]
 	//fffff800`350c910b e820da146e      call    nt!ExAcquireFastResourceShared(fffff800`a3216b30)
-	
+
 	while (StartSearch <= EndSearch) {
 		if ((((PBYTE)StartSearch)[0] == patternFltGlobals[0]) && (((PBYTE)StartSearch)[1] == patternFltGlobals[1]) && (((PBYTE)StartSearch)[2] == patternFltGlobals[2])) {
 			distance = *(PDWORD)((DWORD_PTR)StartSearch + 3);
@@ -255,7 +255,7 @@ PVOID FltManager::GetFilterByName(const wchar_t* strFilterName)
 				return NULL;
 			}
 
-			// free the buffer 
+			// free the buffer
 			delete[] buf;
 		}
 		// read the list of registered filters in the frame

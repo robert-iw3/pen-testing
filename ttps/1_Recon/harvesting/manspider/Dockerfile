@@ -3,7 +3,7 @@
 ARG repo="docker.io" \
     base_image="python:3.10-slim-bookworm" \
     image_hash="fd939bec23d8e9a1274d70e24db96bceed53e56612f828098f5505086a64f523"
-    
+
 FROM ${repo}/${base_image}@sha256:${image_hash}
 
 ENV PATH=/root/.cargo/bin:/root/.local/bin:/usr/local/bin:/usr/bin:$PATH \

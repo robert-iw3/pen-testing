@@ -121,8 +121,8 @@ isyscall:
     mov [rsp - 0x10], rdi
     mov [rsp - 0x18], r12
 
-    xor r10, r10			
-    mov rax, rcx			
+    xor r10, r10
+    mov rax, rcx
     mov r10, rax
 
     mov eax, ecx

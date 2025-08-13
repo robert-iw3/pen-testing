@@ -19,7 +19,7 @@ if [ "$is_gcp_function" = "Yes" ]; then
         gcp_req='curl -s -f -L -H "Metadata-Flavor: Google"'
     elif [ "$(command -v wget)" ]; then
         gcp_req='wget -q -O - --header "Metadata-Flavor: Google"'
-    else 
+    else
         echo "Neither curl nor wget were found, I can't enumerate the metadata service :("
     fi
 
@@ -44,7 +44,7 @@ if [ "$is_gcp_function" = "Yes" ]; then
 
         echo ""
         print_3title "Service Accounts"
-        for sa in $(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/"); do 
+        for sa in $(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/"); do
             echo "  Name: $sa"
             echo "  Email: "$(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/${sa}email")
             echo "  Aliases: "$(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/${sa}aliases")

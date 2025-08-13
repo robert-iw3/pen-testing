@@ -59,7 +59,7 @@ class Plugin:
 
                 data_response['result'] = 'failure'
                 data_response['output'] = 'Invalid credentials'
-            
+
             else: # Consider other error codes as valid credentials
 
                 data_response['result'] = 'success'

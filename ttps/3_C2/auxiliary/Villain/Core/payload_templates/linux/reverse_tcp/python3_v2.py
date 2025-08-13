@@ -12,7 +12,7 @@ class Payload:
     meta = {
         'handler' : 'netcat',
         'type' : 'python3-reverse-tcp',
-        'os' : 'linux'   
+        'os' : 'linux'
     }
 
     config = {}

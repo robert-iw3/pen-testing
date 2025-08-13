@@ -11,11 +11,11 @@ Tags:: Sim Swap
 
 ## Details
 
-Bitcoin Norway has shut down all operations according to its website and posts on Facebook. Bitcoin Norway is a cryptocurrency exchange that claims to have served over 25,000 Norwegians since 2013.  On Monday last week, the customers of Bitcoins Norway’s crypto exchange were told that their crypto currency would be forcibly sold at a significantly lower price due to an alleged attack on the supplier AlphaPoint. 
+Bitcoin Norway has shut down all operations according to its website and posts on Facebook. Bitcoin Norway is a cryptocurrency exchange that claims to have served over 25,000 Norwegians since 2013.  On Monday last week, the customers of Bitcoins Norway’s crypto exchange were told that their crypto currency would be forcibly sold at a significantly lower price due to an alleged attack on the supplier AlphaPoint.
 
-AlphaPoint reported to Bitcoins Norway on May 1st, 2019 that a security incident had occurred. Bitcoins Norway’s original post reported the date as May 7th, 2019.  There are a number of other clarifications and corrections to the Bitcoins Norway report. 
+AlphaPoint reported to Bitcoins Norway on May 1st, 2019 that a security incident had occurred. Bitcoins Norway’s original post reported the date as May 7th, 2019.  There are a number of other clarifications and corrections to the Bitcoins Norway report.
 
-There was no hack of the AlphaPoint software or technology. Rather, attackers gained access through a SIM Swap enabled by exploiting a vulnerability in a telecom carrier, and sophisticated Spear-Phishing techniques which compromised sensitive credentials.  
+There was no hack of the AlphaPoint software or technology. Rather, attackers gained access through a SIM Swap enabled by exploiting a vulnerability in a telecom carrier, and sophisticated Spear-Phishing techniques which compromised sensitive credentials.
 
 The FBI is the sole and appropriate law enforcement entity to investigate this crime.  AlphaPoint is fully cooperating with the investigation. AlphaPoint immediately notified Bitcoins Norway of the security incident, and provided as much information as it could without jeopardizing the investigation and without risking the spread of inaccurate information. On July 1st, 2019, Bitcoins Norway made the decision to announce that it would sell end users cryptocurrency.  AlphaPoint did not participate in that decision
 

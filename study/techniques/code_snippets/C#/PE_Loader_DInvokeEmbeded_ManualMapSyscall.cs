@@ -1019,7 +1019,7 @@ namespace PELoader
                 Console.WriteLine("Failed to allocate memory, StatusCode: {0}", result);
             }
 
-            
+
             return MapModuleToMemory(pModule, pImage, PEINFO);
         }
 
@@ -3181,12 +3181,12 @@ namespace PELoader
         /// Must be public so that they may be used with SharpSploit.Execution.DynamicGeneric.DynamicFunctionInvoke
         /// </summary>
         /// <example>
-        /// 
+        ///
         /// // These delegates may also be used directly.
         ///
         /// // Get a pointer to the NtCreateThreadEx function.
         /// IntPtr pFunction = Execution.DynamicGeneric.GetLibraryAddress(@"ntdll.dll", "NtCreateThreadEx");
-        /// 
+        ///
         /// //  Create an instance of a NtCreateThreadEx delegate from our function pointer.
         /// DELEGATES.NtCreateThreadEx createThread = (NATIVE_DELEGATES.NtCreateThreadEx)Marshal.GetDelegateForFunctionPointer(
         ///    pFunction, typeof(NATIVE_DELEGATES.NtCreateThreadEx));
@@ -3194,7 +3194,7 @@ namespace PELoader
         /// //  Invoke NtCreateThreadEx using the delegate
         /// createThread(ref threadHandle, Win32.WinNT.ACCESS_MASK.SPECIFIC_RIGHTS_ALL | Win32.WinNT.ACCESS_MASK.STANDARD_RIGHTS_ALL, IntPtr.Zero,
         ///     procHandle, startAddress, IntPtr.Zero, Native.NT_CREATION_FLAGS.HIDE_FROM_DEBUGGER, 0, 0, 0, IntPtr.Zero);
-        /// 
+        ///
         /// </example>
         public struct DELEGATES
         {

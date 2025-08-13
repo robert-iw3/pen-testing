@@ -71,12 +71,12 @@ class DispatchDB(SqliteDB):
         "username" TEXT UNIQUE NOT NULL,
         "password" TEXT NOT NULL,
         "api_key" TEXT UNIQUE,
-        "created" DATETIME DEFAULT (datetime('now','localtime')), 
-        "last_login" DATETIME DEFAULT (datetime('now','localtime')),  
+        "created" DATETIME DEFAULT (datetime('now','localtime')),
+        "last_login" DATETIME DEFAULT (datetime('now','localtime')),
         "role" INTEGER DEFAULT 0);''',
 
-        '''INSERT OR IGNORE INTO users 
-        (id, username, password, role) 
+        '''INSERT OR IGNORE INTO users
+        (id, username, password, role)
         VALUES (1, "{}", "{}", 4);'''.format(config.DEFAULT_USER, gen_password_hash(config.DEFAULT_PWD)),
 
         '''CREATE TABLE IF NOT EXISTS files (
@@ -85,7 +85,7 @@ class DispatchDB(SqliteDB):
         "file_path" TEXT UNIQUE NOT NULL,
         "access" INTEGER DEFAULT 3,
         "alias" TEXT UNIQUE NOT NULL,
-        "upload_date" DATETIME DEFAULT (datetime('now','localtime')),  
+        "upload_date" DATETIME DEFAULT (datetime('now','localtime')),
         "uploaded_by" TEXT NOT NULL);''',
 
         '''CREATE TABLE IF NOT EXISTS settings (
@@ -97,8 +97,8 @@ class DispatchDB(SqliteDB):
         "param_key" TEXT DEFAULT 's=1234',
         "max_file_size" INTEGER DEFAULT {});'''.format(config.MAX_FILE_SIZE),
 
-        '''INSERT OR IGNORE INTO settings 
-        (redirect_url, source_ip, server_header) 
+        '''INSERT OR IGNORE INTO settings
+        (redirect_url, source_ip, server_header)
         VALUES ("https://google.com", "127.0.0.1", "Apache");''',
 
         '''CREATE TABLE IF NOT EXISTS ip_allow_login (
@@ -168,7 +168,7 @@ class DispatchDB(SqliteDB):
     # User Table
     #
     def add_user(self, username, password, role):
-        sql = '''INSERT OR IGNORE INTO users 
+        sql = '''INSERT OR IGNORE INTO users
         (username, password, role, api_key)
         VALUES (?, ?, ?, ?);'''
         self.exec(sql, (username.lower(), gen_password_hash(password), role, config.gen_api_key()))
@@ -222,8 +222,8 @@ class DispatchDB(SqliteDB):
     # File Table
     #
     def upload_file(self, filename, full_path, alias, user, access):
-        sql = '''INSERT OR IGNORE INTO files 
-                (filename, file_path, alias, uploaded_by, access) 
+        sql = '''INSERT OR IGNORE INTO files
+                (filename, file_path, alias, uploaded_by, access)
                 VALUES (?, ?, ?, ?, ?)'''
         if self.exec(sql, (filename, full_path, alias, user, access)) is not False:
             return True
@@ -278,9 +278,9 @@ class DispatchDB(SqliteDB):
     def get_file_by_id(self, id):
         # used to pull file info for editing
         data = {}
-        sql = '''SELECT filename, file_path, alias, upload_date, 
-            uploaded_by, access 
-        FROM files 
+        sql = '''SELECT filename, file_path, alias, upload_date,
+            uploaded_by, access
+        FROM files
         WHERE id=? LIMIT 1;'''
         for x in self.exec(sql, (id,)):
             data['id'] = id
@@ -294,8 +294,8 @@ class DispatchDB(SqliteDB):
         return data
 
     def update_file_by_id(self, id, filename, full_path, alias, user, access):
-        sql = '''UPDATE files 
-        SET filename=?, file_path=?, alias=?, 
+        sql = '''UPDATE files
+        SET filename=?, file_path=?, alias=?,
         upload_date=datetime('now','localtime'), uploaded_by=?,
         access=? WHERE id=?;'''
         self.exec(sql, (filename, full_path, alias, user, access, id))
@@ -308,7 +308,7 @@ class DispatchDB(SqliteDB):
     #
     def get_settings(self):
         data = {}
-        sql = '''SELECT redirect_url, source_ip, param_rotation, 
+        sql = '''SELECT redirect_url, source_ip, param_rotation,
         param_key, max_file_size, server_header FROM settings WHERE id=1;'''
 
         for x in self.exec(sql):
@@ -321,7 +321,7 @@ class DispatchDB(SqliteDB):
         return data
 
     def update_settings(self, r_url, source_ip, max_size, server_header):
-        sql = '''UPDATE settings SET 
+        sql = '''UPDATE settings SET
         redirect_url=?,
         source_ip=?,
         max_file_size=?,

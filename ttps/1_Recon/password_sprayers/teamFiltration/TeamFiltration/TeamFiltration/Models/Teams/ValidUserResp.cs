@@ -6,7 +6,7 @@ namespace TeamFiltration.Models.Teams
 {
 
 
- 
+
     public class ValidUserResp
     {
         public string tenantId { get; set; }

@@ -1555,7 +1555,7 @@ int checkApps() {
         && userInput != "keeper" && userInput != "chrome" && userInput != "brave"
         && userInput != "msedge" && userInput != "lastpass" && userInput != "nordpass" && userInput != "roboform"
         && userInput != "bitwarden" && userInput != "norton" && userInput != "bitdefender"
-        && userInput != "ironvest" && userInput != "passwarden" && userInput != "avira" 
+        && userInput != "ironvest" && userInput != "passwarden" && userInput != "avira"
         && userInput != "opera"    && userInput != "passwordboss" && userInput != "kaspersky") {
         std::cout << "User input did not match a specific password manager.\n";
         std::cout << "The input must be case-sensitive.\n";

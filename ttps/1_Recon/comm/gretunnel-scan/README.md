@@ -88,7 +88,7 @@ ip tunnel del gre1
 - `-T <int>`: How many thread send GRE packet in same time (Default: 255)
 - `-cs <int>`: Send how many ip until start wait for ping to responsed (default: 1000)
 - `-dp`: Do private - scan private ip GRE (Default: False)
-- `-id <ip>`: Inside ICMP dst address (Default: same as GRE dst) 
+- `-id <ip>`: Inside ICMP dst address (Default: same as GRE dst)
   - Use this if you know the inside intranet address
 - `-v <log_level>`: Logging level `['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']` (Default: INFO)
   - GRE peer found log is on `CRITICAL`
@@ -110,7 +110,7 @@ python3 main.py -i  <interface> -lh <your_public_IP> -s aggrv4table.txt -d <your
 ### Access & Scan intranet
 ```
 #### Create Fake Tunnel ####
-IFACE=eth0  #change this 
+IFACE=eth0  #change this
 MYPUBIP=9.9.9.9  #change this
 GATEWAY=1.2.3.4 #change this
 SRCADDR=1.1.1.1 # lab info don't change

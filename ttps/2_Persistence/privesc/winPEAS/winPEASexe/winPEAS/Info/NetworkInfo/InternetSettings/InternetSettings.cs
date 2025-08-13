@@ -25,7 +25,7 @@ namespace winPEAS.Info.NetworkInfo.InternetSettings
                                                 {"4", "Restricted Sites Zone"}
                                             };
 
-            // lists user/system internet settings, including default proxy info        
+            // lists user/system internet settings, including default proxy info
             string internetSettingsKey = "Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings";
             AddSettings("HKCU", internetSettingsKey, result.GeneralSettings, zoneMapKeys: null);
             AddSettings("HKLM", internetSettingsKey, result.GeneralSettings, zoneMapKeys: null);

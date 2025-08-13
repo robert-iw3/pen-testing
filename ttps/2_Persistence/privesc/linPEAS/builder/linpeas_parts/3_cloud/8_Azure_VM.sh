@@ -19,13 +19,13 @@ if [ "$is_az_vm" = "Yes" ]; then
   HEADER="Metadata:true"
   URL="http://169.254.169.254/metadata"
   API_VERSION="2021-12-13" #https://learn.microsoft.com/en-us/azure/virtual-machines/instance-metadata-service?tabs=linux#supported-api-versions
-  
+
   az_req=""
   if [ "$(command -v curl || echo -n '')" ]; then
       az_req="curl -s -f -L -H '$HEADER'"
   elif [ "$(command -v wget || echo -n '')" ]; then
       az_req="wget -q -O - --header '$HEADER'"
-  else 
+  else
       echo "Neither curl nor wget were found, I can't enumerate the metadata service :("
   fi
 
@@ -55,7 +55,7 @@ if [ "$is_az_vm" = "Yes" ]; then
     print_info "It's possible to assign 1 system MI and several user MI to a VM. LinPEAS can only get the token from the default one. More info in https://book.hacktricks.wiki/en/pentesting-web/ssrf-server-side-request-forgery/cloud-ssrf.html#azure-vm"
     exec_with_jq eval $az_req "$URL/identity/oauth2/token?api-version=$API_VERSION\&resource=https://graph.microsoft.com/"
     echo ""
-    
+
     print_3title "Vault token"
     print_info "It's possible to assign 1 system MI and several user MI to a VM. LinPEAS can only get the token from the default one. More info in https://book.hacktricks.wiki/en/pentesting-web/ssrf-server-side-request-forgery/cloud-ssrf.html#azure-vm"
     exec_with_jq eval $az_req "$URL/identity/oauth2/token?api-version=$API_VERSION\&resource=https://vault.azure.net/"

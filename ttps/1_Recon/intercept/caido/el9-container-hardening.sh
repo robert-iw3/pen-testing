@@ -1393,7 +1393,7 @@ printf "\n" >> /etc/issue
 echo "Remediating: 'xccdf_org.ssgproject.content_rule_configure_usbguard_auditbackend'"
 
 if [ -e "/etc/usbguard/usbguard-daemon.conf" ] ; then
-    
+
     LC_ALL=C sed -i "/^\s*AuditBackend=/d" "/etc/usbguard/usbguard-daemon.conf"
 else
     touch "/etc/usbguard/usbguard-daemon.conf"
@@ -1409,7 +1409,7 @@ rm "/etc/usbguard/usbguard-daemon.conf.bak"
 echo "Remediating: 'xccdf_org.ssgproject.content_rule_coredump_disable_backtraces'"
 
 if [ -e "/etc/systemd/coredump.conf" ] ; then
-    
+
     LC_ALL=C sed -i "/^\s*ProcessSizeMax\s*=\s*/Id" "/etc/systemd/coredump.conf"
 else
     touch "/etc/systemd/coredump.conf"
@@ -1425,7 +1425,7 @@ rm "/etc/systemd/coredump.conf.bak"
 echo "Remediating: 'xccdf_org.ssgproject.content_rule_coredump_disable_storage'"
 
 if [ -e "/etc/systemd/coredump.conf" ] ; then
-    
+
     LC_ALL=C sed -i "/^\s*Storage\s*=\s*/Id" "/etc/systemd/coredump.conf"
 else
     touch "/etc/systemd/coredump.conf"
@@ -1658,7 +1658,7 @@ echo "Remediating: 'xccdf_org.ssgproject.content_rule_harden_sshd_ciphers_openss
 sshd_approved_ciphers='aes256-ctr,aes192-ctr,aes128-ctr'
 
 if [ -e "/etc/crypto-policies/back-ends/openssh.config" ] ; then
-    
+
     LC_ALL=C sed --follow-symlinks -i "/^.*Ciphers\s\+/d" "/etc/crypto-policies/back-ends/openssh.config"
 else
     touch "/etc/crypto-policies/back-ends/openssh.config"
@@ -1713,7 +1713,7 @@ echo "Remediating: 'xccdf_org.ssgproject.content_rule_harden_sshd_macs_openssh_c
 sshd_approved_macs='hmac-sha2-512,hmac-sha2-256'
 
 if [ -e "/etc/crypto-policies/back-ends/openssh.config" ] ; then
-    
+
     LC_ALL=C sed --follow-symlinks -i "/^.*MACs\s\+/d" "/etc/crypto-policies/back-ends/openssh.config"
 else
     touch "/etc/crypto-policies/back-ends/openssh.config"
@@ -1886,11 +1886,11 @@ if /usr/sbin/visudo -qcf /etc/sudoers; then
     else
         # sudoers file defines Option timestamp_timeout, remediate if appropriate value is not set
         if ! grep -P "^[\s]*Defaults.*\btimestamp_timeout=${var_sudo_timestamp_timeout}\b.*$" /etc/sudoers; then
-            
+
             sed -Ei "s/(^[\s]*Defaults.*\btimestamp_timeout=)[-]?\w+(\b.*$)/\1${var_sudo_timestamp_timeout}\2/" /etc/sudoers
         fi
     fi
-    
+
     # Check validity of sudoers and cleanup bak
     if /usr/sbin/visudo -qcf /etc/sudoers; then
         rm -f /etc/sudoers.bak
@@ -1909,7 +1909,7 @@ fi
 echo "Remediating: 'xccdf_org.ssgproject.content_rule_sudoers_validate_passwd'"
 
 if [ -e "/etc/sudoers" ] ; then
-    
+
     LC_ALL=C sed -i "/Defaults !targetpw/d" "/etc/sudoers"
 else
     touch "/etc/sudoers"
@@ -1920,7 +1920,7 @@ printf '%s\n' "Defaults !targetpw" >> "/etc/sudoers"
 # Clean up after ourselves.
 rm "/etc/sudoers.bak"
 if [ -e "/etc/sudoers" ] ; then
-    
+
     LC_ALL=C sed -i "/Defaults !rootpw/d" "/etc/sudoers"
 else
     touch "/etc/sudoers"
@@ -1931,7 +1931,7 @@ printf '%s\n' "Defaults !rootpw" >> "/etc/sudoers"
 # Clean up after ourselves.
 rm "/etc/sudoers.bak"
 if [ -e "/etc/sudoers" ] ; then
-    
+
     LC_ALL=C sed -i "/Defaults !runaspw/d" "/etc/sudoers"
 else
     touch "/etc/sudoers"
@@ -1971,7 +1971,7 @@ if LC_ALL=C grep -q -m 1 -i -e "^localpkg_gpgcheck\\>" "/etc/dnf/dnf.conf"; then
     "${sed_command[@]}" "s/^localpkg_gpgcheck\\>.*/$escaped_formatted_output/gi" "/etc/dnf.conf"
 else
     # \n is precaution for case where file ends without trailing newline
-    
+
     printf '%s\n' "$formatted_output" >> "/etc/dnf/dnf.conf"
 fi
 
@@ -1984,7 +1984,7 @@ fi
 echo "Remediating: 'xccdf_org.ssgproject.content_rule_coredump_disable_backtraces'"
 
 if [ -e "/etc/systemd/coredump.conf" ] ; then
-    
+
     LC_ALL=C sed -i "/^\s*ProcessSizeMax\s*=\s*/Id" "/etc/systemd/coredump.conf"
 else
     touch "/etc/systemd/coredump.conf"
@@ -2003,7 +2003,7 @@ rm "/etc/systemd/coredump.conf.bak"
 echo "Remediating: 'xccdf_org.ssgproject.content_rule_coredump_disable_storage'"
 
 if [ -e "/etc/systemd/coredump.conf" ] ; then
-    
+
     LC_ALL=C sed -i "/^\s*Storage\s*=\s*/Id" "/etc/systemd/coredump.conf"
 else
     touch "/etc/systemd/coredump.conf"

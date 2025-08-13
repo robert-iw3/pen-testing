@@ -39,7 +39,7 @@ The advantage of the hyperlink is that it does not appear in texts, and this is 
 
 HTML Smuggling used to obscure ISO file and the ISO contains a number of LNK files masquerading as images
 command line to make payload base64 to then put it in the HTML smuggling file:
-`base64 payload.iso -w 0` and i added a picture of the BMW car along with the text content of the phishing message in the HTML file. 
+`base64 payload.iso -w 0` and i added a picture of the BMW car along with the text content of the phishing message in the HTML file.
 
 ![Screenshot from 2024-03-01 19-39-42](https://github.com/S3N4T0R-0X0/APT29-Adversary-Simulation/assets/121706460/8e76572b-5d72-4d87-9cf9-4c7bf002c801)
 
@@ -79,7 +79,7 @@ After that, we will go to the settings menu to generate the access token for the
 
 
 This script integrates Dropbox API functionality to facilitate communication between the compromised system and the attacker-controlled server,
-thereby  hiding the traffic within legitimate Dropbox communication, and take the access token as input prompts the user to enter an AES key 
+thereby  hiding the traffic within legitimate Dropbox communication, and take the access token as input prompts the user to enter an AES key
 (which must be 16, 24, or 32 bytes long) and encrypts the token using AES encryption in ECB mode. It then base64 encodes the encrypted token and returns it.
 
 ![171053992557140444](https://github.com/S3N4T0R-0X0/APT29-Adversary-Simulation/assets/121706460/15fdca80-68cb-41ac-9eb5-b56ded6e552e)
@@ -109,6 +109,6 @@ this payload uses the Dropbox API to upload data, including command output to Dr
 ## Final result: payload connect to Dropbox C2 server
 
 the final step in this process involves the execution of the final payload. After being decrypted and loaded into the current process,
-the final payload is designed to beacon out to both Dropbox API-based  C2 server. 
+the final payload is designed to beacon out to both Dropbox API-based  C2 server.
 
 

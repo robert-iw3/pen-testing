@@ -25,9 +25,9 @@ $ErrorActionPreference =  'Stop'
 $base64 = 'FHJ+YHoTZ1ZARxNgUl5DX1YJEwRWBAFQAFBWHgsFAlEeBwAACh4LBAcDHgNSUAIHCwdQAgALBRQ='
 $bytes = [Convert]::FromBase64String($base64)
 $string = -join ($bytes | % { [char] ($_ -bxor 0x33) })
-iex $string 
+iex $string
 
-[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); 
+[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms');
 [System.Windows.Forms.MessageBox]::Show('Hello from PowerShell!');
 ";
             bool BypassAmsi = false;

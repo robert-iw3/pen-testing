@@ -6,10 +6,10 @@
 
 7-Zip Copyright (C) 1999-2009 Igor Pavlov.
 
-Features of 7za.exe: 
+Features of 7za.exe:
   - High compression ratio in new 7z format
   - Supported formats:
-      - Packing / unpacking: 7z, ZIP, GZIP, BZIP2 and TAR 
+      - Packing / unpacking: 7z, ZIP, GZIP, BZIP2 and TAR
       - Unpacking only: Z
   - Highest compression ratio for ZIP and GZIP formats.
   - Fast compression and decompression
@@ -23,7 +23,7 @@ http://www.7-zip.org/
 
 7za.exe can work in Windows 95/98/ME/NT/2000/XP/2003/Vista.
 
-There is also port of 7za.exe for POSIX systems like Unix (Linux, Solaris, OpenBSD, 
+There is also port of 7za.exe for POSIX systems like Unix (Linux, Solaris, OpenBSD,
 FreeBSD, Cygwin, AIX, ...), MacOS X and BeOS:
 
 http://p7zip.sourceforge.net/

@@ -34,9 +34,9 @@ namespace System.Yaml
             }
         }
         /// <summary>
-        /// <para>A dictionary that returns <see cref="KeyValue"/> or <see cref="List&lt;KeyValue&gt;"/> 
+        /// <para>A dictionary that returns <see cref="KeyValue"/> or <see cref="List&lt;KeyValue&gt;"/>
         /// from hash code. This is the main repository that stores the <see cref="KeyValue"/> pairs.</para>
-        /// <para>If there are several entries that have same hash code for thir keys, 
+        /// <para>If there are several entries that have same hash code for thir keys,
         /// a <see cref="List&lt;KeyValue&gt;"/> is stored to hold all those entries.
         /// Otherwise, a <see cref="KeyValue"/> is stored.</para>
         /// </summary>
@@ -57,7 +57,7 @@ namespace System.Yaml
         /// <summary>
         /// Recalc hash key of the <paramref name="key"/>.
         /// </summary>
-        /// <param name="key">The key to be rehash. The key must be the instance that 
+        /// <param name="key">The key to be rehash. The key must be the instance that
         /// <see cref="object.ReferenceEquals"/> to one exsisting in the dictionary.</param>
         void Rehash(K key)
         {
@@ -388,7 +388,7 @@ namespace System.Yaml
         }
 
         /// <summary>
-        /// Collection that is readonly and invalidated when an item is 
+        /// Collection that is readonly and invalidated when an item is
         /// added to or removed from the dictionary.
         /// </summary>
         abstract class KeysValuesBase<T>: ICollection<T>, IDisposable

@@ -32,8 +32,8 @@ An attack in which approximately $41 million in virtual currency was stolen, pos
 - BSC: 0xbcedc4f3855148df3ea5423ce758bda9f51630aa
 - BSC: 0xe03a1ae400fa54283d5a1c4f8b89d3ca74afbd62
 - BSC: 0xff29a52a538f1591235656f71135c24019bf82e5
-- BTC: bc1qfesn3jj65fhmf00hh45ueql8je8jae6ep3qk84    
-- BTC: bc1qtalh4l8qc0p2qw70axxjhwu9z7rm93td5sgsl3    
+- BTC: bc1qfesn3jj65fhmf00hh45ueql8je8jae6ep3qk84
+- BTC: bc1qtalh4l8qc0p2qw70axxjhwu9z7rm93td5sgsl3
 - BTC: bc1qlq3s8hgczfe62yt94xqasdr5ftuuyrc5kgvpwr
 - BTC: bc1qy78e6ml7f3p438jqrrlzsewx625y0sr7jsesa7
 - BTC: bc1qqa682d2q0wtx5gfpxh4yfl9s4k00ukakl5fpk5

@@ -127,7 +127,7 @@ void GraphWidget::GraphPivotNodeAdd( QString AgentID, SessionItem Session )
                 item->NodeID   = Session.Name;
                 item->NodeEdge = new Edge( i, item, QColor( HavocNamespace::Util::ColorText::Colors::Hex::Purple ) );
                 item->Parent   = i;
-                
+
                 i->appendChild( item );
 
                 GraphScene->addItem( item->NodeEdge );
@@ -361,7 +361,7 @@ void GraphWidget::firstWalk(Node* v)
 
         for (Node* w : v->Children) {
             firstWalk(w);
-            apportion(w, defaultAncestor); 
+            apportion(w, defaultAncestor);
         }
 
         executeShifts(v);

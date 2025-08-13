@@ -5,10 +5,10 @@
 /* at Tue Jan 19 04:14:07 2038
  */
 /* Compiler settings for ..\..\ms-efsrpc.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.01.0622 
+    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.01.0622
     protocol : dce , ms_ext, c_ext, robust
-    error checks: allocation ref bounds_check enum stub_data 
-    VC __declspec() decoration level: 
+    error checks: allocation ref bounds_check enum stub_data
+    VC __declspec() decoration level:
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
          DECLSPEC_UUID(), MIDL_INTERFACE()
 */
@@ -37,21 +37,21 @@
 #pragma once
 #endif
 
-/* Forward Declarations */ 
+/* Forward Declarations */
 
 /* header files for imported files */
 #include "ms-dtyp.h"
 
 #ifdef __cplusplus
 extern "C"{
-#endif 
+#endif
 
 
 #ifndef __efsrpc_INTERFACE_DEFINED__
 #define __efsrpc_INTERFACE_DEFINED__
 
 /* interface efsrpc */
-/* [version][uuid] */ 
+/* [version][uuid] */
 
 typedef /* [context_handle] */ void *PEXIMPORT_CONTEXT_HANDLE;
 

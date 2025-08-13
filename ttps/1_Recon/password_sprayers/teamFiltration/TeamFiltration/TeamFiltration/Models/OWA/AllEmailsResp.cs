@@ -22,9 +22,9 @@ namespace TeamFiltration.Models.OWA
         public string odataid { get; set; }
         [JsonProperty("@odata.etag")]
         public string odataetag { get; set; }
-        public string Id { get; set; }  
+        public string Id { get; set; }
         public string Subject { get; set; }
-     
+
     }
 
 

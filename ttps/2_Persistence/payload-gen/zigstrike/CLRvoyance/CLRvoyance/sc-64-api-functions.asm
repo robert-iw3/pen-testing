@@ -7,14 +7,14 @@
 ;
 ; History:
 ;   2011/12/27: Refactored API functions to this include file
-;	
-; bja changes: 
+;
+; bja changes:
 ;	- wrong_func with loop instruction had an off-by-one, preventing one from fetching the address
 ;	  of the first (hint 0) export of a DLL
 ;   - function search will return the wrong one for matching exports. For example, if you're looking for
 ;     MyCreate and the DLL exports MyCreateFunc before MyCreate, it'll return the address of MyCreateFunc
-;     since it only checks if they match  
-; 
+;     since it only checks if they match
+;
 
 REGISTERSIZE		equ 0x08
 VARIABLESTRSIZE	equ 0x100
@@ -114,7 +114,7 @@ has_exports:
 	mov ecx, [r11 + 0x18]							;NumberOfNames
 	mov r10d, [r11 + 0x20]							;AddressOfNames (array of RVAs)
 	add r10, rbx									;add dll base
-	
+
 for_each_func:
 	dec ecx											;point to last element in array (searching backwards)
 	lea r12, [r10 + 4 * rcx]						;get current index in names array
@@ -136,7 +136,7 @@ compare_func:
 potential_match:
 	mov al, [rdi]									;current character of DLL function
 	test al, al 									;check for null terminator
-	jz found_func									
+	jz found_func
 
 	jmp compare_func
 

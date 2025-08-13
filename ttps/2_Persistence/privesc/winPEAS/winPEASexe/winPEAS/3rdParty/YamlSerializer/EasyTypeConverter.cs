@@ -15,18 +15,18 @@ namespace System.Yaml.Serialization
     /// <example>
     /// <code>
     /// object obj = GetObjectToConvert();
-    /// 
+    ///
     /// // Check if the type has [TypeConverter] attribute.
     /// if( EasyTypeConverter.IsTypeConverterSpecified(type) ) {
-    /// 
+    ///
     ///   // Convert the object to string.
     ///   string s = EasyTypeConverter.ConvertToString(obj);
-    /// 
+    ///
     ///   // Convert the string to an object of the spific type.
     ///   object restored = EasyTypeConverter.ConvertFromString(s, type);
-    ///   
+    ///
     ///   Assert.AreEqual(obj, restored);
-    /// 
+    ///
     /// }
     /// </code>
     /// </example>

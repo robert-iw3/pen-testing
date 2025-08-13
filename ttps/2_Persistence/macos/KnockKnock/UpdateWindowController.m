@@ -29,7 +29,7 @@
 {
     //center
     [self.window center];
-    
+
     return;
 }
 
@@ -39,7 +39,7 @@
 {
     //super
     [super windowDidLoad];
-    
+
     //not in dark mode?
     // make window white
     if(YES != isDarkMode())
@@ -47,13 +47,13 @@
         //make white
         self.window.backgroundColor = NSColor.whiteColor;
     }
-    
+
     //indicated title bar is tranparent (too)
     self.window.titlebarAppearsTransparent = YES;
-    
+
     //set main label
     [self.infoLabel setStringValue:self.infoLabelString];
-    
+
     //set button text
     self.actionButton.title = self.actionButtonTitle;
 
@@ -63,17 +63,17 @@
     {
         //hide
         self.firstButton.hidden = YES;
-        
+
         //then make action button first responder
         [self.window makeFirstResponder:self.actionButton];
     }
-    
+
     //make it key window
     [self.window makeKeyAndOrderFront:self];
-    
+
     //make window front
     [NSApp activateIgnoringOtherApps:YES];
-    
+
     return;
 }
 
@@ -83,7 +83,7 @@
 {
     //make un-modal
     [[NSApplication sharedApplication] stopModal];
-    
+
     return;
 }
 
@@ -93,10 +93,10 @@
 {
     //save label's string
     self.infoLabelString = label;
-    
+
     //save button's title
     self.actionButtonTitle = buttonTitle;
-    
+
     return;
 }
 
@@ -112,10 +112,10 @@
         // ->invokes user's default browser
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:PRODUCT_URL]];
     }
-    
+
     //always close window
     [[self window] close];
-        
+
     return;
 }
 @end

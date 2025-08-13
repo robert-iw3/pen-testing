@@ -146,7 +146,7 @@ scan_networks(){
         echo
         echo -e "${YELLOW}Check $WORKDIR/airodump.log for errors.${NC}"
     fi
-    
+
     echo
     echo -e "${YELLOW}Press <Enter> to continue.${NC}"
     read -r
@@ -184,7 +184,7 @@ crack_wep(){
     echo
     echo -e "${BLUE}[*] Gathering data for WEP cracking.${NC}"
     sleep 60  # Capture data
-    
+
     if aircrack-ng -b "$BSSID" wep_capture*.cap; then
         echo
         echo -e "${YELLOW}[*] WEP cracked successfully.${NC}"

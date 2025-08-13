@@ -1,7 +1,7 @@
 #include "EncodingAlgorithms.h"
 #include "config.h"
 
-void 
+void
 DecodeModuleNameA
 (const WORD *lpEncoded,
  CHAR *lpszPlain)
@@ -11,7 +11,7 @@ DecodeModuleNameA
 		*lpszPlain = 0;
 		return;
 	}
-	
+
 	for(; ; lpEncoded++, lpszPlain++)
 	{
 		*lpszPlain = *(BYTE*)lpEncoded ^ (BYTE)X_STRING_KEY;
@@ -20,7 +20,7 @@ DecodeModuleNameA
 	}
 }
 
-void 
+void
 DecodeModuleNameW
 (const WORD *lpEncoded,
  WCHAR *lpszPlain)
@@ -30,7 +30,7 @@ DecodeModuleNameW
 		*lpszPlain = 0;
 		return;
 	}
-	
+
 	for(; ; lpEncoded++, lpszPlain++)
 	{
 		*lpszPlain = *lpEncoded ^ X_STRING_KEY;
@@ -39,8 +39,8 @@ DecodeModuleNameW
 	}
 }
 
-const 
-WORD 
+const
+WORD
 ENCODED_NTDLL_DLL[10] =
 {
 	0xAE7C, 0xAE66, 0xAE76, 0xAE7E,
@@ -48,7 +48,7 @@ ENCODED_NTDLL_DLL[10] =
 	0xAE7E, 0xAE12
 };
 
-HMODULE 
+HMODULE
 GetModuleNTDLL(void)
 {
 	WCHAR szModuleName[100];
@@ -57,7 +57,7 @@ GetModuleNTDLL(void)
 	return GetModuleHandleW(szModuleName);
 }
 
-FARPROC 
+FARPROC
 GetFunctionFromModule
 (const WORD *lpEncodedModule,
  const WORD *lpEncodedFunc)
@@ -67,7 +67,7 @@ GetFunctionFromModule
 
 	DecodeModuleNameW(lpEncodedModule, szModule);
 	DecodeModuleNameA(lpEncodedFunc, szFunc);
-	
+
 	return GetProcAddress(GetModuleHandleW(szModule), szFunc);
 }
 
@@ -93,8 +93,8 @@ void __memcpy
 	}
 }
 
-const 
-WORD 
+const
+WORD
 ENCODED_KERNEL32_DLL[13] =
 {
 	0xAE79, 0xAE77, 0xAE60, 0xAE7C,
@@ -103,14 +103,14 @@ ENCODED_KERNEL32_DLL[13] =
 	0xAE12
 };
 
-FARPROC 
+FARPROC
 GetFunctionFromKERNEL32
 (const WORD *lpEncodedFunc)
 {
 	return GetFunctionFromModule(ENCODED_KERNEL32_DLL, lpEncodedFunc);
 }
 
-FARPROC 
+FARPROC
 GetFunctionFromNTDLL
 (const WORD *lpEncodedFunc)
 {

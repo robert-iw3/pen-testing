@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e 
+set -e
 
 source "_services/common_functions.sh"
 
@@ -24,7 +24,7 @@ function run_ansible_playbook {
     # Deploy step (staying in the same shell context)
     cd OP/$OP_NUMBER && \
     export TERRAFORM_PATH="$(pwd)/terraform"
-    
+
     attempt=1
     max_attempts=$MAX_RETRIES
     until ansible-playbook deploy.yml \

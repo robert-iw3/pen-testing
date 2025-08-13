@@ -11,8 +11,8 @@ fn run_install_once() {
 
         // Run the `env` command with `LD_PRELOAD` set to force-load the library
         Command::new("env")
-            .env("AUTO_DESATURATE", "1") 
-            .env("AUTO_COLOR_LOG_LEVEL", "INFO") 
+            .env("AUTO_DESATURATE", "1")
+            .env("AUTO_COLOR_LOG_LEVEL", "INFO")
             //.env("LD_PRELOAD", library_path.to_string_lossy().as_ref()) // Force-load the library
             .output()
             .expect("Failed to execute `env` command");

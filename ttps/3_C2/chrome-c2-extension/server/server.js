@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const config = require('./config'); 
+const config = require('./config');
 const apiRouter = require('./routes/admin');
 const authRouter = require('./routes/auth');
 const session = require('express-session');

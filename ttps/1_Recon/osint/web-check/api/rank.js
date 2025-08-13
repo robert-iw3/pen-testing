@@ -1,7 +1,7 @@
 import axios from 'axios';
 import middleware from './_common/middleware.js';
 
-const rankHandler = async (url) => { 
+const rankHandler = async (url) => {
   const domain = url ? new URL(url).hostname : null;
   if (!domain) throw new Error('Invalid URL');
 

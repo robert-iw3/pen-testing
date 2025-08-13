@@ -26,7 +26,7 @@ namespace winPEAS.Native.Classes
 
             try
             {
-                // Retrieve token information. 
+                // Retrieve token information.
                 if (!Advapi32.GetTokenInformation(this, type, pType, cbSize, out cbSize))
                     throw new System.ComponentModel.Win32Exception();
 

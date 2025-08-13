@@ -26,13 +26,13 @@ class AudioHandler(BaseHandler):
         """Remove metadata from an audio file and save it."""
         if not self.validate(file_path):
             return None
-        
+
         try:
             audio = File(file_path, easy=True)
             if not audio:
                 logger.warning(f"No metadata found or unsupported format: {file_path}")
                 return None
-            
+
             audio.delete()
             audio.save()
             if File(file_path):
@@ -49,13 +49,13 @@ class AudioHandler(BaseHandler):
         """Edit metadata for an audio file."""
         if not self.validate(file_path):
             return None
-        
+
         try:
             audio = File(file_path, easy=True)
             if not audio:
                 logger.warning(f"No metadata found or unsupported format: {file_path}")
                 return None
-            
+
             audio.update(metadata_changes)
             audio.save()
             logger.info(f"✅ Metadata successfully updated: {file_path}")

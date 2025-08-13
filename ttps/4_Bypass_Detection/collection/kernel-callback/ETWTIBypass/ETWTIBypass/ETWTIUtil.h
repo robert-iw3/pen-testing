@@ -8,7 +8,7 @@
 #include "MemHandler.h"
 #include <map>
 
-// I can hear the OSR replies now... 
+// I can hear the OSR replies now...
 #define ProviderEnableInfo_OFFSET 0x60
 #define GuidEntry_OFFSET 0x20
 

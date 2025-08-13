@@ -48,20 +48,20 @@ typedef struct _FLASH_DESCRIPTOR_VERSION {
 // Base fields are storing bits [11:4] of actual base addresses, all other bits are 0
 typedef struct _FLASH_DESCRIPTOR_MAP {
     // FLMAP0
-    UINT32 ComponentBase : 8;           
+    UINT32 ComponentBase : 8;
     UINT32 NumberOfFlashChips : 2;      // Zero-based number of flash chips installed on board
     UINT32 : 6;
     UINT32 RegionBase : 8;
     UINT32 NumberOfRegions : 3;         // Reserved in v2 descriptor
     UINT32 : 5;
     // FLMAP 1
-    UINT32 MasterBase : 8;              
+    UINT32 MasterBase : 8;
     UINT32 NumberOfMasters : 2;         // Zero-based number of flash masters
     UINT32 : 6;
-    UINT32 PchStrapsBase : 8;           
+    UINT32 PchStrapsBase : 8;
     UINT32 NumberOfPchStraps : 8;       // One-based number of UINT32s to read as PCH straps, min=0, max=255 (1 Kb)
     // FLMAP 2
-    UINT32 ProcStrapsBase : 8;          
+    UINT32 ProcStrapsBase : 8;
     UINT32 NumberOfProcStraps : 8;      // One-based number of UINT32s to read as processor straps, min=0, max=255 (1 Kb)
     UINT32: 16;
     // FLMAP 3

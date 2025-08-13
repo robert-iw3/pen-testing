@@ -8,7 +8,7 @@
 #include "MemHandler.h"
 #include <map>
 
-// I can hear the OSR replies now... 
+// I can hear the OSR replies now...
 #define FLTGLB_OFFSET_FLT_RESOURCE_LISTHEAD 0x58
 #define FLT_RESOURCE_LISTHEAD_OFFSET_FRAME_LIST 0x68
 #define FLT_RESOURCE_LISTHEAD_OFFSET_FRAME_COUNT 0x78

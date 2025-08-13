@@ -6,7 +6,7 @@
 #include <phnt_ntdef.h>
 #include <iostream>
 #include <stdio.h>
-#include <string> 
+#include <string>
 
 #include "ExportInterface.hpp"
 
@@ -80,7 +80,7 @@ namespace kernel
     std::map<LPVOID, SIZE_T> mDump;
     SIZE_T HeapSize;
 
-    // Redefinitions of NT functions we need that are 
+    // Redefinitions of NT functions we need that are
     // typically only accessible through ntifs.h
 
     typedef PVOID(WINAPI* RtlAllocateHeap_t)(PVOID HeapHandle, ULONG Flags, SIZE_T Size);

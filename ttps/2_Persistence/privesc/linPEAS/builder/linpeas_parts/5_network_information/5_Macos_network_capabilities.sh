@@ -58,22 +58,22 @@ get_macos_network_capabilities() {
         if [ -f "/Library/Preferences/SystemConfiguration/preferences.plist" ]; then
             warn_exec plutil -p /Library/Preferences/SystemConfiguration/preferences.plist | grep -A 5 "NetworkServices"
         fi
-        
+
         # Network statistics
         echo ""
         print_3title "Network Statistics"
         warn_exec netstat -s
-        
+
         # Network routes
         echo ""
         print_3title "Network Routes"
         warn_exec netstat -rn
-        
+
         # Network interfaces details
         echo ""
         print_3title "Network Interfaces Details"
         warn_exec ifconfig -a
-        
+
         # Network kernel extensions
         echo ""
         print_3title "Network Kernel Extensions"

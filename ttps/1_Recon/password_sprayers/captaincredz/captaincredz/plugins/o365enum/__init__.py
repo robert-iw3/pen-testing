@@ -4,7 +4,7 @@ class Plugin:
     def __init__(self, requester, pluginargs):
         self.requester = requester
         self.pluginargs = pluginargs
-    
+
     def validate(self):
         self.pluginargs = {
             'url' : "https://login.microsoftonline.com"
@@ -14,7 +14,7 @@ class Plugin:
     def testconnect(self, useragent):
         r = self.requester.get(self.pluginargs["url"], headers={"User-Agent": useragent})
         return r.status_code != 504
-    
+
     def test_authenticate(self, username, password, useragent):
         data_response = {
             'result' : None,    # Can be "success", "failure" or "potential"
@@ -57,7 +57,7 @@ class Plugin:
         }
 
         body = '{"Username":"%s"}' % username
-        
+
         try:
             response = self.requester.post(f"{self.pluginargs['url']}/common/GetCredentialType", headers=headers, data=body)
             data_response['request'] = response

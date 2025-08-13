@@ -12,7 +12,7 @@ A BOF tool that can be used to dump LAPS passwords from specified computers with
 Running the tools is straightforward. Once you imported the CNA script using Cobalt Strike's Script Manager, they are available as Cobalt Strike commands that can be executed within a beacon. This tools supports the following commands:
 
 * `Lapsdump [Computername]`
-  
+
 ## Limitations
 To be able to dump LAPS password, elevated privileges are needed within the Active Directory environment.
 

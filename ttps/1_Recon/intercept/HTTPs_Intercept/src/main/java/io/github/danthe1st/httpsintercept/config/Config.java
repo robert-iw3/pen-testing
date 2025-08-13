@@ -19,7 +19,7 @@ public record Config(
 		HostMatcherConfig ignoredHosts,
 		List<PreForwardRule> preForwardRules,
 		List<PostForwardRule> postForwardRules) {
-	
+
 	public Config(@Nullable HostMatcherConfig ignoredHosts, @Nullable List<PreForwardRule> preForwardRules, @Nullable List<PostForwardRule> postForwardRules) {
 		if(ignoredHosts == null){
 			ignoredHosts = new HostMatcherConfig(null, null, null);
@@ -28,14 +28,14 @@ public record Config(
 		this.preForwardRules = emptyIfNull(preForwardRules);
 		this.postForwardRules = emptyIfNull(postForwardRules);
 	}
-	
+
 	private <@NonNull T> List<T> emptyIfNull(@UnderInitialization Config this, @Nullable List<T> preForwardRules) {
 		if(preForwardRules == null){
 			return Collections.emptyList();
 		}
 		return List.copyOf(preForwardRules);
 	}
-	
+
 	public static Config load(Path path) throws IOException {
 		if(!Files.exists(path)){
 			return new Config(null, null, null);

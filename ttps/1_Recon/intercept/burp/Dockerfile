@@ -13,10 +13,10 @@ ENV JAVA_OPTS "-Dawt.useSystemAAFontSettings=gasp "\
   "-XX:+UnlockExperimentalVMOptions "\
   "-XX:+UseCGroupMemoryLimitForHeap "\
   "-XshowSettings:vm"
-  
+
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=en_US.UTF-8
-    
+
 RUN \
     apt-get update -y; \
     apt-get install -y \
@@ -29,14 +29,14 @@ RUN \
    		libxtst6; \
     addgroup --system burp; \
     adduser --system --ingroup burp burp
-      
+
 COPY --chmod=755 download.sh entrypoint.sh ${HOME}
 
 RUN \
     bash -c "/home/burp/download.sh"; \
     mv "$HOME/burpsuite_pro_v$BURP_SUITE_PRO_VERSION.jar" /home/burp/burpsuite_pro.jar; \
     mkdir -p .java/.userPrefs
-    
+
 RUN \
     apt-get install -y clamav; \
     freshclam; \
@@ -48,7 +48,7 @@ RUN \
     apt-get clean -y; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
     truncate -s 0 /var/log/*log
-    
+
 USER burp
 WORKDIR $HOME
 # Burp Proxy

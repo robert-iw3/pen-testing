@@ -300,7 +300,7 @@ bitvec_set_end:
     */
     static void sqlite3BitvecClear( Bitvec p, u32 i, u32[] pBuf )
     {
-      if ( p == null ) return; 
+      if ( p == null ) return;
       Debug.Assert( i > 0 );
       i--;
       while ( p.iDivisor != 0 )

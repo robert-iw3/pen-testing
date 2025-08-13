@@ -13,7 +13,7 @@
 
 - name: Encrypt vault
   ansible.builtin.shell: ansible-vault encrypt "{{ lookup('env', 'PWD') }}"/OP/{{ warhorse.general.op_number }}/inventory/vault.yml
-  environment: 
+  environment:
     ANSIBLE_VAULT_PASSWORD: "{{ warhorse.general.vault_key }}"
     ANSIBLE_VAULT_PASSWORD_FILE: "./vault-env"
 

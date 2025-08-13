@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1
-# The Social-Engineer Toolkit is an open-source penetration testing framework designed for social engineering. 
+# The Social-Engineer Toolkit is an open-source penetration testing framework designed for social engineering.
 ARG repo="docker.io" \
     base_image="alpine:3.22" \
     image_hash="eafc1edb577d2e9b458664a15f23ea1c370214193226069eb22921169fc7e43f"
-    
+
 FROM ${repo}/${base_image}@sha256:${image_hash}
 
 ENV PATH=/setoolkit/set/bin:/usr/local/bin:/usr/bin:$PATH \
@@ -38,7 +38,7 @@ RUN \
     pip install --upgrade pip; \
     pip install -r requirements.txt; \
     python3 setup.py; \
-    rm -rf /var/cache/apk/* /root/.cache/*  
+    rm -rf /var/cache/apk/* /root/.cache/*
 
 CMD [ "python3" ]
 # https://raw.githubusercontent.com/trustedsec/social-engineer-toolkit/master/readme/User_Manual.pdf

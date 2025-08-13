@@ -41,7 +41,7 @@ Create an `A` record `mail` that points to the VPS IP and an `MX` record that po
 ```csharp
 wget https://github.com/gophish/gophish/releases/download/0.7.1/gophish-v0.7.1-linux-64bit.zip
 apt install unzip
-unzip gophish-v0.7.1-linux-64bit.zip 
+unzip gophish-v0.7.1-linux-64bit.zip
 chmod +x gophish
 ```
 {% endcode %}

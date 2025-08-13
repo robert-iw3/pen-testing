@@ -160,7 +160,7 @@ const Home = (): JSX.Element => {
   const submit = () => {
     let address = userInput.endsWith("/") ? userInput.slice(0, -1) : userInput;
     const addressType = determineAddressType(address);
-  
+
     if (addressType === 'empt') {
       setErrMsg('Field must not be empty');
     } else if (addressType === 'err') {
@@ -174,7 +174,7 @@ const Home = (): JSX.Element => {
       navigate(`/check/${encodeURIComponent(address)}`, resultRouteParams);
     }
   };
-  
+
 
   /* Update user input state, and hide error message if field is valid */
   const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -262,7 +262,7 @@ const Home = (): JSX.Element => {
                 Terminal Trove newsletter
               </a>
             </span>
-            
+
           </p>
           <a
             target="_blank"

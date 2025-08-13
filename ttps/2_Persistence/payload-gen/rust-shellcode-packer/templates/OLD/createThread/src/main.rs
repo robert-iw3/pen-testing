@@ -1,4 +1,4 @@
-#![windows_subsystem = "windows"] 
+#![windows_subsystem = "windows"]
 
 use windows::Win32::System::Memory::VirtualAlloc;
 use windows::Win32::System::Memory::VirtualProtect;

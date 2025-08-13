@@ -17,7 +17,7 @@ typedef struct _THREAD_PARAMS {
 BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam) {
 	PCHAR pWindowTitle = NULL;
 	LPWSTR pExeName = NULL;
-	DWORD dwProcId = 0; 
+	DWORD dwProcId = 0;
 
 	if (!hWnd)
 		return TRUE;
@@ -172,7 +172,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 	THREAD_PARAMS params;
 
 	datap parser;
-	BeaconDataParse(&parser, Args, Length);	
+	BeaconDataParse(&parser, Args, Length);
 	params.lpwReason  = (WCHAR*)BeaconDataExtract(&parser, NULL);
 	params.lpwMessage = (WCHAR*)BeaconDataExtract(&parser, NULL);
     DWORD dwTimeOut = BeaconDataInt(&parser) * 1000;
@@ -185,7 +185,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 	}
 
 	DWORD dwResult = KERNEL32$WaitForSingleObject(hThread, dwTimeOut);
-	if (dwResult == WAIT_TIMEOUT) {  
+	if (dwResult == WAIT_TIMEOUT) {
 		BeaconPrintf(CALLBACK_ERROR, "ThreadId: %d timed out, closing Window.\n", ThreadId);
 		if (!USER32$EnumWindows(EnumWindowsProc, (LPARAM)NULL)) { // Cancel operation by closing Window.
 			KERNEL32$TerminateThread(hThread, 0); // Only if WM_CLOSE failed, very dirty..

@@ -1448,7 +1448,7 @@ pub fn change_sleep(args: Vec<&str>, sleep: &mut String, jitter: &mut String) ->
 
     // Return a success message with the updated sleep time and jitter
     format!("Sleep time set to {} seconds with jitter of {} percent", &sleep_time, &jitter)
-    
+
 }
 
 pub fn read_and_runpe (args: Vec<&str>, server: String, imp_token: String) -> String {

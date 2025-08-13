@@ -176,5 +176,5 @@ function BadSuccessorCheck {
         }
     }
 
-    $results | Sort-Object IdentityName 
+    $results | Sort-Object IdentityName
 }

@@ -51,7 +51,7 @@ void * _pop(Pqueue q)
         intFree(i);
     }
     return retval;
-    
+
 }
 
 void _free(Pqueue q)

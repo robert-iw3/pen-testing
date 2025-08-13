@@ -24,7 +24,7 @@ void Pivotter::LinkPivotSMB(ULONG taskId, ULONG commandId, CHAR* pipename, Packe
 
 	DWORD dwMode = PIPE_READMODE_MESSAGE;
 	if (ApiWin->SetNamedPipeHandleState(hPipe, &dwMode, NULL, NULL)) {
-		
+
 		if (PeekNamedPipeTime(hPipe, 5000)) {
 			LPVOID buffer      = NULL;
 			ULONG  bufferSize  = 0;
@@ -72,7 +72,7 @@ BOOL CheckSocketState(SOCKET sock, int timeoutMs)
 		readfds.fd_count = 1;
 		readfds.fd_array[0] = sock;
 		timeval timeout = { 0, 100 };
-		
+
 		int selResult = ApiWin->select(0, &readfds, NULL, NULL, &timeout);
 		if (selResult == 0)
 			return TRUE;
@@ -115,7 +115,7 @@ void Pivotter::LinkPivotTCP(ULONG taskId, ULONG commandId, CHAR* address, WORD p
 				u_long mode = 0;
 				if (ApiWin->ioctlsocket(sock, FIONBIO, &mode) != -1) {
 					if (!(ApiWin->connect(sock, (sockaddr*)&socketAddress, 16) == -1 && ApiWin->WSAGetLastError() != WSAEWOULDBLOCK)) {
-							
+
 						if (PeekSocketTime(sock, 5000)) {
 							LPVOID buffer      = NULL;
 							ULONG  bufferSize  = 0;

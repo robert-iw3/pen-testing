@@ -5,9 +5,9 @@
 
 using namespace std;
 
-/* 
+/*
 * Find the entrypoint function offset from <projectname>.map file
-* For this example 
+* For this example
 * 0001:00000090       _code                      00000001800010d0 f   Main.obj
 * You need to use the offset if .rdata was merged into .text section or arrays were stored into .text section
 * Or the code for GetProcAddress.h is not merged into Main.cpp

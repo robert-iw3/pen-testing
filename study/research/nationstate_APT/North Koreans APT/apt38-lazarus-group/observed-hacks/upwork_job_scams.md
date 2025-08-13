@@ -15,7 +15,7 @@ The following is related to exploits with SPooCK, OKX Dex, UnoRe DAO, Arbi, Terr
 
 - 0xde14bf6088bf7320687910c657aa78883dbd47c2 (Victim)
 - 0x964891e39275280f731ccf9f3f42ab72e86739ad
-- 0x89dc4eabade33dcf6b0a1166348802dc24ee16f7 
+- 0x89dc4eabade33dcf6b0a1166348802dc24ee16f7
 - 0xd8f5c2d55f11ca0e8763019350ab7e77cbe9c425
 
 

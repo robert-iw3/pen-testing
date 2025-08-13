@@ -19,7 +19,7 @@ if [ "$is_gcp_vm" = "Yes" ]; then
         gcp_req='curl -s -f -L -H "Metadata-Flavor: Google"'
     elif [ "$(command -v wget || echo -n '')" ]; then
         gcp_req='wget -q -O - --header "Metadata-Flavor: Google"'
-    else 
+    else
         echo "Neither curl nor wget were found, I can't enumerate the metadata service :("
     fi
 
@@ -81,7 +81,7 @@ if [ "$is_gcp_vm" = "Yes" ]; then
 
         echo ""
         print_3title "Interfaces"
-        for iface in $(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/"); do 
+        for iface in $(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/"); do
             echo "  IP: "$(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/$iface/ip")
             echo "  Subnetmask: "$(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/$iface/subnetmask")
             echo "  Gateway: "$(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/$iface/gateway")
@@ -89,7 +89,7 @@ if [ "$is_gcp_vm" = "Yes" ]; then
             echo "  Network: "$(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/$iface/network")
             echo "  ==============  "
         done
-        
+
         echo ""
         print_3title "User Data"
         echo $(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/attributes/startup-script")
@@ -97,7 +97,7 @@ if [ "$is_gcp_vm" = "Yes" ]; then
 
         echo ""
         print_3title "Service Accounts"
-        for sa in $(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/"); do 
+        for sa in $(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/"); do
             echo "  Name: $sa"
             echo "  Email: "$(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/$sa/email")
             echo "  Aliases: "$(eval $gcp_req "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/$sa/aliases")

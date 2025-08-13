@@ -839,7 +839,7 @@ f_gcp_security_check(){
 
         if [ -f "$OUTPUT_DIR/gcp/buckets.txt" ]; then
             echo "Total Buckets: $(wc -l < "$OUTPUT_DIR/gcp/buckets.txt")"
-            
+
             if [ -f "$OUTPUT_DIR/gcp/public_buckets.txt" ] && [ -s "$OUTPUT_DIR/gcp/public_buckets.txt" ]; then
                 echo "WARNING: The following buckets have public access:"
                 cat "$OUTPUT_DIR/gcp/public_buckets.txt"

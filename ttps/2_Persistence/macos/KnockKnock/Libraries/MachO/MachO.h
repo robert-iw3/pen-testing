@@ -30,7 +30,7 @@
 
 @interface MachO : NSObject
 {
-    
+
 }
 
 //info dictionary

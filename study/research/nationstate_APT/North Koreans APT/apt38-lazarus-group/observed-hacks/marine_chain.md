@@ -8,7 +8,7 @@ Tags:: 💼
 
 
 
-## Details 
+## Details
 
 - "Registered in Hong Kong on 12 April 2018, Marine Chain Platform Limited 40 was set up as a blockchain-enabled platform for vessel transactions that offered partial ownership of maritime vessels in exchange for digital tokens. According to a Member State, Marine Chain had ties with the Democratic People’s Republic of Korea, and at least one company employee had links to Democratic People’s Republic of Korea cyber actors who have extorted Bitcoin from online companies. The Member State further indicated that Marine Chain’s start-up funds likely came from the extortion of cybercurrencies."
 

@@ -26,7 +26,7 @@ li a.resource-wrap {
   border: none;
   border-radius: 0.25rem;
   font-family: PTMono;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   width: -moz-available;
   box-shadow: 3px 3px 0px ${colors.backgroundDarker};
   &:hover {

@@ -66,7 +66,7 @@ Tags:: 🔑 SquidSquad
 - bc1qa8ct4krhc4lycat0sq5sdahznv3aqahdqxgfzc - Dust Apr 2023
 
 
-### Post-TC Cluster (includes mgnr, arthur, easyfi, hugh karp, and countless others): 
+### Post-TC Cluster (includes mgnr, arthur, easyfi, hugh karp, and countless others):
 
 - 0x785b9940eaf44be2b832c61816ff873b97a8ad63
 - 0x2cf79ade61c36925463b02505d7186eabc1d8f2c

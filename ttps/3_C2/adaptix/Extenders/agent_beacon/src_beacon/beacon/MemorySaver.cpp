@@ -9,7 +9,7 @@ void MemorySaver::WriteMemoryData(ULONG memoryId, ULONG totalSize, ULONG dataSiz
 		memoryData.memoryId  = memoryId;
 		memoryData.totalSize = totalSize;
 		memoryData.buffer    = (PBYTE) MemAllocLocal(totalSize);
-		
+
 		chunks[memoryId] = memoryData;
 	}
 

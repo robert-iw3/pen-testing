@@ -21,7 +21,7 @@ namespace HyperShell
 
         protected void lbnSend_Click(object sender, EventArgs e)
         {
-            
+
             var cl = new WebClient();
             using (WebClient client = new WebClient())
             {

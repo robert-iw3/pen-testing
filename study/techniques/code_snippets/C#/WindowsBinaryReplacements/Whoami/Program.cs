@@ -171,7 +171,7 @@ namespace Whoami
         public static extern Boolean PrivilegeCheck(IntPtr ClientToken, PRIVILEGE_SET RequiredPrivileges, IntPtr pfResult);
         [DllImport("advapi32.dll", SetLastError = true)]
         public static extern Boolean PrivilegeCheck(IntPtr ClientToken, ref PRIVILEGE_SET RequiredPrivileges, out Int32 pfResult);
-        
+
         static string GetSid()
         {
             IntPtr procToken = IntPtr.Zero;
@@ -193,7 +193,7 @@ namespace Whoami
             ConvertSidToStringSid(SID, ref SIDString);
             return SIDString;
         }
-        
+
         ////////////////////////////////////////////////////////////////////////////////
         // Prints the tokens privileges // Taken from NetSPI's TokenVader project
         ////////////////////////////////////////////////////////////////////////////////

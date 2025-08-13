@@ -64,7 +64,7 @@ f_oauth_analyze(){
     for endpoint in "${OAUTH_ENDPOINTS[@]}"; do
         url="${TARGET_URL%/}$endpoint"
         status=$(curl -s -o "$OUTPUT_DIR/oauth_test/${endpoint##*/}_response.txt" -w "%{http_code}" "$url")
-        
+
         if [[ "$status" == "200" || "$status" == "302" || "$status" == "401" || "$status" == "403" ]]; then
             echo "$url ($status)" >> "$OUTPUT_DIR/oauth_test/found_oauth_endpoints.txt"
         fi
@@ -404,7 +404,7 @@ f_jwt_security(){
         echo "---------------"
         echo "Alg=None Attack Token 1: $(cat "$OUTPUT_DIR/jwt_test/none_attack_token1.txt")"
         echo "Alg=None Attack Token 2: $(cat "$OUTPUT_DIR/jwt_test/none_attack_token2.txt")"
-        
+
         if [ -f "$OUTPUT_DIR/jwt_test/admin_role_token.txt" ]; then
             echo "Privilege Escalation Token: $(cat "$OUTPUT_DIR/jwt_test/admin_role_token.txt")"
         fi

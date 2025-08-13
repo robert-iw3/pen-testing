@@ -1,4 +1,4 @@
-# Rain 
+# Rain
 
 Date:: April 29, 2024
 
@@ -14,7 +14,7 @@ Tags:: 🔐
 
 > Stolen funds currently sit:
 
-- bc1q53aawrkpt5lvk2e30z36unvmhqqdru7q4rprp2 - 137.9 BTC 
+- bc1q53aawrkpt5lvk2e30z36unvmhqqdru7q4rprp2 - 137.9 BTC
 
 - 0x197bc094f990261fd6841342901c451858756c28 - 1881 ETH
 
@@ -90,6 +90,6 @@ As described in more detail below, of the $16.13 million stolen, the FBI was abl
 
 ### Details Regarding Tracing the Stolen Funds to WhiteBIT
 34. FBI investigators traced a total of eight transactions involving funds stolen from Rain.com’s hot wallet to an address controlled by the North Korean cyber actors and/or their money laundering co-conspirators, “DrkSpv…RQom.” Beginning on or about April 29, 2024, at 01:54 GMT, and continuing through 03:42 GMT, through these eight transactions, the actors stole 5,505.904159384 SOL, which was valued at approximately $760,997.68 as of the date of the theft.
-35. Of the 5,505.904159384 SOL sent to address “DrkSpv…RQom,” approximately 4,890 SOL was sent in seven transactions to seven different addresses at WhiteBIT, as described below. Of the 4,890 SOL, approximately 2,211 SOL was sent in two transactions of approximately 1,500 SOL and approximately 710.753138909 SOL from “DrkSpv…RQom” to WhiteBIT. Approximately 1,500 SOL was sent to WhiteBIT deposit address “JDZvMk…SB1K7,” and approximately 710.753138909 SOL was sent to WhiteBIT deposit address “EJe7Ca…Pb6nf.” 
+35. Of the 5,505.904159384 SOL sent to address “DrkSpv…RQom,” approximately 4,890 SOL was sent in seven transactions to seven different addresses at WhiteBIT, as described below. Of the 4,890 SOL, approximately 2,211 SOL was sent in two transactions of approximately 1,500 SOL and approximately 710.753138909 SOL from “DrkSpv…RQom” to WhiteBIT. Approximately 1,500 SOL was sent to WhiteBIT deposit address “JDZvMk…SB1K7,” and approximately 710.753138909 SOL was sent to WhiteBIT deposit address “EJe7Ca…Pb6nf.”
 36. On or about May 7, 2024, WhiteBIT’s Anti-Money Laundering and Financial Monitoring Departments suspended 2,204.8222 SOL6 associated with the 1,500 SOL and 710.753138909 SOL deposits and thereafter consolidated that SOL into WhiteBIT address 8mowmVCEewZ9W2cEaQyQeQEeSxhGr1hvRviLwozwNtBt (the Defendant Property).
 37. North Korean cyber actors typically launder stolen funds through several exchanges, swapping currencies or value to different blockchains, to make following those assets more difficult and to prevent stolen funds from being frozen by law enforcement. What happened here is no different; the Lazarus Group, APT38, transferred the virtual currency to WhiteBIT to launder the virtual currency and obfuscate the nature, source, location, ownership, or control of stolen funds.

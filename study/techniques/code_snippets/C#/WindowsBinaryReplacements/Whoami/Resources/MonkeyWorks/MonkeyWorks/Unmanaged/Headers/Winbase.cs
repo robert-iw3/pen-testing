@@ -123,7 +123,7 @@ namespace MonkeyWorks.Unmanaged.Headers
         };
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct _SYSTEM_INFO 
+        public struct _SYSTEM_INFO
         {
             public INFO_PROCESSOR_ARCHITECTURE wProcessorArchitecture;
             public WORD wReserved;

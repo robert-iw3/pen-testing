@@ -56,7 +56,7 @@ UINTN    EFIDebug    = EFI_DBUG_MASK;
 SIMPLE_TEXT_OUTPUT_INTERFACE    *LibRuntimeDebugOut;
 
 //
-// LibRuntimeRaiseTPL, LibRuntimeRestoreTPL - pointers to Runtime functions from the 
+// LibRuntimeRaiseTPL, LibRuntimeRestoreTPL - pointers to Runtime functions from the
 //                                            Boot Services Table
 //
 

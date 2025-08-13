@@ -245,7 +245,7 @@ _layouts/1033/ConfirmAlert.aspx
 _layouts/1033/ConnGps.aspx
 _layouts/1033/CreateMySite.aspx
 _layouts/1033/Default.aspx
-_layouts/1033/Default.aspx 
+_layouts/1033/Default.aspx
 _layouts/1033/DeleteMu.aspx
 _layouts/1033/DiscBar.aspx
 _layouts/1033/DisplayMappings.aspx

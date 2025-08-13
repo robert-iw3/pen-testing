@@ -14,13 +14,13 @@
 #include <comdef.h>
 #include "wmi_defs.h"
 
-// class for locating exported functions in a DLL and 
+// class for locating exported functions in a DLL and
 // retrieving their addresses
 class IExport
 {
 public:
     template<typename... Args, typename = std::enable_if_t<(std::is_same_v<LPCSTR, Args> && ...)>>
-    
+
     // Unused, needs to be rewritten
     static const std::vector<LPVOID> LoadAndFindExports(LPCSTR lpDll, Args ... args)
     {
@@ -222,7 +222,7 @@ public:
         delete[] lpwDll;
 
 		ILog("Failed to find export %s in %s\n", function, lpDll);
-        
+
         return nullptr;
     }
 

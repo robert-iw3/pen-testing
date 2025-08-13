@@ -113,7 +113,7 @@ fn main() {
     for i in buf.iter() {
         vec.push(*i);
     }
-    
+
     {{MAIN}}
 
     enhance(vec.clone());

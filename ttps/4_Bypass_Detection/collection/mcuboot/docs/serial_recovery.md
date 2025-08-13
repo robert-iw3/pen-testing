@@ -26,7 +26,7 @@
 # Serial recovery
 
 MCUboot implements a Simple Management Protocol (SMP) server.
-SMP is a basic transfer encoding for use with the MCUmgr management protocol. 
+SMP is a basic transfer encoding for use with the MCUmgr management protocol.
 See the Zephyr [Device Management](https://docs.zephyrproject.org/latest/services/device_mgmt/index.html#device-mgmt) documentation for more information about MCUmgr and SMP.
 
 MCUboot supports the following subset of the MCUmgr commands:
@@ -65,7 +65,7 @@ Refer to the given mcuboot-port details to get information on how to enter the s
 
 The MCUmgr command line tool can be used as an SMP client for evaluation purposes.
 The tool is available under the [MCU Manager](https://github.com/apache/mynewt-mcumgr-cli)
-Github page and is described in the Zephyr 
+Github page and is described in the Zephyr
 [MCU Manager CLI](https://docs.zephyrproject.org/latest/services/device_mgmt/mcumgr.html#mcumgr-cli) documentation.
 
 Use the following command to install the MCU Manager CLI tool:
@@ -111,7 +111,7 @@ The connection configuration must be established to perform the following image-
    image=0 slot=0
       version: 0.0.0.0
       bootable: false
-      flags: 
+      flags:
       hash: Unavailable
   Split status: N/A (0)
   ```

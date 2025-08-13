@@ -25,7 +25,7 @@
 
 - [Tempted to Classifying APT Actors: Practical Challenges of Attribution in the Case of Lazarus’s Subgroup](https://blogs.jpcert.or.jp/en/2025/03/classifying-lazaruss-subgroup.html)
 
-### Unit42: 
+### Unit42:
 
 - [Threat Assessment: North Korean Threat Groups](https://unit42.paloaltonetworks.com/threat-assessment-north-korean-threat-groups-2024/)
 - These groups have been reportedly [active as early as 2007 [PDF]](https://www.usna.edu/CyberCenter/_files/documents/Operation-Blockbuster-Report.pdf). Activity under the RGB can be categorized into at least six threat groups:
@@ -76,7 +76,7 @@
     - [Degen Reborn](./hacks-and-thefts/degen_reborn.md)
     - [ALEX Labs](./hacks-and-thefts/alex-labs.md)
     - [Theft from Individual C7](./hacks-and-thefts/c7.md)
-    - [Theft from Individual C4](./hacks-and-thefts/c4.md)                                     
+    - [Theft from Individual C4](./hacks-and-thefts/c4.md)
     - [Theft from Individual I4](./hacks-and-thefts/i4.md)
     - [Theft from Individual A4](./hacks-and-thefts/a4.md)
     - [Fake Hack VC Thefts](./hacks-and-thefts/hack-vc.md)
@@ -137,7 +137,7 @@
 - Targets blockchain companies through spear-phishing messages, fake job offers
 - It was also involved in a supply chain attack targeting a U.S.-based software platform and is known for distributing a series of malicious applications called TraderTraitor.
 - Messages employees, particularly those in system administration or software development roles, on various communication platforms, intended to gain access to these start-up and high-tech companies
-- Today: Job offers and/or skills tests in python, sql, etc. Github, malicious npm packages are utilized. Personas on Linkedin usually white and impersonating/cloned legit profile. Github repos may be private. Conversation style usually more casual, conversational, adaptable? 
+- Today: Job offers and/or skills tests in python, sql, etc. Github, malicious npm packages are utilized. Personas on Linkedin usually white and impersonating/cloned legit profile. Github repos may be private. Conversation style usually more casual, conversational, adaptable?
 - Before: Same except ultimately deliverered malicious electron trading apps
 - More time passes between compromise and theft (at times 6+ months) making it especially hard to identify intiial social engineering that led to compromise.
 - May be the work of operators previously responsible for broader APT38 activity
@@ -168,10 +168,10 @@
 - Creates fake websites masquerading as legitimate cryptocurrency trading platforms and uses them to distribute fake job applications or lure targets into downloading a weaponized cryptocurrency wallet or trading application based on legitimate applications
 - Most commonly infects targets with the unique trojan malware it developed, AppleJeus, which collects information necessary to seize control of the targets’ cryptocurrency assets
 - The FudModule rootkit described in [this blog](https://microsoft.com/en-us/security/blog/2024/08/30/north-korean-threat-actor-citrine-sleet-exploiting-chromium-zero-day/) has now been tied to Citrine Sleet as shared tooling with Diamond Sleet.
-- Like TraderTraitor, this crypto-focused group appeared to emerge after the notoriety that came with the Bangladesh heist and issues with stealing and laundering traditional currency. 
+- Like TraderTraitor, this crypto-focused group appeared to emerge after the notoriety that came with the Bangladesh heist and issues with stealing and laundering traditional currency.
 - This group’s tools overlap with TEMP.Hermit, but is not focused on the same targeting profiles, potentially indicating shared resources.
 - *"One of the most successful fake personas used by the Lazarus Group was Waliy Darwish—a man who supposedly worked for a cryptocurrency company, based in Michigan, called Celas L.L.C." —[The Incredible Rise of North Korea’s Hacking Army](https://newyorker.com/magazine/2021/04/26/the-incredible-rise-of-north-koreas-hacking-army)*
-- **Known Attacks:** 
+- **Known Attacks:**
     - 2018 [Gate.io Hack (Celas Trade Pro)](./hacks-and-thefts/gate.md)
     - 2019 [DragonEx Hack (WorldBit-Bot)](./hacks-and-thefts/dragonex.md)
     - 2021 [990.1 BTC from Derbit Acct](./hacks-and-thefts/990_btc.md)
@@ -180,7 +180,7 @@
     - 2022 [Deribit](./hacks-and-thefts/deribit.md)
     - 2023 [Polynetwork](./hacks-and-thefts/polynetwork-2023.md)
     - 2024 [Radiant](./hacks-and-thefts/radiant.md)
-    - 2025 [Nick Franklin Attempt on 1inch](./hacks-and-thefts/nick-franklin/index.md)    
+    - 2025 [Nick Franklin Attempt on 1inch](./hacks-and-thefts/nick-franklin/index.md)
 - "One of the most successful fake personas used by the Lazarus Group was Waliy Darwish—a man who supposedly worked for a cryptocurrency company, based in Michigan, called Celas L.L.C." —[The Incredible Rise of North Korea’s Hacking Army](https://newyorker.com/magazine/2021/04/26/the-incredible-rise-of-north-koreas-hacking-army)
 - [Mar 2025 | Nick Franklin attempts to hit 1inch Team Member](https://hackmd.io/@pcaversaccio/1inch-analysis-app-a-dprk-trojan-horse)
 - [Dec 2024 | Radiant Hacker uses Hyperliquid](https://x.com/tayvano_/status/1870960207842701358)
@@ -257,7 +257,7 @@
 - New onchain cluster / laundry patterns first observed early 2023, fully baked out by late 2023
 - This may actually map back to some dudes that originally did TraderTraitor or APT38 type stuff like Nexus Mutual but I dunno yet. On-chain they certainly Dust Collect like Hugh Karp / EasyFi / etc. and they certainly love to compromise private keys and pivot to taking over protocols but most everything else is different.
 - UnoReDAO, OKX Dex, ConcentricFi, Serenity Shield, Wilder World, Hyve, on and on and on and on and on. Also the Upwork/Braintrust/Linkedin Job Scams. Flickthebean, etc.
-- Connects af onchain. Is a real fucking mess. Stargate / Defiway / RhinoFi / Railgun / Dust Collectors. 
+- Connects af onchain. Is a real fucking mess. Stargate / Defiway / RhinoFi / Railgun / Dust Collectors.
 - In the cases of protocol exploits, the private keys that have critical access are compromised and used to upgrade the protocol in order to mint an infinite amount of new tokens or drain the protocol of any locked assets. Lots of `transferOwnerships`.
 - On the social engineering side: Developers often reach out to the attacker in response to a job or freelance post. The attacker asks them to complete a job interview, skills test, or fix some issues in an existing codebase. Details about the test or code issues are often provided via Google Docs or similar text document. They have much more information and provide actual requirements, as opposed to some of the conversations seen used in TraderTraitor. The code is typically provided via Github, Bitbucket, or a zip file hosted on Google Drive. They are Javascript / Node JS projects and use npm install / run / build. Often the personal addresses that are active and in unlocked browser extensions or desktop wallets are drained of all assets nearly immediately. Shortly thereafter, these private keys, or additional private keys stored on the developers machine, are further drained of assets and/or used to exploit smart contracts or protocols.
 - There are also cases where the attacker reaches out to a developer or dev shop or asking to hire / contract them to help finish a project. They then grant the dev shop access to a private (malicious) repo. The lead of the dev shop will then run the repo to see what the issue is, what work is required, and provide a quote. That tech lead's device is thus compromised, alongside their own wallets/projects or previous clients.
@@ -277,8 +277,8 @@
 - [Dec 2023 | Blockchain dev's wallet emptied in "job interview" using npm package](https://bleepingcomputer.com/news/security/blockchain-devs-wallet-emptied-in-job-interview-using-npm-package/)
 - [May 2024 | 针对区块链从业者的招聘陷阱：疑似Lazarus（APT-Q-1）窃密行动分析](https://mp.weixin.qq.com/s/84lUaNSGo4lhQlpnCVUHfQ)
 - [Aug 2024 | North Korea Still Attacking Developers via npm](https://blog.phylum.io/north-korea-still-attacking-developers-via-npm/)
-- https://x.com/dimitribest/status/1782609281897902426 
-- https://x.com/asdasd13asbz/status/1782951380568936481 
+- https://x.com/dimitribest/status/1782609281897902426
+- https://x.com/asdasd13asbz/status/1782951380568936481
 - https://linkedin.com/posts/abhisheksinghsoni_blockchainsecurity-cryptoscamalert-defijobs-activity-7127542067001475073-71xU/
 - https://github.com/0x50D4/0x50d4.github.io/blob/main/_posts/2024-04-03-python-malware.md
 
@@ -318,8 +318,8 @@
 - This group has primarily conducted cyberespionage, but it has also conducted ransomware activity.
 - Known for its broader scope of operations, Andariel targets both government and private sector entities, including financial services and cryptocurrency companies.
 - Their methods include exploiting vulnerabilities in widely used software, such as the Log4j vulnerability, to deploy bespoke malware and gain unauthorized access to sensitive systems
-- This actor targets foreign businesses, government agencies, financial services infrastructure, private corporations, and the defense industry. UNC614 also engages in cyber crime as an extra source of income to fund their operations, including the [ransoming of hospitals](https://advantage.mandiant.com/reports/22-00021780), using their own ransomware malware dubbed [MAUI](https://advantage.mandiant.com/reports/22-00019069). However, their primary focus is on targeting military and government personnel. 
-- This cyber group stands apart from the other DPRK aligned groups and typically does not fall into the blending and targeting that the others may do. Some groups have espionage and financial focuses, but Andariel is tasked to acquire information to “build” the weapons of mass destruction or research and development programs in other targeted fields, like pharmaceuticals. 
+- This actor targets foreign businesses, government agencies, financial services infrastructure, private corporations, and the defense industry. UNC614 also engages in cyber crime as an extra source of income to fund their operations, including the [ransoming of hospitals](https://advantage.mandiant.com/reports/22-00021780), using their own ransomware malware dubbed [MAUI](https://advantage.mandiant.com/reports/22-00019069). However, their primary focus is on targeting military and government personnel.
+- This cyber group stands apart from the other DPRK aligned groups and typically does not fall into the blending and targeting that the others may do. Some groups have espionage and financial focuses, but Andariel is tasked to acquire information to “build” the weapons of mass destruction or research and development programs in other targeted fields, like pharmaceuticals.
 - The targeting trends, such as nuclear, aerospace, high heat molds, etc. and overall successful compromises of this actor make it quite possibly the scariest of all the DPRK affiliated groups.
 - Primary targeting: Defense, Aerospace, Healthcare (when self-funding operations), Nuclear
 - [Jul 2024 | North Korean Government Hacker Charged for Involvement in Ransomware Attacks Targeting U.S. Hospitals and Health Care Providers](https://justice.gov/opa/pr/north-korean-government-hacker-charged-involvement-ransomware-attacks-targeting-us-hospitals)
@@ -336,7 +336,7 @@
 - Prioritizes espionage, data theft, financial gain, and network destruction
 - Mandiant said the threat cluster shares "multiple overlaps" with a long-running operation dubbed "Dream Job" that employs job recruitment lures in email messages to trigger the infection sequence.
 - TEMP.Hermit, is an actor that has been active since at least 2013. Their operations since that time are representative of Pyongyang's efforts to collect strategic intelligence to benefit North Korean interests. This actor targets government, defense, telecommunications, and financial institutions worldwide and the term “Lazarus Group” refers most often to this cluster of activities. AppleJeus maintains overlap with this organization, but TEMP.Hermit’s targeting continues to focus on espionage related activities and not cryptocurrency as its primary focus.
-- ZINC is a highly operational, destructive, and sophisticated nation-state activity group. Active since 2009, the activity group gained further public notoriety in 2014 following their successful attack against Sony Pictures Entertainment. ZINC is known to use a variety of custom remote access tools (RATs) as part of their arsenal, including those detected by Microsoft as FoggyBrass and PhantomStar.  
+- ZINC is a highly operational, destructive, and sophisticated nation-state activity group. Active since 2009, the activity group gained further public notoriety in 2014 following their successful attack against Sony Pictures Entertainment. ZINC is known to use a variety of custom remote access tools (RATs) as part of their arsenal, including those detected by Microsoft as FoggyBrass and PhantomStar.
 - Applejeus/Citrine Sleet's tools overlap with TEMP.Hermit, but is not focused on the same targeting profiles, potentially indicating shared resources.
 - The actor that Microsoft tracks as Diamond Sleet (formerly ZINC) is a North Korea-based activity group known to target media, defense, and IT industries globally. Diamond Sleet focuses on espionage, theft of personal and corporate data, financial gain, and corporate network destruction.
 - Diamond Sleet is known to use a variety of custom malware that is exclusive to the group. Recent Diamond Sleet malware is described in Microsoft’s reporting of the group’s weaponization of open source software and exploitation of N-day vulnerabilities. Diamond Sleet overlaps with activity tracked by other security companies as Temp.Hermit and Labyrinth Chollima.
@@ -388,7 +388,7 @@
 - [Feb 2024 | New Malicious PyPI Packages used by Lazarus](https://blog.phylum.io/crypto-themed-npm-packages-found-delivering-stealthy-malware/)
 - [Nov 2023 | Phylum: Crypto-Themed npm Packages Found Delivering Stealthy Malware](https://blog.phylum.io/crypto-themed-npm-packages-found-delivering-stealthy-malware/)
 - [Jan 2021 | Google: New campaign targeting security researchers](https://blog.google/threat-analysis-group/new-campaign-targeting-security-researchers/)
-- NPM / PyPi: puma-com erc20-testenv blockledger cryptotransact chainflow 
+- NPM / PyPi: puma-com erc20-testenv blockledger cryptotransact chainflow
 - C2: angeldonationblog[.]com codevexillium[.]org investbooking[.]de krakenfolio[.]com opsonew3org[.]sg transferwiser[.]io transplugin[.]io
 - Twitter: br0vvnn BrownSec3Labs dev0exp djokovic808 henya290  james0x40 m5t0r mvp4p3r tjrim91 z0x55g
 - Linkedin: billy-brown-a6678b1b8 guo-zhang-b152721bb hyungwoo-lee-6985501b9 linshuang-li-aa696391bb rimmer-trajan-2806b21bb
@@ -397,7 +397,7 @@
 
 ## APT38 / TA444 / Bluenoroff
 
-- APT38 is a financially motivated group, known for significant financial compromises and its use of destructive malware against financial institutions. The group has been attributed to sophisticated compromises targeting [Interbank Fund Transfer Systems](https://mandiant.com/resources/blog/apt38-details-on-new-north-korean-regime-backed-threat-group) to steal millions of dollars at a time across multiple countries worldwide. 
+- APT38 is a financially motivated group, known for significant financial compromises and its use of destructive malware against financial institutions. The group has been attributed to sophisticated compromises targeting [Interbank Fund Transfer Systems](https://mandiant.com/resources/blog/apt38-details-on-new-north-korean-regime-backed-threat-group) to steal millions of dollars at a time across multiple countries worldwide.
 - Current activity from this group is conducted by associated subgroups. Mandiant identified a long hiatus of activity attributed to APT38, which may be indicative of modifications and regrouping of APT38 operators to other units aligned with new priorities and needs.
 - APT38 is characterized by long planning, extended periods of access to compromised victim environments preceding any attempts to steal money, fluency across mixed operating system environments, the use of custom developed tools, and a constant effort to thwart investigations capped with a willingness to completely destroy compromised machines afterwards.
 - Primary targeting: Financials
@@ -419,7 +419,7 @@
 
 - aka: THALLIUM
 -  This group conducts intelligence collection and has used cybercrime to fund espionage.
-- APT43 is a prolific cyber operator that directly supports intelligence gathering interests of the North Korean regime. The group combines moderately sophisticated technical capabilities with aggressive social engineering tactics, especially against South Korean and US-based government organizations, academics, and think tanks focused on Korean peninsula geopolitical issues. 
+- APT43 is a prolific cyber operator that directly supports intelligence gathering interests of the North Korean regime. The group combines moderately sophisticated technical capabilities with aggressive social engineering tactics, especially against South Korean and US-based government organizations, academics, and think tanks focused on Korean peninsula geopolitical issues.
 - This organization acts as an intelligence arm and seeming embassy replacement for the RGB and DPRK leadership writ large.
 - Primary targeting: Governments, Nuclear, Foreign Relations
 - Attribution: Mandiant has tracked this group since 2018, and APT43’s collection priorities align with the mission of the Reconnaissance General Bureau (RGB, North Korea's main foreign intelligence service.
@@ -453,7 +453,7 @@
 
 - Mandiant has observed operations that include tactics and tools from multiple groups, which suggests that in certain cases, operations may be undertaken by multiple groups that fluidly perform ad hoc tasks in support of another group, or due to temporary tasking. This is consistent with public reporting that identified a [group](https://dailynk.com/english/kim-jong-un-directly-handling-results-new-covid-19-hacking-organization-work/) that aligns with an alleged RGB Bureau, designated ‘325’, which was publicly announced in January 2021, when the structure of the RGB likely shifted in response to the COVID-19 pandemic.
 - Mandiant assesses that UNC2226 is one of the collections of activity supporting the aforementioned mission. UNC2226, like other seemingly ad hoc created efforts, appears to have changed or even expanded targeting to fulfill intelligence gathering efforts. Other clusters, such as UNC3782, have a similar composition and are focused on cryptocurrency theft among other seemingly ad hoc tasks.
-- The operations initially appeared to focus almost exclusively on intelligence gathering operations against COVID-19 research and vaccine development/manufacturing organizations. Over time, Mandiant perceived these operations shift from strictly COVID-19 efforts to the targeting of defectors, defense and governments, bloggers, media, cryptocurrency services, and financial institutions. 
+- The operations initially appeared to focus almost exclusively on intelligence gathering operations against COVID-19 research and vaccine development/manufacturing organizations. Over time, Mandiant perceived these operations shift from strictly COVID-19 efforts to the targeting of defectors, defense and governments, bloggers, media, cryptocurrency services, and financial institutions.
 
 
 
@@ -513,7 +513,7 @@
 - The first stage usually is an AppleScript file contained inside an application or inside a ZIP archive masquerading as a legitimate file. This AppleScript file is responsible for retrieving the second stage downloader.
 - The second stage downloader masquerades as a PDF viewer application. Some variants of this second stage downloader are written in Swift, while others are written in Objective-C.
 - The third stage is the final payload retrieved by the second stage downloader. Figure 2 shows an alert from Cortex XDR that blocks a RustBucket sample from downloading the next stage of malware.
-- The third stage payloads are Mach-O binaries written in Rust, hence the name RustBucket. Later variants of stage three employ persistence via a LaunchAgent, a feature that did not exist in older variants. 
+- The third stage payloads are Mach-O binaries written in Rust, hence the name RustBucket. Later variants of stage three employ persistence via a LaunchAgent, a feature that did not exist in older variants.
 - Stage three has two main commands: Download and execute a file and self-terminate the malware
 - https://unit42.paloaltonetworks.com/threat-assessment-north-korean-threat-groups-2024/
 - [Apr 2023 | BlueNoroff APT group targets macOS with ‘RustBucket’ Malware](https://jamf.com/blog/bluenoroff-apt-targets-macos-rustbucket-malware/)

@@ -27,13 +27,13 @@ Date:: December 21st, 2020
 
 - ETC — 0x4d9EF6846126Da2867AF503448be0508542C971e
 
-- BTC - 3BCYzf9RajkvKFtEbjoacbtcvdc3RZb5xX 
+- BTC - 3BCYzf9RajkvKFtEbjoacbtcvdc3RZb5xX
     - from other chains
     - Poloniex Withdrawals
         - 13UF5FSYxeFtnZCC9nRAS4eqqxLXCDcY1C ($481k)
         - 1Pd1dcYYpfCHjXwkTf5rmzxb984DDyRELY ($260k)
         - 1B7inv4Mkpybzjew3KPMRkMqqwmBv5Lb7d ($900k)
-        - 1BLAhv2XD3xGywro6kviFzka4fijvsPDY1 ($130k)        
+        - 1BLAhv2XD3xGywro6kviFzka4fijvsPDY1 ($130k)
     - ChangeNOW Withdrawals
         - 1GwYmVhsU7VXuNCwn3C6pSXsjoVVwYXk1z
         - 1HQYUE6Ty2rnXv1hWKrJJ6K8Xm24ozDPxJ

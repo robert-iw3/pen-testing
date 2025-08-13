@@ -17,7 +17,7 @@ requests:
       - "{{BaseURL}}*"
       - "{{BaseURL}}[]"
       - "{{BaseURL}}')"
-   
+
     matchers-condition: and
     matchers:
       - type: word

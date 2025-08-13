@@ -16,7 +16,7 @@ namespace winPEAS.Info.UserInfo.LogonSessions
         {
             if (!MyUtils.IsHighIntegrity())
             {
-                // Logon Sessions (via WMI) 
+                // Logon Sessions (via WMI)
                 return GetLogonSessionsInfoWMI();
             }
 
@@ -105,7 +105,7 @@ namespace winPEAS.Info.UserInfo.LogonSessions
             var userDomainRegex = new Regex(@"Domain=""(.*)"",Name=""(.*)""");
             var logonIdRegex = new Regex(@"LogonId=""(\d+)""");
 
-            // Logon Sessions (via WMI) 
+            // Logon Sessions (via WMI)
             var logonMap = new Dictionary<string, string[]>();
 
             // Win32_LoggedOnUser

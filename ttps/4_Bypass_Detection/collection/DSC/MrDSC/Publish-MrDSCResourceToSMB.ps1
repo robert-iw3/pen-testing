@@ -4,11 +4,11 @@ function Publish-MrDSCResourceToSMB {
 <#
 .SYNOPSIS
     Publishes the module(s) of the specified DSC Resource(s) to an SMB based DSC pull server.
- 
+
 .DESCRIPTION
     Publish-MrDSCResourceToSMB is an advanced PowerShell function that publishes one or more DSC resource
     modules to an SMB based DSC server pull server.
- 
+
 .PARAMETER Name
     The name of the DSC resource. This is not necessarily the same as the root module containing the DSC
     resource.
@@ -18,19 +18,19 @@ function Publish-MrDSCResourceToSMB {
 
 .PARAMETER SMBPath
     The UNC path of the SMB share used as the DSC pull server for DSC Resource distribution.
- 
+
 .EXAMPLE
      Publish-MrDSCResourceToSMB -Name xSMBShare, xFirewall -SMBPath \\Server01\Share
 
 .EXAMPLE
      'xSMBShare', 'xFirewall' | Publish-MrDSCResourceToSMB -SMBPath \\Server01\Share
- 
+
 .INPUTS
     String
- 
+
 .OUTPUTS
     None
- 
+
 .NOTES
     Author:  Mike F Robbins
     Website: http://mikefrobbins.com
@@ -81,12 +81,12 @@ function Publish-MrDSCResourceToSMB {
         else {
            $Params.Module = $Module
         }
-        
+
         $DSCResources = Get-MrDSCResourceModulePath @Params
-                
+
         foreach ($DSCResource in $DSCResources) {
 
-            $Guid = New-MrGuid                   
+            $Guid = New-MrGuid
 
             New-MrZipFile -Directory "$($DSCResource.ModulePath)" -FileName "$($SMBPath)\$($DSCResource.Module)_$($DSCResource.ModuleVersion).zip" -Force
             New-DSCCheckSum -ConfigurationPath "$($SMBPath)\$($DSCResource.Module)_$($DSCResource.ModuleVersion).zip" -OutPath "$SMBPath" -Force

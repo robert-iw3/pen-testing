@@ -159,7 +159,7 @@ namespace winPEAS.Info.EventsInfo.Logon
                 var ipAddress = eventDetail.GetPropertyValue(12);
                 //var IpPort = eventDetail.GetPropertyValue(13);
 
-                // Ignore the current machine logging on and 
+                // Ignore the current machine logging on and
                 if (Regex.IsMatch(targetUserName, Environment.MachineName) ||
                     Regex.IsMatch(targetDomainName, @"^(Font Driver Host|Window Manager)$"))
                 {

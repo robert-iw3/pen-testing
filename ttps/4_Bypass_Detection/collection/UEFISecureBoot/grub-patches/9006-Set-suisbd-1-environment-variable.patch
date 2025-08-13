@@ -17,13 +17,13 @@ index dcf4872..e62d6a6 100644
 @@ -295,6 +295,9 @@ grub_main (void)
    grub_env_export ("root");
    grub_env_export ("prefix");
- 
+
 +  grub_env_set ("suisbd", "1");
 +  grub_env_export ("suisbd");
 +
    /* Reclaim space used for modules.  */
    reclaim_module_space ();
- 
--- 
+
+--
 2.20.1
 

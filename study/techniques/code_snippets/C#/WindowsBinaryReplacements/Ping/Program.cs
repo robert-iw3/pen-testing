@@ -20,7 +20,7 @@ namespace Ping
             {
                 Console.WriteLine("[!] Host is unreachable: " + args[0]);
             }
-        }  
+        }
 
         public static bool PingHost(string nameOrAddress)
         {

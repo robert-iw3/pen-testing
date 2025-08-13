@@ -575,7 +575,7 @@ isView = false;
 #endif
 
       /* Ensure that:
-      *  (a) the table is not read-only, 
+      *  (a) the table is not read-only,
       *  (b) that if it is a view then ON INSERT triggers exist
       */
       if ( sqlite3IsReadOnly( pParse, pTab, tmask ) )

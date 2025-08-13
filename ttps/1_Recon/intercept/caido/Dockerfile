@@ -14,7 +14,7 @@ LABEL org.opencontainers.image.name='Caido' \
       org.opencontainers.image.vendor='Caido' \
       org.opencontainers.image.schema-version='0.45.1' \
       MAINTAINER="@rw"
-      
+
 RUN \
     microdnf install -y yum-utils epel-release shadow-utils; \
     groupadd -g 1007 caido; \
@@ -67,7 +67,7 @@ RUN \
     oscap ds sds-validate /usr/share/xml/scap/ssg/content/${BENCHMARK} \ && echo "ok" || echo "exit code = $? not ok"; \
     oscap xccdf eval --profile ${SCAP_PROFILE} --results caido_alma9-${SCAP_SNAME}-scap-report.xml \
     --report caido_alma9-${SCAP_SNAME}-scap-report.html /usr/share/xml/scap/ssg/content/${BENCHMARK} || :; \
-    chown -R caido:caido /home/caido; \    
+    chown -R caido:caido /home/caido; \
     dnf config-manager --set-disabled crb; \
     /usr/bin/crb disable; \
     microdnf remove -y \
@@ -76,7 +76,7 @@ RUN \
         openscap \
         scap-security-guide \
         wget \
-        yum-utils; \  
+        yum-utils; \
     microdnf clean all; \
     rm -rf /var/cache/dnf /var/cache/yum /tmp/* /var/tmp/*; \
     truncate -s 0 /var/log/*log; \
@@ -86,4 +86,4 @@ RUN \
 USER caido
 EXPOSE 8080
 ENTRYPOINT [ "caido-cli" ]
-CMD [ "--listen", "0.0.0.0:8080" ] 
+CMD [ "--listen", "0.0.0.0:8080" ]

@@ -141,7 +141,7 @@
 /phpmyadmin.box25/
 /phpMyAdmin.old/
 /phpmyadmin/
-/phpmyadmin/ 
+/phpmyadmin/
 /phpMyAdmin/%0D
 /phpmyadmin/admin/
 /phpmyadmin/bad397/
@@ -181,7 +181,7 @@
 /phpmyadminA/
 /phpMyAdminhf/
 /phpmyadminn/
-/phpmyadmino/ 
+/phpmyadmino/
 /phpMyAdminold/
 /phpMyAdmins/
 /sql/myadmin/

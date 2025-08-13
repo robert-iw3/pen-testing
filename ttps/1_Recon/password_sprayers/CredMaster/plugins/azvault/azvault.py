@@ -83,7 +83,7 @@ def azvault_authenticate(url, username, password, useragent, pluginargs):
                 # Access successful but blocked by CAP
                 data_response['result'] = "success"
                 data_response['output'] = f"[+] SUCCESS ({error_code}): {username}:{password} - NOTE: The response indicates token access is blocked by CAP"
-                data_response['valid_user'] = True  
+                data_response['valid_user'] = True
 
             elif "AADSTS50076" in error:
                 # Microsoft MFA response

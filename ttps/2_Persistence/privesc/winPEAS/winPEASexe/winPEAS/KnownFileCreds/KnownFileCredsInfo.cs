@@ -127,7 +127,7 @@ namespace winPEAS.KnownFileCreds
 
             try
             {
-                // WshShell COM object GUID 
+                // WshShell COM object GUID
                 Type shell = Type.GetTypeFromCLSID(new Guid("F935DC22-1CF0-11d0-ADB9-00C04FD58A0B"));
                 Object shellObj = Activator.CreateInstance(shell);
 

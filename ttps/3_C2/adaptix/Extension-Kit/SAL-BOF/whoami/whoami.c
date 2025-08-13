@@ -295,10 +295,10 @@ int WhoamiPriv(void)
     return 0;
 }
 
-VOID go( 
-	IN PCHAR Buffer, 
-	IN ULONG Length 
-) 
+VOID go(
+	IN PCHAR Buffer,
+	IN ULONG Length
+)
 {
 	if(!bofstart())
 	{

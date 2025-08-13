@@ -89,7 +89,7 @@ I've been thinking about putting together a list of process injection techniques
 - https://attack.mitre.org/techniques/T1055/013/
 - https://github.com/hasherezade/process_doppelganging
 
-#### Process Herpaderping 
+#### Process Herpaderping
 - https://github.com/jxy-s/herpaderping
 
 #### Process Ghosting
@@ -123,7 +123,7 @@ I've been thinking about putting together a list of process injection techniques
 
 #### Dll Injection via SetWindowsHookEx
 - https://github.com/DrNseven/SetWindowsHookEx-Injector
-  
+
 #### Reflective Dll Injection
 - https://attack.mitre.org/techniques/T1055/001/
 - https://github.com/stephenfewer/ReflectiveDLLInjection
@@ -138,12 +138,12 @@ I've been thinking about putting together a list of process injection techniques
 
 #### APC Queue Injection
 - https://attack.mitre.org/techniques/T1055/004/
-- https://www.ired.team/offensive-security/code-injection-process-injection/apc-queue-code-injection  
+- https://www.ired.team/offensive-security/code-injection-process-injection/apc-queue-code-injection
 
-#### Thread Execution Hijacking 
+#### Thread Execution Hijacking
 - https://attack.mitre.org/techniques/T1055/003/
 - https://www.ired.team/offensive-security/code-injection-process-injection/injecting-to-remote-process-via-thread-hijacking
-  
+
 #### Atom Bombing Injection
 - https://github.com/BreakingMalwareResearch/atom-bombing
 
@@ -157,10 +157,10 @@ I've been thinking about putting together a list of process injection techniques
 #### Extra Window Memory Injection
 - https://attack.mitre.org/techniques/T1055/011/
 - https://github.com/BreakingMalware/PowerLoaderEx
-  
+
 #### ThreadlessInject
 - https://github.com/CCob/ThreadlessInject
- 
+
 #### EPI
 - https://github.com/Kudaes/EPI
 
@@ -200,7 +200,7 @@ I've been thinking about putting together a list of process injection techniques
 
 #### SetProcessInjection
 - https://github.com/OtterHacker/SetProcessInjection
-  
+
 #### Pool Party Injection
 - https://www.safebreach.com/blog/process-injection-using-windows-thread-pools
 - https://github.com/SafeBreach-Labs/PoolParty

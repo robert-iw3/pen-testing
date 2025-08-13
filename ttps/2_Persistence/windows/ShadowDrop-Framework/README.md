@@ -1,7 +1,7 @@
 
 <div align="left">
-    
-# ⚔️ ShadowDrop Framework  
+
+# ⚔️ ShadowDrop Framework
 **Advanced Malware Dropper & Evasion Toolkit for Authorized Red Teaming**
 
 
@@ -18,11 +18,11 @@ graph LR
     D --> E
 ```
 
-**By accessing this repository, you irrevocably agree to**:  
+**By accessing this repository, you irrevocably agree to**:
 1. **Authorization Requirement**: Use ONLY on systems with explicit written owner consent
-2. **Zero-Collateral Policy**: Never disrupt production systems or exfiltrate real data  
-3. **Full Anonymity**: Strip all metadata and watermarking before deployment  
-4. **Non-Attribution**: Never reference this project in engagement reports  
+2. **Zero-Collateral Policy**: Never disrupt production systems or exfiltrate real data
+3. **Full Anonymity**: Strip all metadata and watermarking before deployment
+4. **Non-Attribution**: Never reference this project in engagement reports
 
 > Technical architecture: Multi-level protection system
 ```mermaid
@@ -61,10 +61,10 @@ void ExecuteStagedPayload(LPCSTR c2_url) {
 }
 ```
 
-- Polymorphic droppers with runtime code mutation  
-- Zero-touch deployment via weaponized LNK/ISO containers  
-- Process ghosting with section object hijacking  
-- API unhooking for EDR bypass  
+- Polymorphic droppers with runtime code mutation
+- Zero-touch deployment via weaponized LNK/ISO containers
+- Process ghosting with section object hijacking
+- API unhooking for EDR bypass
 
 > Polymorphic engine
 ```mermaid
@@ -72,7 +72,7 @@ sequenceDiagram
     participant Stager
     participant Cryptor
     participant Memory
-    
+
     Stager->>Cryptor: Request decryption key (TPM 2.0)
     Cryptor->>Stager: Dynamic key (AES-512-CTR)
     Stager->>Memory: Load encrypted payload
@@ -85,14 +85,14 @@ sequenceDiagram
 ### 🔥 Operational Features
 
 #### C2 Infrastructure
-- Dead-drop synchronization via Telegram bots  
-- Geofenced payload activation (GPS coordinates)  
-- Self-destruct on forensic tool detection  
+- Dead-drop synchronization via Telegram bots
+- Geofenced payload activation (GPS coordinates)
+- Self-destruct on forensic tool detection
 
 #### Anti-Forensics
-- MFT entry corruption  
-- Timestomping  
-- Memory-only persistence  
+- MFT entry corruption
+- Timestomping
+- Memory-only persistence
 
 ### 🚀 Rapid Deployment
 ```powershell
@@ -151,13 +151,13 @@ bool IsAuthorizedEnvironment() {
 }
 ```
 
-- Automatic shutdown in unauthorized environments  
-- Payload deactivation after 72 hours  
-- Embedded watermarking (SHA-3 operator ID)  
-- Zero disk writes (memory-only operation)  
+- Automatic shutdown in unauthorized environments
+- Payload deactivation after 72 hours
+- Embedded watermarking (SHA-3 operator ID)
+- Zero disk writes (memory-only operation)
 
 ## 📜 License & Operational Constraints
-**License**: GPL-3.0+ Use Restriction  
+**License**: GPL-3.0+ Use Restriction
 
 **Mandatory OPSEC**:
 ```bash

@@ -26,7 +26,7 @@ index 43321cf..cd18f32 100644
    grub_efi_shim_lock_t *shim_lock;
    grub_efi_status_t status;
 +  const char *val;
- 
+
    shim_lock = grub_efi_locate_protocol(&guid, NULL);
    grub_dprintf ("secureboot", "shim_lock: %p\n", shim_lock);
 -  if (!shim_lock)
@@ -41,7 +41,7 @@ index 43321cf..cd18f32 100644
        grub_dprintf ("secureboot", "shim not available\n");
 -      return 0;
      }
- 
+
 -  grub_dprintf ("secureboot", "Asking shim to verify kernel signature\n");
 -  status = shim_lock->verify (data, size);
 -  grub_dprintf ("secureboot", "shim_lock->verify(): %ld\n", (long int)status);
@@ -53,7 +53,7 @@ index 43321cf..cd18f32 100644
 +      grub_dprintf ("secureboot", "Using GRUB's internal loader\n");
        return 1;
      }
- 
+
 -  grub_dprintf ("secureboot", "Kernel signature verification failed (0x%lx)\n",
 -		(unsigned long) status);
 -
@@ -61,8 +61,8 @@ index 43321cf..cd18f32 100644
 +  grub_dprintf ("secureboot", "Using UEFI stock loader\n");
 +  return 0;
  }
- 
+
  #pragma GCC diagnostic push
--- 
+--
 2.20.1
 

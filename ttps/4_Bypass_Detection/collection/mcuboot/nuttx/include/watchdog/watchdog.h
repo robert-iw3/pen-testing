@@ -49,7 +49,7 @@ void mcuboot_watchdog_feed(void);
  * Name: mcuboot_watchdog_init
  *
  * Description:
- *   Initialize the watchdog timer by setting the trigger timeout and 
+ *   Initialize the watchdog timer by setting the trigger timeout and
  *   starting it.
  *
  * Input Parameters:

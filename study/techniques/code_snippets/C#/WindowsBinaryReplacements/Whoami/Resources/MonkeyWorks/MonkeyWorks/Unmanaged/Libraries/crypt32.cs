@@ -42,7 +42,7 @@ namespace MonkeyWorks.Unmanaged.Libraries
             DWORD dwFlag,
             ref Wincrypt._CRYPTOAPI_BLOB pDataOut
         );
-        
+
         [DllImport("crypt32.dll", SetLastError = true)]
         public static extern bool CryptUnprotectData(
             ref Wincrypt._CRYPTOAPI_BLOB pDataIn,

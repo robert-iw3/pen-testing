@@ -15,13 +15,13 @@
 
 if [ "$is_aws_ecs" = "Yes" ]; then
     print_2title "AWS ECS Enumeration"
-    
+
     aws_ecs_req=""
     if [ "$(command -v curl || echo -n '')" ]; then
         aws_ecs_req='curl -s -f'
     elif [ "$(command -v wget || echo -n '')" ]; then
         aws_ecs_req='wget -q -O -'
-    else 
+    else
         echo "Neither curl nor wget were found, I can't enumerate the metadata service :("
     fi
 
@@ -29,7 +29,7 @@ if [ "$is_aws_ecs" = "Yes" ]; then
         print_3title "Container Info"
         exec_with_jq eval $aws_ecs_req "$aws_ecs_metadata_uri"
         echo ""
-        
+
         print_3title "Task Info"
         exec_with_jq eval $aws_ecs_req "$aws_ecs_metadata_uri/task"
         echo ""

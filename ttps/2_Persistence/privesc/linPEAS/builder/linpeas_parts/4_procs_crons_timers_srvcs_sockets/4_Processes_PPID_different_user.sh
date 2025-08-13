@@ -15,7 +15,7 @@
 if ! [ "$SEARCH_IN_FOLDER" ] && ! [ "$NOUSEPS" ]; then
   print_2title "Processes whose PPID belongs to a different user (not root)"
   print_info "You will know if a user can somehow spawn processes as a different user"
-  
+
   # Function to get user by PID using /proc
   get_user_by_pid() {
     if [ -r "/proc/$1/status" ]; then
@@ -34,7 +34,7 @@ if ! [ "$SEARCH_IN_FOLDER" ] && ! [ "$NOUSEPS" ]; then
   for pid in $(find /proc -maxdepth 1 -regex '/proc/[0-9]+' -printf "%f\n" 2>/dev/null); do
     # Skip if process doesn't exist or we can't access it
     [ ! -r "/proc/$pid/status" ] && continue
-    
+
     # Get process user
     user_uid=$(get_user_by_pid "$pid")
     [ -z "$user_uid" ] && continue

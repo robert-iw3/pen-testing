@@ -12,7 +12,7 @@ class Payload:
     meta = {
         'handler' : 'netcat',
         'type' : 'ruby-no-sh-reverse-tcp',
-        'os' : 'linux' 
+        'os' : 'linux'
     }
 
     config = {}

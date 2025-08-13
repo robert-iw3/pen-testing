@@ -9,18 +9,18 @@ public:
     static BYTE* GetActiveKey() {
         BYTE key[32];
         SecureZeroMemory(key, sizeof(key));
-        
+
         HCRYPTPROV hProv;
         CryptAcquireContext(&hProv, NULL, NULL, PROV_RSA_AES, CRYPT_VERIFYCONTEXT);
-        
+
         HCRYPTKEY hKey;
         CryptImportKey(hProv, ENCRYPTED_KEY_BLOB, sizeof(ENCRYPTED_KEY_BLOB), 0, 0, &hKey);
-        
+
         DWORD len = 32;
         CryptExportKey(hKey, 0, PLAINTEXTKEYBLOB, 0, key, &len);
         CryptDestroyKey(hKey);
         CryptReleaseContext(hProv, 0);
-        
+
         return key;
     }
 

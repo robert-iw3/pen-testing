@@ -46,7 +46,7 @@ class Generate():
         def xor_file(path, key):
             with io.open(path, mode='rb') as file_handle:
                 plain_data = file_handle.read()
-            xored = []        
+            xored = []
             for (x, y) in list(zip(plain_data, cycle(key))):
                 xored.append(hex(x ^ ord(y)))
             return '{' + ",".join(xored) + '}'

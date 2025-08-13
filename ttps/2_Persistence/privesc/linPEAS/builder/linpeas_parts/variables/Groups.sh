@@ -5,7 +5,7 @@
 # Description: Get groups of the current user
 # License: GNU GPL
 # Version: 1.0
-# Functions Used: 
+# Functions Used:
 # Global Variables: $USER
 # Initial Functions:
 # Generated Global Variables: $Groups

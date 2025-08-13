@@ -4,7 +4,7 @@ using Asn1;
 namespace GoldendMSA {
 
     public class Ask
-    {   
+    {
         public static byte[] TGT(string userName, string domain, string keyString, Interop.KERB_ETYPE etype, bool ptt, Interop.KERB_ETYPE suppEtype, bool verbose = false)
         {
             AS_REQ userHashASREQ = AS_REQ.NewASReq(userName, domain, keyString, etype, suppEtype);
@@ -13,11 +13,11 @@ namespace GoldendMSA {
 
         public static byte[] InnerTGT(AS_REQ asReq, Interop.KERB_ETYPE etype, bool ptt, string domain = "", bool verbose = false, bool opsec = false)
         {
-            
+
             byte[] response = null;
             string dcIP = null;
 
-            
+
             dcIP = (LdapUtils.GetDomainControllerInfoAlt(domain)).ip;
             if (String.IsNullOrEmpty(dcIP))
             {
@@ -28,7 +28,7 @@ namespace GoldendMSA {
                 Console.WriteLine("");
             }
             response = Helpers.SendBytes(dcIP, 88, asReq.Encode().Encode());
-            
+
             if (response == null)
             {
                 throw new Exception("[X] No answer from domain controller");
@@ -63,7 +63,7 @@ namespace GoldendMSA {
             {
                 // parse the response to an KRB-ERROR
                 KRB_ERROR error = new KRB_ERROR(responseAsn.Sub[0]);
-                
+
                 throw error;
             }
             else
@@ -79,16 +79,16 @@ namespace GoldendMSA {
             AS_REP rep = new AS_REP(responseAsn);
 
             byte[] key;
-           
+
             key = Helpers.StringToByteArray(keyString);
-            
+
 
             if (rep.enc_part.etype != (int)etype)
             {
                 Console.WriteLine($"[!] Warning: Supplied encyption key type is {etype} but AS-REP contains data encrypted with {(Interop.KERB_ETYPE)rep.enc_part.etype}");
             }
 
-            
+
             byte[] outBytes;
 
             if (etype == Interop.KERB_ETYPE.aes256_cts_hmac_sha1)
@@ -108,7 +108,7 @@ namespace GoldendMSA {
                 if (ae.TagValue == 25)
                 {
                     decodeSuccess = true;
-                } 
+                }
             }
             catch (Exception ex)
             {
@@ -120,7 +120,7 @@ namespace GoldendMSA {
                 Console.WriteLine($"[X] Failed to decrypt TGT using supplied password/hash. If this TGT was requested with no preauth then the password supplied may be incorrect or the data was encrypted with a different type of encryption than expected");
                 return null;
             }
-           
+
             EncKDCRepPart encRepPart = new EncKDCRepPart(ae.Sub[0]);
 
             KRB_CRED cred = new KRB_CRED();

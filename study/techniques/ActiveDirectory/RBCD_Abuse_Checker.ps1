@@ -12,20 +12,20 @@
 
 $mySearcher = New-Object System.DirectoryServices.DirectorySearcher
 $objDomain = New-Object System.DirectoryServices.DirectoryEntry
- 
+
 # it is possible to specify manually a ldap search Path and provide credentials instead:
 #$mySearcher.SearchRoot = "LDAP://DC=DOMAIN,DC=LOCAL",”USERNAME”,”PASSWORD”)
- 
+
 $mySearcher.SearchRoot = $objDomain
- 
+
 # search for object class "domain"
 $mySearcher.Filter = "(& (objectClass=domain))"
 $mySearcher.SearchScope = "sub"
- 
+
 # specifiy the attributes you would like to retrieve
 $myAttributes = ("name", "ms-DS-MachineAccountQuota")
 $mySearcher.PropertiesToLoad.AddRange($myAttributes)
- 
+
 $searchresult = $mySearcher.FindAll()
 foreach ($i in $searchresult.Properties.PropertyNames){
     if($i -eq "ms-ds-machineaccountquota"){

@@ -1,6 +1,6 @@
 ﻿configuration ConfigureHyperVHost {
 
-    Import-DscResource -ModuleName PSDesiredStateConfiguration, cMrComputerName, cMrDomainName, StackExchangeResources, cMrRDP, xNetworking, cJumboFrames, xHyper-V 
+    Import-DscResource -ModuleName PSDesiredStateConfiguration, cMrComputerName, cMrDomainName, StackExchangeResources, cMrRDP, xNetworking, cJumboFrames, xHyper-V
 
     node $AllNodes.NodeName {
 
@@ -38,20 +38,20 @@
         })
 
     }
-    
+
     node $AllNodes.Where({$_.Role -eq 'HyperVHost'}).NodeName {
 
         $Node.VMSwitch.ForEach({
-            xVMSwitch $_.ID {  
+            xVMSwitch $_.ID {
                 Name = $_.Name
-                Type = 'External' 
+                Type = 'External'
                 NetAdapterName = $_.Adapter
                 Ensure = 'Present'
-                DependsOn = '[WindowsFeature]Hyper-V' 
+                DependsOn = '[WindowsFeature]Hyper-V'
             }
         })
 
-        $Node.NIC.ForEach({        
+        $Node.NIC.ForEach({
             xIPAddress $_.ID {
                 IPAddress = $_.IP
                 InterfaceAlias = $_.Adapter

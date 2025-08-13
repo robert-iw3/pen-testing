@@ -47,7 +47,7 @@ namespace winPEAS.Info.SystemInfo
             }
             return false;
         }
-        
+
         //From Seatbelt
         public static Dictionary<string, string> GetBasicOSInfo()
         {
@@ -55,7 +55,7 @@ namespace winPEAS.Info.SystemInfo
 
             // Systeminfo from cmd to be able to use wes-ng
             ///////////////////////////////////////////////
-            
+
             Process process = new Process();
 
             // Configure the process to run the systeminfo command
@@ -75,7 +75,7 @@ namespace winPEAS.Info.SystemInfo
 
             // Split the output by newline characters
             string[] lines = output.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            
+
             string osname = @".*?Microsoft[\(R\)]{0,3} Windows[\(R\)?]{0,3} ?(Serverr? )?(\d+\.?\d?( R2)?|XP|VistaT).*";
             string osversion = @".*?((\d+\.?){3}) ((Service Pack (\d)|N\/\w|.+) )?[ -\xa5]+ (\d+).*";
             // Iterate over each line and add key-value pairs to the dictionary
@@ -96,11 +96,11 @@ namespace winPEAS.Info.SystemInfo
                         results["OS Version"] = value;
                     }
 
-                    if (value.Contains("based PC")) 
+                    if (value.Contains("based PC"))
                     {
                         results["System Type"] = value;
                     }
-                    
+
                 }
             }
 

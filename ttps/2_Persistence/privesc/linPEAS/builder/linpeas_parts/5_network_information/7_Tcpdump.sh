@@ -44,40 +44,40 @@ check_promiscuous_mode() {
 # Main function to check network traffic analysis capabilities
 check_network_traffic_analysis() {
     print_2title "Network Traffic Analysis Capabilities"
-    
+
     # Check for sniffing tools
     echo ""
     print_3title "Available Sniffing Tools"
     tools_found=0
-    
+
     if check_command tcpdump; then
         echo "tcpdump is available" | sed -${E} "s,.*,${SED_GREEN},g"
         tools_found=1
         # Check tcpdump version and capabilities
         warn_exec tcpdump --version 2>/dev/null | head -n 1
     fi
-    
+
     if check_command tshark; then
         echo "tshark is available" | sed -${E} "s,.*,${SED_GREEN},g"
         tools_found=1
         # Check tshark version
         warn_exec tshark --version 2>/dev/null | head -n 1
     fi
-    
+
     if check_command wireshark; then
         echo "wireshark is available" | sed -${E} "s,.*,${SED_GREEN},g"
         tools_found=1
     fi
-    
+
     if [ $tools_found -eq 0 ]; then
         echo "No sniffing tools found" | sed -${E} "s,.*,${SED_RED},g"
     fi
-    
+
     # Check network interfaces
     echo ""
     print_3title "Network Interfaces Sniffing Capabilities"
     interfaces_found=0
-    
+
     # Get list of network interfaces
     if command -v ip >/dev/null 2>&1; then
         interfaces=$(ip -o link show | awk -F': ' '{print $2}')
@@ -86,19 +86,19 @@ check_network_traffic_analysis() {
     else
         interfaces=$(ls /sys/class/net/ 2>/dev/null)
     fi
-    
+
     for iface in $interfaces; do
         if [ "$iface" != "lo" ]; then  # Skip loopback
             echo -n "Interface $iface: "
             if check_interface_sniffable "$iface"; then
                 echo "Sniffable" | sed -${E} "s,.*,${SED_GREEN},g"
                 interfaces_found=1
-                
+
                 # Check promiscuous mode
                 if check_promiscuous_mode "$iface"; then
                     echo "  - Promiscuous mode enabled" | sed -${E} "s,.*,${SED_RED},g"
                 fi
-                
+
                 # Get interface details
                 if [ "$EXTRA_CHECKS" ]; then
                     echo "  - Interface details:"
@@ -109,17 +109,17 @@ check_network_traffic_analysis() {
             fi
         fi
     done
-    
+
     if [ $interfaces_found -eq 0 ]; then
         echo "No sniffable interfaces found" | sed -${E} "s,.*,${SED_RED},g"
     fi
-    
+
     # Check for sensitive traffic patterns if we have sniffing capabilities
     if [ $tools_found -eq 1 ] && [ $interfaces_found -eq 1 ]; then
         echo ""
         print_3title "Sensitive Traffic Detection"
         print_info "Checking for common sensitive traffic patterns..."
-        
+
         # List of sensitive traffic patterns to check
         patterns="
             - HTTP Basic Auth
@@ -135,23 +135,23 @@ check_network_traffic_analysis() {
             - SNMP traffic
             - Many more...
         "
-        
+
         echo "$patterns" | while read -r pattern; do
             if [ -n "$pattern" ]; then
                 echo "$pattern"
             fi
         done
-        
+
         print_info "To capture sensitive traffic, you can use:"
         echo "tcpdump -i <interface> -w capture.pcap" | sed -${E} "s,.*,${SED_GREEN},g"
         echo "tshark -i <interface> -w capture.pcap" | sed -${E} "s,.*,${SED_GREEN},g"
     fi
-    
+
     # Additional information
     if [ "$EXTRA_CHECKS" ]; then
         echo ""
         print_3title "Additional Network Analysis Information"
-        
+
         # Check for network monitoring tools
         echo "Checking for network monitoring tools..."
         for tool in nethogs iftop iotop nload bmon; do
@@ -160,7 +160,7 @@ check_network_traffic_analysis() {
             fi
         done
     fi
-    
+
     echo ""
 }
 

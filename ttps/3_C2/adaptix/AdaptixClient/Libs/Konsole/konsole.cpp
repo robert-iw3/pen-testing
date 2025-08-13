@@ -97,7 +97,7 @@ QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
     m_searchBar->hide();
     QString style_sheet = qApp->styleSheet();
     m_searchBar->setStyleSheet(style_sheet);
-    
+
     this->setFocus( Qt::OtherFocusReason );
     this->setFocusPolicy( Qt::WheelFocus );
     m_terminalDisplay->resize(this->size());
@@ -109,8 +109,8 @@ QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
             this, &QTermWidget::termGetFocus);
     connect(m_terminalDisplay, &TerminalDisplay::termLostFocus,
             this, &QTermWidget::termLostFocus);
-    connect(m_terminalDisplay, &TerminalDisplay::keyPressedSignal, this, [this] (QKeyEvent* e, bool) { 
-        emit termKeyPressed(e); 
+    connect(m_terminalDisplay, &TerminalDisplay::keyPressedSignal, this, [this] (QKeyEvent* e, bool) {
+        emit termKeyPressed(e);
     });
 
     setScrollBarPosition(NoScrollBar);

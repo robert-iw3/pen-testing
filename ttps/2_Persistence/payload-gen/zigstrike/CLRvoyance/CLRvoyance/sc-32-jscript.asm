@@ -1,7 +1,7 @@
 ; .NET serialization loader
 ; function loader and stub borrowed from Didier Steven
 ; You should probably use the CLR shellcode unless you specifically need
-; serialization. In which case, just pop your string into the SO variable and 
+; serialization. In which case, just pop your string into the SO variable and
 ; compile via nasm.
 
 BITS 32

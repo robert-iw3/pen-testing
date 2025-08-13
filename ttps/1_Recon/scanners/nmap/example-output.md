@@ -21,7 +21,7 @@ PORT     STATE SERVICE VERSION
 | [60632] Debian apache2 2.2.16-6/2.2.22-1/2.22-3 mod_php cross site scripting
 | [55501] Apache Mod Fcgid up to 2.3.2 mod_fcgid fcgid_bucket.c fcgid_header_bucket_read numeric error
 | [23524] Apache James 2.2.0 Foundation retrieve memory leak
-| 
+|
 | MITRE CVE - https://cve.mitre.org:
 | [CVE-2012-0883] envvars (aka envvars-std) in the Apache HTTP Server before 2.4.2 places a zero-length directory name in the LD_LIBRARY_PATH, which allows local users to gain privileges via a Trojan horse DSO in the current working directory during execution of apachectl.
 | [CVE-2013-2249] mod_session_dbd.c in the mod_session_dbd module in the Apache HTTP Server before 2.4.5 proceeds with save operations for a session without considering the dirty flag and the requirement for a new session ID, which has unspecified impact and remote attack vectors.
@@ -33,7 +33,7 @@ PORT     STATE SERVICE VERSION
 | [CVE-2012-2379] Apache CXF 2.4.x before 2.4.8, 2.5.x before 2.5.4, and 2.6.x before 2.6.1, when a Supporting Token specifies a child WS-SecurityPolicy 1.1 or 1.2 policy, does not properly ensure that an XML element is signed or encrypted, which has unspecified impact and attack vectors.
 | [CVE-2012-2378] Apache CXF 2.4.5 through 2.4.7, 2.5.1 through 2.5.3, and 2.6.x before 2.6.1, does not properly enforce child policies of a WS-SecurityPolicy 1.1 SupportingToken policy on the client side, which allows remote attackers to bypass the (1) AlgorithmSuite, (2) SignedParts, (3) SignedElements, (4) EncryptedParts, and (5) EncryptedElements policies.
 | [CVE-2011-2516] Off-by-one error in the XML signature feature in Apache XML Security for C++ 1.6.0, as used in Shibboleth before 2.4.3 and possibly other products, allows remote attackers to cause a denial of service (crash) via a signature using a large RSA key, which triggers a buffer overflow.
-| 
+|
 | SecurityFocus - https://www.securityfocus.com/bid/:
 | [42102] Apache 'mod_proxy_http' 2.2.9 for Unix Timeout Handling Information Disclosure Vulnerability
 | [27237] Apache HTTP Server 2.2.6, 2.0.61 and 1.3.39 'mod_status' Cross-Site Scripting Vulnerability
@@ -47,10 +47,10 @@ PORT     STATE SERVICE VERSION
 | [5256] Apache httpd 2.0 CGI Error Path Disclosure Vulnerability
 | [4057] Apache 2 for Windows OPTIONS request Path Disclosure Vulnerability
 | [4056] Apache 2 for Windows php.exe Path Disclosure Vulnerability
-| 
+|
 | IBM X-Force - https://exchange.xforce.ibmcloud.com:
 | [75211] Debian GNU/Linux apache 2 cross-site scripting
-| 
+|
 | Exploit-DB - https://www.exploit-db.com:
 | [31052] Apache <= 2.2.6 'mod_negotiation' HTML Injection and HTTP Response Splitting Vulnerability
 | [30901] Apache HTTP Server 2.2.6 Windows Share PHP File Extension Mapping Information Disclosure Vulnerability
@@ -89,7 +89,7 @@ PORT     STATE SERVICE VERSION
 | [34] Webfroot Shoutbox < 2.32 (Apache) Remote Exploit
 | [11] Apache <= 2.0.44 Linux Remote Denial of Service Exploit
 | [9] Apache HTTP Server 2.x Memory Leak Exploit
-| 
+|
 | OpenVAS (Nessus) - http://www.openvas.org:
 | [855524] Solaris Update for Apache 2 120544-14
 | [855077] Solaris Update for Apache 2 120543-14
@@ -139,14 +139,14 @@ PORT     STATE SERVICE VERSION
 | [65207] SLES9: Security update for Apache 2
 | [65136] SLES9: Security update for Apache 2
 | [65017] SLES9: Security update for Apache 2
-| 
+|
 | SecurityTracker - https://www.securitytracker.com:
 | [1008196] Apache 2.x on Windows May Return Unexpected Files For URLs Ending With Certain Characters
 | [1007143] Apache 2.0 Web Server May Use a Weaker Encryption Implementation Than Specified in Some Cases
 | [1006444] Apache 2.0 Web Server Line Feed Buffer Allocation Flaw Lets Remote Users Deny Service
 | [1005963] Apache Web Server 2.x Windows Device Access Flaw Lets Remote Users Crash the Server or Possibly Execute Arbitrary Code
 | [1004770] Apache 2.x Web Server ap_log_rerror() Function May Disclose Full Installation Path to Remote Users
-| 
+|
 | OSVDB - http://www.osvdb.org:
 | [20897] PHP w/ Apache 2 SAPI virtual() Function Unspecified INI Setting Disclosure
 |_
@@ -163,7 +163,7 @@ PORT     STATE SERVICE VERSION
 | [60632] Debian apache2 2.2.16-6/2.2.22-1/2.22-3 mod_php cross site scripting
 | [55501] Apache Mod Fcgid up to 2.3.2 mod_fcgid fcgid_bucket.c fcgid_header_bucket_read numeric error
 | [23524] Apache James 2.2.0 Foundation retrieve memory leak
-| 
+|
 | MITRE CVE - https://cve.mitre.org:
 | [CVE-2012-0883] envvars (aka envvars-std) in the Apache HTTP Server before 2.4.2 places a zero-length directory name in the LD_LIBRARY_PATH, which allows local users to gain privileges via a Trojan horse DSO in the current working directory during execution of apachectl.
 | [CVE-2013-2249] mod_session_dbd.c in the mod_session_dbd module in the Apache HTTP Server before 2.4.5 proceeds with save operations for a session without considering the dirty flag and the requirement for a new session ID, which has unspecified impact and remote attack vectors.
@@ -175,7 +175,7 @@ PORT     STATE SERVICE VERSION
 | [CVE-2012-2379] Apache CXF 2.4.x before 2.4.8, 2.5.x before 2.5.4, and 2.6.x before 2.6.1, when a Supporting Token specifies a child WS-SecurityPolicy 1.1 or 1.2 policy, does not properly ensure that an XML element is signed or encrypted, which has unspecified impact and attack vectors.
 | [CVE-2012-2378] Apache CXF 2.4.5 through 2.4.7, 2.5.1 through 2.5.3, and 2.6.x before 2.6.1, does not properly enforce child policies of a WS-SecurityPolicy 1.1 SupportingToken policy on the client side, which allows remote attackers to bypass the (1) AlgorithmSuite, (2) SignedParts, (3) SignedElements, (4) EncryptedParts, and (5) EncryptedElements policies.
 | [CVE-2011-2516] Off-by-one error in the XML signature feature in Apache XML Security for C++ 1.6.0, as used in Shibboleth before 2.4.3 and possibly other products, allows remote attackers to cause a denial of service (crash) via a signature using a large RSA key, which triggers a buffer overflow.
-| 
+|
 | SecurityFocus - https://www.securityfocus.com/bid/:
 | [42102] Apache 'mod_proxy_http' 2.2.9 for Unix Timeout Handling Information Disclosure Vulnerability
 | [27237] Apache HTTP Server 2.2.6, 2.0.61 and 1.3.39 'mod_status' Cross-Site Scripting Vulnerability
@@ -189,10 +189,10 @@ PORT     STATE SERVICE VERSION
 | [5256] Apache httpd 2.0 CGI Error Path Disclosure Vulnerability
 | [4057] Apache 2 for Windows OPTIONS request Path Disclosure Vulnerability
 | [4056] Apache 2 for Windows php.exe Path Disclosure Vulnerability
-| 
+|
 | IBM X-Force - https://exchange.xforce.ibmcloud.com:
 | [75211] Debian GNU/Linux apache 2 cross-site scripting
-| 
+|
 | Exploit-DB - https://www.exploit-db.com:
 | [31052] Apache <= 2.2.6 'mod_negotiation' HTML Injection and HTTP Response Splitting Vulnerability
 | [30901] Apache HTTP Server 2.2.6 Windows Share PHP File Extension Mapping Information Disclosure Vulnerability
@@ -231,7 +231,7 @@ PORT     STATE SERVICE VERSION
 | [34] Webfroot Shoutbox < 2.32 (Apache) Remote Exploit
 | [11] Apache <= 2.0.44 Linux Remote Denial of Service Exploit
 | [9] Apache HTTP Server 2.x Memory Leak Exploit
-| 
+|
 | OpenVAS (Nessus) - http://www.openvas.org:
 | [855524] Solaris Update for Apache 2 120544-14
 | [855077] Solaris Update for Apache 2 120543-14
@@ -281,14 +281,14 @@ PORT     STATE SERVICE VERSION
 | [65207] SLES9: Security update for Apache 2
 | [65136] SLES9: Security update for Apache 2
 | [65017] SLES9: Security update for Apache 2
-| 
+|
 | SecurityTracker - https://www.securitytracker.com:
 | [1008196] Apache 2.x on Windows May Return Unexpected Files For URLs Ending With Certain Characters
 | [1007143] Apache 2.0 Web Server May Use a Weaker Encryption Implementation Than Specified in Some Cases
 | [1006444] Apache 2.0 Web Server Line Feed Buffer Allocation Flaw Lets Remote Users Deny Service
 | [1005963] Apache Web Server 2.x Windows Device Access Flaw Lets Remote Users Crash the Server or Possibly Execute Arbitrary Code
 | [1004770] Apache 2.x Web Server ap_log_rerror() Function May Disclose Full Installation Path to Remote Users
-| 
+|
 | OSVDB - http://www.osvdb.org:
 | [20897] PHP w/ Apache 2 SAPI virtual() Function Unspecified INI Setting Disclosure
 |_

@@ -115,7 +115,7 @@ LootWidget::LootWidget()
     gridLayout = new QGridLayout( this );
     gridLayout->setContentsMargins( 0, 0, 0, 0 );
     gridLayout->setObjectName( QString::fromUtf8( "gridLayout" ) );
-    
+
     LabelShow = new QLabel( this );
     LabelShow->setObjectName( QString::fromUtf8( "LabelShow" ) );
 

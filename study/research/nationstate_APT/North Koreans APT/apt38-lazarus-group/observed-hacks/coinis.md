@@ -16,11 +16,11 @@ Virtual currency was stolen from Coinis, a South Korean cryptocurrency exchange,
 
 In December 2017, South Korean newspaper Chosun Ilbo reported that the South Korean government has attributed the attack to DPRK-affiliated actors.
 
-In August 2019, the UN Security Council Panel of Experts indicated DPRK-affiliated actors were behind the theft. 
+In August 2019, the UN Security Council Panel of Experts indicated DPRK-affiliated actors were behind the theft.
 
 
 
-## Attribution 
+## Attribution
 
 - "Theft of undisclosed amount of Bitcoin (possibly 2.19 million USD) in attack on Coinis. Total of 6.99M USD reported in losses from this and the April 2017 Youbit attack combined"
 

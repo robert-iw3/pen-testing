@@ -244,10 +244,10 @@ pub fn get_username_ntapi() -> Result<String, &'static str> {
         if get_token_information(token, TokenUser, ptr::null_mut(), 0, &mut return_length) == 0 {
             return Err("First GetTokenInformation failed.".into());
         }
-        
+
         // Create a buffer of the required size.
         let mut token_user_buffer = vec![0u8; return_length as usize];
-        
+
         // Second call to GetTokenInformation to get the TOKEN_USER.
         if get_token_information(
             token,
@@ -258,10 +258,10 @@ pub fn get_username_ntapi() -> Result<String, &'static str> {
         ) != 0 {
             return Err("Second GetTokenInformation failed.".into());
         }
-        
+
         // Create a buffer of the required size.
         let _token_privileges_buffer = vec![0u8; return_length as usize];
-        
+
         // Third call to GetTokenInformation to get the required buffer size.
         let mut return_length: DWORD = 0;
         if get_token_information(
@@ -273,10 +273,10 @@ pub fn get_username_ntapi() -> Result<String, &'static str> {
         ) == 0 {
             return Err("Third GetTokenInformation for privileges failed.".into());
         }
-        
+
         // Create a buffer of the required size.
         let mut token_privileges_buffer = vec![0u8; return_length as usize];
-        
+
         // Fourth call to GetTokenInformation to get the TOKEN_PRIVILEGES.
         if get_token_information(
             token,
@@ -294,7 +294,7 @@ pub fn get_username_ntapi() -> Result<String, &'static str> {
 
         // Initialize a string to hold the names of the privileges.
         let mut privilege_names = String::new();
-        
+
         // For each privilege in the token, get its name and append it to the string.
         for i in 0..privilege_count {
             let privilege = *(*token_privileges).Privileges.as_ptr().offset(i as isize);

@@ -11,7 +11,7 @@
 
 4. Sang Man Kim on the laundry side
 
-5. A couple shitcoin farms 
+5. A couple shitcoin farms
 
 6. A couple 2021 era ITWs
 

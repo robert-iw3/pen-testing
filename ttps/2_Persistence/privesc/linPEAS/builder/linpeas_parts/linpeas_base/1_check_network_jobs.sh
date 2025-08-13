@@ -265,11 +265,11 @@ if [ "$AUTO_NETWORK_SCAN" ]; then
   if ! [ "$FOUND_NC" ] && ! [ "$FOUND_BASH" ]; then
     printf $RED"[-] $SCAN_BAN_BAD\n$NC"
     echo "The network is not going to be scanned..."
-  
+
   elif ! [ "$(command -v ifconfig)" ] && ! [ "$(command -v ip  || echo -n '')" ]; then
     printf $RED"[-] No ifconfig or ip commands, cannot find local ips\n$NC"
     echo "The network is not going to be scanned..."
-  
+
   else
     print_2title "Scanning local networks (using /24)"
 
@@ -282,32 +282,32 @@ if [ "$AUTO_NETWORK_SCAN" ]; then
     printf "%s\n" "$local_ips" | while read local_ip; do
       if ! [ -z "$local_ip" ]; then
         print_3title "Discovering hosts in $local_ip/24"
-        
+
         if [ "$PING" ] || [ "$FPING" ]; then
           discover_network "$local_ip/24" | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' | grep -A 256 "Network Discovery" | grep -v "Network Discovery" | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' > $Wfolder/.ips.tmp
         fi
-        
+
         discovery_port_scan "$local_ip/24" 22 | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' | grep -A 256 "Ports going to be scanned" | grep -v "Ports going to be scanned" | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' >> $Wfolder/.ips.tmp
-        
+
         sort $Wfolder/.ips.tmp | uniq > $Wfolder/.ips
         rm $Wfolder/.ips.tmp 2>/dev/null
-        
+
         while read disc_ip; do
           me=""
           if [ "$disc_ip" = "$local_ip" ]; then
             me=" (local)"
           fi
-          
+
           echo "Scanning top ports of ${disc_ip}${me}"
           (tcp_port_scan "$disc_ip" "" | grep -A 1000 "Ports going to be scanned" | grep -v "Ports going to be scanned" | sort | uniq) 2>/dev/null
           echo ""
         done < $Wfolder/.ips
-        
+
         rm $Wfolder/.ips 2>/dev/null
         echo ""
       fi
     done
-    
+
     print_3title "Scanning top ports of host.docker.internal"
     (tcp_port_scan "host.docker.internal" "" | grep -A 1000 "Ports going to be scanned" | grep -v "Ports going to be scanned" | sort | uniq) 2>/dev/null
     echo ""

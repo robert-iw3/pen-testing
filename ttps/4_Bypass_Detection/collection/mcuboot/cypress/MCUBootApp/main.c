@@ -89,7 +89,7 @@ int main(void)
     init_cycfg_peripherals();
     init_cycfg_pins();
 
-    /* Certain PSoC 6 devices enable CM4 by default at startup. It must be 
+    /* Certain PSoC 6 devices enable CM4 by default at startup. It must be
      * either disabled or enabled & running a valid application for flash write
      * to work from CM0+. Since flash write may happen in boot_go() for updating
      * the image before this bootloader app can enable CM4 in do_boot(), we need

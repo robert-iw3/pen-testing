@@ -118,7 +118,7 @@ exports.panel = function (req, res) {
 
 			var df = require('dateformat');
 			res.render('panel', { agentDetails: [agentId, whoami, ip, first, agentType], commandId: "" + commandIdTmp, commands: commands, current_time: (df(new Date()).toString()) });
-		});		
+		});
 	});
 };
 
@@ -177,7 +177,7 @@ exports.tars = function (req, res) {
 								tempTokens.push(tokens[0]);
 								tempTokens.push(tokens[1]);
 								tempTokens.push(tokens[2]);
-								
+
 								var moment = require('moment');
 								console.log(tokens[3], new Date());
 								var startTime = "";
@@ -242,12 +242,12 @@ exports.tars = function (req, res) {
 							fs.readFile(cfgAddress + "last", 'utf8', function (err1, date) {
 								console.log("this is date: "+date);
 								if (err1) {
-									console.log(err1); 
+									console.log(err1);
 									//reject()
 								}
 
 								if (err) {
-									console.log(err); 
+									console.log(err);
 									//reject()
 								}
 								if (data == undefined) {
@@ -743,7 +743,7 @@ exports.login = function (req, res) { // .......................................
 			return;
 		}
 	} else {
-		// yes, cookie was already present 
+		// yes, cookie was already present
 		//console.log('cookie exists', cookie);
 		res.redirect("/in/http");
 	}
@@ -823,7 +823,7 @@ exports.getFile = function (req, res) {
 };
 
 // agent request for last command
-exports.agent = function (req, res) { // .............................. 
+exports.agent = function (req, res) { // ..............................
 	var agentCode = req.params.input;
 	var agentId = "";
 	var fs = require('fs');

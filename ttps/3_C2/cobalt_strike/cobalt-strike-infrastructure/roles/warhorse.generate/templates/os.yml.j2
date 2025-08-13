@@ -47,7 +47,7 @@ all:
         home_create: {{ users.home_create | default ('yes') }}
         append: {{ users.append | default ('yes') }}
         home_mode: "{{ users.home_mode | default ('0750') }}"
-        shell: {{ users.shell | default ('/usr/bin/zsh') }} 
+        shell: {{ users.shell | default ('/usr/bin/zsh') }}
 {% endfor %}
     users_authorized_keys_exclusive: yes
     security_sudoers_passwordless:
@@ -60,7 +60,7 @@ all:
 {% endfor %}
     # ZSH Settings
     zsh_shared: yes
-    
+
     # Docker Settings
     dockernet: "docker"
     docker_home_dir: '/opt/docker'

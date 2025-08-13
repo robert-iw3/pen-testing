@@ -1,6 +1,6 @@
 function Split-File {
 
-<#-- Another stackoverflow production 
+<#-- Another stackoverflow production
 https://stackoverflow.com/questions/4533570/in-powershell-how-do-i-split-a-large-binary-file
 --#>
 
@@ -29,7 +29,7 @@ https://stackoverflow.com/questions/4533570/in-powershell-how-do-i-split-a-large
     $ByteChunks = New-Object byte[] $ChunkSize
     $ChunkNumber = 1
     While($BytesRead = $FileStream.Read($ByteChunks,0,$ChunkSize)) {
-      $OutputFile = "$OutputFilePrefix$ChunkNumber"     
+      $OutputFile = "$OutputFilePrefix$ChunkNumber"
       $OutputStream = [System.IO.File]::OpenWrite("$OutDirectory`\$OutputFile")
       $OutputStream.Write($ByteChunks,0,$BytesRead)
       $OutputStream.Close()
@@ -78,10 +78,10 @@ function Reassemble-File {
             $ChunkNumber += 1
             $InputFilename = "$InputFileDirectory`\$InputfilePrefix$ChunkNumber"
         }
-        $OutputStream.close()   
+        $OutputStream.close()
     }
     End {
-        
+
         Write-Output "Finished assembly!"
-    }   
+    }
 }

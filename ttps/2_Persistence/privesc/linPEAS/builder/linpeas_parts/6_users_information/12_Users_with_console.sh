@@ -6,7 +6,7 @@
 # License: GNU GPL
 # Version: 1.0
 # Functions Used: print_2title
-# Global Variables: $MACPEAS, $sh_usrs, $USER 
+# Global Variables: $MACPEAS, $sh_usrs, $USER
 # Initial Functions:
 # Generated Global Variables: $ushell, $no_shells, $unexpected_shells
 # Fat linpeas: 0

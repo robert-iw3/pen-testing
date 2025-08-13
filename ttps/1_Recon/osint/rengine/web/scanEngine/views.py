@@ -475,7 +475,7 @@ def llm_toolkit_section(request, slug):
         ollama_models = models.get('models')
         date_format = "%Y-%m-%dT%H:%M:%S"
         for model in ollama_models:
-           all_models.append({**model, 
+           all_models.append({**model,
                 'modified_at': datetime.strptime(model['modified_at'].split('.')[0], date_format),
                 'is_local': True,
             })
@@ -540,7 +540,7 @@ def api_vault(request, slug):
                 hackerone_api_key.save()
             else:
                 HackerOneAPIKey.objects.create(
-                    username=username_hackerone, 
+                    username=username_hackerone,
                     key=key_hackerone
                 )
 
@@ -560,7 +560,7 @@ def api_vault(request, slug):
     context['chaos_key'] = chaos_key
     context['hackerone_key'] = hackerone_key
     context['hackerone_username'] = hackerone_username
-    
+
     return render(request, 'scanEngine/settings/api.html', context)
 
 

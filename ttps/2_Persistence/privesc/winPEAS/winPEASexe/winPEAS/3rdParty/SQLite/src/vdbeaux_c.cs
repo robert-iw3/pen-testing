@@ -2116,7 +2116,7 @@ static void checkActiveVdbeCnt( sqlite3 db ){}
     {
       sqlite3 db = p.db;
       int rc = SQLITE_OK;
-        /* If p->iStatement is greater than zero, then this Vdbe opened a 
+        /* If p->iStatement is greater than zero, then this Vdbe opened a
         ** statement transaction that should be closed here. The only exception
         ** is that an IO error may have occured, causing an emergency rollback.
         ** In this case (db->nStatement==0), and there is nothing to do.
@@ -2859,7 +2859,7 @@ swapMixedEndianFloat( v );
         Debug.Assert( pMem.n + ( ( pMem.flags & MEM_Zero ) != 0 ? pMem.u.nZero : 0 ) == (int)sqlite3VdbeSerialTypeLen( serial_type ) );
         Debug.Assert( pMem.n <= nBuf );
         if ( ( len = (u32)pMem.n ) != 0 )
-          if (pMem.zBLOB==null && String.IsNullOrEmpty(pMem.z)) 
+          if (pMem.zBLOB==null && String.IsNullOrEmpty(pMem.z))
           {}
         else if ( ( pMem.flags & MEM_Blob ) != 0 || pMem.z == null )
             Buffer.BlockCopy( pMem.zBLOB, 0, buf, offset, (int)len );//memcpy( buf, pMem.z, len );
@@ -3387,7 +3387,7 @@ swapMixedEndianFloat(x);
       /* Get the size of the index entry.  Only indices entries of less
       ** than 2GiB are support - anything large must be database corruption.
       ** Any corruption is detected in sqlite3BtreeParseCellPtr(), though, so
-      ** this code can safely assume that nCellKey is 32-bits  
+      ** this code can safely assume that nCellKey is 32-bits
       */
       Debug.Assert( sqlite3BtreeCursorIsValid( pCur ) );
       rc = sqlite3BtreeKeySize( pCur, ref nCellKey );
@@ -3461,7 +3461,7 @@ return SQLITE_CORRUPT_BKPT;
     **
     ** pUnpacked is either created without a rowid or is truncated so that it
     ** omits the rowid at the end.  The rowid at the end of the index entry
-    ** is ignored as well.  Hence, this routine only compares the prefixes 
+    ** is ignored as well.  Hence, this routine only compares the prefixes
     ** of the keys prior to the final rowid, not the entire key.
     */
     static int sqlite3VdbeIdxKeyCompare(

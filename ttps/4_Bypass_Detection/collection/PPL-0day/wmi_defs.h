@@ -121,7 +121,7 @@ public:
         /* [in] */ const BSTR strLocale,
         /* [in] */ long lSecurityFlags,
         /* [in] */ const BSTR strAuthority,
-        /* [in] */ LPVOID * pCtx, // Would be IWbemContext 
+        /* [in] */ LPVOID * pCtx, // Would be IWbemContext
         /* [out] */ IWbemServices * *ppNamespace) = 0;
 
 };

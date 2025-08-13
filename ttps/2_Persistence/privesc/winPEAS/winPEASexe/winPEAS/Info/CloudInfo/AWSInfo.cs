@@ -10,10 +10,10 @@ namespace winPEAS.Info.CloudInfo
     {
         /*
          * notes - possible identification:
-         * 
-         - "c:\Program Files\Amazon\EC2Launch" 
+         *
+         - "c:\Program Files\Amazon\EC2Launch"
 		 - "C:\Program Files\Amazon\EC2Launch\service\EC2LaunchService.exe"
-		 - "c:\Program Files (x86)\AWS SDK for .NET" 
+		 - "c:\Program Files (x86)\AWS SDK for .NET"
          - get EC2_TOKEN: PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600", it should start with "AQ"
          */
 
@@ -50,7 +50,7 @@ namespace winPEAS.Info.CloudInfo
                         /*
                          * print_3title "SSM Runnig"
                            ps aux 2>/dev/null | grep "ssm-agent" | grep -v "grep" | sed "s,ssm-agent,${SED_RED},"
-                         * 
+                         *
                          */
                     }
                     else
@@ -112,8 +112,8 @@ namespace winPEAS.Info.CloudInfo
             foreach (var role in roles.Split('\n'))
             {
                 metadataEndpoints.Add(new Tuple<string, string, bool>(role, $"iam/security-credentials/{role}", false));
-            }           
-            
+            }
+
             var result = GetMetadataInfo(metadataEndpoints, apiToken);
 
             return result;
@@ -121,8 +121,8 @@ namespace winPEAS.Info.CloudInfo
 
         private List<EndpointData> GetNetworkMetadataInfo(string apiToken)
         {
-            var metadataEndpoints = new List<Tuple<string, string, bool>>();           
-         
+            var metadataEndpoints = new List<Tuple<string, string, bool>>();
+
             var url = $"{METADATA_URL_BASE}/network/interfaces/macs/";
             var macs = CreateMetadataAPIRequest(url, "GET", new WebHeaderCollection() { { "X-aws-ec2-metadata-token", apiToken } });
             var urlBase = "network/interfaces/macs";

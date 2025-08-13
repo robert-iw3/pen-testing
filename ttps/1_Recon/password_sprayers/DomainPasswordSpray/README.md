@@ -29,7 +29,7 @@ Force             - Forces the spray to continue without prompting for confirmat
 
 ```
 ## Get-DomainUserList Module
-The function Get-DomainUserList allows you to generate a userlist from the domain. It has options to remove disabled accounts and those that are about to be locked out. This is performed automatically in DomainPasswordSpray if no user list is specified. 
+The function Get-DomainUserList allows you to generate a userlist from the domain. It has options to remove disabled accounts and those that are about to be locked out. This is performed automatically in DomainPasswordSpray if no user list is specified.
 
 This command will write the domain user list without disabled accounts or accounts about to be locked out to a file at "userlist.txt".
 ```PowerShell

@@ -2,7 +2,7 @@
 
 Date:: April 11, 2024
 
-Amount Stolen:: $72k from 0x090c4d36ded5ee2a72bfc5f084725b850717b01a on Polygon 
+Amount Stolen:: $72k from 0x090c4d36ded5ee2a72bfc5f084725b850717b01a on Polygon
 
 Tags: 🎙️ Contagious Interview
 
@@ -13,7 +13,7 @@ Tags: 🎙️ Contagious Interview
 
 - 0x57415a94688f4bc0eabbe6094e95522bf633af70 - Polygon, Direct Theft
 
-- 0xbb823caa668b9de2317cf3c7be5277519f2ff257 - Polygon, Theft / Laundry 
+- 0xbb823caa668b9de2317cf3c7be5277519f2ff257 - Polygon, Theft / Laundry
 
 - 0xf318d71541a072583ee2f3720b757afb604b4eca - Polygon, Stargates to BSC
 

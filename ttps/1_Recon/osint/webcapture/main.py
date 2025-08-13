@@ -37,7 +37,7 @@ def start_loading(message):
 def format_whois(whois_data):
     if not whois_data:
         return "No WHOIS data available"
-    
+
     formatted = []
     for key, value in whois_data.items():
         if isinstance(value, list):
@@ -48,7 +48,7 @@ def format_whois(whois_data):
 def format_ipinfo(ipinfo_data):
     if not ipinfo_data:
         return "No IP information available"
-    
+
     formatted = []
     for key, value in ipinfo_data.items():
         if key != 'readme':
@@ -58,7 +58,7 @@ def format_ipinfo(ipinfo_data):
 def format_subdomains(subdomains):
     if not subdomains:
         return "No subdomains found"
-    
+
     # Remove duplicates and sort
     unique_subdomains = sorted(set(subdomains))
     return "\n".join(f"  • {subdomain}" for subdomain in unique_subdomains)
@@ -66,7 +66,7 @@ def format_subdomains(subdomains):
 def format_section(title, content, color="\033[1;97m"):
     if not content:
         return f"{color}[{title}]\033[0m\nNo data available"
-    
+
     if isinstance(content, dict):
         if title.upper() == "WHOIS":
             content = format_whois(content)
@@ -79,7 +79,7 @@ def format_section(title, content, color="\033[1;97m"):
             content = format_subdomains(content)
         else:
             content = "\n".join(f"  • {item}" for item in content)
-    
+
     return f"{color}[{title}]\033[0m\n{content}"
 
 def main():

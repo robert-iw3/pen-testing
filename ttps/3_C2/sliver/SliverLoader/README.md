@@ -147,7 +147,7 @@ Conditional operations were added to separate different workflows and to allow p
 
 ## Powershell Loader
 
-The loader is a PowerShell script hosted on a web server, intended to be downloaded and executed once the attacker gains code execution. The script then loads the stager into memory via reflection and performs the download and execution of the agent from the staging server. 
+The loader is a PowerShell script hosted on a web server, intended to be downloaded and executed once the attacker gains code execution. The script then loads the stager into memory via reflection and performs the download and execution of the agent from the staging server.
 
 To create the loader, the following steps are neccesarry:
 

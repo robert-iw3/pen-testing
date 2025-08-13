@@ -61,7 +61,7 @@ void *client_handler(void *arg) {
     client_t *client = (client_t *)arg;
     char buffer[BUFFER_SIZE];
     int bytes_received;
-    
+
     while (running) {
         memset(buffer, 0, sizeof(buffer));
         bytes_received = recv(client->sock, buffer, sizeof(buffer) - 1, 0);
@@ -88,7 +88,7 @@ void *client_handler(void *arg) {
 void *listener_thread(void *arg) {
     struct sockaddr_in client_addr;
     socklen_t addr_len = sizeof(client_addr);
-    
+
     while (running) {
         int client_sock = accept(server_sock, (struct sockaddr *)&client_addr, &addr_len);
         if (client_sock < 0) {
@@ -104,7 +104,7 @@ void *listener_thread(void *arg) {
         }
         client->sock = client_sock;
         inet_ntop(AF_INET, &(client_addr.sin_addr), client->addr, INET_ADDRSTRLEN);
-        
+
         add_client(client);
         if (pthread_create(&client->thread, NULL, client_handler, client) != 0) {
             perror("pthread_create");
@@ -150,42 +150,42 @@ int main(int argc, char *argv[]) {
             exit(EXIT_FAILURE);
         }
     }
-    
+
     signal(SIGINT, sigint_handler);
-    
+
     server_sock = socket(AF_INET, SOCK_STREAM, 0);
     if (server_sock < 0) {
         perror("socket");
         exit(EXIT_FAILURE);
     }
-    
+
     int opt = 1;
     if (setsockopt(server_sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
         perror("setsockopt");
         close(server_sock);
         exit(EXIT_FAILURE);
     }
-    
+
     struct sockaddr_in server_addr;
     memset(&server_addr, 0, sizeof(server_addr));
     server_addr.sin_family      = AF_INET;
     server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_port        = htons(port);
-    
+
     if (bind(server_sock, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
         perror("bind");
         close(server_sock);
         exit(EXIT_FAILURE);
     }
-    
+
     if (listen(server_sock, MAX_CLIENTS) < 0) {
         perror("listen");
         close(server_sock);
         exit(EXIT_FAILURE);
     }
-    
+
     printf("C2 Server listening on port %d...\n", port);
-    
+
     pthread_t listener_tid, console_tid;
     if (pthread_create(&listener_tid, NULL, listener_thread, NULL) != 0) {
         perror("pthread_create (listener)");
@@ -199,10 +199,10 @@ int main(int argc, char *argv[]) {
         close(server_sock);
         exit(EXIT_FAILURE);
     }
-    
+
     pthread_join(listener_tid, NULL);
     pthread_join(console_tid, NULL);
-    
+
     pthread_mutex_lock(&client_mutex);
     client_t *cur = client_list;
     while (cur) {
@@ -210,7 +210,7 @@ int main(int argc, char *argv[]) {
         cur = cur->next;
     }
     pthread_mutex_unlock(&client_mutex);
-    
+
     printf("C2 Server shutting down.\n");
     return 0;
 }

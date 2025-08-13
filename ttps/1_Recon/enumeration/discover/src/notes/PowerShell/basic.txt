@@ -43,7 +43,7 @@ boolean      True or false.
 variable     A value that can be assigned over the course of a script.
 
 # Objects
-PS C:\> $a = "apple" 
+PS C:\> $a = "apple"
 PS C:\> $a.Length
 5
 PS C:\> $a.ToUpper()

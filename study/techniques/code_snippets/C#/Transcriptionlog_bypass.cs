@@ -22,7 +22,7 @@ namespace CustomRunspace
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("EnableTranscripting", "0");
             value.GetOrAdd("HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows\\PowerShell\\Transcription", dic);
-            
+
             // Open Runspace, cachedGroupPolicySettings seem to be read now
             rs.Open();
 

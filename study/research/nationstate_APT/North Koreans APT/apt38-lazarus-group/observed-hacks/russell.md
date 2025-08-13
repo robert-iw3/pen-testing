@@ -1,6 +1,6 @@
 ## Russell Feb 2025 Theft
 
-Date:: February 4th, 2025 
+Date:: February 4th, 2025
 
 Time:: 2:30 AM
 

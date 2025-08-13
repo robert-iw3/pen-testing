@@ -16,7 +16,7 @@ import io.github.danthe1st.httpsintercept.config.HostMatcherConfig;
 import org.junit.jupiter.api.Test;
 
 class HostMatcherTests {
-	
+
 	@Test
 	void testExactMatch() {
 		HostMatcher<Object> matcher = createMatcher(
@@ -27,7 +27,7 @@ class HostMatcherTests {
 		expectSingleMatch(matcher, "example.com");
 		expectNoMatches(matcher, "github.com");
 	}
-	
+
 	@Test
 	void testDoubleExactMatchDifferentObjects() {
 		HostMatcher<Object> matcher = new HostMatcher<>(
@@ -38,7 +38,7 @@ class HostMatcherTests {
 		);
 		expectMatches(matcher, "example.com", 1, 2);
 	}
-	
+
 	@Test
 	void testEmptyPartMatch() {
 		HostMatcher<Object> matcher = createMatcher(
@@ -48,7 +48,7 @@ class HostMatcherTests {
 		);
 		expectNoMatches(matcher, "localhost");
 	}
-	
+
 	@Test
 	void testPartMatch() {
 		HostMatcher<Object> matcher = createMatcher(
@@ -65,7 +65,7 @@ class HostMatcherTests {
 		expectNoMatches(matcher, "");
 		expectNoMatches(matcher, ".");
 	}
-	
+
 	@Test
 	void testDoublePartMatchDifferentObjects() {
 		HostMatcher<Object> matcher = new HostMatcher<>(
@@ -77,7 +77,7 @@ class HostMatcherTests {
 		expectMatches(matcher, "example.com", 1, 2);
 		expectMatches(matcher, "test.com", 2);
 	}
-	
+
 	@Test
 	void testRegexMatch() {
 		HostMatcher<Object> hostMatcher = createMatcher(
@@ -85,13 +85,13 @@ class HostMatcherTests {
 				Collections.emptySet(),
 				Set.of("ex.+\\.com")
 		);
-		
+
 		expectSingleMatch(hostMatcher, "example.com");
 		expectNoMatches(hostMatcher, "ex.com");
 		expectNoMatches(hostMatcher, "github.com");
 		expectNoMatches(hostMatcher, "");
 	}
-	
+
 	@Test
 	void testMultiRegexMatchDifferentObjects() {
 		HostMatcher<Object> matcher = new HostMatcher<>(
@@ -105,7 +105,7 @@ class HostMatcherTests {
 		expectMatches(matcher, "ex123456.com", 2, 3);
 		expectMatches(matcher, "test.com", 3);
 	}
-	
+
 	@Test
 	void testMultiMatchSameObjectDifferentCategories() {
 		HostMatcher<Object> matcher = createMatcher(
@@ -115,14 +115,14 @@ class HostMatcherTests {
 		);
 		expectSingleMatch(matcher, "example.com");
 	}
-	
+
 	@Test
 	void testNoMatchWithoutConfig() {
 		HostMatcher<Object> matcher = new HostMatcher<>(List.of(), false);
 		expectNoMatches(matcher, "");
 		expectNoMatches(matcher, "example.com");
 	}
-	
+
 	@Test
 	void testWildcard() {
 		HostMatcher<Object> matcher = new HostMatcher<>(
@@ -135,7 +135,7 @@ class HostMatcherTests {
 		expectSingleMatch(matcher, "localhost");
 		expectSingleMatch(matcher, "");
 	}
-	
+
 	void testWildcardAndNoWildcard() {
 		HostMatcher<Object> matcher = new HostMatcher<>(
 				List.of(
@@ -150,7 +150,7 @@ class HostMatcherTests {
 		expectMatches(matcher, "example.com", 1, 2);
 		expectMatches(matcher, "localhost", 2);
 	}
-	
+
 	@Test
 	void testNoWildcardWithAllowedWildcard() {
 		HostMatcher<Object> matcher = new HostMatcher<>(
@@ -164,22 +164,22 @@ class HostMatcherTests {
 		expectNoMatches(matcher, "localhost");
 		expectNoMatches(matcher, "");
 	}
-	
+
 	private HostMatcher<Object> createMatcher(Set<String> exactHosts, Set<String> hostParts, Set<String> hostRegexes) {
 		return new HostMatcher<>(List.of(Map.entry(new HostMatcherConfig(exactHosts, hostParts, hostRegexes), 1)), false);
 	}
-	
+
 	private void expectSingleMatch(HostMatcher<Object> hostMatcher, String host) {
 		expectMatches(hostMatcher, host, 1);
 	}
-	
+
 	private void expectNoMatches(HostMatcher<Object> hostMatcher, String host) {
 		expectMatches(hostMatcher, host);
 	}
-	
+
 	private void expectMatches(HostMatcher<Object> hostMatcher, String host, Object... expectedMatches) {
 		Iterator<Object> allMatches = hostMatcher.allMatches(host);
-		
+
 		Set<Object> furtherExpectedMatches = new HashSet<>(Set.of(expectedMatches));
 		while(!furtherExpectedMatches.isEmpty()){
 			assertTrue(allMatches.hasNext(), "Missing matches: " + furtherExpectedMatches);

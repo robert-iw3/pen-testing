@@ -42,5 +42,5 @@ int main() {
 
     ::EnumChildWindows(NULL, (WNDENUMPROC)addr, NULL);
 
-    
+
 }

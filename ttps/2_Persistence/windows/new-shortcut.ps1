@@ -36,19 +36,19 @@ Function New-Shortcut {
     Creates a simple shortcut to Notepad at c:\temp\notepad.lnk
 .EXAMPLE
     New-Shortcut "$($env:Public)\Desktop\Notepad" c:\windows\notepad.exe -WindowStyle 3 -admin
- 
+
     Creates a shortcut named Notepad.lnk on the Public desktop to notepad.exe that launches maximized after prompting for admin credentials.
 .EXAMPLE
     New-Shortcut "$($env:USERPROFILE)\Desktop\Notepad.lnk" c:\windows\notepad.exe -icon "c:\windows\system32\shell32.dll,99"
- 
+
     Creates a shortcut named Notepad.lnk on the user's desktop to notepad.exe that has a pointy finger icon (on Windows 7).
 .EXAMPLE
     New-Shortcut "$($env:USERPROFILE)\Desktop\Notepad.lnk" c:\windows\notepad.exe C:\instructions.txt
- 
+
     Creates a shortcut named Notepad.lnk on the user's desktop to notepad.exe that opens C:\instructions.txt
 .EXAMPLE
     New-Shortcut "$($env:USERPROFILE)\Desktop\ADUC" %SystemRoot%\system32\dsa.msc -Admin
- 
+
     Creates a shortcut named ADUC.lnk on the user's desktop to Active Directory Users and Computers that launches after prompting for admin credentials
 #>
 

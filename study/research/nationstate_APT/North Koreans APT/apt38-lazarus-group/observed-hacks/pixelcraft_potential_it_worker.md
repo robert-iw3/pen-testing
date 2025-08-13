@@ -17,15 +17,15 @@ Tags:: 💼 IT Workers
 
 > He also tried to get us to hire one of his "friends" who was likely also a hacker.
 
-> We did have some video calls with him, but they weren't recorded. Not sure if Google records all of their video calls internally, but IIRC he did show his face. 
+> We did have some video calls with him, but they weren't recorded. Not sure if Google records all of their video calls internally, but IIRC he did show his face.
 
 > This is the address where we sent Cryptopunk funds while he was working for us, maybe it will help uncover something
 
 > it's got txns on both ethereum and polygon:
 
-- 0x1CAA50f7FC5c02925Ad98624B12635D11F281A00 
+- 0x1CAA50f7FC5c02925Ad98624B12635D11F281A00
 
-> this is another one, as he requested switching to a new wallet while he was working with us: 
+> this is another one, as he requested switching to a new wallet while he was working with us:
 
 - 0x19899A49704c7890febc139b4EFA4dE24D88D425
 

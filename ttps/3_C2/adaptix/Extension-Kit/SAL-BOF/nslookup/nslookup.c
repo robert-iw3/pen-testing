@@ -13,7 +13,7 @@ typedef PCWSTR (*myInetNtopW)(
 void query_domain(const char * domainname, unsigned short wType, const char * dnsserver)
 {
     PDNS_RECORD pdns = NULL, base = NULL;
-    DWORD options = DNS_QUERY_WIRE_ONLY; 
+    DWORD options = DNS_QUERY_WIRE_ONLY;
     DWORD status = 0;
     struct in_addr inaddr = {0};
     PIP4_ARRAY pSrvList = NULL;
@@ -38,14 +38,14 @@ void query_domain(const char * domainname, unsigned short wType, const char * dn
             goto END;
         }
     }
-    
+
     freetype = DnsFreeRecordListDeep; //since when was a define not good enough for microsoft
     if(dnsserver != NULL) // I am assuming dnsserver is never set with cacheOnly
     {
         pSrvList = (PIP4_ARRAY)KERNEL32$LocalAlloc(LPTR, sizeof(IP4_ARRAY));
         if (!pSrvList)
         {
-            BeaconPrintf(CALLBACK_ERROR, "could not allocate memory");      
+            BeaconPrintf(CALLBACK_ERROR, "could not allocate memory");
             goto END;
         }
         if(intinet_pton(AF_INET, dnsserver, &(pSrvList->AddrArray[0])) != 1)
@@ -56,7 +56,7 @@ void query_domain(const char * domainname, unsigned short wType, const char * dn
         }
     //   pSrvList->AddrArray[0] = WSOCK32$inet_addr(dnsserver); //DNS (ASCII) to  IP address
     //   pSrvList->
-        pSrvList->AddrCount = 1; 
+        pSrvList->AddrCount = 1;
         options = DNS_QUERY_WIRE_ONLY;
     }
     status = DNSAPI$DnsQuery_A(domainname, wType, options, pSrvList, &base, NULL);
@@ -183,7 +183,7 @@ void query_domain(const char * domainname, unsigned short wType, const char * dn
             }else{
 
                     internal_printf("type unhandled\n");
-            }    
+            }
 
         pdns = pdns->pNext;
     } while (pdns);
@@ -196,9 +196,9 @@ void query_domain(const char * domainname, unsigned short wType, const char * dn
 
 unsigned int get_record_mapping(const char *record) {
     if (record == NULL) {
-        return 0; 
+        return 0;
     }
-   
+
     if (MSVCRT$strcmp(record, "A") == 0) return 0x1;
     else if (MSVCRT$strcmp(record, "NS") == 0) return 0x2;
     else if (MSVCRT$strcmp(record, "MD") == 0) return 0x3;
@@ -228,10 +228,10 @@ unsigned int get_record_mapping(const char *record) {
     return 0;
 }
 
-VOID go( 
-	IN PCHAR Buffer, 
-	IN ULONG Length 
-) 
+VOID go(
+	IN PCHAR Buffer,
+	IN ULONG Length
+)
 {
 	datap parser;
 	char * target = NULL;

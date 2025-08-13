@@ -135,30 +135,30 @@ http://www.exploit-monday.com/2012/07/get-peheader.html
     )
 
 PROCESS {
-    
+
     switch ($PsCmdlet.ParameterSetName) {
         'OnDisk' {
-        
+
             if ($FilePath.Length -gt 1) {
                 foreach ($Path in $FilePath) { Get-PEHeader $Path }
             }
-            
+
             if (!(Test-Path $FilePath)) {
                 Write-Warning 'Invalid path or file does not exist.'
                 return
             }
-            
+
             $FilePath = Resolve-Path $FilePath
-            
+
             if ($FilePath.GetType() -eq [System.Array]) {
                 $ModuleName = $FilePath[0]
             } else {
                 $ModuleName = $FilePath
             }
-            
+
         }
         'InMemory' {
-        
+
             if ($Module.Length -gt 1) {
                 foreach ($Mod in $Module) {
                     $BaseAddr = $Mod.BaseAddress
@@ -167,21 +167,21 @@ PROCESS {
             }
 
             if (-not $ModuleBaseAddress) { return }
-            
+
             if ($ProcessID -eq $PID) {
                 Write-Warning 'You cannot parse the PE header of the current process. Open another instance of PowerShell.'
                 return
             }
-            
+
             if ($Module) {
                 $ModuleName = $Module[0].FileName
             } else {
                 $ModuleName = ''
             }
-            
+
         }
     }
-    
+
     try { [PE] | Out-Null } catch [Management.Automation.RuntimeException]
     {
         $code = @"
@@ -196,15 +196,15 @@ PROCESS {
                 DOS_SIGNATURE =                 0x5A4D,      // MZ
                 OS2_SIGNATURE =                 0x454E,      // NE
                 OS2_SIGNATURE_LE =              0x454C,      // LE
-                VXD_SIGNATURE =                 0x454C,      // LE 
+                VXD_SIGNATURE =                 0x454C,      // LE
             }
-        
+
             [Flags]
             public enum IMAGE_NT_SIGNATURE : uint
             {
                 VALID_PE_SIGNATURE =                        0x00004550  // PE00
             }
-        
+
             [Flags]
             public enum IMAGE_FILE_MACHINE : ushort
             {
@@ -239,7 +239,7 @@ PROCESS {
                 M32R =             0x9041,  // M32R little-endian
                 CEE =              0xC0EE
             }
-        
+
             [Flags]
             public enum IMAGE_FILE_CHARACTERISTICS : ushort
             {
@@ -259,14 +259,14 @@ PROCESS {
                 IMAGE_UP_SYSTEM_ONLY =           0x4000,  // File should only be run on a UP machine
                 IMAGE_REVERSED_HI =              0x8000   // public bytes of machine public ushort are reversed.
             }
-        
+
             [Flags]
             public enum IMAGE_NT_OPTIONAL_HDR_MAGIC : ushort
             {
                 PE32 =       0x10b,
                 PE64 =       0x20b
             }
-        
+
             [Flags]
             public enum IMAGE_SUBSYSTEM : ushort
             {
@@ -285,7 +285,7 @@ PROCESS {
                 XBOX =                     14,
                 WINDOWS_BOOT_APPLICATION = 16
             }
-        
+
             [Flags]
             public enum IMAGE_DLLCHARACTERISTICS : ushort
             {
@@ -298,7 +298,7 @@ PROCESS {
                 WDM_DRIVER =            0x2000,     // Driver uses WDM model
                 TERMINAL_SERVER_AWARE = 0x8000
             }
-        
+
             [Flags]
             public enum IMAGE_SCN : uint
             {
@@ -340,7 +340,7 @@ PROCESS {
                 MEM_READ =                  0x40000000,  // Section is readable.
                 MEM_WRITE =                 0x80000000   // Section is writeable.
             }
-    
+
             [StructLayout(LayoutKind.Sequential, Pack=1)]
             public struct _IMAGE_DOS_HEADER
             {
@@ -366,7 +366,7 @@ PROCESS {
                 public ushort[] e_res2;                      // Reserved public ushorts
                 public int      e_lfanew;                    // File address of new exe header
             }
-        
+
             [StructLayout(LayoutKind.Sequential, Pack=1)]
             public struct _IMAGE_FILE_HEADER
             {
@@ -378,7 +378,7 @@ PROCESS {
                 public ushort                SizeOfOptionalHeader;
                 public IMAGE_FILE_CHARACTERISTICS    Characteristics;
             }
-        
+
             [StructLayout(LayoutKind.Sequential, Pack=1)]
             public struct _IMAGE_NT_HEADERS32
             {
@@ -386,7 +386,7 @@ PROCESS {
                 public _IMAGE_FILE_HEADER FileHeader;
                 public _IMAGE_OPTIONAL_HEADER32 OptionalHeader;
             }
-        
+
             [StructLayout(LayoutKind.Sequential, Pack=1)]
             public struct _IMAGE_NT_HEADERS64
             {
@@ -394,7 +394,7 @@ PROCESS {
                 public _IMAGE_FILE_HEADER FileHeader;
                 public _IMAGE_OPTIONAL_HEADER64 OptionalHeader;
             }
-        
+
             [StructLayout(LayoutKind.Sequential, Pack=1)]
             public struct _IMAGE_OPTIONAL_HEADER32
             {
@@ -431,7 +431,7 @@ PROCESS {
                 [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst=16)]
                 public _IMAGE_DATA_DIRECTORY[] DataDirectory;
             }
-        
+
             [StructLayout(LayoutKind.Sequential, Pack=1)]
             public struct _IMAGE_OPTIONAL_HEADER64
             {
@@ -467,14 +467,14 @@ PROCESS {
                 [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst=16)]
                 public _IMAGE_DATA_DIRECTORY[] DataDirectory;
             }
-        
+
             [StructLayout(LayoutKind.Sequential, Pack=1)]
             public struct _IMAGE_DATA_DIRECTORY
             {
                 public uint      VirtualAddress;
                 public uint      Size;
             }
-        
+
             [StructLayout(LayoutKind.Sequential, Pack=1)]
             public struct _IMAGE_EXPORT_DIRECTORY
             {
@@ -490,7 +490,7 @@ PROCESS {
                 public uint      AddressOfNames;         // RVA from base of image
                 public uint      AddressOfNameOrdinals;  // RVA from base of image
             }
-       
+
             [StructLayout(LayoutKind.Sequential, Pack=1)]
             public struct _IMAGE_SECTION_HEADER
             {
@@ -506,7 +506,7 @@ PROCESS {
                 public ushort NumberOfLinenumbers;
                 public IMAGE_SCN Characteristics;
             }
-        
+
             [StructLayout(LayoutKind.Sequential, Pack=1)]
             public struct _IMAGE_IMPORT_DESCRIPTOR
             {
@@ -531,12 +531,12 @@ PROCESS {
             {
                 public Int64 AddressOfData;     // PIMAGE_IMPORT_BY_NAME
             }
-        
+
             [StructLayout(LayoutKind.Sequential, Pack=1)]
             public struct _IMAGE_IMPORT_BY_NAME
             {
                 public ushort    Hint;
-                public char    Name;    
+                public char    Name;
             }
         }
 "@
@@ -563,7 +563,7 @@ PROCESS {
         $ConstructorBuilder.SetImplementationFlags('Runtime, Managed')
         $MethodBuilder = $TypeBuilder.DefineMethod('Invoke', 'Public, HideBySig, NewSlot, Virtual', $ReturnType, $Parameters)
         $MethodBuilder.SetImplementationFlags('Runtime, Managed')
-        
+
         return $TypeBuilder.CreateType()
     }
 
@@ -588,14 +588,14 @@ PROCESS {
         $tmpPtr = New-Object IntPtr
         $HandleRef = New-Object System.Runtime.InteropServices.HandleRef($tmpPtr, $Kern32Handle)
         # Return the address of the function
-        
+
         return $GetProcAddress.Invoke($null, @([System.Runtime.InteropServices.HandleRef]$HandleRef, $Procedure))
     }
-    
+
     $OnDisk = $True
     if ($PsCmdlet.ParameterSetName -eq 'InMemory') { $OnDisk = $False }
-    
-    
+
+
     $OpenProcessAddr = Get-ProcAddress kernel32.dll OpenProcess
     $OpenProcessDelegate = Get-DelegateType @([UInt32], [Bool], [UInt32]) ([IntPtr])
     $OpenProcess = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($OpenProcessAddr, [Type] $OpenProcessDelegate)
@@ -605,25 +605,25 @@ PROCESS {
     $CloseHandleAddr = Get-ProcAddress kernel32.dll CloseHandle
     $CloseHandleDelegate = Get-DelegateType @([IntPtr]) ([Bool])
     $CloseHandle = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($CloseHandleAddr, [Type] $CloseHandleDelegate)
-    
+
     if ($OnDisk) {
-    
+
         $FileStream = New-Object System.IO.FileStream($FilePath, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read)
         $FileByteArray = New-Object Byte[]($FileStream.Length)
         $FileStream.Read($FileByteArray, 0, $FileStream.Length) | Out-Null
         $FileStream.Close()
         $Handle = [System.Runtime.InteropServices.GCHandle]::Alloc($FileByteArray, 'Pinned')
         $PEBaseAddr = $Handle.AddrOfPinnedObject()
-        
+
     } else {
-    
+
         # Size of the memory page allocated for the PE header
         $HeaderSize = 0x1000
         # Allocate space for when the PE header is read from the remote process
         $PEBaseAddr = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($HeaderSize + 1)
         # Get handle to the process
         $hProcess = $OpenProcess.Invoke(0x10, $false, $ProcessID) # PROCESS_VM_READ (0x00000010)
-        
+
         # Read PE header from remote process
         if (!$ReadProcessMemory.Invoke($hProcess, $ModuleBaseAddress, $PEBaseAddr, $HeaderSize, [Ref] 0)) {
             if ($ModuleName) {
@@ -631,24 +631,24 @@ PROCESS {
             } else {
                 Write-Warning "Failed to read PE header of process ID: $ProcessID"
             }
-            
+
             Write-Warning "Error code: 0x$([System.Runtime.InteropServices.Marshal]::GetLastWin32Error().ToString('X8'))"
             $CloseHandle.Invoke($hProcess) | Out-Null
             return
         }
-        
+
     }
-    
+
     $DosHeader = [System.Runtime.InteropServices.Marshal]::PtrToStructure($PEBaseAddr, [Type] [PE+_IMAGE_DOS_HEADER])
     $PointerNtHeader = [IntPtr] ($PEBaseAddr.ToInt64() + $DosHeader.e_lfanew)
     $NtHeader = [System.Runtime.InteropServices.Marshal]::PtrToStructure($PointerNtHeader, [Type] [PE+_IMAGE_NT_HEADERS32])
     $Architecture = ($NtHeader.FileHeader.Machine).ToString()
-    
+
     $BinaryPtrWidth = 4
 
     # Define relevant structure types depending upon whether the binary is 32 or 64-bit
     if ($Architecture -eq 'AMD64') {
-    
+
         $BinaryPtrWidth = 8
 
         $PEStruct = @{
@@ -660,9 +660,9 @@ PROCESS {
 
         Write-Verbose "Architecture: $Architecture"
         Write-Verbose 'Proceeding with parsing a 64-bit binary.'
-        
+
     } elseif ($Architecture -eq 'I386' -or $Architecture -eq 'ARMNT' -or $Architecture -eq 'THUMB') {
-    
+
         $PEStruct = @{
             IMAGE_OPTIONAL_HEADER = [PE+_IMAGE_OPTIONAL_HEADER32]
             NT_HEADER = [PE+_IMAGE_NT_HEADERS32]
@@ -672,14 +672,14 @@ PROCESS {
 
         Write-Verbose "Architecture: $Architecture"
         Write-Verbose 'Proceeding with parsing a 32-bit binary.'
-        
+
     } else {
-    
+
         Write-Warning 'Get-PEHeader only supports binaries compiled for x86, AMD64, and ARM.'
         return
-        
+
     }
-    
+
     # Need to get a new NT header in case the architecture changed
     $NtHeader = [System.Runtime.InteropServices.Marshal]::PtrToStructure($PointerNtHeader, [Type] $PEStruct['NT_HEADER'])
     # Display all section headers
@@ -691,15 +691,15 @@ PROCESS {
     {
         $SectionHeaders[$i] = [System.Runtime.InteropServices.Marshal]::PtrToStructure(([IntPtr] ($PointerSectionHeader.ToInt64() + ($i * [System.Runtime.InteropServices.Marshal]::SizeOf([Type] [PE+_IMAGE_SECTION_HEADER])))), [Type] [PE+_IMAGE_SECTION_HEADER])
     }
-    
-    
+
+
     if (!$OnDisk) {
-        
+
         $ReadSize = $NtHeader.OptionalHeader.SizeOfImage
         # Free memory allocated for the PE header
         [System.Runtime.InteropServices.Marshal]::FreeHGlobal($PEBaseAddr)
         $PEBaseAddr = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($ReadSize + 1)
-        
+
         # Read process memory of each section header
         foreach ($SectionHeader in $SectionHeaders) {
             if (!$ReadProcessMemory.Invoke($hProcess, [IntPtr] ($ModuleBaseAddress.ToInt64() + $SectionHeader.VirtualAddress), [IntPtr] ($PEBaseAddr.ToInt64() + $SectionHeader.VirtualAddress), $SectionHeader.VirtualSize, [Ref] 0)) {
@@ -708,16 +708,16 @@ PROCESS {
                 } else {
                     Write-Warning "Failed to read $($SectionHeader.Name) section of process ID: $ProcessID"
                 }
-                
+
                 Write-Warning "Error code: 0x$([System.Runtime.InteropServices.Marshal]::GetLastWin32Error().ToString('X8'))"
                 $CloseHandle.Invoke($hProcess) | Out-Null
                 return
             }
         }
-        
+
         # Close handle to the remote process since we no longer need to access the process.
         $CloseHandle.Invoke($hProcess) | Out-Null
-        
+
     }
 
     if ($PSBoundParameters['GetSectionData'])
@@ -740,10 +740,10 @@ PROCESS {
             $SectionHeaders[$i] = Add-Member -InputObject ($SectionHeaders[$i]) -MemberType NoteProperty -Name RawData -Value $RawBytes -PassThru -Force
         }
     }
-    
+
     function Get-Exports()
     {
-    
+
         if ($NTHeader.OptionalHeader.DataDirectory[0].VirtualAddress -eq 0) {
             Write-Verbose 'Module does not contain any exports'
             return
@@ -753,12 +753,12 @@ PROCESS {
         $ExportPointer = [IntPtr] ($PEBaseAddr.ToInt64() + $NtHeader.OptionalHeader.DataDirectory[0].VirtualAddress)
         # This range will be used to test for the existence of forwarded functions
         $ExportDirLow = $NtHeader.OptionalHeader.DataDirectory[0].VirtualAddress
-        if ($OnDisk) { 
+        if ($OnDisk) {
             $ExportPointer = Convert-RVAToFileOffset $ExportPointer
             $ExportDirLow = Convert-RVAToFileOffset $ExportDirLow
             $ExportDirHigh = $ExportDirLow.ToInt32() + $NtHeader.OptionalHeader.DataDirectory[0].Size
         } else { $ExportDirHigh = $ExportDirLow + $NtHeader.OptionalHeader.DataDirectory[0].Size }
-        
+
         $ExportDirectory = [System.Runtime.InteropServices.Marshal]::PtrToStructure($ExportPointer, [Type] [PE+_IMAGE_EXPORT_DIRECTORY])
         $AddressOfNamePtr = [IntPtr] ($PEBaseAddr.ToInt64() + $ExportDirectory.AddressOfNames)
         $NameOrdinalAddrPtr = [IntPtr] ($PEBaseAddr.ToInt64() + $ExportDirectory.AddressOfNameOrdinals)
@@ -767,7 +767,7 @@ PROCESS {
         $NumNames = $ExportDirectory.NumberOfNames
         $NumFunctions = $ExportDirectory.NumberOfFunctions
         $Base = $ExportDirectory.Base
-        
+
         # Recalculate file offsets based upon relative virtual addresses
         if ($OnDisk) {
             $AddressOfNamePtr = Convert-RVAToFileOffset $AddressOfNamePtr
@@ -776,44 +776,44 @@ PROCESS {
         }
 
         if ($NumFunctions -gt 0) {
-        
+
             # Create an empty hash table that will contain indices to exported functions and their RVAs
             $FunctionHashTable = @{}
-        
+
             foreach ($i in 0..($NumFunctions - 1))
             {
-                
+
                 $RvaFunction = [System.Runtime.InteropServices.Marshal]::ReadInt32($AddressOfFunctionsPtr.ToInt64() + ($i * 4))
                 # Function is exported by ordinal if $RvaFunction -ne 0. I.E. NumberOfFunction != the number of actual, exported functions.
                 if ($RvaFunction) { $FunctionHashTable[[Int]$i] = $RvaFunction }
-                
+
             }
-            
+
             # Create an empty hash table that will contain indices into RVA array and the function's name
             $NameHashTable = @{}
-            
+
             foreach ($i in 0..($NumNames - 1))
             {
-            
+
                 $RvaName = [System.Runtime.InteropServices.Marshal]::ReadInt32($AddressOfNamePtr.ToInt64() + ($i * 4))
                 $FuncNameAddr = [IntPtr] ($PEBaseAddr.ToInt64() + $RvaName)
                 if ($OnDisk) { $FuncNameAddr= Convert-RVAToFileOffset $FuncNameAddr }
                 $FuncName = [System.Runtime.InteropServices.Marshal]::PtrToStringAnsi($FuncNameAddr)
                 $NameOrdinal = [Int][System.Runtime.InteropServices.Marshal]::ReadInt16($NameOrdinalAddrPtr.ToInt64() + ($i * 2))
                 $NameHashTable[$NameOrdinal] = $FuncName
-                
+
             }
-            
+
             foreach ($Key in $FunctionHashTable.Keys)
             {
                 $Result = @{}
-                
+
                 if ($NameHashTable[$Key]) {
                     $Result['FunctionName'] = $NameHashTable[$Key]
                 } else {
                     $Result['FunctionName'] = ''
                 }
-                
+
                 if (($FunctionHashTable[$Key] -ge $ExportDirLow) -and ($FunctionHashTable[$Key] -lt $ExportDirHigh)) {
                     $ForwardedNameAddr = [IntPtr] ($PEBaseAddr.ToInt64() + $FunctionHashTable[$Key])
                     if ($OnDisk) { $ForwardedNameAddr = Convert-RVAToFileOffset $ForwardedNameAddr }
@@ -823,18 +823,18 @@ PROCESS {
                 } else {
                     $Result['ForwardedName'] = ''
                 }
-                
+
                 $Result['Ordinal'] = "0x$(($Key + $Base).ToString('X4'))"
                 $Result['RVA'] = "0x$($FunctionHashTable[$Key].ToString("X$($BinaryPtrWidth*2)"))"
                 #$Result['VA'] = "0x$(($FunctionHashTable[$Key] + $PEBaseAddr.ToInt64()).ToString("X$($BinaryPtrWidth*2)"))"
-                
+
                 $Export = New-Object PSObject -Property $Result
                 $Export.PSObject.TypeNames.Insert(0, 'Export')
-                
+
                 $Export
-                
+
             }
-            
+
         } else {  Write-Verbose 'Module does not export any functions.' }
 
     }
@@ -845,11 +845,11 @@ PROCESS {
             Write-Verbose 'Module does not contain any imports'
             return
         }
-    
+
         $FirstImageImportDescriptorPtr = [IntPtr] ($PEBaseAddr.ToInt64() + $NtHeader.OptionalHeader.DataDirectory[1].VirtualAddress)
         if ($OnDisk) { $FirstImageImportDescriptorPtr = Convert-RVAToFileOffset $FirstImageImportDescriptorPtr }
         $ImportDescriptorPtr = $FirstImageImportDescriptorPtr
-        
+
         $i = 0
         # Get all imported modules
         while ($true)
@@ -874,7 +874,7 @@ PROCESS {
                 $OFTPtr = [IntPtr] ($FirstOFTPtr.ToInt64() + ($j * [System.Runtime.InteropServices.Marshal]::SizeOf([Type] $ThunkDataStruct)))
                 $ThunkData = [System.Runtime.InteropServices.Marshal]::PtrToStructure($OFTPtr, [Type] $ThunkDataStruct)
                 $Result = @{ ModuleName = $DllName }
-                
+
                 if (([System.Convert]::ToString($ThunkData.AddressOfData, 2)).PadLeft(32, '0')[0] -eq '1')
                 {
                     # Trim high order bit in order to get the ordinal value
@@ -894,41 +894,41 @@ PROCESS {
                     $Result['Ordinal'] = ''
                     $Result['FunctionName'] = $FuncName
                 }
-                
+
                 $Result['RVA'] = "0x$($FuncAddr.AddressOfData.ToString("X$($BinaryPtrWidth*2)"))"
 
                 if ($FuncAddr.AddressOfData -eq 0) { break }
                 if ($OFTPtr -eq 0) { break }
-                
+
                 $Import = New-Object PSObject -Property $Result
                 $Import.PSObject.TypeNames.Insert(0, 'Import')
-                
+
                 $Import
-                
+
                 $j++
-                
+
             }
-            
+
             $i++
-            
+
         }
 
     }
-    
+
     function Convert-RVAToFileOffset([IntPtr] $Rva)
     {
-    
+
         foreach ($Section in $SectionHeaders) {
             if ((($Rva.ToInt64() - $PEBaseAddr.ToInt64()) -ge $Section.VirtualAddress) -and (($Rva.ToInt64() - $PEBaseAddr.ToInt64()) -lt ($Section.VirtualAddress + $Section.VirtualSize))) {
                 return [IntPtr] ($Rva.ToInt64() - ($Section.VirtualAddress - $Section.PointerToRawData))
             }
         }
-        
+
         # Pointer did not fall in the address ranges of the section headers
         return $Rva
-        
+
     }
-    
+
     $PEFields = @{
         Module = $ModuleName
         DOSHeader = $DosHeader
@@ -939,14 +939,14 @@ PROCESS {
         Imports = Get-Imports
         Exports = Get-Exports
     }
-    
+
     if ($Ondisk) {
         $Handle.Free()
     } else {
         # Free memory allocated for the PE header
         [System.Runtime.InteropServices.Marshal]::FreeHGlobal($PEBaseAddr)
     }
-    
+
     $PEHeader = New-Object PSObject -Property $PEFields
     $PEHeader.PSObject.TypeNames.Insert(0, 'PEHeader')
 
@@ -972,7 +972,7 @@ PROCESS {
     $PEHeader = Add-Member -InputObject $PEHeader -MemberType ScriptMethod -Name DownloadFromMSSymbolServer -Value $ScriptBlock -PassThru -Force
 
     return $PEHeader
-    
+
 }}
 
     $data = Get-PEHeader -FilePath $Path -GetSectionData
@@ -1002,7 +1002,7 @@ PROCESS {
                     $formatted += "`t"
                     $addTab = $False
                 }
-                $formatted += "0x"+$byte.ToString("x2").ToUpper()+", " 
+                $formatted += "0x"+$byte.ToString("x2").ToUpper()+", "
             }
             $i++
         }

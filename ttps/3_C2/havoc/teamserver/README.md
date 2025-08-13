@@ -40,7 +40,7 @@ Source code of Havoc teamserver. Written in Golang.
 		* `./teamserver server --default -v`
 - **Docker**
 	- We can run the teamserver completely from within a container!
-	1. Build the container: 
+	1. Build the container:
 		* `sudo docker build -f Client-Dockerfile .`
 	2. Launch the container (be sure to change the port mapping to match your environment):
 		* `sudo docker run -p40056:40056 -p 443:443 -it -d -v havoc-c2-data:/data jenkins-havoc-client`

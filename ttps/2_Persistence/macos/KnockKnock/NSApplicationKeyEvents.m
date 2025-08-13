@@ -31,7 +31,7 @@
                 if ([self sendAction:@selector(selectAll:) to:nil from:self])
                     return;
             }
-            
+
             //+h (hide window)
             else if([event.charactersIgnoringModifiers isEqualToString:@"h"])
             {
@@ -41,7 +41,7 @@
                     return;
                 }
             }
-            
+
             //+m (minimize window)
             else if([event.charactersIgnoringModifiers isEqualToString:@"m"])
             {
@@ -49,7 +49,7 @@
                 [NSApplication.sharedApplication.keyWindow miniaturize:nil];
                 return;
             }
-            
+
             //+w (close window)
             else if([event.charactersIgnoringModifiers isEqualToString:@"w"])
             {

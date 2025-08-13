@@ -358,7 +358,7 @@ fn send_request(imp_info: ImpInfo) {
 
                                 //print output for debug
                                 println!("Output: {}", output);
-                            
+
 
                             let output_data = OutputData {
                                 session: token.clone(),       // Make sure imp_token is a String

@@ -17161,19 +17161,19 @@ static utf8proc_bool grapheme_break_simple(int lbc, int tbc) {
       tbc == UTF8PROC_BOUNDCLASS_LVT)) ? false :
     ((lbc == UTF8PROC_BOUNDCLASS_LV ||
       lbc == UTF8PROC_BOUNDCLASS_V) &&
-     (tbc == UTF8PROC_BOUNDCLASS_V ||                 
-      tbc == UTF8PROC_BOUNDCLASS_T)) ? false :        
+     (tbc == UTF8PROC_BOUNDCLASS_V ||
+      tbc == UTF8PROC_BOUNDCLASS_T)) ? false :
     ((lbc == UTF8PROC_BOUNDCLASS_LVT ||
-      lbc == UTF8PROC_BOUNDCLASS_T) &&                
-     tbc == UTF8PROC_BOUNDCLASS_T) ? false :          
+      lbc == UTF8PROC_BOUNDCLASS_T) &&
+     tbc == UTF8PROC_BOUNDCLASS_T) ? false :
     (tbc == UTF8PROC_BOUNDCLASS_EXTEND ||
-     tbc == UTF8PROC_BOUNDCLASS_ZWJ ||                
+     tbc == UTF8PROC_BOUNDCLASS_ZWJ ||
      tbc == UTF8PROC_BOUNDCLASS_SPACINGMARK ||
      lbc == UTF8PROC_BOUNDCLASS_PREPEND) ? false :
     (lbc == UTF8PROC_BOUNDCLASS_E_ZWG &&
-     tbc == UTF8PROC_BOUNDCLASS_EXTENDED_PICTOGRAPHIC) ? false : 
+     tbc == UTF8PROC_BOUNDCLASS_EXTENDED_PICTOGRAPHIC) ? false :
     (lbc == UTF8PROC_BOUNDCLASS_REGIONAL_INDICATOR &&
-     tbc == UTF8PROC_BOUNDCLASS_REGIONAL_INDICATOR) ? false :  
+     tbc == UTF8PROC_BOUNDCLASS_REGIONAL_INDICATOR) ? false :
     true;
 }
 

@@ -176,7 +176,7 @@ This will print one JSON object per line to the console, which can then be piped
 **Example**: Print bucket name and region for all buckets that exist
 
 ```shell
-$ s3scanner -bucket-file names.txt -json | jq -r '. | select(.bucket.exists==1) | [.bucket.name, .bucket.region] | join(" - ")'       
+$ s3scanner -bucket-file names.txt -json | jq -r '. | select(.bucket.exists==1) | [.bucket.name, .bucket.region] | join(" - ")'
 10000 - eu-west-1
 10000.pizza - ap-southeast-1
 images_staging - us-west-2
@@ -273,7 +273,7 @@ If using the `dev-mitm` profile, open `http://127.0.0.1:8081` in a browser to vi
 # Config File
 
 If using flags that require config options, `s3scanner` will search for `config.yml` in:
- 
+
 * (current directory)
 * `/etc/s3scanner/`
 * `$HOME/.s3scanner/`
@@ -298,7 +298,7 @@ mq:
 #     type: boolean
 # regions must contain at least one option
 providers:
-  custom: 
+  custom:
     address_style: "path"
     endpoint_format: "https://$REGION.vultrobjects.com"
     insecure: false

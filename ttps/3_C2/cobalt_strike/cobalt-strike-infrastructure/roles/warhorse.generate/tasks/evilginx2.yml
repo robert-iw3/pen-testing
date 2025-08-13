@@ -20,7 +20,7 @@
     mode: '0755'
     src: templates/{{ item.1 }}.yaml.j2
     dest: "./OP/{{ warhorse.general.op_number }}/files/{{ item.0.name }}/phishlets/{{ item.1 }}.yaml.j2"
-  with_subelements: 
+  with_subelements:
    - "{{ warhorse.vm }}"
    - evilginx2.phishlets
    - skip_missing: True

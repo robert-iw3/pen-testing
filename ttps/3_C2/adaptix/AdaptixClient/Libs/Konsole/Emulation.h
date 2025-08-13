@@ -50,7 +50,7 @@ public:
     void clearHistory();
 
     virtual void writeToStream(TerminalCharacterDecoder* decoder,int startLine,int endLine);
-        
+
     const QStringEncoder &codec() const { return _fromUtf16; }
     void setCodec(QStringEncoder);
 
@@ -155,13 +155,13 @@ protected:
     QStringDecoder _toUtf16;
 
     const KeyboardTranslator* _keyTranslator;
-    
+
     bool _enableHandleCtrlC;
 
 protected slots:
 
     void bufferedUpdate();
-    
+
     void checkScreenInUse();
 
 private slots:

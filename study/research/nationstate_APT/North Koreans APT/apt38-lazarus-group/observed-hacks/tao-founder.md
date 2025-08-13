@@ -4,7 +4,7 @@ Amount Stolen:: $5,116,358
 
 Date:: May 24th, 2025
 
-Tags:: 🔑 
+Tags:: 🔑
 
 
 ---
@@ -24,7 +24,7 @@ When Victim joined the call, audio and video didn't work
 
 The zoom asked Victim to update the SDK
 
-When Victim clicked the pop-up something automatically downloaded to my computer and a screen opened asking to run a script. 
+When Victim clicked the pop-up something automatically downloaded to my computer and a screen opened asking to run a script.
 
 
 
@@ -47,11 +47,11 @@ When Victim clicked the pop-up something automatically downloaded to my computer
 
 - 0x7B58d24ed811B1cbA23887855982F283fADe1493 - Victim
 
-- 0xA6A0d30BF9137Ee73a80dA8C076B495bEf65C99a - Victim 
+- 0xA6A0d30BF9137Ee73a80dA8C076B495bEf65C99a - Victim
 
 - 0xd8848DD66528C3B90b3C3D516EEFfF691F2705A8 - Victim
 
-- 0xDF28bC75F8342e24a83F94C9e12Fe07F996b7326 - Victim 
+- 0xDF28bC75F8342e24a83F94C9e12Fe07F996b7326 - Victim
 
 - 5CqTf2YAG5ssZJV7khA6Ux87hdD5vamPe7R4WBycMYFHw2Ns - Victim TAO Wallet
 

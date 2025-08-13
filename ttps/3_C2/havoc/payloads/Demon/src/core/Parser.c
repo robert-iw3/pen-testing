@@ -10,7 +10,7 @@ VOID ParserNew( PPARSER parser, PBYTE Buffer, UINT32 size )
         return;
 
     parser->Original = Instance->Win32.LocalAlloc( LPTR, size );
-    
+
     MemCopy( parser->Original, Buffer, size );
 
     parser->Buffer   = parser->Original;

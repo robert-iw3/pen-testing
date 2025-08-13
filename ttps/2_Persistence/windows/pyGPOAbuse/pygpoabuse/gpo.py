@@ -85,7 +85,7 @@ class GPO:
             return False
 
         version = await ldap.get_attribute("versionNumber")
-        
+
         if gpo_type == "computer":
             attribute_name = "gPCMachineExtensionNames"
             updated_version = version + 1

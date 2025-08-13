@@ -164,7 +164,7 @@ namespace TeamFiltration.Handlers
             int failedCount = 0;
 
         failedResp:
-            //TODO:Add logic to select FireProx endpoint based on current location 
+            //TODO:Add logic to select FireProx endpoint based on current location
             var enumUserReq = await _teamsClient.GetAsync(enumUserUrl + $"{TeamsRegion}/beta/users/{username}/externalsearchv3");
             if (enumUserReq.IsSuccessStatusCode)
             {

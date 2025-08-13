@@ -1,7 +1,7 @@
 function Invoke-OracleCommand {
 <#
 .Synopsis
-    Invoke a command on an oracle database. 
+    Invoke a command on an oracle database.
 .Description
     This script connects to an a oracle database and runs a command.
 .Parameter User

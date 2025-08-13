@@ -1,22 +1,22 @@
 /*  Copyright (C) 2008-2018 Peter Palotas, Jeffrey Jangli, Alexandr Normuradov
- *  
- *  Permission is hereby granted, free of charge, to any person obtaining a copy 
- *  of this software and associated documentation files (the "Software"), to deal 
- *  in the Software without restriction, including without limitation the rights 
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
- *  copies of the Software, and to permit persons to whom the Software is 
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *  
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *  
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
- *  THE SOFTWARE. 
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
  */
 
 using System;
@@ -74,7 +74,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <exception cref="UnauthorizedAccessException"/>
       /// <param name="sourcePath">The source directory path.</param>
       /// <param name="destinationPath">The destination directory path.</param>
-      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>      
+      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>
       /// <param name="pathFormat">Indicates the format of the path parameter(s).</param>
       [Obsolete("To disable/enable overwrite, use other overload and use CopyOptions.None enum flag or remove CopyOptions.FailIfExists enum flag.")]
       [SecurityCritical]
@@ -104,7 +104,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <exception cref="UnauthorizedAccessException"/>
       /// <param name="sourcePath">The source directory path.</param>
       /// <param name="destinationPath">The destination directory path.</param>
-      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>      
+      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>
       /// <param name="progressHandler">A callback function that is called each time another portion of the directory has been copied. This parameter can be <c>null</c>.</param>
       /// <param name="userProgressData">The argument to be passed to the callback function. This parameter can be <c>null</c>.</param>
       [Obsolete("To disable/enable overwrite, use other overload and use CopyOptions.None enum flag or remove CopyOptions.FailIfExists enum flag.")]
@@ -136,7 +136,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <exception cref="UnauthorizedAccessException"/>
       /// <param name="sourcePath">The source directory path.</param>
       /// <param name="destinationPath">The destination directory path.</param>
-      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>      
+      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>
       /// <param name="progressHandler">A callback function that is called each time another portion of the directory has been copied. This parameter can be <c>null</c>.</param>
       /// <param name="userProgressData">The argument to be passed to the callback function. This parameter can be <c>null</c>.</param>
       /// <param name="pathFormat">Indicates the format of the path parameter(s).</param>
@@ -170,7 +170,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <exception cref="UnauthorizedAccessException"/>
       /// <param name="sourcePath">The source directory path.</param>
       /// <param name="destinationPath">The destination directory path.</param>
-      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>      
+      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>
       /// <param name="filters">The specification of custom filters to be used in the process.</param>
       [Obsolete("To disable/enable overwrite, use other overload and use CopyOptions.None enum flag or remove CopyOptions.FailIfExists enum flag.")]
       [SecurityCritical]
@@ -200,7 +200,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <exception cref="UnauthorizedAccessException"/>
       /// <param name="sourcePath">The source directory path.</param>
       /// <param name="destinationPath">The destination directory path.</param>
-      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>      
+      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>
       /// <param name="filters">The specification of custom filters to be used in the process.</param>
       /// <param name="pathFormat">Indicates the format of the path parameter(s).</param>
       [Obsolete("To disable/enable overwrite, use other overload and use CopyOptions.None enum flag or remove CopyOptions.FailIfExists enum flag.")]
@@ -232,7 +232,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <exception cref="UnauthorizedAccessException"/>
       /// <param name="sourcePath">The source directory path.</param>
       /// <param name="destinationPath">The destination directory path.</param>
-      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>      
+      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>
       /// <param name="filters">The specification of custom filters to be used in the process.</param>
       /// <param name="progressHandler">A callback function that is called each time another portion of the directory has been copied. This parameter can be <c>null</c>.</param>
       /// <param name="userProgressData">The argument to be passed to the callback function. This parameter can be <c>null</c>.</param>
@@ -266,7 +266,7 @@ namespace Alphaleonis.Win32.Filesystem
       /// <exception cref="UnauthorizedAccessException"/>
       /// <param name="sourcePath">The source directory path.</param>
       /// <param name="destinationPath">The destination directory path.</param>
-      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>      
+      /// <param name="overwrite"><c>true</c> if the destination directory should ignoring the read-only and hidden attributes and overwrite; otherwise, <c>false</c>.</param>
       /// <param name="filters">The specification of custom filters to be used in the process.</param>
       /// <param name="progressHandler">A callback function that is called each time another portion of the directory has been copied. This parameter can be <c>null</c>.</param>
       /// <param name="userProgressData">The argument to be passed to the callback function. This parameter can be <c>null</c>.</param>
@@ -590,7 +590,7 @@ namespace Alphaleonis.Win32.Filesystem
             CopyOptions = CopyOptions.FailIfExists
          });
       }
-      
+
 
       /// <summary>[AlphaFS] Copies an existing directory to a new directory. Overwriting a directory of the same name is not allowed.</summary>
       /// <returns>A <see cref="CopyMoveResult"/> class with details of the Copy action.</returns>
@@ -738,7 +738,7 @@ namespace Alphaleonis.Win32.Filesystem
             PathFormat = pathFormat
          });
       }
-      
+
 
       /// <summary>[AlphaFS] Copies an existing directory to a new directory. Overwriting a directory of the same name is not allowed.</summary>
       /// <returns>A <see cref="CopyMoveResult"/> class with details of the Copy action.</returns>
@@ -804,10 +804,10 @@ namespace Alphaleonis.Win32.Filesystem
             PathFormat = pathFormat
          });
       }
-      
-      
 
-      
+
+
+
       /// <summary>[AlphaFS] Copies a directory and its contents to a new location, <see cref="CopyOptions"/> can be specified.</summary>
       /// <returns>A <see cref="CopyMoveResult"/> class with details of the Copy action.</returns>
       /// <remarks>
@@ -864,7 +864,7 @@ namespace Alphaleonis.Win32.Filesystem
             PathFormat = pathFormat
          });
       }
-      
+
 
       /// <summary>[AlphaFS] Copies a directory and its contents to a new location, <see cref="CopyOptions"/> can be specified,
       /// and the possibility of notifying the application of its progress through a callback function.</summary>
@@ -932,7 +932,7 @@ namespace Alphaleonis.Win32.Filesystem
             PathFormat = pathFormat
          });
       }
-      
+
 
       /// <summary>[AlphaFS] Copies a directory and its contents to a new location, <see cref="CopyOptions"/> can be specified.</summary>
       /// <returns>A <see cref="CopyMoveResult"/> class with details of the Copy action.</returns>
@@ -994,7 +994,7 @@ namespace Alphaleonis.Win32.Filesystem
             PathFormat = pathFormat
          });
       }
-      
+
 
       /// <summary>[AlphaFS] Copies a directory and its contents to a new location, <see cref="CopyOptions"/> can be specified,
       /// and the possibility of notifying the application of its progress through a callback function.</summary>

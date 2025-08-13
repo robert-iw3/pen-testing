@@ -177,13 +177,13 @@ Open terminal application -  and execute following command after substitution `P
 
 Connect a board to your computer. Switch Kitprog3 to DAP-BULK mode by pressing `SW3 MODE` button until `LED2 STATUS` constantly shines.
 
-        export OPENOCD=/Applications/ModusToolbox/tools_2.1/openocd 
+        export OPENOCD=/Applications/ModusToolbox/tools_2.1/openocd
 
         ${OPENOCD}/bin/openocd -s ${OPENOCD}/scripts \
                             -f ${OPENOCD}/scripts/interface/kitprog3.cfg \
                             -f ${OPENOCD}/scripts/target/psoc6_2m.cfg \
                             -c "init; reset init; program PATH_TO_APPLICATION.hex" \
-                            -c "resume; reset; exit" 
+                            -c "resume; reset; exit"
 
 2. Using GUI tool `Cypress Programmer` - follow [link](https://www.cypress.com/products/psoc-programming-solutions) to download.
    Connect board to your computer. Switch Kitprog3 to DAP-BULK mode by pressing `SW3 MODE` button until `LED2 STATUS` constantly shines. Open `Cypress Programmer` and click `Connect`, then choose hex file: `MCUBootApp.hex` or `BlinkyApp.hex` and click `Program`.  Check log to ensure programming success. Reset board.

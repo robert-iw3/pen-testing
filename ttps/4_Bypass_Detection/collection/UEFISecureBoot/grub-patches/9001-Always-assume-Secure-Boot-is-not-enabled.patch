@@ -20,6 +20,6 @@ index d74778b..1d73d84 100644
    grub_efi_guid_t efi_var_guid = GRUB_EFI_GLOBAL_VARIABLE_GUID;
    grub_size_t datasize;
    char *secure_boot = NULL;
--- 
+--
 2.20.1
 

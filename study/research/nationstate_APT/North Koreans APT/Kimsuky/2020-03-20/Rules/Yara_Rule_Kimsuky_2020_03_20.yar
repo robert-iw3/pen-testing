@@ -11,9 +11,9 @@ rule APT_Kimsuky_PyRecon_Mar2020_1 {
       $s3 = "zippass" fullword ascii
       $s4 = "exec(urllib2.urlopen(urllib2.Request(" fullword ascii
       $s5 = "target=SpyLoop" fullword ascii
-      $s6 = "boundary=----7e222d1d50232" fullword ascii      
+      $s6 = "boundary=----7e222d1d50232" fullword ascii
    condition:
-        4 of them 
+        4 of them
 }
 
 rule APT_Kimsuky_PowerRecon_Mar2020_1 {
@@ -29,9 +29,9 @@ rule APT_Kimsuky_PowerRecon_Mar2020_1 {
       $s3 = "post.php" fullword ascii
       $s4 = "rundll32.exe" fullword ascii
       $s5 = "[Environment]::GetFolderPath("Recent")" fullword ascii
-      $s6 = "----WebKitFormBoundarywhpFxMBe19cSjFnG" fullword ascii   
-      $s7 = "?filename=" fullword ascii 
-      $s8 = "del.php" fullword ascii    
+      $s6 = "----WebKitFormBoundarywhpFxMBe19cSjFnG" fullword ascii
+      $s7 = "?filename=" fullword ascii
+      $s8 = "del.php" fullword ascii
    condition:
-        6 of them 
+        6 of them
 }

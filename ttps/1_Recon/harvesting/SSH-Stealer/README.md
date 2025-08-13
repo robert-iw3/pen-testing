@@ -1,9 +1,9 @@
 # RunAs-Stealer
-Smart keylogging capability to steal SSH Credentials including password & Private Key   
+Smart keylogging capability to steal SSH Credentials including password & Private Key
 
 ## Usage
 
-The stolen credentials are written to `C:\Users\<Username>\Desktop\desktop.ini` ADS `log` stream.   
+The stolen credentials are written to `C:\Users\<Username>\Desktop\desktop.ini` ADS `log` stream.
 
 To get the credentials type the cmd command:
 ```shell
@@ -14,7 +14,7 @@ To remove the stored credentials type the powershell command:
 Remove-Item -Path "C:\Users\d1rk\Desktop\desktop.ini" -Stream "log"
 ```
 
-***N.B: Refer to the Demo down below for each use case*** 
+***N.B: Refer to the Demo down below for each use case***
 
 
 

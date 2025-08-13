@@ -12,7 +12,7 @@ namespace System.Yaml.Serialization
 {
     internal class ObjectActivator
     {
-        Dictionary<Type, Func<object>> activators = 
+        Dictionary<Type, Func<object>> activators =
             new Dictionary<Type, Func<object>>();
         public void Add<T>(Func<object> activator)
             where T: class
@@ -26,7 +26,7 @@ namespace System.Yaml.Serialization
         public object Activate(Type type)
         {
             if ( !activators.ContainsKey(type) )
-                return Activator.CreateInstance(type);                              
+                return Activator.CreateInstance(type);
             return activators[type].Invoke();
         }
     }
@@ -95,7 +95,7 @@ namespace System.Yaml.Serialization
                 return appeared[node];
 
             object obj = null;
-            
+
             // Type resolution
             Type type = expected == typeof(object) ? null : expected;
             Type fromTag = TagResolver.TypeFromTag(node.Tag);
@@ -128,7 +128,7 @@ namespace System.Yaml.Serialization
             if ( !appeared.ContainsKey(node) )
                 if(obj != null && obj.GetType().IsClass && ( !(obj is string) || ((string)obj).Length >= 1000 ) )
                     appeared.Add(node, obj);
-            
+
             return obj;
         }
 
@@ -139,9 +139,9 @@ namespace System.Yaml.Serialization
 
             // To accommodate the !!int and !!float encoding, all "_"s in integer and floating point values
             // are simply neglected.
-            if ( type == typeof(byte) || type == typeof(sbyte) || type == typeof(short) || type == typeof(ushort) || 
-                 type == typeof(int) || type == typeof(uint) || type == typeof(long) || type == typeof(ulong) 
-                 || type == typeof(float) || type == typeof(decimal) ) 
+            if ( type == typeof(byte) || type == typeof(sbyte) || type == typeof(short) || type == typeof(ushort) ||
+                 type == typeof(int) || type == typeof(uint) || type == typeof(long) || type == typeof(ulong)
+                 || type == typeof(float) || type == typeof(decimal) )
                 return config.TypeConverter.ConvertFromString(node.Value.Replace("_", ""), type);
 
             if ( type.IsEnum || type.IsPrimitive || type == typeof(char) || type == typeof(bool) ||
@@ -182,7 +182,7 @@ namespace System.Yaml.Serialization
                     j += elementSize;
                 }
                 return array;
-            } 
+            }
 
             if ( node.Value == "" ) {
                 return config.Activator.Activate(type);
@@ -235,7 +235,7 @@ namespace System.Yaml.Serialization
             if ( ( ( map.ShorthandTag() == "!!map" && type == null ) || type == typeof(Dictionary<object,object>) ) && obj == null ) {
                 var dict = new Dictionary<object, object>();
                 appeared.Add(map, dict);
-                foreach ( var entry in map ) 
+                foreach ( var entry in map )
                     dict.Add(NodeToObjectInternal(entry.Key, null, appeared), NodeToObjectInternal(entry.Value, null, appeared));
                 return dict;
             }
@@ -257,7 +257,7 @@ namespace System.Yaml.Serialization
                 case "ICollection.Items":
                     if ( access.CollectionAdd == null )
                         throw new FormatException("{0} is not a collection type.".DoFormat(type.FullName));
-                    access.CollectionClear(obj);                                           
+                    access.CollectionClear(obj);
                     foreach(var item in (YamlSequence)entry.Value)
                         access.CollectionAdd(obj, NodeToObjectInternal(item, access.ValueType, appeared));
                     break;

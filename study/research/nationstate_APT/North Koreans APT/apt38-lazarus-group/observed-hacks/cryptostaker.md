@@ -16,7 +16,7 @@ Not sure if my credentials are affected as well, if anyone received something su
 
 My suspicion is on me running npm i and npm run start on a folder I downloaded 10 hours ago, which spun up the localhost.
 
-I didn't realize I was hacked until 10 hours later when I wanted to transfer some money elsewhere. 
+I didn't realize I was hacked until 10 hours later when I wanted to transfer some money elsewhere.
 
 It seems like my wallet is simultaneously drained from all chains (zksync, base, op, polygon, eth)
 
@@ -26,7 +26,7 @@ Some malicious addresses: 0xcc9967aefced28d139a333ba15b7f8c60e0ef058
 
 It all started when someone approached me on LinkedIn and asked me if I could do some audit work for him. Seems innocent. He wanted me to check his react app and will give me some solidity code to audit.
 
-I thought that was harmless enough, so I asked him for more documentations. 
+I thought that was harmless enough, so I asked him for more documentations.
 
 He gave me a link to a gitlab folder with a react app and javascript. I don't know much about javascript but I know how to run npm i and npm start, so I did just that.
 

@@ -16,7 +16,7 @@ Radiant Capital posted on X acknowledging issues with its lending markets on BNB
 
 > Mandiant attributes this attack to UNC4736, commonly referred to as AppleJeus or Citrine Sleet. Mandiant assesses with high-confidence that UNC4736 has a Democratic People’s Republic of Korea (DPRK) nexus. Specifically, this group is aligned with DPRK’s Reconnaissance General Bureau (RGB) and has close ties with TEMP.Hermit.
 
-Add'l Signers: 
+Add'l Signers:
 
 - 0xbbb33DE35C4489e98965945b088Ea5361Df9eb26
 - 0xD0A16E09d8B0D77503C5f3eC05287B06C6C6cfCF
@@ -158,7 +158,7 @@ Add'l Signers:
 
 ### Hyperliquid Depositors (Arbitrum)
 - 0x00e1559184bf1da0256a495ae9baec11bca60eb7
-- 0x1a7813975499a0deb04b09146d2285751072590f 
+- 0x1a7813975499a0deb04b09146d2285751072590f
 - 0x2de7f660ebb78252f7cc243bb2e35c558e43b58e
 - 0x348fc4dfdcd3427d8a4b43ad965b4443d55cf955
 - 0x34aa91e574aa963675107011dcf0392c5521005a

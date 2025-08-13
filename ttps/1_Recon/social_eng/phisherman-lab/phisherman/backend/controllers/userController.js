@@ -55,11 +55,11 @@ exports.updateUser = async (req, res) => {
   const hashedPassword = password ? await bcrypt.hash(password, 10) : null;
 
   db.run(
-    `UPDATE users SET 
-      firstName = ?, 
-      lastName = ?, 
-      email = ?, 
-      password = COALESCE(?, password) 
+    `UPDATE users SET
+      firstName = ?,
+      lastName = ?,
+      email = ?,
+      password = COALESCE(?, password)
       WHERE id = ?`,
     [firstName, lastName, email, hashedPassword, id],
     function (err) {

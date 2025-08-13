@@ -232,7 +232,7 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.engines
 			/*
 	         * Full subkey schedule is deferred to execution to avoid per cipher overhead (10k for 512,
 	         * 20k for 1024).
-	         * 
+	         *
 	         * Key and tweak word sequences are repeated, and static MOD17/MOD9/MOD5/MOD3 calculations
 	         * used, to avoid expensive mod computations during cipher operation.
 	         */
@@ -488,11 +488,11 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.engines
 
 				/*
 	             * Rounds loop, unrolled to 8 rounds per iteration.
-	             * 
+	             *
 	             * Unrolling to multiples of 4 avoids the mod 4 check for key injection, and allows
 	             * inlining of the permutations, which cycle every of 2 rounds (avoiding array
 	             * index/lookup).
-	             * 
+	             *
 	             * Unrolling to multiples of 8 avoids the mod 8 rotation constant lookup, and allows
 	             * inlining constant rotation values (avoiding array index/lookup).
 	             */
@@ -504,7 +504,7 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.engines
 
 					/*
 	                 * 4 rounds of mix and permute.
-	                 * 
+	                 *
 	                 * Permute schedule has a 2 round cycle, so permutes are inlined in the mix
 	                 * operations in each 4 round block.
 	                 */
@@ -727,11 +727,11 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.engines
 
 				/*
 	             * Rounds loop, unrolled to 8 rounds per iteration.
-	             * 
+	             *
 	             * Unrolling to multiples of 4 avoids the mod 4 check for key injection, and allows
 	             * inlining of the permutations, which cycle every of 4 rounds (avoiding array
 	             * index/lookup).
-	             * 
+	             *
 	             * Unrolling to multiples of 8 avoids the mod 8 rotation constant lookup, and allows
 	             * inlining constant rotation values (avoiding array index/lookup).
 	             */
@@ -743,7 +743,7 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.engines
 
 					/*
 	                 * 4 rounds of mix and permute.
-	                 * 
+	                 *
 	                 * Permute schedule has a 4 round cycle, so permutes are inlined in the mix
 	                 * operations in each 4 round block.
 	                 */
@@ -1069,11 +1069,11 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.engines
 
 				/*
 	             * Rounds loop, unrolled to 8 rounds per iteration.
-	             * 
+	             *
 	             * Unrolling to multiples of 4 avoids the mod 4 check for key injection, and allows
 	             * inlining of the permutations, which cycle every of 4 rounds (avoiding array
 	             * index/lookup).
-	             * 
+	             *
 	             * Unrolling to multiples of 8 avoids the mod 8 rotation constant lookup, and allows
 	             * inlining constant rotation values (avoiding array index/lookup).
 	             */
@@ -1085,7 +1085,7 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.engines
 
 					/*
 	                 * 4 rounds of mix and permute.
-	                 * 
+	                 *
 	                 * Permute schedule has a 4 round cycle, so permutes are inlined in the mix
 	                 * operations in each 4 round block.
 	                 */

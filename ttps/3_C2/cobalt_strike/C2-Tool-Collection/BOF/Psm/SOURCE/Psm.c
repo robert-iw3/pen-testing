@@ -41,7 +41,7 @@ HRESULT BeaconPrintToStreamW(_In_z_ LPCWSTR lpwFormat, ...) {
 	}
 
 	// For BOF we need to avoid large stack buffers, so put print buffer on heap.
-	if (g_lpwPrintBuffer <= (LPWSTR)1) { // Allocate once and free in BeaconOutputStreamW. 
+	if (g_lpwPrintBuffer <= (LPWSTR)1) { // Allocate once and free in BeaconOutputStreamW.
 		g_lpwPrintBuffer = (LPWSTR)MSVCRT$calloc(MAX_STRING, sizeof(WCHAR));
 		if (g_lpwPrintBuffer == NULL) {
 			hr = E_FAIL;
@@ -92,7 +92,7 @@ VOID BeaconOutputStreamW() {
 			goto CleanUp;
 		}
 
-		if (FAILED(g_lpStream->lpVtbl->Read(g_lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {		
+		if (FAILED(g_lpStream->lpVtbl->Read(g_lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {
 			goto CleanUp;
 		}
 
@@ -136,7 +136,7 @@ BOOL IsProcessWoW64(_In_ HANDLE hProcess) {
 
 ULONG GetPid() {
 	PROCESS_BASIC_INFORMATION pbi = { 0 };
-	
+
 	NTSTATUS status = ZwQueryInformationProcess(NtCurrentProcess(), ProcessBasicInformation, &pbi, sizeof(pbi), NULL);
 	if (status != STATUS_SUCCESS) {
 		return 0;
@@ -254,16 +254,16 @@ LPWSTR GetProcessUser(_In_ HANDLE hProcess, _In_ BOOL bCloseHandle, _In_ BOOL bR
 			}
 		}
 	}
-	
+
 CleanUp:
-	
+
 	MSVCRT$memset(lpName, 0, MAX_NAME * sizeof(WCHAR));
 	MSVCRT$memset(lpDomain, 0, MAX_NAME * sizeof(WCHAR));
 
 	if (hProcess != NULL && bCloseHandle) {
 		ZwClose(hProcess);
 	}
-	
+
 	if (hToken != NULL) {
 		if (Ptoken_User != NULL){
 			KERNEL32$HeapFree(KERNEL32$GetProcessHeap(), 0, Ptoken_User);
@@ -286,7 +286,7 @@ DWORD IntegrityLevel(_In_ HANDLE hProcess) {
 	if (NtOpenProcessToken == NULL) {
 		return 0;
 	}
-	
+
 	_RtlSubAuthoritySid RtlSubAuthoritySid = (_RtlSubAuthoritySid)
 		GetProcAddress(GetModuleHandleA("ntdll.dll"), "RtlSubAuthoritySid");
 	if (RtlSubAuthoritySid == NULL) {
@@ -399,7 +399,7 @@ BOOL EnumPeb(_In_ HANDLE hProcess) {
 	}
 	g_lpwReadBuf[upp.CommandLine.Length / sizeof(WCHAR)] = L'\0';
 	BeaconPrintToStreamW(L"%-18ls %ls\n", L"    CommandLine:", g_lpwReadBuf);
-	
+
 	MSVCRT$memset(g_lpwReadBuf, 0, MAX_STRING * sizeof(WCHAR));
 
 	status = ZwReadVirtualMemory(hProcess, peb.Ldr, &pld, sizeof(pld), NULL);
@@ -504,7 +504,7 @@ BOOL EnumPebFromWoW64(_In_ HANDLE hProcess) {
 	}
 	g_lpwReadBuf[upp64.CommandLine.Length / sizeof(WCHAR)] = L'\0';
 	BeaconPrintToStreamW(L"%-18ls %ls\n", L"    CommandLine:", g_lpwReadBuf);
-	
+
 	MSVCRT$memset(g_lpwReadBuf, 0, MAX_STRING * sizeof(WCHAR));
 
 	status = NtWow64ReadVirtualMemory64(hProcess, peb64.Ldr, &pld64, sizeof(pld64), NULL);
@@ -738,7 +738,7 @@ BOOL EnumKernel() {
 
 	pModuleInfo = (PSYSTEM_MODULE_INFORMATION)pModInfoBuffer;
 	RtlInitAnsiString(&aKernelImage, (PSTR)pModuleInfo->Module[0].FullPathName);
-	
+
 	RtlAnsiStringToUnicodeString(&uKernelImage, &aKernelImage, TRUE);
 	if (uKernelImage.Buffer != NULL) {
 		EnumFileProperties(NULL, &uKernelImage);
@@ -766,7 +766,7 @@ BOOL GetTcpSessions(_In_ DWORD ProcessId) {
 	WCHAR szRemoteAddr[128];
 	struct in_addr IpAddr;
 	int i;
-	
+
 	pTcpTable = (MIB_TCPTABLE2 *)KERNEL32$HeapAlloc(KERNEL32$GetProcessHeap(), HEAP_ZERO_MEMORY, (sizeof(MIB_TCPTABLE2)));
 	if (pTcpTable == NULL) {
 		return bResult;
@@ -880,7 +880,7 @@ CleanUp:
 	if (pTcpTable != NULL) {
 		KERNEL32$HeapFree(KERNEL32$GetProcessHeap(), 0, pTcpTable);
 	}
-	
+
 	return bResult;
 }
 
@@ -895,7 +895,7 @@ VOID Psm(_In_ DWORD dwPid) {
 	SYSTEMTIME stUTC, stLocal;
 	ULONG ulPid = GetPid();
 	DWORD SessionID;
-	
+
 	_RtlInitUnicodeString RtlInitUnicodeString = (_RtlInitUnicodeString)
 		GetProcAddress(GetModuleHandleA("ntdll.dll"), "RtlInitUnicodeString");
 	if (RtlInitUnicodeString == NULL) {
@@ -977,7 +977,7 @@ VOID Psm(_In_ DWORD dwPid) {
 
 			ftCreate.dwLowDateTime = pProcInfo->CreateTime.LowPart;
 			ftCreate.dwHighDateTime = pProcInfo->CreateTime.HighPart;
-			
+
 			// Convert the Createtime to local time.
 			KERNEL32$FileTimeToSystemTime(&ftCreate, &stUTC);
 			if (KERNEL32$SystemTimeToTzSpecificLocalTime(NULL, &stUTC, &stLocal)) {
@@ -1037,7 +1037,7 @@ VOID Psm(_In_ DWORD dwPid) {
 				else{
 					EnumPeb(hProcess);
 				}
-		
+
 				// Close the Process Handle
 				ZwClose(hProcess);
 			}
@@ -1075,7 +1075,7 @@ CleanUp:
 
 VOID go(_In_ PCHAR Args, _In_ ULONG Length) {
 	DWORD dwPid = 0;
-	
+
 	// Parse Arguments
 	datap parser;
 	BeaconDataParse(&parser, Args, Length);

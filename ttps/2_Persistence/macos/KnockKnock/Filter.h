@@ -13,7 +13,7 @@
 
 @interface Filter : NSObject
 {
-    
+
 }
 
 //white listed file hashes

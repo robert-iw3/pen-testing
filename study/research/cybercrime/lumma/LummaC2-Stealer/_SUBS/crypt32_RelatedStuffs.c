@@ -1,8 +1,8 @@
 #include "../HEADER/HEADER.h"
 
-int __fastcall 
-ExtractFileInfoViaNTDLL(void *TheRealOne_, 
-                        DWORD *encryptedKey, 
+int __fastcall
+ExtractFileInfoViaNTDLL(void *TheRealOne_,
+                        DWORD *encryptedKey,
                         size_t *resultLength)
 {
     void *IoStatusBlock = NULL;
@@ -14,7 +14,7 @@ ExtractFileInfoViaNTDLL(void *TheRealOne_,
     if (FileHandle == -1) {
         return -1;
     }
-  
+
     IoStatusBlock = calloc(8, 1);
     if (IoStatusBlock == NULL) {
         return -1;
@@ -50,8 +50,8 @@ ExtractFileInfoViaNTDLL(void *TheRealOne_,
     return 0;
 }
 
-DWORD *__fastcall 
-ParseKeyValueData(const char **key, 
+DWORD *__fastcall
+ParseKeyValueData(const char **key,
                   unsigned int depth)
 {
   int currentChar;
@@ -63,13 +63,13 @@ ParseKeyValueData(const char **key,
   _DWORD *resultData;
   int validationCheck;
   int index;
-  
+
   if (depth > 0x800)
     return 0;
-  
+
   while (isspace(*(unsigned __int8 *)*key))
     ++*key;
-  
+
   currentChar = **key;
   if (currentChar > 54)
   {
@@ -79,16 +79,16 @@ ParseKeyValueData(const char **key,
       {
         if (strncmp("null", *key, 4u))
           return 0;
-        
+
         *key += 4;
         return allocateInitializesomeMEM();
       }
-      
+
       if (currentChar != 116)
       {
         if (currentChar != 123)
           return 0;
-        
+
         return ParseAndValidtKeyStrct(key, depth + 1);
       }
     }
@@ -97,81 +97,81 @@ ParseKeyValueData(const char **key,
       tempValue = currentChar - 55;
       if (!tempValue)
         return (_DWORD *)TransValdatformKey((char **)key);
-      
+
       processedValue = tempValue - 1;
       if (!processedValue)
         return (_DWORD *)TransValdatformKey((char **)key);
-      
+
       index = processedValue - 1;
       if (!index)
         return (_DWORD *)TransValdatformKey((char **)key);
-      
+
       if (index != 34)
         return 0;
-      
+
       return (_DWORD *)ParseAndValidtArrayStrct(key, depth + 1);
     }
     return checkBooleanValue(key);
   }
-  
+
   if (currentChar == 54)
     return (_DWORD *)TransValdatformKey((char **)key);
-  
+
   if (currentChar > 50)
   {
     validationCheck = currentChar - 51;
     if (!validationCheck)
       return (_DWORD *)TransValdatformKey((char **)key);
-    
+
     tempValue = validationCheck - 1;
     isValidValue = (tempValue == 0);
     goto LABEL_12;
   }
-  
+
   if (currentChar == 50)
     return (_DWORD *)TransValdatformKey((char **)key);
-  
+
   stringLength = currentChar - 34;
   if (stringLength)
   {
     validationCheck = stringLength - 11;
     if (!validationCheck)
       return (_DWORD *)TransValdatformKey((char **)key);
-    
+
     tempValue = validationCheck - 3;
     isValidValue = (tempValue == 0);
-    
+
 LABEL_12:
     if (isValidValue || tempValue == 1)
       return (_DWORD *)TransValdatformKey((char **)key);
-    
+
     return 0;
   }
 
   resultData = 0;
   parsedString = 0;
   validationCheck = StringParsWithEscape(key, (int)&parsedString);
-  
+
   if (!parsedString)
     return (_DWORD *)resultData;
-  
+
   resultData = Alloc_StoreData(parsedString, (int)parsedString);
   if (resultData)
     return resultData;
-  
+
   free(parsedString);
   return (_DWORD *)resultData;
 }
 
-DWORD *__thiscall 
+DWORD *__thiscall
 StripUTF8BOMAndParse(const char *encryptedKey)
 {
     if (encryptedKey == NULL) {
         return NULL;
     }
     const char *niggi = encryptedKey;
-    if (encryptedKey[0] == (char)0xEF && 
-        encryptedKey[1] == (char)0xBB && 
+    if (encryptedKey[0] == (char)0xEF &&
+        encryptedKey[1] == (char)0xBB &&
         encryptedKey[2] == (char)0xBF) {
         encryptedKey += 3; // Skip BOM if present
     }
@@ -251,9 +251,9 @@ ComputeDJB2Hash(int inputString,
   return hash;
 }
 
-int __fastcall 
-LookupHashedIndexValue(DWORD *table, 
-                       const char *inputString, 
+int __fastcall
+LookupHashedIndexValue(DWORD *table,
+                       const char *inputString,
                        size_t inputLength)
 {
   int hashValue;
@@ -275,7 +275,7 @@ LookupHashedIndexValue(DWORD *table,
   }
 }
 
-int __thiscall 
+int __thiscall
 ValidateKeyStructure(DWORD *keyV)
 {
   if ( keyV && keyV[1] == 4 )
@@ -284,8 +284,8 @@ ValidateKeyStructure(DWORD *keyV)
     return 0;
 }
 
-int __fastcall 
-ExtractValueFromKeyPath(DWORD *table, 
+int __fastcall
+ExtractValueFromKeyPath(DWORD *table,
                         const char *key)
 {
   const char *segmentStart;
@@ -309,7 +309,7 @@ ExtractValueFromKeyPath(DWORD *table,
     return 0;
 }
 
-DWORD *__thiscall 
+DWORD *__thiscall
 RetrieveKeyFromStructure(DWORD *keyStrct)
 {
   int keyType;
@@ -331,10 +331,10 @@ RetrieveKeyFromStructure(DWORD *keyStrct)
 
 
 void
-DecryptKeyData(const WCHAR *TheRealOne_, 
-              int *rawFileData, 
+DecryptKeyData(const WCHAR *TheRealOne_,
+              int *rawFileData,
               int *fileDataSize) // fileDataSize == is the length of the key....
-{ 
+{
     DWORD *Resutl, *Resutl_, *Resutl__;
     int *keyStorageLocation, int encryptedKey_;
     char *encryptedData;
@@ -361,7 +361,7 @@ DecryptKeyData(const WCHAR *TheRealOne_,
         fprintf(stderr, "Memory allocation failed for encrypted data\n");
         return;
     }
-  
+
     CryptDecryptFunction(encryptedKey_, 0, 1, encryptedData, &dataLength, 0, 0);
 
     decryptedBuffer = malloc(0x200);

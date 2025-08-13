@@ -91,4 +91,4 @@ The stolen funds were bridged back to Ethereum, swapped for Ether (ETH) and tran
 
 - https://github.com/sallamy2580
 
-- https://rekt.news/merlin-dex-rekt/ 
+- https://rekt.news/merlin-dex-rekt/

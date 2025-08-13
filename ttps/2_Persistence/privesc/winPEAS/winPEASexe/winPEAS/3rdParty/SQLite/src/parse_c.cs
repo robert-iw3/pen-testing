@@ -990,8 +990,8 @@ public yyStackEntry *yystack;        /* The parser's stack */
 "plus_opt",      "number",        "trigger_decl",  "trigger_cmd_list",
 "trigger_time",  "trigger_event",  "foreach_clause",  "when_clause",
 "trigger_cmd",   "trnm",          "tridxby",       "database_kw_opt",
-"key_opt",       "add_column_fullname",  "kwcolumn_opt",  "create_vtab", 
-"vtabarglist",   "vtabarg",       "vtabargtoken",  "lp",          
+"key_opt",       "add_column_fullname",  "kwcolumn_opt",  "create_vtab",
+"vtabarglist",   "vtabarg",       "vtabargtoken",  "lp",
 "anylist", };
 #endif // * NDEBUG */
 
@@ -3058,7 +3058,7 @@ new _yyRuleInfo( 252, 2 ),
           break;
         case 212: /* escape ::= */
           //#line 855 "parse.y"
-          { yygotominor.yy346 = new ExprSpan(); }// memset( yygotominor.yy346, 0, sizeof( yygotominor.yy346 ) ); 
+          { yygotominor.yy346 = new ExprSpan(); }// memset( yygotominor.yy346, 0, sizeof( yygotominor.yy346 ) );
           //#line 2965 "parse.c"
           break;
         case 213: /* expr ::= expr likeop expr escape */

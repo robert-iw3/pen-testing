@@ -12,32 +12,32 @@ Amount Stolen:: $77,000
 ## Known Targets - October 2024
 
 
-- Oct 21 - B 
+- Oct 21 - B
     - `hack-vc.video-meets.site/roundtable-talk-with-hack-vc-team/roomID=3570947&meetingID=0673660`
     - ![](../images/2024-10-21_SQSQ_01.jpg)
 
-- Oct 21 - B 
+- Oct 21 - B
     - `support.video-meets.site/troubleshoot-issue-282825`
     - ![](../images/2024-10-21_SQSQ_02.jpg)
 
-- Oct 22 - A  
+- Oct 22 - A
     - https://x.com/alexpiHQ/status/1848371521598693747
 
-- Oct 22 - J 
+- Oct 22 - J
     - `hack-vc.video-meets.xyz/roundtable-talk-with-hack-vc-team/roomID=3570947&meetingID=94474406`
     - ![](../images/2024-10-22_SQSQ_01.png)
 
-- Oct 24 - Unknown 
+- Oct 24 - Unknown
     - `hack-vc.online-meets.xyz/roundtable-talk-with-hack-vc-team/roomID=3570947&meetingID=51095058`
 
-- Oct 24 - Y 
+- Oct 24 - Y
     - unknown
 
-- T 
+- T
     - `hack-vc.video-meets.site/roundtable-talk-with-hack-vc-team/roomID=3570947&meetingID=3824330`
     - ![](../images/2024-10-24_SQSQ_01.jpg)
-    
-- J2 
+
+- J2
     - `hack-vc.video-meets.pro/roundtable-talk-with-hack-vc-team/roomID=3570947&meetingID=44873848`
     - ![](../images/2024-10-25_SQSQ_00-02-32.jpg)
 
@@ -70,7 +70,7 @@ Amount Stolen:: $77,000
 - 50.114.45.115
 - Asia/Tokyo
 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
-- en-US,en;q=0.9,ko;q=0.8 
+- en-US,en;q=0.9,ko;q=0.8
 
 
 ### Foresight Ventures

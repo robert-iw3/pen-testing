@@ -189,9 +189,9 @@ StriStr(
 	return NULL;
 }
 
-// 
+//
 // Try to find a file by browsing each device
-// 
+//
 STATIC
 EFI_STATUS
 LocateFile(
@@ -310,9 +310,9 @@ StartEfiGuard(
 	EFIGUARD_DRIVER_PROTOCOL* EfiGuardDriverProtocol;
 	EFI_DEVICE_PATH *DriverDevicePath = NULL;
 
-	// 
-	// Check if the driver is loaded 
-	// 
+	//
+	// Check if the driver is loaded
+	//
 	EFI_STATUS Status = gBS->LocateProtocol(&gEfiGuardDriverProtocolGuid,
 											NULL,
 											(VOID**)&EfiGuardDriverProtocol);
@@ -507,7 +507,7 @@ TryBootOptionsInOrder(
 				FreePool(FullPath);
 			if (ConvertedPath != NULL)
 				FreePool(ConvertedPath);
-			
+
 			// Not Windows; skip this entry
 			continue;
 		}

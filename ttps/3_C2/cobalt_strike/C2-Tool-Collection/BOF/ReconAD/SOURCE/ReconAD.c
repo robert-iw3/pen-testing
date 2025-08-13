@@ -26,7 +26,7 @@ HRESULT BeaconPrintToStreamW(_In_z_ LPCWSTR lpwFormat, ...) {
 	}
 
 	// For BOF we need to avoid large stack buffers, so put print buffer on heap.
-	if (g_lpwPrintBuffer <= (LPWSTR)1) { // Allocate once and free in BeaconOutputStreamW. 
+	if (g_lpwPrintBuffer <= (LPWSTR)1) { // Allocate once and free in BeaconOutputStreamW.
 		g_lpwPrintBuffer = (LPWSTR)MSVCRT$calloc(MAX_STRING, sizeof(WCHAR));
 		if (g_lpwPrintBuffer == NULL) {
 			hr = E_FAIL;
@@ -77,7 +77,7 @@ VOID BeaconOutputStreamW() {
 			goto CleanUp;
 		}
 
-		if (FAILED(g_lpStream->lpVtbl->Read(g_lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {	
+		if (FAILED(g_lpStream->lpVtbl->Read(g_lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {
 			goto CleanUp;
 		}
 
@@ -106,7 +106,7 @@ CleanUp:
 void GetFormattedErrMsg(_In_ HRESULT hr) {
 	LPWSTR lpwErrorMsg = NULL;
 
-	KERNEL32$FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,  
+	KERNEL32$FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,
 	NULL,
 	(DWORD)hr,
 	MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
@@ -146,7 +146,7 @@ LPWSTR RemoveQuotesFromArgs(LPWSTR lpwArgs) {
 			lpwArgsEnd--;
 		}
 	}
-	
+
 	return lpwArgs;
 }
 
@@ -173,7 +173,7 @@ HRESULT ShowAttributes(_In_ IDirectorySearch *pContainerToSearch, _In_ ADS_SEARC
 		GetProcAddress(GetModuleHandleA("Activeds.dll"), "ADsGetObject");
 	if (ADsGetObject == NULL) {
 		return S_FALSE;
-	}	
+	}
 
 	_FreeADsMem FreeADsMem = (_FreeADsMem)
 		GetProcAddress(GetModuleHandleA("Activeds.dll"), "FreeADsMem");
@@ -283,7 +283,7 @@ HRESULT ShowAttributes(_In_ IDirectorySearch *pContainerToSearch, _In_ ADS_SEARC
 								KERNEL32$LocalFree(szSID);
 							}
 						}
-						else if (MSVCRT$_wcsicmp(col.pszAttrName, L"objectGUID") == 0) { 
+						else if (MSVCRT$_wcsicmp(col.pszAttrName, L"objectGUID") == 0) {
 							for (DWORD x = 0; x < col.dwNumValues; x++) {
 								// Cast to LPGUID
 								pObjectGUID = (LPGUID)(col.pADsValues[x].OctetString.lpValue);
@@ -374,7 +374,7 @@ HRESULT ShowAttributes(_In_ IDirectorySearch *pContainerToSearch, _In_ ADS_SEARC
 							pSD = (PSECURITY_DESCRIPTOR)(col.pADsValues[x].SecurityDescriptor.lpValue);
 							if (ADVAPI32$ConvertSecurityDescriptorToStringSecurityDescriptorW(pSD, SDDL_REVISION_1,
 									DACL_SECURITY_INFORMATION | SACL_SECURITY_INFORMATION | OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION, &lpwSecDescriptor, NULL) != 0) {
-									
+
 								BeaconPrintToStreamW(L"    %ls\n", lpwSecDescriptor);
 								KERNEL32$LocalFree(lpwSecDescriptor);
 							}
@@ -389,7 +389,7 @@ HRESULT ShowAttributes(_In_ IDirectorySearch *pContainerToSearch, _In_ ADS_SEARC
 
 					pContainerToSearch->lpVtbl->FreeColumn(pContainerToSearch, &col);
 				}
-				
+
 				if (pszColumn != NULL) {
 					FreeADsMem(pszColumn);
 				}
@@ -531,11 +531,11 @@ HRESULT SearchDirectory(_In_ LPWSTR lpwLdapFilter, _In_ LPWSTR *lpwAttributeName
 		goto CleanUp;
 	}
 
-	LPWSTR lpwProtocol = L"LDAP://"; 
-	if (bUseGC) { 
-		lpwProtocol = L"GC://"; 
-	} 
- 
+	LPWSTR lpwProtocol = L"LDAP://";
+	if (bUseGC) {
+		lpwProtocol = L"GC://";
+	}
+
 	MSVCRT$wcscpy_s(wcPathName, _countof(wcPathName), lpwProtocol);
 	if (MSVCRT$_wcsicmp(lpwServer, L"-noserver") != 0) {
 		MSVCRT$wcscat_s(wcPathName, _countof(wcPathName), lpwServer);

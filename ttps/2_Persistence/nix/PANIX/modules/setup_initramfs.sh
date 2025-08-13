@@ -122,7 +122,7 @@ setup_initramfs() {
 
 		echo "[!] Preparing Dracut-based initramfs persistence..."
 		mkdir -p /usr/lib/dracut/modules.d/99panix || { echo "Error: Could not create /usr/lib/dracut/modules.d/99panix"; exit 1; }
-		
+
 		# Create a simple module setup script that uses a single hook.
 		cat <<'EOF' > /usr/lib/dracut/modules.d/99panix/module-setup.sh
 #!/bin/bash
@@ -227,7 +227,7 @@ EOF
 		dd if=initrd.img of=initrd.img-begin count=$ADDRESS bs=1 2>/dev/null || { echo "Error: dd failed (begin)"; exit 1; }
 
 		unmkinitramfs initrd.img initrd_extracted || { echo "Error: unmkinitramfs failed"; exit 1; }
-		
+
 		INIT_FILE="initrd_extracted/main/init"
 		if [[ ! -f "$INIT_FILE" ]]; then
 			echo "Error: Could not find initramfs main/init file."

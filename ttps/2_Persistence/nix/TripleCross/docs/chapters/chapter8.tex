@@ -79,7 +79,7 @@ incorporated into a rootkit.
 Another relevant line of work would be the modification of buffers passed
 by the user which, instead of being received at system calls, are received
 and operated at internal kernel functions. A rootkit overwriting this data
-could alter the execution of the kernel itself outside of syscalls. 
+could alter the execution of the kernel itself outside of syscalls.
 
 Other lines of research include building rootkit modules using eBPF helpers
 that we did not incorporate in our rootkit, such as bpf\_override\_return

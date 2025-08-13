@@ -133,7 +133,7 @@ RustPacker implements several evasion techniques:
 
 **⚠️ IMPORTANT DISCLAIMER ⚠️**
 
-This tool is provided for **educational and authorized penetration testing purposes only**. 
+This tool is provided for **educational and authorized penetration testing purposes only**.
 
 - Usage against targets without prior mutual consent is **illegal**
 - Users are responsible for complying with all applicable laws

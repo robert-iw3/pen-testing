@@ -20,34 +20,34 @@ def extract_sqlmap_info(output: str) -> Dict[str, Any]:
         "raw_result": output,
         "url": ""
     }
-    
+
     # Extract target URL
     url_pattern = r"starting @ \d+:\d+:\d+ /\d+-\d+-\d+/\s+\nURL: (https?://[^\s]+)"
     url_match = re.search(url_pattern, output)
     if url_match:
         result["url"] = url_match.group(1).strip()
-    
+
     # Alternative URL extraction method for different formats
     if not result["url"]:
         alt_url_pattern = r"(?:testing URL|target URL): (https?://[^\s\n]+)"
         alt_url_match = re.search(alt_url_pattern, output, re.IGNORECASE)
         if alt_url_match:
             result["url"] = alt_url_match.group(1).strip()
-    
+
     # Look for URL in command line args
     if not result["url"]:
         cmd_url_pattern = r"sqlmap(.py)? -u (?:\"|\')?(https?://[^\"\']+)(?:\"|\')?(?:\s|$)"
         cmd_url_match = re.search(cmd_url_pattern, output)
         if cmd_url_match:
             result["url"] = cmd_url_match.group(2).strip()
-            
+
     # Check if URL has path parameter injection marker (*)
     if "*" in result["url"]:
         result["injection_type"] = "path_parameter"
     elif "--data=" in output:
         result["injection_type"] = "post_parameter"
     elif "--cookie=" in output:
-        result["injection_type"] = "cookie_based" 
+        result["injection_type"] = "cookie_based"
     elif "--headers=" in output:
         result["injection_type"] = "header_based"
     elif "--json" in output:
@@ -56,7 +56,7 @@ def extract_sqlmap_info(output: str) -> Dict[str, Any]:
         result["injection_type"] = "multi_parameter"
     elif "?" in result["url"]:
         result["injection_type"] = "get_parameter"
-        
+
     if "Connection refused" in output:
         result["error"] = "Connection refused - Target may not be reachable"
         return result
@@ -81,7 +81,7 @@ def extract_sqlmap_info(output: str) -> Dict[str, Any]:
         elif "oracle" in result["dbms"].lower():
             result["techniques"].append("Oracle")
         elif "postgresql" in result["dbms"].lower():
-            result["techniques"].append("PostgreSQL") 
+            result["techniques"].append("PostgreSQL")
         elif "sqlite" in result["dbms"].lower():
             result["techniques"].append("SQLite")
     os_match = re.search(r"web server operating system: ([^\r\n]+)", output)
@@ -176,7 +176,7 @@ def display_report(report: str) -> None:
     if "payloads" in info and info["payloads"]:
         print_success("Payload Examples:")
         for i, payload in enumerate(info["payloads"]):
-            if i >= 3:  
+            if i >= 3:
                 break
             formatted_payload = payload.replace('\n', ' ').strip()
             print(f"    → {formatted_payload}")
@@ -230,4 +230,4 @@ def create_json_report(info: Dict[str, Any], scan_history: List[Dict[str, Any]])
         return json.dumps(report, indent=2)
     except Exception as e:
         print_error(f"Failed to create JSON report: {str(e)}")
-        return "{}" 
+        return "{}"

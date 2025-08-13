@@ -13,13 +13,13 @@ Note: Technically, 2 hacks in 2 weeks
 ## Details
 
 
-In early 2019, US$17 million in Ethereum and ERC-20 tokens were stolen from the New Zealand cryptocurrency exchange Cryptopia, affecting around 960,000 Cryptopia users. 
+In early 2019, US$17 million in Ethereum and ERC-20 tokens were stolen from the New Zealand cryptocurrency exchange Cryptopia, affecting around 960,000 Cryptopia users.
 
-It all started with Cryptopia users having difficulty accessing their accounts, and it only went downhill from there. The company originally thought it was a technical issue, but later clarified on Twitter that it was a security breach. 
+It all started with Cryptopia users having difficulty accessing their accounts, and it only went downhill from there. The company originally thought it was a technical issue, but later clarified on Twitter that it was a security breach.
 
-The exact amount stolen in the hack is still unknown. Unfortunately for Cryptopia, they suffered from another hack 15 days after the first one. That was the end of the New Zealand-based exchange – they are now going through the liquidation process. 
+The exact amount stolen in the hack is still unknown. Unfortunately for Cryptopia, they suffered from another hack 15 days after the first one. That was the end of the New Zealand-based exchange – they are now going through the liquidation process.
 
-2020 Update: Cryptopia is still undergoing liquidation, but it has now been revealed that the exchange was failing to meet anti-money laundering (AML) requirements when creating new user accounts. For over 900,000 active user accounts, there is no customer data beyond usernames and email addresses. 
+2020 Update: Cryptopia is still undergoing liquidation, but it has now been revealed that the exchange was failing to meet anti-money laundering (AML) requirements when creating new user accounts. For over 900,000 active user accounts, there is no customer data beyond usernames and email addresses.
 
 Less than 1% of users had completed customer identification, a vital part of AML procedures which ensures that customers are who they say they are. Thousands of accounts which held over $3 million worth of cryptocurrency were traced back to uninhabited islands or physical addresses that didn’t exist. As it stands, many of those who lost funds in the hack aren’t eligible to be refunded by liquidators because there is not enough information on who owned what accounts. "
 
@@ -54,7 +54,7 @@ It is not clear how Cryptopia was hacked, but investigators discovered in August
 - 0x53ff5fac9563945d372ed956971e01d0960cbaf184fc21d2e9d40ee5a50ebb5f - 2.5m Pillar
 - 0x22266cfe188af760b13a4d13989bc314043d899c46bfeb536d7e965c541fe85f - 100k TUSD
 
-### Jan 13, 2019 1:30 PM - 0xc8b759860149542a98a3eb57c14aadf59d6d89b9 - 20k ETH 
+### Jan 13, 2019 1:30 PM - 0xc8b759860149542a98a3eb57c14aadf59d6d89b9 - 20k ETH
 - 0x8a7c2b34f23eee02401e7c3fa1ea2ce8d3132e7ca3811d673ca35898c9535aae
 - Jan 13, 2019 1:30:35 PM
 - Jan 14, 2019 4:45:02 AM
@@ -63,7 +63,7 @@ It is not clear how Cryptopia was hacked, but investigators discovered in August
 ## Jan 13, 2019 1:31 PM - LU1wKpjWrpLnCyuicUyfkGVF9GMPLoHBks - 29800 LTC
 - Theft Txn:: 689e1b20fb750413cf03e8c5bfa842db2b21dc8f072134fd095df93744d62b03
 - to MBUGgsf6B44nHdiPVK7LQnTPLqJNDDJWi4
-- to LhWnreScs7DUY1HPTHA8uHYgJNHDws5uAR 
+- to LhWnreScs7DUY1HPTHA8uHYgJNHDws5uAR
 - to LPw9U6qQZNnhmK8MMSBjv7zqAPtSJycvp3 (Huobi Deposit Address)
 - Jan 18, 2019 9:45:49 AM
 - Jan 19, 2019 2:22:38 PM
@@ -75,7 +75,7 @@ It is not clear how Cryptopia was hacked, but investigators discovered in August
 - to qz8yltmsl2temttutmzlkt7yqk3gaq9nwcfjz8sdtw (Huobi Deposit Address)
 - Jan 18, 2019 6:55:16 AM
 - Jan 24, 2019 3:22:12 AM
-    
+
 
 
 ## URLs
@@ -87,7 +87,7 @@ It is not clear how Cryptopia was hacked, but investigators discovered in August
 - https://coindesk.com/markets/2019/05/15/hacked-cryptocurrency-exchange-cryptopia-goes-into-liquidation/
 - https://coindesk.com/markets/2019/05/27/hacked-crypto-exchange-cryptopia-files-for-us-bankruptcy-protection/
 - https://coindesk.com/markets/2019/08/21/cryptopia-exchange-kept-users-cryptos-in-pooled-wallet-liquidator/
-- https://grantthornton.co.nz/cryptopia-limited/https://twitter.com/cryptopia_n- 
+- https://grantthornton.co.nz/cryptopia-limited/https://twitter.com/cryptopia_n-
 - https://peckshield.medium.com/follow-the-money-tracking-the-asset-movements-of-cryptopia-hack-1485ff202985
 - https://quadrigainitiative.com/casestudy/cryptopiaexchangeerc20hack.php
 - https://twitter.com/Cryptopia_NZ/status/1085084168852291586

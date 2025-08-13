@@ -41,9 +41,9 @@
 
 ## Анализ дампа с помощью Mimikatz
 После получения файла dump_memory.bin используйте Mimikatz для извлечения информации:
-- Скачайте Mimikatz:  
-- Запустите Mimikatz:  
-- Загрузите и проанализируйте дамп памяти: 
+- Скачайте Mimikatz:
+- Запустите Mimikatz:
+- Загрузите и проанализируйте дамп памяти:
   mimikatz # sekurlsa::minidump dump_memory.bin
   mimikatz # sekurlsa::logonpasswords
   Первая команда загружает дамп памяти.

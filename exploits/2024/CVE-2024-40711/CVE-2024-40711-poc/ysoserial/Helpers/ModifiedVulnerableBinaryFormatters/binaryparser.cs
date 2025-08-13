@@ -1,8 +1,8 @@
 using System.Diagnostics.Contracts;
 // ==++==
-// 
+//
 //   Copyright (c) Microsoft Corporation.  All rights reserved.
-// 
+//
 // ==--==
 /*============================================================
  **
@@ -37,7 +37,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
         internal long topId;
         internal long headerId;
         internal SizedArray objectMapIdTable;
-        internal SizedArray assemIdToAssemblyTable;    // Used to hold assembly information        
+        internal SizedArray assemIdToAssemblyTable;    // Used to hold assembly information
         internal SerStack stack = new SerStack("ObjectProgressStack");
 
         internal BinaryTypeEnum expectedType = BinaryTypeEnum.ObjectUrt;
@@ -154,7 +154,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 #if FEATURE_REMOTING
                         case BinaryHeaderEnum.MethodCall:
                         case BinaryHeaderEnum.MethodReturn:
-                            ReadMethodObject(binaryHeaderEnum);                                 
+                            ReadMethodObject(binaryHeaderEnum);
                             break;
 #endif
                                 case BinaryHeaderEnum.ObjectString:
@@ -196,7 +196,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                     }
 
                     // If an assembly is encountered, don't advance
-                    // object Progress, 
+                    // object Progress,
                     if (binaryHeaderEnum != BinaryHeaderEnum.Assembly)
                     {
                         // End of parse loop.
@@ -418,7 +418,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                 crossAppDomainAssembly.Read(this);
                 crossAppDomainAssembly.Dump();
                 _currentAbfo.Data = crossAppDomainAssembly;
-                
+
                 record.assemId = crossAppDomainAssembly.assemId;
                 record.assemblyString = objectReader.CrossAppDomainArray(crossAppDomainAssembly.assemblyIndex) as String;
                 if (record.assemblyString == null)
@@ -576,7 +576,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                 BinaryObjectWithMapTyped binaryObjectWithMapTyped = mapObject as BinaryObjectWithMapTyped;
                 if (binaryObjectWithMapTyped != null)
                 {
-#if _DEBUG                    
+#if _DEBUG
                     binaryObjectWithMapTyped.Dump();
 #endif
                     ReadObjectWithMapTyped(binaryObjectWithMapTyped);
@@ -731,7 +731,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                 bowmt.binaryHeaderEnum = binaryHeaderEnum;
             bowmt.Read(this);
             _currentAbfo.Data = bowmt;
-            
+
             if (assemIdToAssemblyTableModifiedHelper.IndexOf(_currentAbfo.Data.assemId) == -1 && _currentAbfo.Data.assemId !=0)
             {
                 assemIdToAssemblyTableModifiedHelper.Add(_currentAbfo.Data.assemId);
@@ -740,7 +740,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             {
                 _currentAbfo.Data.assemId = 0;
             }
-#if _DEBUG            
+#if _DEBUG
             bowmt.Dump();
 #endif
             ReadObjectWithMapTyped(bowmt);
@@ -958,7 +958,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 
             _currentAbfo.Data = memberPrimitiveTyped;
 
-            prs.PRobjectTypeEnum = InternalObjectTypeE.Object; //Get rid of 
+            prs.PRobjectTypeEnum = InternalObjectTypeE.Object; //Get rid of
             ObjectProgress objectOp = (ObjectProgress)stack.Peek();
 
             prs.Init();
@@ -1058,7 +1058,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             }
             else
             {
-                // Nested Object            
+                // Nested Object
                 pr.PRparseTypeEnum = InternalParseTypeE.Member;
                 pr.PRmemberValueEnum = InternalMemberValueE.Nested;
                 op.memberValueEnum = InternalMemberValueE.Nested;
@@ -1196,9 +1196,9 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                     ReadBytes(byteBuffer, 0, bufferUsed);
 #if BIGENDIAN
                     // we know that we are reading a primitive type, so just do a simple swap
-                    for (int i = 0; i < bufferUsed; i += typeLength) 
+                    for (int i = 0; i < bufferUsed; i += typeLength)
                     {
-                        for (int j = 0; j < typeLength / 2; j++) 
+                        for (int j = 0; j < typeLength / 2; j++)
                         {
                             byte tmp = byteBuffer[i + j];
                             byteBuffer[i + j] = byteBuffer[i + typeLength - 1 - j];
@@ -1658,7 +1658,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                     AddCurrentAdvancedBinaryFormatterObject();
 
                     // If an assembly is encountered, don't advance
-                    // object Progress, 
+                    // object Progress,
                     if (binaryHeaderEnum != BinaryHeaderEnum.Assembly)
                     {
                         // End of parse loop.

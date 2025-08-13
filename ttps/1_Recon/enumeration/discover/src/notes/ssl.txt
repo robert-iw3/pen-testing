@@ -1,6 +1,6 @@
 SSL
 
- 
+
 Redirect
 Examine the response of a 301 message or Javascript.
 curl -vvvv http://target.com

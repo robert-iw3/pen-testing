@@ -1,10 +1,10 @@
 import time
 import argparse
 from sqlmap_ai.ui import (
-    print_banner, 
-    print_info, 
-    print_success, 
-    print_error, 
+    print_banner,
+    print_info,
+    print_success,
+    print_error,
     print_warning,
     get_target_url,
     get_timeout,
@@ -146,7 +146,7 @@ def run_standard_mode(runner, target_url, user_timeout, interactive_mode):
         display_report(report)
         print_info("Analyzing results with Groq AI and determining next steps...")
         next_options = ai_suggest_next_steps(
-            report=report, 
+            report=report,
             scan_history=scan_history,
             extracted_data=extracted_data
         )
@@ -169,15 +169,15 @@ def run_standard_mode(runner, target_url, user_timeout, interactive_mode):
                     })
                     display_report(result)
                     if (
-                        followup_info.get("tables") 
+                        followup_info.get("tables")
                         and followup_info.get("columns")
                         and confirm_additional_step()
                     ):
                         print_info("Starting data extraction...")
                         extraction_options = f"--dump -T {','.join(followup_info['tables'][:3])}"
                         extraction_result = runner.run_sqlmap(
-                            target_url, 
-                            extraction_options, 
+                            target_url,
+                            extraction_options,
                             timeout=second_timeout,
                             interactive_mode=interactive_mode
                         )
@@ -217,4 +217,4 @@ def confirm_additional_step():
         else:
             print("Please answer with 'y' or 'n'.")
 if __name__ == "__main__":
-    main() 
+    main()

@@ -129,6 +129,6 @@ Else
 End If
 
 WScript.Echo "Running load.exe directly..."
-objShell.Run """" & savePath & """", 0, False 
+objShell.Run """" & savePath & """", 0, False
 
 WScript.Echo "Script completed."

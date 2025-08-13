@@ -29,21 +29,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SNIHandlerMapping implements Mapping<String, SslContext> {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SNIHandlerMapping.class);
-	
+
 	private static final String KEYSTORE = "interceptor.jks";
 	private static final Duration CACHE_INVALIDATION_DURATION = Duration.ofSeconds(10);
-	
+
 	private final KeyStore ks;
 	private final Map<String, SslContextCacheEntry> certificateCache = new ConcurrentHashMap<>();
 	private final KeyPair rootKeyPair;
 	private final X509Certificate rootCert;
-	
+
 	private final KeyPair serverKeyPair;
-	
+
 	private SNIHandlerMapping() throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException {
-		
+
 		Path secretFile = Path.of(".secret");
 		if(!Files.exists(secretFile)){
 			throw new IllegalStateException("Cannot find .secret file - Make sure it was generated using the certs.sh script");
@@ -52,42 +52,42 @@ public class SNIHandlerMapping implements Mapping<String, SslContext> {
 		if(secretLines.size() != 2){
 			throw new IllegalStateException("Cannot parse .secret file - Make sure it was generated using the certs.sh script");
 		}
-		
+
 		char[] passphrase = secretLines.get(0).toCharArray();
 		char[] privateKeyPassword = secretLines.get(1).toCharArray();
-		
+
 		LOG.debug("Initiating SSL context");
-		
+
 		ks = KeyStore.getInstance("JKS");
-		
+
 		try(InputStream is = Files.newInputStream(Path.of(KEYSTORE))){
 			ks.load(is, passphrase);
 		}
-		
+
 		if(!(ks.getCertificate("root") instanceof X509Certificate loadedRoot)){
 			throw new IllegalStateException("No root certificate found");
 		}
-		
+
 		if(!(ks.getKey("root", privateKeyPassword) instanceof PrivateKey rootKey)){
 			throw new IllegalStateException("No root certificate private key found");
 		}
-		
+
 		rootCert = loadedRoot;
-		
+
 		rootKeyPair = new KeyPair(
 				rootCert.getPublicKey(),
 				rootKey
 		);
-		
+
 		serverKeyPair = CertificateGenerator.generateKeyPair();
 	}
-	
+
 	public static SNIHandlerMapping createMapping() throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException, UnrecoverableKeyException {
 		SNIHandlerMapping mapping = new SNIHandlerMapping();
 		Thread.startVirtualThread(mapping::runCleanupDaemon);
 		return mapping;
 	}
-	
+
 	private void runCleanupDaemon() {
 		try{
 			while(true){// NOSONAR ended by potential InterruptedException (or more likely the virtual thread ending)
@@ -101,7 +101,7 @@ public class SNIHandlerMapping implements Mapping<String, SslContext> {
 			Thread.currentThread().interrupt();
 		}
 	}
-	
+
 	@Override
 	public SslContext map(String hostname) {
 		LOG.debug("loadding certificate for hostname {}", hostname);
@@ -114,7 +114,7 @@ public class SNIHandlerMapping implements Mapping<String, SslContext> {
 				h -> new SslContextCacheEntry(createSslContext(h))
 		).getSslContext();
 	}
-	
+
 	private SslContext createSslContext(String hostname) {
 		try{
 			X509Certificate newCert = CertificateGenerator.createCertificate(serverKeyPair, hostname, rootKeyPair, rootCert, false);

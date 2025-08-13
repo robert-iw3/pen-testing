@@ -13,6 +13,6 @@ namespace KoenZomers.OneDrive.Api.Entities
 
         [JsonProperty("status"), JsonConverter(typeof(StringEnumConverter))]
         public Enums.OneDriveAsyncJobStatus Status { get; set; }
-        
+
     }
 }

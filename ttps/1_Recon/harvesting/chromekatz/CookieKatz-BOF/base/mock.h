@@ -11,10 +11,10 @@ namespace bof {
             /**
              * Pack a variadic number of arguments.
              * Equivalent to the bof_pack function.
-             * 
+             *
              * For example, bof_pack("isz", 1, 2, "hello")
              * -> pack<int, short, const char*>(1, 2, "hello")
-             * 
+             *
              * @param ... arguments
              */
             template <typename... T>
@@ -35,9 +35,9 @@ namespace bof {
 
             /**
              * << operator to allow an alternative way to build the argument buffer.
-             * 
+             *
              * For example: args << 123 << 32;
-             * 
+             *
              * @param container A BofData object
              * @param arg An argument
              */
@@ -76,7 +76,7 @@ namespace bof {
     }
 
     namespace output {
-        /** 
+        /**
          * Data structure to store a output from BOF
          */
         struct OutputEntry {
@@ -92,7 +92,7 @@ namespace bof {
 
             /**
              * Equivalence overloading.
-             * 
+             *
              * param other Another OutputEntry object
              */
             bool operator==(const OutputEntry& other) const {
@@ -102,7 +102,7 @@ namespace bof {
 
         /**
          * Returns the list of BOF outputs
-         * 
+         *
          * @return A vector of OutputEntry objects
          */
         const std::vector<OutputEntry>& getOutputs();
@@ -115,7 +115,7 @@ namespace bof {
         /**
          * Pretty print an OutputEntry object.
          * Required by the GoogleTest.
-         * 
+         *
          * @param o An OutputEntry object
          * @param os An output stream
          */

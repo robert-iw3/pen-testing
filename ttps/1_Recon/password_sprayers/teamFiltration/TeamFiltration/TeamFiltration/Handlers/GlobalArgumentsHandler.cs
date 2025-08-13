@@ -28,7 +28,7 @@ namespace TeamFiltration.Handlers
         public int OwaLimit { get; set; }
         private Pushover _pushClient { get; set; }
         public AWSHandler _awsHandler { get; set; }
- 
+
         private DomainParser _domainParser { get; set; }
         public string[] AWSRegions { get; set; } = { "us-east-1", "us-west-1", "us-west-2", "ca-central-1", "eu-central-1", "eu-west-1", "eu-west-2", "eu-west-3", "eu-north-1" };
         public bool ADFS { get; internal set; }
@@ -58,12 +58,12 @@ namespace TeamFiltration.Handlers
             string OwaLimitString = args.GetValue("--owa-limit");
 
 
-            
+
             if (string.IsNullOrEmpty(teamFiltrationConfigPath) && File.Exists("TeamFiltrationConfig.json"))
             {
                 teamFiltrationConfigPath = "TeamFiltrationConfig.json";
             }
-            
+
             if (!File.Exists(teamFiltrationConfigPath))
             {
                 if (!exfilModule)
@@ -74,7 +74,7 @@ namespace TeamFiltration.Handlers
                 else
                 {
                     Console.WriteLine("[!] You are running TeamFiltration without a config");
-                   
+
                 }
 
             }
@@ -99,7 +99,7 @@ namespace TeamFiltration.Handlers
             // Set default user agent if missing
             if (string.IsNullOrEmpty(TeamFiltrationConfig?.UserAgent))
                 TeamFiltrationConfig.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Teams/1.3.00.30866 Chrome/80.0.3987.165 Electron/8.5.1 Safari/537.36";
-            
+
             // Set default user agent if missing
             if (string.IsNullOrEmpty(TeamFiltrationConfig?.proxyEndpoint))
                 TeamFiltrationConfig.proxyEndpoint = "http://127.0.0.1:8080";
@@ -108,7 +108,7 @@ namespace TeamFiltration.Handlers
             if (TeamFiltrationConfig?.AwsRegions?.Count() > 0)
             {
                 AWSRegions = TeamFiltrationConfig.AwsRegions.ToArray();
-               
+
             }
 
             try
@@ -129,7 +129,7 @@ namespace TeamFiltration.Handlers
                 _awsHandler = new AWSHandler(this.TeamFiltrationConfig.AWSAccessKey, this.TeamFiltrationConfig.AWSSecretKey, this.TeamFiltrationConfig.AWSSessionToken, databaseHandler);
 
             }
-      
+
         }
         public void PushAlert(string title, string message)
         {

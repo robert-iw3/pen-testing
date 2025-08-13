@@ -38,7 +38,7 @@ func (dbms *DBMS) DatabaseInit() error {
 	)
 
 	createTableQuery = `CREATE TABLE IF NOT EXISTS "Listeners" (
-    	"ListenerName" TEXT NOT NULL UNIQUE, 
+    	"ListenerName" TEXT NOT NULL UNIQUE,
     	"ListenerType" TEXT NOT NULL,
     	"ListenerConfig" TEXT NOT NULL,
     	"Watermark" TEXT NOT NULL,
@@ -47,7 +47,7 @@ func (dbms *DBMS) DatabaseInit() error {
 	_, err = dbms.database.Exec(createTableQuery)
 
 	createTableQuery = `CREATE TABLE IF NOT EXISTS "Downloads" (
-    	"FileId" TEXT NOT NULL UNIQUE, 
+    	"FileId" TEXT NOT NULL UNIQUE,
     	"AgentId" TEXT NOT NULL,
     	"AgentName" TEXT NOT NULL,
     	"User" TEXT NOT NULL,
@@ -62,7 +62,7 @@ func (dbms *DBMS) DatabaseInit() error {
 	_, err = dbms.database.Exec(createTableQuery)
 
 	createTableQuery = `CREATE TABLE IF NOT EXISTS "Screenshots" (
-    	"ScreenId" TEXT NOT NULL UNIQUE, 
+    	"ScreenId" TEXT NOT NULL UNIQUE,
     	"User" TEXT NOT NULL,
     	"Computer" TEXT NOT NULL,
     	"LocalPath" TEXT NOT NULL,
@@ -72,7 +72,7 @@ func (dbms *DBMS) DatabaseInit() error {
 	_, err = dbms.database.Exec(createTableQuery)
 
 	createTableQuery = `CREATE TABLE IF NOT EXISTS "Agents" (
-    	"Id" TEXT NOT NULL UNIQUE, 
+    	"Id" TEXT NOT NULL UNIQUE,
     	"Crc" TEXT NOT NULL,
     	"Name" TEXT NOT NULL,
     	"SessionKey" BLOB NOT NULL,
@@ -98,7 +98,7 @@ func (dbms *DBMS) DatabaseInit() error {
     	"ACP" INTEGER,
     	"CreateTime" BIGINT,
     	"LastTick" INTEGER,
-    	"WorkingTime" INTEGER,	
+    	"WorkingTime" INTEGER,
     	"KillDate" INTEGER,
     	"Tags" TEXT,
     	"Mark" TEXT,
@@ -107,7 +107,7 @@ func (dbms *DBMS) DatabaseInit() error {
 	_, err = dbms.database.Exec(createTableQuery)
 
 	createTableQuery = `CREATE TABLE IF NOT EXISTS "Tasks" (
-    	"TaskId" TEXT NOT NULL UNIQUE, 
+    	"TaskId" TEXT NOT NULL UNIQUE,
     	"AgentId" TEXT NOT NULL,
     	"TaskType" INTEGER,
     	"Client" TEXT,

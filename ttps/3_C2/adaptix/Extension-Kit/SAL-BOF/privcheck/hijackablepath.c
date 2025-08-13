@@ -63,11 +63,11 @@ void go() {
                             }
                             Kernel32$CloseHandle(hImpersonatedToken);
                         }
-                        Kernel32$CloseHandle(hToken); 
+                        Kernel32$CloseHandle(hToken);
                     }
                     MSVCRT$free(security);
                 }
-                
+
             }
         }
         pathToken = MSVCRT$strtok(NULL, ";");

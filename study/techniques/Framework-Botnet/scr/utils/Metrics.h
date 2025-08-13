@@ -23,7 +23,7 @@ private:
     static std::unordered_map<std::string, std::atomic<double>> gauges;
     static std::unordered_map<std::string, std::vector<double>> histograms;
     static std::shared_mutex metricsMutex;
-    
+
     static void logMetric(const std::string &action, const std::string &name, double value);
 };
 

@@ -4,7 +4,7 @@ FROM docker.io/ubuntu:22.04
 ARG GECKOVERSION=0.33.0
 ARG GOVERSION=1.21.5
 
-RUN ARCH=$(dpkg --print-architecture) \ 
+RUN ARCH=$(dpkg --print-architecture) \
     && if [ "${ARCH}" ! "arm64" ] || [ "${ARCH}" ! "amd64" ]; then \
       echo "reNgine not supported, encountered unknown architecture: ${TARGETPLATFORM}" \
       && exit 1; \
@@ -30,7 +30,7 @@ RUN apt update -y && \
     apt install -y \
     python3.10 \
     python3-dev \
-    python3-pip 
+    python3-pip
 
 # Install essential packages
 RUN apt install -y --no-install-recommends \
@@ -55,10 +55,10 @@ RUN apt install -y --no-install-recommends \
 
 RUN add-apt-repository ppa:mozillateam/ppa
 
-RUN ARCH=$(dpkg --print-architecture) \ 
+RUN ARCH=$(dpkg --print-architecture) \
     && curl -L https://go.dev/dl/go${GOVERSION}.linux-${ARCH}.tar.gz | tar -xzC /usr/local
 
-RUN ARCH=$(dpkg --print-architecture) \ 
+RUN ARCH=$(dpkg --print-architecture) \
     && if [ "${ARCH}" = "arm64" ]; then \
       GECKOPATH="geckodriver-v${GECKOVERSION}-linux-aarch64.tar.gz"; \
     elif [ "${ARCH}" = "amd64" ]; then \
@@ -77,7 +77,7 @@ RUN pip3 install maturin
 # Make directory for app
 WORKDIR /usr/src/app
 
-ENV GO111MODULE=on 
+ENV GO111MODULE=on
 RUN printf "\
     github.com/jaeles-project/gospider@latest\n\
     github.com/tomnomnom/gf@latest\n\

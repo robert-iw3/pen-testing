@@ -22,10 +22,10 @@
 // distribute, sublicense, and/or sell copies of the Software, and to
 // permit persons to whom the Software is furnished to do so, subject to
 // the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be
 // included in all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 // EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 // MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -862,7 +862,7 @@ namespace Mono.Math {
 				if ((mod.data [0] & 1) == 1) return OddPow (b, exp);
 				else return EvenPow (b, exp);
 			}
-			
+
 			public BigInteger EvenPow (BigInteger b, BigInteger exp)
 			{
 				BigInteger resultNum = new BigInteger ((BigInteger)1, mod.length << 1);
@@ -947,11 +947,11 @@ namespace Mono.Math {
 						return OddPow (b, exp);
 					else
 						return EvenPow (b, exp);
-/* buggy in some cases (like the well tested primes) 
+/* buggy in some cases (like the well tested primes)
 				} else {
 					if ((mod.data [0] & 1) == 1)
 						return OddModTwoPow (exp);
-					else 
+					else
 						return EvenModTwoPow (exp);
 				}*/
 			}
@@ -1068,7 +1068,7 @@ namespace Mono.Math {
 				return resultNum;
 
 			}
-			
+
 			private unsafe BigInteger EvenPow (uint b, BigInteger exp)
 			{
 				exp.Normalize ();
@@ -1970,7 +1970,7 @@ namespace Mono.Math {
 				}
 			}
 
-			/* 
+			/*
 			 * Never called in BigInteger (and part of a private class)
 			 * 			public static bool Double (uint [] u, int l)
 						{

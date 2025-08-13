@@ -10,7 +10,7 @@ namespace winPEAS.Info.CloudInfo
     internal abstract class CloudInfoBase
     {
         public abstract string Name { get; }
-        
+
         public abstract bool IsCloud { get; }
 
         public abstract Dictionary<string, List<EndpointData>> EndpointDataList();
@@ -41,7 +41,7 @@ namespace winPEAS.Info.CloudInfo
                 {
                     request.Headers = headers;
                 }
-                
+
                 request.Method = method;
 
                 using (var response = (HttpWebResponse)request.GetResponse())
@@ -63,7 +63,7 @@ namespace winPEAS.Info.CloudInfo
             {
                 if (exception.InnerException != null)
                 {
-                    return typeof(SocketException) == exception.InnerException.GetType() ? null : string.Empty; 
+                    return typeof(SocketException) == exception.InnerException.GetType() ? null : string.Empty;
                 }
             }
             catch (Exception ex)

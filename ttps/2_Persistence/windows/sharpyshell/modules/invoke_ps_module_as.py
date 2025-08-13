@@ -14,23 +14,23 @@ class Invoke_ps_module_as(Invoke_ps_module):
     complete_help = r"""
         This module upload and executes (as a specific user) a powershell module that exists
         in the 'ps_modules/' SharPyShell directory.
-        The ps1 module will be uploaded to the target server in an encrypted form and get decrypted at runtime in  
+        The ps1 module will be uploaded to the target server in an encrypted form and get decrypted at runtime in
         memory.
         Then a new process, out of calling thread of w3wp.exe, will be spawned with the permission of the
         specified user.
         It is possible to execute additional code to the uploaded module in order to use functions inside of it or
-        add additional behaviours. 
-        
+        add additional behaviours.
+
         Usage:
             #invoke_ps_module_as ps_module username password [appended_code] [domain] [process_timeout_ms] [logon_type]
-                                            
+
         Positional arguments:
             ps_module               name of a .ps1 module existent in the 'ps_modules/' directory
             username                username of the user
             password                password of the user
             appended_code           powershell code to be run within the module uploaded
                                     Default: ''
-            domain                  domain of the user, if in a domain. 
+            domain                  domain of the user, if in a domain.
                                     Default: ''
             process_timeout_ms      the waiting time (in ms) to use in the WaitForSingleObject() function.
                                     This will halt the process until the spawned process ends and sent
@@ -47,9 +47,9 @@ class Invoke_ps_module_as(Invoke_ps_module):
             Run a module as a specific domain user:
                 #invoke_ps_module_as Get-System.ps1 user1 password1 ';Get-System -Whoami' 'domain'
             Run a module as an async process:
-                #invoke_ps_module_as reverse_shell_https.ps1 user1 password1 '' '' '0'    
+                #invoke_ps_module_as reverse_shell_https.ps1 user1 password1 '' '' '0'
             Run a module as a specific user and with a logon type 4 (batch) for the process spawned:
-                #invoke_ps_module_as Get-System.ps1 user1 password1 ';Get-System -Whoami' '' '60000' '4'  
+                #invoke_ps_module_as Get-System.ps1 user1 password1 ';Get-System -Whoami' '' '60000' '4'
     """
 
     __default_appended_code = ''

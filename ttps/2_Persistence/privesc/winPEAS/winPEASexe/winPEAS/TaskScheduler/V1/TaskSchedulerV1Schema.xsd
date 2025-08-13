@@ -76,7 +76,7 @@
   <xs:complexType name="triggersType">
 	<xs:group ref="triggerGroup" minOccurs="0" maxOccurs="48"/>
   </xs:complexType>
-  
+
   <xs:group name="triggerGroup">
 	<xs:choice>
 	  <xs:element name="BootTrigger"               type="bootTriggerType"               minOccurs="0" />
@@ -332,7 +332,7 @@
 	  <xs:element name="LogonType" type="logonType" minOccurs="0" maxOccurs="1"/>
 	</xs:all>
   </xs:complexType>
-  
+
   <xs:simpleType name="logonType">
 	<xs:restriction base="xs:string">
 	  <xs:enumeration value="Password" />

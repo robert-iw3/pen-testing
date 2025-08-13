@@ -69,12 +69,12 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
       fi
     done
     echo ""
-  
+
   else
     print_3title "Current shell capabilities"
     (cat "/proc/$$/status" | grep Cap | sed -${E} "s,.*0000000000000000|CapBnd:	0000003fffffffff,${SED_GREEN},") 2>/dev/null || echo_not_found "/proc/$$/status"
     echo ""
-    
+
     print_3title "Parent proc capabilities"
     (cat "/proc/$PPID/status" | grep Cap | sed -${E} "s,.*0000000000000000|CapBnd:	0000003fffffffff,${SED_GREEN},") 2>/dev/null || echo_not_found "/proc/$PPID/status"
     echo ""
@@ -83,7 +83,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
   echo "Files with capabilities (limited to 50):"
   getcap -r / 2>/dev/null | head -n 50 | while read cb; do
     capsVB_vuln=""
-    
+
     for capVB in $capsVB; do
       capname="$(echo $capVB | cut -d ':' -f 1)"
       capbins="$(echo $capVB | cut -d ':' -f 2)"
@@ -93,7 +93,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
         break
       fi
     done
-    
+
     if ! [ "$capsVB_vuln" ]; then
       echo "$cb" | sed -${E} "s,$capsB,${SED_RED},"
     fi

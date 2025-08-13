@@ -8,7 +8,7 @@
   - name: Start
     set_fact:
       start_time: "{% raw %}{{ ansible_date_time.iso8601[:19] }}{% endraw %}"
-  vars: 
+  vars:
     deploy: true
   roles:
     - { role: terraform }
@@ -41,7 +41,7 @@
   connection: ssh
   become: true
   no_log: true
-  vars: 
+  vars:
     deploy: true
   tasks:
   - name: Apt for sure
@@ -49,9 +49,9 @@
     register: apt_status
     until: apt_status is success
     delay: 10
-    retries: 10 
+    retries: 10
 
-{% for vm in warhorse.vm %}  
+{% for vm in warhorse.vm %}
 {% if loop.first %}
 - name: Install Roles
   gather_facts: yes
@@ -59,7 +59,7 @@
   connection: ssh
   become: true
   no_log: true
-  vars: 
+  vars:
     deploy: true
   roles:
 {% if warhorse.general.snapshots is undefined or false %}
@@ -89,7 +89,7 @@
   connection: ssh
   become: true
   no_log: true
-  vars: 
+  vars:
     deploy: true
   roles:
 {% if warhorse.vpn.tailscale is defined and vm.tailscale is defined %}
@@ -144,7 +144,7 @@
   connection: ssh
   become: true
   no_log: true
-  vars: 
+  vars:
     deploy: true
   roles:
     - { role: deployment }
@@ -155,7 +155,7 @@
   connection: ssh
   become: true
   no_log: true
-  vars: 
+  vars:
     deploy: true
   roles:
 {% if warhorse.notification.email is defined %}

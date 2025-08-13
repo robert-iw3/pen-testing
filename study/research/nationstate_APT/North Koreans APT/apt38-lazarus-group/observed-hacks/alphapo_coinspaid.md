@@ -11,7 +11,7 @@ Tags:: 👛
 
 ## Details
 
-Lazarus gained access to hot wallets belonging to crypto payment platform CoinsPaid via a successful social engineering attack. This access allowed the attackers to create authorized requests to withdraw approximately $37.3 million in crypto assets from the platform’s hot wallets. 
+Lazarus gained access to hot wallets belonging to crypto payment platform CoinsPaid via a successful social engineering attack. This access allowed the attackers to create authorized requests to withdraw approximately $37.3 million in crypto assets from the platform’s hot wallets.
 
 On July 26th, CoinsPaid published a report claiming Lazarus was responsible for this attack. This attribution was later confirmed by the FBI.
 

@@ -17,7 +17,7 @@ get_process_info() {
     local inode=$1
     local pid=""
     local program=""
-    
+
     if [ -n "$inode" ]; then
         for pid_dir in /proc/[0-9]*/fd; do
             if [ -d "$pid_dir" ]; then
@@ -50,7 +50,7 @@ parse_proc_net_ports() {
         # Process each connection using a pipe
         tail -n +2 "$proc_file" 2>/dev/null | while IFS= read -r line; do
             [ -z "$line" ] && continue
-            
+
             # Skip header
             case "$line" in
                 *"sl"*) continue ;;

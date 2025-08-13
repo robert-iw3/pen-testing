@@ -13,10 +13,10 @@ function Invoke-ThreadedFunction
         [Int]$Timeout = 100,
         [Int]$Hostcount
     )
-    
+
     begin
     {
-        
+
         if ($PSBoundParameters['Debug'])
         {
             $DebugPreference = 'Continue'
@@ -35,42 +35,42 @@ function Invoke-ThreadedFunction
         #   http://powershell.org/wp/forums/topic/invpke-parallel-need-help-to-clone-the-current-runspace/
         $SessionState = [System.Management.Automation.Runspaces.InitialSessionState]::CreateDefault()
         $SessionState.ApartmentState = [System.Threading.Thread]::CurrentThread.GetApartmentState()
-        
+
         # threading adapted from
         # https://github.com/darkoperator/Posh-SecMod/blob/master/Discovery/Discovery.psm1#L407
         #   Thanks Carlos!
         # create a pool of maxThread runspaces
         $Pool = [runspacefactory]::CreateRunspacePool(1, $Threads, $SessionState, $Host)
         $Pool.Open()
-        
+
         $Jobs = @()
         $PS = @()
         $Wait = @()
-        
+
         $Counter = 0
     }
-    
+
     process
     {
-        
+
         if ($ComputerName)
         {
             ForEach ($Computer in $ComputerName)
             {
-            
+
                 # make sure we get a server name
                 if ($Computer -ne '')
                 {
-                
+
                     While ($($Pool.GetAvailableRunspaces()) -le 0)
                     {
                         Start-Sleep -MilliSeconds $Timeout
                     }
-                
+
                     # create a "powershell pipeline runner"
                     $PS += [powershell]::create()
                     $PS[$Counter].runspacepool = $Pool
-                
+
                     # add the script block + arguments
                     $Null = $PS[$Counter].AddScript($ScriptBlock).AddParameter('ComputerName', $Computer)
                     if ($ScriptParameters)
@@ -80,10 +80,10 @@ function Invoke-ThreadedFunction
                             $Null = $PS[$Counter].AddParameter($Param.Name, $Param.Value)
                         }
                     }
-                
+
                     # start job
                     $Jobs += $PS[$Counter].BeginInvoke();
-                
+
                     # store wait handles for WaitForAll call
                     $Wait += $Jobs[$Counter].AsyncWaitHandle
                 }
@@ -97,16 +97,16 @@ function Invoke-ThreadedFunction
                 # make sure we get a server name
                 if ($testlink -ne '')
                 {
-                
+
                     While ($($Pool.GetAvailableRunspaces()) -le 0)
                     {
                         Start-Sleep -MilliSeconds $Timeout
                     }
-                
+
                     # create a "powershell pipeline runner"
                     $PS += [powershell]::create()
                     $PS[$Counter].runspacepool = $Pool
-                
+
                     # add the script block + arguments
                     $Null = $PS[$Counter].AddScript($ScriptBlock).AddParameter('VulnLinks', $testlink)
                     if ($ScriptParameters)
@@ -116,10 +116,10 @@ function Invoke-ThreadedFunction
                             $Null = $PS[$Counter].AddParameter($Param.Name, $Param.Value)
                         }
                     }
-                
+
                     # start job
                     $Jobs += $PS[$Counter].BeginInvoke();
-                
+
                     # store wait handles for WaitForAll call
                     $Wait += $Jobs[$Counter].AsyncWaitHandle
                 }
@@ -127,28 +127,28 @@ function Invoke-ThreadedFunction
             }
         }
     }
-    
+
     end
     {
-        
+
         Write-Verbose "Waiting for scanning threads to finish..."
         $WaitTimeout = Get-Date
-        
+
         # set a 60 second timeout for the scanning threads
         while ($($Jobs | Where-Object { $_.IsCompleted -eq $False }).count -gt 0 -or $($($(Get-Date) - $WaitTimeout).totalSeconds) -gt 60)
         {
             Start-Sleep -MilliSeconds $Timeout
         }
-        
+
         # end async call
         for ($y = 0; $y -lt $Counter; $y++)
         {
-            
+
             try
             {
                 # complete async job
                 $PS[$y].EndInvoke($Jobs[$y])
-                
+
             }
             catch
             {
@@ -159,13 +159,13 @@ function Invoke-ThreadedFunction
                 $PS[$y].Dispose()
             }
         }
-        
+
         $Pool.Dispose()
         Write-Verbose "All threads completed!"
     }
 }
 
-function Find-Fruit 
+function Find-Fruit
 
 {
 
@@ -212,7 +212,7 @@ Specify the http proxy port
 
 .EXAMPLE
 
-C:\PS> Find-Fruit -Rhosts 192.168.1.0/24 -Port 8080 
+C:\PS> Find-Fruit -Rhosts 192.168.1.0/24 -Port 8080
 C:\PS> Find-Fruit -Rhosts 192.168.1.0/24 -Path dictionary.txt -Port 8443 -UseSSL
 C:\PS> Find-Fruit -Rhosts 192.168.1.0/24 -Port 8080 -WebProxy 127.0.0.1 -ProxyPort 8080
 
@@ -220,10 +220,10 @@ C:\PS> Find-Fruit -Rhosts 192.168.1.0/24 -Port 8080 -WebProxy 127.0.0.1 -ProxyPo
 .NOTES
 Credits to mattifestation for Get-HttpStatus
 HTTP Status Codes: 100 - Informational * 200 - Success * 300 - Redirection * 400 - Client Error * 500 - Server Error
-    
+
 
 #>
-    
+
 [CmdletBinding()]
 
 param (
@@ -245,33 +245,33 @@ param (
     [Parameter(Mandatory=$False)]
     [String]$ProxyPort
 )
-    
-    begin {   
+
+    begin {
         $hostList = New-Object System.Collections.ArrayList
-        
+
         $iHosts = $Rhosts -split ","
-        
+
         foreach ($iHost in $iHosts) {
             $iHost = $iHost.Replace(" ", "")
-            
+
             if (!$iHost) {
                 continue
             }
-            
+
             if ($iHost.contains("/")) {
                 $netPart = $iHost.split("/")[0]
                 [uint32]$maskPart = $iHost.split("/")[1]
-                
+
                 $address = [System.Net.IPAddress]::Parse($netPart)
                 if ($maskPart -ge $address.GetAddressBytes().Length * 8) {
                     throw "Bad host mask"
                 }
-                
+
                 $numhosts = [System.math]::Pow(2, (($address.GetAddressBytes().Length * 8) - $maskPart))
-                
+
                 $startaddress = $address.GetAddressBytes()
                 [array]::Reverse($startaddress)
-                
+
                 $startaddress = [System.BitConverter]::ToUInt32($startaddress, 0)
                 [uint32]$startMask = ([System.math]::Pow(2, $maskPart) - 1) * ([System.Math]::Pow(2, (32 - $maskPart)))
                 $startAddress = $startAddress -band $startMask
@@ -279,9 +279,9 @@ param (
                 $startAddress = [System.BitConverter]::GetBytes($startaddress)[0..3]
                 [array]::Reverse($startaddress)
                 $address = [System.Net.IPAddress][byte[]]$startAddress
-                
+
                 $Null = $hostList.Add($address.IPAddressToString)
-                
+
                 for ($i = 0; $i -lt $numhosts - 1; $i++) {
                     $nextAddress = $address.GetAddressBytes()
                     [array]::Reverse($nextAddress)
@@ -290,18 +290,18 @@ param (
                     $nextAddress = [System.BitConverter]::GetBytes($nextAddress)[0..3]
                     [array]::Reverse($nextAddress)
                     $address = [System.Net.IPAddress][byte[]]$nextAddress
-                    $Null = $hostList.Add($address.IPAddressToString)       
+                    $Null = $hostList.Add($address.IPAddressToString)
                 }
-                
+
             }
             else {
-                $Null = $hostList.Add($iHost) 
+                $Null = $hostList.Add($iHost)
             }
         }
-            
+
         $HostEnumBlock = {
             param($ComputerName, $UseSSL, $Port, $Path, $Timeout)
-            
+
             if ($UseSSL -and $Port -eq 0) {
                 # Default to 443 if SSL is specified but no port is specified
                 $Port = 443
@@ -310,8 +310,8 @@ param (
                 # Default to port 80 if no port is specified
                 $Port = 80
             }
-            
-            
+
+
             if ($UseSSL) {
                 $SSL = 's'
                 # Ignore invalid SSL certificates
@@ -320,14 +320,14 @@ param (
             else {
                 $SSL = ''
             }
-            
+
             if (($Port -eq 80) -or ($Port -eq 443)) {
                 $PortNum = ''
             }
             else {
                 $PortNum = ":$Port"
             }
-            
+
             if ($Path) {
                 if (!(Test-Path -Path $Path)) { Throw "File doesnt exist" }
                 $VulnLinks = @()
@@ -353,20 +353,20 @@ param (
                 $VulnLinks = $VulnLinks + "RDWeb/Pages/en-US/Default.aspx" #RDS Remote Desktop
                 $VulnLinks = $VulnLinks + "securityRealm/user/admin/" #Jenkins Vuln Check
             }
-            
+
             # Check Http status for each entry in the host
             foreach ($Target in $ComputerName) {
-                                
-                
+
+
                 foreach ($Item in $Vulnlinks) {
                     $WebTarget = "http$($SSL)://$($Target)$($PortNum)/$($Item)"
                     $URI = New-Object Uri($WebTarget)
-                    
+
                     try {
                         $WebRequest = [System.Net.WebRequest]::Create($URI)
                         $WebRequest.Headers.Add('UserAgent', $UserAgent)
                         $ProxyAddress = New-Object System.Net.WebProxy("http://$($WebProxy):$($ProxyPort)",$true)
-                        $WebRequest.Proxy = $ProxyAddress    
+                        $WebRequest.Proxy = $ProxyAddress
                         $WebResponse = $WebRequest.Timeout = $Timeout
                         $WebResponse = $WebRequest.GetResponse()
                         $WebStatus = $WebResponse.StatusCode
@@ -374,7 +374,7 @@ param (
                         $WebResponse.Close()
                     }
                     catch {
-                        $WebStatus = $Error[0].Exception.InnerException.Response.StatusCode 
+                        $WebStatus = $Error[0].Exception.InnerException.Response.StatusCode
                         if ($WebStatus -eq $null) {
                             # Not every exception returns a StatusCode.
                             # If that is the case, return the Status.
@@ -386,9 +386,9 @@ param (
                         Status = $WebStatus;
                         URL = $WebTarget
                     }
-                    
+
                     New-Object -TypeName PSObject -Property $Result | Where-Object {$_.Status -eq 'OK'}
-                   
+
                 }
             }
         }
@@ -415,7 +415,7 @@ param (
         }
 
         else {
-            Invoke-Command -ScriptBlock $HostEnumBlock -ArgumentList $HostList, $UseSSL, $Port, $Path, $Timeout, $UserAgent 
+            Invoke-Command -ScriptBlock $HostEnumBlock -ArgumentList $HostList, $UseSSL, $Port, $Path, $Timeout, $UserAgent
         }
     }
 }
@@ -434,8 +434,8 @@ Search for web directories and files at scale across multiple web servers. Think
 A script to find directories and files across multiple web servers.
 
 .PARAMETER Dictionary
-Path to custom dictionary of files or directories. 
-Here's a good place to start: 
+Path to custom dictionary of files or directories.
+Here's a good place to start:
 https://github.com/danielmiessler/SecLists/tree/master/Discovery/Web-Content
 https://github.com/DanMcInerney/pentest-machine/blob/master/wordlists/dirs-files-6000.list
 
@@ -461,7 +461,7 @@ C:\PS> Brute-Fruit -Dictionary C:\temp\dictionary-of-files-to-test.txt -UrlList 
 Credits to mattifestation for Get-HttpStatus
 HTTP Status Codes: 100 - Informational * 200 - Success * 300 - Redirection * 400 - Client Error * 500 - Server Error
 #>
-    
+
 [CmdletBinding()]
 
 param (
@@ -477,9 +477,9 @@ param (
     [Parameter(Mandatory=$False)]
     [String]$UrlList
 )
-    
+
     begin
-    {   
+    {
     if (!(Test-Path -Path $UrlList)) { Throw "File doesn't exist" }
         $hostlist = @()
         $hostlist
@@ -494,26 +494,26 @@ param (
         {
             $VulnLinks = $VulnLinks + $Link
         }
-            
+
 
         $HostEnumBlock = {
             param($ComputerName, $Dictionary, $Timeout, $FoundOnly, $VulnLinks)
-      
+
             foreach ($Item in $Vulnlinks)
             {
-               
+
                 [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }
                 foreach ($Target in $ComputerName)
                 {
 
                     $WebTarget = "$Target/$Item"
                     $URI = New-Object Uri($WebTarget)
-                    
+
                     try
                     {
                         $WebRequest = [System.Net.WebRequest]::Create($URI)
                         $ProxyAddress = New-Object System.Net.WebProxy("http://$($WebProxy):$($ProxyPort)",$true)
-                        $WebRequest.Proxy = $ProxyAddress    
+                        $WebRequest.Proxy = $ProxyAddress
                         $WebResponse = $WebRequest.Timeout = $Timeout
                         $WebResponse = $WebRequest.GetResponse()
                         $WebStatus = $WebResponse.StatusCode
@@ -527,7 +527,7 @@ param (
                     catch
                     {
                         $WebStatus = $Error[0].Exception.InnerException.Response.StatusCode
-                        
+
                         if ($WebStatus -eq $null)
                         {
                             # Not every exception returns a StatusCode.
@@ -541,14 +541,14 @@ param (
                         URL = $WebTarget
                         Size = $WebSize
                     }
-                    
+
                     if ($FoundOnly) {
                         New-Object -TypeName PSObject -Property $Result | Where-Object {$_.Status -eq 'OK'}
-                                          
+
                     } else {
                         New-Object -TypeName PSObject -Property $Result
                     }
-                    
+
                 }
             }
         }
@@ -569,11 +569,11 @@ param (
                 'ComputerName' = $hostlist
                 'WebProxy' = $WebProxy
                 'ProxyPort' = $ProxyPort
-                
-                
+
+
             }
 
-            # kick off the threaded script block + arguments           
+            # kick off the threaded script block + arguments
             $Hostcount = $hostlist.count
             Invoke-ThreadedFunction -VulnLinks $VulnLinks -HostCount $Hostcount -ScriptBlock $HostEnumBlock -ScriptParameters $ScriptParams
         }

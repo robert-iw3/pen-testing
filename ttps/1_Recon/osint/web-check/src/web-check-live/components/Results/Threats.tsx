@@ -50,7 +50,7 @@ const MalwareCard = (props: {data: any, title: string, actionButtons: any }): JS
       { phishTank.url0 && phishTank.url0.phish_detail_page && (
         <Row lbl="" val="">
           <span className="lbl">Phish Info</span>
-          <span className="val"><a href={phishTank.url0.phish_detail_page}>{phishTank.url0.phish_id}</a></span>  
+          <span className="val"><a href={phishTank.url0.phish_detail_page}>{phishTank.url0.phish_id}</a></span>
         </Row>
       )}
       { urlHaus.query_status === 'no_results' && <Row lbl="Malware Status" val="✅ No Malwares Found" />}
@@ -74,8 +74,8 @@ const MalwareCard = (props: {data: any, title: string, actionButtons: any }): JS
             { lbl: 'Takedown Time', val: urlResult.takedown_time_seconds },
             { lbl: 'Larted', val: urlResult.larted },
             { lbl: 'Tags', val: (urlResult.tags || []).join(', ') },
-            { lbl: 'Reference', val: urlResult.urlhaus_reference },      
-            { lbl: 'File Path', val: urlResult.url },      
+            { lbl: 'Reference', val: urlResult.urlhaus_reference },
+            { lbl: 'File Path', val: urlResult.url },
           ];
           return (<ExpandableRow lbl={getExpandableTitle(urlResult)} val="" rowList={rows} />)
         })}

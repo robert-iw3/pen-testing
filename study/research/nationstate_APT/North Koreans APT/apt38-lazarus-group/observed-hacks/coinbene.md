@@ -11,7 +11,7 @@ Amount Stolen: $105,000,000
 
 ## Details
 
-Initially, after huge outgoing transactions from CoinBene’s hot wallet to an unknown wallet in March 2019, the platform said it was undergoing maintenance. However, with every one of the platform’s ERC-20 tokens reportedly moving into an unknown wallet (which didn’t exist until the day of the transfer), rumors quickly circulated that this was an attack. Data scientists also found that the tokens were promptly moved to Etherdelta where they were sold for ethereum (ETH). This amounted to $105M at the time. 
+Initially, after huge outgoing transactions from CoinBene’s hot wallet to an unknown wallet in March 2019, the platform said it was undergoing maintenance. However, with every one of the platform’s ERC-20 tokens reportedly moving into an unknown wallet (which didn’t exist until the day of the transfer), rumors quickly circulated that this was an attack. Data scientists also found that the tokens were promptly moved to Etherdelta where they were sold for ethereum (ETH). This amounted to $105M at the time.
 
 Crypto exchange, CoinBene, was reported to be hacked, although the exchange denied it. Leveraging the home-grown digital asset tracking and recovery (DATAR) system, our research found several key patterns matching the ones in exchange hacking events, such as, particular event sequence, large number of asset types, and very high value tokens were moved from CoinBene to other competing exchanges in a short period of time.
 
@@ -102,7 +102,7 @@ Wallet address related to Binance
 
 ## URLs
 
-- https://zdnet.com/article/cryptocurrency-platforms-dragonex-and-coinbene-disclose-hacks/ 
+- https://zdnet.com/article/cryptocurrency-platforms-dragonex-and-coinbene-disclose-hacks/
 - https://quadrigainitiative.com/casestudy/coinbenehackcoverup.php
 - https://peckshield.medium.com/coinbene-incident-investigation-report-6d4a3ed3b715
 - https://web3rekt.com/hacksandscams/coinbene-638

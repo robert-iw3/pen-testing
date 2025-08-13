@@ -170,7 +170,7 @@ ROOT
 /MSWPMM/Common/Reminder.aspx
 /MSWPMM/Common/SignIn.aspx
 /Main/Calendar/frmEvent.aspx
-/Main/Calendar/frmEvent.aspx 
+/Main/Calendar/frmEvent.aspx
 /Main/frmEmptyPreviewOuter.aspx
 /Main/frmToday.aspx
 /MainAnnounce2.asp
@@ -592,7 +592,7 @@ ROOT
 /bry.asp
 /bus_details.asp
 /busca2.asp
-/busca2.asp 
+/busca2.asp
 /buscar.asp
 /businessobjects/enterprise115/InfoView/listing.aspx
 /businessobjects/enterprise115/infoview/help/helpredir.aspx
@@ -1065,7 +1065,7 @@ ROOT
 /fileview.asp
 /film.asp
 /fipsASP
-/fipsASP 
+/fipsASP
 /fipsCMS/forum/neu.asp
 /fipsCMS/modules/print.asp
 /font>
@@ -1128,7 +1128,7 @@ ROOT
 /goform/ChannelsSelection
 /goform/Docsis_log
 /goform/Docsis_system
-/goform/Docsis_system 
+/goform/Docsis_system
 /goform/Log
 /goform/Quick_setup
 /goform/Rg_ParentalBasic
@@ -1822,7 +1822,7 @@ ROOT
 /sitecore/admin/LinqScratchPad.aspx
 /support/news/LoopholeInfoDetail.aspx
 /RicohmyPrint/MyPrintWebService.asmx
-/WorkArea/activateuser.aspx  
+/WorkArea/activateuser.aspx
 /Calendar/CalendarActions.aspx
 /Checkbox/Login.aspx
 /Checkbox/Upload.ashx
@@ -3181,7 +3181,7 @@ equbi8bp.aspx
 erip.aspx
 erorr.aspx
 error.aspx
-error.php2014-10-14 15:38  3.9K 
+error.php2014-10-14 15:38  3.9K
 error7.aspx
 error20.aspx
 error24.aspx
@@ -12856,7 +12856,7 @@ Webtech.aspx
 weekly.aspx
 weight.aspx
 welcome.aspx
-welcome.php2008-06-23 14:54  2.1K 
+welcome.php2008-06-23 14:54  2.1K
 wembleyimport.aspx
 what.aspx
 whatsapp-api.aspx
@@ -14794,7 +14794,7 @@ dialin
 /stag/register/
 /dev/login/
 /register/
-/wp-admin/setup-config.php?step=1 
+/wp-admin/setup-config.php?step=1
 /internal/
 /wp-admin/admin.php?page=MEC-ix&tab=MEC-export&mec-ix-action=export-events&format=xml
 /stag/

@@ -327,12 +327,12 @@ func handleServiceAgent(Teamserver agent.TeamServer, Header agent.Header, Extern
 	if Agent != nil {
 		AgentData = Agent.ToMap()
 	}
-	
+
 	// Update Callback time
 	if Teamserver.AgentExist(Header.AgentID) {
 		Agent.UpdateLastCallback(Teamserver)
 	}
-	
+
 	Task = Teamserver.ServiceAgent(Header.MagicValue).SendResponse(AgentData, Header)
 	//logger.Debug("Response:\n", hex.Dump(Task))
 

@@ -35,7 +35,7 @@ void runReportGeneratorPerformanceTest(int numReports, int numThreads) {
 
     auto generateReports = [](int numReports) {
         ReportGenerator generator;
-        
+
         for (int i = 0; i < numReports; ++i) {
             auto start = std::chrono::high_resolution_clock::now();
             try {

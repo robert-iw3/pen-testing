@@ -81,7 +81,7 @@ See more: [SquidSquad Dust Collectors](./sqsq-dust-collector.md)
 
 - April 8th, 2024: bc1qpajkrtwkjc9tf862arz7dzgyq2dfunh7mpjv9e receives another $750k
 
-- is still holding this position today 
+- is still holding this position today
 
 
 

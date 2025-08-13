@@ -16,7 +16,7 @@ class LLMVulnerabilityReportGenerator:
 		self.use_ollama = selected_model.use_ollama if selected_model else False
 		self.openai_api_key = None
 		self.logger = logger
-	
+
 	def get_vulnerability_description(self, description):
 		"""Generate Vulnerability Description using GPT.
 
@@ -37,7 +37,7 @@ class LLMVulnerabilityReportGenerator:
 			prompt = re.sub(r'\t', '', prompt)
 			self.logger.info(f"Using Ollama for Vulnerability Description Generation")
 			llm = Ollama(
-				base_url=OLLAMA_INSTANCE, 
+				base_url=OLLAMA_INSTANCE,
 				model=self.model_name
 			)
 			response_content = llm.invoke(prompt)
@@ -67,7 +67,7 @@ class LLMVulnerabilityReportGenerator:
 					'status': False,
 					'error': str(e)
 				}
-			
+
 		response = parse_llm_vulnerability_report(response_content)
 
 		if not response:
@@ -100,10 +100,10 @@ class LLMAttackSuggestionGenerator:
 		'''
 		if self.use_ollama:
 			self.logger.info(f"Using Ollama for Attack Suggestion Generation")
-			prompt = ATTACK_SUGGESTION_GPT_SYSTEM_PROMPT + "\nUser: " + user_input	
+			prompt = ATTACK_SUGGESTION_GPT_SYSTEM_PROMPT + "\nUser: " + user_input
 			prompt = re.sub(r'\t', '', prompt)
 			llm = Ollama(
-				base_url=OLLAMA_INSTANCE, 
+				base_url=OLLAMA_INSTANCE,
 				model=self.model_name
 			)
 			response_content = llm.invoke(prompt)
@@ -138,4 +138,3 @@ class LLMAttackSuggestionGenerator:
 			'description': response_content,
 			'input': user_input
 		}
-		

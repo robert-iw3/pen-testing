@@ -50,7 +50,7 @@ Amount Stolen:: $555,000 (167 ETH)
 
 - 2022-01-17 18:02:55
 - Claim Vested Token
-- 336,222 Prosper (PROS) 
+- 336,222 Prosper (PROS)
 - ->
 - Transfer OUT to 0x20cd6d3D0b588740380e37EcF065d3c278f26534
 
@@ -77,5 +77,5 @@ Amount Stolen:: $555,000 (167 ETH)
 - 599,385 FTM
 - IN from Fantom: Foundation Wallet 15
 - ->
-- 599,385 FTM 
+- 599,385 FTM
 - OUT to 0x95A94af4418a23B06f029AF55E7C2fb06B9a2AD7

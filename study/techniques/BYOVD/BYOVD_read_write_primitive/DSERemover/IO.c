@@ -37,19 +37,19 @@ BOOL WriteFileW(IN LPCWSTR wszFileName, IN PBYTE pbFileContent, IN DWORD dwFileS
         bSTATE = FALSE;
         goto _cleanUp;
     }
-    
+
 _cleanUp:
 
     // Cleanup close handle to file
     if (hFile) {
         CloseHandle(hFile);
     }
-   
+
     return bSTATE;
 }
 
 BOOL RemoveFileW(IN LPCWSTR wszFileName) {
-    
+
     BOOL    bSTATE = TRUE;
     HANDLE  hFile       = NULL;
 

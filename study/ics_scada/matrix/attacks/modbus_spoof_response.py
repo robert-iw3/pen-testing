@@ -25,10 +25,10 @@ class ModbusResponseSpoofer:
             len(data) + 2,    # Length (data + function code + byte count)
             unit_id          # Unit ID
         )
-        
+
         # Modbus response (function code + byte count + data)
         response = struct.pack('BB', function_code, len(data)) + data
-        
+
         return header + response
 
     def send_spoofed_response(self, payload, src_port=34000):
@@ -94,7 +94,7 @@ class ModbusResponseSpoofer:
                 function_code=test_case['function_code'],
                 data=test_case['data']
             )
-            
+
             self.send_spoofed_response(payload)
             time.sleep(1)  # Delay between packets
 

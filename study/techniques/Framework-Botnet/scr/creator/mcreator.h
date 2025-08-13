@@ -5,7 +5,7 @@
 
 class MCreator {
 public:
-   
+
     static std::string createMalware(const std::string &payloadPath, const std::string &extension = ".exe");
 
     static std::string createWindowsMalware(const std::string &payloadPath);

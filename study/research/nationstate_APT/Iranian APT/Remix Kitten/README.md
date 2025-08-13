@@ -8,7 +8,7 @@ This project delivers an in depth analysis of Advanced Persistent Threats (APTs)
 - Operation Cobalt Kitty
 
 - APT39 <br><br>
-![Common Pattern](https://github.com/Xclusive-Ishan/APT39-CobaltKitty-Intel-to-GRC-Analysis/blob/main/Common-Pattern.svg)  
+![Common Pattern](https://github.com/Xclusive-Ishan/APT39-CobaltKitty-Intel-to-GRC-Analysis/blob/main/Common-Pattern.svg)
 
 ## Understanding the MITRE ATT&CK Framework
 
@@ -132,9 +132,9 @@ This project delivers an in depth analysis of Advanced Persistent Threats (APTs)
 
 - Template report for further practice and clarity in structured APT analysis.
 ## Key Takeaways from the Analysis
-- Mapped and analyzed adversary behavior using MITRE ATT&CK & NIST 800 frameworks. 
+- Mapped and analyzed adversary behavior using MITRE ATT&CK & NIST 800 frameworks.
 - Identified common TTPs across APT groups, highlighting shared attack methodologies.
-- Provided layered risk categorization for techniques based on impact severity. 
+- Provided layered risk categorization for techniques based on impact severity.
 - Created structured, visual ATT&CK mappings for better representation of adversary techniques.
 - Delivered actionable defensive strategies aligned with NIST 800 security controls.
 ## Future Scope

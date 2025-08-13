@@ -11,7 +11,7 @@
 
 @interface CronJobs : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

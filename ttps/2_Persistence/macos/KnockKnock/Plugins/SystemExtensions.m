@@ -33,14 +33,14 @@
     {
         //set name
         self.name = PLUGIN_NAME;
-        
+
         //set description
         self.description = PLUGIN_DESCRIPTION;
-        
+
         //set icon
         self.icon = PLUGIN_ICON;
     }
-    
+
     return self;
 }
 
@@ -50,22 +50,22 @@
 {
     //database
     NSDictionary* database = nil;
-    
+
     //all extensions
     NSMutableArray* extensions = nil;
-    
+
     //alloc array for extensions
     extensions = [NSMutableArray array];
-    
+
     //load from database
     database = [NSDictionary dictionaryWithContentsOfFile:SYSTEM_EXTENSION_DATABASE];
-    
+
     //parse extensions
     for(NSDictionary* extension in database[@"extensions"])
     {
         //not active
         if(YES != [extension[@"state"] isEqualToString:@"activated_enabled"]) continue;
-        
+
         //save path
         [extensions addObject:extension[@"originPath"]];
     }
@@ -78,7 +78,7 @@
 {
     //File obj
     File* fileObj = nil;
-    
+
     //enumerate all extensions
     for(NSString* extension in [self enumExtensions])
     {
@@ -89,12 +89,12 @@
             //skip
             continue;
         }
-        
+
         //process item
         // save and report to UI
         [super processItem:fileObj];
     }
-    
+
     return;
 }
 

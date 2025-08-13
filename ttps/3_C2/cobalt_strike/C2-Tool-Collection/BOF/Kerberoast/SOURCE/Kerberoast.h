@@ -110,11 +110,11 @@ WINBASEAPI SECURITY_STATUS WINAPI SECUR32$AcceptSecurityContext(
 
 //ACTIVEDS
 typedef HRESULT (WINAPI *_ADsOpenObject)(
-	LPCWSTR lpszPathName, 
-	LPCWSTR lpszUserName, 
-	LPCWSTR lpszPassword, 
-	DWORD dwReserved, 
-	REFIID riid, 
+	LPCWSTR lpszPathName,
+	LPCWSTR lpszUserName,
+	LPCWSTR lpszPassword,
+	DWORD dwReserved,
+	REFIID riid,
 	void **ppObject
 	);
 

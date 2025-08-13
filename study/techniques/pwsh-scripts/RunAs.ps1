@@ -37,7 +37,7 @@ Invoke-RunAs -username administrator -password "P@$$word!" -domain CORPA
      [Parameter(
         ValueFromPipeline=$True,
         Mandatory=$False)]
-        [String]$arguments   
+        [String]$arguments
     )
     PROCESS {
     $sec_password = convertto-securestring $password -asplaintext -force

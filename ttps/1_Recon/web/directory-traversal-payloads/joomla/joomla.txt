@@ -712,7 +712,7 @@ components/com_joomla_flash_uploader/
 components/com_joomlaboard/
 components/com_joomlaconnect_be/
 components/com_joomladate/
-components/com_joomladate/ 
+components/com_joomladate/
 components/com_joomlaflashfun/
 components/com_joomlaflickr/
 components/com_joomlalib/
@@ -1420,8 +1420,8 @@ index.php?option=com_grid&gid=15_ok_0',%20'15_ok_0?data_search=&rpp=
 index.php?option=com_huruhelpdesk&view=detail
 index.php?option=com_huruhelpdesk&view=detail&cid[0]=
 index.php?option=com_huruhelpdesk&view=detail&cid[0]=-1
-index.php?option=com_icagenda&view=list&layout=event&Itemid=520&id=1 and 1=1 
-index.php?option=com_icagenda&view=list&layout=event&Itemid=520&id=1 and 1=2 
+index.php?option=com_icagenda&view=list&layout=event&Itemid=520&id=1 and 1=1
+index.php?option=com_icagenda&view=list&layout=event&Itemid=520&id=1 and 1=2
 index.php?option=com_icagenda&view=list&layout=event&Itemid=520&id[]=1
 index.php?option=com_iproperty&view=agentproperties&id=
 index.php?option=com_jacomment&view=

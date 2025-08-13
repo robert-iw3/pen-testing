@@ -237,15 +237,15 @@ set { _flags = value; }
 //  #undef MEM_Zero
 //  #define MEM_Zero 0x0000
 //#endif
-    const int MEM_Term = 0x0200;   
-    const int MEM_Dyn = 0x0400;   
-    const int MEM_Static = 0x0800; 
-    const int MEM_Ephem = 0x1000;  
-    const int MEM_Agg = 0x2000;   
+    const int MEM_Term = 0x0200;
+    const int MEM_Dyn = 0x0400;
+    const int MEM_Static = 0x0800;
+    const int MEM_Ephem = 0x1000;
+    const int MEM_Agg = 0x2000;
 #if !SQLITE_OMIT_INCRBLOB
-    const int MEM_Zero = 0x4000;  
+    const int MEM_Zero = 0x4000;
 #else
-    const int MEM_Zero = 0x0000;  
+    const int MEM_Zero = 0x0000;
 #endif
 
     /*

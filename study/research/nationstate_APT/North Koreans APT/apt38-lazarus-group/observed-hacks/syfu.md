@@ -1,4 +1,4 @@
-# SyFu 
+# SyFu
 
 Date:: December 16th, 2024
 
@@ -45,13 +45,13 @@ Tags:: 🔑 SquidSquad
 - 0x046509e9ba78bb014fcef435e9d317642de19b5a - eXch Depo (Jan 15 2025)
 
 
-## Details 
+## Details
 
 - https://x.com/syfuofficial/status/1868780540465443102
 
 - https://medium.com/@syfu/security-report-hackers-attempt-to-target-syfu-620c2aa2dec0
 
-transfered ownership of SynchroCoin: 
+transfered ownership of SynchroCoin:
 
 - from: 0x51498164Cd0Fe9Cc8823B7469e285294b7367e9D
 
@@ -69,7 +69,7 @@ transfered ownership of SynchroCoin:
 
 - No funds on laptop, $0
 
-- via fake Wyatt 
+- via fake Wyatt
 
 
 

@@ -5,7 +5,7 @@
 # Description: Top 2000 passwords
 # License: GNU GPL
 # Version: 1.0
-# Functions Used: 
+# Functions Used:
 # Global Variables:
 # Initial Functions:
 # Generated Global Variables: $top2000pwds

@@ -10,14 +10,14 @@
 //
 //Abstract:
 //
-//    Main SAL interface routins for IA-64 calls. 
+//    Main SAL interface routins for IA-64 calls.
 //
 //
 //Revision History
 //
 //
 
-//  return value that mimicks r8,r9,r10 & r11 registers 
+//  return value that mimicks r8,r9,r10 & r11 registers
 typedef struct {
     UINT64     p0;
     UINT64     p1;
@@ -149,7 +149,7 @@ typedef struct {
 #define SAL_ST_AP_WAKEUP            5
 
 typedef struct {
-    UINT8   Type;   //  Type == 0 
+    UINT8   Type;   //  Type == 0
     UINT8   Reserved[7];
     UINT64  PalProcEntry;
     UINT64  SalProcEntry;
@@ -234,7 +234,7 @@ typedef struct {
 #pragma pack()
 
 typedef
- rArg 
+ rArg
 (*CALL_SAL_PROC)(
     IN  UINT64    Arg1,
     IN  UINT64    Arg2,
@@ -247,7 +247,7 @@ typedef
     );
 
 typedef
- rArg 
+ rArg
 (*CALL_PAL_PROC)(
     IN  UINT64    Arg1,
     IN  UINT64    Arg2,

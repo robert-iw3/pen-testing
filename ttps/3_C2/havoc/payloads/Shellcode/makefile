@@ -16,7 +16,7 @@ all: x64 x86
 
 x64: clean
 	@ echo "[*] Compile x64 executable..."
-	
+
 	@ nasm -f win64 Source/Asm/x64/Asm.s -o Bin/Asm.x64.o
 	@ $(CCX64) Source/*.c Bin/Asm.x64.o -o $(EXECUTABLE_X64) $(CFLAGS) $(LFLAGS) -IInclude -masm=intel
 

@@ -15,9 +15,9 @@ Tags:: 🔑 Private Key Compromise
 
 $160M (PAID) minted and sold.
 
-other indicators: exit swiftly to tornado. midnight utc. Inside Job speculation. CISA/FBI shilled report on Laz/crypto within a week. 
+other indicators: exit swiftly to tornado. midnight utc. Inside Job speculation. CISA/FBI shilled report on Laz/crypto within a week.
 
-PAID Network, a crypto project that utilizes an Ethereum-based token, has suffered a Smart Contract, resulting in the minting of nearly $160 million worth of tokens by the attacker. 
+PAID Network, a crypto project that utilizes an Ethereum-based token, has suffered a Smart Contract, resulting in the minting of nearly $160 million worth of tokens by the attacker.
 
 On March 5, 2021, the PAID Network smart contract was compromised by an attacker.  By exploiting flaws in how the smart contract was secured and managed, the attacker was able to extract approximately $100 million worth of $PAID tokens, and converted about $3 million of it to Ether before being blocked by the PAID Network team.
 
@@ -30,11 +30,11 @@ The PAID attacker took advantage of poor Private Key Compromise practices at PAI
 0x18738290af1aaf96f0acfa945c9c31ab21cd65be
 
 
-## A Resonably Good Demix by @aUselessChris 
+## A Resonably Good Demix by @aUselessChris
 
 1. So this chapter wasn't on the map when we started out, but in the light of recent discussions in #TheFUDpit I felt this was needed to clear some things up. Let's have a look at the $GPOOL community's original $ARC(h) villain Alex Hong.
 
-2. So the bad stuff here took place on February 4th. The creator wallet of the $DEPO MasterChef contract called the Emergency Reward Withdrawal function on the $BTC, $USDC & $USDT staking contracts, resulting in a claim of 13.4 million $DEPO that were instantly dumped on @Uniswap 
+2. So the bad stuff here took place on February 4th. The creator wallet of the $DEPO MasterChef contract called the Emergency Reward Withdrawal function on the $BTC, $USDC & $USDT staking contracts, resulting in a claim of 13.4 million $DEPO that were instantly dumped on @Uniswap
 
 3. This was followed by the creation of Dummy tokens that somehow was used to withdraw and additional 16 million $DEPO from the single sided staking rewards. Don't ask me how, it just happened. Over the following 10 days, another 180k tokens were withdrawn from these pools.
 
@@ -95,7 +95,7 @@ ChainAbuse report: https://chainabuse.com/report/fd685c77-cf02-4e77-b942-2d261b9
 
 ## Paid Network Theft Transaction Mint 59,471,745.571 PAID Tokens
 From:: 0x18738290af1aaf96f0acfa945c9c31ab21cd65be
-To::  0x8c8687fc965593dfb2f0b4eaefd55e9d8df348df (PAID Network: Old Contract) 
+To::  0x8c8687fc965593dfb2f0b4eaefd55e9d8df348df (PAID Network: Old Contract)
 Txn:: 0x4bb10927ea7afc2336033574b74ebd6f73ef35ac0db1bb96229627c9d77555a0
 Day:: Friday
 Date:: March 5th, 2021

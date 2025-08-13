@@ -63,7 +63,7 @@
 #define CY_CFG_SYSCLK_CLKTIMER_ENABLED 1
 #define CY_CFG_SYSCLK_WCO_ENABLED 1
 
-static const cy_stc_fll_manual_config_t srss_0_clock_0_fll_0_fllConfig = 
+static const cy_stc_fll_manual_config_t srss_0_clock_0_fll_0_fllConfig =
 {
 	.fllMult = 500U,
 	.refDiv = 20U,
@@ -77,7 +77,7 @@ static const cy_stc_fll_manual_config_t srss_0_clock_0_fll_0_fllConfig =
 	.cco_Freq = 355U,
 };
 #if defined (CY_USING_HAL)
-	const cyhal_resource_inst_t srss_0_clock_0_pathmux_0_obj = 
+	const cyhal_resource_inst_t srss_0_clock_0_pathmux_0_obj =
 	{
 		.type = CYHAL_RSC_CLKPATH,
 		.block_num = 0U,
@@ -85,7 +85,7 @@ static const cy_stc_fll_manual_config_t srss_0_clock_0_fll_0_fllConfig =
 	};
 #endif //defined (CY_USING_HAL)
 #if defined (CY_USING_HAL)
-	const cyhal_resource_inst_t srss_0_clock_0_pathmux_1_obj = 
+	const cyhal_resource_inst_t srss_0_clock_0_pathmux_1_obj =
 	{
 		.type = CYHAL_RSC_CLKPATH,
 		.block_num = 1U,
@@ -93,14 +93,14 @@ static const cy_stc_fll_manual_config_t srss_0_clock_0_fll_0_fllConfig =
 	};
 #endif //defined (CY_USING_HAL)
 #if defined (CY_USING_HAL)
-	const cyhal_resource_inst_t srss_0_clock_0_pathmux_2_obj = 
+	const cyhal_resource_inst_t srss_0_clock_0_pathmux_2_obj =
 	{
 		.type = CYHAL_RSC_CLKPATH,
 		.block_num = 2U,
 		.channel_num = 0U,
 	};
 #endif //defined (CY_USING_HAL)
-static const cy_stc_pll_manual_config_t srss_0_clock_0_pll_0_pllConfig = 
+static const cy_stc_pll_manual_config_t srss_0_clock_0_pll_0_pllConfig =
 {
 	.feedbackDiv = 36,
 	.referenceDiv = 1,
@@ -108,7 +108,7 @@ static const cy_stc_pll_manual_config_t srss_0_clock_0_pll_0_pllConfig =
 	.lfMode = false,
 	.outputMode = CY_SYSCLK_FLLPLL_OUTPUT_AUTO,
 };
-static const cy_stc_pll_manual_config_t srss_0_clock_0_pll_1_pllConfig = 
+static const cy_stc_pll_manual_config_t srss_0_clock_0_pll_1_pllConfig =
 {
 	.feedbackDiv = 30,
 	.referenceDiv = 1,
@@ -250,7 +250,7 @@ void init_cycfg_system(void)
 	    #warning Power system will not be configured. Update power personality to v1.20 or later.
 	    #endif /* CY_CFG_PWR_INIT */
 	#endif /* CY_CFG_PWR_ENABLED */
-	
+
 	/* Reset the core clock path to default and disable all the FLLs/PLLs */
 	Cy_SysClk_ClkHfSetDivider(0U, CY_SYSCLK_CLKHF_NO_DIVIDE);
 	Cy_SysClk_ClkFastSetDivider(0U);
@@ -261,59 +261,59 @@ void init_cycfg_system(void)
 	    (void)Cy_SysClk_PllDisable(pll);
 	}
 	Cy_SysClk_ClkPathSetSource(CY_SYSCLK_CLKHF_IN_CLKPATH1, CY_SYSCLK_CLKPATH_IN_IMO);
-	
+
 	if ((CY_SYSCLK_CLKHF_IN_CLKPATH0 == Cy_SysClk_ClkHfGetSource(0UL)) &&
 	    (CY_SYSCLK_CLKPATH_IN_WCO == Cy_SysClk_ClkPathGetSource(CY_SYSCLK_CLKHF_IN_CLKPATH0)))
 	{
 	    Cy_SysClk_ClkHfSetSource(0U, CY_SYSCLK_CLKHF_IN_CLKPATH1);
 	}
-	
+
 	Cy_SysClk_FllDisable();
 	Cy_SysClk_ClkPathSetSource(CY_SYSCLK_CLKHF_IN_CLKPATH0, CY_SYSCLK_CLKPATH_IN_IMO);
 	Cy_SysClk_ClkHfSetSource(0UL, CY_SYSCLK_CLKHF_IN_CLKPATH0);
 	#ifdef CY_IP_MXBLESS
 	(void)Cy_BLE_EcoReset();
 	#endif
-	
-	
+
+
 	/* Enable all source clocks */
 	#ifdef CY_CFG_SYSCLK_PILO_ENABLED
 	Cy_SysClk_PiloInit();
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_WCO_ENABLED
 	Cy_SysClk_WcoInit();
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_CLKLF_ENABLED
 	Cy_SysClk_ClkLfInit();
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_ALTHF_ENABLED
 	Cy_SysClk_AltHfInit();
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_ECO_ENABLED
 	Cy_SysClk_EcoInit();
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_EXTCLK_ENABLED
 	Cy_SysClk_ExtClkInit();
 	#endif
-	
+
 	/* Configure CPU clock dividers */
 	#ifdef CY_CFG_SYSCLK_CLKFAST_ENABLED
 	Cy_SysClk_ClkFastInit();
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_CLKPERI_ENABLED
 	Cy_SysClk_ClkPeriInit();
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_CLKSLOW_ENABLED
 	Cy_SysClk_ClkSlowInit();
 	#endif
-	
+
 	#if ((CY_CFG_SYSCLK_CLKPATH0_SOURCE == CY_SYSCLK_CLKPATH_IN_WCO) && (CY_CFG_SYSCLK_CLKHF0_CLKPATH == CY_SYSCLK_CLKHF_IN_CLKPATH0))
 	    /* Configure HFCLK0 to temporarily run from IMO to initialize other clocks */
 	    Cy_SysClk_ClkPathSetSource(1UL, CY_SYSCLK_CLKPATH_IN_IMO);
@@ -323,7 +323,7 @@ void init_cycfg_system(void)
 	        Cy_SysClk_ClkPath1Init();
 	    #endif
 	#endif
-	
+
 	/* Configure Path Clocks */
 	#ifdef CY_CFG_SYSCLK_CLKPATH0_ENABLED
 	Cy_SysClk_ClkPath0Init();
@@ -370,21 +370,21 @@ void init_cycfg_system(void)
 	#ifdef CY_CFG_SYSCLK_CLKPATH15_ENABLED
 	Cy_SysClk_ClkPath15Init();
 	#endif
-	
+
 	/* Configure and enable FLL */
 	#ifdef CY_CFG_SYSCLK_FLL_ENABLED
 	Cy_SysClk_FllInit();
 	#endif
-	
+
 	Cy_SysClk_ClkHf0Init();
-	
+
 	#if ((CY_CFG_SYSCLK_CLKPATH0_SOURCE == CY_SYSCLK_CLKPATH_IN_WCO) && (CY_CFG_SYSCLK_CLKHF0_CLKPATH == CY_SYSCLK_CLKHF_IN_CLKPATH0))
 	    #ifdef CY_CFG_SYSCLK_CLKPATH1_ENABLED
 	        /* Apply the ClkPath1 user setting */
 	        Cy_SysClk_ClkPath1Init();
 	    #endif
 	#endif
-	
+
 	/* Configure and enable PLLs */
 	#ifdef CY_CFG_SYSCLK_PLL0_ENABLED
 	Cy_SysClk_Pll0Init();
@@ -431,7 +431,7 @@ void init_cycfg_system(void)
 	#ifdef CY_CFG_SYSCLK_PLL14_ENABLED
 	Cy_SysClk_Pll14Init();
 	#endif
-	
+
 	/* Configure HF clocks */
 	#ifdef CY_CFG_SYSCLK_CLKHF1_ENABLED
 	Cy_SysClk_ClkHf1Init();
@@ -478,48 +478,48 @@ void init_cycfg_system(void)
 	#ifdef CY_CFG_SYSCLK_CLKHF15_ENABLED
 	Cy_SysClk_ClkHf15Init();
 	#endif
-	
+
 	/* Configure miscellaneous clocks */
 	#ifdef CY_CFG_SYSCLK_CLKTIMER_ENABLED
 	Cy_SysClk_ClkTimerInit();
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_CLKALTSYSTICK_ENABLED
 	Cy_SysClk_ClkAltSysTickInit();
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_CLKPUMP_ENABLED
 	Cy_SysClk_ClkPumpInit();
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_CLKBAK_ENABLED
 	Cy_SysClk_ClkBakInit();
 	#endif
-	
+
 	/* Configure default enabled clocks */
 	#ifdef CY_CFG_SYSCLK_ILO_ENABLED
 	Cy_SysClk_IloInit();
 	#else
 	Cy_SysClk_IloDisable();
 	#endif
-	
+
 	#ifndef CY_CFG_SYSCLK_IMO_ENABLED
 	#error the IMO must be enabled for proper chip operation
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_MFO_ENABLED
 	Cy_SysClk_MfoInit();
 	#endif
-	
+
 	#ifdef CY_CFG_SYSCLK_CLKMF_ENABLED
 	Cy_SysClk_ClkMfInit();
 	#endif
-	
+
 	/* Set accurate flash wait states */
 	#if (defined (CY_CFG_PWR_ENABLED) && defined (CY_CFG_SYSCLK_CLKHF0_ENABLED))
 	Cy_SysLib_SetWaitStates(CY_CFG_PWR_USING_ULP != 0, CY_CFG_SYSCLK_CLKHF0_FREQ_MHZ);
 	#endif
-	
+
 	/* Update System Core Clock values for correct Cy_SysLib_Delay functioning */
 	SystemCoreClockUpdate();
 

@@ -37,9 +37,9 @@ int client_mode = CLIENT_MODE_LIVE_COMMAND;
  * @brief Manages the result of a possible global command understood by the client overall
  * (independent of the current mode) and returns 1 if it really was a global command
  * or 0 if it was not.
- * 
- * @param buf 
- * @return int 
+ *
+ * @param buf
+ * @return int
  */
 int manage_global_command(char* buf, SSL* ssl, char* local_ip, char* dest){
     if(strncmp(buf, GC_SERVER_CLOSE_CONN, strlen(GC_SERVER_CLOSE_CONN))==0){
@@ -62,7 +62,7 @@ int manage_global_command(char* buf, SSL* ssl, char* local_ip, char* dest){
             exit(0);
         }
 	}
-	
+
     //Not a recognized global command
     return 0;
 }

@@ -7,19 +7,19 @@ void DecodeModuleNameA
 (const WORD *pEncodedFunctionName,
 char *pDecodedFunctionName);
 
-void 
+void
 DecodeModuleNameW
 (const WORD *pEncodedModuleName,
 WCHAR *pDecodedModuleName);
 
 HMODULE GetModuleNTDLL(void);
 
-FARPROC 
+FARPROC
 GetFunctionFromModule
 (const WCHAR *pEncodedModuleName,
 const char *pEncodedFunctionName);
 
-void 
+void
 __memcpy
 (void *lpTo,
 const void *lpFrom,

@@ -7,7 +7,7 @@ namespace GoldendMSA
 {
     public class AS_REP
     {
-        
+
 
 
         public AS_REP(AsnElt asn_AS_REP)
@@ -48,7 +48,7 @@ namespace GoldendMSA
                         for (i = 0; i < s.Sub[0].Sub.Length; i++)
                         {
                             padata.Add(new PA_DATA(s.Sub[0].Sub[i]));
-                        }                                          
+                        }
                         break;
                     case 3:
                         crealm = Encoding.UTF8.GetString(s.Sub[0].GetOctetString());

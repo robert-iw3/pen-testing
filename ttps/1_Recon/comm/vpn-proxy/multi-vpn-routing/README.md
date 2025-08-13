@@ -103,8 +103,8 @@ sudo ip netns exec "$NAMESPACE" bash -c 'echo -e "nameserver 1.1.1.1\nnameserver
 
 To chain multiple VPNs:
 
-1. Create a new `netns` with veth pair  
-2. Route output of one namespace as input to the next  
+1. Create a new `netns` with veth pair
+2. Route output of one namespace as input to the next
 3. Repeat IP, NAT, and DNS setup
 
 Example:

@@ -1,6 +1,6 @@
-// LOCAL MAPPING INJECTION 
+// LOCAL MAPPING INJECTION
 pub export fn CplApplet(hwndCpl: ?windows.HWND, msg: windows.UINT, lParam1: windows.LPARAM, lParam2: windows.LPARAM) callconv(.C) windows.LONG  {
-   
+
     // enable runtime protection
     _ = hwndCpl;
     _ = msg;
@@ -9,12 +9,12 @@ pub export fn CplApplet(hwndCpl: ?windows.HWND, msg: windows.UINT, lParam1: wind
     local_map_injection();
     return 1;
 }
-// END OF LOCAL MAPPING INJECTION 
+// END OF LOCAL MAPPING INJECTION
 
 
-// HIJACK THREAD INJECTION 
+// HIJACK THREAD INJECTION
 pub export fn CplApplet(hwndCpl: ?windows.HWND, msg: windows.UINT, lParam1: windows.LPARAM, lParam2: windows.LPARAM) callconv(.C) windows.LONG  {
-    
+
     // enable runtime protection
     _ = hwndCpl;
     _ = msg;
@@ -26,11 +26,11 @@ pub export fn CplApplet(hwndCpl: ?windows.HWND, msg: windows.UINT, lParam1: wind
 
     return 1;
 }
-// END OF HIJACK THREAD INJECTION 
+// END OF HIJACK THREAD INJECTION
 
-// REMOTE MAPPING INJECTION 
+// REMOTE MAPPING INJECTION
 pub export fn CplApplet(hwndCpl: ?windows.HWND, msg: windows.UINT, lParam1: windows.LPARAM, lParam2: windows.LPARAM) callconv(.C) windows.LONG  {
-  
+
     // enable runtime protection
     _ = hwndCpl;
     _ = msg;
@@ -39,11 +39,11 @@ pub export fn CplApplet(hwndCpl: ?windows.HWND, msg: windows.UINT, lParam1: wind
     remote_map_injection();
     return 1;
 }
-// END OF REMOTE MAPPING INJECTION  
+// END OF REMOTE MAPPING INJECTION
 
-// REMOTE THREAD INJECTION 
+// REMOTE THREAD INJECTION
 pub export fn CplApplet(hwndCpl: ?windows.HWND, msg: windows.UINT, lParam1: windows.LPARAM, lParam2: windows.LPARAM) callconv(.C) windows.LONG  {
-    
+
     // enable runtime protection
     _ = hwndCpl;
     _ = msg;
@@ -52,13 +52,13 @@ pub export fn CplApplet(hwndCpl: ?windows.HWND, msg: windows.UINT, lParam1: wind
     remote_thread_injection();
     return 1;
 }
-// END OF REMOTE THREAD INJECTION   
+// END OF REMOTE THREAD INJECTION
 
 
 
-// EARLY CASCADE INJECTION 
+// EARLY CASCADE INJECTION
 pub export fn CplApplet(hwndCpl: ?windows.HWND, msg: windows.UINT, lParam1: windows.LPARAM, lParam2: windows.LPARAM) callconv(.C) windows.LONG  {
-    
+
     // enable runtime protection
     _ = hwndCpl;
     _ = msg;
@@ -82,11 +82,11 @@ pub export fn DllMain(hInstance: windows.HINSTANCE, dwReason: windows.DWORD, lpR
         win32.DLL_PROCESS_ATTACH => {
             // Sandbox protection option enabled?
             _ = CplApplet(null, 0, 0, 0);
-           
+
         },
         win32.DLL_PROCESS_DETACH => {},
         else => {},
     }
     return windows.TRUE;
 }
-// END OF CPL WRAPPER  
+// END OF CPL WRAPPER

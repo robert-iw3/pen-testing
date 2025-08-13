@@ -28,7 +28,7 @@ WORKDIR /app
 # Copy the Visual Studio project files into the container
 COPY . .
 
-SHELL ["powershell.exe"] 
+SHELL ["powershell.exe"]
 
 # Install Visual Studio Build Tools
 RUN \

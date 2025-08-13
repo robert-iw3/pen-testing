@@ -31,14 +31,14 @@
     {
         //set name
         self.name = PLUGIN_NAME;
-        
+
         //set description
         self.description = PLUGIN_DESCRIPTION;
-        
+
         //set icon
         self.icon = PLUGIN_ICON;
     }
-    
+
     return self;
 }
 
@@ -50,16 +50,16 @@
     {
         //contents
         NSDictionary* contents = nil;
-        
+
         //items
         NSMutableDictionary* items = nil;
-        
+
         //items sorted
         NSArray* itemsSorted = nil;
-        
+
         //paths (for dups)
         NSMutableSet* paths = nil;
-        
+
         //parse BTM db
         contents = parseBTM(nil);
         if(noErr != [contents[KEY_BTM_ERROR] integerValue])
@@ -67,13 +67,13 @@
             //error
             goto bail;
         }
-        
+
         //init
         items = [NSMutableDictionary dictionary];
-    
+
         //init
         paths = [NSMutableSet set];
-        
+
         //iterate over all items
         // sorted by each user uuid
         for(NSString* uuid in contents[KEY_BTM_ITEMS_BY_USER_ID])
@@ -83,19 +83,19 @@
             {
                 //File obj
                 File* fileObj = nil;
-                
+
                 //params to init file object
                 NSMutableDictionary* parameters = nil;
-                
+
                 //path
                 NSString* path = nil;
-                
+
                 //plist
                 NSString* plist = nil;
-                
+
                 //params
                 parameters = [NSMutableDictionary dictionary];
-                
+
                 //ignore any items that have "embeddded item ids"
                 // these seem to be parents, and not the actual items persisted
                 if(nil != item[KEY_BTM_ITEM_EMBEDDED_IDS])
@@ -103,7 +103,7 @@
                     //skip
                     continue;
                 }
-                
+
                 //executable path
                 path = item[KEY_BTM_ITEM_EXE_PATH];
                 if(nil == path)
@@ -112,23 +112,23 @@
                     // skip item
                     continue;
                 }
-                
+
                 //(optional) plist
                 plist = item[KEY_BTM_ITEM_PLIST_PATH];
-                
+
                 //init params w/ self
                 parameters[KEY_RESULT_PLUGIN] = self;
-                
+
                 //init params w/ path
                 parameters[KEY_RESULT_PATH] = path;
-                
+
                 //got plist?
                 if(nil != plist)
                 {
                     //init params w/ plist
                     parameters[KEY_RESULT_PLIST] = plist;
                 }
-                
+
                 //init file obj with params (path, etc)
                 fileObj = [[File alloc] initWithParams:parameters];
                 if(nil == fileObj)
@@ -137,25 +137,25 @@
                     // skip item
                     continue;
                 }
-                
+
                 //new?
                 // save
                 if(YES != [paths containsObject:fileObj.path])
                 {
                     //save path
                     [paths addObject:fileObj.path];
-                    
+
                     //save
                     items[item[KEY_BTM_ITEM_UUID]] = fileObj;
                 }
             }
         }
-        
+
         //sort by name
         itemsSorted = [[items allValues] sortedArrayUsingComparator:^NSComparisonResult(File* itemOne, File* itemTwo) {
             return [itemOne.name compare:itemTwo.name];
         }];
-        
+
         //add each to UI
         for(File* item in itemsSorted)
         {
@@ -163,11 +163,11 @@
             // save and report to UI
             [super processItem:item];
         }
-        
+
     bail:
-        
+
         return;
-        
+
     }//macOS 13+
 }
 

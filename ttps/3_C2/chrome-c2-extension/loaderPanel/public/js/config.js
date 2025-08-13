@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const unlockUrl = document.getElementById('unlock-url').value;
 
         try {
-            const response = await fetch('/config/xlock', { 
+            const response = await fetch('/config/xlock', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

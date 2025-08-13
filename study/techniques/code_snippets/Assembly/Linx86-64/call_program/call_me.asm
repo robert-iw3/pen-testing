@@ -19,7 +19,7 @@ _start:
   push _start+0x7
   jmp _step
   mov rax, 0
-  
+
   mov rax, 60 ;SYS EXIT
   mov rdi, 0  ;
   syscall     ;
@@ -36,7 +36,7 @@ _step_2:
   push rax
   add  rax, rbx
   add  rax, rcx
-  add  rax, rdx 
+  add  rax, rdx
   mov  rbx, rax
   add  rsp, 0x8
   ret

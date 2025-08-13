@@ -40,7 +40,7 @@ The ADFS module is only available to bruteforce or spray a password. The authent
 ![Password bruteforce / spraying on ADFS](./images/adfs-brute.png)
 
 ### O365
-This module allows to enumerate users and bruteforce / spray passwords. 
+This module allows to enumerate users and bruteforce / spray passwords.
 
 #### User enumeration
 Several modes are available: office, oauth2 and onedrive (not implemented yet). The office mode is recommended as no authentication is made. Oauth2 can retrieve additional information through [AADSTS error code](https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes) (MFA enable, locked account, disabled account)
@@ -52,7 +52,7 @@ As for the user enumeration, two modes are available: oauth2 and autodiscover (n
 ![User enumeration on o365](./images/o365-brute.png)
 
 ### OWA
-This module allows to enumerate users and bruteforce / spray passwords. 
+This module allows to enumerate users and bruteforce / spray passwords.
 Currently NTLM and basic authentication is supported
 
 #### User enumeration

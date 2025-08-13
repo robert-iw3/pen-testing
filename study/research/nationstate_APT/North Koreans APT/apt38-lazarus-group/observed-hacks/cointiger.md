@@ -33,17 +33,17 @@ At the same time, CoinTiger directly asked the project side to upgrade the contr
 
 ### 17,829,785 PlayGame (“PXG”) tokens were sent:
 
-from 0x60d61a180404d86b8d2747c2e5c0099415fec65c 
+from 0x60d61a180404d86b8d2747c2e5c0099415fec65c
 
 to hacker addresses 0x52cbb6be7ad204904486f89e264029c94525966d
 
 ### 137,793.98 IHT Real Estate Protocol tokens (“IHT”) were sent:
 
-CoinTiger 0x60d61a180404d86b8d2747c2e5c0099415fec65c 
+CoinTiger 0x60d61a180404d86b8d2747c2e5c0099415fec65c
 
 to hacker address 0xeda8b016efa8b1161208cf041cd86972eee0f31e
 
-The HitBTC account owning the two addresses was opened on or about July 1, 2019 at 02:24, mere hours before the theft from CoinTiger. 
+The HitBTC account owning the two addresses was opened on or about July 1, 2019 at 02:24, mere hours before the theft from CoinTiger.
 
 The account was registered with TargetEmail1.
 
@@ -55,11 +55,11 @@ All deposit activity for TargetActor1’s account at HitBTC occurred on or about
 
 As stated previously, the PXG and IHT deposits came directly from the theft at CoinTiger.
 
-9,064,558.36 Olive (“OLE”) were traded for USDT and sent: to hacker address 0xac186f896de706c4946c88a9ca7dd0147db8ae50 and then deposited at Exchange5 
+9,064,558.36 Olive (“OLE”) were traded for USDT and sent: to hacker address 0xac186f896de706c4946c88a9ca7dd0147db8ae50 and then deposited at Exchange5
 
 They were then converted into USDT and at approximately 10:29 and 18:10 sent to the HitBTC account:
 
-TargetActor1 received USDT-Deposit2 and USDT-Deposit7 in another address (“DefendantProperty4”) held within TargetActor1’s account at HitBTC. 
+TargetActor1 received USDT-Deposit2 and USDT-Deposit7 in another address (“DefendantProperty4”) held within TargetActor1’s account at HitBTC.
 
 The timing of the deposits and TargetActor1’s modus operandi of converting cryptocurrencies, as further described below, suggest that TargetActor1 converted at least portions of the stolen OLE into USDT before depositing the funds into HitBTC.
 
@@ -79,7 +79,7 @@ and then deposited into Exchange 6 (Huobi).
 
 They were then traded for USDT
 
-and sent to TargetActor1’s account at HitBTC received Deposit4 from Exchange 6 (Huobi) in the form of USDT (“DefendantProperty4”). 
+and sent to TargetActor1’s account at HitBTC received Deposit4 from Exchange 6 (Huobi) in the form of USDT (“DefendantProperty4”).
 
 This transaction was again consistent with TargetActor1 converting the cryptocurrency based on the timing and his modus operandi.
 
@@ -87,7 +87,7 @@ This transaction was again consistent with TargetActor1 converting the cryptocur
 
 sent to 0x2DBC0f6B71e341C7Eca01c5287Eb57AF3038A9c5
 
-0x2DBC0f6B71e341C7Eca01c5287Eb57AF3038A9c5 also received approximately 41,702 USDT from an account at KuCoin via 14 transactions between August 12th, 2019 and August 14, 2019. 
+0x2DBC0f6B71e341C7Eca01c5287Eb57AF3038A9c5 also received approximately 41,702 USDT from an account at KuCoin via 14 transactions between August 12th, 2019 and August 14, 2019.
 
 The originating account at KuCoin was opened on or about July 2, 2019 and was registered with TargetEmail1 and no other identifiable information.
 
@@ -99,15 +99,15 @@ The stolen REP at 0x2DBC0f6B71e341C7Eca01c5287Eb57AF3038A9c5 was then sent to Ex
 
 TargetActor1 then used his HitBTC to convert the various forms of stolen virtual currency received into BTC.
 
-TargetActor1 withdrew approximately 0.46306721 BTC from HitBTC via three transactions. 
+TargetActor1 withdrew approximately 0.46306721 BTC from HitBTC via three transactions.
 
-TargetActor1 sent the BTC successfully withdrawn from his HitBTC account to a cluster including the bitcoin address beginning with 1BHnp77MqZGGFaCGQ9J4GhLstPUeBshVcc (“DefendantProperty8”) and approximately 14 additional BTC addresses (“DefendantProperty9” through “DefendantProperty22”). 
+TargetActor1 sent the BTC successfully withdrawn from his HitBTC account to a cluster including the bitcoin address beginning with 1BHnp77MqZGGFaCGQ9J4GhLstPUeBshVcc (“DefendantProperty8”) and approximately 14 additional BTC addresses (“DefendantProperty9” through “DefendantProperty22”).
 
 TargetActor1 then attempted to withdraw an additional approximately 9.53868454 BTC from HitBTC, but HitBTC blocked this transaction.
 
 ### July 1st, 2019 through October 23rd, 2019
 
-BTC cluster 1BHnp77MqZGGFaCGQ9J4GhLstPUeBshVcc received approximately 80.86041444 BTC via 119 transactions between 
+BTC cluster 1BHnp77MqZGGFaCGQ9J4GhLstPUeBshVcc received approximately 80.86041444 BTC via 119 transactions between
 
 DefendantProperty8 also received approximately 15 BTC from accounts at CoinTiger, Biki, and Huobi.
 
@@ -123,29 +123,29 @@ In so doing, these OTC traders fail to collect the legally required KYC informat
 
 Many owners of illicit funds seek out these OTC traders because they are otherwise unable to obtain accounts at law-abiding virtual currency exchanges or risk having their funds frozen, as was the case with TargetActor1’s account at HitBTC.
 
-From the period of the opening of TargetActor1’s account at HitBTC to October 2019, the account was accessed by IP addresses resolving to VPN providers, in an attempt by the user to conceal his location.  The VPN IP addresses have been used by other DPRK cyber actors in related facets of the overall criminal schemes. Specifically, over 50% of the IP addresses used by TargetActor1 at HitBTC matched IP addresses previously utilized by DPRK cyber actors who have been tied to hacks of at least two other cryptocurrency exchanges, including the previously mentioned theft from Upbit, and who subsequently laundered funds through the United States. 
+From the period of the opening of TargetActor1’s account at HitBTC to October 2019, the account was accessed by IP addresses resolving to VPN providers, in an attempt by the user to conceal his location.  The VPN IP addresses have been used by other DPRK cyber actors in related facets of the overall criminal schemes. Specifically, over 50% of the IP addresses used by TargetActor1 at HitBTC matched IP addresses previously utilized by DPRK cyber actors who have been tied to hacks of at least two other cryptocurrency exchanges, including the previously mentioned theft from Upbit, and who subsequently laundered funds through the United States.
 
 Additionally, an IP address utilized to log into TargetActor1’s account at HitBTC matched the IP address utilized by the same DPRK cyber actors to log into a malicious website created by them.  The website appears to target owners of cryptocurrency and solicit information from them.
 
 ### December 20th, 2019
 
-HitBTC received approximately 8.65658 ETH that was converted to 0.15012721 BTC and sent to a BTC address starting with bc1qxsafg-DefendantProperty24 
+HitBTC received approximately 8.65658 ETH that was converted to 0.15012721 BTC and sent to a BTC address starting with bc1qxsafg-DefendantProperty24
 
-bc1qxsafg5y5tnt7w343tec8l4mehzwhkkqwzvv5yf has transacted with cluster 1BHnp77MqZGGFaCGQ9J4GhLstPUeBshVcc, containing DefendantProperty8 through DefendantProperty22. 
+bc1qxsafg5y5tnt7w343tec8l4mehzwhkkqwzvv5yf has transacted with cluster 1BHnp77MqZGGFaCGQ9J4GhLstPUeBshVcc, containing DefendantProperty8 through DefendantProperty22.
 
 The source of the 8.65658 ETH was the November 27th, 2019 theft from Upbit, after being layered through multiple ETH addresses.
 
 The request to convert ETH to BTC at HitBTC came from an IP address at a Hong Kong-based Internet service provider (ISP) that has previously received payment via stolen BTC from DPRK cyber actors.
 
-Multiple addresses connected to cluster 1BHnp77MqZGGFaCGQ9J4GhLstPUeBshVcc sent payments to a U.S.-based BTC payment processor to purchase services from the Hong Kong-based ISP. 
+Multiple addresses connected to cluster 1BHnp77MqZGGFaCGQ9J4GhLstPUeBshVcc sent payments to a U.S.-based BTC payment processor to purchase services from the Hong Kong-based ISP.
 
 The account at this U.S.-based BTC payment processor was registered using “TargetEmail2.”
 
-## late April 2019 and early May 2019: 
+## late April 2019 and early May 2019:
 
-several months before the hack of CoinTiger, TargetActor1, using TargetEmail1, communicated via email with another individual (“TargetActor2”), who was using TargetEmail2. 
+several months before the hack of CoinTiger, TargetActor1, using TargetEmail1, communicated via email with another individual (“TargetActor2”), who was using TargetEmail2.
 
-According to a website tracking malware submitted by community users, TargetEmail2 was contained within a piece of malware designed to allow an attacker to execute code on a victim computer after the victim opened a word processing document, giving the hacker the ability to gain access to the victim’s computer and/or network. 
+According to a website tracking malware submitted by community users, TargetEmail2 was contained within a piece of malware designed to allow an attacker to execute code on a victim computer after the victim opened a word processing document, giving the hacker the ability to gain access to the victim’s computer and/or network.
 
 The file type was a Korean word processor file related to exploits used by North Korea against cryptocurrency exchanges since at least 2017.
 

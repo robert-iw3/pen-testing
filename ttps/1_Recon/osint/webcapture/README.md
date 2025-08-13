@@ -29,7 +29,7 @@ podman build -t webcapture .
 podman run -it --name webcapture webcapture
 ```
 
-### Usage 
+### Usage
 ```bash
 python3 main.py --url <URL> --emails --phones --links --whois --ipinfo --subdomains
 ```

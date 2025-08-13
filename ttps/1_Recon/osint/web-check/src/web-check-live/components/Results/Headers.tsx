@@ -12,7 +12,7 @@ const HeadersCard = (props: { data: any, title: string, actionButtons: ReactNode
             <Row key={`header-${index}`} lbl={header} val={headers[header]} />
           )
         })
-      }      
+      }
     </Card>
   );
 }

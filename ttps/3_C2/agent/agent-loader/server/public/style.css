@@ -7,11 +7,11 @@
     --btn-bg: #ffffff;
     --btn-hover: #e8f1fb;
   }
-  
+
   * {
     box-sizing: border-box;
   }
-  
+
   body {
     margin: 0;
     padding: 1rem;
@@ -19,20 +19,20 @@
     background-color: var(--bg);
     color: var(--text);
   }
-  
+
   h1, h2 {
     margin-bottom: 0.5rem;
   }
-  
+
   h1 {
     font-size: 1.75rem;
   }
-  
+
   h2 {
     font-size: 1.25rem;
     margin-top: 1.5rem;
   }
-  
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -40,17 +40,17 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     margin-bottom: 1rem;
   }
-  
+
   th, td {
     padding: 0.75rem;
     border: 1px solid var(--border);
   }
-  
+
   th {
     background: var(--bg);
     text-align: left;
   }
-  
+
   .btn {
     display: inline-block;
     padding: 0.4rem 0.8rem;
@@ -67,7 +67,7 @@
   .btn:hover {
     background: var(--btn-hover);
   }
-  
+
   input[type="text"],
   input[type="file"],
   #payload-ip,
@@ -78,7 +78,7 @@
     font-size: 0.9rem;
     width: auto;
   }
-  
+
   pre {
     background: var(--card);
     padding: 0.75rem;
@@ -87,21 +87,21 @@
     overflow-x: auto;
     max-height: 150px;
   }
-  
+
   ul {
     list-style: none;
     padding-left: 0;
   }
-  
+
   li {
     padding: 0.3rem 0;
     border-bottom: 1px solid var(--border);
   }
-  
+
   li.dir {
     font-weight: bold;
   }
-  
+
   section {
     background: var(--card);
     padding: 1rem;
@@ -109,4 +109,3 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     margin-bottom: 1rem;
   }
-  

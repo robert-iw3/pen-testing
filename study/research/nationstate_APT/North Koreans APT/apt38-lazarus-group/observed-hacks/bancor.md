@@ -25,7 +25,7 @@ Bancor immediately created a coalition with Changelly, through which the hackers
 
 At 00:00 UTC, Bancor experienced a security breach. A wallet used to upgrade some smart contracts was compromised. This compromised wallet was then used to withdraw ETH from the BNT smart contract in the amount of 24,984 ETH (~~$12.5M). The same wallet also stole 229,356,645 NPXS (~~$1M) and 3,200,000 BNT (~$1oM). Once the theft was identified, Bancor was able to freeze the stolen BNT, limiting the damage to the Bancor ecosystem from the theft. It is not possible to freeze the ETH or any other stolen tokens. Primary analysis shows this wallet address and the transaction hash that led to the breach. 22,000 ETH were transferred for a transaction cost of just $0.88 at 61 GWEI. Read the official statement [here](https://twitter.com/Bancor/status/1016420621666963457).
 
-$10m worth of BNT was later recovered. 
+$10m worth of BNT was later recovered.
 
 A Bancor wallet got hacked and that wallet has the ability to steal coins out of their own smart contracts. An exchange is not decentralized if it can lose customer funds OR if it can freeze customer funds. Bancor can do BOTH. It’s a false sense of decentralization.
 
@@ -43,8 +43,8 @@ A Bancor wallet got hacked and that wallet has the ability to steal coins out of
 - 0xf27b6923ed24eed02de7686962339db00a52d2aa - Converges with Cypherium / Taylor ICO
 - 0x43a964e635f31b0cc329db6f980f09096054e4e3a627c85654852fd026b92ba0
 - 0x2c281aa4ee30d4d0a5dcd77bb80bc66f13d027bb828f5e4b3be7ff8bd47999a2
-- 0x8dfeb86c7c962577ded19ab2050ac78654fea9f7 - Bancor Vulnerable Contract 
-- 0x5f58058c0ec971492166763c8c22632b583f667f - Bancor Vulnerable Contract 
+- 0x8dfeb86c7c962577ded19ab2050ac78654fea9f7 - Bancor Vulnerable Contract
+- 0x5f58058c0ec971492166763c8c22632b583f667f - Bancor Vulnerable Contract
 - 0x923cab01e6a4639664aa64b76396eec0ea7d3a5f - Bancor Vulnerable Contract
 - 0xf27b6923ed24eed02de7686962339db00a52d2aa - Bancor - Huobi Laundry
 - 0x39d9f4640b98189540A9C0edCFa95C5e657706aA - Bancor - Laundry - it's some service

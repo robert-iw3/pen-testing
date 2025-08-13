@@ -1,6 +1,6 @@
 # Red Team Operator course code template
 # payload encryption with AES
-# 
+#
 # author: reenz0h (twitter: @sektor7net)
 
 import sys

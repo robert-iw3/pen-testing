@@ -11,7 +11,7 @@ Tags:: 🔑 SquidSquad
 
 ## Details
 
-Bitcoin DeFi application ALEX Lab was drained of over $4.3 million in various tokens after a suspected private key compromise attacked its bridging service. 
+Bitcoin DeFi application ALEX Lab was drained of over $4.3 million in various tokens after a suspected private key compromise attacked its bridging service.
 
 Hackers transferred over $300,000 USD worth of BTC, $3.3 million USD worth of stablecoins, and $75,000 USD worth of Sugar Kingdom (SKO) tokens.
 
@@ -253,12 +253,12 @@ July 2024: Paying for something via Bybit, WazirX, Coingate, Cryptomus
 June 3, 2024: sends to 0x5b70ef457f1ffcd5b1c9566725f23c23cb8c4ced
 - 0x5b70ef457f1ffcd5b1c9566725f23c23cb8c4ced receives dust from 0x3b7c7f075c597ad2aa763526b32fbc285432dd73 on June 27 2024
 - 0x3b7c7f075c597ad2aa763526b32fbc285432dd73 received launderd STX from Bitget on June 17 2024
-- 0x3b7c7f075c597ad2aa763526b32fbc285432dd73 also sends to 0x4927f5848a85738210f08262fd04e568e0a34fab, which is another peronsal wallet 
+- 0x3b7c7f075c597ad2aa763526b32fbc285432dd73 also sends to 0x4927f5848a85738210f08262fd04e568e0a34fab, which is another peronsal wallet
 - 0xc51d1237dc91f4d844d69b80e1ed52a2612f3e05 sends to 0x4927f5848a85738210f08262fd04e568e0a34fab
 - 0x76b30d808e98ab6f896c449d1a8f677231d40f0c sends to 0x4927f5848a85738210f08262fd04e568e0a34fab
 
 July 18 2024: Deploys Gnosis Safe
-- 0x82715798af6f2194c615e2ad235ad5f6dced5315 
+- 0x82715798af6f2194c615e2ad235ad5f6dced5315
 
 
 

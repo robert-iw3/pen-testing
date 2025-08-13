@@ -83,7 +83,7 @@ def listen_for_icmp_replies(interface, src_ips, icmp_src_ip):
     logger.debug(f"Listening on interface {interface} with filter: {filter_rule}")
     sniff(iface=interface, filter=filter_rule, prn=handle_packet)
 
-        
+
 
 def ip_to_identifier_sequence(ip):
     ip_int = struct.unpack("!I", socket.inet_aton(ip))[0]
@@ -93,7 +93,7 @@ def ip_to_identifier_sequence(ip):
 
 def create_gretap_packet(iface, gretap_src_ip, gretap_dst_ip, icmp_src_ip, icmp_dst_ip,use_reverse, mac,isl3tunnel=False):
     identifier, sequence = ip_to_identifier_sequence(gretap_src_ip)
-    if use_reverse : 
+    if use_reverse :
         identifier, sequence = ip_to_identifier_sequence(gretap_dst_ip)
     icmp_packet = IP(src=icmp_src_ip, dst=icmp_dst_ip) / ICMP(type=8, id=identifier, seq=sequence)
     #gretap_packet = IP(src=gretap_src_ip, dst=gretap_dst_ip) / gretap() / icmp_packet
@@ -178,7 +178,7 @@ def is_private_ip(ip_str):
     ip = ipaddress.ip_address(ip_str)
     return any(ip in ipaddress.ip_network(subnet, strict=False) for subnet in private_subnets)
 global warning_private_flag
-warning_private_flag = True 
+warning_private_flag = True
 def full_list_generator(src,dst, srcdst=None, chunk_size=100, use_private=False):
     chunk = []
     global warning_private_flag
@@ -204,11 +204,11 @@ def full_list_generator(src,dst, srcdst=None, chunk_size=100, use_private=False)
                         yield chunk
                         chunk = []
         else:
-         parser.error("--src-dst-list no a file.")   
+         parser.error("--src-dst-list no a file.")
     else:
         dst_networks = parse_ip_input(dst)
         src_networks = parse_ip_input(src)
-        
+
         for src_network in src_networks:
             for src_ip in src_network:
                 for dst_network in dst_networks:
@@ -225,7 +225,7 @@ def full_list_generator(src,dst, srcdst=None, chunk_size=100, use_private=False)
                         if len(chunk) >= chunk_size:
                             yield chunk
                             chunk = []
-    
+
     # Yield any remaining items in the chunk
     if chunk:
         yield chunk
@@ -323,7 +323,7 @@ ip link del gre444
 
     # Set logger level
     logger.setLevel(getattr(logging, args.loglevel))
-    
+
     # If outfile is set
     if outfile:
         file_handler = logging.FileHandler(outfile)
@@ -333,10 +333,10 @@ ip link del gre444
     canStart = True
     if save_status:
         logger.warning("-ss option is on Please ensure every scan are in different folder")
-        try: 
+        try:
             with open(STAUTS_FILENAME, 'r') as file:
                 status_data = json.load(file)
-                status_data['gretap_src_ip'] 
+                status_data['gretap_src_ip']
                 status_data['gretap_dst_ip']
                 logger.info(f"Data has been load")
                 canStart = False
@@ -352,7 +352,7 @@ ip link del gre444
         one_time = list(one_time)  # Force evaluation of generator
         unique_dst_ips = list(set(item["gretap_dst_ip"] for item in one_time))
         # start the listener wait ping
-        
+
         if internal_dst:
             unique_dst_ips.append(internal_dst)
         sniffer_dead_count=0
@@ -383,19 +383,19 @@ ip link del gre444
                 p.start()
 
             job_queue.join()
-            
+
             for p in processes:
-                p.join(timeout=2) 
+                p.join(timeout=2)
                 # if process not send within sec means bad
                 if p.is_alive():
                     needrestartflag = True
                     logger.warning("Worker is still running. Terminating...")
                     p.terminate()
-                    p.join() 
+                    p.join()
 
             logger.debug('Wait timeout from ping for ' + str(wait_time) + ' sec')
             time.sleep(wait_time)
-            
+
             if not listener_thread.is_alive() or needrestartflag:
                 logger.warning("sniffer dead "+ str(sniffer_dead_count) +" time rerun task (If you keep seeing this you have to lower the -cs)")
                 sniffer_dead_count+=1

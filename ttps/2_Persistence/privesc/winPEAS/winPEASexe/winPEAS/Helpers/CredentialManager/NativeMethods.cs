@@ -21,7 +21,7 @@ namespace winPEAS.Helpers.CredentialManager
 
         /// <summary>
         /// The CREDENTIAL structure contains an individual credential.
-        /// 
+        ///
         /// See CREDENTIAL structure <see href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa374788(v=vs.85).aspx">documentation.</see>
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
@@ -84,7 +84,7 @@ namespace winPEAS.Helpers.CredentialManager
             }
 
             // Perform any specific actions to release the handle in the ReleaseHandle method.
-            // Often, you need to use P/Invoke to make a call into the Win32 API to release the 
+            // Often, you need to use P/Invoke to make a call into the Win32 API to release the
             // handle. In this case, however, we can use the Marshal class to release the unmanaged memory.
             protected override bool ReleaseHandle()
             {
@@ -98,7 +98,7 @@ namespace winPEAS.Helpers.CredentialManager
                     SetHandleAsInvalid();
                     return true;
                 }
-                // Return false. 
+                // Return false.
                 return false;
             }
         }

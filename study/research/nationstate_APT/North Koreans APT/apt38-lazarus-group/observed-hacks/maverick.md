@@ -1,4 +1,4 @@
-# Maverick Theft 
+# Maverick Theft
 
 Date:: October 26th, 2023
 

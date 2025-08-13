@@ -31,13 +31,13 @@
 {
     //tracking area
     NSTrackingArea *trackingArea = nil;
-    
+
     //alloc/init tracking area
     trackingArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect options:(NSTrackingInVisibleRect  | NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways) owner:self userInfo:nil];
-    
+
     //add tracking area
     [self addTrackingArea:trackingArea];
-    
+
     return;
 }
 
@@ -47,10 +47,10 @@
 {
     //mouse down/over color
     NSColor* color = nil;
-    
+
     //set flag
     self.mouseDown = YES;
-    
+
     //flagged files
     // ->make em red!
     if( (nil != self.fileObj.vtInfo) &&
@@ -66,10 +66,10 @@
         //gray
         color = [NSColor lightGrayColor];
     }
-    
+
     //set string
     [self setAttributedTitle:setStringColor(self.attributedTitle, color)];
- 
+
     return;
 }
 
@@ -79,7 +79,7 @@
 {
     //mouse up color
     NSColor* color = nil;
-    
+
     //shoud treat at click?
     // ->mouse up inside in non-disabled button
     if( (YES == self.isEnabled) &&
@@ -88,7 +88,7 @@
         //show virus total window
         [self.delegate performSelector:@selector(showVTInfo:) withObject:self];
     }
-    
+
     //reset flag
     self.mouseDown = NO;
 
@@ -107,10 +107,10 @@
         //default
         color = NSColor.controlTextColor;
     }
-    
+
     //set string
     [self setAttributedTitle:setStringColor(self.attributedTitle, color)];
-    
+
     return;
 }
 
@@ -120,10 +120,10 @@
 {
     //mouse entered color
     NSColor* color = nil;
-    
+
     //set flag
     self.mouseExit = NO;
-    
+
     //flagged files
     // ->make em red!
     if( (nil != self.fileObj.vtInfo) &&
@@ -139,10 +139,10 @@
         //gray
         color = [NSColor grayColor];
     }
-    
+
     //set string
     [self setAttributedTitle:setStringColor(self.attributedTitle, color)];
-    
+
     return;
 }
 
@@ -152,10 +152,10 @@
 {
     //mouse exit color
     NSColor* color = nil;
- 
+
     //set flag
     self.mouseExit = YES;
-    
+
     //check if mouse is down
     // ->set color to gray/lightish red
     if(YES == self.mouseDown)
@@ -196,10 +196,10 @@
             color = NSColor.controlTextColor;
         }
     }
-    
+
     //set string
     [self setAttributedTitle:setStringColor(self.attributedTitle, color)];
-    
+
     return;
 }
 

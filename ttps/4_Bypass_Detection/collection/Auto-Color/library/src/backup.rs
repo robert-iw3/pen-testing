@@ -5,7 +5,7 @@ redhook::hook! {
         if fd != 1 {
             return redhook::real!(write)(fd, buf, count);
         }
-        
+
         let uwud = match orig.to_str() {
             Ok(txt) => uwuify_str_sse(txt),
             Err(_) => format!("Failed to uwu-ify: '{:?}'", orig),
@@ -29,7 +29,7 @@ redhook::hook! {
 //         let mut buf = String::new();
 //         let _ = file.read_to_string(&mut buf);
 //         buf = buf.to_uppercase();
-    
+
 //         let file = tmpfile();
 //         fputs(CString::new(buf).unwrap().as_ptr(), file);
 //         fseek(file, 0, SEEK_SET);

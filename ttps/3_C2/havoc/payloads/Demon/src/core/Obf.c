@@ -237,7 +237,7 @@ VOID FoliageObf(
                     }
                 }
             }
-            
+
         }
     }
 

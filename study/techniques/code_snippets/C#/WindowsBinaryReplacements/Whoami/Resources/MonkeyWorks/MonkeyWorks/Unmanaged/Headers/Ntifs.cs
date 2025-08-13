@@ -46,7 +46,7 @@ namespace MonkeyWorks.Unmanaged.Headers
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
             public Winnt._SID_AND_ATTRIBUTES[] User;
-        } 
+        }
         //TOKEN_USER, *PTOKEN_USER
     }
 }

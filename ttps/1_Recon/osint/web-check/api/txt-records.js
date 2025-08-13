@@ -4,7 +4,7 @@ import middleware from './_common/middleware.js';
 const txtRecordHandler = async (url, event, context) => {
   try {
     const parsedUrl = new URL(url);
-    
+
     const txtRecords = await dns.resolveTxt(parsedUrl.hostname);
 
     // Parsing and formatting TXT records into a single object

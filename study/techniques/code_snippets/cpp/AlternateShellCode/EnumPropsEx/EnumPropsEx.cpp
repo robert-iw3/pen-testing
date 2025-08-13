@@ -42,6 +42,6 @@ int main() {
 
     HWND dummy = ::GetTopWindow(NULL);
     ::EnumPropsExW(dummy, (PROPENUMPROCEXW)addr, NULL);
- 
+
 
 }

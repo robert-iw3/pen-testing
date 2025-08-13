@@ -19,16 +19,16 @@ check_aws_ecs(){
     is_aws_ecs="Yes";
     aws_ecs_metadata_uri=$ECS_CONTAINER_METADATA_URI_v4;
     aws_ecs_service_account_uri="http://169.254.170.2$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI"
-  
+
   elif (env | grep -q ECS_CONTAINER_METADATA_URI); then
     is_aws_ecs="Yes";
     aws_ecs_metadata_uri=$ECS_CONTAINER_METADATA_URI;
     aws_ecs_service_account_uri="http://169.254.170.2$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI"
-  
+
   elif (env | grep -q AWS_CONTAINER_CREDENTIALS_RELATIVE_URI); then
     is_aws_ecs="Yes";
   fi
-  
+
   if [ "$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI" ]; then
     aws_ecs_service_account_uri="http://169.254.170.2$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI"
   fi

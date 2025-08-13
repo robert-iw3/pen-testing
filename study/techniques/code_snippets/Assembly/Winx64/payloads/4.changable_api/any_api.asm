@@ -59,7 +59,7 @@ getapiaddr:
 pop rbx                   ; save the return address for ret 2 caller after API address is found
 pop rcx                   ; Get the string length counter from stack
 xor rax, rax              ; Setup Counter for resolving the API Address after finding the name string
-mov rdx, rsp              ; RDX = Address of API Name String to match on the Stack 
+mov rdx, rsp              ; RDX = Address of API Name String to match on the Stack
 push rcx                  ; push the string length counter to stack
 loop:
 mov rcx, [rsp]            ; reset the string length counter from the stack
@@ -68,7 +68,7 @@ mov edi, [r11+rax*4]      ; EDI = RVA NameString = [&NamePointerTable + (Counter
 add rdi, r8               ; RDI = &NameString    = RVA NameString + &kernel32.dll
 mov rsi, rdx              ; RSI = Address of API Name String to match on the Stack  (reset to start of string)
 repe cmpsb                ; Compare strings at RDI & RSI
-je resolveaddr            ; If match then we found the API string. Now we need to find the Address of the API 
+je resolveaddr            ; If match then we found the API string. Now we need to find the Address of the API
 incloop:
 inc rax
 jmp short loop

@@ -27,7 +27,7 @@ BOOL GenerateDriverFullPath(IN LPWSTR pszDriverName, IN size_t cchDriverPath, OU
 
     // Build "<SystemRoot>\\System32\\drivers\\pszDriverName"
     int n = swprintf_s(
-        pszDriverPath,          // Store the location in here 
+        pszDriverPath,          // Store the location in here
         cchDriverPath,          // Size of destination buffer in WCHARs
         L"%ls%ls%ls",           // Format: <WindowsPath> + <VULNDRIVERPATH> + <DriverName>
         szWinPath,              // Input <WindowsPath>
@@ -130,7 +130,7 @@ BOOL LoadDriver(IN LPCWSTR lpwcDriverName, IN LPCWSTR lpwcDriverPath) {
         SERVICE_START,                              // Permissions to start the service
         SERVICE_KERNEL_DRIVER,                      // Service type
         SERVICE_DEMAND_START,                       // Start type
-        SERVICE_ERROR_IGNORE,                       // The startup program ignores the error and continues the startup operation. 
+        SERVICE_ERROR_IGNORE,                       // The startup program ignores the error and continues the startup operation.
         lpwcDriverPath,                             // Path to driver file
         NULL,                                       // Optional can be NULL
         NULL,                                       // Optional can be NULL
@@ -139,7 +139,7 @@ BOOL LoadDriver(IN LPCWSTR lpwcDriverName, IN LPCWSTR lpwcDriverPath) {
         NULL                                        // Optional can be NULL
     );
     if (hService == NULL) {
-        
+
         // Handle case where driver already exists
         if (GetLastError() == ERROR_SERVICE_EXISTS) {
             info_t("CreateServiceW - Failed service already registered, attempting to start");
@@ -293,7 +293,7 @@ _cleanUp:
 
 
 HANDLE GetDeviceHandle(IN LPCWSTR lpwcDriverSymlink) {
-    
+
     HANDLE hDevice = NULL; // Stores handle to the device
 
     // Open a file handle to the driver using its symbolic link
@@ -313,7 +313,7 @@ HANDLE GetDeviceHandle(IN LPCWSTR lpwcDriverSymlink) {
         return NULL;
     }
     //info_t("CreateFileW - Opened file handle to driver at 0x%p", hDevice);
-    
+
     // Return the valid device handle
     return hDevice;
 

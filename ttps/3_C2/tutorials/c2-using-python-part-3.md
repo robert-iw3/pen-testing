@@ -29,7 +29,7 @@ LOL, what's happening everyone, and welcome to `Part 3` of our C2 series!  Also 
 
 We can now escalate our privs from **MEDIUM** context all the way to **SYSTEM** if you want!  Also, want to migrate into another process?  No problem, we can do that too 😸  I'm using code from previously shared blog posts btw.  The `getsystem` technique uses functionality built in to ElevationStation, and elevation kit I wrote in c++ a while back.  The `UAC Bypass` technique borrows from a UAC bypass method I posted about not that long ago.  We're basically stealing ctfmon's UIaccess token and then using powershell to sendkeys to `azman.msc`, forcing it to open an elevated program of our choosing.  Lastly, the `migrate` functionality I don't believe I actually blogged about yet, come to think of it.  This is brand new to this particular blog post, and I'm exciting to show it off 😺  Basically, if you're a medium context user, you can create another process and migrate into it.  If you're a user within an elevated process, you can migrate into a `SYSTEM` process such as *WinLogon*, etc  Each time you migrate, you get a new connection sent to your C2.  It's really pretty fun and useful!
 
-Well, let's get down to it then.  As usual, I'm going to quickly run through the code with some brief explanations along the way. 
+Well, let's get down to it then.  As usual, I'm going to quickly run through the code with some brief explanations along the way.
 
 ***Part 3 - Adding in UAC Bypass functionality***
 -
@@ -40,7 +40,7 @@ All the Visual Studio projects related to this blog post can be found here: [C2 
 
 > **Prep**
 
-- Be sure to open and compile the UIAccess_bypassUAC C++ project.  
+- Be sure to open and compile the UIAccess_bypassUAC C++ project.
 - Rename the resulting `.exe` file to `UACBypass.exe` and copy/upload it to the `c:\users\public directory` on the victim machine.  This will be used as our bypass UAC utility and integrated into the C2.
 - Finally, copy/upload the `getitdone.ps1` file to the victim box, also in the `c:\users\public` directory.  I was lazy and called it getitdone.  feel free to change it if you like lol.  This is the script that issues the sendkeys portion of the UAC bypass and opens an elevated executable using `azman.msc`
 
@@ -172,7 +172,7 @@ Okay, our last implementation for today!  Save the best for last right? 😸  Fo
 > **Prep**
 
 - Make sure the C2 client is in the victim's `c:\users\public` directory.  This file: `c2client_part3.py`
-- You'll also want to edit and compile this dll source code; adjust it accordingly.  Place it in the `c:\temp` folder.  I don't recall why I chose `temp` over `c:\users\public`, but there you have it.  
+- You'll also want to edit and compile this dll source code; adjust it accordingly.  Place it in the `c:\temp` folder.  I don't recall why I chose `temp` over `c:\users\public`, but there you have it.
 
 ```c++
 #include <windows.h>
@@ -226,7 +226,7 @@ if choice == "migrate":
                 print("(If in a non-admin shell, just enter any number to proceed)")
                 procID = input(":")
                 print("procID: ", procID)
-                msg1 = f":migrate:{procID}\n" 
+                msg1 = f":migrate:{procID}\n"
                 clientlist[selection][1].send(msg1.encode('utf-8'))
                 #print(Fore.GREEN + "[+] Initiating migration process now!" + Fore.WHITE)
                 migrationstatus=clientlist[selection][1].recv(1024)
@@ -284,7 +284,7 @@ There it is 😄
 
 ![image](https://github.com/user-attachments/assets/d6ab9822-695c-4958-8034-6c1434c99120)
 
-I think this may be the most fun I've had writing a post in quite some time!  It's been a bit as I've been working on some other projects the last couple of weeks, but I knew it was high time to do another post for our C2 series!  I hope you've enjoyed this series as much as I have, and as always, the source code can be found in this folder: 
+I think this may be the most fun I've had writing a post in quite some time!  It's been a bit as I've been working on some other projects the last couple of weeks, but I knew it was high time to do another post for our C2 series!  I hope you've enjoyed this series as much as I have, and as always, the source code can be found in this folder:
 
 **2024-12-20-Create your own C2 using Python - Part 3**
 

@@ -45,7 +45,7 @@ run:
 		-e PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native \
 		-v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native \
 		${WITHOUT_HARDENING} \
-		${FF_IMAGE} 
+		${FF_IMAGE}
 
 run_no_hardening:
 	$(MAKE) -s run WITHOUT_HARDENING='-v "${CURDIR}"/docker_files/empty-local-settings.js:/usr/lib/firefox/defaults/pref/local-settings.js'

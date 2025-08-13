@@ -71,7 +71,7 @@ Well...maybe some are. 🫠
 - https://commissariatodips.it/notizie/articolo/identificato-dalla-polizia-postale-l-autore-del-piu-grande-attacco-cyber-finanziario-in-italia/index.html
 
 ### 2018-May: Satori Botnet targeting exposed Ethereum miners
-- In May 2018, reports emerged of [Satori Botnet](https://bitcoinist.com/watchout-satori-botnet-targets-exposed-ethereum-miners/) targeting exposed Ethereum miners. 
+- In May 2018, reports emerged of [Satori Botnet](https://bitcoinist.com/watchout-satori-botnet-targets-exposed-ethereum-miners/) targeting exposed Ethereum miners.
 - There are [numerous](https://github.com/tolgatasci/geth-hack) hacking resources available on GitHub to automate port 8545 scanning exploits.
 - https://bitcoinist.com/hacked-cybercriminals-steal-20-million-in-ether-from-poorly-configured-app-clients/
 
@@ -93,9 +93,9 @@ Well...maybe some are. 🫠
 - https://blog.coinbase.com/responding-to-firefox-0-days-in-the-wild-d9c85a57f15b
 - https://twitter.com/5aelo/status/1143548622530895873
 
-### 2019-Sep-28: Fusion Foundation - Private Key Compromise - $5.2M  
+### 2019-Sep-28: Fusion Foundation - Private Key Compromise - $5.2M
 - The Fusion swap wallet 0x8e6bDa71f3f0F49dDD29969De79aFCFac4457379 was compromised, resulting in theft of 10 million native FSN and 3.5 million ERC20 FSN token.
-- https://fusionprotocol.medium.com/fusion-foundation-update-28-9-6479cd0a982d 
+- https://fusionprotocol.medium.com/fusion-foundation-update-28-9-6479cd0a982d
 
 
 ### 2019-02-14 - Al Maawali's Coinomi Wallet - $65,000
@@ -114,64 +114,64 @@ Well...maybe some are. 🫠
 
 ## 2020
 
-### 2020-Nov-13: Liquid DNS Hijack Data Leak - $0 
+### 2020-Nov-13: Liquid DNS Hijack Data Leak - $0
 
 ## 2021
 
-### 2021-03-05: Paid Network - Private key of admin contract(s) compromised, take over protocol contracts, steal funds, update contracts, steal more funds - $27M  
+### 2021-03-05: Paid Network - Private key of admin contract(s) compromised, take over protocol contracts, steal funds, update contracts, steal more funds - $27M
 - https://rekt.news/paid-rekt/
 
-### 2021-03-14: Roll Private Keys Compromised - $5.7M  
+### 2021-03-14: Roll Private Keys Compromised - $5.7M
 - https://rekt.news/roll-rekt/
 
-### 2021-07-30: Levyathan Private Key Compromised $1.5M  
+### 2021-07-30: Levyathan Private Key Compromised $1.5M
 - https://rekt.news/levyathan-rekt/
 
 ### 2021-08: Poly Network Exploit - $610M
-- An attacker exploited cross-chain relay contracts to extract Poly Network funds from three different chains: Ethereum, BSC, and Polygon. 
+- An attacker exploited cross-chain relay contracts to extract Poly Network funds from three different chains: Ethereum, BSC, and Polygon.
 - The attacker ultimately returned the stolen funds.
 - A ‘white hat’ hacker pulled off the largest single cryptocurrency hack this year, claiming to have done it to expose the security hole in the ‘cross chain’ smart contracts used by the company.
-- The company went on to suspend transactions and fix the bug, even as it negotiated with the hacker and exchanges to freeze the stolen cryptocurrency temporarily. 
-- The entire stolen amount was retrieved over the course of a week, with no loss to customers. 
+- The company went on to suspend transactions and fix the bug, even as it negotiated with the hacker and exchanges to freeze the stolen cryptocurrency temporarily.
+- The entire stolen amount was retrieved over the course of a week, with no loss to customers.
 - They offered a job and a reward of $500,000, which the hacker turned down, but later grumbled about getting no reward.
-- Poly Network is a decentralised finance (DeFi) platform that allows users to lend, borrow and trade cryptocurrencies at a profit. 
+- Poly Network is a decentralised finance (DeFi) platform that allows users to lend, borrow and trade cryptocurrencies at a profit.
 - Smart contracts are built into a crypto token, with self-executing terms that define what the token should do under different circumstances, for example, sell to entity X at $17.99 if price falls below $18.
 
-### 2021-08-18: Liquid.com - CEX Hack 
+### 2021-08-18: Liquid.com - CEX Hack
 - Liquid hackers have continued to move expeditiously to convert assets to ETH and launder those ETH through Tornado.cash
 - 107 BTC, 9M TRON, 11M XRP, $60M in ERC-20s $91M
 - Ethereum-based assets accounted for over 78% of the loss.
-- The hackers routed a part of their loot through decentralised platforms like UniSwap, while assets transferred to other large crypto exchanges were frozen on Liquid’s request. 
+- The hackers routed a part of their loot through decentralised platforms like UniSwap, while assets transferred to other large crypto exchanges were frozen on Liquid’s request.
 - The Japanese exchange resumed trading after transferring unaffected funds to cold wallets  and upgrading security to implement secure vaults.
 - By the end of August, Liquid had said there would be “no impact on user balances.” To compensate users and cover their own losses, the company raised $120M as a loan from the FTX crypto exchange.
-- They immediately swapped stolen USDT-on-TRON to TRON within a matter of minutes using a DEX. 
+- They immediately swapped stolen USDT-on-TRON to TRON within a matter of minutes using a DEX.
 - The quick swaps may be a result of lessons learned from the Poly.Network attack, in which stolen USDT was frozen almost immediately by Tether.
-- The hacker also converted ERC-20 tokens into native Ether at a rapid pace. 
+- The hacker also converted ERC-20 tokens into native Ether at a rapid pace.
 - Once converted, the hacker appears content to sit on the haul, pooling almost 15,000 ETH, worth roughly $45 million, in a single address.
-- It appears the hacker's ultimate goal is to convert their ETH to BTC using DeFi protocols. 
+- It appears the hacker's ultimate goal is to convert their ETH to BTC using DeFi protocols.
 - Whoever hacked Liquid seems to have had a thorough plan in place prior to acting, and is executing that plan with ruthless efficiency.
-- TRX TSpcue3bDfZNTP1CutrRrDxRPeEvWhuXbp 
-- XRP rfapBqj7rUkGju7oHTwBwhEyXgwkEM4yby 
+- TRX TSpcue3bDfZNTP1CutrRrDxRPeEvWhuXbp
+- XRP rfapBqj7rUkGju7oHTwBwhEyXgwkEM4yby
 - 0x5578840aae68682a9779623fa9e8714802b59946
-- 0x11cf04ee89c9ef56d9ef6126e914286770b8571f 
-- 0x262feb0550F3b6927ee5CBaa2fcfF77c1D270dbe 
-- 0x5D2C9f717Da427a9c8Cc20c44EA57BA61d5bc457 
-- 0x5d8ecef85058b33cc7130b975cfe07b548fee50a 
-- 0xaf9bdc92c920415cbcb8572a2dcb8aade778312b 
-- 0xc4af9d67850ed5523b876b2276656170689162ce 
-- 0xD66D9EC7f0D89E0E6698953a7f44158552fbaf8f 
-- 0xec06a00df7fe291c9f872449385bd593e38d8133 
-- 0xefb33ccafc98d5fdb27a6f5ff17350ca76bf3b53 
-- 0xF87694E29C55D8B971c851ed5936eaC65BAbFbC1 
-- 0xff0f573bdf4c23e41ea3ecd82efa66828706b711 
-- 12PKkwoFkXp6JtN7roWRA2gSitE6nVDds4 
-- 13Vsw6YXm6e4zpj48y3orV1rHtd3A42Xzg 
-- 14Gm6XdWuRPetSsgktkiBWFMfaMqxrKfGn 
+- 0x11cf04ee89c9ef56d9ef6126e914286770b8571f
+- 0x262feb0550F3b6927ee5CBaa2fcfF77c1D270dbe
+- 0x5D2C9f717Da427a9c8Cc20c44EA57BA61d5bc457
+- 0x5d8ecef85058b33cc7130b975cfe07b548fee50a
+- 0xaf9bdc92c920415cbcb8572a2dcb8aade778312b
+- 0xc4af9d67850ed5523b876b2276656170689162ce
+- 0xD66D9EC7f0D89E0E6698953a7f44158552fbaf8f
+- 0xec06a00df7fe291c9f872449385bd593e38d8133
+- 0xefb33ccafc98d5fdb27a6f5ff17350ca76bf3b53
+- 0xF87694E29C55D8B971c851ed5936eaC65BAbFbC1
+- 0xff0f573bdf4c23e41ea3ecd82efa66828706b711
+- 12PKkwoFkXp6JtN7roWRA2gSitE6nVDds4
+- 13Vsw6YXm6e4zpj48y3orV1rHtd3A42Xzg
+- 14Gm6XdWuRPetSsgktkiBWFMfaMqxrKfGn
 - 158khNHxJksxCmWKitms8sATHJpmpzFRtS
-- 1BuEFBns18qmG73ZAA9Pz3f2cWB6UiihuB 
-- 1Fx1bhbCwp5LU2gHxfRNiSHi1QSHwZLf7q 
-- 1JW1tcBXp1vZ6KGEirFNSXb5RgZSaL63Av 
-- 1KNkqryYzeCX36qGhREAsCenowSQqZaKuf 
+- 1BuEFBns18qmG73ZAA9Pz3f2cWB6UiihuB
+- 1Fx1bhbCwp5LU2gHxfRNiSHi1QSHwZLf7q
+- 1JW1tcBXp1vZ6KGEirFNSXb5RgZSaL63Av
+- 1KNkqryYzeCX36qGhREAsCenowSQqZaKuf
 - https://trmlabs.com/post/liquid-hack-the-second-time-around
 - https://blog.liquid.com/warm-wallet-incident
 - https://businessinsider.in/investment/news/hackers-raided-a-japanese-crypto-exchange-and-seized-up-to-74-million-in-assets-report-says/articleshow/85452714.cms
@@ -180,12 +180,12 @@ Well...maybe some are. 🫠
 
 ### 2021-Nov: Boy X Highspeed (BXH) – $139M "inside job"
 - An unidentified member of BXH's technical team allegedly leaked an administrator's private key.
-- A leaked administrator key [lost BXH](https://twitter.com/BXH_Blockchain/status/1454366374353010695)a large part of their holdings on the Binance Smart Chain (BSC). 
-- Withdrawals on their BSC blockchain were suspended the same day, resuming only[four weeks later](https://bxh.gitbook.io/bxh/v/english/notice/bxh.com-opens-token-withdrawal-on-bsc). 
+- A leaked administrator key [lost BXH](https://twitter.com/BXH_Blockchain/status/1454366374353010695)a large part of their holdings on the Binance Smart Chain (BSC).
+- Withdrawals on their BSC blockchain were suspended the same day, resuming only[four weeks later](https://bxh.gitbook.io/bxh/v/english/notice/bxh.com-opens-token-withdrawal-on-bsc).
 - Their security sweep took a week, with all security loopholes claimed to be eliminated within two weeks of the attack.
-- Their CEO and [PeckShield](https://twitter.com/peckshield/status/1455095236707774469), an independent blockchain security researcher, both speculated that this exploit could be an ‘inside job’. 
-- The company offered [a reward](https://twitter.com/BXH_Blockchain/status/1455740206628343809)of upto $10M to identify the hackers, though no further announcement has been made regarding identification. 
-- ‘A reasonable compensation plan’ [is held out](https://twitter.com/BXH_Blockchain/status/1455837982867349504) for users whose digital assets were affected. 
+- Their CEO and [PeckShield](https://twitter.com/peckshield/status/1455095236707774469), an independent blockchain security researcher, both speculated that this exploit could be an ‘inside job’.
+- The company offered [a reward](https://twitter.com/BXH_Blockchain/status/1455740206628343809)of upto $10M to identify the hackers, though no further announcement has been made regarding identification.
+- ‘A reasonable compensation plan’ [is held out](https://twitter.com/BXH_Blockchain/status/1455837982867349504) for users whose digital assets were affected.
 - BXH is a decentralised exchange, with support for trading across multiple blockchains.
 - https://bscscan.com/tokentxns?a=0x48C94305BDDfd80c6F4076963866D968Cac27d79&p=6
 
@@ -195,25 +195,25 @@ Well...maybe some are. 🫠
 - Matches IOTA Trinity Wallet Hack from Feb 2020 https://twitter.com/tayvano_/status/1516056153553133572
 - malicious code was injected into the platform’s website front-end almost a month in advance"
 - Hackers pilfered Bitcoin and Ethereum based assets from dozens of user wallets, in a [strategically planned](https://badger.com/technical-post-mortem) attack – malicious code was injected into the platform’s website front-end almost a month in advance.
-- PeckShield, a blockchain security firm identified the single biggest loss, of 896 Bitcoin from one wallet, which is worth $44M at current prices. 
-- The DAO had suspended activity upon learning of the attack, but completed its investigation in a week and returned to normal operation. 
+- PeckShield, a blockchain security firm identified the single biggest loss, of 896 Bitcoin from one wallet, which is worth $44M at current prices.
+- The DAO had suspended activity upon learning of the attack, but completed its investigation in a week and returned to normal operation.
 - The Badger community is considering plans to recover lost funds, and solutions for[reimbursing losses](https://badger.com/exploit/updates).
 - The crypto lending platform[BadgerDAO](https://businessinsider.in/investment/news/hackers-steal-120-million-from-defi-protocol-badgerdao-platform-hits-indefinite-pause-on-all-smart-contract-activity/articleshow/88068762.cms)is a decentralized autonomous organization (DAO), initially setup by Celsius Network, which is a Centralised Finance (CeFi) for loans on crypto assets.
 
 ### 2021-Dec: AscendEX – $77.7M
-- Hackers broke into the [hot wallet of AscendEX](https://businessinsider.in/investment/news/ascendex-hack-wipes-out-77-7-million-ethereum-eth-polygon-matic-and-bsc-tokens-take-the-biggest-hit/articleshow/88255556.cms), a Singapore-based cryptocurrency exchange. 
+- Hackers broke into the [hot wallet of AscendEX](https://businessinsider.in/investment/news/ascendex-hack-wipes-out-77-7-million-ethereum-eth-polygon-matic-and-bsc-tokens-take-the-biggest-hit/articleshow/88255556.cms), a Singapore-based cryptocurrency exchange.
 - According to the blockchain security firm [PeckShield](https://twitter.com/peckshield/status/1469915194004766722), almost 77% of the total loss consisted of assets based on the Ethereum blockchain.
-- The exchange confirmed that their cold wallets were not affected, and that any affected users will be “[covered completely](https://twitter.com/AscendEX_Global/status/1469886844787691528).” Deposit and withdrawal services were suspended for a security review, but trading services had resumed in a week. 
+- The exchange confirmed that their cold wallets were not affected, and that any affected users will be “[covered completely](https://twitter.com/AscendEX_Global/status/1469886844787691528).” Deposit and withdrawal services were suspended for a security review, but trading services had resumed in a week.
 - The company announced on December 23 that [deposits and withdrawals had resumed](https://twitter.com/AscendEX_Global/status/1473850853899579393)for most major currencies.
 
 ### 2021-Dec: Vulcan Forged – $135M
-- Hackers helped themselves to the crypto wallet private keys of 96 users, out of a [total of 6501](https://etherscan.io/token/0x9534ad65fb398e27ac8f4251dae1780b989d136e#balances) at the time. 
-- They went on to steal 9% of all available PYR tokens (4.5M PYR), leaving a loss of $135M. 
+- Hackers helped themselves to the crypto wallet private keys of 96 users, out of a [total of 6501](https://etherscan.io/token/0x9534ad65fb398e27ac8f4251dae1780b989d136e#balances) at the time.
+- They went on to steal 9% of all available PYR tokens (4.5M PYR), leaving a loss of $135M.
 - Affected users have been [promised reimbursement](https://twitter.com/VulcanForged/status/1470298466366730246) from the company’s own reserves.
-- The CEO Jamie Thomson has said they will use decentralised wallets, to prevent such issues in the future. 
+- The CEO Jamie Thomson has said they will use decentralised wallets, to prevent such issues in the future.
 - The company has placed a bounty of $500,000 [to identify the hacker](https://twitter.com/VulcanForged/status/1474022215284834313), and also coordinated with large exchanges to try and [prevent](https://twitter.com/VulcanForged/status/1472614515942596608)the hackers from selling the stolen tokens.
-- Vulcan Forged calls itself a GameFi game studio that makes play-to-earn (P2E) games such as Vulcan Verse and Vulcan Chess, that operate using their own [PYR tokens](https://vulcanforged.com/assets/pdf/whitepaper.pdf)and NFTs. 
-- It runs an NFT marketplace to enable players to cash out, and a decentralized exchange (DEX) to trade cryptocurrency. 
+- Vulcan Forged calls itself a GameFi game studio that makes play-to-earn (P2E) games such as Vulcan Verse and Vulcan Chess, that operate using their own [PYR tokens](https://vulcanforged.com/assets/pdf/whitepaper.pdf)and NFTs.
+- It runs an NFT marketplace to enable players to cash out, and a decentralized exchange (DEX) to trade cryptocurrency.
 - The studio was planning upgrades for the PYR currency, but the hack dropped its price by 26% lowered its market cap by 35%.
 - Private keys function like digital signatures, proving ownership of a ‘wallet address’ and permitting transactions only by the key holder.
 - https://rekt.news/vulcan-forged-rekt/
@@ -221,20 +221,20 @@ Well...maybe some are. 🫠
 ### 2021-Dec: BitMart CEX Hack – $196M
 - A stolen private key enabled hackers to breach security of two hot wallets.
 - Announcing the discovery of this loss [on Twitter](https://twitter.com/sheldonbitmart/status/1467316252855226368), the company said $100M of the loss was on the Ethereum blockchain.
-- The [exchange froze](https://businessinsider.in/investment/news/bitmart-suspends-withdrawals-after-hackers-drained-almost-200-million-in-cryptocurrencies-using-a-stolen-private-key/articleshow/88125721.cms) deposit and withdrawal for a couple of days, during which time they announced a [security upgrade](https://support.bmx.fund/hc/en-us/articles/4412257835035--Important-Notice-BitMart-Security-Upgrade-New-Deposit-Addresses). 
+- The [exchange froze](https://businessinsider.in/investment/news/bitmart-suspends-withdrawals-after-hackers-drained-almost-200-million-in-cryptocurrencies-using-a-stolen-private-key/articleshow/88125721.cms) deposit and withdrawal for a couple of days, during which time they announced a [security upgrade](https://support.bmx.fund/hc/en-us/articles/4412257835035--Important-Notice-BitMart-Security-Upgrade-New-Deposit-Addresses).
 - BitMart’s CEO Sheldon Xia announced they would talk to crypto project teams [to identify solutions](https://businessinsider.in/investment/news/bitmart-says-its-resumed-crypto-withdrawals-three-days-after-hackers-stole-almost-200-million-in-funds/articleshow/88169039.cms), and use the company’s [own funding](https://twitter.com/sheldonbitmart/status/1467722582845702149)to compensate affected users.
 - tps://rekt.news/bitmart-rekt/
 
 ## 2022
 
-### 2022-Jan-08: LCX - $7,940,000  
+### 2022-Jan-08: LCX - $7,940,000
 - https://rekt.news/lcx-rekt/
 
 ### 2022-Feb-09: Dego Finance - $10,000,000
 - https://rekt.news/dego-finance-rekt/
 
-### 2022-Mar: Pirate X Pirate - Private Key Compromised - $83k  
-- https://quadrigainitiative.com/casestudy/piratexpirateprivatekeyleak.php 
+### 2022-Mar: Pirate X Pirate - Private Key Compromised - $83k
+- https://quadrigainitiative.com/casestudy/piratexpirateprivatekeyleak.php
 
 ## 2023
 

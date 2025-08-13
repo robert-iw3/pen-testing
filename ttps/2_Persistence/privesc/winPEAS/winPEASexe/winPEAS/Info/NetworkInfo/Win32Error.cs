@@ -1,6 +1,6 @@
 ﻿namespace winPEAS.Info.NetworkInfo
 {
-    // Defined at https://msdn.microsoft.com/en-us/library/cc231199.aspx    
+    // Defined at https://msdn.microsoft.com/en-us/library/cc231199.aspx
     internal class Win32Error
     {
         public const int Success = 0;

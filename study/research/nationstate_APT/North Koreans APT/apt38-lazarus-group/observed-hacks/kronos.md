@@ -10,7 +10,7 @@ Tags:: 🔐
 
 ## Details
 
-Kronos Research, a Taipei-based trading firm, market maker, and VC fund, was hacked after an attacker gained access to Kronos’s API keys, the company said in a post on X. 
+Kronos Research, a Taipei-based trading firm, market maker, and VC fund, was hacked after an attacker gained access to Kronos’s API keys, the company said in a post on X.
 
 The cryptocurrency trading firm Kronos Research announced on Twitter that they had stopped trading while they investigated "unauthorized access of some of our API keys". They claimed that "potential losses are not a significant portion of our equity". They later confirmed the loss at around $26 million.
 

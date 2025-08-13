@@ -589,11 +589,11 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
     case TY_CTL('P'): /* DLE: ignored                      */
         break;
     case TY_CTL('Q'): /* DC1: XON continue                 */
-        break;         
+        break;
     case TY_CTL('R'): /* DC2: ignored                      */
         break;
     case TY_CTL('S'): /* DC3: XOFF halt                    */
-        break;         
+        break;
     case TY_CTL('T'): /* DC4: ignored                      */
         break;
     case TY_CTL('U'): /* NAK: ignored                      */
@@ -605,13 +605,13 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
     case TY_CTL('X'):
         _currentScreen->displayCharacter(0x2592);
         dupDisplayCharacter(0x2592);
-        break;         
+        break;
     case TY_CTL('Y'): /* EM : ignored                      */
         break;
     case TY_CTL('Z'):
         _currentScreen->displayCharacter(0x2592);
         dupDisplayCharacter(0x2592);
-        break;         
+        break;
     case TY_CTL('['): /* ESC: cannot be seen here.         */
         break;
     case TY_CTL('\\'): /* FS : ignored                      */
@@ -706,9 +706,9 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
         break;
 
     case TY_ESC_CS('%', 'G'): /*No longer updating codec*/
-        break;                 
+        break;
     case TY_ESC_CS('%', '@'): /*No longer updating codec*/
-        break;                 
+        break;
 
     case TY_ESC_DE('3'): /* Double height line, top half    */
         _currentScreen->setLineProperty(LINE_DOUBLEWIDTH, true);
@@ -773,7 +773,7 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
         setMode(MODE_NewLine);
         break;
     case TY_CSI_PS('i', 0): /* IGNORE: attached printer          */
-        break;               
+        break;
     case TY_CSI_PS('l', 4):
         _currentScreen->resetMode(MODE_Insert);
         break;
@@ -818,11 +818,11 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
         _currentScreen->setRendition(RE_OVERLINE);
         break;
     case TY_CSI_PS('m', 10): /* IGNORED: mapping related          */
-        break;                
+        break;
     case TY_CSI_PS('m', 11): /* IGNORED: mapping related          */
-        break;                
+        break;
     case TY_CSI_PS('m', 12): /* IGNORED: mapping related          */
-        break;                
+        break;
     case TY_CSI_PS('m', 21):
         _currentScreen->resetRendition(RE_BOLD);
         break;
@@ -975,15 +975,15 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
         reportCursorPosition();
         break;
     case TY_CSI_PS('q', 0): /* IGNORED: LEDs off                 */
-        break;               
+        break;
     case TY_CSI_PS('q', 1): /* IGNORED: LED1 on                  */
-        break;               
+        break;
     case TY_CSI_PS('q', 2): /* IGNORED: LED2 on                  */
-        break;               
+        break;
     case TY_CSI_PS('q', 3): /* IGNORED: LED3 on                  */
-        break;               
+        break;
     case TY_CSI_PS('q', 4): /* IGNORED: LED4 on                  */
-        break;               
+        break;
     case TY_CSI_PS('x', 0):
         reportTerminalParms(2);
         break;
@@ -1076,9 +1076,9 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
         break;
     case TY_CSI_PN('r'):
         setMargins(p, q);
-        break;            
+        break;
     case TY_CSI_PN('y'): /* IGNORED: Confidence test          */
-        break;            
+        break;
 
     case TY_CSI_PR('h', 1):
         setMode(MODE_AppCuKeys);
@@ -1105,9 +1105,9 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
         break;
 
     case TY_CSI_PR('h', 4): /* IGNORED: soft scrolling           */
-        break;               
+        break;
     case TY_CSI_PR('l', 4): /* IGNORED: soft scrolling           */
-        break;               
+        break;
 
     case TY_CSI_PR('h', 5):
         _currentScreen->setMode(MODE_Screen);
@@ -1143,31 +1143,31 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
         break;
 
     case TY_CSI_PR('h', 8): /* IGNORED: autorepeat on            */
-        break;               
+        break;
     case TY_CSI_PR('l', 8): /* IGNORED: autorepeat off           */
-        break;               
+        break;
     case TY_CSI_PR('s', 8): /* IGNORED: autorepeat on            */
-        break;               
+        break;
     case TY_CSI_PR('r', 8): /* IGNORED: autorepeat off           */
-        break;               
+        break;
 
     case TY_CSI_PR('h', 9): /* IGNORED: interlace                */
-        break;               
+        break;
     case TY_CSI_PR('l', 9): /* IGNORED: interlace                */
-        break;               
+        break;
     case TY_CSI_PR('s', 9): /* IGNORED: interlace                */
-        break;               
+        break;
     case TY_CSI_PR('r', 9): /* IGNORED: interlace                */
-        break;               
+        break;
 
     case TY_CSI_PR('h', 12): /* IGNORED: Cursor blink             */
-        break;                
+        break;
     case TY_CSI_PR('l', 12): /* IGNORED: Cursor blink             */
-        break;                
+        break;
     case TY_CSI_PR('s', 12): /* IGNORED: Cursor blink             */
-        break;                
+        break;
     case TY_CSI_PR('r', 12): /* IGNORED: Cursor blink             */
-        break;                
+        break;
 
     case TY_CSI_PR('h', 25):
         setMode(MODE_Cursor);
@@ -1190,13 +1190,13 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
         break;
 
     case TY_CSI_PR('h', 41): /* IGNORED: obsolete more(1) fix     */
-        break;                
+        break;
     case TY_CSI_PR('l', 41): /* IGNORED: obsolete more(1) fix     */
-        break;                
+        break;
     case TY_CSI_PR('s', 41): /* IGNORED: obsolete more(1) fix     */
-        break;                
+        break;
     case TY_CSI_PR('r', 41): /* IGNORED: obsolete more(1) fix     */
-        break;                
+        break;
 
     case TY_CSI_PR('h', 47):
         setMode(MODE_AppScreen);
@@ -1212,13 +1212,13 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
         break;
 
     case TY_CSI_PR('h', 67): /* IGNORED: DECBKM                   */
-        break;                
+        break;
     case TY_CSI_PR('l', 67): /* IGNORED: DECBKM                   */
-        break;                
+        break;
     case TY_CSI_PR('s', 67): /* IGNORED: DECBKM                   */
-        break;                
+        break;
     case TY_CSI_PR('r', 67): /* IGNORED: DECBKM                   */
-        break;                
+        break;
 
     case TY_CSI_PR('h', 1000):
         setMode(MODE_Mouse1000);
@@ -1234,14 +1234,14 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
         break;
 
     case TY_CSI_PR('h', 1001): /* IGNORED: hilite mouse tracking    */
-        break;                  
+        break;
     case TY_CSI_PR('l', 1001):
         resetMode(MODE_Mouse1001);
-        break;                  
+        break;
     case TY_CSI_PR('s', 1001): /* IGNORED: hilite mouse tracking    */
-        break;                  
+        break;
     case TY_CSI_PR('r', 1001): /* IGNORED: hilite mouse tracking    */
-        break;                  
+        break;
 
     case TY_CSI_PR('h', 1002):
         setMode(MODE_Mouse1002);
@@ -1316,7 +1316,7 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q) {
         break;
 
     case TY_CSI_PR('h', 1034): /* IGNORED: 8bitinput activation     */
-        break;                  
+        break;
 
     case TY_CSI_PR('h', 1047):
         setMode(MODE_AppScreen);
@@ -1460,9 +1460,9 @@ void Vt102Emulation::reportTerminalType() {
 
 void Vt102Emulation::reportSecondaryAttributes() {
     if (getMode(MODE_Ansi))
-        sendString("\033[>0;115;0c"); 
+        sendString("\033[>0;115;0c");
     else
-        sendString("\033/Z"); 
+        sendString("\033/Z");
 }
 
 void Vt102Emulation::reportTerminalParms(int p)
@@ -1494,7 +1494,7 @@ void Vt102Emulation::sendMouseEvent(int cb, int cx, int cy, int eventType) {
         cb += 0x3c;
 
     if ((getMode(MODE_Mouse1002) || getMode(MODE_Mouse1003)) && eventType == 1)
-        cb += 0x20; 
+        cb += 0x20;
 
     char command[64];
     command[0] = '\0';

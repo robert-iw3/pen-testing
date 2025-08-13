@@ -1,5 +1,5 @@
 # Check-LocalAdminHash
-Check-LocalAdminHash is a PowerShell tool that attempts to authenticate to multiple hosts over either WMI or SMB using a password hash to determine if the provided credential is a local administrator. It's useful if you obtain a password hash for a user and want to see where they are local admin on a network. It is essentially a Frankenstein of two of my favorite tools along with some of my own code. It utilizes Kevin Robertson's (@kevin_robertson) Invoke-TheHash project for the credential checking portion. Additionally, the script utilizes modules from PowerView by Will Schroeder (@harmj0y) and Matt Graeber (@mattifestation) to enumerate domain computers to find targets for testing admin access against. 
+Check-LocalAdminHash is a PowerShell tool that attempts to authenticate to multiple hosts over either WMI or SMB using a password hash to determine if the provided credential is a local administrator. It's useful if you obtain a password hash for a user and want to see where they are local admin on a network. It is essentially a Frankenstein of two of my favorite tools along with some of my own code. It utilizes Kevin Robertson's (@kevin_robertson) Invoke-TheHash project for the credential checking portion. Additionally, the script utilizes modules from PowerView by Will Schroeder (@harmj0y) and Matt Graeber (@mattifestation) to enumerate domain computers to find targets for testing admin access against.
 
 ![alt text](http://www.dafthack.com/Check-LocalAdminHash-Example.jpg)
 
@@ -56,7 +56,7 @@ UserDomain - This is the user's domain to authenticate to each system with. Don'
 Protocol - This is the setting for whether to check the hash using WMI or SMB. Default is 'WMI' but set it to 'SMB' to check that instead.
 CIDR - Specify a CIDR form network range such as 192.168.0.0/24
 Threads - Defaults to 5 threads. (I've run into some odd issues setting threads more than 15 with some results not coming back.)
-ExfilPSReadline - For each system where auth is successful it runs a PowerShell command to locate PSReadLine console history files (PowerShell command history) and then POSTS them to a web server. See the Readme for server setup. 
+ExfilPSReadline - For each system where auth is successful it runs a PowerShell command to locate PSReadLine console history files (PowerShell command history) and then POSTS them to a web server. See the Readme for server setup.
 ```
 
 ## PSReadline Exfiltration Setup
@@ -71,7 +71,7 @@ ExfilPSReadline - For each system where auth is successful it runs a PowerShell 
   ``mkdir /var/www/html/uploads
 ``
 
-  * Modify the permissions of this directory 
+  * Modify the permissions of this directory
 
   ``chmod 0777 /var/www/html/uploads
 ``
@@ -82,7 +82,7 @@ ExfilPSReadline - For each system where auth is successful it runs a PowerShell 
 ``
 
   * Restart Apache
-  
+
   ``service apache2 restart
 ``
 

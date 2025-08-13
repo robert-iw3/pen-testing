@@ -102,7 +102,7 @@ const useMotherOfAllHooks = <ResultType = any>(params: UseIpAddressProps<ResultT
 
     // Initiate the data fetching process
     doTheFetch().catch(() => {});
-    
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, addressType]);
 

@@ -127,8 +127,8 @@ lkd> dt FLTMGR!_GLOBALS fffff800`35090740
    +0x030 ControlDeviceObject : 0xffffa801`6c077900 _DEVICE_OBJECT
    +0x038 DriverObject     : 0xffffa801`6c0776e0 _DRIVER_OBJECT
    +0x040 KtmTransactionManagerHandle : 0xffffffff`800001fc Void
-   +0x048 TxVolKtmResourceManagerHandle : (null) 
-   +0x050 TxVolKtmResourceManager : (null) 
+   +0x048 TxVolKtmResourceManagerHandle : (null)
+   +0x050 TxVolKtmResourceManager : (null)
    <mark>+0x058 FrameList        : _FLT_RESOURCE_LIST_HEAD
                                     [+0x068] rList [Type: _LIST_ENTRY]</mark>
 lkd> dqs fffff800`35090740 + 0x058 + 0x068 L2
@@ -206,7 +206,7 @@ dt FLTMGR!_FLT_OPERATION_REGISTRATION 0xffffa801`6e76a2d0
    +0x004 Flags            : 0
    <mark>+0x008 PreOperation     : 0xfffff800`39fd7830     _FLT_PREOP_CALLBACK_STATUS  bindflt!BfPreCreate+0
    +0x010 PostOperation    : 0xfffff800`39fcf3b0     _FLT_POSTOP_CALLBACK_STATUS  bindflt!BfPostCreate+0</mark>
-   +0x018 Reserved1        : (null) 
+   +0x018 Reserved1        : (null)
 </pre>
 
 The function will add Each operation to the list and go to the next one by adding the size of the operation structure (FLTMGR!_FLT_OPERATION_REGISTRATION)
@@ -272,12 +272,12 @@ ffffa801`6c427180  ffffc20e`bfc9a7d0
 dt FLTMGR!_CALLBACK_NODE ffffc20e`bfc9a7d0
    +0x000 CallbackLinks    : _LIST_ENTRY
    +0x010 Instance         : Ptr64 _FLT_INSTANCE
-   <mark>+0x018 PreOperation     : Ptr64     _FLT_PREOP_CALLBACK_STATUS 
+   <mark>+0x018 PreOperation     : Ptr64     _FLT_PREOP_CALLBACK_STATUS
    +0x020 PostOperation    : Ptr64     _FLT_POSTOP_CALLBACK_STATUS </mark>
-   +0x018 GenerateFileName : Ptr64     long 
-   +0x018 NormalizeNameComponent : Ptr64     long 
-   +0x018 NormalizeNameComponentEx : Ptr64     long 
-   +0x020 NormalizeContextCleanup : Ptr64     void 
+   +0x018 GenerateFileName : Ptr64     long
+   +0x018 NormalizeNameComponent : Ptr64     long
+   +0x018 NormalizeNameComponentEx : Ptr64     long
+   +0x020 NormalizeContextCleanup : Ptr64     void
    +0x028 Flags            : _CALLBACK_NODE_FLAGS
 </pre>
 

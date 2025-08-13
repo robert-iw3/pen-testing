@@ -12,7 +12,7 @@
 
 @interface Kexts : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

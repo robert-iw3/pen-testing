@@ -11,9 +11,9 @@ namespace TeamFiltration.Models.SharePoint
     {
         [JsonProperty("odata.context")]
         public string odatacontext { get; set; }
-        
+
         [JsonProperty("odata.etag")]
-      
+
         public string odataetag { get; set; }
         public Createdby createdBy { get; set; }
         public DateTime createdDateTime { get; set; }
@@ -30,7 +30,7 @@ namespace TeamFiltration.Models.SharePoint
         public Fields fields { get; set; }
     }
 
-   
+
 
     public class Fields
     {
@@ -56,5 +56,5 @@ namespace TeamFiltration.Models.SharePoint
         public string _ComplianceTagUserId { get; set; }
     }
 
-    
+
 }

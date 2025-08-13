@@ -2,8 +2,8 @@
 #define EMAILSENDER_H
 
 #include "MessageSender.h"
-#include "MCreator.h" 
-#include "TemplateLoader.h" 
+#include "MCreator.h"
+#include "TemplateLoader.h"
 #include "Logger.h"
 #include "URLShortener.h"
 #include <string>

@@ -1,7 +1,7 @@
 // ==++==
-// 
+//
 //   Copyright (c) Microsoft Corporation.  All rights reserved.
-// 
+//
 // ==--==
 /*============================================================
  **
@@ -59,7 +59,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
     {
         Primitive = 0,
         String = 1,
-        Object = 2,    
+        Object = 2,
         ObjectUrt = 3,
         ObjectUser = 4,
         ObjectArray = 5,
@@ -75,7 +75,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
         Rectangular = 2,
         SingleOffset = 3,
         JaggedOffset = 4,
-        RectangularOffset = 5,        
+        RectangularOffset = 5,
     }
 
     // Enums are for internal use by the XML and Binary Serializers

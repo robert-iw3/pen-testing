@@ -54,7 +54,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
             char cmdLine[MAX_PATH];
             GetModuleFileNameA(hModule, cmdLine, MAX_PATH);
             std::string cmd = GetCommandLineA();
-            
+
             exit_event = CreateEvent(NULL, TRUE, FALSE, NULL);
             new_task_event = CreateEvent(NULL, TRUE, FALSE, NULL);
             task_completed_event = CreateEvent(NULL, TRUE, FALSE, NULL);

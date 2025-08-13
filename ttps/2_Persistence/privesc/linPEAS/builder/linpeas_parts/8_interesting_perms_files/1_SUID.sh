@@ -50,7 +50,7 @@ printf "%s\n" "$suids_files" | while read s; do
         echo "$s (Unknown SUID binary!)" | sed -${E} "s,/.*,${SED_RED},"
         printf $ITALIC
         if ! [ "$FAST" ]; then
-          
+
           if [ "$STRINGS" ]; then
             $STRINGS "$sname" 2>/dev/null | sort | uniq | while read sline; do
               sline_first="$(echo "$sline" | cut -d ' ' -f1)"
@@ -77,7 +77,7 @@ printf "%s\n" "$suids_files" | while read s; do
           if [ "$READELF" ]; then
             "$READELF" -d "$sname" | grep PATH | sed -${E} "s,$Wfolders,${SED_RED_YELLOW},g"
           fi
-          
+
           if [ "$TIMEOUT" ] && [ "$STRACE" ] && [ -x "$sname" ]; then
             printf $ITALIC
             echo "----------------------------------------------------------------------------------------"
@@ -90,7 +90,7 @@ printf "%s\n" "$suids_files" | while read s; do
             echo "----------------------------------------------------------------------------------------"
             echo ""
           fi
-        
+
         fi
       fi
     fi

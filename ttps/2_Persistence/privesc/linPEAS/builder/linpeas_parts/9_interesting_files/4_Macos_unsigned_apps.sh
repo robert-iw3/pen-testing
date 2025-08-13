@@ -6,7 +6,7 @@
 # License: GNU GPL
 # Version: 1.0
 # Functions Used: macosNotSigned, print_2title
-# Global Variables: $MACPEAS 
+# Global Variables: $MACPEAS
 # Initial Functions:
 # Generated Global Variables:
 # Fat linpeas: 0

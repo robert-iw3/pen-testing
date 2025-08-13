@@ -15,7 +15,7 @@ typedef struct Process {
 	std::wstring name;
     std::wstring path;
     UINT32 ProcessId;
-    
+
 } Process, * PProcess;
 
 class WMIConnection {
@@ -23,7 +23,7 @@ public:
 
     BOOL IReady;
     BOOL bInitialized;
-    
+
     WMIConnection(COMWrapper& com_wrapper) : COM(com_wrapper),
         pEnumerator(NULL), pSvc(NULL), pLoc(NULL), hres(NULL),
         currentNamespace(namespaceBuf), bInitialized(FALSE),
@@ -34,22 +34,22 @@ public:
 
     ~WMIConnection() = default;
 
-    
+
     BOOL __stdcall ConnectToNamespace(LPCSTR lpNamespaceIn, BOOL bCalledFromThread)
     {
         char* cNamespace = new CHAR[256];
         wchar_t* lpwNamespace = new WCHAR[256];
         wchar_t* lpwEncodedNamespace = new WCHAR[256];
-        
+
         if (pLoc == nullptr)
             return FALSE;
-        
+
         if (MultiByteToWideChar(CP_ACP, 0, lpNamespaceIn, -1, lpwEncodedNamespace, (strlen(lpNamespaceIn ) + 1) * 2) == 0)
         {
             ILog("Failed to convert namespace to wide char\n");
             goto cleanup;
         }
-        
+
 		IFind.railfence_decipher(5, lpNamespaceIn, cNamespace);
 
         if (MultiByteToWideChar(CP_ACP, 0, cNamespace, -1, lpwNamespace, (strlen(cNamespace) + 1) * 2) == 0)
@@ -58,7 +58,7 @@ public:
             goto cleanup;
         }
 
-        
+
         // Connect to WMI through the IWbemLocator::ConnectServer method
         hres = pLoc->ConnectServer(
             _bstr_t(lpwNamespace), // Object path of WMI namespace
@@ -67,7 +67,7 @@ public:
             0,                       // Locale. NULL indicates current
             NULL,                    // Security flags.
             0,                       // Authority (for example, Kerberos)
-            0,                       // Context object 
+            0,                       // Context object
             &pSvc                    // pointer to IWbemServices proxy
         );
         if (FAILED(hres))
@@ -76,16 +76,16 @@ public:
             goto cleanup;
         }
 
-        // Set security levels on the proxy 
+        // Set security levels on the proxy
         hres = CoSetProxyBlanket(
             pSvc,                        // Indicates the proxy to set
             RPC_C_AUTHN_WINNT,           // RPC_C_AUTHN_xxx
             RPC_C_AUTHZ_NONE,            // RPC_C_AUTHZ_xxx
-            NULL,                        // Server principal name 
-            RPC_C_AUTHN_LEVEL_CALL,      // RPC_C_AUTHN_LEVEL_xxx 
+            NULL,                        // Server principal name
+            RPC_C_AUTHN_LEVEL_CALL,      // RPC_C_AUTHN_LEVEL_xxx
             RPC_C_IMP_LEVEL_IMPERSONATE, // RPC_C_IMP_LEVEL_xxx
             NULL,                        // client identity
-            EOAC_NONE                    // proxy capabilities 
+            EOAC_NONE                    // proxy capabilities
         );
 
         if (FAILED(hres) && !bCalledFromThread)
@@ -101,7 +101,7 @@ public:
         {
             ILog("Connected to %ls WMI namespace\n", lpwNamespace);
         }
-        
+
     cleanup:
         delete[] cNamespace;
         delete[] lpwNamespace;
@@ -110,7 +110,7 @@ public:
         // If we jumped to the cleanup label we've failed
         if (pSvc == nullptr || !pSvc)
             return FALSE;
-        
+
         bConnected = TRUE;
         return TRUE;
     }
@@ -132,7 +132,7 @@ public:
             ILog("Failed to execute method. Error code = 0x%lx\n", hres);
             return hres;
         }
-        
+
         return hres;
     }
 
@@ -142,7 +142,7 @@ private:
     WCHAR namespaceBuf[256];
     IExport IFind;
     IEnumWbemClassObject* pEnumerator;
-    
+
 public:
     LPWSTR currentNamespace;
     BOOL bConnected;
@@ -163,7 +163,7 @@ public:
             this->bInitialized = TRUE;
         }
 
-        // Set general COM security levels 
+        // Set general COM security levels
         if (!bCalledFromThread)
         {
             hres = COM.CoInitializeSecurity(
@@ -171,10 +171,10 @@ public:
                 -1,                          // COM authentication
                 NULL,                        // Authentication services
                 NULL,                        // Reserved
-                RPC_C_AUTHN_LEVEL_DEFAULT,   // Default authentication 
-                RPC_C_IMP_LEVEL_IMPERSONATE, // Default Impersonation  
+                RPC_C_AUTHN_LEVEL_DEFAULT,   // Default authentication
+                RPC_C_IMP_LEVEL_IMPERSONATE, // Default Impersonation
                 NULL,                        // Authentication info
-                EOAC_NONE,                   // Additional capabilities 
+                EOAC_NONE,                   // Additional capabilities
                 NULL                         // Reserved
             );
         }
@@ -241,7 +241,7 @@ class RegistryBindingFast
 {
 public:
     BOOL IReady;
-    
+
     RegistryBindingFast(COMWrapper& COM, WMIConnection& WMI) : COM(COM), WMI(WMI)
     {
         if(WMI.IReady && COM.IReady)
@@ -255,8 +255,8 @@ public:
     {
     }
 
-    HRESULT BindRegistryFilter(_In_ std::wstring sFilterName, 
-        _In_ std::wstring sConsumerName, 
+    HRESULT BindRegistryFilter(_In_ std::wstring sFilterName,
+        _In_ std::wstring sConsumerName,
         _In_ std::wstring sFilterQuery,
         _In_ std::wstring sCommand)
     {
@@ -266,7 +266,7 @@ public:
 
         if (!WMI.bConnected)
             return E_FAIL; // Something is very wrong
-        
+
         HRESULT hres;
         IWbemClassObject* pFilterClass = NULL;
         IWbemClassObject* pConsumerClass = NULL;
@@ -276,7 +276,7 @@ public:
 		IWbemClassObject* pBinding = NULL;
         std::wstring sFilterPath = L"__EventFilter.Name=\"" + sFilterName + L"\"";
         std::wstring sConsumerPath = L"CommandLineEventConsumer.Name=\"" + sConsumerName + L"\"";
-        
+
 		// Get the filter class
 		hres = WMI.pSvc->GetObject(_bstr_t(L"__EventFilter"), 0, NULL, &pFilterClass, NULL);
 		if (FAILED(hres))
@@ -292,7 +292,7 @@ public:
 			ILog("Failed to spawn __EventFilter instance. Error code = 0x%lx\n", hres);
 			return hres;
 		}
-        
+
         // Put name, query and query language
         VARIANT vtProp;
         VariantInit(&vtProp);
@@ -318,7 +318,7 @@ public:
 			goto cleanup;
 			return hres;
 		}
-        
+
         // Set Language = WQL
 		VARIANT vtProp7;
 		VariantInit(&vtProp7);
@@ -342,7 +342,7 @@ public:
 			ILog("Failed to set Namespace property. Error code = 0x%lx\n", hres);
 			goto cleanup;
 		}
-        
+
         // Get the consumer class
 		hres = WMI.pSvc->GetObject(_bstr_t(L"CommandLineEventConsumer"), 0, NULL, &pConsumerClass, NULL);
 		if (FAILED(hres))
@@ -357,7 +357,7 @@ public:
 			ILog("Failed to spawn CommandLineEventConsumer instance. Error code = 0x%lx\n", hres);
 			goto cleanup;
 		}
-        
+
         // Put name and commandline template to consumer
 		VARIANT vtProp3;
 		VariantInit(&vtProp3);
@@ -370,7 +370,7 @@ public:
             goto cleanup;
 		}
 		VariantClear(&vtProp3);
-        
+
 		VARIANT vtProp4;
 		VariantInit(&vtProp4);
 		vtProp4.vt = VT_BSTR;
@@ -381,7 +381,7 @@ public:
 			ILog("Failed to set CommandLineTemplate property on Consumer. Error code = 0x%lx\n", hres);
 			goto cleanup;
 		}
-  //      
+  //
   //      // Set executable path on the consumer
 		//VARIANT vtProp8;
 		//VariantInit(&vtProp8);
@@ -392,8 +392,8 @@ public:
 		//{
 		//	ILog("Failed to set ExecutablePath property on Consumer. Error code = 0x%lx\n", hres);
 		//	goto cleanup;
-		//}   
-        
+		//}
+
         // Get the binding class
 		hres = WMI.pSvc->GetObject(_bstr_t(L"__FilterToConsumerBinding"), 0, NULL, &pBindingClass, NULL);
 		if (FAILED(hres))
@@ -401,7 +401,7 @@ public:
 			ILog("Failed to get __FilterToConsumerBinding class object. Error code = 0x%lx\n", hres);
 			goto cleanup;
 		}
-        
+
 		// Create the binding instance
 		hres = pBindingClass->SpawnInstance(0, &pBinding);
 		if (FAILED(hres))
@@ -417,7 +417,7 @@ public:
             ILog("Failed to spawn __FilterToConsumerBinding instance. Error code = 0x%lx", hres);
             goto cleanup;
         }
-        
+
 		VARIANT vtProp5;
 		VariantInit(&vtProp5);
 		vtProp5.vt = VT_BSTR;
@@ -428,7 +428,7 @@ public:
 			ILog("Failed to set Filter property. Error code = 0x%lx\n", hres);
 			goto cleanup;
 		}
-        
+
 		VARIANT vtProp6;
 		VariantInit(&vtProp6);
 		vtProp6.vt = VT_BSTR;
@@ -439,7 +439,7 @@ public:
 			ILog("Failed to set Consumer property. Error code = 0x%lx\n", hres);
 			goto cleanup;
 		}
-        
+
         // Set the filter, consumer, and filter to consumer binding in WMI
 		hres = WMI.pSvc->PutInstance(pFilter, WBEM_FLAG_CREATE_OR_UPDATE, NULL, NULL);
 		if (FAILED(hres))
@@ -447,7 +447,7 @@ public:
 			ILog("Failed to put filter instance. Error code = 0x%lx\n", hres);
 			goto cleanup;
 		}
-        
+
 		hres = WMI.pSvc->PutInstance(pConsumer, WBEM_FLAG_CREATE_OR_UPDATE, NULL, NULL);
 		if (FAILED(hres))
 		{
@@ -461,7 +461,7 @@ public:
 			ILog("Failed to put binding instance. Error code = 0x%lx\n", hres);
 			goto cleanup;
 		}
-        
+
 
         // Cleanup
         cleanup:
@@ -471,21 +471,21 @@ public:
 			pConsumer->Release();
 		if (pBinding)
 			pBinding->Release();
-   
+
         if(SUCCEEDED(hres))
             ILog("Filter, consumer and binding created successfully\n");
-        
+
 		return hres;
-        
+
     }
 
 private:
-    
+
     BOOL InitializeFilterBinder()
     {
 		return TRUE;
     }
-    
+
     WMIConnection& WMI;
     COMWrapper& COM;
 };

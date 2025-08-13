@@ -11,7 +11,7 @@ Tags:: 💼 IT Workers
 
 Four different devs hired by the Munchables team and linked to the exploiter are likely all the same person as they:
 
-- recommended each other for the job 
+- recommended each other for the job
 
 - regularly transferred payments to the same two exchange deposit addresses >funded each others wallets
 
@@ -36,13 +36,13 @@ Github Usernames:
 
 - 0x6be96b68a46879305c905ccafff02b2519e78055 Rogue Dev
 
-- 0xe362130d4718dc9f86c802ca17fe94041f1cfc77 Binance 
+- 0xe362130d4718dc9f86c802ca17fe94041f1cfc77 Binance
 
 - 0xa56ad44204bbf048807a014b589bd5c9272e42bf MEXC
 
 - 0x84e86b461a3063ad255575b30756bdc4d051a04b MEXC
 
-  
+
 
 ## URLs
 

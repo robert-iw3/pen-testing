@@ -1,5 +1,5 @@
 # TheSprayer
-TheSprayer is a cross-platform tool designed to help penetration testers spray passwords against an Active Directory domain _without_ locking out accounts.  
+TheSprayer is a cross-platform tool designed to help penetration testers spray passwords against an Active Directory domain _without_ locking out accounts.
 
 Several helpful features are enabled by default such as user auto-discovery, current user discovery and a local sqlite db to track sprayed passwords.
 
@@ -20,7 +20,7 @@ TheSprayer.exe -u Users.txt
 ##### Spray a single user and password:
 ```
 TheSprayer.exe -u DomainAdmin -p DefinitelyValidPassword
-``` 
+```
 
 ##### Spray as another user
 ```

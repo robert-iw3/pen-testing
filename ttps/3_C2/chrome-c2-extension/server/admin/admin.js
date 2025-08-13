@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         for (let i = group.startIndex; i <= group.endIndex; i++) {
             const div = document.createElement('div');
             div.className = 'presetGroup';
-            const labelNumber = i - group.startIndex + 1; 
+            const labelNumber = i - group.startIndex + 1;
             div.innerHTML = `
                 <label for="preset${i}">${group.labelPrefix} Preset ${labelNumber}:</label>
                 <input type="number" id="preset${i}" name="preset${i}" placeholder="Enter value" required>

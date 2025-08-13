@@ -1,5 +1,5 @@
 # QakBot's Domain Generation Algorithm
-## Initial Inspection  
+## Initial Inspection
 
 The infected QakBot executable makes several changes to the operating system when run, including copying itself to %APPDATA%/Microsoft/(random name)/, scheduling tasks to run itself again, as well as creating another instance of explorer.exe and injecting malicious code into it. A memory dump of the rogue explorer.exe reveals the likelihood of the DGA being present.
 
@@ -23,7 +23,7 @@ As well as an alphabet string being referenced from code:
 
 ## General Layout
 QakBot's DGA has the following general layout:
-	
+
  * Get the current date by connecting to the internet
  * Calculate the CRC32 checksum of the date string
  * Feed the checksum into a Mersenne Twister random number generator
@@ -54,7 +54,7 @@ The buffer returned by the __recv()__ call is parsed using calls to __StrStr()__
 
 Before the date is used for anything, it is adhered to a certain format, `"%u.%s.%s.%08x"`. From left to right, the values placed into this formatted string are the day, month, year, and a special suffix value. But first, these inputs are modified slightly.
 
-Days are converted from 1-31 to 0-2, by subtracting 1 then dividing by 10, and months are made lowercase. The suffix value is either 0 or 1, depending on the version of QakBot, and this sample uses a value of 1. Using the aforementioned date `"Mon, 01 Jan 2018 00:00:00 GMT"`, the formatted date string would become `"0.jan.2018.00000001"`. 
+Days are converted from 1-31 to 0-2, by subtracting 1 then dividing by 10, and months are made lowercase. The suffix value is either 0 or 1, depending on the version of QakBot, and this sample uses a value of 1. Using the aforementioned date `"Mon, 01 Jan 2018 00:00:00 GMT"`, the formatted date string would become `"0.jan.2018.00000001"`.
 
 ## CRC32 Checksum
 

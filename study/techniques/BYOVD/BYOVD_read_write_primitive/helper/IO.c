@@ -7,7 +7,7 @@ BOOL ReadPayloadFile(IN const char* FileInput, OUT PDWORD pdwPayloadSize, OUT un
 	BOOL	bSTATE = TRUE;
 	HANDLE	hFile = NULL; // Handle to file
 	DWORD	dwFileSize = NULL; // Stores size of file
-	LPVOID	pPayload = NULL; // Stores pointer to the payload 
+	LPVOID	pPayload = NULL; // Stores pointer to the payload
 	DWORD	lpNumberOfBytesRead = NULL; // Stores number of bytes read
 
 	// Open handle to file on disk
@@ -15,9 +15,9 @@ BOOL ReadPayloadFile(IN const char* FileInput, OUT PDWORD pdwPayloadSize, OUT un
 	hFile = CreateFileA(
 		FileInput,				// Name of the ifle
 		GENERIC_READ,			// Request read permissions
-		0,						// Prevents other processes from opening a file or device if they request delete, read, or write access. 
+		0,						// Prevents other processes from opening a file or device if they request delete, read, or write access.
 		NULL,					// Optional can be NULL
-		OPEN_EXISTING,			// Opens a file or device, only if it exists. 
+		OPEN_EXISTING,			// Opens a file or device, only if it exists.
 		FILE_ATTRIBUTE_NORMAL,	// Common default value for file
 		NULL					// Can be NULL
 	);

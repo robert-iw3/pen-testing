@@ -23,7 +23,7 @@ def send_proxy_intent():
     global message_id
     print('Sending proxy intent.')
     dedup_id = str(uuid.uuid4())
-    message_id = queue.send_message(MessageBody='{}', 
+    message_id = queue.send_message(MessageBody='{}',
             MessageDeduplicationId=dedup_id,
             MessageGroupId=dedup_id)['MessageId']
 
@@ -40,7 +40,7 @@ def main():
         help="Port for SOCKS server to listen on (default: 1080)")
     parser.add_argument("-l", "--listen-address", default="127.0.0.1",
         help="Listen address for SOCKS server (default: 127.0.0.1)")
-    parser.add_argument("--base-port", default=32482, type=int, 
+    parser.add_argument("--base-port", default=32482, type=int,
         help="Base listening port to use for SOCKS proxies (default: 32482)")
     args = parser.parse_args()
 
@@ -48,11 +48,11 @@ def main():
     sqs = session.resource('sqs')
     queue = sqs.get_queue_by_name(QueueName='proxy-intents.fifo')
     send_proxy_intent()
-    
+
     # setup graceful termination to remove proxy-intent message
     signal.signal(signal.SIGINT, terminate)
     signal.signal(signal.SIGTERM, terminate)
-    
+
     # sliding window, to ensure messages don't expire while the tool is running
     interval = int(queue.attributes['MessageRetentionPeriod']) / 2
     timer = threading.Timer(interval, send_proxy_intent)

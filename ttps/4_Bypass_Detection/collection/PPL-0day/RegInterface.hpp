@@ -24,7 +24,7 @@ public:
 			ILog("Failed to connect to namespace\n");
 			return E_FAIL; // Something is very wrong
 		}
-		
+
 		BSTR ClassName = SysAllocString(L"StdRegProv");
 		BSTR MethodName = SysAllocString(L"CreateKey");
 		HRESULT hres;
@@ -124,7 +124,7 @@ public:
 			ILog("Failed to connect to namespace\n");
 			return E_FAIL; // Something is very wrong
 		}
-		
+
 		BSTR ClassName = SysAllocString(L"StdRegProv");
 		BSTR MethodName = SysAllocString(L"EnumKey");
 
@@ -246,7 +246,7 @@ public:
 			ILog("Failed to connect to namespace\n");
 			return E_FAIL; // Something is very wrong
 		}
-		
+
 		BSTR ClassName = SysAllocString(L"StdRegProv");
 		BSTR MethodName = SysAllocString(L"EnumValues");
 		HRESULT hres;
@@ -397,7 +397,7 @@ public:
 			ILog("Failed to connect to namespace\n");
 			return E_FAIL; // Something is very wrong
 		}
-		
+
 		BSTR ClassName = SysAllocString(L"StdRegProv");
 		BSTR MethodName = SysAllocString(L"GetStringValue");
 
@@ -514,7 +514,7 @@ public:
 			ILog("Failed to connect to namespace\n");
 			return E_FAIL; // Something is very wrong
 		}
-		
+
 		BSTR ClassName = SysAllocString(L"StdRegProv");
 		BSTR MethodName = SysAllocString(L"SetStringValue");
 		HRESULT hres;
@@ -622,7 +622,7 @@ public:
 			ILog("Failed to connect to namespace\n");
 			return E_FAIL; // Something is very wrong
 		}
-		
+
 		BSTR ClassName = SysAllocString(L"StdRegProv");
 		BSTR MethodName = SysAllocString(L"SetStringValue");
 		HRESULT hres;

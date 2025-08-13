@@ -28,7 +28,7 @@ namespace TeamFiltration.Models.SharePoint
         public Contenttype contentType { get; set; }
     }
 
- 
+
     public class Contenttype
     {
         public string id { get; set; }

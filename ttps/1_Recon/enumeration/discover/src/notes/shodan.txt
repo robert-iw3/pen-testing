@@ -33,7 +33,7 @@ Dorks            "Additional Interfaces"
                  "Cisco 3750"
                  "Cisco 7606"
                  "Original Siemens Equipment"
-				
+
 Filters          all:comments
                  all:compromised
                  all:hacked
@@ -53,9 +53,9 @@ shodan convert nginx.json.gz xlsx
 shodan stats --facets org ssl.version:sslv2 http country:us
 shodan stats --facets org port:3389 country:us
 
-shodan stats --facets ssl.version has_ssl:true http country:us 
-shodan stats --facets ssl.cert.fingerprint has_ssl:true http country:us 
-shodan stats --facets ssl.cert.fingerprint:100 has_ssl:true http country:us 
+shodan stats --facets ssl.version has_ssl:true http country:us
+shodan stats --facets ssl.cert.fingerprint has_ssl:true http country:us
+shodan stats --facets ssl.cert.fingerprint:100 has_ssl:true http country:us
 
 shodan download --limit -1 hacked 'http.title:"hacked by"'
 

@@ -11,7 +11,7 @@
 
 @interface VirusTotal : NSObject
 {
-    
+
 }
 
 /* METHODS */

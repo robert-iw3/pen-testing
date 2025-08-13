@@ -170,5 +170,5 @@ namespace TeamFiltration.Models.OWA
         public string Address { get; set; }
     }
 
-  
+
 }

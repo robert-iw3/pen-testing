@@ -435,7 +435,7 @@
 /api/v1/devops/logging
 /api/v1/devops/alerting
 /api/v1/devops/metrics
-/api/v1/devops/automation 
+/api/v1/devops/automation
 # Penetration Testing and Security Assessment Endpoints
 /api/v1/security/scan
 /api/v1/security/scan/results

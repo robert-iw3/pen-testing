@@ -15,7 +15,7 @@ function Invoke-DCOM {
         Execute's commands via various DCOM methods as demonstrated by (@enigma0x3)
         http://www.enigma0x3.net
 
-        Author: Steve Borosh (@rvrsh3ll)        
+        Author: Steve Borosh (@rvrsh3ll)
         License: BSD 3-Clause
         Required Dependencies: None
         Optional Dependencies: None
@@ -77,7 +77,7 @@ function Invoke-DCOM {
 
             [String]$DCOM = '9BA05972-F6A8-11CF-A442-00A0C90A8F39'
         }
-        
+
         elseif ($Method -Match "ShellBrowserWindow") {
 
             [String]$DCOM = 'C08AFD90-F2A1-11D1-8455-00A0C91F3880'
@@ -108,8 +108,8 @@ function Invoke-DCOM {
             [String]$DCOM = 'C08AFD90-F2A1-11D1-8455-00A0C91F3880'
         }
     }
-    
-    
+
+
     Process {
 
         #Begin main process block
@@ -163,7 +163,7 @@ function Invoke-DCOM {
             $Obj = [System.Activator]::CreateInstance($Com)
             $obj.Document.Application.ServiceStop("$ServiceName")
         }
-        
+
         elseif ($Method -Match "ServiceStart") {
 
             $Com = [Type]::GetTypeFromCLSID("C08AFD90-F2A1-11D1-8455-00A0C91F3880","$ComputerName")
@@ -196,6 +196,6 @@ function Invoke-DCOM {
 
         Write-Output "Completed"
     }
-    
+
 
 }

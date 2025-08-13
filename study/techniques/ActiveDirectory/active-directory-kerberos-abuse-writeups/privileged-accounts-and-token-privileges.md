@@ -77,7 +77,7 @@ int main()
 
 	if (!LookupPrivilegeValue(
 		NULL,            // lookup privilege on local system
-		L"SeLoadDriverPrivilege",   // privilege to lookup 
+		L"SeLoadDriverPrivilege",   // privilege to lookup
 		&luid))        // receives LUID of privilege
 	{
 		printf("LookupPrivilegeValue error: %un", GetLastError());
@@ -85,11 +85,11 @@ int main()
 	}
 	tp.PrivilegeCount = 1;
 	tp.Privileges[0].Luid = luid;
-	
+
 	if (bEnablePrivilege) {
 		tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
 	}
-	
+
 	// Enable the privilege or disable all privileges.
 	if (!AdjustTokenPrivileges(
 		hToken,
@@ -151,7 +151,7 @@ int main()
 
 	if (!LookupPrivilegeValue(
 		NULL,            // lookup privilege on local system
-		L"SeLoadDriverPrivilege",   // privilege to lookup 
+		L"SeLoadDriverPrivilege",   // privilege to lookup
 		&luid))        // receives LUID of privilege
 	{
 		printf("LookupPrivilegeValue error: %un", GetLastError());
@@ -159,11 +159,11 @@ int main()
 	}
 	tp.PrivilegeCount = 1;
 	tp.Privileges[0].Luid = luid;
-	
+
 	if (bEnablePrivilege) {
 		tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
 	}
-	
+
 	// Enable the privilege or disable all privileges.
 	if (!AdjustTokenPrivileges(
 		hToken,

@@ -35,7 +35,7 @@ CiOffsets g_ciOffsets;
 #define NtCurrentThread()  ((HANDLE)-2) // Return the pseudo handle for the current thread
 
 // ***** FUNCTION PROTOTYPES ***** //
-// Function prototypes are needed so each source file is aware of the function's signature 
+// Function prototypes are needed so each source file is aware of the function's signature
 // (name, return type, and parameters) before the compiler encounters the function call.
 
 // For functions in 'helpers.c'

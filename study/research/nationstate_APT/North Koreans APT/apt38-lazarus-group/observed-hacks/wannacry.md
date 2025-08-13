@@ -16,7 +16,7 @@ In April 2017, an anonymous online group known as the Shadow Brokers released wh
 
 It was then reported that Microsoft had patched the vulnerabilities that these tools exploited the previous month, prompting speculation that NSA had alerted Microsoft to the theft.
 
-Included in the March 2017 security update was a patch to protect against the propagation of WannaCry ransomware. Subsequently, only unpatched systems were susceptible to WannaCry, including outdated versions of Windows. Its proliferation was further inhibited after the implementation of a “kill switch” on May 12, 2017.23 
+Included in the March 2017 security update was a patch to protect against the propagation of WannaCry ransomware. Subsequently, only unpatched systems were susceptible to WannaCry, including outdated versions of Windows. Its proliferation was further inhibited after the implementation of a “kill switch” on May 12, 2017.23
 
 North Korea is suspected to be the architect of WannaCry, which experts say was written after the Shadow Brokers release.24 According to news reports, the NSA issued an internal assessment that linked the ransomware to North Korea’s RGB.
 
@@ -35,9 +35,9 @@ The [UN Security Council's 2019 Midterm Report](../pdfs/2019-08-30_UN-Security-C
 ## Onchain
 
 
-- On August 3, 2017, the ransom payments from the victims of the WannaCry Version 2 ransomware were transferred from the original Bitcoin addresses to other cryptocurrency addresses in a series of transactions. 
+- On August 3, 2017, the ransom payments from the victims of the WannaCry Version 2 ransomware were transferred from the original Bitcoin addresses to other cryptocurrency addresses in a series of transactions.
 
-- As with the laundering of the ransoms associated with Version 1, following the Version 2 ransoms being sent to currency exchanges, the funds were converted to Monero. 
+- As with the laundering of the ransoms associated with Version 1, following the Version 2 ransoms being sent to currency exchanges, the funds were converted to Monero.
 
 - At least some of those transfers used IP addresses that have been identified as exit nodes for the TOR network, and used the same browser UserAgent string, “Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0.”
 
@@ -66,7 +66,7 @@ As with Version 1, ransoms paid by victims of WannaCry Version 2 were also paid 
 - https://malwaretech.com/2017/05/how-to-accidentally-stop-a-global-cyber-attacks.html
 - https://nao.org.uk/report/investigation-wannacry-cyber-attack-and-the-nhs/
 - https://securitycouncilreport.org/atf/cf/%7B65BFCF9B-6D27-4E9C-8CD3-CF6E4FF96FF9%7D/S_2019_691.pdf
-- https://technologyreview.com/2020/01/24/276082/lazarus-group-dragonex-chainalysis/ 
+- https://technologyreview.com/2020/01/24/276082/lazarus-group-dragonex-chainalysis/
 - https://theatlantic.com/technology/archive/2017/05/shadow-brokers/527778/
 - https://whitehouse.gov/briefings-statements/press-briefing-on-the-attribution-of-the-wannacry-malware-attack-to-north-korea-121917/
 - https://wired.com/story/confessions-marcus-hutchins-hacker-who-saved-the-internet/

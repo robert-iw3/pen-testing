@@ -1064,7 +1064,7 @@ VOID CommandFS( PPARSER Parser )
 
             if ( ! ( Return = Instance->Win32.GetCurrentDirectoryW( MAX_PATH * 2, Path ) ) ) {
                 PRINTF( "Failed to get current dir: %d\n", NtGetLastError() );
-                PackageTransmitError( CALLBACK_ERROR_WIN32, NtGetLastError() ); 
+                PackageTransmitError( CALLBACK_ERROR_WIN32, NtGetLastError() );
             } else {
                 PackageAddWString( Package, Path );
             }

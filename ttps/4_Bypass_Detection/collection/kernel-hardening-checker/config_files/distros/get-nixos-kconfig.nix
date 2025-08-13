@@ -28,5 +28,5 @@ stdenv.mkDerivation {
     echo ${pkgs.linuxPackages.kernel.version} > $out/linuxPackages_lts/kernel.version
     '';
 
-  
+
 }

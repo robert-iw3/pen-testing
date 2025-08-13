@@ -5,7 +5,7 @@ ARG COMMIT="local"
 ARG VERSION="v0.4.0"
 
 RUN apt-get -y update && apt-get -y dist-upgrade && apt-get clean
-RUN apt-get install -y gnupg 
+RUN apt-get install -y gnupg
 RUN apt-get update && \
 apt-get install --no-install-recommends -y \
 ca-certificates \
@@ -21,7 +21,7 @@ RUN mkdir /opt/cobaltstrike
 COPY ./docker-entrypoint.sh /opt/
 RUN chmod +x /opt/docker-entrypoint.sh
 
-WORKDIR /opt/cobaltstrike 
+WORKDIR /opt/cobaltstrike
 
 EXPOSE 50050
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]

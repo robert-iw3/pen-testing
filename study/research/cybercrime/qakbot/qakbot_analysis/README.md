@@ -51,7 +51,7 @@ If loaded inside IDA it will decrypt all the strings and set the decrypted value
 
 To work inside IDA [qbot4_tools.py](tools/qbot4_tools.py) need to have two functions define inside the IDB
 
-* `GetEncStrByIdx` at `0xee6bd` 
+* `GetEncStrByIdx` at `0xee6bd`
 * `GetEncStrByIdxW` at `0xee612`
 
 Both functions are the same except the second one return a `WCHAR*` buffer.
@@ -193,7 +193,7 @@ struct iat_ws2_32 {
 
 #### config
 
-The initial configuration is saved in the PE file resources inside two entries in `RT_RCDATA` directory. 
+The initial configuration is saved in the PE file resources inside two entries in `RT_RCDATA` directory.
 
 The shortest one contains the *Botnet* and *CampaignId*. The second one is a list of `C2`
 

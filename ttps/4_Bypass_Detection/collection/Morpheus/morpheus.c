@@ -454,7 +454,7 @@ int SendCompressedDumpAsNTP(const char *target_ip, int target_port, const char *
     }
     free(indices);
 
-    // --- Génération FEC par blocs RS ---  
+    // --- Génération FEC par blocs RS ---
     // Pour chaque bloc de données de taille k (k = BLOCK_SIZE ou moins pour le dernier bloc),
     // nous générons m = k fragments de parité.
     int block_start = 0;

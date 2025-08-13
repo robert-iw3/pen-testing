@@ -4,7 +4,7 @@ Date:: November 1st, 2021
 
 Amount Stolen:: $200,000 (25.19268885 ETH)
 
-BITTO 
+BITTO
 
 YETH Token Contract: 0x68763e696bdee1726e5a2d100fceaa5bd6c2fb3e
 

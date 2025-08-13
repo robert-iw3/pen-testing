@@ -16,7 +16,7 @@ warhorse:
       traefik:
         acme_email: "no-reply@VAR_domain_tld"
         dashboard: true
-      firewall: 
+      firewall:
         enabled: true
       mythic:
         enabled: true
@@ -30,7 +30,7 @@ warhorse:
         - name: "aws1"
           provider: "aws"
           redirect_url: "https://aws.amazon.com"
-      backup: 
+      backup:
         enabled: false
         archive_zip: false
   terraform:

@@ -3,7 +3,7 @@
 
 **AutoRuns module was designed to help do live incident response and enumerate autoruns artifacts that may be used by legitimate programs as well as malware to achieve persistence.**
 
-## Table of Contents  
+## Table of Contents
 * [Usage](#Usage)
   * [Install the module](#Install)
   * [Functions](#Functions)
@@ -30,7 +30,7 @@ Find-Module -Name Autoruns -Repository PSGallery
 ```
 ```
 Version    Name                                Repository           Description
--------    ----                                ----------           -----------                                   
+-------    ----                                ----------           -----------
 14.0.2     AutoRuns                            PSGallery            AutoRuns is a module ...
 ```
 
@@ -200,7 +200,7 @@ gp 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name DisableLGPOProcessin
 
 #### Help
 - [ ] More examples
-- [ ] Use external help? 
+- [ ] Use external help?
 - [ ] Internationalization?
 - [ ] Copy the changelog at the end of the module in README.md
 - [x] Document issues and write a pester tests to validate the module behavior if fixed
@@ -209,7 +209,7 @@ gp 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name DisableLGPOProcessin
 
 ## Credits
 Thanks go to:
-* **[@LeeHolmes](https://github.com/LeeHolmes/)**: 
+* **[@LeeHolmes](https://github.com/LeeHolmes/)**:
     * Improving common parameters [7fe8e7ea983325b5543da1300cb8a4636c7062ef](https://github.com/p0w3rsh3ll/AutoRuns/commit/7fe8e7ea983325b5543da1300cb8a4636c7062ef)
     * Filtering OS binaries [8efb0fad4585ecd4517b55ff5b5cec91f7dd364a](https://github.com/p0w3rsh3ll/AutoRuns/commit/8efb0fad4585ecd4517b55ff5b5cec91f7dd364a)
 ```powershell
@@ -320,7 +320,7 @@ Get-PSAutorun -VerifyDigitalSignature | ? { -not $_.IsOSBinary }
 
 [Autoruns v12.03](https://blogs.technet.microsoft.com/sysinternals/2014/09/11/updates-handle-v4-0-procdump-v7-01-procexp-v16-04-regjump-v1-02-autoruns-v12-03/)
 >This update to Autoruns adds the registered HTML file extension, fixes a bug that could cause disabling of specific entry types to fail with a “path not found” error, and addresses another that could prevent the Jump-to-image function from opening the selected image on 64-bit Windows.
- 
+
 [Autoruns v12.02](https://blogs.technet.microsoft.com/sysinternals/2014/08/19/updates-autoruns-v12-02-coreinfo-v3-31-sysmon-v1-01-whois-v1-12/)
 >This fixes a bug that could cause Autoruns to crash on startup, updates the image path parsing for Installed Components to remove false positive file-not-found entries, and correctly reports image entry timestamps in local time instead of UTC.
 
@@ -329,7 +329,7 @@ Get-PSAutorun -VerifyDigitalSignature | ? { -not $_.IsOSBinary }
 
 [Autoruns v12.0](https://blogs.technet.microsoft.com/sysinternals/2014/05/13/updates-autoruns-v12-0-procdump-v7-0/)
 >This release of Autoruns, a Windows application and command-line utility for viewing autostart entries, now reports the presence of batch file and executable image entries in the WMI database, a vector used by some types of malware.
- 
+
 [Autoruns v11.70](https://blogs.technet.microsoft.com/sysinternals/2013/08/01/autoruns-v11-70-bginfo-v4-20-disk2vhd-v1-64-process-explorer-v15-40/)
 >This release of Autoruns, a powerful utility for scanning and disabling autostart code, adds a new option to have it show only per-user locations, something that is useful when analyzing the autostarts of different accounts than the one that Autoruns is running under.
 

@@ -3,9 +3,9 @@
 ARG repo="docker.io" \
     base_image="alpine:3.22" \
     image_hash="eafc1edb577d2e9b458664a15f23ea1c370214193226069eb22921169fc7e43f"
-    
+
 FROM ${repo}/${base_image}@sha256:${image_hash} AS go-builder
-    
+
 ENV GOPATH=/usr/local/bin/go \
     VER=3.4.5 \
     SNYK_API=
@@ -24,7 +24,7 @@ RUN \
     cd ${GOPATH}/src/github.com/nuclei; \
     git clone --depth 1 --branch v${VER} https://github.com/projectdiscovery/nuclei; \
     cd nuclei/; \
-    cd cmd/nuclei/; \      
+    cd cmd/nuclei/; \
     export GO111MODULE=on; \
     go install; \
     apk del --no-network --purge .nuclei-deps; \
@@ -34,7 +34,7 @@ RUN \
     apk del --no-network --purge .av-scan; \
     rm -rf /var/cache/apk/*; \
     rm -rf ${GOPATH}/src/
-    
+
 FROM ${repo}/${base_image}@sha256:${image_hash}
 
 RUN \

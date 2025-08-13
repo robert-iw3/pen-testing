@@ -205,7 +205,7 @@ namespace winPEAS.Helpers.AppLocker
                             // can we write to the directory ?
                             var folderPermissions = PermissionsHelper.GetPermissionsFolder(normalizedPath, Checks.Checks.CurrentUserSiDs, PermissionType.WRITEABLE_OR_EQUIVALENT);
 
-                            // we can write 
+                            // we can write
                             if (folderPermissions.Count > 0)
                             {
                                 Beaprint.BadPrint($"    Directory \"{normalizedPath}\" Permissions: " + string.Join(",", folderPermissions));
@@ -221,7 +221,7 @@ namespace winPEAS.Helpers.AppLocker
                                     {
                                         var subfolderPermissions = PermissionsHelper.GetPermissionsFolder(subfolders, Checks.Checks.CurrentUserSiDs, PermissionType.WRITEABLE_OR_EQUIVALENT);
 
-                                        // we can write 
+                                        // we can write
                                         if (subfolderPermissions.Count > 0)
                                         {
                                             Beaprint.BadPrint($"    Directory \"{subfolders}\" Permissions: " + string.Join(",", subfolderPermissions));
@@ -352,14 +352,14 @@ namespace winPEAS.Helpers.AppLocker
                         return true;
                     }
 
-                    // if we have not found any writable file, 
+                    // if we have not found any writable file,
                     // check subfolders for write access
                     if (subfolders.Any(subfolder => CheckDirectoryWriteAccess(subfolder, out bool _, isGoodPrint: false)))
                     {
                         return true;
                     }
 
-                    // check recursively all the subfolders for files/sub-subfolders                     
+                    // check recursively all the subfolders for files/sub-subfolders
                     if (subfolders.Any(subfolder => CheckFilesAndSubfolders(subfolder, ruleType, depth + 1)))
                     {
                         return true;

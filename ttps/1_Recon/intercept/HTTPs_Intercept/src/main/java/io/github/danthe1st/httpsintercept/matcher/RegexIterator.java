@@ -11,12 +11,12 @@ final class RegexIterator<T> extends IteratingIterator<T> {
 	private final String hostname;
 	private Iterator<Entry<Pattern, List<T>>> regexes;
 	private Iterator<T> current = Collections.emptyIterator();
-	
+
 	RegexIterator(Map<Pattern, List<T>> hostRegexes, String hostname) {
 		this.hostname = hostname;
 		this.regexes = hostRegexes.entrySet().iterator();
 	}
-	
+
 	@Override
 	protected Iterator<T> findNextIterator() {
 		while(!current.hasNext()){

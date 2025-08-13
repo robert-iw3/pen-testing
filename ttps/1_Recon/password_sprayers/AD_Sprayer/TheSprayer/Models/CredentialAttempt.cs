@@ -14,7 +14,7 @@ public class CredentialAttempt
 
     public CredentialAttempt(){}
 
-    public CredentialAttempt(string username, string password, bool isSuccess) 
+    public CredentialAttempt(string username, string password, bool isSuccess)
     {
         Username = username;
         Password = password;

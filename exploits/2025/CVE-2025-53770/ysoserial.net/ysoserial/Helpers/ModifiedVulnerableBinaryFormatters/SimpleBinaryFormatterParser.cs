@@ -120,7 +120,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             bytes.Add((byte)num);
             return bytes.ToArray();
         }
-        
+
         public static byte[] Create7bitLengthObjectString(string strInput)
         {
             byte[] size = Calculate7BitEncodedInt(strInput.Length);

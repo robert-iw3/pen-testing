@@ -10,7 +10,7 @@ namespace KoenZomers.OneDrive.Api.Entities
 
         [JsonProperty("cameraMake")]
         public string CameraMake { get; set; }
-        
+
         [JsonProperty("cameraModel")]
         public string CameraModel { get; set; }
 

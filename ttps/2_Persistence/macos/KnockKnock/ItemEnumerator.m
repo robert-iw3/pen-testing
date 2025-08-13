@@ -26,7 +26,7 @@ NSString * const LAUNCHITEM_SEARCH_DIRECTORIES[] = {@"/System/Library/LaunchDaem
 {
     //save self's thread
     self.enumeratorThread = [NSThread currentThread];
-    
+
     //alloc/init thread to enumerate launch items
     launchItemsEnumerator = [[NSThread alloc] initWithTarget:self selector:@selector(enumerateLaunchItems) object:nil];
 
@@ -35,10 +35,10 @@ NSString * const LAUNCHITEM_SEARCH_DIRECTORIES[] = {@"/System/Library/LaunchDaem
 
     //start launch item enumerator thread
     [self.launchItemsEnumerator start];
-    
+
     //start installed application enumerator thread
     [self.applicationsEnumerator start];
-    
+
     return;
 }
 
@@ -51,20 +51,20 @@ NSString * const LAUNCHITEM_SEARCH_DIRECTORIES[] = {@"/System/Library/LaunchDaem
         //cancel
         [self.launchItemsEnumerator cancel];
     }
-    
+
     //cancel installed application enumerator thread
     if(YES == [self.applicationsEnumerator isExecuting])
     {
         //cancel
         [self.applicationsEnumerator cancel];
     }
-    
+
     //set launch items array to nil
     self.launchItems = nil;
-    
+
     //set installed app array to nil
     self.applications = nil;
-    
+
     return;
 }
 
@@ -73,16 +73,16 @@ NSString * const LAUNCHITEM_SEARCH_DIRECTORIES[] = {@"/System/Library/LaunchDaem
 {
     //all launch items
     NSMutableArray* allLaunchItems = nil;
-    
+
     //all launch item directories, expanded
     NSMutableArray* launchItemDirectories = nil;
-    
+
     //alloc array for all launch items
     allLaunchItems = [NSMutableArray array];
-    
+
     //expand list
     launchItemDirectories = expandPaths(LAUNCHITEM_SEARCH_DIRECTORIES, sizeof(LAUNCHITEM_SEARCH_DIRECTORIES)/sizeof(LAUNCHITEM_SEARCH_DIRECTORIES[0]));
-    
+
     //iterate over all launch item direcoties
     // grab all .plists and add to cumulative array
     for(NSString* launchItemDirectory in launchItemDirectories)
@@ -94,10 +94,10 @@ NSString * const LAUNCHITEM_SEARCH_DIRECTORIES[] = {@"/System/Library/LaunchDaem
             [allLaunchItems addObject:[launchItemDirectory stringByAppendingPathComponent:plist]];
         }
     }
-    
+
     //save into iVar
     self.launchItems = allLaunchItems;
-    
+
     return;
 }
 
@@ -108,10 +108,10 @@ NSString * const LAUNCHITEM_SEARCH_DIRECTORIES[] = {@"/System/Library/LaunchDaem
 {
     //output from system profiler task
     NSData* taskOutput = nil;
-    
+
     //serialized task output
     NSArray* serializedOutput = nil;
-    
+
     //exec system profiler
     taskOutput = execTask(SYSTEM_PROFILER, @[@"SPApplicationsDataType", @"-xml", @"-detailLevel", @"mini"], NULL);
     if( (nil == taskOutput) ||
@@ -120,10 +120,10 @@ NSString * const LAUNCHITEM_SEARCH_DIRECTORIES[] = {@"/System/Library/LaunchDaem
         //bail
         goto bail;
     }
-    
+
     //serialize output to array
     serializedOutput = [NSPropertyListSerialization propertyListWithData:taskOutput options:kNilOptions format:NULL error:NULL];
-    
+
     //grab list of installed apps from '_items' key
     // ->save into iVar 'applications'
     @try
@@ -135,14 +135,14 @@ NSString * const LAUNCHITEM_SEARCH_DIRECTORIES[] = {@"/System/Library/LaunchDaem
     {
         //err msg
         //NSLog(@"ERROR: serialized output not formatted as expected");
-        
+
         //bail
         goto bail;
     }
-   
+
 //bail
 bail:
-    
+
     return;
 }
 

@@ -32,14 +32,14 @@ NSString * const PROTECTED_DIRECTORIES[] = {@"~/Library/Application Support/Addr
     {
         //set name
         self.name = PLUGIN_NAME;
-        
+
         //set description
         self.description = PLUGIN_DESCRIPTION;
-        
+
         //set icon
         self.icon = PLUGIN_ICON;
     }
-    
+
     return self;
 }
 
@@ -49,16 +49,16 @@ NSString * const PROTECTED_DIRECTORIES[] = {@"~/Library/Application Support/Addr
 {
     //dylibs
     NSMutableArray* dylibs = nil;
-    
+
     //first get dylibs loaded into user procs
     dylibs = [self enumLoadedDylibs];
-    
+
     //then get dylibs statically references by all running procs
     [dylibs addObjectsFromArray:[self enumLinkedDylibs:runningProcesses()]];
-    
+
     //remove duplicates
     dylibs = [[[NSSet setWithArray:dylibs] allObjects] mutableCopy];
-    
+
     return dylibs;
 }
 
@@ -67,33 +67,33 @@ NSString * const PROTECTED_DIRECTORIES[] = {@"~/Library/Application Support/Addr
 {
     //dylibs
     NSMutableArray* dylibs = nil;
-    
+
     //results
     NSData* results = nil;
-    
+
     //results split on '\n'
     NSArray* splitResults = nil;
-    
+
     //file path
     NSString* filePath = nil;
-    
+
     //(privacy) protected directories
     NSArray* protectedDirectories = nil;
-    
+
     //flag
     BOOL isProtected = NO;
-    
+
     //pool
     @autoreleasepool
     {
-    
+
     //alloc array
     dylibs = [NSMutableArray array];
-        
+
     //init set of (privacy) protected directories
     // these will be skipped, as otherwise we will generate a privacy prompt
     protectedDirectories = expandPaths(PROTECTED_DIRECTORIES, sizeof(PROTECTED_DIRECTORIES)/sizeof(PROTECTED_DIRECTORIES[0]));
-        
+
     //exec 'lsof' to get loaded libs
     results = execTask(LSOF, @[@"-Fn", @"/"], NULL);
     if( (nil == results) ||
@@ -102,10 +102,10 @@ NSString * const PROTECTED_DIRECTORIES[] = {@"~/Library/Application Support/Addr
         //bail
         goto bail;
     }
-    
+
     //split results into array
     splitResults = [[[NSString alloc] initWithData:results encoding:NSUTF8StringEncoding] componentsSeparatedByString:@"\n"];
-    
+
     //sanity check(s)
     if( (nil == splitResults) ||
         (0 == splitResults.count) )
@@ -113,14 +113,14 @@ NSString * const PROTECTED_DIRECTORIES[] = {@"~/Library/Application Support/Addr
         //bail
         goto bail;
     }
-    
+
     //iterate over all results
     // make file info dictionary for files (not sockets, etc)
     for(NSString* result in splitResults)
     {
         //reset
         isProtected = NO;
-        
+
         //skip any odd/weird/short lines
         // lsof outpupt will be in format: 'n<filePath'>
         if( (YES != [result hasPrefix:@"n"]) ||
@@ -129,36 +129,36 @@ NSString * const PROTECTED_DIRECTORIES[] = {@"~/Library/Application Support/Addr
             //skip
             continue;
         }
-        
+
         //init file path
         // result, minus first (lsof-added) char
         filePath = [result substringFromIndex:0x1];
-        
+
         //skip any files in (privacy) protected directories
         // as otherwise we will generate a privacy prompt (on Mojave)
         for(NSString* directory in protectedDirectories)
         {
             //reset
             isProtected = NO;
-            
+
             //check
             if(YES == [filePath hasPrefix:directory])
             {
                 //set flag
                 isProtected = YES;
-                
+
                 //done
                 break;
             }
         }
-        
+
         //skip (privacy) protected files
         if(YES == isProtected)
         {
             //skip
             continue;
         }
-        
+
         //skip 'non files' / non-executable files
         if( (YES != [[NSFileManager defaultManager] fileExistsAtPath:filePath]) ||
             (YES != isBinary(filePath)) )
@@ -166,7 +166,7 @@ NSString * const PROTECTED_DIRECTORIES[] = {@"~/Library/Application Support/Addr
             //skip
             continue;
         }
-        
+
         //also skip files such as '/', /dev/null, etc
         if( (YES == [filePath isEqualToString:@"/"]) ||
             (YES == [filePath isEqualToString:@"/dev/null"]) )
@@ -174,54 +174,54 @@ NSString * const PROTECTED_DIRECTORIES[] = {@"~/Library/Application Support/Addr
             //skip
             continue;
         }
-        
+
         //save
         [dylibs addObject:filePath];
     }
-    
+
     //remove duplicates
     dylibs = [[[NSSet setWithArray:dylibs] allObjects] mutableCopy];
-        
+
     }//pool
 
 bail:
-    
+
     return dylibs;
 }
-     
+
 //enum dylibs statically referenced by all running procs
 -(NSArray*)enumLinkedDylibs:(NSArray*)runningProcs
 {
     //dylibs
     NSMutableArray* dylibs = nil;
-    
+
     //macho parser
     MachO* machoParser = nil;
-    
+
     //alloc array
     dylibs = [NSMutableArray array];
-    
+
     //parse each
     for(NSString* runningProc in runningProcs)
     {
         //alloc macho parser
         // ->new instance for each file!
         machoParser = [[MachO alloc] init];
-        
+
         //parse
         if(YES != [machoParser parse:runningProc classify:NO])
         {
             //skip
             continue;
         }
-        
+
         //add all dylibs from LC_LOAD_DYLIBS
         [dylibs addObjectsFromArray:machoParser.binaryInfo[KEY_LC_LOAD_DYLIBS]];
-        
+
         //add all dylibs from KEY_LC_LOAD_WEAK_DYLIBS
         [dylibs addObjectsFromArray:machoParser.binaryInfo[KEY_LC_LOAD_WEAK_DYLIBS]];
     }
-    
+
     //remove dups and return
     return [[NSSet setWithArray:dylibs] allObjects];
 }
@@ -232,13 +232,13 @@ bail:
 {
     //dylibs
     NSMutableArray* proxies = nil;
-    
+
     //macho parser
     MachO* machoParser = nil;
-    
+
     //alloc array
     proxies = [NSMutableArray array];
-    
+
     //parse all
     // ->make sure its a dylib and then that it re-exports stuff?
     for(NSString* dylib in dylibs)
@@ -246,40 +246,40 @@ bail:
         //pool
         @autoreleasepool
         {
-            
+
         //alloc macho parser
         // ->new instance for each file!
         machoParser = [[MachO alloc] init];
-        
+
         //parse
         if(YES != [machoParser parse:dylib classify:NO])
         {
             //skip
             continue;
         }
-        
+
         //skip non-dylibs
         if(MH_DYLIB != [[machoParser.binaryInfo[KEY_MACHO_HEADERS] firstObject][KEY_HEADER_BINARY_TYPE] intValue])
         {
             //skip
             continue;
         }
-        
+
         //skip dylibs without re-exports
         if(0 == [machoParser.binaryInfo[KEY_LC_REEXPORT_DYLIBS] count])
         {
             //skip
             continue;
         }
-        
+
         //save
         [proxies addObject:dylib];
-            
+
         }//pool
     }
-    
+
 bail:
-    
+
     return proxies;
 }
 
@@ -288,13 +288,13 @@ bail:
 {
     //File obj
     File* fileObj = nil;
-    
+
     //proxy dylibs
     NSMutableArray* proxiedDylibs = nil;
-    
+
     //find proxies
     proxiedDylibs = [self findProxies:[self enumDylibs]];
-    
+
     //enumerate all proxy dylibs
     // ->creating file obj for each
     for(NSString* proxyDylib in proxiedDylibs)
@@ -306,12 +306,12 @@ bail:
             //skip
             continue;
         }
-        
+
         //process item
         // ->save and report to UI
         [super processItem:fileObj];
     }
-    
+
     return;
 }
 

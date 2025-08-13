@@ -24,7 +24,7 @@
         //save command
         self.command = params[KEY_RESULT_COMMAND];
     }
-    
+
     return self;
 }
 
@@ -33,11 +33,11 @@
 {
     //json string
     NSString *json = nil;
-    
+
     //init json
     // ->note: command is escaped to make sure its valid JSON
     json = [NSString stringWithFormat:@"\"command\": \"%@\", \"file\": \"%@\"", escapeString(self.command), self.path];
-    
+
     return json;
 }
 

@@ -20,7 +20,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
   check_service_content() {
     local service="$1"
     local findings=""
-    
+
     # Check if service runs with elevated privileges
     if systemctl show "$service" -p User 2>/dev/null | grep -q "root"; then
       findings="${findings}RUNS_AS_ROOT: Service runs as root\n"
@@ -182,7 +182,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
   fi
 
   # Check systemd path writability
-  if [ ! "$WRITABLESYSTEMDPATH" ]; then 
+  if [ ! "$WRITABLESYSTEMDPATH" ]; then
     echo "You can't write on systemd PATH" | sed -${E} "s,.*,${SED_GREEN},"
   else
     echo "You can write on systemd PATH" | sed -${E} "s,.*,${SED_RED},"

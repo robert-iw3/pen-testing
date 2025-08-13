@@ -21,7 +21,7 @@ def main(all_modules, all_no_fat_modules, no_network_scanning, small, include_mo
     lbuilder.build()
     lbuilder.write_linpeas(output)
     os.remove(TEMPORARY_LINPEAS_BASE_PATH) # Remove the built linpeas_base_temp.sh file
-    
+
     st = os.stat(output)
     os.chmod(output, st.st_mode | stat.S_IEXEC)
 
@@ -51,5 +51,5 @@ if __name__ == "__main__":
         print("You must specify one of the following options: --all, --all-no-fat, --small or --include")
         parser.print_help()
         exit(1)
-    
+
     main(all_modules, all_no_fat_modules, no_network_scanning, small, include_modules, exclude_modules, output)

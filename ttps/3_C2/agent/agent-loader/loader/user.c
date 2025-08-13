@@ -6,9 +6,9 @@
 #include <tlhelp32.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <oleauto.h>  
-#include <tchar.h>   
-#include <metahost.h> 
+#include <oleauto.h>
+#include <tchar.h>
+#include <metahost.h>
 
 #include <guiddef.h>
 typedef interface _AppDomain _AppDomain;
@@ -45,7 +45,7 @@ struct _Assembly {
 // #ifndef MemoryCallDllMain
 // #define MemoryCallDllMain MemoryCallEntry
 // #endif
-#include <mscoree.h> 
+#include <mscoree.h>
 #pragma comment(lib, "mscoree.lib")
 
 #pragma comment(lib, "mscoree.lib")
@@ -282,7 +282,7 @@ bool User_ReflectiveLoadDotNet(const uint8_t *assembly_bytes, size_t assembly_si
     HRESULT hr;
     ICLRMetaHost    *pMetaHost       = NULL;
     ICLRRuntimeInfo *pRuntimeInfo    = NULL;
-    ICorRuntimeHost *pHost           = NULL;   
+    ICorRuntimeHost *pHost           = NULL;
     IUnknown        *pAppDomainThunk = NULL;
     _AppDomain      *pDefaultDomain  = NULL;
     _Assembly       *pAssembly       = NULL;

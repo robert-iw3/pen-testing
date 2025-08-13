@@ -5,15 +5,15 @@
 #include <vector>
 #include <opencv2/imgproc.hpp>
 
-CaptchaSolver::CaptchaSolver(const std::string &modelPath, const std::string &inputOp, const std::string &outputOp) 
-    : model(TF_NewGraph(), TF_DeleteGraph), 
-      session(nullptr, TF_DeleteSession), 
-      status(TF_NewStatus(), TF_DeleteStatus), 
-      inputOperation(inputOp), 
+CaptchaSolver::CaptchaSolver(const std::string &modelPath, const std::string &inputOp, const std::string &outputOp)
+    : model(TF_NewGraph(), TF_DeleteGraph),
+      session(nullptr, TF_DeleteSession),
+      status(TF_NewStatus(), TF_DeleteStatus),
+      inputOperation(inputOp),
       outputOperation(outputOp),
-      resizeWidth(128), 
-      resizeHeight(128), 
-      blurKernelSize(3), 
+      resizeWidth(128),
+      resizeHeight(128),
+      blurKernelSize(3),
       threshold(1.0) {
     loadModel(modelPath);
 }

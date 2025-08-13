@@ -13,11 +13,11 @@ namespace util
 	LPVOID GetModuleFunc(LPCWSTR sModuleName, LPCSTR sFuncName);
 	PPEB GetPPEB();
 
-	
+
 	// UNUSED:
 	//LPVOID GetMainModuleBaseFast_x86();
 	//LPVOID GetTEB();
-	
+
 	// FLAGGED AS MALICIOUS (some or all):
 	// LPVOID byteInjection(const char* bytes, LPVOID address);
 	// LPVOID testOpcodeInjection(LPVOID address);

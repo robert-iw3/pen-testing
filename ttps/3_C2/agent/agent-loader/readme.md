@@ -6,20 +6,20 @@
 
 ## Technical Specifications
 
-- **Function encryption** – decrypt → execute → re-encrypt  
-- **Reverse-shell module**  
-- **FS-mgr** – search / cache / upload / delete files  
-- **Token stealth** – collection & impersonation of user tokens  
-- **In-memory payloads** – reflective shellcode or **loadPE** (.DLL / .EXE / .NET)  
-- **RWX shellcode execution**  
-- **CLI builder** – generate binaries with custom parameters via a Python script  
-- **C2 over DNS-over-HTTPS** (Cloudflare / Google / Akamai)  
-- **NT/ZW syscall stubs**, minimal WinAPI footprint  
-- **VM-based bytecode interpreter** – every build morphs uniquely  
-- **Reverse-SOCKS5 proxy** over WebSocket (separate thread)  
-- **Anti-VM wrapper + DLL hijack**  
-- **OneDrive / Task Scheduler persistence**  
-- **Node.js web panel** – bot list, FS-mgr, interactive shell, custom payloads, IP/HWID ban-list  
+- **Function encryption** – decrypt → execute → re-encrypt
+- **Reverse-shell module**
+- **FS-mgr** – search / cache / upload / delete files
+- **Token stealth** – collection & impersonation of user tokens
+- **In-memory payloads** – reflective shellcode or **loadPE** (.DLL / .EXE / .NET)
+- **RWX shellcode execution**
+- **CLI builder** – generate binaries with custom parameters via a Python script
+- **C2 over DNS-over-HTTPS** (Cloudflare / Google / Akamai)
+- **NT/ZW syscall stubs**, minimal WinAPI footprint
+- **VM-based bytecode interpreter** – every build morphs uniquely
+- **Reverse-SOCKS5 proxy** over WebSocket (separate thread)
+- **Anti-VM wrapper + DLL hijack**
+- **OneDrive / Task Scheduler persistence**
+- **Node.js web panel** – bot list, FS-mgr, interactive shell, custom payloads, IP/HWID ban-list
 
 > *Items marked as “under development” will be shipped in future updates—stay tuned !*
 

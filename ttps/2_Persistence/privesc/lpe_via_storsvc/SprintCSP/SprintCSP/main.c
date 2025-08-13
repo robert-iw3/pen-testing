@@ -29,11 +29,11 @@ VOID __stdcall DoStopSvc()
     SC_HANDLE schSCManager, schService;
     LPCTSTR szSvcName = L"StorSvc";
 
-    // Get a handle to the SCM database. 
+    // Get a handle to the SCM database.
     schSCManager = OpenSCManager(
         NULL,                    // local computer
-        NULL,                    // ServicesActive database 
-        SC_MANAGER_ALL_ACCESS);  // full access rights 
+        NULL,                    // ServicesActive database
+        SC_MANAGER_ALL_ACCESS);  // full access rights
 
     if (NULL == schSCManager)
     {
@@ -42,8 +42,8 @@ VOID __stdcall DoStopSvc()
 
     // Get a handle to the service.
     schService = OpenService(
-        schSCManager,         // SCM database 
-        szSvcName,            // name of service 
+        schSCManager,         // SCM database
+        szSvcName,            // name of service
         SERVICE_STOP |
         SERVICE_QUERY_STATUS |
         SERVICE_ENUMERATE_DEPENDENTS);
@@ -74,9 +74,9 @@ VOID __stdcall DoStopSvc()
     while (ssp.dwCurrentState == SERVICE_STOP_PENDING)
     {
 
-        // Do not wait longer than the wait hint. A good interval is 
-        // one-tenth of the wait hint but not less than 1 second  
-        // and not more than 10 seconds. 
+        // Do not wait longer than the wait hint. A good interval is
+        // one-tenth of the wait hint but not less than 1 second
+        // and not more than 10 seconds.
         dwWaitTime = ssp.dwWaitHint / 10;
 
         if (dwWaitTime < 1000)
@@ -165,8 +165,8 @@ BOOL __stdcall StopDependentServices()
 
     schSCManager = OpenSCManager(
         NULL,                    // local computer
-        NULL,                    // ServicesActive database 
-        SC_MANAGER_ALL_ACCESS);  // full access rights 
+        NULL,                    // ServicesActive database
+        SC_MANAGER_ALL_ACCESS);  // full access rights
 
     if (NULL == schSCManager)
     {
@@ -175,8 +175,8 @@ BOOL __stdcall StopDependentServices()
 
     // Get a handle to the service.
     schService = OpenService(
-        schSCManager,         // SCM database 
-        szSvcName,            // name of service 
+        schSCManager,         // SCM database
+        szSvcName,            // name of service
         SERVICE_STOP |
         SERVICE_QUERY_STATUS |
         SERVICE_ENUMERATE_DEPENDENTS);

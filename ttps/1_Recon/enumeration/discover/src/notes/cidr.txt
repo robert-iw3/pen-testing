@@ -40,5 +40,5 @@ CIDR               Usable IPs     Comment
 172.16.0.0/12      1,048,574      16 contiguous Class Bs, non-routable private networks
 192.168.0.0/16     65,534         256 contiguous Class Cs, non-routable private networks
 
-169.254.0.0/16     65,534         Self assigned IP when DHCP is not available      
+169.254.0.0/16     65,534         Self assigned IP when DHCP is not available
 

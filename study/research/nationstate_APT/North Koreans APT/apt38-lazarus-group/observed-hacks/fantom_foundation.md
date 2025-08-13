@@ -43,7 +43,7 @@ Subsequent investigation determined that malicious IP address 104.168.137.21 had
 
 This attack is part of a broader Lazarus Group campaign of spearphishing on Telegram, targeting the cryptocurrency industry (see para 188).
 
-The attacker(s) stole 47 cryptocurrencies from the Ethereum, Optimism, Fantom, Polygon, and Arb blockchains, from 11 cryptocurrency wallets (see Figure 19). 
+The attacker(s) stole 47 cryptocurrencies from the Ethereum, Optimism, Fantom, Polygon, and Arb blockchains, from 11 cryptocurrency wallets (see Figure 19).
 
 The stolen cryptocurrency was converted into Ether (ETH) using services such as Squid Router and deposited into Tornado Cash.
 
@@ -60,10 +60,10 @@ The stolen cryptocurrency was converted into Ether (ETH) using services such as 
 
 ## Onchain
 
-- 0x1bffb3a232e06e06a5d9e93c8df3321f768197c2 - Victim Foundation Wallet 1 
-- 0x48f7572cfbc4f246600cf816c668271034d81f8f - Victim Foundation Wallet 16 
-- 0x386aa44439e9c7181b1f0f1cac0efa478b623b27 - Victim Foundation Wallet 18 
-- 0x596288a9090c9eedf87bb5f2da5d8e1bbc7bb935 - Victim Foundation Wallet 20 
+- 0x1bffb3a232e06e06a5d9e93c8df3321f768197c2 - Victim Foundation Wallet 1
+- 0x48f7572cfbc4f246600cf816c668271034d81f8f - Victim Foundation Wallet 16
+- 0x386aa44439e9c7181b1f0f1cac0efa478b623b27 - Victim Foundation Wallet 18
+- 0x596288a9090c9eedf87bb5f2da5d8e1bbc7bb935 - Victim Foundation Wallet 20
 - 0x4a6ff07acd81f8d0ec7dd51f325d86b833821b1d - Victim
 - 0x124cb46cebd37ef9bf8b41c47f2f1bd5136656af - Victim
 - 0xd2976a56cd84a91a2e83685a6dc5308315e29f15 - Victim
@@ -73,14 +73,14 @@ The stolen cryptocurrency was converted into Ether (ETH) using services such as 
 - 0xb0e3baec3ba1990ebd2edf9eedc2f3213b381fb1 - Victim
 - 0x8658bcf88c5d08f02ea5393ecd4a2b5e28c3e349 - Victim
 - 0x00FBB426dd3b92384384ED870B74cf39eFC5b8F8 - Victim
-- 0xb48677997e6e88c2cd1825017ccac3054b4080fc - Victim Safe Addy? 
+- 0xb48677997e6e88c2cd1825017ccac3054b4080fc - Victim Safe Addy?
 - 0x50e0f818e870be4d5e5f012ff90d304db6e1e69b - Victim Safe Addy?
-- 0x431e81e5dfb5a24541b5ff8762bdef3f32f96354 - Fantom Foundation (not compromised) 
-- 0xa51b1bc907fe0a6bc6538c5c56472c1d9c60de23 - Fantom Controlled Wallet (not compromised?) 
-- 0x2f4f1d2c5944dba74e107d1e8e90e7c1475f4001 - Theft 
-- 0xdadc0421ee1b5426fca3db22f0a94a3bad5a329d - Theft  
-- 0x1d93c73d575b81a59ff55958afc38a2344e4f878 - Theft 
-- 0x0b1f29df74a19c44745862ab018d925501fe9596 - Theft TC 3x100 
+- 0x431e81e5dfb5a24541b5ff8762bdef3f32f96354 - Fantom Foundation (not compromised)
+- 0xa51b1bc907fe0a6bc6538c5c56472c1d9c60de23 - Fantom Controlled Wallet (not compromised?)
+- 0x2f4f1d2c5944dba74e107d1e8e90e7c1475f4001 - Theft
+- 0xdadc0421ee1b5426fca3db22f0a94a3bad5a329d - Theft
+- 0x1d93c73d575b81a59ff55958afc38a2344e4f878 - Theft
+- 0x0b1f29df74a19c44745862ab018d925501fe9596 - Theft TC 3x100
 - 0x5cdeffa84ee3c203fee7a3901d90ff464ebff801 - Theft TC 46x100
 - 0x0c45060bc4c518b6942f19d7c279ed42e137d29d - Theft Jan 2024
 - 0xdd92ff524b3b58adb55b9e4824749ba5b0993842 - Theft Jan 2024 FixedFloat

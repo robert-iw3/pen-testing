@@ -35,12 +35,12 @@ namespace winPEAS._3rdParty.SQLite
         }
 
         /// <summary>
-        /// Opens database. 
+        /// Opens database.
         /// </summary>
         /// <param name="DatabaseName">Name of database file</param>
         public void OpenDatabase( String DatabaseName )
         {
-            // opens database 
+            // opens database
             if ( CSSQLite.sqlite3_open( DatabaseName, ref db ) != CSSQLite.SQLITE_OK )
             {
             // if there is some error, database pointer is set to 0 and exception is throws
@@ -170,7 +170,7 @@ namespace winPEAS._3rdParty.SQLite
                                 //string password = Encoding.ASCII.GetString(decPass);
                                 //columnValues[i] = password;
                                 columnValues[i] = base64;
-                                
+
                     break;
                     }
                 default:
@@ -626,7 +626,7 @@ namespace winPEAS._3rdParty.SQLite
 //                    }
 //                    jsonItems[i] = jsonString;
 //                }
-//                string results = "{" + String.Join(", ", jsonItems) + "}"; 
+//                string results = "{" + String.Join(", ", jsonItems) + "}";
 //                return results;
 //            }
 //        }

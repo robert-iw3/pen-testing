@@ -153,7 +153,7 @@ void MonitoringService::sendSMS(const std::string &message) const {
 }
 
 void MonitoringService::sendToMessenger(const std::string &message) const {
-     // auto 
+     // auto
     log("Messenger message sent: " + message);
 }
 

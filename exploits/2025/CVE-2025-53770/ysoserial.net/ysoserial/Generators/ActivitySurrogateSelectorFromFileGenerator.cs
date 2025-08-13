@@ -45,7 +45,7 @@ namespace ysoserial.Generators
         {
             return "ActivitySurrogateSelectorFromFile";
         }
-        
+
         public override object Generate(string formatter, InputArgs inputArgs)
         {
             // Disable ActivitySurrogate type protections during generation
@@ -91,7 +91,7 @@ namespace ysoserial.Generators
                         }
                         return payloadInByte;
                     }
-                }    
+                }
                 return Serialize(payload, formatter, inputArgs);
             }
             catch(System.IO.FileNotFoundException e1)
@@ -99,7 +99,7 @@ namespace ysoserial.Generators
                 Console.WriteLine("Error in provided file(s): \r\n" + e1.Message);
                 return "";
             }
-            
+
         }
     }
 }

@@ -85,7 +85,7 @@
             "content": "(?i)^(.*\\.)?corp\\.local$"
           },
           "route": "chain2"
-        }     
+        }
       ]
     }
   },

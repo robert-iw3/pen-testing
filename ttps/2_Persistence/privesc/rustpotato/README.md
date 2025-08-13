@@ -4,10 +4,10 @@
 
 ## Key Features
 
-- **TCP-based Reverse Shell**:  
+- **TCP-based Reverse Shell**:
   RustPotato features a TCP-based reverse shell based on [Rustic64Shell](https://github.com/safedv/Rustic64Shell). It leverages Winsock APIs for network communication and indirect NT APIs for pipe-based I/O redirection, enabling command execution through `cmd` or `powershell`.
 
-- **Indirect NTAPI**:  
+- **Indirect NTAPI**:
   RustPotato leverages indirect NTAPI calls for various operations, including token handling and manipulation.
 
 ## Overview
@@ -16,45 +16,45 @@ Below is an overview of its execution flow, highlighting key operations at each 
 
 ### 1. **Initialize and Hook RPC Context**
 
-1. **Locate `RPC_SERVER_INTERFACE` Structure**:  
+1. **Locate `RPC_SERVER_INTERFACE` Structure**:
    The tool scans the memory of `combase.dll` to find the `RPC_SERVER_INTERFACE` structure, a critical component for managing RPC communications through the OXID Resolver.
 
-2. **Hook RPC Dispatch Table**:  
+2. **Hook RPC Dispatch Table**:
    RustPotato replaces the first entry in the `RPC_DISPATCH_TABLE` with a custom function pointer, enabling interception and manipulation of specific RPC calls.
 
 ### 2. **Start Named Pipe Server and Trigger RPCSS**
 
 The named pipe server plays a central role in impersonation and privilege escalation:
 
-- **Create Named Pipe**:  
+- **Create Named Pipe**:
   A named pipe (e.g., `\\.\pipe\RustPotato`) is created with unrestricted access, serving as the endpoint for client connections.
 
-- **Unmarshal COM Object**:  
+- **Unmarshal COM Object**:
   RustPotato crafts and unmarshals a COM object, compelling **RPCSS** to establish a connection with the named pipe.
 
-- **Trigger RPCSS**:  
+- **Trigger RPCSS**:
   The unmarshalled object invokes RPC calls that traverse the hooked dispatch table, allowing RustPotato to intercept and manipulate the interactions.
 
-- **Impersonate Client**:  
+- **Impersonate Client**:
   When **RPCSS** connects to the named pipe, RustPotato impersonates the client using `ImpersonateNamedPipeClient` to assume its security context.
 
-- **Retrieve SYSTEM Token**:  
+- **Retrieve SYSTEM Token**:
   During impersonation, RustPotato locates and duplicates a token associated with the `NT AUTHORITY\SYSTEM` account.
 
 ### 3. **Execute Command or Establish Reverse Shell**
 
-- **Execute a Command**:  
+- **Execute a Command**:
   RustPotato uses the duplicated token to execute a specified command, leveraging `CreateProcessWithTokenW`.
 
-- **Establish a Reverse Shell**:  
+- **Establish a Reverse Shell**:
   With reverse shell options (`-h` and `-p`), RustPotato connects to a listener and executes commands through `cmd` or `powershell`.
 
 ### 4. **Restore State and Cleanup**
 
-- **Restore RPC Dispatch Table**:  
+- **Restore RPC Dispatch Table**:
   Removes the custom function pointer from the `RPC_DISPATCH_TABLE` and restores the original state in `combase.dll`.
 
-- **Terminate Pipe Server**:  
+- **Terminate Pipe Server**:
   Stops the named pipe server, releasing all associated resources and handles.
 
 ## Usage

@@ -67,7 +67,7 @@ ROOT
 /SearchN.do?searchText=a&SELECTEDSITEID=1&SELECTEDSITENAME=&configID=0&SELECTSITE=qc_siteID&submitbutton=Go&userConfigID=21111111ucgol"><img src%3da onerror%3dalert('XSS')>qzmm3u7id8z&selectName=Site
 /PurchaseRequest.do?operation=getAssociatedPrsForSR&serviceRequestId=g24aj%3Cimg%20src%3da%20onerror%3dalert(%27XSS%27)%3Eqdaxl
 /SearchN.do
-/servlets/ajax_file_upload?fieldName=binary3 
+/servlets/ajax_file_upload?fieldName=binary3
 /jsp/Popup_SLA.jsp
 /mc/jsp/MCDashboard.jsp
 /mc/jsp/MCLogOut.jsp
@@ -234,7 +234,7 @@ ROOT
 /console/login/LoginForm.jsp
 /contents/
 /contents/service/homepage
-/contents/service/homepage 
+/contents/service/homepage
 /contents/|2C6B33BED38F825C48AE73C093241510|com.ca.arcflash.ui.client.homepage.HomepageService
 /cookie/
 /corporate/webpages/dashboard/ApplianceInformation.jsp
@@ -284,7 +284,7 @@ ROOT
 /gespage/
 /gespage/users/prnow.jsp
 /gespage/webapp/users/prnow.jsp
-/gespage/webapp/users/prnow.jsp 
+/gespage/webapp/users/prnow.jsp
 /ghboard/component/flashupload/data
 /ghboard/component/flashupload/download.jsp
 /graphicalViewsBackgroundUpload
@@ -302,7 +302,7 @@ ROOT
 /idm/user/main.jsp
 /images/boot.ini
 /images/passwd.txt
-/import-keystore-certificate.jsp 
+/import-keystore-certificate.jsp
 /inline/WorkOrder/2/1340090056957.txt
 /intruvert/jsp/module/Login.jsp
 /intruvert/jsp/reports/reports-column-center.jsp
@@ -358,7 +358,7 @@ ROOT
 /muc-room-delete.jsp
 /muc-room-edit-form.jsp
 /muc-service-edit-form.jsp
-/muc-service-edit-form.jsp 
+/muc-service-edit-form.jsp
 /neonwebmail/addrlist
 /neonwebmail/downloadfile
 /neonwebmail/maillist
@@ -389,7 +389,7 @@ ROOT
 /opennms/j_acegi_security_check
 /opennms/notification/list.jsp
 /opt/SecureSphere/server/SecureSphere/jakarta-tomcat-secsph/webapps/SecureSphere/WEB-INF/reptempt/25CB2F79E342E89AD9A7CFF51AA17F10/1338152502622932642/export.imf
-/opt/tomcat/webapps/ROOT/pepito.jsp 
+/opt/tomcat/webapps/ROOT/pepito.jsp
 /pages/ucquerydetails.jsp
 /pages/ucschcancelproc.jsp
 /pagesUTF8/Sys_DirAnzeige.jsp
@@ -1864,7 +1864,7 @@ equbi8bp.jsp
 erip.jsp
 erorr.jsp
 error.jsp
-error.php2014-10-14 15:38  3.9K 
+error.php2014-10-14 15:38  3.9K
 error7.jsp
 error20.jsp
 error24.jsp
@@ -11539,7 +11539,7 @@ Webtech.jsp
 weekly.jsp
 weight.jsp
 welcome.jsp
-welcome.php2008-06-23 14:54  2.1K 
+welcome.php2008-06-23 14:54  2.1K
 wembleyimport.jsp
 what.jsp
 whatsapp-api.jsp
@@ -35933,7 +35933,7 @@ ___404.php
 /scp/slass.php
 /upload/scp/slas.php
 /boltwire/index.php
-/en/omk/open-audit 
+/en/omk/open-audit
 /en/omk/open-audit/login
 /admin/change-password.php
 /helpdesk/content/attachments-faq/shell.php
@@ -36121,7 +36121,7 @@ ___404.php
 /operator_panel/exec.php
 /user_settings/user_dashboard.php
 /admin/new-content/index.php
-/admin/ajax/upload-images 
+/admin/ajax/upload-images
 /admin/dashboard/index.php
 /tematres/vocab/admin.php
 /badging/bg/webshell.php
@@ -36133,7 +36133,7 @@ ___404.php
 /fudforum/adm/admbrowse.php
 /fudforum/adm/admuser.php
 /cbas/index.php?m=servers&a=start_pulling&id=1
-/badging/badge_template_v0.php?layout=<script>confirm('XSS')</script> 
+/badging/badge_template_v0.php?layout=<script>confirm('XSS')</script>
 /cbas/index.php?m=auth&a=login
 /card_scan.php
 /get_router_show.php
@@ -36181,7 +36181,7 @@ ___404.php
 /app/services/services.php
 /app/services/service_edit.php
 /core/user_settings/user_dashboard.php
-/wpdmpro/category-short-code/?orderby=publish_date                                                  
+/wpdmpro/category-short-code/?orderby=publish_date
 /wpdmpro/list-packages/?orderby=title%22%3E%3Cscript%3Ealert(1)%3C/script%3E&order=asc
 /filethingy/ft2.php
 /sentrifugo/index.php
@@ -36249,10 +36249,10 @@ ___404.php
 /system/ownpassword.save.php
 /system/time.ntp.php
 /smartdomuspad/modules/reporting/track_import_export.php
-/pasthr/server.php/search?keyword=1901418 
+/pasthr/server.php/search?keyword=1901418
 /index-pc.php
 /Login/Login.php
-/Card/Card_Edit_GetJson.php 
+/Card/Card_Edit_GetJson.php
 /Permission/Insert_Permission.php
 /Permission/Get_Permission_From_DB.php
 /modules/patch/gerar_pdf.php?cid=
@@ -36286,7 +36286,7 @@ ___404.php
 /index.php?option=com_advertisementboard&Itemid=132&task=show_rss_categories&catname=
 /third_party/kcfinder/browse.php
 /moduleinterface.php
-/pages/ajax.render.php 
+/pages/ajax.render.php
 /gallery.php?gallery_id=1
 /haberarsiv.php?cid=1
 /arama.php?T1=btnVote=G%C3%B6nder&ara=1
@@ -36314,10 +36314,10 @@ ___404.php
 /laundry/index.php/admin/employee_crud/new
 /laundry/index.php/admin/expenses_crud/create
 /laundry/index.php/admin/service_crud/create
-/interface/registercustomer/onlineregsuccess.php?cn=</font><script>alert(1);</script><font>&result= 
-/interface/registercustomer/onlineregsuccess.php?cn=</font><script>alert(1);</script><font>&result= 
-/interface/registerreseller/onlineregfailure.php?cn=gar&result=</font><script>alert(1);</script><font> 
-/interface/registerclient/onlineregfailure.php?cn=gar&result=</font><script>alert(1);</script><font> 
+/interface/registercustomer/onlineregsuccess.php?cn=</font><script>alert(1);</script><font>&result=
+/interface/registercustomer/onlineregsuccess.php?cn=</font><script>alert(1);</script><font>&result=
+/interface/registerreseller/onlineregfailure.php?cn=gar&result=</font><script>alert(1);</script><font>
+/interface/registerclient/onlineregfailure.php?cn=gar&result=</font><script>alert(1);</script><font>
 /interface/registercustomer/onlineregfailure.php?cn=gar&result=</font><script>alert(1);</script><font>
 /app/fileupload_page.php?id=_id_&msg=v
 /admin/moduleinterface.php
@@ -36330,7 +36330,7 @@ ___404.php
 /quiz/view.php
 /course/mod.php
 /.view.php
-/haproxy/haproxy_listeners_edit.php 
+/haproxy/haproxy_listeners_edit.php
 /wp-content/plugins/gracemedia-media-player/templates/files/ajax_controller.php
 /gracemedia-media-player/templates/files/ajax_controller.php
 /php/setup.php
@@ -36431,7 +36431,7 @@ ___404.php
 /admin/invoice.php
 /index.php?option=com_jpprojects&view=projects&tmpl=component&format=json
 /index.php?route=job/jobdetail&job_id=%2d%39%31%27%20%55%4e%49%4f%4e%20%53%45%4c%45%43%54%20%31%2c%32%2c%33%2c%34%2c%35%2c%36%2c%37%2c%38%2c%39%2c%31%30%2c%31%31%2c%31%32%2c%31%33%2c%31%34%2c%31%35%2c%31%36%2c%31%37%2c%31%38%2c%31%39%2c%28%53%45%4c%45%43%54%20%47%52%4f%55%50%5f%43%4f%4e%43%41%54%28%74%61%62%6c%65%5f%6e%61%6d%65%20%53%45%50%41%52%41%54%4f%52%20%30%78%33%63%36%32%37%32%33%65%29%20%46%52%4f%4d+%49%4e%46%4f%52%4d%41%54%49%4f%4e%5f%53%43%48%45%4d%41%2e%54%41%42%4c%45%53%20%57%48%45%52%45%20%54%41%42%4c%45%5f%53%43%48%45%4d%41%3d%44%41%54%41%42%41%53%45%28%29%29%2c%32%31%2c%32%32%2d%2d%20%2d
-/index.php?route=product/category&path=%33%33%5f%36%34%31%34%39%39%39%39%39%27%20%2f%2a%21%31%33%33%33%37%50%72%6f%63%65%44%75%72%65%2a%2f%20%41%6e%41%6c%79%73%65%20%28%65%78%74%72%61%63%74%76%61%6c%75%65%28%30%2c%63%6f%6e%63%61%74%28%30%78%32%37%2c%30%78%33%61%2c%40%40%76%65%72%73%69%6f%6e%29%29%2c%30%29%2d%2d%20%2d 
+/index.php?route=product/category&path=%33%33%5f%36%34%31%34%39%39%39%39%39%27%20%2f%2a%21%31%33%33%33%37%50%72%6f%63%65%44%75%72%65%2a%2f%20%41%6e%41%6c%79%73%65%20%28%65%78%74%72%61%63%74%76%61%6c%75%65%28%30%2c%63%6f%6e%63%61%74%28%30%78%32%37%2c%30%78%33%61%2c%40%40%76%65%72%73%69%6f%6e%29%29%2c%30%29%2d%2d%20%2d
 /hucart_cn/adminsys/index.php?load=admins&act=edit_info&act_type=add
 /events_edit.php
 /shield/forgot.php
@@ -36708,7 +36708,7 @@ ___404.php
 /Contact/contact.php
 /Core/core.inc.php
 /CoupleDB.php
-/Cpanel/account                                     
+/Cpanel/account
 /CreativeFiles/downloads.php
 /D8/ab4u/images/c.php
 /D8/upload/index.php
@@ -37053,8 +37053,8 @@ ___404.php
 /PSF/index.php
 /PSF/lib/base.inc.php
 /Pacs/login.php
-/Pacs/nocache.php 
-/Pacs/userSignup.php 
+/Pacs/nocache.php
+/Pacs/userSignup.php
 /Partners/admindemo/index.php
 /Partners/admindemo/manage_categories.php
 /Password.php
@@ -37063,7 +37063,7 @@ ___404.php
 /PetRatePro/admin/sitebanners/upload_banners.php
 /PetRatePro/index.php
 /PetRatePro/viewcomments.php
-/Pharmacy/index.php                                 
+/Pharmacy/index.php
 /Phoenix/includes/geoip.php
 /PhotoCart/adminprint.php
 /Photos/create_album.php
@@ -37102,7 +37102,7 @@ ___404.php
 /Projects/SPTSPT--UserLogin.php
 /Public/index.php
 /PwnScriptum_PHPMailer_PoC_contactform.zip
-/QCVote.php  
+/QCVote.php
 /Quick.Cart/admin.php
 /Quick.Cartadmin.php
 /Quick.Cms/admin.php
@@ -37235,7 +37235,7 @@ ___404.php
 /WebApps/products_xx.php
 /WebCalendar-1.2.7/install/index.php
 /WebLink/yourid/somephpcode.php.kr
-/WebMstr7/servlet/mstrWeb?evt=3045&src=mstrWeb.3045&subpage=../../../../../../../../etc/passwd                           
+/WebMstr7/servlet/mstrWeb?evt=3045&src=mstrWeb.3045&subpage=../../../../../../../../etc/passwd
 /Wiky/include/WBmap.php
 /Wiky/index.php/Comment/Main/
 /Wiky/index.php/Comment/Main/Home_Wiky/
@@ -37333,7 +37333,7 @@ ___404.php
 /a10089.try.invisionpower.com/index.php
 /a2billing/admin/Public/A2B_entity_backup.php
 /a2billing/agent/Public/checkout_process.php
-/a2billing/agent/Public/checkout_process.php  
+/a2billing/agent/Public/checkout_process.php
 /a2billing/customer/iridium_threed.php
 /a485f48d65772f784ffec2ce690d0dd5.tmp.php
 /aWebNews/visview.php
@@ -37426,7 +37426,7 @@ ___404.php
 /activekb/loadpanel.php
 /activeutil.php
 /activiteiten.php
-/actor.php                                   
+/actor.php
 /ad-manager/image.php
 /adMan/advertiser/viewStatement.php
 /adManArea/adMan1/adMan/advertiser/editCampaign.php
@@ -37441,11 +37441,11 @@ ___404.php
 /add_block.php
 /add_comment.php
 /add_comment_script.php
-/add_facnote.php                             
+/add_facnote.php
 /add_journal_mask.inc.php
 /add_link.php
 /add_ons.php
-/add_profile.php                             
+/add_profile.php
 /add_soft.php
 /add_story.php
 /add_to_cart.php
@@ -37577,7 +37577,7 @@ ___404.php
 /admin/addUser.php
 /admin/add_album.php
 /admin/add_cat.php
-/admin/add_cat.php                           
+/admin/add_cat.php
 /admin/add_country.php
 /admin/add_gallery.php
 /admin/add_main_pages.php
@@ -38046,7 +38046,7 @@ ___404.php
 /admin/index2.php
 /admin/index_sitios.php
 /admin/information_manager.php
-/admin/inicio.php                            
+/admin/inicio.php
 /admin/insertion_fee_settings.php
 /admin/install.php
 /admin/integrate.php
@@ -38079,7 +38079,7 @@ ___404.php
 /admin/locations.php
 /admin/log.php
 /admin/login.php
-/admin/login.php                             
+/admin/login.php
 /admin/login.php/
 /admin/login.php=error=
 /admin/login/forgot/index.php
@@ -38097,7 +38097,7 @@ ___404.php
 /admin/managerrelated.php
 /admin/managersection.php
 /admin/manual.php
-/admin/media.php                             
+/admin/media.php
 /admin/media.site.php
 /admin/media/update_content.php
 /admin/media/upload
@@ -38110,13 +38110,13 @@ ___404.php
 /admin/membership_pricing.php
 /admin/menu.php
 /admin/menu_xml.php
-/admin/mod_room/controller.php               
-/admin/mod_users/controller.php              
+/admin/mod_room/controller.php
+/admin/mod_users/controller.php
 /admin/modif_config.php
 /admin/mods/simplechat_1.0.0/chat_log.php
 /admin/mods/simplechat_1.0.0/chat_panel.php
 /admin/mods_adm.php
-/admin/modul/mod_pengurus/aksi_pengurus.php  
+/admin/modul/mod_pengurus/aksi_pengurus.php
 /admin/module/vulnerable_file.php
 /admin/modules/Users/edit_user.php
 /admin/modules/Users/user_updated.php
@@ -38652,14 +38652,14 @@ ___404.php
 /ajax-files/followBoard.php
 /ajax-files/list_photo.php
 /ajax-files/postComment.php
-/ajax.php                                    
+/ajax.php
 /ajax/commonAjax.php
 /ajax/control.php
 /ajax/deleteComment.php
 /ajax/deletePage.php
-/ajax/download.php                           
+/ajax/download.php
 /ajax/editar_producto.php
-/ajax/form_post.php                          
+/ajax/form_post.php
 /ajax/getDropdownConnect.php
 /ajax/getDropdownValue.php
 /ajax/getSimilarManufacturer.php
@@ -38708,7 +38708,7 @@ ___404.php
 /albums/userpics/Copperminer.jpg.php
 /albums/userpics/shell.php.pgif
 /alert.php
-/alerts.html                                        
+/alerts.html
 /alex_poll2/setup.php
 /alexa/proxy/xx.php
 /alexguestbook4/index.php
@@ -38731,7 +38731,7 @@ ___404.php
 /allocPSA-1.7.4/login/login.php
 /allocations/supplier_allocate.php
 /alpha.php
-/alphaindex-dictionaries/index.php  
+/alphaindex-dictionaries/index.php
 /alwasel/show.php
 /alwasel/xml.php
 /am/cource.php
@@ -38991,9 +38991,9 @@ ___404.php
 /assets/edit/account-owner.php
 /assets/edit/registrar-account.php
 /assets/edit/ssl-provider-account.php
-/assets/images/phpinfo_1540846240.php        
-/assets/images/phpinfo_1540847419.php        
-/assets/images/phpinfo_1540881402.php        
+/assets/images/phpinfo_1540846240.php
+/assets/images/phpinfo_1540847419.php
+/assets/images/phpinfo_1540881402.php
 /assets/js/ddcart.php
 /assets/lib/fuc.js.php
 /assets/mng/mng.php
@@ -39549,7 +39549,7 @@ ___404.php
 /cacti/graph_view.php
 /cacti/graph_xport.php
 /cacti/plugins/superlinks/superlinks.php
-/cacti/templates_export.php 
+/cacti/templates_export.php
 /cacti/tree.php
 /cacti/utilities.php
 /cadastro/index.php
@@ -39718,7 +39718,7 @@ ___404.php
 /category-rename.php
 /category-view-list.php
 /category.php
-/category.php 
+/category.php
 /category_edit.php
 /category_list.php
 /category_view.php
@@ -39789,9 +39789,9 @@ ___404.php
 /cgi-bin/forums/list.php
 /cgi-bin/newsletter.php.cgi
 /cgi-bin/wphpbb.cgi
-/chamillo/main/auth/inscription.php  
-/chamillo/main/calendar/agenda_js.php     
-/chamillo/main/inc/ajax/agenda.ajax.php    
+/chamillo/main/auth/inscription.php
+/chamillo/main/calendar/agenda_js.php
+/chamillo/main/inc/ajax/agenda.ajax.php
 /change.php
 /change/tavi/img/albayx.php
 /change/tavi/upload.php
@@ -39808,7 +39808,7 @@ ___404.php
 /chartdirector/viewsource.php
 /charts.php
 /chat.php
-/chat.php                                    
+/chat.php
 /chat/admin.php3
 /chat/config/start-page.css.php3
 /chat/config/style.css.php3
@@ -39859,7 +39859,7 @@ ___404.php
 /citrusdb/tools/index.php
 /city.php
 /city_ajax.php
-/city_graph.php                              
+/city_graph.php
 /city_reviewer/search.php
 /cityview.php
 /cjdynamicpollprov2/admin/admin_index.php
@@ -40533,7 +40533,7 @@ ___404.php
 /config/config_admin.php
 /config/config_main.php
 /config/config_member.php
-/config/dbconn.php                                 
+/config/dbconn.php
 /config/dbutil.bck.php
 /config/dbutil.php
 /config/fonctions.lib.php
@@ -40724,7 +40724,7 @@ ___404.php
 /counter/stats/index.php
 /countlines.php
 /countries/index.php
-/country.php                                 
+/country.php
 /country_escorts.php
 /countrycode1.php
 /countrydetails.php
@@ -41025,7 +41025,7 @@ ___404.php
 /development-tools/phppeanuts-1-1.zip
 /devformatter/devformatter.php
 /device.rsp
-/device_add.php 
+/device_add.php
 /deviceadd.php
 /dfblog/posts.php
 /dfd_cart/app.lib/product.control/core.php/customer.area/customer.browse.list.php
@@ -41063,7 +41063,7 @@ ___404.php
 /dirLIST_files/gallery_files/show_scaled_image.php
 /diraccess.php
 /dirdetails.php
-/director.php                                
+/director.php
 /directory.php
 /dirsys/arbre.php
 /discussion.php3
@@ -41138,8 +41138,8 @@ ___404.php
 /docs/front-end-demo/cart2.php
 /docs/index.php
 /docs/showdoc.php
-/docs_manage.php   
-/docs_upload.php                             
+/docs_manage.php
+/docs_upload.php
 /docsppim/notes.php
 /doctor/doc_images/[FILE].php
 /doctor/profile.php
@@ -41361,7 +41361,7 @@ ___404.php
 /easymoblog/img.php
 /easyndexer/src/createuser.php
 /easyonlineshop/content.php
-/easyweb/w7008/index.php   
+/easyweb/w7008/index.php
 /ebayclone2009/category.php
 /ebayclone2009/classifide_ad.php
 /ebayclone2009/crosspromoteitems.php
@@ -41470,8 +41470,8 @@ ___404.php
 /eintrag.php
 /ekinboard/profile.php
 /ekrishta/index.php/profile/user_setting
-/ekushey/index.php/admin/client                
-/ekushey/index.php/admin/client/create         
+/ekushey/index.php/admin/client
+/ekushey/index.php/admin/client/create
 /elearningku/proses.php
 /eledicss.php
 /elenco_attivita.php
@@ -41487,7 +41487,7 @@ ___404.php
 /elxis/administrator/index.php
 /elxis/index.php
 /email.php
-/email.php                                   
+/email.php
 /email/session.php
 /email_an_benutzer.php
 /email_attachment/admin-13.php
@@ -41600,7 +41600,7 @@ ___404.php
 /event-detail.php
 /event-details.php
 /event.php
-/event/controller.php                        
+/event/controller.php
 /event/function.php
 /event/index.php
 /event_add.php
@@ -41635,7 +41635,7 @@ ___404.php
 /evilfile.php
 /ewiki/fragments/css.php
 /example.php
-/example.php                                
+/example.php
 /example/lib/grid3.lib.php
 /example1.php
 /example2.php
@@ -41918,7 +41918,7 @@ ___404.php
 /files/nst.php.ns
 /files/product.php
 /files/product_detail.php
-/files/saltos.db                                    
+/files/saltos.db
 /files/services.php
 /files/settings.php3
 /files/sh.php
@@ -41995,7 +41995,7 @@ ___404.php
 /flirt/index.php
 /flirtportal/rub2_w.php
 /flood.db.php
-/floorplans.html                                    
+/floorplans.html
 /florist/popupproduct.php
 /flushcmd/Include/editor/rich_files/class.rich.php
 /fluxbb/admin_options.php
@@ -42432,7 +42432,7 @@ ___404.php
 /genixcms/register.php
 /genpage-cgi.php
 /genpage.php
-/genre.php                                   
+/genre.php
 /genre_albums.php
 /genre_artists.php
 /genres.php
@@ -42606,7 +42606,7 @@ ___404.php
 /handlers/getpage.php
 /handlers/htmlarea/popups/insert_image.php
 /hangman/index.php
-/hape-pkh/admin/modul/mod_user/aksi_user.php 
+/hape-pkh/admin/modul/mod_user/aksi_user.php
 /hauru.php
 /haut.php
 /havalite/findReplace.php
@@ -42720,7 +42720,7 @@ ___404.php
 /horde/turba/search.php
 /horde/util/barcode.php
 /horde/util/go.php
-/hospital/index.php                                 
+/hospital/index.php
 /host.com/channel_detail.php
 /hostdirectory/search_result.php
 /hostindex/directory.php
@@ -43002,7 +43002,7 @@ ___404.php
 /inc/modul.inc.php
 /inc/output/news_theme1.php
 /inc/pdo.inc.php
-/inc/popup.qrcode.inc.php                    
+/inc/popup.qrcode.inc.php
 /inc/prepare_ticket_search.inc.php
 /inc/prepend.inc.php
 /inc/print_tickets.inc.php
@@ -43027,7 +43027,7 @@ ___404.php
 /inc/wysiwyg.php
 /inc_ACVS/SOAP/Transport.php
 /inc_header.php
-/inc_types_graph.php                         
+/inc_types_graph.php
 /incele.php
 /incident_add.php
 /include.php
@@ -43464,10 +43464,10 @@ ___404.php
 /includes/xhtml.php
 /index.inc.php
 /index.php
-/index.php                                   
+/index.php
 /index.php/Admin_Preferences
-/index.php/Config/CreatSite   
-/index.php/Config/UpdateSite    
+/index.php/Config/CreatSite
+/index.php/Config/UpdateSite
 /index.php/Edit/Main/Home
 /index.php/PopUpNews/popupnewsitem/
 /index.php/Security/login
@@ -43478,7 +43478,7 @@ ___404.php
 /index.php/Special:FormEdit
 /index.php/System/MailConnect/
 /index.php/System/addUser
-/index.php/System/userManager 
+/index.php/System/userManager
 /index.php/Web_Reference_Database
 /index.php/admin/
 /index.php/admin/ajax/pages/get-seo-score
@@ -43621,7 +43621,7 @@ ___404.php
 /index_ebay.php
 /index_offer.php
 /index_priv.php
-/index_search.php                           
+/index_search.php
 /indexk.php
 /indexmess.php
 /indexu/add.php
@@ -44158,8 +44158,8 @@ ___404.php
 /lang/index.php
 /lang/lang.php
 /lang/leslangues.php
-/lango/admin/settings                               
-/lango/admin/settings/update                        
+/lango/admin/settings
+/lango/admin/settings/update
 /language.inc.php
 /language.php
 /language/en.inc.php
@@ -44175,7 +44175,7 @@ ___404.php
 /languages/deutsch.php
 /languages/yourlanguage/definitions.php
 /languages_cgi.php
-/lap-anggota-kelompok-pdf.php 
+/lap-anggota-kelompok-pdf.php
 /last.php
 /last_gallery.php
 /last_records.php
@@ -44190,7 +44190,7 @@ ___404.php
 /lazarus/admin.php
 /lazarusgb/lang/codes-english.php
 /lazarusgb/picture.php
-/lbadmin/config/command.php 
+/lbadmin/config/command.php
 /lc/admin/file_manager.php
 /lc/admin/includes/elfinder/php/connector.php
 /ldap-account-manager-3.4.0/templates/login.php
@@ -44476,7 +44476,7 @@ ___404.php
 /list_content.php
 /list_export.php
 /list_list.php
-/list_project_modules.php 
+/list_project_modules.php
 /list_tagitems.php
 /list_temp_photo_pin_upload.php
 /list_user.php
@@ -44621,7 +44621,7 @@ ___404.php
 /macdownload.php
 /macgurublog.php
 /macgurublog_menu/macgurublog.php
-/machform/data/form_58009/files/ 
+/machform/data/form_58009/files/
 /machform/download.php
 /machform/view.php
 /maddash-webui/etc/
@@ -44676,7 +44676,7 @@ ___404.php
 /mailto.php
 /main.inc.php
 /main.php
-/main.php                                    
+/main.php
 /main/admin/session_add.php
 /main/anketa/new.php
 /main/auth/profile.php
@@ -44991,8 +44991,8 @@ ___404.php
 /microcms/includes/file_manager/special.php
 /microcms/includes/inc.thcms_admin_dirtree.php
 /microcms/index.php
-/microstrategy7/Login.asp                           
-/microstrategy7/admin/admin.asp                     
+/microstrategy7/Login.asp
+/microstrategy7/admin/admin.asp
 /migrateNE2toNE3.php
 /milesj-php-decoda/index.php
 /million/admin.link.modify.php
@@ -45049,7 +45049,7 @@ ___404.php
 /mobilecartly/includes/savepage.php
 /mobilecartly/pages/shell.php
 /mod.php
-/mod.php                                     
+/mod.php
 /mod/admin/doc/index.php
 /mod/authent.php4
 /mod/base/menu.php
@@ -45236,7 +45236,7 @@ ___404.php
 /modules/articles/print.php
 /modules/authorizeaim/authorizeaim.class.php
 /modules/authorizeaim/pages/AAIMConfigPage.class.php
-/modules/backup/actions.php                  
+/modules/backup/actions.php
 /modules/backup/backup-sql.php
 /modules/backup/download.php
 /modules/badliege/index.php
@@ -45685,9 +45685,9 @@ ___404.php
 /nano/topic.php
 /narcissus/backend.php
 /navigacija.php
-/navigate/navigate.php  
+/navigate/navigate.php
 /navigate_download.php
-/navigate_info.php   
+/navigate_info.php
 /navigation.php
 /ncaster/admin/addons/archive/archive.php
 /nconf/call_file.php
@@ -45696,7 +45696,7 @@ ___404.php
 /nconf/static_file_editor.php
 /ndetail.php
 /ndex.php
-/nearby.php                                  
+/nearby.php
 /nederlands/tours.php
 /neobill/manager/manager_content.php
 /nephp/browse.php
@@ -46011,7 +46011,7 @@ ___404.php
 /offers.php
 /offers_buy.php
 /office.php
-/office_admin/download.php                   
+/office_admin/download.php
 /officescan/console/html/Widget/help_proxy.php
 /officescan/console/html/widget/repository/widgetPool/wp1/interface/analyzeWF.php
 /offline.php3
@@ -46357,7 +46357,7 @@ ___404.php
 /pages/play.php
 /pages/poll.php
 /pages/print/default/ops/news.php
-/pages/product_details.php                  
+/pages/product_details.php
 /pages/products/aguestbook/download.php
 /pages/showblog.php
 /pages/single_blog.php
@@ -46691,7 +46691,7 @@ ___404.php
 /phpTrafficA/plotStat.php
 /phpVibe/app/classes/language.php
 /phpVibe/index.php
-/phpWebFileManager-0.7/index.php 
+/phpWebFileManager-0.7/index.php
 /phpWebLog/backend/addons/links/index.php
 /phpWebLog/include/init.inc.php
 /phpXplorer/system/action.php
@@ -47405,7 +47405,7 @@ ___404.php
 /plus/lurking.php
 /plus/users_popuph.php
 /plx-file/config.php
-/plx-file/config.php    
+/plx-file/config.php
 /plxadtrader/ad.php
 /pm.php
 /pm/language/spanish/preferences.php
@@ -47574,7 +47574,7 @@ ___404.php
 /process-imported-question.php
 /process-zip-download.php
 /process.php
-/process.php                                
+/process.php
 /process/checkPidStatus.php
 /process/feries.php
 /process/planning.php
@@ -47838,7 +47838,7 @@ ___404.php
 /qti_usr.php
 /qto/index.php
 /qtofm.php
-/quality.php                                 
+/quality.php
 /query.php
 /questcms/main/main.php
 /question.php
@@ -47876,7 +47876,7 @@ ___404.php
 /ragefaces.php
 /raid.php
 /raidh.php
-/raidh.php  
+/raidh.php
 /ramacms/download.php
 /ramazeiten/download.php
 /random2.php
@@ -48010,8 +48010,8 @@ ___404.php
 /rempass.php
 /rename_form.php
 /reorder_forums.php
-/repeat_verify-n.php                         
-/repeat_verify.php                           
+/repeat_verify-n.php
+/repeat_verify.php
 /reply.php
 /reply_in.php
 /repo/papers/phpstat_advisory.txt
@@ -48179,7 +48179,7 @@ ___404.php
 /runcms/modules/newbb_plus/edit.php
 /runcms/modules/newbb_plus/newtopic.php
 /runcms/modules/newbb_plus/reply.php
-/runtime/                                           
+/runtime/
 /runtime/PartnerModel/phpinfo.php
 /ruubikcms/cms/includes/head.php
 /ruubikcms/cms/index.php
@@ -48359,8 +48359,8 @@ ___404.php
 /scripts/php.web-server-creator.1082.html
 /scripts/php/guestbook.php
 /scripts/php/miniblog
-/scripts/php/quiz-system/admin/add-category.php    
-/scripts/php/quiz-system/quiz-system.php    
+/scripts/php/quiz-system/admin/add-category.php
+/scripts/php/quiz-system/quiz-system.php
 /scripts/phpslideshow.php
 /scripts/polls.scr.php
 /scripts/recruit_details.php
@@ -48388,7 +48388,7 @@ ___404.php
 /search-results.php
 /search-smart-result.php
 /search.php
-/search.php                                  
+/search.php
 /search.php3
 /search/extremesearch.php
 /search/forum.php
@@ -48482,7 +48482,7 @@ ___404.php
 /sendstudio/admin/includes/createemails.inc.php
 /sendstudio/admin/includes/send_emails.inc.php
 /sensor/ta_loader.php
-/sensor_details.html                                
+/sensor_details.html
 /seo4smf-redirect.php
 /seopanel/download.php
 /ser/parohija.php
@@ -48537,7 +48537,7 @@ ___404.php
 /setup/login.php
 /setup/upgrader.php
 /setuser.php
-/sever_graph.php                             
+/sever_graph.php
 /sezhoo/SezHooTabsAndActions.php
 /sfiab/winners.php
 /sflog/admin/includes/uploadContent.inc.php
@@ -48563,7 +48563,7 @@ ___404.php
 /shop/kontakt.php/&
 /shop/main.php
 /shop/page.php
-/shop/page.php                                                         
+/shop/page.php
 /shop/php_files/site.config.php
 /shop/product-details.php
 /shop/product.php
@@ -48592,7 +48592,7 @@ ___404.php
 /show-flight-result.php
 /show-time.php
 /show.php
-/show.php 
+/show.php
 /show.php3
 /show/index.php
 /showCity.php
@@ -48673,7 +48673,7 @@ ___404.php
 /silentum_guestbook.php
 /silverstripe/pixlr/thirdparty/supa/data/lo.php
 /silverstripe/pixlr/thirdparty/supa/upload.php
-/sim-pkh/foto/59phpinfo2.php                        
+/sim-pkh/foto/59phpinfo2.php
 /simpgb/guestbook.php
 /simple-upload-53.php
 /simple/manage_users.php
@@ -48709,7 +48709,7 @@ ___404.php
 /single-video-detail.php
 /single-video.php
 /single.php
-/single.php 
+/single.php
 /single_detail.php
 /sipssys/code/box.inc.php
 /sistema/upload.php
@@ -48751,7 +48751,7 @@ ___404.php
 /sites/all/modules/civicrm/packages/amfphp/browser/methodTable.php
 /sites/guides/admin.php
 /sites/index.php
-/sites/web_vhost_domain_edit.php  
+/sites/web_vhost_domain_edit.php
 /sitesearch.php
 /sitetools/htm2php.php
 /sitio/index.php
@@ -49101,8 +49101,8 @@ ___404.php
 /struttura/ricerca.php
 /student.php
 /student/index.php
-/student_staff/                              
-/student_staff/download.php                  
+/student_staff/
+/student_staff/download.php
 /students.php
 /students/search.php
 /studienplatztausch.php
@@ -49123,7 +49123,7 @@ ___404.php
 /subject.php
 /submit.php
 /submitComment.php
-/submit_feedback.php                     
+/submit_feedback.php
 /submit_post.php
 /submit_profile.php
 /submitnews.php/
@@ -50082,27 +50082,27 @@ ___404.php
 /user.registration.php
 /user/File/shell.php
 /user/add_category.php
-/user/add_edit                               
+/user/add_edit
 /user/add_news.php
 /user/adminindex.php
 /user/change_catalog_template.php
-/user/chatroom.php                           
-/user/controller.php                         
+/user/chatroom.php
+/user/controller.php
 /user/couple_milestone.php
 /user/couple_profile.php
 /user/delete_category.php
 /user/group/index.php
 /user/home.php
 /user/index.php
-/user/index.php                             
+/user/index.php
 /user/index_inline_editor_submit.php
 /user/info.php
 /user/internettoolbar/index.php
 /user/login.php
 /user/logout.php
-/user/plist.php                              
+/user/plist.php
 /user/register.php
-/user/search_result.php                      
+/user/search_result.php
 /user/tools_cgicheck2.php
 /user/turbulence.php
 /user/upload/shell.php
@@ -50237,7 +50237,7 @@ ___404.php
 /vacation-packages/demo.php
 /vacation/1_mobile/alert_members.php
 /vacation/1_mobile/search.php
-/valida_login.php                            
+/valida_login.php
 /validate.php
 /validerp/_partner_list.php
 /validerp/_rantevou_list.php
@@ -50584,7 +50584,7 @@ ___404.php
 /warn.php
 /warstats/playerdetails.php
 /watch-video.php
-/watch.php                                   
+/watch.php
 /watermark.php
 /wb/admin/login/index.php
 /wb/content/phpAn_image_gallery/navigation.php
@@ -50695,7 +50695,7 @@ ___404.php
 /webid/active_auctions.php
 /webid/confirm.php
 /webid/eledicss.php
-/webiness_inventory-2.3/index.php                   
+/webiness_inventory-2.3/index.php
 /webiness_inventory-2.3/protected/library/ajax/WsSaveToModel.php
 /webiness_inventory-2.3/runtime/PartnerModel/shell.php?cmd=whoami
 /webjaxe/php/partie_administrateur/administration.php
@@ -50735,7 +50735,7 @@ ___404.php
 /webring/category.php
 /webring/index.php
 /webroot/uploads/zsl.php
-/webservice/Data/ 
+/webservice/Data/
 /webservices/atom/index.php
 /webshell4/login.php
 /website-page.php
@@ -50758,7 +50758,7 @@ ___404.php
 /webtemp/functions/admin_gambar.php
 /webtester/directions.php
 /webtools/control/FindGeneric
-/webtools/control/xmlrpc                            
+/webtools/control/xmlrpc
 /webtrade/category.php
 /webui/mainfile.php
 /webupgrade/webupgrade.php
@@ -50798,9 +50798,9 @@ ___404.php
 /wiki/index.php/Security
 /wiki/rankings.php
 /wiki/tiki-config.php
-/wikidforum/index.php  
-/wikidforum/rpc.php 
-/wikidforum/rpc.php  
+/wikidforum/index.php
+/wikidforum/rpc.php
+/wikidforum/rpc.php
 /wikihome/action/conflict.php
 /wikiwig5.01/_wk/Xinha/plugins/SpellChecker/spell-check-savedicts.php
 /wiklink/getURL.php
@@ -51129,9 +51129,9 @@ ___404.php
 /wp-content/plugins/js-appointment/searchdata.php
 /wp-content/plugins/kino-gallery/timthumb.php
 /wp-content/plugins/kittycatfish/base.css.php
-/wp-content/plugins/kittycatfish/base.css.php 
+/wp-content/plugins/kittycatfish/base.css.php
 /wp-content/plugins/kittycatfish/kittycatfish.php
-/wp-content/plugins/kittycatfish/kittycatfish.php 
+/wp-content/plugins/kittycatfish/kittycatfish.php
 /wp-content/plugins/knr-author-list-widget/knrAuthorListCustomSortSave.php
 /wp-content/plugins/lanoba-social-plugin/index.php
 /wp-content/plugins/lazyest-gallery/lazyest-popup.php
@@ -51169,7 +51169,7 @@ ___404.php
 /wp-content/plugins/odihost-newsletter-plugin/includes/openstat.php
 /wp-content/plugins/old-post-spinner/logview.php
 /wp-content/plugins/olimometer/thermometer.php
-/wp-content/plugins/olimometer/thermometer.php 
+/wp-content/plugins/olimometer/thermometer.php
 /wp-content/plugins/omni-secure-files/plupload/examples/upload.php
 /wp-content/plugins/oqey-gallery/bcupload.php
 /wp-content/plugins/oqey-gallery/getimages.php
@@ -51845,7 +51845,7 @@ ___404.php
 /yeager/ui/js/3rd/plupload/examples/upload.php
 /yeager/y.php/responder
 /yeager/y.php/tab_USERLIST
-/year.php  
+/year.php
 /year2005.php
 /yearcal.php
 /yogurt/system/writemessage.php
@@ -53337,7 +53337,7 @@ equbi8bp.php
 erip.php
 erorr.php
 error.php
-error.php2014-10-14 15:38  3.9K 
+error.php2014-10-14 15:38  3.9K
 error7.php
 error20.php
 error24.php
@@ -63012,7 +63012,7 @@ Webtech.php
 weekly.php
 weight.php
 welcome.php
-welcome.php2008-06-23 14:54  2.1K 
+welcome.php2008-06-23 14:54  2.1K
 wembleyimport.php
 what.php
 whatsapp-api.php
@@ -80618,7 +80618,7 @@ equbi8bp.php
 erip.php
 erorr.php
 error.php
-error.php2014-10-14 15:38  3.9K 
+error.php2014-10-14 15:38  3.9K
 error7.php
 error20.php
 error24.php
@@ -90293,7 +90293,7 @@ Webtech.php
 weekly.php
 weight.php
 welcome.php
-welcome.php2008-06-23 14:54  2.1K 
+welcome.php2008-06-23 14:54  2.1K
 wembleyimport.php
 what.php
 whatsapp-api.php

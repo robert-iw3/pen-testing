@@ -213,7 +213,7 @@ void ReadVector(HANDLE hProcess, RemoteVector vector, DWORD origSize) {
     size_t szSize = vector.end_ - vector.begin_;
     if (szSize <= 0) {
         //Some cookies just are like that. tapad.com cookie: TapAd_3WAY_SYNCS for example is buggy even with browser tools
-        printf("[-] Invalid value length\n"); 
+        printf("[-] Invalid value length\n");
         return;
     }
 
@@ -587,7 +587,7 @@ BOOL FindPattern(HANDLE hProcess, const BYTE* pattern, size_t patternSize, uintp
                 BYTE* newPattern = PatchBaseAddress(pattern, patternSize, reinterpret_cast<uintptr_t>(memoryInfo.BaseAddress));
 
                 //Error code 299
-                //Only part of a ReadProcessMemory or WriteProcessMemory request was completed. 
+                //Only part of a ReadProcessMemory or WriteProcessMemory request was completed.
                 //We are fine with that -- We were not fine with that
                 //if (ReadProcessMemory(hProcess, memoryInfo.BaseAddress, buffer, memoryInfo.RegionSize, &bytesRead) || GetLastError() == 299) {
                 if (ReadProcessMemory(hProcess, memoryInfo.BaseAddress, buffer, memoryInfo.RegionSize, &bytesRead)) {

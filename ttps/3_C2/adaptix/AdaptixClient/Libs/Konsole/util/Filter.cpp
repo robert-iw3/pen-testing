@@ -26,12 +26,12 @@ void FilterChain::addFilter(Filter *filter) {
         append(filter);
 }
 
-void FilterChain::removeFilter(Filter *filter) { 
-    removeAll(filter); 
+void FilterChain::removeFilter(Filter *filter) {
+    removeAll(filter);
 }
 
-bool FilterChain::containsFilter(Filter *filter) { 
-    return contains(filter); 
+bool FilterChain::containsFilter(Filter *filter) {
+    return contains(filter);
 }
 
 void FilterChain::reset() {
@@ -53,8 +53,8 @@ void FilterChain::process() {
         iter.next()->process();
 }
 
-void FilterChain::clear() { 
-    QList<Filter *>::clear(); 
+void FilterChain::clear() {
+    QList<Filter *>::clear();
 }
 
 Filter::HotSpot *FilterChain::hotSpotAt(int line, int column) const {
@@ -163,8 +163,8 @@ void Filter::getLineColumn(int position, int &startLine, int &startColumn) {
     }
 }
 
-const QString *Filter::buffer() { 
-    return _buffer; 
+const QString *Filter::buffer() {
+    return _buffer;
 }
 
 Filter::HotSpot::~HotSpot() {
@@ -178,8 +178,8 @@ void Filter::addHotSpot(HotSpot *spot) {
     }
 }
 
-QList<Filter::HotSpot *> Filter::hotSpots() const { 
-    return _hotspotList; 
+QList<Filter::HotSpot *> Filter::hotSpots() const {
+    return _hotspotList;
 }
 
 QList<Filter::HotSpot *> Filter::hotSpotsAtLine(int line) const {
@@ -367,12 +367,12 @@ const QRegularExpression UrlFilter::CompleteUrlRegExp(
     EmailAddressRegExp.pattern() + QLatin1Char('|') + FilePathRegExp.pattern() +
     QLatin1Char(')'));
 
-UrlFilter::UrlFilter() : RegExpFilter() { 
-    setRegExp(CompleteUrlRegExp); 
+UrlFilter::UrlFilter() : RegExpFilter() {
+    setRegExp(CompleteUrlRegExp);
 }
 
-UrlFilter::HotSpot::~HotSpot() { 
-    delete _urlObject; 
+UrlFilter::HotSpot::~HotSpot() {
+    delete _urlObject;
 }
 
 void FilterObject::emitActivated(const QUrl &url, uint32_t opcode) {

@@ -22,7 +22,7 @@ Algo Capital has raised $200 million for its Algo VC Fund, with the cash intende
 
 > "Our investment approach specifically targets companies that are creating the next great blockchain applications and infrastructure solutions, and as a result, helping to speed blockchain adoption and bring millions of new users into the Algorand network."
 
-The investment firm is a separate entity from the Algorand Foundation and Algorand LLC, which oversee the blockchain's actual development. 
+The investment firm is a separate entity from the Algorand Foundation and Algorand LLC, which oversee the blockchain's actual development.
 
 Pablo Yabo has resigned his position, according to the email sent to partners. Further security measures have been taken by the firm. The majority of the firm's funds were held in cold wallets that were not compromised.
 
@@ -74,9 +74,9 @@ Algo Capital Partner 1’s account at Exchange 11 sent the stolen 144,363.89 USD
 
 The Algo Capital Partner 1’s account at Exchange 11 also sent approximately 2.0285 BTC to an account at another exchange (“Exchange 12”) (line number 5 in the chart above).
 
-C. Connections of Hack of Exchange 11 to Hack of Exchange 3 and North Korea - (Defendant Property 172 through Defendant Property 280) 
+C. Connections of Hack of Exchange 11 to Hack of Exchange 3 and North Korea - (Defendant Property 172 through Defendant Property 280)
 
-As previously stated, the stolen ALGO tokens were deposited into 106 different accounts at Exchange 11, converted to BTC, and withdrawn to four BTC clusters (shown below, in light green lines). 
+As previously stated, the stolen ALGO tokens were deposited into 106 different accounts at Exchange 11, converted to BTC, and withdrawn to four BTC clusters (shown below, in light green lines).
 
 These four clusters are connected via cluster 1LEvp (containing “Defendant Property 172” through “Defendant Property 280”) to cluster 1BHnp (containing Defendant Property 8 through Defendant Property 22), which was involved in the laundering of the stolen funds from the Exchange 3 theft as described above.
 

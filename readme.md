@@ -12,8 +12,8 @@ Collection of known exploits/malware samples, tools for accessing systems, rando
 > [!CAUTION]
 >
 > DISCLAIMER:  Use responsibly and within legal parameters.
-> Unauthorized use, including but not limited to attacking 
-> systems without explicit owner consent, is strictly prohibited 
+> Unauthorized use, including but not limited to attacking
+> systems without explicit owner consent, is strictly prohibited
 > and violates international cybercrime laws.  This repository is
 > for educational purposes for those seeking to expand knowledge
 > on penetration testing, red team operations, and malware research.
@@ -27,3 +27,11 @@ Example:
 study/analysis_example/data/lumma.zip
 
 https://tria.ge/250608-xbtrmsyyav/behavioral1
+
+> [!NOTE]
+>
+> Detection logic for TTPs tested in this repo can be found here:
+>
+> https://github.com/robert-iw3/threat-hunting
+>
+> This repo's main purpose is for lab testing emerging Tools/Exploits/TTP's to validate detection logic for threat-hunting purposes.

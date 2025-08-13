@@ -3,7 +3,7 @@
     name: p7zip*
     state: present
 
-- name: Create 7zip password protected archive 
+- name: Create 7zip password protected archive
   ansible.builtin.shell: "7z a -p'{{ backup_archive_password }}' -mhe=on -mmt=8 /tmp/{{ ansible_hostname }}.7z {{ backup_folders }}"
   args:
     executable: /bin/bash

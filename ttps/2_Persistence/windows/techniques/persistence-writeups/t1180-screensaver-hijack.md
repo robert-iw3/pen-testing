@@ -6,7 +6,7 @@ description: Hijacking screensaver for persistence.
 
 ## Execution
 
-To achieve persistence, the attacker can modify `SCRNSAVE.EXE` value in the registry  `HKCU\Control Panel\Desktop\` and change its data to point to any malicious file. 
+To achieve persistence, the attacker can modify `SCRNSAVE.EXE` value in the registry  `HKCU\Control Panel\Desktop\` and change its data to point to any malicious file.
 
 In this test, I will use a netcat reverse shell as my malicious payload:
 

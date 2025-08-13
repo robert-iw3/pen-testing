@@ -27,12 +27,12 @@ import org.slf4j.LoggerFactory;
  */
 public final class IncomingHttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 	static final Logger LOG = LoggerFactory.getLogger(IncomingHttpRequestHandler.class);
-	
+
 	private final SniHandler sniHandler;
 	private final Bootstrap clientBootstrap;
 	private final HostMatcher<PreForwardRule> hostMatcher;
 	private final HostMatcher<PostForwardRule> postForwardMatcher;
-	
+
 	/**
 	 * @param sniHandler Netty handler for Server Name Identification (contains the actual target host name)
 	 * @param clientSslContext {@link SslContext} used for the outgoing request
@@ -44,13 +44,13 @@ public final class IncomingHttpRequestHandler extends SimpleChannelInboundHandle
 		this.hostMatcher = hostMatcher;
 		this.postForwardMatcher = postForwardMatcher;
 	}
-	
+
 	@Override
 	protected void channelRead0(ChannelHandlerContext channelHandlerContext, FullHttpRequest fullHttpRequest) throws Exception {
 		logRequest(fullHttpRequest);
 		forwardRequest(channelHandlerContext, fullHttpRequest);
 	}
-	
+
 	private void logRequest(FullHttpRequest fullHttpRequest) {
 		LOG
 			.atInfo()
@@ -59,16 +59,16 @@ public final class IncomingHttpRequestHandler extends SimpleChannelInboundHandle
 			.addArgument(fullHttpRequest::uri)
 			.log("Received request: {} {}{}");
 	}
-	
+
 	private void forwardRequest(ChannelHandlerContext channelHandlerContext, FullHttpRequest fullHttpRequest) throws InterruptedException, IOException {
 		String hostname = sniHandler.hostname();
-		
+
 		for(PreForwardRule preForwardRule : hostMatcher.matchesAsIterable(hostname)){
 			if(!preForwardRule.processRequest(fullHttpRequest, channelHandlerContext.channel())){
 				return;
 			}
 		}
-		
+
 		Bootstrap actualClientBootstrap = clientBootstrap.clone()
 			.handler(new OutgoingHttpRequestHandler(channelHandlerContext, fullHttpRequest, hostname, postForwardMatcher));
 		try{
@@ -84,7 +84,7 @@ public final class IncomingHttpRequestHandler extends SimpleChannelInboundHandle
 			writeException(e, channelHandlerContext.channel());
 		}
 	}
-	
+
 	// in case Netty caught an exception (e.g. the server is unreachable),
 	// the client receives a 502 Bad Gateway response including the stack trace
 	@Override
@@ -95,7 +95,7 @@ public final class IncomingHttpRequestHandler extends SimpleChannelInboundHandle
 			.log("An exception occured trying to process a request to host '{}'", cause);
 		ctx.channel().close();
 	}
-	
+
 	private void writeException(Throwable cause, Channel channel) throws InterruptedException, IOException {
 		try(ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				PrintStream exceptionStream = new PrintStream(baos)){

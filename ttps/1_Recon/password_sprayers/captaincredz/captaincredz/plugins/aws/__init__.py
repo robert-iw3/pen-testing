@@ -2,7 +2,7 @@ class Plugin:
     def __init__(self, requester, pluginargs):
         self.requester = requester
         self.pluginargs = pluginargs
-    
+
     def validate(self):
         #
         # Plugin Args
@@ -21,7 +21,7 @@ class Plugin:
             "User-Agent" : useragent,
         }
         resp = self.requester.get(self.pluginargs["url"], headers=headers)
-        
+
         return resp.status_code != 504
 
     def test_authenticate(self, username, password, useragent):
@@ -31,7 +31,7 @@ class Plugin:
             "output": "Blah",
             'request': None
         }
-            
+
         account = self.pluginargs["account_id"]
 
         body = {
@@ -75,7 +75,7 @@ class Plugin:
                 elif resp_json.get("state") == "FAIL":
                     data_response['output'] = f"[!] FAIL: => {account}:{username}:{password}"
                     data_response['result'] = "failure"
-                
+
                 else:
                     data_response['output'] = f"[?] Unknown Response : {account}:{username}:{password}"
                     data_response['result'] = "failure"

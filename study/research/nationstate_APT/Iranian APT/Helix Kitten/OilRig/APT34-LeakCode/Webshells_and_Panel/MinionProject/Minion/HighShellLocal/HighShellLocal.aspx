@@ -222,7 +222,7 @@ $('#btnExpror').click();";
         }
         responseAjax(ret);
     }
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -1049,7 +1049,7 @@ command($('#inpCmd').get(0));";
     }
 
 
-    
+
     </script>
 </head>
 <body>

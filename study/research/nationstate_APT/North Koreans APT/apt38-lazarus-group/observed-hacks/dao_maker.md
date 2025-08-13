@@ -4,7 +4,7 @@ Amount Stolen:: $7,000,000
 
 Date:: August 12th, 2021
 
-Tags:: 💼 Admin Key Compromise 
+Tags:: 💼 Admin Key Compromise
 
 
 ---
@@ -56,8 +56,8 @@ DAO Maker, an encryption incubator, issued an announcement stating that at aroun
 - 50b158e4 -> withdrawFromUser(address,address,uint256)
 - Looking at the last tx, it passes in 349 addresses and then does this loop
 - 0xd8428836ed2a36bd67cd5b157b50813b30208f50
-- Investigation revealed 9 connections to 8 clusters, where are 2 direct connections, and 7 indirect. 
-- https://web.amlbot.com/aml/response/5EC6CA4DDB26177/26412520210812153733:E505D29ADCAA9AC 
+- Investigation revealed 9 connections to 8 clusters, where are 2 direct connections, and 7 indirect.
+- https://web.amlbot.com/aml/response/5EC6CA4DDB26177/26412520210812153733:E505D29ADCAA9AC
 - No clues still, lets wait 🤔
 - an insider? looks it bypasses access control
 - The DAO Maker sho controller should be controlled only by the Dao
@@ -74,7 +74,7 @@ DAO Maker, an encryption incubator, issued an announcement stating that at aroun
 
 > safe.retrieve_owners() -> ["0x7B03314B2f51e3Bb845BF8ADd51A254a89b646B5", "0x45166749C271F0688F624f6C1e897Ad14B8bF6d7", "0xcF28556EE95Be8c52AD2f3480149128cCA51daC1", "0x3a8CE3451f3C5a040578D568c5A61090F97f2BF4"]
 
-- the attacker needed a SC to withdraw the funds. 
+- the attacker needed a SC to withdraw the funds.
 - he deployed it here: 0x1c93290202424902a5e708b95f4ba23a3f2f3cee#code
 - 0x054e71D5f096a0761dba7dBe5cEC5E2Bf898971c grants -> 0x0Eba461D9829C4e464A68D4857350476CFb6F559 grants -> 0x1C93290202424902a5e708b95f4ba23A3F2F3Cee (Attacker's Contract)
 - already know this, but what about the account 0x054e71D5f096a0761dba7dBe5cEC5E2Bf898971c? Any useful information?
@@ -111,7 +111,7 @@ The source code is not public and some messaging by DaoMaker is questionable
 
 They called the required functions one by one rather than creating a contract to do it in a single transaction. They also used [[1inch]] for a swap.
 
-All of this points to the attacker being not very technical. 
+All of this points to the attacker being not very technical.
 
 However, the source code of the contract was not public. You need deep technical knowledge to find this vulnerability without the source code. This makes one wonder how the attacker knew about this vulnerability.
 

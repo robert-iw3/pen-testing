@@ -15,7 +15,7 @@ namespace Netstat
             {
                 Console.WriteLine(tcp.Address + ":" + tcp.Port + new string(' ', 22 - (tcp.Address.ToString().Length + tcp.Port.ToString().Length)) + "0.0.0.0" + new string(' ', 16) + "LISTENING");
             }
-            
+
             foreach (var tcp in ip.GetActiveTcpConnections())
             {
                 Console.WriteLine(tcp.LocalEndPoint + new string(' ', 23 - tcp.LocalEndPoint.ToString().Length) + tcp.RemoteEndPoint + new string(' ', 23 - tcp.RemoteEndPoint.ToString().Length) + "ESTABLISHED");

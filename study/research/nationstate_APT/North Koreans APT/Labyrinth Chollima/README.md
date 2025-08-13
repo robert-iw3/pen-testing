@@ -6,7 +6,7 @@ This is a simulation of attack by (Labyrinth Chollima) APT group targeting victi
 
 Based on the surrounding context, the user was instructed to open the PDF file with the enclosed trojanized PDF viewer program based on the open-source project SumatraPDF.
 
-SumatraPDF is an open-source document viewing application that is capable of viewing multiple document file formats such as PDF, XPS, and CHM, along with many more. Its source code is publically available. 
+SumatraPDF is an open-source document viewing application that is capable of viewing multiple document file formats such as PDF, XPS, and CHM, along with many more. Its source code is publically available.
 If you need to know more about SumatraPDF: https://github.com/sumatrapdfreader/sumatrapdf
 
 When accessed this way, the DLL files are loaded by the SumatraPDF.exe executable, including the trojanized libmupdf.dll file representing the first stage of the infection chain. This file is responsible for decrypting the contents of BAE_Vice President of Business Development.pdf, thus allowing the job description document to be displayed as well as loading into memory the payload named MISTPEN. Mandiant found that later versions (after 3.4.3) of SumatraPDF implement countermeasures to prevent modified versions of this DLL from being loaded.
@@ -72,11 +72,11 @@ This C2-profile waits for the incoming connection from the backdoor when it is e
 
 ## The fifth stage (DLL backdoor)
 
-BURNBOOK is a launcher written in C that is capable of executing an encrypted payload stored in a file and writing it to disk. 
+BURNBOOK is a launcher written in C that is capable of executing an encrypted payload stored in a file and writing it to disk.
 This file is a modified version of a legitimate DLL file used by the SumatraPDF.exe binary. The DLL contains malicious code that is triggered when the user opens the PDF lure (BAE_Vice President of Business Development.pdf) using the provided SumatraPDF.exe file.
 
 ![Screenshot from 2024-09-21 12-50-16](https://github.com/user-attachments/assets/41832c2e-db12-431b-b5a0-05249d64b2f6)
 
-The BURNBOOK  includes a network connectivity check that prevents the trojanized reader from displaying the decrypted PDF lure if it cannot reach google[.]com. 
+The BURNBOOK  includes a network connectivity check that prevents the trojanized reader from displaying the decrypted PDF lure if it cannot reach google[.]com.
 
 ![Screenshot from 2024-09-21 12-53-34](https://github.com/user-attachments/assets/517c7639-dcb9-4ac9-9491-e96163742c14)

@@ -1,9 +1,9 @@
 ## Azure Outlook C2
-Azure Outlook Command &amp; Control that uses Microsoft Graph API for C2 communications &amp; data exfiltration. 
+Azure Outlook Command &amp; Control that uses Microsoft Graph API for C2 communications &amp; data exfiltration.
 
 _Remotely Control a compromised Windows Device from your Outlook Mailbox._
 
-#### Creators: [Bobby Cooke (@0xBoku)](https://twitter.com/0xBoku) &  [Paul Ungur (@C5pider)](https://twitter.com/C5pider) 
+#### Creators: [Bobby Cooke (@0xBoku)](https://twitter.com/0xBoku) &  [Paul Ungur (@C5pider)](https://twitter.com/C5pider)
 
 ## CTI Threat update (02/13/22)
 Elastic Security Labs has discovered active intrusions in the wild using SIESTAGRAPH. SIESTAGRAPH interacts with Microsoft’s GraphAPI for command and control using Outlook and OneDrive. Check out their awesome malware analysis blogs on Azure Outlook C2 communications below.
@@ -28,13 +28,13 @@ _If you have any information about similar projects, CTI info about this TTP bei
 This project consists of an implant that beacons out to an Attacker-Controlled Azure Outlook mailbox, which acts as the Command & Control (C2); remotely controlling the compromised device. An Azure Refresh Token for the Attackers C2 mailbox is hard-coded into the implant during compilation. When executed on a Windows device, the implant accesses the Attackers Draft mailbox via the Microsoft Graph API. The implant reads command instructions from the Attackers Draft mailbox, executes the instructions locally on the compromised windows device, and returns the command output to the Attacker via creation of new Draft messages. The implant repeats this behavior of being remotely controlled from the Attackers mailbox until the implant host process is exited.
 
 ### Why I Built This
-I recently started Red Teaming about half a year ago on the SpiderLabs Red Team at Trustwave. During an engagement I had the honor to work with the legendary [Stephan Borosh (rvrsh3ll|@424f424f)](https://twitter.com/424f424f). Steve & [Matt Kingstone](https://twitter.com/n00bRage) taught me all about Azure Domain Fronting, and I was blown away that Command & Control traffic could be exfiltrated out via HTTPS using legit domains like `ajax.microsoft.com`. It even uses Microsoft's TLS Certificates! Unfortunately for me, I began Red Teaming at the same time Domain Fronting died on Azure. Even though Domain Fronting on Azure was dead, there was still allot of awesome Red Team techniques that could be done with Azure. 
+I recently started Red Teaming about half a year ago on the SpiderLabs Red Team at Trustwave. During an engagement I had the honor to work with the legendary [Stephan Borosh (rvrsh3ll|@424f424f)](https://twitter.com/424f424f). Steve & [Matt Kingstone](https://twitter.com/n00bRage) taught me all about Azure Domain Fronting, and I was blown away that Command & Control traffic could be exfiltrated out via HTTPS using legit domains like `ajax.microsoft.com`. It even uses Microsoft's TLS Certificates! Unfortunately for me, I began Red Teaming at the same time Domain Fronting died on Azure. Even though Domain Fronting on Azure was dead, there was still allot of awesome Red Team techniques that could be done with Azure.
 
 Steve introduced me to Azure Device Code Phishing. During this time I dived deep into Azure and the Microsoft Graph API for Red Teaming. We created the tool [TokenTactics](https://github.com/rvrsh3ll/TokenTactics), derived from the great work of [Dr. Nestori Syynimaa (@DrAzureAD)](https://twitter.com/DrAzureAD), and we made [The Art of the Device Code Phish](https://0xboku.com/2021/07/12/ArtOfDeviceCodePhish.html) blog if you are interested in our methodology.
 
 While creating TokenTactics and experimenting with the MS Graph API, I discovered it was possible to use the Microsoft Graph API as a C2 channel. There are many different ways to use the MS Graph API as a C2 channel, and I am not the only person (or the first) to discover this. [VX-Underground](https://twitter.com/vxunderground), created by [@smelly__vx](https://twitter.com/smelly__vx) - the creator/publisher of the HellsGate technique, released information last month that [the North Korean Advanced Persistent Threat (APT) group "InkySquid" (AKA ScarCruft and APT37) uses the Microsoft Graph API for C2 operations](https://twitter.com/vxunderground/status/1429867158075498506). After releasing a teaser of this project on [Twitter](https://twitter.com/0xBoku/status/1435788324044640260) & [LinkedIn](https://www.linkedin.com/posts/bobby-cooke_azure-outlook-c2-activity-6841556676315901952-XIvN), several DFIR professionals commented that this technique of using the Microsoft Graph API for C2 operations is actively being used by ransomware groups in the wild, dating back months.
 
-During the Red Team engagement, I attempted to get Cobalt Strike working with the MS Graph API as the C2 channel. Unfortunately, I failed, but this is still a future goal. The issue I face with getting this to work with Cobalt Strike, is that the MS Graph API uses 2 tokens for communications. The first token is the Refresh Token which can last up to 90 days. The second token, the Access Token, is a temporary token that last around an hour. Direct communications to the MS Graph API are done via authenticating with the Access Token. Once an Access Token expires, the Refresh Token can be used to get new Access Tokens. Since I am still new to Red Teaming & Cobalt Strike development, I could not figure out how to use the Cobalt Strike Malleable C2 profile to support constantly getting new Access Tokens and sending these changing Access Tokens in the `Authorization` header of HTTPS beacon's requests. Since releasing the teaser on Twitter, [Joe Vest](https://twitter.com/joevest), [Alfie Champion](https://twitter.com/ajpc500), and other rockstars of the community have given me some epic direction on how to get this to work with Cobalt Strike! Hopefully there will be a Cobalt Strike follow up to this project in the future ;) 
+During the Red Team engagement, I attempted to get Cobalt Strike working with the MS Graph API as the C2 channel. Unfortunately, I failed, but this is still a future goal. The issue I face with getting this to work with Cobalt Strike, is that the MS Graph API uses 2 tokens for communications. The first token is the Refresh Token which can last up to 90 days. The second token, the Access Token, is a temporary token that last around an hour. Direct communications to the MS Graph API are done via authenticating with the Access Token. Once an Access Token expires, the Refresh Token can be used to get new Access Tokens. Since I am still new to Red Teaming & Cobalt Strike development, I could not figure out how to use the Cobalt Strike Malleable C2 profile to support constantly getting new Access Tokens and sending these changing Access Tokens in the `Authorization` header of HTTPS beacon's requests. Since releasing the teaser on Twitter, [Joe Vest](https://twitter.com/joevest), [Alfie Champion](https://twitter.com/ajpc500), and other rockstars of the community have given me some epic direction on how to get this to work with Cobalt Strike! Hopefully there will be a Cobalt Strike follow up to this project in the future ;)
 
 ![](/assets/diagram.png)
 
@@ -43,8 +43,8 @@ During the Red Team engagement, I attempted to get Cobalt Strike working with th
   + This is done via HTTPS TCP communications to the host `graph.microsoft.com`.
   + This traffic is encrypted using the TLS Certificate returned from the legitimate Microsoft web server.
   + The implant uses the `WinInet` Dynamic-link library for HTTPS communications.
-  + The hard-coded Attacker Refresh Token should be good for 90 days. 
-    + If the implant is compromised, the Attacker can revoke the hard-coded Refresh Token to restrict access from Malware Reverse Engineers. 
+  + The hard-coded Attacker Refresh Token should be good for 90 days.
+    + If the implant is compromised, the Attacker can revoke the hard-coded Refresh Token to restrict access from Malware Reverse Engineers.
 2. After the implant receives an Access Token for the Attackers MS Graph API, the implant enters an infinite loop.
   + If there is no internet connection or internet connection is disrupted during the loop, the implant will sleep for 3 minutes and try again.
   + The implant keeps track of time, and if 15 minutes has passed, it will get a new Access Token to continue communications.
@@ -112,7 +112,7 @@ bobby.cooke$ bash compile.sh
 ## What This Project Is
 + This project is a proof of concept, which demonstrates how an Attacker can use the Microsoft Graph API for C2 operations.
 + This project is intended for other offensive security researchers to learn from.
-+ I have not personally come up with any great ways to defend or detect this C2 channel. My hope is that by supplying this to greater defender minds than myself, it will result in some awesome defensive techniques. 
++ I have not personally come up with any great ways to defend or detect this C2 channel. My hope is that by supplying this to greater defender minds than myself, it will result in some awesome defensive techniques.
 
 ## What This Project Isn't
 + This project itself is not a fully functional C2, ready for OPSEC safe engagements.

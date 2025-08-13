@@ -15,7 +15,7 @@
 
 @interface VTButton : NSButton
 {
-    
+
 }
 
 //properties

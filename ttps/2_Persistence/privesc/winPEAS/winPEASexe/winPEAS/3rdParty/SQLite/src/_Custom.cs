@@ -315,7 +315,7 @@ namespace winPEAS._3rdParty.SQLite.src
       catch { }
       return 0;
     }
-    
+
     [DllImport( "kernel32.dll" )]
     public static extern bool GetSystemTimeAsFileTime( ref FILETIME sysfiletime );
 

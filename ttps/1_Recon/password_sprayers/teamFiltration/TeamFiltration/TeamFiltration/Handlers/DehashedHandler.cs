@@ -98,7 +98,7 @@ namespace TeamFiltration.Handlers
 
             //set the vars
             var rawResultCount = fetchedData.entries.Count;
-           
+
             //If the number of entries back is less the the total entires found by dehashed, move a page up
             while (rawResultCount >= size )
             {   //Move a page up

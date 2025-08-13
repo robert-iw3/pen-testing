@@ -27,7 +27,7 @@ namespace MonkeyWorks.Unmanaged.Libraries
             UInt32 BufferLengthInBytes,
             ref Winnt._TOKEN_PRIVILEGES PreviousState,
             out UInt32 ReturnLengthInBytes
-        );       
+        );
 
         [DllImport("advapi32.dll", SetLastError = true)]
         public static extern Boolean AllocateAndInitializeSid(
@@ -93,7 +93,7 @@ namespace MonkeyWorks.Unmanaged.Libraries
             out Winbase._PROCESS_INFORMATION lpProcessInfo
         );
 
-        
+
 
         [DllImport("advapi32.dll", SetLastError = true)]
         public static extern IntPtr CreateService(
@@ -170,7 +170,7 @@ namespace MonkeyWorks.Unmanaged.Libraries
 
         [DllImport("advapi32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern bool LookupAccountSid(
-            String lpSystemName, 
+            String lpSystemName,
             IntPtr Sid,
             StringBuilder lpName,
             ref UInt32 cchName,
@@ -246,4 +246,4 @@ namespace MonkeyWorks.Unmanaged.Libraries
         [DllImport("advapi32.dll", SetLastError = true)]
         public static extern Boolean RevertToSelf();
     }
-} 
+}

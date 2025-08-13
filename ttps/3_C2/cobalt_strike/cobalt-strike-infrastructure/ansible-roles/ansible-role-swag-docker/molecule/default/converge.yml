@@ -17,6 +17,6 @@
       when: ansible_service_mgr == 'systemd'
       changed_when: false
       failed_when: systemctl_status.rc > 1
-      
+
   roles:
     - role: warhorse.swag_docker

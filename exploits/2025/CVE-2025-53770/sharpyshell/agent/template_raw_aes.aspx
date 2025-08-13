@@ -16,7 +16,7 @@ byte[] ConvertHexStringToByteArray(string hexString)
         string byteValue = hexString.Substring(index * 2, 2);
         data[index] = byte.Parse(byteValue, System.Globalization.NumberStyles.HexNumber);
     }
-    return data; 
+    return data;
 }
 
 byte[] AESEnc(byte[] plain, byte[] Key, byte[] IV)
@@ -32,7 +32,7 @@ byte[] AESEnc(byte[] plain, byte[] Key, byte[] IV)
 			using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
 			{
 				csEncrypt.Write(plain, 0, plain.Length);
-				
+
 			}
 		encrypted = msEncrypt.ToArray();
 		}

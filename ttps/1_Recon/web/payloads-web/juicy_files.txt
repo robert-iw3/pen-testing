@@ -5882,7 +5882,7 @@ _zzConfig
 .virtualenvs/postmkproject
 .virtualenvs/postmkvirtualenv
 .virtualenvs/postrmvirtualenv
-.virtualenvs/postrmvirtualenv	
+.virtualenvs/postrmvirtualenv
 .virtualenvs/preactivate
 .virtualenvs/predeactivate
 .virtualenvs/premkproject
@@ -33437,7 +33437,7 @@ beryl.js
 bes
 bes-cms
 besalu
-besalu	
+besalu
 besancon.js
 bescanovilanna
 beschwerde.php

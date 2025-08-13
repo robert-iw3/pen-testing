@@ -89,7 +89,7 @@ public:
 
     int  getCursorX() const;
     int  getCursorY() const;
-    
+
     QString getScreenText(int row1, int col1, int row2, int col2, int mode);
 
     void clear();
@@ -148,7 +148,7 @@ public:
     void resetDroppedLines();
 
     static void fillWithDefaultChar(Character* dest, int count);
-    
+
     QSet<uint> usedExtendedChars() const {
         QSet<uint> result;
         for (int i = 0; i < lines; ++i) {

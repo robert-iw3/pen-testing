@@ -505,7 +505,7 @@ def stop_scan(request, id):
         try:
             for task_id in scan.celery_ids:
                 app.control.revoke(task_id, terminate=True, signal='SIGKILL')
-            
+
             # after celery task is stopped, update the scan status
             scan.scan_status = ABORTED_TASK
             scan.save()

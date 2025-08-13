@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e 
+set -e
 
 source "_services/common_functions.sh"
 
@@ -9,7 +9,7 @@ function save_deployment_state {
 
     cd warhorse/OP/$OP_NUMBER/ && \
     mkdir -p state && \
-    
+
     if [ -f "deploy.retry" ]; then
         cp deploy.retry state/
     fi

@@ -4,12 +4,12 @@ Date:: April 21, 2018
 
 Amount Stolen:: $234,000,000
 
-- BTC 10,777 
-- ETH 218,790 
-- Zcash 3,783 
-- Dogecoin 99,999,000 
-- Ripple 3,043,268 
-- LTC 11,000 
+- BTC 10,777
+- ETH 218,790
+- Zcash 3,783
+- Dogecoin 99,999,000
+- Ripple 3,043,268
+- LTC 11,000
 - ETC 175,866
 
 Tags:: 🍎
@@ -17,15 +17,15 @@ Tags:: 🍎
 ---
 
 
-## Details 
+## Details
 
 Rekt by Celas Trade Pro
 
-In an April 2018 hack of Gate.io — a case in which the  U.S. DOJ indicted and filed a civil forfeiture action against DPRK cybercriminals - North Korean hackers stole nearly $230 million worth of crypto assets. 
+In an April 2018 hack of Gate.io — a case in which the  U.S. DOJ indicted and filed a civil forfeiture action against DPRK cybercriminals - North Korean hackers stole nearly $230 million worth of crypto assets.
 
-An employee of the exchange was targeted with an infected file, which the employee downloaded. This led to the theft of enormous quantities of Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), Dogecoin, and several other altcoins. 
+An employee of the exchange was targeted with an infected file, which the employee downloaded. This led to the theft of enormous quantities of Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), Dogecoin, and several other altcoins.
 
-An employee of The Exchange 1 communicated with a “potential client” via email which resulted in employee unwittingly downloading malware which then attacked The Exchange 1. 
+An employee of The Exchange 1 communicated with a “potential client” via email which resulted in employee unwittingly downloading malware which then attacked The Exchange 1.
 
 The hack totaled nearly $230 million dollars’ worth of crypto assets at then-prevailing prices. However, the exchange never publicly confirmed the hack, which likely delayed involvement from law enforcement, and might have hampered efforts to seize and return all stolen funds to the victims.
 
@@ -33,7 +33,7 @@ The hack totaled nearly $230 million dollars’ worth of crypto assets at then-p
 
 "The North Korean co-conspirators who emailed The Exchange 1 malware were also engaged in a massive phishing campaign in an attempt to infect other users with malware. To provide credibility to the online personas, fake social media profiles were created. For example: a. A Twitter account was created with the name “Waliy Darwish” that made various posts related to cryptocurrency and included a link to celasllc.com; b. The same user created a LinkedIn page for “Waliy Darwish,” listing him as a business developer at Celas LLC with a bachelor’s degree from Rotterdam University."
 
-In this specific hack, North Korean actors programmed “automated scripts to rapidly launder and reconsolidate stolen funds into exchanges before transferring them into Lazarus-affiliated wallets,” which was evident due to the large number of simultaneous transactions. 
+In this specific hack, North Korean actors programmed “automated scripts to rapidly launder and reconsolidate stolen funds into exchanges before transferring them into Lazarus-affiliated wallets,” which was evident due to the large number of simultaneous transactions.
 
 While we saw automation and other obfuscation techniques such as peeling chains — a series of smaller transactions of dispersion followed by consolidation in order to obfuscate larger transactions — the real key to this operation was to off ramp the cryptocurrency to fiat currency as quickly as possible, even at the expense of potential future attribution to the hack.
 
@@ -50,7 +50,7 @@ While we saw automation and other obfuscation techniques such as peeling chains 
 
 > On or about the same day that The Exchange 1 was hacked, a co-conspirator in North Korea researched The Exchange 1 and its CEO. This research, much of which was in Korean, referenced: Hacking; Gmail hacker extension; How to conduct phishing campaigns; and How to exchange large amounts of ETH to BTC.
 
-> Ultimately, the malware unwittingly downloaded by The Exchange 1 employee provided remote access to The Exchange 1 and unauthorized access to private keys controlling wallets to multiple virtual currencies. 
+> Ultimately, the malware unwittingly downloaded by The Exchange 1 employee provided remote access to The Exchange 1 and unauthorized access to private keys controlling wallets to multiple virtual currencies.
 
 > With control of The Exchange 1’s private keys, the North Korean co-conspirators stole the following virtual currencies:
 

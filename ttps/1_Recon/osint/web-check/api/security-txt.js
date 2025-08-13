@@ -14,7 +14,7 @@ const parseResult = (result) => {
   let counts = {};
   const lines = result.split('\n');
   const regex = /^([^:]+):\s*(.+)$/;
-  
+
   for (const line of lines) {
     if (!line.startsWith("#") && !line.startsWith("-----") && line.trim() !== '') {
       const match = line.match(regex);
@@ -29,7 +29,7 @@ const parseResult = (result) => {
       }
     }
   }
-  
+
   return output;
 };
 
@@ -49,7 +49,7 @@ const securityTxtHandler = async (urlParam) => {
     throw new Error('Invalid URL format');
   }
   url.pathname = '';
-  
+
   for (let path of SECURITY_TXT_PATHS) {
     try {
       const result = await fetchSecurityTxt(url, path);
@@ -67,7 +67,7 @@ const securityTxtHandler = async (urlParam) => {
       throw new Error(error.message);
     }
   }
-  
+
   return { isPresent: false };
 };
 

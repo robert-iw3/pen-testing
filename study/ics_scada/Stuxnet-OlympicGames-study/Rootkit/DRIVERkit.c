@@ -4,7 +4,7 @@ typedef struct _DEVICE_EXTENSION
 {
   PDEVICE_OBJECT AttachedDevice;
   PETHREAD pThreadObj;
-  
+
 }_DEVICE_EXTENSION, PDEVICE_EXTENSION;
 PDEVICE_OBJECT  DeviceObject;
 
@@ -20,7 +20,7 @@ PFAST_IO_DISPATCH GetNextIODispatch (PDEVICE_OBJECT DeviceObject,PDEVICE_OBJECT 
    return (nextDeviceObject)-DriverObject-FastIoDispatch;
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoCheckIfPossible
 (
     __in PFILE_OBJECT       FileObject,
@@ -50,7 +50,7 @@ FsFilterFastIoCheckIfPossible
 };
 
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoRead
 (
     __in PFILE_OBJECT       FileObject,
@@ -63,7 +63,7 @@ FsFilterFastIoRead
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
+
 
    PDEVICE_OBJECT nextDeviceObject;
    PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
@@ -81,7 +81,7 @@ FsFilterFastIoRead
             nextDeviceObject);
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoWrite
 (
     __in PFILE_OBJECT       FileObject,
@@ -94,10 +94,10 @@ FsFilterFastIoWrite
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
+
       Pass through logic for this type of Fast IO
-    
-   PDEVICE_OBJECT nextDeviceObject;  
+
+   PDEVICE_OBJECT nextDeviceObject;
    PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
    if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x10  NextFastIoDispatch-FastIoWrite == 0){
       return FALSE;
@@ -113,7 +113,7 @@ FsFilterFastIoWrite
             nextDeviceObject);
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoQueryBasicInfo
 (
     __in PFILE_OBJECT       FileObject,
@@ -123,9 +123,9 @@ FsFilterFastIoQueryBasicInfo
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x14  NextFastIoDispatch-FastIoQueryBasicInfo == 0){
       return FALSE;
@@ -137,10 +137,10 @@ FsFilterFastIoQueryBasicInfo
             Buffer,
             IoStatus,
             nextDeviceObject);
-    
+
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoQueryStandardInfo
 (
     __in PFILE_OBJECT       FileObject,
@@ -150,8 +150,8 @@ FsFilterFastIoQueryStandardInfo
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
    PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
    if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x18  NextFastIoDispatch-FastIoQueryStandardInfo == 0){
       return FALSE;
@@ -164,7 +164,7 @@ FsFilterFastIoQueryStandardInfo
             nextDeviceObject);
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoLock
 (
     __in PFILE_OBJECT       FileObject,
@@ -178,8 +178,8 @@ FsFilterFastIoLock
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x1C  NextFastIoDispatch-FastIoLock == 0){
       return FALSE;
@@ -196,7 +196,7 @@ FsFilterFastIoLock
             nextDeviceObject);
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoUnlockSingle
 (
     __in PFILE_OBJECT       FileObject,
@@ -208,8 +208,8 @@ FsFilterFastIoUnlockSingle
     __in PDEVICE_OBJECT     DeviceObject
     )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x20  NextFastIoDispatch-FastIoUnlockSingle == 0){
       return FALSE;
@@ -224,7 +224,7 @@ FsFilterFastIoUnlockSingle
             nextDeviceObject);
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoUnlockAll
 (
     __in PFILE_OBJECT       FileObject,
@@ -233,8 +233,8 @@ FsFilterFastIoUnlockAll
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-        
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x24  NextFastIoDispatch-FastIoUnlockAll == 0){
       return FALSE;
@@ -246,7 +246,7 @@ FsFilterFastIoUnlockAll
             nextDeviceObject);
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoUnlockAllByKey
 (
     __in PFILE_OBJECT       FileObject,
@@ -256,8 +256,8 @@ FsFilterFastIoUnlockAllByKey
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x28  NextFastIoDispatch-FastIoUnlockAllByKey == 0){
       return FALSE;
@@ -270,7 +270,7 @@ FsFilterFastIoUnlockAllByKey
             nextDeviceObject);
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoDeviceControl
 (
     __in PFILE_OBJECT       FileObject,
@@ -284,8 +284,8 @@ FsFilterFastIoDeviceControl
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x2C  NextFastIoDispatch-FastIoDeviceControl == 0){
       return FALSE;
@@ -302,22 +302,22 @@ FsFilterFastIoDeviceControl
             nextDeviceObject);
 }
 
-VOID 
+VOID
 FsFilterFastIoDetachDevice
 (
     __in PDEVICE_OBJECT     SourceDevice,
     __in PDEVICE_OBJECT     TargetDevice
 )
 {
-    
+
       Detach from the file system's volume device object.
-    
+
 
     IoDetachDevice(TargetDevice);
     IoDeleteDevice(SourceDevice);
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoQueryNetworkOpenInfo
 (
     __in PFILE_OBJECT       FileObject,
@@ -327,8 +327,8 @@ FsFilterFastIoQueryNetworkOpenInfo
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x3C  NextFastIoDispatch-FastIoQueryNetworkOpenInfo == 0){
       return FALSE;
@@ -351,8 +351,8 @@ BOOLEAN FsFilterFastIoMdlRead(
     __in PDEVICE_OBJECT     DeviceObject
     )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x44  NextFastIoDispatch-MdlRead == 0){
       return FALSE;
@@ -367,7 +367,7 @@ BOOLEAN FsFilterFastIoMdlRead(
             nextDeviceObject);
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoMdlReadComplete
 (
     __in PFILE_OBJECT       FileObject,
@@ -375,8 +375,8 @@ FsFilterFastIoMdlReadComplete
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x48  NextFastIoDispatch-MdlReadComplete == 0){
       return FALSE;
@@ -388,7 +388,7 @@ FsFilterFastIoMdlReadComplete
 
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoPrepareMdlWrite
 (
     __in PFILE_OBJECT       FileObject,
@@ -401,7 +401,7 @@ FsFilterFastIoPrepareMdlWrite
 )
 {
 
-    PDEVICE_OBJECT nextDeviceObject;  
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x4C  NextFastIoDispatch-PrepareMdlWrite == 0){
       return FALSE;
@@ -417,7 +417,7 @@ FsFilterFastIoPrepareMdlWrite
     return FALSE;
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoMdlWriteComplete
 (
     __in PFILE_OBJECT       FileObject,
@@ -426,7 +426,7 @@ FsFilterFastIoMdlWriteComplete
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    PDEVICE_OBJECT nextDeviceObject;  
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x50  NextFastIoDispatch-MdlWriteComplete == 0){
       return FALSE;
@@ -438,7 +438,7 @@ FsFilterFastIoMdlWriteComplete
             nextDeviceObject);
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoReadCompressed
 (
     __in PFILE_OBJECT       FileObject,
@@ -453,8 +453,8 @@ FsFilterFastIoReadCompressed
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x54  NextFastIoDispatch-FastIoReadCompressed == 0){
       return FALSE;
@@ -472,7 +472,7 @@ FsFilterFastIoReadCompressed
             nextDeviceObject);
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoWriteCompressed
 (
     __in PFILE_OBJECT       FileObject,
@@ -487,8 +487,8 @@ FsFilterFastIoWriteCompressed
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x58  NextFastIoDispatch-FastIoWriteCompressed == 0){
       return FALSE;
@@ -514,7 +514,7 @@ BOOLEAN FsFilterFastIoMdlReadCompleteCompressed(
     )
 {
 
-    PDEVICE_OBJECT nextDeviceObject;  
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x5C  NextFastIoDispatch-MdlReadCompleteCompressed == 0){
       return FALSE;
@@ -523,10 +523,10 @@ BOOLEAN FsFilterFastIoMdlReadCompleteCompressed(
             FileObject,
             MdlChain,
             nextDeviceObject);
-    
+
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoMdlWriteCompleteCompressed
 (
     __in PFILE_OBJECT       FileObject,
@@ -535,8 +535,8 @@ FsFilterFastIoMdlWriteCompleteCompressed
     __in PDEVICE_OBJECT     DeviceObject
     )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x60  NextFastIoDispatch-MdlWriteCompleteCompressed == 0){
       return FALSE;
@@ -546,10 +546,10 @@ FsFilterFastIoMdlWriteCompleteCompressed
             FileOffset,
             MdlChain,
             nextDeviceObject);
-    
+
 }
 
-BOOLEAN 
+BOOLEAN
 FsFilterFastIoQueryOpen
 (
     __in PIRP               Irp,
@@ -557,8 +557,8 @@ FsFilterFastIoQueryOpen
     __in PDEVICE_OBJECT     DeviceObject
 )
 {
-    
-    PDEVICE_OBJECT nextDeviceObject;  
+
+    PDEVICE_OBJECT nextDeviceObject;
     PFAST_IO_DISPATCH NextFastIoDispatch = GetNextIODispatch(DeviceObject,&nextDeviceObject);
     if ( NextFastIoDispatch == 0  NextFastIoDispatch-SizeOfFastIoDispatch = 0x64  NextFastIoDispatch-FastIoQueryOpen == 0){
       return FALSE;
@@ -569,9 +569,9 @@ FsFilterFastIoQueryOpen
             nextDeviceObject);
 }
 
-VOID 
+VOID
 SetFastIoDispatch()
-{ 
+{
     g_fastIoDispatch.SizeOfFastIoDispatch     = sizeof(FAST_IO_DISPATCH);
     g_fastIoDispatch.FastIoCheckIfPossible    = FsFilterFastIoCheckIfPossible;
     g_fastIoDispatch.FastIoRead               = FsFilterFastIoRead;

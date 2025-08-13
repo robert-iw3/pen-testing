@@ -4,7 +4,7 @@ Windows Local Privilege Escalation via StorSvc service (writable SYSTEM path DLL
 
 ## Summary
 
-StorSvc is a service which runs as `NT AUTHORITY\SYSTEM` and tries to load the missing **SprintCSP.dll** DLL when triggering the `SvcRebootToFlashingMode` RPC method locally. 
+StorSvc is a service which runs as `NT AUTHORITY\SYSTEM` and tries to load the missing **SprintCSP.dll** DLL when triggering the `SvcRebootToFlashingMode` RPC method locally.
 
 ## Description
 
@@ -17,15 +17,15 @@ As this DLL is missing, it is loaded following the **DLL Search Order** flow and
 It is worth noting that the service is launched as `NT AUTHORITY\SYSTEM` in the service group `LocalSystemNetworkRestricted` which has the following privileges:
 
 ```
-Privilege Name               Description                                         State       
+Privilege Name               Description                                         State
 ============================ =================================================== =============
-SeTcbPrivilege               Act as part of the operating system                 Enabled   
+SeTcbPrivilege               Act as part of the operating system                 Enabled
 SeLoadDriverPrivilege        Load and unload device drivers                      Disabled
 SeBackupPrivilege            Back up files and directories                       Disabled
 SeRestorePrivilege           Restore files and directories                       Disabled
 SeSystemEnvironmentPrivilege Modify firmware environment values                  Disabled
-SeChangeNotifyPrivilege      Bypass traverse checking                            Enabled   
-SeManageVolumePrivilege      Perform volume maintenance tasks                    Enabled   
+SeChangeNotifyPrivilege      Bypass traverse checking                            Enabled
+SeManageVolumePrivilege      Perform volume maintenance tasks                    Enabled
 ```
 The command line that corresponds to this service is `C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s StorSvc`.
 

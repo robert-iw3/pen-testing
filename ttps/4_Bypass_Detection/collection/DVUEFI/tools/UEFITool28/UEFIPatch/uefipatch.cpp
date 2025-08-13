@@ -37,7 +37,7 @@ UINT8 UEFIPatch::patchFromFile(const QString & path, const QString & patches, co
 
     if (!file.open(QFile::ReadOnly | QFile::Text))
         return ERR_INVALID_FILE;
-    
+
     QFileInfo fileInfo = QFileInfo(path);
 
     if (!fileInfo.exists())
@@ -66,14 +66,14 @@ UINT8 UEFIPatch::patchFromFile(const QString & path, const QString & patches, co
         QList<QByteArray> list = line.split(' ');
         if (list.count() < 3)
             continue;
-        
+
         QUuid uuid = QUuid(list.at(0));
         QByteArray guid = QByteArray::fromRawData((const char*)&uuid.data1, sizeof(EFI_GUID));
         bool converted;
         UINT8 sectionType = (UINT8)list.at(1).toUShort(&converted, 16);
         if (!converted)
             return ERR_INVALID_PARAMETER;
-                
+
         QVector<PatchData> patches;
 
         for (int i = 2; i < list.count(); i++) {
@@ -101,14 +101,14 @@ UINT8 UEFIPatch::patchFromFile(const QString & path, const QString & patches, co
             return result;
         counter++;
     }
-    
+
     QByteArray reconstructed;
     result = ffsEngine->reconstructImageFile(reconstructed);
     if (result)
         return result;
     if (reconstructed == buffer)
         return ERR_NOTHING_TO_PATCH;
-    
+
     QFile outputFile;
     outputFile.setFileName(outputPath);
     if (!outputFile.open(QFile::WriteOnly))
@@ -203,7 +203,7 @@ UINT8 UEFIPatch::patchFromArg(const QString & path, const QString & patch, const
 
 UINT8 UEFIPatch::patchFile(const QModelIndex & index, const QByteArray & fileGuid, const UINT8 sectionType, const QVector<PatchData> & patches)
 {
-  
+
     if (!model || !index.isValid())
         return ERR_INVALID_PARAMETER;
     if (model->type(index) == Types::Section && model->subtype(index) == sectionType) {

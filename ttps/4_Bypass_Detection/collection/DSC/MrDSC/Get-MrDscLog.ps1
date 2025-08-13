@@ -4,11 +4,11 @@ function Get-MrDscLog {
 <#
 .SYNOPSIS
     Retrieves information from the DSC operational event log on the specified host.
- 
+
 .DESCRIPTION
     The Get-MrDscLogs function retrieves information from the DSC operational event log on
     the specified host(s). PowerShell remoting must be enabled on the specified hosts.
- 
+
 .PARAMETER ComputerName
     One or more computer names to retrieve the DSC operational event logs from.
 
@@ -17,19 +17,19 @@ function Get-MrDscLog {
 
 .EXAMPLE
      Get-MrDscLogs -ComputerName Server01 -MaxEvents 12
- 
+
 .INPUTS
     None
- 
+
 .OUTPUTS
     PSCustomObject
- 
+
 .NOTES
     Author:  Mike F Robbins
     Website: http://mikefrobbins.com
     Twitter: @mikefrobbins
 #>
-    
+
     [CmdletBinding()]
     param (
         [string[]]$ComputerName,

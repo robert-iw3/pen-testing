@@ -223,7 +223,7 @@ def add_target(request, slug):
                                 description=description,
                                 insert_date=timezone.now())
                             added_target_count += 1
-                        
+
                             # Optionally add domain to organization
                             if organization:
                                 organization_query = Organization.objects.filter(name=organization)

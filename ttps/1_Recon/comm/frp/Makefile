@@ -64,7 +64,7 @@ e2e-compatibility-last-frps:
 	rm -r ./lastversion
 
 alltest: vet gotest e2e
-	
+
 clean:
 	rm -f ./bin/frpc
 	rm -f ./bin/frps

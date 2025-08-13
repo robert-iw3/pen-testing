@@ -2,7 +2,7 @@
 
 Date:: October 5th, 2023
 
-Amount Stolen:: 
+Amount Stolen::
 
 Tags:: 💼 IT Workers
 

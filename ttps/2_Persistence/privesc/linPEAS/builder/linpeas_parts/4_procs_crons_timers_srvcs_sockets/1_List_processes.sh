@@ -30,7 +30,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
   else
     current_env_vars=$(env 2>/dev/null | sort)
   fi
-  
+
   # Get current process mounts
   if [ -r "/proc/self/mountinfo" ]; then
     current_mounts=$(cat /proc/self/mountinfo 2>/dev/null | sort)
@@ -44,10 +44,10 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     local proc_user="$2"
     local proc_cmd="$3"
     local findings=""
-    
+
     # Skip if we can't read the environment
     [ ! -r "/proc/$pid/environ" ] && return
-    
+
     # Get process environment variables
     proc_env_vars=$(cat "/proc/$pid/environ" 2>/dev/null | tr '\0' '\n' | sort)
     [ -z "$proc_env_vars" ] && return
@@ -88,7 +88,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     local proc_user="$2"
     local proc_cmd="$3"
     local findings=""
-    
+
     # Check SELinux context
     if [ -r "/proc/$pid/attr/current" ]; then
       selinux_ctx=$(cat "/proc/$pid/attr/current" 2>/dev/null)
@@ -96,7 +96,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
         findings="SELinux context: $selinux_ctx"
       fi
     fi
-    
+
     # Check AppArmor profile
     if [ -r "/proc/$pid/attr/apparmor/current" ]; then
       apparmor_profile=$(cat "/proc/$pid/attr/apparmor/current" 2>/dev/null)
@@ -121,10 +121,10 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     local proc_user="$2"
     local proc_cmd="$3"
     local findings=""
-    
+
     # Skip if we can't read the mountinfo
     [ ! -r "/proc/$pid/mountinfo" ] && return
-    
+
     # Get process mounts
     proc_mounts=$(cat "/proc/$pid/mountinfo" 2>/dev/null | sort)
     [ -z "$proc_mounts" ] && return
@@ -163,7 +163,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     local proc_user="$2"
     local proc_cmd="$3"
     local findings=""
-    
+
     # Skip if we can't read the file descriptors
     [ ! -r "/proc/$pid/fd" ] && return
 
@@ -171,7 +171,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     for fd in /proc/$pid/fd/*; do
       # Skip if fd doesn't exist or we can't access it
       [ ! -e "$fd" ] && continue
-      
+
       # Get fd target
       fd_target=$(readlink "$fd" 2>/dev/null)
       [ -z "$fd_target" ] && continue
@@ -238,12 +238,12 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
   for pid in $(find /proc -maxdepth 1 -regex '/proc/[0-9]+' -printf "%f\n" 2>/dev/null); do
     # Skip if process doesn't exist or we can't access it
     [ ! -d "/proc/$pid" ] && continue
-    
+
     # Get process user and command
     proc_user=$(stat -c '%U' "/proc/$pid" 2>/dev/null)
     proc_cmd=$(cat "/proc/$pid/cmdline" 2>/dev/null | tr '\0' ' ' | head -c 100)
     [ -z "$proc_user" ] || [ -z "$proc_cmd" ] && continue
-    
+
     # Run all checks and collect findings
     sec_findings=$(check_security_context "$pid" "$proc_user" "$proc_cmd")
     mount_findings=$(check_mount_namespace "$pid" "$proc_user" "$proc_cmd")

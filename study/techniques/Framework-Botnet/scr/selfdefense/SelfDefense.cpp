@@ -26,7 +26,7 @@ void SelfDefense::activate() {
     try {
         if (detectSandbox() || detectAnalysisTools() || detectAntivirus()) {
             throw std::runtime_error("Sandbox, analysis tools, or antivirus detected, aborting activation.");
-        }  
+        }
         setProtectionLevel(3);
         active = true;
         std::this_thread::sleep_for(std::chrono::seconds(2));

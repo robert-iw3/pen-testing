@@ -158,7 +158,7 @@ const FailedJobActionButton = styled.button`
   &:hover {
     color: ${colors.primary};
     border: 1px solid ${colors.primary};
-  } 
+  }
 `;
 
 const ErrorModalContent = styled.div`
@@ -250,12 +250,12 @@ const getStatusEmoji = (state: LoadingState): string => {
 
 const JobListItem: React.FC<JobListItemProps> = ({ job, showJobDocs, showErrorModal, barColors }) => {
   const { name, state, timeTaken, retry, error } = job;
-  const actionButton = retry && state !== 'success' && state !== 'loading' ? 
+  const actionButton = retry && state !== 'success' && state !== 'loading' ?
     <FailedJobActionButton onClick={retry}>↻ Retry</FailedJobActionButton> : null;
-    
+
   const showModalButton = error && ['error', 'timed-out', 'skipped'].includes(state) &&
-    <FailedJobActionButton onClick={() => showErrorModal(name, state, timeTaken, error, state === 'skipped')}> 
-      {state === 'timed-out' ? '■ Show Timeout Reason' : '■ Show Error'} 
+    <FailedJobActionButton onClick={() => showErrorModal(name, state, timeTaken, error, state === 'skipped')}>
+      {state === 'timed-out' ? '■ Show Timeout Reason' : '■ Show Error'}
     </FailedJobActionButton>;
 
   return (
@@ -427,16 +427,16 @@ const ProgressLoader = (props: { loadStatus: LoadingJob[], showModal: (err: Reac
   <LoadCard className={hideLoader ? 'hidden' : ''}>
     <ProgressBarContainer>
       {Object.keys(percentages).map((state: string | LoadingState) =>
-        <ProgressBarSegment 
-          color={barColors[state][0]} 
-          color2={barColors[state][1]} 
+        <ProgressBarSegment
+          color={barColors[state][0]}
+          color2={barColors[state][1]}
           title={`${state} (${Math.round(percentages[state])}%)`}
           width={percentages[state]}
           key={`progress-bar-${state}`}
         />
       )}
     </ProgressBarContainer>
-    
+
     <StatusInfoWrapper>
       <SummaryText state={loadStatus} count={loadStatus.length} />
       <RunningText state={loadStatus} count={loadStatus.length} />

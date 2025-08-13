@@ -97,5 +97,5 @@ In the face of this, the response must be equally strategic.
     Monitor Indicators of Compromise (IOCs)—not just for forensic purposes, but for strategic forecasting.
 
     Harden infrastructure—with particular urgency toward ICS/OT assets, cloud-based C2 channels, and edge devices.
-    
+
     Decipher psychological operations—treat Telegram, Instagram, and fake news not as separate domains but as amplifiers of the kill chain.

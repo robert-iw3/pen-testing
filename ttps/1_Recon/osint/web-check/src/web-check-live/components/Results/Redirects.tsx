@@ -5,7 +5,7 @@ import Row from 'web-check-live/components/Form/Row';
 const cardStyles = `
   div {
     justify-content: flex-start;
-    align-items: baseline; 
+    align-items: baseline;
   }
   .arrow-thing {
     color: ${colors.primary};

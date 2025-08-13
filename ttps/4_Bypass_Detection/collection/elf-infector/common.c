@@ -29,7 +29,7 @@ int replace_file(char *newfile, char *origfile, const struct stat origst) {
             if (stat(newfile, &newst) == -1) {
                 print_error(__FILE__, __LINE__-1, errno, "stat");
                 return -1;
-            }    
+            }
 
             if ((newfd = open(newfile, O_RDONLY)) == -1) {
                 print_error(__FILE__, __LINE__-1, errno, "open");
@@ -46,7 +46,7 @@ int replace_file(char *newfile, char *origfile, const struct stat origst) {
 
             close(origfd);
             close(newfd);
-            
+
             if (unlink(newfile) == -1)
                 print_error(__FILE__, __LINE__-1, errno, "unlink");
         } else {

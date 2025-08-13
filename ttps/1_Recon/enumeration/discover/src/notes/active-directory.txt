@@ -123,9 +123,9 @@ This would allow you to change the password on any user found, without the knowl
 
 nbtstat -a <target IP>
 
-The hex code “1C” next to the domain name signifies that the target is a domain controller for the domain name listed on the left. 
+The hex code “1C” next to the domain name signifies that the target is a domain controller for the domain name listed on the left.
 
-U = UNIQUE and G = GROUP. When you see a hex code next to UNIQUE it is usually associated with the computer itself. With GROUP it is associated with 
+U = UNIQUE and G = GROUP. When you see a hex code next to UNIQUE it is usually associated with the computer itself. With GROUP it is associated with
 the workgroup or domain.
 
 Use the following MSF module to authenticate to the DC via SMB, create a volume shadow copy of the system drive, and downloads copies of NTDS.DIT
@@ -249,7 +249,7 @@ get-netgroup -fulldata -groupname "domain admins" | select-object member
 net group “domain admins” /domain
 
 # Show enterprise admins
-dsquery * -filter “name=enterprise admins” -attr member -d <forest domain.int> 
+dsquery * -filter “name=enterprise admins” -attr member -d <forest domain.int>
 get-netgroup -fulldata -groupname "enterprise admins" | select-object member
 net group “enterprise admins” /domain
 

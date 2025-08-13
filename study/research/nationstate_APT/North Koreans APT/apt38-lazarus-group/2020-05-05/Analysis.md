@@ -301,7 +301,7 @@ End Sub
 
 <center><img src="https://raw.githubusercontent.com/StrangerealIntel/CyberThreatIntel/master/North%20Korea/APT/Lazarus/2020-05-05/Pictures/Get-Infos.png"> </img></center>
 
-###### For getting the process running on the computer, the malware use the common method ```CreateToolhelp32Snapshot``` for create a snapshot of all the process and parse for have the modules and informations. 
+###### For getting the process running on the computer, the malware use the common method ```CreateToolhelp32Snapshot``` for create a snapshot of all the process and parse for have the modules and informations.
 
 <center><img src="https://raw.githubusercontent.com/StrangerealIntel/CyberThreatIntel/master/North%20Korea/APT/Lazarus/2020-05-05/Pictures/process.png"> </img></center>
 

@@ -129,7 +129,7 @@ NetworkManager::NetworkManager(MemHandler* objMemHandlerArg)
 
 
 BOOL NetworkManager::EnumerateNetworkFilters(BOOLEAN REMOVE, wchar_t* DriverName, DWORD64 ADDRESS) {
-	
+
 	LPVOID StartSearch = NULL;
 	int numPatched = 0;
 	LPVOID EndSearch = NULL;
@@ -188,7 +188,7 @@ BOOL NetworkManager::EnumerateNetworkFilters(BOOLEAN REMOVE, wchar_t* DriverName
 	while (StartSearch <= EndSearch) {
 		if ((((PBYTE)StartSearch)[0] == patterngInitDefaultCallout[0]) && (((PBYTE)StartSearch)[1] == patterngInitDefaultCallout[1]) && (((PBYTE)StartSearch)[2] == patterngInitDefaultCallout[2]) && (((PBYTE)StartSearch)[3] == patterngInitDefaultCallout[3]) && (((PBYTE)StartSearch)[4] == patterngInitDefaultCallout[4]) && (((PBYTE)StartSearch)[5] == patterngInitDefaultCallout[5])) {
 			distance = *(PDWORD)((DWORD_PTR)StartSearch - 4);
-			pInitDefaultCallout = (LPVOID)((DWORD_PTR)StartSearch + distance); 
+			pInitDefaultCallout = (LPVOID)((DWORD_PTR)StartSearch + distance);
 			break;
 		}
 

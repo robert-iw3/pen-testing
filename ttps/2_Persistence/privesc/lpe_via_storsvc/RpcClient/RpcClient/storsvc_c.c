@@ -16,11 +16,11 @@
 #include <string.h>
 #include "storsvc_h.h"
 
-#define TYPE_FORMAT_STRING_SIZE   205                               
-#define PROC_FORMAT_STRING_SIZE   1195                              
-#define EXPR_FORMAT_STRING_SIZE   1                                 
-#define TRANSMIT_AS_TABLE_SIZE    0            
-#define WIRE_MARSHAL_TABLE_SIZE   0            
+#define TYPE_FORMAT_STRING_SIZE   205
+#define PROC_FORMAT_STRING_SIZE   1195
+#define EXPR_FORMAT_STRING_SIZE   1
+#define TRANSMIT_AS_TABLE_SIZE    0
+#define WIRE_MARSHAL_TABLE_SIZE   0
 
 typedef struct _storsvc_MIDL_TYPE_FORMAT_STRING
     {
@@ -41,10 +41,10 @@ typedef struct _storsvc_MIDL_EXPR_FORMAT_STRING
     } storsvc_MIDL_EXPR_FORMAT_STRING;
 
 
-static const RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax = 
+static const RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax =
 {{0x8A885D04,0x1CEB,0x11C9,{0x9F,0xE8,0x08,0x00,0x2B,0x10,0x48,0x60}},{2,0}};
 
-static const RPC_SYNTAX_IDENTIFIER  _NDR64_RpcTransferSyntax = 
+static const RPC_SYNTAX_IDENTIFIER  _NDR64_RpcTransferSyntax =
 {{0x71710533,0xbeba,0x4937,{0x83,0x19,0xb5,0xdb,0xef,0x9c,0xcc,0x36}},{1,0}};
 
 
@@ -101,7 +101,7 @@ long Proc0_SvcMountVolume( handle_t IDL_handle, short arg_1, long arg_2, long ar
                   arg_2,
                   arg_3);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -119,7 +119,7 @@ long Proc1_SvcDismountVolume( handle_t IDL_handle, short arg_1, long arg_2, long
                   arg_2,
                   arg_3);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -137,7 +137,7 @@ long Proc2_SvcFormatVolume( handle_t IDL_handle, short arg_1, long arg_2, long a
                   arg_2,
                   arg_3);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -154,7 +154,7 @@ long Proc3_SvcGetStorageInstanceCount( handle_t IDL_handle, short arg_1, long *a
                   arg_1,
                   arg_2);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -172,7 +172,7 @@ long Proc4_SvcGetStorageDeviceInfo( handle_t IDL_handle, short arg_1, long arg_2
                   arg_2,
                   arg_3);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -191,7 +191,7 @@ long Proc5_CCleanupPolicy__CleanupItem( handle_t IDL_handle, short arg_1, short 
                   arg_3,
                   arg_4);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -208,7 +208,7 @@ long Proc6_SvcRebootToFlashingMode( handle_t IDL_handle, long arg_1, long arg_2)
                   arg_1,
                   arg_2);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -225,7 +225,7 @@ long Proc7_SvcRebootToUosFlashing( handle_t IDL_handle, long arg_1, long arg_2)
                   arg_1,
                   arg_2);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -242,7 +242,7 @@ long Proc8_SvcFinalizeVolume( handle_t IDL_handle, short arg_1, long arg_2)
                   arg_1,
                   arg_2);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -261,7 +261,7 @@ long Proc9_SvcGetStorageSettings( handle_t IDL_handle, short arg_1, long arg_2, 
                   arg_3,
                   arg_4);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -276,7 +276,7 @@ long Proc10_SvcResetStoragePolicySettings( handle_t IDL_handle)
                   0,
                   IDL_handle);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -295,7 +295,7 @@ long Proc11_SvcSetStorageSettings( handle_t IDL_handle, short arg_1, long arg_2,
                   arg_3,
                   arg_4);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -311,7 +311,7 @@ long Proc12_SvcTriggerStorageCleanup( handle_t IDL_handle, struct Struct_90_t *a
                   IDL_handle,
                   arg_1);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -328,7 +328,7 @@ long Proc13_SvcTriggerLowStorageNotification( handle_t IDL_handle, short arg_1, 
                   arg_1,
                   arg_2);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -346,7 +346,7 @@ __int3264 Proc14_SvcMoveFileInheritSecurity( handle_t IDL_handle, wchar_t *arg_1
                   arg_2,
                   arg_3);
     return ( __int3264  )_RetVal.Simple;
-    
+
 }
 
 
@@ -364,7 +364,7 @@ long Proc15_SvcScanVolume( handle_t IDL_handle, short arg_1, long arg_2, struct 
                   arg_2,
                   arg_3);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -379,7 +379,7 @@ long Proc16_SvcProcessStorageCardChange( handle_t IDL_handle)
                   0,
                   IDL_handle);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -396,7 +396,7 @@ long Proc17_SvcProvisionForAppInstall( handle_t IDL_handle, short arg_1, long ar
                   arg_1,
                   arg_2);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -413,7 +413,7 @@ long Proc18_SvcGetStorageInstanceCountForMaps( handle_t IDL_handle, short arg_1,
                   arg_1,
                   arg_2);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -431,7 +431,7 @@ long Proc19_SvcGetStoragePolicySettings( handle_t IDL_handle, short arg_1, wchar
                   arg_2,
                   arg_3);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -449,7 +449,7 @@ long Proc20_SvcSetStoragePolicySettings( handle_t IDL_handle, short arg_1, wchar
                   arg_2,
                   arg_3);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -465,7 +465,7 @@ long Proc21_SvcTriggerStoragePolicies( handle_t IDL_handle, struct Struct_134_t 
                   IDL_handle,
                   arg_1);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -482,7 +482,7 @@ long Proc22_SvcPredictStorageHealth( handle_t IDL_handle, struct Struct_164_t **
                   arg_1,
                   arg_2);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -498,7 +498,7 @@ long Proc23_SvcGetLastFailedSaveLocationPath( handle_t IDL_handle, wchar_t **arg
                   IDL_handle,
                   arg_1);
     return ( long  )_RetVal.Simple;
-    
+
 }
 
 
@@ -685,22 +685,22 @@ static const storsvc_MIDL_TYPE_FORMAT_STRING storsvc__MIDL_TypeFormatString =
     {
         0,
         {
-			NdrFcShort( 0x0 ),	
+			NdrFcShort( 0x0 ),
 			0x11, 0xc,	0x8,
-			0x5c,	
-			0x11, 0x0,	NdrFcShort( 0x1a ),	
+			0x5c,
+			0x11, 0x0,	NdrFcShort( 0x1a ),
 			0x1d,
 			0x1,	NdrFcShort( 0x208 ),	0x5,
-			0x5b,	
+			0x5b,
 			0x1d,
 			0x0,	NdrFcShort( 0x8 ),	0x1,
-			0x5b,	
+			0x5b,
 			0x15,
 			0x3,	NdrFcShort( 0x10 ),	0x8,
 			0x6,	0x6,
 			0x4c,	0x0,
 			NdrFcShort( 0xfff1 ),
-			0x5b,	
+			0x5b,
 			0x15,
 			0x7,	NdrFcShort( 0x448 ),	0x8,
 			0x4c,	0x0,
@@ -714,55 +714,55 @@ static const storsvc_MIDL_TYPE_FORMAT_STRING storsvc__MIDL_TypeFormatString =
 			0x4c,	0x0,
 			NdrFcShort( 0xffd1 ),
 			0x8,	0x8,
-			0x5b,	
-			0x11, 0x4,	NdrFcShort( 0x8 ),	
+			0x5b,
+			0x11, 0x4,	NdrFcShort( 0x8 ),
 			0x1d,
 			0x3,	NdrFcShort( 0x8 ),	0x8,
-			0x5b,	
+			0x5b,
 			0x15,
 			0x3,	NdrFcShort( 0x8 ),	0x4c,
 			0x0,	NdrFcShort( 0xfff4 ),	0x5c,
-			0x5b,	
+			0x5b,
 			0x11, 0x0,	NdrFcShort( 0x2 ),	0xb1,
 			0x3,	NdrFcShort( 0x10 ),	NdrFcShort( 0x0 ),	NdrFcShort( 0x0 ),	0x8,
 			0x6,	0x3e,
 			0x8,	0x6,
 			0x6,	0x5c,
-			0x5b,	
-			0x11, 0x8,	
+			0x5b,
+			0x11, 0x8,
 			0x25,
-			0x5c,	
-			0x11, 0x0,	NdrFcShort( 0x2 ),	
+			0x5c,
+			0x11, 0x0,	NdrFcShort( 0x2 ),
 			0x1a,
 			0x3,	NdrFcShort( 0x10 ),	NdrFcShort( 0x0 ),	NdrFcShort( 0x0 ),	0x8,
 			0x8,	0x8,
 			0x6,	0x3e,
-			0x5b,	
-			0x12, 0x8,	
+			0x5b,
+			0x12, 0x8,
 			0x25,
-			0x5c,	
+			0x5c,
 			0x11, 0x0,	NdrFcShort( 0x2 ),	0xb1,
 			0x3,	NdrFcShort( 0x18 ),	NdrFcShort( 0x0 ),	NdrFcShort( 0x0 ),	0x8,
 			0x6,	0x3e,
 			0x8,	0x8,
 			0x8,	0x8,
-			0x5b,	
-			0x11, 0x14,	NdrFcShort( 0x2 ),	
-			0x12, 0x20,	NdrFcShort( 0x18 ),	
+			0x5b,
+			0x11, 0x14,	NdrFcShort( 0x2 ),
+			0x12, 0x20,	NdrFcShort( 0x18 ),
 			0x1d,
 			0x1,	NdrFcShort( 0x4e ),	0x5,
-			0x5b,	
+			0x5b,
 			0x1a,
 			0x7,	NdrFcShort( 0x58 ),	NdrFcShort( 0x0 ),	NdrFcShort( 0x0 ),	0xc,
 			0x4c,	0x0,
 			NdrFcShort( 0xffef ),
 			0x3e,	0x5c,
-			0x5b,	
+			0x5b,
 			0x21,
 			0x7,	NdrFcShort( 0x0 ),	0x28,
 			0x54,	NdrFcShort( 0x10 ),	NdrFcShort( 0x0 ),	NdrFcLong( 0xffffffff ),	NdrFcShort( 0x0 ),	0x4c,
 			0x0,	NdrFcShort( 0xffde ),	0x5c,
-			0x5b,	
+			0x5b,
 			0x11, 0x14,	NdrFcShort( 0xffb2 ),
 
 			0x0
@@ -815,28 +815,28 @@ static const unsigned short DefaultIfName_FormatStringOffsetTable[] =
 #include "pshpack8.h"
 
 
-typedef 
+typedef
 NDR64_FORMAT_CHAR
 __midl_frag124_t;
 extern const __midl_frag124_t __midl_frag124;
 
-typedef 
+typedef
 struct _NDR64_CONFORMANT_STRING_FORMAT
 __midl_frag123_t;
 extern const __midl_frag123_t __midl_frag123;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag122_t;
 extern const __midl_frag122_t __midl_frag122;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag121_t;
 extern const __midl_frag121_t __midl_frag121;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -846,21 +846,21 @@ struct
 __midl_frag120_t;
 extern const __midl_frag120_t __midl_frag120;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag117_t;
 extern const __midl_frag117_t __midl_frag117;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_STRUCTURE_HEADER_FORMAT frag1;
 }
 __midl_frag116_t;
 extern const __midl_frag116_t __midl_frag116;
 
-typedef 
-struct 
+typedef
+struct
 {
     NDR64_FORMAT_UINT32 frag1;
     struct _NDR64_EXPR_OPERATOR frag2;
@@ -869,8 +869,8 @@ struct
 __midl_frag115_t;
 extern const __midl_frag115_t __midl_frag115;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_CONF_ARRAY_HEADER_FORMAT frag1;
     struct _NDR64_ARRAY_ELEMENT_INFO frag2;
@@ -878,18 +878,18 @@ struct
 __midl_frag114_t;
 extern const __midl_frag114_t __midl_frag114;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag113_t;
 extern const __midl_frag113_t __midl_frag113;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag112_t;
 extern const __midl_frag112_t __midl_frag112;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -900,11 +900,11 @@ struct
 __midl_frag111_t;
 extern const __midl_frag111_t __midl_frag111;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_BOGUS_STRUCTURE_HEADER_FORMAT frag1;
-    struct 
+    struct
     {
         struct _NDR64_SIMPLE_MEMBER_FORMAT frag1;
         struct _NDR64_SIMPLE_MEMBER_FORMAT frag2;
@@ -919,13 +919,13 @@ struct
 __midl_frag109_t;
 extern const __midl_frag109_t __midl_frag109;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag108_t;
 extern const __midl_frag108_t __midl_frag108;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -935,13 +935,13 @@ struct
 __midl_frag107_t;
 extern const __midl_frag107_t __midl_frag107;
 
-typedef 
+typedef
 NDR64_FORMAT_CHAR
 __midl_frag102_t;
 extern const __midl_frag102_t __midl_frag102;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -953,8 +953,8 @@ struct
 __midl_frag101_t;
 extern const __midl_frag101_t __midl_frag101;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -966,8 +966,8 @@ struct
 __midl_frag94_t;
 extern const __midl_frag94_t __midl_frag94;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -978,8 +978,8 @@ struct
 __midl_frag89_t;
 extern const __midl_frag89_t __midl_frag89;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -990,8 +990,8 @@ struct
 __midl_frag85_t;
 extern const __midl_frag85_t __midl_frag85;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1000,21 +1000,21 @@ struct
 __midl_frag83_t;
 extern const __midl_frag83_t __midl_frag83;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_STRUCTURE_HEADER_FORMAT frag1;
 }
 __midl_frag81_t;
 extern const __midl_frag81_t __midl_frag81;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag80_t;
 extern const __midl_frag80_t __midl_frag80;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1026,18 +1026,18 @@ struct
 __midl_frag77_t;
 extern const __midl_frag77_t __midl_frag77;
 
-typedef 
+typedef
 NDR64_FORMAT_CHAR
 __midl_frag76_t;
 extern const __midl_frag76_t __midl_frag76;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag73_t;
 extern const __midl_frag73_t __midl_frag73;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1049,11 +1049,11 @@ struct
 __midl_frag70_t;
 extern const __midl_frag70_t __midl_frag70;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_BOGUS_STRUCTURE_HEADER_FORMAT frag1;
-    struct 
+    struct
     {
         struct _NDR64_SIMPLE_MEMBER_FORMAT frag1;
         struct _NDR64_SIMPLE_MEMBER_FORMAT frag2;
@@ -1067,13 +1067,13 @@ struct
 __midl_frag64_t;
 extern const __midl_frag64_t __midl_frag64;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag63_t;
 extern const __midl_frag63_t __midl_frag63;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1083,8 +1083,8 @@ struct
 __midl_frag62_t;
 extern const __midl_frag62_t __midl_frag62;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1097,8 +1097,8 @@ struct
 __midl_frag56_t;
 extern const __midl_frag56_t __midl_frag56;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1111,8 +1111,8 @@ struct
 __midl_frag47_t;
 extern const __midl_frag47_t __midl_frag47;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1123,21 +1123,21 @@ struct
 __midl_frag39_t;
 extern const __midl_frag39_t __midl_frag39;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_STRUCTURE_HEADER_FORMAT frag1;
 }
 __midl_frag33_t;
 extern const __midl_frag33_t __midl_frag33;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag32_t;
 extern const __midl_frag32_t __midl_frag32;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1150,21 +1150,21 @@ struct
 __midl_frag28_t;
 extern const __midl_frag28_t __midl_frag28;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_STRUCTURE_HEADER_FORMAT frag1;
 }
 __midl_frag26_t;
 extern const __midl_frag26_t __midl_frag26;
 
-typedef 
+typedef
 struct _NDR64_POINTER_FORMAT
 __midl_frag25_t;
 extern const __midl_frag25_t __midl_frag25;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1176,8 +1176,8 @@ struct
 __midl_frag22_t;
 extern const __midl_frag22_t __midl_frag22;
 
-typedef 
-struct 
+typedef
+struct
 {
     struct _NDR64_PROC_FORMAT frag1;
     struct _NDR64_BIND_AND_NOTIFY_EXTENSION frag2;
@@ -1189,7 +1189,7 @@ struct
 __midl_frag12_t;
 extern const __midl_frag12_t __midl_frag12;
 
-typedef 
+typedef
 NDR64_FORMAT_UINT32
 __midl_frag1_t;
 extern const __midl_frag1_t __midl_frag1;
@@ -3291,7 +3291,7 @@ static const FormatInfoRef DefaultIfName_Ndr64ProcTable[] =
     };
 
 
-static const MIDL_STUB_DESC DefaultIfName_StubDesc = 
+static const MIDL_STUB_DESC DefaultIfName_StubDesc =
     {
     (void *)& DefaultIfName___RpcClientInterface,
     MIDL_user_allocate,
@@ -3315,7 +3315,7 @@ static const MIDL_STUB_DESC DefaultIfName_StubDesc =
     0
     };
 
-static const MIDL_SYNTAX_INFO DefaultIfName_SyntaxInfo [  2 ] = 
+static const MIDL_SYNTAX_INFO DefaultIfName_SyntaxInfo [  2 ] =
     {
     {
     {{0x8A885D04,0x1CEB,0x11C9,{0x9F,0xE8,0x08,0x00,0x2B,0x10,0x48,0x60}},{2,0}},
@@ -3347,7 +3347,7 @@ static const MIDL_STUBLESS_PROXY_INFO DefaultIfName_ProxyInfo =
     (RPC_SYNTAX_IDENTIFIER*)&_RpcTransferSyntax,
     2,
     (MIDL_SYNTAX_INFO*)DefaultIfName_SyntaxInfo
-    
+
     };
 
 #if _MSC_VER >= 1200

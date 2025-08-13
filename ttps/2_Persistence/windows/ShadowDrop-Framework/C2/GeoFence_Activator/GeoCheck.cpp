@@ -7,13 +7,13 @@ using json = nlohmann::json;
 bool IsGeoAllowed() {
     HINTERNET hInternet = InternetOpenA("Mozilla/5.0", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0);
     if (!hInternet) return false;
-    
+
     HINTERNET hUrl = InternetOpenUrlA(hInternet, "https://ipapi.co/json/", NULL, 0, INTERNET_FLAG_RELOAD, 0);
     if (!hUrl) {
         InternetCloseHandle(hInternet);
         return false;
     }
-    
+
     char buffer[1024];
     DWORD bytesRead;
     std::string response;
@@ -23,7 +23,7 @@ bool IsGeoAllowed() {
     }
     InternetCloseHandle(hUrl);
     InternetCloseHandle(hInternet);
-    
+
     try {
         auto j = json::parse(response);
         std::string country = j["country_code"];

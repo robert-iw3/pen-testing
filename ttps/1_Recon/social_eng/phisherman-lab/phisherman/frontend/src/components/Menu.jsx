@@ -13,7 +13,7 @@ function Menu() {
       const token = localStorage.getItem("authToken");
       console.log("Token:", token);
       if (token) {
-        await logoutUser(token); 
+        await logoutUser(token);
       }
     } catch (err) {
       console.error("Logout error:", err);

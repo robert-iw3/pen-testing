@@ -52,7 +52,7 @@
 			</div>
 		</div>
 		<!-- End Logo + Top Nav -->
-		
+
 		<!-- Main Nav -->
 		<div id="navigation">
 			<ul>
@@ -71,10 +71,10 @@
 		<!-- Main -->
 		<div id="main">
 			<div class="cl">&nbsp;</div>
-			
+
 			<!-- Content -->
 			<!-- <div id="content"> -->
-								
+
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
@@ -85,7 +85,7 @@
 							<input type="submit" class="button" value="search" />-->
 						</div>
 					</div>
-					<!-- End Box Head -->	
+					<!-- End Box Head -->
 
 					<!-- Table -->
 					<div class="table">
@@ -97,12 +97,12 @@
                                 <th onclick="sortTable(3)">State</th>
                                 <th onclick="sortTable(4)">Description</th>
                                 <th onclick="sortTable(5)">Access Levels</th>
-						        <th width="110" class="ac">Content Control</th>					
+						        <th width="110" class="ac">Content Control</th>
                             </tr>
-													
-							
-							
-							
+
+
+
+
 							<% for(var i=0; i < agents.length; i++) { %>
 								<tr style="cursor: pointer;<%= agents[i][5] %>"  ><!-- class="odd" -->
 									<td onClick="javascript:window.location.href='/<%= agents[i][4] %><><%= agents[i][0] %>'" ><input type="checkbox" class="checkbox" /></td>
@@ -113,13 +113,13 @@
 									<td onClick="javascript:window.location.href='/<%= agents[i][4] %><><%= agents[i][0] %>'" ><%if(agents[i][0].charAt(4).toUpperCase() =="N"&&agents[i][0].charAt(5).toUpperCase() =="T") {%>NT Autority<%}else{%>User<%}%></td>
 									<td onClick="javascript:window.location.href='/delagent/<%= agents[i][4] %><><%= agents[i][0] %>'"><a class="ico del">Delete</a></td>
 								</tr>
-								
-								
+
+
 
 
 <script>
 function sortTable(n) {
-	
+
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("myTable");
   switching = true;
@@ -133,7 +133,7 @@ function sortTable(n) {
     rows = table.rows;
     /* Loop through all table rows (except the
     first, which contains table headers): */
-	
+
     for (i = 1; i < (rows.length - 1); i++) {
       // Start by saying there should be no switching:
       shouldSwitch = false;
@@ -175,7 +175,7 @@ function sortTable(n) {
   }
 }
 </script>
-								
+
 							<% } %>
 						</table>
 					</div>
@@ -184,19 +184,19 @@ function sortTable(n) {
 				<!-- End Box -->
 			<!-- </div> -->
 			<!-- End Content -->
-			
-			<!-- Sidebar 
+
+			<!-- Sidebar
 			<div id="sidebar">
-				
-				<!-- Box 
+
+				<!-- Box
 				<div class="box">
-					
-					<!-- Box Head 
+
+					<!-- Box Head
 					<div class="box-head">
 						<h2>Management</h2>
 					</div>
 					<!-- End Box Head
-					
+
 					<div class="box-content">
 						<div class="cl">&nbsp;</div>
 						<form action="/des/" enctype="multipart/form-data" method="POST">
@@ -207,8 +207,8 @@ function sortTable(n) {
 								<input type="submit" class="button"  value="Upload" />
 							</div>
 						</form>
-						
-						<!-- Sort 
+
+						<!-- Sort
 						<div class="sort">
 							<label>Sort by</label>
 							<select class="field">
@@ -221,15 +221,15 @@ function sortTable(n) {
 								<option value="">Author</option>
 							</select>
 						</div>
-						 End Sort 
-						
+						 End Sort
+
 					</div>
 				</div>
-				<!-- End Box 
+				<!-- End Box
 			</div>
 			<!-- End Sidebar -->
-			
-			<div class="cl">&nbsp;</div>			
+
+			<div class="cl">&nbsp;</div>
 		</div>
 		<!-- Main -->
 	</div>
@@ -246,6 +246,6 @@ function sortTable(n) {
 	</div>
 </div>
 <!-- End Footer -->
-	
+
 </body>
 </html>

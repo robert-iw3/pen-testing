@@ -9,13 +9,13 @@ Tags:: 🔑
 ---
 
 
-## Details 
+## Details
 
 A bZx developer was sent a phishing email to his personal computer with a malicious macro in a Word document that was disguised as a legitimate email attachment, which then ran a script on his PC.
 
 The phishing attack was similar to one that affected another user recently named “mgnr.io” and would connect to Bondly Finance hack.
 
-This attack granted the hacker access to the content of the bZx Developers wallet, and also the private keys to the BSC and Polygon deployment of bZx Protocol. 
+This attack granted the hacker access to the content of the bZx Developers wallet, and also the private keys to the BSC and Polygon deployment of bZx Protocol.
 
 After gaining control of BSC and Polygon the hacker drained the BSC and Polygon protocol, then upgraded the contract to allow draining of all tokens that the contracts had given unlimited approval.
 
@@ -26,7 +26,7 @@ Most losses were on Polygon and Binance Smart Chain (BSC)
 
 ## Onchain
 
-- 0x0ACC0e5faA09Cb1976237c3a9aF3D3d4b2f35FA5 - Primary Theft on BSC 
+- 0x0ACC0e5faA09Cb1976237c3a9aF3D3d4b2f35FA5 - Primary Theft on BSC
 - 0x74487eed1e67f4787e8c0570e8d5d168a05254d4 - Primary Theft on ETH - 10M BZRX, $4m ETH
 - 0xafad9352eb6bcd085dd68268d353d0ed2571af89 - 2M BZRX, $1.4m DAI, $243k USDC, $15m ETH
 - 0x967bb571f0fc9ee79c892abf9f99233aa1737e31 - 2.5M BZRX, 12M VBZRX, 82K BZRX, $2m in ETH
@@ -39,15 +39,15 @@ Most losses were on Polygon and Binance Smart Chain (BSC)
 
 
 
-## Connections 
+## Connections
 
 - 0xf4ace6ae2df8ef5dbccb3a118f072f8a80868fc7 - Connects FinNexus <> bZx <> MetaPlay
 
 - On Polygon, The first transaction in [bZx exploiter 0x0acc0e5faa09cb1976237c3a9af3d3d4b2f35fa5] is from [Bondly Exploiter 0xc433D50DD0614c81EE314289eC82Aa63710D25e8]
 
-- This exploit was very similar to bzx’s: the hacker got access to a devs password and then manipulated a smart contract from the protocol. 
+- This exploit was very similar to bzx’s: the hacker got access to a devs password and then manipulated a smart contract from the protocol.
 
-- 0x2d7554062664050294640891a122019a68ac5a2b - Dust Collector 
+- 0x2d7554062664050294640891a122019a68ac5a2b - Dust Collector
 
 
 ## URLs

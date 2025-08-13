@@ -23,4 +23,4 @@ sudo mount /dev/loop0p1 mp
 cd mp
 cp -r ../../filesystem/EFI .
 
-sudo grub2-bios-setup  /dev/loop0 -d EFI/grub/i386-pc/ -v 
+sudo grub2-bios-setup  /dev/loop0 -d EFI/grub/i386-pc/ -v

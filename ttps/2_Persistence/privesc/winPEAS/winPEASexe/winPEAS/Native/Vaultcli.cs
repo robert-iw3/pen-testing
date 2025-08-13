@@ -5,7 +5,7 @@ namespace winPEAS.Native
 {
     internal class Vaultcli
     {
-        // pulled directly from @djhohnstein's SharpWeb project: https://github.com/djhohnstein/SharpWeb/blob/master/Edge/SharpEdge.cs                                   
+        // pulled directly from @djhohnstein's SharpWeb project: https://github.com/djhohnstein/SharpWeb/blob/master/Edge/SharpEdge.cs
 
         [DllImport("vaultcli.dll")]
         internal extern static Int32 VaultOpenVault(ref Guid vaultGuid, UInt32 offset, ref IntPtr vaultHandle);

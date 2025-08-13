@@ -39,10 +39,10 @@ namespace System.Yaml
     {
         const int controlCodeMax = 0x1f;
         static string[] controlCodes = new string[controlCodeMax + 1] {
-                @"\0", @"\x01", @"\x02", @"\x03", @"\x04", @"\x05", @"\x06", @"\a", 
-                @"\b", @"\t", @"\n", @"\v", @"\f", @"\r", @"\x0e", @"\x0f", 
-                @"\x10", @"\x11", @"\x12", @"\x13", @"\x14", @"\x15", @"\x16", @"\x17", 
-                @"\x18", @"\x19", @"\x1a", @"\e", @"\x1c", @"\x1d", @"\x1e", @"\x1f", 
+                @"\0", @"\x01", @"\x02", @"\x03", @"\x04", @"\x05", @"\x06", @"\a",
+                @"\b", @"\t", @"\n", @"\v", @"\f", @"\r", @"\x0e", @"\x0f",
+                @"\x10", @"\x11", @"\x12", @"\x13", @"\x14", @"\x15", @"\x16", @"\x17",
+                @"\x18", @"\x19", @"\x1a", @"\e", @"\x1c", @"\x1d", @"\x1e", @"\x1f",
         };
         static Dictionary<char, string> escapeTable = new Dictionary<char, string>();
         static Regex escapeRegexp = null;
@@ -65,7 +65,7 @@ namespace System.Yaml
             escapeTable['\xa0'] = @"\_";
             escapeTable['\u2028'] = @"\L";
             escapeTable['\u2029'] = @"\P";
-            
+
             // Create escaping regexp
             escapeRegexp = new Regex(@"[\x00-\x1f\/\x85\xa0\u2028\u2029" + "\"]");
             escapeNonprintable = new Regex(@"[\x7f-\x84\x86-\x9f\ud800-\udfff\ufffe\uffff]");

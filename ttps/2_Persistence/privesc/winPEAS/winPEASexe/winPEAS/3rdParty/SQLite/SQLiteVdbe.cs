@@ -25,7 +25,7 @@ namespace winPEAS._3rdParty.SQLite
     {
       vm = null;
 
-      // prepare and compile 
+      // prepare and compile
       CSSQLite.sqlite3_prepare_v2( db.Connection(), query, query.Length, ref vm, 0 );
     }
 
@@ -38,7 +38,7 @@ namespace winPEAS._3rdParty.SQLite
     {
       return vm;
     }
-    
+
     /// <summary>
     /// <summary>
     /// BindInteger
@@ -125,7 +125,7 @@ namespace winPEAS._3rdParty.SQLite
       return CSSQLite.sqlite3_column_text( vm, index );
     }
 
-    
+
     /// <summary>
     /// Returns Count of Result Rows
     /// </summary>
@@ -146,7 +146,7 @@ namespace winPEAS._3rdParty.SQLite
       // Reset the statment so it's ready to use again
       CSSQLite.sqlite3_reset( vm );
     }
-    
+
     /// <summary>
     /// Closes statement
     /// </summary>
@@ -156,6 +156,6 @@ namespace winPEAS._3rdParty.SQLite
     {
       CSSQLite.sqlite3_finalize( ref vm );
     }
-  
+
   }
 }

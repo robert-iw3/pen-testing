@@ -10,7 +10,7 @@ Tags:: 🔑
 
 ## Details
 
-Victim received a forwarded Google Drive document. 
+Victim received a forwarded Google Drive document.
 
 Shortly after his wallets were drained, victim reports his Google Chrome crashed which was strange. Lost browsing history, stored passwords, etc.
 

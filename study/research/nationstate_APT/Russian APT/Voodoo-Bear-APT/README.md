@@ -6,7 +6,7 @@ The attack chain starts with backdoor which is a DLL targets both 32-bit and 64-
 ![imageedit_2_8201736021](https://github.com/S3N4T0R-0X0/Voodoo-Bear-APT/assets/121706460/d8af69c6-b3f6-4870-a8d9-6dcf222c7564)
 
 
-Kapeka, which means “little stork” in Russian,  is a flexible backdoor written in C++. It allows the threat actors to use it as an early stage toolkit, while also providing long term persistence to the victim network. Kapeka’s dropper is a 32-bit Windows executable that drops and launches the backdoor on a victim machine. The dropper also sets up persistence by creating a scheduled task or autorun registry. Finally, the dropper removes itself from the system. 
+Kapeka, which means “little stork” in Russian,  is a flexible backdoor written in C++. It allows the threat actors to use it as an early stage toolkit, while also providing long term persistence to the victim network. Kapeka’s dropper is a 32-bit Windows executable that drops and launches the backdoor on a victim machine. The dropper also sets up persistence by creating a scheduled task or autorun registry. Finally, the dropper removes itself from the system.
 If you need to know more about Kapeka backdoor for Voodoo Bear APT group: https://blog.polyswarm.io/voodoo-bears-kapeka-backdoor-targets-critical-infrastructure
 
 

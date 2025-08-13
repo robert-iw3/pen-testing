@@ -4,15 +4,15 @@
 #include "StdAfx.h"
 #include "define.h"
 
-INT32 
+INT32
 SharedMapViewOfSection
 (HANDLE hHandle,
  SIZE_T iSectionSize,
  PHANDLE pSectionHandle,
  PVOID *pBaseAddr1,
  PVOID *pBaseAddr2);
- 
-void 
+
+void
 CopySegmentIntoSections
 (PVOID *pProcessSection,
 PVOID pModuleSection,
@@ -21,7 +21,7 @@ PSECTION_SEGEMENT_INFO sSegment,
 PVOID pSegmentContent,
 UINT32 iSegmentSize);
 
-INT32 
+INT32
 GetRandomModuleName
 (GENERAL_INFO_BLOCK *sInfoBlock,
 LPCWSTR szDebugLibraryName);

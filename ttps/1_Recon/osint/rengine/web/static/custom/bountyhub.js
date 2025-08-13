@@ -28,16 +28,16 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             showLoadingIndicator("Loading HackerOne Programs");
         }
-    
+
         let api_url = isBookmarkedRequest ? '/api/hackerone-programs/bookmarked_programs/' : '/api/hackerone-programs/';
-    
+
         const sortParams = updateSortingParams();
         const queryParams = new URLSearchParams(sortParams).toString();
-    
+
         if (queryParams) {
             api_url += '?' + queryParams;
         }
-    
+
         try {
             const response = await fetch(api_url, {
                 method: "GET",
@@ -46,12 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     "X-CSRFToken": getCookie("csrftoken"),
                 },
             });
-    
+
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.error || 'An error occurred while fetching the programs.');
             }
-    
+
             const data = await response.json();
             allPrograms = data;
             displayPrograms(data);
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             filterAndSearchCards();
         });
-        
+
         filterAndSearchCards();
     }
 
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
             reports: 'reports',
             posted: 'age'
         }[sortBy] || 'age';
-        
+
         return { sort_by: apiSortBy, sort_order: sortOrder || 'desc' };
     }
 
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateImportButton() {
         const selectedCards = container.querySelectorAll('.card-selected');
         const count = selectedCards.length;
-        
+
         importBtn.disabled = count === 0;
         importBtn.innerHTML = count === 0 ? '<i class="fe-download-cloud"></i> Import Programs' : `<i class="fe-download-cloud"></i> Import ${count} Program${count !== 1 ? 's' : ''}`;
         clearBtn.style.display = count === 0 ? 'none' : 'inline';
@@ -482,12 +482,12 @@ function createInScopeAccordionItem(type, assets, hackerone_handle, program_name
     item.className = 'accordion-item border-0 mb-3';
     item.innerHTML = `
         <h2 class="accordion-header" id="heading${type}">
-            <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" 
+            <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapse${type}" aria-expanded="false">
                 <i class="fe-folder me-2"></i> ${type}s <span class="badge bg-primary ms-2">${assets.length}</span>
             </button>
         </h2>
-        <div id="collapse${type}" class="accordion-collapse collapse" 
+        <div id="collapse${type}" class="accordion-collapse collapse"
              aria-labelledby="heading${type}" data-bs-parent="#assetAccordion">
             <div class="accordion-body p-4">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">

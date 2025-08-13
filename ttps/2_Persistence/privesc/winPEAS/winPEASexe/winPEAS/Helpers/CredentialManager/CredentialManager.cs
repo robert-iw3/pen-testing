@@ -5,7 +5,7 @@ namespace winPEAS.Helpers.CredentialManager
 {
     internal static class CredentialManager
     {
-        // thanks to 
+        // thanks to
         // https://github.com/spolnik/Simple.CredentialsManager
 
         public static string UnicodeInfoText = "(Unicode Base64 encoded)";

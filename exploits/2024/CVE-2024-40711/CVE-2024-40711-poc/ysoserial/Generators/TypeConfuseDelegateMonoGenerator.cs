@@ -22,7 +22,7 @@ namespace ysoserial.Generators
         {
             return "James Forshaw";
         }
-        
+
         public override string Contributors()
         {
             return "Denis Andzakovic, Soroush Dalili";

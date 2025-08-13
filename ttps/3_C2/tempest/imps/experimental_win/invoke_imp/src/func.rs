@@ -51,20 +51,20 @@ fn ldr_get_dll(dll_name: &str, ntdll: usize, kernel32: usize) -> HMODULE {
     };
 
     let dll_name_wide: Vec<u16> = OsStr::new(dll_name).encode_wide().chain(Some(0)).collect();
-    
+
     unsafe {
         // First, try to load the DLL if it's not already loaded
         let load_library_a: extern "system" fn(*const i8) -> HMODULE = std::mem::transmute(load_library_a);
         let dll_name_cstr = CString::new(dll_name).unwrap();
         let loaded_handle = load_library_a(dll_name_cstr.as_ptr());
-        
+
         if loaded_handle.is_null() {
             println!("LoadLibraryA failed to load {}", dll_name);
             return null_mut();
         }
 
         // Now proceed with getting a handle using LdrGetDllHandle
-        let rtl_init_unicode_string: extern "system" fn(*mut UNICODE_STRING, *const u16) = 
+        let rtl_init_unicode_string: extern "system" fn(*mut UNICODE_STRING, *const u16) =
             std::mem::transmute(rtl_init_unicode_string);
         rtl_init_unicode_string(&mut unicode_string, dll_name_wide.as_ptr());
 
@@ -119,18 +119,18 @@ fn ldr_get_fn(dll: HMODULE, fn_name: &str) -> FARPROC {
     };
     // Convert the function name to a wide string.
     let fn_name_wide: Vec<u16> = OsStr::new(fn_name).encode_wide().chain(Some(0)).collect();
-    
+
     unsafe {
         // Initialize the UNICODE_STRING structure with the function name.
-        let rtl_init_unicode_string: extern "system" fn(*mut UNICODE_STRING, *const u16) = 
+        let rtl_init_unicode_string: extern "system" fn(*mut UNICODE_STRING, *const u16) =
             std::mem::transmute(rtl_init_unicode_string);
         rtl_init_unicode_string(&mut unicode_string, fn_name_wide.as_ptr());
 
         // Convert the UNICODE_STRING to an ANSI string.
-        let rtl_unicode_string_to_ansi_string: extern "system" fn(*mut STRING, *const UNICODE_STRING, BOOLEAN) -> i32 = 
+        let rtl_unicode_string_to_ansi_string: extern "system" fn(*mut STRING, *const UNICODE_STRING, BOOLEAN) -> i32 =
             std::mem::transmute(rtl_unicode_string_to_ansi_string);
         let status = rtl_unicode_string_to_ansi_string(&mut ansi_string, &unicode_string, 1);
-        
+
         if status != 0 {
             return std::ptr::null_mut();
         }
@@ -179,9 +179,9 @@ pub fn get_version(ntdll: usize) -> String {
 
         match ret {
             0 => {
-                format!("Windows {}.{}.{}", 
-                    version_info.dwMajorVersion, 
-                    version_info.dwMinorVersion, 
+                format!("Windows {}.{}.{}",
+                    version_info.dwMajorVersion,
+                    version_info.dwMinorVersion,
                     version_info.dwBuildNumber)
             },
             status => format!("Error: NTSTATUS == {:X}", status as u32),
@@ -337,10 +337,10 @@ pub fn get_external_ip(ntdll: usize, kernel32: usize) -> String {
 
 use wmi::{COMLibrary, Variant, WMIConnection};
 use std::collections::HashMap;
-//after i get this working, i'm going to write a seperate tool, a WMI query runner, 
+//after i get this working, i'm going to write a seperate tool, a WMI query runner,
 //that can be used for testing WMI queries and getting data.
 pub fn get_username() -> String {
-    //changed my mind about reusing the whoami crate. 
+    //changed my mind about reusing the whoami crate.
     //instead we'll use WMI to get the username
 
     let query = "SELECT UserName FROM Win32_ComputerSystem";

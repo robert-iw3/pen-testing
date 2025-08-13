@@ -185,7 +185,7 @@ TCHAR* notifyRoutine::FindDriver(DWORD64 address) {
 
 void notifyRoutine::findregistrycallbackroutines(DWORD64 remove) {
 	//UCHAR PTRN_W10_Reg[] =	{0x48, 0x8b, 0xf8, 0x48, 0x89, 0x44, 0x24, 0x40, 0x48, 0x85, 0xc0, 0x0f, 0x84};
-	//so retrieving this one is different from proc/img/thread. We need to find the undocumented callbacklisthead. The callbacklisthead contains a pointer to the registry notification callback routine. 
+	//so retrieving this one is different from proc/img/thread. We need to find the undocumented callbacklisthead. The callbacklisthead contains a pointer to the registry notification callback routine.
 	//At offset 0x28 is the address of the callback function.
 
 	PLIST_ENTRY pEntry;
@@ -194,7 +194,7 @@ void notifyRoutine::findregistrycallbackroutines(DWORD64 remove) {
 	DWORD64 CmUnregisterMachineHiveLoadedNotification = GetFunctionAddress("CmUnregisterMachineHiveLoadedNotification");
 	DWORD64 patternaddress = PatternSearch(CmUnRegisterCallbackAddress, CmUnregisterMachineHiveLoadedNotification, offsets.registry);
 	DWORD offset;
-	
+
 	BOOL b = this->objMemHandler->VirtualRead(
 		(DWORD64)patternaddress - 0x09,
 		&offset,
@@ -206,7 +206,7 @@ void notifyRoutine::findregistrycallbackroutines(DWORD64 remove) {
 	Log("[+] Callbacklisthead: %p", callbacklisthead);
 
 	DWORD64 EntryToRemove;
-	
+
 	b = this->objMemHandler->VirtualRead(
 		(DWORD64)callbacklisthead,
 		&EntryToRemove,
@@ -217,7 +217,7 @@ void notifyRoutine::findregistrycallbackroutines(DWORD64 remove) {
 
 	while (EntryToRemove != callbacklisthead && i < 64) {
 		DWORD64 callback;
-		
+
 		BOOL b = this->objMemHandler->VirtualRead(
 			(DWORD64)EntryToRemove + 0x28,
 			&callback,
@@ -257,7 +257,7 @@ void notifyRoutine::findregistrycallbackroutines(DWORD64 remove) {
 
 void notifyRoutine::unlinkregistrycallbackroutines(DWORD64 remove) {
 	//UCHAR PTRN_W10_Reg[] =	{0x48, 0x8b, 0xf8, 0x48, 0x89, 0x44, 0x24, 0x40, 0x48, 0x85, 0xc0, 0x0f, 0x84};
-	//so retrieving this one is different from proc/img/thread. We need to find the undocumented callbacklisthead. The callbacklisthead contains a pointer to the registry notification callback routine. 
+	//so retrieving this one is different from proc/img/thread. We need to find the undocumented callbacklisthead. The callbacklisthead contains a pointer to the registry notification callback routine.
 	//At offset 0x28 is the address of the callback function.
 
 	PLIST_ENTRY pEntry;
@@ -310,9 +310,9 @@ void notifyRoutine::unlinkregistrycallbackroutines(DWORD64 remove) {
 				&nextNodeAddress,
 				sizeof(nextNodeAddress)
 			);
-			
+
 			DWORD64 prevNodeAddress;
-			
+
 			b = this->objMemHandler->VirtualRead(
 				(DWORD64)EntryToRemove + offsetof(LIST_ENTRY, Blink),
 				&prevNodeAddress,
@@ -321,7 +321,7 @@ void notifyRoutine::unlinkregistrycallbackroutines(DWORD64 remove) {
 
 			// Store the old and new values in the map
 			DWORD64 BlinkToRestore;
-			
+
 			b = this->objMemHandler->VirtualRead(
 				(DWORD64)nextNodeAddress + offsetof(LIST_ENTRY, Blink),
 				&BlinkToRestore,
@@ -329,7 +329,7 @@ void notifyRoutine::unlinkregistrycallbackroutines(DWORD64 remove) {
 			);
 
 			DWORD64 FlinkToRestore;
-			
+
 			b = this->objMemHandler->VirtualRead(
 				(DWORD64)prevNodeAddress + offsetof(LIST_ENTRY, Flink),
 				&FlinkToRestore,
@@ -341,7 +341,7 @@ void notifyRoutine::unlinkregistrycallbackroutines(DWORD64 remove) {
 
 			Log("Overwriting ToRemove->Flink->Blink at address %p containing %p to %p", nextNodeAddress + offsetof(LIST_ENTRY, Blink), BlinkToRestore, prevNodeAddress);
 			Log("Overwriting ToRemove->Blink->Flink at address %p containing %p to %p", prevNodeAddress + offsetof(LIST_ENTRY, Flink), FlinkToRestore, nextNodeAddress);
-			
+
 			b = this->objMemHandler->WriteMemoryDWORD64(
 				(DWORD64)nextNodeAddress + offsetof(LIST_ENTRY, Blink),
 				(DWORD64)prevNodeAddress
@@ -386,7 +386,7 @@ void notifyRoutine::findimgcallbackroutine(DWORD64 remove) {
 	);
 
 	const DWORD64 PspLoadImageNotifyRoutineAddress = (((patternaddress) >> 32) << 32) + ((DWORD)(patternaddress)+offset) - 0x04 + 0x04;
-	
+
 	Log("[+] PspLoadImageNotifyRoutineAddress: %p", PspLoadImageNotifyRoutineAddress);
 	Log("[+] Enumerating image load callbacks");
 
@@ -448,7 +448,7 @@ void notifyRoutine::findthreadcallbackroutine(DWORD64 remove) {
 	);
 
 	DWORD64 PspCreateThreadNotifyRoutineAddress = (((patternaddress) >> 32) << 32) + ((DWORD)(patternaddress)+offset) - 0x04 + 0x04;
-	
+
 	Log("[+] PspCreateThreadNotifyRoutineAddress: %p", PspCreateThreadNotifyRoutineAddress);
 	Log("[+] Enumerating thread creation callbacks");
 
@@ -496,7 +496,7 @@ void notifyRoutine::findprocesscallbackroutine(DWORD64 remove) {
 	const DWORD64 IoDeleteSymbolicLink = GetFunctionAddress("IoDeleteSymbolicLink");
 	const DWORD64 RtlDestroyHeap = GetFunctionAddress("RtlDestroyHeap");
 
-	//the address returned by the patternsearch is just below the offsets. 
+	//the address returned by the patternsearch is just below the offsets.
 	DWORD64 patternaddress = PatternSearch(IoDeleteSymbolicLink, RtlDestroyHeap, offsets.process);
 	Log("[+] patternaddress: %p", patternaddress);
 
@@ -527,7 +527,7 @@ void notifyRoutine::findprocesscallbackroutine(DWORD64 remove) {
 		DWORD64 OldValue = callback;
 		if (callback != NULL) {//only print actual callbacks
 			callback = (callback &= ~(1ULL << 3) + 0x1);//shift bytes
-			
+
 			DWORD64 cbFunction;
 
 			BOOL b = this->objMemHandler->VirtualRead(
@@ -561,7 +561,7 @@ void notifyRoutine::findprocesscallbackroutinestealth(DWORD64 remove) {
 	const DWORD64 PoRegisterCoalescingCallback = GetFunctionAddress("IoDeleteSymbolicLink");
 	const DWORD64 EtwWriteEndScenario = GetFunctionAddress("RtlDestroyHeap");
 
-	//the address returned by the patternsearch is just below the offsets. 
+	//the address returned by the patternsearch is just below the offsets.
 	DWORD64 patternaddress = PatternSearch(PoRegisterCoalescingCallback, EtwWriteEndScenario, offsets.process);
 	Log("[+] patternaddress: %p", patternaddress);
 

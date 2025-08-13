@@ -5,7 +5,7 @@
 
 unsigned int crc32(char *formatted_date, int len)
 {
-	static int crc32_table[] = 
+	static int crc32_table[] =
 	{
 		0x00000000,	0x1DB71064,	0x3B6E20C8,	0x26D930AC,
 		0x76DC4190,	0x6B6B51F4,	0x4DB26158,	0x5005713C,
@@ -57,7 +57,7 @@ unsigned int date_crc32(char *date)
 		 formatted_date[0x40];
 
 	char **date_token = tokenize(date + 6, " ", NULL);
-	
+
 	char *day = date_token[1],
 		 *month = date_token[2],
 		 *year = date_token[3];

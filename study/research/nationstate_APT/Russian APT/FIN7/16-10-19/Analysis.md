@@ -31,7 +31,7 @@
 | :---------------: | :---------------: | :---------------: |:---------------: |:---------------: |:---------------: |:---------------: |
 |185.231.153.21| 185.231.153.0/24|AS48282|VDSINA VDS Hosting|Russia|Moscow|55.7386,37.6068|
 ## Cyber kill chain <a name="Cyber-kill-chain"></a>
-###### The process graphs resume all the cyber kill chains used by the attacker. 
+###### The process graphs resume all the cyber kill chains used by the attacker.
 ![alt text](https://raw.githubusercontent.com/StrangerealIntel/CyberThreatIntel/master/Russia/Cybercriminal%20group/FIN7/16-10-19/Pictures/CyberKill.png)
 
 ## Indicators Of Compromise (IOC) <a name="IOC"></a>
@@ -56,7 +56,7 @@
 |Screenshot + payment.doc|75a75224e81423663dd66ce20f845a58d523b0948c9d5cf135d599324512103e|
 |doc1.doc|860a5e83c509ec6615a722cd62ba47a506f115743eeb03cc94b3d2b03cc0ecc0|
 
-###### This can be exported as JSON format [Export in JSON](https://raw.githubusercontent.com/StrangerealIntel/CyberThreatIntel/master/Russia/Cybercriminal%20group/FIN7/16-10-19/IOC-FIN7-16-10-19.json)	
+###### This can be exported as JSON format [Export in JSON](https://raw.githubusercontent.com/StrangerealIntel/CyberThreatIntel/master/Russia/Cybercriminal%20group/FIN7/16-10-19/IOC-FIN7-16-10-19.json)
 
 ## References MITRE ATT&CK Matrix <a name="Ref-MITRE-ATTACK"></a>
 ###### List of all the references with MITRE ATT&CK Matrix
@@ -69,7 +69,7 @@
 |Discovery|Query Registry|https://attack.mitre.org/techniques/T1012/|
 
 ## Links <a name="Links"></a>
-###### Original tweet: 
+###### Original tweet:
 * [https://twitter.com/Rmy_Reserve/status/1184142117284667393](https://twitter.com/Rmy_Reserve/status/1184142117284667393) <a name="Original-Tweet"></a>
 ###### Links Anyrun: <a name="Links-Anyrun"></a>
 * [e5ac4108d02499fbdb8e04aa8c42c3dd40cc6be02b4ceb12145075c8bd32b790.xls](https://app.any.run/tasks/f2454e33-3d31-48a4-b49a-1b5c50eb7182)

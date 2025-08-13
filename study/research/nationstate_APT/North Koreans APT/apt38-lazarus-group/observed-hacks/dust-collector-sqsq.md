@@ -4,19 +4,19 @@
 
 ### [YFETH Admin Key - November 2021](./YFETH20%Admin20%Key.md)
 - 0x741baf5cd5ebb2bad15f5b6b50c4661bd40db5b6
-- 0.192689 ETH 
+- 0.192689 ETH
 
 ### [Metaplay Hack - October 2021](./Metaplay.md)
 - 0x0040c81b7de0953e5b9fc056700479cace1b7500
-- 2.750312 ETH 
+- 2.750312 ETH
 
 ### [bZx Hack - November 2021](./bZx.md)
 - 0x53cb834c43ce919289a4db2ca54f65e1afb17041
-- 30 ETH 
+- 30 ETH
 
 ### [Jan 15 2022 Theft](./Jan%2015%202022%20Theft.md)
 - 0xa1ae8d19cc6adc3b0bc701013cdc459b8831ba27
-- 7.772658 ETH 
+- 7.772658 ETH
 
 ### [Feb 10 2022 Theft](./Feb%2010%202022%20Theft.md)
 - 0x5dc90af13ba0bb52067826a57809965b9896295a
@@ -24,7 +24,7 @@
 
 ### ???
 - 0x78e3b85d827dcf00fc348f8bceef7b4fcfecc7fc
-- 0.261145 ETH 
+- 0.261145 ETH
 
 ### ???
 - 0x2ee6f063e99d93fdf2f276b24cfe982f570ae5df

@@ -43,7 +43,7 @@ typedef void * (*JSON_Malloc_Function)(size_t);
 typedef void   (*JSON_Free_Function)(void *);
 
 /* A function used for serializing numbers (see json_set_number_serialization_function).
-   If 'buf' is null then it should return number of bytes that would've been written 
+   If 'buf' is null then it should return number of bytes that would've been written
    (but not more than PARSON_NUM_BUF_SIZE).
 */
 typedef int (*JSON_Number_Serialization_Function)(double num, char *buf);

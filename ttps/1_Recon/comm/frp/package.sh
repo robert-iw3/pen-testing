@@ -53,7 +53,7 @@ for os in $os_all; do
                 mkdir ${frp_path}
                 mv ./frpc_${suffix} ${frp_path}/frpc
                 mv ./frps_${suffix} ${frp_path}/frps
-            fi  
+            fi
             cp ../LICENSE ${frp_path}
             cp -f ../conf/frpc.toml ${frp_path}
             cp -f ../conf/frps.toml ${frp_path}
@@ -64,7 +64,7 @@ for os in $os_all; do
                 zip -rq ${frp_dir_name}.zip ${frp_dir_name}
             else
                 tar -zcf ${frp_dir_name}.tar.gz ${frp_dir_name}
-            fi  
+            fi
             cd ..
             rm -rf ${frp_path}
         done

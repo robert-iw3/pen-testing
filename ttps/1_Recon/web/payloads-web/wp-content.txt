@@ -2314,9 +2314,9 @@
 /wp-content/plugins/kissmetrics/javascript/km_website_user.js
 /wp-content/plugins/kissmetrics/log.php
 /wp-content/plugins/kittycatfish/base.css.php
-/wp-content/plugins/kittycatfish/base.css.php 
+/wp-content/plugins/kittycatfish/base.css.php
 /wp-content/plugins/kittycatfish/kittycatfish.php
-/wp-content/plugins/kittycatfish/kittycatfish.php 
+/wp-content/plugins/kittycatfish/kittycatfish.php
 /wp-content/plugins/kiwi-logo-carousel/custom-styles.css
 /wp-content/plugins/kiwi-logo-carouselird-party/jquery.bxslider/images/bx_loader.gif
 /wp-content/plugins/kiwi-logo-carouselird-party/jquery.bxslider/images/controls.png
@@ -2653,7 +2653,7 @@
 /wp-content/plugins/olevmedia-shortcodes/assets/fonts/fontawesome-webfont.woff
 /wp-content/plugins/olevmedia-shortcodes/assets/js/plugin4.js
 /wp-content/plugins/olimometer/thermometer.php
-/wp-content/plugins/olimometer/thermometer.php 
+/wp-content/plugins/olimometer/thermometer.php
 /wp-content/plugins/omni-secure-files/plupload/examples/upload.php
 /wp-content/plugins/one-click-ssl/js/one-click-ssl.js
 /wp-content/plugins/onesignal-free-web-push-notifications/sdk_files/manifest.json.php

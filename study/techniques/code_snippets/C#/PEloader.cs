@@ -34,9 +34,9 @@ namespace PELoader
 			// Base64 encoding of a x64 executable
 			//===================================================================
             string peAsString = "";
-            
+
 			byte[] unpacked = System.Convert.FromBase64String(peAsString);
-            
+
             PELoader pe = new PELoader(unpacked);
 
             Console.WriteLine("Preferred Load Address = {0}", pe.OptionalHeader64.ImageBase.ToString("X4"));
@@ -146,7 +146,7 @@ namespace PELoader
             {
                 IntPtr a1 = IntPtr.Add(codebase, (20 * j) + (int)pe.OptionalHeader64.ImportTable.VirtualAddress);
                 int entryLength = Marshal.ReadInt32(IntPtr.Add(a1, 16));
-                IntPtr a2 = IntPtr.Add(codebase, (int)pe.ImageSectionHeaders[1].VirtualAddress + (entryLength - oa2)); //Need just last part? 
+                IntPtr a2 = IntPtr.Add(codebase, (int)pe.ImageSectionHeaders[1].VirtualAddress + (entryLength - oa2)); //Need just last part?
                 IntPtr dllNamePTR = (IntPtr)(IntPtr.Add(codebase, +Marshal.ReadInt32(IntPtr.Add(a1, 12))));
                 string DllName = Marshal.PtrToStringAnsi(dllNamePTR);
                 if (DllName == "") { break; }
@@ -393,11 +393,11 @@ namespace PELoader
 
         private IMAGE_FILE_HEADER fileHeader;
 
-        /// Optional 32 bit file header 
+        /// Optional 32 bit file header
 
         private IMAGE_OPTIONAL_HEADER32 optionalHeader32;
 
-        /// Optional 64 bit file header 
+        /// Optional 64 bit file header
 
         private IMAGE_OPTIONAL_HEADER64 optionalHeader64;
 

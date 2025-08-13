@@ -8,7 +8,7 @@ LIBBPF_OBJ := $(abspath $(OUTPUT)/libbpf.a)
 USER_INCLUDES_DIR := $(abspath ./user/include/)
 USER_INCLUDES_HDR := $(wildcard $(USER_INCLUDES_DIR)/**/*.h)
 USER_INCLUDES_SRC := $(wildcard $(USER_INCLUDES_DIR)/**/*.c)
-USER_INCLUDES_OBJ := $(USER_INCLUDES_SRC:.c=.o) 
+USER_INCLUDES_OBJ := $(USER_INCLUDES_SRC:.c=.o)
 VMLINUX := ./vmlinux/headervmlinux.h
 USER := user
 EBPF := ebpf

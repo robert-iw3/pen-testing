@@ -18,7 +18,7 @@ ULONG Djb2A(PUCHAR str)
     return hash;
 }
 
-ULONG Djb2W(PWCHAR str) 
+ULONG Djb2W(PWCHAR str)
 {
     if (str == NULL)
         return 0;
@@ -33,7 +33,7 @@ ULONG Djb2W(PWCHAR str)
     return hash;
 }
 
-HMODULE GetModuleAddress(ULONG modHash) 
+HMODULE GetModuleAddress(ULONG modHash)
 {
 
 #ifdef _M_IX86

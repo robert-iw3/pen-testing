@@ -80,7 +80,7 @@ var varNames = {
     cookieNamePassword:"cookiePassword"
 };
 
-var methodID = { 
+var methodID = {
     auth : 0,
     command : 1,
     upload : 2,
@@ -168,7 +168,7 @@ function loader(sender)
 {
     //<span id="loader" class="loader" style="display:none"></span>
     var ldr = document.createElement("span");
-    
+
     ldr.className = "loader";
     ldr.style.top = sender.getBoundingClientRect().top;
     ldr.style.left = sender.getBoundingClientRect().left + sender.offsetWidth + 5;

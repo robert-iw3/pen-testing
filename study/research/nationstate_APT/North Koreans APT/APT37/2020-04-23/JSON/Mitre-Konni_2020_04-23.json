@@ -61,5 +61,5 @@
        "Type": "Command And Control",
        "Description": "Adversaries may use a custom cryptographic protocol or algorithm to hide command and control traffic. A simple scheme, such as XOR-ing the plaintext with a fixed key, will produce a very weak ciphertext.",
        "URL": "https://attack.mitre.org/techniques/T1024"
-    }	
+    }
 ]

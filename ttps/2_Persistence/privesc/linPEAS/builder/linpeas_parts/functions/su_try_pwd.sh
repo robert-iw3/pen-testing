@@ -5,7 +5,7 @@
 # Description: Try to login as user using a password
 # License: GNU GPL
 # Version: 1.0
-# Functions Used: 
+# Functions Used:
 # Global Variables: $SED_RED_YELLOW
 # Initial Functions:
 # Generated Global Variables: $BFUSER, $PASSWORDTRY, $trysu

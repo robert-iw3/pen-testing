@@ -266,7 +266,7 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.digests
             xOff = 0;
             Array.Clear(X, 0, 16);
         }
-		
+
 		public override IMemoable Copy()
 		{
 			return new Sha1Digest(this);

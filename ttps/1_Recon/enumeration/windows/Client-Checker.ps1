@@ -315,7 +315,7 @@ function Client-Checker{
     $guestAccount = Get-CimInstance -ClassName Win32_UserAccount | Where-Object {
         $_.SID -match "-501" # The local Guest Account always has RID 501
     }
-    
+
     # Check if the Guest account exists
     if ($guestAccount) {
         # Check if the Guest account is enabled
@@ -333,7 +333,7 @@ function Client-Checker{
 
     # System Tools as Low Priv User check
     # We only want to check if not ran as admin
-    if($elevated -eq $false){ 
+    if($elevated -eq $false){
     Write-host ""
     Write-host "#######################################################"
     Write-host "# Now checking if Low Priv User can run System Tools  #"
@@ -366,7 +366,7 @@ function Client-Checker{
                 Stop-Process -Id $registrySuccess.Id -Force
             }
         }
-    
+
         # Check if can run cmd
         $cmdSuccess = $null
         try {
@@ -387,11 +387,11 @@ function Client-Checker{
                 Stop-Process -Id $cmdSuccess.Id -Force
             }
         }
-    
+
         # Check if can run PowerShell
         $powershellSuccess = $null
         try {
-            $powershellSuccess = Start-Process 'powershell.exe' -PassThru 
+            $powershellSuccess = Start-Process 'powershell.exe' -PassThru
             $response = Read-Host "Was PowerShell started successfully? (y/n)"
             if ($response -eq 'y') {
                 Write-Host "Normal user can run PowerShell" -ForegroundColor Red
@@ -407,8 +407,8 @@ function Client-Checker{
             if ($powershellSuccess) {
                 Stop-Process -Id $powershellSuccess.Id -Force
             }
-        }    
-            } 
+        }
+            }
         elseif ($response -eq 'n') {
             Write-Host "Okay, we will skip those" -ForegroundColor Red
         }
@@ -416,7 +416,7 @@ function Client-Checker{
             Write-Host "God dammit, only y or n!!!" -ForegroundColor yellow
         }
     }
-        
+
     # Always install elevated active?
     Write-host ""
     Write-host "######################################################"
@@ -881,7 +881,7 @@ function Client-Checker{
         Write-Host "mDNS status: reg key not found - hence enabled" -ForegroundColor Red
         $mdns = 2
     }
-    
+
     # Check if NetBIOS is enabled for each network adapter
     $netbtInterfacePath = "HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters\Interfaces"
     $adapterKeys = Get-ChildItem -Path $netbtInterfacePath -ErrorAction SilentlyContinue
@@ -1469,7 +1469,7 @@ function Client-Checker{
         Write-Host "The registry key to disable Recall system wide is NOT set!!!" -ForegroundColor Magenta
         $recall_regkey_machine = 1
     }
-    
+
     # Autologon Checks
     Write-host ""
     Write-host "###############################"
@@ -1627,7 +1627,7 @@ function Client-Checker{
         2 {Add-result "System Tools" "PowerShell" "BAD"}
         3 {Add-result "System Tools" "PowerShell" "Error"}
     }
-    
+
     switch ($aie){
         0 {Add-Result "Always Install Elevated" "-" "OK"}
         2 {Add-Result "Always Install Elevated" "-" "BAD"}
@@ -1731,7 +1731,7 @@ function Client-Checker{
         0 {Add-Result "mDNS" "-" "OK"}
         2 {Add-Result "mDNS" "-" "BAD"}
     }
-    
+
     switch ($netbios){
         0 {Add-Result "NetBIOS" "-" "OK"}
         2 {Add-Result "NetBIOS" "-" "BAD"}

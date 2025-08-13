@@ -15,7 +15,7 @@ namespace HyperShell.Account
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var phonenumber = Request.QueryString["PhoneNumber"];
-            var code = manager.GenerateChangePhoneNumberToken(User.Identity.GetUserId(), phonenumber);           
+            var code = manager.GenerateChangePhoneNumberToken(User.Identity.GetUserId(), phonenumber);
             PhoneNumber.Value = phonenumber;
         }
 

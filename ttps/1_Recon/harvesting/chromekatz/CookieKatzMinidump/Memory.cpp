@@ -205,7 +205,7 @@ struct RootNode {
 	uintptr_t beginNode;
 	uintptr_t firstNode;
 	size_t size;
-}; 
+};
 #pragma endregion
 
 BOOL MyMemCmp(const BYTE* source, const BYTE* searchPattern, size_t num) {

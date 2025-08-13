@@ -16,7 +16,7 @@
 
 namespace rpc_df1941c5_fe89_4e79_bf10_463657acf44d_1_0
 {
-    
+
     #region Marshal Helpers
     internal class _Marshal_Helper : NtApiDotNet.Ndr.Marshal.NdrMarshalBuffer
     {
@@ -179,11 +179,11 @@ namespace rpc_df1941c5_fe89_4e79_bf10_463657acf44d_1_0
     }
     internal class _Unmarshal_Helper : NtApiDotNet.Ndr.Marshal.NdrUnmarshalBuffer
     {
-        public _Unmarshal_Helper(NtApiDotNet.Win32.Rpc.RpcClientResponse r) : 
+        public _Unmarshal_Helper(NtApiDotNet.Win32.Rpc.RpcClientResponse r) :
                 base(r.NdrBuffer, r.Handles, r.DataRepresentation)
         {
         }
-        public _Unmarshal_Helper(byte[] ba) : 
+        public _Unmarshal_Helper(byte[] ba) :
                 base(ba)
         {
         }
@@ -1020,7 +1020,7 @@ namespace rpc_df1941c5_fe89_4e79_bf10_463657acf44d_1_0
     #region Client Implementation
     public sealed class Client : NtApiDotNet.Win32.Rpc.RpcClientBase
     {
-        public Client() : 
+        public Client() :
                 base("df1941c5-fe89-4e79-bf10-463657acf44d", 1, 0)
         {
         }

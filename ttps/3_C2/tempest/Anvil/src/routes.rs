@@ -91,7 +91,7 @@ pub async fn registration(
 
     // Create a mutable copy of imp_info to modify the IP
     let mut imp_info = imp_info.clone();
-    
+
     // If the IP is the placeholder, replace it with the actual client IP
     if imp_info.ip == "{{SERVER_REPLACE_IP}}" {
         imp_info.ip = req.headers()
@@ -982,7 +982,7 @@ pub async fn check_in(
                     // Deserialize the decrypted data
                     let imp_info: ImpInfo =
                         serde_json::from_str(&decrypted_data).expect("Failed to deserialize data");
-                        
+
                     let imp_token = generate_imp_token(&db_clone);
                     let imp_token_clone = imp_token.clone();
                     //register, but we'll move tasks to a separate function
@@ -1104,7 +1104,7 @@ pub async fn index(
                         serde_json::from_str(&decrypted_data).expect("Failed to deserialize data");
 
                     //let sleep = sleep_time.sleep.clone();
-                
+
                 let sleep_time_result =
                     update_sleep_time(db.clone(), &sleep_time, imp_token.clone())
                         .await;

@@ -22,7 +22,7 @@
 </script>
 
 {#if iconMap[name]}
-  <FontAwesomeIcon 
+  <FontAwesomeIcon
     class="fa-icon"
     style={`--icon-size: ${size}rem; --icon-color: ${color}; ${styles}`}
     icon={iconMap[name]} />

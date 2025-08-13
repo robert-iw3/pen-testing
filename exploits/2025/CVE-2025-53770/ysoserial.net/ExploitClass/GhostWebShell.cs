@@ -36,10 +36,10 @@
 
             // Uncomment this if FriendlyUrlSettings is used! Remember to include Microsoft.AspNet.FriendlyUrls.dll
             /*
-            
+
             foreach (var route in System.Web.Routing.RouteTable.Routes)
             {
-                
+
                 if (route.GetType().FullName == "Microsoft.AspNet.FriendlyUrls.FriendlyUrlRoute")
                 {
                     var FriendlySetting = route.GetType().GetProperty("Settings", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
@@ -211,7 +211,7 @@
                 // Copy the list of full-path dependencies into an array.
                 string[] fullPathDependenciesArray = new string[fullPathDependencies.Count];
                 fullPathDependencies.CopyTo(fullPathDependenciesArray, 0);
-                
+
                 // Copy the virtual path into an array.
                 string[] virtualPathArray = new string[1];
                 virtualPathArray[0] = @"c:\";

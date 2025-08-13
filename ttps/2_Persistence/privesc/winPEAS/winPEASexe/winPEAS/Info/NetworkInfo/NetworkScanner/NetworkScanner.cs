@@ -27,7 +27,7 @@ namespace winPEAS.Info.NetworkInfo.NetworkScanner
                --network "auto"                          -    find interfaces/hosts automatically
                --network "10.10.10.10,10.10.10.20"       -    scan only selected ip address(es)
                --network "10.10.10.10/24"                -    scan host based on ip address/netmask
-             */ 
+             */
             this.ports = ports;
 
             if (string.Equals(options, "auto", StringComparison.InvariantCultureIgnoreCase))
@@ -62,16 +62,16 @@ namespace winPEAS.Info.NetworkInfo.NetworkScanner
                     // this is the "auto" mode
                     foreach (var ipAddressAndNetmask in NetworkUtils.GetInternalInterfaces())
                     {
-                        netPinger.AddRange(ipAddressAndNetmask.Item1, ipAddressAndNetmask.Item2);                        
+                        netPinger.AddRange(ipAddressAndNetmask.Item1, ipAddressAndNetmask.Item2);
                     }
                 }
                 if (scanMode == ScanMode.IPAddressNetmask)
                 {
-                    netPinger.AddRange(baseAddress, netmask);                    
+                    netPinger.AddRange(baseAddress, netmask);
                 }
                 else if (scanMode == ScanMode.IPAddressList)
                 {
-                    netPinger.AddRange(ipAddressList);                    
+                    netPinger.AddRange(ipAddressList);
                 }
 
                 var task = netPinger.RunPingSweepAsync();
@@ -87,7 +87,7 @@ namespace winPEAS.Info.NetworkInfo.NetworkScanner
             catch (Exception e)
             {
                 Beaprint.PrintException(e.Message);
-            }           
-        }             
+            }
+        }
     }
 }

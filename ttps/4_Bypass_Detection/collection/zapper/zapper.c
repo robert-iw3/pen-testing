@@ -258,12 +258,12 @@ read_max_pid(void) {
     FILE *fp = fopen("/proc/sys/kernel/pid_max", "rb");
     if (!fp)
         return 4194304;  // Educated guess.
-    
+
     sz = fread(buf, 1, sizeof buf, fp);
     fclose(fp);
     if (sz <= 0)
         return 4194304;
-    
+
     max = atoi(buf);
     if (max <= 300) // Cant be true.
         return 4194304;
@@ -293,7 +293,7 @@ cprintf(FILE *fp, const char *fmt, ...) {
 
     if (tty_mode == 1) {
         // Color output & return.
-        vfprintf(fp, fmt, ap); 
+        vfprintf(fp, fmt, ap);
         goto end;
     }
 
@@ -477,7 +477,7 @@ or start the process in the background:\n\
 #endif
         exit(255);
     }
-    
+
     // When -f without -a is used then we still like to rename
     // 'zapper' to the name of the first tracee:
     if (argv[optind] != NULL) {
@@ -552,8 +552,8 @@ fast_forward_pid_worker(int worker, pid_t stop) {
     while (1) {
         if (!need_wraparound) {
             if (*g_ff_pidp >= stop)
-                exit(0); 
-        }  
+                exit(0);
+        }
         old_p = p;
         p = clone((int (*)(void *))exit, stack + sizeof stack, CLONE_VFORK | CLONE_VM | SIGCHLD, NULL);
         if (p <= 0)
@@ -617,7 +617,7 @@ fast_forward_pid(pid_t opt_target) {
     pid = getpid();
     if (target == (pid + 1) % g_max_pid)
         return 0; // Next pid is already our target pid.
-    
+
     if (! (g_flags & FL_IS_QUIET)) {
         // Statistics every 1 second.
         g_ff_pidp = mmap(NULL, sizeof *g_ff_pidp, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_ANONYMOUS, -1, 0);
@@ -728,7 +728,7 @@ fast_forward_pid(pid_t opt_target) {
 
 //     if (src >= src_end)
 //         return;
-    
+
 //     // Partial copy
 //     data.val = ptrace(PTRACE_PEEKDATA, pid, src, NULL);
 //     memcpy(dst, data.c, src_end - src);
@@ -748,7 +748,7 @@ ptpokecpy(pid_t pid, void *dst, void *src, size_t n)
 
     if (src >= src_end)
         return;
- 
+
     data.val = ptrace(PTRACE_PEEKDATA, pid, src, NULL);
     memcpy(data.c, src, src_end - src);
     ptrace(PTRACE_POKEDATA, pid, dst, data.val);
@@ -780,7 +780,7 @@ exit_emu_shell(int code, const char *prog) {
 
     if (strchr(prog, '/'))
         is_path = 1;
- 
+
     // Emulate shell's exit string.
     str = getenv("SHELL");
     while (str) {
@@ -800,7 +800,7 @@ exit_emu_shell(int code, const char *prog) {
         snprintf(ptr, end - ptr, "%s: %s\n", prog, strerror(errno));
     else
         snprintf(ptr, end - ptr, "%s: command not found\n", prog);
-    
+
     fprintf(stderr, "%s", buf);
 
     exit(code);
@@ -1074,7 +1074,7 @@ start_trace_parent(const char *orig_prog, char *new_argv[]) {
         }
 
         // TRACER failed to trace us.
-        kill(pid, SIGKILL);       // Kill the TRACER (if still alive)  
+        kill(pid, SIGKILL);       // Kill the TRACER (if still alive)
         return -1;
     }
     // CHILD (tracer) (pid == 0)
@@ -1114,7 +1114,7 @@ start_trace_parent(const char *orig_prog, char *new_argv[]) {
     ret = ptrace_until_execve(&pid_tracee, &status);
     if (ret > 0)
         return pid_tracee;
-    
+
 err:
     close(up[0]);
     close(up[1]);
@@ -1141,7 +1141,7 @@ fix_stack(pid_t pid)
     // Find the end of the stack. We can not use /proc/<PID>/maps as this becomes
     // inaccessible for the tracer if the tracee changes the EUID (is this a
     // kernel bug? We are already tracing the tracee and have full control
-    // of the tracee anyway, so why deny access???) 
+    // of the tracee anyway, so why deny access???)
     for (errno = 0, idx = 0, stackp = NULL; errno == 0; idx++) {
         stackp = realloc(stackp, (idx + 1) * sizeof (void *));
         stackp[idx] = ptrace(PTRACE_PEEKDATA, pid, (unsigned long)SP(g_regs) + idx * sizeof (void *), NULL);
@@ -1166,7 +1166,7 @@ fix_stack(pid_t pid)
     DEBUGF("argv[0]  = '"CDR"%s""'\n"CN,  str);
     // Make argv0 smaller (See Note #2)
     char *end = str + strlen(str);
-    while ((end-- > str) && (*end == ' ')) 
+    while ((end-- > str) && (*end == ' '))
             *end = '\0';
     DEBUGF("argv[0]  = '"CDR"%s""'\n"CN,  str);
 #ifdef DEBUG
@@ -1195,7 +1195,7 @@ fix_stack(pid_t pid)
 
     // Skip through envp and find start of elf-table
     // stack_envp = valp;
-    envv0_ofs = (valp - &stackp[0]) * sizeof (void *); 
+    envv0_ofs = (valp - &stackp[0]) * sizeof (void *);
     unsigned long env_min = stack_end;
     unsigned long env_max = SP(g_regs);
     for (; *valp != 0x00 /* NULL */; valp++) {
@@ -1320,7 +1320,7 @@ follow_forever(pid_t pid)
 
     while (ptrace_until_execve(&pid, &status) > 0) {
         fix_stack(pid);
-    }    
+    }
     exit(255);
 }
 
@@ -1422,7 +1422,7 @@ main(int argc, char *argv[], char *envp[]) {
         memset(argv[i], 0, strlen(argv[i]));
     }
 
-    // Destroy my own envp    
+    // Destroy my own envp
     if (g_flags & FL_ZAP_ENV) {
         for (i = 0; envp[i] != NULL; i++)
             memset(envp[i], 0, strlen(envp[i]));

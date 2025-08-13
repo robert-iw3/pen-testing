@@ -18,7 +18,7 @@ namespace SweetPotato {
         public byte[] Challenge { get {
                 return secServerBufferDesc.GetSecBuffer().GetBytes();
             }
-        } 
+        }
 
         public bool HandleType1(byte[] ntmlBytes) {
 
@@ -32,7 +32,7 @@ namespace SweetPotato {
             }
 
             SecBufferDesc secClientBufferDesc = new SecBufferDesc(ntmlBytes);
-            secServerBufferDesc = new SecBufferDesc(8192); 
+            secServerBufferDesc = new SecBufferDesc(8192);
 
             UInt32 fContextAttr;
 

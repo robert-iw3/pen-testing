@@ -43,7 +43,7 @@ Shadowserver does not use all our scanning methods. Instead, they focus on the m
 | ------------- | ------------- |  ------------- |
 | ipip	| Standard	| ipip |
 | gre	| Standard	| gre |
-| ip6ip6 | 	Standard	| ip6ip6 |	
+| ip6ip6 | 	Standard	| ip6ip6 |
 | gre6	| Standard	| gre6 |
 | 4in6	| TTL Expired	| 4in6_ttl |
 | 6in4	| 6to4 src	| 6in4_6to4 |
@@ -123,7 +123,7 @@ sudo podman build -t tunneltester .
 
 sudo podman run --rm -it --name tunneltester \
     --net=host --cap-add=net_admin \
-	-d tunneltester 
+	-d tunneltester
 
 sudo podman run -it tunneltester /bin/bash
 ```

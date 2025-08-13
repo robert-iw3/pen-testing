@@ -9,9 +9,9 @@ namespace System.Yaml
 {
     /// <summary>
     /// Add string class two methods: .UriEscape(), .UriUnescape()
-    /// 
+    ///
     /// Charset that is not escaped is represented NonUriChar member.
-    /// 
+    ///
     /// NonUriChar = new Regex(@"[^0-9A-Za-z\-_.!~*'()\\;/?:@&amp;=$,\[\]]");
     /// </summary>
     internal static class StringUriEncodingExtention
@@ -49,9 +49,9 @@ namespace System.Yaml
 
     /// <summary>
     /// Escape / Unescape string in URI encoding format
-    /// 
+    ///
     /// Charset that is not escaped is represented NonUriChar member.
-    /// 
+    ///
     /// NonUriChar = new Regex(@"[^0-9A-Za-z\-_.!~*'()\\;/?:@&amp;=$,\[\]]");
     /// </summary>
     internal class UriEncoding
@@ -86,22 +86,22 @@ namespace System.Yaml
         static string IntToHex(int c)
         {
             return new string(new char[] {
-                '%', intToHex[c>>4], intToHex[c&0x0f], 
+                '%', intToHex[c>>4], intToHex[c&0x0f],
             });
         }
         static string IntToHex(int c1, int c2)
         {
             return new string(new char[] {
-                '%', intToHex[c1>>4], intToHex[c1&0x0f], 
-                '%', intToHex[c2>>4], intToHex[c2&0x0f], 
+                '%', intToHex[c1>>4], intToHex[c1&0x0f],
+                '%', intToHex[c2>>4], intToHex[c2&0x0f],
             });
         }
         static string IntToHex(int c1, int c2, int c3)
         {
             return new string(new char[] {
-                '%', intToHex[c1>>4], intToHex[c1&0x0f], 
-                '%', intToHex[c2>>4], intToHex[c2&0x0f], 
-                '%', intToHex[c3>>4], intToHex[c3&0x0f], 
+                '%', intToHex[c1>>4], intToHex[c1&0x0f],
+                '%', intToHex[c2>>4], intToHex[c2&0x0f],
+                '%', intToHex[c3>>4], intToHex[c3&0x0f],
             });
         }
 

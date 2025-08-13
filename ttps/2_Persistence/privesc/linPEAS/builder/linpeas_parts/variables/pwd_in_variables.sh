@@ -5,7 +5,7 @@
 # Description: Variables which could contain passwords
 # License: GNU GPL
 # Version: 1.0
-# Functions Used: 
+# Functions Used:
 # Global Variables:
 # Initial Functions:
 # Generated Global Variables: $pwd_in_variables1, $pwd_in_variables2, $pwd_in_variables3, $pwd_in_variables4, $pwd_in_variables5, $pwd_in_variables6, $pwd_in_variables7, $pwd_in_variables8, $pwd_in_variables9, $pwd_in_variables10, $pwd_in_variables11

@@ -7,10 +7,10 @@
 /* at Tue Jan 19 04:14:07 2038
  */
 /* Compiler settings for ms-dtyp.idl:
-    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0622 
+    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0622
     protocol : dce , ms_ext, c_ext, robust
-    error checks: allocation ref bounds_check enum stub_data 
-    VC __declspec() decoration level: 
+    error checks: allocation ref bounds_check enum stub_data
+    VC __declspec() decoration level:
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
          DECLSPEC_UUID(), MIDL_INTERFACE()
 */
@@ -39,15 +39,15 @@
 #pragma once
 #endif
 
-/* Forward Declarations */ 
+/* Forward Declarations */
 
 #ifdef __cplusplus
 extern "C"{
-#endif 
+#endif
 
 
 /* interface __MIDL_itf_ms2Ddtyp_0000_0000 */
-/* [local] */ 
+/* [local] */
 
 typedef unsigned short wchar_t;
 
@@ -272,9 +272,9 @@ typedef struct _EVENT_HEADER
     LARGE_INTEGER TimeStamp;
     GUID ProviderId;
     EVENT_DESCRIPTOR EventDescriptor;
-    union 
+    union
         {
-        struct 
+        struct
             {
             ULONG KernelTime;
             ULONG UserTime;
@@ -433,7 +433,7 @@ typedef struct _CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_RELATIVE *PCLAIM_SECURITY_
 //    WORD Reserved;
 //    DWORD Flags;
 //    DWORD ValueCount;
-//    union 
+//    union
 //        {
 //        PLONG64 pInt64[ 1 ];
 //        PDWORD64 pUint64[ 1 ];

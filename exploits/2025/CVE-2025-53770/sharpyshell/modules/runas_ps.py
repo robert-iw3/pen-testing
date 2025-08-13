@@ -11,9 +11,9 @@ class Runas_ps(Runas):
     _exception_class = RunasPsModuleException
     short_help = "Run a powershell.exe -enc spawning a new process as a specific user"
     complete_help = r"""
-        This module permits run powershell.exe -nop -non -enc 'base64commands' command 
+        This module permits run powershell.exe -nop -non -enc 'base64commands' command
         from a local service in a new process running as a specific user.
-        It runs the following Win32 System Calls 'LogonUser' -> 'DuplicateTokenEx' -> 'CreateProcessAsUser' in order 
+        It runs the following Win32 System Calls 'LogonUser' -> 'DuplicateTokenEx' -> 'CreateProcessAsUser' in order
         to spawn a new process out of calling thread of w3wp.exe.
         The calling process will wait until the end of the execution of the spawned process.
         The two processes will communicate through 2 pipeline files (1 for stdout and 1 for stderr).
@@ -21,15 +21,15 @@ class Runas_ps(Runas):
         If you set Interactive (2) logon type you will face some restriction problems.
         If you need to spawn a background or async process, i.e. spawning a reverse shell, set the argument
         'process_timeout_ms' to 0.
-        
+
         Usage:
-            #runas_ps os_command username password [domain] [process_timeout_ms] [logon_type] 
-        
+            #runas_ps os_command username password [domain] [process_timeout_ms] [logon_type]
+
         Positional arguments:
             os_command              command supported by powershell.exe
             username                username of the user
             password                password of the user
-            domain                  domain of the user, if in a domain. 
+            domain                  domain of the user, if in a domain.
                                     Default: ''
             process_timeout_ms      the waiting time (in ms) to use in the WaitForSingleObject() function.
                                     This will halt the process until the spawned process ends and sent
@@ -38,7 +38,7 @@ class Runas_ps(Runas):
                                     Default: '60000'
             logon_type              the logon type for the spawned process.
                                     Default: '3'
-        
+
         Examples:
             Run a command as a specific local user
                 #runas_ps '[System.Security.Principal.WindowsIdentity]::GetCurrent().Name' user1 password1

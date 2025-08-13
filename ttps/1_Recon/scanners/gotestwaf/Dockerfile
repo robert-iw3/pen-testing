@@ -3,7 +3,7 @@
 ARG repo="docker.io" \
     base_image="alpine:3.22" \
     image_hash="eafc1edb577d2e9b458664a15f23ea1c370214193226069eb22921169fc7e43f"
-    
+
 FROM ${repo}/${base_image}@sha256:${image_hash} AS build-env
 
 ENV GOPATH=/usr/local/bin/go \
@@ -35,7 +35,7 @@ RUN \
     export GO111MODULE=on; \
     go install; \
     apk del --purge --no-network .gotestwaf-deps
-    
+
 FROM ${repo}/${base_image}@sha256:${image_hash}
 
 RUN \
@@ -64,9 +64,9 @@ COPY ./config.yaml ./config.yaml
 RUN \
     freshclam; \
     clamscan -rvi -l last_scan.log --exclude-dir="^/sys|^/dev" /; \
-    grep -Hrn " FOUND" last_scan.log; \ 
+    grep -Hrn " FOUND" last_scan.log; \
     apk del --purge --no-network clamav freshclam; \
     rm -rf /var/cache/apk/*
-    
+
 VOLUME [ "/app/reports" ]
 ENTRYPOINT [ "/sbin/tini", "--", "/app/gotestwaf" ]

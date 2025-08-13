@@ -12,7 +12,7 @@
 ##
 ## For example:
 ##
-##   $ echo "TlRMTVNTUAABAAAABYIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAwAAAA" | ./ntlmdecoder.py 
+##   $ echo "TlRMTVNTUAABAAAABYIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAwAAAA" | ./ntlmdecoder.py
 ##   Found NTLMSSP header
 ##   Msg Type: 1 (Request)
 ##   Domain: '' [] (0b @0)

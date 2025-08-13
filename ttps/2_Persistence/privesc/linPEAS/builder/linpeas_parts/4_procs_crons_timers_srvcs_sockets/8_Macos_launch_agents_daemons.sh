@@ -28,7 +28,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     check_plist_content() {
       local plist="$1"
       local findings=""
-      
+
       # Check for environment variables
       if defaults read "$plist" EnvironmentVariables 2>/dev/null | grep -qE '(PASS|SECRET|KEY|TOKEN|CRED)'; then
         findings="${findings}ENV_VARS: Contains sensitive environment variables\n"
@@ -73,7 +73,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     # Check system and user LaunchAgents & LaunchDaemons
     for plist_dir in /Library/LaunchAgents/ /Library/LaunchDaemons/ ~/Library/LaunchAgents/ ~/Library/LaunchDaemons/ /System/Library/LaunchAgents/ /System/Library/LaunchDaemons/; do
       [ ! -d "$plist_dir" ] && continue
-      
+
       echo "Checking $plist_dir..."
       find "$plist_dir" -name "*.plist" 2>/dev/null | while read -r plist; do
         # Check if plist is writable

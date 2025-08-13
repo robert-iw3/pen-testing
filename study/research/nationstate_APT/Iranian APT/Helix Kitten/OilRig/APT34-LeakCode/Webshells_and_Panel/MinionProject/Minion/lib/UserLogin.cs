@@ -47,7 +47,7 @@ namespace Minion.lib
                     HttpCookie cookie = new HttpCookie("SessionUser", "admin");
                     cookie.Expires = DateTime.Now.AddDays(7);
                     HttpContext.Current.Response.SetCookie(cookie);
-                } 
+                }
             }
 
             return ret;

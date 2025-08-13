@@ -21,7 +21,7 @@ public final class HostMatcher<T> {
 	private final Map<String, List<@NonNull T>> hostParts;
 	private final Map<Pattern, List<@NonNull T>> hostRegexes;
 	private final List<@NonNull T> wildcards;
-	
+
 	public HostMatcher(List<Map.Entry<HostMatcherConfig, @NonNull T>> configs, boolean allowWildcard) {
 		Map<String, List<@NonNull T>> hosts = new HashMap<>();
 		Map<String, List<@NonNull T>> parts = new HashMap<>();
@@ -43,7 +43,7 @@ public final class HostMatcher<T> {
 		this.hostRegexes = toImmutable(regexes);
 		this.wildcards = List.copyOf(wildcardElements);
 	}
-	
+
 	private static <T, K> void addToMap(Map<K, List<@NonNull T>> multimap, @NonNull T value, Set<String> configValue, Function<String, K> keyTransformer) {
 		for(String host : configValue){
 			multimap.merge(
@@ -53,15 +53,15 @@ public final class HostMatcher<T> {
 			).add(value);
 		}
 	}
-	
+
 	private static <T, K> Map<@NonNull K, List<@NonNull T>> toImmutable(Map<@NonNull K, List<@NonNull T>> multimap) {
 		multimap.replaceAll((k, list) -> List.copyOf(list));
 		return Map.copyOf(multimap);
 	}
-	
+
 	public Iterator<@NonNull T> allMatches(String hostname) {
 		Queue<Iterator<@NonNull T>> iterators = new ArrayDeque<>();
-		
+
 		if(exactHosts.containsKey(hostname)){
 			iterators.add(exactHosts.get(hostname).iterator());
 		}
@@ -70,10 +70,10 @@ public final class HostMatcher<T> {
 		}
 		iterators.add(new RegexIterator<>(hostRegexes, hostname));
 		iterators.add(wildcards.iterator());
-		
+
 		return distinctIterator(new ConcatenatingIterator<>(iterators));
 	}
-	
+
 	private Iterator<@NonNull T> distinctIterator(Iterator<@NonNull T> it) {
 		Set<T> matchers = Collections.newSetFromMap(new IdentityHashMap<>());
 		return new FilterIterator<>(it, element -> {
@@ -84,7 +84,7 @@ public final class HostMatcher<T> {
 			return false;
 		});
 	}
-	
+
 	public Iterable<T> matchesAsIterable(String hostname) {
 		return () -> allMatches(hostname);
 	}

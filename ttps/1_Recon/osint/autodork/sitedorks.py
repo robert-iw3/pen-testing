@@ -55,12 +55,12 @@ sArgParser.add_argument('-wait', metavar="<seconds>", help='Wait x seconds, defa
 
 aArguments=sArgParser.parse_args()
 
-   
+
 if aArguments.ubb:
     import subprocess
     import json
     from tldextract import extract
-    
+
     sOutput = subprocess.check_output("bbrecon get programs --type web -o json", shell=True)
     fCsvInScope = open(os.path.dirname(os.path.realpath(sys.argv[0])) + "/sitedorks-bbrecon-inscope.csv", 'w', buffering=1)
     fCsvOutScope = open(os.path.dirname(os.path.realpath(sys.argv[0])) + "/sitedorks-bbrecon-outscope.csv", 'w', buffering=1)
@@ -79,7 +79,7 @@ if aArguments.ubb:
                     else:
                         dl3, dl2, dl1 = extract(sInScopeValue)
                         sDomain = dl2 + "." + dl1
-    
+
                     if " " in sDomain or "*" in sDomain or sDomain.endswith(".") or sDomain.endswith(".onion"):
                         continue
                     else:
@@ -94,7 +94,7 @@ if aArguments.ubb:
                     else:
                         dl3, dl2, dl1 = extract(sOutScopeValue)
                         sDomain = f"{dl2}.{dl1}"
-    
+
                     if " " in sDomain or "*" in sDomain or sDomain.endswith(".") or sDomain.endswith(".onion"):
                         continue
                     else:
@@ -120,7 +120,7 @@ if aArguments.ubb:
         print(f"sitedorks-bbrecon-inscope.csv and sitedorks-bbrecon-outscope.csv have been updated.")
     else:
         print(f"Something went wrong while writing the files.")
-        
+
     exit()
 
 sAnswer=""
@@ -182,15 +182,15 @@ try:
 
     if aArguments.help2:
         get_comment()
-        
+
     if aArguments.help2:
         get_comment()
-        
+
     if aArguments.cats:
         sCatList = get_categories()
         print(f"\nCurrent categories on file are: \n{sCatList}\n")
         exit(0)
-    
+
     if aArguments.help:
         sCatList = get_categories()
         sArgParser.print_help()
@@ -275,7 +275,7 @@ for i in range(len(dQuery)):
     if sSingleQuery:
         if aArguments.echo:
             print(sSingleQuery)
-        
+
         webbrowser.get(aArguments.browser).open(sSingleQuery + sEndQuery)
         time.sleep(int(aArguments.wait))
 

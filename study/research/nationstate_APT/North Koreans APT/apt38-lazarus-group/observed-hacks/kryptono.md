@@ -1,4 +1,4 @@
-# Kryptono 
+# Kryptono
 
 Amount Stolen:: $270k (1,270 ETH)
 

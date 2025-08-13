@@ -1,7 +1,7 @@
 /*++
 
 Copyright (c) 1999  Intel Corporation
-    
+
 Module Name:
 
     salpal.c
@@ -75,7 +75,7 @@ LibInitSalAndPalProc (
 
     Status = LibGetSystemConfigurationTable(&SalSystemTableGuid, (VOID **)&SalSystemTable);
     if (EFI_ERROR(Status)) {
-        return; 
+        return;
     }
 
     //
@@ -85,7 +85,7 @@ LibInitSalAndPalProc (
         return;
     }
 
-    SalProcPlabel.ProcEntryPoint = SalSystemTable->Entry0.SalProcEntry; 
+    SalProcPlabel.ProcEntryPoint = SalSystemTable->Entry0.SalProcEntry;
     SalProcPlabel.GP             = SalSystemTable->Entry0.GlobalDataPointer;
     GlobalSalProc                = (CALL_SAL_PROC)&SalProcPlabel.ProcEntryPoint;
 
@@ -95,7 +95,7 @@ LibInitSalAndPalProc (
     // We are passing in a Plabel that should be ignorred by the PAL. Call
     //  this way will cause use to retore our gp after the PAL returns.
     //
-    PalProcPlabel.ProcEntryPoint = SalSystemTable->Entry0.PalProcEntry; 
+    PalProcPlabel.ProcEntryPoint = SalSystemTable->Entry0.PalProcEntry;
     PalProcPlabel.GP             = SalSystemTable->Entry0.GlobalDataPointer;
     GlobalPalProc                = (CALL_PAL_PROC)PalProcPlabel.ProcEntryPoint;
 
@@ -113,7 +113,7 @@ LibGetSalIoPortMapping (
   DO NOT USE THIS TO DO YOU OWN IO's!!!!!!!!!!!!
   Only use this for getting info, or initing the built in EFI IO abstraction.
   Always use the EFI Device IO protoocl to access IO space.
-  
+
 --*/
 {
     SAL_SYSTEM_TABLE_ASCENDING_ORDER    *SalSystemTable;
@@ -122,7 +122,7 @@ LibGetSalIoPortMapping (
 
     Status = LibGetSystemConfigurationTable(&SalSystemTableGuid, (VOID **)&SalSystemTable);
     if (EFI_ERROR(Status)) {
-        return EFI_UNSUPPORTED; 
+        return EFI_UNSUPPORTED;
     }
 
     //
@@ -143,7 +143,7 @@ LibGetSalIoPortMapping (
             return EFI_SUCCESS;
         }
         SalMemDesc++;
-   } 
+   }
     return EFI_UNSUPPORTED;
 }
 
@@ -154,7 +154,7 @@ LibGetSalIpiBlock (
 /*++
 
   Get the IPI block from the SAL system table
-  
+
 --*/
 {
     SAL_SYSTEM_TABLE_ASCENDING_ORDER    *SalSystemTable;
@@ -163,7 +163,7 @@ LibGetSalIpiBlock (
 
     Status = LibGetSystemConfigurationTable(&SalSystemTableGuid, (VOID*)&SalSystemTable);
     if (EFI_ERROR(Status)) {
-        return EFI_UNSUPPORTED; 
+        return EFI_UNSUPPORTED;
     }
 
     //
@@ -195,7 +195,7 @@ LibGetSalWakeupVector (
 /*++
 
 Get the wakeup vector from the SAL system table
-  
+
 --*/
 {
     SAL_ST_AP_WAKEUP_DECRIPTOR      *ApWakeUp;
@@ -211,7 +211,7 @@ Get the wakeup vector from the SAL system table
 
 VOID *
 LibSearchSalSystemTable (
-    IN  UINT8   EntryType  
+    IN  UINT8   EntryType
     )
 {
     EFI_STATUS                          Status;
@@ -222,7 +222,7 @@ LibSearchSalSystemTable (
 
     Status = LibGetSystemConfigurationTable(&SalSystemTableGuid, (VOID*)&SalSystemTable);
     if (EFI_ERROR(Status)) {
-        return NULL; 
+        return NULL;
     }
 
     EntryCount = SalSystemTable->Header.EntryCount;
@@ -280,7 +280,7 @@ LibSalProc (
 {
     rArg    ReturnValue;
 
-    ReturnValue.p0 = -3;    // SAL status return completed with error 
+    ReturnValue.p0 = -3;    // SAL status return completed with error
     if (GlobalSalProc) {
         ReturnValue = GlobalSalProc(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8);
     }
@@ -299,37 +299,37 @@ LibPalProc (
     OUT rArg      *Results  OPTIONAL
     )
 {
-    
+
     rArg    ReturnValue;
 
-    ReturnValue.p0 = -3;    // PAL status return completed with error 
+    ReturnValue.p0 = -3;    // PAL status return completed with error
 
     //
     // check for valid PalProc entry point
     //
-    
+
     if (!GlobalPalProc) {
-        if (Results) 
+        if (Results)
             CopyMem (Results, &ReturnValue, sizeof(rArg));
         return;
     }
-        
+
     //
     // check if index falls within stacked or static register calling conventions
     // and call appropriate Pal stub call
     //
 
     if (((Arg1 >=255) && (Arg1 <=511)) ||
-        ((Arg1 >=768) && (Arg1 <=1023))) {    
+        ((Arg1 >=768) && (Arg1 <=1023))) {
             ReturnValue = MakeStackedPALCall((UINT64)GlobalPalProc,Arg1,Arg2,Arg3,Arg4);
     }
     else {
         ReturnValue = MakeStaticPALCall((UINT64)GlobalPalProc,Arg1,Arg2,Arg3,Arg4);
     }
-          
-    if (Results) 
+
+    if (Results)
         CopyMem (Results, &ReturnValue, sizeof(rArg));
-        
+
     return;
 }
 

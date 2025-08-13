@@ -69,14 +69,14 @@ nt!_ETW_REG_ENTRY
    +0x000 RegList          : _LIST_ENTRY [ 0xffff950e`645c6718 - 0xffff950e`645c6718 ]
    +0x010 GroupRegList     : _LIST_ENTRY [ 0xffff950e`64cff820 - 0xffff950e`64cff820 ]
    <mark>+0x020 GuidEntry        : 0xffff950e`645c66e0 _ETW_GUID_ENTRY</mark>
-   +0x028 GroupEntry       : (null) 
+   +0x028 GroupEntry       : (null)
    +0x030 ReplyQueue       : 0xfffff806`901fda7a _ETW_REPLY_QUEUE
    +0x030 ReplySlot        : [4] 0xfffff806`901fda7a _ETW_QUEUE_ENTRY
    +0x030 Caller           : 0xfffff806`901fda7a Void
    +0x038 SessionId        : 0
-   +0x050 Process          : (null) 
-   +0x050 CallbackContext  : (null) 
-   +0x058 Callback         : (null) 
+   +0x050 Process          : (null)
+   +0x050 CallbackContext  : (null)
+   +0x058 Callback         : (null)
    +0x060 Index            : 0
    +0x062 Flags            : 0x41
    +0x062 DbgKernelRegistration : 0y1
@@ -94,13 +94,13 @@ nt!_ETW_REG_ENTRY
    +0x065 GroupEnableMask  : 0 ''
    +0x066 HostEnableMask   : 0 ''
    +0x067 HostGroupEnableMask : 0 ''
-   +0x068 Traits           : (null) 
+   +0x068 Traits           : (null)
 </pre>
 
 The _ETW_REG_ENTRY structure contains a GuidEntry attribute that stores a pointer to an _ETW_GUID_ENTRY structure.
 
 <pre>
-lkd> dt _ETW_GUID_ENTRY 0xffff950e`645c66e0 
+lkd> dt _ETW_GUID_ENTRY 0xffff950e`645c66e0
 nt!_ETW_GUID_ENTRY
    +0x000 GuidList         : _LIST_ENTRY [ 0xffff950e`64684828 - 0xffff950e`647faca0 ]
    +0x010 SiloGuidList     : _LIST_ENTRY [ 0xffff950e`645c66f0 - 0xffff950e`645c66f0 ]
@@ -112,11 +112,11 @@ nt!_ETW_GUID_ENTRY
    +0x050 MatchId          : 0x00000114`dcfa5555
    <mark>+0x060 ProviderEnableInfo : _TRACE_ENABLE_INFO</mark>
    +0x080 EnableInfo       : [8] _TRACE_ENABLE_INFO
-   +0x180 FilterData       : (null) 
+   +0x180 FilterData       : (null)
    +0x188 SiloState        : 0xffff950e`64684000 _ETW_SILODRIVERSTATE
-   +0x190 HostEntry        : (null) 
+   +0x190 HostEntry        : (null)
    +0x198 Lock             : _EX_PUSH_LOCK
-   +0x1a0 LockOwner        : (null) 
+   +0x1a0 LockOwner        : (null)
 </pre>
 
 Within this object is the ProviderEnableInfo field (type _TRACE_ENABLE_INFO) that determines whether or not the event provider is enabled.

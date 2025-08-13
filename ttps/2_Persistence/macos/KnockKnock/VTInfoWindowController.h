@@ -13,7 +13,7 @@
 
 @interface VTInfoWindowController : NSWindowController
 {
-    
+
 }
 
 /* PROPERTIES */

@@ -2,9 +2,9 @@ import re
 import time
 from typing import Dict, List, Optional, Tuple, Any
 from sqlmap_ai.ui import (
-    print_info, 
-    print_success, 
-    print_warning, 
+    print_info,
+    print_success,
+    print_warning,
     print_error,
     get_user_choice
 )
@@ -23,7 +23,7 @@ class AdaptiveTestingEngine:
     def run_adaptive_test(self, target_url: str) -> Dict[str, Any]:
         if not self._validate_url(target_url):
             return {
-                "success": False, 
+                "success": False,
                 "message": f"Invalid URL format: {target_url}. Please use format like http://example.com/page.php?id=1"
             }
         print_info("🟢 Step 1: Initial Target Assessment")
@@ -40,7 +40,7 @@ class AdaptiveTestingEngine:
                 print_warning("Initial assessment stalled. SQLMap might be stuck in a loop.")
             print_info("Attempting fallback with simplified options...")
             fallback_options = ["--batch", "--dbs", "--tech=T", "--time-sec=5", "--threads=8"]
-            reduced_timeout = max(self.default_timeout // 2, 60)  
+            reduced_timeout = max(self.default_timeout // 2, 60)
             print_info(f"Using fallback options with reduced timeout of {reduced_timeout} seconds")
             fallback_result = self.runner.run_sqlmap(
                 target_url=target_url,
@@ -49,8 +49,8 @@ class AdaptiveTestingEngine:
                 interactive_mode=self.interactive_mode
             )
             if fallback_result and not (
-                fallback_result.startswith("ERROR:") or 
-                "TIMEOUT:" in fallback_result or 
+                fallback_result.startswith("ERROR:") or
+                "TIMEOUT:" in fallback_result or
                 "STALLED:" in fallback_result
             ):
                 print_success("Fallback assessment completed!")
@@ -67,7 +67,7 @@ class AdaptiveTestingEngine:
             print_success("SQL injection vulnerability confirmed!")
             self.vulnerable_params = initial_info["vulnerable_parameters"]
             if any(db.lower() in ["mysql", "mssql", "oracle", "postgresql"] for db in initial_info["techniques"]):
-                self.detected_dbms = next((db for db in initial_info["techniques"] 
+                self.detected_dbms = next((db for db in initial_info["techniques"]
                                           if db.lower() in ["mysql", "mssql", "oracle", "postgresql"]), None)
                 print_success(f"DBMS identified: {self.detected_dbms}")
                 step3_result = self._run_step3_dbms_specific(target_url)
@@ -95,7 +95,7 @@ class AdaptiveTestingEngine:
             "result": dbms_info
         })
         if any(tech.lower() in ["mysql", "mssql", "oracle", "postgresql"] for tech in dbms_info["techniques"]):
-            self.detected_dbms = next((tech for tech in dbms_info["techniques"] 
+            self.detected_dbms = next((tech for tech in dbms_info["techniques"]
                                      if tech.lower() in ["mysql", "mssql", "oracle", "postgresql"]), None)
             print_success(f"DBMS identified: {self.detected_dbms}")
             step3_result = self._run_step3_dbms_specific(target_url)
@@ -186,12 +186,12 @@ class AdaptiveTestingEngine:
                 print_info("No tables found. Trying to get tables with --tables option...")
                 if len(databases) > 1:
                     app_db = None
-                    system_dbs = ['information_schema', 'mysql', 'performance_schema', 'sys', 
-                                'master', 'model', 'msdb', 'tempdb', 
+                    system_dbs = ['information_schema', 'mysql', 'performance_schema', 'sys',
+                                'master', 'model', 'msdb', 'tempdb',
                                 'postgres', 'template0', 'template1']
                     filtered_dbs = [db for db in databases if db.lower() not in system_dbs]
                     if filtered_dbs:
-                        table_options = ["--batch", f"--dbms={self.detected_dbms.lower()}", 
+                        table_options = ["--batch", f"--dbms={self.detected_dbms.lower()}",
                                         f"-D {filtered_dbs[0]}", "--tables", "--threads=5"]
                         print_info(f"Targeting non-system database: {filtered_dbs[0]}")
                         result = self.runner.run_sqlmap(
@@ -248,11 +248,11 @@ class AdaptiveTestingEngine:
                         return self._run_step5_extract_data(target_url, dbms_info)
                 print_warning("Standard methods failed to find tables. Trying alternative techniques...")
                 alt_techniques_options = [
-                    "--batch", 
-                    f"--dbms={self.detected_dbms.lower()}", 
+                    "--batch",
+                    f"--dbms={self.detected_dbms.lower()}",
                     "--tables",
-                    "--technique=USE", 
-                    "--risk=3", 
+                    "--technique=USE",
+                    "--risk=3",
                     "--level=5",
                     "--time-sec=2",
                     "--threads=10"
@@ -300,7 +300,7 @@ class AdaptiveTestingEngine:
             waf_result = self.runner.run_sqlmap(
                 target_url=target_url,
                 options=tamper_options,
-                timeout=self.default_timeout * 1.5,  
+                timeout=self.default_timeout * 1.5,
                 interactive_mode=self.interactive_mode
             )
             if waf_result and "TIMEOUT:" not in waf_result and "STALLED:" not in waf_result:
@@ -315,13 +315,13 @@ class AdaptiveTestingEngine:
                     print_success(f"WAF bypass successful! Found {len(databases)} databases")
                     if not waf_info.get("tables", []):
                         print_info("Attempting to enumerate tables with WAF bypass...")
-                        table_tamper_options = ["--batch", "--tables", "--risk=3", "--level=5", 
+                        table_tamper_options = ["--batch", "--tables", "--risk=3", "--level=5",
                                               "--tamper=space2comment,between,randomcase"]
                         if self.detected_dbms:
                             table_tamper_options.extend([f"--dbms={self.detected_dbms.lower()}"])
                         if len(databases) > 1:
                             for db in databases:
-                                if db.lower() not in ["information_schema", "mysql", "performance_schema", 
+                                if db.lower() not in ["information_schema", "mysql", "performance_schema",
                                                     "sys", "master", "model", "msdb", "tempdb"]:
                                     table_tamper_options.extend(["-D", db])
                                     break
@@ -341,7 +341,7 @@ class AdaptiveTestingEngine:
                             tables = table_tamper_info.get("tables", [])
                             if tables:
                                 print_success(f"Successfully enumerated {len(tables)} tables with WAF bypass")
-                                waf_info["tables"] = tables  
+                                waf_info["tables"] = tables
                                 return self._run_step5_extract_data(target_url, waf_info)
                     else:
                         return self._run_step5_extract_data(target_url, waf_info)
@@ -376,7 +376,7 @@ class AdaptiveTestingEngine:
                         table_high_risk_options.extend([f"--dbms={self.detected_dbms.lower()}"])
                     if len(databases) > 1:
                         for db in databases:
-                            if db.lower() not in ["information_schema", "mysql", "performance_schema", 
+                            if db.lower() not in ["information_schema", "mysql", "performance_schema",
                                                 "sys", "master", "model", "msdb", "tempdb"]:
                                 table_high_risk_options.extend(["-D", db])
                                 break
@@ -396,7 +396,7 @@ class AdaptiveTestingEngine:
                         tables = table_high_risk_info.get("tables", [])
                         if tables:
                             print_success(f"Successfully enumerated {len(tables)} tables with high risk settings")
-                            high_risk_info["tables"] = tables  
+                            high_risk_info["tables"] = tables
                             return self._run_step5_extract_data(target_url, high_risk_info)
                 return {
                     "success": True,
@@ -411,14 +411,14 @@ class AdaptiveTestingEngine:
         waf_result = self.runner.run_sqlmap(
             target_url=target_url,
             options=["--batch", "--identify-waf"],
-            timeout=self.default_timeout // 2,  
+            timeout=self.default_timeout // 2,
             interactive_mode=self.interactive_mode
         )
         if waf_result:
             if "WAF/IPS" in waf_result or "firewall" in waf_result.lower():
                 self.detected_waf = True
                 return True
-            if any(indicator in waf_result.lower() for indicator in 
+            if any(indicator in waf_result.lower() for indicator in
                   ["forbidden", "access denied", "not authorized", "403", "blocked"]):
                 self.detected_waf = True
                 return True
@@ -428,7 +428,7 @@ class AdaptiveTestingEngine:
             timeout=self.default_timeout // 2,
             interactive_mode=self.interactive_mode
         )
-        if test_injection and any(indicator in test_injection.lower() for indicator in 
+        if test_injection and any(indicator in test_injection.lower() for indicator in
                                 ["blocked", "rejected", "forbidden", "protection"]):
             self.detected_waf = True
             return True
@@ -479,7 +479,7 @@ class AdaptiveTestingEngine:
         if not tables_result or "TIMEOUT:" in tables_result:
             return {"success": False, "message": "Failed to get tables or operation timed out"}
         tables_info = extract_sqlmap_info(tables_result)
-        info["tables"] = tables_info["tables"]  
+        info["tables"] = tables_info["tables"]
         return self._run_step5_extract_data(target_url, info)
     def _run_step5_extract_data(self, target_url: str, info: Dict[str, Any]) -> Dict[str, Any]:
         print_info("🟣 Step 5: Data Extraction")
@@ -536,7 +536,7 @@ class AdaptiveTestingEngine:
                 result = self.runner.run_sqlmap(
                     target_url=target_url,
                     options=dump_options,
-                    timeout=int(self.default_timeout * 1.5),  
+                    timeout=int(self.default_timeout * 1.5),
                     interactive_mode=self.interactive_mode
                 )
                 if not result:
@@ -650,7 +650,7 @@ class AdaptiveTestingEngine:
         form_url = target_url
         if "?" in target_url:
             base_url, params = target_url.split("?", 1)
-            form_url = base_url  
+            form_url = base_url
             post_options = ["--data", params]
         else:
             post_options = ["--data", "id=1"]
@@ -776,4 +776,4 @@ def run_adaptive_test_sequence(runner, target_url, interactive_mode=False, timeo
         interactive_mode=interactive_mode,
         default_timeout=timeout
     )
-    return engine.run_adaptive_test(target_url) 
+    return engine.run_adaptive_test(target_url)

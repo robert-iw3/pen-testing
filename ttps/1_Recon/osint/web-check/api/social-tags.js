@@ -3,17 +3,17 @@ import cheerio from 'cheerio';
 import middleware from './_common/middleware.js';
 
 const socialTagsHandler = async (url) => {
-  
+
   // Check if url includes protocol
   if (!url.startsWith('http://') && !url.startsWith('https://')) {
     url = 'http://' + url;
   }
-  
+
   try {
     const response = await axios.get(url);
     const html = response.data;
     const $ = cheerio.load(html);
-    
+
     const metadata = {
       // Basic meta tags
       title: $('head title').text(),
@@ -28,7 +28,7 @@ const socialTagsHandler = async (url) => {
       ogUrl: $('meta[property="og:url"]').attr('content'),
       ogDescription: $('meta[property="og:description"]').attr('content'),
       ogSiteName: $('meta[property="og:site_name"]').attr('content'),
-      
+
       // Twitter Cards
       twitterCard: $('meta[name="twitter:card"]').attr('content'),
       twitterSite: $('meta[name="twitter:site"]').attr('content'),

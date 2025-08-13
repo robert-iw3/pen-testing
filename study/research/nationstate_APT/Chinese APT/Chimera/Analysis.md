@@ -69,7 +69,7 @@
 0x18000808b mov dword [rsp + 0x28], eax
 0x18000808f mov dword [rsp + 0x20], ecx
 0x180008093 lea rcx, [rsp + 0x40]
-0x180008098 lea r9, str.04x__04x:_s ; 0x180023940 ; Format the data 
+0x180008098 lea r9, str.04x__04x:_s ; 0x180023940 ; Format the data
 0x18000809f lea r8d, [rdx - 1]
 ```
 

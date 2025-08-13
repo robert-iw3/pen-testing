@@ -20,7 +20,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
   check_timer_content() {
     local timer="$1"
     local findings=""
-    
+
     # Get the service unit this timer activates
     local service_unit=$(systemctl show "$timer" -p Unit 2>/dev/null | cut -d= -f2)
     if [ -n "$service_unit" ]; then

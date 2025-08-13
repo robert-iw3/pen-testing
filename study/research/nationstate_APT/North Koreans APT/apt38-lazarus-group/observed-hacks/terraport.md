@@ -16,7 +16,7 @@ Terraport Finance launched on March 31, apparently having gone live without any 
 
 On the morning of April 10th, Terraport was exploited resulting in losses of approximately 4 million USD in Terra, LUNC, and USTC tokens.
 
-The hack was made possible due to a mathematical weakness in the algorithm used to calculate LP prices. The malicious actor added a minor amount of liquidity to the protocol and then manipulated the LP share price, allowing them to withdraw a large amount of liquidity. 
+The hack was made possible due to a mathematical weakness in the algorithm used to calculate LP prices. The malicious actor added a minor amount of liquidity to the protocol and then manipulated the LP share price, allowing them to withdraw a large amount of liquidity.
 
 Two pools were affected, the first one drained for 9,148,426 TERRA ($1.8 million) and 15,100,861,997 LUNC ($1.88 million), and the second one for 576,736 TERRA ($115K) and 5,487,381 USTC ($117K). The total losses amount to about $4 million USD.
 
@@ -38,7 +38,7 @@ terra1z5luj6qdtclnt5jnjkrtnlj9zankf654638dq2 - Exploited Address
 
 - https://finder.terra.money/classic/tx/8c23dc1d6bf26281e726e410327d71a681f6835331e1da0ce39dc73a508a63e1
 
-#### Remove liquidity: 
+#### Remove liquidity:
 
 - https://finder.terra.money/classic/tx/BEE71FBD0F343127D90D87FDFD1488354848C4D4AC4EEC59220A9D7833033408
 

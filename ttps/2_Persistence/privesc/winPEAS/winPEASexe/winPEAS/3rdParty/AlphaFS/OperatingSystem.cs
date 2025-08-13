@@ -1,22 +1,22 @@
 /*  Copyright (C) 2008-2018 Peter Palotas, Jeffrey Jangli, Alexandr Normuradov
- *  
- *  Permission is hereby granted, free of charge, to any person obtaining a copy 
- *  of this software and associated documentation files (the "Software"), to deal 
- *  in the Software without restriction, including without limitation the rights 
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
- *  copies of the Software, and to permit persons to whom the Software is 
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *  
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *  
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
- *  THE SOFTWARE. 
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
  */
 
 using System;
@@ -86,8 +86,8 @@ namespace Alphaleonis.Win32
 
       /// <summary>A set of flags to indicate the current processor architecture for which the operating system is targeted and running.</summary>
       [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Pa")]
-      [SuppressMessage("Microsoft.Design", "CA1028:EnumStorageShouldBeInt32")]      
-      public enum EnumProcessorArchitecture 
+      [SuppressMessage("Microsoft.Design", "CA1028:EnumStorageShouldBeInt32")]
+      public enum EnumProcessorArchitecture
       {
          /// <summary>PROCESSOR_ARCHITECTURE_INTEL
          /// <para>The system is running a 32-bit version of Windows.</para>
@@ -113,8 +113,8 @@ namespace Alphaleonis.Win32
       }
 
 
-      
-      
+
+
       #region Properties
 
       private static bool _isServer;
@@ -160,7 +160,7 @@ namespace Alphaleonis.Win32
 
 
       private static Version _osVersion;
-      /// <summary>Gets the numeric version of the operating system.</summary>            
+      /// <summary>Gets the numeric version of the operating system.</summary>
       /// <value>The numeric version of the operating system.</value>
       public static Version OSVersion
       {
@@ -192,7 +192,7 @@ namespace Alphaleonis.Win32
       private static EnumProcessorArchitecture _processorArchitecture;
       /// <summary>Gets the processor architecture for which the operating system is targeted.</summary>
       /// <value>The processor architecture for which the operating system is targeted.</value>
-      /// <remarks>If running under WOW64 this will return a 32-bit processor. Use <see cref="IsWow64Process"/> to determine if this is the case.</remarks>      
+      /// <remarks>If running under WOW64 this will return a 32-bit processor. Use <see cref="IsWow64Process"/> to determine if this is the case.</remarks>
       public static EnumProcessorArchitecture ProcessorArchitecture
       {
          get
@@ -226,23 +226,23 @@ namespace Alphaleonis.Win32
       #region Methods
 
       /// <summary>Determines whether the operating system is of the specified version or later.</summary>
-      /// <returns><c>true</c> if the operating system is of the specified <paramref name="version"/> or later; otherwise, <c>false</c>.</returns>      
+      /// <returns><c>true</c> if the operating system is of the specified <paramref name="version"/> or later; otherwise, <c>false</c>.</returns>
       /// <param name="version">The lowest version for which to return true.</param>
       public static bool IsAtLeast(EnumOsName version)
       {
          return VersionName >= version;
       }
 
-      
+
       /// <summary>Determines whether the operating system is of the specified version or later, allowing specification of a minimum service pack that must be installed on the lowest version.</summary>
-      /// <returns><c>true</c> if the operating system matches the specified <paramref name="version"/> with the specified service pack, or if the operating system is of a later version; otherwise, <c>false</c>.</returns>      
+      /// <returns><c>true</c> if the operating system matches the specified <paramref name="version"/> with the specified service pack, or if the operating system is of a later version; otherwise, <c>false</c>.</returns>
       /// <param name="version">The minimum required version.</param>
       /// <param name="servicePackVersion">The major version of the service pack that must be installed on the minimum required version to return true. This can be 0 to indicate that no service pack is required.</param>
       public static bool IsAtLeast(EnumOsName version, int servicePackVersion)
       {
          return IsAtLeast(version) && ServicePackVersion.Major >= servicePackVersion;
       }
-      
+
       #endregion // Methods
 
 
@@ -263,7 +263,7 @@ namespace Alphaleonis.Win32
 
          // RtlGetVersion returns STATUS_SUCCESS (0).
          var success = !NativeMethods.RtlGetVersion(ref verInfo);
-         
+
          var lastError = Marshal.GetLastWin32Error();
          if (!success)
             throw new Win32Exception(lastError, "Function RtlGetVersion() failed to retrieve the operating system information.");
@@ -290,7 +290,7 @@ namespace Alphaleonis.Win32
          //    Windows Server 2012	         6.2               OSVERSIONINFOEX.wProductType != VER_NT_WORKSTATION
          //    Windows 7	                  6.1               OSVERSIONINFOEX.wProductType == VER_NT_WORKSTATION
          //    Windows Server 2008 R2	      6.1               OSVERSIONINFOEX.wProductType != VER_NT_WORKSTATION
-         //    Windows Server 2008	         6.0               OSVERSIONINFOEX.wProductType != VER_NT_WORKSTATION  
+         //    Windows Server 2008	         6.0               OSVERSIONINFOEX.wProductType != VER_NT_WORKSTATION
          //    Windows Vista	               6.0               OSVERSIONINFOEX.wProductType == VER_NT_WORKSTATION
          //    Windows Server 2003 R2	      5.2               GetSystemMetrics(SM_SERVERR2) != 0
          //    Windows Server 2003           5.2               GetSystemMetrics(SM_SERVERR2) == 0
@@ -317,7 +317,7 @@ namespace Alphaleonis.Win32
                      : EnumOsName.WindowsServer2016;
 
                   break;
-                  
+
 
                #endregion // Version 10
 
@@ -357,7 +357,7 @@ namespace Alphaleonis.Win32
                            ? EnumOsName.WindowsVista
                            : EnumOsName.WindowsServer2008;
                         break;
-                        
+
 
                      default:
                         _enumOsName = EnumOsName.Later;
@@ -405,7 +405,7 @@ namespace Alphaleonis.Win32
                   break;
             }
       }
-      
+
 
       private static class NativeMethods
       {

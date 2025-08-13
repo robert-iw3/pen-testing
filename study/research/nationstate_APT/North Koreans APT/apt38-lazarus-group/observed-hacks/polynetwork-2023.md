@@ -26,7 +26,7 @@ However this was many months after the attack so that really only sheds light on
 
 The screenshot included in their post-mortem is compiled code which means that the malicious code was either inserted via a malicious, targeted package or via code written directly to that codebase itself
 
-I suspect it may be the former simply bc the code has both reference to an external c2 and a few layers of obfuscation, both of which are easily detectable if there is any code review whatsoever. 
+I suspect it may be the former simply bc the code has both reference to an external c2 and a few layers of obfuscation, both of which are easily detectable if there is any code review whatsoever.
 
 However, its obviously possible they were allowing folks to push without basic peer review.
 

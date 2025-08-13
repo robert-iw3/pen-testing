@@ -1,5 +1,5 @@
 \chapter{Analysis of offensive capabilities of eBPF} \label{chapter:analysis_offensive_capabilities}
-In the previous chapter, we detailed which functionalities eBPF offers and studied its underlying architecture. As with every technology, a prior deep understanding is fundamental for discussing its security implications. 
+In the previous chapter, we detailed which functionalities eBPF offers and studied its underlying architecture. As with every technology, a prior deep understanding is fundamental for discussing its security implications.
 
 Therefore, given the previous background, this chapter is dedicated to an analysis in detail of the security implications of a malicious use of eBPF. For this, we will firstly explore the security features incorporated in the eBPF system. Then, we will identify the fundamental pillars onto which malware can build their functionality. As we mentioned during the project goals, these main topics of research will be the following:
 \begin{itemize}
@@ -13,7 +13,7 @@ functions.
 \section{eBPF maps security}
 In Section \ref{subsection:access_control}, we explained that only programs with CAP\_SYS\_ADMIN are allowed to iterate over eBPF maps. The reason why this is restricted to privileged programs is because it is functionality that is a potential security vulnerability, which we will now proceed to analyse.
 
-Also, in Section \ref{subsection:ebpf_maps}, we mentioned that eBPF maps are opened by specifying an ID (which works similarly to the typical file descriptors), while in Table \ref{table:ebpf_map_types} we showed that, for performing operations over eBPF maps using the bpf() syscall, the map ID must be specified too. 
+Also, in Section \ref{subsection:ebpf_maps}, we mentioned that eBPF maps are opened by specifying an ID (which works similarly to the typical file descriptors), while in Table \ref{table:ebpf_map_types} we showed that, for performing operations over eBPF maps using the bpf() syscall, the map ID must be specified too.
 
 Map IDs are known by a program after creating the eBPF map, however, a program can also explore all the available maps in the system by using the BPF\_MAP\_GET\_NEXT\_ID operation in the bpf() syscall, which allows for iterating through a complete hidden list of all the maps created. This means that privileged programs can find and have read and write access to any eBPF map used by any program in the system.
 
@@ -41,8 +41,8 @@ int uprobe_execute_command(struct pt_regs *ctx){
 \end{lstlisting}
 
 \begin{lstlisting}[language=C, caption={Probe function for a tracepoint on the start of the syscall sys\_read.}, label={code:format_tracepoint}]
-SEC("tp/syscalls/sys_enter_read") 
-int tp_sys_enter_read(struct sys_read_enter_ctx *ctx) { 
+SEC("tp/syscalls/sys_enter_read")
+int tp_sys_enter_read(struct sys_read_enter_ctx *ctx) {
 \end{lstlisting}
 
 In Code snippets \ref{code:format_kprobe} and \ref{code:format_uprobe} we can identify that the parameters are passed to kprobe and uprobe programs as a pointer to a \textit{struct pt\_regs*}. This struct contains as many attributes as registers exist in the system architecture, in our case x86\_64. Therefore, on each probe function, we will receive the state of the registers at the original hooked function. This explains the format of the \textit{struct pt\_regs}, shown in Code snippet \ref{code:format_ptregs}:
@@ -73,7 +73,7 @@ struct pt_regs {
 };
 \end{lstlisting}
 
-By observing the value of the registers, we can extract the parameters of the original hooked function. This can be done by using the System V AMD64 ABI\cite{8664_params_abi}, the calling convention used in Linux. Depending on whether we are in the kernel or in user space, the registers used to store the values of the function arguments are different. Table \ref{table:systemv_abi} summarizes these two interfaces. 
+By observing the value of the registers, we can extract the parameters of the original hooked function. This can be done by using the System V AMD64 ABI\cite{8664_params_abi}, the calling convention used in Linux. Depending on whether we are in the kernel or in user space, the registers used to store the values of the function arguments are different. Table \ref{table:systemv_abi} summarizes these two interfaces.
 
 \begin{table}[H]
 \begin{tabular}{|>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{3cm}|}
@@ -149,7 +149,7 @@ struct sys_read_enter_ctx {
 };
 \end{lstlisting}
 
-As we can observe, we are given a set of attributes which include the parameters with which the syscall was called. Moreover, we can still obtain an address pointing to another \textit{struct pt\_regs}, as in kprobes and uprobes, by combining the first four fields and considering it as a 32-bit long address. This means we will still be able to extract the value of the rest of the registers too. 
+As we can observe, we are given a set of attributes which include the parameters with which the syscall was called. Moreover, we can still obtain an address pointing to another \textit{struct pt\_regs}, as in kprobes and uprobes, by combining the first four fields and considering it as a 32-bit long address. This means we will still be able to extract the value of the rest of the registers too.
 
 It must be noted that, in syscalls, in addition to use the kernel parameter passing convention specified in Table \ref{table:systemv_abi}, the number specifying the syscall must be passed in register rax too.
 
@@ -174,7 +174,7 @@ Usually, since many function arguments are pointers to user or kernel addresses 
 These helpers, previously introduced in Table \ref{table:ebpf_helpers}, enable to read an arbitrary number of bytes from an user or kernel address respectively, allowing us to extract the information pointed by the parameters received by eBPF programs.
 
 \subsection{Reading memory out of bounds} \label{subsection:out_read_bounds}
-As we introduced in the previous section, the bpf\_probe\_read\_user() and bpf\_probe\_read\_kernel() helpers can be used to access memory of pointers received as parameters in the hooked functions. 
+As we introduced in the previous section, the bpf\_probe\_read\_user() and bpf\_probe\_read\_kernel() helpers can be used to access memory of pointers received as parameters in the hooked functions.
 
 However, although in general the eBPF verifier attempts to reject illegal memory accesses, it does not prevent a malicious program from passing an arbitrary memory address (in kernel or user space) to the above helpers. This means that an eBPF program can potentially read any address in user or kernel space, (as long as it is marked as readable in the corresponding memory pages). Furthermore, an attacker can locate specific data structures and memory sections by taking the function parameter as a reference point in memory.
 
@@ -220,14 +220,14 @@ Another eBPF helper that is subject to malicious purposes is bpf\_send\_signal. 
 Therefore, this helper can be used to forcefully terminate running user processes, by sending the SIGKILL signal. In this way, combined with the observability into the parameters received at a function call, malicious eBPF can kill and deactivate processes to favour its malicious purposes.
 
 \subsection{Takeaways} \label{subsection:tracing_attacks_conclusion}
-As a summary, a malicious eBPF program loaded and attached as a tracing program undermines the existing trust between user programs and the kernel space. 
+As a summary, a malicious eBPF program loaded and attached as a tracing program undermines the existing trust between user programs and the kernel space.
 
 Its ability to access sensitive data in function parameters and reading arbitrary memory can lead to gathering extensive information on the running processes of a system, whilst the malicious use of eBPF helpers enables the modification of the data passed to the user space from the kernel, and the control over which programs are allowed to be running on the system.
 
 \section{Memory corruption} \label{section:mem_corruption}
 In the previous section we described how tracing programs can read user memory out of the bounds of function parameters via the helpers bpf\_probe\_read\_user() and bpf\_probe\_read\_kernel(). In this section, we will analyse another eBPF helper that can be found to be the heart of malicious programs.
 
-Privileged eBPF programs (or those with at least CAP\_BPF + CAP\_PERFMON capabilities) have the potential to use an experimental (it is labelled as so \cite{ebpf_helpers}) helper called bpf\_probe\_write\_user(). This helper enables to write into user memory from within an eBPF program. 
+Privileged eBPF programs (or those with at least CAP\_BPF + CAP\_PERFMON capabilities) have the potential to use an experimental (it is labelled as so \cite{ebpf_helpers}) helper called bpf\_probe\_write\_user(). This helper enables to write into user memory from within an eBPF program.
 
 However, this helper has certain limitations that restrict its use. We will now proceed to review some background into how user memory works and, afterwards, we will analyse the restrictions and possible uses of this eBPF helper in the context of malicious applications.
 
@@ -294,7 +294,7 @@ In Figure \ref{fig:stack_scan_write_tech}, we can clearly observe how the techni
 \end{enumerate}
 
 \subsection{Takeaways}
-As a summary, the bpf\_probe\_write\_user() helper is one of the main attack vectors for malicious eBPF programs. Although it does contain some restrictions, its ability to overwrite any user parameter enables it to, in practice, execute arbitrary code by hijacking that of others. When it is combined with tracing programs' ability to read memory out of bounds, it unlocks a wide range of attacks, since any writeable section of the process memory is a possible target. 
+As a summary, the bpf\_probe\_write\_user() helper is one of the main attack vectors for malicious eBPF programs. Although it does contain some restrictions, its ability to overwrite any user parameter enables it to, in practice, execute arbitrary code by hijacking that of others. When it is combined with tracing programs' ability to read memory out of bounds, it unlocks a wide range of attacks, since any writeable section of the process memory is a possible target.
 
 Therefore, if on the conclusion of Section \ref{subsection:tracing_attacks_conclusion} we discussed that the ability to change the return value of kernel functions and kill processes hinders the trust between the user and kernel space (since what the kernel returns may not be a correct result), then the ability to directly overwrite process data is a complete disrupt of trust in any of the data in the user space itself, since it is subject to the control of a malicious eBPF program.
 
@@ -312,7 +312,7 @@ Networking eBPF programs not only have read access to the network packets, but a
 \begin{itemize}
 \item XDP programs can directly modify the raw packet via memcpy() operations. They can also increment or reduce the size of the packet at any of its ends (adding bytes before the head or after the packet tail). This is done via the multiple helpers previously presented on Table \ref{table:xdp_helpers}.
 \item TC programs can also modify the packet via the helpers presented on Table \ref{table:tc_helpers}. The packet can be expanded or reduced via these eBPF helpers too.
-\end{itemize} 
+\end{itemize}
 
 Apart from write access to the packet, the other critical feature of networking programs is their ability to drop packets. As we presented in Table \ref{table:xdp_actions_av} and \ref{table:tc_actions}, this can be achieved by returning specific values.
 
@@ -320,11 +320,11 @@ Apart from write access to the packet, the other critical feature of networking 
 \subsection{Attacks and limitations of networking programs} \label{subsection:network_attacks}
 Based on the previous background, we will now proceed to explore which limitations exist on which actions a network eBPF program can perform:
 \begin{itemize}
-\item Read and write access to the packet is heavily controlled by the eBPF verifier. It is not possible to read or write data out of bounds. Extreme care must also be taken before attempting to read any data inside the packet, since the verifier first requires making lots of checks beforehand. For any access to take place, the program must first classify the packet according to the network protocol it belongs, and later check that every header of every layer is well defined (e.g.: Ethernet, IP and TCP). Only after that, the headers can be modified. 
+\item Read and write access to the packet is heavily controlled by the eBPF verifier. It is not possible to read or write data out of bounds. Extreme care must also be taken before attempting to read any data inside the packet, since the verifier first requires making lots of checks beforehand. For any access to take place, the program must first classify the packet according to the network protocol it belongs, and later check that every header of every layer is well defined (e.g.: Ethernet, IP and TCP). Only after that, the headers can be modified.
 
 If the program also wants to modify the packet payload, then it must be checked to be between the bounds of the packet and well defined according to the packet headers (using fields IHL, packet length and data offset, in Figure \ref{fig:frame}). Also, after using any of the helpers that enlarge or reduce the size of the packet, all check operations must be repeated before any subsequent operation.
 
-Finally, note that after any modification in the packet, some network protocols (such as IP and TCP) require to recalculate their checksum fields. 
+Finally, note that after any modification in the packet, some network protocols (such as IP and TCP) require to recalculate their checksum fields.
 
 \item XDP and TC programs are not able to create packets, they can only operate over existing traffic.
 

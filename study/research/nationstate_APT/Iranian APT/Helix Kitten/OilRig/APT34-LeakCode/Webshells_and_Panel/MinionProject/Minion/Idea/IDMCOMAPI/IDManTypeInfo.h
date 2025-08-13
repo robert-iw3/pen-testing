@@ -6,7 +6,7 @@
  */
 /* Compiler settings for C:\users\sansan\testVersion\Downloader\IDManTypeInfo.idl:
     Os (OptLev=s), W1, Zp8, env=Win32, ms_ext, c_ext
-    error checks: allocation ref bounds_check enum stub_data 
+    error checks: allocation ref bounds_check enum stub_data
 */
 //@@MIDL_FILE_HEADING(  )
 
@@ -33,9 +33,9 @@
 
 #ifdef __cplusplus
 extern "C"{
-#endif 
+#endif
 
-/* Forward Declarations */ 
+/* Forward Declarations */
 
 #ifndef __ICIDMLinkTransmitter_FWD_DEFINED__
 #define __ICIDMLinkTransmitter_FWD_DEFINED__
@@ -65,24 +65,24 @@ typedef struct CIDMLinkTransmitter CIDMLinkTransmitter;
 #include "oaidl.h"
 
 void __RPC_FAR * __RPC_USER MIDL_user_allocate(size_t);
-void __RPC_USER MIDL_user_free( void __RPC_FAR * ); 
+void __RPC_USER MIDL_user_free( void __RPC_FAR * );
 
 #ifndef __ICIDMLinkTransmitter_INTERFACE_DEFINED__
 #define __ICIDMLinkTransmitter_INTERFACE_DEFINED__
 
 /* interface ICIDMLinkTransmitter */
-/* [unique][helpstring][oleautomation][uuid][object] */ 
+/* [unique][helpstring][oleautomation][uuid][object] */
 
 
 EXTERN_C const IID IID_ICIDMLinkTransmitter;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
-    
+
     MIDL_INTERFACE("4BD46AAE-C51F-4BF7-8BC0-2E86E33D1873")
     ICIDMLinkTransmitter : public IUnknown
     {
     public:
-        virtual HRESULT STDMETHODCALLTYPE SendLinkToIDM( 
+        virtual HRESULT STDMETHODCALLTYPE SendLinkToIDM(
             /* [in] */ BSTR bstrUrl,
             /* [in] */ BSTR bstrReferer,
             /* [in] */ BSTR bstrCookies,
@@ -92,27 +92,27 @@ EXTERN_C const IID IID_ICIDMLinkTransmitter;
             /* [in] */ BSTR bstrLocalPath,
             /* [in] */ BSTR bstrLocalFileName,
             /* [in] */ long lFlags) = 0;
-        
+
     };
-    
+
 #else 	/* C style interface */
 
     typedef struct ICIDMLinkTransmitterVtbl
     {
         BEGIN_INTERFACE
-        
-        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *QueryInterface )( 
+
+        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *QueryInterface )(
             ICIDMLinkTransmitter __RPC_FAR * This,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void __RPC_FAR *__RPC_FAR *ppvObject);
-        
-        ULONG ( STDMETHODCALLTYPE __RPC_FAR *AddRef )( 
+
+        ULONG ( STDMETHODCALLTYPE __RPC_FAR *AddRef )(
             ICIDMLinkTransmitter __RPC_FAR * This);
-        
-        ULONG ( STDMETHODCALLTYPE __RPC_FAR *Release )( 
+
+        ULONG ( STDMETHODCALLTYPE __RPC_FAR *Release )(
             ICIDMLinkTransmitter __RPC_FAR * This);
-        
-        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SendLinkToIDM )( 
+
+        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SendLinkToIDM )(
             ICIDMLinkTransmitter __RPC_FAR * This,
             /* [in] */ BSTR bstrUrl,
             /* [in] */ BSTR bstrReferer,
@@ -123,7 +123,7 @@ EXTERN_C const IID IID_ICIDMLinkTransmitter;
             /* [in] */ BSTR bstrLocalPath,
             /* [in] */ BSTR bstrLocalFileName,
             /* [in] */ long lFlags);
-        
+
         END_INTERFACE
     } ICIDMLinkTransmitterVtbl;
 
@@ -132,7 +132,7 @@ EXTERN_C const IID IID_ICIDMLinkTransmitter;
         CONST_VTBL struct ICIDMLinkTransmitterVtbl __RPC_FAR *lpVtbl;
     };
 
-    
+
 
 #ifdef COBJMACROS
 
@@ -157,7 +157,7 @@ EXTERN_C const IID IID_ICIDMLinkTransmitter;
 
 
 
-HRESULT STDMETHODCALLTYPE ICIDMLinkTransmitter_SendLinkToIDM_Proxy( 
+HRESULT STDMETHODCALLTYPE ICIDMLinkTransmitter_SendLinkToIDM_Proxy(
     ICIDMLinkTransmitter __RPC_FAR * This,
     /* [in] */ BSTR bstrUrl,
     /* [in] */ BSTR bstrReferer,
@@ -185,18 +185,18 @@ void __RPC_STUB ICIDMLinkTransmitter_SendLinkToIDM_Stub(
 #define __ICIDMLinkTransmitter2_INTERFACE_DEFINED__
 
 /* interface ICIDMLinkTransmitter2 */
-/* [unique][helpstring][oleautomation][uuid][object] */ 
+/* [unique][helpstring][oleautomation][uuid][object] */
 
 
 EXTERN_C const IID IID_ICIDMLinkTransmitter2;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
-    
+
     MIDL_INTERFACE("94D09862-1875-4FC9-B434-91CF25C840A1")
     ICIDMLinkTransmitter2 : public ICIDMLinkTransmitter
     {
     public:
-        virtual HRESULT STDMETHODCALLTYPE SendLinkToIDM2( 
+        virtual HRESULT STDMETHODCALLTYPE SendLinkToIDM2(
             /* [in] */ BSTR bstrUrl,
             /* [in] */ BSTR bstrReferer,
             /* [in] */ BSTR bstrCookies,
@@ -208,31 +208,31 @@ EXTERN_C const IID IID_ICIDMLinkTransmitter2;
             /* [in] */ long lFlags,
             /* [in] */ VARIANT reserved1,
             /* [in] */ VARIANT reserved2) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE SendLinksArray( 
+
+        virtual HRESULT STDMETHODCALLTYPE SendLinksArray(
             /* [in] */ BSTR location,
             /* [in] */ VARIANT __RPC_FAR *pLinksArray) = 0;
-        
+
     };
-    
+
 #else 	/* C style interface */
 
     typedef struct ICIDMLinkTransmitter2Vtbl
     {
         BEGIN_INTERFACE
-        
-        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *QueryInterface )( 
+
+        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *QueryInterface )(
             ICIDMLinkTransmitter2 __RPC_FAR * This,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void __RPC_FAR *__RPC_FAR *ppvObject);
-        
-        ULONG ( STDMETHODCALLTYPE __RPC_FAR *AddRef )( 
+
+        ULONG ( STDMETHODCALLTYPE __RPC_FAR *AddRef )(
             ICIDMLinkTransmitter2 __RPC_FAR * This);
-        
-        ULONG ( STDMETHODCALLTYPE __RPC_FAR *Release )( 
+
+        ULONG ( STDMETHODCALLTYPE __RPC_FAR *Release )(
             ICIDMLinkTransmitter2 __RPC_FAR * This);
-        
-        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SendLinkToIDM )( 
+
+        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SendLinkToIDM )(
             ICIDMLinkTransmitter2 __RPC_FAR * This,
             /* [in] */ BSTR bstrUrl,
             /* [in] */ BSTR bstrReferer,
@@ -243,8 +243,8 @@ EXTERN_C const IID IID_ICIDMLinkTransmitter2;
             /* [in] */ BSTR bstrLocalPath,
             /* [in] */ BSTR bstrLocalFileName,
             /* [in] */ long lFlags);
-        
-        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SendLinkToIDM2 )( 
+
+        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SendLinkToIDM2 )(
             ICIDMLinkTransmitter2 __RPC_FAR * This,
             /* [in] */ BSTR bstrUrl,
             /* [in] */ BSTR bstrReferer,
@@ -257,12 +257,12 @@ EXTERN_C const IID IID_ICIDMLinkTransmitter2;
             /* [in] */ long lFlags,
             /* [in] */ VARIANT reserved1,
             /* [in] */ VARIANT reserved2);
-        
-        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SendLinksArray )( 
+
+        HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SendLinksArray )(
             ICIDMLinkTransmitter2 __RPC_FAR * This,
             /* [in] */ BSTR location,
             /* [in] */ VARIANT __RPC_FAR *pLinksArray);
-        
+
         END_INTERFACE
     } ICIDMLinkTransmitter2Vtbl;
 
@@ -271,7 +271,7 @@ EXTERN_C const IID IID_ICIDMLinkTransmitter2;
         CONST_VTBL struct ICIDMLinkTransmitter2Vtbl __RPC_FAR *lpVtbl;
     };
 
-    
+
 
 #ifdef COBJMACROS
 
@@ -303,7 +303,7 @@ EXTERN_C const IID IID_ICIDMLinkTransmitter2;
 
 
 
-HRESULT STDMETHODCALLTYPE ICIDMLinkTransmitter2_SendLinkToIDM2_Proxy( 
+HRESULT STDMETHODCALLTYPE ICIDMLinkTransmitter2_SendLinkToIDM2_Proxy(
     ICIDMLinkTransmitter2 __RPC_FAR * This,
     /* [in] */ BSTR bstrUrl,
     /* [in] */ BSTR bstrReferer,
@@ -325,7 +325,7 @@ void __RPC_STUB ICIDMLinkTransmitter2_SendLinkToIDM2_Stub(
     DWORD *_pdwStubPhase);
 
 
-HRESULT STDMETHODCALLTYPE ICIDMLinkTransmitter2_SendLinksArray_Proxy( 
+HRESULT STDMETHODCALLTYPE ICIDMLinkTransmitter2_SendLinksArray_Proxy(
     ICIDMLinkTransmitter2 __RPC_FAR * This,
     /* [in] */ BSTR location,
     /* [in] */ VARIANT __RPC_FAR *pLinksArray);
@@ -347,7 +347,7 @@ void __RPC_STUB ICIDMLinkTransmitter2_SendLinksArray_Stub(
 #define __IDManLib_LIBRARY_DEFINED__
 
 /* library IDManLib */
-/* [helpstring][version][uuid] */ 
+/* [helpstring][version][uuid] */
 
 
 EXTERN_C const IID LIBID_IDManLib;
@@ -363,15 +363,15 @@ CIDMLinkTransmitter;
 
 /* Additional Prototypes for ALL interfaces */
 
-unsigned long             __RPC_USER  BSTR_UserSize(     unsigned long __RPC_FAR *, unsigned long            , BSTR __RPC_FAR * ); 
-unsigned char __RPC_FAR * __RPC_USER  BSTR_UserMarshal(  unsigned long __RPC_FAR *, unsigned char __RPC_FAR *, BSTR __RPC_FAR * ); 
-unsigned char __RPC_FAR * __RPC_USER  BSTR_UserUnmarshal(unsigned long __RPC_FAR *, unsigned char __RPC_FAR *, BSTR __RPC_FAR * ); 
-void                      __RPC_USER  BSTR_UserFree(     unsigned long __RPC_FAR *, BSTR __RPC_FAR * ); 
+unsigned long             __RPC_USER  BSTR_UserSize(     unsigned long __RPC_FAR *, unsigned long            , BSTR __RPC_FAR * );
+unsigned char __RPC_FAR * __RPC_USER  BSTR_UserMarshal(  unsigned long __RPC_FAR *, unsigned char __RPC_FAR *, BSTR __RPC_FAR * );
+unsigned char __RPC_FAR * __RPC_USER  BSTR_UserUnmarshal(unsigned long __RPC_FAR *, unsigned char __RPC_FAR *, BSTR __RPC_FAR * );
+void                      __RPC_USER  BSTR_UserFree(     unsigned long __RPC_FAR *, BSTR __RPC_FAR * );
 
-unsigned long             __RPC_USER  VARIANT_UserSize(     unsigned long __RPC_FAR *, unsigned long            , VARIANT __RPC_FAR * ); 
-unsigned char __RPC_FAR * __RPC_USER  VARIANT_UserMarshal(  unsigned long __RPC_FAR *, unsigned char __RPC_FAR *, VARIANT __RPC_FAR * ); 
-unsigned char __RPC_FAR * __RPC_USER  VARIANT_UserUnmarshal(unsigned long __RPC_FAR *, unsigned char __RPC_FAR *, VARIANT __RPC_FAR * ); 
-void                      __RPC_USER  VARIANT_UserFree(     unsigned long __RPC_FAR *, VARIANT __RPC_FAR * ); 
+unsigned long             __RPC_USER  VARIANT_UserSize(     unsigned long __RPC_FAR *, unsigned long            , VARIANT __RPC_FAR * );
+unsigned char __RPC_FAR * __RPC_USER  VARIANT_UserMarshal(  unsigned long __RPC_FAR *, unsigned char __RPC_FAR *, VARIANT __RPC_FAR * );
+unsigned char __RPC_FAR * __RPC_USER  VARIANT_UserUnmarshal(unsigned long __RPC_FAR *, unsigned char __RPC_FAR *, VARIANT __RPC_FAR * );
+void                      __RPC_USER  VARIANT_UserFree(     unsigned long __RPC_FAR *, VARIANT __RPC_FAR * );
 
 /* end of Additional Prototypes */
 

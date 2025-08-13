@@ -161,7 +161,7 @@ int main(void)
 
 	TC_PRINT("Performing CBC tests:\n");
 	result = test_1_and_2();
-	if (result == TC_FAIL) {	
+	if (result == TC_FAIL) {
 		/* terminate test */
 		TC_ERROR("CBC test #1 failed.\n");
 		goto exitTest;

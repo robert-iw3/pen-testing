@@ -480,11 +480,11 @@
                     {
                         //wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description
                         //wmic /node:{0} /user:{1} /password:{2} process call create ""cmd.exe /c {3} >> {4}"" 2>&1
-                        //wmic /node:{0} /user:{1} /password:{2} process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> {4}"" 2>&1 
-                        //wmic /node:localhost process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> c:\windows\temp\abcd.txt"" 2>&1 
+                        //wmic /node:{0} /user:{1} /password:{2} process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> {4}"" 2>&1
+                        //wmic /node:localhost process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> c:\windows\temp\abcd.txt"" 2>&1
                         if (!string.IsNullOrEmpty(adminU) && !string.IsNullOrEmpty(adminP))
                         {
-                            //wmic /node:localhost process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> c:\windows\temp\abcd.txt"" 2>&1 
+                            //wmic /node:localhost process call create ""cmd.exe /c wmic logicaldisk get Caption,FileSystem,Size,FreeSpace,Description >> c:\windows\temp\abcd.txt"" 2>&1
                             //Caption
                             //C:
                             //D:

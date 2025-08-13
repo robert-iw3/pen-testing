@@ -3,7 +3,7 @@
 
 beacon_command_register("psw", "Show Window titles from processes with active Windows.",
 	"Synopsis: psw\n\n" .
-	"Show Window titles from processes with active Windows.\n\n");    
+	"Show Window titles from processes with active Windows.\n\n");
 
 alias psw {
     $bid = $1;

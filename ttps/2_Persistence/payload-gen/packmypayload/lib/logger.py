@@ -26,13 +26,13 @@ class Logger:
     DefaultColor = 'white'
 
     colors_map = {
-        'red':      colorama.Fore.RED, 
-        'green':    colorama.Fore.GREEN, 
+        'red':      colorama.Fore.RED,
+        'green':    colorama.Fore.GREEN,
         'yellow':   colorama.Fore.YELLOW,
-        'blue':     colorama.Fore.BLUE, 
-        'magenta':  colorama.Fore.MAGENTA, 
+        'blue':     colorama.Fore.BLUE,
+        'magenta':  colorama.Fore.MAGENTA,
         'cyan':     colorama.Fore.CYAN,
-        'white':    colorama.Fore.WHITE, 
+        'white':    colorama.Fore.WHITE,
         'grey':     colorama.Fore.WHITE,
         'reset':    colorama.Style.RESET_ALL,
     }
@@ -60,7 +60,7 @@ class Logger:
     def colorize(txt, col):
         if Logger.options['nocolor'] or len(col) == 0:
             return txt
-            
+
         if not col in Logger.colors_map.keys():
             col = Logger.DefaultColor
 
@@ -117,7 +117,7 @@ class Logger:
                     elif txt[n+1] == '#': aux = 'magenta'
 
                     txt = Logger.colors_map[aux] + txt[:n+3] + Logger.colors_map['reset'] + txt[n+3:]
-        
+
         return ls + txt
 
     @staticmethod
@@ -131,7 +131,7 @@ class Logger:
             return '-'
         elif mode == 'fatal':
             return 'fatal'
-        
+
         return mode
 
     @staticmethod
@@ -155,20 +155,20 @@ class Logger:
     @staticmethod
     def _out(txt, fd, mode='info', **kwargs):
         if txt is None or fd == 'none':
-            return 
+            return
         elif fd is None:
             raise Exception('[ERROR] Logging descriptor has not been specified!')
 
         args = {
-            'color': None, 
-            'noprefix': False, 
+            'color': None,
+            'noprefix': False,
             'newline': True,
             'nocolor' : False,
             'force_stdout' : False,
             'colorPlaceholders' : False,
         }
         args.update(kwargs)
-            
+
         txt = txt.replace('\t', ' ' * 4)
 
         if args['colorPlaceholders']:
@@ -193,7 +193,7 @@ class Logger:
             m = Logger.mode_translate(mode)
             mode = f'[{m}] '
             prefix = mode
-        
+
         nl = ''
         if 'newline' in args:
             if args['newline']:
@@ -217,13 +217,13 @@ class Logger:
                 line = nl
             else:
                 line = prefix + txt
-                
+
                 if not args['nocolor'] and len(col) > 0:
                     if col == Logger.DefaultColor or col == '':
                         line = Logger.colorize_prefix(line)
                     else:
                         line = Logger.colorize(line, col)
-                
+
                 line += nl
 
         Logger.rawWrite(fd, line)
@@ -270,7 +270,7 @@ class Logger:
             kwargs['nocolor'] = self.options['nocolor']
             kwargs['force_stdout'] = self.options['force_stdout']
             kwargs['colorPlaceholders'] = self.options['colorPlaceholders']
-            
+
             Logger.out(txt, self.options['log'], 'debug', **kwargs)
 
     def err(self, txt, **kwargs):

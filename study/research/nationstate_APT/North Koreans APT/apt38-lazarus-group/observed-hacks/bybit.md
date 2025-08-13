@@ -31,7 +31,7 @@ Tags:: 👛 TraderTraitor
 
 
 
-## Reports 
+## Reports
 
 - [Bybit Incident Investigation Preliminary Report - Verichains](../pdfs/2025-02-24_Bybit-Incident-Investigation_Preliminary-Report_Verichains.pdf)
 

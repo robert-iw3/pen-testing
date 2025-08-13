@@ -12,7 +12,7 @@ namespace Mkdir
                 Console.WriteLine("WinBinReplacements: mkdir.exe <dir>[/subdir1/subdir2/...] [dir2] [dir3] ...");
                 return;
             }
-            
+
             foreach(string arg in args)
             {
                 string fullPath = Path.GetFullPath(arg);

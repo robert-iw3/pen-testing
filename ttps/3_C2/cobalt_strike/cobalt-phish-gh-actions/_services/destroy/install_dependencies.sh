@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e 
+set -e
 
 source "_services/common_functions.sh"
 

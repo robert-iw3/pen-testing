@@ -68,14 +68,14 @@
 
 #define CERT_PE_IMAGE_DIGEST_ALL_IMPORT_INFO 0x04
 
-typedef struct _LSA_UNICODE_STRING 
+typedef struct _LSA_UNICODE_STRING
 {
 	USHORT Length;
 	USHORT MaximumLength;
 	PWSTR  Buffer;
 } LSA_UNICODE_STRING, * PLSA_UNICODE_STRING, UNICODE_STRING, * PUNICODE_STRING;
 
-typedef struct _OBJECT_ATTRIBUTES 
+typedef struct _OBJECT_ATTRIBUTES
 {
 	ULONG           Length;
 	HANDLE          RootDirectory;
@@ -85,7 +85,7 @@ typedef struct _OBJECT_ATTRIBUTES
 	PVOID           SecurityQualityOfService;
 } OBJECT_ATTRIBUTES, * POBJECT_ATTRIBUTES;
 
-typedef struct _LDR_MODULE 
+typedef struct _LDR_MODULE
 {
 	LIST_ENTRY              InLoadOrderModuleList;
 	LIST_ENTRY              InMemoryOrderModuleList;
@@ -102,7 +102,7 @@ typedef struct _LDR_MODULE
 	ULONG                   TimeDateStamp;
 } LDR_MODULE, * PLDR_MODULE;
 
-typedef struct _PEB_LDR_DATA 
+typedef struct _PEB_LDR_DATA
 {
 	ULONG                   Length;
 	ULONG                   Initialized;
@@ -112,20 +112,20 @@ typedef struct _PEB_LDR_DATA
 	LIST_ENTRY              InInitializationOrderModuleList;
 } PEB_LDR_DATA, * PPEB_LDR_DATA;
 
-typedef struct _CURDIR 
+typedef struct _CURDIR
 {
 	UNICODE_STRING DosPath;
 	PVOID Handle;
 }CURDIR, * PCURDIR;
 
-typedef struct _STRING 
+typedef struct _STRING
 {
 	USHORT Length;
 	USHORT MaximumLength;
 	PCHAR  Buffer;
 } ANSI_STRING, * PANSI_STRING;
 
-typedef struct _RTL_DRIVE_LETTER_CURDIR 
+typedef struct _RTL_DRIVE_LETTER_CURDIR
 {
 	WORD Flags;
 	WORD Length;
@@ -133,7 +133,7 @@ typedef struct _RTL_DRIVE_LETTER_CURDIR
 	ANSI_STRING DosPath;
 } RTL_DRIVE_LETTER_CURDIR, * PRTL_DRIVE_LETTER_CURDIR;
 
-typedef struct _RTL_USER_PROCESS_PARAMETERS 
+typedef struct _RTL_USER_PROCESS_PARAMETERS
 {
 	ULONG MaximumLength;
 	ULONG Length;
@@ -166,7 +166,7 @@ typedef struct _RTL_USER_PROCESS_PARAMETERS
 	ULONG EnvironmentSize;
 }RTL_USER_PROCESS_PARAMETERS, * PRTL_USER_PROCESS_PARAMETERS;
 
-typedef struct _PEB 
+typedef struct _PEB
 {
 	BOOLEAN                 InheritedAddressSpace;
 	BOOLEAN                 ReadImageFileExecOptions;
@@ -224,7 +224,7 @@ typedef struct _PEB
 	ULONG                   SessionId;
 } PEB, * PPEB;
 
-typedef struct __CLIENT_ID 
+typedef struct __CLIENT_ID
 {
 	HANDLE UniqueProcess;
 	HANDLE UniqueThread;
@@ -232,14 +232,14 @@ typedef struct __CLIENT_ID
 
 typedef PVOID PACTIVATION_CONTEXT;
 
-typedef struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME 
+typedef struct _RTL_ACTIVATION_CONTEXT_STACK_FRAME
 {
 	struct __RTL_ACTIVATION_CONTEXT_STACK_FRAME* Previous;
 	PACTIVATION_CONTEXT ActivationContext;
 	ULONG Flags;
 } RTL_ACTIVATION_CONTEXT_STACK_FRAME, * PRTL_ACTIVATION_CONTEXT_STACK_FRAME;
 
-typedef struct _ACTIVATION_CONTEXT_STACK 
+typedef struct _ACTIVATION_CONTEXT_STACK
 {
 	PRTL_ACTIVATION_CONTEXT_STACK_FRAME ActiveFrame;
 	LIST_ENTRY FrameListCache;
@@ -248,20 +248,20 @@ typedef struct _ACTIVATION_CONTEXT_STACK
 	ULONG StackId;
 } ACTIVATION_CONTEXT_STACK, * PACTIVATION_CONTEXT_STACK;
 
-typedef struct _GDI_TEB_BATCH 
+typedef struct _GDI_TEB_BATCH
 {
 	ULONG Offset;
 	ULONG HDC;
 	ULONG Buffer[310];
 } GDI_TEB_BATCH, * PGDI_TEB_BATCH;
 
-typedef struct _TEB_ACTIVE_FRAME_CONTEXT 
+typedef struct _TEB_ACTIVE_FRAME_CONTEXT
 {
 	ULONG Flags;
 	PCHAR FrameName;
 } TEB_ACTIVE_FRAME_CONTEXT, * PTEB_ACTIVE_FRAME_CONTEXT;
 
-typedef struct _TEB_ACTIVE_FRAME 
+typedef struct _TEB_ACTIVE_FRAME
 {
 	ULONG Flags;
 	struct _TEB_ACTIVE_FRAME* Previous;
@@ -449,7 +449,7 @@ typedef enum _ALTERNATIVE_ARCHITECTURE_TYPE
 	EndAlternatives = 2
 } ALTERNATIVE_ARCHITECTURE_TYPE;
 
-typedef enum _SYSTEM_INFORMATION_CLASS 
+typedef enum _SYSTEM_INFORMATION_CLASS
 {
 	SystemBasicInformation = 0,
 	SystemCpuInformation = 1,
@@ -681,7 +681,7 @@ typedef enum _SYSTEM_INFORMATION_CLASS
 #endif
 } SYSTEM_INFORMATION_CLASS, * PSYSTEM_INFORMATION_CLASS;
 
-typedef struct _KUSER_SHARED_DATA 
+typedef struct _KUSER_SHARED_DATA
 {
 	ULONG                         TickCountLowDeprecated;
 	ULONG                         TickCountMultiplier;
@@ -801,7 +801,7 @@ typedef struct _KUSER_SHARED_DATA
 	ULONG                         Spare;
 } KUSER_SHARED_DATA, * PKUSER_SHARED_DATA;
 
-typedef struct _SYSTEM_PROCESS_INFORMATION 
+typedef struct _SYSTEM_PROCESS_INFORMATION
 {
 	ULONG NextEntryOffset;
 	ULONG NumberOfThreads;
@@ -848,25 +848,25 @@ typedef enum _PROCESSINFOCLASS
 	ProcessBreakOnTermination = 29
 } PROCESSINFOCLASS;
 
-typedef struct _MSIFILEHASHINFO 
+typedef struct _MSIFILEHASHINFO
 {
 	ULONG dwFileHashInfoSize;
 	ULONG dwData[4];
 } MSIFILEHASHINFO, * PMSIFILEHASHINFO;
 
-typedef struct __DATA_SHARE_SCOPE_ENTRY 
+typedef struct __DATA_SHARE_SCOPE_ENTRY
 {
 	INT ScopeType;
 	PWCHAR ScopeValue;
 }DATA_SHARE_SCOPE_ENTRY, * PDATA_SHARE_SCOPE_ENTRY;
 
-typedef struct __DATA_SHARE_SCOPE 
+typedef struct __DATA_SHARE_SCOPE
 {
 	INT ScopeCount;
 	DATA_SHARE_SCOPE_ENTRY Entries[20];
 }DATA_SHARE_SCOPE, * PDATA_SHARE_SCOPE;
 
-typedef struct __DATA_SHARE_CTRL 
+typedef struct __DATA_SHARE_CTRL
 {
 	INT SharePermission;
 	INT ShareMode;
@@ -874,9 +874,9 @@ typedef struct __DATA_SHARE_CTRL
 }DATA_SHARE_CTRL, * PDATA_SHARE_CTRL;
 
 #define PS_ATTRIBUTE_NUMBER_MASK    0x0000ffff
-#define PS_ATTRIBUTE_THREAD         0x00010000 
-#define PS_ATTRIBUTE_INPUT          0x00020000 
-#define PS_ATTRIBUTE_ADDITIVE       0x00040000 
+#define PS_ATTRIBUTE_THREAD         0x00010000
+#define PS_ATTRIBUTE_INPUT          0x00020000
+#define PS_ATTRIBUTE_ADDITIVE       0x00040000
 
 typedef enum _PS_ATTRIBUTE_NUM
 {
@@ -949,7 +949,7 @@ typedef enum _PS_CREATE_STATE
 	PsCreateMaximumStates
 } PS_CREATE_STATE;
 
-typedef struct _PS_CREATE_INFO 
+typedef struct _PS_CREATE_INFO
 {
 	SIZE_T Size;
 	PS_CREATE_STATE State;
@@ -999,14 +999,14 @@ typedef struct _PS_CREATE_INFO
 	};
 } PS_CREATE_INFO, * PPS_CREATE_INFO;
 
-typedef struct _PROC_THREAD_ATTRIBUTE 
+typedef struct _PROC_THREAD_ATTRIBUTE
 {
 	ULONG64 Attribute;
 	ULONG64 Size;
 	ULONG64 Value;
 }PROC_THREAD_ATTRIBUTE, * PPROC_THREAD_ATTRIBUTE;
 
-typedef struct _PROC_THREAD_ATTRIBUTE_LIST 
+typedef struct _PROC_THREAD_ATTRIBUTE_LIST
 {
 	ULONG PresentFlags;
 	ULONG AttributeCount;
@@ -1016,7 +1016,7 @@ typedef struct _PROC_THREAD_ATTRIBUTE_LIST
 	struct _PROC_THREAD_ATTRIBUTE Attributes[1];
 }PROC_THREAD_ATTRIBUTE_LIST, * PPROC_THREAD_ATTRIBUTE_LIST;
 
-typedef enum _KEY_VALUE_INFORMATION_CLASS 
+typedef enum _KEY_VALUE_INFORMATION_CLASS
 {
 	KeyValueBasicInformation,
 	KeyValueFullInformation,
@@ -1027,7 +1027,7 @@ typedef enum _KEY_VALUE_INFORMATION_CLASS
 	MaxKeyValueInfoClass
 } KEY_VALUE_INFORMATION_CLASS;
 
-typedef struct _KEY_VALUE_PARTIAL_INFORMATION 
+typedef struct _KEY_VALUE_PARTIAL_INFORMATION
 {
 	ULONG TitleIndex;
 	ULONG Type;
@@ -1035,13 +1035,13 @@ typedef struct _KEY_VALUE_PARTIAL_INFORMATION
 	UCHAR Data[1];
 } KEY_VALUE_PARTIAL_INFORMATION, * PKEY_VALUE_PARTIAL_INFORMATION;
 
-typedef struct _SYSTEM_PROCESS_ID_INFORMATION 
+typedef struct _SYSTEM_PROCESS_ID_INFORMATION
 {
 	HANDLE ProcessId;
 	UNICODE_STRING ImageName;
 } SYSTEM_PROCESS_IMAGE_NAME_INFORMATION, * PSYSTEM_PROCESS_IMAGE_NAME_INFORMATION;
 
-typedef struct _IO_STATUS_BLOCK 
+typedef struct _IO_STATUS_BLOCK
 {
 	union {
 		NTSTATUS Status;
@@ -1050,7 +1050,7 @@ typedef struct _IO_STATUS_BLOCK
 	ULONG_PTR Information;
 } IO_STATUS_BLOCK, * PIO_STATUS_BLOCK;
 
-typedef enum _FILE_INFORMATION_CLASS 
+typedef enum _FILE_INFORMATION_CLASS
 {
 	FileDirectoryInformation = 1,
 	FileFullDirectoryInformation,                   // 2
@@ -1134,14 +1134,14 @@ typedef enum _FILE_INFORMATION_CLASS
 
 typedef struct _RTLP_CURDIR_REF* PRTLP_CURDIR_REF;
 
-typedef struct _RTL_RELATIVE_NAME_U 
+typedef struct _RTL_RELATIVE_NAME_U
 {
 	UNICODE_STRING RelativeName;
 	HANDLE ContainingDirectory;
 	PRTLP_CURDIR_REF CurDirRef;
 } RTL_RELATIVE_NAME_U, * PRTL_RELATIVE_NAME_U;
 
-typedef struct _FILE_PROCESS_IDS_USING_FILE_INFORMATION 
+typedef struct _FILE_PROCESS_IDS_USING_FILE_INFORMATION
 {
 	ULONG NumberOfProcessIdsInList;
 	ULONG_PTR ProcessIdList[1];
@@ -1151,14 +1151,14 @@ typedef VOID(NTAPI* PIO_APC_ROUTINE)(PVOID ApcContext, _In_ PIO_STATUS_BLOCK IoS
 
 typedef DWORD(CALLBACK* PRTL_WORK_ITEM_ROUTINE)(LPVOID);
 
-typedef struct AMBIGUOUS_STRING 
+typedef struct AMBIGUOUS_STRING
 {
 	DWORD Length;
 	DWORD MaximumLength;
 	PUCHAR Buffer;
 }AB_STRING, * PAB_STRING;
 
-typedef struct _LDR_DLL_UNLOADED_NOTIFICATION_DATA 
+typedef struct _LDR_DLL_UNLOADED_NOTIFICATION_DATA
 {
 	ULONG Flags;
 	PUNICODE_STRING FullDllName;
@@ -1167,7 +1167,7 @@ typedef struct _LDR_DLL_UNLOADED_NOTIFICATION_DATA
 	ULONG SizeOfImage;
 } LDR_DLL_UNLOADED_NOTIFICATION_DATA, * PLDR_DLL_UNLOADED_NOTIFICATION_DATA;
 
-typedef struct _LDR_DLL_LOADED_NOTIFICATION_DATA 
+typedef struct _LDR_DLL_LOADED_NOTIFICATION_DATA
 {
 	ULONG Flags;
 	PUNICODE_STRING FullDllName;
@@ -1176,7 +1176,7 @@ typedef struct _LDR_DLL_LOADED_NOTIFICATION_DATA
 	ULONG SizeOfImage;
 } LDR_DLL_LOADED_NOTIFICATION_DATA, * PLDR_DLL_LOADED_NOTIFICATION_DATA;
 
-typedef union _LDR_DLL_NOTIFICATION_DATA 
+typedef union _LDR_DLL_NOTIFICATION_DATA
 {
 	LDR_DLL_LOADED_NOTIFICATION_DATA Loaded;
 	LDR_DLL_UNLOADED_NOTIFICATION_DATA Unloaded;

@@ -1,25 +1,25 @@
 ### Remote Monologue
 
-RemoteMonologue is a Windows credential harvesting technique that enables remote user compromise by leveraging the Interactive User RunAs key and coercing NTLM authentications via DCOM. 
+RemoteMonologue is a Windows credential harvesting technique that enables remote user compromise by leveraging the Interactive User RunAs key and coercing NTLM authentications via DCOM.
 
 Read X-Force Red's [RemoteMonologue: Weaponizing DCOM for NTLM  Authentication Coercions] for detailed information.
 
-🔹 **Authentication Coercion via DCOM (`-dcom`)**  
-- Targets three DCOM objects (`ServerDataCollectorSet`, `FileSystemImage`, `MSTSWebProxy`, `UpdateSession`) to trigger an NTLM authentication against a specified listener (`-auth-to`).  
+🔹 **Authentication Coercion via DCOM (`-dcom`)**
+- Targets three DCOM objects (`ServerDataCollectorSet`, `FileSystemImage`, `MSTSWebProxy`, `UpdateSession`) to trigger an NTLM authentication against a specified listener (`-auth-to`).
 
-🔹 **Credential Spraying (`-spray`)**  
-- Validate credentials across multiple systems while also capturing user credentials.  
+🔹 **Credential Spraying (`-spray`)**
+- Validate credentials across multiple systems while also capturing user credentials.
 
-🔹 **NetNTLMv1 Downgrade Attack (`-downgrade`)**  
-- Force targets to use NTLMv1, making credential cracking and relaying easier.  
+🔹 **NetNTLMv1 Downgrade Attack (`-downgrade`)**
+- Force targets to use NTLMv1, making credential cracking and relaying easier.
 
-🔹 **WebClient Service Abuse (`-webclient`)**  
-- Enables the WebClient service to facilitate HTTP-based authentication coercion.  
+🔹 **WebClient Service Abuse (`-webclient`)**
+- Enables the WebClient service to facilitate HTTP-based authentication coercion.
 
-🔹 **User Enumeration (`-query`)**  
-- Identify users with an active session on the target system.  
+🔹 **User Enumeration (`-query`)**
+- Identify users with an active session on the target system.
 
-**Note:** Local administrator privileges to the target system is required.  
+**Note:** Local administrator privileges to the target system is required.
 
 ```bash
 podman build -t remotemonologue .
@@ -29,12 +29,12 @@ podman run -it --name remotemonologue remotemonologue
 python3 RemoteMonologue.py -h
 
 
- __   ___        __  ___  ___        __        __        __   __        ___ 
-|__) |__   |\/| /  \  |  |__   |\/| /  \ |\ | /  \ |    /  \ / _` |  | |__  
-|  \ |___  |  | \__/  |  |___  |  | \__/ | \| \__/ |___ \__/ \__> \__/ |___ 
-                                                                            
-                                  
-                                                
+ __   ___        __  ___  ___        __        __        __   __        ___
+|__) |__   |\/| /  \  |  |__   |\/| /  \ |\ | /  \ |    /  \ / _` |  | |__
+|  \ |___  |  | \__/  |  |___  |  | \__/ | \| \__/ |___ \__/ \__> \__/ |___
+
+
+
 usage: RemoteMonologue.py [-h] [-ts] [-debug] [-dcom] [-auth-to ip address] [-spray] [-query] [-downgrade] [-webclient] [-output filename] [-timeout TIMEOUT] [-hashes LMHASH:NTHASH]
                           [-no-pass] [-k] [-aesKey hex key] [-dc-ip ip address] [-A authfile] [-keytab KEYTAB]
                           target

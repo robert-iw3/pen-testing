@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
         std::cerr << "Error opening output file: " << argv[2] << std::endl;
         return 1;
     }
-    
+
     outFile.write(reinterpret_cast<const char*>(buffer.data()), buffer.size());
     outFile.close();
 

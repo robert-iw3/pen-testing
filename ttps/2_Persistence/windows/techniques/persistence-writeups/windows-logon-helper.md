@@ -8,7 +8,7 @@ Commonly abused Winlogon registry keys and value for persistence are:
 
 ```
 HKCU\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit
-HKCU\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify 
+HKCU\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify
 HKCU\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\shell
 ```
 

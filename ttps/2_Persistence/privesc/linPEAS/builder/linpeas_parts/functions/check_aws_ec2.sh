@@ -6,7 +6,7 @@
 # License: GNU GPL
 # Version: 1.0
 # Functions Used:
-# Global Variables: 
+# Global Variables:
 # Initial Functions:
 # Generated Global Variables: $is_aws_ec2, $is_aws_ec2_beanstalk, $EC2_TOKEN
 # Fat linpeas: 0
@@ -27,7 +27,7 @@ check_aws_ec2(){
       is_aws_ec2="Yes"
     fi
   fi
-  
+
   if [ "$is_aws_ec2" = "Yes" ] && grep -iq "Beanstalk" "/etc/motd"; then
     is_aws_ec2_beanstalk="Yes"
   fi

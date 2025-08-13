@@ -95,7 +95,7 @@ void* FindProcBySymbol(char* symbol)
 		ULONG funcHash = Djb2A((PUCHAR) symbol + IMP_LENGTH);
 		for (int i = 0; i < BEACON_FUNCTIONS_COUNT; i++) {
 			if (funcHash == BeaconFunctions[i].hash) {
-				if ( BeaconFunctions[i].proc != NULL ) 
+				if ( BeaconFunctions[i].proc != NULL )
 					return BeaconFunctions[i].proc;
 			}
 		}
@@ -114,10 +114,10 @@ void* FindProcBySymbol(char* symbol)
 
 		funcHash = Djb2A((PUCHAR)funcName);
 		HMODULE hModule = ApiWin->LoadLibraryA(moduleName);
-		
+
 		memset(symbolCopy, 0, StrLenA(symbol));
 
-		if (hModule) 
+		if (hModule)
 			return GetSymbolAddress(hModule, funcHash);
 	}
 
@@ -352,7 +352,7 @@ RET:
 
 	FreeFunctionName(entryFuncName);
 	CleanupSections(mapSections, MAX_SECTIONS);
-	
+
 	bofTaskId = 0;
 
 	return bofOutputPacker;

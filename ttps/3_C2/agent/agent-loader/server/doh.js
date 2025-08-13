@@ -65,7 +65,7 @@ router.get('/dns-query', (req, res) => {
   res.send(response);
 });
 
-// REST API 
+// REST API
 router.get('/api/bots', (req, res) => {
   const out = Object.values(bots).map(b => ({
     ip:       b.ip,

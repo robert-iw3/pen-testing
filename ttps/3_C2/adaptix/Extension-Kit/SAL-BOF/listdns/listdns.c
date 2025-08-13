@@ -44,12 +44,12 @@ CLEANUP:
     return retcode;
 }
 
-VOID go( 
-	IN PCHAR Buffer, 
-	IN ULONG Length 
-) 
+VOID go(
+	IN PCHAR Buffer,
+	IN ULONG Length
+)
 {
-       
+
 	if(!bofstart())
 	{
 		return;

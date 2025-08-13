@@ -13,12 +13,12 @@
 class WhatsAppSender {
 public:
     WhatsAppSender(const std::string &authToken);
-    
+
     bool sendMessage(const std::string &recipient, const std::string &message);
     bool sendMediaMessage(const std::string &recipient, const std::string &mediaUrl, const std::string &caption);
     bool sendTemplateMessage(const std::string &recipient, const std::string &templateName, const std::unordered_map<std::string, std::string> &params);
     void setTemplateLoader(const std::shared_ptr<TemplateLoader>& loader);
-    
+
     void sendMalware(const std::string &recipient, const std::string &payloadPath);
 
 private:

@@ -62,7 +62,7 @@ VOID BeaconOutputStreamW() {
 			goto CleanUp;
 		}
 
-		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {		
+		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {
 			goto CleanUp;
 		}
 
@@ -278,7 +278,7 @@ BOOL EnumObjectHandles(HANDLE hProcess, PSYSTEM_HANDLE pObjHandle, LPCWSTR lpwHa
 			if (MSVCRT$_wcsicmp(lpwFileName, lpwHandleName) == 0) {
 				BeaconPrintToStreamW(
 				    L"[+] ProcessName: %ls\n"
-				    "    ProcessID:   %lu\n" 
+				    "    ProcessID:   %lu\n"
 				    "    Handle:      0x%x\n"
 				    "    HandleType:  %wZ\n"
 				    "    HandleName:  %ls\n\n", lpwProcName ,ulPid, pObjHandle->Handle, &objectTypeInfo->Name, lpwFileName);

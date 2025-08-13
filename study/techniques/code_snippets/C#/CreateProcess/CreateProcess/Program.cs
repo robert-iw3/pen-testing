@@ -28,7 +28,7 @@ namespace PInvoke
             public IntPtr hStdInput;
             public IntPtr hStdOutput;
             public IntPtr hStdError;
-        
+
         }
 
         [StructLayout(LayoutKind.Sequential)]

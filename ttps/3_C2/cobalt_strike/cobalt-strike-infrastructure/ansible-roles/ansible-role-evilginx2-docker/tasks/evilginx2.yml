@@ -19,7 +19,7 @@
     - "{{ evilginx2_phishlet_folder }}/*.j2"
   notify:
      - restart evilginx2
-  
+
 - name: Config templet
   template:
     src: "{{ evilginx2_config_location }}"

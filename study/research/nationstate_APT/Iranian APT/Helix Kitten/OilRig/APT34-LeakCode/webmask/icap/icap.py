@@ -137,7 +137,7 @@ class ICAPHandler(BaseICAPRequestHandler):
                         method = self.enc_req[0]
                         url = self.enc_req[1]
                         if 'authorization' in self.enc_req_headers and self.enc_req_headers['authorization'][0].startswith('Basic'):
-                                cred = self.enc_req_headers['authorization'][0].split(' ')[1].decode('base64') 
+                                cred = self.enc_req_headers['authorization'][0].split(' ')[1].decode('base64')
                                 log = {'date': date, 'ip': ip, 'type':'basic_auth', 'url': url, 'cred': cred}
                                 log_string = json.dumps(log, indent=4)
                                 log_to_file(credentials_file, log_string)

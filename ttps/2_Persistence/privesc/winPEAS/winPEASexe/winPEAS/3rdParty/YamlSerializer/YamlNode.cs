@@ -21,23 +21,23 @@ namespace System.Yaml
     public class YamlConfig
     {
         /// <summary>
-        /// If true, all line breaks in the node value are normalized into "\r\n" 
-        /// (= <see cref="LineBreakForOutput"/>) when serialize and line breaks 
+        /// If true, all line breaks in the node value are normalized into "\r\n"
+        /// (= <see cref="LineBreakForOutput"/>) when serialize and line breaks
         /// that are not escaped in YAML stream are normalized into "\n"
         /// (= <see cref="LineBreakForInput"/>.
-        /// If false, the line breaks are preserved. Setting this option false violates 
+        /// If false, the line breaks are preserved. Setting this option false violates
         /// the YAML specification but sometimes useful. The default is true.
         /// </summary>
         /// <remarks>
-        /// <para>The YAML sepcification requires a YAML parser to normalize every line break that 
-        /// is not escaped in a YAML stream, into a single line feed "\n" when it parse a YAML stream. 
-        /// But this is not convenient in some cases, especially under Windows environment, where 
-        /// the system default line break 
+        /// <para>The YAML sepcification requires a YAML parser to normalize every line break that
+        /// is not escaped in a YAML stream, into a single line feed "\n" when it parse a YAML stream.
+        /// But this is not convenient in some cases, especially under Windows environment, where
+        /// the system default line break
         /// is "\r\n" instead of "\n".</para>
-        /// 
+        ///
         /// <para>This library provides two workarounds for this problem.</para>
         /// <para>One is setting <see cref="NormalizeLineBreaks"/> false. It disables the line break
-        /// normalization. The line breaks are serialized into a YAML stream as is and 
+        /// normalization. The line breaks are serialized into a YAML stream as is and
         /// those in the YAML stream are deserialized as is.</para>
         /// <para>Another is setting <see cref="LineBreakForInput"/> "\r\n". Then, the YAML parser
         /// normalizes all line breaks into "\r\n" instead of "\n".</para>
@@ -48,7 +48,7 @@ namespace System.Yaml
         /// <code>
         /// // A string containing line breaks "\n\r" and "\r".
         /// YamlNode node = "a\r\n  b\rcde";
-        /// 
+        ///
         /// // By default conversion, line breaks are escaped in a double quoted string.
         /// var yaml = node.ToYaml();
         /// // %YAML 1.2
@@ -57,20 +57,20 @@ namespace System.Yaml
         /// // \  b\r\
         /// // cde"
         /// // ...
-        /// 
+        ///
         /// // "%YAML 1.2\r\n---\r\n\"a\\r\\n\\\r\n\  b\\r\\\r\ncde\"\r\n...\r\n"
-        /// 
-        /// // Such a YAML stream is not pretty but is capable to preserve 
+        ///
+        /// // Such a YAML stream is not pretty but is capable to preserve
         /// // original line breaks even when the line breaks of the YAML stream
-        /// // are changed (for instance, by some editor) between serialization 
+        /// // are changed (for instance, by some editor) between serialization
         /// // and deserialization.
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // equivalent to the original
-        /// 
+        ///
         /// yaml = yaml.Replace("\r\n", "\n").Replace("\r", "\n");
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // still equivalent to the original
-        /// 
+        ///
         /// // By setting ExplicitlyPreserveLineBreaks false, the output becomes
         /// // much prettier.
         /// YamlNode.DefaultConfig.ExplicitlyPreserveLineBreaks = false;
@@ -82,27 +82,27 @@ namespace System.Yaml
         /// //     b
         /// //   cde
         /// // ...
-        /// 
+        ///
         /// // line breaks are nomalized to "\r\n" (= YamlNode.DefaultConfig.LineBreakForOutput)
         /// // "%YAML 1.2\r\n---\r\n|-2\r\n  a\r\n    b\r\ncde\r\n...\r\n"
-        /// 
+        ///
         /// // line breaks are nomalized to "\n" (= YamlNode.DefaultConfig.LineBreakForInput)
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\n  b\ncde"
-        /// 
-        /// 
+        ///
+        ///
         /// // Disable line break normalization.
         /// YamlNode.DefaultConfig.NormalizeLineBreaks = false;
         /// yaml = node.ToYaml();
-        /// 
+        ///
         /// // line breaks are not nomalized
         /// // "%YAML 1.2\r\n---\r\n|-2\r\n  a\r\n    b\rcde\r\n...\r\n"
-        /// 
+        ///
         /// // Unless line breaks in YAML stream is preserved, original line
         /// // breaks can be restored.
         /// restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // equivalent to the original
-        ///                     
+        ///
         /// yaml = yaml.Replace("\r\n", "\n").Replace("\r", "\n");
         /// restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\n  b\ncde"        // original line breaks are lost
@@ -110,20 +110,20 @@ namespace System.Yaml
         /// </example>
         public bool NormalizeLineBreaks = true;
         /// <summary>
-        /// If true, all <see cref="YamlScalar"/>s whose text expression contains line breaks 
-        /// will be presented as double quoted texts, where the line break characters are escaped 
+        /// If true, all <see cref="YamlScalar"/>s whose text expression contains line breaks
+        /// will be presented as double quoted texts, where the line break characters are escaped
         /// by back slash as "\\n" and "\\r". The default is true.
         /// </summary>
         /// <remarks>
-        /// <para>The escaped line breaks makes the YAML stream hard to read, but is required to 
-        /// prevent the line break characters be normalized by the YAML parser; the YAML 
+        /// <para>The escaped line breaks makes the YAML stream hard to read, but is required to
+        /// prevent the line break characters be normalized by the YAML parser; the YAML
         /// sepcification requires a YAML parser to normalize all line breaks that are not escaped
         /// into a single line feed "\n" when it parse a YAML source.</para>
-        /// 
+        ///
         /// <para>
         /// If the preservation of line breaks are not required, set this value false.
         /// </para>
-        /// 
+        ///
         /// <para>Then, whenever it is possible, the <see cref="YamlNode"/>s are presented
         /// as literal style text, where the line breaks are not escaped. This results in
         /// a much prettier output in the YAML stream.</para>
@@ -132,7 +132,7 @@ namespace System.Yaml
         /// <code>
         /// // A string containing line breaks "\n\r" and "\r".
         /// YamlNode node = "a\r\n  b\rcde";
-        /// 
+        ///
         /// // By default conversion, line breaks are escaped in a double quoted string.
         /// var yaml = node.ToYaml();
         /// // %YAML 1.2
@@ -141,20 +141,20 @@ namespace System.Yaml
         /// // \  b\r\
         /// // cde"
         /// // ...
-        /// 
+        ///
         /// // "%YAML 1.2\r\n---\r\n\"a\\r\\n\\\r\n\  b\\r\\\r\ncde\"\r\n...\r\n"
-        /// 
-        /// // Such a YAML stream is not pretty but is capable to preserve 
+        ///
+        /// // Such a YAML stream is not pretty but is capable to preserve
         /// // original line breaks even when the line breaks of the YAML stream
-        /// // are changed (for instance, by some editor) between serialization 
+        /// // are changed (for instance, by some editor) between serialization
         /// // and deserialization.
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // equivalent to the original
-        /// 
+        ///
         /// yaml = yaml.Replace("\r\n", "\n").Replace("\r", "\n");
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // still equivalent to the original
-        /// 
+        ///
         /// // By setting ExplicitlyPreserveLineBreaks false, the output becomes
         /// // much prettier.
         /// YamlNode.DefaultConfig.ExplicitlyPreserveLineBreaks = false;
@@ -166,27 +166,27 @@ namespace System.Yaml
         /// //     b
         /// //   cde
         /// // ...
-        /// 
+        ///
         /// // line breaks are nomalized to "\r\n" (= YamlNode.DefaultConfig.LineBreakForOutput)
         /// // "%YAML 1.2\r\n---\r\n|-2\r\n  a\r\n    b\r\ncde\r\n...\r\n"
-        /// 
+        ///
         /// // line breaks are nomalized to "\n" (= YamlNode.DefaultConfig.LineBreakForInput)
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\n  b\ncde"
-        /// 
-        /// 
+        ///
+        ///
         /// // Disable line break normalization.
         /// YamlNode.DefaultConfig.NormalizeLineBreaks = false;
         /// yaml = node.ToYaml();
-        /// 
+        ///
         /// // line breaks are not nomalized
         /// // "%YAML 1.2\r\n---\r\n|-2\r\n  a\r\n    b\rcde\r\n...\r\n"
-        /// 
+        ///
         /// // Unless line breaks in YAML stream is preserved, original line
         /// // breaks can be restored.
         /// restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // equivalent to the original
-        ///                     
+        ///
         /// yaml = yaml.Replace("\r\n", "\n").Replace("\r", "\n");
         /// restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\n  b\ncde"        // original line breaks are lost
@@ -194,14 +194,14 @@ namespace System.Yaml
         /// </example>
         public bool ExplicitlyPreserveLineBreaks = true;
         /// <summary>
-        /// Line break to be used when <see cref="YamlNode"/> is presented in YAML stream. 
+        /// Line break to be used when <see cref="YamlNode"/> is presented in YAML stream.
         /// "\r", "\r\n", "\n" are allowed. "\r\n" is defalut.
         /// </summary>
         /// <example>
         /// <code>
         /// // A string containing line breaks "\n\r" and "\r".
         /// YamlNode node = "a\r\n  b\rcde";
-        /// 
+        ///
         /// // By default conversion, line breaks are escaped in a double quoted string.
         /// var yaml = node.ToYaml();
         /// // %YAML 1.2
@@ -210,20 +210,20 @@ namespace System.Yaml
         /// // \  b\r\
         /// // cde"
         /// // ...
-        /// 
+        ///
         /// // "%YAML 1.2\r\n---\r\n\"a\\r\\n\\\r\n\  b\\r\\\r\ncde\"\r\n...\r\n"
-        /// 
-        /// // Such a YAML stream is not pretty but is capable to preserve 
+        ///
+        /// // Such a YAML stream is not pretty but is capable to preserve
         /// // original line breaks even when the line breaks of the YAML stream
-        /// // are changed (for instance, by some editor) between serialization 
+        /// // are changed (for instance, by some editor) between serialization
         /// // and deserialization.
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // equivalent to the original
-        /// 
+        ///
         /// yaml = yaml.Replace("\r\n", "\n").Replace("\r", "\n");
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // still equivalent to the original
-        /// 
+        ///
         /// // By setting ExplicitlyPreserveLineBreaks false, the output becomes
         /// // much prettier.
         /// YamlNode.DefaultConfig.ExplicitlyPreserveLineBreaks = false;
@@ -235,27 +235,27 @@ namespace System.Yaml
         /// //     b
         /// //   cde
         /// // ...
-        /// 
+        ///
         /// // line breaks are nomalized to "\r\n" (= YamlNode.DefaultConfig.LineBreakForOutput)
         /// // "%YAML 1.2\r\n---\r\n|-2\r\n  a\r\n    b\r\ncde\r\n...\r\n"
-        /// 
+        ///
         /// // line breaks are nomalized to "\n" (= YamlNode.DefaultConfig.LineBreakForInput)
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\n  b\ncde"
-        /// 
-        /// 
+        ///
+        ///
         /// // Disable line break normalization.
         /// YamlNode.DefaultConfig.NormalizeLineBreaks = false;
         /// yaml = node.ToYaml();
-        /// 
+        ///
         /// // line breaks are not nomalized
         /// // "%YAML 1.2\r\n---\r\n|-2\r\n  a\r\n    b\rcde\r\n...\r\n"
-        /// 
+        ///
         /// // Unless line breaks in YAML stream is preserved, original line
         /// // breaks can be restored.
         /// restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // equivalent to the original
-        ///                     
+        ///
         /// yaml = yaml.Replace("\r\n", "\n").Replace("\r", "\n");
         /// restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\n  b\ncde"        // original line breaks are lost
@@ -264,23 +264,23 @@ namespace System.Yaml
         public string LineBreakForOutput = "\r\n";
         /// <summary>
         /// <para>The YAML parser normalizes line breaks in a YAML stream to this value.</para>
-        /// 
+        ///
         /// <para>"\n" is default, and is the only valid value in the YAML specification. "\r" and "\r\n" are
         /// allowed in this library for convenience.</para>
-        /// 
-        /// <para>To suppress normalization of line breaks by YAML parser, set <see cref="NormalizeLineBreaks"/> 
+        ///
+        /// <para>To suppress normalization of line breaks by YAML parser, set <see cref="NormalizeLineBreaks"/>
         /// false, though it is also violate the YAML specification.</para>
         /// </summary>
         /// <remarks>
-        /// <para>The YAML sepcification requires a YAML parser to normalize every line break that 
-        /// is not escaped in a YAML stream, into a single line feed "\n" when it parse a YAML stream. 
-        /// But this is not convenient in some cases, especially under Windows environment, where 
-        /// the system default line break 
+        /// <para>The YAML sepcification requires a YAML parser to normalize every line break that
+        /// is not escaped in a YAML stream, into a single line feed "\n" when it parse a YAML stream.
+        /// But this is not convenient in some cases, especially under Windows environment, where
+        /// the system default line break
         /// is "\r\n" instead of "\n".</para>
-        /// 
+        ///
         /// <para>This library provides two workarounds for this problem.</para>
         /// <para>One is setting <see cref="NormalizeLineBreaks"/> false. It disables the line break
-        /// normalization. The line breaks are serialized into a YAML stream as is and 
+        /// normalization. The line breaks are serialized into a YAML stream as is and
         /// those in the YAML stream are deserialized as is.</para>
         /// <para>Another is setting <see cref="LineBreakForInput"/> "\r\n". Then, the YAML parser
         /// normalizes all line breaks into "\r\n" instead of "\n".</para>
@@ -291,7 +291,7 @@ namespace System.Yaml
         /// <code>
         /// // A string containing line breaks "\n\r" and "\r".
         /// YamlNode node = "a\r\n  b\rcde";
-        /// 
+        ///
         /// // By default conversion, line breaks are escaped in a double quoted string.
         /// var yaml = node.ToYaml();
         /// // %YAML 1.2
@@ -300,20 +300,20 @@ namespace System.Yaml
         /// // \  b\r\
         /// // cde"
         /// // ...
-        /// 
+        ///
         /// // "%YAML 1.2\r\n---\r\n\"a\\r\\n\\\r\n\  b\\r\\\r\ncde\"\r\n...\r\n"
-        /// 
-        /// // Such a YAML stream is not pretty but is capable to preserve 
+        ///
+        /// // Such a YAML stream is not pretty but is capable to preserve
         /// // original line breaks even when the line breaks of the YAML stream
-        /// // are changed (for instance, by some editor) between serialization 
+        /// // are changed (for instance, by some editor) between serialization
         /// // and deserialization.
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // equivalent to the original
-        /// 
+        ///
         /// yaml = yaml.Replace("\r\n", "\n").Replace("\r", "\n");
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // still equivalent to the original
-        /// 
+        ///
         /// // By setting ExplicitlyPreserveLineBreaks false, the output becomes
         /// // much prettier.
         /// YamlNode.DefaultConfig.ExplicitlyPreserveLineBreaks = false;
@@ -325,27 +325,27 @@ namespace System.Yaml
         /// //     b
         /// //   cde
         /// // ...
-        /// 
+        ///
         /// // line breaks are nomalized to "\r\n" (= YamlNode.DefaultConfig.LineBreakForOutput)
         /// // "%YAML 1.2\r\n---\r\n|-2\r\n  a\r\n    b\r\ncde\r\n...\r\n"
-        /// 
+        ///
         /// // line breaks are nomalized to "\n" (= YamlNode.DefaultConfig.LineBreakForInput)
         /// var restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\n  b\ncde"
-        /// 
-        /// 
+        ///
+        ///
         /// // Disable line break normalization.
         /// YamlNode.DefaultConfig.NormalizeLineBreaks = false;
         /// yaml = node.ToYaml();
-        /// 
+        ///
         /// // line breaks are not nomalized
         /// // "%YAML 1.2\r\n---\r\n|-2\r\n  a\r\n    b\rcde\r\n...\r\n"
-        /// 
+        ///
         /// // Unless line breaks in YAML stream is preserved, original line
         /// // breaks can be restored.
         /// restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\r\n  b\rcde"      // equivalent to the original
-        ///                     
+        ///
         /// yaml = yaml.Replace("\r\n", "\n").Replace("\r", "\n");
         /// restored = YamlNode.FromYaml(yaml)[0];
         /// // "a\n  b\ncde"        // original line breaks are lost
@@ -366,19 +366,19 @@ namespace System.Yaml
         /// </summary>
         /// <example>
         /// <code>
-        /// 
+        ///
         /// </code>
         /// </example>
         /// <typeparam name="T">Type of value.</typeparam>
         /// <param name="tag">Tag for the value.</param>
         /// <param name="regex">Pattern to match the value.</param>
-        /// <param name="decode">Method that decode value from <see cref="Match"/> 
+        /// <param name="decode">Method that decode value from <see cref="Match"/>
         ///     data after matching by <paramref name="regex"/>.</param>
         /// <param name="encode">Method that encode value to <see cref="string"/>.</param>
         public void AddRule<T>(string tag, string regex, Func<Match, T> decode, Func<T, string> encode)
         {
             TagResolver.AddRule<T>(tag, regex, decode, encode);
-        }           
+        }
         internal YamlTagResolver TagResolver = new YamlTagResolver();
 
         /// <summary>
@@ -389,7 +389,7 @@ namespace System.Yaml
         /// <example>
         /// <code>
         /// var serializer= new YamlSerializer();
-        /// 
+        ///
         /// var yaml =
         ///   @"%YAML 1.2
         ///   ---
@@ -397,19 +397,19 @@ namespace System.Yaml
         ///   Color: Red
         ///   ...
         ///   ";
-        /// 
+        ///
         /// SolidBrush b = null;
         /// try {
         ///   b = (SolidBrush)serializer.Deserialize(yaml)[0];
         /// } catch(MissingMethodException) {
         ///   // SolidBrush has no default constructor!
         /// }
-        /// 
+        ///
         /// YamlNode.DefaultConfig.AddActivator&lt;SolidBrush&gt;(() => new SolidBrush(Color.Black));
-        /// 
+        ///
         /// // Now the serializer knows how to activate an instance of SolidBrush.
         /// b = (SolidBrush)serializer.Deserialize(yaml)[0];
-        /// 
+        ///
         /// Assert.AreEqual(b.Color, Color.Red);
         /// </code>
         /// </example>
@@ -418,7 +418,7 @@ namespace System.Yaml
         {
             Activator.Add<T>(activator);
         }
-        internal System.Yaml.Serialization.ObjectActivator Activator = 
+        internal System.Yaml.Serialization.ObjectActivator Activator =
             new System.Yaml.Serialization.ObjectActivator();
 
         /// <summary>
@@ -435,19 +435,19 @@ namespace System.Yaml
 
     /// <summary>
     /// <para>Abstract base class of YAML data nodes.</para>
-    /// 
-    /// <para>See <see cref="YamlScalar"/>, <see cref="YamlSequence"/> and <see cref="YamlMapping"/> 
+    ///
+    /// <para>See <see cref="YamlScalar"/>, <see cref="YamlSequence"/> and <see cref="YamlMapping"/>
     /// for actual data classes.</para>
     /// </summary>
     /// <remarks>
     /// <h3>YAML data model</h3>
-    /// <para>See <a href="http://yaml.org/">http://yaml.org/</a> for the official definition of 
+    /// <para>See <a href="http://yaml.org/">http://yaml.org/</a> for the official definition of
     /// Information Models of YAML.</para>
-    /// 
-    /// <para>YAML data structure is defined as follows. 
-    /// Note that this does not represents the text syntax of YAML text 
+    ///
+    /// <para>YAML data structure is defined as follows.
+    /// Note that this does not represents the text syntax of YAML text
     /// but does logical data structure.</para>
-    /// 
+    ///
     /// <para>
     /// yaml-stream     ::= yaml-document*<br/>
     /// yaml-document   ::= yaml-directive* yaml-node<br/>
@@ -460,9 +460,9 @@ namespace System.Yaml
     /// yaml-global-tag ::= "tag:" taggingEntity ":" specific [ "#" fragment ]<br/>
     /// yaml-local-tag  ::= "!" yaml-local-tag-name<br/>
     /// </para>
-    /// 
+    ///
     /// <para>Namely,</para>
-    /// 
+    ///
     /// <para>
     /// A YAML stream consists of zero or more YAML documents.<br/>
     /// A YAML documents have zero or more YAML directives and a root YAML node.<br/>
@@ -475,10 +475,10 @@ namespace System.Yaml
     /// A YAML global tag starts with "tag:" and described in the "tag:" URI scheme defined in RFC4151.<br/>
     /// A YAML local tag starts with "!" with a YAML local tag name<br/>
     /// </para>
-    /// 
+    ///
     /// <code>
     /// // Construct YAML node tree
-    /// YamlNode node = 
+    /// YamlNode node =
     ///     new YamlSequence(                           // !!seq node
     ///         new YamlScalar("abc"),                  // !!str node
     ///         new YamlScalar("!!int", "123"),         // !!int node
@@ -496,10 +496,10 @@ namespace System.Yaml
     ///             new YamlScalar("key4"), new YamlScalar("value4")
     ///         )
     ///     );
-    ///     
+    ///
     /// // Convert it to YAML stream
     /// string yaml = node.ToYaml();
-    /// 
+    ///
     /// // %YAML 1.2
     /// // ---
     /// // - abc
@@ -513,133 +513,133 @@ namespace System.Yaml
     /// //     value3key1: value3value1
     /// //   key4: value4
     /// // ...
-    /// 
+    ///
     /// // Load the YAML node from the YAML stream.
     /// // Note that a YAML stream can contain several YAML documents each of which
     /// // contains a root YAML node.
     /// YamlNode[] nodes = YamlNode.FromYaml(yaml);
-    /// 
+    ///
     /// // The only one node in the stream is the one we have presented above.
     /// Assert.AreEqual(1, nodes.Length);
     /// YamlNode resotred = nodes[0];
-    /// 
+    ///
     /// // Check if they are equal to each other.
     /// Assert.AreEquel(node, restored);
-    /// 
+    ///
     /// // Extract sub nodes.
     /// var seq = (YamlSequence)restored;
     /// var map = (YamlMapping)seq[4];
     /// var map2 = (YamlMapping)map[new YamlScalar("key3")];
-    /// 
+    ///
     /// // Modify the restored node tree
     /// map2[new YamlScalar("value3key1")] = new YamlScalar("value3value1 modified");
-    /// 
+    ///
     /// // Now they are not equal to each other.
     /// Assert.AreNotEquel(node, restored);
     /// </code>
-    /// 
+    ///
     /// <h3>YamlNode class</h3>
-    /// 
+    ///
     /// <para><see cref="YamlNode"/> is an abstract class that represents a YAML node.</para>
-    /// 
-    /// <para>In reality, a <see cref="YamlNode"/> is either <see cref="YamlScalar"/>, <see cref="YamlSequence"/> or 
+    ///
+    /// <para>In reality, a <see cref="YamlNode"/> is either <see cref="YamlScalar"/>, <see cref="YamlSequence"/> or
     /// <see cref="YamlMapping"/>.</para>
-    /// 
+    ///
     /// <para>All <see cref="YamlNode"/> has <see cref="YamlNode.Tag"/> property that denotes
     /// the actual data type represented in the YAML node.</para>
-    /// 
+    ///
     /// <para>Default Tag value for <see cref="YamlScalar"/>, <see cref="YamlSequence"/> or <see cref="YamlMapping"/> are
     /// <c>"tag:yaml.org,2002:str"</c>, <c>"tag:yaml.org,2002:seq"</c>, <c>"tag:yaml.org,2002:map"</c>.</para>
-    /// 
+    ///
     /// <para>Global tags that starts with <c>"tag:yaml.org,2002:"</c> ( = <see cref="YamlNode.DefaultTagPrefix">
-    /// YamlNode.DefaultTagPrefix</see>) are defined in the YAML tag repository at 
-    /// <a href="http://yaml.org/type/">http://yaml.org/type/</a>. In this library, such a tags can be also 
-    /// represented in a short form that starts with <c>"!!"</c>, like <c>"!!str"</c>, <c>"!!seq"</c> and <c>"!!map"</c>. 
-    /// Tags in the formal style and the shorthand form can be converted to each other by the static methods of 
-    /// <see cref="YamlNode.ExpandTag"/> and <see cref="YamlNode.ShorthandTag(string)"/>. 
-    /// In addition to these three basic tags, this library uses <c>"!!null"</c>, <c>"!!bool"</c>, <c>"!!int"</c>, 
+    /// YamlNode.DefaultTagPrefix</see>) are defined in the YAML tag repository at
+    /// <a href="http://yaml.org/type/">http://yaml.org/type/</a>. In this library, such a tags can be also
+    /// represented in a short form that starts with <c>"!!"</c>, like <c>"!!str"</c>, <c>"!!seq"</c> and <c>"!!map"</c>.
+    /// Tags in the formal style and the shorthand form can be converted to each other by the static methods of
+    /// <see cref="YamlNode.ExpandTag"/> and <see cref="YamlNode.ShorthandTag(string)"/>.
+    /// In addition to these three basic tags, this library uses <c>"!!null"</c>, <c>"!!bool"</c>, <c>"!!int"</c>,
     /// <c>"!!float"</c> and <c>"!!timestamp"</c> tags, by default.</para>
-    /// 
+    ///
     /// <para><see cref="YamlNode"/>s can be read from a YAML stream with <see cref="YamlNode.FromYaml(string)"/>,
     /// <see cref="YamlNode.FromYaml(Stream)"/>, <see cref="YamlNode.FromYaml(TextReader)"/> and
     /// <see cref="YamlNode.FromYamlFile(string)"/> static methods. Since a YAML stream generally consist of multiple
     /// YAML documents, each of which has a root YAML node, these methods return an array of <see cref="YamlNode"/>
     /// that is contained in the stream.</para>
-    /// 
+    ///
     /// <para><see cref="YamlNode"/>s can be written to a YAML stream with <see cref="YamlNode.ToYaml()"/>,
     /// <see cref="YamlNode.ToYaml(Stream)"/>, <see cref="YamlNode.ToYaml(TextWriter)"/> and
     /// <see cref="YamlNode.ToYamlFile(string)"/>.</para>
-    /// 
+    ///
     /// <para>The way of serialization can be configured in some aspects. The custom settings are specified
     /// by an instance of <see cref="YamlConfig"/> class. The serialization methods introduced above has
     /// overloaded styles that accepts <see cref="YamlConfig"/> instance to customize serialization.
     /// It is also possible to change the default serialization method by modifying <see cref="YamlNode.DefaultConfig">
     /// YamlNode.DefaultConfig</see> static property.</para>
-    /// 
+    ///
     /// <para>A <see cref="YamlScalar"/> has <see cref="YamlScalar.Value"/> property, which holds the string expression
     /// of the node value.</para>
-    /// 
-    /// <para>A <see cref="YamlSequence"/> implements <see cref="IList&lt;YamlNode&gt;">IList&lt;YamlNode&gt;</see> 
+    ///
+    /// <para>A <see cref="YamlSequence"/> implements <see cref="IList&lt;YamlNode&gt;">IList&lt;YamlNode&gt;</see>
     /// interface to access the child nodes.</para>
-    /// 
-    /// <para><see cref="YamlMapping"/> implements 
+    ///
+    /// <para><see cref="YamlMapping"/> implements
     /// <see cref="IDictionary&lt;YamlNode,YamlNode&gt;">IDictionary&lt;YamlNode,YamlNode&gt;</see> interface
     /// to access the key/value pairs under the node.</para>
-    /// 
+    ///
     /// <h3>Implicit conversion from C# native object to YamlScalar</h3>
-    /// 
-    /// <para>Implicit cast operators from <see cref="string"/>, <see cref="bool"/>, <see cref="int"/>, 
-    /// <see cref="double"/> and <see cref="DateTime"/> to <see cref="YamlNode"/> is defined. Thus, anytime 
+    ///
+    /// <para>Implicit cast operators from <see cref="string"/>, <see cref="bool"/>, <see cref="int"/>,
+    /// <see cref="double"/> and <see cref="DateTime"/> to <see cref="YamlNode"/> is defined. Thus, anytime
     /// <see cref="YamlNode"/> is required in C# source, naked scalar value can be written. Namely,
-    /// methods of <see cref="YamlSequence"/> and <see cref="YamlMapping"/> accept such C# native types 
+    /// methods of <see cref="YamlSequence"/> and <see cref="YamlMapping"/> accept such C# native types
     /// as arguments in addition to <see cref="YamlNode"/> types. </para>
-    /// 
+    ///
     /// <code>
     /// var map = new YamlMapping();
     /// map["Time"] = DateTime.Now;                 // implicitly converted to YamlScalar
     /// Assert.IsTrue(map.ContainsKey(new YamlScalar("Time")));
     /// Assert.IsTrue(map.ContainsKey("Time"));     // implicitly converted to YamlScalar
     /// </code>
-    /// 
+    ///
     /// <h3>Equality of YamlNodes</h3>
-    /// 
-    /// <para>Equality of <see cref="YamlNode"/>s are evaluated on the content base. Different <see cref="YamlNode"/> 
-    /// objects that have the same content are evaluated to be equal. Use <see cref="Equals(object)"/> method for 
+    ///
+    /// <para>Equality of <see cref="YamlNode"/>s are evaluated on the content base. Different <see cref="YamlNode"/>
+    /// objects that have the same content are evaluated to be equal. Use <see cref="Equals(object)"/> method for
     /// equality evaluation.</para>
-    /// 
-    /// <para>In detail, two <see cref="YamlNode"/>s are logically equal to each other when the <see cref="YamlNode"/> 
-    /// and its child nodes have the same contents (<see cref="YamlNode.Tag"/> and <see cref="YamlScalar.Value"/>) 
+    ///
+    /// <para>In detail, two <see cref="YamlNode"/>s are logically equal to each other when the <see cref="YamlNode"/>
+    /// and its child nodes have the same contents (<see cref="YamlNode.Tag"/> and <see cref="YamlScalar.Value"/>)
     /// and their node graph topology is exactly same.
     /// </para>
-    /// 
+    ///
     /// <code>
     /// YamlNode a1 = "a";  // implicit conversion
     /// YamlNode a2 = "a";  // implicit conversion
     /// YamlNode a3 = new YamlNode("!char", "a");
     /// YamlNode b  = "b";  // implicit conversion
-    /// 
+    ///
     /// Assert.IsTrue(a1 != a2);        // different objects
     /// Assert.IsTrue(a1.Equals(a2));   // different objects having same content
-    /// 
+    ///
     /// Assert.IsFalse(a1.Equals(a3));  // Tag is different
     /// Assert.IsFalse(a1.Equals(b));   // Value is different
-    /// 
+    ///
     /// var s1 = new YamlMapping(a1, new YamlSequence(a1, a2));
     /// var s2 = new YamlMapping(a1, new YamlSequence(a2, a1));
     /// var s3 = new YamlMapping(a2, new YamlSequence(a1, a2));
-    /// 
+    ///
     /// Assert.IsFalse(s1.Equals(s2)); // node graph topology is different
     /// Assert.IsFalse(s1.Equals(s3)); // node graph topology is different
     /// Assert.IsTrue(s2.Equals(s3));  // different objects having same content and node graph topology
     /// </code>
-    /// 
+    ///
     /// </remarks>
     /// <example>
     /// Example 2.27 in YAML 1.2 specification
-    /// 
+    ///
     /// <code>
     /// // %YAML 1.2
-    /// // --- 
+    /// // ---
     /// // !&lt;tag:clarkevans.com,2002:invoice&gt;
     /// // invoice: 34843
     /// // date   : 2001-01-23
@@ -670,7 +670,7 @@ namespace System.Yaml
     /// //     Backup contact is Nancy
     /// //     Billsmer @ 338-4338.
     /// // ...
-    /// 
+    ///
     /// var invoice = new YamlMapping(
     ///     "invoice", 34843,
     ///     "date", new DateTime(2001, 01, 23),
@@ -704,23 +704,23 @@ namespace System.Yaml
     ///     );
     /// invoice["ship-to"] = invoice["bill-to"];
     /// invoice.Tag = "tag:clarkevans.com,2002:invoice";
-    /// 
+    ///
     /// invoice.ToYamlFile("invoice.yaml");
     /// // %YAML 1.2
     /// // ---
     /// // !&lt;tag:clarkevans.com,2002:invoice&gt;
     /// // invoice: 34843
     /// // date: 2001-01-23
-    /// // bill-to: &amp;A 
+    /// // bill-to: &amp;A
     /// //   given: Chris
     /// //   family: Dumars
-    /// //   address: 
+    /// //   address:
     /// //     lines: "458 Walkman Dr.\n\
     /// //       Suite #292\n"
     /// //     city: Royal Oak
     /// //     state: MI
     /// //     postal: 48046
-    /// // product: 
+    /// // product:
     /// //   - sku: BL394D
     /// //     quantity: 4
     /// //     description: Basketball
@@ -734,14 +734,14 @@ namespace System.Yaml
     /// // comments: Late afternoon is best. Backup contact is Nancy Billsmer @ 338-4338.
     /// // ship-to: *A
     /// // ...
-    /// 
+    ///
     /// </code>
     /// </example>
     public abstract class YamlNode: IRehashableKey
     {
         #region Non content values
         /// <summary>
-        /// Position in a YAML document, where the node appears. 
+        /// Position in a YAML document, where the node appears.
         /// Both <see cref="ToYaml()"/> and <see cref="FromYaml(string)"/> sets this property.
         /// When the node appeared multiple times in the document, this property returns the position
         /// where it appeared for the first time.
@@ -750,7 +750,7 @@ namespace System.Yaml
         public int Raw { get; set; }
 
         /// <summary>
-        /// Position in a YAML document, where the node appears. 
+        /// Position in a YAML document, where the node appears.
         /// Both <see cref="ToYaml()"/> and <see cref="FromYaml(string)"/> sets this property.
         /// When the node appeared multiple times in the document, this property returns the position
         /// where it appeared for the first time.
@@ -783,7 +783,7 @@ namespace System.Yaml
         /// </para>
         /// </remarks>
         public string Tag
-        { 
+        {
             get { return tag; }
             set {
                 /* strict tag check
@@ -811,7 +811,7 @@ namespace System.Yaml
 
         #region Hash code
         /// <summary>
-        /// Serves as a hash function for a particular type. 
+        /// Serves as a hash function for a particular type.
         /// Hash code is calculated using Tag and Value properties.
         /// </summary>
         /// <returns>Hash code</returns>
@@ -828,7 +828,7 @@ namespace System.Yaml
         bool HashInvalid = true;
         bool ToBeRehash = false;
         /// <summary>
-        /// Return the hash code. 
+        /// Return the hash code.
         /// The returned value will be cached until <see cref="OnChanged"/> is called.
         /// </summary>
         /// <returns>Hash code</returns>
@@ -862,7 +862,7 @@ namespace System.Yaml
         /// </summary>
         /// <remarks>
         /// Two <see cref="YamlNode"/>'s are logically equal when the <see cref="YamlNode"/> and its child nodes
-        /// have the same contents (<see cref="YamlNode.Tag"/> and <see cref="YamlScalar.Value"/>) 
+        /// have the same contents (<see cref="YamlNode.Tag"/> and <see cref="YamlScalar.Value"/>)
         /// and their node graph topology is exactly same as the other.
         /// </remarks>
         /// <example>
@@ -871,17 +871,17 @@ namespace System.Yaml
         /// var a2 = new YamlNode("a");
         /// var a3 = new YamlNode("!char", "a");
         /// var b  = new YamlNode("b");
-        /// 
+        ///
         /// Assert.IsTrue(a1 != a2);        // different objects
         /// Assert.IsTrue(a1.Equals(a2));   // different objects having same content
-        /// 
+        ///
         /// Assert.IsFalse(a1.Equals(a3));  // Tag is different
         /// Assert.IsFalse(a1.Equals(b));   // Value is different
-        /// 
+        ///
         /// var s1 = new YamlMapping(a1, new YamlSequence(a1, a2));
         /// var s2 = new YamlMapping(a1, new YamlSequence(a2, a1));
         /// var s3 = new YamlMapping(a2, new YamlSequence(a1, a2));
-        /// 
+        ///
         /// Assert.IsFalse(s1.Equals(s2)); // node graph topology is different
         /// Assert.IsFalse(s1.Equals(s3)); // node graph topology is different
         /// Assert.IsTrue(s2.Equals(s3));  // different objects having same content and node graph topology
@@ -909,9 +909,9 @@ namespace System.Yaml
         /// </summary>
         internal class ObjectRepository
         {
-            Dictionary<YamlNode, int> nodes_a = 
+            Dictionary<YamlNode, int> nodes_a =
                 new Dictionary<YamlNode, int>(TypeUtils.EqualityComparerByRef<YamlNode>.Default);
-            Dictionary<YamlNode, int> nodes_b = 
+            Dictionary<YamlNode, int> nodes_b =
                 new Dictionary<YamlNode, int>(TypeUtils.EqualityComparerByRef<YamlNode>.Default);
             Stack<YamlNode> stack_a = new Stack<YamlNode>();
             Stack<YamlNode> stack_b = new Stack<YamlNode>();
@@ -971,7 +971,7 @@ namespace System.Yaml
         /// its content is also logically same.
         /// </summary>
         /// <param name="b">Node to be compared.</param>
-        /// <param name="repository">Node repository holds the nodes that already appeared and 
+        /// <param name="repository">Node repository holds the nodes that already appeared and
         /// the corresponding node in the other node tree.</param>
         /// <returns>true if they are equal to each other.</returns>
         internal abstract bool Equals(YamlNode b, ObjectRepository repository);
@@ -981,7 +981,7 @@ namespace System.Yaml
         /// both already appeared in the node trees and were compared.
         /// </summary>
         /// <param name="b">Node to be compared.</param>
-        /// <param name="repository">Node repository holds the nodes that already appeared and 
+        /// <param name="repository">Node repository holds the nodes that already appeared and
         /// the corresponding node in the other node tree.</param>
         /// <param name="skip">true if they already appeared in the node tree and were compared.</param>
         /// <returns>true if they are equal to each other.</returns>
@@ -1260,7 +1260,7 @@ namespace System.Yaml
         }
 
         /// <summary>
-        /// Convert a formal style tag that starts with "tag:yaml.org,2002:" to 
+        /// Convert a formal style tag that starts with "tag:yaml.org,2002:" to
         /// the shorthand style that starts with "!!".
         /// </summary>
         /// <remarks>
@@ -1293,21 +1293,21 @@ namespace System.Yaml
     /// <code>
     /// var string_node = new YamlNode("abc");
     /// Assert.AreEqual("!!str", string_node.ShorthandTag());
-    /// 
+    ///
     /// var int_node1= new YamlNode(YamlNode.DefaultTagPrefix + "int", "1");
     /// Assert.AreEqual("!!int", int_node1.ShorthandTag());
-    /// 
+    ///
     /// // shorthand tag style can be specified
     /// var int_node2= new YamlNode("!!int", "1");
     /// Assert.AreEqual(YamlNode.DefaultTagPrefix + "int", int_node1.Tag);
     /// Assert.AreEqual("!!int", int_node1.ShorthandTag());
-    /// 
+    ///
     /// // or use implicit conversion
     /// YamlNode int_node3 = 1;
-    /// 
+    ///
     /// // YamlNodes Equals to another node when their values are equal.
     /// Assert.AreEqual(int_node1, int_node2);
-    /// 
+    ///
     /// // Of course, they are different if compaired by references.
     /// Assert.IsTrue(int_node1 != int_node2);
     /// </code>
@@ -1372,7 +1372,7 @@ namespace System.Yaml
             YamlScalar node = value;
             Tag = node.Tag;
             Value = node.Value;
-        } 
+        }
 
         /// <summary>
         /// Implicit conversion from string to <see cref="YamlScalar"/>.
@@ -1431,7 +1431,7 @@ namespace System.Yaml
             base.OnChanged();
             UpdateNativeObject();
         }
-        
+
         void UpdateNativeObject()
         {
             object value;
@@ -1467,7 +1467,7 @@ namespace System.Yaml
             private set
             {
                 nativeObject = value;
-            } 
+            }
         }
         object nativeObject;
         /// <summary>
@@ -1485,8 +1485,8 @@ namespace System.Yaml
             YamlScalar aa = this;
             YamlScalar bb = (YamlScalar)b;
             if ( NativeObjectAvailable ) {
-                return bb.NativeObjectAvailable && 
-                    (aa.NativeObject == null ? 
+                return bb.NativeObjectAvailable &&
+                    (aa.NativeObject == null ?
                         bb.NativeObject==null :
                         aa.NativeObject.Equals(bb.NativeObject) );
             } else {
@@ -1494,12 +1494,12 @@ namespace System.Yaml
                     return aa.Value == bb.Value;
                 } else {
                     // Node with non standard tag is compared by its identity.
-                    return false; 
+                    return false;
                 }
             }
         }
         /// <summary>
-        /// Returns the hash code. 
+        /// Returns the hash code.
         /// The returned value will be cached until <see cref="YamlNode.OnChanged"/> is called.
         /// </summary>
         /// <returns>Hash code</returns>
@@ -1535,7 +1535,7 @@ namespace System.Yaml
 
     /// <summary>
     /// Abstract base class of <see cref="YamlNode"/> that have child nodes.
-    /// 
+    ///
     /// <see cref="YamlMapping"/> and <see cref="YamlSequence"/> inherites from this class.
     /// </summary>
     public abstract class YamlComplexNode: YamlNode
@@ -1545,7 +1545,7 @@ namespace System.Yaml
         /// The result is cached.
         /// </summary>
         /// <returns>Hash value for the object.</returns>
-        protected override int GetHashCodeCore() 
+        protected override int GetHashCodeCore()
         {
             return GetHashCodeCoreSub(0,
                 new Dictionary<YamlNode, int>(
@@ -1553,7 +1553,7 @@ namespace System.Yaml
         }
 
         /// <summary>
-        /// Calculates the hash code for a collection object. This function is called recursively 
+        /// Calculates the hash code for a collection object. This function is called recursively
         /// on the child objects with the sub cache code repository for the nodes already appeared
         /// in the node tree.
         /// </summary>
@@ -1565,13 +1565,13 @@ namespace System.Yaml
     }
 
     /// <summary>
-    /// Represents a mapping node in a YAML document. 
+    /// Represents a mapping node in a YAML document.
     /// Use <see cref="IDictionary&lt;YamlNode,YamlNode&gt;">IDictionary&lt;YamlNode,YamlNode&gt;</see> interface to
     /// manipulate child key/value pairs.
     /// </summary>
     /// <remarks>
     /// Child items can be accessed via IDictionary&lt;YamlNode, YamlNode&gt; interface.
-    /// 
+    ///
     /// Note that mapping object can not contain multiple keys with same value.
     /// </remarks>
     /// <example>
@@ -1582,21 +1582,21 @@ namespace System.Yaml
     ///     new YamlScalar("key1"), new YamlScalar("value1"),
     ///     "key2", "value2" // implicitely converted to YamlScalar
     ///     );
-    ///     
+    ///
     /// // Refer to the mapping.
     /// Assert.AreEqual( map1[new Scalar("key1")], new YamlScalar("value1") );
     /// Assert.AreEqual( map1["key1"], "value1" );
-    /// 
+    ///
     /// // Add an entry.
     /// map1.Add( "key3", new YamlSequence( "value3a", "value3b" ) );
-    /// 
+    ///
     /// // Create another mapping.
     /// var map2 = new YamlMapping(
     ///     "key1", "value1",
     ///     "key2", "value2",
     ///     "key3", new YamlSequence( "value3a", "value3b" )
     ///     );
-    ///     
+    ///
     /// // Mappings are equal when they have objects that are equal to each other.
     /// Assert.IsTrue( map1.Equals( map2 ) );
     /// </code>
@@ -1607,7 +1607,7 @@ namespace System.Yaml
             new RehashableDictionary<YamlNode, YamlNode>();
 
         /// <summary>
-        /// Calculates the hash code for a collection object. This function is called recursively 
+        /// Calculates the hash code for a collection object. This function is called recursively
         /// on the child objects with the sub cache code repository for the nodes already appeared
         /// in the node tree.
         /// </summary>
@@ -1642,7 +1642,7 @@ namespace System.Yaml
             }
             return result;
         }
-        
+
         internal override bool Equals(YamlNode b, ObjectRepository repository)
         {
             YamlNode a = this;
@@ -1783,7 +1783,7 @@ namespace System.Yaml
         }
         void Merge(YamlMapping map)
         {
-            foreach ( var entry in map ) 
+            foreach ( var entry in map )
                 if ( !ContainsKey(entry.Key) )
                     Add(entry.Key, entry.Value);
         }
@@ -1862,7 +1862,7 @@ namespace System.Yaml
         /// Gets the value associated with the specified key.
         /// </summary>
         /// <param name="key">The key whose value to get.</param>
-        /// <param name="value">When this method returns, the value associated with the specified key, if the key is found; 
+        /// <param name="value">When this method returns, the value associated with the specified key, if the key is found;
         /// otherwise, the default value for the type of the value parameter. This parameter is passed uninitialized.</param>
         /// <returns> true if the object that implements <see cref="YamlMapping"/> contains an element with the specified key; otherwise, false.</returns>
         public bool TryGetValue(YamlNode key, out YamlNode value)
@@ -1950,7 +1950,7 @@ namespace System.Yaml
 
     /// <summary>
     /// Represents a sequence node in a YAML document.
-    /// Use <see cref="IList&lt;YamlNode&gt;">IList&lt;YamlNode&gt;</see> interface 
+    /// Use <see cref="IList&lt;YamlNode&gt;">IList&lt;YamlNode&gt;</see> interface
     /// to manipulate child nodes.
     /// </summary>
     public class YamlSequence: YamlComplexNode, IList<YamlNode>, IDisposable
@@ -1976,7 +1976,7 @@ namespace System.Yaml
         }
 
         /// <summary>
-        /// Calculates the hash code for a collection object. This function is called recursively 
+        /// Calculates the hash code for a collection object. This function is called recursively
         /// on the child objects with the sub cache code repository for the nodes already appeared
         /// in the node tree.
         /// </summary>
@@ -2031,7 +2031,7 @@ namespace System.Yaml
                     return false;
             return true;
         }
-        
+
         void OnItemAdded(YamlNode item)
         {
             item.Changed += ItemChanged;
@@ -2044,7 +2044,7 @@ namespace System.Yaml
         {
             OnChanged();
         }
-        
+
         internal override string ToString(ref int length)
         {
             var t = ( ShorthandTag() == "!!seq" ? "" : ShorthandTag() + " " );
@@ -2083,10 +2083,10 @@ namespace System.Yaml
         /// </summary>
         /// <param name="index">The zero-based index at which <paramref name="item"/> should be inserted.</param>
         /// <param name="item">The node to insert into the <see cref="YamlSequence"/>.</param>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the 
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the
         /// <see cref="YamlSequence"/>.</exception>
         /// <remarks>
-        /// <para>If <paramref name="index"/> equals the number of items in the <see cref="YamlSequence"/>, 
+        /// <para>If <paramref name="index"/> equals the number of items in the <see cref="YamlSequence"/>,
         /// then <paramref name="item"/> is appended to the sequence.</para>
         /// <para>The nodes that follow the insertion point move down to accommodate the new node.</para>
         /// </remarks>
@@ -2101,7 +2101,7 @@ namespace System.Yaml
         /// <param name="index">The zero-based index of the node to remove.</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="YamlSequence"/>.</exception>
         /// <remarks>
-        /// The nodes that follow the removed node move up to occupy the vacated spot. 
+        /// The nodes that follow the removed node move up to occupy the vacated spot.
         /// </remarks>
         public void RemoveAt(int index)
         {
@@ -2160,10 +2160,10 @@ namespace System.Yaml
         /// <example>
         /// <code>
         /// var seq = new YamlSequence(new YamlScalar("a"));
-        /// 
+        ///
         /// // different object that has same value
         /// Assert.IsTrue(seq.Contains(new YamlScalar("a")));
-        /// 
+        ///
         /// // different value
         /// Assert.IsFalse(s.Contains(str("b")));
         /// </code>
@@ -2182,7 +2182,7 @@ namespace System.Yaml
         /// <exception cref="ArgumentException">
         /// <para>array is multidimensional.</para>
         /// <para>-or-</para>
-        /// <para>The number of elements in the source <see cref="YamlSequence"/> is greater than the available space from 
+        /// <para>The number of elements in the source <see cref="YamlSequence"/> is greater than the available space from
         /// <paramref name="arrayIndex"/> to the end of the destination array.</para>
         /// </exception>
         public void CopyTo(YamlNode[] array, int arrayIndex)
@@ -2205,9 +2205,9 @@ namespace System.Yaml
         /// Removes the first occurrence of a specific node from the <see cref="YamlSequence"/>.
         /// </summary>
         /// <param name="node">The node to remove from the <see cref="YamlSequence"/>.</param>
-        /// <returns> true if <paramref name="node"/> was successfully removed from the <see cref="YamlSequence"/>; otherwise, false. 
+        /// <returns> true if <paramref name="node"/> was successfully removed from the <see cref="YamlSequence"/>; otherwise, false.
         /// This method also returns false if <paramref name="node"/> is not found in the original <see cref="YamlSequence"/>.</returns>
-        /// 
+        ///
         public bool Remove(YamlNode node)
         {
             var i = sequence.FindIndex(item => item.Equals(node));
@@ -2248,9 +2248,9 @@ namespace System.Yaml
     ///     str("2"), // !!str
     ///     str("!!int", "2")
     /// );
-    /// 
+    ///
     /// string yaml = node_tree.ToYaml();
-    /// 
+    ///
     /// // %YAML 1.2
     /// // ---
     /// // - abc
@@ -2260,7 +2260,7 @@ namespace System.Yaml
     /// // - "2"         # !!str
     /// // - 2           # !!int
     /// // ...
-    /// </code>                                                   
+    /// </code>
     /// </example>
     public class YamlNodeManipulator
     {
@@ -2279,9 +2279,9 @@ namespace System.Yaml
         ///     str("2"), // !!str
         ///     str("!!int", "2")
         /// );
-        /// 
+        ///
         /// string yaml = node_tree.ToYaml();
-        /// 
+        ///
         /// // %YAML 1.2
         /// // ---
         /// // - abc
@@ -2291,7 +2291,7 @@ namespace System.Yaml
         /// // - "2"         # !!str
         /// // - 2           # !!int
         /// // ...
-        /// </code>                                                   
+        /// </code>
         /// </example>
         /// <param name="value">Value for the scalar node.</param>
         /// <returns>Created scalar node.</returns>
@@ -2319,7 +2319,7 @@ namespace System.Yaml
             return new YamlSequence(nodes);
         }
         /// <summary>
-        /// Create a sequence node. 
+        /// Create a sequence node.
         /// </summary>
         /// <param name="nodes">Child nodes.</param>
         /// <param name="tag">Tag for the seuqnce.</param>
@@ -2340,7 +2340,7 @@ namespace System.Yaml
             return new YamlMapping(nodes);
         }
         /// <summary>
-        /// Create a mapping node. 
+        /// Create a mapping node.
         /// </summary>
         /// <param name="nodes">Sequential list of key/value pairs.</param>
         /// <param name="tag">Tag for the mapping.</param>

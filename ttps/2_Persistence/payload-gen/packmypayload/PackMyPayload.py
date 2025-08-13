@@ -11,7 +11,7 @@ import lib.packager
 import lib.logger
 
 globalOpts = {
-    'verbose': True, 
+    'verbose': True,
     'debug': True,
     'nocolor' : False,
 }
@@ -83,7 +83,7 @@ Supported container/archive formats:
     vhdopts.add_argument('--vhd-size', default=1024, type=int, metavar='SIZE', help='VHD dynamic size in MB. Default: 1024')
     vhdopts.add_argument('--vhd-letter', default='', metavar='LETTER', help='Drive letter where to mount VHD drive. Default: will pick unused one at random.')
     vhdopts.add_argument('--vhd-filesystem', default='fat32', choices=['fat','fat32','ntfs'], metavar='FS', help='Filesystem to be used while formatting VHD. Default: FAT32. Supported: fat, fat32, ntfs')
-    
+
     args = opts.parse_args()
     globalOpts.update(vars(args))
 

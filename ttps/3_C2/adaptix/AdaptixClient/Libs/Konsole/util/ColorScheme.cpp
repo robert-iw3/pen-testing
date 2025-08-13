@@ -113,16 +113,16 @@ void ColorScheme::setDescription(const QString &description) {
     _description = description;
 }
 
-QString ColorScheme::description() const { 
-    return _description; 
+QString ColorScheme::description() const {
+    return _description;
 }
 
-void ColorScheme::setName(const QString &name) { 
-    _name = name; 
+void ColorScheme::setName(const QString &name) {
+    _name = name;
 }
 
-QString ColorScheme::name() const { 
-    return _name; 
+QString ColorScheme::name() const {
+    return _name;
 }
 
 void ColorScheme::setColorTableEntry(int index, const ColorEntry &entry) {
@@ -207,24 +207,24 @@ const ColorEntry *ColorScheme::colorTable() const {
         return defaultTable;
 }
 
-QColor ColorScheme::foregroundColor() const { 
-    return colorTable()[0].color; 
+QColor ColorScheme::foregroundColor() const {
+    return colorTable()[0].color;
 }
 
-QColor ColorScheme::backgroundColor() const { 
-    return colorTable()[1].color; 
+QColor ColorScheme::backgroundColor() const {
+    return colorTable()[1].color;
 }
 
 bool ColorScheme::hasDarkBackground() const {
     return backgroundColor().value() < 127;
 }
 
-void ColorScheme::setOpacity(qreal opacity) { 
-    _opacity = opacity; 
+void ColorScheme::setOpacity(qreal opacity) {
+    _opacity = opacity;
 }
 
-qreal ColorScheme::opacity() const { 
-    return _opacity; 
+qreal ColorScheme::opacity() const {
+    return _opacity;
 }
 
 void ColorScheme::read(const QString &fileName) {
@@ -390,7 +390,7 @@ AccessibleColorScheme::AccessibleColorScheme() : ColorScheme() {
 #endif
 }
 
-ColorSchemeManager::ColorSchemeManager() 
+ColorSchemeManager::ColorSchemeManager()
     : _haveLoadedAll(false) {
 }
 

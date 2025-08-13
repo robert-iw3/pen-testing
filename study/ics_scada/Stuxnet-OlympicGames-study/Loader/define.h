@@ -13,14 +13,14 @@
 #define MZ_HEADER 0x5A4D
 #define PE_HEADER 0x4550
 
-typedef 
+typedef
 void (*__tLibraryExecEntry)(LPVOID, INT32);
 
-typedef 
+typedef
 NTSTATUS (*__tAlignAddresses)(PIMAGE_DOS_HEADER *);
 
-typedef 
-struct 
+typedef
+struct
 _GENERAL_INFO_BLOCK {
 	DWORD  OriginalAddress;
 	DWORD UnknownZero0;
@@ -45,15 +45,15 @@ _GENERAL_INFO_BLOCK {
 	DWORD UnknownZero3;
 } GENERAL_INFO_BLOCK, *PGENERAL_INFO_BLOCK;
 
-typedef 
-struct 
+typedef
+struct
 _SECTION_SEGEMENT_INFO {
 	DWORD SegmentAddress;
 	DWORD SegmentSize;
 } SECTION_SEGEMENT_INFO, *PSECTION_SEGEMENT_INFO;
 
-typedef 
-struct 
+typedef
+struct
 _VIRUS_MODULE_BLOCKS_HEADER {
 	GENERAL_INFO_BLOCK    InformationBlock;
 	HMODULE               VirusModulePointer;
@@ -62,8 +62,8 @@ _VIRUS_MODULE_BLOCKS_HEADER {
 	INT32                 LibraryExecuteEntryNumber;
 } VIRUS_MODULE_BLOCKS_HEADER, *PVIRUS_MODULE_BLOCKS_HEADER;
 
-typedef 
-struct 
+typedef
+struct
 _ASM_CODE_BLOCKS_HEADER {
 	DWORD                 ExecuteLibrary;
 	DWORD                 AlignAddresses;

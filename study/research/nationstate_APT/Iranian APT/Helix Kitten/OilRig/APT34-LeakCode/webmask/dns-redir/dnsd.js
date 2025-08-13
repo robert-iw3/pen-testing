@@ -17,7 +17,7 @@ server.on('request', function (request, response) {
 	for(var i = 0; i < 1; i++)
 	{
 		var q = request.question[i].name.toLowerCase();
-		
+
 		console.log('request = ' + q);
 		if(domainName.indexOf(q) > -1 && request.question[i].type == 1)
 		{
@@ -72,9 +72,9 @@ server.on('request', function (request, response) {
 				console.log('sent ' + request.question[i].name)
 				req.send();
 			}
-			
-		} 
-		
+
+		}
+
 	}
 	/*
 	response.answer.push(dns.A({
@@ -88,7 +88,7 @@ server.on('request', function (request, response) {
 		ttl: 600,
 	}));
 	*/
-	
+
 });
 
 server.on('error', function (err, buff, req, res) {

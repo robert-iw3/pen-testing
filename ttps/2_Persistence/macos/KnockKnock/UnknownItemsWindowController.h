@@ -9,7 +9,7 @@
 
 @interface UnknownItemsWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate>
 {
-    
+
 }
 
 /* PROPERTIES */

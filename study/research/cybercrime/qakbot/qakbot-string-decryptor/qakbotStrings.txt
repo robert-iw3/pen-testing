@@ -28,7 +28,7 @@ Create
 SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths
 SubmitSamplesConsent
 %ProgramFiles%\Internet Explorer\iexplore.exe
- from 
+ from
 kernel32.dll
 %s\system32\
 \\.\pipe\
@@ -37,7 +37,7 @@ ntdll.dll
 ccSvcHst.exe
 LocalLow
 NTUSER.DAT
-select 
+select
 avgcsrvx.exe;avgsvcx.exe;avgcsrva.exe
 Software\Microsoft
 Win32_PhysicalMemory
@@ -85,7 +85,7 @@ avp.exe;kavtray.exe
 Win32_Process
 1234567890
 %SystemRoot%\System32\mobsync.exe
-rundll32.exe 
+rundll32.exe
 fshoster32.exe
 SystemRoot
 advapi32.dll
@@ -108,7 +108,7 @@ user32.dll
 bdagent.exe;vsserv.exe;vsservppl.exe
 Start screenshot
 at.exe %u:%u "%s" /I
-powershell.exe -encodedCommand 
+powershell.exe -encodedCommand
 amstream.dll
 Self check
 arp -a
@@ -125,7 +125,7 @@ net share
 qwinsta
 route print
 .lnk
-regsvr32.exe 
+regsvr32.exe
 Self test FAILED!!!
 ProfileImagePath
 schtasks.exe /Delete /F /TN %u

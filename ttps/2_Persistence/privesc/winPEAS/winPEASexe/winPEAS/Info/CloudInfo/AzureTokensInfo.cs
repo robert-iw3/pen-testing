@@ -150,7 +150,7 @@ namespace winPEAS.Info.CloudInfo
             {
                 Beaprint.PrintException($"An error occurred while scanning the identityCache directory: {ex.Message}");
             }
-            
+
 
             // Files that need decryption
             string[] fileNamesEncrp = {
@@ -244,7 +244,7 @@ namespace winPEAS.Info.CloudInfo
 
             return _endpointDataList;
         }
-        
+
 
         public override Dictionary<string, List<EndpointData>> EndpointDataList()
         {

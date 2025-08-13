@@ -37,11 +37,11 @@ def get_safe_output_path(input_path: str, output_dir: Optional[str] = None, pref
     output_dir = output_dir or os.path.dirname(input_path)
     output_name = f"{prefix}{name}{suffix}{ext}"
     output_path = os.path.join(output_dir, output_name)
-    
+
     counter = 1
     while os.path.exists(output_path):
         output_name = f"{prefix}{name}{suffix}_{counter}{ext}"
         output_path = os.path.join(output_dir, output_name)
         counter += 1
-    
+
     return output_path

@@ -15,7 +15,7 @@ class Config:
     # --- Top Level Keys ---
     GLOBAL_KEY_PROXIES = "proxies"
     GLOBAL_KEY_CHAINS = "chains"
-    GLOBAL_KEY_ROUTES = "routes" 
+    GLOBAL_KEY_ROUTES = "routes"
     GLOBAL_KEY_SERVERS = "servers"
     GLOBAL_KEY_HOSTS = "hosts"
 
@@ -30,7 +30,7 @@ class Config:
     CHAIN_KEY_TCPCONNECTTIMEOUT = "tcpConnectTimeout"
     CHAIN_KEY_PROXIES = "proxies"
 
-    # --- Table Keys --- 
+    # --- Table Keys ---
     TABLE_KEY_DEFAULT = "default" # Default route for the table
     TABLE_KEY_BLOCKS = "blocks" # List of route blocks in the table
 
@@ -353,7 +353,7 @@ class Config:
         self.save()
         print(f"Server '{connstring}' added at index {len(self.contents[self.GLOBAL_KEY_SERVERS]) - 1}.")
         return True
-    
+
     def add_server_fwd(self, local_host, local_port, chain, remote_host, remote_port):
         """Adds a forwarder server with the format: fwd://local_host:local_port:chain:remote_host:remote_port"""
         connstring = f"fwd://{local_host}:{local_port}:{chain}:{remote_host}:{remote_port}"
@@ -503,11 +503,11 @@ class Config:
     def get_routing_tables(self):
         """Returns a list of routing table names."""
         return list(self.contents[self.GLOBAL_KEY_ROUTES].keys())
-    
+
     def is_route_valid(self, route_target):
         """Checks if a route target is valid (either 'drop' or an existing chain (or implicit chain based on proxy name))."""
         return route_target == self.ROUTERULE_DROP or route_target in self.contents[self.GLOBAL_KEY_CHAINS] or route_target in self.contents[self.GLOBAL_KEY_PROXIES]
-    
+
     def update_default_route(self, table_name, new_default):
         """Updates the default route for a given table."""
         if table_name not in self.contents[self.GLOBAL_KEY_ROUTES]:
@@ -574,7 +574,7 @@ class Config:
 
         self.save()
         return True
-    
+
     def update_route(self, table_name, index, rule_dict=None, route_target=None, comment=None, disable=None, new_index=None):
         """Updates an existing route block in a table by index, including moving it to a new position."""
         if table_name not in self.contents[self.GLOBAL_KEY_ROUTES]:
@@ -709,16 +709,16 @@ class RuleParser:
             """
             # The Group puts all tokens for this rule into a list.
             rule_tokens = tokens[0]
-            
+
             negated = False
             if rule_tokens[0].lower() == 'not':
                 negated = True
                 rule_tokens = rule_tokens[1:]  # Remove 'not' from the list
-            
+
             variable, operator, value = rule_tokens
             variable = variable.lower()
             operator = operator.lower()
-            
+
             result_dict = {}
 
             # Logic to determine the JSON "rule" type and content based on the expression
@@ -737,7 +737,7 @@ class RuleParser:
 
             if negated:
                 result_dict["negate"] = "true"
-                
+
             return result_dict
 
         def handle_binary_op(tokens):
@@ -748,17 +748,17 @@ class RuleParser:
             """
             # The tokens are provided in a nested list, e.g., [[operand1, operator, operand2]]
             t = tokens[0]
-            
+
             # Start with the leftmost operand
             result_dict = t[0]
-            
+
             # Sequentially apply the operators to create nested structures
             # e.g., A and B and C -> ((A and B) and C)
             for i in range(1, len(t), 2):
                 op = t[i].lower()
                 right_operand = t[i+1]
                 result_dict = {"rule1": result_dict, "op": op, "rule2": right_operand}
-                
+
             return result_dict
 
         # --- Grammar Definition ---
@@ -794,7 +794,7 @@ class RuleParser:
                 (AND, 2, pp.opAssoc.LEFT, handle_binary_op),
                 (OR, 2, pp.opAssoc.LEFT, handle_binary_op),
             ],
-        ) 
+        )
 
         return expr_parser
 
@@ -810,7 +810,7 @@ class RuleParser:
         """
         if not expression_string.strip():
             return "{}"
-            
+
         try:
             # parseString returns a ParseResults object; the actual result is the first element.
             result = self._parser.parseString(expression_string, parseAll=True)[0]
@@ -821,7 +821,7 @@ class RuleParser:
             return f"Error: Syntax error in expression at char {e.loc}. {e.msg}"
         except Exception as e:
             return f"An unexpected error occurred: {e}"
-        
+
 
 
 # --- Subcommand Functions ---
@@ -1027,7 +1027,7 @@ def subcommand_route_list(args, config: Config):
     if not blocks:
         print(f"No rules defined in table '{table_name}'.")
         return
-    
+
     for index, route_block in enumerate(blocks):
         rules_json = json.dumps(route_block.get(Config.ROUTEBLOCK_KEY_RULES, {}))  # Compact JSON
         target = route_block.get(Config.ROUTEBLOCK_KEY_ROUTE, "N/A")
@@ -1267,7 +1267,7 @@ def main():
     parser_route_update.add_argument("--disable", action="store_true", help="Disable the rule")
     parser_route_update.add_argument("--enable", action="store_true", help="Enable the rule (overrides --disable)")
     parser_route_update.add_argument("--new-index", type=int, help="New index to move the rule to")
-    parser_route_update.set_defaults(func=subcommand_route_update) 
+    parser_route_update.set_defaults(func=subcommand_route_update)
 
     # Delete Rule
     parser_route_del = subparsers_route.add_parser("del", help="Delete a rule from a table by its index")

@@ -11,7 +11,7 @@
 
 @interface BTM : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

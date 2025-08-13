@@ -11,7 +11,7 @@
     - add a module for dumping lsass with rdump and/or refldump.
     - add modules for early-cascade injection and snaploader injection.
     - complete a C agent.
-    - build a modular agent that operator can choose what methods for api resolution to use. 
+    - build a modular agent that operator can choose what methods for api resolution to use.
     - build a modular agent for including or excluding functionality to better suit the target.
     - various QoL updates and improvements.
     - update linux and mac implants.

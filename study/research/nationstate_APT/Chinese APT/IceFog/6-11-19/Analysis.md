@@ -51,7 +51,7 @@
 <h2>Links <a name="Links"></a></h2>
 <h6> Original tweet: </h6><a name="tweet"></a>
 
-* [https://twitter.com/securitydoggo/status/1192073306255560704](https://twitter.com/securitydoggo/status/1192073306255560704) 
+* [https://twitter.com/securitydoggo/status/1192073306255560704](https://twitter.com/securitydoggo/status/1192073306255560704)
 
 <h6> Links Anyrun: <a name="Links-Anyrun"></a></h6>
 

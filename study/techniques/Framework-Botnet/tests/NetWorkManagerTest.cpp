@@ -47,7 +47,7 @@ void runNetworkManagerPerformanceTest(int numConnections, int numThreads) {
 
     auto performNetworkOperations = [](int numConnections) {
         NetworkManager manager;
-        
+
         for (int i = 0; i < numConnections; ++i) {
             auto start = std::chrono::high_resolution_clock::now();
             try {

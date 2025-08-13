@@ -341,7 +341,7 @@ namespace winPEAS.Info.NetworkInfo
 
                     IntPtr tableRowPtr = (IntPtr)((long)tcpTableRecordsPtr + Marshal.SizeOf(tcpRecordsTable.dwNumEntries));
 
-                    // Read and parse the TCP records from the table and store them in list 
+                    // Read and parse the TCP records from the table and store them in list
                     // 'TcpConnection' structure type objects.
                     for (int row = 0; row < tcpRecordsTable.dwNumEntries; row++)
                     {
@@ -377,7 +377,7 @@ namespace winPEAS.Info.NetworkInfo
 
                     IntPtr tableRowPtr = (IntPtr)((long)tcpTableRecordsPtr + Marshal.SizeOf(tcpRecordsTable.dwNumEntries));
 
-                    // Read and parse the TCP records from the table and store them in list 
+                    // Read and parse the TCP records from the table and store them in list
                     // 'TcpConnection' structure type objects.
                     for (int row = 0; row < tcpRecordsTable.dwNumEntries; row++)
                     {
@@ -464,7 +464,7 @@ namespace winPEAS.Info.NetworkInfo
                     MIB_UDPTABLE_OWNER_PID udpRecordsTable = (MIB_UDPTABLE_OWNER_PID)Marshal.PtrToStructure(udpTableRecordsPtr, typeof(MIB_UDPTABLE_OWNER_PID));
                     IntPtr tableRowPtr = (IntPtr)((long)udpTableRecordsPtr + Marshal.SizeOf(udpRecordsTable.dwNumEntries));
 
-                    // Read and parse the UDP records from the table and store them in list 
+                    // Read and parse the UDP records from the table and store them in list
                     // 'UdpConnection' structure type objects.
                     for (int i = 0; i < udpRecordsTable.dwNumEntries; i++)
                     {
@@ -487,7 +487,7 @@ namespace winPEAS.Info.NetworkInfo
                     IntPtr tableRowPtr = (IntPtr)((long)udpTableRecordsPtr +
                         Marshal.SizeOf(udpRecordsTable.dwNumEntries));
 
-                    // Read and parse the UDP records from the table and store them in list 
+                    // Read and parse the UDP records from the table and store them in list
                     // 'UdpConnection' structure type objects.
                     for (int i = 0; i < udpRecordsTable.dwNumEntries; i++)
                     {

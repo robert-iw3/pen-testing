@@ -65,7 +65,7 @@ WINBASEAPI BOOL WINAPI KERNEL32$FreeConsole(void);
 WINBASEAPI void WINAPI KERNEL32$Sleep(DWORD dwMilliseconds);
 WINBASEAPI DWORD WINAPI KERNEL32$GetProcessId(HANDLE Process);
 WINBASEAPI HWND WINAPI KERNEL32$GetConsoleWindow(void);
-WINBASEAPI HLOCAL WINAPI KERNEL32$LocalAlloc(UINT uFlags, SIZE_T uBytes); 
+WINBASEAPI HLOCAL WINAPI KERNEL32$LocalAlloc(UINT uFlags, SIZE_T uBytes);
 WINBASEAPI DWORD WINAPI KERNEL32$GetCurrentProcessId();
 WINBASEAPI DWORD WINAPI KERNEL32$ProcessIdToSessionId(DWORD dwProcessID, DWORD* pSessionId);
 WINBASEAPI HANDLE WINAPI KERNEL32$CreateToolhelp32Snapshot(DWORD dwFlags, DWORD th32ProcessID);
@@ -135,7 +135,7 @@ WINBASEAPI NTSTATUS NTAPI NTDLL$NtQueryInformationProcess(HANDLE, PROCESSINFOCLA
 
 //K32
 #define ReadProcessMemory           KERNEL32$ReadProcessMemory
-#define GetCurrentProcess           KERNEL32$GetCurrentProcess 
+#define GetCurrentProcess           KERNEL32$GetCurrentProcess
 #define WideCharToMultiByte         KERNEL32$WideCharToMultiByte
 #define MultiByteToWideChar         KERNEL32$MultiByteToWideChar
 #define ExitThread                  KERNEL32$ExitThread

@@ -18,7 +18,7 @@ warhorse:
         site_hostname: "redirect"
         admin_hostname: "gpadmin"
         white_list_ip: "127.0.0.1"
-      firewall: 
+      firewall:
         enabled: true
       golang:
         enabled: true
@@ -31,7 +31,7 @@ warhorse:
           - "VAR_domain-login"
           - "VAR_domain-aadcdn"
           - "VAR_domain-sso"
-        o365: 
+        o365:
           www_hostname: "VAR_domain-www"
           login_hostname: "VAR_domain-login"
           aadcdn_hostname: "VAR_domain-aadcdn"
@@ -41,7 +41,7 @@ warhorse:
             path: "/common/oauth2/v2.0"
             phishlet: "o365"
             redirect_url: "www.azure.com"
-        phishlets: 
+        phishlets:
           - "o365"
           - "outlook"
         cdn:
@@ -57,10 +57,10 @@ warhorse:
           - name: "sso"
             provider: "azure"
             hostname: "VAR_domain-sso"
-      backup: 
+      backup:
         enabled: false
-        archive_zip: false            
-            
+        archive_zip: false
+
   terraform:
     state_bucket_name: "densecure-tf"
     state_bucket_enabled: true

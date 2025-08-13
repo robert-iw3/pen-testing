@@ -147,7 +147,7 @@ func BuildPayloadMessage(Jobs []Job, AesKey []byte, AesIv []byte) []byte {
 				} else {
 					binary.LittleEndian.PutUint32(boolean, 0)
 				}
-				
+
 				DataPayload = append(DataPayload, boolean...)
 
 				break
@@ -295,7 +295,7 @@ func RegisterInfoToInstance(Header Header, RegisterInfo map[string]any) *Agent {
 	if val, ok := RegisterInfo["OS Arch"]; ok {
 		agent.Info.OSArch = val.(string)
 	}
-	
+
 	if val, ok := RegisterInfo["SleepDelay"]; ok {
 		switch v := val.(type) {
 		case float64:
@@ -312,12 +312,12 @@ func RegisterInfoToInstance(Header Header, RegisterInfo map[string]any) *Agent {
 			agent.Info.SleepDelay = 0
 		}
 	}
-	
+
 
 	agent.Info.FirstCallIn = time.Now().Format("02/01/2006 15:04:05")
-	
+
 	agent.Info.LastCallIn = time.Now().Format("02-01-2006 15:04:05")
-	
+
 
 	agent.BackgroundCheck = false
 	agent.Active = true
@@ -645,7 +645,7 @@ func (a *Agent) RequestCompleted(RequestID uint32) {
 }
 
 func (a *Agent) AddJobToQueue(job Job) []Job {
-	// store the RequestID									
+	// store the RequestID
 	a.AddRequest(job)
 	// if it's a pivot agent then add the job to the parent
 	if a.Pivots.Parent != nil {
@@ -920,7 +920,7 @@ func (a *Agent) PortFwdNew(SocketID, LclAddr, LclPort, FwdAddr, FwdPort int, Tar
 	}
 
 	a.PortFwdsMtx.Lock()
-	
+
 	a.PortFwds = append(a.PortFwds, portfwd)
 
 	a.PortFwdsMtx.Unlock()

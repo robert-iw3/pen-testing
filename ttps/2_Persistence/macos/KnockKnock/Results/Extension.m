@@ -21,18 +21,18 @@
     {
         //extract/save id
         self.identifier = params[KEY_EXTENSION_ID];
-        
+
         //extract/save description
         self.details = params[KEY_EXTENSION_DETAILS];
-        
+
         //extract/save description
         self.browser = params[KEY_EXTENSION_BROWSER];
-        
+
         //call into filter object to check if file is known
         // ->signed or whitelisted
         self.isTrusted = [itemFilter isTrustedExtension:self];
     }
-    
+
     return self;
 }
 
@@ -41,27 +41,27 @@
 {
     //json string
     NSString *json = nil;
-    
+
     //name ...escaped
     NSString* escapedName = nil;
-    
+
     //details ...escaped
     NSString* escapedDetails = nil;
-    
+
     //escape name
     escapedName = [self.name stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
 
     //escape details
     // remove newlines
     escapedDetails = [[self.details componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
-    
+
     //escape details
     // replace " with \"
     escapedDetails = [escapedDetails stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-    
+
     //init json
     json = [NSString stringWithFormat:@"\"name\": \"%@\", \"path\": \"%@\", \"identifier\": \"%@\", \"details\": \"%@\", \"browser\": \"%@\"", escapedName, self.path, self.identifier, escapedDetails, self.browser];
-    
+
     return json;
 }
 

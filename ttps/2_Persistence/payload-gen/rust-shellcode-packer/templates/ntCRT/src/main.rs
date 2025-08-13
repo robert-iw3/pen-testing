@@ -91,7 +91,7 @@ fn enhance(mut buf: Vec<u8>, tar: usize) {
 
 fn main() {
     {{SANDBOX}}
-    
+
     // inject in the following processes:
     let tar: &str = "{{TARGET_PROCESS}}";
 

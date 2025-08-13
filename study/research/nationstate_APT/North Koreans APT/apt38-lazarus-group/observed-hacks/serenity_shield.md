@@ -10,7 +10,7 @@ Tags: 🎙️ Contagious Interview
 
 ## Details
 
-> Six hours ago the project Serenity Shield had one of their wallets hacked on BSC for 6.9M SERSH which was sold for ~$586K. 
+> Six hours ago the project Serenity Shield had one of their wallets hacked on BSC for 6.9M SERSH which was sold for ~$586K.
 
 Interestingly it is connected Onchain to the recent OKX Dex & Concentric hacks as well
 

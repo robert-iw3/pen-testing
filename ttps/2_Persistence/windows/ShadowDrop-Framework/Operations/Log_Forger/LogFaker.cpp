@@ -13,9 +13,9 @@ void LogForger::CreateDecoyLogs() {
 std::string LogForger::GenerateRandomUsername() {
     const char* prefixes[] = {"john", "jane", "mike", "sarah", "admin"};
     const char* suffixes[] = {"doe", "smith", "jones", "lee", "admin"};
-    
-    return std::string(prefixes[rand() % 5]) + "." + 
-           std::string(suffixes[rand() % 5]) + 
+
+    return std::string(prefixes[rand() % 5]) + "." +
+           std::string(suffixes[rand() % 5]) +
            std::to_string(rand() % 1000);
 }
 

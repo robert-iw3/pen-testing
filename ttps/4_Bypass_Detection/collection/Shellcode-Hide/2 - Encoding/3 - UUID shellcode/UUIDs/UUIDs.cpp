@@ -6,7 +6,7 @@
 #pragma comment(lib, "Rpcrt4.lib")
 
 int main() {
-    
+
     const char* uuids[] =
     {
         "e48348fc-e8f0-00c0-0000-415141505251",
@@ -60,7 +60,7 @@ int main() {
         printf("%02X ", ((unsigned char*)alloc_mem)[i]);
     }
     */
-    
+
     //((void(*)())alloc_mem)();
 
 
@@ -76,6 +76,6 @@ int main() {
     EnumSystemLocalesA((LOCALE_ENUMPROCA)alloc_mem, 0);
 
     return 0;
-    
+
 
 }

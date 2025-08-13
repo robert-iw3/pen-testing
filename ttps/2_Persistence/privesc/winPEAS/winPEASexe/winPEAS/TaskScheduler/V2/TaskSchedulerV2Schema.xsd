@@ -76,7 +76,7 @@
 	<xs:complexType name="triggersType">
 		<xs:group ref="triggerGroup" minOccurs="0" maxOccurs="48"/>
 	</xs:complexType>
-	
+
 	<xs:group name="triggerGroup">
 		<xs:choice>
 			<xs:element name="BootTrigger"               type="bootTriggerType"               minOccurs="0" />
@@ -135,7 +135,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	
+
 	<!-- CustomTrigger -->
 	<xs:complexType name="customTriggerType">
 		<xs:complexContent>
@@ -396,7 +396,7 @@
 			<xs:element name="MaintenanceSettings"              type="maintenanceSettingsType"                          minOccurs="0" />
 		</xs:all>
 	</xs:complexType>
-	
+
 	<!-- MaintenanceSettings -->
 	<xs:complexType name="maintenanceSettingsType">
 		<xs:all>
@@ -491,7 +491,7 @@
 	<xs:simpleType name="dataType">
 		<xs:restriction base="xs:string" />
 	</xs:simpleType>
-	
+
 	<!-- Principals -->
 	<xs:complexType name="principalsType">
 		<xs:sequence>
@@ -512,7 +512,7 @@
 		</xs:all>
 		<xs:attribute name="id" type="xs:ID" use="optional" />
 	</xs:complexType>
-	
+
 	<xs:simpleType name="logonType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="S4U" />
@@ -590,7 +590,7 @@
 		</xs:sequence>
 		<xs:attribute name="Context" type="xs:IDREF" use="optional" />
 	</xs:complexType>
-	
+
 	<xs:group name="actionGroup">
 		<xs:choice>
 			<xs:element name="Exec"          type="execType" />

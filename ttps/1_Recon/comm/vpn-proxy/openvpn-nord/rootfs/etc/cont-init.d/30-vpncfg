@@ -45,7 +45,7 @@ if [ ! -f ${OVPN_CONFIG_PATH} ]; then
 fi
 
 if [ ! -f /etc/3proxy/updated ]; then
-  if [ -n "${HC_PORT}" ]; then 
+  if [ -n "${HC_PORT}" ]; then
     echo "Healthcheck port HTTP ${HC_PORT}"
     echo "proxy -p${HC_PORT} -Detun0" >>/etc/3proxy/3proxy.cfg
   fi

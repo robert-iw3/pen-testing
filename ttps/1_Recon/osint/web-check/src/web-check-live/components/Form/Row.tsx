@@ -31,7 +31,7 @@ export const StyledRow = styled.div`
     a {
       color: ${colors.primary};
     }
-  }  
+  }
 `;
 
 export const Details = styled.details`

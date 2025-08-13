@@ -33,7 +33,7 @@ def generate_subdomain_chart_by_http_status(subdomains):
     http_status_count = [{'http_status': entry['http_status'], 'count': entry['count']} for entry in http_statuses]
 
     total = sum(entry['count'] for entry in http_status_count)
-    
+
     labels = [str(entry['http_status']) for entry in http_status_count]
     sizes = [entry['count'] for entry in http_status_count]
     colors = [get_color_by_http_status(entry['http_status']) for entry in http_status_count]
@@ -51,7 +51,7 @@ def generate_subdomain_chart_by_http_status(subdomains):
         textfont=dict(size=10),
         hoverinfo="label+percent+value"
     )])
-    
+
     fig.update_layout(
         title_text="",
         annotations=[dict(text='HTTP Status', x=0.5, y=0.5, font_size=14, showarrow=False)],
@@ -103,17 +103,17 @@ def generate_vulnerability_chart_by_severity(vulnerabilities):
         .annotate(count=Count('severity'))
         .order_by('-severity')
     )
-    
+
     total = sum(entry['count'] for entry in severity_counts)
-    
+
     labels = [NUCLEI_REVERSE_SEVERITY_MAP[entry['severity']].capitalize() for entry in severity_counts]
     values = [entry['count'] for entry in severity_counts]
     colors = [get_color_by_severity(entry['severity']) for entry in severity_counts]
-    
+
     text = [f"{label}<br>{value}<br>({value/total:.1%})" for label, value in zip(labels, values)]
 
     fig = go.Figure(data=[go.Pie(
-        labels=labels, 
+        labels=labels,
         values=values,
         marker=dict(colors=colors),
         hole=0.4,
@@ -123,7 +123,7 @@ def generate_vulnerability_chart_by_severity(vulnerabilities):
         textfont=dict(size=12),
         hoverinfo="label+percent+value",
     )])
-    
+
     fig.update_layout(
         title_text="",
         annotations=[dict(text='Severity', x=0.5, y=0.5, font_size=14, showarrow=False)],
@@ -165,7 +165,7 @@ def get_color_by_http_status(http_status):
     """
 
     status = int(http_status)
-    
+
     colors = {
         200: "#36a2eb",
         300: "#4bc0c0",

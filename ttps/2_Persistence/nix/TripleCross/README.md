@@ -102,7 +102,7 @@ sudo ./bin/kit -t enp0s3
 ```
 
 ### Attack scenario scripts
-There are two scripts, *packager&#46;sh* and *deployer&#46;sh*, that compile and install the rootkit automatically, just as an attacker would do in a real attack scenario. 
+There are two scripts, *packager&#46;sh* and *deployer&#46;sh*, that compile and install the rootkit automatically, just as an attacker would do in a real attack scenario.
 
 * Executing packager&#46;sh will generate all rootkit files under the *apps/* directory.
 
@@ -145,12 +145,12 @@ nc -nlvp <ATTACKER_PORT>
 The technique incorporated in TripleCross consists of 5 stages:
 
 #### Locating GOT and the return address
-The rootkit hooks the system call using a tracepoint program. From there, it locates the address at the GOT section which the PLT stub used to make the call to the glibc function responsible of the syscall. 
+The rootkit hooks the system call using a tracepoint program. From there, it locates the address at the GOT section which the PLT stub used to make the call to the glibc function responsible of the syscall.
 
 In order to reach the GOT section, the eBPF program uses the return address stored at the stack. Note that:
 * The .text makes a *call* to the .plt, so *rip* is saved as *ret* in the stack.
 * The .plt makes a *jump* to glibc using .got, so no other *rip* is saved. It also does not modify or save the value of *rbp*.
-* Glibc makes a *syscall*, which does not save *rip* in the stack, but rather saves it in *rcx*. 
+* Glibc makes a *syscall*, which does not save *rip* in the stack, but rather saves it in *rcx*.
 
 <img src="docs/images/plt_got_glibc_flow.jpg" float="left">
 

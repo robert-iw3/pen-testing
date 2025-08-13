@@ -576,7 +576,7 @@ class DispatchServer(object):
             redirect_path = db.lookup_proxy_route(request.path)
             if redirect_path:
                 return reverse_proxy(redirect_path)
-            
+
             #
             # Param Key checked after proxy
             #

@@ -79,7 +79,7 @@ std::string Authentication::hashPasswordWithSalt(const std::string &password, co
 std::string Authentication::generateSalt() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(33, 126); 
+    std::uniform_int_distribution<> dis(33, 126);
 
     std::string salt;
     for (int i = 0; i < 16; ++i) {
@@ -121,7 +121,7 @@ bool Authentication::isPasswordExpired(const std::string &username) {
     auto it = passwordLastChanged.find(username);
     if (it == passwordLastChanged.end()) {
         Logger::log(Logger::ERROR, "No password change date found for user: " + username);
-        return true; 
+        return true;
     }
 
     std::tm lastChanged = {};
@@ -137,7 +137,7 @@ bool Authentication::isPasswordExpired(const std::string &username) {
     std::chrono::duration<double> diff = nowTime - lastChangedTime;
     double daysDiff = diff.count() / (60 * 60 * 24);
 
-    if (daysDiff > 90) { 
+    if (daysDiff > 90) {
         Logger::log(Logger::WARNING, "Password for user " + username + " expired " + std::to_string(daysDiff) + " days ago");
         return true;
     }

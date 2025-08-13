@@ -12,7 +12,7 @@ namespace GoldendMSA
 		//	name[0] PrincipalName,
 		// realm[1] Realm
 		//
-		
+
 		public PA_SUPERSEDED_BY_USER(AsnElt body)
 		{
 			name = new PrincipalName(body.Sub[0].Sub[0]);

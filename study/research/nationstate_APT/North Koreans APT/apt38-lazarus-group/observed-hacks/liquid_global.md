@@ -12,13 +12,13 @@ Tags:: "Inside Job"
 
 ## Details
 
-Unauthorized access to some of the wallets it managed 67 different ERC-20 tokens, along with large quantities of ETH and BTC, had been moved from these wallets to addresses controlled by a party working on behalf of DPRK 
+Unauthorized access to some of the wallets it managed 67 different ERC-20 tokens, along with large quantities of ETH and BTC, had been moved from these wallets to addresses controlled by a party working on behalf of DPRK
 
-The attacker then used decentralized protocols to swap the various ERC-20 tokens for ETH From there, they mixed the ETH, swapped the mixed ETH for BTC, mixed the BTC, consolidated the mixed BTC into new wallets, and then deposited the funds into crypto-to-fiat exchanges based in Asia 
+The attacker then used decentralized protocols to swap the various ERC-20 tokens for ETH From there, they mixed the ETH, swapped the mixed ETH for BTC, mixed the BTC, consolidated the mixed BTC into new wallets, and then deposited the funds into crypto-to-fiat exchanges based in Asia
 
-As a result, approximately $91.35M in cryptoassets was laundered At the end of this process, the attackers move the Bitcoin to centralized, primarily Asia-based exchanges, where it’s likely swapped for a fiat currency like China’s Renminbi, allowing them to finally access the cash gained from the hack. 
+As a result, approximately $91.35M in cryptoassets was laundered At the end of this process, the attackers move the Bitcoin to centralized, primarily Asia-based exchanges, where it’s likely swapped for a fiat currency like China’s Renminbi, allowing them to finally access the cash gained from the hack.
 
-They immediately swapped stolen USDT-on-TRON to TRON within a matter of minutes using a DEX The quick swaps may be a result of lessons learned from the Poly.Network attack, in which stolen USDT was frozen almost immediately by Tether. The hacker also converted ERC-20 tokens into native ETH at a rapid pace 
+They immediately swapped stolen USDT-on-TRON to TRON within a matter of minutes using a DEX The quick swaps may be a result of lessons learned from the Poly.Network attack, in which stolen USDT was frozen almost immediately by Tether. The hacker also converted ERC-20 tokens into native ETH at a rapid pace
 
 Whoever hacked Liquid seems to have had a thorough plan in place prior to acting, and is executing that plan with ruthless efficiency.
 

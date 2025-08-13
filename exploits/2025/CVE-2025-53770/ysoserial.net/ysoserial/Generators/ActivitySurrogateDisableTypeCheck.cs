@@ -90,9 +90,9 @@ xmlns:r=""clr-namespace:System.Reflection;assembly=mscorlib"">
             {
                 payload = new TextFormattingRunPropertiesMarshal(xaml_payload);
             }
-            
+
             return Serialize(payload, formatter, inputArgs);
         }
-        
+
     }
 }

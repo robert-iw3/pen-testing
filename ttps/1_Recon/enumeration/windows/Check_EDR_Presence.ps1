@@ -14,8 +14,8 @@ function Invoke-EDRCheck{
         Return New-Object PSCustomObject -Property $Props
         }
     # Driver Check
-    $Result = Switch ((Get-ChildItem $env:SystemDrive\Windows\System32\drivers | where  Name -match .sys$).name){       
-        ##########################################################################      
+    $Result = Switch ((Get-ChildItem $env:SystemDrive\Windows\System32\drivers | where  Name -match .sys$).name){
+        ##########################################################################
         #-------DRIVER---------####################-------------EDR-------------##
         atrsdfw.sys            {Obj @{Driver=$_;EDR= 'Altiris Symantec'         }}
         avgtpx86.sys           {Obj @{Driver=$_;EDR= 'AVG Technologies'         }}

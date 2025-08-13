@@ -14,12 +14,12 @@
 HistoryScroll::HistoryScroll(HistoryType *t) : m_histType(t) {
 }
 
-HistoryScroll::~HistoryScroll() { 
-    delete m_histType; 
+HistoryScroll::~HistoryScroll() {
+    delete m_histType;
 }
 
-bool HistoryScroll::hasScroll() { 
-    return true; 
+bool HistoryScroll::hasScroll() {
+    return true;
 }
 
 HistoryScrollBuffer::HistoryScrollBuffer(unsigned int maxLineCount)
@@ -28,8 +28,8 @@ HistoryScrollBuffer::HistoryScrollBuffer(unsigned int maxLineCount)
     setMaxNbLines(maxLineCount);
 }
 
-HistoryScrollBuffer::~HistoryScrollBuffer() { 
-    delete[] _historyBuffer; 
+HistoryScrollBuffer::~HistoryScrollBuffer() {
+    delete[] _historyBuffer;
 }
 
 void HistoryScrollBuffer::addCellsVector(const QVector<Character> &cells) {
@@ -56,8 +56,8 @@ void HistoryScrollBuffer::addLine(bool previousWrapped) {
     _wrappedLine[bufferIndex(_usedLines - 1)] = previousWrapped;
 }
 
-int HistoryScrollBuffer::getLines() { 
-    return _usedLines; 
+int HistoryScrollBuffer::getLines() {
+    return _usedLines;
 }
 
 int HistoryScrollBuffer::getLineLen(int lineNumber) {

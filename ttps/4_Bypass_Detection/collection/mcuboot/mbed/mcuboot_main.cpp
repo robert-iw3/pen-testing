@@ -59,7 +59,7 @@ int main()
 #endif //MCUBOOT_HAVE_LOGGING
 
     tr_info("Starting MCUboot");
-    
+
 #if (MCUBOOT_CRYPTO_BACKEND == MBEDTLS)
     // Initialize mbedtls crypto for use by MCUboot
     mbedtls_platform_context unused_ctx;

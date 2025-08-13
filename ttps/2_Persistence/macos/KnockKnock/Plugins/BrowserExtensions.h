@@ -13,7 +13,7 @@
 
 @interface BrowserExtensions : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

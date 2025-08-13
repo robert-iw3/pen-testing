@@ -1,4 +1,4 @@
-# MAK / Metacene Theft 
+# MAK / Metacene Theft
 
 Date:: November 29, 2024
 

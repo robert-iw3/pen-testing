@@ -28,7 +28,7 @@ beacon_command_register("ReconAD-Groups", "Use ADSI to query Active Directory gr
 alias ReconAD {
 	$bid = $1;
 	$filter = $2;
-	
+
 	$attr = iff(-istrue $3, $3, "-all");
 	$count = iff($4 eq "-max", 0, $4);
 	$usegc = iff($5 eq "-usegc", 1, 0);
@@ -51,7 +51,7 @@ alias ReconAD {
 alias ReconAD-Users {
 	$bid = $1;
 	$object = $2;
-	
+
 	$attr = iff(-istrue $3, $3, "-all");
 	$count = iff($4 eq "-max", 0, $4);
 	$usegc = iff($5 eq "-usegc", 1, 0);
@@ -66,9 +66,9 @@ alias ReconAD-Users {
     $handle = openf(script_resource("ReconAD." . barch($bid) . ".o"));
     $data   = readb($handle, -1);
     closef($handle);
-	
+
 	blog($bid, "Let's enumerate user(s): " . $object . "\n");
-	
+
 	$arg_data  = bof_pack($bid, "ZZZiiZ", "users", $object, $attr, $count, $usegc, $server);
 	beacon_inline_execute($bid, $data, "go", $arg_data);
 }
@@ -76,7 +76,7 @@ alias ReconAD-Users {
 alias ReconAD-Groups {
 	$bid = $1;
 	$object = $2;
-	
+
 	$attr = iff(-istrue $3, $3, "-all");
 	$count = iff($4 eq "-max", 0, $4);
 	$usegc = iff($5 eq "-usegc", 1, 0);
@@ -91,9 +91,9 @@ alias ReconAD-Groups {
     $handle = openf(script_resource("ReconAD." . barch($bid) . ".o"));
     $data   = readb($handle, -1);
     closef($handle);
-	
+
 	blog($bid, "Let's enumerate group(s): " . $object . "\n");
-	
+
 	$arg_data  = bof_pack($bid, "ZZZiiZ", "groups", $object, $attr, $count, $usegc, $server);
 	beacon_inline_execute($bid, $data, "go", $arg_data);
 }
@@ -101,7 +101,7 @@ alias ReconAD-Groups {
 alias ReconAD-Computers {
 	$bid = $1;
 	$object = $2;
-	
+
 	$attr = iff(-istrue $3, $3, "-all");
 	$count = iff($4 eq "-max", 0, $4);
 	$usegc = iff($5 eq "-usegc", 1, 0);
@@ -116,9 +116,9 @@ alias ReconAD-Computers {
     $handle = openf(script_resource("ReconAD." . barch($bid) . ".o"));
     $data   = readb($handle, -1);
     closef($handle);
-	
+
 	blog($bid, "Let's enumerate computer(s): " . $object . "\n");
-	
+
 	$arg_data  = bof_pack($bid, "ZZZiiZ", "computers", $object, $attr, $count, $usegc, $server);
 	beacon_inline_execute($bid, $data, "go", $arg_data);
 }

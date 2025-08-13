@@ -17,7 +17,7 @@ namespace GoldendMSA {
             foreach(AsnElt sub in asnElt.Sub) {
                 switch (sub.TagValue){
                     case 0:     //subjectPublicKey
-                        SubjectPublicKey = AsnElt.Decode(sub.Sub[0].GetBitString()).GetOctetString();              
+                        SubjectPublicKey = AsnElt.Decode(sub.Sub[0].GetBitString()).GetOctetString();
                         break;
                     case 1:     //nonce
                         Nonce = sub.Sub[0].GetInteger(0, uint.MaxValue);

@@ -2,7 +2,7 @@
 
 ## Intro
 
-Three days ago a friend of mine received a phishing e-mail with a link (https[:]//lynxus[.]com/usq/refeidpisnretse) containing a zip file protected by the password "U492". 
+Three days ago a friend of mine received a phishing e-mail with a link (https[:]//lynxus[.]com/usq/refeidpisnretse) containing a zip file protected by the password "U492".
 
 <img width="1262" alt="0" src="https://user-images.githubusercontent.com/15001354/193664727-69ee625c-3a4d-4eea-8e71-5e718b625086.png">
 
@@ -19,7 +19,7 @@ var bridgeheadsLibels = new ActiveXObject("shell.application").shellexecute("ass
 <img width="1134" alt="1" src="https://user-images.githubusercontent.com/15001354/193664786-75664000-6658-4582-9d27-258bd18f9d39.png">
 
 
-The script uses ActiveXObject in order to execute another script called redressingLamentations.cmd (in the ISO) by passing the arguments "rund" and "DllRegis". 
+The script uses ActiveXObject in order to execute another script called redressingLamentations.cmd (in the ISO) by passing the arguments "rund" and "DllRegis".
 
 Following the redressingLamentations.cmd script:
 
@@ -39,7 +39,7 @@ It runs the command rundll32 assaulting\tiddler.dat,DllRegisterServer in order t
 
 ## First Stage
 
-After a bit of analysis, I wrote this simple script to extract the loader in order to practice a bit with python. 
+After a bit of analysis, I wrote this simple script to extract the loader in order to practice a bit with python.
 The two strings used to generate the key are taken dynamically, the shellcode is taken dynamically by using the size offset that is hardcoded.
 
 

@@ -23,8 +23,8 @@ class Mimikatz(Module):
         Links:      https://github.com/gentilkiwi/mimikatz
                     https://github.com/PowerShellMafia/PowerSploit/blob/4c7a2016fc7931cd37273c5d8e17b16d959867b3/Exfiltration/Invoke-Mimikatz.ps1
         Credits:    @phra
-        
-        
+
+
         This module allows you to run mimikatz in a versatile way.
         Within this module it is possible to run mimikatz in 3 different ways:
             'ps1': an obfuscated ps1 module will be uploaded to the server and get deobfuscated at runtime in memory;
@@ -33,11 +33,11 @@ class Mimikatz(Module):
         It is recommended to run the ps1 version because it will be obfuscated and run from memory.
         The exe version will be just dropped as clear and could be catched by av scanners.
         The dll version is the most stealthy but it doesn't support impersonation atm.
-        
-            
+
+
         Usage:
             #mimikatz [exec_type] [username] [password] [domain] [custom_command]
-        
+
         Positional arguments:
             exec_type               execution type for running mimikatz:
                                         'ps1' will upload and execute the powershell version of mimikatz
@@ -53,9 +53,9 @@ class Mimikatz(Module):
                                         - 'dll' : command line arguments to be executed.
                                     Default:
                                         'ps1': ';Invoke-Mimikatz -DumpCreds'
-                                        'exe': 'privilege::debug sekurlsa::logonpasswords exit'  
-                                        'dll': 'privilege::debug sekurlsa::logonpasswords exit'  
-        
+                                        'exe': 'privilege::debug sekurlsa::logonpasswords exit'
+                                        'dll': 'privilege::debug sekurlsa::logonpasswords exit'
+
         Examples:
             Run mimikatz as the current user
                 #mimikatz

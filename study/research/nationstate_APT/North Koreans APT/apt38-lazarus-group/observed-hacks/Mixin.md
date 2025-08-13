@@ -14,11 +14,11 @@ The database of Mixin Network's cloud service provider was attacked by hackers, 
 
 > Breaking: On September 23, the Mixin Network cloud service provider database was attacked, the amount of funds involved was about $200M. According to @SlowMist_Team.  Mixin is invested and promoted by the famous Chinese KOL Li Xiaolai. It claims to be a wallet solution and…
 
-– Wu Blockchain (WuBlockchain) September 25th, 2023 [🔗](https://twitter.com/WuBlockchain/status/1706136829563658698) 
+– Wu Blockchain (WuBlockchain) September 25th, 2023 [🔗](https://twitter.com/WuBlockchain/status/1706136829563658698)
 
 > On September 23, the Mixin Network cloud service provider database was attacked, the amount of funds involved was ~ $200M. SlowMist is assisting in the investigation. Please wait for @MixinKernel updates for more information.
 
-– SlowMist (SlowMist_Team) September 25th, 2023 [🔗](https://twitter.com/slowmist_team/status/1706133260869468503) 
+– SlowMist (SlowMist_Team) September 25th, 2023 [🔗](https://twitter.com/slowmist_team/status/1706133260869468503)
 
 > [Announcement] In the early morning of September 23, 2023 Hong Kong time, the database of Mixin Network's cloud service provider was attacked by hackers, resulting in the loss of some assets on the mainnet. We have contacted Google and blockchain security company @SlowMist_Team…
 – Mixin Kernel (MixinKernel) September 25th, 2023 [🔗](https://twitter.com/MixinKernel/status/1706139175018529139)

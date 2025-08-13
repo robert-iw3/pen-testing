@@ -95,7 +95,7 @@ function handleFormInputs() {
   const form = document.getElementById('hackerone_form');
   const checkbox = document.getElementById('send_report');
   const inputs = form.querySelectorAll('input:not(#send_report):not([type="submit"]):not([name="csrf_token"])');
-  
+
   inputs.forEach(input => {
     if (input.type === 'text' || input.type === 'textarea') {
       input.readOnly = !checkbox.checked;
@@ -108,7 +108,7 @@ function handleFormInputs() {
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('hackerone_form');
   const checkbox = document.getElementById('send_report');
-  
+
   handleFormInputs(); // init state
   checkbox.addEventListener('change', handleFormInputs);
 
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         input.disabled = false;
         input.readOnly = false;
       });
-      
+
       setTimeout(() => handleFormInputs(), 0);
     }
   });

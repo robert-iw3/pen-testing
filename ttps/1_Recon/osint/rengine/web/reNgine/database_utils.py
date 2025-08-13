@@ -16,12 +16,12 @@ logger = logging.getLogger(__name__)
 
 @transaction.atomic
 def bulk_import_targets(
-	targets: list[dict], 
-	project_slug: str, 
-	organization_name: str = None, 
-	org_description: str = None, 
+	targets: list[dict],
+	project_slug: str,
+	organization_name: str = None,
+	org_description: str = None,
 	h1_team_handle: str = None):
-	""" 
+	"""
 		Used to import targets in reNgine
 
 		Args:
@@ -42,11 +42,11 @@ def bulk_import_targets(
 	for target in targets:
 		name = target.get('name', '').strip()
 		description = target.get('description', '')
-		
+
 		if not name:
 			logger.warning(f"Skipping target with empty name")
 			continue
-		
+
 		is_domain = validators.domain(name)
 		is_ip = validators.ipv4(name) or validators.ipv6(name)
 		is_url = validators.url(name)
@@ -112,7 +112,7 @@ def store_domain(domain_name, project, description, h1_team_handle):
 	if existing_domain:
 		logger.info(f'Domain {domain_name} already exists. skipping.')
 		return
-	
+
 	current_time = timezone.now()
 
 	new_domain = Domain.objects.create(
@@ -157,7 +157,7 @@ def store_url(url, project, description, h1_team_handle):
 def store_ip(ip_address, project, description, h1_team_handle):
 
 	domain = Domain.objects.filter(name=ip_address).first()
-	
+
 	if domain:
 		logger.info(f'Domain {ip_address} already exists. skipping...')
 	else:
@@ -170,7 +170,7 @@ def store_ip(ip_address, project, description, h1_team_handle):
 			ip_address_cidr=ip_address
 		)
 		logger.info(f'Added new domain {domain.name}')
-	
+
 	ip_data = get_ip_info(ip_address)
 	ip_data = get_ip_info(ip_address)
 	ip, created = IpAddress.objects.get_or_create(address=ip_address)

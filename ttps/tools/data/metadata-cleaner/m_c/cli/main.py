@@ -23,7 +23,7 @@ def view(file):
     """View metadata of a file."""
     if not validate_file_existence(file):
         return
-    
+
     try:
         metadata = MetadataProcessor().view_metadata(file)
         if metadata:
@@ -41,7 +41,7 @@ def delete(file, output):
     """Remove metadata from a file."""
     if not validate_file_existence(file):
         return
-    
+
     try:
         result = MetadataProcessor().delete_metadata(file, output)
         if result:

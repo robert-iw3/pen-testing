@@ -76,7 +76,7 @@ int32_t __cdecl Decrypt(int32_t arg_8h)
     int32_t var_ch;
     int32_t var_8h;
     int32_t var_4h;
-    
+
     iVar7 = 0;
     iVar6 = 0;
     do {
@@ -199,7 +199,7 @@ int32_t __cdecl fcn.1000203c(int32_t arg_8h)
     undefined4 var_ch;
     undefined4 var_8h;
     int32_t var_4h;
-    
+
     iVar7 = 0;
     iVar6 = 0;
     do {
@@ -258,7 +258,7 @@ REG ADD HKCU\Console /v CodePage /t REG_DWORD /d 65001 /f
 <h2>Links <a name="Links"></a></h2>
 <h6> Original tweet: </h6><a name="tweet"></a>
 
-* [https://twitter.com/Timele9527/status/1252446369987432449](https://twitter.com/Timele9527/status/1252446369987432449) 
+* [https://twitter.com/Timele9527/status/1252446369987432449](https://twitter.com/Timele9527/status/1252446369987432449)
 
 <h6> Links Anyrun: <a name="Links-Anyrun"></a></h6>
 

@@ -15,7 +15,7 @@ use tokio::io::{
     Result,
 };
 use gethostname::gethostname;
-use std::{env, io}; 
+use std::{env, io};
 use serde_json;
 use serde::{Serialize, Deserialize};
 
@@ -55,7 +55,7 @@ async fn main() {
         Ok(name) => name,
         Err(_) => "unknown".to_string(),
     };
-    
+
     let os_name = env::consts::OS;
     let sys_arch = env::consts::ARCH;
 
@@ -105,7 +105,7 @@ async fn main() {
                     eprintln!("registration error: {}", e);
                     helpers::wait().await;
                     continue;
-                }, 
+                },
             };
 
             id = id_resp.id;
@@ -291,7 +291,7 @@ async fn send_message(msg_id: &String, response: &String, stream: &mut DataStrea
             return Err(e.into());
         }
     };
-    
+
     let req_len = json_req.len().to_string();
 
     let mut req_buff = b"POST /v1 HTTP/1.1\r\nHost: x\r\nConnection: close\r\nContent-Length: ".to_vec();

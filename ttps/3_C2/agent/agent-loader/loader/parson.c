@@ -266,7 +266,7 @@ static int parson_sprintf(char * s, const char * format, ...) {
     int result;
     va_list args;
     va_start(args, format);
-    
+
     #if defined(__APPLE__) && defined(__clang__)
         #pragma clang diagnostic push
         #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -2152,7 +2152,7 @@ JSON_Status json_object_dotset_value(JSON_Object *object, const char *name, JSON
     JSON_Status status = JSONFailure;
     size_t name_len = 0;
     char *name_copy = NULL;
-    
+
     if (object == NULL || name == NULL || value == NULL) {
         return JSONFailure;
     }
@@ -2272,7 +2272,7 @@ JSON_Status json_object_clear(JSON_Object *object) {
     for (i = 0; i < json_object_get_count(object); i++) {
         parson_free(object->names[i]);
         object->names[i] = NULL;
-        
+
         json_value_free(object->values[i]);
         object->values[i] = NULL;
     }

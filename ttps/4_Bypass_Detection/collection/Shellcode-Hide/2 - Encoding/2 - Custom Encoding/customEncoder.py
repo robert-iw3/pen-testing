@@ -1,4 +1,4 @@
-# python3 
+# python3
 import sys
 
 def Encode(data):
@@ -17,7 +17,7 @@ def printCiphertext(ciphertext):
 
 try:
     content = open(sys.argv[1], "rb").read()
-    
+
 except:
     print("Usage: .\Encoder.py PAYLOAD_FILE")
     sys.exit()
@@ -25,5 +25,4 @@ except:
 
 cipherText = Encode(content)
 printCiphertext(cipherText)
-    
-    
+

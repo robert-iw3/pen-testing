@@ -43,10 +43,10 @@ namespace GoldendMSA
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(@"
-  ____        _     _             ____  __  __ ____    _    
- / ___|  ___ | | __| | ___ _ __  |  _ \|  \/  / ___|  / \   
-| |  _  / _ \| |/ _` |/ _ \ '_ \ | | | | |\/| \___ \ / _ \  
-| |_| || (_) | | (_| |  __/ | | || |_| | |  | |___) / ___ \ 
+  ____        _     _             ____  __  __ ____    _
+ / ___|  ___ | | __| | ___ _ __  |  _ \|  \/  / ___|  / \
+| |  _  / _ \| |/ _` |/ _ \ '_ \ | | | | |\/| \___ \ / _ \
+| |_| || (_) | | (_| |  __/ | | || |_| | |  | |___) / ___ \
  \____| \___/|_|\__,_|\___|_| |_||____/|_|  |_|____/_/   \_\
                                                            ");
 
@@ -69,7 +69,7 @@ namespace GoldendMSA
             Console.WriteLine("\tGoldendMSA.exe compute  -s <sid> -k <KDS Root key> -d <domain name> -m <ManadgedPasswordID>");
             Console.WriteLine("");
             Console.WriteLine("convert:");
-            Console.WriteLine("\tGoldendMSA.exe convert -d <domain name> -u <username end with $> -p <base64 password>"); 
+            Console.WriteLine("\tGoldendMSA.exe convert -d <domain name> -u <username end with $> -p <base64 password>");
             Console.WriteLine("");
             Console.WriteLine("wordlist:");
             Console.WriteLine("\tGoldendMSA.exe wordlist -s <dMSA's sid> -d <dMSA's domain> -f <forest's domain> -k <id of kds root key>");
@@ -107,7 +107,7 @@ namespace GoldendMSA
                 Console.WriteLine("Execution example: GoldendMSA.exe compute  -s <sid> -k <KDS Root key> -d <domain name> -m <ManadgedPasswordID>");
                 return;
             }
-            
+
             if (!(Helpers.IsValidDomainFormatRegex(options.DomainName)))
             {
                 Console.WriteLine("[X] Golden DMSA - Did not granted a valid domain name");
@@ -124,7 +124,7 @@ namespace GoldendMSA
                 return;
             }
             sid = new SecurityIdentifier(options.Sid);
-            
+
             ProcessComputePwdOptions(sid, Base64KDS, Base64ManagePasswordID, DomainName, ForestName);
         }
         public static void ProcessConvertOptions(ConvertOptions options)
@@ -154,13 +154,13 @@ namespace GoldendMSA
             Console.WriteLine("Execution example: GoldendMSA.exe convert -d <domain name> -u <username end with $> -p <base64 password>");
         }
         public static void ProcessWordOptions(WordlistOptions option)
-        {   
+        {
             string sidPattern = @"^S-\d-\d+-(\d+-){1,14}\d+$";
-            
-            if (String.IsNullOrEmpty(option.Sid)) { 
+
+            if (String.IsNullOrEmpty(option.Sid)) {
                 Console.WriteLine("[X] Golden DMSA - Did not granted a valid SID");
                 Console.WriteLine("Execution example: GoldendMSA.exe wordlist -s <dMSA's sid> -d <dMSA's domain> -f <forest's domain> -k <id of kds root key>");
-                return; 
+                return;
             }
             bool isValidFormat = Regex.IsMatch(option.Sid, sidPattern);
             if (!isValidFormat)
@@ -246,17 +246,17 @@ namespace GoldendMSA
             }
             else
             {
-                
+
                 Console.WriteLine("[X] Golden DMSA - This is not a valid command");
                 Console.WriteLine("Execution example: GoldendMSA.exe info -d <domain name> -m ldap");
                 Console.WriteLine("Execution example: GoldendMSA.exe info -d <domain name> -m brute -u <username> -p <password> -o <user's domain name> -r <number> ");
                 return;
-                
+
             }
         }
         public static void ProcessKDSOptions(KdsOptions options)
         {
-            
+
             Guid? guidName = null;
 
             if (String.IsNullOrEmpty(options.DomainName))
@@ -264,7 +264,7 @@ namespace GoldendMSA
                 Console.WriteLine("Dumping from forest'S DC. Must be running as Enterprise admin.");
                 Console.WriteLine("");
             }
-            else 
+            else
             {
                 if (!(Helpers.IsValidDomainFormatRegex(options.DomainName)))
                 {
@@ -280,9 +280,9 @@ namespace GoldendMSA
                     Console.WriteLine("[X] Golden DMSA - SYSTEM was not used for execution.");
                     return;
                 }
-                
+
             }
-            
+
             if (!String.IsNullOrEmpty(options.guid))
             {
                 if (!Helpers.IsValidGuid(options.guid))
@@ -293,15 +293,15 @@ namespace GoldendMSA
                 }
                 guidName = Guid.Parse(options.guid);
             }
-            
+
             ProcessKdsInfoOptions(guidName, options.DomainName);
         }
         public static void ProcessBruteforceOptions(BruteForceOptions options)
         {
-            SecurityIdentifier sid = null; 
+            SecurityIdentifier sid = null;
             string Base64KDS = options.KdsRootKeyBase64;
             string DomainName = options.DomainName;
-            string kdsID = options.fileName;  
+            string kdsID = options.fileName;
             string username = null;
 
             if (!Helpers.IsBase64String(options.KdsRootKeyBase64))
@@ -328,7 +328,7 @@ namespace GoldendMSA
             {
                 username = (options.username).ToLower();
             }
-            
+
             if (!(Helpers.IsValidDomainFormatRegex(options.DomainName)))
             {
                 Console.WriteLine("[X] Golden DMSA - Did not granted a valid domain name");
@@ -336,7 +336,7 @@ namespace GoldendMSA
                 return;
             }
             DomainName = options.DomainName;
-            
+
             string sidPattern = @"^S-\d-\d+-(\d+-){1,14}\d+$";
             bool isValidFormat = Regex.IsMatch(options.Sid, sidPattern);
 
@@ -347,7 +347,7 @@ namespace GoldendMSA
                 return;
             }
             sid = new SecurityIdentifier(options.Sid);
-                        
+
             BruteForceDMSA.BruteForce(sid, Base64KDS, kdsID, username, DomainName,options.ptt, options.verbose);
         }
         /*
@@ -561,7 +561,7 @@ namespace GoldendMSA
 
                 if (string.IsNullOrEmpty(ManagedPwdIdBase64))
                 {
-                    
+
                     pwdId = MsdsManagedPasswordId.GetManagedPasswordIDBySid(domainName, Sid);
                 }
                 else
@@ -681,7 +681,7 @@ namespace GoldendMSA
     {
         [Option('s', "sid", Required = true, HelpText = "SID of DMSA/GMSA account")]
         public string Sid { get; set; }
-        
+
         [Option('t', "ptt", Required = false, HelpText = "In case you want to cache the ticket (default not set) ")]
         public bool ptt { get; set; }
 

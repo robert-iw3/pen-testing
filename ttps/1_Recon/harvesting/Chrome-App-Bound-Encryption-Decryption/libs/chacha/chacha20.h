@@ -52,7 +52,7 @@ void chacha20_block(const uint8_t key[32], const uint8_t nonce[12], uint32_t cou
     int i;
 
     // Constants
-    x[0] = 0x61707865; 
+    x[0] = 0x61707865;
     x[1] = 0x3320646e;
     x[2] = 0x79622d32;
     x[3] = 0x6b206574;

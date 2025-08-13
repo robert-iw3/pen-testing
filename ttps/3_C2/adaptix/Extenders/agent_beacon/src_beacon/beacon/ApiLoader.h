@@ -17,7 +17,7 @@ extern void* __cdecl memcpy(void*, const void*, size_t);
 CHAR HdChrA(CHAR c);
 WCHAR HdChrW(WCHAR c);
 
-struct SYSMODULES 
+struct SYSMODULES
 {
 	HMODULE Kernel32;
 	HMODULE Ntdll;
@@ -86,7 +86,7 @@ struct WINAPIFUNC
 	DECL_API(WaitNamedPipeA);
 	DECL_API(WideCharToMultiByte);
 	DECL_API(WriteFile);
-	
+
 	// iphlpapi
 	DECL_API(GetAdaptersInfo);
 

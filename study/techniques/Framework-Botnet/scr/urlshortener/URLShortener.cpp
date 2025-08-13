@@ -50,7 +50,7 @@ std::string URLShortener::shorten(const std::string &url) {
         Logger::log(Logger::ERROR, "Error shortening URL: " + std::string(e.what()));
         throw;
     }
-    
+
     return shortenedURL;
 }
 
@@ -216,13 +216,13 @@ std::string URLShortener::customShorten(const std::string &url) {
 void URLShortener::cacheURL(const std::string &url, const std::string &shortenedURL) {
     auto now = std::chrono::steady_clock::now();
     CacheEntry entry = {shortenedURL, now + std::chrono::seconds(cacheTTL)};
-    
+
     if (cache.size() >= maxCacheSize) {
         std::string oldest = lruList.back();
         lruList.pop_back();
         cache.erase(oldest);
     }
-    
+
     cache[url] = entry;
     lruList.push_front(url);
     Logger::log(Logger::INFO, "URL cached: " + url + " -> " + shortenedURL);

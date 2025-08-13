@@ -11,7 +11,7 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.parameters
 	/// </summary>
 	/// <remarks>
 	/// Parameterised Skein can be used for:
-	/// <ul> 
+	/// <ul>
 	/// <li>MAC generation, by providing a <see cref="SkeinParameters.Builder.SetKey(byte[])">key</see>.</li>
 	/// <li>Randomised hashing, by providing a <see cref="SkeinParameters.Builder.SetNonce(byte[])">nonce</see>.</li>
 	/// <li>A hash function for digital signatures, associating a

@@ -22,9 +22,9 @@ Then run `./run_shell.sh`: just like for Stage 1, you'll be provided with a shel
 Run the `display_smiley.efi` binary.
 Even though it is unsigned, you are able to run it because secure boot hasn't been enabled yet!
 
-To enable secure boot run: 
+To enable secure boot run:
 ```console
-FS0:\> EnrollDefaultKeys.efi --no-default   
+FS0:\> EnrollDefaultKeys.efi --no-default
 info: SetupMode=1 SecureBoot=0 SecureBootEnable=0 CustomMode=0 VendorKeys=1
 info: SetupMode=0 SecureBoot=1 SecureBootEnable=1 CustomMode=0 VendorKeys=0
 info: success

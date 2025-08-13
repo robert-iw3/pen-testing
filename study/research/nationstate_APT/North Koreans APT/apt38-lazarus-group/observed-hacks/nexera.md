@@ -26,7 +26,7 @@ Nexera's proxy contract at root of exploit
 
 ## Persona
 
-Request for Assistance via Linkedin 
+Request for Assistance via Linkedin
 
 > it seems like that you are very technical in the field of smart contract.
 

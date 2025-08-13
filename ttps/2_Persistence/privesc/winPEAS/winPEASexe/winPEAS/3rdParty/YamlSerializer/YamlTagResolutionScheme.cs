@@ -26,7 +26,7 @@ namespace System.Yaml
         void AddDefaultRules()
         {
             BeginUpdate();
-            AddRule<int>("!!int", @"([-+]?(0|[1-9][0-9_]*))", 
+            AddRule<int>("!!int", @"([-+]?(0|[1-9][0-9_]*))",
                 m => Convert.ToInt32(m.Value.Replace("_", "")), null);
             AddRule<int>("!!int", @"([-+]?)0b([01_]+)", m => {
                 var v = Convert.ToInt32(m.Groups[2].Value.Replace("_", ""), 2);
@@ -63,7 +63,7 @@ namespace System.Yaml
                         @"([ \t]*)" +
                         @"(Z|([-+])([0-9]{1,2})(:([0-9][0-9]))?)" +
                     @")?" +
-                @")?", 
+                @")?",
                 match => DateTime.Parse(match.Value),
                 datetime => {
                     var z = datetime.ToString("%K");
@@ -95,11 +95,11 @@ namespace System.Yaml
         /// </summary>
         List<YamlTagResolutionRule> Rules = new List<YamlTagResolutionRule>();
         /// <summary>
-        /// Add a tag resolution rule that is invoked when <paramref name="regex"/> matches 
+        /// Add a tag resolution rule that is invoked when <paramref name="regex"/> matches
         /// the <see cref="YamlScalar.Value">Value of</see> a <see cref="YamlScalar"/> node.
-        /// 
+        ///
         /// The tag is resolved to <paramref name="tag"/> and <paramref name="decode"/> is
-        /// invoked when actual value of type <typeparamref name="T"/> is extracted from 
+        /// invoked when actual value of type <typeparamref name="T"/> is extracted from
         /// the node text.
         /// </summary>
         /// <remarks>
@@ -113,7 +113,7 @@ namespace System.Yaml
         /// Add( ... );
         /// Add( ... );
         /// Add( ... );
-        /// EndUpdate();   // automaticall invoke internal calculation method 
+        /// EndUpdate();   // automaticall invoke internal calculation method
         /// </code></example>
         /// <param name="tag"></param>
         /// <param name="regex"></param>
@@ -135,9 +135,9 @@ namespace System.Yaml
 
         int UpdateCounter = 0;
         /// <summary>
-        /// Supress invoking slow internal calculation method when 
+        /// Supress invoking slow internal calculation method when
         /// <see cref="AddRule&lt;T&gt;(string,string,Func&lt;Match,T&gt;,Func&lt;T,string&gt;)"/> called.
-        /// 
+        ///
         /// BeginUpdate / <see cref="EndUpdate"/> can be called nestedly.
         /// </summary>
         public void BeginUpdate()
@@ -145,7 +145,7 @@ namespace System.Yaml
             UpdateCounter++;
         }
         /// <summary>
-        /// Quit to supress invoking slow internal calculation method when 
+        /// Quit to supress invoking slow internal calculation method when
         /// <see cref="AddRule&lt;T&gt;(string,string,Func&lt;Match,T&gt;,Func&lt;T,string&gt;)"/> called.
         /// </summary>
         public void EndUpdate()
@@ -182,13 +182,13 @@ namespace System.Yaml
             // Tag to decoding methods
             types = new Dictionary<string, List<YamlTagResolutionRule>>();
             foreach ( var rule in Rules ) {
-                if ( !types.ContainsKey(rule.Tag) ) 
+                if ( !types.ContainsKey(rule.Tag) )
                     types[rule.Tag] = new List<YamlTagResolutionRule>();
                 types[rule.Tag].Add(rule);
             }
 
             TypeToRule = new Dictionary<Type, YamlTagResolutionRule>();
-            foreach ( var rule in Rules ) 
+            foreach ( var rule in Rules )
                 if(rule.HasEncoder())
                     TypeToRule[rule.GetTypeOfValue()] = rule;
         }

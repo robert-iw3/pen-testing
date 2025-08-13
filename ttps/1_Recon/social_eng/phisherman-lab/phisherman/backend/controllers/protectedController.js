@@ -13,7 +13,7 @@ exports.getAllSensitiveData = (req, res) => {
 // Create a New Sensitive Data Entry
 exports.createSensitiveData = (req, res) => {
   const {fullName, ssn, creditCardNumber, bankAccountNumber, phoneNumber, address, email, notes } = req.body;
-  
+
   if (!fullName || !ssn || !creditCardNumber || !bankAccountNumber) {
     return res.status(400).json({ error: "Missing required fields: required fields are fullname,ssn,cc number,bankaccount" });
   }
@@ -37,7 +37,7 @@ exports.updateSensitiveData = (req, res) => {
   const { fullName, ssn, creditCardNumber, bankAccountNumber, phoneNumber, address, email, notes } = req.body;
 
   db.run(
-    `UPDATE sensitive_data SET fullName = ?, ssn = ?, creditCardNumber = ?, bankAccountNumber = ?, 
+    `UPDATE sensitive_data SET fullName = ?, ssn = ?, creditCardNumber = ?, bankAccountNumber = ?,
      phoneNumber = ?, address = ?, email = ?, notes = ? WHERE id = ?`,
     [fullName, ssn, creditCardNumber, bankAccountNumber, phoneNumber, address, email, notes, id],
     function (err) {

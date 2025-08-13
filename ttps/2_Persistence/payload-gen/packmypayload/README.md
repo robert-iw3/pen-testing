@@ -2,7 +2,7 @@
 
 [Jump to supported formats](https://github.com/mgeeky/PackMyPayload#features)
 
-This tool takes a file or directory on input and embeds them into an output file acting as an archive/container. 
+This tool takes a file or directory on input and embeds them into an output file acting as an archive/container.
 It can serve purpose for a Proof-of-Concept presenting emerging risk of container file formats with embedded malware, as well as helper for professional Red Team Operators to sharpen their Initial Access maneuvers.
 
 Currently Threat Actors are known to smuggle their malware archived in various container file formats, to name a few:
@@ -24,7 +24,7 @@ The implemented behavior is explained to work by differentating macro-enabled Of
 
 [Outflank shed more light on MOTW](https://outflank.nl/blog/2020/03/30/mark-of-the-web-from-a-red-teams-perspective/), back in 2020 by indicating areas where MOTW flag is not uniformly propagated. These areas serve **_defense gap_** role and are commonly abused by threat actors since years by now.
 
-Their research disclosed, that some _container_ file formats - namely **ISO**, **VHD**/**VHDX** -  do not propagate MOTW taint flag onto inner files upon auto-mount or auto-extraction. Moreover, Windows 8+ is able to open these formats automatically upon double-click, making them _notorius infection carriers, possibly devaluing MOTW in its security measure role_. 
+Their research disclosed, that some _container_ file formats - namely **ISO**, **VHD**/**VHDX** -  do not propagate MOTW taint flag onto inner files upon auto-mount or auto-extraction. Moreover, Windows 8+ is able to open these formats automatically upon double-click, making them _notorius infection carriers, possibly devaluing MOTW in its security measure role_.
 
 
 ## Demo - How Threat Actors Evade MOTW and Smuggle Macros
@@ -66,7 +66,7 @@ Having created ISO file, mimic a HTTP server using Python:
 PS> py -m http.server 80
 ```
 
-and then download the ISO file using your Browser. 
+and then download the ISO file using your Browser.
 
 ![3.gif](imgs/3.gif)
 

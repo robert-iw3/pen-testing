@@ -36,13 +36,13 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
   check_binary_perms() {
     local bin="$1"
     [ -z "$bin" ] && return
-    
+
     # Skip if binary doesn't exist
     [ ! -e "$bin" ] && return
-    
+
     # Check if it's a regular file
     [ ! -f "$bin" ] && return
-    
+
     # Check if it's writable and executable
     if [ -w "$bin" ]; then
       echo "Writable binary: $bin"
@@ -54,23 +54,23 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
   get_binary_path() {
     local cmd="$1"
     local bin=""
-    
+
     # Try to get the first word of the command
     bin=$(echo "$cmd" | awk '{print $1}')
     [ -z "$bin" ] && return
-    
+
     # If it's an absolute path, use it directly
     if [ "$(echo "$bin" | cut -c1)" = "/" ]; then
       echo "$bin"
       return
     fi
-    
+
     # If it's a relative path, try to resolve it
     if [ -e "$bin" ]; then
       echo "$(pwd)/$bin"
       return
     fi
-    
+
     # Try to find it in PATH
     for path in $(echo "$PATH" | tr ':' ' '); do
       if [ -x "$path/$bin" ]; then
@@ -190,7 +190,7 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
   #    [ ! -r "$user_crontab" ] && continue
   #    username=$(basename "$user_crontab")
   #    [ "$username" = "$USER" ] && continue
-      
+
   #    echo "Found crontab for user: $username"
   #    while IFS= read -r line || [ -n "$line" ]; do
   #      case "$line" in

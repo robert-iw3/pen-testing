@@ -143,7 +143,7 @@ namespace GoldendMSA
             byte[] aes128Key = aes.StringToKeyAES128(utf8Password, salt);
             string aes_256_hash = BitConverter.ToString(aes256Key).Replace("-", "").ToLower();
             string aes_128_hash = BitConverter.ToString(aes128Key).Replace("-", "").ToLower();
-            
+
             if (bruteforceMode)
             {
                 if (OPTH.Over_pass_the_hash(username, domainName, aes_256_hash, ptt, verbose) == 1)

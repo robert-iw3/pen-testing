@@ -10,9 +10,9 @@ namespace KoenZomers.OneDrive.Api.Enums
         /// <summary>
         /// Consumer OneDrive
         /// </summary>
-        [EnumMember(Value = "personal")] 
+        [EnumMember(Value = "personal")]
         Personal,
-        
+
         /// <summary>
         /// OneDrive for Business
         /// </summary>

@@ -25,7 +25,7 @@ for i in range(0xa8f):
         last = result
         #set registers to argument defaults
         #change .ecx to 0x1001e0b0 for second set of strings
-        dp.regs.ecx = 0x1001e5e8 
+        dp.regs.ecx = 0x1001e5e8
         dp.regs.edx = 0x0000104e
         #Change esp+0x4 to 0x1001e050 for second set of strings
         dp.write_ptr(dp.regs.esp+0x4,0x1001f638) #or 0x1001e050

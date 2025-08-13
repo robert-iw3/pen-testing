@@ -33,7 +33,7 @@ extern Filter* itemFilter;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate, NSMenuDelegate>
 {
-   
+
 
 }
 
@@ -46,7 +46,7 @@ extern Filter* itemFilter;
 @property (weak) IBOutlet NSButton* closeButton;
 
 //flag for secondary scan
-// ->need to restart shared enumerator 
+// ->need to restart shared enumerator
 @property BOOL secondaryScan;
 
 //plugin objects

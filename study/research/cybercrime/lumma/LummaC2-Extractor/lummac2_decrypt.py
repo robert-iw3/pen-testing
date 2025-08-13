@@ -42,10 +42,10 @@ def sanitize_string(decoded_str: str) -> str:
 # Decrypts an encrypted string based on provided keys
 def decrypt_encrypted_string(encrypted_hex: str, initial_key: int, key_modifier: int, max_iterations: Optional[int] = None) -> bytearray:
     encrypted_bytes = bytearray(binascii.unhexlify(encrypted_hex))
-    
+
     # Ensure max_iterations doesn't exceed the length of encrypted_bytes
     max_iterations = min(max_iterations or len(encrypted_bytes), len(encrypted_bytes))
-    
+
     decrypted_data = bytearray()
 
     for index in range(max_iterations):

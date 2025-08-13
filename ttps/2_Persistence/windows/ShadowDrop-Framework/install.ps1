@@ -51,7 +51,7 @@ try {
     if ($model -match "Virtual|VMware|KVM|QEMU|Xen") {
         $isVM = $true
     }
-    
+
     $hyperv = (Get-CimInstance -ClassName Win32_ComputerSystem).HypervisorPresent
     if ($hyperv) {
         $isVM = $true

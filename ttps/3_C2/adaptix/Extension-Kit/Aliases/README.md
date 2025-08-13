@@ -9,7 +9,7 @@
 ```
 ps run -o C:\Windows\System32\cmd.exe /c ...
 ```
- 
+
 
 
 ## powershell

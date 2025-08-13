@@ -34,7 +34,7 @@ std::string MacOSUtils::getOSVersion() {
     CFPropertyListRef plist;
     CFStringRef versionKey = CFStringCreateWithCString(NULL, "ProductVersion", kCFStringEncodingUTF8);
     CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, CFSTR("/System/Library/CoreServices/SystemVersion.plist"), kCFURLPOSIXPathStyle, false);
-    
+
     if (url) {
         CFReadStreamRef stream = CFReadStreamCreateWithFile(kCFAllocatorDefault, url);
         if (stream) {
@@ -105,7 +105,7 @@ std::string MacOSUtils::readSystemLog(const std::string &logType) {
 }
 
 void MacOSUtils::manageStartupPrograms(const std::string &program, bool add) {
-    std::string command = add ? "osascript -e 'tell application \"System Events\" to make new login item at end with properties {path:\"" + program + "\", hidden:false}'" 
+    std::string command = add ? "osascript -e 'tell application \"System Events\" to make new login item at end with properties {path:\"" + program + "\", hidden:false}'"
                               : "osascript -e 'tell application \"System Events\" to delete login item \"" + program + "\"'";
     Logger::log(Logger::INFO, (add ? "Adding " : "Removing ") + program + " to/from startup programs.");
     executeCommand(command);

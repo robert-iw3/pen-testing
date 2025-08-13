@@ -21,7 +21,7 @@ namespace GzipandBase64
                 }
                 return memory.ToArray();
             }
-        }        
+        }
 	static void Main(string[] args)
         {
             byte[] AsBytes = File.ReadAllBytes(@"mimikatz.exe");

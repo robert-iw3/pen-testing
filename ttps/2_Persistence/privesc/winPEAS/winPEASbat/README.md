@@ -41,15 +41,15 @@ Some of the tests in this script were extracted from **[here](https://github.com
 - [x] Remote Desktop Credentials Manager?
 - [x] WSUS Settings
 - [x] Processes list
-- [x] Interesting file permissions of binaries being executed 
+- [x] Interesting file permissions of binaries being executed
 - [x] Interesting file permissions of binaries run at startup
 - [x] AlwaysInstallElevated?
 - [x] Network info (see below)
 - [x] Users info (see below)
-- [x] Current user privileges 
-- [x] Service binary permissions 
+- [x] Current user privileges
+- [x] Service binary permissions
 - [x] Check if permissions to modify any service registy
-- [x] Unquoted Service paths  
+- [x] Unquoted Service paths
 - [x] DLL Hijacking in PATH
 - [x] Windows Vault
 - [x] DPAPI Master Keys
@@ -61,16 +61,16 @@ Some of the tests in this script were extracted from **[here](https://github.com
 - [x] Check for Cloud credentials
 - [x] Search for known registry to have passwords and keys inside (Winlogon...)
 - [x] Search for known files to have passwords inside (can take some minutes)
-- [x] If *long*, search files with passwords inside 
-- [x] If *long*, search registry with passwords inside 
+- [x] If *long*, search files with passwords inside
+- [x] If *long*, search registry with passwords inside
 
 ### More enumeration
 
 - [x] Date & Time
 - [x] Env
 - [x] Installed Software
-- [x] Running Processes 
-- [x] Current Shares 
+- [x] Running Processes
+- [x] Current Shares
 - [x] Network Interfaces
 - [x] Used Ports
 - [x] Firewall
@@ -80,7 +80,7 @@ Some of the tests in this script were extracted from **[here](https://github.com
 - [x] Cached DNS
 - [x] Info about current user (PRIVILEGES)
 - [x] List groups (info about administrators)
-- [x] Current logon users 
+- [x] Current logon users
 
 </details>
 
@@ -123,7 +123,7 @@ C:\Users\john\Desktop\desktop.ini NT AUTHORITY\SYSTEM:(I)(F)
                                 MYDOMAIN\john:(I)(F)
 ```
 
-Here you can see that the privileges of user *NT AUTHORITY\SYSTEM* appears in the output because it is in the same line as the path of the binary. However, in the next line, you can see that our user (john) has full privileges in that file. 
+Here you can see that the privileges of user *NT AUTHORITY\SYSTEM* appears in the output because it is in the same line as the path of the binary. However, in the next line, you can see that our user (john) has full privileges in that file.
 
 This is the kind of outpuf that you have to look for when usnig the winPEAS.bat script.
 

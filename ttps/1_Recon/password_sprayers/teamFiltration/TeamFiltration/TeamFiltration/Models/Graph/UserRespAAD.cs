@@ -10,7 +10,7 @@ namespace TeamFiltration.Models.Graph
     public class UserRespAAD
     {
 
-       
+
         [JsonProperty("odata.metadata")]
         public string odatametadata { get; set; }
         [JsonProperty("odata.nextLink")]
@@ -118,6 +118,6 @@ namespace TeamFiltration.Models.Graph
         public string timestamp { get; set; }
     }
 
-  
-    
+
+
 }

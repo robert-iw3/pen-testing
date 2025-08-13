@@ -1,11 +1,11 @@
 #include "common.h"
 
 DWORD ReadMemoryPrimitive(IN HANDLE hDevice, IN DWORD dwSize, IN DWORD64 dwAddress) {
-    
+
     RTCORE64_MEMORY_READ    memoryRead          = { 0 };    // Initialize struct with 0
     BOOL                    bSuccess            = NULL;     // Save the DeviceIOControl status
     DWORD                   dwBytesReturned     = NULL;     // Amount of bytes returned
-    
+
     // Set the address to read
     memoryRead.Address = dwAddress;
 
@@ -85,15 +85,15 @@ DWORD ReadMemoryDWORD(IN HANDLE Device, IN DWORD64 Address) {
 
 // Helper function to read 8 bytes (DWORD64)
 DWORD64 ReadMemoryDWORD64(IN HANDLE Device, IN DWORD64 Address) {
-    
+
     // Read the lower 4 bytes
     DWORD dwLow = ReadMemoryDWORD(Device, Address);
 
     // Read the upper 4 bytes
-    DWORD dwHigh = ReadMemoryDWORD(Device, Address + 4);        
+    DWORD dwHigh = ReadMemoryDWORD(Device, Address + 4);
 
     // Combine the high and low parts into a 64-bit value
-    return ((DWORD64)dwHigh << 32) | dwLow;                 
+    return ((DWORD64)dwHigh << 32) | dwLow;
 }
 
 

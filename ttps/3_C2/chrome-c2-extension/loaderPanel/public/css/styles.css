@@ -9,8 +9,8 @@
 
 body {
     font-family: 'Courier New', Courier, monospace;
-    background-color: #121212; 
-    color: #cccccc;       
+    background-color: #121212;
+    color: #cccccc;
     line-height: 1.4;
 }
 
@@ -18,13 +18,13 @@ body {
    КОНТЕЙНЕР ОСНОВНОЙ ПАНЕЛИ
 ---------------------------- */
 .container {
-    max-width: 900px; 
+    max-width: 900px;
     margin: 50px auto;
     padding: 30px;
     background-color: #1e1e1e;
     border-radius: 10px;
     box-shadow: 0 0 15px #000000;
-    text-align: center;  
+    text-align: center;
 }
 
 .container > * {
@@ -65,7 +65,7 @@ body {
 }
 
 /* ---------------------------
-   ГЛОБАЛЬНЫЕ СТИЛИ 
+   ГЛОБАЛЬНЫЕ СТИЛИ
 ---------------------------- */
 
 label {
@@ -123,7 +123,7 @@ form {
 /* Кнопки */
 button,
 .btn {
-    width: auto; 
+    width: auto;
     min-width: 120px;
     margin: 10px 5px 10px 0;
     padding: 10px 16px;
@@ -161,7 +161,7 @@ button:active,
 .status-message {
     margin-top: 10px;
     font-weight: bold;
-    color: #00cc66; 
+    color: #00cc66;
     text-align: center;
 }
 
@@ -317,86 +317,86 @@ tr:nth-child(even) {
    ФОРМА ДЛЯ ВВОДА КОМАНД
 ---------------------------- */
 .form-section {
-    margin-bottom: 20px; 
-    padding: 15px;    
-    border: 1px solid #444; 
-    border-radius: 8px;  
-    background-color: #1e1e1e; 
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #1e1e1e;
 }
 
 .command-form {
     display: flex;
-    flex-wrap: wrap;      
-    gap: 10px;            
-    align-items: center;  
-    justify-content: flex-start; 
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .command-form input[type="text"],
 .command-form input[type="url"],
 .command-form select,
 .command-form button {
-    width: 200px;           
-    height: 40px;            
-    padding: 10px;           
-    border-radius: 6px;    
-    font-size: 1em;          
+    width: 200px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 1em;
     background-color: #2b2b2b;
     border: 1px solid #444444;
     color: #cccccc;
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
-    box-sizing: border-box; 
-    align-self: center;     
+    box-sizing: border-box;
+    align-self: center;
 }
 
 .url-field {
-    display: flex;         
-    visibility: hidden;     
-    opacity: 0;            
-    transition: opacity 0.3s ease; 
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .url-field.show {
-    visibility: visible;   
-    opacity: 1;            
+    visibility: visible;
+    opacity: 1;
 }
 
 .command-form .form-group {
     display: flex;
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center;    
-    margin: 0;         
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
     padding: 0;
 }
 
 .command-form .form-group:last-child {
-    display: flex;        
-    width: 100%;           
-    justify-content: center; 
-    margin-top: 8px;       
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
 }
 
 .command-form button {
-    border: none;         
-    outline: none;          
-    background-color: #444;   
-    padding: 8px 16px;     
-    font-size: 14px;        
-    border-radius: 4px;     
-    color: #fff;          
-    cursor: pointer;  
-    transition: background-color 0.3s ease; 
-    align-self: center;    
-    margin-top: 8px;       
-    margin-bottom: 8px;  
+    border: none;
+    outline: none;
+    background-color: #444;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .command-form button:hover {
-    background-color: #555; 
-    box-shadow: none; 
+    background-color: #555;
+    box-shadow: none;
 }
 
 .hidden {
@@ -407,7 +407,7 @@ tr:nth-child(even) {
    ЛОГИН
 ---------------------------- */
 #loginSection {
-    text-align: center; 
+    text-align: center;
 }
 
 .logo-header {

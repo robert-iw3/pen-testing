@@ -18,19 +18,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CustomSniHandler extends SniHandler {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(CustomSniHandler.class);
-	
+
 	private final Bootstrap clientBootstrapTemplate;
-	
+
 	private final HostMatcher<Object> ignoredHosts;
-	
+
 	public CustomSniHandler(Mapping<? super String, ? extends SslContext> mapping, Bootstrap clientBootstrapTemplate, HostMatcher<Object> ignoredHostMatcher) throws IOException {
 		super(mapping);
 		this.clientBootstrapTemplate = clientBootstrapTemplate;
 		ignoredHosts = ignoredHostMatcher;
 	}
-	
+
 	@Override
 	protected void replaceHandler(ChannelHandlerContext channelHandlerContext, @Nullable String hostname, SslContext sslContext) throws Exception {
 		ChannelPipeline pipeline = channelHandlerContext.pipeline();
@@ -47,7 +47,7 @@ public class CustomSniHandler extends SniHandler {
 
 	private void replaceWithRawForward(String hostname, ChannelPipeline pipeline) {
 		boolean foundThis = false;
-		
+
 		for(Iterator<Map.Entry<String, ChannelHandler>> it = pipeline.iterator(); it.hasNext();){
 			ChannelHandler handler = it.next().getValue();
 			if(foundThis){
@@ -57,7 +57,7 @@ public class CustomSniHandler extends SniHandler {
 				foundThis = true;
 			}
 		}
-		
+
 		if(!foundThis){
 			throw new IllegalStateException("cannot find self handler in pipeline");
 		}

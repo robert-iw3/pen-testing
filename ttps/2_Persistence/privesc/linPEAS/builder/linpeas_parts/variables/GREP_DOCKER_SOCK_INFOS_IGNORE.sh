@@ -5,7 +5,7 @@
 # Description: Ignore this strings when grepping docker.sock infos
 # License: GNU GPL
 # Version: 1.0
-# Functions Used: 
+# Functions Used:
 # Global Variables:
 # Initial Functions:
 # Generated Global Variables: $GREP_DOCKER_SOCK_INFOS_IGNORE

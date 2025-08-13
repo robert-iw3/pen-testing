@@ -104,7 +104,7 @@ def is_valid_url(url, validate_only_http_scheme=True):
 	# no urls returns false
 	if not url:
 		return False
-	
+
 	# urls with space are not valid urls
 	if ' ' in url:
 		return False
@@ -134,7 +134,7 @@ class SubdomainScopeChecker:
 
 			Args:
 				patterns (list): List of patterns to load.
-			Returns: 
+			Returns:
 				None
 		"""
 		for pattern in patterns:

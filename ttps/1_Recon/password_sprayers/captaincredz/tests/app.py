@@ -22,7 +22,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         elif self.path.startswith('/login'):
             # Parse the URL parameters
             params = parse_qs(urlparse(self.path).query)
-            
+
             # Check if both 'username' and 'password' parameters are present
             if 'username' in params and 'password' in params:
                 username = params['username'][0]
@@ -49,11 +49,11 @@ if __name__ == '__main__':
         pass
     # Specify the server address and port
     server_address = ('0.0.0.0', port)
-    
+
     # Create an HTTP server with the specified handler
     httpd = HTTPServer(server_address, SimpleHTTPRequestHandler)
 
     print(f'Server is running on http://0.0.0.0:{port}')
-    
+
     # Start the server
     httpd.serve_forever()

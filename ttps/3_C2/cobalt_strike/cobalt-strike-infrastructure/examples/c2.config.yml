@@ -6,7 +6,7 @@ warhorse:
     ntp_timezone: 'Etc/Universal' # Time Zone Link
     vault_key: 'vault_key'
     # snapshots: true
-  backup: 
+  backup:
     backup_bucket_name: "backup-bucket"
     backup_bucket_region: "us-east-1"
     backup_bucket_endpoint: "https://nyc3.digitaloceanspaces.com"
@@ -43,7 +43,7 @@ warhorse:
         auth_header: true
         password: "Password"
         key: "0000-0000-0000-0000"
-        socks_ports: 
+        socks_ports:
         - 9201
         - 9202
         - 9203

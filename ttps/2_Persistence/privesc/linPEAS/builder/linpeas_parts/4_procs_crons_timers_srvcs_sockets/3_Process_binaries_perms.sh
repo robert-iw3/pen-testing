@@ -16,17 +16,17 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
   if [ "$NOUSEPS" ]; then
     print_2title "Binary processes permissions (non 'root root' and not belonging to current user)"
     print_info "https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html#processes"
-    
+
     # Get list of writable binaries
     binW=""
     for pid in $(find /proc -maxdepth 1 -regex '/proc/[0-9]+' -printf "%f\n" 2>/dev/null); do
       # Skip if process doesn't exist or we can't access it
       [ ! -r "/proc/$pid/exe" ] && continue
-      
+
       # Get binary path
       bpath=$(readlink "/proc/$pid/exe" 2>/dev/null)
       [ -z "$bpath" ] && continue
-      
+
       # Check if binary is writable
       if [ -w "$bpath" ]; then
         if [ -z "$binW" ]; then
@@ -41,11 +41,11 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     for pid in $(find /proc -maxdepth 1 -regex '/proc/[0-9]+' -printf "%f\n" 2>/dev/null); do
       # Skip if process doesn't exist or we can't access it
       [ ! -r "/proc/$pid/exe" ] && continue
-      
+
       # Get binary path
       bpath=$(readlink "/proc/$pid/exe" 2>/dev/null)
       [ -z "$bpath" ] && continue
-      
+
       # Display binary permissions if file exists
       if [ -e "$bpath" ]; then
         ls -la "$bpath" 2>/dev/null

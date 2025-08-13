@@ -31,7 +31,7 @@ int attach_tp_sys_exit_getdents64(struct kit_bpf *skel){
 
 
 int attach_fs_all(struct kit_bpf *skel){
-    return attach_tp_sys_enter_read(skel) || 
+    return attach_tp_sys_enter_read(skel) ||
         attach_tp_sys_exit_read(skel) ||
         attach_tp_sys_enter_openat(skel)||
         attach_tp_sys_enter_getdents64(skel) ||
@@ -81,7 +81,7 @@ int detach_tp_sys_exit_getdents64(struct kit_bpf *skel){
 }
 
 int detach_fs_all(struct kit_bpf *skel){
-    return detach_tp_sys_enter_read(skel) || 
+    return detach_tp_sys_enter_read(skel) ||
         detach_tp_sys_exit_read(skel) ||
         detach_tp_sys_enter_openat(skel)||
         detach_tp_sys_enter_getdents64(skel)||

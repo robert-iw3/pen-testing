@@ -231,7 +231,7 @@ EXTERN_C NTSTATUS ZwQueryValueKey(
 EXTERN_C NTSTATUS ZwClose(
     IN HANDLE KeyHandle
     );
-	
+
 typedef void (WINAPI* _RtlInitUnicodeString)(
 	PUNICODE_STRING DestinationString,
 	PCWSTR SourceString

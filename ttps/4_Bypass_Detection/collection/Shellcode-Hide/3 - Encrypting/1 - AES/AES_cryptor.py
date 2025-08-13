@@ -12,11 +12,11 @@ def AESencrypt(plaintext, key):
     ciphertext = cipher.encrypt(plaintext)
     return ciphertext,key
 
-  
+
 def printResult(key, ciphertext):
     print('char AESkey[] = { 0x' + ', 0x'.join(hex(x)[2:] for x in KEY) + ' };')
     print('unsigned char AESshellcode[] = { 0x' + ', 0x'.join(hex(x)[2:] for x in ciphertext) + ' };')
-    
+
 try:
     file = open(sys.argv[1], "rb")
     content = file.read()

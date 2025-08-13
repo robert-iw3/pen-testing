@@ -16,7 +16,7 @@ import msdn_prototype
 logging.basicConfig(level=logging.INFO)
 
 # used in cli mode
-# 
+#
 strs_offsets = {
     'StrBuf1': {
         'data': [0x60aa0, 0x442],
@@ -74,7 +74,7 @@ def qbot4_crc(name, seed=0):
     x = ~seed & 0xffffffff
     for c in name:
         z = (c ^ x)
-        y = crc_table[z & 0xf] ^ (z >> 4) 
+        y = crc_table[z & 0xf] ^ (z >> 4)
         x = crc_table[y & 0xf] ^ (y >> 4)
         logging.debug(f'CRC c: {c:x} z: {z:x} y: {y:x} x: {x:x}')
     return ~x & 0xffffffff
@@ -142,7 +142,7 @@ class QakbotTools(object):
         #crc_table = struct.unpack('<16I', fp.read(16*4))
         crc_lookup = qbot4_genlookup()
         msdn = msdn_prototype.MsdnScrapper()
-       
+
         for name, offset in import_offsets.items():
             fp.seek(offset[0])
             vals = struct.unpack(f'<{int(offset[1]/4):d}I', fp.read(offset[1]))
@@ -170,7 +170,7 @@ class QakbotTools(object):
         pe = pefile.PE(args.filename, fast_load=True)
         pe.parse_data_directories(directories=d)
 
-        rt_rcdata_idx = [ 
+        rt_rcdata_idx = [
             entry.id for entry in
             pe.DIRECTORY_ENTRY_RESOURCE.entries].index(pefile.RESOURCE_TYPE['RT_RCDATA'])
 
@@ -275,14 +275,14 @@ def ida_get_arg(call_addr, n):
 def qbot4_ida_strdec():
     key_len = 0x5a
     fns = [
-        ['GetStrByIdx', 
-        'int __fastcall GetStrByIdx(BYTE* pBuffer, DWORD dwBufferLen, BYTE *pKey, DWORD dwIdx)', 
+        ['GetStrByIdx',
+        'int __fastcall GetStrByIdx(BYTE* pBuffer, DWORD dwBufferLen, BYTE *pKey, DWORD dwIdx)',
         'int __fastcall dummy(int)' ],
-        ['GetStrByIdxW', 
-        'int __fastcall GetStrByIdxW(BYTE* pBuffer, DWORD dwBufferLen,BYTE *pKey, DWORD dwIdx)', 
+        ['GetStrByIdxW',
+        'int __fastcall GetStrByIdxW(BYTE* pBuffer, DWORD dwBufferLen,BYTE *pKey, DWORD dwIdx)',
         'int __stdcall dummy(int)' ]
     ]
-   
+
     for setting in fns:
         fn = setting[0]
         ida_set_prototype(fn, setting[1])
@@ -321,7 +321,7 @@ if __name__ == "__main__":
 
     try:
         import idaapi
-        mode = ida_plugin 
+        mode = ida_plugin
     except ModuleNotFoundError:
         pass
 

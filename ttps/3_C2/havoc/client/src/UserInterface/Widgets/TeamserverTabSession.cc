@@ -329,7 +329,7 @@ void UserInterface::Widgets::TeamserverTabSession::handleDemonContextMenu( const
 
                         }
                     }
-                    
+
                 }
                 else if ( action->text().compare( "Mark as Dead" ) == 0 || action->text().compare( "Mark as Alive" ) == 0 )
                 {

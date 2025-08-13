@@ -8,7 +8,7 @@ do{
 	$writer.Write("> ");
 	$writer.Flush();
 	$read = $null;
-	while($stream.DataAvailable -or ($read = $stream.Read($buffer, 0, 1024)) -eq $null){}	
+	while($stream.DataAvailable -or ($read = $stream.Read($buffer, 0, 1024)) -eq $null){}
 	$out = $encoding.GetString($buffer, 0, $read).Replace("`r`n","").Replace("`n","");
 	if(!$out.equals("exit")){
 		$out = $out.split(' ')

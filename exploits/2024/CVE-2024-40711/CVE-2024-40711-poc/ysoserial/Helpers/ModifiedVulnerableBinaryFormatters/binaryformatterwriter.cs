@@ -225,10 +225,10 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
         {
             InternalWriteItemNull();
             int assemId;
-#if _DEBUG                        
+#if _DEBUG
             nameInfo.Dump("WriteObject nameInfo");
             typeNameInfo.Dump("WriteObject typeNameInfo");
-#endif            
+#endif
 
             int objectId = (int)nameInfo.NIobjectId;
 
@@ -264,9 +264,9 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
             {
                 // Object
                 if (binaryObject == null)
-                    binaryObject = new BinaryObject();            
+                    binaryObject = new BinaryObject();
                 binaryObject.Set(objectId, objectMapInfo.objectId);
-#if _DEBUG                        
+#if _DEBUG
                 binaryObject.Dump();
 #endif
                 binaryObject.Write(this);
@@ -306,7 +306,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
                 }
 
                 if (binaryObjectWithMapTyped == null)
-                    binaryObjectWithMapTyped = new BinaryObjectWithMapTyped();            
+                    binaryObjectWithMapTyped = new BinaryObjectWithMapTyped();
 
                 // BCL types are not placed in table
                 assemId = (int)typeNameInfo.NIassemId;
@@ -328,9 +328,9 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
             InternalWriteItemNull();
 
             if (binaryObjectString == null)
-                binaryObjectString = new BinaryObjectString();            
+                binaryObjectString = new BinaryObjectString();
             binaryObjectString.Set(objectId, value);
-#if _DEBUG                        
+#if _DEBUG
             binaryObjectString.Dump();
 #endif
             binaryObjectString.Write(this);
@@ -341,8 +341,8 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
         [System.Security.SecurityCritical]  // auto-generated
         internal void WriteSingleArray(NameInfo memberNameInfo, NameInfo arrayNameInfo, WriteObjectInfo objectInfo, NameInfo arrayElemTypeNameInfo, int length, int lowerBound, Array array)
         {
-            InternalWriteItemNull();            
-#if _DEBUG                        
+            InternalWriteItemNull();
+#if _DEBUG
             arrayNameInfo.Dump("WriteSingleArray arrayNameInfo");
             arrayElemTypeNameInfo.Dump("WriteSingleArray arrayElemTypeNameInfo");
 #endif
@@ -375,7 +375,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
             {
                 BCLDebug.Trace("BINARY", "-----Top Level Object-----");
             }
-#if _DEBUG                        
+#if _DEBUG
             binaryArray.Dump();
 #endif
             binaryArray.Write(this);
@@ -417,9 +417,9 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
                 //Buffer.InternalBlockCopy(array, arrayOffset*typeLength, byteBuffer, 0, bufferUsed);
 #if BIGENDIAN
                 // we know that we are writing a primitive type, so just do a simple swap
-                for (int i = 0; i < bufferUsed; i += typeLength) 
+                for (int i = 0; i < bufferUsed; i += typeLength)
                 {
-                    for (int j = 0; j < typeLength / 2; j++) 
+                    for (int j = 0; j < typeLength / 2; j++)
                     {
                         byte tmp = byteBuffer[i + j];
                         byteBuffer[i + j] = byteBuffer[i + typeLength-1 - j];
@@ -435,10 +435,10 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
 
         internal void WriteJaggedArray(NameInfo memberNameInfo, NameInfo arrayNameInfo, WriteObjectInfo objectInfo, NameInfo arrayElemTypeNameInfo, int length, int lowerBound)
         {
-#if _DEBUG                        
+#if _DEBUG
             arrayNameInfo.Dump("WriteRectangleArray arrayNameInfo");
             arrayElemTypeNameInfo.Dump("WriteRectangleArray arrayElemTypeNameInfo");
-#endif     
+#endif
             InternalWriteItemNull();
             BinaryArrayTypeEnum binaryArrayTypeEnum;
             Int32[] lengthA = new Int32[1];
@@ -468,7 +468,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
             {
                 BCLDebug.Trace("BINARY", "-----Top Level Object-----");
             }
-#if _DEBUG                        
+#if _DEBUG
             binaryArray.Dump();
 #endif
             binaryArray.Write(this);
@@ -476,10 +476,10 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
 
         internal void WriteRectangleArray(NameInfo memberNameInfo, NameInfo arrayNameInfo, WriteObjectInfo objectInfo, NameInfo arrayElemTypeNameInfo, int rank, int[] lengthA, int[] lowerBoundA)
         {
-#if _DEBUG                        
+#if _DEBUG
             arrayNameInfo.Dump("WriteRectangleArray arrayNameInfo");
             arrayElemTypeNameInfo.Dump("WriteRectangleArray arrayElemTypeNameInfo");
-#endif      
+#endif
             InternalWriteItemNull();
 
             BinaryArrayTypeEnum binaryArrayTypeEnum = BinaryArrayTypeEnum.Rectangular;
@@ -506,7 +506,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
             {
                 BCLDebug.Trace("BINARY", "-----Top Level Object-----");
             }
-#if _DEBUG                        
+#if _DEBUG
             binaryArray.Dump();
 #endif
             binaryArray.Write(this);
@@ -516,10 +516,10 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
         [System.Security.SecurityCritical]  // auto-generated
         internal void WriteObjectByteArray(NameInfo memberNameInfo, NameInfo arrayNameInfo, WriteObjectInfo objectInfo, NameInfo arrayElemTypeNameInfo, int length, int lowerBound, Byte[] byteA)
         {
-#if _DEBUG                        
+#if _DEBUG
             arrayNameInfo.Dump("WriteObjectByteArray arrayNameInfo");
             arrayElemTypeNameInfo.Dump("WriteObjectByteArray arrayElemTypeNameInfo");
-#endif      
+#endif
             InternalWriteItemNull();
             WriteSingleArray(memberNameInfo, arrayNameInfo, objectInfo, arrayElemTypeNameInfo, length, lowerBound, byteA);
         }
@@ -529,11 +529,11 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
 
         internal void WriteMember(NameInfo memberNameInfo, NameInfo typeNameInfo, Object value)
         {
-#if _DEBUG                        
+#if _DEBUG
             SerTrace.Log("BinaryWriter", "Write Member memberName ",memberNameInfo.NIname,", value ",value);
             memberNameInfo.Dump("WriteMember memberNameInfo");
             typeNameInfo.Dump("WriteMember typeNameInfo");
-#endif      
+#endif
             InternalWriteItemNull();
             InternalPrimitiveTypeE typeInformation = typeNameInfo.NIprimitiveTypeEnum;
 
@@ -583,7 +583,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters {
 
         internal void WriteNullMember(NameInfo memberNameInfo, NameInfo typeNameInfo)
         {
-#if _DEBUG                        
+#if _DEBUG
             typeNameInfo.Dump("WriteNullMember typeNameInfo");
 #endif
             InternalWriteItemNull();

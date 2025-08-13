@@ -1,7 +1,7 @@
 #include "Packer.h"
 
 Packer::Packer()
-{       
+{
     this->buffer = (BYTE*) MemAllocLocal(4);
     this->size   = 4;
     this->index  = 0;
@@ -25,7 +25,7 @@ VOID Packer::Set32(ULONG index, ULONG value)
     place[3] = (value      ) & 0xFF;
 }
 
-VOID Packer::Pack64( ULONG64 value ) 
+VOID Packer::Pack64( ULONG64 value )
 {
     this->buffer = (BYTE*)MemReallocLocal( this->buffer, this->size + sizeof(ULONG64) );
 
@@ -84,7 +84,7 @@ VOID Packer::PackBytes(PBYTE data, ULONG data_size)
     this->Pack32(data_size);
 
     if (data_size) {
- 
+
         this->buffer = (BYTE*)MemReallocLocal(this->buffer, this->size + data_size);
 
         memcpy( this->buffer + this->index, data, data_size);

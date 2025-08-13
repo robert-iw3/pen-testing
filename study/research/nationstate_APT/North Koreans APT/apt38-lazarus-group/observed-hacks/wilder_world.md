@@ -27,7 +27,7 @@ Tags: 🎙️ Contagious Interview
 
 ## Details - April 2, 2024
 
-While investigating the GNUS Token Exploit, I traced back 63.47 ETH string of funds to the address 0xa75587029b13632dda5dc40711ebdfc5ddc6bfb5 which exclusively transacts on April 2, 2024. It receives from 0x7829afa127494ca8b4ceef4fb81b78fee9d0e471 ("Zer0 Name 1") and a few other addresses. 
+While investigating the GNUS Token Exploit, I traced back 63.47 ETH string of funds to the address 0xa75587029b13632dda5dc40711ebdfc5ddc6bfb5 which exclusively transacts on April 2, 2024. It receives from 0x7829afa127494ca8b4ceef4fb81b78fee9d0e471 ("Zer0 Name 1") and a few other addresses.
 
 Also on April 2, 2024 0x7829afa127494ca8b4ceef4fb81b78fee9d0e471 transfers the ownership of contract 0x0122a448E395cc9602019A2E2B9B7c841B1D61F4 to new owner 0xa75587029B13632dda5dc40711EbdFC5ddc6bfB5.
 
@@ -129,8 +129,8 @@ Also on April 2, 2024 0xee2e4fbe10a437e1b1561687d4e5133dd397ab96 (which also rec
 - 0xbe1566497c7f581258c14bf297a8f4e747ddf013 - Dust from 0x3e2
 
 - 0xf2e43d4c4cac88cd86c3700482094c9bc73cecee7ef05a6a158128cc751d312f - April 2nd Theft Txn
-- 0xee2e4fbe10a437e1b1561687d4e5133dd397ab96 - Primary Theft ($275k MEOW), ETH -> BSC 
-- 0x59523347198bef5e24d57c129d393bb0390338c0 - Laundry 
+- 0xee2e4fbe10a437e1b1561687d4e5133dd397ab96 - Primary Theft ($275k MEOW), ETH -> BSC
+- 0x59523347198bef5e24d57c129d393bb0390338c0 - Laundry
 - 0xe59e3ca05510cad092c3514e4fb45976f2d48f59 - Laundry
 - 0x5ffe27c4038e033959812527e76bc7bc436afd9f - To Defiway
 - 0xabe402e27750bf13641a96fbb2677bf7a2a58a88 - Laundry - BSC, to Polygon

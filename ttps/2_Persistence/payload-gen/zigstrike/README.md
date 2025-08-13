@@ -12,11 +12,11 @@ ZigStrike is a robust shellcode loader developed in Zig, offering a variety of i
 ### Features ( release 2.0 )
 
 - **Multiple Injection Techniques**:
-  - Local Thread 
+  - Local Thread
   - Local Mapping
   - Remote Mapping
   - Remote Thread hijacking
-  - EarlyCascade injection 
+  - EarlyCascade injection
 
 - **Anti-Sandbox Protection**:
   - TPM Presence Check.
@@ -29,14 +29,14 @@ ZigStrike is a robust shellcode loader developed in Zig, offering a variety of i
   - CPL
 
 - **Advanced Features**:
-  - Shellcode advanced allocation. 
-  - Payload Runtime protection; preventing emulation and sandbox dynamic anaylsis.  
+  - Shellcode advanced allocation.
+  - Payload Runtime protection; preventing emulation and sandbox dynamic anaylsis.
   - Bypass common detection rules.
 
 * **Front-end enhancement**:
-  - Added new page to view generated payloads. 
-  - Detailed information for each created payload. 
-  - Fix flask issue to support uploading large shellcode. 
+  - Added new page to view generated payloads.
+  - Detailed information for each created payload.
+  - Fix flask issue to support uploading large shellcode.
 
 ## Runtime container
 

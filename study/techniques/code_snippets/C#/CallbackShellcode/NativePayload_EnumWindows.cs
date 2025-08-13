@@ -8,7 +8,7 @@ namespace NativePayload_EnumWindows
 {
     class Program
     {
-      
+
         [Flags]
         public enum ProcessAccessFlags : uint
         {
@@ -56,7 +56,7 @@ namespace NativePayload_EnumWindows
         [DllImport("kernelbase.dll")]
         public static extern bool CloseHandle(IntPtr hObject);
         [DllImport("ntdll.dll")]
-        private static extern bool RtlMoveMemory(IntPtr addr, byte[] pay,uint size); 
+        private static extern bool RtlMoveMemory(IntPtr addr, byte[] pay,uint size);
         [DllImport("kernelbase.dll")]
         public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
         [DllImport("user32.dll")]

@@ -88,12 +88,12 @@ function handler(event) {
     var headers = request.headers;
     var headerValue = '{{ vm.cobaltstrike.auth_header_value | default(auth_header_value) }}'
     var newurl = '{{ cdn.redirect_domain |default('https://aws.com') }}'
-  
+
     if (headers['{{ vm.cobaltstrike.auth_header_name | default(auth_header_name) }}']) {
         var authHeader = headers['{{ vm.cobaltstrike.auth_header_name | default(auth_header_name) }}'].value;
         if (authHeader === headerValue ) {
             return request;
-        } 
+        }
     } else {
         var response = {
                 statusCode: 302,
@@ -203,12 +203,12 @@ function handler(event) {
     var headers = request.headers;
     var headerValue = '{{ vm.nighthwak.auth_header_value | default(auth_header_value) }}'
     var newurl = '{{ cdn.redirect_domain |default('https://aws.com') }}'
-  
+
     if (headers['{{ vm.nighthawk.auth_header_name | default(auth_header_name) }}']) {
         var authHeader = headers['{{ vm.nighthawk.auth_header_name | default(auth_header_name) }}'].value;
         if (authHeader === headerValue ) {
             return request;
-        } 
+        }
     } else {
         var response = {
                 statusCode: 302,
@@ -316,12 +316,12 @@ function handler(event) {
     var headers = request.headers;
     var headerValue = '{{ vm.mythic.auth_header_value | default(auth_header_value) }}'
     var newurl = '{{ cdn.redirect_domain |default('https://aws.com') }}'
-  
+
     if (headers['{{ vm.mythic.auth_header_name | default(auth_header_name) }}']) {
         var authHeader = headers['{{ vm.mythic.auth_header_name | default(auth_header_name) }}'].value;
         if (authHeader === headerValue ) {
             return request;
-        } 
+        }
     } else {
         var response = {
                 statusCode: 302,

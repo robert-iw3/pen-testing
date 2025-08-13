@@ -1,18 +1,18 @@
 /** @file
-Compression routine. The compression algorithm is a mixture of LZ77 and Huffman 
-coding. LZ77 transforms the source data into a sequence of Original Characters 
-and Pointers to repeated strings. This sequence is further divided into Blocks 
+Compression routine. The compression algorithm is a mixture of LZ77 and Huffman
+coding. LZ77 transforms the source data into a sequence of Original Characters
+and Pointers to repeated strings. This sequence is further divided into Blocks
 and Huffman codings are applied to each Block.
 
 Copyright (c) 2014, Nikolaj Schlej
 Copyright (c) 2006 - 2014, Intel Corporation. All rights reserved.<BR>
-This program and the accompanying materials                          
-are licensed and made available under the terms and conditions of the BSD License         
-which accompanies this distribution.  The full text of the license may be found at        
-http://opensource.org/licenses/bsd-license.php                                            
-                                                                                          
-THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,                     
-WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.             
+This program and the accompanying materials
+are licensed and made available under the terms and conditions of the BSD License
+which accompanies this distribution.  The full text of the license may be found at
+http://opensource.org/licenses/bsd-license.php
+
+THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 **/
 
@@ -62,161 +62,161 @@ UINT8 gPBIT = 4;
 //
 
 STATIC
-VOID 
+VOID
 PutDword(
   IN UINT32 Data
   );
 
 STATIC
-EFI_STATUS 
+EFI_STATUS
 AllocateMemory (VOID);
 
 STATIC
 VOID
 FreeMemory (VOID);
 
-STATIC 
-VOID 
+STATIC
+VOID
 InitSlide (VOID);
 
-STATIC 
-NODE 
+STATIC
+NODE
 Child (
-  IN NODE q, 
+  IN NODE q,
   IN UINT8 c
   );
 
-STATIC 
-VOID 
+STATIC
+VOID
 MakeChild (
-  IN NODE q, 
-  IN UINT8 c, 
+  IN NODE q,
+  IN UINT8 c,
   IN NODE r
   );
-  
-STATIC 
-VOID 
+
+STATIC
+VOID
 Split (
   IN NODE Old
   );
 
-STATIC 
-VOID 
+STATIC
+VOID
 InsertNode (VOID);
-  
-STATIC 
-VOID 
+
+STATIC
+VOID
 DeleteNode (VOID);
 
-STATIC 
-VOID 
+STATIC
+VOID
 GetNextMatch (VOID);
-  
-STATIC 
-EFI_STATUS 
+
+STATIC
+EFI_STATUS
 Encode (VOID);
 
-STATIC 
-VOID 
+STATIC
+VOID
 CountTFreq (VOID);
 
-STATIC 
-VOID 
+STATIC
+VOID
 WritePTLen (
-  IN INT32 n, 
-  IN INT32 nbit, 
+  IN INT32 n,
+  IN INT32 nbit,
   IN INT32 Special
   );
 
-STATIC 
-VOID 
+STATIC
+VOID
 WriteCLen (VOID);
-  
-STATIC 
-VOID 
+
+STATIC
+VOID
 EncodeC (
   IN INT32 c
   );
 
-STATIC 
-VOID 
+STATIC
+VOID
 EncodeP (
   IN UINT32 p
   );
 
-STATIC 
-VOID 
+STATIC
+VOID
 SendBlock (VOID);
-  
-STATIC 
-VOID 
+
+STATIC
+VOID
 Output (
-  IN UINT32 c, 
+  IN UINT32 c,
   IN UINT32 p
   );
 
-STATIC 
-VOID 
+STATIC
+VOID
 HufEncodeStart (VOID);
-  
-STATIC 
-VOID 
+
+STATIC
+VOID
 HufEncodeEnd (VOID);
-  
-STATIC 
-VOID 
+
+STATIC
+VOID
 MakeCrcTable (VOID);
-  
-STATIC 
-VOID 
+
+STATIC
+VOID
 PutBits (
-  IN INT32 n, 
+  IN INT32 n,
   IN UINT32 x
   );
-  
-STATIC 
-INT32 
+
+STATIC
+INT32
 FreadCrc (
-  OUT UINT8 *p, 
+  OUT UINT8 *p,
   IN  INT32 n
   );
-  
-STATIC 
-VOID 
+
+STATIC
+VOID
 InitPutBits (VOID);
-  
-STATIC 
-VOID 
+
+STATIC
+VOID
 CountLen (
   IN INT32 i
   );
 
-STATIC 
-VOID 
+STATIC
+VOID
 MakeLen (
   IN INT32 Root
   );
-  
-STATIC 
-VOID 
+
+STATIC
+VOID
 DownHeap (
   IN INT32 i
   );
 
-STATIC 
-VOID 
+STATIC
+VOID
 MakeCode (
-  IN  INT32 n, 
-  IN  UINT8 Len[], 
+  IN  INT32 n,
+  IN  UINT8 Len[],
   OUT UINT16 Code[]
   );
-  
-STATIC 
-INT32 
+
+STATIC
+INT32
 MakeTree (
-  IN  INT32   NParm, 
-  IN  UINT16  FreqParm[], 
-  OUT UINT8   LenParm[], 
+  IN  INT32   NParm,
+  IN  UINT16  FreqParm[],
+  OUT UINT8   LenParm[],
   OUT UINT16  CodeParm[]
   );
 
@@ -274,7 +274,7 @@ Returns:
 --*/
 {
   EFI_STATUS Status = EFI_SUCCESS;
-  
+
   //
   // Initializations
   //
@@ -288,7 +288,7 @@ Returns:
   mPrev       = NULL;
   mNext       = NULL;
   gPBIT = 4;
-  
+
   mSrc = (UINT8*)SrcBuffer;
   mSrcUpperLimit = mSrc + SrcSize;
   mDst = DstBuffer;
@@ -296,28 +296,28 @@ Returns:
 
   PutDword(0L);
   PutDword(0L);
-  
+
   MakeCrcTable ();
 
   mOrigSize = mCompSize = 0;
   mCrc = INIT_CRC;
-  
+
   //
   // Compress it
   //
-  
+
   Status = Encode();
   if (EFI_ERROR (Status)) {
     return EFI_OUT_OF_RESOURCES;
   }
-  
+
   //
   // Null terminate the compressed data
   //
   if (mDst < mDstUpperLimit) {
     *mDst++ = 0;
   }
-  
+
   //
   // Fill in compressed size and original size
   //
@@ -328,7 +328,7 @@ Returns:
   //
   // Return
   //
-  
+
   if (mCompSize + 1 + 8 > *DstSize) {
     *DstSize = mCompSize + 1 + 8;
     return EFI_BUFFER_TOO_SMALL;
@@ -435,8 +435,8 @@ EFI_SUCCESS           - Compression is successful.
 
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 PutDword(
   IN UINT32 Data
   )
@@ -445,13 +445,13 @@ PutDword(
 Routine Description:
 
   Put a dword to output stream
-  
+
 Arguments:
 
   Data    - the dword to put
-  
+
 Returns: (VOID)
-  
+
 --*/
 {
   if (mDst < mDstUpperLimit) {
@@ -479,7 +479,7 @@ AllocateMemory ()
 Routine Description:
 
   Allocate memory spaces for data structures used in compression process
-  
+
 Argements: (VOID)
 
 Returns:
@@ -490,7 +490,7 @@ Returns:
 --*/
 {
   UINT32      i;
-  
+
   mText       = malloc (WNDSIZ * 2 + MAXMATCH);
   if (!mText) return EFI_OUT_OF_RESOURCES;
   for (i = 0 ; i < WNDSIZ * 2 + MAXMATCH; i ++) {
@@ -518,7 +518,7 @@ Returns:
     }
   }
   mBuf[0] = 0;
-  
+
   return EFI_SUCCESS;
 }
 
@@ -529,7 +529,7 @@ FreeMemory ()
 Routine Description:
 
   Called when compression is completed to free memory previously allocated.
-  
+
 Arguments: (VOID)
 
 Returns: (VOID)
@@ -539,48 +539,48 @@ Returns: (VOID)
   if (mText) {
     free (mText);
   }
-  
+
   if (mLevel) {
     free (mLevel);
   }
-  
+
   if (mChildCount) {
     free (mChildCount);
   }
-  
+
   if (mPosition) {
     free (mPosition);
   }
-  
+
   if (mParent) {
     free (mParent);
   }
-  
+
   if (mPrev) {
     free (mPrev);
   }
-  
+
   if (mNext) {
     free (mNext);
   }
-  
+
   if (mBuf) {
     free (mBuf);
-  }  
+  }
 
   return;
 }
 
 
-STATIC 
-VOID 
+STATIC
+VOID
 InitSlide ()
 /*++
 
 Routine Description:
 
   Initialize String Info Log data structures
-  
+
 Arguments: (VOID)
 
 Returns: (VOID)
@@ -595,23 +595,23 @@ Returns: (VOID)
   }
   for (i = WNDSIZ; i < (NODE)(WNDSIZ * 2); i++) {
     mParent[i] = NIL;
-  }  
+  }
   mAvail = 1;
   for (i = 1; i < (NODE)(WNDSIZ - 1); i++) {
     mNext[i] = (NODE)(i + 1);
   }
-  
+
   mNext[WNDSIZ - 1] = NIL;
   for (i = WNDSIZ * 2; i <= (NODE)MAX_HASH_VAL; i++) {
     mNext[i] = NIL;
-  }  
+  }
 }
 
 
-STATIC 
-NODE 
+STATIC
+NODE
 Child (
-  IN NODE q, 
+  IN NODE q,
   IN UINT8 c
   )
 /*++
@@ -619,34 +619,34 @@ Child (
 Routine Description:
 
   Find child node given the parent node and the edge character
-  
+
 Arguments:
 
   q       - the parent node
   c       - the edge character
-  
+
 Returns:
 
-  The child node (NIL if not found)  
-  
+  The child node (NIL if not found)
+
 --*/
 {
   NODE r;
-  
+
   r = mNext[HASH(q, c)];
   mParent[NIL] = q;  /* sentinel */
   while (mParent[r] != q) {
     r = mNext[r];
   }
-  
+
   return r;
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 MakeChild (
-  IN NODE q, 
-  IN UINT8 c, 
+  IN NODE q,
+  IN UINT8 c,
   IN NODE r
   )
 /*++
@@ -654,19 +654,19 @@ MakeChild (
 Routine Description:
 
   Create a new child for a given parent node.
-  
+
 Arguments:
 
   q       - the parent node
   c       - the edge character
   r       - the child node
-  
+
 Returns: (VOID)
 
 --*/
 {
   NODE h, t;
-  
+
   h = (NODE)HASH(q, c);
   t = mNext[h];
   mNext[h] = r;
@@ -677,8 +677,8 @@ Returns: (VOID)
   mChildCount[q]++;
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 Split (
   NODE Old
   )
@@ -687,11 +687,11 @@ Split (
 Routine Description:
 
   Split a node.
-  
+
 Arguments:
 
   Old     - the node to split
-  
+
 Returns: (VOID)
 
 --*/
@@ -714,15 +714,15 @@ Returns: (VOID)
   MakeChild(New, mText[mPos + mMatchLen], mPos);
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 InsertNode ()
 /*++
 
 Routine Description:
 
   Insert string info for current position into the String Info Log
-  
+
 Arguments: (VOID)
 
 Returns: (VOID)
@@ -733,7 +733,7 @@ Returns: (VOID)
   UINT8 c, *t1, *t2;
 
   if (mMatchLen >= 4) {
-    
+
     //
     // We have just got a long match, the target tree
     // can be located by MatchPos + 1. Travese the tree
@@ -741,7 +741,7 @@ Returns: (VOID)
     // The usage of PERC_FLAG ensures proper node deletion
     // in DeleteNode() later.
     //
-    
+
     mMatchLen--;
     r = (INT16)((mMatchPos + 1) | WNDSIZ);
     while ((q = mParent[r]) == NIL) {
@@ -757,13 +757,13 @@ Returns: (VOID)
     }
     if (t < (NODE)WNDSIZ) {
       mPosition[t] = (NODE)(mPos | PERC_FLAG);
-    }    
+    }
   } else {
-    
+
     //
     // Locate the target tree
     //
-    
+
     q = (INT16)(mText[mPos] + WNDSIZ);
     c = mText[mPos + 1];
     if ((r = Child(q, c)) == NIL) {
@@ -773,13 +773,13 @@ Returns: (VOID)
     }
     mMatchLen = 2;
   }
-  
+
   //
   // Traverse down the tree to find a match.
   // Update Position value along the route.
   // Node split or creation is involved.
   //
-  
+
   for ( ; ; ) {
     if (r >= (NODE)WNDSIZ) {
       j = MAXMATCH;
@@ -790,7 +790,7 @@ Returns: (VOID)
     }
     if (mMatchPos >= mPos) {
       mMatchPos -= WNDSIZ;
-    }    
+    }
     t1 = &mText[mPos + mMatchLen];
     t2 = &mText[mMatchPos + mMatchLen];
     while (mMatchLen < j) {
@@ -821,16 +821,16 @@ Returns: (VOID)
   mPrev[t] = mPos;
   mParent[mPos] = q;
   mParent[r] = NIL;
-  
+
   //
   // Special usage of 'next'
   //
   mNext[r] = mPos;
-  
+
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 DeleteNode ()
 /*++
 
@@ -838,7 +838,7 @@ Routine Description:
 
   Delete outdated string info. (The Usage of PERC_FLAG
   ensures a clean deletion)
-  
+
 Arguments: (VOID)
 
 Returns: (VOID)
@@ -850,7 +850,7 @@ Returns: (VOID)
   if (mParent[mPos] == NIL) {
     return;
   }
-  
+
   r = mPrev[mPos];
   s = mNext[mPos];
   mNext[r] = s;
@@ -903,8 +903,8 @@ Returns: (VOID)
   mAvail = r;
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 GetNextMatch ()
 /*++
 
@@ -944,7 +944,7 @@ Routine Description:
 Arguments: (VOID)
 
 Returns:
-  
+
   EFI_SUCCESS           - The compression is successful
   EFI_OUT_0F_RESOURCES  - Not enough memory for compression process
 
@@ -961,11 +961,11 @@ Returns:
   }
 
   InitSlide();
-  
+
   HufEncodeStart();
 
   mRemainder = FreadCrc(&mText[WNDSIZ], WNDSIZ + MAXMATCH);
-  
+
   mMatchLen = 0;
   mPos = WNDSIZ;
   InsertNode();
@@ -979,21 +979,21 @@ Returns:
     if (mMatchLen > mRemainder) {
       mMatchLen = mRemainder;
     }
-    
+
     if (mMatchLen > LastMatchLen || LastMatchLen < THRESHOLD) {
-      
+
       //
       // Not enough benefits are gained by outputting a pointer,
       // so just output the original character
       //
-      
+
       Output(mText[mPos - 1], 0);
     } else {
-      
+
       //
       // Outputting a pointer is beneficial enough, do it.
       //
-      
+
       Output(LastMatchLen + (UINT8_MAX + 1 - THRESHOLD),
              (mPos - LastMatchPos - 2) & (WNDSIZ - 1));
       while (--LastMatchLen > 0) {
@@ -1004,21 +1004,21 @@ Returns:
       }
     }
   }
-  
+
   HufEncodeEnd();
   FreeMemory();
   return EFI_SUCCESS;
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 CountTFreq ()
 /*++
 
 Routine Description:
 
   Count the frequencies for the Extra Set
-  
+
 Arguments: (VOID)
 
 Returns: (VOID)
@@ -1059,11 +1059,11 @@ Returns: (VOID)
   }
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 WritePTLen (
-  IN INT32 n, 
-  IN INT32 nbit, 
+  IN INT32 n,
+  IN INT32 nbit,
   IN INT32 Special
   )
 /*++
@@ -1071,13 +1071,13 @@ WritePTLen (
 Routine Description:
 
   Outputs the code length array for the Extra Set or the Position Set.
-  
+
 Arguments:
 
   n       - the number of symbols
   nbit    - the number of bits needed to represent 'n'
   Special - the special symbol that needs to be take care of
-  
+
 Returns: (VOID)
 
 --*/
@@ -1105,15 +1105,15 @@ Returns: (VOID)
   }
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 WriteCLen ()
 /*++
 
 Routine Description:
 
   Outputs the code length array for Char&Length Set
-  
+
 Arguments: (VOID)
 
 Returns: (VOID)
@@ -1157,8 +1157,8 @@ Returns: (VOID)
   }
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 EncodeC (
   IN INT32 c
   )
@@ -1166,8 +1166,8 @@ EncodeC (
   PutBits(mCLen[c], mCCode[c]);
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 EncodeP (
   IN UINT32 p
   )
@@ -1186,15 +1186,15 @@ EncodeP (
   }
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 SendBlock ()
 /*++
 
 Routine Description:
 
   Huffman code the block and output it.
-  
+
 Argument: (VOID)
 
 Returns: (VOID)
@@ -1255,10 +1255,10 @@ Returns: (VOID)
 }
 
 
-STATIC 
-VOID 
+STATIC
+VOID
 Output (
-  IN UINT32 c, 
+  IN UINT32 c,
   IN UINT32 p
   )
 /*++
@@ -1284,7 +1284,7 @@ Returns: (VOID)
       SendBlock();
       mOutputPos = 0;
     }
-    CPos = mOutputPos++;  
+    CPos = mOutputPos++;
     mBuf[CPos] = 0;
   }
   mBuf[mOutputPos++] = (UINT8) c;
@@ -1319,23 +1319,23 @@ HufEncodeStart ()
   return;
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 HufEncodeEnd ()
 {
   SendBlock();
-  
+
   //
   // Flush remaining bits
   //
   PutBits(UINT8_BIT - 1, 0);
-  
+
   return;
 }
 
 
-STATIC 
-VOID 
+STATIC
+VOID
 MakeCrcTable ()
 {
   UINT32 i, j, r;
@@ -1349,14 +1349,14 @@ MakeCrcTable ()
         r >>= 1;
       }
     }
-    mCrcTable[i] = (UINT16)r;    
+    mCrcTable[i] = (UINT16)r;
   }
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 PutBits (
-  IN INT32 n, 
+  IN INT32 n,
   IN UINT32 x
   )
 /*++
@@ -1368,18 +1368,18 @@ Routine Description:
 Argments:
 
   n   - the rightmost n bits of the data is used
-  x   - the data 
+  x   - the data
 
 Returns: (VOID)
 
 --*/
 {
-  UINT8 Temp;  
-  
+  UINT8 Temp;
+
   if (n < mBitCount) {
     mSubBitBuf |= x << (mBitCount -= n);
   } else {
-      
+
     Temp = (UINT8)(mSubBitBuf | (x >> (n -= mBitCount)));
     if (mDst < mDstUpperLimit) {
       *mDst++ = Temp;
@@ -1389,22 +1389,22 @@ Returns: (VOID)
     if (n < UINT8_BIT) {
       mSubBitBuf = x << (mBitCount = UINT8_BIT - n);
     } else {
-        
+
       Temp = (UINT8)(x >> (n - UINT8_BIT));
       if (mDst < mDstUpperLimit) {
         *mDst++ = Temp;
       }
       mCompSize++;
-      
+
       mSubBitBuf = x << (mBitCount = 2 * UINT8_BIT - n);
     }
   }
 }
 
-STATIC 
-INT32 
+STATIC
+INT32
 FreadCrc (
-  OUT UINT8 *p, 
+  OUT UINT8 *p,
   IN  INT32 n
   )
 /*++
@@ -1412,7 +1412,7 @@ FreadCrc (
 Routine Description:
 
   Read in source data
-  
+
 Arguments:
 
   p   - the buffer to hold the data
@@ -1421,7 +1421,7 @@ Arguments:
 Returns:
 
   number of bytes actually read
-  
+
 --*/
 {
   INT32 i;
@@ -1440,16 +1440,16 @@ Returns:
 }
 
 
-STATIC 
-VOID 
+STATIC
+VOID
 InitPutBits ()
 {
-  mBitCount = UINT8_BIT;  
+  mBitCount = UINT8_BIT;
   mSubBitBuf = 0;
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 CountLen (
   IN INT32 i
   )
@@ -1458,11 +1458,11 @@ CountLen (
 Routine Description:
 
   Count the number of each code length for a Huffman tree.
-  
+
 Arguments:
 
   i   - the top node
-  
+
 Returns: (VOID)
 
 --*/
@@ -1479,8 +1479,8 @@ Returns: (VOID)
   }
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 MakeLen (
   IN INT32 Root
   )
@@ -1489,7 +1489,7 @@ MakeLen (
 Routine Description:
 
   Create code length array for a Huffman tree
-  
+
 Arguments:
 
   Root   - the root of the tree
@@ -1503,12 +1503,12 @@ Arguments:
     mLenCnt[i] = 0;
   }
   CountLen(Root);
-  
+
   //
   // Adjust the length count array so that
   // no code will be generated longer than its designated length
   //
-  
+
   Cum = 0;
   for (i = 16; i > 0; i--) {
     Cum += mLenCnt[i] << (16 - i);
@@ -1532,8 +1532,8 @@ Arguments:
   }
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 DownHeap (
   IN INT32 i
   )
@@ -1543,7 +1543,7 @@ DownHeap (
   //
   // priority queue: send i-th entry down heap
   //
-  
+
   k = mHeap[i];
   while ((j = 2 * i) <= mHeapSize) {
     if (j < mHeapSize && mFreq[mHeap[j]] > mFreq[mHeap[j + 1]]) {
@@ -1558,11 +1558,11 @@ DownHeap (
   mHeap[i] = (INT16)k;
 }
 
-STATIC 
-VOID 
+STATIC
+VOID
 MakeCode (
-  IN  INT32 n, 
-  IN  UINT8 Len[], 
+  IN  INT32 n,
+  IN  UINT8 Len[],
   OUT UINT16 Code[]
   )
 /*++
@@ -1570,7 +1570,7 @@ MakeCode (
 Routine Description:
 
   Assign code to each symbol based on the code length array
-  
+
 Arguments:
 
   n     - number of symbols
@@ -1593,12 +1593,12 @@ Returns: (VOID)
   }
 }
 
-STATIC 
-INT32 
+STATIC
+INT32
 MakeTree (
-  IN  INT32   NParm, 
-  IN  UINT16  FreqParm[], 
-  OUT UINT8   LenParm[], 
+  IN  INT32   NParm,
+  IN  UINT16  FreqParm[],
+  OUT UINT8   LenParm[],
   OUT UINT16  CodeParm[]
   )
 /*++
@@ -1606,22 +1606,22 @@ MakeTree (
 Routine Description:
 
   Generates Huffman codes given a frequency distribution of symbols
-  
+
 Arguments:
 
   NParm    - number of symbols
   FreqParm - frequency of each symbol
   LenParm  - code length for each symbol
   CodeParm - code for each symbol
-  
+
 Returns:
 
   Root of the Huffman tree.
-  
+
 --*/
 {
   INT32 i, j, k, Avail;
-  
+
   //
   // make tree, calculate len[], return root
   //
@@ -1636,16 +1636,16 @@ Returns:
     mLen[i] = 0;
     if (mFreq[i]) {
       mHeap[++mHeapSize] = (INT16)i;
-    }    
+    }
   }
   if (mHeapSize < 2) {
     CodeParm[mHeap[1]] = 0;
     return mHeap[1];
   }
   for (i = mHeapSize / 2; i >= 1; i--) {
-    
+
     //
-    // make priority queue 
+    // make priority queue
     //
     DownHeap(i);
   }
@@ -1668,11 +1668,11 @@ Returns:
     mLeft[k] = (UINT16)i;
     mRight[k] = (UINT16)j;
   } while (mHeapSize > 1);
-  
+
   mSortPtr = CodeParm;
   MakeLen(k);
   MakeCode(NParm, LenParm, CodeParm);
-  
+
   //
   // return root
   //

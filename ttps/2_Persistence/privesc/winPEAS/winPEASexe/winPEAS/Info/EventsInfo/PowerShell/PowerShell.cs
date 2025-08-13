@@ -9,7 +9,7 @@ namespace winPEAS.Info.EventsInfo.PowerShell
         {
             // adapted from @djhohnstein's EventLogParser project
             //  https://github.com/djhohnstein/EventLogParser/blob/master/EventLogParser/EventLogHelpers.cs
-            // combined with scraping from https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands            
+            // combined with scraping from https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands
 
             var context = 3; // number of lines around the match to display
 

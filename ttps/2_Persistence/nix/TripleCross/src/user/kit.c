@@ -87,7 +87,7 @@ int check_map_fd_info(int map_fd, struct bpf_map_info *info, struct bpf_map_info
 }
 
 void print_help_dialog(const char* arg){
-	
+
     printf("\nUsage: %s ./kit OPTION\n\n", arg);
     printf("Program OPTIONs\n");
     char* line = "-t[NETWORK INTERFACE]";
@@ -134,11 +134,11 @@ static void sig_handler(int sig){
 /**
  * @brief Manages an event received via the ring buffer
  * It's a message from th ebpf program
- * 
- * @param ctx 
- * @param data 
- * @param data_sz 
- * @return int 
+ *
+ * @param ctx
+ * @param data
+ * @param data_sz
+ * @return int
  */
 static int handle_rb_event(void *ctx, void *data, size_t data_size){
 	const struct rb_event *e = data;
@@ -315,13 +315,13 @@ int main(int argc, char**argv){
             printf("Missing arguments for %c\n", optopt);
             exit(EXIT_FAILURE);
             break;
-        
+
         default:
             print_help_dialog(argv[0]);
             exit(EXIT_FAILURE);
         }
     }
-	
+
 	//Set up libbpf errors and debug info callback
 	libbpf_set_print(libbpf_print_fn);
 
@@ -339,8 +339,8 @@ int main(int argc, char**argv){
 		return 1;
 	}
 
-	
-	
+
+
 	//Load & verify BPF program
 	err = kit_bpf__load(skel);
 	if (err) {
@@ -401,7 +401,7 @@ int main(int argc, char**argv){
 
 	//INJECTION
 	module_config.injection_module.all = ON;
-	
+
 	module_config_attr.skel = skel;
 	err = setup_all_modules();
 	if(err!=0){
@@ -437,7 +437,7 @@ int main(int argc, char**argv){
 	printf("Filter set and ready\n");
 	while (!exiting) {
 		err = ring_buffer__poll(rb, 100 /* timeout, ms */);
-		
+
 		//Checking if a signal occured
 		if (err == -EINTR) {
 			err = 0;

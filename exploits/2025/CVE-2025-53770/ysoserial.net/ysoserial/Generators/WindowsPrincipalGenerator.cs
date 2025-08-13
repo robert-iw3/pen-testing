@@ -25,7 +25,7 @@ namespace ysoserial.Generators
         // using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(info.GetString(BootstrapContextKey))))
         //     m_bootstrapContext = bf.Deserialize(ms, null, false);
         //
-        // ## Notes: 
+        // ## Notes:
         // "actor" contains the serialized base64 WindowsIdentity which inturn contains a ClaimsIdentity pivoting to BinaryFormatter
         // "m_identity" is the WindowsIdentity property on the WindowsPrincipal / WindowsClaimsPrincipal instance :->
         //

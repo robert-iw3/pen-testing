@@ -125,7 +125,7 @@ const insertFakeSensitiveData = () => {
   ];
 
   const stmt = db.prepare(
-    `INSERT INTO sensitive_data (fullName, ssn, creditCardNumber, bankAccountNumber, phoneNumber, address, email, notes) 
+    `INSERT INTO sensitive_data (fullName, ssn, creditCardNumber, bankAccountNumber, phoneNumber, address, email, notes)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
   );
 

@@ -33,7 +33,7 @@ The Icon to be assigned to the generated shortcut. Default is that of explorer.e
 .EXAMPLE
 PS > Out-Shortcut -Payload "-WindowStyle hidden -ExecutionPolicy Bypass -noprofile -noexit -c Get-ChildItem"
 
-Above command would execute Get-ChildItem on the target machine when the shortcut is opened. Note that powershell.exe is 
+Above command would execute Get-ChildItem on the target machine when the shortcut is opened. Note that powershell.exe is
 not a part of the payload as the shortcut already points to it.
 
 .EXAMPLE
@@ -74,20 +74,20 @@ https://github.com/samratashok/nishang
 http://blog.trendmicro.com/trendlabs-security-intelligence/black-magic-windows-powershell-used-again-in-new-attack/
 #>
     [CmdletBinding()] Param(
-        
+
         [Parameter(Position = 0, Mandatory = $False)]
         [String]
         $Executable = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe",
-        
+
         [Parameter(Position = 1, Mandatory = $False)]
         [String]
         $Payload,
-        
+
         [Parameter(Position = 2, Mandatory = $False)]
         [String]
         $PayloadURL,
 
-        
+
         [Parameter(Position = 3, Mandatory = $False)]
         [String]
         $Arguments,

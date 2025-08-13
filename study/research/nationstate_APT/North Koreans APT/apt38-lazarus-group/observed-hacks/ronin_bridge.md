@@ -15,17 +15,17 @@ Tags:: 👛
 
 The FBI continues to combat malicious cyber activity including the threat posed by the Democratic People's Republic of Korea to the U.S. and our private sector partners. Through our investigation we were able to confirm Lazarus Group and APT38, cyber actors associated with the DPRK,  are responsible for the theft of $620 million in Ethereum reported on March 29. The FBI, in coordination with Treasury and other U.S. government partners, will continue to expose and combat the DPRK’s use of illicit activities – including cybercrime and cryptocurrency theft – to generate revenue for the regime.
 
-Network lost $625M after an attacker compromised 5 of its Validators were compromised  and generated valid transaction signature. 
+Network lost $625M after an attacker compromised 5 of its Validators were compromised  and generated valid transaction signature.
 
 The massive hack was only noticed 6 days later after a user reported trouble withdrawing the the bridge.
 
-Sky Mavis’s Ronin validator nodes and Axie DAO validator nodes were compromised resulting in 173,600 Ethereum and 25.5M USDC drained from the Ronin Bridge. Attackers used hacked private keys in order to forge fake withdrawals. Sky Mavis’ Ronin chain currently consists of 9 validator nodes. In order to recognize a Deposit event or a Withdrawal event, 5 out of the 9 validator signatures are needed. 
+Sky Mavis’s Ronin validator nodes and Axie DAO validator nodes were compromised resulting in 173,600 Ethereum and 25.5M USDC drained from the Ronin Bridge. Attackers used hacked private keys in order to forge fake withdrawals. Sky Mavis’ Ronin chain currently consists of 9 validator nodes. In order to recognize a Deposit event or a Withdrawal event, 5 out of the 9 validator signatures are needed.
 
-The attacker managed to get control over Sky Mavis’s 4 Ronin Validators and a third-party validator run by Axie DAO.  The validator key scheme is set up to be decentralized so that it limits an attack vector, similar to this one, but the attacker found a backdoor through our gas-free RPC node, which they abused to get the signature for the Axie DAO validator.   
+The attacker managed to get control over Sky Mavis’s 4 Ronin Validators and a third-party validator run by Axie DAO.  The validator key scheme is set up to be decentralized so that it limits an attack vector, similar to this one, but the attacker found a backdoor through our gas-free RPC node, which they abused to get the signature for the Axie DAO validator.
 
-This traces back to November 2021 when Sky Mavis requested help from the Axie DAO to distribute free transactions due to an immense user load. 
+This traces back to November 2021 when Sky Mavis requested help from the Axie DAO to distribute free transactions due to an immense user load.
 
-The Axie DAO allowlisted Sky Mavis to sign various transactions on its behalf. This was discontinued in December 2021, but the allowlist access was not revoked.  Once the attacker got access to Sky Mavis systems they were able to get the signature from the Axie DAO validator by using the gas-free RPC.  
+The Axie DAO allowlisted Sky Mavis to sign various transactions on its behalf. This was discontinued in December 2021, but the allowlist access was not revoked.  Once the attacker got access to Sky Mavis systems they were able to get the signature from the Axie DAO validator by using the gas-free RPC.
 
 Actually, it seems like they gained control over 4 Validators, and tricked the fifth one into signing (by using some deprecated api). Their article does a fairly good job describing the 5th validator, but they limit info about the first four to "managed to get control over Sky Mavis’s four Ronin Validators" and "attacker used hacked Private Keys in order to forge fake withdrawals". A bit sus. literally insane that they sent funds to a cex. like wtf
 
@@ -35,13 +35,13 @@ The gaming-focused Ronin Network announced Tuesday a loss of over $625 million i
 
 ### A malicious PDF let hackers compromise the entire financial system
 
-> According to two people with direct knowledge of the matter, who were granted anonymity due to the sensitive nature of the incident, a senior engineer at Axie Infinity was duped into applying for a job at a company that, in reality, did not exist.  
+> According to two people with direct knowledge of the matter, who were granted anonymity due to the sensitive nature of the incident, a senior engineer at Axie Infinity was duped into applying for a job at a company that, in reality, did not exist.
 
-> Earlier this year, staff at Axie Infinity developer Sky Mavis were approached by people purporting to represent the fake company and encouraged to apply for jobs, according to the people familiar with the matter. One source added that the approaches were made through the professional networking site LinkedIn. 
+> Earlier this year, staff at Axie Infinity developer Sky Mavis were approached by people purporting to represent the fake company and encouraged to apply for jobs, according to the people familiar with the matter. One source added that the approaches were made through the professional networking site LinkedIn.
 
-> After what one source described as multiple rounds of interviews, a Sky Mavis engineer was offered a job with an extremely generous compensation package. 
+> After what one source described as multiple rounds of interviews, a Sky Mavis engineer was offered a job with an extremely generous compensation package.
 
-> The fake “offer” was delivered in the form of a PDF document, which the engineer downloaded — allowing spyware to infiltrate Ronin’s systems. From there, hackers were able to attack and take over four out of nine validators on the Ronin network — leaving them just one validator short of total control. 
+> The fake “offer” was delivered in the form of a PDF document, which the engineer downloaded — allowing spyware to infiltrate Ronin’s systems. From there, hackers were able to attack and take over four out of nine validators on the Ronin network — leaving them just one validator short of total control.
 
 > In a post-mortem blog post on the hack, published April 27, Sky Mavis said: “Employees are under constant advanced spear-phishing attacks on various social channels and one employee was compromised. This employee no longer works at Sky Mavis. The attacker managed to leverage that access to penetrate Sky Mavis IT infrastructure and gain access to the validator nodes.”
 
@@ -73,7 +73,7 @@ The U.S.Treasury department has added the crypto wallet that received the stolen
 
 The wallet still contains around 150,000 ETH, valued at around $445 million, but has been slowly siphoning it out to various other wallets, exchanges, and tumblers over the past weeks.
 
-Validator Security Breach US Treasury Department has sanctioned the address that received the stolen funds.  
+Validator Security Breach US Treasury Department has sanctioned the address that received the stolen funds.
 
 
 
@@ -83,7 +83,7 @@ Validator Security Breach US Treasury Department has sanctioned the address that
 - https://blog.mollywhite.net/axie-hack/
 - https://bridge.roninchain.com/
 - https://home.treasury.gov/policy-issues/financial-sanctions/recent-actions/20220414
-- https://rekt.news/ronin-rekt/ 
+- https://rekt.news/ronin-rekt/
 - https://roninblockchain.substack.com/p/community-alert-ronin-validator
 - https://roninblockchain.substack.com/p/community-alert-ronin-validators
 - https://twitter.com/blocksearch/status/1514685894619549703

@@ -41,7 +41,7 @@ display_mitre_matrix() {
 		"--udev" "Event Triggered Execution" "T1546" "Udev Rules" "T1546.017" "https://attack.mitre.org/techniques/T1546/017" \
 		"--web-shell" "Server Software Component" "T1505" "Web Shell" "T1505.003" "https://attack.mitre.org/techniques/T1505/003" \
 		"--xdg" "Boot or Logon Autostart Execution" "T1547" "XDG Autostart Entries" "T1547.013" "https://attack.mitre.org/techniques/T1547/013"
-	
+
 	echo -e "\n\033[1;32mLegend:\033[0m"
 	echo "Technique: High-level MITRE ATT&CK technique."
 	echo "Sub-Technique: Specific sub-technique under a high-level technique."

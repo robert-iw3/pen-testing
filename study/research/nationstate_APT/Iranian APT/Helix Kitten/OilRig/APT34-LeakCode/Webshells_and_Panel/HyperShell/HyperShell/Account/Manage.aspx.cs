@@ -116,7 +116,7 @@ namespace HyperShell.Account
             Response.Redirect("/Account/Manage");
         }
 
-        //EnableTwoFactorAuthentication 
+        //EnableTwoFactorAuthentication
         protected void TwoFactorEnable_Click(object sender, EventArgs e)
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();

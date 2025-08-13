@@ -4,11 +4,11 @@ function Get-MrDSCResourceModulePath {
 <#
 .SYNOPSIS
     Returns path and version information for the root module of the specified DSC resource.
- 
+
 .DESCRIPTION
     The Get-MrDSCResourceModulePath function returns the name, module name, module version,
     and module path for the root module of the specified DSC resource.
- 
+
 .PARAMETER Name
     DSC resource name.
 
@@ -20,13 +20,13 @@ function Get-MrDSCResourceModulePath {
 
 .EXAMPLE
      Get-MrDSCResourceModulePath -Name xNetworking
- 
+
 .INPUTS
     None
- 
+
 .OUTPUTS
     PSCustomObject
- 
+
 .NOTES
     Author:  Mike F Robbins
     Website: http://mikefrobbins.com
@@ -45,7 +45,7 @@ function Get-MrDSCResourceModulePath {
     )
 
     $Params = @{}
-    
+
     if ($PSBoundParameters.Name){
         $DSCResources = Get-DscResource -Name $Name
     }
@@ -54,15 +54,15 @@ function Get-MrDSCResourceModulePath {
             Get-DscResource -Module $M
         }
     }
-    
+
     foreach ($DSCResource in $DSCResources) {
-        
+
         try {
             $ModuleInfo = Get-Module -Name $DSCResource.Module -ListAvailable -ErrorAction Stop
         }
         catch {
             Write-Warning -Message "The '$($DSCResource.Name)' DSCResource does not have a module specified. Error details: $_"
-        }        
+        }
 
         [pscustomobject]@{
             Name = $DSCResource.Name

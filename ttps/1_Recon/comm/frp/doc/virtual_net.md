@@ -70,4 +70,4 @@ destinationIP = "100.86.0.1"
 - **Permissions**: Creating a TUN interface requires elevated permissions (root/admin)
 - **Platform Support**: Currently supported on Linux and macOS
 - **Default Status**: As an alpha feature, VirtualNet is disabled by default
-- **Configuration**: A valid IP/CIDR must be provided for each endpoint in the virtual network 
+- **Configuration**: A valid IP/CIDR must be provided for each endpoint in the virtual network

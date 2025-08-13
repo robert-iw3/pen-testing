@@ -68,7 +68,7 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.digests
         }
 
         public override int DoFinal(byte[] output, int outOff)
-        {           
+        {
             return DoFinal(output, outOff,GetDigestSize());
         }
 

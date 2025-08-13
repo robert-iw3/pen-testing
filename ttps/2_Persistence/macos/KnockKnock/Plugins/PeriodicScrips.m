@@ -36,14 +36,14 @@ NSString* const PERIODIC_SCRIPTS_SEARCH_DIRECTORIES[] = {@"/etc/periodic/daily",
     {
         //set name
         self.name = PLUGIN_NAME;
-        
+
         //set description
         self.description = PLUGIN_DESCRIPTION;
-        
+
         //set icon
         self.icon = PLUGIN_ICON;
     }
-    
+
     return self;
 }
 
@@ -52,19 +52,19 @@ NSString* const PERIODIC_SCRIPTS_SEARCH_DIRECTORIES[] = {@"/etc/periodic/daily",
 {
     //number of search directories
     NSUInteger directoryCount = 0;
-    
+
     //all period scripts
     NSArray* allPeriodicScripts = nil;
-    
+
     //path to period script
     NSString* periodScriptPathPath = nil;
-    
+
     //File obj
     File* fileObj = nil;
-    
+
     //get number of search directories
     directoryCount = sizeof(PERIODIC_SCRIPTS_SEARCH_DIRECTORIES)/sizeof(PERIODIC_SCRIPTS_SEARCH_DIRECTORIES[0]);
-    
+
     //always a period script config file
     // its executed by each period script, so should be reported
     fileObj = [[File alloc] initWithParams:@{KEY_RESULT_PLUGIN:self, KEY_RESULT_PATH:PERIOD_CONFIG}];
@@ -74,38 +74,38 @@ NSString* const PERIODIC_SCRIPTS_SEARCH_DIRECTORIES[] = {@"/etc/periodic/daily",
         // ->save and report to UI
         [super processItem:fileObj];
     }
-    
+
     //iterate over all script directories
     // get all script files and process them
     for(NSUInteger i=0; i < directoryCount; i++)
     {
         //get all items in current directory
         allPeriodicScripts = directoryContents(PERIODIC_SCRIPTS_SEARCH_DIRECTORIES[i], nil);
-        
+
         //iterate over all importers
         // ->perform some sanity checks and then save
         for(NSString* periodicScript in allPeriodicScripts)
         {
             //build full path to script
             periodScriptPathPath = [NSString stringWithFormat:@"%@/%@", PERIODIC_SCRIPTS_SEARCH_DIRECTORIES[i], periodicScript];
-            
+
             //create File object for script
             fileObj = [[File alloc] initWithParams:@{KEY_RESULT_PLUGIN:self, KEY_RESULT_PATH:periodScriptPathPath}];
-            
+
             //skip File objects that err'd out for any reason
             if(nil == fileObj)
             {
                 //skip
                 continue;
             }
-            
+
             //process item
             // ->save and report to UI
             [super processItem:fileObj];
         }
-        
+
     }//periodic script directories
-    
+
     return;
 }
 

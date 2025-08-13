@@ -112,4 +112,4 @@ def handle_no_data_timeout_ui(target_url):
     else:
         return '3', None, None
 def confirm_save_report():
-    return input(f"\n{Fore.GREEN}Save detailed report to file? (y/n): {Style.RESET_ALL}").lower() == 'y' 
+    return input(f"\n{Fore.GREEN}Save detailed report to file? (y/n): {Style.RESET_ALL}").lower() == 'y'

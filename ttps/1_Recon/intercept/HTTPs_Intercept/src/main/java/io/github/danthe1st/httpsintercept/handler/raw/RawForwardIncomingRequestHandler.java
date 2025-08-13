@@ -14,18 +14,18 @@ import org.slf4j.LoggerFactory;
  * It sends a request to the target server which is then processed by {@link RawForwardedOutgoingRequestHandler}.
  */
 public final class RawForwardIncomingRequestHandler extends ChannelInboundHandlerAdapter {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(RawForwardIncomingRequestHandler.class);
-	
+
 	private final String hostname;
 	private final Bootstrap clientBootstrapTemplate;
 	private @Nullable Channel outChannel = null;
-	
+
 	public RawForwardIncomingRequestHandler(String hostname, Bootstrap clientBootstrapTemplate) {
 		this.hostname = hostname;
 		this.clientBootstrapTemplate = clientBootstrapTemplate;
 	}
-	
+
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws InterruptedException {
 		if(outChannel == null){
@@ -44,10 +44,10 @@ public final class RawForwardIncomingRequestHandler extends ChannelInboundHandle
 				return;
 			}
 		}
-		
+
 		outChannel.writeAndFlush(msg).sync();
 	}
-	
+
 	@Override
 	public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
 		super.channelUnregistered(ctx);

@@ -12,7 +12,7 @@
  *
  * @param addr  — начало шифруемого участка
  * @param len   — длина участка в байтах
- * @param key   — ключ 
+ * @param key   — ключ
  * @return
  */
 bool Crypto_DecryptRegion(void *addr, size_t len, uint8_t key);
@@ -29,7 +29,7 @@ bool Crypto_EncryptRegion(void *addr, size_t len, uint8_t key);
  *
  * @param func  — указатель на функцию
  * @param len   — размер в байтах
- * @param key   — ключ 
+ * @param key   — ключ
  * @return
  */
 bool Crypto_Invoke(void (*func)(void), size_t len, uint8_t key);

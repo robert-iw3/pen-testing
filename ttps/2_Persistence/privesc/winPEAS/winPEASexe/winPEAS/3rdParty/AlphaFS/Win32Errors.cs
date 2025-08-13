@@ -1,22 +1,22 @@
 /*  Copyright (C) 2008-2018 Peter Palotas, Jeffrey Jangli, Alexandr Normuradov
- *  
- *  Permission is hereby granted, free of charge, to any person obtaining a copy 
- *  of this software and associated documentation files (the "Software"), to deal 
- *  in the Software without restriction, including without limitation the rights 
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
- *  copies of the Software, and to permit persons to whom the Software is 
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *  
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *  
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
- *  THE SOFTWARE. 
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
  */
 
 namespace Alphaleonis.Win32
@@ -59,7 +59,7 @@ namespace Alphaleonis.Win32
 
       //public const uint ERROR_INVALID_HANDLE = 6;
       //public const uint ERROR_ARENA_TRASHED = 7;
-      //public const uint ERROR_NOT_ENOUGH_MEMORY = 8;   
+      //public const uint ERROR_NOT_ENOUGH_MEMORY = 8;
       //public const uint ERROR_INVALID_BLOCK = 9;
       //public const uint ERROR_BAD_ENVIRONMENT = 10;
       //public const uint ERROR_BAD_FORMAT = 11;
@@ -121,7 +121,7 @@ namespace Alphaleonis.Win32
       public const uint ERROR_BAD_NETPATH = 53;
 
       //public const uint ERROR_NETWORK_BUSY = 54;
-      //public const uint ERROR_DEV_NOT_EXIST = 55;   
+      //public const uint ERROR_DEV_NOT_EXIST = 55;
       //public const uint ERROR_TOO_MANY_CMDS = 56;
       //public const uint ERROR_ADAP_HDW_ERR = 57;
       //public const uint ERROR_BAD_NET_RESP = 58;
@@ -241,7 +241,7 @@ namespace Alphaleonis.Win32
       //public const uint ERROR_SIGNAL_PENDING = 162;
       //public const uint ERROR_MAX_THRDS_REACHED = 164;
       //public const uint ERROR_LOCK_FAILED = 167;
-      //public const uint ERROR_BUSY = 170;   
+      //public const uint ERROR_BUSY = 170;
       //public const uint ERROR_CANCEL_VIOLATION = 173;
       //public const uint ERROR_ATOMIC_LOCKS_NOT_SUPPORTED = 174;
       //public const uint ERROR_INVALID_SEGMENT_NUMBER = 180;
@@ -294,7 +294,7 @@ namespace Alphaleonis.Win32
       //public const uint ERROR_VC_DISCONNECTED = 240;
       //public const uint ERROR_INVALID_EA_NAME = 254;
       //public const uint ERROR_EA_LIST_INCONSISTENT = 255;
-      //public const uint WAIT_TIMEOUT = 258;   
+      //public const uint WAIT_TIMEOUT = 258;
 
       ///// <summary>(259) No more data is available.</summary>
       public const uint ERROR_NO_MORE_ITEMS = 259;
@@ -443,7 +443,7 @@ namespace Alphaleonis.Win32
       //public const uint ERROR_DESTINATION_ELEMENT_FULL = 1161;
       //public const uint ERROR_ILLEGAL_ELEMENT_ADDRESS = 1162;
       //public const uint ERROR_MAGAZINE_NOT_PRESENT = 1163;
-      //public const uint ERROR_DEVICE_REINITIALIZATION_NEEDED = 1164;   
+      //public const uint ERROR_DEVICE_REINITIALIZATION_NEEDED = 1164;
       //public const uint ERROR_DEVICE_REQUIRES_CLEANING = 1165;
       //public const uint ERROR_DEVICE_DOOR_OPEN = 1166;
       //public const uint ERROR_DEVICE_NOT_CONNECTED = 1167;
@@ -518,9 +518,9 @@ namespace Alphaleonis.Win32
       //public const uint ERROR_SERVICE_NOT_FOUND = 1243;
       //public const uint ERROR_NOT_AUTHENTICATED = 1244;
       //public const uint ERROR_NOT_LOGGED_ON = 1245;
-      //public const uint ERROR_CONTINUE = 1246;   
+      //public const uint ERROR_CONTINUE = 1246;
       //public const uint ERROR_ALREADY_INITIALIZED = 1247;
-      //public const uint ERROR_NO_MORE_DEVICES = 1248;   
+      //public const uint ERROR_NO_MORE_DEVICES = 1248;
       //public const uint ERROR_NO_SUCH_SITE = 1249;
       //public const uint ERROR_DOMAIN_CONTROLLER_EXISTS = 1250;
       //public const uint ERROR_ONLY_IF_CONNECTED = 1251;
@@ -3721,7 +3721,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_BadDevString = 2340;
 
       ///// <summary>The requested device is invalid.</summary>
-      //public const uint NERR_BadDev = 2341;      
+      //public const uint NERR_BadDev = 2341;
 
       ///// <summary>This device is already in use by the spooler.</summary>
       //public const uint NERR_InUseBySpooler = 2342;
@@ -3745,7 +3745,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_TooManyEntries = 2362;
 
       ///// <summary>Profile files cannot exceed 64K.</summary>
-      //public const uint NERR_ProfileFileTooBig = 2370;      
+      //public const uint NERR_ProfileFileTooBig = 2370;
 
       ///// <summary>The start offset is out of range.</summary>
       //public const uint NERR_ProfileOffset = 2371;
@@ -3769,7 +3769,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_LogFileChanged = 2378;
 
       ///// <summary>Log file %1 is corrupt.</summary>
-      //public const uint NERR_LogFileCorrupt = 2379;      
+      //public const uint NERR_LogFileCorrupt = 2379;
 
       ///// <summary>The source path cannot be a directory.</summary>
       //public const uint NERR_SourceIsDir = 2380;
@@ -3793,7 +3793,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_ErrorExecingGhost = 2391;
 
       ///// <summary>The shared resource you are connected to could not be found.</summary>
-      //public const uint NERR_ShareNotFound = 2392;      
+      //public const uint NERR_ShareNotFound = 2392;
 
       ///// <summary>The LAN adapter number is invalid.</summary>
       //public const uint NERR_InvalidLana = 2400;
@@ -3817,7 +3817,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_AlertExists = 2430;
 
       ///// <summary>The alert table is full.</summary>
-      //public const uint NERR_TooManyAlerts = 2431;      
+      //public const uint NERR_TooManyAlerts = 2431;
 
       ///// <summary>An invalid or nonexistent alert name was raised.</summary>
       //public const uint NERR_NoSuchAlert = 2432;
@@ -3841,7 +3841,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_LastAdmin = 2452;
 
       ///// <summary>Could not find domain controller for this domain.</summary>
-      //public const uint NERR_DCNotFound = 2453;      
+      //public const uint NERR_DCNotFound = 2453;
 
       ///// <summary>Could not set logon information for this user.</summary>
       //public const uint NERR_LogonTrackingError = 2454;
@@ -3865,7 +3865,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_NoSuchSession = 2461;
 
       ///// <summary>The connection identification does not specify a valid connection.</summary>
-      //public const uint NERR_NoSuchConnection = 2462;      
+      //public const uint NERR_NoSuchConnection = 2462;
 
       ///// <summary>There is no space for another entry in the table of available servers.</summary>
       //public const uint NERR_TooManyServers = 2463;
@@ -3889,7 +3889,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_UPSDriverNotStarted = 2480;
 
       ///// <summary>The UPS service is not configured correctly.</summary>
-      //public const uint NERR_UPSInvalidConfig = 2481;      
+      //public const uint NERR_UPSInvalidConfig = 2481;
 
       ///// <summary>The UPS service could not access the specified Comm Port.</summary>
       //public const uint NERR_UPSInvalidCommPort = 2482;
@@ -3913,7 +3913,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_RemoteBootFailed = 2503;
 
       ///// <summary>The file below is corrupt.</summary>
-      //public const uint NERR_BadFileCheckSum = 2504;      
+      //public const uint NERR_BadFileCheckSum = 2504;
 
       ///// <summary>No loader is specified in the boot-block definition file.</summary>
       //public const uint NERR_NoRplBootSystem = 2505;
@@ -3937,7 +3937,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_RplBootRestart = 2511;
 
       ///// <summary>The call to the Remoteboot server failed.</summary>
-      //public const uint NERR_RplSrvrCallFailed = 2512;      
+      //public const uint NERR_RplSrvrCallFailed = 2512;
 
       ///// <summary>Cannot connect to the Remoteboot server.</summary>
       //public const uint NERR_CantConnectRplSrvr = 2513;
@@ -3961,7 +3961,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_RplConnected = 2519;
 
       ///// <summary>The browser service was configured with MaintainServerList=No.</summary>
-      //public const uint NERR_BrowserConfiguredToNotRun = 2550;      
+      //public const uint NERR_BrowserConfiguredToNotRun = 2550;
 
       ///// <summary>Service failed to start since none of the network adapters started with this service.</summary>
       //public const uint NERR_RplNoAdaptersStarted = 2610;
@@ -3985,7 +3985,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_RplWkstaInfoCorrupted = 2616;
 
       ///// <summary>Workstation record was not found.</summary>
-      //public const uint NERR_RplWkstaNotFound = 2617;      
+      //public const uint NERR_RplWkstaNotFound = 2617;
 
       ///// <summary>Workstation name is in use by some other workstation.</summary>
       //public const uint NERR_RplWkstaNameUnavailable = 2618;
@@ -4009,7 +4009,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_RplConfigNotFound = 2624;
 
       ///// <summary>Adapter ID record information has been corrupted.</summary>
-      //public const uint NERR_RplAdapterInfoCorrupted = 2625;      
+      //public const uint NERR_RplAdapterInfoCorrupted = 2625;
 
       ///// <summary>An internal service error has occurred.</summary>
       //public const uint NERR_RplInternal = 2626;
@@ -4033,7 +4033,7 @@ namespace Alphaleonis.Win32
       //public const uint NERR_RplIncompatibleProfile = 2632;
 
       ///// <summary>Chosen network adapter ID is in use by some other workstation.</summary>
-      //public const uint NERR_RplAdapterNameUnavailable = 2633;      
+      //public const uint NERR_RplAdapterNameUnavailable = 2633;
 
       ///// <summary>There are profiles using this configuration.</summary>
       //public const uint NERR_RplConfigNotEmpty = 2634;
@@ -4226,7 +4226,7 @@ namespace Alphaleonis.Win32
       //public const uint CR_DEVNODE_HAS_REQS = 10;
       //public const uint CR_DEVINST_HAS_REQS = CR_DEVNODE_HAS_REQS;
       //public const uint CR_INVALID_RESOURCEID = 11;
-      //public const uint CR_DLVXD_NOT_FOUND = 12; // WIN 95 ONLY 
+      //public const uint CR_DLVXD_NOT_FOUND = 12; // WIN 95 ONLY
       //public const uint CR_NO_SUCH_DEVNODE = 13;
       //public const uint CR_NO_SUCH_DEVINST = CR_NO_SUCH_DEVNODE;
       //public const uint CR_NO_MORE_LOG_CONF = 14;
@@ -4238,7 +4238,7 @@ namespace Alphaleonis.Win32
       //public const uint CR_FAILURE = 19;
       //public const uint CR_NO_SUCH_LOGICAL_DEV = 20;
       //public const uint CR_CREATE_BLOCKED = 21;
-      //public const uint CR_NOT_SYSTEM_VM = 22; // WIN 95 ONLY 
+      //public const uint CR_NOT_SYSTEM_VM = 22; // WIN 95 ONLY
       //public const uint CR_REMOVE_VETOED = 23;
       //public const uint CR_APM_VETOED = 24;
       //public const uint CR_INVALID_LOAD_TYPE = 25;
@@ -4263,11 +4263,11 @@ namespace Alphaleonis.Win32
       //public const uint CR_NO_DEPENDENT = 44;
       //public const uint CR_SAME_RESOURCES = 45;
       //public const uint CR_NO_SUCH_REGISTRY_KEY = 46;
-      //public const uint CR_INVALID_MACHINENAME = 47; // NT ONLY 
-      //public const uint CR_REMOTE_COMM_FAILURE = 48; // NT ONLY 
-      //public const uint CR_MACHINE_UNAVAILABLE = 49; // NT ONLY 
-      //public const uint CR_NO_CM_SERVICES = 50; // NT ONLY 
-      //public const uint CR_ACCESS_DENIED = 51; // NT ONLY 
+      //public const uint CR_INVALID_MACHINENAME = 47; // NT ONLY
+      //public const uint CR_REMOTE_COMM_FAILURE = 48; // NT ONLY
+      //public const uint CR_MACHINE_UNAVAILABLE = 49; // NT ONLY
+      //public const uint CR_NO_CM_SERVICES = 50; // NT ONLY
+      //public const uint CR_ACCESS_DENIED = 51; // NT ONLY
       //public const uint CR_CALL_NOT_IMPLEMENTED = 52;
       //public const uint CR_INVALID_PROPERTY = 53;
       //public const uint CR_DEVICE_INTERFACE_ACTIVE = 54;

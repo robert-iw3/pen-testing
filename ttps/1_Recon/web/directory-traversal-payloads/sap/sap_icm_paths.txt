@@ -196,7 +196,7 @@
 /sap/bc/bsp/sap/sam_notifying
 /sap/bc/bsp/sap/sam_sess_queue
 /sap/bc/bsp/sap/sbspext_htmlb
-/sap/bc/bsp/sap/sbspext_htmlb                                                   
+/sap/bc/bsp/sap/sbspext_htmlb
 /sap/bc/bsp/sap/sbspext_xhtmlb
 /sap/bc/bsp/sap/sbspext_xhtmlb
 /sap/bc/bsp/sap/spi_admin
@@ -314,7 +314,7 @@
 /sap/IStest
 /sap/monitoring/
 /sap/public/bc
-/sap/public/bc                                                                  
+/sap/public/bc
 /sap/public/bc/icons
 /sap/public/bc/icons_rtl
 /sap/public/bc/its
@@ -349,7 +349,7 @@
 /sap/public/bsp/sap/htmlb
 /sap/public/bsp/sap/htmlb
 /sap/public/bsp/sap/public
-/sap/public/bsp/sap/public                                                      
+/sap/public/bsp/sap/public
 /sap/public/bsp/sap/public/bc
 /sap/public/bsp/sap/public/bc
 /sap/public/bsp/sap/public/faa

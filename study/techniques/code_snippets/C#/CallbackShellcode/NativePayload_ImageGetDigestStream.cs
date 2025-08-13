@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NativePayload_ImageGetDigestStream
 {
-  
+
     class Program
     {
         [Flags]
@@ -64,7 +64,7 @@ namespace NativePayload_ImageGetDigestStream
         [DllImport("Imagehlp.dll")]
         private static extern bool ImageGetDigestStream(IntPtr filehandle, uint DigestLevel, IntPtr DigestFunction,IntPtr DigestHandle);
         static void Main(string[] args)
-        {   
+        {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine("NativePayload_ImageGetDigestStream , Published by Damon Mohammadbagher , Mar 2021");

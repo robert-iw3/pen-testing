@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-# rustpotato: A privilege escalation tool that abuses DCOM and RPC to leverage SeImpersonatePrivilege 
+# rustpotato: A privilege escalation tool that abuses DCOM and RPC to leverage SeImpersonatePrivilege
 # and gain NT AUTHORITY\SYSTEM privileges on Windows systems.
 FROM docker.io/debian:trixie
 

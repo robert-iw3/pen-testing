@@ -454,11 +454,11 @@ namespace SafetyKatz
 
         private IMAGE_FILE_HEADER fileHeader;
 
-        /// Optional 32 bit file header 
+        /// Optional 32 bit file header
 
         private IMAGE_OPTIONAL_HEADER32 optionalHeader32;
 
-        /// Optional 64 bit file header 
+        /// Optional 64 bit file header
 
         private IMAGE_OPTIONAL_HEADER64 optionalHeader64;
 

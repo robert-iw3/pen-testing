@@ -60,7 +60,7 @@ typedef struct _PEB {
     };
     DWORD                        SystemReserved;
     DWORD                        _SYSTEM_DEPENDENT_05;
-    LPVOID                       _SYSTEM_DEPENDENT_06; //ApiSetMap on 6.1 and higher, 
+    LPVOID                       _SYSTEM_DEPENDENT_06; //ApiSetMap on 6.1 and higher,
     LPVOID                       TlsExpansionCounter;
     LPVOID                       TlsBitmap;
     DWORD                        TlsBitmapBits[2];
@@ -105,7 +105,7 @@ typedef struct _PEB {
     LPVOID                       GdiHandleBuffer[64];
 #else
     LPVOID                       GdiHandleBuffer[32];
-#endif  
+#endif
     LPVOID                       PostProcessInitRoutine;
     LPVOID                       TlsExpansionBitmap;
     DWORD                        TlsExpansionBitmapBits[32];

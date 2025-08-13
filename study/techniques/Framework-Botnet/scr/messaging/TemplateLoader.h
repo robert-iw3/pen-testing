@@ -17,9 +17,9 @@ public:
     std::future<std::string> loadTemplateFromFileAsync(const std::string &filePath, const std::string &format = "txt");
     std::future<std::string> loadTemplateFromDatabaseAsync(const std::string &templateName);
     std::string fillTemplate(const std::string &templateStr, const std::unordered_map<std::string, std::string> &data);
-    
+
     void cacheTemplate(const std::string &templateName, const std::string &templateContent, std::chrono::seconds ttl);
-    
+
     std::string getTemplateFromCache(const std::string &templateName);
     std::string loadLocalizedTemplate(const std::string &templateName, const std::string &locale);
     std::string loadTemplateFromAPI(const std::string &apiUrl);

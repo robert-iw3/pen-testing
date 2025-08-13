@@ -47,7 +47,7 @@ static __always_inline struct expand_return expand_tcp_packet_payload(struct xdp
         //Failed to expand
         bpf_printk("Failed to expand a tcp packet reserved bytes by %i\n", more_bytes);
         ret.code = -1;//The rest is undefined
-        return ret; 
+        return ret;
     }
 
     //We must check bounds again, otherwise the verifier gets angry
@@ -59,28 +59,28 @@ static __always_inline struct expand_return expand_tcp_packet_payload(struct xdp
     if(ethernet_header_bound_check(ret.eth, data_end)<0){
         bpf_printk("Bound check A failed while expanding\n");
         ret.code = -1;//The rest is undefined
-        return ret; 
+        return ret;
     }
 
     if (ip_header_bound_check(ret.ip, data_end)<0){
         bpf_printk("Bound check B failed while expanding\n");
         ret.code = -1;//The rest is undefined
-        return ret;   
+        return ret;
     }
 
     if (tcp_header_bound_check(ret.tcp, data_end)){
         bpf_printk("Bound check C failed while expanding\n");
         ret.code = -1;//The rest is undefined
-        return ret; 
+        return ret;
     }
 
     //We now have to readjust the packet headers, checksums have changed
-    //Note that we do not care about ctx->data_meta or any other extra field 
+    //Note that we do not care about ctx->data_meta or any other extra field
     //since we will not be using any communication here
     __builtin_memcpy((ret.eth), &eth_copy, sizeof(struct ethhdr));
     __builtin_memcpy((ret.ip), &ip_copy, sizeof(struct iphdr));
-    __builtin_memcpy((ret.tcp), &tcp_copy, sizeof(struct tcphdr));  
-    
+    __builtin_memcpy((ret.tcp), &tcp_copy, sizeof(struct tcphdr));
+
 
     //We modify the fields we care about of the headers
     bpf_printk("before: %i, checksum %u\n", ret.ip->tot_len, ret.ip->check);
@@ -123,7 +123,7 @@ static __always_inline void modify_payload(char* payload_org, int payload_size, 
         payload_org[ii] = pattern[ii];
     }
 
-    
+
 }
 
 

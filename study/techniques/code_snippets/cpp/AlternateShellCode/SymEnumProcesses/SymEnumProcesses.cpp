@@ -11,7 +11,7 @@ int err(const char* errmsg) {
 
 }
 
-// Requires Dbghelp.lib 
+// Requires Dbghelp.lib
 
 // alfarom256 calc shellcode
 unsigned char op[] =

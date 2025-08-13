@@ -1,5 +1,5 @@
 function Invoke-SessionHunter {
-	
+
 	<#
 
 	.SYNOPSIS
@@ -9,28 +9,28 @@ function Invoke-SessionHunter {
 	.DESCRIPTION
 	Retrieve and display information about active user sessions on remote computers.
 	Admin privileges on the remote systems are not required.
-	
+
 	.PARAMETER Domain
 	Specify the target domain
-	
+
 	.PARAMETER DomainController
 	Specify the target Domain Controller
-	
+
 	.PARAMETER Targets
 	Specify a comma-separated list of targets, or the path to a file containing targets (one per line)
-	
+
 	.PARAMETER Hunt
 	Show active session for the specified user only
-	
+
 	.PARAMETER Timeout
 	Timeout (in milliseconds) for remote registry access to prevent hanging. Default = 2000, increase for slower networks.
-	
+
 	.PARAMETER Servers
 	Retrieve and display information about active user sessions on servers only
-	
+
 	.PARAMETER Workstations
 	Retrieve and display information about active user sessions on workstations only
-	
+
 	.PARAMETER IncludeLocalHost
 	Include localhost within the sessions retrieval
 
@@ -39,7 +39,7 @@ function Invoke-SessionHunter {
 
  	.PARAMETER Password
 	Provide password for the specified UserName
-	
+
 	.PARAMETER RawResults
 	Return custom PSObjects instead of table-formatted results
 
@@ -51,7 +51,7 @@ function Invoke-SessionHunter {
 
    	.PARAMETER CheckAsAdmin
   	Retrieve sessions as an admin where you have local admin privileges; otherwise, use the registry.
-	
+
 	.PARAMETER ShowAll
   	Retrieve all sessions, including those for the current user and the username provided
 
@@ -64,27 +64,27 @@ function Invoke-SessionHunter {
 	Invoke-SessionHunter -Domain "contoso.local" -Servers
 	Invoke-SessionHunter -TargetsFile c:\Users\Public\Documents\targets.txt
 	Invoke-SessionHunter -Hunt "Administrator"
-	
+
 	#>
-    
+
 	[CmdletBinding()] Param(
-		
+
 		[Parameter (Mandatory=$False, Position = 0, ValueFromPipeline=$true)]
 		[String]
 		$Domain,
-		
+
 		[Parameter (Mandatory=$False, Position = 1, ValueFromPipeline=$true)]
 		[String]
 		$DomainController,
-		
+
 		[Parameter (Mandatory=$False, Position = 2, ValueFromPipeline=$true)]
 		[String]
 		$Targets,
-		
+
 		[Parameter (Mandatory=$False, Position = 3, ValueFromPipeline=$true)]
 		[String]
 		$Hunt,
-		
+
 		[Parameter (Mandatory=$False, Position = 4, ValueFromPipeline=$true)]
 		[int]
 		$Timeout = 2000,
@@ -96,19 +96,19 @@ function Invoke-SessionHunter {
   		[Parameter (Mandatory=$False, Position = 6, ValueFromPipeline=$true)]
 		[String]
 		$Password,
-		
+
 		[Parameter (Mandatory=$False, Position = 7, ValueFromPipeline=$true)]
 		[Switch]
 		$Servers,
-		
+
 		[Parameter (Mandatory=$False, Position = 8, ValueFromPipeline=$true)]
 		[Switch]
 		$Workstations,
-		
+
 		[Parameter (Mandatory=$False, Position = 9, ValueFromPipeline=$true)]
 		[Switch]
 		$RawResults,
-		
+
 		[Parameter (Mandatory=$False, Position = 10, ValueFromPipeline=$true)]
 		[Switch]
 		$IncludeLocalHost,
@@ -116,7 +116,7 @@ function Invoke-SessionHunter {
   		[Parameter (Mandatory=$False, Position = 11, ValueFromPipeline=$true)]
 		[Switch]
 		$NoPortScan,
-		
+
 		[Parameter (Mandatory=$False, Position = 12, ValueFromPipeline=$true)]
 		[Switch]
 		$Match,
@@ -124,24 +124,24 @@ function Invoke-SessionHunter {
   		[Parameter (Mandatory=$False, Position = 13, ValueFromPipeline=$true)]
 		[Switch]
 		$CheckAsAdmin,
-		
+
 		[Parameter (Mandatory=$False, Position = 14, ValueFromPipeline=$true)]
 		[Switch]
 		$ShowAll
-	
+
 	)
-	
+
 	$ErrorActionPreference = "SilentlyContinue"
 	$WarningPreference = "SilentlyContinue"
 	Set-Variable MaximumHistoryCount 32767
 	$Color = $Host.UI.RawUI.BackgroundColor
 	$currentTextColor = $Host.UI.RawUI.ForegroundColor
  	$stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-	
+
 	$ldapretrieveddomain = $False
-	
+
 	if($UserName -AND $Password){$CheckAsAdmin = $True}
-	
+
 	if(!$Domain){
 		$Domain = $env:USERDNSDOMAIN
 		if(!$Domain){$Domain = [System.Net.NetworkInformation.IPGlobalProperties]::GetIPGlobalProperties().DomainName.Trim()}
@@ -160,23 +160,23 @@ function Invoke-SessionHunter {
 			$DomainController = ($result | Where-Object { $_ -like '*svr hostname*' } | Select-Object -First 1).Split('=')[-1].Trim()
 		}
 	}
-	
+
 	if($Targets){
-		
+
 		$TestPath = Test-Path $Targets
-		
+
 		if($TestPath){
 			$Computers = Get-Content -Path $Targets
 			$Computers = $Computers | Sort-Object -Unique
 		}
-		
+
 		else{
 			$Computers = $Targets
 			$Computers = $Computers -split ","
 			$Computers = $Computers | Sort-Object -Unique
 		}
 	}
-	
+
 	else{
 		$Computers = @()
 		if($Servers){
@@ -186,13 +186,13 @@ function Invoke-SessionHunter {
 		elseif($Workstations){
 			$Computers = Get-ADComputers -ADCompDomain $Domain -Workstations
 		}
-		
+
 		else{
 			$Computers = Get-ADComputers -ADCompDomain $Domain
 		}
 		$Computers = $Computers | Sort-Object
 	}
-	
+
 	if(!$IncludeLocalHost){
 		$HostFQDN = [System.Net.Dns]::GetHostByName(($env:computerName)).HostName
 		$Computers = $Computers | Where-Object {-not ($_ -cmatch "$env:computername")}
@@ -200,11 +200,11 @@ function Invoke-SessionHunter {
 		$Computers = $Computers | Where-Object {$_ -ne "$env:computername"}
 		$Computers = $Computers | Where-Object {$_ -ne "$HostFQDN"}
 	}
-	
+
 	$Computers = $Computers | Where-Object { $_ -and $_.trim() }
 
  	if(!$NoPortScan){
-	
+
 		# Initialize the runspace pool
 		$runspacePool = [runspacefactory]::CreateRunspacePool(1, 10)
 		$runspacePool.Open()
@@ -254,7 +254,7 @@ function Invoke-SessionHunter {
 		$runspacePool.Dispose()
 
  	}
-	
+
 	# Create a runspace pool
 	$runspacePool = [runspacefactory]::CreateRunspacePool(1, 10)
 	$runspacePool.Open()
@@ -280,10 +280,10 @@ function Invoke-SessionHunter {
 
 			# Gather computer information
 			$ipAddress = Resolve-DnsName $Computer | Where-Object { $_.Type -eq "A" } | Select-Object -ExpandProperty IPAddress
-			
+
 			$ErrorCheckpoint = $null
 			$Result = $null
-			
+
    			if($CheckAsAdmin){
 	   			# Check Admin Access (and Sessions)
 				if($UserName -AND $Password){
@@ -317,7 +317,7 @@ function Invoke-SessionHunter {
 					if(!$Result){$ErrorCheckpoint = "ErrorCheckpoint"}
 				}
     		} else {$ErrorCheckpoint = "ErrorCheckpoint"}
-			
+
 			if(-not $ErrorCheckpoint){
 				$AdminStatus = $True
 				. ([scriptblock]::Create($InvokeWMIRemoting))
@@ -330,21 +330,21 @@ function Invoke-SessionHunter {
 				    #return $null
 					$ErrorCheckpoint = "ErrorCheckpoint"
 				}
-				
+
 				else{
-				
+
 					$CheckSessionsAsAdmin = ($CheckSessionsAsAdmin | Out-String) -split "`n"
 					$CheckSessionsAsAdmin = $CheckSessionsAsAdmin.Trim()
 					$CheckSessionsAsAdmin = $CheckSessionsAsAdmin | Where-Object { $_ -ne "" }
-					
+
 					$pattern = '\s([\w\s-]+\\[\w\s-]+\$?)\s'
-					
+
 					$matches = $CheckSessionsAsAdmin | ForEach-Object {
 						if ($_ -match $pattern) {
 							$matches[1]
 						} else {$matches = $null}
 					}
-					
+
 					if($UserName -AND $Password){
 						$UserNameDomainSplit = $UserName -split '\\'
 						$UserNameSplit = $UserNameDomainSplit[1]
@@ -381,7 +381,7 @@ function Invoke-SessionHunter {
 					}
 
 					$results = @()
-					
+
 					foreach($entry in $filtered){
 						$results += [PSCustomObject]@{
 							Domain           = $Domain
@@ -398,7 +398,7 @@ function Invoke-SessionHunter {
 	   		}
 
 			if($ErrorCheckpoint){
-				
+
 				$remoteRegistry = $null
 				$Result = $null
 				$Command = "([Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey('Users', '$Computer')).GetSubKeyNames()"
@@ -413,42 +413,42 @@ function Invoke-SessionHunter {
 				if ($Process.WaitForExit($Timeout)) {$remoteRegistry = $Process.StandardOutput.ReadToEnd()}
 				else {$Process.Kill()}
 				$Process.Dispose()
-				
+
 				if($remoteRegistry -ne $null){
-					
+
 					$remoteRegistry = ($remoteRegistry | Out-String) -split "`n"
 					$remoteRegistry = $remoteRegistry.Trim()
 					$remoteRegistry = $remoteRegistry | Where-Object { $_ -ne "" }
-	
+
 					# Get the subkeys under HKEY_USERS
 					$userKeys = $remoteRegistry
-		
+
 					# Initialize an array to store the user SIDs
 					$userSIDs = @()
-		
+
 					foreach ($key in $userKeys) {
 						# Skip common keys that are not user SIDs
 						if ($key -match '^[Ss]-\d-\d+-(\d+-){1,14}\d+$') {
 							$userSIDs += $key
 						}
 					}
-		
+
 					# Close the remote registry key
 					$remoteRegistry.Close()
-		
+
 					$results = @()
-		
+
 					# Resolve the SIDs to usernames
 					foreach ($sid in $userSIDs) {
 						$user = $null
 						$userTranslation = $null
-		
+
 						try {
 							$user = New-Object System.Security.Principal.SecurityIdentifier($sid)
 							$userTranslation = $user.Translate([System.Security.Principal.NTAccount])
-							
+
 							$splitEntry = $userTranslation -split '\\'
-							
+
 							if($ShowAll){
 								if(($splitEntry[0] -notlike "* *") -and ($splitEntry[0] -ne $TempHostname) -and ($splitEntry[1] -notlike "*$TempHostname*")){
 									$results += [PSCustomObject]@{
@@ -481,9 +481,9 @@ function Invoke-SessionHunter {
 					}
 				}
 			}
-			
+
 			$results = $results | Sort-Object -Unique HostName,UserSession
-	
+
 			# Returning the results
 			return $results
 		}
@@ -504,12 +504,12 @@ function Invoke-SessionHunter {
 		# Define RunspacePool
 		$runspacePool = [runspacefactory]::CreateRunspacePool(1, 10)
 		$runspacePool.Open()
-	
+
 		$runspaces = @()
-	
+
 		foreach ($result in $allResults) {
 			$target = "$($result.HostName).$($result.Domain)"
-			
+
 			$powershell = [powershell]::Create().AddScript({
 				param($target, $Timeout)
 				$Result = $null
@@ -528,26 +528,26 @@ function Invoke-SessionHunter {
 				if ($Result) {return $True}
 				else {return $False}
 			}).AddArgument($target).AddArgument($Timeout)
-	
+
 			$powershell.RunspacePool = $runspacePool
-	
+
 			$runspaces += [PSCustomObject]@{
 				PowerShell = $powershell
 				Status = $powershell.BeginInvoke()
 				Result = $result
 			}
 		}
-	
+
 		# Wait and collect results
 		foreach ($runspace in $runspaces) {
 			$runspace.Result.Access = [bool]($runspace.PowerShell.EndInvoke($runspace.Status))
 			$runspace.PowerShell.Dispose()
 		}
-	
+
 		$runspacePool.Close()
 		$runspacePool.Dispose()
 	}
-	
+
 	foreach ($result in $allResults) {
 		$tempusername = ($result.UserSession -split '\\')[1]
 		$TargetHost = $result.HostName
@@ -555,12 +555,12 @@ function Invoke-SessionHunter {
 		else{$result.AdmCount = AdminCount -UserName $tempusername -Domain $Domain}
 		$result.OperatingSystem = Get-OS -HostName $TargetHost -Domain $Domain
 	}
-	
+
  	# Show Results
 
   	$Host.UI.RawUI.ForegroundColor = $currentTextColor
 	$Host.UI.RawUI.BackgroundColor = $Color
-	
+
 	if($UserName -AND !$ShowAll){$allresults = $allresults | Where-Object {$_.UserSession -ne $UserName}}
 
 	if($RawResults){
@@ -632,20 +632,20 @@ function Invoke-SessionHunter {
 
 	Write-Host "[+] Elapsed time: $($elapsedTime.Hours):$($elapsedTime.Minutes):$($elapsedTime.Seconds).$($elapsedTime.Milliseconds)"
  	Write-Host ""
-	
+
 }
 
 $InvokeWMIRemoting = @'
 function Invoke-WMIRemoting {
-	
+
 	<#
 
 	.SYNOPSIS
 	Invoke-WMIRemoting Author: Rob LP (@L3o4j)
 	https://github.com/Leo4j/Invoke-WMIRemoting
-	
+
 	#>
-	
+
     param (
         [Parameter(Mandatory = $true)]
         [string]$ComputerName,
@@ -653,7 +653,7 @@ function Invoke-WMIRemoting {
 		[string]$UserName,
 		[string]$Password
     )
-	
+
 	if($UserName -AND $Password){
 		$SecPassword = ConvertTo-SecureString $Password -AsPlainText -Force
 		$cred = New-Object System.Management.Automation.PSCredential($UserName,$SecPassword)
@@ -661,19 +661,19 @@ function Invoke-WMIRemoting {
 
     $ClassID = "Custom_WMI_" + (Get-Random)
     $KeyID = "CmdGUID"
-	
+
 	$Error.Clear()
-	
+
 	if($UserName -AND $Password){
 		$classExists = Get-WmiObject -Class $ClassID -ComputerName $ComputerName -List -Namespace "root\cimv2" -Credential $cred
 	}else{$classExists = Get-WmiObject -Class $ClassID -ComputerName $ComputerName -List -Namespace "root\cimv2"}
-	
+
 	if($error[0]){break}
-	
+
 	$Error.Clear()
-    
+
 	if (-not $classExists) {
-		
+
 		if($cred){
 			$connectionOptions = New-Object System.Management.ConnectionOptions
 			if($UserName -AND $Password){
@@ -683,7 +683,7 @@ function Invoke-WMIRemoting {
 
 			$scope = New-Object System.Management.ManagementScope("\\$ComputerName\root\cimv2", $connectionOptions)
 			$scope.Connect()
-			
+
 			$createNewClass = New-Object System.Management.ManagementClass($scope, [System.Management.ManagementPath]::new(), $null)
 			$createNewClass["__CLASS"] = $ClassID
 			$createNewClass.Properties.Add($KeyID, [System.Management.CimType]::String, $false)
@@ -702,19 +702,19 @@ function Invoke-WMIRemoting {
 			$createNewClass.Put() | Out-Null
 		}
     }
-	
+
 	if($error[0]){break}
-	
+
 	$Error.Clear()
-	
+
 	if($cred){$wmiData = Set-WmiInstance -Class $ClassID -ComputerName $ComputerName -Credential $cred}
 	else{$wmiData = Set-WmiInstance -Class $ClassID -ComputerName $ComputerName}
-	
+
 	$wmiData.GetType() | Out-Null
 	$GuidOutput = ($wmiData | Select-Object -Property $KeyID -ExpandProperty $KeyID)
 	$wmiData.Dispose()
 
-	
+
 	if($error[0]){break}
 
     $RunCmd = {
@@ -732,7 +732,7 @@ function Invoke-WMIRemoting {
 			throw "Failed to start process on $ComputerName. Return value: $($startProcess.ReturnValue)"
 			return
 		}
-		
+
 		if ($startProcess.ReturnValue -eq 0) {
 			$elapsedTime = 0
 			$timeout = 60
@@ -772,8 +772,8 @@ function Invoke-WMIRemoting {
             }
         } while ($true)
     }
-	
-	
+
+
 	if($cred){
 		# Create a CimSession with the provided credentials
 		if($UserName -AND $Password) {

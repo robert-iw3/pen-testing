@@ -56,7 +56,7 @@ echo <<<BANNER
  ###########################################################################################
 
 BANNER;
-echo "\033[0m\n"; 
+echo "\033[0m\n";
 
 $attacker_ip = readline("[*] Enter your IP: ");
 $c2_port = readline("[*] Enter C2 server port: ");

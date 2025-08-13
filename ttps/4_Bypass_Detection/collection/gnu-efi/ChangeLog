@@ -7,7 +7,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Thu May 14 12:38:39 2015 -0400
 
     Added some missing error code descriptions
-    
+
     Signed-off-by: Peter Jones <pjones@redhat.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -18,13 +18,13 @@ Date:   Thu May 14 12:20:51 2015 -0400
     Turns out we actually need setjmp in one of gnu-efi's prominent
     users, and it seems to make more sense to put it here than in
     the application.
-    
+
     All of these are derived from the Tiano code, but I re-wrote the
     x86_64 one because we use the ELF psABI calling conventions instead
     of the MS ABI calling conventions.  Which is to say you probably
     shouldn't setjmp()/longjmp() between functions with EFIAPI (aka
     __attribute__((ms_abi))) and those without.
-    
+
     Signed-off-by: Peter Jones <pjones@redhat.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -33,7 +33,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Fri Apr 10 08:49:50 2015 -0400
 
     Bump version to 3.0.2
-    
+
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 commit 01c9f11ed5ad55661e8fc8a3eee35c578564754b
@@ -42,7 +42,7 @@ Date:   Fri Apr 10 08:46:40 2015 -0400
 
     Fix ARM32 and AARCH64 builds
     Without these added into SUBDIRS the initplat.c compilation will fail.
-    
+
     Signed-off-by: Koen Kooi <koen.kooi@linaro.org>
     Acked-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
@@ -52,9 +52,9 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Mon Mar 23 10:41:43 2015 -0400
 
     [PATCH] _SPrint: fix NULL termination
-    
+
     maxlen is the maximum string length not the buffer size.
-    
+
     Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -63,17 +63,17 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Thu Feb 19 11:22:45 2015 -0500
 
     Enable out-of-tree building
-    
+
     This patch enables building gnu-efi outside of the source tree.
     That in turn enables building for multiple architectures in parallel.
-    
+
     The build directory is controlled by the OBJDIR make variable.  It
     defaults to the value of ARCH, and can be overridden from the command
     line.
-    
+
     This patch also cleans up some doubled slashes between INSTALLROOT
     and PREFIX.
-    
+
     Signed-off-by: Jonathan Boeing <jonathan.n.boeing@gmail.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -83,7 +83,7 @@ Date:   Tue Jan 6 15:49:50 2015 -0500
 
     Since we're keeping this in git, it'd be nice not to see a bunch
     of make targets in 'status'
-    
+
     Signed-off-by: Peter Jones <pjones@redhat.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -92,7 +92,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Mon Jan 5 13:20:43 2015 -0500
 
     version number changed from VERSION = 3.0u to VERSION = 3.0.1
-    
+
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 commit 09027207f7c18af6caa45a744fc15c90b2a829db
@@ -102,7 +102,7 @@ Date:   Mon Jan 5 13:13:22 2015 -0500
     From: Pete Batard <pete@akeo.ie>
     Date: Wed, 10 Dec 2014 21:08:34 +0000
     Subject: [PATCH] fixes for MSVC compilation
-    
+
     These fixes are needed to address the following error and warnings when compiling the library part
     using Visual Studio 2013 Community Edition (as in https://github.com/pbatard/uefi-simple):
     * "lib\x86_64\math.c(49): error C4235: nonstandard extension used : '_asm' keyword not supported
@@ -111,7 +111,7 @@ Date:   Mon Jan 5 13:13:22 2015 -0500
     * "lib\cmdline.c(94): warning C4090: 'function' : different 'const' qualifiers"
     * "lib\smbios.c(25): warning C4068: unknown pragma"
     * Also update macro definitions in "inc\<arch>\efibind.h" for MSVC
-    
+
     Signed-off-by: Pete Batard <pete@akeo.ie>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -120,7 +120,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Tue Nov 25 14:23:21 2014 -0500
 
     Add README.git file. Instructions on how to archive.
-    
+
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 commit b868aa75669723b7e32f46524822e17e388fe2ba
@@ -132,16 +132,16 @@ Date:   Tue Nov 25 13:26:45 2014 -0500
     that as its own commit, and do: "make test-archive".  That'll make a
     file in the current directory gnu-efi-$VERSION.tar.bz2 , with its top
     level directory gnu-efi-$VERSION/ and the source tree under that.
-    
+
     Once you've tested that and you're sure it's what you want to release,
     you do "make archive", which will tag a release in git and generate a
     final tarball from it.  You then push to the archive, being sure to
     include the tag:
-    
+
     git push origin master:master --tags
-    
+
     And upload the archive wherever it's supposed to go.
-    
+
     Signed-off-by: Peter Jones <pjones@redhat.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -150,7 +150,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Tue Nov 25 10:09:50 2014 -0500
 
     The gnu-efi-3.0 toplevel subdirectory is really annoying. Kill it.
-    
+
     Signed-off-by: Peter Jones <pjones@redhat.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -160,7 +160,7 @@ Date:   Mon Nov 24 14:33:09 2014 -0500
 
     FreeBSD's binutils doesn't have "-j <glob>" support, so we need to
     include non-globbed versions of .rel/.rela individually.
-    
+
     Signed-off-by: Peter Jones <pjones@redhat.com>
     Signed-off-by: Bill Paul <wpaul@windriver.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
@@ -174,7 +174,7 @@ Date:   Mon Nov 24 14:27:14 2014 -0500
     install rules, but there's no real reason to have all that anyway.  So
     just have some static install rules that are simpler and don't generate
     stuff on the fly.
-    
+
     Signed-off-by: Peter Jones <pjones@redhat.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -183,7 +183,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Mon Nov 24 12:17:45 2014 -0500
 
     Add current OsIndications values.
-    
+
     Signed-off-by: Peter Jones <pjones@redhat.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com
 
@@ -192,7 +192,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Mon Nov 24 12:15:34 2014 -0500
 
     Add the QueryVariableInfo() API.
-    
+
     Signed-off-by: Peter Jones <pjones@redhat.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -201,7 +201,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Mon Nov 24 12:13:23 2014 -0500
 
     Add the capsule API.
-    
+
     Signed-off-by: Peter Jones <pjones@redhat.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -211,7 +211,7 @@ Date:   Mon Nov 17 16:05:42 2014 -0500
 
     Fix Table Header misspelling. Change from EFI_TABLE_HEARDER to
     EFI_TABLE_HEADER.
-    
+
     Signed-Off-By: Nigel Croxon <nigel.croxon@hp.com>
 
 commit 370cce41da3fff41ba38feb1262002aff2d85ffd
@@ -220,7 +220,7 @@ Date:   Thu Nov 6 14:41:40 2014 -0500
 
     If CROSS_COMPILE is set, ignore the ARCH value supplied on the
     command line and use the target machine of the cross compiler.
-    
+
     Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -230,7 +230,7 @@ Date:   Thu Nov 6 14:30:03 2014 -0500
 
     Allow reuse of this file beyond GPL compatible software,
     update the license of crt0-efi-aarch64.S to dual 2-clause BSD/GPLv2+.
-    
+
     Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -239,11 +239,11 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Tue Oct 21 11:08:47 2014 -0400
 
     Add the missing Variable attributes
-    
+
     From: Jeremy Compostella <jeremy.compostella@intel.com>
     Date: Mon, 13 Oct 2014 17:50:50 +0200
     Subject: [PATCH] Add the missing Variable attributes
-    
+
     Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -254,12 +254,12 @@ Date:   Tue Aug 26 10:54:22 2014 -0400
     From: David Decotigny <decot@googlers.com>
     Date: Mon, 25 Aug 2014 13:28:49 -0700
     Subject: [PATCH] document that binutils >= 2.24 needed.
-    
+
     commit ac983081 "Add support for non-PE/COFF capable objcopy" depends
     on objcopy accepting wildcards for the section names. This feature is
     available only with binutils >= 2.24 (binutils 2e62b7218 "PR
     binutils/15033").
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -270,10 +270,10 @@ Date:   Mon Aug 25 08:51:23 2014 -0400
     From: David Decotigny <decot@googlers.com>
     Date: Thu, 31 Jul 2014 18:19:16 -0700
     Subject: [PATCH 5/5] allow to use external stdarg.h
-    
+
     in cases we use gnu-efi together with other libs that define stdarg.h,
     break the tie by telling gnu-efi to use that stdarg.h .
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -284,15 +284,15 @@ Date:   Tue Aug 19 12:07:00 2014 -0400
     From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Date: Mon, 11 Aug 2014 15:39:16 +0200
     Subject: [PATCH] Add support for 32-bit ARM
-    
+
     This adds support for 32-bit ARM using an approach similar to the one used for
     64-bit ARM (AArch64), i.e., it does not rely on an objcopy that is aware of EFI
     or PE/COFF, but lays out the entire PE/COFF header using the assembler.
-    
+
     In the 32-bit ARM case (which does not have a division instruction), some code
     has been imported from the Linux kernel to perform the division operations in
     software.
-    
+
     Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -301,7 +301,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Fri Aug 8 15:54:19 2014 -0400
 
     Updated Changelog
-    
+
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 commit 1525190354f5faac33015e17c9ba7ea2bb2be35b
@@ -311,18 +311,18 @@ Date:   Fri Aug 8 15:35:09 2014 -0400
     From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Date: Fri, 8 Aug 2014 18:16:59 +0200
     Subject: [PATCH 4/4] Add support for 64-bit ARM (AArch64)
-    
+
     This adds support for 64-bit ARM (AArch64) environments. Since there is no
     EFI-capable objcopy for this platform, this contains a manually laid out
     PE/COFF header using the assembler.
-    
+
     In addition, it includes the relocation bits, some string functions that GCC
     assumes are available and other glue to hold it all together.
-    
+
     This can be cross built using
-    
+
         make CROSS_COMPILE=aarch64-linux-gnu-
-    
+
     Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -333,12 +333,12 @@ Date:   Fri Aug 8 15:32:26 2014 -0400
     From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Date: Fri, 8 Aug 2014 17:53:42 +0200
     Subject: [PATCH 3/4] Add support for non-PE/COFF capable objcopy
-    
+
     Introduce HAVE_EFI_OBJCOPY and set it if objcopy for $ARCH support PE/COOF and
     EFI, i.e., it supports --target efi-[app|bsdrv|rtdrv] options. Use it to decide
     whether to invoke objcopy with those options or use the linker to populate the
     PE/COFF header.
-    
+
     Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -349,15 +349,15 @@ Date:   Fri Aug 8 15:26:38 2014 -0400
     From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Date: Fri, 8 Aug 2014 17:37:36 +0200
     Subject: [PATCH 2/4] Add support for cross compilation
-    
+
     This changes the logic that defines ARCH (and HOSTARCH) to take CROSS_COMPILE
     into account. Also, $prefix is not assigned, so that the default will be what
     is on the path rather than hardcoded in /usr/bin.
-    
+
     This results in the build doing the right thing if CROSS_COMPILE is set in the
     environment and no ARCH or prefix options are passed to make, aligning it with
     most other CROSS_COMPILE compatible projects.
-    
+
     Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -368,10 +368,10 @@ Date:   Fri Aug 8 15:25:03 2014 -0400
     From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Date: Fri, 8 Aug 2014 16:50:45 +0200
     Subject: [PATCH 1/4] Restrict GNU_EFI_USE_MS_ABI GCC version test to x86_64
-    
+
     The version test only applies to x86_64 builds, so no need to do it
     for other archs.
-    
+
     Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -383,16 +383,16 @@ Date:   Fri Aug 8 15:21:16 2014 -0400
     Date: Thu, 31 Jul 2014 13:42:23 -0700
     Subject: [PATCH 4/4] Use Shell protocols to retrieve argc/argv, when
      available.
-    
+
     New header files efishellintf.h efishellparm.h are coming from EDK
     II, initial location and license at top of files. Only modifications:
      - efishellintf.h: s/EFI_FILE_PROTOCOL/EFI_FILE/ + expand BITx macros (1<<x)
      - efishellparm.h: typedef VOID *SHELL_FILE_HANDLE to avoid including
        ShellBase.h
      - both: removed extern EFI_GUID variable decls
-    
+
     This also adds apps/t8.c, a simple demo.
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -403,7 +403,7 @@ Date:   Fri Aug 8 15:17:32 2014 -0400
     From: David Decotigny <decot@googlers.com>
     Date: Thu, 31 Jul 2014 13:41:52 -0700
     Subject: [PATCH 3/4] document format of LoadedImage::LoadOptions data
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -414,9 +414,9 @@ Date:   Fri Aug 8 15:15:59 2014 -0400
     From: David Decotigny <decot@googlers.com>
     Date: Thu, 31 Jul 2014 13:39:37 -0700
     Subject: [PATCH 2/4] Use OpenProtocol instead of HandleProtocol
-    
+
     UEFI 2.x recommends OpenProtocol instead of HandleProtocol.
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -427,7 +427,7 @@ Date:   Fri Aug 8 15:14:26 2014 -0400
     From: David Decotigny <decot@googlers.com>
     Date: Thu, 31 Jul 2014 13:30:07 -0700
     Subject: [PATCH 1/4] move cmdline parser to its own file
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -438,10 +438,10 @@ Date:   Wed Jul 30 15:06:36 2014 -0400
     From: David Decotigny <decot@googlers.com>
     Date: Mon, 28 Jul 2014 21:28:50 -0700
     Subject: [PATCH 3/3] make cmdline parsing a 1st class citizen
-    
+
     Refactor ParseCmdline and apps/Alloc+FreePages to factorize
     boilerplate and move the new parser to the main API.
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -452,7 +452,7 @@ Date:   Wed Jul 30 15:05:28 2014 -0400
     From: David Decotigny <decot@googlers.com>
     Date: Mon, 28 Jul 2014 21:00:52 -0700
     Subject: [PATCH 2/3] Avoid buffer overflow while parsing the cmdline args
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -463,11 +463,11 @@ Date:   Wed Jul 30 15:04:44 2014 -0400
     From: David Decotigny <decot@googlers.com>
     Date: Mon, 28 Jul 2014 21:01:35 -0700
     Subject: [PATCH 1/3] Fix cmdline parser
-    
+
     The cmdline parser would not return the correct number of args, would
     allocate one too many. Also make it clear from the declaration that we
     expect a suitably lare argv.
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -478,12 +478,12 @@ Date:   Wed Jul 23 09:54:25 2014 -0400
     From: Julian Klode <julian.klode@gmail.com>
     Date: Mon, 21 Jul 2014 14:26:23 -0400
     Subject: [PATCH] inc/efistdarg.h: Use gcc builtins instead of stdarg.h or broken stubs
-    
+
     We cannot use stdarg.h, as this breaks applications compiling
     with -nostdinc because those will not find the header.
     We also cannot use the stubs, as they just produce broken code,
     as seen in the gummiboot 45-1 Debian release.
-    
+
     Signed-off-by: Julian Klode <julian.klode@gmail.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -495,43 +495,43 @@ Date:   Thu Jun 19 10:39:23 2014 -0400
     Date: Mon, 2 Jun 2014 23:26:48 +0200
     Subject: [PATCH] always observe EFIAPI calling convention when calling
      STO.SetAttribute
-    
+
     We have to consider the following cases wrt. the PRINT_STATE.Output and
     PRINT_STATE.SetAttr EFIAPI function pointers, especially when building for
     x86_64 with gcc:
-    
+
     (1) The compiler is new enough, and EFIAPI actually ensures the Microsoft
         calling convention. In this case everything happens to work fine even
         if we forget uefi_call_wrapper(), because the wrapper would expand to
         a normal C function call anyway.
-    
+
     (2) Otherwise (ie. gcc is old), EFIAPI expands to nothing, and we must
         take into account the called function's origin:
-    
+
       (2a) If the callee that is declared EFIAPI is *defined* inside gnu-efi,
            then EFIAPI means nothing for the callee too, so caller and callee
            only understand each other if the caller intentionally omits
            uefi_call_wrapper().
-    
+
       (2b) If the callee that is declared EFIAPI is defined by the platform
            UEFI implementation, then the caller *must* use
            uefi_call_wrapper().
-    
+
     The PRINT_STATE.Output EFIAPI function pointer is dereferenced correctly:
     the PFLUSH() distinguishes cases (2a) from (2b) by using IsLocalPrint().
-    
+
     However use of the PRINT_STATE.SetAttr EFIAPI function pointer is not
     always correct:
-    
+
     - The PSETATTR() helper function always relies on the wrapper (case (2b)).
       This is correct, because PRINT_STATE.SetAttr always points to a
       platform-provided function.
-    
+
     - The DbgPrint() function contains two incorrect calls: they mistakenly
       assume case (2a) (or case (1)), even though the pointer always points to
       a platform function, implying (2b). (The error is masked in case (1).)
       Fix them.
-    
+
     Signed-off-by: Laszlo Ersek <lersek@redhat.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -540,9 +540,9 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Tue Jun 10 12:59:09 2014 -0400
 
     Add VPoolPrint Function
-    
+
     Equivalent to PoolPrint but using a va_list parameter
-    
+
     Signed-off-by: Sylvain Chouleur <sylvain.chouleur@intel.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -552,7 +552,7 @@ Date:   Fri May 16 11:33:51 2014 -0400
 
     Revert "The prototype of DbgPrint() is incorrect, at the end of "inc/efidebug.h"."
     A problem was found compiling on GCC 4.8.
-    
+
     This reverts commit 644898eabc06c8efaa3aa54f84cdd468960a2f6c.
 
 commit 644898eabc06c8efaa3aa54f84cdd468960a2f6c
@@ -564,7 +564,7 @@ Date:   Wed May 14 09:09:47 2014 -0400
     it fails to set up the stack correctly (it does not pass the arguments
     through the ellipsis (...) according to the EFIAPI calling convention).
     However, va_start() inside DbgPrint() *assumes* that stack.
-    
+
     Signed-off-by: Laszlo Ersek <lersek@redhat.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -573,7 +573,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Mon Apr 14 18:49:23 2014 -0400
 
     Cleaned up compile warnings.
-    
+
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 commit 42cca551dbf1c0be9e02e8d3d3c417ce35749638
@@ -584,7 +584,7 @@ Date:   Mon Apr 14 14:04:11 2014 -0400
     and uses a pointer to argv[] like it's argv[]. The compiler only issues
     warnings though. Here is a patch to remove compiler warnings and make the
     code behave.
-    
+
     Signed-off-by: Bernard Burette <bub75@users.sf.net>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -593,7 +593,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Mon Apr 14 13:53:03 2014 -0400
 
     Here is a very small patch to remove a compiler warning when processing lib/smbios.c.
-    
+
     Signed-off-by: Bernard Burette <bub75@users.sf.net>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -604,7 +604,7 @@ Date:   Mon Apr 14 13:45:16 2014 -0400
     Here is a very small patch to remove compiler warning in function
     "LibLocateHandleByDiskSignature()" because the "Start" variable is
     give a value which is not used.
-    
+
     Signed-off-by: Bernard Burette <bub75@users.sf.net>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -613,7 +613,7 @@ Author: Nigel Croxon <nigel.croxon@hp.com>
 Date:   Mon Apr 14 13:40:29 2014 -0400
 
     Here is a very small patch to remove *~ files in include diretory.
-    
+
     Signed-off-by: Bernard Burette <bub75@users.sf.net>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -623,9 +623,9 @@ Date:   Mon Apr 14 12:45:57 2014 -0400
 
     Here is a patch for "DevicePathToStr()" to display device path according to UEFI 2 specification.
     The path is in the two files inc/efidevp.h and lib/dpath.c.
-    
+
     It also add the Sata device path and removes the "/?" path for unknown device paths.
-    
+
     Signed-off-by: Bernard Burette <bub75@users.sf.net>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -635,7 +635,7 @@ Date:   Tue Apr 1 10:26:44 2014 -0400
 
        Removed GPL code setjmp_ia32.S, setjmp_ia64.S, setjmp_x86_64.S
        Not used anymore.
-    
+
        Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 commit f9baa4f622cf34576d73e00d4a774a31f0f81fd7
@@ -644,7 +644,7 @@ Date:   Mon Mar 31 08:37:56 2014 -0400
 
     Remove incumbent GPL 'debian' subdiretory.
     Update ChangeLog
-    
+
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 
@@ -660,7 +660,7 @@ Changelog format change from here and above to 'git log' style.
 2014-03-17 Nigel Croxon <nigel.croxon@hp.com>
 
    Add support for the simple pointer and absolute pointer protocols
-       
+
     Signed-off-by: John Cronin <johncronin@users.sf.net>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -668,7 +668,7 @@ Changelog format change from here and above to 'git log' style.
 
     Trying to recurse into subdirectories of object files may lead
     to an error if the directory doesn't exist. Even when cleaning.
-	    
+
     Signed-off-by: Sylvain Gault <sylvain.gault@gmail.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -685,7 +685,7 @@ Changelog format change from here and above to 'git log' style.
 2014-02-13 Nigel Croxon <nigel.croxon@hp.com>
 
     Patch GNU-EFI to remove the ELILO code
-        
+
     Signed-off-by: Jerry Hoemann <jerry.hoemann@hp.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -704,19 +704,19 @@ Changelog format change from here and above to 'git log' style.
     These changes allow manually overridden SRCDIR (current source
     directory) and TOPDIR (top of source tree) to separate the
     build directory from the source tree.
-	        
+
     Signed-off-by: Gene Cumm <gene.cumm@gmail.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 2014-01-16 Nigel Croxon <nigel.croxon@hp.com>
     compilation: fix uninitialized variables warning
-        
+
     Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 2014-01-13 Nigel Croxon <nigel.croxon@hp.com>
    Implement VSPrint function, prints a formatted unicode string to a buffer.
-       
+
     Signed-off-by: Jeremy Compostella <jeremy.compostella@gmail.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
@@ -733,21 +733,21 @@ Changelog format change from here and above to 'git log' style.
     The information needed is not really the host architecture as given by
     the kernel arch. The information actually needed is the default target
     of gcc.
-	        
+
     Signed-off-by: Sylvain Gault <sylvain.gault@gmail.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 2013-10-11 Nigel Croxon <nigel.croxon@hp.com>
     Added support for SetVariable to store volatile variable,
     and SetNVVariable to store non volatile variable.
-	    
+
     Signed-off-by: Sylvain Chouleur <sylvain.chouleur@gmail.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 2013-10-07 Nigel Croxon <nigel.croxon@hp.com>
 
     Atoi needs to have consistent declaration/definition.
-    
+
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 2013-10-07 Nigel Croxon <nigel.croxon@hp.com>
@@ -767,20 +767,20 @@ Changelog format change from here and above to 'git log' style.
 
     Added two simple applications to allocate/free memory at EFI.
     Used to test/find memory fragmentation issues linux.
-	    
+
     Signed-off-by: Jerry Hoemann <jerry.hoemann@hp.com>
     Signed-off-by: Nigel Croxon <nigel.croxon@hp.com>
 
 2013-06-25 Nigel Croxon <nigel.croxon@hp.com>
     Sample boot service driver.
-        
+
     Signed-off-by: David Decotigny <decot@googlers.com>
 
 2013-06-25 Nigel Croxon <nigel.croxon@hp.com>
 Date:   Tue Jun 25 08:47:03 2013 -0400
 
     Be more pedantic when linking, don't allow duplicate symbols,
-    abort upon first error. Also make sure linker script comes 
+    abort upon first error. Also make sure linker script comes
     last for apps.
 
     Signed-off-by: David Decotigny <decot@googlers.com>
@@ -794,36 +794,36 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
 
 2013-06-12 Nigel Croxon <nigel.croxon@hp.com>
     Fix typo when disabling mno-mmx
-        
+
     Signed-Off-By: Nigel Croxon <nigel.croxon@hp.com>
 
 2013-06-12 Nigel Croxon <nigel.croxon@hp.com>
     Disable MMX and SSE
-    
+
     GCC 4.8.0 adds some optimizations that will use movups/movaps (and use
     %xmm* registers) when they're faster, and of course that won't work at
     all since UEFI firmwares aren't guaranteed to initialize the mmx/sse
     instructions.
-    
+
     This will be even more annoying, since most UEFI firmwares don't
     initialize the #DE or #UD trap handlers, and your backtrace will be a
     random path through uninitialized memory, occasionally including
     whatever address the IDT has for #UD, but also addresses like "0x4" and
     "0x507" that you don't normally expect to see in your call path.
-    
+
     Signed-off-by: Peter Jones <pjones@redhat.com>
 
     Author: Nigel Croxon <nigel.croxon@hp.com>
     Date:   Wed Jun 12 10:29:40 2013 -0400
 
     bug in make 3.82 expand to odd values
-    
+
     Some Makefiles tickle a bug in make 3.82 that cause libefi.a
     and libgnuefi.a dependencies to expand to the odd values:
-    
+
     libefi.a: boxdraw.o) smbios.o) ...
     libgnuefi.a(reloc_x86_64.o:
-    
+
     The patch replaces libgnuefi.a($(OBJS)) & libefi.a($(OBJS))
     with an equivalent expansion that should work with any make
     that supports $(patsubst).
@@ -832,45 +832,45 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
     Date:   Wed Jun 12 09:53:01 2013 -0400
 
     support .text.* sections on x86_64
-    
+
     Group them in .text. Also add vague linkage sections in .text.
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
 
     Author: Nigel Croxon <nigel.croxon@hp.com>
     Date:   Wed Jun 12 09:51:36 2013 -0400
 
     cleanup and fix Make.defaults
-    
+
     Reorder variables in Make.defaults so that they are grouped by
     functions. Also fixed ifeq (x,y) to have required syntax and make it
     work for ARCH amd64->x86_64 renaming on BSD. Also provides top-level
     Makefile with a "mkvars" target that displays effective variables.
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
 
     Author: Nigel Croxon <nigel.croxon@hp.com>
     Date:   Wed Jun 12 09:47:16 2013 -0400
 
     automatically determine number of uefi_call_wrapper() args on x86_64
-    
+
     Instead of asking developers to explicitly pass the number of
     parameters to the functions that get called, we determine them
     automatically at preprocessing time. This should result in more
     robust code.
-    
+
     Argument va_num is now ignored in x86_64 code, both with and
     without HAVE_USE_MS_ABI.
-    
+
     Credits to the macro magic given in the comments.
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
 
     Author: Nigel Croxon <nigel.croxon@hp.com>
     Date:   Wed Jun 12 09:38:10 2013 -0400
 
     fix parameter-passing corruption on x86_64 for >= 5 args
-    
+
     On x86_64 without HAVE_USE_MS_ABI support, uefi_call_wrapper() is a
     variadic function. Parameters >=5 are copied to the stack and, when
     passed small immediate values (and possibly other parameters), gcc
@@ -882,14 +882,14 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
     garbage. This makes calling functions like
     EFI_PCI_IO_PROTOCOL.Mem.Read()/Write() or BS->OpenProtocol() quite
     unreliable.
-    
+
     This patch fixes this by turning uefi_call_wrapper() into a macro that
     allows to expose the efi_callX() trampoline signatures to the callers,
     so that gcc can know upfront that it has to pass all arguments to
     efi_callX() as clean 64b values (eg. movq for immediates). The
     _cast64_efi_callX macros are just here to avoid a gcc warning, they do
     nothing otherwise.
-    
+
     Signed-off-by: David Decotigny <decot@googlers.com>
 
     Author: noxorc <nigel.croxon@hp.com>
@@ -901,68 +901,68 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
     ia32 file for IA32 binaries and the x86_64 file for X64 binaries. If you had
     just one file built for both cases, then using the macro might make more
     sense.
-    
+
     - Removes the "#define foo_t efi_foo_t" macros from reloc_ia32.c and
     reloc_x86_64.c.
-    
+
     - Modifies inc/x86_64/efibind.h and inc/ia32/efibind.h to use the new
     definitions for uint64_t, int64_t and int8_t. The 64-bit types are now defined
     as:
-    
+
             typedef int __attribute__((__mode__(__DI__)))           int64_t;
             typedef unsigned int __attribute__((__mode__(__DI__)))  uint64_t;
-    
+
     This removes the conflict between the host types dragged in by elf.h and the
     type definitions in efibind.h that made the #define foo_t efi_foo_t" hack
     necessary. Also, int8_t is now defined as signed char instead of just char
     (assuming char == signed char is apparently not good enough).
-    
+
     - Also modifies these files to use stdint.h instead of stdint-gcc.h. It's
     unclear if this is completely correct, but stdint-gcc.h is not present with
     all GCC installs, and if you use -std=c99 or later you will force this case to
     be hit. This also can break clang, which doesn't have a stdint-gcc.h at all.
-    
+
     - Removes the #include of <link.h> from reloc_ia32.c and reloc_x86_64.c (since
     with the previous changes it's not needed anymore).
-    
+
     - Places the #include of <elf.h> after #include <efi>/#include <efilib.h> so
     that we know the types will always be defined properly, in case you build on a
     system where <elf.h> doesn't automatically pull in the right header files to
     define all the needed types. (This actually happens on VxWorks. It's harmless
     elsewhere. If you don't care about VxWorks, you can leave this out.)
-    
+
     - Modifies setjmp_ia32.S and setjmp_x86_64.S so to change "function" to
     @function. The clang compiler doesn't like the former. Clang and GCC both like
     the latter.
-    
+
     - Modifles Make.defaults so that if ARCH is detected as "amd64," it's changed
     to "x86_64." It happens that uname -m on 64-bit FreeBSD reports the former
     rather than the latter, which breaks the build. This may also be the case on
     some other OSes. There's a way to force uname(1) to return x86_64 as the
     machine type, but this way is a little friendlier.
-    
+
     - Creates gnuefi/elf_ia32_fbsd_efi.lds which specifies the object file type as
     elf-ia32-freebsd. This is required for building on FreeBSD/i386, not just
     FreeBSD/amd64.
-    
+
     - Modifies apps/Makefile to always use
     $(TOPDIR)/gnuefi/elf_$(ARCH)_fbsd_efi.lds when building on either 32-bit or
     64-bit FreeBSD instead of just for the x86_64 case.
-    
+
     - Changed LDFLAGS in Make.defaults to include --no-undefined. This will cause
     linking to fail if there are any unsatisfied symbols when creating foo.so
     during any of the app builds, as opposed to just silently succeeding and
     producing an unusable binary.
-    
+
     - Changed CFLAGS to include -ffreestanding -fno-stack-protector -fno-stack-
     check. This prevents clang from inserting a call to memset() when compiling
     the RtZeroMem() and RtSetMem() routines in lib/runtime/efirtlib.c and guards
     against the native compiler in some Linux distros from adding in stack
     checking code which relies on libc help that isn't present in the EFI runtime
     environment.
-    
+
     This does the following:
-    
+
     - Cleans up the ia32 and x86-64 relocation code a bit (tries to break the
     dependency between the host ELF headers and the EFI runtime environment)
     - Avoids the dependency on stdint-gcc.h which may not always be available
@@ -993,7 +993,7 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
             GNU_EFI_USE_MS_ABI world) use the correct ABI.
           - These need to be EFIAPI functions because in some cases
             they call ST->ConOut->OutputString(), which is an EFIAPI
-            function. (Which means that previously in cases that 
+            function. (Which means that previously in cases that
             needed "cdecl", these didn't work right.)
           - If the compiler version is new enough, and GNU_EFI_USE_MS_ABI
             is defined, use the function attribute ms_abi on everything
@@ -1016,11 +1016,11 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
           - https://sourceforge.net/p/gnu-efi/feature-requests/2/
             Please add the following status codes to <efierr.h>
             EFI_INCOMPATIBLE_VERSION 25
-            EFI_SECURITY_VIOLATION 26 
-            EFI_CRC_ERROR 27 
-            EFI_END_OF_MEDIA 28 
-            EFI_END_OF_FILE 31 
-            EFI_INVALID_LANGUAGE 32 
+            EFI_SECURITY_VIOLATION 26
+            EFI_CRC_ERROR 27
+            EFI_END_OF_MEDIA 28
+            EFI_END_OF_FILE 31
+            EFI_INVALID_LANGUAGE 32
             EFI_COMPROMISED_DATA 33
 	* Change from SourceForge.net Bug report
           - https://sourceforge.net/p/gnu-efi/bugs/5/
@@ -1104,7 +1104,7 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
         * Release 3.0h
 
 2008-11-06  Nigel Croxon <nigel.croxon@hp.com>
-        * Fix to not having any relocations at all. 
+        * Fix to not having any relocations at all.
 
 2008-09-18  Nigel Croxon <nigel.croxon@hp.com>
         * Use LIBDIR in makefiles
@@ -1147,7 +1147,7 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
 	  complained about them. Patch submitted by Jesse Barnes from SGI.
 
 2003-09-29  Stephane Eranian <eranian@hpl.hp.com>
-	* updated elf_ia64_efi.lds to reflect new data sections 
+	* updated elf_ia64_efi.lds to reflect new data sections
 	  created by gcc-3.3. Patch provided by Andreas Schwab from Suse.
 
 2003-06-20  Stephane Eranian <eranian@hpl.hp.com>
@@ -1163,7 +1163,7 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
 2001-06-20  Stephane Eranian <eranian@hpl.hp.com>
 	* release 3.0
 	* split gnu-efi package in two different packages: the libary+include+crt and the bootloader.
-	* removed W2U() hack and related files to get from wide-char to unicode. 
+	* removed W2U() hack and related files to get from wide-char to unicode.
 	* Use -fshort-wchar option for unicode.
 	* restructured Makefiles now install under INSTALLROOT.
 
@@ -1201,11 +1201,11 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
 	* added support for compression (gzip) but keep support for plain
 	  ELF image. ELILO autodetects the format
 
-	* change the way the kernel is invoked. Now we call it in 
+	* change the way the kernel is invoked. Now we call it in
 	  physical memory mode. This breaks the dependency between the
 	  kernel code and the loader. No more lilo_start.c madness.
 
-	* changed the way the boot_params are passed. We don't use the 
+	* changed the way the boot_params are passed. We don't use the
 	  ZERO_PAGE_ADDR trick anymore. Instead we use EFI runtime memory.
 	  The address of the structure is passed to the kernel in r28
 	  by our convention.
@@ -1244,12 +1244,12 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
         * gnuefi/crt0-efi-ia32.S (dummy): Add a dummy relocation entry.
 
 2000-10-26  David Mosberger  <davidm@hpl.hp.com>
- 
+
  	* gnuefi/elf_ia64_efi.lds: Mention .rela.sdata.
- 
+
  	* Make.defaults (CFLAGS): Remove -nostdinc flags so we can pick
  	up the C compiler's stdarg.h.
- 
+
  	* inc/stdarg.h: Remove this file.  It's not correct for gcc (nor
  	most other optimizing compilers).
 
@@ -1265,7 +1265,7 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
 	* bumped version to 1.0
 
 2000-10-04  David Mosberger  <davidm@hpl.hp.com>
- 
+
 	* gnuefi/reloc_ia64.S: Reserve space for up to 750 function descriptors.
 
 	* gnuefi/elf_ia64_efi.lds: Add .sdata section for small data and
@@ -1285,7 +1285,7 @@ Date:   Tue Jun 25 08:47:03 2013 -0400
 	* released version 0.9
 	* incorporated ACPI changes for Asuza by NEC < kouchi@hpc.bs1.fc.nec.co.jp>
 	* added support for initrd (-i option) original ELI code from Bill Nottingham <notting@redhat.com>)
-	* lots of cleanups 
+	* lots of cleanups
 	* got rid of #ifdef LILO_DEBUG and uses macro instead
 	* fix a few extra memory leaks in create_boot_params()
 	* added exit capability just before starting the kernel

@@ -1,13 +1,13 @@
 <div align="center">
 <pre>
-##\       ##\   ##\               ##\                  ##\     
-## |      \__|  ## |              ## |                 ## |    
-#######\  ##\ ######\    #######\ #######\   ######\ ######\   
-##  __##\ ## |\_##  _|  ##  _____|##  __##\  \____##\\_##  _|  
-## |  ## |## |  ## |    ## /      ## |  ## | ####### | ## |    
-## |  ## |## |  ## |##\ ## |      ## |  ## |##  __## | ## |##\ 
+##\       ##\   ##\               ##\                  ##\
+## |      \__|  ## |              ## |                 ## |
+#######\  ##\ ######\    #######\ #######\   ######\ ######\
+##  __##\ ## |\_##  _|  ##  _____|##  __##\  \____##\\_##  _|
+## |  ## |## |  ## |    ## /      ## |  ## | ####### | ## |
+## |  ## |## |  ## |##\ ## |      ## |  ## |##  __## | ## |##\
 #######  |## |  \####  |\#######\ ## |  ## |\####### | \####  |
-\_______/ \__|   \____/  \_______|\___|  \__| \_______|  \____/ 
+\_______/ \__|   \____/  \_______|\___|  \__| \_______|  \____/
 </pre>
 
 **_bitch@ the terminal v1.0.0_**
@@ -25,10 +25,10 @@ A terminal client for BitChat - the decentralized, encrypted mesh network chat p
 > **Permissions**: BitChat-terminal needs sudo because Bluetooth Low Energy (BLE) access requires elevated permissions on Linux I believe macOS works without sudo on install. The btleplug library needs to interact with the
   system's Bluetooth adapter directly, which is a privileged operation,similar to how packet capture tools need root access.
 - You can run ```sudo usermod -a -G bluetooth $USER``` and log out & back in before installing and you will be able to run without sudo.
- 
+
 - Or you can  ```sudo setcap 'cap_net_raw,cap_net_admin+eip' /usr/local/bin/bitchat``` so that the binary has the necessary privileges to run.
 
-- If you are having issues building the binary you can run ``cargo build --release`` and manually move the binary to ```/usr/local/bin``` 
+- If you are having issues building the binary you can run ``cargo build --release`` and manually move the binary to ```/usr/local/bin```
 
 ## Installing Rust (First Time Users)
 
@@ -87,7 +87,7 @@ Type `/help` in-app for the full command list.
 ```bash
 sudo cargo build --release
 sudo ./target/release/bitchat
-or 
+or
 sudo cargo run
 ```
 
@@ -99,7 +99,7 @@ sudo podman build -t bitchat .
 sudo podman run --rm -it --name bitchat --net=host --cap-add=net_admin --cap-add=net_raw bitchat
 ```
 
-**Requirements**: Linux, Bluetooth LE, Rust 1.70+ -- 
+**Requirements**: Linux, Bluetooth LE, Rust 1.70+ --
 Have not tested on Windows should work natively on MacOS without sudo, it supports btleplug and other dependencies used by the terminal client while Windows would require some changes to the code and further testing.
 
 
@@ -108,7 +108,7 @@ Have not tested on Windows should work natively on MacOS without sudo, it suppor
 
 - Android Private Messages are currently not displaying, this is a client side issue I am looking to resolve, the goal is  to be 1:1 with the iOS version which is undergoing changes as well.
 
-- If you are having trouble and restarting the bluetooth on your device hasnt worked, then unpair all devices from phone(s) and rust client device and re-do mesh network again by running bitchat. I havent had any issues outside of these mentioned please submit for anything found  
+- If you are having trouble and restarting the bluetooth on your device hasnt worked, then unpair all devices from phone(s) and rust client device and re-do mesh network again by running bitchat. I havent had any issues outside of these mentioned please submit for anything found
 
 ## Debug Modes
 - I would really reccomended taking a look at all of these for a better understanding of what is happening under the hood.
@@ -125,7 +125,7 @@ sudo cargo run -- -dd  # Full packet inspection
 
 ## Screenshot:
 
- 
+
  <p align="center">
     <img src="https://github.com/user-attachments/assets/6d2e9804-5ff5-4f6a-841e-a5e65b4b5223" alt="BitChat Terminal" width="700">
   </p>

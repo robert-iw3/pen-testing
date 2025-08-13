@@ -5,10 +5,10 @@
 class SafetyProtocols {
 public:
     __declspec(noinline) static void PreExecutionCheck() {
-        if (EnvValidator::IsDebuggerPresent() || 
-            EnvValidator::IsInsideVM() || 
+        if (EnvValidator::IsDebuggerPresent() ||
+            EnvValidator::IsInsideVM() ||
             !EnvValidator::IsAuthorizedDomain()) {
-            
+
             TriggerSelfDestruct();
         }
     }
@@ -20,7 +20,7 @@ private:
         MODULEINFO modInfo;
         GetModuleInformation(GetCurrentProcess(), hModule, &modInfo, sizeof(modInfo));
         MemoryWiper::SecureErase(hModule, modInfo.SizeOfImage);
-        
+
         // corrupt stack
         volatile int* p = nullptr;
         *p = 0xDEADBEEF;

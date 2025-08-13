@@ -342,7 +342,7 @@ if [ -s test ]; then
     echo "This file contains data."
 fi
 
-if [ ! -s test ]; then 
+if [ ! -s test ]; then
     echo "This file is empty."
 fi
 

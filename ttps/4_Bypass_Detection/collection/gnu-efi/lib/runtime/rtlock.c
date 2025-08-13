@@ -34,11 +34,11 @@ Routine Description:
 
     Raising to the task priority level of the mutual exclusion
     lock, and then acquires ownership of the lock.
-    
+
 Arguments:
 
     Lock        - The lock to acquire
-    
+
 Returns:
 
     Lock owned
@@ -48,7 +48,7 @@ Returns:
     if (BS) {
         if (BS->RaiseTPL != NULL) {
             Lock->OwnerTpl = uefi_call_wrapper(BS->RaiseTPL, 1, Lock->Tpl);
-        } 
+        }
     }
     else {
         if (LibRuntimeRaiseTPL != NULL) {
@@ -73,11 +73,11 @@ Routine Description:
 
     Releases ownership of the mutual exclusion lock, and
     restores the previous task priority level.
-    
+
 Arguments:
 
     Lock        - The lock to release
-    
+
 Returns:
 
     Lock unowned
@@ -92,7 +92,7 @@ Returns:
     if (BS) {
         if (BS->RestoreTPL != NULL) {
             uefi_call_wrapper(BS->RestoreTPL, 1, Tpl);
-        } 
+        }
     }
     else {
         if (LibRuntimeRestoreTPL != NULL) {

@@ -42,7 +42,7 @@ BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam) {
 		if (!status == STATUS_INFO_LENGTH_MISMATCH) {
 			goto CleanUp;
 		}
-		
+
 		pBuffer = KERNEL32$HeapAlloc(KERNEL32$GetProcessHeap(), HEAP_ZERO_MEMORY, uReturnLength);
 		if (pBuffer == NULL) {
 			goto CleanUp;

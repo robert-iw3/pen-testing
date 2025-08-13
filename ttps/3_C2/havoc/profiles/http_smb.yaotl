@@ -25,7 +25,7 @@ Listeners {
         Hosts        = [
             "5pider.net", # our callback host.
         ]
-        HostBind     = "0.0.0.0" # the address where the listener should bind to. 
+        HostBind     = "0.0.0.0" # the address where the listener should bind to.
         HostRotation = "round-robin"
         PortBind     = 443
         PortConn     = 443

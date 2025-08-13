@@ -53,7 +53,7 @@ No further interaction is needed here — keep the session active.
 
 ### Step 4: Intercept `zak` Request and TURN Credentials
 
-1. Monitor your intercepted traffic for a request containing a `zak` token. This appears to be sent by the client to authenticate and we've noted the response to this message always includes TURN credentials. 
+1. Monitor your intercepted traffic for a request containing a `zak` token. This appears to be sent by the client to authenticate and we've noted the response to this message always includes TURN credentials.
 
 <div align="center">
   <img width="870" alt="JWT Request" src="https://github.com/user-attachments/assets/f5e745d0-41cf-4cf5-ab13-4ef29522047f" />

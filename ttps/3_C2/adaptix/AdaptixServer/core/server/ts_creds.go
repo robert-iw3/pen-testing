@@ -87,7 +87,7 @@ func (ts *Teamserver) TsCredentilsDelete(credId string) error {
 			}
 		}
 	}
-	
+
 	_ = ts.DBMS.DbCredentialsDelete(credId)
 
 	packet := CreateSpCredentialsDelete(credId)

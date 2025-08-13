@@ -1,6 +1,6 @@
 # Havoc Demon Agent
 
-Havoc Demon Agent source code written in C and assembly  
+Havoc Demon Agent source code written in C and assembly
 
 # Directories
 
@@ -13,16 +13,16 @@ core functions ( connect to server, dynamically load win32 apis / syscalls )
 ## src/crypt
 encryption / decryption functions
 
-## src/inject 
+## src/inject
 injection functions and utilities
 
 ## src/main
-Entry point of an PE executable 
+Entry point of an PE executable
 - MainExe.c
 
 Entry point of a Service executable
 - MainSvc.c
-    
+
 Entry point of a Dll
 - MainDll.c
 

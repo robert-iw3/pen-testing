@@ -41,7 +41,7 @@ typedef union NtoskrnlOffsets {
     struct {
 
         // ETW Providers Registration Handle
-        // 
+        //
         // ntoskrnl ETW Threat Intelligence's EtwThreatIntProvRegHandle
         DWORD64 etwThreatIntProvRegHandle;
 

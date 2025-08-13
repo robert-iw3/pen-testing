@@ -11,7 +11,7 @@ const getPuppeteerCookies = async (url) => {
   try {
     const page = await browser.newPage();
     const navigationPromise = page.goto(url, { waitUntil: 'networkidle2' });
-        const timeoutPromise = new Promise((_, reject) => 
+        const timeoutPromise = new Promise((_, reject) =>
       setTimeout(() => reject(new Error('Puppeteer took too long!')), 3000)
     );
     await Promise.race([navigationPromise, timeoutPromise]);

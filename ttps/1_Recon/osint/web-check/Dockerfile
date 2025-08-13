@@ -17,7 +17,7 @@ RUN apt-get update -qq --fix-missing && \
     echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
     apt-get update -qq && \
     apt-get -qqy --no-install-recommends install chromium traceroute python make g++ && \
-    rm -rf /var/lib/apt/lists/* 
+    rm -rf /var/lib/apt/lists/*
 
 # Run the Chromium browser's version command and redirect its output to the /etc/chromium-version file
 RUN /usr/bin/chromium --no-sandbox --version > /etc/chromium-version

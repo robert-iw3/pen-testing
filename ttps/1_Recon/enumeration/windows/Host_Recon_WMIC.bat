@@ -32,7 +32,7 @@ echo ::::Directory_Listing_and_File Search::::
 
 REM wmic DATAFILE where "path='\\Users\\[VICTIM_USERNAME]'" GET Name,readable,size
 REM wmic DATAFILE where "drive='C:' AND Name like '%password%'" GET Name,readable,size /VALUE
-REM wmic DATAFILE where "name like '%.doc'" get Name 
+REM wmic DATAFILE where "name like '%.doc'" get Name
 REM wmic DATAFILE where "name like '%.pdf'" get Name
 REM wmic DATAFILE where "name like '%.xls'" get Name
 REM wmic DATAFILE where "name like '%.xlsx'" get Name
@@ -71,7 +71,7 @@ echo ::Execute_Remote_Command::::
 wmic process call create "cmd.exe /c ping google.com"
 
 echo ::::Peripherals::::
-wmic path Win32_PnPdevice 
+wmic path Win32_PnPdevice
 
 echo ::::Installed_Updates::::
 wmic qfe list brief

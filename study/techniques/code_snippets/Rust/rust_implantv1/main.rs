@@ -26,11 +26,11 @@ fn create_thread() {
             MEM_COMMIT | MEM_RESERVE,
             PAGE_READWRITE
         );
-       
-        if base_addr.is_null() { 
+
+        if base_addr.is_null() {
             println!("[-] Couldn't allocate memory to current proc.")
         }
-    
+
 
         std::ptr::copy(test.as_ptr() as  _, base_addr, test.len());
 
@@ -65,9 +65,9 @@ fn create_thread() {
         if h_thread.is_null() {
             let error = errhandlingapi::GetLastError();
             println!("{}", error.to_string())
-        
+
         }
-		
+
         let status = WaitForSingleObject(h_thread, winbase::INFINITE);
         if status != 0 {
             let error = errhandlingapi::GetLastError();

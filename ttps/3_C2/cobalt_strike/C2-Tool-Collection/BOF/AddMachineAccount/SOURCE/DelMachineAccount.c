@@ -12,7 +12,7 @@
 void GetFormattedErrMsg(_In_ HRESULT hr) {
     LPWSTR lpwErrorMsg = NULL;
 
-    KERNEL32$FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,  
+    KERNEL32$FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,
 	NULL,
 	(DWORD)hr,
 	MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
@@ -135,7 +135,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 	// Parse Arguments
 	datap parser;
 	BeaconDataParse(&parser, Args, Length);
-	
+
 	lpwComputername = (WCHAR*)BeaconDataExtract(&parser, NULL);
 
 	hr = DeleteMachineAccount(USER32$CharUpperW((LPWSTR)lpwComputername));

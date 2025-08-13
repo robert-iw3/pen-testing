@@ -41,7 +41,7 @@ typedef union NtoskrnlOffsets {
     struct {
 
         // Kernel Callback Arrays
-        // 
+        //
         // ntoskrnl's PspCreateProcessNotifyRoutine
         DWORD64 pspCreateProcessNotifyRoutine;
         // ntoskrnl's PspCreateThreadNotifyRoutine

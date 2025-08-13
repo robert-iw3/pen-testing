@@ -4,8 +4,8 @@
 class TimeStomper {
 public:
     static VOID StompFile(LPCWSTR path) {
-        HANDLE hFile = CreateFileW(path, FILE_WRITE_ATTRIBUTES, 
-                                  FILE_SHARE_READ, NULL, 
+        HANDLE hFile = CreateFileW(path, FILE_WRITE_ATTRIBUTES,
+                                  FILE_SHARE_READ, NULL,
                                   OPEN_EXISTING, 0, NULL);
         if (hFile != INVALID_HANDLE_VALUE) {
             FILETIME ft;

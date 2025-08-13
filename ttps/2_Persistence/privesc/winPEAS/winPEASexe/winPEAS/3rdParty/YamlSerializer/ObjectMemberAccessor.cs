@@ -8,10 +8,10 @@ using System.ComponentModel;
 namespace System.Yaml.Serialization
 {
     /// <summary>
-    /// 
+    ///
     /// object に代入されたクラスや構造体のメンバーに、リフレクションを
     /// 解して簡単にアクセスできるようにしたクラス
-    /// 
+    ///
     /// アクセス方法をキャッシュするので、繰り返し使用する場合に高速化が
     /// 期待できる
     /// </summary>
@@ -24,7 +24,7 @@ namespace System.Yaml.Serialization
         /// </summary>
         static Dictionary<Type, ObjectMemberAccessor> MemberAccessors = new Dictionary<Type, ObjectMemberAccessor>();
         /// <summary>
-        /// 
+        ///
         /// 指定した型へのアクセス方法を表すインスタンスを返す
         /// キャッシュに存在すればそれを返す
         /// キャッシュに存在しなければ新しく作って返す
@@ -45,12 +45,12 @@ namespace System.Yaml.Serialization
             if ( !TypeUtils.IsPublic(type) )
                 throw new ArgumentException(
                     "Can not serialize non-public type {0}.".DoFormat(type.FullName));
-            */ 
+            */
 
             // public properties
             foreach ( var p in type.GetProperties(
-                    System.Reflection.BindingFlags.Instance | 
-                    System.Reflection.BindingFlags.Public | 
+                    System.Reflection.BindingFlags.Instance |
+                    System.Reflection.BindingFlags.Public |
                     System.Reflection.BindingFlags.GetProperty) ) {
                 var prop = p; // create closures with this local variable
                 // not readable or parameters required to access the property
@@ -88,7 +88,7 @@ namespace System.Yaml.Serialization
                     ValueType = itype.GetGenericArguments()[1];
                 }
             } else
-                // implements ICollection<T> 
+                // implements ICollection<T>
                 if ( ( itype = type.GetInterface("System.Collections.Generic.ICollection`1") ) != null ) {
                     ValueType = itype.GetGenericArguments()[0];
                     var add = itype.GetMethod("Add", new Type[] { ValueType });
@@ -98,7 +98,7 @@ namespace System.Yaml.Serialization
                     var isReadOnly = itype.GetProperty("IsReadOnly", new Type[0]).GetGetMethod();
                     IsReadOnly = obj => (bool)isReadOnly.Invoke(obj, new object[0]);
                 } else
-                    // implements IList 
+                    // implements IList
                     if ( ( itype = type.GetInterface("System.Collections.IList") ) != null ) {
                         var add = itype.GetMethod("Add", new Type[] { typeof(object) });
                         CollectionAdd = (obj, value) => add.Invoke(obj, new object[] { value });
@@ -108,7 +108,7 @@ namespace System.Yaml.Serialization
                         // Extract Value Type from IList<T>
                         itype = type.GetInterface("System.Collections.Generic.IList`1");
                         if ( itype != null )
-                            ValueType = itype.GetGenericArguments()[0];     
+                            ValueType = itype.GetGenericArguments()[0];
                          */
                         IsReadOnly = obj => ((System.Collections.IList)obj).IsReadOnly;
                     }

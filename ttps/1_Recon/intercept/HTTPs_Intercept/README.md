@@ -3,13 +3,13 @@ A simple program that intercepts HTTPs traffic using Netty and BouncyCastle
 
 ## Disclaimer
 > [!Warning]
-> ONLY USE THIS TOOL FOR EDUCATIONAL PURPOSES!  
+> ONLY USE THIS TOOL FOR EDUCATIONAL PURPOSES!
 > DO NOT USE IT ON DEVICES OF PEOPLE WITHOUT THEIR INFORMED CONSENT!
 
 This program has capabilities that can be used to perform a Man-In-The-Middle-Attack on HTTPs traffic
 allowing to read or modify all communication done with it.
 
-Furthermore, it is dangerous to import CA certificates into the trust store of a browser or Operating System.  
+Furthermore, it is dangerous to import CA certificates into the trust store of a browser or Operating System.
 If a malicous entity gets access to the key,
 they can read or change most encrypted communication performed using the device trusting the certificate.
 

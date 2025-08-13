@@ -54,7 +54,7 @@ if (!foundParams.isEmpty()) {
     if (colorCounts.size() == 1) {
         highlightColor = colorCounts.keySet().iterator().next();
     }
-    
+
     requestResponse.annotations().setHighlightColor(highlightColor);
     combinedNotes = String.join(", ", foundParams);
     requestResponse.annotations().setNotes(combinedNotes);

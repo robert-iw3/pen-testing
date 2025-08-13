@@ -2,7 +2,7 @@
 
 Amount Stolen:: $459,484
 
-Date:: September 20th, 2024 
+Date:: September 20th, 2024
 
 Date of Laundry:: November 11th, 2024
 
@@ -61,13 +61,13 @@ kek.
 ### Laundry to eXch: Nov 11, 2024 12:38—1:00 UTC
 
 - 0xe33f0be4430896b0293da5e42637c6fd0a5357ee - Theft/Consolidation
-- 0xd94c6b23ba2de5aa3760b37f2c315a144fab3170 - eXch Depo 
-- 0x948ffb6a14234e3e2df7c1125ebb768e471c6fb9 - eXch Depo 
-- 0xbfe14ee76ab2bab9d5de3a69ff6386823776877a - eXch Depo 
-- 0x4b5a00b4467e0104f9f412d97a83e54908d53cb3 - eXch Depo 
-- 0x44a997ed7d9d5378dc25467f50a9272cf5e01016 - eXch Depo 
-- 0x7cfd7b61427a04eec5fe06e514ce78cf44952d12 - eXch Depo 
-- 0xa29e26821fb2b704314300708bd1c20ed86c0518 - eXch Depo 
+- 0xd94c6b23ba2de5aa3760b37f2c315a144fab3170 - eXch Depo
+- 0x948ffb6a14234e3e2df7c1125ebb768e471c6fb9 - eXch Depo
+- 0xbfe14ee76ab2bab9d5de3a69ff6386823776877a - eXch Depo
+- 0x4b5a00b4467e0104f9f412d97a83e54908d53cb3 - eXch Depo
+- 0x44a997ed7d9d5378dc25467f50a9272cf5e01016 - eXch Depo
+- 0x7cfd7b61427a04eec5fe06e514ce78cf44952d12 - eXch Depo
+- 0xa29e26821fb2b704314300708bd1c20ed86c0518 - eXch Depo
 
 - bc1q5kaz2tf7qyy28faea3c6ddah66qenv5eu4gfed - eXch Output
 - bc1qkr4v8zfqkrvghf02t38n293sl78d8tuxjw4x7k - eXch Output

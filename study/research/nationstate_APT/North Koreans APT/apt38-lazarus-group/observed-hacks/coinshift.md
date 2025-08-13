@@ -32,8 +32,8 @@ Individual appears to be a long-time leader in the same, founding his own Web3 c
 ### Post-Tornado Laundering
 - 0x5d65aeb2bd903bee822b7069c1c52de838f11bf8
 - 0xa34500c4be803a608b226e8e6cdadcdfea1f8c96
-- 0x4272200ef626d409e9bac681aa0efdb653a9ef0b - Noones Deposit 
-- 0x246569f8b420c8d850c475c53d0d59973b3f08fc - Paxful Deposit 
+- 0x4272200ef626d409e9bac681aa0efdb653a9ef0b - Noones Deposit
+- 0x246569f8b420c8d850c475c53d0d59973b3f08fc - Paxful Deposit
 - 0x0258c2af4fe694df026cca55d17feebd5b361acc - Paxful Deposit
 - 0x3af55ab7edbca175f80f3a7ddeac5dabf611347b - Paxful Deposit
 

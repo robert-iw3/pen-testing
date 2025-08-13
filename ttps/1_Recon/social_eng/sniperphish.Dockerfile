@@ -22,10 +22,10 @@ RUN \
     mysql_secure_installation; \
     echo -e $"create database sniperphish;\n\
         use sniperphish;\n\
-        CREATE USER 'sp'@'localhost' IDENTIFIED BY 'pass123';\n\ 
-        GRANT ALL PRIVILEGES ON sniperphish.* TO 'sp'@'localhost';\n\ 
+        CREATE USER 'sp'@'localhost' IDENTIFIED BY 'pass123';\n\
+        GRANT ALL PRIVILEGES ON sniperphish.* TO 'sp'@'localhost';\n\
         FLUSH PRIVILEGES;\n\
-        exit" | mysql -u root -p ; \ 
+        exit" | mysql -u root -p ; \
     cd /var/www/html ; \
     git clone https://github.com/GemGeorge/SniperPhish.git . ; \
     chmod -R 644 *.* ; \

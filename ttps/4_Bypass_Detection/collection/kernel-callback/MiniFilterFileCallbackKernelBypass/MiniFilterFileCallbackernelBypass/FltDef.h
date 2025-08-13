@@ -205,7 +205,7 @@ typedef struct _CALLBACK_NODE {
 	LIST_ENTRY CallbackLinks;
 #ifdef _KERNEL_MODE
 	PFLT_INSTANCE lpInstance;
-#else 
+#else
 	PVOID lpInstance;
 #endif
 	PVOID PreOperation;

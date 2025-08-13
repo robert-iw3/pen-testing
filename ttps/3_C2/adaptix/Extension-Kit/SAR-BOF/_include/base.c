@@ -18,7 +18,7 @@ void printoutput(BOOL done);
 char * Utf16ToUtf8(const wchar_t* input);
 
 int bofstart()
-{   
+{
     output = (char*)MSVCRT$calloc(bufsize, 1);
     currentoutsize = 0;
     return 1;
@@ -33,11 +33,11 @@ void internal_printf(const char* format, ...){
     va_start(args, format);
     buffersize = MSVCRT$vsnprintf(NULL, 0, format, args); // +1 because vsprintf goes to buffersize-1 , and buffersize won't return with the null
     va_end(args);
-    
+
     // vsnprintf will return -1 on encoding failure (ex. non latin characters in Wide string)
     if (buffersize == -1)
         return;
-    
+
     char* transferBuffer = (char*)intAlloc(bufsize);
     intBuffer = (char*)intAlloc(buffersize);
     /*Print string to memory buffer*/
@@ -132,7 +132,7 @@ FARPROC DynamicLoad(const char * szLibrary, const char * szFunction)
     if(!hMod)
     {
         hMod = LoadLibraryA(szLibrary);
-        if(!hMod){ 
+        if(!hMod){
             BeaconPrintf(CALLBACK_ERROR, "*** DynamicLoad(%s) FAILED!\nCould not find library to load.", szLibrary);
             return NULL;
         }

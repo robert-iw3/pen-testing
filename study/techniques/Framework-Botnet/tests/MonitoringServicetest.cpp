@@ -42,7 +42,7 @@ void runMonitoringServicePerformanceTest(int numMetrics, int numThreads) {
     auto collectMetrics = [](int numMetrics) {
         MonitoringService service;
         service.startMonitoring();
-        
+
         for (int i = 0; i < numMetrics; ++i) {
             auto start = std::chrono::high_resolution_clock::now();
             try {

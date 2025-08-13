@@ -1,5 +1,5 @@
 import hashlib
-from arc4 import ARC4  
+from arc4 import ARC4
 
 file = open("89210AF9.bin","rb") #Resource with Qakbot configuration
 resource = file.read()
@@ -17,7 +17,7 @@ print((decrypted_data[20:]).decode("utf-8"))
 
 
 
-file = open("3C91E639.bin","rb") #Resource with Qakbot C2 
+file = open("3C91E639.bin","rb") #Resource with Qakbot C2
 resource = file.read()
 
 key = hashlib.sha1(b"Muhcu#YgcdXubYBu2@2ub4fbUhuiNhyVtcd").digest() #change with your password

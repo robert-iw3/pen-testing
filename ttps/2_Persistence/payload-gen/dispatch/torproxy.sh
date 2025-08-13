@@ -147,7 +147,7 @@ else
     [[ -e /srv/tor/hidden_service/hostname ]] && {
         echo -en "\nHidden service hostname: "
         cat /srv/tor/hidden_service/hostname; echo; }
-    
+
     /usr/sbin/privoxy --user privoxy --pidfile /var/run/privoxy.pid /etc/privoxy/config
     exec /usr/bin/tor
 fi

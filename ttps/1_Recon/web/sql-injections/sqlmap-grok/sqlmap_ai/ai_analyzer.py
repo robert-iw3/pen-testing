@@ -41,7 +41,7 @@ def ai_suggest_next_steps(report, scan_history=None, extracted_data=None):
                     return recommendation["options"]
             except:
                 pass
-                
+
         # Extract options from the response text
         options = []
         for line in response.split('\n'):
@@ -50,7 +50,7 @@ def ai_suggest_next_steps(report, scan_history=None, extracted_data=None):
                line.startswith('--data=') or line.startswith('--cookie=') or line.startswith('--headers=') or \
                line.startswith('--json') or line.startswith('--level=') or line.startswith('--risk='):
                 options.append(line)
-                
+
         # Check for URL path parameter injection marker
         if "*" in structured_info.get("url", "") and not any('--dbs' in opt for opt in options):
             options.append("--dbs")
@@ -64,7 +64,7 @@ def ai_suggest_next_steps(report, scan_history=None, extracted_data=None):
                    part.startswith('--data=') or part.startswith('--cookie=') or part.startswith('--headers=') or \
                    part.startswith('--json'):
                     options.append(part)
-        
+
     # Handle SQLite specific cases
     if structured_info.get("dbms", "").lower() == "sqlite" and not any(opt for opt in options if opt.startswith('--tables')):
         options.append("--tables")
@@ -72,17 +72,17 @@ def ai_suggest_next_steps(report, scan_history=None, extracted_data=None):
     # Handle URL path injection scenarios
     if structured_info.get("url", "") and "*" in structured_info.get("url", "") and not any('--dbs' in opt for opt in options):
         options.append("--dbs")
-    
+
     # Handle JSON data scenarios
     if any(opt.startswith('--data=') for opt in options) and "json" in ' '.join(options).lower() and not any(opt == '--json' for opt in options):
         options.append("--json")
-        
+
     # Filter out options that might cause issues
     valid_options = []
     for opt in options:
         if not opt.startswith('-d ') and not opt == '-d' and not opt == '--dump-all':
             valid_options.append(opt)
-            
+
     if not valid_options and structured_info.get("dbms", "").lower() == "sqlite":
         print_info("Using SQLite-specific options as fallback")
         return ["--tables", "--dump"]
@@ -99,7 +99,7 @@ def ai_suggest_next_steps(report, scan_history=None, extracted_data=None):
                 return ["--technique=BEU", "--level=3", "--risk=2"]
         else:
             return ["--technique=BEU", "--level=3"]
-        
+
     return valid_options
 def create_advanced_prompt(report, structured_info, scan_history=None, extracted_data=None):
     prompt = """
@@ -113,7 +113,7 @@ def create_advanced_prompt(report, structured_info, scan_history=None, extracted
     DBMS: {dbms}
     Vulnerable Parameters: {vulnerable_params}
     Techniques Tried: {techniques}
-    Databases: {databases}  
+    Databases: {databases}
     Tables: {tables}
     WAF Detected: {waf_detected}
 
@@ -134,7 +134,7 @@ def create_advanced_prompt(report, structured_info, scan_history=None, extracted
     5. Avoiding techniques that have failed
 
     # DBMS-SPECIFIC GUIDELINES:
-    - For SQLite databases: Use '--tables' instead of '--dbs' as SQLite doesn't support database enumeration. 
+    - For SQLite databases: Use '--tables' instead of '--dbs' as SQLite doesn't support database enumeration.
       Use '--dump -T [table_name]' to extract data from specific tables.
     - For MySQL/PostgreSQL: Use '--dbs' to enumerate databases, then '-D [db_name] --tables' to list tables.
     - For Microsoft SQL Server: Consider using '--os-shell' to attempt command execution if appropriate.
@@ -186,17 +186,17 @@ def create_advanced_prompt(report, structured_info, scan_history=None, extracted
         vulnerable_params=', '.join(structured_info.get("vulnerable_parameters", [])) or "None identified",
         techniques=', '.join(structured_info.get("techniques", [])) or "None identified",
         databases=', '.join(structured_info.get("databases", [])) or "None identified",
-        tables=', '.join(structured_info.get("tables", [])) or "None identified", 
+        tables=', '.join(structured_info.get("tables", [])) or "None identified",
         waf_detected="Yes" if structured_info.get("waf_detected", False) else "No",
         scan_history=history_str,
         extracted_data=extracted_str
     )
-    
+
     # Add injection type information if available
     if "injection_type" in structured_info and structured_info["injection_type"]:
         injection_type = structured_info["injection_type"]
         injection_info = f"\n\n# INJECTION TYPE DETECTED: {injection_type.upper()}\n"
-        
+
         if injection_type == "path_parameter":
             injection_info += "Path parameter injection typically requires using * as the injection marker.\n"
             injection_info += "Make sure to include '--dbs' in your recommendations.\n"
@@ -210,7 +210,7 @@ def create_advanced_prompt(report, structured_info, scan_history=None, extracted
             injection_info += "JSON body injection requires --data with JSON payload and --json flag.\n"
         elif injection_type == "multi_parameter":
             injection_info += "Multiple parameters detected. Consider using -p to specify which parameter to test or --level=3.\n"
-            
+
         formatted_prompt += injection_info
-    
-    return formatted_prompt 
+
+    return formatted_prompt

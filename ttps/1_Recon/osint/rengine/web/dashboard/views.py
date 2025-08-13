@@ -372,7 +372,7 @@ def onboarding(request):
                 new_user_preferences, _ = UserPreferences.objects.get_or_create(user=new_user)
                 new_user_preferences.bug_bounty_mode = bug_bounty_mode
                 new_user_preferences.save()
-                
+
         except Exception as e:
             error = ' Could not create User, Error: ' + str(e)
 
@@ -408,12 +408,12 @@ def onboarding(request):
                 hackerone_api_key.save()
             else:
                 HackerOneAPIKey.objects.create(
-                    username=username_hackerone, 
+                    username=username_hackerone,
                     key=key_hackerone
                 )
 
     context['error'] = error
-    
+
 
     context['openai_key'] = OpenAiAPIKey.objects.first()
     context['netlas_key'] = NetlasAPIKey.objects.first()
@@ -434,5 +434,5 @@ def list_bountyhub_programs(request, slug):
     # get parameter to device which platform is being requested
     platform = request.GET.get('platform') or 'hackerone'
     context['platform'] = platform.capitalize()
-    
+
     return render(request, 'dashboard/bountyhub_programs.html', context)

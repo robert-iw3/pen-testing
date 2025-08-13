@@ -11,13 +11,13 @@ MD := $(wildcard *.md)
 DOCX := $(MD:.md=.docx)
 PDF := $(MD:.md=.pdf)
 HTML := $(MD:.md=.html)
-targets := $(DOCX) $(PDF) $(HTML) 
+targets := $(DOCX) $(PDF) $(HTML)
 
 base_dir := $(shell basename $(CURDIR))
 
 %.docx: %.md
 	pandoc -f  markdown+escaped_line_breaks -t docx\
-		-o $@ $? 
+		-o $@ $?
 		#--reference-doc=template/reference.docx \
 
 %.html: %.md
@@ -26,7 +26,7 @@ base_dir := $(shell basename $(CURDIR))
 		--highlight-style=template/highlight/github-dark.theme \
 		-c https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-dark.css \
 		-c template/style.css \
-		$? | sed '/<body>/c\<body class="markdown-body">' > $@ 
+		$? | sed '/<body>/c\<body class="markdown-body">' > $@
 
 
 %.pdf: %.md
@@ -36,7 +36,7 @@ base_dir := $(shell basename $(CURDIR))
 		-V geometry:margin=0.75in \
 		-H template/disable_float.tex \
 		--highlight-style=template/highlight/github-light.theme \
-		-o $@ $? 
+		-o $@ $?
 
 docx: $(DOCX)
 
@@ -44,7 +44,7 @@ pdf: $(PDF)
 
 html: $(HTML)
 
-all: $(targets) 
+all: $(targets)
 
 clean:
 	rm *.html *.docx *.pdf

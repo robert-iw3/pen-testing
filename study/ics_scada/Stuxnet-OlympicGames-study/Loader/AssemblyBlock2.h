@@ -3,16 +3,16 @@
 
 #include "StdAfx.h"
 
-typedef 
-struct 
+typedef
+struct
 _UNICODE_STRING {
         USHORT Length;
         USHORT MaximumLength;
         PWSTR  Buffer;
 } UNICODE_STRING, *PUNICODE_STRING;
 
-typedef 
-struct 
+typedef
+struct
 _OBJECT_ATTRIBUTES {
         ULONG Length;
         HANDLE RootDirectory;
@@ -24,8 +24,8 @@ _OBJECT_ATTRIBUTES {
 
 #define POBJECT_ATTRIBUTES OBJECT_ATTRIBUTES*
 
-typedef 
-enum 
+typedef
+enum
 _SECTION_INHERIT
 {
 	ViewShare = 1,
@@ -48,8 +48,8 @@ typedef DWORD    (WINAPI *_tWaitForSingleObject)(HANDLE, DWORD);
 typedef BOOL     (WINAPI *_tGetExitCodeThread)(HANDLE, LPDWORD);
 typedef NTSTATUS (WINAPI *_tZwClose)(HANDLE);
 
-typedef 
-struct 
+typedef
+struct
 _HARDCODED_ADDRESSES {
 	const HMODULE NTDLL_DLL;
 	const HMODULE EMPTY_PTR;

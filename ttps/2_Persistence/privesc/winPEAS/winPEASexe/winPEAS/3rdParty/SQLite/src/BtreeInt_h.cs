@@ -357,7 +357,7 @@ namespace winPEAS._3rdParty.SQLite.src
 
     /*
     ** A linked list of the following structures is stored at BtShared.pLock.
-    ** Locks are added (or upgraded from READ_LOCK to WRITE_LOCK) when a cursor 
+    ** Locks are added (or upgraded from READ_LOCK to WRITE_LOCK) when a cursor
     ** is opened on the table with root page BtShared.iTable. Locks are removed
     ** from this list when a transaction is committed or rolled back, or when
     ** a btree handle is closed.

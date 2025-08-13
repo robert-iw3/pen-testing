@@ -125,7 +125,7 @@ int main() {
 =======
     // If compiling to an EXE you can just use the one refreshToken array. If so, comment out rt array and lines 312 to 326
     //char refreshToken[] = "REPLACE THIS";
-    // Put the Refresh token in these CHAR arrays. Had to break up the token to different arrays. 
+    // Put the Refresh token in these CHAR arrays. Had to break up the token to different arrays.
     // If it one massive array GCC ming will put it in the BSS section instead of the TEXT section. This will cause the shellcode creation to fail
     CHAR refreshToken1[] = {''};
     CHAR refreshToken2[] = {''}

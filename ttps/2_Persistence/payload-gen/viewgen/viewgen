@@ -87,7 +87,7 @@ class ViewGen:
 	def encrypt(self, data):
 		iv = self._iv
 		random_bytes = self._random_bytes
-		
+
 		if self.dec_alg == "AES":
 			if not self._reuse_iv:
 				iv = self._gen_random_bytes(AES.block_size)
@@ -269,7 +269,7 @@ def parse_args():
 	if len(sys.argv) == 1:
 		parser.print_help()
 		exit(1)
-	
+
 	if args.webconfig:
 		args.vkey, args.valg, args.dkey, args.dalg, args.encrypted = read_webconfig(args.webconfig)
 
@@ -280,7 +280,7 @@ def run_viewgen(args):
 	if args.version:
 		print("viewgen %s" % VERSION)
 		exit(0)
-	
+
 	generate = not args.decode and not args.check and not args.guess
 
 	if not args.payload and not args.command:

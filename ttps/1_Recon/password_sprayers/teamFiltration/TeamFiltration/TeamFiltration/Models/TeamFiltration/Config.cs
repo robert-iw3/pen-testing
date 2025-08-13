@@ -4,8 +4,8 @@ using System.Text;
 
 namespace TeamFiltration.Models.TeamFiltration
 {
-    public class Config { 
-    
+    public class Config {
+
         public string PushoverAppKey { get; set; }
         public string PushoverUserKey { get; set; }
 
@@ -21,8 +21,8 @@ namespace TeamFiltration.Models.TeamFiltration
         public string AWSSessionToken { get; set; }
 
 
-        public string UserAgent { get; set; } 
-        public List<string> AwsRegions { get; set; } 
+        public string UserAgent { get; set; }
+        public List<string> AwsRegions { get; set; }
 
     }
 }

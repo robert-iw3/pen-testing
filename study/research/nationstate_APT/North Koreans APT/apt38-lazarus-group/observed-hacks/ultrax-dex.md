@@ -75,21 +75,21 @@ Amount Stolen:: ~$100k from numerous victims
 - 0xb0c85c65ab65e37640eff870c502f2e65caae3a0
 - 0x23e672c1c78ef287ccda428608eed7d7573953c8
 - 0xa84c104aa0d2d0940b9c480bc8fb6164405113d2
-- 0x777ebff54f951d298b80f135bee70d149cb1afcc 
-- 0xde93b04929c6a38620aaccb82643222f337d2c59 
-- 0x8283ac36fa5de9c987424474af226bfbb985c666 
-- 0xd59538f1e21ef8ccc8e88f6bea9401b46a2c90eb 
-- 0x77e4c3276422c1eaba955408448bcbefc809d95c 
-- 0x11decac1a09f38ad6822423abef46a72df156e7d 
-- 0x4c58c26ca6ca3f3f3acb6388ed54db3d70808178 
-- 0x0848267162c10a1a9f100a4cad44db6daf43c4c9 
-- 0xd886789998a8a03b5acbf0c86816de77ef1f2661 
-- 0x62e0166a9e0605ea8fca618f08982ddbf6cf906a 
-- 0xc54eb4ee194c60520da558b54c659593f3b05ff5 
-- 0xbfd5922618717c9ca846d2e63f71262fa7100789 
-- 0xb2633de13370d628e7dff1aba2ae07317f350ecc 
-- 0x55d398326f99059ff775485246999027b3197955 
-- 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 
+- 0x777ebff54f951d298b80f135bee70d149cb1afcc
+- 0xde93b04929c6a38620aaccb82643222f337d2c59
+- 0x8283ac36fa5de9c987424474af226bfbb985c666
+- 0xd59538f1e21ef8ccc8e88f6bea9401b46a2c90eb
+- 0x77e4c3276422c1eaba955408448bcbefc809d95c
+- 0x11decac1a09f38ad6822423abef46a72df156e7d
+- 0x4c58c26ca6ca3f3f3acb6388ed54db3d70808178
+- 0x0848267162c10a1a9f100a4cad44db6daf43c4c9
+- 0xd886789998a8a03b5acbf0c86816de77ef1f2661
+- 0x62e0166a9e0605ea8fca618f08982ddbf6cf906a
+- 0xc54eb4ee194c60520da558b54c659593f3b05ff5
+- 0xbfd5922618717c9ca846d2e63f71262fa7100789
+- 0xb2633de13370d628e7dff1aba2ae07317f350ecc
+- 0x55d398326f99059ff775485246999027b3197955
+- 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913
 
 
 https://www.chainabuse.com/report/dca4bb04-3e13-4460-b609-5cecaf7ba87d?context=search-address&a=0x505b8abf47bbc62d4f51d67ce8dcd0e20d26d43a&chain=ETH
@@ -179,11 +179,11 @@ https://demo-ultrax.vercel.app/#/trade
 
 # Report 3
 
-- I was contacted on LinkedIn for a job opportunity by an individual who claimed to be a business representative. 
+- I was contacted on LinkedIn for a job opportunity by an individual who claimed to be a business representative.
 
-- They gave me a small development task and later they askewd me to connect my Metamask wallet in order to assess the current website that they have developed (website no longer functional and accessible). 
+- They gave me a small development task and later they askewd me to connect my Metamask wallet in order to assess the current website that they have developed (website no longer functional and accessible).
 
-- I can only assume that they figured out a way to sign transactions via the fake website while I was connected with my wallet. 
+- I can only assume that they figured out a way to sign transactions via the fake website while I was connected with my wallet.
 
 - I lost all my assets (around $2500 in the Linea network) due to my naive nature and because I really thought this was an interview process.
 

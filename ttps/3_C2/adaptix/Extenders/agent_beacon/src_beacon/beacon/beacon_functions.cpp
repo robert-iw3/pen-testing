@@ -339,9 +339,9 @@ BOOL toWideChar(char* src, wchar_t* dst, int max)
 	return ApiWin->MultiByteToWideChar(CP_ACP, MB_ERR_INVALID_CHARS, src, -1, dst, max / sizeof(wchar_t));
 }
 
-BOOL BeaconInformation(BEACON_INFO* info) 
-{ 
-	return FALSE; 
+BOOL BeaconInformation(BEACON_INFO* info)
+{
+	return FALSE;
 }
 
 BOOL BeaconAddValue(const char* key, void* ptr)
@@ -393,7 +393,7 @@ BOOL BeaconRemoveValue(const char* key)
 	return TRUE;
 }
 
-PCHAR BeaconGetCustomUserData() 
+PCHAR BeaconGetCustomUserData()
 {
 	return NULL;
 }

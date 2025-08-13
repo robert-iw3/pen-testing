@@ -10,7 +10,7 @@ EXTERN_C NTSTATUS DirectNtAllocateVirtualMemory(
     ULONG Protect
 ) {
     constexpr DWORD syscallId = 0x18; // Win10 2004
-    
+
     __asm {
         mov r10, rcx
         mov eax, syscallId
@@ -25,9 +25,9 @@ NTSTATUS SyscallInvoker(Args... args) {
 }
 
 PVOID GetSyscallStub(DWORD syscallId) {
-    /** 
+    /**
       Dynamically resolve syscall address
-      -> [Implementation varies per Windows version] 
+      -> [Implementation varies per Windows version]
     **/
     return nullptr; // placeholder
 }

@@ -1,7 +1,7 @@
 --- a/efitools-1.9.2/lib/security_policy.c	2019-01-09 01:13:13.000000000 +0300
 +++ b/efitools-1.9.2/lib/security_policy.c	2019-02-25 05:11:58.714084094 +0300
 @@ -53,80 +53,17 @@
- 
+
  BOOLEAN security_policy_mok_override(void)
  {
 -	UINT8 *VarData;
@@ -24,7 +24,7 @@
 -	return FALSE;
 +	return TRUE;
  }
- 
+
  BOOLEAN security_policy_mok_deny(VOID *data, UINTN len)
  {
 -	EFI_STATUS status;
@@ -45,7 +45,7 @@
 -
  	return FALSE;
  }
- 
+
  BOOLEAN security_policy_mok_allow(VOID *data, UINTN len)
  {
 -	EFI_STATUS status;
@@ -81,5 +81,5 @@
 -	return FALSE;
 +	return TRUE;
  }
- 
+
  static EFIAPI EFI_SECURITY_FILE_AUTHENTICATION_STATE esfas = NULL;

@@ -90,7 +90,7 @@ def test_param(base_url, param):
             print_reflection(test_url)
             return True
     return False
-    
+
 def extract_vars_with_string_assignment(text):
     pattern = re.compile(r'\bvar\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*([\'"])(.*?)\2\s*;', re.DOTALL)
     matches = pattern.findall(text)

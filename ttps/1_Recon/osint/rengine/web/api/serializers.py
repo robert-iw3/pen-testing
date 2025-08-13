@@ -46,13 +46,13 @@ class InAppNotificationSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = InAppNotification
 		fields = [
-			'id', 
-			'title', 
-			'description', 
-			'icon', 
-			'is_read', 
-			'created_at', 
-			'notification_type', 
+			'id',
+			'title',
+			'description',
+			'icon',
+			'is_read',
+			'created_at',
+			'notification_type',
 			'status',
 			'redirect_link',
 			'open_in_new_tab',
@@ -986,7 +986,7 @@ class VulnerabilitySerializer(serializers.ModelSerializer):
 			return "Unknown"
 		else:
 			return "Unknown"
-		
+
 	def get_scan_history(self, vulnerability):
 		scan_history_dict = {}
 		scan_history = vulnerability.scan_history

@@ -97,7 +97,7 @@ namespace winPEAS.Checks
                     else
                     {
                         foreach (var fold in file.FullPath.Split('\\').Skip(1))
-                        {   
+                        {
                             try
                             {
                                 isFileFound = Regex.IsMatch(fold, pattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(20));
@@ -284,7 +284,7 @@ namespace winPEAS.Checks
                     ".txt", ".text", ".md", ".markdown", ".toml", ".rtf",
 
                     // config
-                    ".cnf", ".conf", ".config", ".json", ".yml", ".yaml", ".xml", ".xaml", 
+                    ".cnf", ".conf", ".config", ".json", ".yml", ".yaml", ".xml", ".xaml",
 
                     // dev
                     ".py", ".js", ".html", ".c", ".cpp", ".pl", ".rb", ".smali", ".java", ".php", ".bat", ".ps1",

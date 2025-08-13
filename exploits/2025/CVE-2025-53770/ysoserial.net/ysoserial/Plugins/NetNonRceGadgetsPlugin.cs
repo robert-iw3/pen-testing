@@ -78,7 +78,7 @@ Gadgets:
         Formatters: Json.NET, JavaScriptSerializer, Xaml
         [Finders: Piotr Bazydlo]
 
-Exemplary usage: 
+Exemplary usage:
 
     ysoserial.exe -p NetNonRceGadgets -l
 
@@ -133,7 +133,7 @@ Exemplary usage:
         {
 
             String gadget = "";
-            
+
             if (formatter.ToLower() == "json.net")
             {
                 gadget = @"
@@ -170,7 +170,7 @@ Exemplary usage:
         public string FileLogTraceListener(string input, string formatter)
         {
             String gadget = "";
-            
+
             if (formatter.ToLower() == "json.net")
             {
                 gadget = @"

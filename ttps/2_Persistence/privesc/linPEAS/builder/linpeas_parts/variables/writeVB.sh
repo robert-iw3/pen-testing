@@ -5,7 +5,7 @@
 # Description: Very dangerous files and folders if writable
 # License: GNU GPL
 # Version: 1.0
-# Functions Used: 
+# Functions Used:
 # Global Variables: $PATH
 # Initial Functions:
 # Generated Global Variables: $writeVB

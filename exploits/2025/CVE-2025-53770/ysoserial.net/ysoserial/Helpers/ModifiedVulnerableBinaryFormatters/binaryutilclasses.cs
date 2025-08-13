@@ -34,10 +34,10 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 
     // The ParseRecord class holds the parsed XML information. There is a
     // ParsedRecord for each XML Element
-    public sealed class ParseRecord 
+    public sealed class ParseRecord
 #if _DEBUG
                                         : ITrace
-#endif                                        
+#endif
     {
 // disable csharp compiler warning #0414: field assigned unused value
 #pragma warning disable 0414
@@ -286,7 +286,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 
         // Push the object onto the stack
         internal void Push(Object obj) {
-#if _DEBUG        
+#if _DEBUG
             SerTrace.Log(this, "Push ",stackId," ",((obj is ITrace)?((ITrace)obj).Trace():""));
 #endif
             if (top == (objects.Length -1))
@@ -303,7 +303,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
 
             Object obj = objects[top];
             objects[top--] = null;
-#if _DEBUG        
+#if _DEBUG
             SerTrace.Log(this, "Pop ",stackId," ",((obj is ITrace)?((ITrace)obj).Trace():""));
 #endif
             return obj;
@@ -320,7 +320,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
         internal Object Peek() {
             if (top < 0)
                 return null;
-#if _DEBUG        
+#if _DEBUG
             SerTrace.Log(this, "Peek ",stackId," ",((objects[top] is ITrace)?((ITrace)objects[top]).Trace():""));
 #endif
             return objects[top];
@@ -330,7 +330,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
         internal Object PeekPeek() {
             if (top < 1)
                 return null;
-#if _DEBUG            
+#if _DEBUG
             SerTrace.Log(this, "PeekPeek ",stackId," ",((objects[top - 1] is ITrace)?((ITrace)objects[top - 1]).Trace():""));
 #endif
             return objects[top - 1];
@@ -355,7 +355,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
             for (int i=0; i<Count(); i++)
             {
                 Object obj = objects[i];
-#if _DEBUG                
+#if _DEBUG
                 SerTrace.Log(this, "Stack Dump ",stackId," "+((obj is ITrace)?((ITrace)obj).Trace():""));
 #endif
             }
@@ -750,7 +750,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
     {
         internal FormatterTypeStyle FEtypeFormat;
         internal FormatterAssemblyStyle FEassemblyFormat;
-        internal TypeFilterLevel FEsecurityLevel;        
+        internal TypeFilterLevel FEsecurityLevel;
         internal InternalSerializerTypeE FEserializerTypeEnum;
     }
 
@@ -899,7 +899,7 @@ namespace ysoserial.Helpers.ModifiedVulnerableBinaryFormatters
                 break;
             }
         }
-        
+
         internal void SetValue(String value, int index)
         {
             switch (code)

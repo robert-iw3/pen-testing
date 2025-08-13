@@ -262,7 +262,7 @@ async fn main() -> std::io::Result<()> {
 
         // Create table for imp_tokens
         db.execute(
-            "CREATE TABLE IF NOT EXISTS imp_tokens (  
+            "CREATE TABLE IF NOT EXISTS imp_tokens (
                   token TEXT PRIMARY KEY
               )",
             params![],
@@ -289,7 +289,7 @@ async fn main() -> std::io::Result<()> {
     //placing imports here during testing
     use std::thread;
     //use actix_rt::System;
-    
+
     /*
     let mut settings = Config::default();
     settings

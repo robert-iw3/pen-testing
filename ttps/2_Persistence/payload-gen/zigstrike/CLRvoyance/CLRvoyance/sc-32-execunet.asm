@@ -61,7 +61,7 @@ execunet:
 	; fs:0x84 = oleaut32!SafeArrayGetUBound
 	; fs:0x8c = lLower
 	; fs:0x90 = lUpper
-    
+
 	; resolve VirtualAlloc
 	push KERNEL32_VIRTUALALLOC_HASH
 	push KERNEL32_HASH
@@ -211,7 +211,7 @@ execunet:
         call [ecx+0x30]
         test eax,eax
         jnz done
-    %else 
+    %else
         ; pCorRuntimeHost->GetDefaultDomain(&pAppDomainThunk)
         GET_TLS_VAR 0x5c
         push esi
@@ -324,9 +324,9 @@ execunet:
 	push esi
 	GET_TLS_VAR 0x80
 	call [esi]
-	test eax,eax 
+	test eax,eax
 	jnz done
-	
+
 	;SafeArrayGetUBound(pMethodParams, 1, &lUpper);
 	GET_TLS_VAR 0x90
 	push esi

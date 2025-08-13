@@ -16,7 +16,7 @@ warhorse:
       traefik:
         acme_email: "no-reply@PLACEHOLDER_domain_tld"  # Will be replaced during the generator workflow run
         dashboard: true
-      firewall: 
+      firewall:
         enabled: true
       golang:
         enabled: true
@@ -30,7 +30,7 @@ warhorse:
         dns_over_https: true
         auth_header_name: "<STAGING_PLACEHOLDER>"  # Will be replaced during the generator workflow run
         auth_header_value: "<STAGING_PLACEHOLDER>"  # Will be replaced during the generator workflow run
-        socks_ports: 
+        socks_ports:
           - 9201
           - 9202
           - 9203
@@ -43,7 +43,7 @@ warhorse:
           - name: "aws"
             provider: "aws"
             redirect_url: "https://aws.com"
-      backup: 
+      backup:
         enabled: false
         archive_zip: false
   terraform:

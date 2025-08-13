@@ -22,16 +22,16 @@ void PlainTextDecoder::begin(QTextStream *output) {
         _linePositions.clear();
 }
 
-void PlainTextDecoder::end() { 
-    _output = nullptr; 
+void PlainTextDecoder::end() {
+    _output = nullptr;
 }
 
 void PlainTextDecoder::setRecordLinePositions(bool record) {
     _recordLinePositions = record;
 }
 
-QList<int> PlainTextDecoder::linePositions() const { 
-    return _linePositions; 
+QList<int> PlainTextDecoder::linePositions() const {
+    return _linePositions;
 }
 
 void PlainTextDecoder::decodeLine(const Character* const characters, int count, LineProperty /*properties*/) {
@@ -199,8 +199,8 @@ void HTMLDecoder::openSpan(std::wstring &text, const QString &style) {
     text.append(QString(QLatin1String("<span style=\"%1\">")).arg(style).toStdWString());
 }
 
-void HTMLDecoder::closeSpan(std::wstring &text) { 
-    text.append(L"</span>"); 
+void HTMLDecoder::closeSpan(std::wstring &text) {
+    text.append(L"</span>");
 }
 
 void HTMLDecoder::setColorTable(const ColorEntry *table) {

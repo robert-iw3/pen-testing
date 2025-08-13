@@ -30,7 +30,7 @@ const makeClientSupport = (results: any) => {
       ],
     };
   });
-  
+
 };
 
 const TlsCard = (props: {data: any, title: string, actionButtons: any }): JSX.Element => {
@@ -55,7 +55,7 @@ const TlsCard = (props: {data: any, title: string, actionButtons: any }): JSX.El
       setLoadState('error');
     });
   };
-  
+
   const scanId = props.data?.id;
   return (
     <Card heading={props.title} actionButtons={props.actionButtons}>

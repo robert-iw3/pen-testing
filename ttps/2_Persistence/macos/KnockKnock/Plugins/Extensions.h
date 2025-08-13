@@ -16,7 +16,7 @@
 
 @interface Extensions : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

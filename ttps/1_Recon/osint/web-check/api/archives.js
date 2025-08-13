@@ -33,7 +33,7 @@ const getAveragePageSize = (scans) => {
 const getScanFrequency = (firstScan, lastScan, totalScans, changeCount) => {
   const formatToTwoDecimal = num => parseFloat(num.toFixed(2));
 
-  const dayFactor = (lastScan - firstScan) / (1000 * 60 * 60 * 24);  
+  const dayFactor = (lastScan - firstScan) / (1000 * 60 * 60 * 24);
   const daysBetweenScans = formatToTwoDecimal(dayFactor / totalScans);
   const daysBetweenChanges = formatToTwoDecimal(dayFactor / changeCount);
   const scansPerDay = formatToTwoDecimal((totalScans - 1) / dayFactor);
@@ -51,7 +51,7 @@ const wayBackHandler = async (url) => {
 
   try {
     const { data } = await axios.get(cdxUrl);
-    
+
     // Check there's data
     if (!data || !Array.isArray(data) || data.length <= 1) {
       return { skipped: 'Site has never before been archived via the Wayback Machine' };

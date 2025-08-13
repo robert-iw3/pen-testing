@@ -35,7 +35,7 @@ function Register() {
       }
     } catch (err) {
       console.error("Error registering user:", err);
-      
+
       if (err.response) {
         console.log("Error response data:", err.response.data);
         setError(err.response.data.error || "An error occurred while registering.");

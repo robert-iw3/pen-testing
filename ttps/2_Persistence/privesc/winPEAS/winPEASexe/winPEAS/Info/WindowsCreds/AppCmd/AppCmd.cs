@@ -4,7 +4,7 @@ namespace winPEAS.Info.WindowsCreds.AppCmd
 {
     class AppCmd
     {
-        const string ExtractAppCmdCredsScript = @"  
+        const string ExtractAppCmdCredsScript = @"
                 # Check if appcmd.exe exists
                 if (Test-Path  ('%APPCMD%')) {
                     # Create data table to house results
@@ -67,7 +67,7 @@ namespace winPEAS.Info.WindowsCreds.AppCmd
                     }
                     else {
                         # Status user
-                        Write-host 'No application pool or virtual directory passwords were found.'                        
+                        Write-host 'No application pool or virtual directory passwords were found.'
                     }
                 }
             ";

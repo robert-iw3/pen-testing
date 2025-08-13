@@ -198,7 +198,7 @@ setup_bind_shell() {
 					echo "[-] Node.js is not available on this system. Cannot use Node.js for bind shell."
 				fi
 			fi
-			
+
 			# Ref: https://gtfobins.github.io/gtfobins/socat/#bind-shell
 			if [[ $socat -eq 1 ]]; then
 				echo "[+] Checking for Socat on the system..."

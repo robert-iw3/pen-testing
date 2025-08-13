@@ -10,8 +10,8 @@
 
 namespace winPEAS._3rdParty.AlphaFS {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,15 +23,15 @@ namespace winPEAS._3rdParty.AlphaFS {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,7 +59,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Buffer is not large enough for the requested operation..
         /// </summary>
@@ -68,7 +68,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Buffer_Not_Large_Enough", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cannot create directory..
         /// </summary>
@@ -77,7 +77,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Cannot_Create_Directory", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cannot determine Copy or Move action..
         /// </summary>
@@ -86,7 +86,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Cannot_Determine_Copy_Or_Move", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Destination buffer not large enough for the requested operation..
         /// </summary>
@@ -95,7 +95,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Destination_Buffer_Not_Large_Enough", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The directory is not a mount point: [{0}].
         /// </summary>
@@ -104,7 +104,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Directory_Is_Not_A_MountPoint", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Incorrectly implemented function attempting to generate exception from successful operation.
         ///.
@@ -114,7 +114,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Exception_From_Successful_Operation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The specified file is hidden: [{0}].
         /// </summary>
@@ -123,7 +123,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("File_Is_Hidden", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The file or directory already exists.
         /// </summary>
@@ -132,7 +132,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("File_Or_Directory_Already_Exists", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Failed to get the current WindowsIdentity..
         /// </summary>
@@ -141,7 +141,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("GetCurrentWindowsIdentityFailed", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cannot add and remove trailing DirectorySeparator simultaneously..
         /// </summary>
@@ -150,7 +150,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("GetFullPathOptions_Add_And_Remove_DirectorySeparator_Invalid", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The handle is closed..
         /// </summary>
@@ -159,7 +159,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Handle_Is_Closed", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The handle is invalid..
         /// </summary>
@@ -168,7 +168,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Handle_Is_Invalid", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The handle is invalid. Win32Error: [{0}].
         /// </summary>
@@ -177,7 +177,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Handle_Is_Invalid_Win32Error", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Creating hard-links on non-NTFS partitions is not supported..
         /// </summary>
@@ -186,7 +186,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("HardLinks_Not_Supported", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Illegal characters: [{0}] in path..
         /// </summary>
@@ -195,7 +195,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Illegal_Characters_In_Path", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to An attempt to set an invalid file attribute failed..
         /// </summary>
@@ -204,7 +204,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Invalid_File_Attribute", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The data present in the reparse point buffer is invalid.
         /// </summary>
@@ -213,7 +213,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Invalid_Reparse_Data", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid stream name..
         /// </summary>
@@ -222,7 +222,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Invalid_Stream_Name", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid Subpath.
         /// </summary>
@@ -231,7 +231,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Invalid_Subpath", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid transaction request..
         /// </summary>
@@ -240,7 +240,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Invalid_Transaction_Request", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Argument must be a drive letter: &quot;C&quot;, RootDir: &quot;C:\&quot; or UNC path: &quot;\\server\share&quot;.
         /// </summary>
@@ -249,7 +249,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("InvalidDriveLetterArgument", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The target directory of the directory junction must be on the same local drive..
         /// </summary>
@@ -258,7 +258,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Junction_And_Target_Must_Be_On_The_Same_Drive", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to MoveOptions.CopyAllowed is not allowed when using the MoveOptions.DelayUntilReboot flag..
         /// </summary>
@@ -267,7 +267,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("MoveOptionsDelayUntilReboot_Not_Allowed_With_MoveOptionsCopyAllowed", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to MoveOptions.DelayUntilReboot is not allowed when using a network path..
         /// </summary>
@@ -276,7 +276,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("MoveOptionsDelayUntilReboot_Not_Allowed_With_NetworkPath", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Count cannot be negative..
         /// </summary>
@@ -285,7 +285,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Negative_Count", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Destination offset cannot be negative..
         /// </summary>
@@ -294,7 +294,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Negative_Destination_Offset", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Length cannot be negative..
         /// </summary>
@@ -303,7 +303,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Negative_Length", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Lock length cannot be negative..
         /// </summary>
@@ -312,7 +312,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Negative_Lock_Length", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Offset cannot be negative..
         /// </summary>
@@ -321,7 +321,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Negative_Offset", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Network path is not allowed for directory junction: [{0}].
         /// </summary>
@@ -330,7 +330,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Network_Path_Not_Allowed", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to No drive letters available..
         /// </summary>
@@ -339,7 +339,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("No_Drive_Letters_Available", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to This stream does not support seeking..
         /// </summary>
@@ -348,7 +348,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("No_Stream_Seeking_Support", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Argument is not a valid Volume GUID..
         /// </summary>
@@ -357,7 +357,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Not_A_Valid_Guid", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Path is a zero-length string or contains only white space..
         /// </summary>
@@ -366,7 +366,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Path_Is_Zero_Length_Or_Only_White_Space", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Privilege name cannot be empty..
         /// </summary>
@@ -375,7 +375,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Privilege_Name_Cannot_Be_Empty", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Incomplete header read..
         /// </summary>
@@ -384,7 +384,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Read_Incomplete_Header", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid security descriptor returned from system..
         /// </summary>
@@ -393,7 +393,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Returned_Invalid_Security_Descriptor", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Source offset and length outside the bounds of the array.
         /// </summary>
@@ -402,7 +402,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Source_OffsetAndLength_Outside_Bounds", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The target directory is a file, not a directory: [{0}].
         /// </summary>
@@ -411,7 +411,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Target_Directory_Is_A_File", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The target file is a directory, not a file: [{0}].
         /// </summary>
@@ -420,7 +420,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Target_File_Is_A_Directory", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Transaction already aborted..
         /// </summary>
@@ -429,7 +429,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Transaction_Already_Aborted", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Transaction already committed..
         /// </summary>
@@ -438,7 +438,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Transaction_Already_Committed", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid transaction object..
         /// </summary>
@@ -447,7 +447,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Transaction_Invalid", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Transaction not active..
         /// </summary>
@@ -456,7 +456,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Transaction_Not_Active", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Transaction not requested..
         /// </summary>
@@ -465,7 +465,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Transaction_Not_Requested", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Transactional conflict..
         /// </summary>
@@ -474,7 +474,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("Transactional_Conflict", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Network share path should match the format: \\server\share.
         /// </summary>
@@ -483,7 +483,7 @@ namespace winPEAS._3rdParty.AlphaFS {
                 return ResourceManager.GetString("UNC_Path_Should_Match_Format", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The given path&apos;s format is not supported: [{0}].
         /// </summary>

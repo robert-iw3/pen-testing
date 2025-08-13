@@ -5,7 +5,7 @@ class ClassFactory
 {
 public:
 	BOOL IReady;
-	
+
 	ClassFactory(COMWrapper& com_wrapper, WMIConnection& wmi_connection) :
 		ICom(com_wrapper),
 		WMI(wmi_connection),
@@ -29,7 +29,7 @@ public:
 			ILog("Failed to connect to namespace\n");
 			return E_FAIL; // Something is very wrong
 		}
-		
+
 		HRESULT hres = NULL;
 		IWbemClassObject* pClass = NULL;
 		IWbemContext* pCtx = NULL;
@@ -38,7 +38,7 @@ public:
 
 		// Check if class already exists by calling GetObject
 		hres = CheckClassExists(sClassName);
-		
+
 		if (SUCCEEDED(hres))
 		{
 			ILog("Class already exists, deleting it\n");
@@ -50,7 +50,7 @@ public:
 				NULL,
 				&pEnumerator
 			);
-			
+
 			// If instances exist, delete all of them
 			if (SUCCEEDED(hres))
 			{
@@ -66,14 +66,14 @@ public:
 					VARIANT vPath;
 					VariantInit(&vPath);
 					hres = pInstance->Get(L"__RELPATH", 0, &vPath, 0, 0);
-					
+
 					if (SUCCEEDED(hres))
 					{
 						// Delete the instance
 						hres = WMI.pSvc->DeleteInstance(vPath.bstrVal, 0, NULL, NULL);
 					}
 					VariantClear(&vPath);
-					
+
 					pInstance->Release();
 				}
 				pEnumerator->Release();
@@ -81,14 +81,14 @@ public:
 
 			// Delete the class
 			hres = WMI.pSvc->DeleteClass(_bstr_t(sClassName.c_str()), 0, NULL, NULL);
-			
+
 			pClass = NULL;
 		}
 		else
 		{
 			pClass = NULL;
 		}
-		
+
 		// Retrieve a definition for the new class by calling the pSvc->GetObject method with the strObjectPath parameter set to a null value.
 
 		hres = WMI.pSvc->GetObject(
@@ -98,7 +98,7 @@ public:
 			&pClass,
 			NULL
 		);
-		
+
 		if (FAILED(hres))
 		{
 			ILog("Failed to create new class definition. Error code = 0x%X \n", hres);
@@ -114,17 +114,17 @@ public:
 			&vVariant,
 			0
 		);
-		
+
 		if (FAILED(hres))
 		{
 			ILog("Failed to set class name. Error code = 0x%X \n", hres);
 			return hres;
 		}
-		
+
 		// The following code example describes how to create the Index property, which is labeled as a key property in Step 4.
 
 		 BSTR KeyProp = SysAllocString(L"Index");
-		 
+
 		hres = pClass->Put(
 			KeyProp,
 			0,
@@ -143,13 +143,13 @@ public:
 		V_BOOL(&vVariant) = VARIANT_TRUE;
 		BSTR Key = SysAllocString(L"Key");
 
-		pQual->Put(Key, &vVariant, 0);   // Flavors not required for Key 
+		pQual->Put(Key, &vVariant, 0);   // Flavors not required for Key
 		SysFreeString(Key);
 		VariantClear(&vVariant);
 
 		// Add additional properties to the class
 		// Filestore
-		
+
 		hres = pClass->Put(
 			_bstr_t("Filestore"),
 			0,
@@ -164,26 +164,26 @@ public:
 
 		// Add key qualifier set to Filestore property
 		hres = pClass->GetPropertyQualifierSet(_bstr_t("Filestore"), (LPVOID**)&pQual2);
-		
+
 		if (FAILED(hres))
 		{
 			ILog("Failed to get Filestore property qualifier set. Error code = 0x%X \n", hres);
 			goto cleanup;
 		}
-		
+
 		V_VT(&vVariant) = VT_BOOL;
 		V_BOOL(&vVariant) = VARIANT_TRUE;
 		Key = SysAllocString(L"Key");
-		
+
 		hres = pQual2->Put(Key, &vVariant, 0);   // Flavors not required for Key
 		SysFreeString(Key);
-		
+
 		if (FAILED(hres))
 		{
 			ILog("Failed to add Key qualifier set to Filestore property. Error code = 0x%X \n", hres);
 			goto cleanup;
 		}
-		
+
 		// Add MaxLen qualifier to Filestore as CIM_SINT32
 		V_VT(&vVariant) = VT_I4;
 		V_I4(&vVariant) = 2147483647 - 1; // INT32 max value
@@ -195,9 +195,9 @@ public:
 			ILog("Failed to add MaxLen qualifier to Filestore property. Error code = 0x%X \n", hres);
 			goto cleanup;
 		}
-		
+
 		// Register the new class using pSvc->PutClass
-		
+
 		hres = WMI.pSvc->PutClass(pClass, 0, pCtx, NULL);
 
 		if (FAILED(hres))
@@ -217,7 +217,7 @@ public:
 		if(pClass)
 			pClass->Release();
 		VariantClear(&vVariant);
-		
+
 		return hres;
 	}
 
@@ -237,7 +237,7 @@ public:
 			ILog("Failed to connect to namespace\n");
 			return E_FAIL; // Something is very wrong
 		}
-		
+
 		IWbemClassObject* pClass = NULL;
 
 		hres = CheckClassExists(sClassName);
@@ -250,13 +250,13 @@ public:
 
 		// Delete the class using pSvc->DeleteClass
 		hres = WMI.pSvc->DeleteClass(vVariant.bstrVal, 0, NULL, NULL);
-		
+
 		if (FAILED(hres))
 		{
 			ILog("Failed to delete class. Error code = 0x%X \n", hres);
 			goto cleanup;
 		}
-		
+
 		// Cleanup
 		cleanup:
 		VariantClear(&vVariant);
@@ -280,7 +280,7 @@ public:
 			ILog("Failed to connect to namespace\n");
 			return E_FAIL; // Something is very wrong
 		}
-		
+
 		IWbemClassObject* pClass = NULL;
 
 		// Retrieve class definition for sClassName
@@ -301,13 +301,13 @@ public:
 			// Class doesn't exist
 			goto cleanup;
 		}
-		
+
 		// Cleanup
 	cleanup:
 		if(pClass)
 			pClass->Release();
 		VariantClear(&vVariant);
-		
+
 		return hres;
 	}
 

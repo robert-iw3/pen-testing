@@ -18,11 +18,11 @@ if ! [ "$SEARCH_IN_FOLDER" ]; then
     print_2title "Different processes executed during 1 min (interesting is low number of repetitions)"
     print_info "https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html#frequent-cron-jobs"
     temp_file=$(mktemp)
-    if [ "$(ps -e -o user,command 2>/dev/null)" ]; then 
-      for i in $(seq 1 1210); do 
-        ps -e -o user,command >> "$temp_file" 2>/dev/null; sleep 0.05; 
+    if [ "$(ps -e -o user,command 2>/dev/null)" ]; then
+      for i in $(seq 1 1210); do
+        ps -e -o user,command >> "$temp_file" 2>/dev/null; sleep 0.05;
       done;
-      sort "$temp_file" 2>/dev/null | uniq -c | grep -v "\[" | sed '/^.\{200\}./d' | sort -r -n | grep -E -v "\s*[1-9][0-9][0-9][0-9]" | sed -${E} "s,$Wfolders,${SED_RED},g" | sed -${E} "s,$sh_usrs,${SED_LIGHT_CYAN}," | sed "s,$USER,${SED_LIGHT_MAGENTA}," | sed -${E} "s,$nosh_usrs,${SED_BLUE}," | sed "s,root,${SED_RED},"; 
+      sort "$temp_file" 2>/dev/null | uniq -c | grep -v "\[" | sed '/^.\{200\}./d' | sort -r -n | grep -E -v "\s*[1-9][0-9][0-9][0-9]" | sed -${E} "s,$Wfolders,${SED_RED},g" | sed -${E} "s,$sh_usrs,${SED_LIGHT_CYAN}," | sed "s,$USER,${SED_LIGHT_MAGENTA}," | sed -${E} "s,$nosh_usrs,${SED_BLUE}," | sed "s,root,${SED_RED},";
       rm "$temp_file";
     fi
     echo ""

@@ -19,7 +19,7 @@ https://twitter.com/dmalpsar/status/1357360150894551041
 
 
 
-## Onchain 
+## Onchain
 
 ### Primary Theft
 
@@ -29,27 +29,27 @@ https://twitter.com/dmalpsar/status/1357360150894551041
 - 31xUzkxwQWdAhB8mqxDrFtZBTazMRvU2r8
 - 3QmWKGvpPzzwYDyAp73zpZ1sjSTvovd38o
 
-### Laundry 
+### Laundry
 
 - bc1q6z373xgwgn2hfse6nxtzeg8yx4geaj302ytpk0 - Intermediary: BTC -> ETH via REN
-- bc1qdz4h4lgre8jajs6tmjpl6l6gp485eavr0qt043 - Intermediary: BTC -> ETH via REN 
-- bc1q9mn78jle394tmrzu2jz9hpd3cg5z7ef64kyfj3 - Intermediary: BTC -> ETH via REN 
-- bc1q5sf5fxm48q7pa0yyd64c6gtkky8hc9qkpta9ky - Intermediary: BTC -> ETH via REN 
-- bc1qkd69vxxqk005lzdjdcqt5x7u9qlszux9w0lw6z - Intermediary: BTC -> ETH via REN 
-- bc1q5aqrzvwat7aqta492xvc9pz3auul2q6552cq07 - Intermediary: BTC -> ETH via REN 
-- bc1qcpuagggwp67cy9z8rrtm5wscga2a3s0r30pj8t - Intermediary: BTC -> ETH via REN 
-- bc1qdz93ucfwhxvtlrjnmgkhh5cm42ue8naau987dw - Intermediary: BTC -> ETH via REN 
-- bc1q3qqv05sx05h53kuh95fg7jhys255cwpjkulzqw - Intermediary: BTC -> ETH via REN 
-- bc1qpl8eel8kcxtkvflg9d4eflnjyz7xu67hfl93ls - Intermediary: BTC -> ETH via REN 
-- bc1q9mkhpah5g9ukut8d9jeg2wsr58nyljat40rhtj - Intermediary: BTC -> ETH via REN 
-- bc1quycvxnm6yxukqm6hmfq6daefu4xmt29mt5kuq4 - Intermediary: BTC -> ETH via REN 
-- bc1qc2a3jrcdqpykjkkhjn4z3qdqrm50jq2zzyn9t2 - Intermediary: BTC -> ETH via REN 
-- bc1ql2p0nls4getrev8y9yr6qnw6vl4htjrvscejrv - Intermediary: BTC -> ETH via REN 
-- bc1qmvuzj6qmyf96e644merefy92nza4ddwl558s0k - Intermediary: BTC -> ETH via REN 
-- bc1qfz7ty46qllvymja6yx8q6ercthyf679trljr7w - Intermediary: BTC -> ETH via REN 
-- bc1qweg793jc6hp5fh7950lq2ylpc7m8yz65575kgp - Intermediary: BTC -> ETH via REN 
-- 0x411cb102a2a7be7aa72d00a9a570e129f568c45e - Intermediary: ETH from REN 
-- 0x650c851033fd1d5b4b79f43a70cb7cc4e16a68e6 - Intermediary: ETH from REN 
+- bc1qdz4h4lgre8jajs6tmjpl6l6gp485eavr0qt043 - Intermediary: BTC -> ETH via REN
+- bc1q9mn78jle394tmrzu2jz9hpd3cg5z7ef64kyfj3 - Intermediary: BTC -> ETH via REN
+- bc1q5sf5fxm48q7pa0yyd64c6gtkky8hc9qkpta9ky - Intermediary: BTC -> ETH via REN
+- bc1qkd69vxxqk005lzdjdcqt5x7u9qlszux9w0lw6z - Intermediary: BTC -> ETH via REN
+- bc1q5aqrzvwat7aqta492xvc9pz3auul2q6552cq07 - Intermediary: BTC -> ETH via REN
+- bc1qcpuagggwp67cy9z8rrtm5wscga2a3s0r30pj8t - Intermediary: BTC -> ETH via REN
+- bc1qdz93ucfwhxvtlrjnmgkhh5cm42ue8naau987dw - Intermediary: BTC -> ETH via REN
+- bc1q3qqv05sx05h53kuh95fg7jhys255cwpjkulzqw - Intermediary: BTC -> ETH via REN
+- bc1qpl8eel8kcxtkvflg9d4eflnjyz7xu67hfl93ls - Intermediary: BTC -> ETH via REN
+- bc1q9mkhpah5g9ukut8d9jeg2wsr58nyljat40rhtj - Intermediary: BTC -> ETH via REN
+- bc1quycvxnm6yxukqm6hmfq6daefu4xmt29mt5kuq4 - Intermediary: BTC -> ETH via REN
+- bc1qc2a3jrcdqpykjkkhjn4z3qdqrm50jq2zzyn9t2 - Intermediary: BTC -> ETH via REN
+- bc1ql2p0nls4getrev8y9yr6qnw6vl4htjrvscejrv - Intermediary: BTC -> ETH via REN
+- bc1qmvuzj6qmyf96e644merefy92nza4ddwl558s0k - Intermediary: BTC -> ETH via REN
+- bc1qfz7ty46qllvymja6yx8q6ercthyf679trljr7w - Intermediary: BTC -> ETH via REN
+- bc1qweg793jc6hp5fh7950lq2ylpc7m8yz65575kgp - Intermediary: BTC -> ETH via REN
+- 0x411cb102a2a7be7aa72d00a9a570e129f568c45e - Intermediary: ETH from REN
+- 0x650c851033fd1d5b4b79f43a70cb7cc4e16a68e6 - Intermediary: ETH from REN
 - 0xacb5c99c1f9ecfb109862deb3a2779b20fe5b866 - TC 1100 ETH, 11
 - 0x9a9b3a00bce0b4dc15a93e26d66ae9d8dd2e7dc4 - TC 2710 ETH, 28
 - 0xf573d864e5cc10f0351a1ac2c058ba5fe1b9fca2 - TC 400.1 ETH, 5

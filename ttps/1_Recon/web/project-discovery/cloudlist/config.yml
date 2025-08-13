@@ -87,7 +87,7 @@
 - provider: terraform # provider is the name of the provider
   # id is the name defined by user for filtering (optional)
   id: staging
-  #tf_state_file is the location of terraform state file (terraform.tfsate) 
+  #tf_state_file is the location of terraform state file (terraform.tfsate)
   tf_state_file: path/to/terraform.tfstate
 
 - provider: hetzner # provider is the name of the provider

@@ -151,10 +151,10 @@ void TerminalDisplay::setColorTable(const ColorEntry table[]) {
 /*
  The VT100 has 32 special graphical characters. The usual vt100 extended
  xterm fonts have these at 0x00..0x1f.
- 
+
  QT's iso mapping leaves 0x00..0x7f without any changes. But the graphicals
  come in here as proper unicode characters.
- 
+
  We treat non-iso10646 fonts as VT100 extended and do the required mapping
  from unicode to 0x00..0x1f. The remaining translation is then left to the
  QCodec.
@@ -1570,7 +1570,7 @@ int TerminalDisplay::textWidth(const int startColumn, const int length, const in
     int result = 0;
     for (int column = 0; column < length; column++) {
         auto c = _image[loc(startColumn + column, line)];
-        if (_fixedFont_original && !isLineChar(c)) { 
+        if (_fixedFont_original && !isLineChar(c)) {
             result += fm.horizontalAdvance(QLatin1Char(REPCHAR[0]));
         } else {
             result += fm.horizontalAdvance(QChar(static_cast<uint>(c.character)));
@@ -1648,7 +1648,7 @@ void TerminalDisplay::drawContents(QPainter &paint, const QRect &rect) {
             CharacterColor currentForeground = _image[loc(x, y)].foregroundColor;
             CharacterColor currentBackground = _image[loc(x, y)].backgroundColor;
             quint8 currentRendition = _image[loc(x, y)].rendition;
-            
+
             quint32 nxtC = 0;
             bool nxtDoubleWidth = false;
             int nxtCharWidth = 0;

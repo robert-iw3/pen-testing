@@ -6,7 +6,7 @@ using DWORD = System.UInt32;
 
 using HWND = System.IntPtr;
 using WPARAM = System.IntPtr;
-using LPARAM = System.IntPtr; 
+using LPARAM = System.IntPtr;
 
 namespace MonkeyWorks.Unmanaged.Headers
 {
@@ -60,7 +60,7 @@ namespace MonkeyWorks.Unmanaged.Headers
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        public struct tagMSG 
+        public struct tagMSG
         {
             public HWND   hwnd;
             public UINT message;

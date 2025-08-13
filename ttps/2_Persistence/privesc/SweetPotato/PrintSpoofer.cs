@@ -47,7 +47,7 @@ namespace SweetPotato {
                     Console.WriteLine("[-] Failed to duplicate impersonation token");
                     return;
                 }
-                
+
                 Console.WriteLine("[+] Duplicated impersonation token ready for process creation");
             });
 

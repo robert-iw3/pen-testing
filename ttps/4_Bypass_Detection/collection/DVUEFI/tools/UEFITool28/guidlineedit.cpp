@@ -36,7 +36,7 @@ void GuidLineEdit::keyPressEvent(QKeyEvent * event)
             cursorBackward(false);
             pos = cursorPosition();
         }
-        
+
         QString txt = text();
         QString selected = selectedText();
 
@@ -46,7 +46,7 @@ void GuidLineEdit::keyPressEvent(QKeyEvent * event)
                 if (txt[i] != QChar('-'))
                     txt[i] = QChar('.');
         }
-        else 
+        else
             txt[pos] = QChar('.');
 
         setCursorPosition(0);

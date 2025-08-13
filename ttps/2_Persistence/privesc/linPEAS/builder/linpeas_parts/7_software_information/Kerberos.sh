@@ -27,7 +27,7 @@ if [ "$kadmin_exists" ] || [ "$klist_exists" ] || [ "$kinit_exists" ] || [ "$PST
   if [ "$ptrace_scope" ] && [ "$ptrace_scope" -eq 0 ]; then echo "ptrace protection is disabled (0), you might find tickets inside processes memory" | sed "s,is disabled,${SED_RED},g";
   else echo "ptrace protection is enabled ($ptrace_scope), you need to disable it to search for tickets inside processes memory" | sed "s,is enabled,${SED_GREEN},g";
   fi
-  
+
   (env || printenv) 2>/dev/null | grep -E "^KRB5" | sed -${E} "s,KRB5,${SED_RED},g"
 
   printf "%s\n" "$PSTORAGE_KERBEROS" | while read f; do
@@ -50,7 +50,7 @@ if [ "$kadmin_exists" ] || [ "$klist_exists" ] || [ "$kinit_exists" ] || [ "$PST
         ls -l "$f"
         cat "$f" 2>/dev/null | sed -${E} "s,default_ccache_name,${SED_RED},";
       elif echo "$f" | grep -q kadm5.acl; then
-        ls -l "$f" 
+        ls -l "$f"
         cat "$f" 2>/dev/null
       elif echo "$f" | grep -q sssd.conf; then
         ls -l "$f"

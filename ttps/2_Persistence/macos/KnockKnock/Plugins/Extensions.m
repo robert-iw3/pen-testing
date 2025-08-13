@@ -30,14 +30,14 @@
     {
         //set name
         self.name = PLUGIN_NAME;
-        
+
         //set description
         self.description = PLUGIN_DESCRIPTION;
-        
+
         //set icon
         self.icon = PLUGIN_ICON;
     }
-    
+
     return self;
 }
 
@@ -47,22 +47,22 @@
 {
     //console user
     NSString* currentUser = nil;
-    
+
     //home directory for user
     NSString* userDirectory = nil;
-    
+
     //all extensions
     NSMutableArray* extensions = nil;
-    
+
     //task output
     NSData* taskOutput = nil;
-    
+
     //finder syncs (from plist)
     NSDictionary* finderSyncs = nil;
-    
+
     //alloc array for extensions
     extensions = [NSMutableArray array];
-    
+
     //exec 'pluginkit -vmA'
     taskOutput = execTask(PLUGIN_KIT, @[@"-vmA"], NULL);
     if( (nil == taskOutput) ||
@@ -71,16 +71,16 @@
         //bail
         goto bail;
     }
-    
+
     //process output
     [extensions addObjectsFromArray:[self parseExtensions:[[[NSString alloc] initWithData:taskOutput encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
-    
+
     //get current/console user
     currentUser = getConsoleUser();
-    
+
     //get their home directory
     userDirectory = NSHomeDirectoryForUser(currentUser);
-    
+
     //sanity check(s)
     if( (0 == currentUser.length) ||
         (0 == userDirectory.length) )
@@ -88,7 +88,7 @@
         //bail
         goto bail;
     }
-    
+
     //load finder syncs from plist
     finderSyncs = [NSDictionary dictionaryWithContentsOfFile:[userDirectory stringByAppendingPathComponent:[FINDER_SYNCS substringFromIndex:1]]];
     if( (nil == finderSyncs) ||
@@ -97,7 +97,7 @@
         //bail
         goto bail;
     }
-    
+
     //process each finder sync
     // exec 'pluginkit -mi <bundle> -v' to get info
     for(NSString* finderSync in finderSyncs[@"displayOrder"])
@@ -110,19 +110,19 @@
             //skip
             continue;
         }
-        
+
         //process output
         [extensions addObjectsFromArray:[self parseExtensions:[[[NSString alloc] initWithData:taskOutput encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
     }
-    
+
     //remove any duplicates
     extensions = [[[NSSet setWithArray:extensions] allObjects] mutableCopy];
-    
+
 //bail
 bail:
-    
+
     return extensions;
-    
+
 }
 
 //given output from plugin kit
@@ -131,16 +131,16 @@ bail:
 {
     //enabled extensions
     NSMutableArray* extensions = nil;
-    
+
     //start of path
     NSRange pathOffset = {0};
-    
+
     //extension path
     NSString* path = nil;
-    
+
     //alloc array for extensions
     extensions = [NSMutableArray array];
-    
+
     //process each line
     for(NSString* line in [output componentsSeparatedByString:@"\n"])
     {
@@ -151,7 +151,7 @@ bail:
             //skip
             continue;
         }
-        
+
         //find start of path
         // ->first occurance of '/'
         pathOffset = [line rangeOfString:@"/"];
@@ -160,14 +160,14 @@ bail:
             //skip
             continue;
         }
-        
+
         //grab path
         path = [line substringFromIndex:pathOffset.location];
-        
+
         //add
         [extensions addObject:path];
     }
-    
+
 //bail
 bail:
 
@@ -179,7 +179,7 @@ bail:
 {
     //File obj
     File* fileObj = nil;
-    
+
     //enumerate all extensions
     for(NSString* extension in [self enumExtensions])
     {
@@ -190,12 +190,12 @@ bail:
             //skip
             continue;
         }
-        
+
         //process item
         // ->save and report to UI
         [super processItem:fileObj];
     }
-    
+
     return;
 }
 

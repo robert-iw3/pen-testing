@@ -5,7 +5,7 @@
 # Description: Good GCP Scopes not dangerous
 # License: GNU GPL
 # Version: 1.0
-# Functions Used: 
+# Functions Used:
 # Global Variables:
 # Initial Functions:
 # Generated Global Variables: $GCP_GOOD_SCOPES

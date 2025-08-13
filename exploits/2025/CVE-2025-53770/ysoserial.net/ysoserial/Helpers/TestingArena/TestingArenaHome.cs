@@ -52,7 +52,7 @@ namespace ysoserial.Helpers.TestingArena
             //ActivitySurrogateSelector();
             //SpoofByBinaryFormatterJson();
             //DisableActivitySurrogateSelectorTypeCheckReader();
-            
+
             //Console.ReadLine();
         }
 
@@ -106,7 +106,7 @@ namespace ysoserial.Helpers.TestingArena
             }
 
             /// <summary>
-            ///  Only safe to deserialize types are bypassing this callback, Strings 
+            ///  Only safe to deserialize types are bypassing this callback, Strings
             ///  and arrays of primitive types in particular. We are explicitly allowing
             ///  System.Drawing.Bitmap type to bind using the default binder.
             /// </summary>
@@ -338,7 +338,7 @@ namespace ysoserial.Helpers.TestingArena
             fmt.Serialize(lsMs, ls);
             //lsMs.Position = 0;
             //fmt.Deserialize(lsMs);
-            
+
             byte[] bf_byte = lsMs.ToArray();
             Console.WriteLine("Init size: " + bf_byte.Length);
             string json_string = AdvancedBinaryFormatterParser.StreamToJson(new MemoryStream(bf_byte), false, true, true);
@@ -381,7 +381,7 @@ namespace ysoserial.Helpers.TestingArena
             string myApp = "TestConsoleApp_YSONET";
             sampleInputArgs = new InputArgs(myApp + " /foo bar", true, false, false, false, true, null);
             bool isErrOk = false;
-            
+
             TypeConfuseDelegateGenerator tcdg = new TypeConfuseDelegateGenerator();
             byte[] tcd_bf_byte = (byte[])tcdg.GenerateWithNoTest("binaryformatter", sampleInputArgs);
             string json_string = AdvancedBinaryFormatterParser.StreamToJson(new MemoryStream(tcd_bf_byte), false, true, true);

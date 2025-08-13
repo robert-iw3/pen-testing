@@ -18,7 +18,7 @@ static __always_inline int get_tcp_dest_port(struct tcphdr *tcp){
  * Following RFC 1071.
  * In essence 1's complement of 16-bit groups.
  * Taken from my own library https://github.com/h3xduck/RawTCP_Lib/blob/master/src/segment.c
- */ 
+ */
 static __always_inline unsigned short tcp_checksum(unsigned short *addr, int nbytes){
     long sum = 0;
     unsigned short checksum;
@@ -29,7 +29,7 @@ static __always_inline unsigned short tcp_checksum(unsigned short *addr, int nby
     if(nbytes>0){
         sum += bpf_htons((unsigned char)*addr);
     }
-            
+
     while (sum>>16){
         sum = (sum & 0xffff) + (sum >> 16);
     }

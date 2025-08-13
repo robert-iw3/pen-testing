@@ -19,7 +19,7 @@ spec:
       containers:
       - name: caido
         image: quay.io/rootshifty/caido:release
-        command: 
+        command:
           - dnf update -y
       volumeMounts:
        - mountPath: /home/caido/.local/share/caido

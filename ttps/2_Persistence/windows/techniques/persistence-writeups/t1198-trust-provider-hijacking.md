@@ -76,7 +76,7 @@ Monitoring the following registry keys/values helps discover this suspicious act
 
 ## References
 
-For all the registry keys/values that should be used as a baseline, please refer to the original research whitepaper by Matt Graeber:   
+For all the registry keys/values that should be used as a baseline, please refer to the original research whitepaper by Matt Graeber:
 [SpecterOps Subverting Trust inWindows](https://specterops.io/assets/resources/SpecterOps_Subverting_Trust_in_Windows.pdf)
 
 {% embed url="https://attack.mitre.org/wiki/Technique/T1198" %}

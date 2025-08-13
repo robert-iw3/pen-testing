@@ -32,18 +32,18 @@
 - 0xc5aa9d4af719a38865c97493ee282cd2a2207cf2 - Linkedin Job Dev Scam
 - 0xb40fef5db4c4e245abcdd7edcaf91d0b3ed34570
 
-  
+
 
 
 
 # December 2023 - 0xffddaceac03fcc578eabce05425cc9649531efd7
 
 ## Receives From:
-- 0x48e3712c473364814ac8d87a2a70a9004a42e9a3 - OKX DEX Exploiter Dec 2023 
+- 0x48e3712c473364814ac8d87a2a70a9004a42e9a3 - OKX DEX Exploiter Dec 2023
 - 0x5633c37c48806a662341c2f509774731882ea91d - OKX DEX Railgun Withdrawal
 - 0x675c65c60cf0e4fe3443c7daa76aa94cfd59d443 - MurAll
 - 0x82cb1ee28176f85d991ddbcb2082e276d2a31c12 - OKX Dex
-- 0x89dc4eabade33dcf6b0a1166348802dc24ee16f7 - Upwork Crypto Developer Job Scam 
+- 0x89dc4eabade33dcf6b0a1166348802dc24ee16f7 - Upwork Crypto Developer Job Scam
 - 0xb2a722870178e92ba681236c77609214265d25d1 - OKX DEX
 - 0xeb69b2c6b99dbb3945e71a2a3b2fbb4099f435d6 - Concentric Finance
 - 0x04e292ec3cffeec0525fad45bf19ab7707c26293
@@ -75,10 +75,10 @@
 - 0xf9da9687777c6f9f2155012cc3ff7ddd89032dbe
 
 ### Sends To:
-- 0x89dc4eabade33dcf6b0a1166348802dc24ee16f7 - Upwork Crypto Developer Job Scam 
+- 0x89dc4eabade33dcf6b0a1166348802dc24ee16f7 - Upwork Crypto Developer Job Scam
 - 0x8be174d2f7ffd306e4bace827af8f32a19532913 - Braintrust Job Dev Scam
 - 0xb2a722870178e92ba681236c77609214265d25d1 - OKX DEX
-- 0xd8f5c2d55f11ca0e8763019350ab7e77cbe9c425 - Upwork Crypto Developer Job Scam 
+- 0xd8f5c2d55f11ca0e8763019350ab7e77cbe9c425 - Upwork Crypto Developer Job Scam
 - 0x03b4fb8ccb9c90f8528132a4b50b01ba9688da6f
 - 0x058200e22e7ad8abf0cf65248fba4385bd0c5dc5
 - 0x220310d523e27a40060a17dbe81a048a723ed062

@@ -41,7 +41,7 @@ TOPDIR = $(SRCDIR)/..
 
 include $(SRCDIR)/../Make.defaults
 
-FILES	= reloc_$(ARCH)  
+FILES	= reloc_$(ARCH)
 
 OBJS	= $(FILES:%=%.o)
 

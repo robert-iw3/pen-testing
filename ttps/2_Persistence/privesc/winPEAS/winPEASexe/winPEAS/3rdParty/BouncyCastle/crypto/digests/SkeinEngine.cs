@@ -267,14 +267,14 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.digests
                 First = true;
             }
 
-            public uint Type 
+            public uint Type
             {
-                get 
+                get
                 {
                     return (uint)((tweak[1] >> 56) & 0x3FUL);
                 }
 
-                set 
+                set
                 {
                     // Bits 120..125 = type
                     tweak[1] = (tweak[1] & 0xFFFFFFC000000000UL) | ((value & 0x3FUL) << 56);

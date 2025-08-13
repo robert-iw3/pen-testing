@@ -144,7 +144,7 @@ namespace TeamFiltration.Modules
                         IEnumerable<PulledTokens> validAccessTokenTokens = cachedTokenList.Where(x => Helpers.Generic.IsAccessTokenValid(x.ResponseData, x.DateTime));
 
 
-                        //If we do have valid access_tokens 
+                        //If we do have valid access_tokens
                         if (validAccessTokenTokens.Count() > 0)
                         {
                             //get the token with the most permissions
@@ -193,7 +193,7 @@ namespace TeamFiltration.Modules
                 else if (!accObject.ConditionalAccess && !string.IsNullOrEmpty(accObject.ResponseData))
                 {
 
-                    //No MFA? NICE :) 
+                    //No MFA? NICE :)
                     //Verify that the token has not expired
                     if (Helpers.Generic.IsTokenValid(accObject.ResponseData, accObject.DateTime))
                     {
@@ -317,7 +317,7 @@ namespace TeamFiltration.Modules
                                     );
 
 
-                                //If we did refresh into 
+                                //If we did refresh into
                                 if (crossRefresh.bearerToken?.access_token != null)
                                 {
                                     _databaseHandler.WriteLog(new Log("EXFIL", $"Cross-resource-refresh allowed, we can exfil all that things!", "") { }, true);
@@ -1161,8 +1161,8 @@ namespace TeamFiltration.Modules
                     Console.WriteLine("[!] Failed to retrive TenantID, cannot continue without");
                     Environment.Exit(0);
                 }
-             
-                
+
+
             }
             string cookie = "ESTSAUTHPERSISTENT=" + cookieObjects.Where(x => x.name.Equals("ESTSAUTHPERSISTENT")).FirstOrDefault()?.value;
             if (string.IsNullOrEmpty(cookie))
@@ -1695,9 +1695,9 @@ namespace TeamFiltration.Modules
                              catch (Exception ex)
                              {
 
-                                 
+
                              }
-                           
+
                      },
                        maxDegreeOfParallelism: 700);
             }

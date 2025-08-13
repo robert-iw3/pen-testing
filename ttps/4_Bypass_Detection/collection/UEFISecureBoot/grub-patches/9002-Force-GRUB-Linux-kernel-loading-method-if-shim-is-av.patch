@@ -17,12 +17,12 @@ index b56ea0b..43321cf 100644
 @@ -60,7 +60,7 @@ grub_linuxefi_secure_validate (void *data, grub_uint32_t size)
    grub_dprintf ("secureboot", "Kernel signature verification failed (0x%lx)\n",
  		(unsigned long) status);
- 
+
 -  return -1;
 +  return 1;
  }
- 
+
  #pragma GCC diagnostic push
--- 
+--
 2.20.1
 

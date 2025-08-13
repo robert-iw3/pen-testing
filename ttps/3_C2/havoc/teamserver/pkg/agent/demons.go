@@ -251,7 +251,7 @@ func (a *Agent) TaskPrepare(Command int, Info any, Message *map[string]string, C
 			if strings.HasPrefix(Path, "\\\\") {
 				uncIndex := strings.Index(Path[2:], "\\")
 				if uncIndex != -1 && strings.Index(Path[uncIndex+3:], "\\") == -1 {
-					Path += "\\" 
+					Path += "\\"
 				}
 			}
 
@@ -5848,7 +5848,7 @@ func (a *Agent) TaskDispatch(RequestID uint32, CommandID uint32, Parser *parser.
 								if opened == false {
 									err := a.PortFwdOpen(SocktID)
 									if err != nil {
-										logger.Debug(fmt.Sprintf("Failed to open rportfwd: %v", err))	
+										logger.Debug(fmt.Sprintf("Failed to open rportfwd: %v", err))
 									a.Console(teamserver.AgentConsole, "Erro", fmt.Sprintf("Failed to open reverse port forward host: %v", err), "")
 										return
 									}

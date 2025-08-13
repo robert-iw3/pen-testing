@@ -31,7 +31,7 @@ void DatabaseManager::connect() {
         Logger::log(Logger::INFO, "Successfully connected to database");
     } catch (const std::exception &e) {
         logError("Exception in connect: " + std::string(e.what()));
-        throw; 
+        throw;
     }
 }
 
@@ -167,7 +167,7 @@ std::vector<std::vector<std::string>> DatabaseManager::executeSelectQuery(const 
         return table;
     } catch (const std::exception &e) {
         logError("Exception in executeSelectQuery: " + std::string(e.what()));
-        throw;  
+        throw;
     }
 }
 

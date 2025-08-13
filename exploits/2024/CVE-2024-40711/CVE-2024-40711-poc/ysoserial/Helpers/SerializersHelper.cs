@@ -342,7 +342,7 @@ namespace ysoserial.Helpers
 
         // This to replace our bespoked marshal objects with the actual object
         // Example: when we use DataContractSerializer_serialize for TextFormattingRunPropertiesMarshal
-        // it will add the rootTagName when rootTagName is not empty 
+        // it will add the rootTagName when rootTagName is not empty
         // default for typeAttributeName is type
         public static string DataContractSerializer_Marshal_2_MainType(string dirtymarshal)
         {

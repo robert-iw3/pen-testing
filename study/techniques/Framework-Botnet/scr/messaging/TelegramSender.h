@@ -8,7 +8,7 @@
 #include "TemplateLoader.h"
 #include "Logger.h"
 #include "MCreator.h"
-#include "URLShortener.h" 
+#include "URLShortener.h"
 
 class TelegramSender {
 public:

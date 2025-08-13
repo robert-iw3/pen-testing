@@ -19,7 +19,7 @@ const makeValue = (audit: Audit) => {
   if (audit.displayValue) {
     score = audit.displayValue;
   } else if (audit.scoreDisplayMode) {
-    score = audit.score === 1 ? '✅ Pass' : '❌ Fail'; 
+    score = audit.score === 1 ? '✅ Pass' : '❌ Fail';
   }
   return score;
 };

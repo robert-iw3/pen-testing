@@ -195,7 +195,7 @@ void go(char *args, int alen)
         LOG_ERROR("Failed to write shellcode to target process memory via Kernel32!WriteProcessMemory. Perhaps the process closed?");
         goto CLEANUP;
     }
-    
+
     if (!KERNEL32$VirtualProtectEx(process, base_address, shellcode_len + 0xc0, PAGE_EXECUTE_READ, &old_prot))
     {
         LOG_ERROR("Failed to change allocated shellcode memory permissions from RW->RX via Kernel32!VirtualProtectEx");
@@ -228,7 +228,7 @@ void go(char *args, int alen)
         LOG_ERROR("Failed to restore combase.dll!.rdata memory permissions from RW->R via Kernel32!VirtualProtectEx");
         goto CLEANUP;
     }
-    
+
 CLEANUP:
     KERNEL32$CloseHandle(process);
 }

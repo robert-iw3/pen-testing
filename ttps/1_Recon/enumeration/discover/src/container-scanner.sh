@@ -325,7 +325,7 @@ f_scan_docker_images(){
                     ((MEDIUM_ISSUES++))
                 fi
 
-                # Check for unsafe curl usage 
+                # Check for unsafe curl usage
                 if grep -q "curl .*| sh" "$dockerfile" || grep -q "wget .*| sh" "$dockerfile"; then
                     echo "CRITICAL: Unsafe practice - piping curl/wget output to shell"
                     ((CRITICAL_ISSUES++))
@@ -544,7 +544,7 @@ f_scan_docker_containers(){
             caps_add=$(jq -r '.[0].HostConfig.CapAdd[]' "$output_dir/docker/containers/${container_name}_inspect.json" 2>/dev/null)
             if [ -n "$caps_add" ]; then
                 echo "HIGH-RISK: Container has additional Linux capabilities:"
-                echo "$caps_add" | sed 's/^/  /' 
+                echo "$caps_add" | sed 's/^/  /'
 
                 # Check for particularly dangerous capabilities
                 if echo "$caps_add" | grep -q "SYS_ADMIN\|NET_ADMIN\|ALL"; then
@@ -1084,7 +1084,7 @@ f_scan_kubernetes(){
             echo "" >> "$output_dir/kubernetes/security_reports/$namespace/summary.txt"
         fi
 
-        # Network Security Analysis 
+        # Network Security Analysis
         if [ "$SERVICE_COUNT" -gt 0 ] || [ "$INGRESS_COUNT" -gt 0 ]; then
             echo "NETWORK SECURITY ANALYSIS:" >> "$output_dir/kubernetes/security_reports/$namespace/summary.txt"
 
@@ -1289,7 +1289,7 @@ f_scan_kubernetes(){
         echo "NAMESPACE SECURITY SCORES (Highest Risk First):"
         if [ -f "$output_dir/kubernetes/namespace_security_scores.txt" ]; then
             sort -t'|' -k2,2n "$output_dir/kubernetes/namespace_security_scores.txt" | head -10 | \
-                awk -F'|' '{print $1 ": " $2 "/10 (" $3 " pods)"}'  
+                awk -F'|' '{print $1 ": " $2 "/10 (" $3 " pods)"}'
         fi
         echo
 

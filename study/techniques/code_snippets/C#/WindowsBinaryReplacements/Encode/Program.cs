@@ -51,7 +51,7 @@ namespace Encode
             byte[] data;
             try
             {
-                data = File.ReadAllBytes(fullpath);    
+                data = File.ReadAllBytes(fullpath);
             }
             catch(UnauthorizedAccessException)
             {

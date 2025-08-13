@@ -16,11 +16,11 @@ https://www.fbi.gov/news/press-releases/fbi-dc3-and-npa-identification-of-north-
 
 > The Federal Bureau of Investigation, Department of Defense Cyber Crime Center, and National Police Agency of Japan are alerting the public to the theft of cryptocurrency worth $308 million U.S. dollars from the Japan-based cryptocurrency company DMM by North Korean cyber actors in May 2024. The theft is affiliated with TraderTraitor threat activity, which is also tracked as Jade Sleet, UNC4899, and Slow Pisces. TraderTraitor activity is often characterized by targeted social engineering directed at multiple employees of the same company simultaneously.
 
-> In late March 2024, a North Korean cyber actor, masquerading as a recruiter on LinkedIn, contacted an employee at Ginco, a Japan-based enterprise cryptocurrency wallet software company. The threat actor sent the target, who maintained access to Ginco’s wallet management system, a URL linked to a malicious Python script under the guise of a pre-employment test located on a GitHub page. The victim copied the Python code to their personal GitHub page and was subsequently compromised. 
+> In late March 2024, a North Korean cyber actor, masquerading as a recruiter on LinkedIn, contacted an employee at Ginco, a Japan-based enterprise cryptocurrency wallet software company. The threat actor sent the target, who maintained access to Ginco’s wallet management system, a URL linked to a malicious Python script under the guise of a pre-employment test located on a GitHub page. The victim copied the Python code to their personal GitHub page and was subsequently compromised.
 
-> After mid-May 2024, TraderTraitor actors exploited session cookie information to impersonate the compromised employee and successfully gained access to Ginco’s unencrypted communications system. In late-May 2024, the actors likely used this access to manipulate a legitimate transaction request by a DMM employee, resulting in the loss of 4,502.9 BTC, worth $308 million at the time of the attack. The stolen funds ultimately moved to TraderTraitor-controlled wallets.  
+> After mid-May 2024, TraderTraitor actors exploited session cookie information to impersonate the compromised employee and successfully gained access to Ginco’s unencrypted communications system. In late-May 2024, the actors likely used this access to manipulate a legitimate transaction request by a DMM employee, resulting in the loss of 4,502.9 BTC, worth $308 million at the time of the attack. The stolen funds ultimately moved to TraderTraitor-controlled wallets.
 
-> The FBI, National Police Agency of Japan, and other U.S. government and international partners will continue to expose and combat North Korea’s use of illicit activities—including cybercrime and cryptocurrency theft—to generate revenue for the regime. 
+> The FBI, National Police Agency of Japan, and other U.S. government and international partners will continue to expose and combat North Korea’s use of illicit activities—including cybercrime and cryptocurrency theft—to generate revenue for the regime.
 
 
 
@@ -40,7 +40,7 @@ The weirdest thing that points to maybe not your classic key / system compromise
 
 ### Looking at the theft txn and prior transactions:
 
-- That big April 4, 2024 txn was probably the transfer that gave the attacker an idea of what the balance was on the wallet. 
+- That big April 4, 2024 txn was probably the transfer that gave the attacker an idea of what the balance was on the wallet.
 
 - The theft transaction could’ve been pre-constructed based on the assumption that the wallet balance would be at least 4500 BTC and each input could be as much as 500 BTC.
 

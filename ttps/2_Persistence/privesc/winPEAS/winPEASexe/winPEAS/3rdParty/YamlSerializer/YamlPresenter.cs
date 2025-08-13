@@ -16,7 +16,7 @@ namespace System.Yaml
     /// <code>
     /// YamlNode node;
     /// YamlPresenter.ToYaml(node);
-    /// 
+    ///
     /// YamlNode node1;
     /// YamlNode node2;
     /// YamlNode node3;
@@ -98,7 +98,7 @@ namespace System.Yaml
             analyze(node);
         }
 
-        internal static string NextAnchor(string anchor) // this is "protected" for test use 
+        internal static string NextAnchor(string anchor) // this is "protected" for test use
         {
             if ( anchor == "" ) {
                 return "A";
@@ -203,7 +203,7 @@ namespace System.Yaml
         {
             var s = node.Value;
 
-            // If tag can be resolved from the content, or tag is !!str, 
+            // If tag can be resolved from the content, or tag is !!str,
             // no need to explicitly specify it.
             var auto_tag = YamlNode.ShorthandTag(AutoTagResolver.Resolve(s));
             var tag = TagToYaml(node, auto_tag);
@@ -213,15 +213,15 @@ namespace System.Yaml
             if ( IsValidPlainText(s, c) && !( node.ShorthandTag() == "!!str" && auto_tag != null && !node.Properties.ContainsKey("plainText")) ) {
                 // one line plain style
                 Write(s);
-                if ( c != Context.NoBreak ) 
+                if ( c != Context.NoBreak )
                     WriteLine();
             } else {
-                if ( ForbiddenChars.IsMatch(s) || OneLine.IsMatch(s) || 
-                     ( config.ExplicitlyPreserveLineBreaks && 
+                if ( ForbiddenChars.IsMatch(s) || OneLine.IsMatch(s) ||
+                     ( config.ExplicitlyPreserveLineBreaks &&
                        GetPropertyOrNull(node, "Don'tCareLineBreaks") == null ) ) {
                     // double quoted
                     Write(DoubleQuotedString.Quote(s, pres, c));
-                    if ( c != Context.NoBreak ) 
+                    if ( c != Context.NoBreak )
                         WriteLine();
                 } else {
                     // Literal style
@@ -450,7 +450,7 @@ namespace System.Yaml
                 if ( tag != "" && tag != "!!map" )
                     Write(tag + " ");
                 Write("{}");
-                if ( c != Context.NoBreak ) 
+                if ( c != Context.NoBreak )
                     WriteLine();
             }
         }

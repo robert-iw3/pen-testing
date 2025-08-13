@@ -14,7 +14,7 @@
 
 @interface InfoWindowController : NSWindowController <NSWindowDelegate>
 {
-    
+
 }
 
 //properties in window

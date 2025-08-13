@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/api/commands', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    device_id, 
+                body: JSON.stringify({
+                    device_id,
                     command: 'load_and_run',
-                    url 
+                    url
                 }),
             });
 
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (result.success) {
                 alert(`Command sent successfully to device ${device_id}`);
                 console.log(`Command sent: ${result.message}`);
-                statusText.textContent = 
+                statusText.textContent =
                     currentCommand === 'lock'
                         ? `Locked device ${device_id}`
                         : `Unlocked device ${device_id}`;
@@ -68,12 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     lockButton.addEventListener('click', (event) => {
-        event.stopPropagation(); 
+        event.stopPropagation();
         showForm('lock');
     });
 
     unlockButton.addEventListener('click', (event) => {
-        event.stopPropagation(); 
+        event.stopPropagation();
         showForm('unlock');
     });
 
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('click', (event) => {
         const isClickInsideForm = deviceForm.contains(event.target);
-        const isClickOnButton = 
+        const isClickOnButton =
             event.target === lockButton || event.target === unlockButton;
 
         if (!isClickInsideForm && !isClickOnButton) {

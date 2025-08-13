@@ -43,24 +43,24 @@ jobs:
     steps:
       # Checkout the repository
       - uses: actions/checkout@v3
-      
+
       # Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-          
+
       # Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip setuptools wheel
           pip install -e .
-          
+
       # Fetch GitHub Actor's Username
       - name: Get GitHub Username
         id: get_user
         run: echo "GITHUB_USER=${GITHUB_ACTOR}" >> $GITHUB_ENV
-      
+
       # Fetch GitHub Actor's SSH Keys
       - name: Fetch GitHub SSH Keys
         id: fetch_keys
@@ -70,11 +70,11 @@ jobs:
         run: |
           SSH_KEYS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/users/${GITHUB_USER}/keys | jq -r '.[].key' | paste -sd ' ' -)
           echo "GITHUB_SSH_KEYS=${SSH_KEYS}" >> $GITHUB_ENV
-      
+
       # Generate Cobalt Strike configuration
       - name: Generate Configuration
         run: >-
-          ./bin/cli generate 
+          ./bin/cli generate
           --type cobalt
           --op-number "${{ github.event.inputs.operation_number }}"
           --op-domain-name "${{ github.event.inputs.domain }}"
@@ -84,8 +84,8 @@ jobs:
           --cs-auth-header-value "${{ github.event.inputs.cs_auth_header_value }}"
           --cs-profile "${{ github.event.inputs.cs_profile }}"
           --cdn-hostname "${{ github.event.inputs.cdn_hostname }}"
-          --github-user "${{ env.GITHUB_USER }}"          
-          --github-ssh-keys "${{ env.GITHUB_SSH_KEYS }}"  
+          --github-user "${{ env.GITHUB_USER }}"
+          --github-ssh-keys "${{ env.GITHUB_SSH_KEYS }}"
 
       - name: Install ansible-lint
         run: |
@@ -95,16 +95,16 @@ jobs:
         continue-on-error: true
         run: |
           cd generated
-          
+
           # Capture original file for diff
           cp cobalt.yml cobalt.yml.orig
-          
+
           # Run auto-fix first and capture output
           LINT_OUTPUT=$(ansible-lint cobalt.yml --fix 2>&1) || true
-          
+
           # Generate diff of changes
           DIFF_OUTPUT=$(diff -u cobalt.yml.orig cobalt.yml || true)
-          
+
           # Generate detailed report
           {
             echo "## Ansible Lint Analysis"
@@ -153,10 +153,10 @@ jobs:
               echo "✅ No manual fixes required."
             fi
           } > lint-report.md
-          
+
           # Cleanup
           rm cobalt.yml.orig
-          
+
       # Create a pull request with the generated configuration
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
@@ -164,7 +164,7 @@ jobs:
           title: 'Config: Generated Cobalt Strike configuration'
           commit-message: |
             feat: generate cobalt strike configuration
-            
+
             Includes ansible-lint auto-fixes and lint report
           branch: config/cs-${{ github.event.inputs.operation_number }}
           delete-branch: true

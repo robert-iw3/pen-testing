@@ -2,7 +2,7 @@
 
 namespace TeamFiltration.Models.Teams
 {
-   
+
     public class DownloadUrlResp
     {
         [JsonProperty("@odata.context")]

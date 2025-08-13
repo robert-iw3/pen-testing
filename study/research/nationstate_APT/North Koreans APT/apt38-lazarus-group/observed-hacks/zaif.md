@@ -14,7 +14,7 @@ Time: 8:00-10:00 UTC
 ---
 
 
-## Details 
+## Details
 
 Japan-based cryptocurrency exchange Zaif, which is operated by Tech Bureau, was hacked. This is yet another case where it’s unclear how hackers stole the funds. However, Zaif did file a criminal case with their local authorities, which makes it sound like they have an idea as to who did it. The perpetrator made off with ¥6.7 billion (about $60 million) worth of cryptocurrency, including 5,966 bitcoins.
 

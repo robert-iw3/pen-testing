@@ -25,7 +25,7 @@ public record HtmlBasedBlocker(
 		String selector, Pattern matcher,
 		int status, String responseContentType, String responsePath)
 		implements PostForwardRule {
-	
+
 	public HtmlBasedBlocker(HostMatcherConfig hostMatcher,
 			String selector, Pattern matcher,
 			int status, String responseContentType,
@@ -36,7 +36,7 @@ public record HtmlBasedBlocker(
 		if(responseContentType == null){
 			responseContentType = "text/html";
 		}
-		
+
 		this.hostMatcher = hostMatcher;
 		this.selector = selector;
 		this.matcher = matcher;
@@ -44,7 +44,7 @@ public record HtmlBasedBlocker(
 		this.responseContentType = responseContentType;
 		this.responsePath = responsePath;
 	}
-	
+
 	@Override
 	public boolean processRequest(FullHttpRequest fullHttpRequest, FullHttpResponse response, HttpResponseContentAccessor responseContentAccessor, Channel channel) {
 		String contentType = response.headers().get("Content-Type");
@@ -69,10 +69,10 @@ public record HtmlBasedBlocker(
 				}
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	private byte[] getResponseBytes() throws IOException {
 		if(responsePath == null){
 			return """
@@ -92,5 +92,5 @@ public record HtmlBasedBlocker(
 		}
 		return Files.readAllBytes(Path.of(responsePath));
 	}
-	
+
 }

@@ -165,7 +165,7 @@ sqlite3ValueFree(ref pTmp);
           pColl.type = p.type;
           pColl.xCmp = p.xCmp;
           pColl.xDel = p.xDel;
-        } 
+        }
 
       }
       return SQLITE_OK;

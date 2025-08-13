@@ -6,10 +6,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 namespace System.Yaml
-{                               
+{
     /// <summary>
     /// <para>When <see cref="Parser&lt;State&gt;"/> reports syntax error by exception, this class is thrown.</para>
-    /// 
+    ///
     /// <para>Sytax errors can also be reported by simply returing false with giving some warnings.</para>
     /// </summary>
     internal class ParseErrorException: Exception
@@ -23,8 +23,8 @@ namespace System.Yaml
 
     /// <summary>
     /// <para>Base class to implement a parser class.</para>
-    /// 
-    /// <para>It allows not very efficient but easy implementation of a text parser along 
+    ///
+    /// <para>It allows not very efficient but easy implementation of a text parser along
     /// with a parameterized BNF productions.</para>
     /// </summary>
     /// <typeparam name="State">Parser specific state structure.</typeparam>
@@ -32,7 +32,7 @@ namespace System.Yaml
         where State: struct
     {
         /// <summary>
-        /// Parse the <paramref name="text"/> using the <paramref name="start_rule"/> 
+        /// Parse the <paramref name="text"/> using the <paramref name="start_rule"/>
         /// as the starting rule.
         /// </summary>
         /// <param name="start_rule">Starting rule.</param>
@@ -62,11 +62,11 @@ namespace System.Yaml
         protected string text;
         /// <summary>
         /// <para>The current reading position.</para>
-        /// 
+        ///
         /// <para>The next character to be read by the parser is <c>text[p]</c>.</para>
-        /// 
+        ///
         /// <para>Increase <see cref="p"/> to reduce some part of source text <see cref="text"/>.</para>
-        /// 
+        ///
         /// <para>The current position <see cref="p"/> is automatically reverted at rewinding.</para>
         /// </summary>
         /// <example>
@@ -83,15 +83,15 @@ namespace System.Yaml
         protected int p;
         /// <summary>
         /// <para>Use this variable to build some string data from source text.</para>
-        /// 
+        ///
         /// <para>It will be automatically reverted at rewinding.</para>
         /// </summary>
         protected StringBuilder stringValue = new StringBuilder();
         /// <summary>
         /// <para>Individual-parser-specific state object.</para>
-        /// 
+        ///
         /// <para>It will be automatically reverted at rewinding.</para>
-        /// 
+        ///
         /// <para>If some action, in addition to simply restore the value of the state object,
         /// is needed to recover the previous state, override <see cref="Rewind"/>
         /// method.</para>
@@ -101,7 +101,7 @@ namespace System.Yaml
         /// Get current position represented by raw and column.
         /// </summary>
         public Position CurrentPosition
-        {   
+        {
             get
             {
                 Position pos = new Position();
@@ -117,7 +117,7 @@ namespace System.Yaml
             }
         }
         /// <summary>
-        /// Initialize <see cref="Lines"/>, which represents line number to 
+        /// Initialize <see cref="Lines"/>, which represents line number to
         /// start position of each line list.
         /// </summary>
         private void InitializeLines()
@@ -141,15 +141,15 @@ namespace System.Yaml
         /// <summary>
         /// Represents a position in a multiline text.
         /// </summary>
-        public struct Position { 
+        public struct Position {
             /// <summary>
             /// Raw in a text.
             /// </summary>
-            public int Raw; 
+            public int Raw;
             /// <summary>
             /// Column in a text.
             /// </summary>
-            public int Column; 
+            public int Column;
         }
         #endregion
 
@@ -168,13 +168,13 @@ namespace System.Yaml
         }
         /// <summary>
         /// <para>Give warning if <paramref name="condition"/> is true.</para>
-        /// 
+        ///
         /// <para>By default, the warning will not be shown / stored to anywhere.
         /// To show or log the warning, override <see cref="StoreWarning"/>.</para>
         /// </summary>
         /// <example>
         /// <code>
-        ///   return 
+        ///   return
         ///       SomeObsoleteReductionRule() &amp;&amp;
         ///       WarningIf(
         ///           context != Context.IndeedObsolete,
@@ -193,13 +193,13 @@ namespace System.Yaml
         }
         /// <summary>
         /// <para>Give warning if <paramref name="condition"/> is false.</para>
-        /// 
+        ///
         /// <para>By default, the warning will not be shown / stored to anywhere.
         /// To show or log the warning, override <see cref="StoreWarning"/>.</para>
         /// </summary>
         /// <example>
         /// <code>
-        ///   return 
+        ///   return
         ///       SomeObsoleteReductionRule() &amp;&amp;
         ///       WarningUnless(
         ///           context != Context.NotObsolete,
@@ -218,13 +218,13 @@ namespace System.Yaml
         }
         /// <summary>
         /// <para>Give warning.</para>
-        /// 
+        ///
         /// <para>By default, the warning will not be shown / stored to anywhere.
         /// To show or log the warning, override <see cref="StoreWarning"/>.</para>
         /// </summary>
         /// <example>
         /// <code>
-        ///   return 
+        ///   return
         ///       SomeObsoleteReductionRule() &amp;&amp;
         ///       Warning("Obsolete");
         /// </code>
@@ -234,7 +234,7 @@ namespace System.Yaml
         /// <returns>Always true.</returns>
         protected bool Warning(string message, params object[] args)
         {
-            message = string.Format( 
+            message = string.Format(
                 "Warning: {0} at line {1} column {2}.",
                 string.Format(message, args),
                 CurrentPosition.Raw,
@@ -245,7 +245,7 @@ namespace System.Yaml
         }
         /// <summary>
         /// <para>Invoked when warning was given while parsing.</para>
-        /// 
+        ///
         /// <para>Override this method to display / store the warning.</para>
         /// </summary>
         /// <param name="message">Warning message.</param>
@@ -259,7 +259,7 @@ namespace System.Yaml
         /// <remarks>
         /// <para>This recoveres <see cref="p"/>, <see cref="stringValue"/>, <see cref="state"/>
         /// when <paramref name="condition"/> does not return <code>true</code>.</para>
-        /// 
+        ///
         /// <para>If any specific operation is needed for rewinding, in addition to simply
         /// recover the value of <see cref="state"/>, override <see cref="Rewind()"/>.</para>
         /// </remarks>
@@ -278,14 +278,14 @@ namespace System.Yaml
         /// }
         /// </code>
         /// </example>
-        protected bool RewindUnless(Func<bool> rule) // (join) 
+        protected bool RewindUnless(Func<bool> rule) // (join)
         {
             var savedp = p;
             var stringValueLength = stringValue.Length;
             var savedStatus = state;
             if ( rule() )
                 return true;
-            state = savedStatus; 
+            state = savedStatus;
             stringValue.Length = stringValueLength;
             p = savedp;
             Rewind();
@@ -327,9 +327,9 @@ namespace System.Yaml
         /// }
         /// </code>
         /// </example>
-        protected bool Repeat(Func<bool> rule) // * 
+        protected bool Repeat(Func<bool> rule) // *
         {
-            // repeat while condition() returns true and 
+            // repeat while condition() returns true and
             // it reduces any part of text.
             int start;
             do {
@@ -354,7 +354,7 @@ namespace System.Yaml
         /// </example>
         /// <example>
         /// lines ::= (text line-break)+
-        /// 
+        ///
         /// Note: Do not forget RewindUnless in Repeat operator.
         /// <code>
         /// bool Lines()
@@ -369,7 +369,7 @@ namespace System.Yaml
         /// }
         /// </code>
         /// </example>
-        protected bool OneAndRepeat(Func<bool> rule)  // + 
+        protected bool OneAndRepeat(Func<bool> rule)  // +
         {
             return rule() && Repeat(rule);
         }
@@ -452,7 +452,7 @@ namespace System.Yaml
         /// </summary>
         /// <example>
         /// <para>file ::= header? body footer?</para>
-        /// 
+        ///
         /// <para>Note: Do not forget <see cref="RewindUnless"/> if several
         /// rules are sequentially appears in <see cref="Optional(bool)"/> operator.</para>
         /// <code>
@@ -467,7 +467,7 @@ namespace System.Yaml
         /// </example>
         /// <param name="rule">Reduction rule that is optional.</param>
         /// <returns>Always true.</returns>
-        protected bool Optional(bool rule) // ? 
+        protected bool Optional(bool rule) // ?
         {
             return rule || true;
         }
@@ -476,7 +476,7 @@ namespace System.Yaml
         /// </summary>
         /// <example>
         /// file = header? body footer?
-        /// 
+        ///
         /// <para>Note: Do not forget <see cref="RewindUnless"/> if several
         /// rules are sequentially appears in <see cref="Optional(Func&lt;bool&gt;)"/> operator.</para>
         /// <code>
@@ -491,9 +491,9 @@ namespace System.Yaml
         /// </example>
         /// <param name="rule">Reduction rule that is optional.</param>
         /// <returns>Always true.</returns>
-        protected bool Optional(Func<bool> rule) // ? 
+        protected bool Optional(Func<bool> rule) // ?
         {
-            return 
+            return
                 RewindUnless(()=> rule()) || true;
         }
         #endregion
@@ -512,17 +512,17 @@ namespace System.Yaml
         /// <code>
         /// Func&lt;char,bool&gt; Alpha = Charset( c =>
         ///     ( 'A' &lt;= c &amp;&amp; c &lt;= 'Z' ) ||
-        ///     ( 'a' &lt;= c &amp;&amp; c &lt;= 'z' ) 
+        ///     ( 'a' &lt;= c &amp;&amp; c &lt;= 'z' )
         /// );
         /// Func&lt;char,bool&gt; Num = Charset( c =>
-        ///       '0' &lt;= c &amp;&amp; c &lt;= '9' 
+        ///       '0' &lt;= c &amp;&amp; c &lt;= '9'
         /// );
         /// Func&lt;char,bool&gt; AlphaNum = Charset( c =>
         ///     Alpha(c) || Num(c)
         /// );
         /// bool Word()
         /// {
-        ///     return 
+        ///     return
         ///         Accept(Alpha) &amp;&amp;
         ///         Repeat(AlphaNum);
         ///         // No need for RewindUnless
@@ -539,7 +539,7 @@ namespace System.Yaml
         }
         /// <summary>
         /// <para>Accepts a character 'c'.</para>
-        /// 
+        ///
         /// <para>It can be also represented by <c>text[p++] == c</c> wrapped by <see cref="RewindUnless"/>.</para>
         /// </summary>
         /// <param name="c">The character to be accepted.</param>
@@ -554,7 +554,7 @@ namespace System.Yaml
         ///             Accept('Y') &amp;&amp;
         ///             Accept('M') &amp;&amp;
         ///             Accept('C') &amp;&amp;
-        ///             Accept('A') 
+        ///             Accept('A')
         ///         );
         /// }
         /// </code>
@@ -567,7 +567,7 @@ namespace System.Yaml
         ///             text[p++] == 'Y' &amp;&amp;
         ///             text[p++] == 'M' &amp;&amp;
         ///             text[p++] == 'C' &amp;&amp;
-        ///             text[p++] == 'A' 
+        ///             text[p++] == 'A'
         ///         );
         /// }
         /// </code>
@@ -657,7 +657,7 @@ namespace System.Yaml
             return true;
         }
         /// <summary>
-        /// Represents at least <code>min</code> times, at most <code>max</code> times 
+        /// Represents at least <code>min</code> times, at most <code>max</code> times
         /// repetition of characters.
         /// </summary>
         /// <param name="charset">Character set to be accepted.</param>
@@ -682,7 +682,7 @@ namespace System.Yaml
         /// </summary>
         /// <param name="charset">Character set to be accepted.</param>
         /// <returns>Always true.</returns>
-        protected bool Optional(Func<char, bool> charset) // ? 
+        protected bool Optional(Func<char, bool> charset) // ?
         {
             if ( !charset(text[p]) )
                 return true;
@@ -693,16 +693,16 @@ namespace System.Yaml
 
         #region Charset
         /// <summary>
-        /// <para>Builds a performance-optimized table-based character set definition from a simple 
+        /// <para>Builds a performance-optimized table-based character set definition from a simple
         /// but slow comparison-based definition.</para>
-        /// 
+        ///
         /// <para>By default, the character table size is 0x100, namely only the characters of [\0-\xff] are
         /// judged by using a character table and others are by the as-given slow comparisn-based definitions.</para>
-        /// 
+        ///
         /// <para>To have maximized performance, locate the comparison for non-table based judgement first
         /// in the definition as the example below.</para>
-        /// 
-        /// <para>Use <see cref="Charset(System.Int32, System.Func&lt;char, bool&gt;)"/> form to explicitly 
+        ///
+        /// <para>Use <see cref="Charset(System.Int32, System.Func&lt;char, bool&gt;)"/> form to explicitly
         /// specify the table size.</para>
         /// </summary>
         /// <example>This sample shows how to build a character set delegate.
@@ -711,7 +711,7 @@ namespace System.Yaml
         /// {
         ///     Func&lt;char, bool&gt; cPrintable;
         ///     Func&lt;char, bool&gt; sWhite;
-        /// 
+        ///
         ///     static YamlCharsets()
         ///     {
         ///         cPrintable = CacheResult(c =&gt;
@@ -742,13 +742,13 @@ namespace System.Yaml
             return Charset(0x100, definition);
         }
         /// <summary>
-        /// <para>Builds a performance-optimized table-based character set definition from a simple 
+        /// <para>Builds a performance-optimized table-based character set definition from a simple
         /// but slow comparison-based definition.</para>
-        /// 
-        /// <para>Characters out of the table are judged by the as-given slow comparisn-based 
+        ///
+        /// <para>Characters out of the table are judged by the as-given slow comparisn-based
         /// definitions.</para>
-        /// 
-        /// <para>So, to have maximized performance, locate the comparison for non-table based 
+        ///
+        /// <para>So, to have maximized performance, locate the comparison for non-table based
         /// judgement first in the definition as the example below.</para>
         /// </summary>
         /// <example>This sample shows how to build a character set delegate.
@@ -757,7 +757,7 @@ namespace System.Yaml
         /// {
         ///     Func&lt;char, bool&gt; cPrintable;
         ///     Func&lt;char, bool&gt; sWhite;
-        /// 
+        ///
         ///     static YamlCharsets()
         ///     {
         ///         cPrintable = CacheResult(c =&gt;
@@ -800,8 +800,8 @@ namespace System.Yaml
         /// <para>If the rule does not match, nothing happends.</para>
         /// </summary>
         /// <param name="rule">Reduction rule to match.</param>
-        /// <param name="value">If the <paramref name="rule"/> matches, 
-        /// the part of the source text reduced in the <paramref name="rule"/> is set; 
+        /// <param name="value">If the <paramref name="rule"/> matches,
+        /// the part of the source text reduced in the <paramref name="rule"/> is set;
         /// otherwise String.Empty is set.</param>
         /// <returns>true if <paramref name="rule"/> matches; otherwise false.</returns>
         protected bool Save(Func<bool> rule, ref string value)
@@ -821,7 +821,7 @@ namespace System.Yaml
         /// <returns>true if <paramref name="rule"/> matches; otherwise false.</returns>
         protected bool Save(Func<bool> rule)
         {
-            return 
+            return
                 Save(rule, s => stringValue.Append(s));
         }
         /// <summary>
@@ -837,7 +837,7 @@ namespace System.Yaml
         /// <code>
         /// bool SomeRule()
         /// {
-        ///     return 
+        ///     return
         ///         Save(()=> SubRule(), s => MessageBox.Show(s));
         /// }
         /// </code></example>
@@ -858,7 +858,7 @@ namespace System.Yaml
         /// <code>
         /// bool SomeRule()
         /// {
-        ///     return 
+        ///     return
         ///         SubRule() &amp;&amp;
         ///         Action(()=> do_some_action());
         /// }
@@ -897,7 +897,7 @@ namespace System.Yaml
         /// and an additional condition <paramref name="to_be_error"/> is true.
         /// </summary>
         /// <param name="rule">Some reduction rule that must match.</param>
-        /// <param name="to_be_error">Additional condition: if this parameter is false, 
+        /// <param name="to_be_error">Additional condition: if this parameter is false,
         /// rewinding occurs, instead of throwing exception.</param>
         /// <param name="message">Error message as <see cref="string.Format(string,object[])"/> template</param>
         /// <param name="args">Parameters for <see cref="string.Format(string,object[])"/> template</param>
@@ -905,7 +905,7 @@ namespace System.Yaml
         protected bool ErrorUnlessWithAdditionalCondition(Func<bool> rule, bool to_be_error, string message, params object[] args)
         {
             if ( to_be_error ) {
-                if ( !rule() ) 
+                if ( !rule() )
                     Error(message, args);
                 return true;
             } else {

@@ -1,6 +1,6 @@
 # SCCMSecrets
 
-SCCMSecrets.py is an SCCM policies exploitation tool. It goes beyond NAA credentials extraction, and aims to provide a comprehensive approach regarding SCCM policies exploitation. The tool can be executed from various levels of privileges, and will attempt to uncover potential misconfigurations related to policies distribution. 
+SCCMSecrets.py is an SCCM policies exploitation tool. It goes beyond NAA credentials extraction, and aims to provide a comprehensive approach regarding SCCM policies exploitation. The tool can be executed from various levels of privileges, and will attempt to uncover potential misconfigurations related to policies distribution.
 
 Two subcommands are available: `policies` and `files`.
 
@@ -20,11 +20,11 @@ podman build -t sccmsecrets .
 podman run -it --name sccmsecrets sccmsecrets
 
 $ python3 ./SCCMSecrets.py policies --help
-                                                                                                                                                                                        
- Usage: SCCMSecrets.py policies [OPTIONS]                                                                                                                                               
-                                                                                                                                                                                        
- Dump secret policies from an SCCM Management Point                                                                                                                                     
-                                                                                                                                                                                        
+
+ Usage: SCCMSecrets.py policies [OPTIONS]
+
+ Dump secret policies from an SCCM Management Point
+
 ╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ *  --management-point     -mp      TEXT     The client's SCCM management point. Expects either a URL, or a hostname/IP (defaults to HTTP in the latter case) [default: None]         │
 │                                             [required]                                                                                                                               │
@@ -61,11 +61,11 @@ Output will be placed in a subdirectory of the `loot` directory (format: `[times
 
 ```
 $ python3 SCCMSecrets.py files --help
-                                                                                                                                                                                        
- Usage: SCCMSecrets.py files [OPTIONS]                                                                                                                                                  
-                                                                                                                                                                                        
- Dump interesting files from an SCCM Distribution Point                                                                                                                                 
-                                                                                                                                                                                        
+
+ Usage: SCCMSecrets.py files [OPTIONS]
+
+ Dump interesting files from an SCCM Distribution Point
+
 ╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ *  --distribution-point  -dp      TEXT     An SCCM distribution point. Expects either a URL, or a hostname/IP (defaults to HTTP in the latter case) [default: None] [required]       │
 │    --username            -u       TEXT     [Optional] A username for a domain account. If no account is provided, SCCMSecrets will try to exploit anonymous DP access                │

@@ -102,7 +102,7 @@ namespace TheSprayer.Services
         {
             string filter = "(&(objectClass=domainDNS))";
 
-            using var connection = CreateLdapConnection();            
+            using var connection = CreateLdapConnection();
             var searchRequest = new SearchRequest(_distinguishedName, filter, SearchScope.Subtree);
 
             try
@@ -142,7 +142,7 @@ namespace TheSprayer.Services
             }
         }
 
-        // This class uses the System.DirectoryServices.Protocols namespace to retrieve domain users over LDAP. 
+        // This class uses the System.DirectoryServices.Protocols namespace to retrieve domain users over LDAP.
         // There are other options that are easier to work with but this one was chosen because it's the only one that is cross platform.
         public List<ActiveDirectoryUser> GetAllDomainUsers(IEnumerable<string> userSamAccountNames = null)
         {

@@ -68,9 +68,9 @@ nmap -sT -Pn -p502 --script modbus-discover --script-args modbus-discover.aggres
 ```bash
 nmap -Pn -sU -p47808 --script bacnet-info <target>
 
-# Siemens Bacnet P2 Enumeration 
+# Siemens Bacnet P2 Enumeration
 
-nmap -Pn -sT -n -T4 -p5033 <target> 
+nmap -Pn -sT -n -T4 -p5033 <target>
 ```
 
 
@@ -145,7 +145,7 @@ Schneider Electric PLCs
 Device Identification: Schneider Electric
 ```
 
-Schneider Electric PowerLogic Series 800 Power Meter	
+Schneider Electric PowerLogic Series 800 Power Meter
 
 ```
 PowerLogic PM800
@@ -157,7 +157,7 @@ Schweitzer Engineering Laboratories Power Quality and Revenue Meter
 SEL-735 Telnet Server
 ```
 
-## Maritime 
+## Maritime
 
 Subsea Mission Control Panels
 
@@ -277,7 +277,7 @@ Alert ID: 34W09AETJKAHEDPX
 3. Confirm that alert is generated
 
 ```bash
-$ shodan alert info home 
+$ shodan alert info home
 home
 Created: 2022-03-01:69:69:69000
 Notifications: Disabled
@@ -305,11 +305,11 @@ import os
 
 ics_path = r'/path/to/dir/'                   # change  path
 ics_ext = (
-'.rtu',  
-'.rdb', 
-'.ctz', 
-'.exp', 
-'.hprb', 
+'.rtu',
+'.rdb',
+'.ctz',
+'.exp',
+'.hprb',
 '.selaprj',
 '.xml',
 '.bkp',
@@ -390,14 +390,14 @@ ics_ext = (
 '.gsf',
 '.gsi',
 '.gsp',
-'.gss'                                     
+'.gss'
 )
 
 for root, dirs, files in os.walk(ics_path):
     for file in files:
         if file.endswith(ics_ext):
              print(os.path.join(root, file))
-             
+
 ```
 
 ## Automated Tank Gauge (ATG) Remote Configuration Disclosure:
@@ -407,15 +407,15 @@ In 2015, HD Moore, the creator of Metasploit, published an article disclosing ov
 ```python
 #!/usr/bin/env python3
 
- 
+
 import time
-import socket            
+import socket
 with open("/tmp/ATG_SCAN.txt",'r') as atg_file:
     for line in atg_file.read().splitlines():
         try:
             atg_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             port = 10001
-            search_str = 'IN-TANK INVENTORY'               
+            search_str = 'IN-TANK INVENTORY'
             msg = str('\x01' + 'I20100' + '\n').encode('ascii')
             atg_socket.connect((line, port))
             atg_socket.send(msg)
@@ -426,9 +426,9 @@ with open("/tmp/ATG_SCAN.txt",'r') as atg_file:
                     file2.write(line + "\t ->\tATG Device\n")
             else:
                 continue
-            atg_socket.close()   
+            atg_socket.close()
         except:
-            pass 
+            pass
 atg_file.close()
 ```
 

@@ -23,7 +23,7 @@ const StyledFooter = styled.footer`
   }
   span {
     margin: 0 0.5rem;
-    text-align: center; 
+    text-align: center;
   }
 `;
 

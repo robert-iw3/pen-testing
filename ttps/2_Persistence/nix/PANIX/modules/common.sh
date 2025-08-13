@@ -91,7 +91,7 @@ usage_root() {
 # All revert functions
 revert_all() {
 	echo "[+] Reverting all modules..."
-	
+
 	local modules=(
 		revert_at
 		revert_authorized_keys

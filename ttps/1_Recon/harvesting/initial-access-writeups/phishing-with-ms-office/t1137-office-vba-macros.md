@@ -59,7 +59,7 @@ The below graphic represents the process ancestry after the victim had clicked t
 
 ## Inspection
 
-If you received a suspicious Office document and do not have any malware analysis tools, hopefully at least you have access to a WinZip or 7Zip and Strings utility or any type of Hex Editor to hand. 
+If you received a suspicious Office document and do not have any malware analysis tools, hopefully at least you have access to a WinZip or 7Zip and Strings utility or any type of Hex Editor to hand.
 
 Since Office files are essentially ZIP archives \(PK magic bytes\):
 
@@ -76,7 +76,7 @@ Looking inside the `document.xml`, we can see the body copy we inputted at the v
 
 ![](../../../.gitbook/assets/macros-document-unzipped.png)
 
-Additionally, if you have the strings or a hex dumping utility, you can pass the `vbaProject.bin` through it. This can sometimes give you as defender enough to determine if the document is suspicious/malicious. 
+Additionally, if you have the strings or a hex dumping utility, you can pass the `vbaProject.bin` through it. This can sometimes give you as defender enough to determine if the document is suspicious/malicious.
 
 Running `hexdump -C vbaProject.bin` reveals some fragmented keywords that should immediately raise your suspicion - **Shell, Hide, Sub\_Open** and something that looks like a file path:
 

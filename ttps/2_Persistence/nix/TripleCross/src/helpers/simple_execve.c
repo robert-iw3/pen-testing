@@ -12,8 +12,8 @@
 #include <fcntl.h>
 
 int main(int argc, char *argv[]) {
-    char* args[] = {"bash", "-c", "pwd", NULL}; 
-    char* envp[] = {NULL}; 
+    char* args[] = {"bash", "-c", "pwd", NULL};
+    char* envp[] = {NULL};
     sleep(1);
     if(execve("/usr/bin/bash", args, envp)<0){
         perror("Failed to execve()");

@@ -619,17 +619,17 @@ namespace winPEAS.TaskScheduler
     ///    new int[] { 141 /* TaskDeleted */, 201 /* ActionSuccess */ },
     ///    // Specify the start date of the events to enumerate. Here, we look at the last week.
     ///    DateTime.Now.AddDays(-7));
-    /// 
+    ///
     /// // Tell the enumerator to expose events 'newest first'
     /// log.EnumerateInReverse = false;
-    /// 
+    ///
     /// // Enumerate the events
     /// foreach (TaskEvent ev in log)
     /// {
     ///    // TaskEvents can interpret event ids into a well known, readable, enumerated type
     ///    if (ev.StandardEventId == StandardTaskEventId.TaskDeleted)
     ///       output.WriteLine($"  Task '{ev.TaskPath}' was deleted");
-    /// 
+    ///
     ///    // TaskEvent exposes a number of properties regarding the event
     ///    else if (ev.EventId == 201)
     ///       output.WriteLine($"  Completed action '{ev.DataValues["ActionName"]}',

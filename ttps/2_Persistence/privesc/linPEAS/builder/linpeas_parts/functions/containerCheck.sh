@@ -6,7 +6,7 @@
 # License: GNU GPL
 # Version: 1.0
 # Functions Used: echo_no
-# Global Variables: 
+# Global Variables:
 # Initial Functions:
 # Generated Global Variables: $inContainer, $containerType
 # Fat linpeas: 0
@@ -36,11 +36,11 @@ containerCheck() {
     else containerType="kubernetes\n"
     fi
   fi
-  
+
   # Inside concourse?
   if grep "/concourse" /proc/1/mounts -qa 2>/dev/null; then
     inContainer="1"
-    if [ "$containerType" ]; then 
+    if [ "$containerType" ]; then
       containerType="$containerType (concourse)\n"
     fi
   fi

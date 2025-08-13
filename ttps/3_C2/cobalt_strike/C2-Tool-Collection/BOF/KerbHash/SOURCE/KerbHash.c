@@ -59,7 +59,7 @@ VOID BeaconOutputStreamW() {
 			goto CleanUp;
 		}
 
-		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {		
+		if (FAILED(lpStream->lpVtbl->Read(lpStream, lpwOutput, (ULONG)cbSize, &cbRead))) {
 			goto CleanUp;
 		}
 
@@ -167,7 +167,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 	// Parse Arguments
 	datap parser;
 	BeaconDataParse(&parser, Args, Length);
-    
+
     lpwPassword = (WCHAR*)BeaconDataExtract(&parser, NULL);
 	lpwUsername = (WCHAR*)BeaconDataExtract(&parser, NULL);
     lpwDomain = (WCHAR*)BeaconDataExtract(&parser, NULL);
@@ -240,7 +240,7 @@ VOID go(IN PCHAR Args, IN ULONG Length) {
 	uSalt.Buffer = (PWSTR)KERNEL32$HeapAlloc(KERNEL32$GetProcessHeap(), HEAP_ZERO_MEMORY, MAX_BUF);
     if (uSalt.Buffer != NULL) {
 		RtlAppendUnicodeStringToString(&uSalt, &uDomainCase);
-		
+
 		if (IsMachine(lpwUsername)) {
 			RtlAppendUnicodeToString(&uSalt, (PWSTR)L"host");
 

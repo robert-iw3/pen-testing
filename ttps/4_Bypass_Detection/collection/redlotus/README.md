@@ -170,7 +170,7 @@ USB:.
 
     4.1. The following is required for VMware Workstation:
 
-    * VMware Workstation: `VM -> Settings -> Hardware -> Add -> Hard Disk -> Next -> SCSI or NVMe (Recommended) -> Next -> Use a physical disk (for advanced users) -> Next -> Device: PhysicalDrive1 and Usage: Use entire disk -> Next -> Finish.` 
+    * VMware Workstation: `VM -> Settings -> Hardware -> Add -> Hard Disk -> Next -> SCSI or NVMe (Recommended) -> Next -> Use a physical disk (for advanced users) -> Next -> Device: PhysicalDrive1 and Usage: Use entire disk -> Next -> Finish.`
 
     * Start VM by clicking `Power On to Firmware`
 
@@ -212,7 +212,7 @@ Options:
 
 ## PoC
 
-Tested on: 
+Tested on:
 
 * `Microsoft Windows 10 Home 10.0.19045 N/A Build 19045`
 * `Microsoft Windows 11 Home 10.0.22621 N/A Build 22621`

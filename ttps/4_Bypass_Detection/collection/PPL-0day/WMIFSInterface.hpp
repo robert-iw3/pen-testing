@@ -9,18 +9,18 @@ static std::mutex fileMutex;
 
 static HRESULT WINAPI FileWriteProc(WMIConnection& WMI, COMWrapper& ICom, std::wstring& sDriveName, std::wstring sFileName, std::wstring sFileContents)
 {
-	
+
 }
 
 static HRESULT WINAPI PutThreadProc(COMWrapper& ICom, std::wstring& sDriveName, std::wstring& sSection, ULONGLONG& index)
 {
 	// Lock the mutex
 	std::lock_guard<std::mutex> lock(fileMutex);
-	
+
 	BOOL complete = FALSE;
 	if(sSection.empty())
 		return E_FAIL;
-	
+
 	// The loop ensures the thread will hang and wait for memory to become
 	// available if `std::bad_alloc` is thrown
 	while(!complete)
@@ -37,7 +37,7 @@ static HRESULT WINAPI PutThreadProc(COMWrapper& ICom, std::wstring& sDriveName, 
 				//std::this_thread::sleep_for(std::chrono::milliseconds(500));
 				return E_FAIL; // Something is very wrong
 			}
-			
+
 			// Definitions
 			HRESULT hres = NULL;
 			IWbemClassObject* pDrive = NULL;
@@ -57,7 +57,7 @@ static HRESULT WINAPI PutThreadProc(COMWrapper& ICom, std::wstring& sDriveName, 
 			{
 				// Retrieve class 'sDriveName'
 				hres = WMI.pSvc->GetObject(_bstr_t(sDriveName.c_str()), 0, NULL, &pDrive, NULL);
-				
+
 				if (FAILED(hres))
 				{
 					goto cleanup;
@@ -74,12 +74,12 @@ static HRESULT WINAPI PutThreadProc(COMWrapper& ICom, std::wstring& sDriveName, 
 				v.bstrVal = SysAllocString(sSection.c_str());
 				//hres = pDrive->Put(_bstr_t(sKey.c_str()), 0, &v, 0);
 				pQualSet->Put(_bstr_t(pKey), &v, CIM_SINT32);
-				
+
 				if (FAILED(hres))
 				{
 					goto cleanup;
 				}
-				
+
 
 				// Commit the changes
 				hres = WMI.pSvc->PutClass(pDrive, WBEM_FLAG_CREATE_OR_UPDATE, NULL, NULL);
@@ -88,7 +88,7 @@ static HRESULT WINAPI PutThreadProc(COMWrapper& ICom, std::wstring& sDriveName, 
 				{
 					goto cleanup;
 				}
-				
+
 				// Cleanup
 			cleanup:
 				complete = TRUE;
@@ -97,10 +97,10 @@ static HRESULT WINAPI PutThreadProc(COMWrapper& ICom, std::wstring& sDriveName, 
 				if(pQualSet)
 					pQualSet->Release();
 				VariantClear(&v);
-				
+
 				// Unlock the mutex
 				//std::lock_guard<std::mutex> unlock(fileMutex);
-				
+
 				return hres;
 			}
 		}
@@ -124,8 +124,8 @@ class WMIFSInterface
 {
 public:
 	BOOL IReady;
-	
-	
+
+
 
 	WMIFSInterface(COMWrapper& com_wrapper, WMIConnection& wmi_connection, ClassFactory& class_factory) :
 		ICom(com_wrapper),
@@ -162,16 +162,16 @@ public:
 		vSectionData.vt = VT_BSTR;
 		vSectionData.bstrVal = SysAllocString((OLECHAR*)sSectionData.c_str());
 		HRESULT hres = NULL;
-		
+
 		std::wstring sIndex = L"sec" + std::to_wstring(index);
-		
+
 		pDrive->Put(_bstr_t(sIndex.c_str()), 0, &vSectionData, CIM_STRING);
 
 		if (FAILED(hres))
 		{
 			ILog("Failed to insert section. Error code = 0x%X \n", hres);
 		}
-		
+
 		SysFreeString(vSectionData.bstrVal);
 		vSectionData.bstrVal = NULL;
 		VariantClear(&vSectionData);
@@ -198,14 +198,14 @@ public:
 		VARIANT vFileSize;
 		VariantInit(&vFileSize);
 		vFileSize.vt = VT_I4;
-		
+
 		HRESULT hres = WMI.pSvc->GetObject(_bstr_t(sDriveName.c_str()), 0, NULL, &pDrive, NULL);
 		if (FAILED(hres))
 		{
 			ILog("Failed to retrieve class definition. Error code = 0x%X \n", hres);
 			goto cleanup;
 		}
-		
+
 		// Get the qualifier set for 'Filestore'
 		hres = pDrive->GetPropertyQualifierSet(_bstr_t(L"Filestore"), (LPVOID**)&pQualSet);
 		if (FAILED(hres))
@@ -241,7 +241,7 @@ public:
 				goto cleanup;
 			}
 		}
-		
+
 	cleanup:
 		if (pDrive)
 			pDrive->Release();
@@ -252,7 +252,7 @@ public:
 		VariantClear(&vFileSize);
 		return hres;
 	}
-	
+
 	HRESULT WriteFile(
 		_In_ std::wstring  sDriveName,
 		_In_ std::wstring  sFileName,
@@ -263,7 +263,7 @@ public:
 
 		// ------------------------------------------------------------------
 		// Step 1. Connect to namespace -------------------------------------
-		
+
 		if (wcscmp(this->WMI.currentNamespace, L"RVOM2OITC\\") != 0)
 			WMI.ConnectToNamespace("RVOM2OITC\\", 0);
 
@@ -281,9 +281,9 @@ public:
 
 		// ------------------------------------------------------------------
 		// Step 2. Check if the specified drive exists ----------------------
-		
+
 		hres = IFactory.CheckClassExists(sDriveName);
-		
+
 		if (FAILED(hres))
 		{
 			ILog("Specified drive doesn't exist. Error code = 0x%X \n", hres);
@@ -296,7 +296,7 @@ public:
 
 		// -----------------------------------------------------------------------------
 		// Step 3. Retrieve the drive's class definition and Filestore qualifier set ---
-		
+
 		// Open the class for writing by calling the pSvc->GetObject method with the strObjectPath parameter set to the name of the class.
 		vVariant.vt = VT_BSTR;
 		vVariant.bstrVal = SysAllocString(sDriveName.c_str());
@@ -315,7 +315,7 @@ public:
 		}
 
 		VariantClear(&vVariant);
-		
+
 		// Get the qualifier set for the class.
 		BSTR KeyProp = SysAllocString(L"Filestore");
 
@@ -327,13 +327,13 @@ public:
 			ILog("Failed to get qualifier set. Error code = 0x%X \n", hres);
 			return hres;
 		}
-		
+
 		SysFreeString(KeyProp);
 
 
 		// ------------------------------------------------------------------
 		// Step 4. Prepare for writing --------------------------------------
-		
+
 		// Determine if file is too large
 		size_t maxSections = 500;
 		size_t maxSectionSize = 18000;
@@ -359,9 +359,9 @@ public:
 
 		// ------------------------------------------------------------------
 		// Step 5. Write the file -------------------------------------------
-		
+
 		// Definitions
-		
+
 		// Key
 		std::wstring key;
 
@@ -393,13 +393,13 @@ public:
 		pDrive->Release();
 		pDrive = NULL;
 		pQual = NULL;
-		
+
 		// Write the file (multithreaded)
 		for (int i = 0; i <= sectionsNeeded; i++)
 		{
 			// Key name is formatted "key0", "key1", "key2", ...
 			key = L"key" + std::to_wstring(i);
-			
+
 			// If its the last section we need to write, we need to use the last section size
 			if (i == sectionsNeeded)
 				sSection = sFileContents.substr(i * sectionSize, lastSectionSize);
@@ -408,7 +408,7 @@ public:
 
 			//ILog("Writing %ls section %ld \n", sSection.c_str(), sectionIndex);
 			v.bstrVal = SysAllocString(sSection.c_str());
-			
+
 			// Write a section
 			while (true)
 			{
@@ -426,20 +426,20 @@ public:
 				}
 				break;
 			}
-			
+
 			// Cleanup
 			SysFreeString(q.bstrVal);
 			SysFreeString(v.bstrVal);
-			
+
 			sectionIndex++;
 		}
 
 		ILog("Wrote %d sections\n ", sectionIndex);
-		
+
 
 		// ------------------------------------------------------------------
 		// Step 6. Update the class with file information -------------------
-		
+
 		if (WMI.pSvc == NULL)
 		{
 			ILog("Stack corrupted\n");
@@ -460,13 +460,13 @@ public:
 		KeyProp = SysAllocString(L"Filestore");
 		hres = pDrive->GetPropertyQualifierSet(KeyProp, (LPVOID**)&pQual);
 		SysFreeString(KeyProp);
-		
+
 		if (FAILED(hres))
 		{
 			ILog("Failed to get qualifier set. Error code = 0x%X \n", hres);
 			return hres;
 		}
-		
+
 		// Write the file data as key:value pairs under the qualifier "Filestore"
 
 		// Write the number of sections the file contains
@@ -498,10 +498,10 @@ public:
 		VariantInit(&vFileName);
 		vFileName.vt = VT_BSTR;
 		vFileName.bstrVal = SysAllocString(sFileName.c_str());
-		
+
 		hres = pQual->Put(_bstr_t(L"Filename"), &vFileName, CIM_SINT32);
 		VariantClear(&vFileName);
-		
+
 		// Save the class changes
 		hres = WMI.pSvc->PutClass(pDrive, WBEM_FLAG_CREATE_OR_UPDATE, NULL, NULL);
 		if (FAILED(hres))
@@ -515,7 +515,7 @@ public:
 		pQual->Release();
 		pDrive = NULL;
 		pQual = NULL;
-		
+
 		// Create a new instance of the completed class
 		CreateDriveInstance(sDriveName); // Needs to be instanced or powershell can't find the data
 
@@ -535,7 +535,7 @@ public:
 
 		// ------------------------------------------------------------------
 		// Step 1. Connect to the root\cimv2 namespace ----------------------
-		
+
 		if (wcscmp(this->WMI.currentNamespace, L"RVOM2OITC\\") != 0)
 			WMI.ConnectToNamespace("RVOM2OITC\\", 0);
 
@@ -544,7 +544,7 @@ public:
 			ILog("Failed to connect to namespace\n");
 			return E_FAIL; // Something is very wrong
 		}
-		
+
 		HRESULT hres = NULL;
 		IWbemClassObject* pDrive = NULL;
 		IWbemContext* pCtx = NULL;
@@ -553,13 +553,13 @@ public:
 
 		// ------------------------------------------------------------------
 		// Step 2. Get the only instance of the class -----------------------
-		
+
 		// Note: this is not strictly necessary, as the class definition also
 		// contains the file information. However, when we extract the file
 		// using powershell we need to be using the instance anyway, so this
 		// helps us to ensure that both the class and the instance have
 		// been created correctly.
-		
+
 		// Retrieve all instances of the class using IWbemEnumerator
 		IEnumWbemClassObject* pEnumerator = NULL;
 		hres = WMI.pSvc->CreateInstanceEnum(
@@ -567,13 +567,13 @@ public:
 			0,
 			0,
 			&pEnumerator);
-		
+
 		if (FAILED(hres))
 		{
 			ILog("Failed to create instance enumerator. Error code = 0x%X \n", hres);
 			return hres;
 		}
-		
+
 		// Get the first instance
 		ULONG uReturn = 0;
 		hres = pEnumerator->Next(0, 1, &pDrive, &uReturn);
@@ -593,12 +593,12 @@ public:
 		}
 		// ------------------------------------------------------------------
 		// Step 3. Retrieve the file information ----------------------------
-		
+
 		// Get the "Filestore" qualifier set for the class
 		BSTR KeyProp = SysAllocString(L"Filestore");
 		IWbemQualifierSet* pQual = NULL;
 		hres = pDrive->GetPropertyQualifierSet(KeyProp, (LPVOID**)&pQual);
-		
+
 		if (FAILED(hres))
 		{
 			ILog("Failed to get qualifier set. Error code = 0x%X \n", hres);
@@ -611,7 +611,7 @@ public:
 		VariantInit(&vFileSize);
 		vFileSize.vt = VT_I4;
 		hres = pQual->Get(_bstr_t(L"Filesize"), NULL, &vFileSize, NULL);
-		
+
 		CIMTYPE ct = CIM_STRING;
 
 		if (vFileSize.lVal == 0)
@@ -620,12 +620,12 @@ public:
 			pDrive->Release();
 			return hres;
 		}
-		
+
 
 		// ------------------------------------------------------------------
 		// Step 4. Read the file --------------------------------------------
-		
-		
+
+
 		// Definitions
 		INT32 index = 0;
 		INT32 sectionsNeeded = vFileSize.lVal;
@@ -639,24 +639,24 @@ public:
 			swprintf_s(key, L"key%llu", index);
 			BSTR bstrIndex = SysAllocString(_bstr_t(pKey));
 			hres = pQual->Get(bstrIndex, 0, &vVariant, 0);
-			
+
 			// If getting the next section failed, we've encountered
 			// some kind of error or the section count is incorrect
 			if (FAILED(hres))
 				break;
-			
+
 			// Append section to file contents
 			INT32 sectionSize = wcslen(vVariant.bstrVal);
 			sFileContents.append(vVariant.bstrVal, sectionSize);
-			
+
 			SysFreeString(bstrIndex);
-			
+
 			// Increment index
 			index++;
 		}
 
 		ILog("Read %d sections\n", index);
-		
+
 		// Cleanup
 		VariantClear(&vVariant);
 		VariantClear(&vFileSize);
@@ -665,12 +665,12 @@ public:
 			pDrive->Release();
 		if (pQual)
 			pQual->Release();
-		
+
 		if(sFileContents.empty())
 			return E_FAIL;
-		
+
 		return hres;
-		
+
 	}
 
 private:

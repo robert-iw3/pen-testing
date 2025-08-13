@@ -5,7 +5,7 @@
 
 bool TargetValidator::IsDomainJoined() {
     NETSETUP_JOIN_STATUS status;
-    return NetGetJoinInformation(NULL, &status) == NERR_Success && 
+    return NetGetJoinInformation(NULL, &status) == NERR_Success &&
            status == NetSetupDomainName;
 }
 
@@ -13,9 +13,9 @@ bool TargetValidator::IsHighValueTarget() {
     WCHAR username[UNLEN + 1];
     DWORD username_len = UNLEN + 1;
     GetUserNameW(username, &username_len);
-    
+
     // check for admin accounts (можно добавлять свои варианты) - add your lists also
-    return wcsstr(username, L"admin") != nullptr || 
+    return wcsstr(username, L"admin") != nullptr ||
            wcsstr(username, L"svc") != nullptr ||
            wcsstr(username, L"sql") != nullptr;
 }

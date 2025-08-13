@@ -14,12 +14,12 @@
 
 
 exec_with_jq(){
-  if [ "$(command -v jq || echo -n '')" ]; then 
+  if [ "$(command -v jq || echo -n '')" ]; then
     $@ | jq 2>/dev/null;
     if ! [ $? -eq 0 ]; then
       $@;
     fi
-   else 
+   else
     $@;
    fi
 }

@@ -774,7 +774,7 @@ pub extern "system" fn Pick() {
                             let request_body = CString::new(base64_encrypted_data)
                                 .expect("Failed to create CString from encrypted data");
 
-                                /* 
+                                /*
                             let request_body = match serde_json::to_string(&sleep_time) {
                                 Ok(json) => CString::new(json).unwrap(),
                                 Err(_) => {
@@ -784,7 +784,7 @@ pub extern "system" fn Pick() {
                             };*/
 
                             // After constructing request_body
-                            /* 
+                            /*
                             let request_body_str = request_body
                                 .to_str()
                                 .unwrap_or("Failed to convert request body to str");

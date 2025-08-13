@@ -39,10 +39,10 @@ public:
     {
         if (wcscmp(this->WMI.currentNamespace, L"RsnObcoOuriTSit\\p") != 0)
             WMI.ConnectToNamespace("RsnObcoOuriTSit\\p", 0);
-        
+
         if (!WMI.bConnected)
             return E_FAIL; // Something is very wrong
-        
+
         if (pFilterClass != NULL)
         {
             ILog("Error: Can only create one filter per class instance\n");
@@ -139,10 +139,10 @@ public:
     {
         if (wcscmp(this->WMI.currentNamespace, L"RsnObcoOuriTSit\\p") != 0)
             WMI.ConnectToNamespace("RsnObcoOuriTSit\\p", 0);
-        
+
         if (!WMI.bConnected)
             return E_FAIL; // Something is very wrong
-        
+
         if (pConsumerClass != NULL)
         {
             ILog("Error: Can only create one consumer per class instance\n");
@@ -208,7 +208,7 @@ public:
                 goto cleanup;
             }
         }
-        
+
         ILog("Generated consumer class successfully\n");
 
         sConsumerName_Bind = sConsumerName;
@@ -228,7 +228,7 @@ public:
 
         if (!WMI.bConnected)
             return E_FAIL; // Something is very wrong
-        
+
         if (pFilter == NULL || pConsumer == NULL)
         {
             ILog("Error: Filter and Consumer must be created before binding\n");

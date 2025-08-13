@@ -39,11 +39,11 @@ namespace TeamFiltration.Handlers
 
             return false;
         }
-        
+
         /*
         public async Task ListFireProxEndpoint()
         {
-            
+
             foreach (var item in _globalProperties.AWSRegions)
             {
                 var amazonAPIGatewayClient = new AmazonAPIGatewayClient(_AWSCredentials, Amazon.RegionEndpoint.GetBySystemName(item));

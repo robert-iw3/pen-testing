@@ -9,7 +9,7 @@ BOOL _isdigest(char c)
 	return c >= '0' && c <= '9';
 }
 
-int _atoi(const char* str) 
+int _atoi(const char* str)
 {
 	int result = 0;
 	int sign = 1;
@@ -17,7 +17,7 @@ int _atoi(const char* str)
 
 	while (str[index] == ' ')
 		index++;
-	
+
 	if (str[index] == '-' || str[index] == '+') {
 		sign = (str[index] == '-') ? -1 : 1;
 		index++;
@@ -25,9 +25,9 @@ int _atoi(const char* str)
 
 	while ( _isdigest(str[index]) ) {
 		int digit = str[index] - '0';
-		if (result > (INT_MAX - digit) / 10) 
+		if (result > (INT_MAX - digit) / 10)
 			return (sign == 1) ? INT_MAX : INT_MIN;
-		
+
 		result = result * 10 + digit;
 		index++;
 	}
@@ -45,7 +45,7 @@ DWORD _strlen(CHAR* str)
 ConnectorHTTP::ConnectorHTTP()
 {
 	this->functions = (HTTPFUNC*) ApiWin->LocalAlloc(LPTR, sizeof(HTTPFUNC) );
-	
+
 	this->functions->LocalAlloc   = ApiWin->LocalAlloc;
 	this->functions->LocalReAlloc = ApiWin->LocalReAlloc;
 	this->functions->LocalFree    = ApiWin->LocalFree;

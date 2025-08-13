@@ -4,7 +4,7 @@ description: 'Phishing, Initial Access using embedded OLE + LNK objects'
 
 # Phishing: OLE + LNK
 
-This lab explores a popular phishing technique where attackers embed .lnk files into the Office documents and camouflage them with Ms Word office icons in order to deceive victims to click and run them. 
+This lab explores a popular phishing technique where attackers embed .lnk files into the Office documents and camouflage them with Ms Word office icons in order to deceive victims to click and run them.
 
 ## Weaponization
 

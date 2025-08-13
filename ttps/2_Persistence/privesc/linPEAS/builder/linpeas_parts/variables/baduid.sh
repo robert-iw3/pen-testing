@@ -12,12 +12,12 @@
 # Fat linpeas: 0
 # Small linpeas: 1
 
-if [ "$MyUID" ]; then 
-    myuid=$MyUID; 
+if [ "$MyUID" ]; then
+    myuid=$MyUID;
 elif [ $(id -u $(whoami) 2>/dev/null) ]; then
     myuid=$(id -u $(whoami) 2>/dev/null);
-elif [ "$(id 2>/dev/null | cut -d "=" -f 2 | cut -d "(" -f 1)" ]; then 
-    myuid=$(id 2>/dev/null | cut -d "=" -f 2 | cut -d "(" -f 1); 
+elif [ "$(id 2>/dev/null | cut -d "=" -f 2 | cut -d "(" -f 1)" ]; then
+    myuid=$(id 2>/dev/null | cut -d "=" -f 2 | cut -d "(" -f 1);
 fi
 
 

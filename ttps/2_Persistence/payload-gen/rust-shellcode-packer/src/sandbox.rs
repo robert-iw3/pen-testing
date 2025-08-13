@@ -1,7 +1,7 @@
 use std::{collections::HashMap};
 
 pub fn meta_sandbox(expected_domain: String) -> HashMap<String, String>{
-    
+
     let mut result: HashMap<String, String> = HashMap::new();
     let sandbox_function;
     let imports: String;
@@ -13,7 +13,7 @@ pub fn meta_sandbox(expected_domain: String) -> HashMap<String, String>{
 
                 let success = unsafe {{
                     GetComputerNameExW(ComputerNameDnsDomain, buffer.as_mut_ptr(), &mut size)
-                    
+
                 }};
                 if success == 0 || size == 0 {{
                     return None;
@@ -22,7 +22,7 @@ pub fn meta_sandbox(expected_domain: String) -> HashMap<String, String>{
                 let domain_name = String::from_utf16(&buffer[..size as usize])
         		.map(|s| s.trim_end_matches('\\0').to_string())
         		.ok()?;
-        	
+
                 if domain_name.is_empty() {{
         		return None;
     		}}

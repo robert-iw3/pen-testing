@@ -6,8 +6,8 @@
 # License: GNU GPL
 # Version: 1.0
 # Functions Used: echo_not_found
-# Global Variables: 
-# Initial Functions: 
+# Global Variables:
+# Initial Functions:
 # Generated Global Variables:
 # Fat linpeas: 0
 # Small linpeas: 1

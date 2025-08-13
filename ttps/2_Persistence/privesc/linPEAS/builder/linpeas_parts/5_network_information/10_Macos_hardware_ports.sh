@@ -33,7 +33,7 @@ if [ "$MACPEAS" ] && [ "$EXTRA_CHECKS" ]; then
   print_2title "Wifi Proxy URL"
   networksetup -getautoproxyurl Wi-Fi
   echo ""
-  
+
   print_2title "Wifi Web Proxy"
   networksetup -getwebproxy Wi-Fi
   echo ""

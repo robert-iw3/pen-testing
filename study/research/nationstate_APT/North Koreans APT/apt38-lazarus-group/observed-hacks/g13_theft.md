@@ -7,7 +7,7 @@ Amount Stolen:: $275,000
 
 ## Details
 
-Individuals self-custodial wallets were compromisd by likely malware. His centralized exchanges and internet accounts were also attempted to be accessed. 
+Individuals self-custodial wallets were compromisd by likely malware. His centralized exchanges and internet accounts were also attempted to be accessed.
 
 
 

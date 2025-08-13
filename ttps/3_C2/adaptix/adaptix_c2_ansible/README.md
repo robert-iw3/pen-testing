@@ -51,7 +51,7 @@ None.
   roles:
     - badsectorlabs.ludus_adaptix_c2
   vars:
-    ludus_adaptix_c2_install_client: true    
+    ludus_adaptix_c2_install_client: true
 ```
 
 ## Example Ludus Range Config

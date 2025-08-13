@@ -40,7 +40,7 @@ namespace TeamFiltration.Helpers
 <head>
 <style>
 body{
-    background:#F5F5F5;   
+    background:#F5F5F5;
 }
 .chat-list {
     padding: 0;
@@ -143,7 +143,7 @@ body{
 }
 
 .content{
-    margin-top:40px;    
+    margin-top:40px;
 }
 </style>
 
@@ -157,7 +157,7 @@ body{
         		<div class=""card-body height3"">
         			<ul class=""chat-list"">
         			#PAGE#
-        				
+
         			</ul>
         		</div>
         	</div>

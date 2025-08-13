@@ -15,14 +15,14 @@ namespace System.Yaml
     /// <code>
     /// Type type;
     /// AttributeType attr = type.GetAttribute&lt;AttributeType&gt;();
-    /// 
+    ///
     /// PropertyInfo propInfo;
     /// AttributeType attr = propInfo.GetAttribute&lt;AttributeType&gt;();
-    /// 
+    ///
     /// string name;
     /// Type type = TypeUtils.GetType(name); // search from all assembly loaded
-    /// 
-    /// 
+    ///
+    ///
     /// </code>
     /// </example>
     internal static class TypeUtils
@@ -231,7 +231,7 @@ namespace System.Yaml
             }
 
             /// <summary>
-            /// Serves as a hash function for the specified object for hashing algorithms and 
+            /// Serves as a hash function for the specified object for hashing algorithms and
             /// data structures, such as a hash table.
             /// </summary>
             /// <param name="obj">The object for which to get a hash code.</param>
@@ -269,7 +269,7 @@ namespace System.Yaml
                 var dm = new DynamicMethod(
                     "GetHashCodeByRef",                 // name of the dynamic method
                     typeof(int),                        // type of return value
-                    new Type[] { 
+                    new Type[] {
                         typeof(T)                       // type of "this"
                     },
                     typeof(EqualityComparerByRef<T>));  // owner
@@ -287,8 +287,8 @@ namespace System.Yaml
         class RehashableDictionary<K, V>: IDictionary<K, V> where K: class
         {
             Dictionary<int, object> items = new Dictionary<int, object>();
-            
-            Dictionary<K, int> hashes = 
+
+            Dictionary<K, int> hashes =
                 new Dictionary<K, int>(EqualityComparerByRef<K>.Default);
 
             class KeyValue

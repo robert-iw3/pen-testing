@@ -6,7 +6,7 @@ namespace TeamFiltration.Models.TeamFiltration
 {
 
 
-   
+
 
     public class GitListResp
     {
@@ -29,5 +29,5 @@ namespace TeamFiltration.Models.TeamFiltration
         public string html { get; set; }
     }
 
-  
+
 }

@@ -1382,7 +1382,7 @@ namespace drsrdotnet
             {
                 case ATT.ATT_WHEN_CREATED:
                 case ATT.ATT_WHEN_CHANGED:
-                    //    var test = BitConverter.ToInt64(data, 0);    
+                    //    var test = BitConverter.ToInt64(data, 0);
                     //string stringdate = UnicodeEncoding.Default.GetString(data);
                     //    DateTime d = DateTime.ParseExact(stringdate, "yyyyMMddHHmmss.f'Z'", CultureInfo.InvariantCulture);
                     //    DecodedReplicationData.Add(att.ToString(), d);
@@ -1458,7 +1458,7 @@ namespace drsrdotnet
         public static void ShowUsage()
         {
             string Usage = @"
-Use DRSR protocol to ask a domain controller to synchronize a specified entry. 
+Use DRSR protocol to ask a domain controller to synchronize a specified entry.
 Reference:https://github.com/vletoux/MakeMeEnterpriseAdmin
 Usage:
     <dc fqdn> <domain name>
@@ -1492,7 +1492,7 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe SharpDCSync.cs
                 int index;
 
 
-                Console.WriteLine("[+] Domain SID: " + new System.Security.Principal.SecurityIdentifier(((byte[])new System.DirectoryServices.DirectoryEntry("LDAP://" + server).Properties["objectSid"].Value), 0));    
+                Console.WriteLine("[+] Domain SID: " + new System.Security.Principal.SecurityIdentifier(((byte[])new System.DirectoryServices.DirectoryEntry("LDAP://" + server).Properties["objectSid"].Value), 0));
 
 
                 drsr drsrtest1 = new drsr();

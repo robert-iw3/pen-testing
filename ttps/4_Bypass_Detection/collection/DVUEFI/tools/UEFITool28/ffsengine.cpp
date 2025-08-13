@@ -1138,10 +1138,10 @@ UINT8  FfsEngine::parseVolume(const QByteArray & volume, QModelIndex & index, co
             msg(tr("parseVolume: volume has FFS file with invalid size"), index);
             return ERR_INVALID_FILE;
         }
-       
+
         QByteArray file = volume.mid(fileOffset, fileSize);
         QByteArray header = file.left(fileHeaderSize);
-        
+
         // If we are at empty space in the end of volume
         if (header.count(empty) == header.size()) {
             // Check free space to be actually free
@@ -1399,18 +1399,18 @@ UINT8 FfsEngine::getSectionSize(const QByteArray & file, const UINT32 sectionOff
 {
     if ((UINT32)file.size() < sectionOffset + sizeof(EFI_COMMON_SECTION_HEADER))
         return ERR_INVALID_FILE;
-	
+
     const EFI_COMMON_SECTION_HEADER* sectionHeader = (const EFI_COMMON_SECTION_HEADER*)(file.constData() + sectionOffset);
     sectionSize = uint24ToUint32(sectionHeader->Size);
     // This may introduce a very rare error with a non-extended section of size equal to 0xFFFFFF
 	if (sectionSize != 0xFFFFFF)
         return ERR_SUCCESS;
- 
+
     if ((UINT32)file.size() < sectionOffset + sizeof(EFI_COMMON_SECTION_HEADER2))
         return ERR_INVALID_FILE;
 
     const EFI_COMMON_SECTION_HEADER2* sectionHeader2 = (const EFI_COMMON_SECTION_HEADER2*)(file.constData() + sectionOffset);
-    sectionSize = sectionHeader2->ExtendedSize;	  
+    sectionSize = sectionHeader2->ExtendedSize;
     return ERR_SUCCESS;
 }
 
@@ -1641,7 +1641,7 @@ UINT8 FfsEngine::parseSection(const QByteArray & section, QModelIndex & index, c
 
         header = section.left(headerSize);
         body = section.mid(headerSize);
- 
+
         const EFI_GUID_DEFINED_SECTION* guidDefinedSectionHeader = (const EFI_GUID_DEFINED_SECTION*)(header.constData());
         QByteArray processed = body;
 
@@ -1874,7 +1874,7 @@ UINT8 FfsEngine::parseSection(const QByteArray & section, QModelIndex & index, c
         // Get TE info
         bool msgInvalidSignature = false;
         const EFI_IMAGE_TE_HEADER* teHeader = (const EFI_IMAGE_TE_HEADER*)body.constData();
-        
+
         // Most EFI images today include teFixup in ImageBase value,
         // which doesn't follow the UEFI spec, but is so popular that
         // only a few images out of thousands are different
@@ -3738,7 +3738,7 @@ UINT8 FfsEngine::reconstructFile(const QModelIndex& index, const UINT8 revision,
         model->action(index) == Actions::Rebuild) {
         QByteArray header = model->header(index);
         EFI_FFS_FILE_HEADER* fileHeader = (EFI_FFS_FILE_HEADER*)header.data();
-		
+
         // Check erase polarity
         if (erasePolarity == ERASE_POLARITY_UNKNOWN) {
             msg(tr("reconstructFile: unknown erase polarity"), index);
@@ -3826,7 +3826,7 @@ UINT8 FfsEngine::reconstructFile(const QModelIndex& index, const UINT8 revision,
                         // Adjust file base to incorporate pad file that will be added to align it
                         sectionBase += size;
                     }
-                    
+
                     // Reconstruct section
                     QByteArray section;
                     result = reconstructSection(index.child(i, 0), sectionBase, section);

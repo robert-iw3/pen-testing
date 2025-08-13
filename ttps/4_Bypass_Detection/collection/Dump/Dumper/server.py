@@ -143,7 +143,7 @@ def rs_decode_block(block_data, fec_data, k_block):
     if len(eq) < k_block:
         raise ValueError("Недостаточно уравнений для решения RS")
     sol0 = rs_solve(eq[:k_block], k_block)
-    
+
     eq = build_equations(block_data, fec_data, k_block, pos=1)
     sol1 = rs_solve(eq[:k_block], k_block)
     recovered = {}
@@ -163,7 +163,7 @@ def run_receiver(host, port, output_file, base_timeout=120):
         sys.exit(1)
     sock.settimeout(5)
     logging.info(f"Прослушивание на {host}:{port} ...")
-    
+
     header_received = False
     total_fragments = 0
     total_size = 0
@@ -228,7 +228,7 @@ def run_receiver(host, port, output_file, base_timeout=120):
     # Сборка дампа по блокам
     num_blocks = (total_fragments + BLOCK_SIZE - 1) // BLOCK_SIZE
     reconstructed = bytearray(total_fragments * FRAGMENT_SIZE)
-    
+
     logging.info("Восстановление дампа ...")
     # Вывод индикатора прогресса через stdout
     bar_length = 30
@@ -267,7 +267,7 @@ def run_receiver(host, port, output_file, base_timeout=120):
             seq = block_start + i
             frag = data_packets.get(seq, b'\x00\x00')
             reconstructed[seq*2:seq*2+2] = frag
-        
+
         # Вывод обновленной полосы прогресса
         progress = ((b + 1) / num_blocks) * 100
         filled_length = int(bar_length * (b + 1) / num_blocks)
@@ -275,7 +275,7 @@ def run_receiver(host, port, output_file, base_timeout=120):
         sys.stdout.write(f"\r[Восстановление] [{bar}] {progress:5.1f}%")
         sys.stdout.flush()
     sys.stdout.write("\n")
-    
+
     reconstructed = reconstructed[:total_size]
     try:
         dump_data = zlib.decompress(reconstructed)
@@ -287,7 +287,7 @@ def run_receiver(host, port, output_file, base_timeout=120):
         with open(output_file + ".compressed", "wb") as f:
             f.write(reconstructed)
         logging.info(f"Сжатый дамп сохранен в '{output_file}.compressed'.")
-    
+
     # Отправка обратной связи для отсутствующих фрагментов, если они есть
     missing_fragments = [i for i in range(total_fragments) if i not in data_packets]
     if missing_fragments and sender_addr:

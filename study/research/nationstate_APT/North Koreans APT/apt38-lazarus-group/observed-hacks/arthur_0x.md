@@ -4,7 +4,7 @@ Date:: March 22nd, 2022
 
 Amount Stolen:: $1,700,000
 
-Laundered Via:: Tornado Cash - March 24th, 2022 - 5x100 8x10 8x1 
+Laundered Via:: Tornado Cash - March 24th, 2022 - 5x100 8x10 8x1
 
 Tags:: 🔑 DangerousPassword SquidSquad (Protected)
 
@@ -16,7 +16,7 @@ Arthur_0x, founder of DeFiance Capital, lost $1.76M as a result of a spear Phish
 
 In total, Arthur appears to have lost 78 different NFTs from five collections, mostly “Azukis. He also lost 68 wrapped Ether (wETH), 4,349 staked DYDX (stkDYDX) and 1,578 LooksRare (LOOKS) tokens. The hacker began moving assets at about 12:30 am UTC, then promptly put all the NFTs up for bid on the OpenSea NFT marketplace. As of the time of writing, the hacker’s wallet held 545 ETH, worth about $1.6 million.
 
-Found out the likely root cause for the exploit, it's a targeted Social Engineering attack. 
+Found out the likely root cause for the exploit, it's a targeted Social Engineering attack.
 
 Received a Spear-Phishing email that really seems to be sent by one of our portco with content that seems like general industry-relevant content.
 

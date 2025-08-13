@@ -19,7 +19,7 @@ const dnsSecHandler = async (domain) => {
       const dnsResponse = await new Promise((resolve, reject) => {
         const req = https.request(options, res => {
           let data = '';
-          
+
           res.on('data', chunk => {
             data += chunk;
           });

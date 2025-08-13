@@ -54,7 +54,7 @@ namespace NativePayload_EnumResourceTypesW
             NoCacheModifierflag = 0x0200,
             WriteCombineModifierflag = 0x0400
         }
-       
+
         [DllImport("kernelbase.dll")]
         public static extern bool CloseHandle(IntPtr hObject);
         [DllImport("ntdll.dll")]

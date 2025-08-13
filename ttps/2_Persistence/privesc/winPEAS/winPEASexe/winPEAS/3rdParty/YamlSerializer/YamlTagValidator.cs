@@ -9,7 +9,7 @@ namespace System.Yaml
 {
     /// <summary>
     /// Validates a text as a global tag in YAML.
-    /// 
+    ///
     /// <a href="http://www.faqs.org/rfcs/rfc4151.html">RFC4151 - The 'tag' URI Scheme</a>>
     /// </summary>
     internal class YamlTagValidator: Parser<YamlTagValidator.Status>
@@ -124,8 +124,8 @@ namespace System.Yaml
                 Accept(numCharset);
         }
         Func<char, bool> numCharset = Charset(c =>
-                c < 0x100 && 
-                ( '0' <= c && c <= '9' ) 
+                c < 0x100 &&
+                ( '0' <= c && c <= '9' )
             );
 
         private bool specific()

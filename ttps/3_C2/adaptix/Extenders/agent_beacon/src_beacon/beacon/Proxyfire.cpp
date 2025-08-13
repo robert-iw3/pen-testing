@@ -131,7 +131,7 @@ void Proxyfire::ConnectWriteTCP(ULONG channelId, CHAR* data, ULONG dataSize)
 			timeval timeout = { 0, 100 };
 			fd_set exceptfds;
 			fd_set writefds;
-			
+
 			while (ApiWin->GetTickCount() < finishTick) {
 				writefds.fd_array[0] = tunnelData->sock;
 				writefds.fd_count = 1;
@@ -212,7 +212,7 @@ void Proxyfire::ConnectMessageReverse(ULONG tunnelId, WORD port, Packer* outPack
 		PackProxyStatus(outPacker, tunnelId, COMMAND_TUNNEL_REVERSE, FALSE);
 		return;
 	}
-	
+
 	this->AddProxyData(tunnelId, sock, 0, TUNNEL_MODE_REVERSE_TCP, 0, port, TUNNEL_STATE_CONNECT);
 
 	PackProxyStatus(outPacker, tunnelId, COMMAND_TUNNEL_REVERSE, TRUE);
@@ -238,7 +238,7 @@ void Proxyfire::CheckProxy(Packer* packer)
 			writefds.fd_count = 1;
 			writefds.fd_array[0] = tunnelData->sock;
 			ApiWin->select(0, &readfds, &writefds, &exceptfds, &timeout);
-			
+
 			if ( tunnelData->mode == TUNNEL_MODE_REVERSE_TCP ) {
 
 				if (ApiWin->__WSAFDIsSet(tunnelData->sock, &readfds)) {
@@ -372,7 +372,7 @@ void Proxyfire::CloseProxy()
 	for (int i = 0; i < this->tunnels.size(); i++) {
 		tunnelData = &(this->tunnels[i]);
 		if (tunnelData->state == TUNNEL_STATE_CLOSE) {
-			
+
 			if (tunnelData->closeTimer == 0) {
 				tunnelData->closeTimer = ApiWin->GetTickCount();
 				continue;
@@ -381,7 +381,7 @@ void Proxyfire::CloseProxy()
 			if (tunnelData->closeTimer + 1000 < ApiWin->GetTickCount()) {
 				if (tunnelData->mode == TUNNEL_MODE_SEND_TCP || tunnelData->mode == TUNNEL_MODE_SEND_UDP)
 					ApiWin->shutdown(tunnelData->sock, 2);
-				
+
 				if (ApiWin->closesocket(tunnelData->sock) && tunnelData->mode == TUNNEL_MODE_REVERSE_TCP)
 					continue;
 

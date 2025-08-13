@@ -74,7 +74,7 @@ void EncryptionUtils::handleErrors() {
 }
 
 void EncryptionUtils::encryptDecrypt(std::ifstream &inFile, std::ofstream &outFile, const std::string &key, bool isEncrypt) {
-    const int keyLength = 32; 
+    const int keyLength = 32;
     const int ivLength = 16;
     unsigned char iv[ivLength];
 

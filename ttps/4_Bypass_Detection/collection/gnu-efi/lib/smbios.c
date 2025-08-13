@@ -5,7 +5,7 @@ Copyright (c) 2000  Intel Corporation
 Module Name:
 
     Smbios.c
-    
+
 Abstract:
 
     Lib fucntions for SMBIOS. Used to get system serial number and GUID
@@ -34,10 +34,10 @@ LibGetSmbiosSystemGuidAndSerialNumber (
 {
     EFI_STATUS                  Status;
     SMBIOS_STRUCTURE_TABLE      *SmbiosTable;
-    SMBIOS_STRUCTURE_POINTER    Smbios;  
-    SMBIOS_STRUCTURE_POINTER    SmbiosEnd;  
+    SMBIOS_STRUCTURE_POINTER    Smbios;
+    SMBIOS_STRUCTURE_POINTER    SmbiosEnd;
     UINT16                      Index;
-    
+
     Status = LibGetSystemConfigurationTable(&SMBIOSTableGuid, (VOID**)&SmbiosTable);
     if (EFI_ERROR(Status)) {
         return EFI_NOT_FOUND;
@@ -57,7 +57,7 @@ LibGetSmbiosSystemGuidAndSerialNumber (
             //
             // SMBIOS tables are byte packed so we need to do a byte copy to
             //  prevend alignment faults on IA-64.
-            
+
             CopyMem (SystemGuid, &Smbios.Type1->Uuid, sizeof(EFI_GUID));
             *SystemSerialNumber = LibGetSmbiosString(&Smbios, Smbios.Type1->SerialNumber);
             return EFI_SUCCESS;
@@ -70,7 +70,7 @@ LibGetSmbiosSystemGuidAndSerialNumber (
 
         if (Smbios.Raw >= SmbiosEnd.Raw) {
             //
-            // SMBIOS 2.1 incorrectly stated the length of SmbiosTable as 0x1e. 
+            // SMBIOS 2.1 incorrectly stated the length of SmbiosTable as 0x1e.
             //  given this we must double check against the lenght of
             /// the structure. My home PC has this bug.ruthard
             //
@@ -92,7 +92,7 @@ LibGetSmbiosString (
 
     Arguments:
         Smbios - Pointer to SMBIOS structure
-        StringNumber - String number to return. -1 is used to skip all strings and 
+        StringNumber - String number to return. -1 is used to skip all strings and
             point to the next SMBIOS structure.
 
     Returns:
@@ -128,8 +128,8 @@ LibGetSmbiosString (
             //  if you pass in a -1 you will always get here
             //
             Smbios->Raw = (UINT8 *)++String;
-            return NULL;        
+            return NULL;
         }
     }
-    return NULL;        
+    return NULL;
 }

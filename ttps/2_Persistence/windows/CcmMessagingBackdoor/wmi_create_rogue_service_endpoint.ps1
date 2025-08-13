@@ -1,5 +1,5 @@
-$namespace_persist = "root\ccm\Policy\DefaultMachine\RequestedConfig" 
-$namespace_live = "root\ccm\Policy\Machine\ActualConfig" 
+$namespace_persist = "root\ccm\Policy\DefaultMachine\RequestedConfig"
+$namespace_live = "root\ccm\Policy\Machine\ActualConfig"
 $className = "CCM_Service_EndpointConfiguration"
 
 $rogue_servicename = "MP_Backdoor"

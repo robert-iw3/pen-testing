@@ -22,7 +22,7 @@ namespace Alphaleonis.Win32.Filesystem
          SetHandle(handle);
       }
 
-      
+
       /// <summary>When overridden in a derived class, executes the code required to free the handle.</summary>
       /// <returns>
       /// <c>true</c> if the handle is released successfully; otherwise, in the event of a catastrophic failure,

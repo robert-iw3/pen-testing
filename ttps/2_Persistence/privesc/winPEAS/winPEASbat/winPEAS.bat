@@ -6,7 +6,7 @@ CALL :SetOnce
 REM :: WinPEAS - Windows local Privilege Escalation Awesome Script
 REM :: Code by carlospolop; Re-Write by ThisLimn0
 
-REM Registry scan of other drives besides 
+REM Registry scan of other drives besides
 REM /////true or false
 SET long=false
 
@@ -21,9 +21,9 @@ IF "!CurrentFolder!" NEQ "!CurrentFolder: =!" (
 :Splash
 ECHO.
 CALL :ColorLine "            %E%32m((,.,/((((((((((((((((((((/,  */%E%97m"
-CALL :ColorLine "     %E%32m,/*,..*(((((((((((((((((((((((((((((((((,%E%97m"              
-CALL :ColorLine "   %E%32m,*/((((((((((((((((((/,  %E%92m.*//((//**,%E%32m .*((((((*%E%97m"       
-CALL :ColorLine "   %E%32m((((((((((((((((* %E%94m*****%E%32m,,,/########## %E%32m.(* ,((((((%E%97m"   
+CALL :ColorLine "     %E%32m,/*,..*(((((((((((((((((((((((((((((((((,%E%97m"
+CALL :ColorLine "   %E%32m,*/((((((((((((((((((/,  %E%92m.*//((//**,%E%32m .*((((((*%E%97m"
+CALL :ColorLine "   %E%32m((((((((((((((((* %E%94m*****%E%32m,,,/########## %E%32m.(* ,((((((%E%97m"
 CALL :ColorLine "   %E%32m(((((((((((/* %E%94m******************%E%32m/####### %E%32m.(. ((((((%E%97m"
 CALL :ColorLine "   %E%32m((((((.%E%92m.%E%94m******************%E%97m/@@@@@/%E%94m***%E%92m/######%E%32m /((((((%E%97m"
 CALL :ColorLine "   %E%32m,,.%E%92m.%E%94m**********************%E%97m@@@@@@@@@@(%E%94m***%E%92m,####%E%32m ../(((((%E%97m"
@@ -37,7 +37,7 @@ CALL :ColorLine "   %E%32m.(%E%92m(######################################(%E%94m
 CALL :ColorLine "   %E%32m.(%E%92m(######(,.***.,(###################(..***(/%E%94m*********%E%32m..(%E%97m"
 CALL :ColorLine "   %E%32m.(%E%92m(######*(#####((##################((######/(%E%94m********%E%32m..(%E%97m"
 CALL :ColorLine "   %E%32m.(%E%92m(##################(/**********(################(%E%94m**%E%32m...(%E%97m"
-CALL :ColorLine "   %E%32m.((%E%92m(####################/*******(###################%E%32m.((((%E%97m" 
+CALL :ColorLine "   %E%32m.((%E%92m(####################/*******(###################%E%32m.((((%E%97m"
 CALL :ColorLine "   %E%32m.((((%E%92m(############################################/%E%32m  /((%E%97m"
 CALL :ColorLine "   %E%32m..((((%E%92m(#########################################(%E%32m..(((((.%E%97m"
 CALL :ColorLine "   %E%32m....((((%E%92m(#####################################(%E%32m .((((((.%E%97m"
@@ -197,7 +197,7 @@ CALL :T_Progress 1
 
 :AVSettings
 CALL :ColorLine " %E%33m[+]%E%97m Registered Anti-Virus(AV)"
-WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName /Format:List | more 
+WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName /Format:List | more
 ECHO.Checking for defender whitelisted PATHS
 reg query "HKLM\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths" 2>nul
 CALL :T_Progress 1
@@ -403,19 +403,19 @@ CALL :ColorLine " %E%33m[+]%E%97m ADMINISTRATORS GROUPS"
 REM seems to be localised
 net localgroup Administrators 2>nul
 net localgroup Administradores 2>nul
-ECHO. 
+ECHO.
 CALL :T_Progress 1
 
 :BasicUserInfoLoggedUser
 CALL :ColorLine " %E%33m[+]%E%97m CURRENT LOGGED USERS"
 quser
-ECHO. 
+ECHO.
 CALL :T_Progress 1
 
 :KerberosTickets
 CALL :ColorLine " %E%33m[+]%E%97m Kerberos Tickets"
 klist
-ECHO. 
+ECHO.
 CALL :T_Progress 1
 
 :CurrentClipboard
@@ -512,7 +512,7 @@ ECHO.   [?] https://book.hacktricks.wiki/en/windows-hardening/windows-local-priv
 ECHO.
 ECHO.Looking inside %appdata%\Microsoft\Credentials\
 ECHO.
-dir /b/a %appdata%\Microsoft\Credentials\ 2>nul 
+dir /b/a %appdata%\Microsoft\Credentials\ 2>nul
 CALL :T_Progress 2
 ECHO.
 ECHO.Looking inside %localappdata%\Microsoft\Credentials\
@@ -523,23 +523,23 @@ ECHO.
 
 :UnattendedFiles
 CALL :ColorLine " %E%33m[+]%E%97m Unattended files"
-IF EXIST %WINDIR%\sysprep\sysprep.xml ECHO.%WINDIR%\sysprep\sysprep.xml exists. 
-IF EXIST %WINDIR%\sysprep\sysprep.inf ECHO.%WINDIR%\sysprep\sysprep.inf exists. 
-IF EXIST %WINDIR%\sysprep.inf ECHO.%WINDIR%\sysprep.inf exists. 
-IF EXIST %WINDIR%\Panther\Unattended.xml ECHO.%WINDIR%\Panther\Unattended.xml exists. 
-IF EXIST %WINDIR%\Panther\Unattend.xml ECHO.%WINDIR%\Panther\Unattend.xml exists. 
-IF EXIST %WINDIR%\Panther\Unattend\Unattend.xml ECHO.%WINDIR%\Panther\Unattend\Unattend.xml exists. 
+IF EXIST %WINDIR%\sysprep\sysprep.xml ECHO.%WINDIR%\sysprep\sysprep.xml exists.
+IF EXIST %WINDIR%\sysprep\sysprep.inf ECHO.%WINDIR%\sysprep\sysprep.inf exists.
+IF EXIST %WINDIR%\sysprep.inf ECHO.%WINDIR%\sysprep.inf exists.
+IF EXIST %WINDIR%\Panther\Unattended.xml ECHO.%WINDIR%\Panther\Unattended.xml exists.
+IF EXIST %WINDIR%\Panther\Unattend.xml ECHO.%WINDIR%\Panther\Unattend.xml exists.
+IF EXIST %WINDIR%\Panther\Unattend\Unattend.xml ECHO.%WINDIR%\Panther\Unattend\Unattend.xml exists.
 IF EXIST %WINDIR%\Panther\Unattend\Unattended.xml ECHO.%WINDIR%\Panther\Unattend\Unattended.xml exists.
 IF EXIST %WINDIR%\System32\Sysprep\unattend.xml ECHO.%WINDIR%\System32\Sysprep\unattend.xml exists.
 IF EXIST %WINDIR%\System32\Sysprep\unattended.xml ECHO.%WINDIR%\System32\Sysprep\unattended.xml exists.
 IF EXIST %WINDIR%\..\unattend.txt ECHO.%WINDIR%\..\unattend.txt exists.
-IF EXIST %WINDIR%\..\unattend.inf ECHO.%WINDIR%\..\unattend.inf exists. 
+IF EXIST %WINDIR%\..\unattend.inf ECHO.%WINDIR%\..\unattend.inf exists.
 ECHO.
 CALL :T_Progress 2
 
 :SAMSYSBackups
 CALL :ColorLine " %E%33m[+]%E%97m SAM and SYSTEM backups"
-IF EXIST %WINDIR%\repair\SAM ECHO.%WINDIR%\repair\SAM exists. 
+IF EXIST %WINDIR%\repair\SAM ECHO.%WINDIR%\repair\SAM exists.
 IF EXIST %WINDIR%\System32\config\RegBack\SAM ECHO.%WINDIR%\System32\config\RegBack\SAM exists.
 IF EXIST %WINDIR%\System32\config\SAM ECHO.%WINDIR%\System32\config\SAM exists.
 IF EXIST %WINDIR%\repair\SYSTEM ECHO.%WINDIR%\repair\SYSTEM exists.
@@ -582,7 +582,7 @@ CALL :T_Progress 2
 :AppCMD
 CALL :ColorLine " %E%33m[+]%E%97m AppCmd"
 ECHO.   [?] https://book.hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/index.html#appcmdexe
-IF EXIST %systemroot%\system32\inetsrv\appcmd.exe ECHO.%systemroot%\system32\inetsrv\appcmd.exe exists. 
+IF EXIST %systemroot%\system32\inetsrv\appcmd.exe ECHO.%systemroot%\system32\inetsrv\appcmd.exe exists.
 ECHO.
 CALL :T_Progress 2
 
@@ -636,7 +636,7 @@ if "%long%" == "true" (
 	        findstr /s/n/m/i password *.xml *.ini *.txt *.cfg *.config 2>nul | findstr /v /i "\\AppData\\Local \\WinSxS ApnDatabase.xml \\UEV\\InboxTemplates \\Microsoft.Windows.Cloud \\Notepad\+\+\\ vmware cortana alphabet \\7-zip\\" 2>nul
             ECHO.
             CALL :ColorLine " %E%33m[+]%E%97m FILES WHOSE NAME CONTAINS THE WORD PASS CRED or .config not inside \Windows\"
-            dir /s/b *pass* == *cred* == *.config* == *.cfg 2>nul | findstr /v /i "\\windows\\"  
+            dir /s/b *pass* == *cred* == *.config* == *.cfg 2>nul | findstr /v /i "\\windows\\"
             ECHO.
 		)
 	)
@@ -647,7 +647,7 @@ if "%long%" == "true" (
 TITLE WinPEAS - Windows local Privilege Escalation Awesome Script - Idle
 ECHO.---
 ECHO.Scan complete.
-PAUSE >NUL 
+PAUSE >NUL
 EXIT /B
 
 :::-Subroutines

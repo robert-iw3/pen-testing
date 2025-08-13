@@ -57,7 +57,7 @@ public:
         historyIndex = -1;
         tmpCommandLine = "";
     }
-    
+
     const QStringList& getHistory() const { return history; }
 
 protected:

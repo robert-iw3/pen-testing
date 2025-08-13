@@ -47,7 +47,7 @@ namespace ysoserial.Generators
                 IGenerator generator = new TextFormattingRunPropertiesGenerator();
                 binaryFormatterPayload = (byte[])generator.GenerateWithNoTest("BinaryFormatter", inputArgs);
             }
- 
+
             var b64encoded = Convert.ToBase64String(binaryFormatterPayload);
 
             if (formatter.Equals("binaryformatter", StringComparison.OrdinalIgnoreCase)

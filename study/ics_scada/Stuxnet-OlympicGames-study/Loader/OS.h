@@ -3,7 +3,7 @@
 
 #include "StdAfx.h"
 
-void 
+void
 CheckSystemVersion
 (BOOL bUknownBool);
 

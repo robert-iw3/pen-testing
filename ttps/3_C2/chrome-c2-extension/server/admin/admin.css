@@ -15,8 +15,8 @@ body {
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
-    margin: 0 auto; 
-    display: block; 
+    margin: 0 auto;
+    display: block;
     transition: background 0.3s ease, color 0.3s ease;
 }
 
@@ -26,10 +26,10 @@ body {
 }
 
 #metaMaskPresetForm {
-    visibility: hidden; 
-    opacity: 0; 
-    max-height: 0; 
-    overflow: hidden; 
+    visibility: hidden;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
     margin-top: 10px;
     transition: max-height 0.3s ease, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
     z-index: 1000;
@@ -37,9 +37,9 @@ body {
 }
 
 #metaMaskPresetForm.open {
-    visibility: visible; 
-    opacity: 1; 
-    max-height: 800px; 
+    visibility: visible;
+    opacity: 1;
+    max-height: 800px;
 }
 
 .container {
@@ -56,10 +56,10 @@ body {
 header {
     margin-bottom: 20px;
     display: flex;
-    flex-direction: column; 
-    align-items: center;    
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 10px;              
+    gap: 10px;
     background: none;
     border: none;
     padding: 0;
@@ -87,14 +87,14 @@ h1, h2, h3 {
 h1 {
     font-size: 28px;
     margin-bottom: 10px;
-    color: #ccc; 
+    color: #ccc;
     text-align: center;
 }
 
 h2 {
     font-size: 20px;
     margin-bottom: 10px;
-    border-bottom: 1px solid #555; 
+    border-bottom: 1px solid #555;
     padding-bottom: 5px;
     text-align: center;
     color: #ccc;
@@ -111,15 +111,15 @@ h3 {
 
 .sectionHint {
     font-size: 14px;
-    color: #bbb; 
+    color: #bbb;
     margin-bottom: 10px;
 }
 
 section {
     margin-bottom: 40px;
-    border: 1px solid #444; 
-    padding: 20px; 
-    background: #111; 
+    border: 1px solid #444;
+    padding: 20px;
+    background: #111;
     border-radius: 8px;
     box-shadow: none;
 }
@@ -159,7 +159,7 @@ label {
     display: block;
     font-weight: 400;
     margin-bottom: 6px;
-    color: #ccc; 
+    color: #ccc;
     font-size: 14px;
 }
 
@@ -169,7 +169,7 @@ input[type="text"], input[type="password"], input[type="number"] {
     border: none;
     border-radius: 4px;
     font-size: 14px;
-    color: #ccc; 
+    color: #ccc;
     background-color: #000;
     box-shadow: none;
 }
@@ -177,13 +177,13 @@ input[type="text"], input[type="password"], input[type="number"] {
 input[type="text"]::placeholder,
 input[type="password"]::placeholder,
 input[type="number"]::placeholder {
-    color: #999; 
+    color: #999;
 }
 
 button {
     background: #000;
     color: #ccc;
-    border: 1px solid #555; 
+    border: 1px solid #555;
     padding: 5px 10px;
     cursor: pointer;
     margin-top: 10px;
@@ -195,8 +195,8 @@ button {
 }
 
 button:hover {
-    background-color: #555; 
-    color: #fff;      
+    background-color: #555;
+    color: #fff;
 }
 
 .accordion-item {
@@ -216,7 +216,7 @@ button:hover {
 }
 
 .accordion-header:hover {
-    background: #333; 
+    background: #333;
 }
 
 .accordion-content {
@@ -250,7 +250,7 @@ button:hover {
 
 .presetGroup label {
     font-size: 12px;
-    color: #ccc; 
+    color: #ccc;
     margin-bottom: 4px;
     display: block;
     width: 100%;
@@ -262,8 +262,8 @@ button:hover {
     width: 100%;
     padding: 5px;
     background: #222;
-    border: 1px solid #555; 
-    color: #ccc;           
+    border: 1px solid #555;
+    color: #ccc;
     box-sizing: border-box;
 }
 
@@ -303,7 +303,7 @@ button:hover {
 }
 
 #requestHistory li:hover {
-    background-color: #333; 
+    background-color: #333;
 }
 
 #activityTable {
@@ -311,7 +311,7 @@ button:hover {
     margin-top: 20px;
     border-collapse: collapse;
     background-color: #000;
-    color: #ccc; 
+    color: #ccc;
 }
 
 #activityTable th, #activityTable td {
@@ -395,14 +395,14 @@ section {
 }
 
 #metaMaskTable th {
-    background: #444; 
-    color: #fff; 
+    background: #444;
+    color: #fff;
     text-align: left;
 }
 
 #metaMaskTable td {
     background: #111;
-    color: #ccc; 
+    color: #ccc;
 }
 
 #presetStatus {
@@ -458,7 +458,7 @@ nav ul li a::after {
     bottom: -2px;
     width: 0%;
     height: 2px;
-    background: #ccc; 
+    background: #ccc;
     transition: width 0.3s ease-in-out;
 }
 

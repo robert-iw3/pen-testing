@@ -11,7 +11,7 @@ See the [TeamFiltration](https://github.com/Flangvik/TeamFiltration/wiki/Home) w
 This tool has been used internally at TrustedSec since January 2021 and was publicly released in my talk [Taking a Dump In The Cloud](https://youtu.be/GpZTQHLKelg) during DefCON30.
 
 ## Download
-[You can download the latest precompiled release for Linux, Windows and MacOS ](https://github.com/Flangvik/TeamFiltration/releases/latest)   
+[You can download the latest precompiled release for Linux, Windows and MacOS ](https://github.com/Flangvik/TeamFiltration/releases/latest)
 
 **The releases are precompiled into a single application-dependent binary. The size go up, but you do not need NET or any other dependencies to run them.**
 
@@ -47,7 +47,7 @@ This tool has been used internally at TrustedSec since January 2021 and was publ
    ╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝╝
 
 [❤] TeamFiltration V3.5.5 PUBLIC, created by @Flangvik at @TrustedSec
-[+] Args parsed 
+[+] Args parsed
 Usage:
 
    --outpath     Output path to store database and exfiltrated information (Needed for all modules)
@@ -66,7 +66,7 @@ Usage:
          --teams               Exfiltrate information from Teams API (files, chatlogs, attachments, contactlist)
          --teams-db            Exfiltrate cookies and authentication tokens from an exfiltrated Teams database
          --onedrive            Exfiltrate information from OneDrive/SharePoint API (accessible SharePoint files and the users entire OneDrive directory)
-         --owa                 Exfiltrate information from the Outlook REST API (The last 2k emails, both sent and received) 
+         --owa                 Exfiltrate information from the Outlook REST API (The last 2k emails, both sent and received)
                --owa-limit          Set the max amount of emails to exfiltrate, default is 2k.
          --jwt-tokens          Dump all gathered JSON formated JTW-tokens for SSO resources (MsGraph,AdGraph, Outlook, SharePoint, OneDrive, Teams)
 
@@ -116,7 +116,7 @@ Usage:
         --outpath C:\Clients\FooBar\TFOutput --config myCustomConfig.json --spray --push-locked --months-only --exclude C:\Clients\FooBar\Exclude_Emails.txt
         --outpath C:\Clients\FooBar\TFOutput --config myCustomConfig.json --spray --passwords C:\Clients\2021\FooBar\Generic\Passwords.txt --time-window 13:00-22:00
         --outpath C:\Clients\FooBar\TFOutput --config myCustomConfig.json --exfil --cookie-dump C:\\CookieData.txt --all
-        --outpath C:\Clients\FooBar\TFOutput --config myCustomConfig.json --exfil --aad 
+        --outpath C:\Clients\FooBar\TFOutput --config myCustomConfig.json --exfil --aad
         --outpath C:\Clients\FooBar\TFOutput --config myCustomConfig.json --exfil --tokens C:\\OutputTokens.txt --onedrive --owa
         --outpath C:\Clients\FooBar\TFOutput --config myCustomConfig.json --exfil --teams --owa --owa-limit 5000
         --outpath C:\Clients\FooBar\TFOutput --config myCustomConfig.json --debug --exfil --onedrive
@@ -130,9 +130,9 @@ Usage:
 ## Credits
 
 - [GitHub - KoenZomers/OneDriveAPI: API in .NET to communicate with OneDrive Personal and OneDrive for Business](https://github.com/KoenZomers/OneDriveAPI)
-- [Research into Undocumented Behavior of Azure AD Refresh Tokens ](https://github.com/secureworks/family-of-client-ids-research) 
+- [Research into Undocumented Behavior of Azure AD Refresh Tokens ](https://github.com/secureworks/family-of-client-ids-research)
 - [WS API Gateway management tool for creating on the fly HTTP pass-through proxies for unique IP rotation](https://github.com/ustayready/fireprox)
 - Credits to [Ryan](https://twitter.com/detectdotdev) for validating and discussing my observations / questions!
-- The entire [TrustedSec](https://TrustedSec.com) team for helping me polish this tool! 
+- The entire [TrustedSec](https://TrustedSec.com) team for helping me polish this tool!
 - The OneDrive enumeration method found by @nyxgeek and script [onedrive_user_enum](https://github.com/nyxgeek/onedrive_user_enum)
 

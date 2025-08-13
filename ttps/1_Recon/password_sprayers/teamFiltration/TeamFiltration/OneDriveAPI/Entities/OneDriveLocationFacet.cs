@@ -6,7 +6,7 @@ namespace KoenZomers.OneDrive.Api.Entities
     {
         [JsonProperty("altitude")]
         public double Altitude { get; set; }
-        
+
         [JsonProperty("latitude")]
         public double Latitude { get; set; }
 

@@ -72,7 +72,7 @@ std::string RestAPI::handleRequest(const std::string &request) {
     }
 
     logRequest(request);
-    
+
     // Extract token for authentication
     std::string token = "extracted_token"; // Placeholder extraction logic
     authenticateRequest(token);

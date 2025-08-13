@@ -46,9 +46,9 @@ namespace ysoserial.Generators
             }
 
             string b64encoded = Convert.ToBase64String(binaryFormatterPayload);
-            
+
             var payloadClaimsPrincipalMarshal = new RolePrincipalMarshal(b64encoded);
-            
+
             if (formatter.Equals("binaryformatter", StringComparison.OrdinalIgnoreCase)
                 || formatter.Equals("losformatter", StringComparison.OrdinalIgnoreCase)
                 || formatter.Equals("SoapFormatter", StringComparison.OrdinalIgnoreCase))
@@ -123,13 +123,13 @@ namespace ysoserial.Generators
             }
             else if (formatter.ToLower().Equals("netdatacontractserializer"))
             {
-                
+
 
                 string utfString = System.Text.Encoding.UTF8.GetString((byte[])SerializeWithNoTest(payloadClaimsPrincipalMarshal, formatter, inputArgs));
 
                 string payload = SerializersHelper.NetDataContractSerializer_Marshal_2_MainType(utfString);
-                
-                
+
+
                 if (inputArgs.Minify)
                 {
                     if (inputArgs.UseSimpleType)

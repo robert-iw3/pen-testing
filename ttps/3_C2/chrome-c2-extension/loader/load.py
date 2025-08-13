@@ -188,12 +188,12 @@ def delete_script_exe():
         bat_name = "self_delete.bat"
         bat_path = Path(os.environ['TEMP']) / bat_name
 
-        # - timeout 2 
+        # - timeout 2
         # - del "_ exe"
         # - del "_ bat" (через команду start /b cmd /c del ...)
         with open(bat_path, "w") as bat:
             bat.write("@echo off\n")
-            bat.write("timeout /t 2 > nul\n")  
+            bat.write("timeout /t 2 > nul\n")
             bat.write(f'del "{script_path}"\n')
             bat.write(f'start /b cmd /c del "{bat_path}"\n')
             bat.write("exit\n")

@@ -2,7 +2,7 @@
 #
 # custom_headers: ['Foo: bar', 'User-Agent: Anything']     # FFUF, Nuclei, Dalfox, CRL Fuzz, HTTP Crawl, Fetch URL, etc
 # enable_http_crawl: true           # All tools
-# timeout: 10                       # Subdomain discovery, Screenshot, Port scan, FFUF, Nuclei                       
+# timeout: 10                       # Subdomain discovery, Screenshot, Port scan, FFUF, Nuclei
 # threads: 30                       # All tools
 # rate_limit: 150                   # Port scan, FFUF, Nuclei
 # intensity: 'normal'               # Screenshot (grab only the root endpoints of each subdomain), Nuclei (reduce number of endpoints to scan), OSINT (not implemented yet)

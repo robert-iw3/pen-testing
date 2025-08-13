@@ -79,7 +79,7 @@ namespace ysoserial.Helpers
                 if (isNotInternalRegEx.IsMatch(xmlDocument))
                 {
                     GroupCollection groups = match.Groups;
-                    String namespaceValue = groups[2].Value; 
+                    String namespaceValue = groups[2].Value;
                     if (Uri.UnescapeDataString(namespaceValue) != namespaceValue)
                     {
                         // URL decoding name spaces
@@ -242,9 +242,9 @@ namespace ysoserial.Helpers
                     }
 
                     xmlDocument = xmlDocument.Replace(htmlEncodedValue, "<![CDATA[" + newValue + "]]>");
-                    
+
                 }
-             
+
             }
 
             return xmlDocument;
@@ -458,7 +458,7 @@ Not sure why this one did not work so I had to change $vtheElem/descendant::* to
                     // remove
                     xmlDocument = xmlDocument.Replace(@"id=""" + refIdName + @"""", "");
                 }
-                
+
             }
 
             return xmlDocument;

@@ -5,7 +5,7 @@
 # Description: In rootless mode privilege escalation to root will not be possible.
 # License: GNU GPL
 # Version: 1.0
-# Functions Used: 
+# Functions Used:
 # Global Variables:
 # Initial Functions:
 # Generated Global Variables: $TIP_DOCKER_ROOTLESS

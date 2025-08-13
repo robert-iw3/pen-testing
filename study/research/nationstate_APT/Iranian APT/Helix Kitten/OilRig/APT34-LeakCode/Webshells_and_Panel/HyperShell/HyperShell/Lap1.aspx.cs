@@ -16,11 +16,11 @@ namespace HyperShell
         protected void Page_Load(object sender, EventArgs e)
         {
             #region [ Test System.IO.Path ]
-           
+
             #endregion
 
             #region [ Regex nbt ]
-           
+
             #endregion
         }
 

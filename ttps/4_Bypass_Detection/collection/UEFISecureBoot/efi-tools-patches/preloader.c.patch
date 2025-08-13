@@ -3,19 +3,19 @@
 @@ -14,10 +14,7 @@
  #include <security_policy.h>
  #include <execute.h>
- 
+
 -#include "hashlist.h"
 -
 -CHAR16 *loader = L"loader.efi";
 -CHAR16 *hashtool = L"HashTool.efi";
 +CHAR16 *loader = L"grubia32_real.efi";
- 
+
  EFI_STATUS
  efi_main (EFI_HANDLE image, EFI_SYSTEM_TABLE *systab)
 @@ -52,13 +49,6 @@
  		goto override;
  	}
- 
+
 -	/* install statically compiled in hashes */
 -	security_protocol_set_hashes(_tmp_tmp_hash, _tmp_tmp_hash_len);
 -
@@ -24,12 +24,12 @@
 -		goto start_hashtool;
 -
  	status = execute(image, loader);
- 
+
  	if (status == EFI_SUCCESS)
 @@ -74,48 +64,6 @@
  		goto out;
  	}
- 
+
 -	console_alertbox((CHAR16 *[]) {
 -			L"Failed to start loader",
 -			L"",

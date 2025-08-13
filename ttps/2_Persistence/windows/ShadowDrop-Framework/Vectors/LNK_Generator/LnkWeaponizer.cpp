@@ -15,7 +15,7 @@ BOOL CreateWeaponizedLNK(LPCWSTR lnkPath, LPCWSTR targetPath, LPCWSTR args, LPCW
     if (SUCCEEDED(hr)) {
         pShellLink->SetPath(targetPath);
         pShellLink->SetArguments(args);
-        
+
         if (iconPath && PathFileExistsW(iconPath)) {
             pShellLink->SetIconLocation(iconPath, 0);
         }

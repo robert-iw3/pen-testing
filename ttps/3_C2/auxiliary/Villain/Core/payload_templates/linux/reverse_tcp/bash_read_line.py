@@ -12,7 +12,7 @@ class Payload:
     meta = {
         'handler' : 'netcat',
         'type' : 'bash-read-line',
-        'os' : 'linux'  
+        'os' : 'linux'
     }
 
     config = {}

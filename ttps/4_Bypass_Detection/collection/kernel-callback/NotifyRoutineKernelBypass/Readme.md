@@ -247,7 +247,7 @@ The change needs to be done on both `findprocesscallbackroutine` and `findproces
 
 `findprocesscallbackroutine` is the original function from the original exploit which will null out the entry.
 
-The original code will do a `byte search` to find the location of the function that is using the callback table (`nt!PspSetCreateProcessNotifyRoutine`) starting from a exported function close to it. 
+The original code will do a `byte search` to find the location of the function that is using the callback table (`nt!PspSetCreateProcessNotifyRoutine`) starting from a exported function close to it.
 
 First you need double check the bytes did not change for your windows OS.
 
@@ -334,7 +334,7 @@ void notifyRoutine::findprocesscallbackroutine(DWORD64 remove) {
 	const DWORD64 IoDeleteSymbolicLink = GetFunctionAddress("IoDeleteSymbolicLink");
 	const DWORD64 RtlDestroyHeap = GetFunctionAddress("RtlDestroyHeap");
 
-	//the address returned by the patternsearch is just below the offsets. 
+	//the address returned by the patternsearch is just below the offsets.
 	DWORD64 patternaddress = PatternSearch(IoDeleteSymbolicLink, RtlDestroyHeap, offsets.process);
 	Log("[+] patternaddress: %p", patternaddress);
 

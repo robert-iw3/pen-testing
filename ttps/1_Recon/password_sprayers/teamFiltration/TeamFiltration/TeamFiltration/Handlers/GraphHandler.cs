@@ -26,7 +26,7 @@ namespace TeamFiltration.Handlers
             // This is for debug , eg burp
             var proxy = new WebProxy
             {
-                Address = new Uri($"http://127.0.0.1:8080"), 
+                Address = new Uri($"http://127.0.0.1:8080"),
                 BypassProxyOnLocal = false,
                 UseDefaultCredentials = false,
 
@@ -49,10 +49,10 @@ namespace TeamFiltration.Handlers
 
 
         }
-       
+
         public async Task<GetMembers> GetGroupMembersMsGraph(string groupId)
         {
-         
+
             //TODO: Implement paging for the grap ms API
             var getGroupMemReq = await _graphClient.PollyGetAsync($"https://graph.microsoft.com/v1.0/groups/{groupId}/members");
             var getGroupMemResp = await getGroupMemReq.Content.ReadAsStringAsync();
@@ -154,7 +154,7 @@ namespace TeamFiltration.Handlers
             var GetDomainsAdGraphResp = await GetDomainsAdGraphReq.Content.ReadAsStringAsync();
             var GetDomainsAdGraphDataResp = JsonConvert.DeserializeObject<DomainRespAAD>(GetDomainsAdGraphResp);
 
-         
+
             if (string.IsNullOrEmpty(GetDomainsAdGraphDataResp.odatanextLink))
                 fetchedAll = true;
 
@@ -254,7 +254,7 @@ namespace TeamFiltration.Handlers
             return getUsersAdGraphDataResp;
         }
 
-      
+
 
     }
 }

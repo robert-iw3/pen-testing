@@ -35,12 +35,12 @@ http://127.0.0.1/%61dmin
 http://127.0.0.1/%2561dmin
 http://1.1.1.1 &@2.2.2.2# @3.3.3.3/
 http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ
-0://evil.com:80;http://google.com:80/ 
+0://evil.com:80;http://google.com:80/
 http://127.1.1.1:80\@127.2.2.2:80/
 http://127.1.1.1:80\@@127.2.2.2:80/
 http://127.1.1.1:80:\@@127.2.2.2:80/
 http://127.1.1.1:80#\@127.2.2.2:80/
-jar:scheme://domain/path!/ 
+jar:scheme://domain/path!/
 jar:http://127.0.0.1!/
 jar:https://127.0.0.1!/
 jar:ftp://127.0.0.1!/
@@ -102,12 +102,12 @@ http://metadata.google.internal/computeMetadata/v1/project/project-id
 http://metadata.google.internal/computeMetadata/v1/instance/disks/?recursive=true
 http://metadata.google.internal/computeMetadata/v1beta1/instance/service-accounts/default/token?alt=json
 http://169.254.169.254/metadata/v1.json
-http://169.254.169.254/metadata/v1/ 
+http://169.254.169.254/metadata/v1/
 http://169.254.169.254/metadata/v1/id
 http://169.254.169.254/metadata/v1/user-data
 http://169.254.169.254/metadata/v1/hostname
 http://169.254.169.254/metadata/v1/region
-http://169.254.169.254/2009-04-04/meta-data/ 
+http://169.254.169.254/2009-04-04/meta-data/
 http://169.254.169.254/openstack
 http://192.0.0.192/latest/
 http://192.0.0.192/latest/user-data/

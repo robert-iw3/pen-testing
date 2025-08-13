@@ -30,8 +30,8 @@ This implementation of PetitPotam has some advantages over other public exploits
 ## Examples (ADCS Attack)
 
 SpecterOps published a [paper](https://www.specterops.io/assets/resources/Certified_Pre-Owned.pdf) in which they describe, among other things, how to gain full control over a Windows domain when abusing vulnerabilities in the "Active Directory Certificate Service" (ADCS). This research covers a vulnerability named ESC8 that allows NTLM based authentication to the AD CS Web Enrollment server.
-  
-Using the relayed machine account (NTLM) authentication from a Domain Controller we can enroll a machine certificate on the ADCS web enrollment server and use this certificate to request the Domain Controller its Kerberos TGT. 
+
+Using the relayed machine account (NTLM) authentication from a Domain Controller we can enroll a machine certificate on the ADCS web enrollment server and use this certificate to request the Domain Controller its Kerberos TGT.
 With the Domain Controller TGT we can then perform a DCSync and pull the NTLM hash of any account (krbtgt e.g.).
 
 ## Credits

@@ -24,7 +24,7 @@ const StyledButton = styled.button<ButtonProps>`
   border: none;
   border-radius: 0.25rem;
   font-family: PTMono;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   width: -moz-available;
   display: flex;
   justify-content: center;

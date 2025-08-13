@@ -18,7 +18,7 @@ extern ItemEnumerator* sharedItemEnumerator;
 
 @interface DylibInserts : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

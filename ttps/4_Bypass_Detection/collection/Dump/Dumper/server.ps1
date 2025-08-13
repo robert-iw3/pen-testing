@@ -379,7 +379,7 @@ function Run-Receiver {
         Write-Host -NoNewline ("`r[Восстановление] [$bar] {0:5.1f}%" -f $progress)
     }
     Write-Host ""
-    
+
     $reconstructed = $reconstructed[0..($total_size - 1)]
     try {
         $dump_data = Decompress-Zlib $reconstructed
@@ -392,7 +392,7 @@ function Run-Receiver {
         [System.IO.File]::WriteAllBytes($compressed_file, $reconstructed)
         Write-Log "INFO" "Сжатый дамп сохранён в '$compressed_file'."
     }
-    
+
     $missing_fragments = @()
     for ($i = 0; $i -lt $total_fragments; $i++) {
         if (-not $data_packets.ContainsKey($i)) {

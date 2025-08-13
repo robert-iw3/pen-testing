@@ -32,7 +32,7 @@ class FileRecord:
         self.remove_path = remove_path
         self.type = type
         self.search_in = self.__resolve_search_in(search_in)
-    
+
     def __resolve_search_in(self, search_in):
         """ Resolve spacial values to the correct directories """
 
@@ -46,9 +46,9 @@ class FileRecord:
                 search_in = list(set(search_in + COMMON_DIR_FOLDERS))
             else:
                 search_in = list(set(search_in + COMMON_FILE_FOLDERS))
-        
+
         #Check that folders to search in are specified in ROOT_FOLDER
         for r in search_in:
             assert r in ROOT_FOLDER, f"{r} not in {ROOT_FOLDER}"
-        
+
         return search_in

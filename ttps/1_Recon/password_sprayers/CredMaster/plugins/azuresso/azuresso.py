@@ -87,7 +87,7 @@ def azuresso_authenticate(url, username, password, useragent, pluginargs):
 
         xmlresponse = str(r.content)
         creds = username + ":" + password
-        error_code = extract_error(xmlresponse) 
+        error_code = extract_error(xmlresponse)
 
         # check our resopnse for error/response codes
         if "AADSTS50034" in xmlresponse:

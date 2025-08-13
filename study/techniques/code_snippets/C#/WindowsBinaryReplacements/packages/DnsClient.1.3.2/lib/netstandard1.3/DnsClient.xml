@@ -880,7 +880,7 @@
         </member>
         <member name="M:DnsClient.Protocol.SshfpRecord.#ctor(DnsClient.Protocol.ResourceRecordInfo,DnsClient.Protocol.SshfpAlgorithm,DnsClient.Protocol.SshfpFingerprintType,System.String)">
             <summary>
-            
+
             </summary>
             <param name="info">The information.</param>
             <param name="algorithm">The algorithm.</param>
@@ -3395,7 +3395,7 @@
              <![CDATA[
              var client = new LookupClient();
              var result = client.Query("google.com", QueryType.A);
-            
+
              foreach (var aRecord in result.Answers.ARecords())
              {
                  Console.WriteLine(aRecord);
@@ -3426,7 +3426,7 @@
              <![CDATA[
              var client = new LookupClient();
              var result = client.Query("google.com", QueryType.A);
-            
+
              foreach (var aRecord in result.Answers.ARecords())
              {
                  Console.WriteLine(aRecord);

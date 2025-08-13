@@ -8,13 +8,13 @@ public:
         BCRYPT_ALG_HANDLE hAesAlg;
         BCryptOpenAlgorithmProvider(&hAesAlg, BCRYPT_AES_ALGORITHM, NULL, 0);
         BCryptSetProperty(hAesAlg, BCRYPT_CHAINING_MODE, (BYTE*)BCRYPT_CHAIN_MODE_GCM, sizeof(BCRYPT_CHAIN_MODE_GCM), 0);
-        
+
         BCRYPT_KEY_HANDLE hKey;
         BCryptGenerateSymmetricKey(hAesAlg, &hKey, NULL, 0, key, keySize, 0);
-        
+
         BYTE iv[12] = {0};
         BCryptEncrypt(hKey, pData, dwDataLen, NULL, iv, sizeof(iv), pData, dwDataLen, &dwDataLen, 0);
-        
+
         BCryptDestroyKey(hKey);
         BCryptCloseAlgorithmProvider(hAesAlg, 0);
         return TRUE;

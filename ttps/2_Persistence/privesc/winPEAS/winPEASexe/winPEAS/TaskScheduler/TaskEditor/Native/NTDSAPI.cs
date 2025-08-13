@@ -60,7 +60,7 @@ namespace winPEAS.TaskScheduler.TaskEditor.Native
             }
 
             /// <summary>
-            /// Converts a directory service object name from any format to the UPN. 
+            /// Converts a directory service object name from any format to the UPN.
             /// </summary>
             /// <param name="name">The name to convert.</param>
             /// <returns>The corresponding UPN.</returns>
@@ -74,7 +74,7 @@ namespace winPEAS.TaskScheduler.TaskEditor.Native
             }
 
             /// <summary>
-            /// Converts an array of directory service object names from one format to another. Name conversion enables client applications to map between the multiple names used to identify various directory service objects. 
+            /// Converts an array of directory service object names from one format to another. Name conversion enables client applications to map between the multiple names used to identify various directory service objects.
             /// </summary>
             /// <param name="names">The names to convert.</param>
             /// <param name="flags">Values used to determine how the name syntax will be cracked.</param>

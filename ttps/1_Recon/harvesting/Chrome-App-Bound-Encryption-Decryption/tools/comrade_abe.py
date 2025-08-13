@@ -996,17 +996,17 @@ class ComInterfaceAnalyzer:
             except IOError as e:
                 self._log(f"{EMOJI_FILE} Error writing C++ stubs: {e}",
                           status_emoji=EMOJI_FAILURE)
-                
+
 def print_banner():
     banner_art = rf"""
 -------------------------------------------------------------------------------------------
 
 _________  ________      _____                    .___          _____ _____________________
 \_   ___ \ \_____  \    /     \____________     __| _/____     /  _  \\______   \_   _____/
-/    \  \/  /   |   \  /  \ /  \_  __ \__  \   / __ |/ __ \   /  /_\  \|    |  _/|    __)_ 
+/    \  \/  /   |   \  /  \ /  \_  __ \__  \   / __ |/ __ \   /  /_\  \|    |  _/|    __)_
 \     \____/    |    \/    Y    \  | \// __ \_/ /_/ \  ___/  /    |    \    |   \|        \
  \______  /\_______  /\____|__  /__|  (____  /\____ |\___  > \____|__  /______  /_______  /
-        \/         \/         \/           \/      \/    \/          \/       \/        \/ 
+        \/         \/         \/           \/      \/    \/          \/       \/        \/
 
                   by Alexander 'xaitax' Hagenah
 -------------------------------------------------------------------------------------------
@@ -1088,7 +1088,7 @@ if __name__ == "__main__":
         help="Enable scan mode. In this mode, TARGET should be a browser key ('chrome', 'edge', 'brave').\n"
              "The script will attempt to find the service executable and CLSID from the registry."
     )
-    
+
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
         sys.exit(1)
@@ -1098,7 +1098,7 @@ if __name__ == "__main__":
     if sys.platform != "win32":
         print(f"{EMOJI_FAILURE} This script relies on Windows-specific COM and registry functions and cannot run on this platform.")
         sys.exit(1)
-        
+
     print(f"{EMOJI_GEAR} COM ABE Interface Analyzer Initializing...")
 
     analyzer = ComInterfaceAnalyzer(
@@ -1118,12 +1118,12 @@ if __name__ == "__main__":
             parser.error(f"Executable path not found: {args.executable_path_or_browser_key}")
         analyzer.executable_path = args.executable_path_or_browser_key
         if args.known_clsid:
-            analyzer.discovered_clsid = args.known_clsid 
-            analyzer.browser_key = "manual_path_input" 
+            analyzer.discovered_clsid = args.known_clsid
+            analyzer.browser_key = "manual_path_input"
         analyzer.analyze(scan_mode=False, user_provided_clsid=args.known_clsid)
-    
+
     if analyzer.results or args.verbose:
         print(f"{EMOJI_INFO} Debug: analyzer.results has {len(analyzer.results)} items before printing.")
-    
+
     analyzer.print_results(output_cpp_stub_file=args.output_cpp_stub)
     print(f"\n{EMOJI_SUCCESS} Analysis complete.")

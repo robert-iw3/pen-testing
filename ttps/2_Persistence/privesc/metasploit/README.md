@@ -5,7 +5,7 @@ You can use this module to **automatically execute a PEASS script from a meterpr
 ## Manual Installation
 Copy the `peass.rb` file to the path `modules/post/multi/gather/` inside the metasploit installation.
 
-In Kali: 
+In Kali:
 ```bash
 sudo cp ./peass.rb /usr/share/metasploit-framework/modules/post/multi/gather/
 # or
@@ -22,7 +22,7 @@ msf6 post(multi/gather/peass) > show info
        Name: Multi PEASS launcher
      Module: post/multi/gather/peass
    Platform: BSD, Linux, OSX, Unix, Windows
-       Arch: 
+       Arch:
        Rank: Normal
 
 Provided by:
@@ -40,7 +40,7 @@ Basic options:
 
   WINPEASS    true                                                                      yes       Use PEASS for Windows or PEASS for linux. Default is windows change to false for linux.
   CUSTOM_URL                                                                            no        Path to the PEASS script. Accepted: http(s):// URL or absolute local path.
-                                            
+
   SESSION                                                                               yes       The session to run this module on.
   SRVHOST                                                                               no        Set your metasploit instance IP if you want to download the PEASS script from here via http(s) instead of uploading it.
   SRVPORT     443                                                                       no        Port to download the PEASS script from using http(s) (only used if SRVHOST)
@@ -52,13 +52,13 @@ Basic options:
   URIPATH     /mvpo.txt                                                                 no        URI path to download the script from there (only used if SRVHOST)
 
 Description:
-  This module will launch the indicated PEASS (Privilege Escalation 
-  Awesome Script Suite) script to enumerate the system. You need to 
-  indicate the URL or local path to LinPEAS if you are in some Unix or 
-  to WinPEAS if you are in Windows. By default this script will upload 
-  the PEASS script to the host (encrypted and/or encoded) and will 
-  load it and execute it. You can configure this module to download 
-  the encrypted/encoded PEASS script from this metasploit instance via 
+  This module will launch the indicated PEASS (Privilege Escalation
+  Awesome Script Suite) script to enumerate the system. You need to
+  indicate the URL or local path to LinPEAS if you are in some Unix or
+  to WinPEAS if you are in Windows. By default this script will upload
+  the PEASS script to the host (encrypted and/or encoded) and will
+  load it and execute it. You can configure this module to download
+  the encrypted/encoded PEASS script from this metasploit instance via
   HTTP instead of uploading it.
 
 References:

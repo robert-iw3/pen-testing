@@ -840,7 +840,7 @@ http://webstersprodigy.net
                         $sockets[$p] = new-object System.Net.Sockets.TcpClient
                     }
 
-                    
+
                     $scriptBlockAsString = @"
 
                         #somewhat of a race condition with the timeout, but I don't think it matters

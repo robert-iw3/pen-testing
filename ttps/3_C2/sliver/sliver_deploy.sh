@@ -108,144 +108,144 @@ EOF
 # Create redirector setup script (if needed)
 cat << EOF > terraform/scripts/redirector_setup.sh
 #!/bin/bash
-apt-get update 
-apt-get install -y nginx 
-systemctl start nginx 
-systemctl enable nginx 
+apt-get update
+apt-get install -y nginx
+systemctl start nginx
+systemctl enable nginx
 
-cat <<EOT > /etc/nginx/nginx.conf 
-events { 
-    worker_connections 1024; 
-} 
-http { 
-    server { 
-        listen 80; 
-        server_name _; 
-        location / { 
-            proxy_pass http://\${sliver_c2_ip}; 
-            proxy_set_header Host \$host; 
-            proxy_set_header X-Real-IP \$remote_addr; 
-        } 
-    } 
-} 
-EOT 
+cat <<EOT > /etc/nginx/nginx.conf
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen 80;
+        server_name _;
+        location / {
+            proxy_pass http://\${sliver_c2_ip};
+            proxy_set_header Host \$host;
+            proxy_set_header X-Real-IP \$remote_addr;
+        }
+    }
+}
+EOT
 
-systemctl restart nginx 
+systemctl restart nginx
 EOF
 
-# Create attacker workstation setup script 
-cat << EOF > terraform/scripts/attacker_setup.sh 
-#!/bin/bash 
-apt-get update 
-apt-get install -y nmap curl jq 
+# Create attacker workstation setup script
+cat << EOF > terraform/scripts/attacker_setup.sh
+#!/bin/bash
+apt-get update
+apt-get install -y nmap curl jq
 
-# Install Sliver client 
+# Install Sliver client
 sudo curl -s https://api.github.com/repos/BishopFox/sliver/releases/latest \
     | jq -r '.assets[] | select(.name == "sliver-client_linux") | .browser_download_url' \
-    | sudo xargs -I {} wget -O /usr/local/bin/sliver-client {} 
-sudo chmod 755 /usr/local/bin/sliver-client 
+    | sudo xargs -I {} wget -O /usr/local/bin/sliver-client {}
+sudo chmod 755 /usr/local/bin/sliver-client
 
-# Create Sliver client config directory 
-mkdir -p /home/ubuntu/.sliver-client/configs 
-mkdir -p /home/ubuntu/.ssh 
+# Create Sliver client config directory
+mkdir -p /home/ubuntu/.sliver-client/configs
+mkdir -p /home/ubuntu/.ssh
 
-# Copy the Sliver server certificate 
+# Copy the Sliver server certificate
 scp -i /home/ubuntu/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@\${sliver_c2_ip}:/home/ubuntu/red_team_operator*.cfg /home/ubuntu/.sliver-client/configs/
 
-# Import the config file 
-sudo sliver-client import /home/ubuntu/.sliver-client/configs/red_team_operator*.cfg 
+# Import the config file
+sudo sliver-client import /home/ubuntu/.sliver-client/configs/red_team_operator*.cfg
 
-chown -R ubuntu:ubuntu /home/ubuntu/.sliver-client 
+chown -R ubuntu:ubuntu /home/ubuntu/.sliver-client
 EOF
 
-# Create Terraform main configuration file 
-cat << EOF > terraform/main.tf 
-provider "aws" { 
-  region = var.aws_region 
-} 
+# Create Terraform main configuration file
+cat << EOF > terraform/main.tf
+provider "aws" {
+  region = var.aws_region
+}
 
-resource "aws_vpc" "red_team_vpc" { 
-  cidr_block           = "10.0.0.0/16" 
-  enable_dns_hostnames = true 
-  tags = { 
-    Name = "Red Team VPC" 
-  } 
-} 
+resource "aws_vpc" "red_team_vpc" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+  tags = {
+    Name = "Red Team VPC"
+  }
+}
 
-resource "aws_internet_gateway" "red_team_igw" { 
-  vpc_id = aws_vpc.red_team_vpc.id 
-  tags = { 
-    Name = "Red Team IGW" 
-  } 
-} 
+resource "aws_internet_gateway" "red_team_igw" {
+  vpc_id = aws_vpc.red_team_vpc.id
+  tags = {
+    Name = "Red Team IGW"
+  }
+}
 
-resource "aws_subnet" "red_team_subnet" { 
-  vpc_id                  = aws_vpc.red_team_vpc.id 
-  cidr_block              = "10.0.1.0/24" 
-  map_public_ip_on_launch = true 
-  availability_zone       = "\${var.aws_region}a" 
-  tags = { 
-    Name = "Red Team Subnet" 
-  } 
-} 
+resource "aws_subnet" "red_team_subnet" {
+  vpc_id                  = aws_vpc.red_team_vpc.id
+  cidr_block              = "10.0.1.0/24"
+  map_public_ip_on_launch = true
+  availability_zone       = "\${var.aws_region}a"
+  tags = {
+    Name = "Red Team Subnet"
+  }
+}
 
-resource "aws_route_table" "red_team_rt" { 
-  vpc_id = aws_vpc.red_team_vpc.id 
-  route { 
-    cidr_block = "0.0.0.0/0" 
-    gateway_id = aws_internet_gateway.red_team_igw.id 
-  } 
-  tags = { 
-    Name = "Red Team Route Table" 
-  } 
-} 
+resource "aws_route_table" "red_team_rt" {
+  vpc_id = aws_vpc.red_team_vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.red_team_igw.id
+  }
+  tags = {
+    Name = "Red Team Route Table"
+  }
+}
 
-resource "aws_route_table_association" "red_team_rta" { 
-  subnet_id      = aws_subnet.red_team_subnet.id 
-  route_table_id = aws_route_table.red_team_rt.id 
-} 
+resource "aws_route_table_association" "red_team_rta" {
+  subnet_id      = aws_subnet.red_team_subnet.id
+  route_table_id = aws_route_table.red_team_rt.id
+}
 
-resource "aws_security_group" "red_team_sg" { 
-  name        = "red-team-sg" 
-  description = "Security group for Red Team infrastructure" 
-  vpc_id      = aws_vpc.red_team_vpc.id 
+resource "aws_security_group" "red_team_sg" {
+  name        = "red-team-sg"
+  description = "Security group for Red Team infrastructure"
+  vpc_id      = aws_vpc.red_team_vpc.id
 
-  ingress { 
-    from_port   = 22 
-    to_port     = 22 
-    protocol    = "tcp" 
-    cidr_blocks = ["\${var.your_ip}/32", "10.0.0.0/16"] 
-  } 
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["\${var.your_ip}/32", "10.0.0.0/16"]
+  }
 
-  ingress { 
-    from_port   = 80  
-    to_port     = 80  
-    protocol    = "tcp"  
-    cidr_blocks = ["0.0.0.0/0"]  
-  } 
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
-  ingress {  
-    from_port   = 443  
-    to_port     = 443  
-    protocol    = "tcp"  
-    cidr_blocks = ["0.0.0.0/0"]  
-  } 
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
-  ingress {  
-    from_port   = 31337  
-    to_port     = 31337  
-    protocol    = "tcp"  
-    cidr_blocks = ["10.0.0.0/16"]  
-  } 
+  ingress {
+    from_port   = 31337
+    to_port     = 31337
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]
+  }
 
-  egress {  
-    from_port   = 0  
-    to_port     = 0  
-    protocol    = "-1"  
-    cidr_blocks = ["0.0.0.0/0"]  
-  } 
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
-tags = {   
+tags = {
 Name = "Red Team Security Group"
 }
 }
@@ -256,84 +256,84 @@ public_key = file("\${path.module}/id_rsa.pub")
 }
 
 resource "aws_instance" "sliver_c2" {
-ami                         = var.ami_id    
+ami                         = var.ami_id
 instance_type               = "t2.micro"
-key_name                    = aws_key_pair.red_team_key.key_name    
-vpc_security_group_ids      = [aws_security_group.red_team_sg.id]    
-subnet_id                   = aws_subnet.red_team_subnet.id    
-associate_public_ip_address = true    
+key_name                    = aws_key_pair.red_team_key.key_name
+vpc_security_group_ids      = [aws_security_group.red_team_sg.id]
+subnet_id                   = aws_subnet.red_team_subnet.id
+associate_public_ip_address = true
 
-user_data                   = file("\${path.module}/scripts/sliver_c2_setup.sh")    
+user_data                   = file("\${path.module}/scripts/sliver_c2_setup.sh")
 
-tags                        ={    
+tags                        ={
 Name ="Sliver C2 Server"
 }
 }
 
 resource "aws_instance" "redirector" {
-ami                         = var.ami_id    
+ami                         = var.ami_id
 instance_type               ="t2.micro"
-key_name                    = aws_key_pair.red_team_key.key_name    
-vpc_security_group_ids      =[aws_security_group.red_team_sg.id]    
-subnet_id                   =aws_subnet.red_team_subnet.id    
-associate_public_ip_address=true    
+key_name                    = aws_key_pair.red_team_key.key_name
+vpc_security_group_ids      =[aws_security_group.red_team_sg.id]
+subnet_id                   =aws_subnet.red_team_subnet.id
+associate_public_ip_address=true
 
 user_data                   =templatefile("\${path.module}/scripts/redirector_setup.sh", {
-sliver_c2_ip= aws_instance.sliver_c2.private_ip    
+sliver_c2_ip= aws_instance.sliver_c2.private_ip
 })
 
-tags                        ={    
+tags                        ={
 Name ="Redirector"
 }
 }
 
 resource "aws_instance" "attacker_workstation" {
-ami                         = var.ami_id    
+ami                         = var.ami_id
 instance_type               ="t2.micro"
-key_name                   = aws_key_pair.red_team_key.key_name    
-vpc_security_group_ids      =[aws_security_group.red_team_sg.id]    
-subnet_id                   =aws_subnet.red_team_subnet.id    
-associate_public_ip_address=true    
+key_name                   = aws_key_pair.red_team_key.key_name
+vpc_security_group_ids      =[aws_security_group.red_team_sg.id]
+subnet_id                   =aws_subnet.red_team_subnet.id
+associate_public_ip_address=true
 
 user_data                   =templatefile("\${path.module}/scripts/attacker_setup.sh", {
-sliver_c2_ip= aws_instance.sliver_c2.private_ip    
+sliver_c2_ip= aws_instance.sliver_c2.private_ip
 })
 
-tags                        ={    
+tags                        ={
 Name ="Attacker Workstation"
 }
 }
 
-output "vpc_id"{   
-value= aws_vpc.red_team_vpc.id   
+output "vpc_id"{
+value= aws_vpc.red_team_vpc.id
 }
 
-output "subnet_id"{   
-value= aws_subnet.red_team_subnet.id   
+output "subnet_id"{
+value= aws_subnet.red_team_subnet.id
 }
 
-output "sliver_c2_public_ip"{   
-value= aws_instance.sliver_c2.public_ip   
+output "sliver_c2_public_ip"{
+value= aws_instance.sliver_c2.public_ip
 }
 
-output "sliver_c2_private_ip"{   
-value= aws_instance.sliver_c2.private_ip   
+output "sliver_c2_private_ip"{
+value= aws_instance.sliver_c2.private_ip
 }
 
-output "redirector_public_ip"{   
-value= aws_instance.redirector.public_ip   
+output "redirector_public_ip"{
+value= aws_instance.redirector.public_ip
 }
 
-output "redirector_private_ip"{   
-value= aws_instance.redirector.private_ip   
+output "redirector_private_ip"{
+value= aws_instance.redirector.private_ip
 }
 
-output "attacker_workstation_public_ip"{   
-value= aws_instance.attacker_workstation.public_ip   
+output "attacker_workstation_public_ip"{
+value= aws_instance.attacker_workstation.public_ip
 }
 
-output "attacker_workstation_private_ip"{   
-value= aws_instance.attacker_workstation.private_ip   
+output "attacker_workstation_private_ip"{
+value= aws_instance.attacker_workstation.private_ip
 }
 EOF
 

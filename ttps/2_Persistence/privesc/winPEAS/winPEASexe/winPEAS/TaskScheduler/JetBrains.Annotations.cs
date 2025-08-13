@@ -8,7 +8,7 @@ namespace winPEAS.TaskScheduler
     /// </summary>
     /// <example><code>
     /// [CanBeNull] object Test() => null;
-    /// 
+    ///
     /// void UseTest() {
     ///   var p = Test();
     ///   var s = p.ToString(); // Warning: Possible 'System.NullReferenceException'
@@ -62,7 +62,7 @@ namespace winPEAS.TaskScheduler
     /// <example><code>
     /// [StringFormatMethod("message")]
     /// void ShowError(string message, params object[] args) { /* do something */ }
-    /// 
+    ///
     /// void Foo() {
     ///   ShowError("Failed: {0}"); // Warning: Non-existing argument in format string
     /// }
@@ -132,12 +132,12 @@ namespace winPEAS.TaskScheduler
     /// <example><code>
     /// public class Foo : INotifyPropertyChanged {
     ///   public event PropertyChangedEventHandler PropertyChanged;
-    /// 
+    ///
     ///   [NotifyPropertyChangedInvocator]
     ///   protected virtual void NotifyChanged(string propertyName) { ... }
     ///
     ///   string _name;
-    /// 
+    ///
     ///   public string Name {
     ///     get { return _name; }
     ///     set { _name = value; NotifyChanged("LastName"); /* Warning */ }
@@ -201,7 +201,7 @@ namespace winPEAS.TaskScheduler
     /// // A method that returns null if the parameter is null,
     /// // and not null if the parameter is not null
     /// [ContractAnnotation("null =&gt; null; notnull =&gt; notnull")]
-    /// public object Transform(object data) 
+    /// public object Transform(object data)
     /// </code></item>
     /// <item><code>
     /// [ContractAnnotation("=&gt; true, result: notnull; =&gt; false, result: null")]
@@ -256,7 +256,7 @@ namespace winPEAS.TaskScheduler
     /// <example><code>
     /// [CannotApplyEqualityOperator]
     /// class NoEquality { }
-    /// 
+    ///
     /// class UsesNoEquality {
     ///   void Test() {
     ///     var ca1 = new NoEquality();
@@ -277,7 +277,7 @@ namespace winPEAS.TaskScheduler
     /// <example><code>
     /// [BaseTypeRequired(typeof(IComponent)] // Specify requirement
     /// class ComponentAttribute : Attribute { }
-    /// 
+    ///
     /// [Component] // ComponentAttribute requires implementing IComponent interface
     /// class MyComponent : IComponent { }
     /// </code></example>
@@ -410,7 +410,7 @@ namespace winPEAS.TaskScheduler
     /// </summary>
     /// <example><code>
     /// [Pure] int Multiply(int x, int y) => x * y;
-    /// 
+    ///
     /// void M() {
     ///   Multiply(123, 42); // Waring: Return value of pure method is not used
     /// }
@@ -442,7 +442,7 @@ namespace winPEAS.TaskScheduler
     /// <example><code>
     /// class Foo {
     ///   [ProvidesContext] IBarService _barService = ...;
-    /// 
+    ///
     ///   void ProcessNode(INode node) {
     ///     DoSomething(node, node.GetGlobalServices().Bar);
     ///     //              ^ Warning: use value of '_barService' field
@@ -704,7 +704,7 @@ namespace winPEAS.TaskScheduler
 
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC display template.
-    /// Use this attribute for custom wrappers similar to 
+    /// Use this attribute for custom wrappers similar to
     /// <c>System.Web.Mvc.Html.DisplayExtensions.DisplayForModel(HtmlHelper, String)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
@@ -789,7 +789,7 @@ namespace winPEAS.TaskScheduler
 
     /// <summary>
     /// Razor attribute. Indicates that a parameter or a method is a Razor section.
-    /// Use this attribute for custom wrappers similar to 
+    /// Use this attribute for custom wrappers similar to
     /// <c>System.Web.WebPages.WebPageBase.RenderSection(String)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
@@ -825,7 +825,7 @@ namespace winPEAS.TaskScheduler
 
     /// <summary>
     /// Indicates that the marked method is assertion method, i.e. it halts control flow if
-    /// one of the conditions is satisfied. To set the condition, mark one of the parameters with 
+    /// one of the conditions is satisfied. To set the condition, mark one of the parameters with
     /// <see cref="AssertionConditionAttribute"/> attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]

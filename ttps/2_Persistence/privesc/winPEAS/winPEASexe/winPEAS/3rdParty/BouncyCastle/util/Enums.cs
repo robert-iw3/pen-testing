@@ -29,7 +29,7 @@ namespace winPEAS._3rdParty.BouncyCastle.util
                 }
 #else
                 return (Enum)Enum.Parse(enumType, s, false);
-#endif		
+#endif
             }
 
             throw new ArgumentException();

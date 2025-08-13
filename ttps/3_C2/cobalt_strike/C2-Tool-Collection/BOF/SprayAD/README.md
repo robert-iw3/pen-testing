@@ -27,10 +27,10 @@ Running a Kerberos spray within a large Active Directory environment could take 
 Make sure you always check the Active Directory password and lockout policies before spraying to avoid lockouts.
 
 ## Note to Blue
-To detect Active Directory Password Spraying, make sure to setup centralized logging and alarming within your IT environment and enable (at least) the following Advanced Audit policy on your Domain Controllers: 
+To detect Active Directory Password Spraying, make sure to setup centralized logging and alarming within your IT environment and enable (at least) the following Advanced Audit policy on your Domain Controllers:
 
 ```
-Audit Kerberos Authentication Service (Success & Failure). 
+Audit Kerberos Authentication Service (Success & Failure).
 This policy will generate Windows Security Log Event ID 4771 (Kerberos pre-authentication failed).
 ```
 

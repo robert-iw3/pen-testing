@@ -42,7 +42,7 @@ class MsdnScrapper:
         results = req.json()
         return results['results']
         #json.dump(results, sys.stdout, indent=4)
-        
+
     def _parse_result_fn(self, fn, results):
         r = None
         for result in results:
@@ -78,12 +78,12 @@ class MsdnScrapper:
         syntax = re.sub('//.*?$', '', syntax) # remove // comment
         syntax = re.sub('[\[].*?[\]]', ''""'', syntax) # remove [in], [out]...
         syntax = re.sub('\s+',' ', syntax) # clean the spaces
-       
-        # WINAPI/NTSYSAPI... should be replace with the 
+
+        # WINAPI/NTSYSAPI... should be replace with the
         # correct calling convention keyword instead of removed
         blacklists = [ 'NTSYSAPI', 'NET_API_FUNCTION', 'USERENVAPI',
-            'NTSYSCALLAPI', 'WINAPI', 'WSAAPI', '__kernel_entry', 
-            '_Frees_ptr_opt_', '_In_opt_', '_In_', '_Out_', 'opt_', '__drv_aliasesMem', 
+            'NTSYSCALLAPI', 'WINAPI', 'WSAAPI', '__kernel_entry',
+            '_Frees_ptr_opt_', '_In_opt_', '_In_', '_Out_', 'opt_', '__drv_aliasesMem',
             'CDECL_NON_WVMPURE']
 
         for word in blacklists:
@@ -95,20 +95,20 @@ class MsdnScrapper:
             'LMSTR': 'WCHAR*',
             'NTSYSCALLAPI': 'DWORD',
             'VOID': 'void',
-            'LRESULT LRESULT': 'LRESULT' 
+            'LRESULT LRESULT': 'LRESULT'
         }
 
         for k,v in type_match.items():
             syntax = re.sub(rf'\b({k})\b', v, syntax)
 
         table = soup.find(id='requirements').find_next_sibling()
-        req = {} 
+        req = {}
         for row in table.select('tr'):
             cells = row.findAll('td')
             if len(cells) != 2: continue
             k = cells[0].text.strip().lower().replace(' ', '_')
             v = cells[1].text.strip()
-            req[k] = v 
+            req[k] = v
 
         result = {
             'name': fn,
@@ -121,7 +121,7 @@ class MsdnScrapper:
         #print(syntax)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()  
+    parser = argparse.ArgumentParser()
     parser.add_argument('function', nargs='+')
     args = parser.parse_args()
 

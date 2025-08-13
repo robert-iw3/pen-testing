@@ -4,7 +4,7 @@ Date:: June 24th, 2022
 
 Amount Stolen: $100,000,000
 
-Time:: 11:06 UTC 
+Time:: 11:06 UTC
 
 Laundered Via:: Tornado Cash - All of the ETH was steadily sent into Tornado over the following six days.
 
@@ -19,7 +19,7 @@ Harmony is an open and fast layer-1 blockchain: Harmony mainnet runs Ethereum ap
 Harmony's Horizon Bridge was exploited by an attacker resulting in losses of roughly $100M. The bridge was secured by multisig wallet which needed 2 out of 5 wallets to confirm transaction. The hacker gained control over 2 wallets which enabled the attacker to drain the funds of the bridge and transfer said funds to his wallet.
 For yet unspecified reasons the attacker gained access over 2 of the 5 multisig wallets.
 The attacker was able to enter and confirm transactions by himself. The exploit resulted in the loss of: ETH, USDC, WBTC, USDT, DAI, BUSD, AAG, FXS, SUSHI, AAVE, WETH, and FRAX. The ONE token was not affected by this attack.
-For more context, bridges in DeFi are used to enable interoperability between blockchains. Through bridges a user of DeFi may pursue opportunities in an ecosystem that is not native to the coins or tokens a user is holding. For example through Harmony's Horizon Bridge a user holding $ETH on the Ethereum network could bridge $ETH over to the Harmony blockchain receiving newly minted wrapped $1ETH on a 1:1 ratio. 
+For more context, bridges in DeFi are used to enable interoperability between blockchains. Through bridges a user of DeFi may pursue opportunities in an ecosystem that is not native to the coins or tokens a user is holding. For example through Harmony's Horizon Bridge a user holding $ETH on the Ethereum network could bridge $ETH over to the Harmony blockchain receiving newly minted wrapped $1ETH on a 1:1 ratio.
 Since the funds on the bridge were seized by the attacker, the receipt was no longer backed by the collateral on a 1:1 ratio. The depreciation of the wrapped assets were felt by users in the form of massive slippages on dexes and other bridges as users tried to flee the Harmony Ecosystem.
 Below a breakdown of the specific function used by the attacker:
 The multisig owner called the submitTransaction(), then to confirm owner calls confirmTransaction() from the MultiSigWallet with the input transactionId 21106.
@@ -65,7 +65,7 @@ https://t.co/MiPb1rPikd
 
 ## The Harmony Bridge was secured by a 2 of 5 multisig:
 The security of the bridge is currently predicated on a multisig wallet. It has four owners, two of which are required to consent in order to execute an arbitrary transaction (i.e. drain the $330m).
-- Multisig - 0x715CdDa5e9Ad30A0cEd14940F9997EE611496De6 
+- Multisig - 0x715CdDa5e9Ad30A0cEd14940F9997EE611496De6
 - Address 1 Compromised: 0xf845A7ee8477AD1FB4446651E548901a2635A915
 - Address 2 Compromised: 0x812d8622C6F3c45959439e7ede3C580dA06f8f25
 - Harmony ETH Bridge: 0xf9fb1c508ff49f78b60d3a96dea99fa5d7f3a8a6
@@ -93,24 +93,24 @@ The security of the bridge is currently predicated on a multisig wallet. It has 
 ## Tweets
 
 > The Harmony team has identified a theft occurring this morning on the Horizon bridge amounting to approx. $100MM. We have begun working with national authorities and forensic specialists to identify the culprit and retrieve the stolen funds.
-– Harmony on June 23rd, 2022 [🔗](https://twitter.com/harmonyprotocol/status/1540110924400324608) 
+– Harmony on June 23rd, 2022 [🔗](https://twitter.com/harmonyprotocol/status/1540110924400324608)
 
-> A hacker stole $100 million from the bridge connecting Ethereum and @harmonyprotocol a few hours ago. Let's explore how the #Harmony bridge works and what allowed this to happen 1/9 pic.twitter.com/1JpV29g7tP 
-– ivo.eth on June 24th, 2022 [🔗](https://twitter.com/0xIvo/status/1540165571681128448) 
+> A hacker stole $100 million from the bridge connecting Ethereum and @harmonyprotocol a few hours ago. Let's explore how the #Harmony bridge works and what allowed this to happen 1/9 pic.twitter.com/1JpV29g7tP
+– ivo.eth on June 24th, 2022 [🔗](https://twitter.com/0xIvo/status/1540165571681128448)
 
 > Hackers exploited a vulnerability to steal 85,837 ETH (appr. $100 million) from Harmony's Horizon Bridge.  All the tokens drained to this address https://t.co/cFUhLj6Z71 Bridge address:  0x2dccdb493827e15a5dc8f8b72147e6c4a5620857
-– SunSec on June 24th, 2022 [🔗](https://twitter.com/1nf0s3cpt/status/1540139812715261952) 
+– SunSec on June 24th, 2022 [🔗](https://twitter.com/1nf0s3cpt/status/1540139812715261952)
 
 > Wallets which confirmed that unlockTokens transaction: 0xf845A7ee8477AD1FB4446651E548901a2635A915 0x812d8622C6F3c45959439e7ede3C580dA06f8f25
-– Rugdoc.io on June 24th, 2022 [🔗](https://twitter.com/RugDocIO/status/1540151942214651904) 
+– Rugdoc.io on June 24th, 2022 [🔗](https://twitter.com/RugDocIO/status/1540151942214651904)
 
-> Details aren't public yet but here's my guess of what happened - The two addresses were likely hot wallets used to listen for and process legit bridging transactions. The attacker compromised the server(s) that these hot wallets were running on. 
-– Mudit Gupta on June 24th, 2022 [🔗](https://twitter.com/Mudit__Gupta/status/1540225237912010753) 
+> Details aren't public yet but here's my guess of what happened - The two addresses were likely hot wallets used to listen for and process legit bridging transactions. The attacker compromised the server(s) that these hot wallets were running on.
+– Mudit Gupta on June 24th, 2022 [🔗](https://twitter.com/Mudit__Gupta/status/1540225237912010753)
 
-> An incident response update on the Horizon bridge hack. Confidentiality is key to maintain integrity as part of this ongoing investigation. The omission of specific details is to protect sensitive data in the interest of our community. 
-– Stephen Tse on June 26th, 2022 [🔗](https://twitter.com/stse/status/1540896630320246785) 
+> An incident response update on the Horizon bridge hack. Confidentiality is key to maintain integrity as part of this ongoing investigation. The omission of specific details is to protect sensitive data in the interest of our community.
+– Stephen Tse on June 26th, 2022 [🔗](https://twitter.com/stse/status/1540896630320246785)
 
-> Harmony Bridge hackers began moving funds into mixer Tornado Cash this morning quickly moving 6,000 ETH (~$7 million) in just a few hours reminiscent of DPRK's Lazarus' speed in Ronin attack. @trmlabs continues to track the funds and will provide updates. pic.twitter.com/8R0JISVOBV 
+> Harmony Bridge hackers began moving funds into mixer Tornado Cash this morning quickly moving 6,000 ETH (~$7 million) in just a few hours reminiscent of DPRK's Lazarus' speed in Ronin attack. @trmlabs continues to track the funds and will provide updates. pic.twitter.com/8R0JISVOBV
 – Ari Redbord on June 27th, 2022 [🔗](https://twitter.com/ARedbord/status/1541454713853542401)
 
 

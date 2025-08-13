@@ -2,7 +2,7 @@
 # SquidSquad - Fake Telegram VCs
 
 
-## Fake Hashkey 
+## Fake Hashkey
 
 - August–November 2023
 
@@ -179,7 +179,7 @@
 
 
 
-## Fake VCs - November 2024 
+## Fake VCs - November 2024
 
 - [Fake Emma](./2024-07-31_SQSQ_Fake-Emma-Cui.jpeg)
 

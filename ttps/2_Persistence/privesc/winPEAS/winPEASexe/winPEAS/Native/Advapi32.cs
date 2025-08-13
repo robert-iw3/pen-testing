@@ -94,10 +94,10 @@ namespace winPEAS.Native
         ///  _Out_ DWORD       *Count,
         ///  _Out_ PCREDENTIAL **Credentials
         ///);
-        /// <param name="filter">[in] 
+        /// <param name="filter">[in]
         /// Pointer to a null-terminated string that contains the filter for the returned credentials.Only credentials with a TargetName matching the filter will be returned.The filter specifies a name prefix followed by an asterisk.For instance, the filter "FRED*" will return all credentials with a TargetName beginning with the string "FRED".
         /// If NULL is specified, all credentials will be returned.</param>
-        /// <param name="flag">[in]        
+        /// <param name="flag">[in]
         /// The value of this parameter can be zero or more of the following values combined with a bitwise-OR operation.
         ///  Value Meaning
         ///  CRED_ENUMERATE_ALL_CREDENTIALS 0x1
@@ -105,7 +105,7 @@ namespace winPEAS.Native
         ///  Windows Server 2003 and Windows XP:  This flag is not supported.
         ///</param>
         /// <param name="count">[out] Count of the credentials returned in the Credentials array.</param>
-        /// <param name="pCredentials"> [out]      
+        /// <param name="pCredentials"> [out]
         ///  Pointer to an array of pointers to credentials.The returned credential is a single allocated block. Any pointers contained within the buffer are pointers to locations within this single allocated block.The single returned buffer must be freed by calling CredFree.
         ///  Return value
         /// </param>

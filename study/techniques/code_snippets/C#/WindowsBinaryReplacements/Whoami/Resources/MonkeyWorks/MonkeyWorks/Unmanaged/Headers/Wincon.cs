@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace MonkeyWorks.Unmanaged.Headers
-{ 
+{
     class Wincon
     {
         [Flags]

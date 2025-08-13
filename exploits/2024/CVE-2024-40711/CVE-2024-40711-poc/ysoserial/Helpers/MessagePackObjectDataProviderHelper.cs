@@ -69,7 +69,7 @@
         /// This allows us to swap our surrogate ObjectDataProvider gadget type information with the real gadget AQNs when serialized.
         /// </summary>
         /// <param name="pNewTypeCacheEntries">
-        /// The dictionary of type name cache entries to swap. 
+        /// The dictionary of type name cache entries to swap.
         ///     Key = The type that the serializer has found.
         ///     Value = The real gadget type AQN string which we want to use instead of the surrogate type AQN.
         /// </param>

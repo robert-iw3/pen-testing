@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 public record SetRequestHeaderRule(HostMatcherConfig hostMatcher,
 		Map<String, String> headers)
 		implements PreForwardRule {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SetRequestHeaderRule.class);
-	
+
 	@Override
 	public boolean processRequest(FullHttpRequest fullHttpRequest, Channel channel) {
 		LOG.debug("add headers: {}", headers);

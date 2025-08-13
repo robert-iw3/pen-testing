@@ -27,7 +27,7 @@
 # Brett Fitzpatrick (@brettfitz) - SQL query
 # Robleh Esa (@RoblehEsa) - SQL queries
 
-# OPSEC: change your default nmap user agent located on line 160 at /usr/share/nmap/nselib/http.lua 
+# OPSEC: change your default nmap user agent located on line 160 at /usr/share/nmap/nselib/http.lua
 ###############################################################################################################################
 
 f_terminate(){

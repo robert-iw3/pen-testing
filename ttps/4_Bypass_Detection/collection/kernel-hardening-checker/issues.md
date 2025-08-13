@@ -4657,11 +4657,11 @@ Signed-off-by: Denis Efremov <efremov@linux.com>
 ==========================================
   Files           3        3
   Lines         589      590       +1
-  Branches      137      137              
+  Branches      137      137
 ==========================================
-+ Hits          532      533       +1     
-  Misses         29       29              
-  Partials       28       28              
++ Hits          532      533       +1
+  Misses         29       29
+  Partials       28       28
 ```
 
 | Flag | Coverage Δ | |
@@ -4724,17 +4724,17 @@ So I don't think users care about the location of these example config files. Ho
 #### <img src="https://avatars.githubusercontent.com/u/29118926?v=4" width="50">[dmknght](https://github.com/dmknght) commented at [2022-05-06 05:37](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/61#issuecomment-1119275930):
 
 > Hello @dmknght,
-> 
+>
 > Thanks for writing!
-> 
+>
 > Actually, the config files in `kconfig_hardened_check/config_files/` are provided as examples that are used for developing and testing of this tool. These configs are updated not that often, they don't cover all major distros.
-> 
+>
 > The main use case for users is to check their own kernel config. The example from Fedora:
-> 
+>
 > ```
 > ./bin/kconfig-hardened-check -c /boot/config-5.16.11-100.fc34.x86_64
 > ```
-> 
+>
 > So I don't think users care about the location of these example config files. How do you think?
 
 Hello! Sorry for very late reply. I had issue with my mail notification LuL. Anyway, I think that's a very interesting point that i didn't know. In this case, I think `kconfig-hardened-check` can have a flag like `auto check` to do the command automatically. The workflow is like:
@@ -4789,15 +4789,15 @@ https://github.com/torvalds/linux/blob/master/lib/Kconfig.ubsan
 @@            Coverage Diff             @@
 ##           master      #60      +/-   ##
 ==========================================
-+ Coverage   91.46%   91.48%   +0.01%     
++ Coverage   91.46%   91.48%   +0.01%
 ==========================================
-  Files           3        3              
-  Lines         586      587       +1     
-  Branches      133      134       +1     
+  Files           3        3
+  Lines         586      587       +1
+  Branches      133      134       +1
 ==========================================
-+ Hits          536      537       +1     
-  Misses         25       25              
-  Partials       25       25              
++ Hits          536      537       +1
+  Misses         25       25
+  Partials       25       25
 ```
 
 | Flag | Coverage Δ | |
@@ -4819,7 +4819,7 @@ Flags with carried forward coverage won't be shown. [Click here](https://docs.co
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2022-04-08 16:43](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/60#issuecomment-1093077908):
 
-Hello @cyanidium, 
+Hello @cyanidium,
 
 Thanks for your PR.
 
@@ -4849,9 +4849,9 @@ Useful on embedded devices that use u-boot or similar instead of EFI.
 
 #### <img src="https://avatars.githubusercontent.com/u/11868071?u=d7a5841263276e1f323827fc21b04345df594a60&v=4" width="50">[Churam](https://github.com/Churam) opened issue at [2022-01-17 17:17](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/58):
 
-It seems there is a problem with the current stable kernel (5.15.14 at the date of this issue). 
+It seems there is a problem with the current stable kernel (5.15.14 at the date of this issue).
 
-The kernel option TRIM_UNUSED_KSYMS is defined in my config as: 
+The kernel option TRIM_UNUSED_KSYMS is defined in my config as:
 ```
 Symbol: TRIM_UNUSED_KSYMS [=n]
 Type  : bool
@@ -4859,11 +4859,11 @@ Defined at init/Kconfig:2301
 Prompt: Trim unused exported kernel symbols
 Depends on: MODULES [=n] && !COMPILE_TEST [=n]
 Visible if: MODULES [=n] && !COMPILE_TEST [=n] && EXPERT [=y]
-Location: 
+Location:
 (1) -> Enable loadable module support (MODULES [=n])
 
 ```
-Or the script (with the setup above) outputs me: 
+Or the script (with the setup above) outputs me:
 CONFIG_TRIM_UNUSED_KSYMS                     |      y      |    my    | cut_attack_surface |   FAIL: not found
 
 But as the hardening requires to have MODULES = n (is not set) it is impossible to set TRIM_UNUSED_KSYMS through menuconfig.
@@ -4905,7 +4905,7 @@ If you agree with this assessment, any pointers on how to add an OR to the exist
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2022-01-21 15:29](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/57#issuecomment-1018612527):
 
-Hello @brandonweeks 
+Hello @brandonweeks
 
 Could you give any details on tests you mentioned?
 
@@ -4926,7 +4926,7 @@ Thanks!
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) opened issue at [2021-11-21 12:07](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/56):
 
-It would be nice to have `kconfig-hardened-check` adapted for `RISC-V` kernel configs.  
+It would be nice to have `kconfig-hardened-check` adapted for `RISC-V` kernel configs.
 
 #### <img src="https://avatars.githubusercontent.com/u/125879?v=4" width="50">[cybernet](https://github.com/cybernet) commented at [2021-12-24 13:35](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/56#issuecomment-1000842582):
 
@@ -5030,15 +5030,15 @@ However, qemu (5.2.0) still enables floppy device by default.
 @@            Coverage Diff             @@
 ##           master      #54      +/-   ##
 ==========================================
-+ Coverage   92.95%   92.96%   +0.01%     
++ Coverage   92.95%   92.96%   +0.01%
 ==========================================
-  Files           3        3              
-  Lines         511      512       +1     
-  Branches      116      116              
+  Files           3        3
+  Lines         511      512       +1
+  Branches      116      116
 ==========================================
-+ Hits          475      476       +1     
-  Misses         18       18              
-  Partials       18       18              
++ Hits          475      476       +1
+  Misses         18       18
+  Partials       18       18
 ```
 
 | Flag | Coverage Δ | |
@@ -5082,7 +5082,7 @@ Is my understanding correct, or a misunderstanding (which is perfectly possible)
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2021-09-10 13:40](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/53#issuecomment-916912883):
 
-Hello @equaeghe 
+Hello @equaeghe
 
 Thanks for your question.
 
@@ -5097,7 +5097,7 @@ for catching things like this where the compiler cannot perform a static analysi
 ...
 
 It was, however, not separate (via kernel Kconfig) until Elena Petrova and I split it out into
-CONFIG_UBSAN_BOUNDS, which is fast enough for production kernel use. 
+CONFIG_UBSAN_BOUNDS, which is fast enough for production kernel use.
 
 ...
 
@@ -5176,15 +5176,15 @@ config chooses the default boot state.
 @@            Coverage Diff             @@
 ##           master      #52      +/-   ##
 ==========================================
-+ Coverage   92.87%   92.88%   +0.01%     
++ Coverage   92.87%   92.88%   +0.01%
 ==========================================
-  Files           3        3              
-  Lines         505      506       +1     
-  Branches      115      115              
+  Files           3        3
+  Lines         505      506       +1
+  Branches      115      115
 ==========================================
-+ Hits          469      470       +1     
-  Misses         18       18              
-  Partials       18       18              
++ Hits          469      470       +1
+  Misses         18       18
+  Partials       18       18
 ```
 
 | Flag | Coverage Δ | |
@@ -5206,7 +5206,7 @@ Flags with carried forward coverage won't be shown. [Click here](https://docs.co
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2021-09-10 12:14](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/52#issuecomment-916859414):
 
-Hi @anthraxx 
+Hi @anthraxx
 
 You might be busy, so I've made the fixes myself in the commit b54dca6a96b7a07d3d1aec56b5a1df6386bb7d61.
 Hope you wouldn't mind.
@@ -5257,15 +5257,15 @@ Sure thing! A link to the publicly available configuration has been added. @a13x
 @@           Coverage Diff           @@
 ##           master      #51   +/-   ##
 =======================================
-  Coverage   92.87%   92.87%           
+  Coverage   92.87%   92.87%
 =======================================
-  Files           3        3           
-  Lines         505      505           
-  Branches      115      115           
+  Files           3        3
+  Lines         505      505
+  Branches      115      115
 =======================================
-  Hits          469      469           
-  Misses         18       18           
-  Partials       18       18           
+  Hits          469      469
+  Misses         18       18
+  Partials       18       18
 ```
 
 | Flag | Coverage Δ | |
@@ -5373,7 +5373,7 @@ Hi @a13xp0p0v ,
 My use essentially falls into three cases:
 
 1. My system has kconfigs **not in mainline that must always be set**.
- 
+
 _For example_, I might want to verify `PANIC_ON_DATA_CORRUPTION` [from Android](https://android.googlesource.com/kernel/msm/+/7b49b86d3aa3d0c6400454a346bad1bbdf0cc78f%5E%21/) is enabled, as a defensive measure, because I'd rather the system immediately reboot at the first sign things are going off the rails, rather than risk being exploited by an attacker.
 
 2. My system has kconfigs that **are in mainline, which are only in play for my hardware**.
@@ -5426,12 +5426,12 @@ If you create any prototype, please share!
 
 #### <img src="https://avatars.githubusercontent.com/u/10352354?u=97ab0d446ea4204b959ae74734f8436c78de18e7&v=4" width="50">[egberts](https://github.com/egberts) commented at [2021-08-31 13:08](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/50#issuecomment-909221366):
 
-other use case is prevent leakage of kernel pointers to log file, /proc directory files, or terminal output.  
+other use case is prevent leakage of kernel pointers to log file, /proc directory files, or terminal output.
 
-Which is just a bunch of debugs and dmesg turned off. 
+Which is just a bunch of debugs and dmesg turned off.
 
 
-another one is the one provided by Whonix.org (a KSPP variant) which is more rigorous form of kernel security. 
+another one is the one provided by Whonix.org (a KSPP variant) which is more rigorous form of kernel security.
 
 Another one is for Spectre, et. al., mitigation and that has a bunch of config s as well.
 
@@ -5523,7 +5523,7 @@ Do you think it would be worthwhile using this for complex dependencies such as 
 (CC_HAS_SIGN_RETURN_ADDRESS [=n] || CC_HAS_BRANCH_PROT_PAC_RET [=n]) \
     && AS_HAS_PAC [=n] \
     && (LD_IS_LLD [=n] \
-        || LD_VERSION [=235000000]>=233010000 
+        || LD_VERSION [=235000000]>=233010000
         || CC_IS_GCC [=y] && GCC_VERSION [=100200]<90100) \
     && (!CC_IS_CLANG [=n] || AS_HAS_CFI_NEGATE_RA_STATE [=y]) \
     && (!FUNCTION_GRAPH_TRACER [=n] || DYNAMIC_FTRACE_WITH_REGS [=n])
@@ -5546,7 +5546,7 @@ Depends on: (CC_HAS_SIGN_RETURN_ADDRESS [=y] || CC_HAS_BRANCH_PROT_PAC_RET [=y])
 
 #### <img src="https://avatars.githubusercontent.com/u/3797768?v=4" width="50">[morfikov](https://github.com/morfikov) opened issue at [2020-10-13 14:58](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/47):
 
-Currently only uncompressed `config-*` files in /boot/ are supported, but the current kernel config can also be accessed via `/proc/config.gz` . There's no way to use this file. Please support this path as well. 
+Currently only uncompressed `config-*` files in /boot/ are supported, but the current kernel config can also be accessed via `/proc/config.gz` . There's no way to use this file. Please support this path as well.
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2020-10-14 12:25](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/47#issuecomment-708366463):
 
@@ -5570,7 +5570,7 @@ I think we can use `zcat` separately, if we need.
 
 -------------------------------------------------------------------------------
 
-# [\#46 Issue](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/46) `closed`: CPU specific options and the kernel cmd line 
+# [\#46 Issue](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/46) `closed`: CPU specific options and the kernel cmd line
 **Labels**: `new_feature`
 
 
@@ -5583,7 +5583,7 @@ CONFIG_AMD_IOMMU                             |      y      |defconfig |  self_pr
 CONFIG_AMD_IOMMU_V2                          |      y      |    my    |  self_protection   |   FAIL: not found
 ```
 
-It would be nice to have such CPU specific options hidden in the results. 
+It would be nice to have such CPU specific options hidden in the results.
 
 The behavior of some options can be controlled via the kernel cmd line, for instance:
 
@@ -5592,9 +5592,9 @@ CONFIG_SLUB_DEBUG_ON                         |      y      |    my    |  self_pr
 CONFIG_X86_VSYSCALL_EMULATION                | is not set  |  clipos  | cut_attack_surface |   FAIL: "y"
 ```
 
-If a user set `slub_debug=FZP` and `vsyscall=none` in the kernel cmd line, I think he would achieve the same behavior. So, `kconfig-hardened-check` could check such kernel cmd line options before giving a FAIL. 
+If a user set `slub_debug=FZP` and `vsyscall=none` in the kernel cmd line, I think he would achieve the same behavior. So, `kconfig-hardened-check` could check such kernel cmd line options before giving a FAIL.
 
-What do you think about such improvements? 
+What do you think about such improvements?
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2020-10-05 10:09](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/46#issuecomment-703535817):
 
@@ -5616,7 +5616,7 @@ I think end users are capable of ignoring amd warnings when they have intel cpu 
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2020-10-05 11:55](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/46#issuecomment-703583549):
 
-Hi @Bernhard40 
+Hi @Bernhard40
 
 > Having OR between amd and intel features make it less useful for distros which would want them all.
 
@@ -5808,7 +5808,7 @@ Some settings may affect performance, debugability, support for older userspace 
 
 > Some settings may affect performance, debugability, support for older userspace software, etc.
 
-I agree. 
+I agree.
 Moreover, kernel self-protection features often give different performance penalty for different kinds of workload. It's difficult to find one kernel configuration that makes everyone happy.
 
 I think Linux distributions could provide several kernel flavours for different purposes (e.g. generic, hardened, low-latency), to improve the situation.
@@ -5831,7 +5831,7 @@ Okey. Thanks guys for your work and explanation.
 
 #### <img src="https://avatars.githubusercontent.com/u/4661917?u=bb7aeb3c77839cea055b49b80168666b36315f3d&v=4" width="50">[theLOICofFRANCE](https://github.com/theLOICofFRANCE) opened issue at [2020-05-05 09:12](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/43):
 
-Hi @a13xp0p0v, 
+Hi @a13xp0p0v,
 
 Here is the Ubuntu kernel configuration update.
 
@@ -5905,15 +5905,15 @@ Best regards,
 @@            Coverage Diff             @@
 ##           master      #41      +/-   ##
 ==========================================
-+ Coverage   93.19%   93.20%   +0.01%     
++ Coverage   93.19%   93.20%   +0.01%
 ==========================================
-  Files           3        3              
-  Lines         470      471       +1     
-  Branches      100      100              
+  Files           3        3
+  Lines         470      471       +1
+  Branches      100      100
 ==========================================
-+ Hits          438      439       +1     
-  Misses         17       17              
-  Partials       15       15              
++ Hits          438      439       +1
+  Misses         17       17
+  Partials       15       15
 ```
 
 | Flag | Coverage Δ | |
@@ -5966,15 +5966,15 @@ Merged.
 @@            Coverage Diff             @@
 ##           master      #39      +/-   ##
 ==========================================
-+ Coverage   93.10%   93.70%   +0.60%     
++ Coverage   93.10%   93.70%   +0.60%
 ==========================================
-  Files           2        2              
-  Lines         464      461       -3     
-  Branches      100      101       +1     
+  Files           2        2
+  Lines         464      461       -3
+  Branches      100      101       +1
 ==========================================
-  Hits          432      432              
-+ Misses         17       15       -2     
-+ Partials       15       14       -1     
+  Hits          432      432
++ Misses         17       15       -2
++ Partials       15       14       -1
 ```
 
 | Flag | Coverage Δ | |
@@ -5997,7 +5997,7 @@ Merged.
 Hello @shamilbi,
 Thanks for your work!
 
-Yes, the kernel version consists of 3 numbers (not digits). 
+Yes, the kernel version consists of 3 numbers (not digits).
 Example from the main kernel Makefile:
 ```
 VERSION = 5
@@ -6281,11 +6281,11 @@ On Sat, Mar 28, 2020 at 01:55:08PM -0700, Alexander Popov wrote:
 Good, just hacking away :)
 
 > Yes, currently the combination of `ComplexOptCheck` objects is not supported (there have been no cases that needed it).
-> 
+>
 > The original logic behind `X86_UMIP` check:
 >  - if `X86_UMIP` or `X86_INTEL_UMIP` is set to `y`, then `OK`;
 >  - otherwise `FAIL`.
-> 
+>
 > What is the purpose of combining `UMIP` check with version check?
 
 It's only present in 4.15 or greater; I'm running a 4.14 kernel and
@@ -6295,7 +6295,7 @@ kconfig-hardened-check is complaining at me :)
 >  - if `REFCOUNT_FULL` is set to `y`, then `OK`;
 >  - if kernel version >= `5.5`, then `OK` (since `REFCOUNT_FULL` is enabled by default and dropped since v5.5);
 >  - otherwise `FAIL`.
-> 
+>
 > N.B. There is an implicit drawback with checking kernel versions.
 > Some kernel features are backported to previous stable kernels.
 > That's why checking the version can give false positive or false negative result.
@@ -6313,7 +6313,7 @@ dependencies of a feature enabled. A version whitelist seems the best.
 Yes, that's good. The tool inspires you to switch onto a newer kernel :)
 
 > "Not present" is also risky though, if people don't have some of the
-dependencies of a feature enabled. 
+dependencies of a feature enabled.
 
 You know, I haven't seen any example of such unmet dependencies. I suppose that kernel feature dependencies are resolved by Kconfig.
 
@@ -6447,7 +6447,7 @@ Thanks!
 
 #### <img src="https://avatars.githubusercontent.com/u/4661917?u=bb7aeb3c77839cea055b49b80168666b36315f3d&v=4" width="50">[theLOICofFRANCE](https://github.com/theLOICofFRANCE) opened issue at [2020-02-24 20:27](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/31):
 
-Hi @a13xp0p0v, 
+Hi @a13xp0p0v,
 
 Here are the updates of the distributions configuration files. I also had to update some links.
 Please note that we now have the majority of configurations with versions >= to linux 5.3 🧙‍♂️
@@ -6464,7 +6464,7 @@ N.B. I'm going to work on support of new kernel releases in the near future.
 
 #### <img src="https://avatars.githubusercontent.com/u/4661917?u=bb7aeb3c77839cea055b49b80168666b36315f3d&v=4" width="50">[theLOICofFRANCE](https://github.com/theLOICofFRANCE) commented at [2020-03-04 19:09](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/31#issuecomment-594761475):
 
-@a13xp0p0v, 
+@a13xp0p0v,
 > N.B. I'm going to work on support of new kernel releases in the near future.
 
 https://kernsec.org/wiki/index.php?title=Kernel_Self_Protection_Project/Recommended_Settings&diff=4001&oldid=prev
@@ -6874,7 +6874,7 @@ By the way, we don't have a goal to collect all the latest configs from all the 
 
 Hello @NeQuissimus,
 
-> There is no (official) open source grsecurity for recent kernels. 
+> There is no (official) open source grsecurity for recent kernels.
 
 Yes.
 And do you mean that there is an unofficial grsecurity patch for recent kernels available in public?
@@ -6907,10 +6907,10 @@ Unfortunately I do not think there is good documentation.
 #### <img src="https://avatars.githubusercontent.com/u/96200?u=9ed15c85825694d00e996d605d728179b830c4fa&v=4" width="50">[Mic92](https://github.com/Mic92) commented at [2020-01-03 08:37](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/27#issuecomment-570503332):
 
 > Hello @Mic92,
-> 
+>
 > > I am not sure which configuration you want to include in this repository.
 > > Maybe _hardened, _latest and the default kernel.
-> 
+>
 > I would like to have only the default and hardened config for NixOS.
 > That's useful for a brief comparison of kernel hardening adoption by various Linux distributions.
 > By the way, we don't have a goal to collect all the latest configs from all the distributions.
@@ -6954,9 +6954,9 @@ It seems preferable to me of change the SEED variable every time you update the 
 
 #### <img src="https://avatars.githubusercontent.com/u/41977?u=ba54c9de3752a1aa05a462e38bd6e84bdc26a2bb&v=4" width="50">[joachifm](https://github.com/joachifm) commented at [2020-02-25 22:20](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/27#issuecomment-591100811):
 
-@HacKurx note that `${src}` in the snippet you linked above expands to a string that contains both the checksum of the linux source tarball and the version number: it is certain to change in case of version bumps.  
+@HacKurx note that `${src}` in the snippet you linked above expands to a string that contains both the checksum of the linux source tarball and the version number: it is certain to change in case of version bumps.
 
-I wouldn't mind including more information in the seed construction to further increase the likelihood that it will differ between builds, but whatever is added needs to preserve determinism (in the sense that same inputs give same output).  
+I wouldn't mind including more information in the seed construction to further increase the likelihood that it will differ between builds, but whatever is added needs to preserve determinism (in the sense that same inputs give same output).
 
 Reproducibility is a key goal for Nix/NixPkgs and usually overrides other concerns.  In this case, I think giving users of the prebuilt image a weak(ened) variant of the mitigation while making it easy to supply a custom seed is a more than fair tradeoff, especially given that the full benefit of this type of mitigation can only be realized with a self-built package anyway.
 
@@ -6989,12 +6989,12 @@ $ nix-shell
 ```
 2. Then I change the shebang as you described and run the script:
 ```
-[nix-shell:~/kconfig-hardened-check/contrib]$ ./get-nix-kconfig.py 
+[nix-shell:~/kconfig-hardened-check/contrib]$ ./get-nix-kconfig.py
 error: getting status of '/home/x/kconfig-hardened-check/contrib/default.nix': No such file or directory
 ```
 3. Finally this makes it work:
 ```
-[nix-shell:~/kconfig-hardened-check/contrib]$ python3 get-nix-kconfig.py 
+[nix-shell:~/kconfig-hardened-check/contrib]$ python3 get-nix-kconfig.py
 ```
 I got kernel configs and added hardened one to the collection: 4768e21b33fa9663114eb30c2b2c2cf9e6cf4721
 
@@ -7024,14 +7024,14 @@ My mistake it should have been:
 > Thanks a lot for your work.
 > I'm not familiar with setuptools, but it looks to me that integrating that is a good idea.
 > There are a few aspects that I would like to fix before merging.
-> 
+>
 >     1. Can we avoid creating the `kconfig_hardened_check` directory? I would rather have `bin` and `config_files`.
-> 
+>
 
 No one needs a distinct module to put the python code in to avoid conflicts with other installed python packages.
 
 >     2. What is the purpose of splitting the code onto `bin/kconfig_hardened_check` and `kconfig_hardened_check/__init__.py`? Is it some special python feng-shui? (I'm asking because I'm just a kernel developer)
-> 
+>
 
 `bin/kconfig_hardened_check` is for people just checking out the repository and running the script without installing it. If you install it with `setuptools`,
 it will generate its own wrapper that will eventually load `kconfig_hardened_check/__init__.py`.
@@ -7040,18 +7040,18 @@ it will generate its own wrapper that will eventually load `kconfig_hardened_che
 
 `List[Any]` is a type annotation. When you use a typechecker like mypy you can typecheck your code that way.
 
-> 
+>
 >     4. Are you sure that the classifiers in `setup.cfg` are correct? It looks like some of them don't fit this project.
 
 
-> 
+>
 >     5. The `package_data` in `setup.cfg` misses some files in the repository. Is it ok?
 
 It should only contain files that are supposed to be installed. I am not even sure having those config files provides any benefit for a user of the tool.
 Let me know and I would not include them at all.
 
-> 
-> 
+>
+>
 > Thanks!
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2020-03-26 13:20](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/26#issuecomment-604427052):
@@ -7323,7 +7323,7 @@ Thanks.
 
 -------------------------------------------------------------------------------
 
-# [\#23 Issue](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/23) `closed`: LOCK_DOWN_KERNEL 
+# [\#23 Issue](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/23) `closed`: LOCK_DOWN_KERNEL
 
 #### <img src="https://avatars.githubusercontent.com/u/11277437?v=4" width="50">[rubeecube](https://github.com/rubeecube) opened issue at [2019-07-22 12:05](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/23):
 
@@ -7343,7 +7343,7 @@ It seems that "LOCK_DOWN_KERNEL" / "LOCK_DOWN MANDATORY" enable other flags.
 - Certain ACPI restrictions.
 - Restrict debugfs interface to ASUS WMI.
 
-http://lkml.iu.edu/hypermail/linux/kernel/1704.0/02933.html 
+http://lkml.iu.edu/hypermail/linux/kernel/1704.0/02933.html
 
 Is it possible to reflect this in the script?
 
@@ -7430,7 +7430,7 @@ Thanks !
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2019-06-11 10:03](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/20#issuecomment-500775436):
 
-Hello @Wenzel 
+Hello @Wenzel
 
 > I would like tot integrate your project into a Python script which would check the security settings automatically and provide a report.
 
@@ -7562,7 +7562,7 @@ Some of those options are available only in linux-hardened patchset thus not app
 
 #### <img src="https://avatars.githubusercontent.com/u/4661917?u=bb7aeb3c77839cea055b49b80168666b36315f3d&v=4" width="50">[theLOICofFRANCE](https://github.com/theLOICofFRANCE) commented at [2019-06-02 15:13](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/19#issuecomment-498039692):
 
-Yes, you're right, I did a quick extraction. 
+Yes, you're right, I did a quick extraction.
 Are there any options you think are interesting?
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2019-06-03 10:23](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/19#issuecomment-498201117):
@@ -7681,115 +7681,115 @@ My KSPP config:
 [root@proton kconfig-hardened-check]# ls
 config_files  kconfig-hardened-check.py  LICENSE  README.md
 [root@proton kconfig-hardened-check]# ./kconfig-hardened-check.py -c /boot/config-5.0.4 > kspp_setting
-[root@proton kconfig-hardened-check]# cat kspp_setting 
+[root@proton kconfig-hardened-check]# cat kspp_setting
 [+] Trying to detect architecture in "/boot/config-5.0.4"...
 [+] Detected architecture: X86_64
 [+] Checking "/boot/config-5.0.4" against hardening preferences...
-  option name                            | desired val | decision |       reason       ||        check result        
+  option name                            | desired val | decision |       reason       ||        check result
   ===================================================================================================================
-  CONFIG_BUG                             |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_STRICT_KERNEL_RWX               |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_STACKPROTECTOR_STRONG           |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_SLUB_DEBUG                      |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_STRICT_MODULE_RWX               |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_PAGE_TABLE_ISOLATION            |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_RANDOMIZE_MEMORY                |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_RANDOMIZE_BASE                  |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_RETPOLINE                       |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_X86_SMAP                        |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_X86_INTEL_UMIP                  |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_SYN_COOKIES                     |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_VMAP_STACK                      |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_THREAD_INFO_IN_TASK             |      y      |defconfig |  self_protection   ||             OK             
-  CONFIG_BUG_ON_DATA_CORRUPTION          |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_DEBUG_WX                        |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_SCHED_STACK_END_CHECK           |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_SLAB_FREELIST_HARDENED          |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_SLAB_FREELIST_RANDOM            |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_FORTIFY_SOURCE                  |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_GCC_PLUGINS                     |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_GCC_PLUGIN_RANDSTRUCT           |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_GCC_PLUGIN_STRUCTLEAK           |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF_ALL |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_GCC_PLUGIN_LATENT_ENTROPY       |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_DEBUG_LIST                      |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_DEBUG_SG                        |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_DEBUG_CREDENTIALS               |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_DEBUG_NOTIFIERS                 |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_PAGE_POISONING                  |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_HARDENED_USERCOPY               |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_HARDENED_USERCOPY_FALLBACK      | is not set  |   kspp   |  self_protection   ||             OK             
-  CONFIG_MODULE_SIG                      |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_MODULE_SIG_ALL                  |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_MODULE_SIG_SHA512               |      y      |   kspp   |  self_protection   ||     FAIL: "is not set"     
-  CONFIG_MODULE_SIG_FORCE                |      y      |   kspp   |  self_protection   ||     FAIL: "is not set"     
-  CONFIG_DEFAULT_MMAP_MIN_ADDR           |    65536    |   kspp   |  self_protection   ||             OK             
-  CONFIG_REFCOUNT_FULL                   |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_GCC_PLUGIN_STACKLEAK            |      y      |    my    |  self_protection   ||             OK             
-  CONFIG_LOCK_DOWN_KERNEL                |      y      |    my    |  self_protection   ||      FAIL: not found       
-  CONFIG_SLUB_DEBUG_ON                   |      y      |    my    |  self_protection   ||             OK             
-  CONFIG_SECURITY_DMESG_RESTRICT         |      y      |    my    |  self_protection   ||             OK             
-  CONFIG_STATIC_USERMODEHELPER           |      y      |    my    |  self_protection   ||     FAIL: "is not set"     
-  CONFIG_SECURITY_LOADPIN                |      y      |    my    |  self_protection   ||     FAIL: "is not set"     
-  CONFIG_RESET_ATTACK_MITIGATION         |      y      |    my    |  self_protection   ||             OK             
-  CONFIG_SLAB_MERGE_DEFAULT              | is not set  |    my    |  self_protection   ||         FAIL: "y"          
-  CONFIG_PAGE_POISONING_NO_SANITY        | is not set  |    my    |  self_protection   ||             OK             
-  CONFIG_PAGE_POISONING_ZERO             | is not set  |    my    |  self_protection   ||             OK             
-  CONFIG_SECURITY                        |      y      |defconfig |  security_policy   ||             OK             
-  CONFIG_SECURITY_YAMA                   |      y      |   kspp   |  security_policy   ||             OK             
-  CONFIG_SECURITY_SELINUX_DISABLE        | is not set  |   kspp   |  security_policy   ||             OK             
-  CONFIG_SECCOMP                         |      y      |defconfig | cut_attack_surface ||             OK             
-  CONFIG_SECCOMP_FILTER                  |      y      |defconfig | cut_attack_surface ||             OK             
-  CONFIG_STRICT_DEVMEM                   |      y      |defconfig | cut_attack_surface ||             OK             
-  CONFIG_MODULES                         | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_DEVMEM                          | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_IO_STRICT_DEVMEM                |      y      |   kspp   | cut_attack_surface ||     FAIL: "is not set"     
-  CONFIG_ACPI_CUSTOM_METHOD              | is not set  |   kspp   | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_COMPAT_BRK                      | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_DEVKMEM                         | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_COMPAT_VDSO                     | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_BINFMT_MISC                     | is not set  |   kspp   | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_INET_DIAG                       | is not set  |   kspp   | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_KEXEC                           | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_PROC_KCORE                      | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_LEGACY_PTYS                     | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_HIBERNATION                     | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_LEGACY_VSYSCALL_NONE            |      y      |   kspp   | cut_attack_surface ||     FAIL: "is not set"     
-  CONFIG_IA32_EMULATION                  | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_X86_X32                         | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_MODIFY_LDT_SYSCALL              | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_X86_PTDUMP                      | is not set  |grsecurity| cut_attack_surface ||             OK             
-  CONFIG_ZSMALLOC_STAT                   | is not set  |grsecurity| cut_attack_surface ||             OK             
-  CONFIG_PAGE_OWNER                      | is not set  |grsecurity| cut_attack_surface ||             OK             
-  CONFIG_DEBUG_KMEMLEAK                  | is not set  |grsecurity| cut_attack_surface ||             OK             
-  CONFIG_BINFMT_AOUT                     | is not set  |grsecurity| cut_attack_surface ||       OK: not found        
-  CONFIG_KPROBES                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_UPROBES                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_GENERIC_TRACER                  | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_PROC_VMCORE                     | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_PROC_PAGE_MONITOR               | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_USELIB                          | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_CHECKPOINT_RESTORE              | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_USERFAULTFD                     | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_HWPOISON_INJECT                 | is not set  |grsecurity| cut_attack_surface ||         FAIL: "m"          
-  CONFIG_MEM_SOFT_DIRTY                  | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_DEVPORT                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_DEBUG_FS                        | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_NOTIFIER_ERROR_INJECTION        | is not set  |grsecurity| cut_attack_surface ||             OK             
-  CONFIG_ACPI_TABLE_UPGRADE              | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_ACPI_APEI_EINJ                  | is not set  | lockdown | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_PROFILING                       | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_BPF_SYSCALL                     | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_MMIOTRACE_TEST                  | is not set  | lockdown | cut_attack_surface ||       OK: not found        
-  CONFIG_MMIOTRACE                       | is not set  |    my    | cut_attack_surface ||             OK             
-  CONFIG_KEXEC_FILE                      | is not set  |    my    | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_LIVEPATCH                       | is not set  |    my    | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_USER_NS                         | is not set  |    my    | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_IP_DCCP                         | is not set  |    my    | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_IP_SCTP                         | is not set  |    my    | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_FTRACE                          | is not set  |    my    | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_BPF_JIT                         | is not set  |    my    | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_ARCH_MMAP_RND_BITS              |     32      |    my    |userspace_protection||         FAIL: "28"         
+  CONFIG_BUG                             |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_STRICT_KERNEL_RWX               |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_STACKPROTECTOR_STRONG           |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_SLUB_DEBUG                      |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_STRICT_MODULE_RWX               |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_PAGE_TABLE_ISOLATION            |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_RANDOMIZE_MEMORY                |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_RANDOMIZE_BASE                  |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_RETPOLINE                       |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_X86_SMAP                        |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_X86_INTEL_UMIP                  |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_SYN_COOKIES                     |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_VMAP_STACK                      |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_THREAD_INFO_IN_TASK             |      y      |defconfig |  self_protection   ||             OK
+  CONFIG_BUG_ON_DATA_CORRUPTION          |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_DEBUG_WX                        |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_SCHED_STACK_END_CHECK           |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_SLAB_FREELIST_HARDENED          |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_SLAB_FREELIST_RANDOM            |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_FORTIFY_SOURCE                  |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_GCC_PLUGINS                     |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_GCC_PLUGIN_RANDSTRUCT           |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_GCC_PLUGIN_STRUCTLEAK           |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF_ALL |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_GCC_PLUGIN_LATENT_ENTROPY       |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_DEBUG_LIST                      |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_DEBUG_SG                        |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_DEBUG_CREDENTIALS               |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_DEBUG_NOTIFIERS                 |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_PAGE_POISONING                  |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_HARDENED_USERCOPY               |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_HARDENED_USERCOPY_FALLBACK      | is not set  |   kspp   |  self_protection   ||             OK
+  CONFIG_MODULE_SIG                      |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_MODULE_SIG_ALL                  |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_MODULE_SIG_SHA512               |      y      |   kspp   |  self_protection   ||     FAIL: "is not set"
+  CONFIG_MODULE_SIG_FORCE                |      y      |   kspp   |  self_protection   ||     FAIL: "is not set"
+  CONFIG_DEFAULT_MMAP_MIN_ADDR           |    65536    |   kspp   |  self_protection   ||             OK
+  CONFIG_REFCOUNT_FULL                   |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_GCC_PLUGIN_STACKLEAK            |      y      |    my    |  self_protection   ||             OK
+  CONFIG_LOCK_DOWN_KERNEL                |      y      |    my    |  self_protection   ||      FAIL: not found
+  CONFIG_SLUB_DEBUG_ON                   |      y      |    my    |  self_protection   ||             OK
+  CONFIG_SECURITY_DMESG_RESTRICT         |      y      |    my    |  self_protection   ||             OK
+  CONFIG_STATIC_USERMODEHELPER           |      y      |    my    |  self_protection   ||     FAIL: "is not set"
+  CONFIG_SECURITY_LOADPIN                |      y      |    my    |  self_protection   ||     FAIL: "is not set"
+  CONFIG_RESET_ATTACK_MITIGATION         |      y      |    my    |  self_protection   ||             OK
+  CONFIG_SLAB_MERGE_DEFAULT              | is not set  |    my    |  self_protection   ||         FAIL: "y"
+  CONFIG_PAGE_POISONING_NO_SANITY        | is not set  |    my    |  self_protection   ||             OK
+  CONFIG_PAGE_POISONING_ZERO             | is not set  |    my    |  self_protection   ||             OK
+  CONFIG_SECURITY                        |      y      |defconfig |  security_policy   ||             OK
+  CONFIG_SECURITY_YAMA                   |      y      |   kspp   |  security_policy   ||             OK
+  CONFIG_SECURITY_SELINUX_DISABLE        | is not set  |   kspp   |  security_policy   ||             OK
+  CONFIG_SECCOMP                         |      y      |defconfig | cut_attack_surface ||             OK
+  CONFIG_SECCOMP_FILTER                  |      y      |defconfig | cut_attack_surface ||             OK
+  CONFIG_STRICT_DEVMEM                   |      y      |defconfig | cut_attack_surface ||             OK
+  CONFIG_MODULES                         | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"
+  CONFIG_DEVMEM                          | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"
+  CONFIG_IO_STRICT_DEVMEM                |      y      |   kspp   | cut_attack_surface ||     FAIL: "is not set"
+  CONFIG_ACPI_CUSTOM_METHOD              | is not set  |   kspp   | cut_attack_surface ||         FAIL: "m"
+  CONFIG_COMPAT_BRK                      | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_DEVKMEM                         | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_COMPAT_VDSO                     | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_BINFMT_MISC                     | is not set  |   kspp   | cut_attack_surface ||         FAIL: "m"
+  CONFIG_INET_DIAG                       | is not set  |   kspp   | cut_attack_surface ||         FAIL: "m"
+  CONFIG_KEXEC                           | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"
+  CONFIG_PROC_KCORE                      | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"
+  CONFIG_LEGACY_PTYS                     | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_HIBERNATION                     | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_LEGACY_VSYSCALL_NONE            |      y      |   kspp   | cut_attack_surface ||     FAIL: "is not set"
+  CONFIG_IA32_EMULATION                  | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"
+  CONFIG_X86_X32                         | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_MODIFY_LDT_SYSCALL              | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"
+  CONFIG_X86_PTDUMP                      | is not set  |grsecurity| cut_attack_surface ||             OK
+  CONFIG_ZSMALLOC_STAT                   | is not set  |grsecurity| cut_attack_surface ||             OK
+  CONFIG_PAGE_OWNER                      | is not set  |grsecurity| cut_attack_surface ||             OK
+  CONFIG_DEBUG_KMEMLEAK                  | is not set  |grsecurity| cut_attack_surface ||             OK
+  CONFIG_BINFMT_AOUT                     | is not set  |grsecurity| cut_attack_surface ||       OK: not found
+  CONFIG_KPROBES                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_UPROBES                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_GENERIC_TRACER                  | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_PROC_VMCORE                     | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_PROC_PAGE_MONITOR               | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_USELIB                          | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_CHECKPOINT_RESTORE              | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_USERFAULTFD                     | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_HWPOISON_INJECT                 | is not set  |grsecurity| cut_attack_surface ||         FAIL: "m"
+  CONFIG_MEM_SOFT_DIRTY                  | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_DEVPORT                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_DEBUG_FS                        | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_NOTIFIER_ERROR_INJECTION        | is not set  |grsecurity| cut_attack_surface ||             OK
+  CONFIG_ACPI_TABLE_UPGRADE              | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"
+  CONFIG_ACPI_APEI_EINJ                  | is not set  | lockdown | cut_attack_surface ||         FAIL: "m"
+  CONFIG_PROFILING                       | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"
+  CONFIG_BPF_SYSCALL                     | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"
+  CONFIG_MMIOTRACE_TEST                  | is not set  | lockdown | cut_attack_surface ||       OK: not found
+  CONFIG_MMIOTRACE                       | is not set  |    my    | cut_attack_surface ||             OK
+  CONFIG_KEXEC_FILE                      | is not set  |    my    | cut_attack_surface ||         FAIL: "y"
+  CONFIG_LIVEPATCH                       | is not set  |    my    | cut_attack_surface ||         FAIL: "y"
+  CONFIG_USER_NS                         | is not set  |    my    | cut_attack_surface ||         FAIL: "y"
+  CONFIG_IP_DCCP                         | is not set  |    my    | cut_attack_surface ||         FAIL: "m"
+  CONFIG_IP_SCTP                         | is not set  |    my    | cut_attack_surface ||         FAIL: "m"
+  CONFIG_FTRACE                          | is not set  |    my    | cut_attack_surface ||         FAIL: "y"
+  CONFIG_BPF_JIT                         | is not set  |    my    | cut_attack_surface ||         FAIL: "y"
+  CONFIG_ARCH_MMAP_RND_BITS              |     32      |    my    |userspace_protection||         FAIL: "28"
 
 [+] config check is finished: 'OK' - 62 / 'FAIL' - 41
 
@@ -7929,7 +7929,7 @@ I'm a bit late for the discussion.
 @jcberthon, thanks for your message.
 Yes, the `CONFIG_USER_NS` option provides some isolation between the userspace programs, but the script recommends disabling it to cut the attack surface __of the kernel__.
 Let me give the links describing the rationale:
-  
+
   1. A nice LWN article about the corresponding LKML discussion: https://lwn.net/Articles/673597/
   2. A twitter thread about USER_NS and security: https://twitter.com/robertswiecki/status/1095447678949953541
 
@@ -7951,7 +7951,7 @@ I'm not sure if it's good idea for this project to start scanning the running sy
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2019-03-20 13:23](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/14#issuecomment-474826371):
 
 > > (by the way, adding the ability to check kernel boot parameters and sysctl would be really nice)
-> 
+>
 > I'm not sure if it's good idea for this project to start scanning the running system for security features. I would vote for keeping it simple and just check chosen config file.
 
 I agree, I don't like the privileged scanning of a system from the script too.
@@ -8000,7 +8000,7 @@ One day the script will support the error annotations (the idea is described her
 
 Consider distro which have PAGE_POISONING=n. In check it gets:
 ```
-CONFIG_PAGE_POISONING                  |      y      |   kspp   |  self_protection   ||     FAIL: "is not set" 
+CONFIG_PAGE_POISONING                  |      y      |   kspp   |  self_protection   ||     FAIL: "is not set"
 CONFIG_PAGE_POISONING_NO_SANITY        | is not set  |    my    |  self_protection   ||       OK: not found
 CONFIG_PAGE_POISONING_ZERO             | is not set  |    my    |  self_protection   ||       OK: not found
 ```
@@ -8060,7 +8060,7 @@ For several other module-related options the script behaves correctly (saying 'C
 
 Output is:
 ```
-  CONFIG_MODULE_SIG_FORCE                |      y      |   kspp   |  self_protection   ||      FAIL: not found       
+  CONFIG_MODULE_SIG_FORCE                |      y      |   kspp   |  self_protection   ||      FAIL: not found
 ```
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2019-03-04 13:42](https://github.com/a13xp0p0v/kernel-hardening-checker/issues/12#issuecomment-469256961):
@@ -8161,7 +8161,7 @@ I've rebased on top of your current tree, fixed up a few things, added what I th
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2019-01-18 12:12](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/10#issuecomment-455526516):
 
-Ouch. 
+Ouch.
 @tyhicks , excuse me please!
 I've made a code review 3 days ago, but didn't hit "submit" button, so it is "pending" :(
 I've just realized that you haven't seen my review when I looked at your rebased branch.
@@ -8282,7 +8282,7 @@ I see two approaches:
 What do you think?
 
 > > May I ask you to extract arch support into a separate pull request? We will work further to merge it.
-> 
+>
 > Certainly. It might not happen today but I'll get a new PR up very soon.
 
 Thank you! Take your time, we are not in a hurry.
@@ -8328,7 +8328,7 @@ Closing this pull request in favor of #10
 Hello Alexander,
 
 After kernel compilation im getting issue "unknow filesystem type ext4", "Failed to mount /sysroot"
-I was wondering which KSSP feature could be responsible for it ? I was trying many times and always getting the same issue as i mentioned. Sceenshot 
+I was wondering which KSSP feature could be responsible for it ? I was trying many times and always getting the same issue as i mentioned. Sceenshot
 https://www.centos.org/forums/download/file.php?id=2571
 It looks like my initramfs doesn't have the kernel module for ext4 but why.
 
@@ -8348,8 +8348,8 @@ I would recommend you to use binary search to do it faster.
 
 Hey,
 
-I checked many options and recompiled kernel many times to find some answers, but it looks like everything works like a charm. I was doing everything based on Centos 7 with devtoolset-7 enabled to get never version of gcc like 7.2.  With CONFIG_SECURITY_LOADPIN  enabled im not able to load any module and getting "operation not permitted". Im guessing it's supposed to be like that. 
-@a13xp0p0v 
+I checked many options and recompiled kernel many times to find some answers, but it looks like everything works like a charm. I was doing everything based on Centos 7 with devtoolset-7 enabled to get never version of gcc like 7.2.  With CONFIG_SECURITY_LOADPIN  enabled im not able to load any module and getting "operation not permitted". Im guessing it's supposed to be like that.
+@a13xp0p0v
 Don't you know if ubuntu developers will enable KSPP options to the ubuntu kernel ? Or only manual compilation is available to get more security features ?
 Thanks !
 
@@ -8373,7 +8373,7 @@ It's slow but steady process. More and more kernel hardening options are enabled
 Hello
 I have a weir problem. After successfully compiled kernel i can't use iptables:
 
-> 
+>
 > [root@localhost ~]# iptables -L
 > iptables v1.4.21: can't initialize iptables table `filter': Table does not exist (do you need to insmod?)
 > Perhaps iptables or your kernel needs to be upgraded.
@@ -8383,109 +8383,109 @@ What am i doing wrong ?
 Kernel KSSP options:
 
 ```
-option name                            | desired val | decision |       reason       ||        check result        
+option name                            | desired val | decision |       reason       ||        check result
   ===================================================================================================================
-  CONFIG_BUG                             |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_PAGE_TABLE_ISOLATION            |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_RETPOLINE                       |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_X86_64                          |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_X86_SMAP                        |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_X86_INTEL_UMIP                  |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_STRICT_KERNEL_RWX               |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_DEBUG_WX                        |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_RANDOMIZE_BASE                  |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_RANDOMIZE_MEMORY                |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_STACKPROTECTOR_STRONG           |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_VMAP_STACK                      |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_THREAD_INFO_IN_TASK             |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_SCHED_STACK_END_CHECK           |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_SLUB_DEBUG                      |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_SLAB_FREELIST_HARDENED          |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_SLAB_FREELIST_RANDOM            |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_HARDENED_USERCOPY               |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_FORTIFY_SOURCE                  |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_LOCK_DOWN_KERNEL                |      y      | ubuntu18 |  self_protection   ||      FAIL: not found       
-  CONFIG_STRICT_MODULE_RWX               |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_MODULE_SIG                      |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_MODULE_SIG_ALL                  |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_MODULE_SIG_SHA512               |      y      | ubuntu18 |  self_protection   ||     FAIL: "is not set"     
-  CONFIG_SYN_COOKIES                     |      y      | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_DEFAULT_MMAP_MIN_ADDR           |    65536    | ubuntu18 |  self_protection   ||             OK             
-  CONFIG_BUG_ON_DATA_CORRUPTION          |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_PAGE_POISONING                  |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_GCC_PLUGINS                     |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_GCC_PLUGIN_RANDSTRUCT           |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_GCC_PLUGIN_STRUCTLEAK           |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF_ALL |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_GCC_PLUGIN_LATENT_ENTROPY       |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_REFCOUNT_FULL                   |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_DEBUG_LIST                      |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_DEBUG_SG                        |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_DEBUG_CREDENTIALS               |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_DEBUG_NOTIFIERS                 |      y      |   kspp   |  self_protection   ||             OK             
-  CONFIG_MODULE_SIG_FORCE                |      y      |   kspp   |  self_protection   ||     FAIL: "is not set"     
-  CONFIG_HARDENED_USERCOPY_FALLBACK      | is not set  |   kspp   |  self_protection   ||         FAIL: "y"          
-  CONFIG_GCC_PLUGIN_STACKLEAK            |      y      |    my    |  self_protection   ||      FAIL: not found       
-  CONFIG_SLUB_DEBUG_ON                   |      y      |    my    |  self_protection   ||             OK             
-  CONFIG_SECURITY_DMESG_RESTRICT         |      y      |    my    |  self_protection   ||             OK             
-  CONFIG_STATIC_USERMODEHELPER           |      y      |    my    |  self_protection   ||             OK             
-  CONFIG_SECURITY_LOADPIN                |      y      |    my    |  self_protection   ||     FAIL: "is not set"     
-  CONFIG_PAGE_POISONING_NO_SANITY        | is not set  |    my    |  self_protection   ||             OK             
-  CONFIG_PAGE_POISONING_ZERO             | is not set  |    my    |  self_protection   ||             OK             
-  CONFIG_SLAB_MERGE_DEFAULT              | is not set  |    my    |  self_protection   ||             OK             
-  CONFIG_SECURITY                        |      y      | ubuntu18 |  security_policy   ||             OK             
-  CONFIG_SECURITY_YAMA                   |      y      | ubuntu18 |  security_policy   ||             OK             
-  CONFIG_SECURITY_SELINUX_DISABLE        | is not set  | ubuntu18 |  security_policy   ||             OK             
-  CONFIG_SECCOMP                         |      y      | ubuntu18 | cut_attack_surface ||             OK             
-  CONFIG_SECCOMP_FILTER                  |      y      | ubuntu18 | cut_attack_surface ||             OK             
-  CONFIG_STRICT_DEVMEM                   |      y      | ubuntu18 | cut_attack_surface ||             OK             
-  CONFIG_ACPI_CUSTOM_METHOD              | is not set  | ubuntu18 | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_COMPAT_BRK                      | is not set  | ubuntu18 | cut_attack_surface ||             OK             
-  CONFIG_DEVKMEM                         | is not set  | ubuntu18 | cut_attack_surface ||             OK             
-  CONFIG_COMPAT_VDSO                     | is not set  | ubuntu18 | cut_attack_surface ||       OK: not found        
-  CONFIG_X86_PTDUMP                      | is not set  | ubuntu18 | cut_attack_surface ||             OK             
-  CONFIG_ZSMALLOC_STAT                   | is not set  | ubuntu18 | cut_attack_surface ||             OK             
-  CONFIG_PAGE_OWNER                      | is not set  | ubuntu18 | cut_attack_surface ||             OK             
-  CONFIG_DEBUG_KMEMLEAK                  | is not set  | ubuntu18 | cut_attack_surface ||             OK             
-  CONFIG_BINFMT_AOUT                     | is not set  | ubuntu18 | cut_attack_surface ||       OK: not found        
-  CONFIG_MMIOTRACE_TEST                  | is not set  | ubuntu18 | cut_attack_surface ||       OK: not found        
-  CONFIG_IO_STRICT_DEVMEM                |      y      |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_LEGACY_VSYSCALL_NONE            |      y      |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_BINFMT_MISC                     | is not set  |   kspp   | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_INET_DIAG                       | is not set  |   kspp   | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_KEXEC                           | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_PROC_KCORE                      | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_LEGACY_PTYS                     | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_IA32_EMULATION                  | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_X86_X32                         | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_MODIFY_LDT_SYSCALL              | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_HIBERNATION                     | is not set  |   kspp   | cut_attack_surface ||             OK             
-  CONFIG_KPROBES                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_UPROBES                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_GENERIC_TRACER                  | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_PROC_VMCORE                     | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_PROC_PAGE_MONITOR               | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_USELIB                          | is not set  |grsecurity| cut_attack_surface ||             OK             
-  CONFIG_CHECKPOINT_RESTORE              | is not set  |grsecurity| cut_attack_surface ||             OK             
-  CONFIG_USERFAULTFD                     | is not set  |grsecurity| cut_attack_surface ||             OK             
-  CONFIG_HWPOISON_INJECT                 | is not set  |grsecurity| cut_attack_surface ||             OK             
-  CONFIG_MEM_SOFT_DIRTY                  | is not set  |grsecurity| cut_attack_surface ||       OK: not found        
-  CONFIG_DEVPORT                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_DEBUG_FS                        | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"          
-  CONFIG_NOTIFIER_ERROR_INJECTION        | is not set  |grsecurity| cut_attack_surface ||             OK             
-  CONFIG_ACPI_TABLE_UPGRADE              | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_ACPI_APEI_EINJ                  | is not set  | lockdown | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_PROFILING                       | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_BPF_SYSCALL                     | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_MMIOTRACE                       | is not set  |    my    | cut_attack_surface ||             OK             
-  CONFIG_KEXEC_FILE                      | is not set  |    my    | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_LIVEPATCH                       | is not set  |    my    | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_USER_NS                         | is not set  |    my    | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_IP_DCCP                         | is not set  |    my    | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_IP_SCTP                         | is not set  |    my    | cut_attack_surface ||         FAIL: "m"          
-  CONFIG_FTRACE                          | is not set  |    my    | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_BPF_JIT                         | is not set  |    my    | cut_attack_surface ||         FAIL: "y"          
-  CONFIG_ARCH_MMAP_RND_BITS              |     32      |    my    |userspace_protection||         FAIL: "28"         
+  CONFIG_BUG                             |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_PAGE_TABLE_ISOLATION            |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_RETPOLINE                       |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_X86_64                          |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_X86_SMAP                        |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_X86_INTEL_UMIP                  |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_STRICT_KERNEL_RWX               |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_DEBUG_WX                        |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_RANDOMIZE_BASE                  |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_RANDOMIZE_MEMORY                |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_STACKPROTECTOR_STRONG           |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_VMAP_STACK                      |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_THREAD_INFO_IN_TASK             |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_SCHED_STACK_END_CHECK           |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_SLUB_DEBUG                      |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_SLAB_FREELIST_HARDENED          |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_SLAB_FREELIST_RANDOM            |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_HARDENED_USERCOPY               |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_FORTIFY_SOURCE                  |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_LOCK_DOWN_KERNEL                |      y      | ubuntu18 |  self_protection   ||      FAIL: not found
+  CONFIG_STRICT_MODULE_RWX               |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_MODULE_SIG                      |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_MODULE_SIG_ALL                  |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_MODULE_SIG_SHA512               |      y      | ubuntu18 |  self_protection   ||     FAIL: "is not set"
+  CONFIG_SYN_COOKIES                     |      y      | ubuntu18 |  self_protection   ||             OK
+  CONFIG_DEFAULT_MMAP_MIN_ADDR           |    65536    | ubuntu18 |  self_protection   ||             OK
+  CONFIG_BUG_ON_DATA_CORRUPTION          |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_PAGE_POISONING                  |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_GCC_PLUGINS                     |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_GCC_PLUGIN_RANDSTRUCT           |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_GCC_PLUGIN_STRUCTLEAK           |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF_ALL |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_GCC_PLUGIN_LATENT_ENTROPY       |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_REFCOUNT_FULL                   |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_DEBUG_LIST                      |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_DEBUG_SG                        |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_DEBUG_CREDENTIALS               |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_DEBUG_NOTIFIERS                 |      y      |   kspp   |  self_protection   ||             OK
+  CONFIG_MODULE_SIG_FORCE                |      y      |   kspp   |  self_protection   ||     FAIL: "is not set"
+  CONFIG_HARDENED_USERCOPY_FALLBACK      | is not set  |   kspp   |  self_protection   ||         FAIL: "y"
+  CONFIG_GCC_PLUGIN_STACKLEAK            |      y      |    my    |  self_protection   ||      FAIL: not found
+  CONFIG_SLUB_DEBUG_ON                   |      y      |    my    |  self_protection   ||             OK
+  CONFIG_SECURITY_DMESG_RESTRICT         |      y      |    my    |  self_protection   ||             OK
+  CONFIG_STATIC_USERMODEHELPER           |      y      |    my    |  self_protection   ||             OK
+  CONFIG_SECURITY_LOADPIN                |      y      |    my    |  self_protection   ||     FAIL: "is not set"
+  CONFIG_PAGE_POISONING_NO_SANITY        | is not set  |    my    |  self_protection   ||             OK
+  CONFIG_PAGE_POISONING_ZERO             | is not set  |    my    |  self_protection   ||             OK
+  CONFIG_SLAB_MERGE_DEFAULT              | is not set  |    my    |  self_protection   ||             OK
+  CONFIG_SECURITY                        |      y      | ubuntu18 |  security_policy   ||             OK
+  CONFIG_SECURITY_YAMA                   |      y      | ubuntu18 |  security_policy   ||             OK
+  CONFIG_SECURITY_SELINUX_DISABLE        | is not set  | ubuntu18 |  security_policy   ||             OK
+  CONFIG_SECCOMP                         |      y      | ubuntu18 | cut_attack_surface ||             OK
+  CONFIG_SECCOMP_FILTER                  |      y      | ubuntu18 | cut_attack_surface ||             OK
+  CONFIG_STRICT_DEVMEM                   |      y      | ubuntu18 | cut_attack_surface ||             OK
+  CONFIG_ACPI_CUSTOM_METHOD              | is not set  | ubuntu18 | cut_attack_surface ||         FAIL: "m"
+  CONFIG_COMPAT_BRK                      | is not set  | ubuntu18 | cut_attack_surface ||             OK
+  CONFIG_DEVKMEM                         | is not set  | ubuntu18 | cut_attack_surface ||             OK
+  CONFIG_COMPAT_VDSO                     | is not set  | ubuntu18 | cut_attack_surface ||       OK: not found
+  CONFIG_X86_PTDUMP                      | is not set  | ubuntu18 | cut_attack_surface ||             OK
+  CONFIG_ZSMALLOC_STAT                   | is not set  | ubuntu18 | cut_attack_surface ||             OK
+  CONFIG_PAGE_OWNER                      | is not set  | ubuntu18 | cut_attack_surface ||             OK
+  CONFIG_DEBUG_KMEMLEAK                  | is not set  | ubuntu18 | cut_attack_surface ||             OK
+  CONFIG_BINFMT_AOUT                     | is not set  | ubuntu18 | cut_attack_surface ||       OK: not found
+  CONFIG_MMIOTRACE_TEST                  | is not set  | ubuntu18 | cut_attack_surface ||       OK: not found
+  CONFIG_IO_STRICT_DEVMEM                |      y      |   kspp   | cut_attack_surface ||             OK
+  CONFIG_LEGACY_VSYSCALL_NONE            |      y      |   kspp   | cut_attack_surface ||             OK
+  CONFIG_BINFMT_MISC                     | is not set  |   kspp   | cut_attack_surface ||         FAIL: "m"
+  CONFIG_INET_DIAG                       | is not set  |   kspp   | cut_attack_surface ||         FAIL: "m"
+  CONFIG_KEXEC                           | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_PROC_KCORE                      | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_LEGACY_PTYS                     | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_IA32_EMULATION                  | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_X86_X32                         | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_MODIFY_LDT_SYSCALL              | is not set  |   kspp   | cut_attack_surface ||         FAIL: "y"
+  CONFIG_HIBERNATION                     | is not set  |   kspp   | cut_attack_surface ||             OK
+  CONFIG_KPROBES                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_UPROBES                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_GENERIC_TRACER                  | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_PROC_VMCORE                     | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_PROC_PAGE_MONITOR               | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_USELIB                          | is not set  |grsecurity| cut_attack_surface ||             OK
+  CONFIG_CHECKPOINT_RESTORE              | is not set  |grsecurity| cut_attack_surface ||             OK
+  CONFIG_USERFAULTFD                     | is not set  |grsecurity| cut_attack_surface ||             OK
+  CONFIG_HWPOISON_INJECT                 | is not set  |grsecurity| cut_attack_surface ||             OK
+  CONFIG_MEM_SOFT_DIRTY                  | is not set  |grsecurity| cut_attack_surface ||       OK: not found
+  CONFIG_DEVPORT                         | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_DEBUG_FS                        | is not set  |grsecurity| cut_attack_surface ||         FAIL: "y"
+  CONFIG_NOTIFIER_ERROR_INJECTION        | is not set  |grsecurity| cut_attack_surface ||             OK
+  CONFIG_ACPI_TABLE_UPGRADE              | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"
+  CONFIG_ACPI_APEI_EINJ                  | is not set  | lockdown | cut_attack_surface ||         FAIL: "m"
+  CONFIG_PROFILING                       | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"
+  CONFIG_BPF_SYSCALL                     | is not set  | lockdown | cut_attack_surface ||         FAIL: "y"
+  CONFIG_MMIOTRACE                       | is not set  |    my    | cut_attack_surface ||             OK
+  CONFIG_KEXEC_FILE                      | is not set  |    my    | cut_attack_surface ||         FAIL: "y"
+  CONFIG_LIVEPATCH                       | is not set  |    my    | cut_attack_surface ||         FAIL: "y"
+  CONFIG_USER_NS                         | is not set  |    my    | cut_attack_surface ||         FAIL: "y"
+  CONFIG_IP_DCCP                         | is not set  |    my    | cut_attack_surface ||         FAIL: "m"
+  CONFIG_IP_SCTP                         | is not set  |    my    | cut_attack_surface ||         FAIL: "m"
+  CONFIG_FTRACE                          | is not set  |    my    | cut_attack_surface ||         FAIL: "y"
+  CONFIG_BPF_JIT                         | is not set  |    my    | cut_attack_surface ||         FAIL: "y"
+  CONFIG_ARCH_MMAP_RND_BITS              |     32      |    my    |userspace_protection||         FAIL: "28"
 
 [-] config check is NOT PASSED: 29 errors
 
@@ -8506,7 +8506,7 @@ I would recommend you to look at the kernel log for more information and bisect 
 
 Hey,
 
-Im trying do my best with security options based on your script. I have a litte problems with few options. 
+Im trying do my best with security options based on your script. I have a litte problems with few options.
 
 When im adding these options:
 ```
@@ -8558,7 +8558,7 @@ Yes, CONFIG_GCC_PLUGIN_STACKLEAK will be available in Linux 4.20.
 #### <img src="https://avatars.githubusercontent.com/u/7037785?u=6ac77234884c153e7fd38e3732be16d9760509ea&v=4" width="50">[c0rv4x](https://github.com/c0rv4x) opened issue at [2018-07-30 14:38](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/6):
 
 I removed long lines from `print` and `format` functions.
-Also i edited function `get_option_state` now uses `dict.get` method to extract a key from dict with default value 
+Also i edited function `get_option_state` now uses `dict.get` method to extract a key from dict with default value
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2018-07-30 20:09](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/6#issuecomment-408993713):
 
@@ -8595,7 +8595,7 @@ My 2 cents is that a single file isn't too bad after considering the current sco
 
 You are right about `__pycache__`, that is my fault.
 
-As for sticking to a single file, i clearly see your point and agree with you. However, OOP style is obviously easier to extend and easier to read. As long as the author (a13xp0p0v) is expecting the tool to grow, i consider that we should stick to an easier form of code in terms of adding code rather that terms of easy-to-run. 
+As for sticking to a single file, i clearly see your point and agree with you. However, OOP style is obviously easier to extend and easier to read. As long as the author (a13xp0p0v) is expecting the tool to grow, i consider that we should stick to an easier form of code in terms of adding code rather that terms of easy-to-run.
 
 Also, thanks for the note on setup.py file, i will surely fix that problem!
 
@@ -8618,7 +8618,7 @@ Thanks!
 
 #### <img src="https://avatars.githubusercontent.com/u/7037785?u=6ac77234884c153e7fd38e3732be16d9760509ea&v=4" width="50">[c0rv4x](https://github.com/c0rv4x) commented at [2018-07-30 14:39](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/5#issuecomment-408886952):
 
-@a13xp0p0v 
+@a13xp0p0v
 
 I created a separate pull request https://github.com/a13xp0p0v/kconfig-hardened-check/pull/6 for the 4th bullet point on your list. Also i added a tiny fix for working with dict
 
@@ -8700,7 +8700,7 @@ Hello @a13xp0p0v ,
 
 Yeah, okay, I'll take care of it.
 
-@Bernhard40 
+@Bernhard40
 
 > Yeah, keeping well know distros and non-rolling release kernels make sense.
 
@@ -8714,9 +8714,9 @@ Hello @HacKurx , thanks for your work.
 
 1. I've commented out the LKDTM rule. You are right about it.
 
-2. I'll check what we can do about CONFIG_DEBUG_SET_MODULE_RONX, CONFIG_DEBUG_KERNEL, CONFIG_DEBUG_RODATA. 
+2. I'll check what we can do about CONFIG_DEBUG_SET_MODULE_RONX, CONFIG_DEBUG_KERNEL, CONFIG_DEBUG_RODATA.
 
-3. I've merged some of your commits, so now 'config' directory has: 
+3. I've merged some of your commits, so now 'config' directory has:
  -  Alpinelinux-edge.config (I want to keep it)
  -  Archlinux-hardened.config (ditto)
  -  debian-stretch.config
@@ -8824,7 +8824,7 @@ Hi @a13xp0p0v ,
           to close hardware side channels on kernel address information.
 ```
 
-and 
+and
 
 ```
 +config PAX_MEMORY_UDEREF_MELTDOWN
@@ -8897,7 +8897,7 @@ Please don't start another holy war about grsecurity.
 - Yes, a lot of KSPP work is inspired by (and sometimes copied from) grsecurity. The map shows that fact explicitly.
 - Yes, almost all the mainline kernel self protection features are not compatible with grsecurity (and even marked as BROKEN).
 
-@HacKurx , it's great that you have access to the recent grsecurity patches, lucky you. 
+@HacKurx , it's great that you have access to the recent grsecurity patches, lucky you.
 I don't have it, and I guess they will never give it to me.
 So I would like to focus on the mainline kconfig options. Moreover, grsecurity users really don't need this funny script at all.
 
@@ -8994,7 +8994,7 @@ arm/configs/iop33x_defconfig:CONFIG_BINFMT_AOUT=y
 
 #### <img src="https://avatars.githubusercontent.com/u/4661917?u=bb7aeb3c77839cea055b49b80168666b36315f3d&v=4" width="50">[theLOICofFRANCE](https://github.com/theLOICofFRANCE) commented at [2018-07-19 19:02](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/3#issuecomment-406381446):
 
-No thanks to you @a13xp0p0v 
+No thanks to you @a13xp0p0v
 
 I have corrected as requested, I hope it will suit you.
 I've done everything since the github editor which explains the many commit.
@@ -9024,12 +9024,12 @@ Till soon.
 
 #### <img src="https://avatars.githubusercontent.com/u/4661917?u=bb7aeb3c77839cea055b49b80168666b36315f3d&v=4" width="50">[theLOICofFRANCE](https://github.com/theLOICofFRANCE) commented at [2018-07-20 11:56](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/3#issuecomment-406579032):
 
-@anthraxx 
+@anthraxx
 > there is a hardened arch kernel as well with more protective options.
 
 Yes indeed. It's fixed.
 
-@a13xp0p0v 
+@a13xp0p0v
 
 I will have fun adding main distributions config but it would be necessary to create a folder not to pollute it.
 This will allow an easy comparison to be made.
@@ -9108,7 +9108,7 @@ Thanks for the info, @Bernhard40. I'll update the STACKPROTECTOR config option w
 
 #### <img src="https://avatars.githubusercontent.com/u/203012?u=939d6d3b5ff0b9e46e911d8792a40c20408574e2&v=4" width="50">[anthraxx](https://github.com/anthraxx) commented at [2018-06-25 22:47](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/2#issuecomment-400119687):
 
-@a13xp0p0v I have splitted up the commits as much as made sense, can you please take a look? Really don't fear nitpicking, I'm used to do open-source :yum: 
+@a13xp0p0v I have splitted up the commits as much as made sense, can you please take a look? Really don't fear nitpicking, I'm used to do open-source :yum:
 
 PS: this also handles STACKPROTECTOR_STRONG by using the OR operator.
 
@@ -9155,7 +9155,7 @@ Cheers 🍻
 
 #### <img src="https://avatars.githubusercontent.com/u/4661917?u=bb7aeb3c77839cea055b49b80168666b36315f3d&v=4" width="50">[theLOICofFRANCE](https://github.com/theLOICofFRANCE) commented at [2018-07-19 19:14](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/2#issuecomment-406384461):
 
-I don't know if you're doing it, but CONFIG_ARCH_MMAP_RND_BITS should be replaced by: 
+I don't know if you're doing it, but CONFIG_ARCH_MMAP_RND_BITS should be replaced by:
 ```
 CONFIG_ARCH_MMAP_RND_BITS_MIN=28
 CONFIG_ARCH_MMAP_RND_BITS_MAX=32
@@ -9177,7 +9177,7 @@ I really hope we can get this in soon, I'm still there to make any changes if yo
 
 #### <img src="https://avatars.githubusercontent.com/u/1419667?u=de82e29061c3ef5f1c19f95528f8a82b08051fd2&v=4" width="50">[a13xp0p0v](https://github.com/a13xp0p0v) commented at [2018-07-19 20:56](https://github.com/a13xp0p0v/kernel-hardening-checker/pull/2#issuecomment-406411723):
 
-Hello @anthraxx 
+Hello @anthraxx
 
 Cool, thanks for your work, I'm going to do the review soon.
 Yes, we've already spent plenty of time on that, because it's not so easy: this PR changes almost everything :)

@@ -32,7 +32,7 @@ typedef struct {
 //
 
 STATIC UNICODE_TO_CHAR UnicodeToPcAnsiOrAscii[] = {
-    { BOXDRAW_HORIZONTAL,                 0xc4, L'-'}, 
+    { BOXDRAW_HORIZONTAL,                 0xc4, L'-'},
     { BOXDRAW_VERTICAL,                   0xb3, L'|'},
     { BOXDRAW_DOWN_RIGHT,                 0xda, L'/'},
     { BOXDRAW_DOWN_LEFT,                  0xbf, L'\\'},
@@ -82,19 +82,19 @@ STATIC UNICODE_TO_CHAR UnicodeToPcAnsiOrAscii[] = {
     { GEOMETRICSHAPE_LEFT_TRIANGLE,       0x11, L'<'},
 
     /* BugBug: Left Arrow is an ESC. We can not make it print
-                on a PCANSI terminal. If we can make left arrow 
+                on a PCANSI terminal. If we can make left arrow
                 come out on PC ANSI we can add it back.
 
     { ARROW_LEFT,                         0x1b, L'<'},
     */
 
     { ARROW_UP,                           0x18, L'^'},
-    
+
     /* BugBut: Took out left arrow so right has to go too.
        { ARROW_RIGHT,                        0x1a, L'>'},
-    */      
+    */
     { ARROW_DOWN,                         0x19, L'v'},
-    
+
     { 0x0000, 0x00, L'\0' }
 };
 
@@ -127,9 +127,9 @@ Returns:
     UNICODE_TO_CHAR     *Table;
 
     if ((((Graphic & 0xff00) != 0x2500) && ((Graphic & 0xff00) != 0x2100))) {
-     
+
         //
-        // Unicode drawing code charts are all in the 0x25xx range, 
+        // Unicode drawing code charts are all in the 0x25xx range,
         //  arrows are 0x21xx
         //
         return FALSE;
@@ -138,7 +138,7 @@ Returns:
     for (Table = UnicodeToPcAnsiOrAscii; Table->Unicode != 0x0000; Table++) {
         if (Graphic == Table->Unicode) {
             if (PcAnsi) {
-                *PcAnsi = Table->PcAnsi; 
+                *PcAnsi = Table->PcAnsi;
             }
             if (Ascii) {
                 *Ascii = Table->Ascii;
@@ -156,7 +156,7 @@ IsValidAscii (
 {
     if ((Ascii >= 0x20) && (Ascii <= 0x7f)) {
         return TRUE;
-    }              
+    }
     return FALSE;
 }
 
@@ -167,7 +167,7 @@ IsValidEfiCntlChar (
 {
     if (c == CHAR_NULL || c == CHAR_BACKSPACE || c == CHAR_LINEFEED || c == CHAR_CARRIAGE_RETURN) {
         return TRUE;
-    }              
+    }
     return FALSE;
 }
 

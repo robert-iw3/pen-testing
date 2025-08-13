@@ -47,32 +47,32 @@ def generate_typosquats(domain):
     """Generate typosquatting variations of a domain"""
     name, tld = domain.split('.')
     typos = []
-    
+
     # Character substitution (e.g., 'o' to '0')
     subs = {'o': '0', 'i': '1', 'l': '1', 's': '5', 'e': '3', 'a': '4'}
     for char, replacement in subs.items():
         if char in name:
             typos.append(name.replace(char, replacement) + '.' + tld)
-    
+
     # Character swaps
     for i in range(len(name) - 1):
         swapped = name[:i] + name[i+1] + name[i] + name[i+2:]
         typos.append(swapped + '.' + tld)
-    
+
     # Character omission
     for i in range(len(name)):
         typos.append(name[:i] + name[i+1:] + '.' + tld)
-    
+
     # Character duplication
     for i in range(len(name)):
         typos.append(name[:i] + name[i] + name[i:] + '.' + tld)
-    
+
     # Additional TLDs
     common_tlds = ['com', 'net', 'org', 'io', 'co']
     for new_tld in common_tlds:
         if new_tld != tld:
             typos.append(name + '.' + new_tld)
-    
+
     return typos
 
 # Example usage
@@ -155,31 +155,31 @@ def save_target_emails(email_address, password, target_domain):
     mail = imaplib.IMAP4_SSL("imap.gmail.com")
     mail.login(email_address, password)
     mail.select("inbox")
-    
+
     # Search for emails from target domain
     status, messages = mail.search(None, f'FROM "@{target_domain}"')
-    
+
     # Create directory for templates
     os.makedirs(f"templates/{target_domain}", exist_ok=True)
-    
+
     # Download emails
     for num in messages[0].split():
         status, data = mail.fetch(num, '(RFC822)')
         raw_email = data[0][1]
-        
+
         # Parse the raw email
         msg = email.message_from_bytes(raw_email)
-        
+
         # Save the email
         with open(f"templates/{target_domain}/email_{num.decode()}.eml", 'wb') as f:
             f.write(raw_email)
-        
+
         # If email has HTML part, save it separately
         for part in msg.walk():
             if part.get_content_type() == "text/html":
                 with open(f"templates/{target_domain}/email_{num.decode()}.html", 'wb') as f:
                     f.write(part.get_payload(decode=True))
-    
+
     mail.close()
     mail.logout()
 ```
@@ -207,23 +207,23 @@ def capture_authenticated_templates(url, username, password):
     options = Options()
     options.headless = True
     driver = webdriver.Firefox(options=options)
-    
+
     # Login to the page
     driver.get(url)
     driver.find_element_by_id("username").send_keys(username)
     driver.find_element_by_id("password").send_keys(password)
     driver.find_element_by_id("login-button").click()
-    
+
     # Wait for page to load
     time.sleep(5)
-    
+
     # Save the HTML
     with open("authenticated_template.html", "w") as f:
         f.write(driver.page_source)
-    
+
     # Take screenshot
     driver.save_screenshot("authenticated_template.png")
-    
+
     driver.quit()
 ```
 
@@ -266,7 +266,7 @@ myhostname = mail.example.com
 mydomain = example.com
 myorigin = \$mydomain
 mydestination = \$myhostname, \$mydomain, localhost.\$mydomain, localhost
-relayhost = 
+relayhost =
 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
 mailbox_size_limit = 0
 recipient_delimiter = +
@@ -498,13 +498,13 @@ function checkBrowser() {
         window.location = "https://legitimate-site.com";
         return;
     }
-    
+
     // Check screen dimensions (many security tools use small windows)
     if (screen.width < 1000 || screen.height < 600) {
         window.location = "https://legitimate-site.com";
         return;
     }
-    
+
     // Check if DevTools is open
     if (window.outerHeight - window.innerHeight > 200) {
         window.location = "https://legitimate-site.com";
@@ -553,10 +553,10 @@ client = Client(account_sid, auth_token)
 
 def make_vishing_call(target_number, script_id, spoofed_number=None):
     """Make a vishing call with optional caller ID spoofing"""
-    
+
     # URL to TwiML script that controls call flow
     twiml_url = f"https://your-server.com/vishing_scripts/{script_id}.xml"
-    
+
     # Create the call
     call = client.calls.create(
         url=twiml_url,
@@ -567,7 +567,7 @@ def make_vishing_call(target_number, script_id, spoofed_number=None):
         # Optional machine detection
         machine_detection='Enable'
     )
-    
+
     return call.sid
 
 # Example call to the function
@@ -633,14 +633,14 @@ client = Client(account_sid, auth_token)
 
 def send_smishing_message(target_number, message, sender=None):
     """Send an SMS phishing message"""
-    
+
     # Send the message
     message = client.messages.create(
         body=message,
         from_=sender if sender else 'your_twilio_number',
         to=target_number
     )
-    
+
     return message.sid
 
 # Example smishing message
@@ -1109,13 +1109,13 @@ from twilio.rest import Client
 def generate_voice_message(text, voice_id):
     """Generate voice message using ElevenLabs API"""
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
-    
+
     headers = {
         "Accept": "audio/mpeg",
         "Content-Type": "application/json",
         "xi-api-key": "YOUR_ELEVENLABS_API_KEY"
     }
-    
+
     data = {
         "text": text,
         "model_id": "eleven_monolingual_v1",
@@ -1124,13 +1124,13 @@ def generate_voice_message(text, voice_id):
             "similarity_boost": 0.75
         }
     }
-    
+
     response = requests.post(url, json=data, headers=headers)
-    
+
     # Save the audio file
     with open("message.mp3", "wb") as f:
         f.write(response.content)
-    
+
     return "message.mp3"
 ```
 
@@ -1222,8 +1222,8 @@ tools = load_tools(["serpapi", "llm-math"], llm=llm)
 
 # Create an agent that can use these tools
 agent = initialize_agent(
-    tools, 
-    llm, 
+    tools,
+    llm,
     agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
     verbose=True
 )
@@ -1316,7 +1316,7 @@ The keys to good results are:
 - Setting clear ethical boundaries
 - Requesting critical analysis, not just data extraction
 
-By combining traditional OSINT tools with intelligent LLM automation, social engineering campaigns can become more targeted, effective, and efficient while maintaining proper authorization boundaries and documentation. 
+By combining traditional OSINT tools with intelligent LLM automation, social engineering campaigns can become more targeted, effective, and efficient while maintaining proper authorization boundaries and documentation.
 
 ## Conclusion
 
@@ -1333,7 +1333,7 @@ The key takeaways from this article are:
 
 Remember that the most successful social engineering campaigns aren't about technical sophistication alone—they're about creating scenarios that trigger emotional responses while appearing perfectly legitimate.
 
-By mastering these techniques, red teams can effectively test an organization's human security layer, providing valuable insights that technical assessments alone cannot reveal. In the ongoing battle between attackers and defenders, understanding and evaluating the human element remains one of our most important responsibilities as security professionals. 
+By mastering these techniques, red teams can effectively test an organization's human security layer, providing valuable insights that technical assessments alone cannot reveal. In the ongoing battle between attackers and defenders, understanding and evaluating the human element remains one of our most important responsibilities as security professionals.
 
 ---
 

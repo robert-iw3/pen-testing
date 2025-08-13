@@ -3,7 +3,7 @@ Windows
 
 # Anonymous users can obtain the Windows password policy
 
-msf > use auxiliary/scanner/smb/smb_enumusers 
+msf > use auxiliary/scanner/smb/smb_enumusers
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # CIFS NULL Session Permitted
@@ -14,7 +14,7 @@ nbtscan <target IP>
 
 rpcclient -U "" <target IP>
 Enter  's password: <return>
-rpcclient $> 
+rpcclient $>
 srvinfo
 enumdomusers
 queryuser <user>

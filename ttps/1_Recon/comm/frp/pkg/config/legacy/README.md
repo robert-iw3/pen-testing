@@ -1,4 +1,4 @@
-So far, there is no mature Go project that does well in parsing `*.ini` files. 
+So far, there is no mature Go project that does well in parsing `*.ini` files.
 
 By comparison, we have selected an open source project: `https://github.com/go-ini/ini`.
 

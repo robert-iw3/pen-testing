@@ -10,12 +10,12 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 final class ConcatenatingIterator<@NonNull T> extends IteratingIterator<T> {
 	private final Queue<Iterator<T>> iterators;
 	private @Nullable Iterator<T> current;
-	
+
 	ConcatenatingIterator(Queue<Iterator<T>> iterators) {
 		this.iterators = iterators;
 		current = iterators.poll();
 	}
-	
+
 	@Override
 	protected Iterator<T> findNextIterator() {
 		while(current != null && !current.hasNext()){

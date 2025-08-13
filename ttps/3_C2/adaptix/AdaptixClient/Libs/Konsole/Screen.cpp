@@ -290,20 +290,20 @@ void Screen::setDefaultMargins() {
 
 /*
  Clarifying rendition here and in the display.
- 
+
  currently, the display's color table is
  0       1       2 .. 9    10 .. 17
  dft_fg, dft_bg, dim 0..7, intensive 0..7
- 
+
  currentForeground, currentBackground contain values 0..8;
  - 0    = default color
  - 1..8 = ansi specified color
- 
+
  re_fg, re_bg contain values 0..17
  due to the TerminalDisplay's color table
- 
+
  rendition attributes are
- 
+
  attr           widget screen
  -------------- ------ ------
  RE_UNDERLINE     XX     XX    affects foreground only
@@ -312,7 +312,7 @@ void Screen::setDefaultMargins() {
  RE_REVERSE       --     XX
  RE_TRANSPARENT   XX     --    affects background only
  RE_INTENSIVE     XX     --    affects foreground only
- 
+
  Note that RE_BOLD is used in both widget
  and screen rendition. Since xterm/vt102
  is to poor to distinguish between bold
@@ -572,7 +572,7 @@ void Screen::displayCharacter(wchar_t c) {
         do {
             if (charToCombineWithX > 0) {
                 --charToCombineWithX;
-            } else if (charToCombineWithY > 0 && lineProperties.at(charToCombineWithY - 1) & LINE_WRAPPED) { 
+            } else if (charToCombineWithY > 0 && lineProperties.at(charToCombineWithY - 1) & LINE_WRAPPED) {
                 --charToCombineWithY;
                 charToCombineWithX = screenLines[charToCombineWithY].length() - 1;
             } else {

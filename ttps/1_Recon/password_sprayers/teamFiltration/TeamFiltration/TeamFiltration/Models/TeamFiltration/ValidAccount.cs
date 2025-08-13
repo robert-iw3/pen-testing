@@ -10,7 +10,7 @@ namespace TeamFiltration.Models.TeamFiltration
     {
         public ValidAccount()
         {
-           
+
         }
 
         [BsonId]

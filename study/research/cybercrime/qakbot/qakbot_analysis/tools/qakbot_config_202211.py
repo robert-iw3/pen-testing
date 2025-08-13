@@ -25,7 +25,7 @@ if __name__ == "__main__":
     pe = pefile.PE(sys.argv[1], fast_load=True)
     pe.parse_data_directories(directories=d)
 
-    rt_rcdata_idx = [ 
+    rt_rcdata_idx = [
         entry.id for entry in
         pe.DIRECTORY_ENTRY_RESOURCE.entries].index(pefile.RESOURCE_TYPE['RT_RCDATA'])
 
@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
         data_ = data_[20:]
 
-        key = data_[:20] 
+        key = data_[:20]
         cipher = ARC4.new(key)
         data_ = cipher.decrypt(data_[20:])
         if hashlib.sha1(data_[20:]).digest() != data_[:20]:

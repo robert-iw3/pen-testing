@@ -43,7 +43,7 @@ const ActionButtons = (props: { actions: any }): JSX.Element => {
   if (!actions) return (<></>);
   return (
     <ActionButtonContainer>
-      { actions.map((action: Action, index: number) => 
+      { actions.map((action: Action, index: number) =>
         <Button
           key={`action-${index}`}
           styles={actionButtonStyles}

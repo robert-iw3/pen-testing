@@ -38,7 +38,7 @@ func (dbms *DBMS) DbAgentInsert(agentData adaptix.AgentData) error {
 		return fmt.Errorf("agent %s alredy exists", agentData.Id)
 	}
 
-	insertQuery := `INSERT INTO Agents (Id, Crc, Name, SessionKey, Listener, Async, ExternalIP, InternalIP, GmtOffset, 
+	insertQuery := `INSERT INTO Agents (Id, Crc, Name, SessionKey, Listener, Async, ExternalIP, InternalIP, GmtOffset,
                        Sleep, Jitter, Pid, Tid, Arch, Elevated, Process, Os, OsDesc, Domain, Computer, Username, Impersonated,
 					   OemCP, ACP, CreateTime, LastTick, WorkingTime, KillDate, Tags, Mark, Color
 				   ) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`
@@ -108,7 +108,7 @@ func (dbms *DBMS) DbAgentAll() []adaptix.AgentData {
 
 	ok := dbms.DatabaseExists()
 	if ok {
-		selectQuery := `SELECT Id, Crc, Name, SessionKey, Listener, Async, ExternalIP, InternalIP, GmtOffset, 
+		selectQuery := `SELECT Id, Crc, Name, SessionKey, Listener, Async, ExternalIP, InternalIP, GmtOffset,
                        Sleep, Jitter, Pid, Tid, Arch, Elevated, Process, Os, OsDesc, Domain, Computer, Username, Impersonated,
 					   OemCP, ACP, CreateTime, LastTick, WorkingTime, KillDate, Tags, Mark, Color FROM Agents;`
 		query, err := dbms.database.Query(selectQuery)

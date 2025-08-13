@@ -11,7 +11,7 @@ namespace winPEAS.Info.NetworkInfo.NetworkScanner
     {
 
         /// <summary>
-        /// IPAddress to UInteger 
+        /// IPAddress to UInteger
         /// </summary>
         /// <param name="ipAddress"></param>
         /// <returns></returns>
@@ -72,7 +72,7 @@ namespace winPEAS.Info.NetworkInfo.NetworkScanner
         }
 
         /// <summary>
-        /// First and Last IPv4 + Mask. 
+        /// First and Last IPv4 + Mask.
         /// </summary>
         /// <param name="ipv4"></param>
         /// <param name="mask">Accepts CIDR or IP. Example 255.255.255.0 or 24</param>
@@ -135,8 +135,8 @@ namespace winPEAS.Info.NetworkInfo.NetworkScanner
         public static IEnumerable<string> GetIPAddressesByNetmask(string ipAddress, string netmask)
         {
             // TODO
-            // e.g. 
-            // netmask should be e.g. 24 - currently we only support this format            
+            // e.g.
+            // netmask should be e.g. 24 - currently we only support this format
             string[] range = NetworkUtils.GetIpRange(ipAddress, netmask, false);
 
             return range;
@@ -150,7 +150,7 @@ namespace winPEAS.Info.NetworkInfo.NetworkScanner
             // https://itecnote.com/tecnote/c-proper-way-to-scan-a-range-of-ip-addresses/
             // we nned to (maybe in parallel)
             // - ping e.g. 3 times
-            // - scan top 5 ports 
+            // - scan top 5 ports
             var parts = ipAddressAndNetmask.Split(':');
 
             return new List<string>

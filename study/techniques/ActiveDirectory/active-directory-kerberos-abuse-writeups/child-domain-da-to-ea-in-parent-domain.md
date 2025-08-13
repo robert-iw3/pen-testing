@@ -224,7 +224,7 @@ It is possible to compromise the root domain in various ways. Examples:
 - [Schema attack](https://improsec.com/tech-blog/sid-filter-as-security-boundary-between-domains-part-6-schema-change-trust-attack-from-child-to-parent)
 - Exploit ADCS - Create/modify certificate template to allow authentication as any user (e.g. Enterprise Admins)
 
-SID filtering prevents the SID history attack, but not this one.  
+SID filtering prevents the SID history attack, but not this one.
 
 ## References
 

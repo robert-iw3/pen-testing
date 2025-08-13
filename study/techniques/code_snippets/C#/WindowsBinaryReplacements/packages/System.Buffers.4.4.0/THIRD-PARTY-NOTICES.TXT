@@ -8,7 +8,7 @@ bring it to our attention. Post an issue or email us:
 
 The attached notices are provided for information only.
 
-License notice for Slicing-by-8 
+License notice for Slicing-by-8
 -------------------------------
 
 http://sourceforge.net/projects/slicing-by-8/
@@ -57,7 +57,7 @@ shall not be used in advertising or otherwise to promote the sale,
 use or other dealings in these Data Files or Software without prior
 written authorization of the copyright holder.
 
-License notice for Zlib 
+License notice for Zlib
 -----------------------
 
 https://github.com/madler/zlib
@@ -108,12 +108,12 @@ furnished to do so,  subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 License notice for International Organization for Standardization
@@ -223,4 +223,4 @@ noted) — feel free to use them however you please. The aggregate collection an
 descriptions are © 1997-2005 Sean Eron Anderson. The code and descriptions are
 distributed in the hope that they will be useful, but WITHOUT ANY WARRANTY and
 without even the implied warranty of merchantability or fitness for a particular
-purpose. 
+purpose.

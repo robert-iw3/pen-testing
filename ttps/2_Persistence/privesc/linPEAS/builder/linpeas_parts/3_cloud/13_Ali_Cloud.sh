@@ -17,13 +17,13 @@
 if [ "$is_aliyun_ecs" = "Yes" ]; then
   aliyun_req=""
   aliyun_token=""
-  if [ "$(command -v curl)" ]; then 
+  if [ "$(command -v curl)" ]; then
     aliyun_token=$(curl -X PUT "http://100.100.100.200/latest/api/token" -H "X-aliyun-ecs-metadata-token-ttl-seconds:1000")
     aliyun_req='curl -s -f -L -H "X-aliyun-ecs-metadata-token: $aliyun_token"'
   elif [ "$(command -v wget)" ]; then
     aliyun_token=$(wget -q -O - --method PUT "http://100.100.100.200/latest/api/token" --header "X-aliyun-ecs-metadata-token-ttl-seconds:1000")
     aliyun_req='wget -q -O --header "X-aliyun-ecs-metadata-token: $aliyun_token"'
-  else 
+  else
     echo "Neither curl nor wget were found, I can't enumerate the metadata service :("
   fi
 
@@ -57,7 +57,7 @@ if [ "$is_aliyun_ecs" = "Yes" ]; then
     [ "$i_priv_ipv4" ] && echo "Private IPv4: $i_priv_ipv4"
     net_dns=$(eval $aliyun_req  http://100.100.100.200/latest/meta-data/dns-conf/nameservers)
     [ "$net_dns" ] && echo "DNS: $net_dns"
-    
+
     echo "========"
     for mac in $(eval $aliyun_req  http://100.100.100.200/latest/meta-data/network/interfaces/macs/); do
       echo "  Mac: $mac"
@@ -78,7 +78,7 @@ if [ "$is_aliyun_ecs" = "Yes" ]; then
 
     echo ""
     print_3title "Service account "
-    for sa in $(eval $aliyun_req "http://100.100.100.200/latest/meta-data/ram/security-credentials/"); do 
+    for sa in $(eval $aliyun_req "http://100.100.100.200/latest/meta-data/ram/security-credentials/"); do
       echo "  Name: $sa"
       echo "  STS Token: "$(eval $aliyun_req "http://100.100.100.200/latest/meta-data/ram/security-credentials/$sa")
       echo "  =============="

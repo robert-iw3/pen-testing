@@ -49,19 +49,19 @@ impl AppState {
 pub fn get_state_file_path() -> PathBuf {
     let mut path = dirs::home_dir().unwrap_or_else(|| PathBuf::from("."));
     path.push(".bitchat");
-    
+
     // Create directory if it doesn't exist
     if !path.exists() {
         let _ = fs::create_dir_all(&path);
     }
-    
+
     path.push("state.json");
     path
 }
 
 pub fn load_state() -> AppState {
     let path = get_state_file_path();
-    
+
     let mut state = if path.exists() {
         match fs::read_to_string(&path) {
             Ok(contents) => {
@@ -81,7 +81,7 @@ pub fn load_state() -> AppState {
     } else {
         AppState::new()
     };
-    
+
     // Generate persistent identity key if not present (matching iOS behavior)
     if state.identity_key.is_none() {
         let signing_key = SigningKey::generate(&mut OsRng);
@@ -89,7 +89,7 @@ pub fn load_state() -> AppState {
         // Save immediately to persist the identity key
         let _ = save_state(&state);
     }
-    
+
     state
 }
 
@@ -115,16 +115,16 @@ fn derive_encryption_key(identity_key: &[u8]) -> [u8; 32] {
 pub fn encrypt_password(password: &str, identity_key: &[u8]) -> Result<EncryptedPassword, Box<dyn std::error::Error>> {
     let key = derive_encryption_key(identity_key);
     let cipher = Aes256Gcm::new_from_slice(&key)?;
-    
+
     // Generate random nonce
     let mut nonce_bytes = [0u8; 12];
     rand::Rng::fill(&mut OsRng, &mut nonce_bytes);
     let nonce = Nonce::from_slice(&nonce_bytes);
-    
+
     // Encrypt the password
     let ciphertext = cipher.encrypt(nonce, password.as_bytes())
         .map_err(|e| format!("Encryption failed: {}", e))?;
-    
+
     Ok(EncryptedPassword {
         nonce: nonce_bytes.to_vec(),
         ciphertext,
@@ -135,17 +135,17 @@ pub fn encrypt_password(password: &str, identity_key: &[u8]) -> Result<Encrypted
 pub fn decrypt_password(encrypted: &EncryptedPassword, identity_key: &[u8]) -> Result<String, Box<dyn std::error::Error>> {
     let key = derive_encryption_key(identity_key);
     let cipher = Aes256Gcm::new_from_slice(&key)?;
-    
+
     if encrypted.nonce.len() != 12 {
         return Err("Invalid nonce length".into());
     }
-    
+
     let nonce = Nonce::from_slice(&encrypted.nonce);
-    
+
     // Decrypt the password
     let plaintext = cipher.decrypt(nonce, encrypted.ciphertext.as_ref())
         .map_err(|e| format!("Decryption failed: {}", e))?;
-    
+
     String::from_utf8(plaintext)
         .map_err(|e| format!("Invalid UTF-8: {}", e).into())
 }

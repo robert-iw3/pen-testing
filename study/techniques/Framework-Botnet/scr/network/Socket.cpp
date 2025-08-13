@@ -9,7 +9,7 @@
 #include <chrono>
 #include <netdb.h>
 
-Socket::Socket() 
+Socket::Socket()
     : socket_fd(-1), serverPort(0), sslEnabled(false), sslContext(nullptr), ssl(nullptr) {}
 
 Socket::~Socket() {

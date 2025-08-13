@@ -4,7 +4,7 @@ the attack campaign was active from January 2014,The attack chain starts with ma
 and was used in spear-phishing attack. This exploit drops the loader DLL which is stored in an encrypted form in the XDP file,
 The exploit is delivered as an XDP (XML Data Package) file which is actually a PDF file packaged within an XML container.
 I relied on Kaspersky tofigure out the details to make this simulation:
-https://media.kasperskycontenthub.com/wp-content/uploads/sites/43/2018/03/08080817/EB-YetiJuly2014-Public.pdf 
+https://media.kasperskycontenthub.com/wp-content/uploads/sites/43/2018/03/08080817/EB-YetiJuly2014-Public.pdf
 
 ![imageedit_6_9165265996](https://github.com/S3N4T0R-0X0/Energetic-Bear-APT-Adversary-Simulation/assets/121706460/25bb36f0-0a63-4dbe-941f-dd64ceb05e2f)
 
@@ -15,7 +15,7 @@ This attack included several stages including exploitation of the (CVE-2011-0611
 
 
 
-2. CVE-2012-1723: this exploit allows for sandbox escape and remote code execution on any target with a vulnerable JRE (Java IE 8). 
+2. CVE-2012-1723: this exploit allows for sandbox escape and remote code execution on any target with a vulnerable JRE (Java IE 8).
 
 
 
@@ -37,7 +37,7 @@ This attack included several stages including exploitation of the (CVE-2011-0611
 
 8. PHP backend C2-Server: the attckers used hacked websites as simple PHP C2 Server backend.
 
-   
+
 9. Final result: make remote communication by utilizes XOR encryption for secure data transmission between the attacker server and the target.
 
 ![Screenshot from 2024-05-04 17-37-00](https://github.com/S3N4T0R-0X0/EnergeticBear-APT/assets/121706460/5cd199b5-9af1-4258-b5de-ecdf4e97cca1)
@@ -78,7 +78,7 @@ This vulnerability in the Java Runtime Environment (JRE) component in Oracle Jav
 The attackers actively compromises legitimate websites for watering hole attacks. These hacked
 websites in turn redirect victims to malicious JAR or HTML files hosted on other sites maintained
 by the group (exploiting CVE-2013-2465, CVE-2013-1347, and CVE-2012-1723 in Java 6, Java 7,
-IE 7 and IE 8), These hacked websites will be using a simple PHP C2 Server backend. 
+IE 7 and IE 8), These hacked websites will be using a simple PHP C2 Server backend.
 
 
 
@@ -105,7 +105,7 @@ The HTML smuggling file is used after uploading it to the apache server to downl
 
 ![Screenshot from 2024-05-07 16-04-06](https://github.com/S3N4T0R-0X0/EnergeticBear-APT/assets/121706460/bf4b3892-3521-41f9-aa5e-740c5229e204)
 
-     
+
 ## The fifth stage (Copy DLL by JAR file)
 
 This jar file used to copy and run the DLL by executing the following command:
@@ -143,7 +143,7 @@ If you need know more about Havex trojan: https://malpedia.caad.fkie.fraunhofer.
 Notes on havex trojan: http://pastebin.com/qCdMwtZ6
 
 
-In this simulation i used a simple payload with XOR encryption to secure the connection between the C2 Server and the Target Machine, 
+In this simulation i used a simple payload with XOR encryption to secure the connection between the C2 Server and the Target Machine,
 this payload uses Winsock for establishing a tcp connection between the target machine and the attacker machine, in an infinite loop the payload receives commands from the attacker c2 decrypts them using (XOR) encryption executes them using system and then sleeps for 10 seconds before repeating the loop.
 
 

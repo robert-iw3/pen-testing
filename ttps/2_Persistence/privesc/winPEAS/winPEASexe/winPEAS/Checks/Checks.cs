@@ -336,7 +336,7 @@ namespace winPEAS.Checks
         private static bool IsNetworkTypeValid(string arg)
         {
             var parts = arg.Split('=');
-            string networkType = string.Empty;  
+            string networkType = string.Empty;
 
             if (parts.Length == 2 && !string.IsNullOrEmpty(parts[1]))
             {

@@ -27,4 +27,4 @@ Options:
 
 ### Test Sample
 MD5: 90aac91ba4336bdb252dee699d32d78d
-https://www.virustotal.com/gui/file/edfe1d500855331f71ef12b7e459af1224a5ff3bca89ab7cd0dac930fd77c41a/detection 
+https://www.virustotal.com/gui/file/edfe1d500855331f71ef12b7e459af1224a5ff3bca89ab7cd0dac930fd77c41a/detection

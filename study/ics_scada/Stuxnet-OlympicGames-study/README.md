@@ -3,7 +3,7 @@
 # Stuxnet Rootkit Analysis
 
 ## Overview
-This repository contains a **comprehensive technical analysis** of **Stuxnet**, one of the most advanced and sophisticated pieces of malware ever identified. **Stuxnet** was designed as a precision weapon targeting industrial control systems (ICS), particularly those used in Iran’s nuclear enrichment program. This analysis dissects its architecture, payload, and the zero-day vulnerabilities it exploited to compromise systems running **Siemens Step7** PLC software. 
+This repository contains a **comprehensive technical analysis** of **Stuxnet**, one of the most advanced and sophisticated pieces of malware ever identified. **Stuxnet** was designed as a precision weapon targeting industrial control systems (ICS), particularly those used in Iran’s nuclear enrichment program. This analysis dissects its architecture, payload, and the zero-day vulnerabilities it exploited to compromise systems running **Siemens Step7** PLC software.
 
 Stuxnet is notable for its use of multiple zero-day exploits and its highly specialized targeting of industrial equipment. Its discovery in 2010 marked a turning point in cybersecurity, revealing the potential for malware to cause physical damage and alter the course of geopolitical events.
 
@@ -96,9 +96,9 @@ This vulnerability allowed Stuxnet to interact directly with Siemens PLCs, alter
 ## Propagation Mechanisms
 
 1. **USB Drives**  : A significant part of Stuxnet's success relied on infected USB drives. This was critical in targeting **air-gapped** systems, like those used in nuclear facilities.
-   
+
 2. **Network Shares**  : Exploiting open file shares, Stuxnet moved laterally within compromised networks, infecting systems that had the Siemens Step7 software installed.
-   
+
 3. **Printer Spooler Exploit**  : This allowed Stuxnet to bypass network restrictions and propagate to systems not directly connected to the internet.
 
 4. **Siemens Default Credentials**  : Hardcoded default credentials in Siemens software allowed Stuxnet to propagate to machines running Step7 without user interaction.
@@ -201,7 +201,7 @@ Stuxnet is widely considered the most significant and sophisticated malware ever
 - [The Industrial Control System Cyber Emergency Response Team (ICS-CERT)](https://ics-cert.us-cert.gov/)
 - [SANS ICS](https://ics.sans.org/)
 - [W32.Stuxnet Analysis](https://www.welivesecurity.com/2011/02/22/stuxnet-under-the-microscope/)
-  
+
 1. Crucial Industries ConFront Cyberattacks, McAfee and the Strategic And International Studies: In the Dark, 2011.
 2. David Albright, Paul Brannan, and Christina Walrond (Institute for Science and International Security): Did Stuxnet Take Out 1,000 Centrifuges at the Natanz Enrichment Plant?, December 22, 2010.
 3. Stuxnet: The computer virus that prevented and started the next world war. : The Why Files (youtube.com), March 4, 2021.

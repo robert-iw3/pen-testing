@@ -7,8 +7,8 @@ namespace TeamFiltration.Models.Graph
 {
 
     /*
-     * 
-     * 
+     *
+     *
      * {"odata.metadata":"https://graph.windows.net/75bbd831-230c-4b8e-ba6a-c9517320c1b1/$metadata#directoryObjects","odata.nextLink
      * */
 
@@ -34,5 +34,5 @@ namespace TeamFiltration.Models.Graph
         public string onPremisesSamAccountName { get; set; }
     }
 
-   
+
 }

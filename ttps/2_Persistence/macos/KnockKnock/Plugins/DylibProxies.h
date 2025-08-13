@@ -15,7 +15,7 @@
 
 @interface DylibProxies : PluginBase
 {
-    
+
 }
 
 /* (custom) METHODS */

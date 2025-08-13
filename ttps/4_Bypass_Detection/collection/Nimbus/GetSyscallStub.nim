@@ -7,7 +7,7 @@ type
     Value*: ULONG
     ValuePtr*: PVOID
   PS_ATTRIBUTE* {.pure.} = object
-    Attribute*: ULONG 
+    Attribute*: ULONG
     Size*: SIZE_T
     u1*: PS_ATTR_UNION
     ReturnLength*: PSIZE_T
@@ -22,7 +22,7 @@ type
     SystemArgument2*: PVOID
   PKNORMAL_ROUTINE* = ptr KNORMAL_ROUTINE
 
-var 
+var
     SYSCALL_STUB_SIZE: int = 23;
 
 proc RVAtoRawOffset(RVA: DWORD_PTR, section: PIMAGE_SECTION_HEADER): PVOID =
@@ -60,7 +60,7 @@ proc GetSyscallStub*(functionName: LPCSTR, syscallStub: LPVOID): BOOL =
     var ntdllSectionHeader = cast[PIMAGE_SECTION_HEADER](cast[DWORD_PTR](IMAGE_FIRST_SECTION(imageNTHeaders)) + cast[DWORD_PTR](IMAGE_SIZEOF_SECTION_HEADER * Section))
     if ".rdata" in toString(ntdllSectionHeader.Name):
       rdataSection = ntdllSectionHeader
-        
+
     var exportDirectory: PIMAGE_EXPORT_DIRECTORY = cast[PIMAGE_EXPORT_DIRECTORY](RVAtoRawOffset(cast[DWORD_PTR](fileData) + exportDirRVA, rdataSection))
 
     var addressOfNames: PDWORD = cast[PDWORD](RVAtoRawOffset(cast[DWORD_PTR](fileData) + cast[DWORD_PTR](exportDirectory.AddressOfNames), rdataSection))

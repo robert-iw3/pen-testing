@@ -62,7 +62,7 @@ namespace winPEAS.TaskScheduler.V1
 
     /// <summary>
     /// Options for a task, used for the Flags property of a Task. Uses the
-    /// "Flags" attribute, so these values are combined with |. 
+    /// "Flags" attribute, so these values are combined with |.
     /// Some flags are documented as Windows 95 only, but they have a
     /// user interface in Windows XP so that may not be true.
     /// </summary>
@@ -70,7 +70,7 @@ namespace winPEAS.TaskScheduler.V1
     internal enum TaskFlags
     {
         /// <summary>
-        /// The interactive flag is set if the task is intended to be displayed to the user. 
+        /// The interactive flag is set if the task is intended to be displayed to the user.
         /// If the flag is not set, no user interface associated with the task is presented
         /// to the user when the task is executed.
         /// </summary>
@@ -126,7 +126,7 @@ namespace winPEAS.TaskScheduler.V1
         /// </summary>
         SystemRequired = 0x1000,
         /// <summary>
-        /// The task runs only if the user specified in SetAccountInformation is logged on interactively. 
+        /// The task runs only if the user specified in SetAccountInformation is logged on interactively.
         /// This flag has no effect on work items set to run in the local account.
         /// </summary>
         RunOnlyIfLoggedOn = 0x2000

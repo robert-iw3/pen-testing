@@ -79,7 +79,7 @@ void mcuboot_watchdog_feed(void)
  * Name: mcuboot_watchdog_init
  *
  * Description:
- *   Initialize the watchdog timer by setting the trigger timeout and 
+ *   Initialize the watchdog timer by setting the trigger timeout and
  *   starting it.
  *
  * Input Parameters:
@@ -122,7 +122,7 @@ int mcuboot_watchdog_init(void)
 
   close(fd);
   return OK;
-  
+
 errout_with_dev:
   close(fd);
 errout:

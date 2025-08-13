@@ -6,7 +6,7 @@
 # License: GNU GPL
 # Version: 1.0
 # Functions Used: print_2title
-# Global Variables:$ROOT_FOLDER, $Wfolders 
+# Global Variables:$ROOT_FOLDER, $Wfolders
 # Initial Functions:
 # Generated Global Variables:
 # Fat linpeas: 0

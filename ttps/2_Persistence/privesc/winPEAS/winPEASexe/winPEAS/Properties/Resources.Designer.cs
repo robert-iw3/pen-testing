@@ -10,8 +10,8 @@
 
 namespace winPEAS.Properties {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,15 +23,15 @@ namespace winPEAS.Properties {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace winPEAS.Properties {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,7 +59,7 @@ namespace winPEAS.Properties {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Call a COM object.
         /// </summary>
@@ -68,7 +68,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("ActionTypeComHandler", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Start a program.
         /// </summary>
@@ -77,7 +77,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("ActionTypeExecute", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Send an e-mail.
         /// </summary>
@@ -86,7 +86,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("ActionTypeSendEmail", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Display a message.
         /// </summary>
@@ -95,7 +95,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("ActionTypeShowMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to {3} {0:P}.
         /// </summary>
@@ -104,7 +104,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("ComHandlerAction", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to every day.
         /// </summary>
@@ -113,7 +113,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("DOWAllDays", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to {1} {0}.
         /// </summary>
@@ -122,7 +122,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("EmailAction", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ..
         /// </summary>
@@ -131,7 +131,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("EndSentence", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The date and time a trigger expires must be later than the time time it starts or is activated..
         /// </summary>
@@ -140,7 +140,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("Error_TriggerEndBeforeStart", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to {0} {1}.
         /// </summary>
@@ -149,7 +149,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("ExecAction", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to -.
         /// </summary>
@@ -158,7 +158,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("HyphenSeparator", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ,.
         /// </summary>
@@ -167,7 +167,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("ListSeparator", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to every month.
         /// </summary>
@@ -176,7 +176,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("MOYAllMonths", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Multiple actions defined.
         /// </summary>
@@ -185,7 +185,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("MultipleActions", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Multiple triggers defined.
         /// </summary>
@@ -194,7 +194,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("MultipleTriggers", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to {0}.
         /// </summary>
@@ -203,7 +203,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("ShowMessageAction", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
@@ -212,7 +212,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TaskDefaultPrincipal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Disabled.
         /// </summary>
@@ -221,7 +221,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TaskStateDisabled", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Queued.
         /// </summary>
@@ -230,7 +230,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TaskStateQueued", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ready.
         /// </summary>
@@ -239,7 +239,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TaskStateReady", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Running.
         /// </summary>
@@ -248,7 +248,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TaskStateRunning", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Unknown.
         /// </summary>
@@ -257,7 +257,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TaskStateUnknown", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to any user.
         /// </summary>
@@ -266,7 +266,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerAnyUser", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At system startup.
         /// </summary>
@@ -275,7 +275,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerBoot1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Custom Trigger.
         /// </summary>
@@ -284,7 +284,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerCustom1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At {0:t} every day.
         /// </summary>
@@ -293,7 +293,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerDaily1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At {0:t} every {1} days.
         /// </summary>
@@ -302,7 +302,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerDaily2", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to indefinitely.
         /// </summary>
@@ -311,7 +311,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerDuration0", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to for a duration of {0}.
         /// </summary>
@@ -320,7 +320,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerDurationNot0", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to for {0}.
         /// </summary>
@@ -329,7 +329,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerDurationNot0Short", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Trigger expires at {0:G}..
         /// </summary>
@@ -338,7 +338,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerEndBoundary", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Custom event filter.
         /// </summary>
@@ -347,7 +347,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerEvent1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On event - Log: {0}.
         /// </summary>
@@ -356,7 +356,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerEventBasic1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to , Source: {0}.
         /// </summary>
@@ -365,7 +365,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerEventBasic2", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to , EventID: {0}.
         /// </summary>
@@ -374,7 +374,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerEventBasic3", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When computer is idle.
         /// </summary>
@@ -383,7 +383,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerIdle1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At log on of {0}.
         /// </summary>
@@ -392,7 +392,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerLogon1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At {0:t} on day {1} of {2}, starting {0:d}.
         /// </summary>
@@ -401,7 +401,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerMonthly1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At {0:t} on {1} {2:f} each {3}, starting {0:d}.
         /// </summary>
@@ -410,7 +410,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerMonthlyDOW1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to When the task is created or modified.
         /// </summary>
@@ -419,7 +419,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerRegistration1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to After triggered, repeat every {0} {1}..
         /// </summary>
@@ -428,7 +428,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerRepetition", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Every {0} {1}..
         /// </summary>
@@ -437,7 +437,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerRepetitionShort", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On local connection to {0}..
         /// </summary>
@@ -446,7 +446,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerSessionConsoleConnect", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On local disconnect from {0}..
         /// </summary>
@@ -455,7 +455,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerSessionConsoleDisconnect", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On remote connection to {0}..
         /// </summary>
@@ -464,7 +464,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerSessionRemoteConnect", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On remote disconnect from {0}..
         /// </summary>
@@ -473,7 +473,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerSessionRemoteDisconnect", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On workstation lock of {0}..
         /// </summary>
@@ -482,7 +482,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerSessionSessionLock", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On workstation unlock of {0}..
         /// </summary>
@@ -491,7 +491,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerSessionSessionUnlock", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to user session of {0}.
         /// </summary>
@@ -500,7 +500,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerSessionUserSession", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At {0:t} on {0:d}.
         /// </summary>
@@ -509,7 +509,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTime1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At startup.
         /// </summary>
@@ -518,7 +518,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeBoot", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Custom Trigger.
         /// </summary>
@@ -527,7 +527,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeCustom", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Daily.
         /// </summary>
@@ -536,7 +536,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeDaily", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On an event.
         /// </summary>
@@ -545,7 +545,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeEvent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On idle.
         /// </summary>
@@ -554,7 +554,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeIdle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At log on.
         /// </summary>
@@ -563,7 +563,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeLogon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Monthly.
         /// </summary>
@@ -572,7 +572,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeMonthly", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Monthly.
         /// </summary>
@@ -581,7 +581,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeMonthlyDOW", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At task creation/modification.
         /// </summary>
@@ -590,7 +590,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeRegistration", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to On state change.
         /// </summary>
@@ -599,7 +599,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeSessionStateChange", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to One time.
         /// </summary>
@@ -608,7 +608,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeTime", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Weekly.
         /// </summary>
@@ -617,7 +617,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerTypeWeekly", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At {0:t} every {1} of every week, starting {0:d}.
         /// </summary>
@@ -626,7 +626,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerWeekly1Week", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At {0:t} every {1} of every {2} weeks, starting {0:d}.
         /// </summary>
@@ -635,7 +635,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("TriggerWeeklyMultWeeks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to every.
         /// </summary>
@@ -644,7 +644,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("WWAllWeeks", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to fifth.
         /// </summary>
@@ -653,7 +653,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("WWFifthWeek", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to first.
         /// </summary>
@@ -662,7 +662,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("WWFirstWeek", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to fourth.
         /// </summary>
@@ -671,7 +671,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("WWFourthWeek", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to last.
         /// </summary>
@@ -680,7 +680,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("WWLastWeek", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to second.
         /// </summary>
@@ -689,7 +689,7 @@ namespace winPEAS.Properties {
                 return ResourceManager.GetString("WWSecondWeek", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to third.
         /// </summary>

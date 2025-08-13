@@ -92,7 +92,7 @@ class CredMaster(object):
 		self.jitter = args.jitter or config_dict.get("jitter")
 		self.jitter_min = args.jitter_min or config_dict.get("jitter_min")
 		self.delay = args.delay or config_dict.get("delay")
-		
+
 		self.batch_size = args.batch_size or config_dict.get("batch_size")
 		self.batch_delay = args.batch_delay or config_dict.get("batch_delay")
 		if self.batch_size != None and self.batch_delay == None:
@@ -224,7 +224,7 @@ class CredMaster(object):
 			key = self.pargs[i].replace("--","")
 			pluginargs[key] = self.pargs[i+1]
 
-		## 
+		##
 		## If any plugins require a special argument, set it here
 		##    Ex: Okta plugin requires the threadcount value for some checking, set it manually
 		##
@@ -266,8 +266,8 @@ class CredMaster(object):
 
 		if self.xforwardedfor is not None:
 			self.log_entry(f"Setting static X-Forwarded-For header to: \"{self.xforwardedfor}\"")
-			pluginargs["xforwardedfor"] = self.xforwardedfor 
-			
+			pluginargs["xforwardedfor"] = self.xforwardedfor
+
 		# this is the original URL, NOT the fireproxy one. Don't use this in your sprays!
 		url = pluginargs["url"]
 

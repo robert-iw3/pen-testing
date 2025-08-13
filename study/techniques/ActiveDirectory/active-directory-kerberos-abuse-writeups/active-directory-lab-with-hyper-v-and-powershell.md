@@ -44,7 +44,7 @@ $code = {
     $credential = New-Object System.Management.Automation.PSCredential("administrator", $password)
 
     netsh int ip set address "ethernet" static 10.0.0.6 255.255.255.0 10.0.0.6 1
-    netsh int ip set dns "ethernet" static 10.0.0.6 primary 
+    netsh int ip set dns "ethernet" static 10.0.0.6 primary
 
     $domainName = "offense"
     $domain = "$domainName.local"
@@ -100,7 +100,7 @@ $code = {
 
     $plainPassword = "123456"
     $password = $plainPassword | ConvertTo-SecureString -asPlainText -Force
-    $credential = New-Object System.Management.Automation.PSCredential("administrator", $password)    
+    $credential = New-Object System.Management.Automation.PSCredential("administrator", $password)
     Add-computer -computername ws01 -domain offense.local -domaincredential $credential -Verbose -Restart
 }
 
@@ -127,10 +127,10 @@ $code = {
     $plainPassword = "123456"
     $password = $plainPassword | ConvertTo-SecureString -asPlainText -Force
     $credential = New-Object System.Management.Automation.PSCredential("offense\administrator", $password)
-    
+
     # Create users
     "spotless", "sandy", "bob" | % { New-ADUser $_ }
-    
+
     # Reset users' passwords
     Get-ADUser -Filter *  -Properties samaccountname | select -exp samaccountname  | ? {$_ -notmatch "krb|guest"} | ForEach-Object { Write-host Changing password for $_ to $plainPassword; net user $_ $plainPassword | out-null }
 }

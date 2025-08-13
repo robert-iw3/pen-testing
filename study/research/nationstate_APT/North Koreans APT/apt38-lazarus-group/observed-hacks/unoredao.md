@@ -18,21 +18,21 @@ The malicious party took over the ‘claims assessor’ role via a compromised o
 
 Consequently, a total of 32.4M $UNO, 127.9K $USDC, 59.3K $USDT, and 18.4 $ETH was misplaced.
 
-Following these events, we’ve since focused on Fund Recovery and damage mitigation; the exploiter has been contacted on chain (https://etherscan.io/tx/0x153fa7888fee5641e4bbb622bc6e0a1b56d144b62a658da555aa793e786f6acf ), and we’ve also worked with teams over at KC, Gate, and MEXC to freeze funds. 
+Following these events, we’ve since focused on Fund Recovery and damage mitigation; the exploiter has been contacted on chain (https://etherscan.io/tx/0x153fa7888fee5641e4bbb622bc6e0a1b56d144b62a658da555aa793e786f6acf ), and we’ve also worked with teams over at KC, Gate, and MEXC to freeze funds.
 
-Our ETH-BSC bridge has also since been disabled. 
+Our ETH-BSC bridge has also since been disabled.
 
-$UNO contracts were paused for a brief time to afford us enough time to coordinate with our CEX partners, however they’ve since been unpaused in the interest of maintaining decentralisation. 
+$UNO contracts were paused for a brief time to afford us enough time to coordinate with our CEX partners, however they’ve since been unpaused in the interest of maintaining decentralisation.
 
-We're currently also updating our dApp; at present, please do not interact with it or protocol contracts until further notice. 
+We're currently also updating our dApp; at present, please do not interact with it or protocol contracts until further notice.
 
-Our focus now is two-fold; to release a much more comprehensive post-mortem of the entire event, and a Recompensation plan. 
+Our focus now is two-fold; to release a much more comprehensive post-mortem of the entire event, and a Recompensation plan.
 
-All staker positions within the pools pre-event are recorded, and will be made whole again.  
+All staker positions within the pools pre-event are recorded, and will be made whole again.
 
 (Our tokenomics has a completely reserved Reinsurance Liquidity cell built into it for unforeseen contingencies, which could play a role within this Recomp plan.)
 
-The post-mortem will be published on all our socials, and the Recomp plan will undergo the UNO DAO voting process before being actioned. 
+The post-mortem will be published on all our socials, and the Recomp plan will undergo the UNO DAO voting process before being actioned.
 
 We’re already on our way to recovery, and will keep all DAO members, our community, and capacity providers in the loop at every step of the way via frequent updates like this."
 
@@ -99,7 +99,7 @@ Similarly the team does not recall and has not identified receiving one of the i
 - $192k -> Gate -> to BSC Theft Address 0xe4e9b9b6cc9a9c440f932be4a27d4454fe0f6952
 - $252k -> BSC Theft Address 0xf027a4d8cd87a4ed93b6a332025d73435750f7df
 
-#### BSC Theft Addresses 0xf027a4d8cd87a4ed93b6a332025d73435750f7df 
+#### BSC Theft Addresses 0xf027a4d8cd87a4ed93b6a332025d73435750f7df
 
 -> FixedFloat/ChangeNow Deposit Addresses:
 - 0x242a49ccd144b704e8a1a2ef09297a563099d09a

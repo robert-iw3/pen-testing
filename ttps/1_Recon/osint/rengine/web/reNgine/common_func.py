@@ -436,7 +436,7 @@ def get_domain_from_subdomain(subdomain):
 
 	if not validators.domain(subdomain):
 		return None
-	
+
 	# Use tldextract to parse the subdomain
 	extracted = tldextract.extract(subdomain)
 
@@ -450,7 +450,7 @@ def get_domain_from_subdomain(subdomain):
 			domain = '.'.join(parts[-2:])
 		else:
 			return None
-		
+
 	# Validate the domain before returning
 	return domain if validators.domain(domain) else None
 
@@ -1011,7 +1011,7 @@ def get_domain_historical_ip_address(domain):
 	}
 	response = requests.get(url, headers=headers)
 	soup = BeautifulSoup(response.content, 'lxml')
-	table = soup.find("table", {"border" : "1"})					   
+	table = soup.find("table", {"border" : "1"})
 	for row in table or []:
 		ip = row.findAll('td')[0].getText()
 		location = row.findAll('td')[1].getText()
@@ -1058,14 +1058,14 @@ def parse_llm_vulnerability_report(report):
 	report = report.replace('**', '')
 	data = {}
 	sections = re.split(r'\n(?=(?:Description|Impact|Remediation|References):)', report.strip())
-	
+
 	try:
 		for section in sections:
 			if not section.strip():
 				continue
-			
+
 			section_title, content = re.split(r':\n', section.strip(), maxsplit=1)
-			
+
 			if section_title == 'Description':
 				data['description'] = content.strip()
 			elif section_title == 'Impact':
@@ -1076,7 +1076,7 @@ def parse_llm_vulnerability_report(report):
 				data['references'] = [ref.strip() for ref in content.split('\n') if ref.strip()]
 	except Exception as e:
 		return data
-	
+
 	return data
 
 
@@ -1111,11 +1111,11 @@ def create_scan_object(host_id, engine_id, initiated_by_id=None):
 
 def get_port_service_description(port):
 	"""
-		Retrieves the standard service name and description for a given port 
+		Retrieves the standard service name and description for a given port
 		number using whatportis and the builtin socket library as fallback.
 
 		Args:
-			port (int or str): The port number to look up. 
+			port (int or str): The port number to look up.
 				Can be an integer or a string representation of an integer.
 
 		Returns:
@@ -1125,7 +1125,7 @@ def get_port_service_description(port):
 	try:
 		port = int(port)
 		whatportis_result = whatportis.get_ports(str(port))
-		
+
 		if whatportis_result and whatportis_result[0].name:
 			return {
 				"service_name": whatportis_result[0].name,
@@ -1154,7 +1154,7 @@ def get_port_service_description(port):
 
 def update_or_create_port(port_number, service_name=None, description=None):
 	"""
-		Updates or creates a new Port object with the provided information to 
+		Updates or creates a new Port object with the provided information to
 		avoid storing duplicate entries when service or description information is updated.
 
 		Args:
@@ -1168,13 +1168,13 @@ def update_or_create_port(port_number, service_name=None, description=None):
 	created = False
 	try:
 		port = Port.objects.get(number=port_number)
-		
+
 		# avoid updating None values in service and description if they already exist
 		if service_name is not None and port.service_name != service_name:
 			port.service_name = service_name
 		if description is not None and port.description != description:
 			port.description = description
-		port.save()	
+		port.save()
 	except Port.DoesNotExist:
 		# for cases if the port doesn't exist, create a new one
 		port = Port.objects.create(
@@ -1185,17 +1185,17 @@ def update_or_create_port(port_number, service_name=None, description=None):
 		created = True
 	finally:
 		return port, created
-	
+
 
 def exclude_urls_by_patterns(exclude_paths, urls):
 	"""
 		Filter out URLs based on a list of exclusion patterns provided from user
-		
+
 		Args:
-			exclude_patterns (list of str): A list of patterns to exclude. 
+			exclude_patterns (list of str): A list of patterns to exclude.
 			These can be plain path or regex.
 			urls (list of str): A list of URLs to filter from.
-			
+
 		Returns:
 			list of str: A new list containing URLs that don't match any exclusion pattern.
 	"""
@@ -1203,7 +1203,7 @@ def exclude_urls_by_patterns(exclude_paths, urls):
 	if not exclude_paths:
 		# if no exclude paths are passed and is empty list return all urls as it is
 		return urls
-	
+
 	compiled_patterns = []
 	for path in exclude_paths:
 		# treat each path as either regex or plain path
@@ -1225,13 +1225,13 @@ def exclude_urls_by_patterns(exclude_paths, urls):
 				if pattern in url: #if the word matches anywhere in url exclude
 					exclude = True
 					break
-		
+
 		# if none conditions matches then add the url to filtered urls
 		if not exclude:
 			filtered_urls.append(url)
 
 	return filtered_urls
-	
+
 
 def get_domain_info_from_db(target):
 	"""
@@ -1251,7 +1251,7 @@ def get_domain_info_from_db(target):
 		return extract_domain_info(domain)
 	except Domain.DoesNotExist:
 		return None
-	
+
 def extract_domain_info(domain):
 	"""
 		Extract domain info from the domain_info_db.
@@ -1263,10 +1263,10 @@ def extract_domain_info(domain):
 	"""
 	if not domain:
 		return DottedDict()
-	
+
 	domain_name = domain.name
 	domain_info_db = domain.domain_info
-	
+
 	try:
 		domain_info = DottedDict({
 			'dnssec': domain_info_db.dnssec,
@@ -1295,7 +1295,7 @@ def extract_domain_info(domain):
 			if registration:
 				domain_info.update({
 					f'{role}_{key}': getattr(registration, key)
-					for key in ['name', 'id_str', 'organization', 'city', 'state', 'zip_code', 
+					for key in ['name', 'id_str', 'organization', 'city', 'state', 'zip_code',
 								'country', 'phone', 'fax', 'email', 'address']
 				})
 
@@ -1337,7 +1337,7 @@ def format_whois_response(domain_info):
 		Args:
 			domain_info (DottedDict): The domain info object.
 		Returns:
-			dict: The formatted whois response.	
+			dict: The formatted whois response.
 	"""
 	return {
 		'status': True,
@@ -1473,10 +1473,10 @@ def save_domain_info_to_db(target, domain_info):
 	"""Save domain info to the database."""
 	if Domain.objects.filter(name=target).exists():
 		domain, _ = Domain.objects.get_or_create(name=target)
-		
+
 		# Create or update DomainInfo
 		domain_info_obj, created = DomainInfo.objects.get_or_create(domain=domain)
-		
+
 		# Update basic domain information
 		domain_info_obj.dnssec = domain_info.get('dnssec', False)
 		domain_info_obj.created = domain_info.get('created')
@@ -1584,11 +1584,11 @@ def create_inappnotification(
 ):
 	"""
 		This function will create an inapp notification
-		Inapp Notification not to be confused with Notification model 
+		Inapp Notification not to be confused with Notification model
 		that is used for sending alerts on telegram, slack etc.
 		Inapp notification is used to show notification on the web app
 
-		Args: 
+		Args:
 			title: str: Title of the notification
 			description: str: Description of the notification
 			notification_type: str: Type of the notification, it can be either
@@ -1607,10 +1607,10 @@ def create_inappnotification(
 	logger.info('Creating InApp Notification with title: %s', title)
 	if notification_type not in [SYSTEM_LEVEL_NOTIFICATION, PROJECT_LEVEL_NOTIFICATION]:
 		raise ValueError("Invalid notification type")
-	
+
 	if status not in [choice[0] for choice in NOTIFICATION_STATUS_TYPES]:
 		raise ValueError("Invalid notification status")
-	
+
 	project = None
 	if notification_type == PROJECT_LEVEL_NOTIFICATION:
 		if not project_slug:
@@ -1619,7 +1619,7 @@ def create_inappnotification(
 			project = Project.objects.get(slug=project_slug)
 		except Project.DoesNotExist as e:
 			raise ValueError(f"No project exists: {e}")
-		
+
 	notification = InAppNotification(
 		title=title,
 		description=description,
@@ -1673,21 +1673,21 @@ def is_valid_nmap_command(cmd):
 	# if this is not a valid command nmap command at all, dont even run it
 	if not cmd.strip().startswith('nmap'):
 		return False
-	
+
 	# check for dangerous chars
 	dangerous_chars = {';', '&', '|', '>', '<', '`', '$', '(', ')', '#', '\\'}
 	if any(char in cmd for char in dangerous_chars):
 		return False
-		
+
 	# but we also need to check for flags and options, for example - and -- are allowed
 	parts = cmd.split()
 	for part in parts[1:]: # ignoring nmap the first part of command
 		if part.startswith('-') or part.startswith('--'):
 			continue
-		
+
 		# check for valid characters, . - etc are allowed in valid nmap command
 		if all(c.isalnum() or c in '.,/-_' for c in part):
 			continue
 		return False
-		
+
 	return True

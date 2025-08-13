@@ -41,17 +41,17 @@ my %opts;
 #    Version 1.9
 #    Main SMB server routine
 #    Copyright (C) Andrew Tridgell 1992-199
-# 
+#
 #    This program is free software; you can redistribute it and/or modif
 #    it under the terms of the GNU General Public License as published b
 #    the Free Software Foundation; either version 2 of the License, o
 #    (at your option) any later version
-# 
+#
 #    This program is distributed in the hope that it will be useful
 #    but WITHOUT ANY WARRANTY; without even the implied warranty o
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See th
 #    GNU General Public License for more details
-# 
+#
 #    You should have received a copy of the GNU General Public Licens
 #    along with this program; if not, write to the Free Softwar
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA
@@ -99,8 +99,8 @@ my $usage =<<USAGE;
 enum4linux v$VERSION \(http://labs.portcullis.co.uk/application/enum4linux/\)
 Copyright \(C\) 2011 Mark Lowe \(mrl\@portcullis-security.com\)
 
-Simple wrapper around the tools in the samba package to provide similar 
-functionality to enum.exe (formerly from www.bindview.com).  Some additional 
+Simple wrapper around the tools in the samba package to provide similar
+functionality to enum.exe (formerly from www.bindview.com).  Some additional
 features such as RID cycling have also been added for convenience.
 
 Usage: $0 [options] ip
@@ -112,8 +112,8 @@ Options are (like "enum"):
     -P        get password policy information
     -G        get group and member list
     -d        be detailed, applies to -U and -S
-    -u user   specify username to use (default "")  
-    -p pass   specify password to use (default "")   
+    -u user   specify username to use (default "")
+    -p pass   specify password to use (default "")
 
 The following options from enum.exe aren't implemented: -L, -N, -D, -f
 
@@ -124,7 +124,7 @@ Additional options:
     -r        enumerate users via RID cycling
     -R range  RID ranges to enumerate (default: $global_rid_range, implies -r)
     -K n      Keep searching RIDs until n consective RIDs don't correspond to
-              a username.  Impies RID range ends at $heighest_rid. Useful 
+              a username.  Impies RID range ends at $heighest_rid. Useful
 	      against DCs.
     -l        Get some (limited) info via LDAP 389/TCP (for DCs only)
     -s file   brute force guessing for share names
@@ -138,15 +138,15 @@ Additional options:
     -v        Verbose.  Shows full commands being run (net, rpcclient, etc.)
     -A        Aggressive. Do write checks on shares etc
 
-RID cycling should extract a list of users from Windows \(or Samba\) hosts 
-which have RestrictAnonymous set to 1 \(Windows NT and 2000\), or \"Network 
+RID cycling should extract a list of users from Windows \(or Samba\) hosts
+which have RestrictAnonymous set to 1 \(Windows NT and 2000\), or \"Network
 access: Allow anonymous SID/Name translation\" enabled \(XP, 2003\).
 
 NB: Samba servers often seem to have RIDs in the range 3000-3050.
 
-Dependancy info: You will need to have the samba package installed as this 
-script is basically just a wrapper around rpcclient, net, nmblookup and 
-smbclient.  Polenum from http://labs.portcullis.co.uk/application/polenum/ 
+Dependancy info: You will need to have the samba package installed as this
+script is basically just a wrapper around rpcclient, net, nmblookup and
+smbclient.  Polenum from http://labs.portcullis.co.uk/application/polenum/
 is required to get Password Policy info.
 
 USAGE
@@ -693,8 +693,8 @@ sub enum_shares {
 		my $command = "smbclient -W '$global_workgroup' //'$global_target'/'$share' -U'$global_username'\%'$global_password' -c dir 2>&1";
 		print_verbose("Attempting map to share //$global_target/$share with command: $command\n") if $verbose;
 		my $output = `$command`;
-	
-		if ($output =~ /NT_STATUS_ACCESS_DENIED listing/ || 
+
+		if ($output =~ /NT_STATUS_ACCESS_DENIED listing/ ||
 			$output =~ /do_list:.*NT_STATUS_ACCESS_DENIED/ ) {
 			$mapping_result="OK"; $listing_result="DENIED";
 		} elsif ($output =~ /tree connect failed: NT_STATUS_ACCESS_DENIED/) {
@@ -714,7 +714,7 @@ sub enum_shares {
 				my @chars = ("A".."Z", "a".."z", "0".."9");
 				my $random_string;
 				$random_string .= $chars[rand @chars] for 1..8;
-				
+
 				$command = "smbclient -W '$global_workgroup' //'$global_target'/'$share' -U'$global_username'\%'$global_password' -c 'mkdir $random_string' 2>&1";
 				print_verbose("Checking write access to share //$global_target/$share with command: $command\n") if $verbose;
 				$output = `$command` ;
@@ -756,7 +756,7 @@ sub enum_shares {
 		print $listing_result ;
 		print colored("Writing: ", 'magenta');
 		print $writing_result ;
-		print "\n" ; 
+		print "\n" ;
 	}
 }
 
@@ -767,7 +767,7 @@ sub enum_shares_unauth {
 	open SHARES, "<$shares_file" or die "[E] Can't open share list file $shares_file: $!\n";
 	my @shares = <SHARES>;
 	for (@shares) {chomp};
-	
+
 	foreach my $share (@shares) {
 		# Untaint $share
 		if ($share =~ /^([a-zA-Z0-9\._\$\-]+)$/) {
@@ -792,7 +792,7 @@ sub enum_shares_unauth {
 
 sub enum_users_rids {
 	print_heading("Users on $global_target via RID cycling (RIDS: $global_rid_range)");
-	
+
 	my $sid;
 	my %sids = ();
 	my $logon;
@@ -904,38 +904,38 @@ sub enum_users_rids {
 			return 1;
 		}
 		print_plus("Enumerating users using SID $sid and logon $logon\n");
-		
+
 		# RID Cycle;
 		my $last_range = 0;
 		my @ranges = split(",", $global_rid_range);
 		foreach my $rid_range (@ranges) {
 			$last_range = 1 if $rid_range eq $ranges[scalar(@ranges) - 1];
 			my ($start_rid, $end_rid);
-		
+
 			# Check range is of form n-m (n,m integers)
 			if ($rid_range =~ /\d+-\d+/) {
 				($start_rid, $end_rid) = $rid_range =~ /^(\d+)-(\d+)$/;
-				
+
 			# Check range is of form n (n integer)
 			} elsif ($rid_range =~ /^\d+$/) {
 				($start_rid, $end_rid) = ($rid_range, $rid_range);
-		
+
 			# Invalid range
 			} else {
 				print "WARNING: RID range $rid_range isn't valid.  Should be like 10-20 or 1199.  Ignoring this range\n";
 				next;
 			}
-		
+
 			# Check we have an ascending range
-			if ($start_rid > $end_rid) {	
+			if ($start_rid > $end_rid) {
 				print "WARNING: RID range $rid_range seems to be reversed.  Automatically reversing.\n";
 				($start_rid, $end_rid) = ($end_rid, $start_rid);
 			}
-		
+
 			if ($global_search_until_fail) {
 				$end_rid = 500000;
 			}
-	
+
 			my $fail_count = 0;
 			if ($global_search_until_fail and $last_range) {
 				$end_rid = $heighest_rid;
@@ -948,7 +948,7 @@ sub enum_users_rids {
 					$sid_and_user =~ s/\(2\)/(Domain Group)/;
 					$sid_and_user =~ s/\(2\)/(Domain User)/;
 					$sid_and_user =~ s/\(4\)/(Local Group)/;
-	
+
 					# Samba servers sometimes claim to have user accounts
 					# with the same name as the UID/RID.  We don't report these.
 					if ($sid_and_user =~ /-(\d+) .*\\\1 \(/) {
@@ -963,7 +963,7 @@ sub enum_users_rids {
 				} else {
 					$fail_count++;
 				}
-				
+
 				if ($global_search_until_fail) {
 					last if $fail_count > $global_fail_limit;
 				}
@@ -975,7 +975,7 @@ sub enum_users_rids {
 sub enum_users {
 	my @rids;
 	my @rids2;
-	
+
 	print_heading("Users on $global_target");
 	my $command = "rpcclient -W '$global_workgroup' -c querydispinfo -U'$global_username'\%'$global_password' -d 10 '$global_target' 2>&1";
 	print_verbose("Attempting to get userlist with command: $command\n") if $verbose;
@@ -1149,12 +1149,12 @@ sub nbt_to_human {
 						push @nbt_out, "$line $desc";
 						last;
 					}
-				}	
+				}
 			}
 		} else {
 			push @nbt_out, $line;
 		}
-	}	
+	}
 	return join "\n", @nbt_out;
 }
 

@@ -16,7 +16,7 @@
  * Following RFC 1071.
  * In essence 1's complement of 16-bit groups.
  * Taken from my own library https://github.com/h3xduck/RawTCP_Lib/blob/master/src/packet.c
- */ 
+ */
 static __always_inline unsigned short checksum(unsigned short *addr, int nbytes){
     long sum = 0;
     unsigned short checksum;
@@ -27,7 +27,7 @@ static __always_inline unsigned short checksum(unsigned short *addr, int nbytes)
     if(nbytes>0){
         sum +=bpf_htons((unsigned char)*addr);
     }
-        
+
     while (sum>>16){
         sum = (sum & 0xffff) + (sum >> 16);
     }
@@ -47,7 +47,7 @@ static __always_inline __u16 csum_fold_helper(__u32 csum)
             csum = (csum & 0xffff) + (csum >> 16);
         }
     }
-    return ~csum;                 
+    return ~csum;
 }
 /**
 * IP checksum calculation.
@@ -57,7 +57,7 @@ static __always_inline void ipv4_csum(void *data_start, int data_size, __u32 *cs
 {
     //WITH EBPF HELPERS
     bpf_printk("csum: %u for data_start %u, data_size %i\n", *csum, data_start, data_size);
-	
+
     /*unsigned char* p = (unsigned char*) data_start;
     for(int ii = 0; ii<20; ii++){
         bpf_printk("B%i: %x\n", ii, p[ii]);

@@ -21,7 +21,7 @@
         </member>
         <member name="P:KoenZomers.OneDrive.Api.Entities.OneDriveDrive.DriveType">
             <summary>
-            Enumerated value that identifies the type of drive account. OneDrive drives will show as personal. 
+            Enumerated value that identifies the type of drive account. OneDrive drives will show as personal.
             </summary>
         </member>
         <member name="P:KoenZomers.OneDrive.Api.Entities.OneDriveDrive.Owner">
@@ -211,7 +211,7 @@
         </member>
         <member name="P:KoenZomers.OneDrive.Api.Entities.OneDriveItem.Photo">
             <summary>
-             Photo metadata, if the item is a photo. Read-only. 
+             Photo metadata, if the item is a photo. Read-only.
             </summary>
         </member>
         <member name="P:KoenZomers.OneDrive.Api.Entities.OneDriveItem.Audio">
@@ -2063,7 +2063,7 @@
         <member name="M:KoenZomers.OneDrive.Api.OneDriveGraphApi.AddPermission(KoenZomers.OneDrive.Api.Entities.OneDriveItem,KoenZomers.OneDrive.Api.Entities.OneDrivePermissionRequest)">
             <summary>
             Adds permissions to a OneDrive item
-            </summary>        
+            </summary>
             <param name="item">The OneDrive item to add the permission to</param>
             <param name="permissionRequest">Details of the request for permission</param>
             <returns>Collection with OneDrivePermissionResponse objects representing the granted permissions</returns>
@@ -2071,7 +2071,7 @@
         <member name="M:KoenZomers.OneDrive.Api.OneDriveGraphApi.AddPermission(System.String,KoenZomers.OneDrive.Api.Entities.OneDrivePermissionRequest)">
             <summary>
             Adds permissions to a OneDrive item
-            </summary>        
+            </summary>
             <param name="itemPath">The path to the OneDrive item to add the permission to</param>
             <param name="permissionRequest">Details of the request for permission</param>
             <returns>Collection with OneDrivePermissionResponse objects representing the granted permissions</returns>

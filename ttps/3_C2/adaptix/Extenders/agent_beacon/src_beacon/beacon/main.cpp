@@ -17,7 +17,7 @@ SERVICE_STATUS_HANDLE hStatus;
 void ServiceMain(int argc, char** argv);
 void ControlHandler(DWORD request);
 
-void ServiceMain(int argc, char** argv) 
+void ServiceMain(int argc, char** argv)
 {
     CHAR* SvcName = getServiceName();
     hStatus = RegisterServiceCtrlHandlerA(SvcName, (LPHANDLER_FUNCTION)ControlHandler);
@@ -27,7 +27,7 @@ void ServiceMain(int argc, char** argv)
     ServiceStatus.dwServiceType = SERVICE_WIN32;
     ServiceStatus.dwCurrentState = SERVICE_START_PENDING;
     ServiceStatus.dwControlsAccepted = SERVICE_ACCEPT_STOP | SERVICE_ACCEPT_SHUTDOWN;
-    
+
     ServiceStatus.dwCurrentState = SERVICE_RUNNING;
     SetServiceStatus(hStatus, &ServiceStatus);
 
@@ -37,7 +37,7 @@ void ServiceMain(int argc, char** argv)
     SetServiceStatus(hStatus, &ServiceStatus);
 }
 
-void ControlHandler(DWORD request) 
+void ControlHandler(DWORD request)
 {
     switch (request) {
     case SERVICE_CONTROL_STOP:
@@ -53,7 +53,7 @@ void ControlHandler(DWORD request)
     SetServiceStatus(hStatus, &ServiceStatus);
 }
 
-int main() 
+int main()
 {
     SERVICE_TABLE_ENTRYA ServiceTable[2];
     CHAR* SvcName = getServiceName();

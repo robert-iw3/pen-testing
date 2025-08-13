@@ -1,7 +1,7 @@
 # ================================================
 #     LSASS Forked Dump - PoC V 1.0
 #     Autor: Willian Oliveira
-#     Empresa: Escola hack3r 
+#     Empresa: Escola hack3r
 # ================================================
 
 Write-Host "===============================================" -ForegroundColor Cyan

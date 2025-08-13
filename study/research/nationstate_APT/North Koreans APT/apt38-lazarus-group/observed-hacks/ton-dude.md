@@ -56,7 +56,7 @@ Our best guess is they don't know how @usernames, anon phone numbers work.
 - 0x899f2252444dcf3c7c3361bcfa76eddb1e2022d3 - Theft
 - 0x7b1ca308a44732ef697af1a5fda5e39ac833d933 - Theft
 - 0x2200261efe946b8016ce27ba042f2ce92e8532c8 - Theft
-- 0x8a21a38af1fa4d680c5a0c79afe634b4b4a3a630 - Consolidation Dec 3 2024 - ETH (12.96 WBTC + 32.6 ETH = $1.36m) 
+- 0x8a21a38af1fa4d680c5a0c79afe634b4b4a3a630 - Consolidation Dec 3 2024 - ETH (12.96 WBTC + 32.6 ETH = $1.36m)
 - 0xdc9c657b6fd3bd1bd75b26734c3f0b858da80276 - Int. Dec 11 2024
 
 - TC4fg2ixohpUhAh9e2zADni2VmRCMZSLF4 - Theft

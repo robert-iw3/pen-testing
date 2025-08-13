@@ -16,10 +16,10 @@ namespace MonkeyWorks.Unmanaged.Headers
         public const DWORD TH32CS_SNAPMODULE32 = 0x00000010;
         public const DWORD TH32CS_SNAPPROCESS = 0x00000002;
         public const DWORD TH32CS_SNAPTHREAD = 0x00000004;
-        public const DWORD TH32CS_SNAPALL = TH32CS_SNAPHEAPLIST | TH32CS_SNAPMODULE | TH32CS_SNAPPROCESS | TH32CS_SNAPTHREAD; 
-    
+        public const DWORD TH32CS_SNAPALL = TH32CS_SNAPHEAPLIST | TH32CS_SNAPMODULE | TH32CS_SNAPPROCESS | TH32CS_SNAPTHREAD;
+
         [StructLayout(LayoutKind.Sequential)]
-        public struct tagMODULEENTRY32 
+        public struct tagMODULEENTRY32
         {
             public DWORD dwSize;
             public DWORD th32ModuleID;
@@ -36,7 +36,7 @@ namespace MonkeyWorks.Unmanaged.Headers
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct tagPROCESSENTRY32 
+        public struct tagPROCESSENTRY32
         {
             public DWORD dwSize;
             public DWORD cntUsage;

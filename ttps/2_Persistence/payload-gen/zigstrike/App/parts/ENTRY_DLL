@@ -1,4 +1,4 @@
-// LOCAL MAPPING INJECTION 
+// LOCAL MAPPING INJECTION
 pub export fn DllMain(hInstance: windows.HINSTANCE, dwReason: DWORD, lpReserved: ?LPVOID) callconv(WINAPI) BOOL {
     _ = hInstance;
     _ = lpReserved;
@@ -6,14 +6,14 @@ pub export fn DllMain(hInstance: windows.HINSTANCE, dwReason: DWORD, lpReserved:
         win32.DLL_PROCESS_ATTACH => {
            // Sandbox protection option enabled?
            // enable runtime protection
-            local_map_injection(); 
+            local_map_injection();
         },
         win32.DLL_PROCESS_DETACH => {},
         else => {},
     }
     return windows.TRUE;
 }
-// END OF LOCAL MAPPING INJECTION 
+// END OF LOCAL MAPPING INJECTION
 
 
 
@@ -32,7 +32,7 @@ pub export fn DllMain(hInstance: windows.HINSTANCE, dwReason: DWORD, lpReserved:
     }
     return windows.TRUE;
 }
-// END OF HIJACK THREAD INJECTION 
+// END OF HIJACK THREAD INJECTION
 
 
 // HIJACK REMOTE THREAD INJECTION
@@ -44,7 +44,7 @@ pub export fn DllMain(hInstance: windows.HINSTANCE, dwReason: DWORD, lpReserved:
             // Sandbox protection option enabled?
             // enable runtime protection
             remote_thread_injection();
-          
+
         },
         win32.DLL_PROCESS_DETACH => {},
         else => {},
@@ -63,7 +63,7 @@ pub export fn DllMain(hInstance: windows.HINSTANCE, dwReason: DWORD, lpReserved:
             // Sandbox protection option enabled?
             // enable runtime protection
             remote_map_injection();
-          
+
         },
         win32.DLL_PROCESS_DETACH => {},
         else => {},
@@ -79,7 +79,7 @@ pub export fn DllMain(hInstance: windows.HINSTANCE, dwReason: DWORD, lpReserved:
     switch (dwReason) {
         win32.DLL_PROCESS_ATTACH => {
             // Sandbox protection option enabled?
-            // enable runtime protection    
+            // enable runtime protection
             run_cascade_injection();
         },
         win32.DLL_PROCESS_DETACH => {},

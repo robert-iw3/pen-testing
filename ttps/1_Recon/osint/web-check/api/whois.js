@@ -19,7 +19,7 @@ const parseWhoisData = (data) => {
   if (data.includes('No match for')) {
     return { error: 'No matches found for domain in internic database'};
   }
-  
+
   const lines = data.split('\r\n');
   const parsedData = {};
 

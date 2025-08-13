@@ -18,7 +18,7 @@ Bolthole provides operators with:
    ```bash
    sudo nano /etc/ssh/sshd_config
    ```
-   
+
    Add/modify these lines:
    ```
    Port 22

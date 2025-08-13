@@ -875,7 +875,7 @@ namespace winPEAS._3rdParty.BouncyCastle.crypto.digests
 			bOff = t.bOff;
 
 			byteCount = t.byteCount;
-		}    
+		}
 
 	}
 }

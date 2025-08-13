@@ -56,10 +56,10 @@ urlpatterns = [
             'api.urls',
             'api')),
     path(
-        'media/<path:path>', 
-        serve_protected_media, 
+        'media/<path:path>',
+        serve_protected_media,
         name='serve_protected_media'
     ),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # ] + static(settings.MEDIA_URL, document_root=settings.RENGINE_RESULTS) + \
-    
+

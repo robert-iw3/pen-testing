@@ -31,7 +31,7 @@ Malware suspected, never found
 
 - Kucoin: 0x990924D51C6Ea6e212CcE6e811B380fFd44aC350
 
-- Huobi: 15K6ZmcnkqEXJpVpfqnk18fYGxRbDXAZr4 
+- Huobi: 15K6ZmcnkqEXJpVpfqnk18fYGxRbDXAZr4
 
 
 

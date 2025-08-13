@@ -7,10 +7,10 @@ using ysoserial.Helpers;
 
 /**
  * Author: Soroush Dalili (@irsdl)
- * 
- * Comments: 
+ *
+ * Comments:
  *  This was released as a PoC for NCC Group's research on `Use of Deserialisation in .NET Framework Methods` (December 2018)
- *  See `TransactionManager.Reenlist(Guid, Byte[], IEnlistmentNotification) Method`: https://docs.microsoft.com/en-us/dotnet/api/system.transactions.transactionmanager.reenlist  
+ *  See `TransactionManager.Reenlist(Guid, Byte[], IEnlistmentNotification) Method`: https://docs.microsoft.com/en-us/dotnet/api/system.transactions.transactionmanager.reenlist
  *  Security note was added after being reported: https://github.com/dotnet/dotnet-api-docs/pull/502
  *  This PoC uses BinaryFormatter from TypeConfuseDelegate
  *  This PoC produces an error and may crash the application
@@ -103,7 +103,7 @@ namespace ysoserial.Plugins
                     Debugging.ShowErrors(inputArgs, err);
                 }
             }
-            
+
 
             return payload;
         }

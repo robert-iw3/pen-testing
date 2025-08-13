@@ -98,7 +98,7 @@ class Plugin:
                 param = requirement.find('./{*}Credential/{*}ID')
                 label = requirement.find('./{*}Label/{*}Text')
                 button = requirement.find('./{*}Input/{*}Button')
-                
+
                 if param is not None and param.text != None and param.text != '':
                     param = param.text
                     if param.lower() == "login":
@@ -143,7 +143,7 @@ class Plugin:
                     "User-Agent": useragent,
                     "X-Citrix-Am-Credentialtypes": "none, username, domain, password, newpassword, passcode, savecredentials, textcredential, webview, negotiate, nsg_push, nsg_push_otp, nf_sspr_rem, nsg-epa, nsg-epa-v2, nsg-x1, nsg-setclient, nsg-eula, nsg-tlogin, nsg-fullvpn, nsg-hidden, nsg-auth-failure, nsg-auth-success, nsg-epa-success, nsg-l20n, GoBack, nf-recaptcha, ns-dialogue, nf-gw-test, nf-poll, nsg_qrcode, nsg_manageotp"
                 }
-            
+
                 r = self.requester.post(self.pluginargs["url"]+"/doAuthentication.do", headers = headers, data = data)
                 data_response['request'] = r
                 errorCodeCookie = r.cookies.get("NSC_VPNERR")
@@ -153,12 +153,12 @@ class Plugin:
                     # https://developer-docs.citrix.com/en-us/storefront/citrix-storefront-authentication-sdk/common-authentication-forms-language.html
                     root = ET.fromstring(r.text)
                     result = root.find(".//{*}Result").text
-                    
+
                     if result in ["success", "update-credentials"]: # Authentication succeeded
 
                         data_response['result'] = "success"
                         data_response['output'] = f"Valid account found"
-                    
+
                     else: # Authentication failed
 
                         if result == "more-info": # Try to extract error message
@@ -180,35 +180,35 @@ class Plugin:
                                                 errorInfo = NSC_VPNERR.get(errorCodeText)
 
                                                 if errorInfo == None: # NSC_VPNERR error code unknown
-                    
+
                                                     data_response['error'] = True
                                                     data_response['output'] = f"Unknown NSC_VPNERR error code: {errorCodeText}. Check target's error codes at /logon/themes/Default/resources/en.xml"
-                                                
+
                                                 else: # NSC_VPNERR error code known => Return response
-                                                
+
                                                     data_response['result'] = errorInfo[0]
                                                     data_response['output'] = errorInfo[1]
 
                                             else: # It may contains the error message directly
 
                                                 data_response['output'] = text
-                        
+
                         else: # No additional information provided
 
                             data_response['result'] = "failure"
                             data_response['output'] = f"Authentication failed. Return status: {result}"
-                
-                else: # NSC_VPNERR cookie returned => Authentication failed. Parse the cookie 
-                
+
+                else: # NSC_VPNERR cookie returned => Authentication failed. Parse the cookie
+
                     errorInfo = NSC_VPNERR.get(errorCodeCookie)
 
                     if errorInfo == None: # NSC_VPNERR error code unknown
-                    
+
                         data_response['error'] = True
                         data_response['output'] = f"Unknown NSC_VPNERR error code: {errorCodeCookie}. Check target's error codes at /logon/themes/Default/resources/en.xml"
-                    
+
                     else: # NSC_VPNERR error code known => Return response
-                    
+
                         data_response['result'] = errorInfo[0]
                         data_response['output'] = errorInfo[1]
 

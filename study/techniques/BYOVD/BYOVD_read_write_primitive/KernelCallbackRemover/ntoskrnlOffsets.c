@@ -38,8 +38,8 @@ BOOL LoadNtoskrnlOffsetsFromInternet(BOOL delete_pdb) {
 
     // Ensure that at least one of the offsets was successfully retrieved.
     // If all offsets are 0, it indicates failure.
-    if (!g_ntoskrnlOffsets.st.pspCreateProcessNotifyRoutine 
-        && !g_ntoskrnlOffsets.st.pspCreateThreadNotifyRoutine 
+    if (!g_ntoskrnlOffsets.st.pspCreateProcessNotifyRoutine
+        && !g_ntoskrnlOffsets.st.pspCreateThreadNotifyRoutine
         && !g_ntoskrnlOffsets.st.pspLoadImageNotifyRoutine
         && !g_ntoskrnlOffsets.st.CallbackListHead
         && !g_ntoskrnlOffsets.st.psProcessType
@@ -47,7 +47,7 @@ BOOL LoadNtoskrnlOffsetsFromInternet(BOOL delete_pdb) {
         && !g_ntoskrnlOffsets.st.object_type_callbacklist) {
         return FALSE;
     }
-    
+
     // Return TRUE if at least one offset was successfully retrieved.
     return TRUE;
 

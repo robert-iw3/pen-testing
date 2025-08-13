@@ -47,7 +47,7 @@ run.
 You should see a new listener.
 back
 list                                               One of the agents under Username:
-should have an asterisk. This means power 
+should have an asterisk. This means power
 user.
 rename <name> <name2>
 interact <name2>
@@ -180,7 +180,7 @@ back
 bypassuac test
 y
 agents
-interact <name with elevated>                                                                             
+interact <name with elevated>
 mimikatz
 creds
 usemodule situational_awareness/network/get_user

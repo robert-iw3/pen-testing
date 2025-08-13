@@ -15,7 +15,7 @@
 #endif
 
 /*
- * On Linux kernels 5.7+, kallsyms_lookup_name() is no longer exported, 
+ * On Linux kernels 5.7+, kallsyms_lookup_name() is no longer exported,
  * so we have to use kprobes to get the address.
  * Full credit to @f0lg0 for the idea.
  */
@@ -36,7 +36,7 @@ static struct kprobe kp = {
 
 /* We need to prevent recursive loops when hooking, otherwise the kernel will
  * panic and hang. The options are to either detect recursion by looking at
- * the function return address, or by jumping over the ftrace call. We use the 
+ * the function return address, or by jumping over the ftrace call. We use the
  * first option, by setting USE_FENTRY_OFFSET = 0, but could use the other by
  * setting it to 1. (Ordinarily ftrace provides its own protections against
  * recursion, but it relies on saving return registers in $rip. We will likely
@@ -62,7 +62,7 @@ struct ftrace_hook {
 };
 
 /* Ftrace needs to know the address of the original function that we
- * are going to hook. As before, we just use kallsyms_lookup_name() 
+ * are going to hook. As before, we just use kallsyms_lookup_name()
  * to find the address in kernel memory.
  * */
 static int fh_resolve_hook_address(struct ftrace_hook *hook)
@@ -104,8 +104,8 @@ static void notrace fh_ftrace_thunk(unsigned long ip, unsigned long parent_ip, s
 #endif
 }
 
-/* Assuming we've already set hook->name, hook->function and hook->original, we 
- * can go ahead and install the hook with ftrace. This is done by setting the 
+/* Assuming we've already set hook->name, hook->function and hook->original, we
+ * can go ahead and install the hook with ftrace. This is done by setting the
  * ops field of hook (see the comment below for more details), and then using
  * the built-in ftrace_set_filter_ip() and register_ftrace_function() functions
  * provided by ftrace.h

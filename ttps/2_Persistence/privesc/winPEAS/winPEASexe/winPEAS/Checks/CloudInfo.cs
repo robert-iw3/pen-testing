@@ -41,7 +41,7 @@ namespace winPEAS.Checks
             }
 
             foreach (var cloudInfo in cloudInfoList)
-            {                
+            {
                 if (cloudInfo.IsCloud)
                 {
                     Beaprint.MainPrint(cloudInfo.Name + " Enumeration");

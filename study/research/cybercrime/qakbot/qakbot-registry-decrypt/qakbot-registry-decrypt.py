@@ -66,12 +66,12 @@ def get_password():
 
 if __name__ == '__main__':
     parser = OptionParser()
-    parser.add_option('-r','--regpath', 
-        type='string', 
+    parser.add_option('-r','--regpath',
+        type='string',
         dest='registry_path',
         help="registry path where Qakbot's encrypted data is stored. (e.g. 'HKEY_CURRENT_USER\SOFTWARE\Microsoft\Efwramsn')")
-    parser.add_option('-p', '--password', 
-        type='string', 
+    parser.add_option('-p', '--password',
+        type='string',
         dest='password',
         help="password (optional)")
     (options, args) = parser.parse_args()
@@ -104,9 +104,9 @@ if __name__ == '__main__':
         sys.exit(0)
 
     print('Using password (in UTF-16): "{}"'.format(password.decode('utf-16')))
-    password_hash = mit_crc32_shift4(password,0)            # calculate password's crc32_shift4 hash 
+    password_hash = mit_crc32_shift4(password,0)            # calculate password's crc32_shift4 hash
     print('Password CRC32_shift4 Hash: {}\n'.format(hex(password_hash)))
-    
+
     precalc_regs = precalculate_reg_names(password_hash)    # precalculate registry names for lookup
     all_regs = get_all_reg_values(regkey)                   # collect all registry name/values from Qakbot's registry path
 
@@ -117,9 +117,9 @@ if __name__ == '__main__':
     for name,value in all_regs.items():
         id_salt = precalc_regs[name]                          # lookup registry names from precalculated table (dictionary)
         key = pack('I',id_salt) + pack('I',password_hash)     # prepend salt to password hash
-        derived_key = sha1(key).digest()                      # hash salted key with SHA1 
+        derived_key = sha1(key).digest()                      # hash salted key with SHA1
         cipher = ARC4.new(derived_key)                        # use SHA1 hash as RC4 key
-        msg = cipher.decrypt(value)                           # decrypt registry value data 
-        print("Registry key path: {}\nRC4 key: {}\nDecrypted value:\n{}\n".format(options.registry_path+"\\"+name, 
-                                                                        ' '.join(format(x, '02x') for x in derived_key), 
+        msg = cipher.decrypt(value)                           # decrypt registry value data
+        print("Registry key path: {}\nRC4 key: {}\nDecrypted value:\n{}\n".format(options.registry_path+"\\"+name,
+                                                                        ' '.join(format(x, '02x') for x in derived_key),
                                                                         hexdump.hexdump(msg, result="return")))

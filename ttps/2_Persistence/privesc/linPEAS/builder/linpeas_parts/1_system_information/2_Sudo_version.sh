@@ -18,7 +18,7 @@
 #       - Memory corruption
 #       - Command injection
 # License: GNU GPL
-# Version: 1.0 
+# Version: 1.0
 # Functions Used: echo_not_found, print_2title, print_info
 # Global Variables: $sudovB
 # Initial Functions:

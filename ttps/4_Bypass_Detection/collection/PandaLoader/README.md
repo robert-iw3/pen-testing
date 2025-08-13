@@ -31,7 +31,7 @@ PandaLoader is a WIP shellcode loader designed to evade detection by using vario
 # Features
 ```
 [~] Add Windows Defender Exclusions [admin required]
-[~] Persistence [optional] 
+[~] Persistence [optional]
 [~] Mutex : Only a single instance of PandaLoader will be running at any given time
 [~] Anti-VM Techniques: Ensures that the loader doesn't execute in a virtualized environment, which is commonly used for malware analysis.
 [~] Obfuscation: Uses compile-time string obfuscation to hinder static analysis.
@@ -41,7 +41,7 @@ PandaLoader is a WIP shellcode loader designed to evade detection by using vario
 [~] Self-Dectruct [optional]
 ```
 
-# How It Works 
+# How It Works
 
 #### Anti-VM Checks (IF ENABLED IN BUILDER)
 Before loading the shellcode, PandaLoader performs extensive anti-VM checks to determine if it's running in a virtualized environment. This includes:
@@ -91,9 +91,9 @@ https://avcheck.net/id/dfYuFYeviJV8
 
 > [!TIP]
 > Please avoid raising issues related to detections, as it is not productive. The goal of this project is to support teaching and learning.
-This project is fully undetectable (FUD) on its release day (August 2024). However, a free, publicly available, and open-source loader will not stay undetected for long. 
+This project is fully undetectable (FUD) on its release day (August 2024). However, a free, publicly available, and open-source loader will not stay undetected for long.
 Modifying the stub to avoid detection is challenging, and any progress made will likely be rendered useless due to constant AV signature updates within a few days.
-Therefore, no updates will be provided to address detection issues, however PandaLoader offers a fully functional implementation that is easy to modify and extend. 
+Therefore, no updates will be provided to address detection issues, however PandaLoader offers a fully functional implementation that is easy to modify and extend.
 
 # Contributing
 
@@ -104,13 +104,13 @@ Contributions are welcome, You can be a small part of this project!
 - https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/register-scheduledtask?view=windowsserver2022-ps
 - https://www.ired.team/offensive-security/code-injection-process-injection/apc-queue-code-injection
 - https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-createmutexa
-  
+
 # Credits
 - https://github.com/TheWover/donut `converts NATIVE and .NET payloads into raw shellcode`
 - https://github.com/ac3ss0r/obfusheader.h `compile-time obfuscation`
 - https://github.com/EvilBytecode/GoDefender `Anti-VM techniques`
-- https://github.com/7etsuo/windows-api-function-cheatsheets `injection methods` 
-- https://github.com/mustjoon/evade-stager-c/tree/main `staged loader method` 
+- https://github.com/7etsuo/windows-api-function-cheatsheets `injection methods`
+- https://github.com/mustjoon/evade-stager-c/tree/main `staged loader method`
 
 # License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/Chainski/PandaLoader/blob/main/LICENSE) file for details
@@ -118,16 +118,16 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 # Disclaimer
 Important Notice: This tool is intended for educational purposes only.
-This software, referred to as PandaLoader, is provided strictly for educational and research purposes. 
+This software, referred to as PandaLoader, is provided strictly for educational and research purposes.
 Under no circumstances should this tool be used for any malicious activities, including but not limited to unauthorized access, data theft, or any other harmful actions.
 
 Usage Responsibility:
-By accessing and using this tool, you acknowledge that you are solely responsible for your actions. 
-Any misuse of this software is strictly prohibited, and the creator (Chainski) disclaims any responsibility for how this tool is utilized. 
+By accessing and using this tool, you acknowledge that you are solely responsible for your actions.
+Any misuse of this software is strictly prohibited, and the creator (Chainski) disclaims any responsibility for how this tool is utilized.
 You are fully accountable for ensuring that your usage complies with all applicable laws and regulations in your jurisdiction.
 
 No Liability:
-The creator (Chainski) of this tool shall not be held responsible for any damages or legal consequences resulting from the use or misuse of this software. 
+The creator (Chainski) of this tool shall not be held responsible for any damages or legal consequences resulting from the use or misuse of this software.
 This includes, but is not limited to, direct, indirect, incidental, consequential, or punitive damages arising out of your access, use, or inability to use the tool.
 
 No Support:

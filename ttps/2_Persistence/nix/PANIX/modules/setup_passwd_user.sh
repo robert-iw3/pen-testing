@@ -54,7 +54,7 @@ setup_passwd_user() {
 				usage_passwd_user
 				exit 0
 				;;
-		
+
 			* )
 				echo "Invalid option for --passwd-user: $1"
 				echo "Try './panix.sh --passwd-user --help' for more information."

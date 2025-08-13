@@ -65,7 +65,7 @@ PS C:\ > .\KernelCallbackRemover.exe -d
 ## Protection Changer
 - What does it do
 	- Calculates and prints offsets by enumerating windows version with `RtlGetVersion`, offsets are hardcoded.
-		- Update offsets with [vergiliusproject](https://www.vergiliusproject.com/kernels/x64/windows-11/24h2/_EPROCESS) 
+		- Update offsets with [vergiliusproject](https://www.vergiliusproject.com/kernels/x64/windows-11/24h2/_EPROCESS)
 	- Writes vulnerable RTCore64 driver to `C:\Windows\System32\Drivers\RTCore64.sys` and loads the driver
 	- Gets base address of `Ntoskrnl.exe` and calculates `PsInitialSystemProcess` offset
 	- Changes the protection using the read and write IOCTL, writing the chosen protection value to the `_PS_PROTECTION Protection` struct in the `E_PROCESS`
@@ -126,7 +126,7 @@ PS C:\ > .\ETwTiRemover.exe -d
 ## Token Changer
 - What does it do
 	- Calculates and prints offsets by enumerating windows version with `RtlGetVersion`
-		- Update offsets with [vergiliusproject](https://www.vergiliusproject.com/kernels/x64/windows-11/24h2/_EPROCESS) 
+		- Update offsets with [vergiliusproject](https://www.vergiliusproject.com/kernels/x64/windows-11/24h2/_EPROCESS)
 	- Writes vulnerable RTCore64 driver to `C:\Windows\System32\Drivers\RTCore64.sys` and loads the driver
 	- Gets base address of `Ntoskrnl.exe` and calculates `PsInitialSystemProcess` offset
 	- Changes the token value by reading the `_EX_FAST_REF Token` value and writing it into the other process using the read and write IOCTL

@@ -7,7 +7,7 @@
 #include "base/helpers.h"
 
 DFR(KERNEL32, GetLastError);
-#define GetLastError KERNEL32$GetLastError 
+#define GetLastError KERNEL32$GetLastError
 
 DFR(KERNEL32, VirtualQueryEx)
 #define VirtualQueryEx KERNEL32$VirtualQueryEx

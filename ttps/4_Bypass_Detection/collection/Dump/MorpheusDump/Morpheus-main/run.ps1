@@ -51,11 +51,11 @@ function Install-Zlib {
     $vcpkgRoot = "C:\vcpkg"
     $vcpkgExe = "$vcpkgRoot\vcpkg.exe"
     $triplet = "x64-mingw-static"  # Utilise la version statique
-    
+
     Write-Host "[*] Installing zlib via vcpkg using triplet $triplet..."
     $env:VCPKG_DEFAULT_TRIPLET = $triplet
     $env:VCPKG_CHAINLOAD_TOOLCHAIN_FILE = "$vcpkgRoot\scripts\buildsystems\mingw.cmake"
-    
+
     & $vcpkgExe install zlib:$triplet
     if ($LASTEXITCODE -ne 0) {
         Write-Host "[!] zlib installation via vcpkg failed."

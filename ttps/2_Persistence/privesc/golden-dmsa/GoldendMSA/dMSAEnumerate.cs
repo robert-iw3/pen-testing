@@ -50,11 +50,11 @@ namespace GoldendMSA {
 
                     (string dcFqdn, string dcIp) = LdapUtils.GetDomainControllerInfoAlt(DomainName);
 
-                    
+
                     lsaLookup.Dump(dcFqdn, dcIp);
-                
+
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -408,7 +408,7 @@ namespace GoldendMSA {
                         {
                             if ((justName[1]).EndsWith("$"))
                             {
-                                
+
                                 if (!specialAccounts.Contains(justName[1]))
                                 {
                                     Console.WriteLine($"{sidString.sid}: {account.Value} (Suspected DMSA - Regular resolve)");

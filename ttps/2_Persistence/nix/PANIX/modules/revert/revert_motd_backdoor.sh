@@ -26,7 +26,7 @@ revert_motd() {
 		local script_path="$1"
 		# Define patterns that indicate a reverse shell
 		local patterns=("bash -i >& /dev/tcp" "nohup setsid /bin/sh " "bash -c 'sh -i" "setsid nohup")
-		
+
 		for pattern in "${patterns[@]}"; do
 			if grep -q "$pattern" "$script_path"; then
 				echo "[+] Identified malicious MOTD script: $script_path"
@@ -39,7 +39,7 @@ revert_motd() {
 	# Remove default MOTD backdoor script
 	default_motd_path="/etc/update-motd.d/137-python-upgrades"
 	echo "[+] Removing default MOTD backdoor script..."
-	
+
 	if [[ -f "$default_motd_path" ]]; then
 		remove_motd_script "$default_motd_path"
 	fi

@@ -6,7 +6,7 @@
 
 #define _GNU_SOURCE
 //gcc system.c -o system.bin -O3
-unsigned char cmd[] = 
+unsigned char cmd[] =
 "\x48\x89\xe5\x48\x81\xec\x48\x00\x00\x00\x48\x31\xc9\x51\x48\xb8"
 "\x39\x00\x00\x00\x00\x00\x00\x00\x0f\x05\x48\x8d\x0d\x13\x00\x00"
 "\x00\x48\x8d\x1d\x17\x00\x00\x00\x48\x3d\x00\x00\x00\x00\x48\x0f"
@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
     printf("prot permissions : %d\n",perms);
 
     // we have to page-align the address we pass into mprotect
-    //  from -- man 2 mprotect: 
+    //  from -- man 2 mprotect:
     // The implementation shall require that addr be a multiple of the page size as returned by sysconf().
     //
     addr = cmd - ((size_t)cmd % page_size);

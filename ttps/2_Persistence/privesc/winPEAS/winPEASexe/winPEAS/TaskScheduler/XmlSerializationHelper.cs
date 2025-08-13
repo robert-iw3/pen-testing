@@ -19,7 +19,7 @@ namespace winPEAS.TaskScheduler
                 return defaultAttr.Value;
             }
 
-            // Attribute not found, fall back to default value for the type 
+            // Attribute not found, fall back to default value for the type
             if (prop.PropertyType.IsValueType)
                 return Activator.CreateInstance(prop.PropertyType);
             return null;

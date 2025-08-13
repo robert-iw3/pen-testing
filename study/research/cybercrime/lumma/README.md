@@ -1,6 +1,6 @@
 # LummaC2 Stealer
 
-        
+
 ![image](https://github.com/user-attachments/assets/eda793a2-e3d0-46ca-ac80-205fcb613759)
 
 
@@ -15,11 +15,11 @@ While we can't definitively confirm the developers' identities based on the code
 *   **Distribution:** Sold on underground forums (XSS, Exploit.in, RAMP) and promoted via Telegram hacking groups and darknet marketplaces.
 
     ![image](https://github.com/user-attachments/assets/54a158f1-501b-4c17-984c-5a43a4122947)
-    
+
     ![image](https://github.com/user-attachments/assets/b5dc58df-4519-449a-b133-885ed5eea3db)
-    
+
     ![image](https://github.com/user-attachments/assets/fed5aaf5-508d-404f-9154-d155d7cf30a9)
-    
+
     ![image](https://github.com/user-attachments/assets/5f9f3160-a5da-4889-90ba-722038f87fa5)
 
 
@@ -166,14 +166,14 @@ The malware is surprisingly straightforward in its communication:
 
 *   **`TrasStrings` and `GetFilePath`**:
     *   **Analysis Notes:** "edx765" obfuscation is trivial to bypass.
-  
+
 ## 4. Indicators of Compromise (IOCs)
 *   **Files & Registry Keys:**
     *   `%APPDATA%\Lumma*` - Files created by LummaC2.
     *   `%LOCALAPPDATA%\Temp*` - Temporary files, also possible.
      ![image](https://github.com/user-attachments/assets/56f9f623-c5e6-4d31-9dc6-55f7a4ed7313)
 
-      
+
 *   **C2 Communications:**
     *   **IP Address:** `195.123.226.91` (probably hosted on a $5 VPS, just kidding lmfao)
     *   HTTP POST requests with `multipart/form-data` content type.

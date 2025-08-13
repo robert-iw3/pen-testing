@@ -28,11 +28,11 @@ class RemoteDesktop {
     [void]Set(){
 
         if ($this.TestAuthSetting() -eq $false) {
-            Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name 'UserAuthentication' -Value $this.UserAuthenication        
+            Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name 'UserAuthentication' -Value $this.UserAuthenication
         }
 
         if ($this.TestTSSetting() -eq $false) {
-            Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name 'fDenyTSConnections' -Value $this.Ensure        
+            Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name 'fDenyTSConnections' -Value $this.Ensure
         }
 
     }
@@ -49,7 +49,7 @@ class RemoteDesktop {
     }
 
     [UserAuthenication]GetAuthSetting(){
-        
+
         $AuthCurrentSetting = Get-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name 'UserAuthentication' |
                               Select-Object -ExpandProperty UserAuthentication
 
@@ -87,5 +87,5 @@ class RemoteDesktop {
         }
 
     }
-    
+
 }

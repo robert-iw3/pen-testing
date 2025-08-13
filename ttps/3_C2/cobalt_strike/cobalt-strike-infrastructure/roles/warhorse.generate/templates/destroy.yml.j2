@@ -7,7 +7,7 @@
   connection: ssh
   become: true
   no_log: true
-  vars: 
+  vars:
     deploy: false
   roles:
     - { role: warhorse.tailscale }
@@ -22,7 +22,7 @@
   connection: ssh
   become: true
   no_log: true
-  vars: 
+  vars:
     deploy: false
   roles:
     - { role: warhorse.backup_archive }
@@ -34,7 +34,7 @@
   gather_facts: false
   connection: local
   no_log: true
-  vars: 
+  vars:
     deploy: false
   roles:
     - { role: terraform }
@@ -44,10 +44,10 @@
   gather_facts: false
   connection: local
   no_log: true
-  vars: 
+  vars:
     deploy: false
   tasks:
-  - name: remove keys directory 
+  - name: remove keys directory
     ansible.builtin.file:
       path: "{% raw %}{{ item }}{% endraw %}"
       state: absent
@@ -60,10 +60,10 @@
   gather_facts: false
   connection: local
   no_log: true
-  vars: 
+  vars:
     deploy: false
   tasks:
-  - name: remove terrafrom & inventory directory 
+  - name: remove terrafrom & inventory directory
     ansible.builtin.file:
       path: "{% raw %}{{ item }}{% endraw %}"
       state: absent
@@ -77,7 +77,7 @@
   hosts: localhost
   connection: ssh
   no_log: true
-  vars: 
+  vars:
     deploy: false
   roles:
     - { role: warhorse.notification }

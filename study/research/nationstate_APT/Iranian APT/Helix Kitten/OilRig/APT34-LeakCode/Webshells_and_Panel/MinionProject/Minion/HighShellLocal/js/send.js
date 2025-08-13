@@ -26,7 +26,7 @@ function sendData(info) {
 
     var xh = new XMLHttpRequest();
     xh.onreadystatechange = function () {
-        
+
         if (this.readyState == 4)
             if (this.status == 200) {
                 console.log({"data": data, "info": info, "response": this});

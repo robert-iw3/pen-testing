@@ -66,12 +66,12 @@ namespace TeamFiltration.Handlers
                     if (tenantList.Count > 0)
                     {
                         _databaseHandler.WriteLog(new Log("ENUM", $"Found {tenantList.Count()} possible tenants:"));
-        
+
                         foreach (var tenant in tenantList)
                         {
                             _databaseHandler.WriteLog(new Log("ENUM", tenant));
                         }
-     
+
                     }
                     else
                     {
@@ -101,12 +101,12 @@ namespace TeamFiltration.Handlers
 
                     if (oneDriveList.Count > 0)
                     {
-                    
+
                         foreach (var oneDriveHost in oneDriveList)
                         {
-                            
+
                         }
-              
+
 
                         // Determine the primary tenant
                         if (oneDriveList.Count == 1)
@@ -119,12 +119,12 @@ namespace TeamFiltration.Handlers
                             var matchingMail = oneDriveList.Intersect(mailList).FirstOrDefault();
                             if (!string.IsNullOrEmpty(matchingMail))
                             {
-                             
+
                                 this._tenantName = matchingMail;
                             }
                             else
                             {
-                          
+
                                 this._tenantName = oneDriveList[0];
                             }
                             _databaseHandler.WriteLog(new Log("ENUM", $"Sharepoint URL {this._tenantName}-my.sharepoint.com will be used for validation attempts"));
@@ -141,7 +141,7 @@ namespace TeamFiltration.Handlers
         }
         public async Task<bool> ValidateO365Account(string username)
         {
-         
+
 
             var proxy = new WebProxy
             {
@@ -153,7 +153,7 @@ namespace TeamFiltration.Handlers
             var httpClientHandler = new HttpClientHandler
             {
                 Proxy = proxy,
-            
+
                 ServerCertificateCustomValidationCallback = (message, xcert, chain, errors) =>
                 {
                     return true;
@@ -167,8 +167,8 @@ namespace TeamFiltration.Handlers
                 clientHttp.Timeout = new TimeSpan(0, 0, 8);
 
                 var user_url = $"https://{_tenantName}-my.{_sharePointEndpoint}/personal/{username.Replace('@','_').Replace('.','_')}/_layouts/15/onedrive.aspx";
-              
-                
+
+
                 var postAsyncReq = await clientHttp.SendAsync(new HttpRequestMessage(HttpMethod.Head, user_url));
 
                 //If statuscod is ['404', '301', '302']: return false
