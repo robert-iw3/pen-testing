@@ -16,9 +16,9 @@
 
 > [!NOTE]
 > The logic behind the `g_AlphabeticalDecoder` shellcode is located in the [AlphabeticalShellcodeDecode.asm](https://github.com/Maldev-Academy/AlphabeticalPolyShellGen/blob/main/AlphabeticalShellcodeDecode.asm) file.
-> 
+>
 > The logic behind the XOR decoder shellcode is located in the [XorShellcodeDecode.asm](https://github.com/Maldev-Academy/AlphabeticalPolyShellGen/blob/main/XorShellcodeDecode.asm) file,.
- 
+
 
 
 </br>
@@ -43,7 +43,7 @@ LocalShellcodeExec.exe --i <Encoded Shellcode To Execute>
 
 ## Demo:
 
-### 1. Building two variants of Metasploit's x64 calc.exe shellcode: 
+### 1. Building two variants of Metasploit's x64 calc.exe shellcode:
 
 <img width="1436" height="813" alt="image_2025-08-14_18-49-31" src="https://github.com/user-attachments/assets/412cd24c-33e9-4c03-bdcf-5fca40805062" />
 <img width="1283" height="729" alt="image_2025-08-14_18-49-31 (2)" src="https://github.com/user-attachments/assets/044e4820-7f0f-4c10-aa60-a108c267b404" />

@@ -80,7 +80,7 @@ BOOLEAN gl::RtVar::InitializeRuntimeVariables() {
 	Pte::MmPdpteBase = base;
 	base |= (selfRefIndex << 12);
 	Pte::MmPml4eBase = base;
-	
+
 	Self::SelfBase = (uintptr_t)&__ImageBase;
 	Self::SelfSize = (uintptr_t)&__end - Self::SelfBase;
 

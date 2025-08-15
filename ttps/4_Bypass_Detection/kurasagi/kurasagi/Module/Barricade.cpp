@@ -102,13 +102,13 @@ NTSTATUS NTAPI wsbp::Barricade::HkMmAccessFault(
 	_In_ KPROCESSOR_MODE Mode,
 	_In_ PVOID TrapInformation
 ) {
-	
+
 	// It should be called from KiPageFault..
 	if (_ReturnAddress() == (PVOID)((uintptr_t)gl::RtVar::KiPageFaultPtr + gl::Offsets::FaultingAddressOff)) {
 
 		// The Fault is not occured in user mode, nor it is caused by illegal write access.
 		if (!((FaultCode >> 2) & 1) && !((FaultCode >> 1) & 1) && TrapInformation != NULL) {
-			
+
 			if (CustomNxFaultHandler(Address, (PKTRAP_FRAME)TrapInformation)) {
 				return STATUS_SUCCESS;
 			}
@@ -127,14 +127,14 @@ BOOLEAN wsbp::Barricade::CustomNxFaultHandler(void* faultAddress, PKTRAP_FRAME t
 	if (pml4Index < 256 || ToIgnoreIpxe(pml4Index)) {
 		return FALSE;
 	}
-	
+
 	void **stack = (void**)(trapFrame->Rsp & ~0b111uLL);
 	KIRQL curIrql = KeGetCurrentIrql();
 
 	LogVerbose("NxF: Nx exception caught at %llX", trapFrame->Rip);
-	
+
 	// -=-=-=-=-=-=-=-=-=-=-=-= Debug -=-=-=-=-=-=-=-=-=-=-=-=
-	
+
 	// copied from WinDbg registers
 	LogVerbose("-  RAX:  %llX", trapFrame->Rax);
 	LogVerbose("-  RBX:  %llX", trapFrame->Rbx);
@@ -272,7 +272,7 @@ FALSE_POSITIVE:
 
 	// We do not process this, the original MmAccessFault will.
 	return FALSE;
-	
+
 }
 
 BOOLEAN wsbp::Barricade::FlipPteNxBitIdPc(KDPC* Dpc, PVOID DeferredContext, PVOID SystemArgument1, PVOID SystemArgument2) {
@@ -280,16 +280,16 @@ BOOLEAN wsbp::Barricade::FlipPteNxBitIdPc(KDPC* Dpc, PVOID DeferredContext, PVOI
 	UNREFERENCED_PARAMETER(DeferredContext);
 
 	auto LambdaRecursePteToFlip = [ ](auto&& self, PVOID virtualAddress, size_t remainingRecurse) {
-		
+
 		UINT64* ptEntryPtr = GetPageTableEntryPointer(virtualAddress, remainingRecurse);
 		if (!(*ptEntryPtr & 1)) { // not present
 			return;
 		}
-		
+
 		if (remainingRecurse > 1) { // not PTE
 
 			if (!((*ptEntryPtr >> 7) & 0x1)) { // not large page
-				
+
 				for (size_t ipte = 0; ipte < 512; ipte++) {
 					self(self,
 						(PVOID)((uintptr_t)virtualAddress | (ipte << (12 + 9 * (remainingRecurse - 2)))),
@@ -310,7 +310,7 @@ BOOLEAN wsbp::Barricade::FlipPteNxBitIdPc(KDPC* Dpc, PVOID DeferredContext, PVOI
 		}
 
 		size_t pageSize = 1ULL << (12 + 9 * (remainingRecurse - 1));
-		
+
 		// Check if it is our driver code section.
 		// We'll get triple fault if we do not.
 		if (IsCollapsing((uintptr_t)virtualAddress,
@@ -394,5 +394,5 @@ BOOLEAN wsbp::Barricade::SetupBarricade() {
 	return TRUE;
 }
 
-NTSTATUS(NTAPI* wsbp::Barricade::OrigMmAccessFault)(_In_ ULONG, _In_ PVOID, _In_ KPROCESSOR_MODE, _In_ PVOID) = 
+NTSTATUS(NTAPI* wsbp::Barricade::OrigMmAccessFault)(_In_ ULONG, _In_ PVOID, _In_ KPROCESSOR_MODE, _In_ PVOID) =
 	(NTSTATUS(NTAPI *)(_In_ ULONG, _In_ PVOID, _In_ KPROCESSOR_MODE, _In_ PVOID))(TrampolineArea);

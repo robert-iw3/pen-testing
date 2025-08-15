@@ -19,7 +19,7 @@ namespace wsbp {
 		 * @returns `TRUE` if operation was successful, `FALSE` otherwise.
 		 */
 		BOOLEAN FixKiMcaDeferredRecoveryServicePtr();
-		
+
 		/*
 		 * @brief Fix Patchguard Apcs.
 		 * @returns `TRUE` if operation was successful.

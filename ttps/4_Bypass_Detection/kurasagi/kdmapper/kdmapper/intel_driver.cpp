@@ -522,7 +522,7 @@ uint64_t intel_driver::MmAllocateIndependentPagesEx(HANDLE device_handle, uint32
 
 	static uint64_t kernel_MmAllocateIndependentPagesEx = 0;
 
-#ifdef PDB_OFFSETS	
+#ifdef PDB_OFFSETS
 	if (!kernel_MmAllocateIndependentPagesEx)
 	{
 		kernel_MmAllocateIndependentPagesEx = KDSymbolsHandler::GetInstance()->GetOffset(L"MmAllocateIndependentPagesEx");
@@ -567,7 +567,7 @@ bool intel_driver::MmFreeIndependentPages(HANDLE device_handle, uint64_t address
 
 	if (!kernel_MmFreeIndependentPages)
 	{
-#ifdef PDB_OFFSETS	
+#ifdef PDB_OFFSETS
 		kernel_MmFreeIndependentPages = KDSymbolsHandler::GetInstance()->GetOffset(L"MmFreeIndependentPages");
 		if (!kernel_MmFreeIndependentPages) {
 			Log(L"[!] Failed to find MmFreeIndependentPages" << std::endl);
@@ -606,10 +606,10 @@ BOOLEAN intel_driver::MmSetPageProtection(HANDLE device_handle, uint64_t address
 	}
 
 	static uint64_t kernel_MmSetPageProtection = 0;
-	
+
 	if (!kernel_MmSetPageProtection)
 	{
-#ifdef PDB_OFFSETS	
+#ifdef PDB_OFFSETS
 		kernel_MmSetPageProtection = KDSymbolsHandler::GetInstance()->GetOffset(L"MmSetPageProtection");
 		if (!kernel_MmSetPageProtection) {
 			Log(L"[!] Failed to find MmSetPageProtection" << std::endl);
@@ -620,7 +620,7 @@ BOOLEAN intel_driver::MmSetPageProtection(HANDLE device_handle, uint64_t address
 		//Updated, tested from 1803 to 24H2
 		//  0F 45 ? ? 8D ? ? ? FF FF E8
 		//  0F 45 ? ? 45 8B ? ? ? ? 8D ? ? ? ? ? ? FF FF E8  (Some windows builds have a instruction in the middle)
-		kernel_MmSetPageProtection = intel_driver::FindPatternInSectionAtKernel(device_handle, "PAGELK", intel_driver::ntoskrnlAddr, 
+		kernel_MmSetPageProtection = intel_driver::FindPatternInSectionAtKernel(device_handle, "PAGELK", intel_driver::ntoskrnlAddr,
 			(BYTE*)"\x0F\x45\x00\x00\x8D\x00\x00\x00\xFF\xFF\xE8",
 			(char*)"xx??x???xxx");
 		if (!kernel_MmSetPageProtection) {
@@ -909,7 +909,7 @@ PVOID intel_driver::RtlLookupElementGenericTableAvl(HANDLE device_handle, nt::PR
 
 
 nt::PiDDBCacheEntry* intel_driver::LookupEntry(HANDLE device_handle, nt::PRTL_AVL_TABLE PiDDBCacheTable, ULONG timestamp, const wchar_t * name) {
-	
+
 	nt::PiDDBCacheEntry localentry{};
 	localentry.TimeDateStamp = timestamp;
 	localentry.DriverName.Buffer = (PWSTR)name;

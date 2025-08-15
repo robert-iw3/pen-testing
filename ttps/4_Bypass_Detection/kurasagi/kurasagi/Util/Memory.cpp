@@ -91,7 +91,7 @@ UINT64* GetPageTableEntryPointer(PVOID v, size_t level) {
 	else { // level == 4, Pml4
 		ptePointer = (UINT64*)gl::RtVar::Pte::MmPml4eBase + (((ULONG64)v >> 39) & 0x1FF);
 	}
-	
+
 	return ptePointer;
 }
 
@@ -111,14 +111,14 @@ UINT64* GetLastPageTableEntryPointer(PVOID v) {
 PVOID MakeCanonicalAddress(PVOID address) {
 
 	uintptr_t trimmedAddress = ((uintptr_t)address << 16) >> 16;
-	
+
 	if ((trimmedAddress >> 47) & 0x1) {
 		trimmedAddress |= 0xFFFF'0000'0000'0000;
 	}
 
 	return (PVOID)trimmedAddress;
 }
- 
+
 size_t GetPml4Index(PVOID address) {
 	return ((uintptr_t)address >> 39) & 0x1ff;
 }
@@ -156,7 +156,7 @@ BOOLEAN Hook::HookTrampoline(PVOID origFunction, PVOID hookFunction, PVOID gatew
 	if (!WriteOnReadOnlyMemory(detourTemplate, origFunction, sizeof(detourTemplate))) {
 		return FALSE;
 	}
-	
+
 	uintptr_t detourAddress = (uintptr_t)hookFunction;
 	if (!WriteOnReadOnlyMemory(&detourAddress, (PVOID)((uintptr_t)origFunction + sizeof(detourTemplate)), 8)) {
 		return FALSE;
@@ -167,6 +167,6 @@ BOOLEAN Hook::HookTrampoline(PVOID origFunction, PVOID hookFunction, PVOID gatew
 
 	// And the original function is like this:
 	// jmp [rip+0x00] | Hook
-	
+
 	return TRUE;
 }

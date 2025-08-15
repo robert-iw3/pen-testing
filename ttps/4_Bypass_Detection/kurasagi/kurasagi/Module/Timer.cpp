@@ -49,7 +49,7 @@ BOOLEAN wsbp::Timer::DisablePatchGuardTimersIdPc(KDPC* Dpc, PVOID DeferredContex
 	UNREFERENCED_PARAMETER(Dpc);
 	UNREFERENCED_PARAMETER(DeferredContext);
 
-	
+
 	LogVerbose("DisablePatchGuardTimersIdPc: Searching for cpu %lu", KeGetCurrentProcessorNumberEx(0));
 
 	KTIMER_TABLE_ENTRY* timerTableEntry = \
@@ -77,7 +77,7 @@ BOOLEAN wsbp::Timer::DisablePatchGuardTimersIdPc(KDPC* Dpc, PVOID DeferredContex
 						return FALSE;
 					}
 					*/
-					
+
 
 					currentTimer->Dpc = (PKDPC)GetEncryptedDpc(NULL, currentTimer); // Disable DPC by clearing Dpc pointer.
 
@@ -101,7 +101,7 @@ BOOLEAN wsbp::Timer::DisablePatchGuardTimersIdPc(KDPC* Dpc, PVOID DeferredContex
 		LogInfo("DisablePatchGuardTimersIdPc: Disabled AcpiReserved Dpc %p at CPU %lu", *acpiReservedPtr, KeGetCurrentProcessorNumberEx(0));
 		*acpiReservedPtr = NULL;
 	}
-	
+
 
 	KeSignalCallDpcSynchronize(SystemArgument2);
 	KeSignalCallDpcDone(SystemArgument1);

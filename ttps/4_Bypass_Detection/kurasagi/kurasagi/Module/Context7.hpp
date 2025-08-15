@@ -18,7 +18,7 @@ namespace wsbp {
 
 		/*
 		 * @brief Fix KiSwInterruptDispatch.
-		 * @details KiSwInterruptDispatch derefer global patchguard pointer, 
+		 * @details KiSwInterruptDispatch derefer global patchguard pointer,
 		 *	which leads to unexpected BSOD. So we just ret patch KiSwInterruptDispatch.
 		 * @returns `TRUE` if operation was successful, `FALSE` otherwise.
 		 */

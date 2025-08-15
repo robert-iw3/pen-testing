@@ -24,14 +24,14 @@ bool service::RegisterAndStart(const std::wstring& driver_path, const std::wstri
 		Log("[-] Can't create 'ImagePath' registry value" << std::endl);
 		return false;
 	}
-	
+
 	status = RegSetKeyValueW(dservice, NULL, L"Type", REG_DWORD, &ServiceTypeKernel, sizeof(DWORD));
 	if (status != ERROR_SUCCESS) {
 		RegCloseKey(dservice);
 		Log("[-] Can't create 'Type' registry value" << std::endl);
 		return false;
 	}
-	
+
 	RegCloseKey(dservice);
 
 	HMODULE ntdll = GetModuleHandleA("ntdll.dll");
@@ -67,13 +67,13 @@ bool service::RegisterAndStart(const std::wstring& driver_path, const std::wstri
 	else if (Status == 0xC0000022 || Status == 0xC000009A) { //STATUS_ACCESS_DENIED and STATUS_INSUFFICIENT_RESOURCES
 		Log("[-] Access Denied or Insufficient Resources (0x" << std::hex << Status << "), Probably some anticheat or antivirus running blocking the load of vulnerable driver" << std::endl);
 	}
-	
-	
+
+
 	//Never should occur since kdmapper checks for "IsRunning" driver before
 	if (Status == 0xC000010E) {// STATUS_IMAGE_ALREADY_LOADED
 		return true;
 	}
-	
+
 	return NT_SUCCESS(Status);
 }
 
@@ -104,7 +104,7 @@ bool service::StopAndRemove(const std::wstring& serviceName) {
 		status = RegDeleteTreeW(HKEY_LOCAL_MACHINE, servicesPath.c_str());
 		return false; //lets consider unload fail as error because can cause problems with anti cheats later
 	}
-	
+
 
 	status = RegDeleteTreeW(HKEY_LOCAL_MACHINE, servicesPath.c_str());
 	if (status != ERROR_SUCCESS) {

@@ -69,15 +69,15 @@ std::vector<ULONG64> SimplestSymbolHandler::GetOffset(std::wstring pdbPath, std:
 	DWORD64 BaseAddr = 0x40000;
 	DWORD FileSize = (DWORD)std::filesystem::file_size(pdbPath);
 
-	// Load symbols for the module 
+	// Load symbols for the module
 	std::wcout << "[+] Loading Symbols From " << pdbPath << std::endl;
 	DWORD64 ModBase = SymLoadModuleExW(
-		(HANDLE)process, // Process handle of the current process 
+		(HANDLE)process, // Process handle of the current process
 		NULL,                // Handle to the module's image file (not needed)
-		pdbPath.c_str(),           // Path/name of the file 
-		NULL,                // User-defined short name of the module (it can be NULL) 
-		BaseAddr,            // Base address of the module (cannot be NULL if .PDB file is used, otherwise it can be NULL) 
-		FileSize,            // Size of the file (cannot be NULL if .PDB file is used, otherwise it can be NULL) 
+		pdbPath.c_str(),           // Path/name of the file
+		NULL,                // User-defined short name of the module (it can be NULL)
+		BaseAddr,            // Base address of the module (cannot be NULL if .PDB file is used, otherwise it can be NULL)
+		FileSize,            // Size of the file (cannot be NULL if .PDB file is used, otherwise it can be NULL)
 		NULL,
 		NULL
 	);
@@ -108,7 +108,7 @@ std::vector<ULONG64> SimplestSymbolHandler::GetOffset(std::wstring pdbPath, std:
 			return {};
 		}
 
-		// Display information about the symbol 
+		// Display information about the symbol
 		std::wcout << "[+] Symbol " << sym << " Offset: " << (DWORD)(SymInfoPackage.si.Address - ModBase) << std::endl;
 		offsets.push_back((DWORD)(SymInfoPackage.si.Address - ModBase));
 	}

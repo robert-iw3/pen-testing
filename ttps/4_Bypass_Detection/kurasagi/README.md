@@ -2,7 +2,7 @@
 
 `kurasagi` is full POC of PatchGuard bypass for Windows 24H2, Build 26100.4351.
 
-Kernel Patch Protection, also known as PatchGuard, is a security feature in Windows 11 that prevents unauthorized modifications to the kernel, enhancing system stability and security. It specifically targets attempts to patch the kernel, which can compromise the operating system. Kernel-mode hardware-enforced stack protection is another security feature, related to PatchGuard, that protects against stack buffer overflows and other memory attacks. 
+Kernel Patch Protection, also known as PatchGuard, is a security feature in Windows 11 that prevents unauthorized modifications to the kernel, enhancing system stability and security. It specifically targets attempts to patch the kernel, which can compromise the operating system. Kernel-mode hardware-enforced stack protection is another security feature, related to PatchGuard, that protects against stack buffer overflows and other memory attacks.
 
 ## Changelog
 

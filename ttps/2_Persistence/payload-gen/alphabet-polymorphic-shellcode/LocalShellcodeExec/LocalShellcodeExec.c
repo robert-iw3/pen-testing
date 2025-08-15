@@ -140,7 +140,7 @@ BOOL ReadInputFileFromCommandLine(OUT PBYTE* ppFileBuffer, OUT PDWORD pdwFileSiz
 
     *ppFileBuffer   = pBaseAddress;
     *pdwFileSize    = (DWORD)liFileSize.QuadPart;
-    pBaseAddress    = NULL; 
+    pBaseAddress    = NULL;
     bResult         = TRUE;
 
 _END_OF_FUNC:
@@ -198,7 +198,7 @@ int wmain()
     RtlCopyMemory(pExecBuffer, pFileBuffer, dwFileSize);
 
     wprintf(L"[*] Executable Buffer Address: 0x%p\n", pExecBuffer);
-    
+
 	if (!(hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)pExecBuffer, NULL, 0, NULL)))
     {
         wprintf(L"[!] CreateThread Failed With Error: %d\n", GetLastError());

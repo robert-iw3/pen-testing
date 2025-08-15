@@ -11,7 +11,7 @@ BOOLEAN wsbp::BypassPatchGuard() {
 	if (!Timer::DisableAllTimers()) {
 		return FALSE;
 	}
-	
+
 	if (!Context7::DestroyContext7()) {
 		return FALSE;
 	}
@@ -23,7 +23,7 @@ BOOLEAN wsbp::BypassPatchGuard() {
 	if (!Barricade::SetupBarricade()) {
 		return FALSE;
 	}
-	
+
 
 	DbgPrintEx(0, 0, "[Kurasagi] BYPASS: BypassPatchGuard: Bypassed PatchGuard, enjoy ;)\n");
 

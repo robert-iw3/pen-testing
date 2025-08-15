@@ -50,11 +50,11 @@ bool callbackExample(ULONG64* param1, ULONG64* param2, ULONG64 allocationPtr, UL
 	UNREFERENCED_PARAMETER(allocationPtr);
 	UNREFERENCED_PARAMETER(allocationSize);
 	Log("[+] Callback example called" << std::endl);
-	
+
 	/*
 	This callback occurs before call driver entry and
-	can be useful to pass more customized params in 
-	the last step of the mapping procedure since you 
+	can be useful to pass more customized params in
+	the last step of the mapping procedure since you
 	know now the mapping address and other things
 	*/
 	return true;
@@ -105,9 +105,9 @@ void help() {
 	Log(L"[+] Usage: kdmapper.exe [--free | --indPages][--PassAllocationPtr][--copy-header]");
 
 #ifdef PDB_OFFSETS
-	Log(L"[--dontUpdateOffsets [--offsetsPath \"FilePath\"]]"); 
+	Log(L"[--dontUpdateOffsets [--offsetsPath \"FilePath\"]]");
 #endif
-	
+
 	Log(L" driver" << std::endl);
 
 	PauseIfParentIsExplorer();

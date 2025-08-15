@@ -43,7 +43,7 @@ NTSTATUS DriverEntry(
 
 	UNICODE_STRING routineString = { 0 };
 	RtlInitUnicodeString(&routineString, L"ExQueueWorkItem");
-	
+
 	void* ExQueueWorkItemPtr = MmGetSystemRoutineAddress(&routineString);
 	if (!ExQueueWorkItemPtr) {
 		DbgPrintEx(0, 0, "Wtf was happened??\n");

@@ -8,7 +8,7 @@ NTSTATUS CustomDriverEntry(
 {
 	UNREFERENCED_PARAMETER(kdmapperParam1);
 	UNREFERENCED_PARAMETER(kdmapperParam2);
-	
+
 	DbgPrintEx(0, 0, "Hello world!");
 
 	return 0;

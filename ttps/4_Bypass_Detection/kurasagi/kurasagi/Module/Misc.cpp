@@ -17,7 +17,7 @@ BOOLEAN wsbp::Misc::FixKiMcaDeferredRecoveryServicePtr() {
 	}
 
 	LogInfo("FixKiMcaDeferredRecoveryServicePtr: Success");
-	
+
 	return TRUE;
 }
 

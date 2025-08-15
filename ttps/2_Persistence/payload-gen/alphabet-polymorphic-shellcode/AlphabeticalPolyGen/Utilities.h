@@ -73,7 +73,7 @@ BOOL ParseAndValidateCommandLine(OUT PWCHAR* ppwszInputFile, OUT PWCHAR* ppwszOu
 
             RtlCopyMemory(pwszInputPath, ppwszArgv[dwIndex + 1], dwFileNameLength);
             bInputFound = TRUE;
-            dwIndex++; 
+            dwIndex++;
         }
 
         else if (wcscmp(ppwszArgv[dwIndex], L"--o") == 0 || wcscmp(ppwszArgv[dwIndex], L"-o") == 0)
@@ -101,7 +101,7 @@ BOOL ParseAndValidateCommandLine(OUT PWCHAR* ppwszInputFile, OUT PWCHAR* ppwszOu
 
             RtlCopyMemory(pwszOutputPath, ppwszArgv[dwIndex + 1], dwFileNameLength);
             bOutputFound = TRUE;
-            dwIndex++; 
+            dwIndex++;
         }
     }
 
@@ -152,7 +152,7 @@ BOOL ParseAndValidateCommandLine(OUT PWCHAR* ppwszInputFile, OUT PWCHAR* ppwszOu
 
         if (pwszLastSlash)
         {
-            *pwszLastSlash = L'\0'; 
+            *pwszLastSlash = L'\0';
 
             dwAttributes = GetFileAttributesW(pwszOutputDir);
             if (dwAttributes == INVALID_FILE_ATTRIBUTES)
@@ -184,8 +184,8 @@ BOOL ParseAndValidateCommandLine(OUT PWCHAR* ppwszInputFile, OUT PWCHAR* ppwszOu
 
     *ppwszInputFile     = pwszInputPath;
     *ppwszOutputFile    = pwszOutputPath;
-    pwszInputPath       = NULL;  
-    pwszOutputPath      = NULL; 
+    pwszInputPath       = NULL;
+    pwszOutputPath      = NULL;
     bResult             = TRUE;
 
 _END_OF_FUNC:
@@ -232,7 +232,7 @@ BOOL ReadFileFromDiskW(IN LPCWSTR szFileName, OUT PBYTE* ppFileBuffer, OUT PDWOR
 	*ppFileBuffer   = NULL;
 	*pdwFileSize    = 0x00;
 
-	if ((hFile = CreateFileW(szFileName, GENERIC_READ, 0x00, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL)) == INVALID_HANDLE_VALUE) 
+	if ((hFile = CreateFileW(szFileName, GENERIC_READ, 0x00, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL)) == INVALID_HANDLE_VALUE)
     {
         printf("[!] CreateFileW [%d] Failed With Error: %d \n", __LINE__, GetLastError());
         return FALSE;
@@ -244,13 +244,13 @@ BOOL ReadFileFromDiskW(IN LPCWSTR szFileName, OUT PBYTE* ppFileBuffer, OUT PDWOR
 		goto _END_OF_FUNC;
 	}
 
-	if (!(pBaseAddress = (PBYTE)LocalAlloc(LPTR, liFileSize.QuadPart))) 
+	if (!(pBaseAddress = (PBYTE)LocalAlloc(LPTR, liFileSize.QuadPart)))
     {
 		printf("[!] LocalAlloc [%d] Failed With Error: %d \n", __LINE__, GetLastError());
 		goto _END_OF_FUNC;
 	}
 
-	if (!ReadFile(hFile, pBaseAddress, liFileSize.QuadPart, &dwNumberOfBytesRead, NULL) || (DWORD)liFileSize.QuadPart != dwNumberOfBytesRead) 
+	if (!ReadFile(hFile, pBaseAddress, liFileSize.QuadPart, &dwNumberOfBytesRead, NULL) || (DWORD)liFileSize.QuadPart != dwNumberOfBytesRead)
     {
 		printf("[!] ReadFile Failed With Error: %d \n[i] Read %ld Of %ld Bytes \n", GetLastError(), dwNumberOfBytesRead, (DWORD)liFileSize.QuadPart);
 		goto _END_OF_FUNC;
@@ -271,7 +271,7 @@ _END_OF_FUNC:
 // ============================================================================================================================================================
 
 
-BOOL WriteFileToDiskW(IN LPCWSTR szFileName, IN PBYTE pFileBuffer, OUT DWORD dwFileSize) 
+BOOL WriteFileToDiskW(IN LPCWSTR szFileName, IN PBYTE pFileBuffer, OUT DWORD dwFileSize)
 {
     HANDLE		hFile                   = INVALID_HANDLE_VALUE;
     DWORD		dwNumberOfBytesWritten  = 0x00;
@@ -284,7 +284,7 @@ BOOL WriteFileToDiskW(IN LPCWSTR szFileName, IN PBYTE pFileBuffer, OUT DWORD dwF
         return FALSE;
     }
 
-    if (!WriteFile(hFile, pFileBuffer, dwFileSize, &dwNumberOfBytesWritten, NULL) || dwFileSize != dwNumberOfBytesWritten) 
+    if (!WriteFile(hFile, pFileBuffer, dwFileSize, &dwNumberOfBytesWritten, NULL) || dwFileSize != dwNumberOfBytesWritten)
     {
         printf("[!] WriteFile Failed With Error: %d \n[i] Wrote %ld Of %ld Bytes \n", GetLastError(), dwNumberOfBytesWritten, dwFileSize);
         goto _END_OF_FUNC;
@@ -348,7 +348,7 @@ VOID HexDump1(IN LPCWSTR szName, IN PBYTE pBuffer, IN DWORD dwBufferLength)
 
     wprintf(L"unsigned char %ls[%lu] = {\n    ", szName ? szName : L"Buffer", (unsigned long)dwBufferLength);
 
-    for (dwIndex = 0; dwIndex < dwBufferLength; ++dwIndex) 
+    for (dwIndex = 0; dwIndex < dwBufferLength; ++dwIndex)
     {
         wprintf(L"0x%02X", pBuffer[dwIndex]);
 
