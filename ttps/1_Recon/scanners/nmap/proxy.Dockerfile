@@ -5,7 +5,7 @@ ARG repo="docker.io" \
 
 FROM ${repo}/${base_image}@sha256:${image_hash}
 
-ARG nmap_ver=7.97
+ARG nmap_ver=7.98
 
 RUN \
     addgroup -g 65535 tor; \

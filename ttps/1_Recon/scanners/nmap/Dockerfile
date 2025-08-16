@@ -1,6 +1,6 @@
 FROM docker.io/alpine:3.22
 
-ARG nmap_ver=7.97
+ARG nmap_ver=7.98
 
 RUN \
     apk add --update --no-cache \

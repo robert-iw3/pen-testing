@@ -50,7 +50,7 @@ def load_remote(args):
     if args.password is None and args.hash is None and args.kerberos is None:
         print("You must specify a password, a NTLM hash or use Kerberos authentication")
         exit(1)
-    
+
     # init LDAP connection
     lm_hash = ""
     if args.kerberos:

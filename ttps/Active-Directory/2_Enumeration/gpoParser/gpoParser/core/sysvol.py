@@ -262,7 +262,7 @@ def parse_groups(gpo_objects):
                     group["description"] = properties[0].getAttribute("description")
                     group["delete_all_users"] = True if properties[0].getAttribute("deleteAllUsers") == 1 else False
                     group["delete_all_groups"] = True if properties[0].getAttribute("deleteAllGroups") == 1 else False
-                    
+
                     group_member = item.getElementsByTagName("Member")
                     for principal in group_member:
                         if principal.attributes["action"].value == "ADD":
@@ -355,7 +355,7 @@ def parse_groups(gpo_objects):
                             })
                         else:
                             print(f"Unsupported action on Groups.xml: {principal.attributes['action'].value}")
-                    
+
                     # add to the gpo object
                     gpo.content["user"]["groups"].append(group)
 

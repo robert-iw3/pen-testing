@@ -49,7 +49,7 @@ def process_gpos(ou_objects, gpo_objects):
             ou.enforced_gpos_guids.extend(dn_lookup[parent_ou].enforced_gpos_guids)
         # add GPO to this specific container
         ou.effective_gpos_guids.extend(ou.gpos_guids)
-    
+
         # remove duplicate GUIDs
         ou.effective_gpos_guids = set(ou.effective_gpos_guids)
 
