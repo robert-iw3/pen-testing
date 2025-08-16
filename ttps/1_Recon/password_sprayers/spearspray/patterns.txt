@@ -1,0 +1,26 @@
+# User (samaccountname) as pass
+{samaccountname}
+
+# User first name + Year
+{name}{separator}{year}{suffix}
+# User first name + Year in short format
+{name}{separator}{short_year}{suffix}
+# User first name + Month number + Year in short format
+{name}{separator}{month_number}{short_year}{suffix}
+
+# Month name + Year
+{month_en}{separator}{year}{suffix}
+# Month name + Year in short format
+{month_en}{separator}{short_year}{suffix}
+
+# Season name + Year
+{season_en}{separator}{year}{suffix}
+# Season name + Year in short format
+{season_en}{separator}{short_year}{suffix}
+
+# Exact password from extra argument (e.g., -x 'Company123$!')
+{extra}
+# Extra argument + Year
+{extra}{separator}{year}{suffix}
+# Extra argument + Year in short format
+{extra}{separator}{short_year}{suffix}

@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "spearspray"
+version = "2.0.0"
+description = "Enhance Your Active Directory Password Spraying with User Intelligence"
+authors = ["sikumy <sikumy@deephacking.tech>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+homepage = "https://github.com/sikumy/spearspray"
+repository = "https://github.com/sikumy/spearspray"
+keywords = ["security", "active-directory", "password-spraying", "pentesting", "kerberos", "ldap"]
+packages = [{ include = "spearspray" }]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+gssapi = ">=1.7.0"
+ldap3 = ">=2.9.0"
+colorama = ">=0.4.4"
+argcomplete = ">=2.0.0"
+unidecode = ">=1.3.0"
+questionary = ">=1.10.0"
+
+[tool.poetry.scripts]
+spearspray = "spearspray.cli:cli"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
