@@ -1,0 +1,6 @@
+ldap3-bleeding-edge >= 2.10.1.1337
+smbprotocol[kerberos]
+typer
+pydantic
+lxml
+chardet
