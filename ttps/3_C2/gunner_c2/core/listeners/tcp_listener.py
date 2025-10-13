@@ -125,7 +125,7 @@ def collect_tcp_metadata(sid):
                     except socket.timeout:
                         if not got_any:
                             continue
-                        
+
                         else:
                             break
 
@@ -133,7 +133,7 @@ def collect_tcp_metadata(sid):
                 clean_output = utils.normalize_output(result, cmd)
                 lines = [line for line in clean_output.splitlines() if line.strip() not in ("$", "#", ">")]
                 #result_cleaned = "\n".join(lines).strip()
-                
+
                 try:
                     if len(lines) > 1:
                         clean = lines[1] if lines else ""

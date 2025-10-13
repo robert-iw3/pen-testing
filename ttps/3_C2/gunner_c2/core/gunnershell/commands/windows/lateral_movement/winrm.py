@@ -231,7 +231,7 @@ Invoke-Command -ComputerName $nb -Credential $cred -ScriptBlock {{ {cmd} }}
     		)
 			if transport in ("http", "https"):
 				out = http_exec.run_command_http(sid, one_liner, op_id=op_id)
-	
+
 			elif transport in ("tcp", "tls"):
 				out = tcp_exec.run_command_tcp(sid, one_liner, timeout=4, portscan_active=True, op_id=op_id)
 

@@ -29,11 +29,11 @@ class LsCommand(Command):
 	def logic(self, sid, os_type, path, op_id="console"):
 		"""
 		List files on the remote host.
-	
+
 		- sid:       the real session ID
 		- os_type:   session.metadata.get("os") lower-cased ("windows" vs. "linux")
 		- path:      directory or file to list
-	
+
 		Returns the raw output from the remote command.
 		"""
 		# build the correct command for the OS

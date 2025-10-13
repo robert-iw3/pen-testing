@@ -233,7 +233,7 @@ class PayloadsTab(QWidget):
         rlyt.addLayout(actions)
         rlyt.addWidget(self.out, stretch=1)
 
-       
+
         # Make the left column scroll if it can't fit vertically
         left_scroll = QScrollArea()
         left_scroll.setWidgetResizable(True)
@@ -630,7 +630,7 @@ class PayloadsTab(QWidget):
                 if fmt == "gunnerplant" and t != "https":
                     QMessageBox.warning(self, "Payload", "Gunnerplant requires HTTPS transport")
                     return
-                
+
                 # For EXE/GunnerPlant, give immediate visual feedback in the right pane
                 if fmt in ("exe", "gunnerplant"):
                     if fmt == "exe":

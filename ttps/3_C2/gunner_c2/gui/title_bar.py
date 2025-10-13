@@ -118,7 +118,7 @@ def _hide_qmenu_indicator(menu: QMenu, *, min_width: int | None = None) -> None:
 		"  border: none;"
 		"}"
 		"QMenu::item:selected {"
-		"  background-color: transparent;" 
+		"  background-color: transparent;"
 		"  border-radius: 0px;"
 		"}"
 		"QMenu::indicator { width:0px; height:0px; }"
@@ -436,7 +436,7 @@ class TitleBar(QWidget):
 
 		self.setFixedHeight(34)
 		self.setAutoFillBackground(True)
-		
+
 		R = 14
 		self.setStyleSheet(
 			"QWidget { background-color:#2a2e36; }"
@@ -506,7 +506,7 @@ class TitleBar(QWidget):
 			# Filter submenu
 			self.m_filter = _CloseOnLeaveMenu("Filter", self.m_graph, leave_delay_ms=CLOSE_DELAY_MS)
 			self.m_graph.addMenu(self.m_filter)
-		
+
 			_hide_qmenu_indicator(self.m_filter)
 
 			# ---- Professional-looking checkbox rows (menu stays open) ----------
@@ -622,7 +622,7 @@ class TitleBar(QWidget):
 	def _push_filters(self):
 		if not self._menus_enabled or not self._dash:
 			return
-			
+
 		g = self._dash.graph
 		if hasattr(g, "set_os_filter"):
 			g.set_os_filter(self.cb_os_win.isChecked(), self.cb_os_lin.isChecked())

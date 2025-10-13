@@ -45,7 +45,7 @@ class TransferManager:
 	def _protocol(self, op_id: Optional[str], timeout: float = None) -> ShellProtocol:
 		# For now we only ship the ShellProtocol (works over HTTP/TCP/TLS).
 		return ShellProtocol(op_id, timeout=timeout or 30)
- 
+
 	def _new_tid(self) -> str:
 		return uuid.uuid4().hex[:12]
 
@@ -450,7 +450,7 @@ class TransferManager:
 			completed = True
 			logger.debug(f"DL[{st.tid}] done: saved state; is_folder={st.is_folder}")
 
-			
+
 
 			# If this was a folder download, extract locally then remove archive
 			final_msg = st.local_path

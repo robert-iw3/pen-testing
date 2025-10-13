@@ -132,7 +132,7 @@ EXAMPLES
         fmt_map = {"kv":0,"csv":1,"table":2,"json":3}
         fmtK = fmt_map.get(getattr(ns,"format","kv"), 0)
 
-        
+
         args = [
             f"-Z:{domain}",
             f"-Z:{dc}",

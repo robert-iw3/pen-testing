@@ -120,7 +120,7 @@ class NetexecSmbCommand(Command):
 			else:
 				print(brightred + f"[!] Failed to fetch hostname from {display}")
 				return None
-	
+
 		if not shares:
 			ps = f"""
 $Users   = {users_ps}
@@ -135,7 +135,7 @@ foreach ($T in $Targets) {{
 	}} catch {{
 		$nb = $T
 	}}
-  
+
   Write-Output "------$T------\n"
 
   foreach ($U in $Users) {{
@@ -220,11 +220,11 @@ public class Win32 {{
 		}}
 	  }}
 
-	}}  
-  }}  
+	}}
+  }}
 }}
 """
-	
+
 		if shares:
 			ps = f"""
 # load the SmbShare module if it exists
@@ -291,7 +291,7 @@ foreach ($T in $Targets) {{
   }}
 }}
 """
-	
+
 		if not shares:
 			b64 = base64.b64encode(ps.encode('utf-16le')).decode()
 
@@ -332,7 +332,7 @@ foreach ($T in $Targets) {{
 
 			elif transport in ("tcp", "tls"):
 				out = tcp_exec.run_command_tcp(sid, one_liner, timeout=0.5, portscan_active=True, op_id=op_id)
-	
+
 			else:
 				print(brightred + f"[!] Unknown transport for session")
 				return None

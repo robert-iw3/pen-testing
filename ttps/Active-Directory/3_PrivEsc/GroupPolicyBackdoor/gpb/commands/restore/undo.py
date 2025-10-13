@@ -10,7 +10,7 @@ from gpb.utils.clean                import clean_save_action
 from config                         import logger, bcolors, AD_OPERATIONAL_ATTRIBUTES
 
 class GPOUndo():
-    
+
     def __init__(self,
                 domain,
                 dc,
@@ -18,7 +18,7 @@ class GPOUndo():
                 state_folder,
                 gpo_guid,
                 ldap_session):
-        
+
         self.domain = domain
         self.domain_dn = ",".join("DC={}".format(d) for d in domain.split("."))
         self.dc = dc
@@ -63,7 +63,7 @@ class GPOUndo():
                 ldap_modify_attribute.append(action)
             elif action['action'] == 'smb_modify_file':
                 smb_modify_file.append(action)
-            
+
 
         # Sort LDAP entry created so that children will be handled before parent entries
         ldap_create_entry.sort(key=lambda action: len(action['item'].split(',')), reverse=True)
@@ -76,7 +76,7 @@ class GPOUndo():
         smb_delete_directory.sort(key=lambda action: len(action['item'].split('\\')))
 
 
-        for action in ldap_create_entry:            
+        for action in ldap_create_entry:
             logger.warning(f"[*] Deleting LDAP entry {action['item']}")
             self.undo_ldap_create_entry(action)
         for action in ldap_delete_entry:
@@ -85,7 +85,7 @@ class GPOUndo():
         for action in ldap_modify_attribute:
             logger.warning(f"[*] Resetting the value of LDAP entry {action['item']} for attribute {action['attribute']}")
             self.undo_ldap_modify_attribute(action)
-        
+
         for action in smb_create_file:
             logger.warning(f"[*] Deleting SMB file {action['item']}")
             self.undo_smb_create_file(action)
@@ -102,7 +102,7 @@ class GPOUndo():
             logger.warning(f"[*] Resetting the contents of SMB file {action['item']}")
             self.undo_smb_modify_file(action)
 
-        
+
     def undo_ldap_create_entry(self, action):
         try:
             # To undo LDAP created entry, delete it

@@ -67,7 +67,7 @@ def run_command_http(sid, cmd, output=True, defender_bypass=False, op_id=None, t
 		if transfer_use:
 			raise ConnectionError("Hit empty queue during transfer, indicates a connection error")
 
-		else:	
+		else:
 			return None
 
 	except Exception as e:

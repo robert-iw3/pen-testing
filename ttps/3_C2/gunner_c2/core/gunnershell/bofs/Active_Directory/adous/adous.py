@@ -63,7 +63,7 @@ Selection & Output
 
 Notes
   • OU spaces are escaped as %20 in the loader, then RFC4515-escaped in BOF (SPACE -> \\20).
-  
+
 Examples
   bofexec adous --names
   bofexec adous --ou "Workstations" --linked-gpos -a "ou,distinguishedName,gPLink"

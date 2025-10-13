@@ -74,7 +74,7 @@ class ExeCsharpHttpV1(ProfileLoader):
         # Accept/Host/Range precedence: CLI > Profile
         if d_accept:
             accept = d_accept
-            accept_post = d_accept 
+            accept_post = d_accept
 
         else:
             accept = h_get.pop("Accept", None)

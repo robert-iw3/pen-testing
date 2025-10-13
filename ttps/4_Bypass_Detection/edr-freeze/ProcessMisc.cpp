@@ -139,7 +139,7 @@ BOOL IsProcessSuspendedByPID(DWORD pid)
 
             // Thread info array immediately follows the SYSTEM_PROCESS_INFORMATION struct
             PSYSTEM_THREAD_INFORMATION threadInfo = (PSYSTEM_THREAD_INFORMATION)((PBYTE)spi + sizeof(SYSTEM_PROCESS_INFORMATION));
-            for (ULONG i = 0; i < spi->NumberOfThreads; ++i) 
+            for (ULONG i = 0; i < spi->NumberOfThreads; ++i)
             {
                 // Check thread state and wait reason
                 if (threadInfo[i].ThreadState != StateWait || threadInfo[i].WaitReason != Suspended)
@@ -159,7 +159,7 @@ BOOL IsProcessSuspendedByPID(DWORD pid)
     return mainThreadId;
 }
 
-BOOL SuspendProcessByPID(DWORD pid) 
+BOOL SuspendProcessByPID(DWORD pid)
 {
     // Load ntdll.dll and get the address of NtSuspendProcess
     HMODULE hNtdll = GetModuleHandleW(L"ntdll.dll");
@@ -179,7 +179,7 @@ BOOL SuspendProcessByPID(DWORD pid)
     // Call NtSuspendProcess
     NTSTATUS status = NtSuspendProcess(hProcess);
     CloseHandle(hProcess);
-    if (status != 0) 
+    if (status != 0)
     {
         std::wcerr << "NtSuspendProcess failed. Error code: " << GetLastError() << std::endl;
         return false;
@@ -192,13 +192,13 @@ BOOL TerminateProcessByPID(DWORD pid)
 {
     // Open the process with termination rights
     HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, pid);
-    if (!hProcess) 
+    if (!hProcess)
     {
         std::cerr << "OpenProcess failed. Error: " << GetLastError() << "\n";
         return false;
     }
     BOOL result = TerminateProcess(hProcess, 1); // Exit code = 1
-    if (!result) 
+    if (!result)
     {
         std::cerr << "TerminateProcess failed. Error: " << GetLastError() << "\n";
         CloseHandle(hProcess);

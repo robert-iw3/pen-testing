@@ -18,6 +18,6 @@ class NetStatBof(Bof):
 get local ipv4 udp/tcp listening and connected ports
 Usage: bofexec netstat
 """
-		
+
 		print(brightgreen + menu + reset)
 		return

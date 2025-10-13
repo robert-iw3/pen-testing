@@ -56,7 +56,7 @@ Examples:
 
 	"portfwd": {
 		"_desc": """portfwd <subcommand>
-		
+
 Subcommands:
 	portfwd add    -i <sid> -lh <local_host> -lp <local_port> -rh <remote_host> -rp <remote_port> -cp <chisel_port>
 	portfwd list
@@ -208,7 +208,7 @@ Required:
 	-u <username>      Username for authentication
 	-p <password>      Password for authentication
 	-i <target_ip>     Target host IP address
-	
+
 either:
 	-d <domain>         AD domain for network authentication
 	--local-auth        Authenticate against local SAM instead of AD
@@ -600,14 +600,14 @@ Subcommands:
 	bruteforce  Bruteforce AD creds via Kerberos (Negotiate)
 	userenum    Enumerate valid usernames via Kerberos (Negotiate)
 Usage: help kerbrute <subcommand>""",
-	
+
 	"bruteforce": """kerbrute bruteforce -u <user|file> -p <pass|file> -d <domain> [--dc-ip <ip>] [-C <credfile>]
 	-u <user|file>      Single user or file of users
 	-p <pass|file>      Single password or file of passwords
 	-d <domain>         AD domain (FQDN)
 	--dc-ip <ip>        Domain Controller IP
 	-C <user:pass>      Lines of username:password for spraying""",
-	
+
 	"userenum": """kerbrute userenum -d <domain> [--dc-ip <ip>] -u <user|file|list>
 	-d <domain>         AD domain (FQDN)
 	--dc-ip <ip>        Domain Controller IP
@@ -902,7 +902,7 @@ optional arguments:
 	-n NAME, --name NAME  New username for the operator
 
 	-p PASSWORD, --password PASSWORD  New password for the operator
-	
+
 	-r {operator,admin}, --role {operator,admin}  New role for the operator""",
 
 	"alert": """alert [-o <operator>] [--red|--green|--yellow|--blue|--magenta|--cyan|--white] <message>
@@ -915,7 +915,7 @@ Examples:
 	alert --yellow "Reminder: rotate logs"
 	alert -o alice --blue "Alice, please verify your session"
 """,
-	
+
 	"kick": """kick (-a | -o <op1,op2,...>)
 Kick one or more operators (or all of them).
 

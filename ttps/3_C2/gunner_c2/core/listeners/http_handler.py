@@ -217,7 +217,7 @@ class C2HTTPRequestHandler(BaseHTTPRequestHandler):
 				self.send_header("Content-Length", str(len(payload)))
 				self.end_headers()
 				self.wfile.write(payload)
-					
+
 			else:
 				headers = self.headers
 
@@ -270,7 +270,7 @@ class C2HTTPRequestHandler(BaseHTTPRequestHandler):
 				lid = socket_to_listener.get(self.server.socket.fileno())
 				if lid:
 					listener_registry[lid].sessions.append(sid)
-			
+
 				try:
 					cmd_b64 = session.meta_command_queue.get_nowait()
 					session.last_cmd_type = "meta"
@@ -358,7 +358,7 @@ class C2HTTPRequestHandler(BaseHTTPRequestHandler):
 					try:
 						msg = json.loads(body)
 						#print(f"[DEBUG] Parsed JSON: {msg}")
-					
+
 					except json.JSONDecodeError as e:
 						print(f"[!] JSON decode error: {e}")
 						self.send_response(400)
@@ -519,7 +519,7 @@ class C2HTTPRequestHandler(BaseHTTPRequestHandler):
 					try:
 						msg = json.loads(body)
 						#print(f"[DEBUG] Parsed JSON: {msg}")
-					
+
 					except json.JSONDecodeError as e:
 						print(f"[!] JSON decode error: {e}")
 						self.send_response(400)

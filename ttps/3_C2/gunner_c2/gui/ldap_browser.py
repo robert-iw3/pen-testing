@@ -160,7 +160,7 @@ def _apply_styles(widget: QWidget):
 		min-height: 24px; max-height: 24px;
 		padding: 0;
 		margin-left: 10px;
-		margin-right: 6px;              
+		margin-right: 6px;
 		border: 1px solid transparent;
 		border-radius: 12px;
 		background: transparent;

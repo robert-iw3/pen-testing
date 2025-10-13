@@ -66,7 +66,7 @@ class TcpCommandRouter:
 				logger.warning("[%s] execute.send() error: %s", time.strftime("%H:%M:%S"), e)
 				if transfer_use:
 					raise ConnectionError(f"send failed: {e}") from e
-				
+
 
 			# receive and normalize
 			try:
@@ -82,7 +82,7 @@ class TcpCommandRouter:
 				logger.warning("[%s] execute.receive() error: %s", time.strftime("%H:%M:%S"), e)
 				if transfer_use:
 					raise ConnectionError(f"receive failed: {e}") from e
-				
+
 
 			elapsed = time.time() - start_ts
 			logger.debug("[%s] execute() completed in %.4fs, result=%r",
@@ -164,7 +164,7 @@ class TcpCommandRouter:
 		logger.debug("[%s] Wrapped command for op_id=%r: %r",
 					 time.strftime("%H:%M:%S"), op_id, wrapped)
 
-		
+
 		self._drain_socket()
 
 		# Send command
@@ -177,12 +177,12 @@ class TcpCommandRouter:
 				logger.warning(brightred + f"Connect error ocurred on session {self.session.sid}" + reset)
 				if transfer_use:
 					raise ConnectionError(f"socket send failed: {e}") from e
-					
+
 
 			except Exception as e:
 				logger.warning("[%s] Failed to send command: %s", time.strftime("%H:%M:%S"), e)
 				raise
-			
+
 
 	def receive(self,
 				cmd: str,

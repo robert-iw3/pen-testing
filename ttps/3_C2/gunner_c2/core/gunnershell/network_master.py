@@ -47,7 +47,7 @@ def hostname(sid, os_type, op_id="console"):
 	transport = sess.transport.lower()
 	if transport in ("http", "https"):
 		out = http_exec.run_command_http(sid, cmd, op_id=op_id)
-	
+
 	elif transport in ("tcp", "tls"):
 		out =  tcp_exec.run_command_tcp(sid, cmd, timeout=0.5, portscan_active=True, op_id=op_id)
 

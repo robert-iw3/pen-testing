@@ -217,7 +217,7 @@ class FilesWSClient(QObject):
 			if cb:
 				self._pending_upload_stream = None
 				cb()
-				
+
 		elif t == "fs.upload.progress":
 			self.up_progress.emit(int(m.get("written") or 0), int(m.get("total") or 0))
 
@@ -244,6 +244,6 @@ class FilesWSClient(QObject):
 
 		elif t == "fs.quickpaths":
 			self.quickpaths.emit(m.get("paths") or {})
-			
+
 		elif t == "error":
 			self.error.emit(m.get("error") or "error")

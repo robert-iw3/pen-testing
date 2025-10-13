@@ -132,7 +132,7 @@ def _rebind_transfer(tid: str, old_sid: str, new_sid: str) -> Optional[Dict[str,
 	if sess:
 		st.os_type = sess.metadata.get("os", "").lower()
 		st.transport = getattr(sess, "transport", "").lower()
-		
+
 	# Re-pin tmp path to the new sid/tid (belt-and-suspenders; load() already did it)
 	st.tmp_local_path = store._tmp_path(new_sid, tid)
 	store.save(st)

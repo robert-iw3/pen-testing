@@ -121,7 +121,7 @@ def delete(
             dc = domain
 
         logger.warning(f"{bcolors.HEADER}{bcolors.BOLD}GPB - DELETE command - {datetime.now()}{bcolors.ENDC}")
-        
+
         logger.warning(f"\n{bcolors.OKCYAN}[#] Command execution setup{bcolors.ENDC}")
         ldap_session = get_ldap_session(domain, dc, ldaps, username, password, kerberos)
         initialize_smb_connection(dc, username, password, kerberos)
@@ -171,9 +171,9 @@ def inject(
             password = '0' * 32 + ':' + hash
         if dc is None:
             dc = domain
-        
+
         logger.warning(f"{bcolors.HEADER}{bcolors.BOLD}GPB - INJECT command - {datetime.now()}{bcolors.ENDC}")
-        
+
         logger.warning(f"\n{bcolors.OKCYAN}[#] Command execution setup{bcolors.ENDC}")
         modules = validate_modules(modules)
         logger.warning(f"{bcolors.OKGREEN}[+] All modules validated{bcolors.ENDC}")
@@ -248,7 +248,7 @@ def clean(
                                 ldap_session)
         gpo_cleaner.run()
         logger.warning(f"{bcolors.OKGREEN}{bcolors.BOLD}\n[+] GPB CLEAN command success{bcolors.ENDC}")
-    
+
     except Exception as e:
         logger.error(f"{bcolors.FAIL}[!] Error encountered while running clean command{bcolors.ENDC}")
         traceback.print_exc()
@@ -388,7 +388,7 @@ def configure(
             password = '0' * 32 + ':' + hash
         if dc is None:
             dc = domain
-        
+
         logger.warning(f"{bcolors.HEADER}{bcolors.BOLD}GPB - CONFIGURE (link) command - {datetime.now()}{bcolors.ENDC}")
 
         logger.warning(f"\n{bcolors.OKCYAN}[#] Command execution setup{bcolors.ENDC}")
@@ -416,7 +416,7 @@ def configure(
     except Exception as e:
         logger.error(f"{bcolors.FAIL}[!] Error encountered while running configure (link) command{bcolors.ENDC}")
         traceback.print_exc()
-    
+
 
 
 
@@ -442,7 +442,7 @@ def list_gpos(
             password = '0' * 32 + ':' + hash
         if dc is None:
             dc = domain
-        
+
         logger.warning(f"{bcolors.HEADER}{bcolors.BOLD}GPB - LIST-GPOS command - {datetime.now()}{bcolors.ENDC}")
 
         ldap_session = get_ldap_session(domain, dc, ldaps, username, password, kerberos)
@@ -542,7 +542,7 @@ def undo(
         logger.info(f"[INFO] Target GPO GUID {gpo_guid}")
         state_folder = clean_create_folder("undo", gpo_guid)
         logger.warning(f"[*] State folder is {bcolors.BOLD}{state_folder}{bcolors.ENDC}")
-      
+
 
         gpo_undo = GPOUndo(domain,
                             dc,
@@ -590,7 +590,7 @@ def backup(
             dc = domain
 
         logger.warning(f"{bcolors.HEADER}{bcolors.BOLD}GPB - BACKUP command - {datetime.now()}{bcolors.ENDC}")
-        
+
         logger.warning(f"\n{bcolors.OKCYAN}[#] Command execution setup{bcolors.ENDC}")
         ldap_session = get_ldap_session(domain, dc, ldaps, username, password, kerberos)
         initialize_smb_connection(dc, username, password, kerberos)

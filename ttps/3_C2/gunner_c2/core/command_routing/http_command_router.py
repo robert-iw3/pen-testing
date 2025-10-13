@@ -118,7 +118,7 @@ class CommandRouter:
 
 		if block:
 			out_b64 = q.get(timeout=timeout)
-			
+
 		else:
 			out_b64 = q.get_nowait()
 

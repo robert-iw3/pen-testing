@@ -197,7 +197,7 @@ def generate_gunnerplant_reverse_https(ip, port, obs, beacon_interval, headers, 
 	if not listener_status:
 		print(brightred + f"[!] No {scheme} listener setup on port {port}")
 		return None
-	
+
 	# Parse → Load → Config for this emitter
 	cfg = None
 	if profile:
@@ -281,7 +281,7 @@ def generate_gunnerplant_reverse_https(ip, port, obs, beacon_interval, headers, 
 
 		with open(sc_path, "wb") as f:
 			f.write(shellcode)
-		
+
 		with open(sc_path, "rb") as f:
 			donut_file = f.read()
 

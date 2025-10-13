@@ -51,7 +51,7 @@ Examples
   ldapsearch "(objectCategory=computer)" -a "name,operatingSystem,operatingSystemVersion" -c 50 --scope 3
 
   # Query a specific DC over LDAPS with explicit base DN
-  ldapsearch "(samAccountName=jdoe)" --dc dc1.contoso.com --dn "DC=contoso,DC=com" --ldaps 
+  ldapsearch "(samAccountName=jdoe)" --dc dc1.contoso.com --dn "DC=contoso,DC=com" --ldaps
 
   # Pull security descriptors (requires rights; potentially large)
   ldapsearch "(objectClass=organizationalUnit)" -a "name,ntSecurityDescriptor" --scope 3 -c 20

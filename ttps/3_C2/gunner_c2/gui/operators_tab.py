@@ -143,13 +143,13 @@ class AvatarNameDelegate(QStyledItemDelegate):
 # ---------- Model / Filter ---------------------------------------------------
 
 class OpsModel(QAbstractTableModel):
-	def __init__(self): 
+	def __init__(self):
 		super().__init__(); self._rows=[]
 
-	def rowCount(self,_=QModelIndex()): 
+	def rowCount(self,_=QModelIndex()):
 		return len(self._rows)
 
-	def columnCount(self,_=QModelIndex()): 
+	def columnCount(self,_=QModelIndex()):
 		return len(COLUMNS)
 
 	def headerData(self, s, o, r=Qt.DisplayRole):
@@ -157,7 +157,7 @@ class OpsModel(QAbstractTableModel):
 		return QVariant()
 
 	def data(self, idx, role=Qt.DisplayRole):
-		if not idx.isValid(): 
+		if not idx.isValid():
 			return QVariant()
 
 		r = self._rows[idx.row()]
@@ -179,12 +179,12 @@ class OpsModel(QAbstractTableModel):
 			f = QFont("Consolas"); f.setPointSizeF(f.pointSizeF()*0.95); return f
 		return QVariant()
 
-	def set_ops(self, rows): 
+	def set_ops(self, rows):
 		self.layoutAboutToBeChanged.emit()
 		self._rows=list(rows or [])
 		self.layoutChanged.emit()
 
-	def row_dict(self, proxy_row, proxy): 
+	def row_dict(self, proxy_row, proxy):
 		if proxy_row<0: return None
 		src = proxy.mapToSource(proxy.index(proxy_row,0)).row()
 		return self._rows[src] if 0<=src<len(self._rows) else None
@@ -541,7 +541,7 @@ class OperatorsTab(QWidget):
 
 	def _remove(self):
 		ident = self._current_id()
-		if not ident: 
+		if not ident:
 			return
 		if QMessageBox.question(self, "Remove Operator", "Delete selected operator?",
 								QMessageBox.Yes|QMessageBox.No, QMessageBox.No) != QMessageBox.Yes:

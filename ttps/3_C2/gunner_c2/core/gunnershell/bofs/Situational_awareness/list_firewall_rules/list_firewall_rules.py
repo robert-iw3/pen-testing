@@ -18,6 +18,6 @@ class ListFirewallRulesBof(Bof):
 List all windows firewall rules
 Usage: bofexec listfwrules
 """
-		
+
 		print(brightgreen + menu + reset)
 		return

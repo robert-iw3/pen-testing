@@ -26,7 +26,7 @@ class CaclsBof(Bof):
 	def help_menu():
 		menu = """
 Lists file permissions (Wildcards are supported)
-cacls <file path> 
+cacls <file path>
 
 Usage:
 	cacls C:\\windows\\system32\\*

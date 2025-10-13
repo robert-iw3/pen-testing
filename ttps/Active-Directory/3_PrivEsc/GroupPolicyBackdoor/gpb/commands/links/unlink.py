@@ -50,7 +50,7 @@ class GPOUnlinker():
         updated_links = [link for link in current_links if self.gpo_dn.lower() not in link.lower()]
         if len(current_links) == len(updated_links):
             return False
-        
+
         if len(updated_links) > 0:
             updated_links = ''.join(f"[{link}]" for link in updated_links)
         else:

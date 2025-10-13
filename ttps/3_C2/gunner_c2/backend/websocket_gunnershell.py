@@ -75,7 +75,7 @@ async def gunnershell_ws(ws: WebSocket, sid: str):
                 raw = _CLEAR_ESC.sub(b"", raw)
 
             text = raw.decode("utf-8", "ignore")
-            
+
             if text:
                 await ws.send_text(text)
 

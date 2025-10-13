@@ -24,7 +24,7 @@ Usage:
 What it does:
   • Queries WMI class Win32_QuickFixEngineering for KBs (ID, date, description)
   • Falls back to HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Hotfix on older systems
-  
+
 Output columns:
   KB (HotFixID), InstalledOn, Description/Caption
 

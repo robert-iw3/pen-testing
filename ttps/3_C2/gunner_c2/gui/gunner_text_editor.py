@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import (
 	QWidget, QVBoxLayout, QHBoxLayout, QPlainTextEdit, QLabel, QTabWidget,
 	QGraphicsDropShadowEffect, QShortcut, QStyle, QApplication, QMessageBox,
 	QMenu, QDialog, QTableWidget, QTableWidgetItem, QHeaderView, QPushButton,
-	QLineEdit, QToolButton, QInputDialog, QAction, QTabBar, QAbstractItemView  
+	QLineEdit, QToolButton, QInputDialog, QAction, QTabBar, QAbstractItemView
 )
 
 # TitleBar from your project

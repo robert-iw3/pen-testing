@@ -108,7 +108,7 @@ class PortscanCommand(Command):
 			spec = port_spec_str.strip('@"\n')
 			if spec == "-":
 				return list(range(1, 65_536))
-		
+
 			parts = spec.split(',')
 			ports = []
 			for p in parts:
@@ -136,7 +136,7 @@ if ($t) {{ Write-Output "ARP_OK" }}"""
 
 			b64_check = base64.b64encode(ps.encode('utf-16le')).decode()
 
-			
+
 			check_cmd = (
 				"$ps = [System.Text.Encoding]::Unicode"
 				f".GetString([Convert]::FromBase64String(\"{b64_check}\")); "
@@ -151,7 +151,7 @@ if ($t) {{ Write-Output "ARP_OK" }}"""
 
 			else:
 				print(brightred + f"[!] Unknown transport!")
-	
+
 			if "ARP_OK" in out:
 				return "OK"
 
@@ -196,7 +196,7 @@ if ($t) {{ Write-Output "ARP_OK" }}"""
 						check_cmd = f"Test-Connection -Quiet -Count 1 -ComputerName {ip}"
 						b64_check = base64.b64encode(check_cmd.encode('utf-16le')).decode()
 
-				
+
 						check_cmd = (
 							"$ps = [System.Text.Encoding]::Unicode"
 							f".GetString([Convert]::FromBase64String(\"{b64_check}\")); "
@@ -233,7 +233,7 @@ if ($t) {{ Write-Output "ARP_OK" }}"""
 
 				elif transport in ("tcp", "tls"):
 					gw = tcp_exec.run_command_tcp(sid, gw_cmd, timeout=0.5, portscan_active=True, op_id=op_id)
-		
+
 				else:
 					print(brightred + f"[!] Unknown transport!")
 
@@ -323,7 +323,7 @@ if (-not $gw) {{
 		Write-Output "SKIPPING $Target (gateway $gw did not answer ARP)"
 	}}
 }}
-"""     
+"""
 
 						# UTF-16LE + Base64 encode
 						b64 = base64.b64encode(ps_func.encode('utf-16le')).decode()

@@ -74,7 +74,7 @@ def build_ps_http_context(
         grab_output   = textwrap.dedent("""\
             if ($task.DeviceTelemetry) {
                 $cmd_b64 = $task.DeviceTelemetry.Telemetry;
-            
+
         """).replace("\n","")
         send_output   = "$body = @{ output = $b64 } | ConvertTo-Json;"
         headers_block = payutils.build_powershell_headers(

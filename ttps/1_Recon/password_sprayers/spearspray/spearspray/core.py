@@ -23,7 +23,7 @@ from spearspray.utils.ldap_utils import (
 )
 
 class SpearSpray:
-    
+
     def __init__(self, args):
 
         self.log = logging.getLogger(__name__)
@@ -66,7 +66,7 @@ class SpearSpray:
         are_all_variables_registered(patterns_detected, variables_registered)
 
         # LDAP enumeration and domain policy (and PSO) filtering
- 
+
         ldap_instance, ldap_connection = connect_to_ldap(self.target, self.domain, self.username, self.password, self.ssl, self.ldap_page_size)
 
         domain_policy = get_domain_password_policy(ldap_instance, ldap_connection)
@@ -76,7 +76,7 @@ class SpearSpray:
         ldap_instance.close_connection(ldap_connection)
         users_objects = filter_pso_users(users_objects)
         users_objects = filter_threshold_users(users_objects, domain_policy, self.threshold)
-        
+
         if len(users_objects) == 0:
             self.log.error(f"{RED}[-]{RESET} No users remaining after filtering. Exiting.")
             sys.exit(1)
@@ -95,13 +95,13 @@ class SpearSpray:
 
     def _build_credentials(self, users_objects: list[dict], selected_pattern: str, filtered_variables: list[str]) -> Generator[Tuple[str, str], None, None]:
 
-        for entry in users_objects: 
-            
+        for entry in users_objects:
+
             # Extract username and generate password using the selected pattern
-            
-            user: str = entry.get("sAMAccountName")                
+
+            user: str = entry.get("sAMAccountName")
             password: str = variable_resolver(entry, selected_pattern, filtered_variables, self.extra, self.separator, self.suffix,)
-                
+
             yield (user, password) # Return a tuple of (username, password) for each user
 
     def _spray(self, kerberos_instance: Kerberos, users_objects: List[dict], selected_pattern: str, filtered_variables: List[str]) -> None:

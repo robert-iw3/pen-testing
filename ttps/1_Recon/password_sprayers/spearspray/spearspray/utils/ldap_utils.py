@@ -16,7 +16,7 @@ def get_domain_password_policy(ldap_instance, ldap_connection) -> dict:
 
     try:
         domain_policy = ldap_instance.get_default_password_policy(ldap_connection)
-        
+
         return domain_policy
     except Exception:
         log.exception(f"{RED}[-]{RESET} Error retrieving domain policy.")
@@ -142,7 +142,7 @@ def filter_pso_users(users_objects):
             log.warning(f"{YELLOW}[*]{RESET} Among those {len(users_objects)} users, {len(users_with_pso)} has PSO applied.")
         else:
             log.warning(f"{YELLOW}[*]{RESET} Among those {len(users_objects)} users, {len(users_with_pso)} have PSO applied.")
-        
+
         answer = input(f"{YELLOW}[*]{RESET} Do you want to include these users in the spraying? (y/n): ").strip().lower()
         if answer.lower() == "y":
             return users_objects  # Do not filter PSO users (Include all users)

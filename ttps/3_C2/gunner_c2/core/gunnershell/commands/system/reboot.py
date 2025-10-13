@@ -40,5 +40,5 @@ class RebootCommand(Command):
 
 		else:
 			out = tcp_exec.run_command_tcp(sid, cmd, timeout=3, portscan_active=True, op_id=op_id)
-	
+
 		return out or None

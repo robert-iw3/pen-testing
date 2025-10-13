@@ -7,7 +7,7 @@ struct PauseCheckParams {
     DWORD targetPID;
     DWORD werPID;
 };
-DWORD WINAPI PauseCheck(LPVOID lpParam) 
+DWORD WINAPI PauseCheck(LPVOID lpParam)
 {
     PauseCheckParams* params = static_cast<PauseCheckParams*>(lpParam);
     DWORD targetPID = params->targetPID;
@@ -79,7 +79,7 @@ BOOL FreezeRun(DWORD targetPID, DWORD targetTID, DWORD sleepTime)
         0,                     // default creation flags
         nullptr                // receive thread identifier
     );
-    if (hThread == nullptr) 
+    if (hThread == nullptr)
     {
         std::wcerr << L"Failed to create thread." << std::endl;
         delete params;

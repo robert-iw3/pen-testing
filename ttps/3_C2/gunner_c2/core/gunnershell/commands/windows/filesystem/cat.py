@@ -22,7 +22,7 @@ class CatCommand(Command):
 		if len(args) != 1:
 			print(brightyellow + "Usage: cat <path>")
 			return
-			
+
 		path = args[0]
 		path = self.gs.make_abs(path)
 		out = self.logic(self.gs.sid, self.gs.os_type, path, op_id=self.op_id)

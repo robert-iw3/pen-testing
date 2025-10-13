@@ -37,7 +37,7 @@ def parse_arguments():
     patterns_group.add_argument('-x', '--extra', type=str, default=None, help='Single word (no spaces or commas).')
     patterns_group.add_argument('-sep', '--separator', type=str, default=None, help='Separator for patterns.')
     patterns_group.add_argument('-suf', '--suffix', type=str, default=None, help='Suffix for patterns.')
-    
+
     # Main parser
     parser = argparse.ArgumentParser(
         prog='spearspray',
@@ -118,15 +118,15 @@ def check_args(args, parser):
 def cli():
 
     init(autoreset=True)
-    
+
     parser = parse_arguments()
     args = parser.parse_args()
-    
+
     Logger(name="spearspray", verbose=args.debug).get_logger()
-    
+
     if check_args(args, parser):
         return
-    
+
     spearspray = SpearSpray(args)
     spearspray.run()
 

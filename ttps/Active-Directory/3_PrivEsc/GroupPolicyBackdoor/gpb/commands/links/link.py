@@ -67,6 +67,5 @@ class GPOLinker():
         clean_save_action(self.state_folder, "ldap_modify_attribute", ou_dn, attribute="gPLink", old_value=current_gplink, new_value=updated_links)
 
 
-            
 
-        
+

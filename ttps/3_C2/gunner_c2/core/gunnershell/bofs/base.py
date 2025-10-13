@@ -29,7 +29,7 @@ class Bof(ABC):
 		"""
 		Optional: BOF-specific argparse injection.
 		Add any custom arguments here, e.g.:
-		    p.add_argument('--foo', help='...') 
+		    p.add_argument('--foo', help='...')
 		"""
 		return
 

@@ -28,7 +28,7 @@ class ThrowingParser(QuietParser):
 	def error(self, message):   # called by argparse on any parse error
 		raise ArgparseCrash(message)
 
-CUSTOM_ARG_BOFS = ["nanodump", "ldapsearch", "domaininfo", "adusers", "adgroups", "adcomputers", "addns", "adous", "adspns", 
+CUSTOM_ARG_BOFS = ["nanodump", "ldapsearch", "domaininfo", "adusers", "adgroups", "adcomputers", "addns", "adous", "adspns",
 "adstaleusers", "asreproast", "asktgt", "dcsyncenum", "enumacls"]
 
 @register("bofexec")
@@ -88,7 +88,7 @@ class BofExecCommand(Command):
 					print(brightred + f"[argparse] {e}" + reset)
 					print(brightyellow + p.format_usage().strip() + reset)
 					return
-					
+
 				"""except SystemExit:
 					print(brightyellow + self.help)
 					return"""
@@ -179,7 +179,7 @@ class BofExecCommand(Command):
 
 		for s in (int16 or []):
 			parts.append(f"-s:{q(s)}")
-			
+
 		for s in (int32 or []):
 			parts.append(f"-i:{q(s)}")
 

@@ -78,7 +78,7 @@ def parse_malleable_profile(path: str) -> Optional[MalleableProfile]:
       - "uri"    (string)
       - "client" (dict: headers, metadata)
       - "server" (dict: headers, output)
-    
+
     And in server.output only "base64-json" is supported:
       server.output.base64-json is a dict whose values may include the literal
       "{{payload}}" placeholder.

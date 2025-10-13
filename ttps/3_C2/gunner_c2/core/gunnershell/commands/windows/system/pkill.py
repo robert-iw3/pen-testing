@@ -45,11 +45,11 @@ class PkillCommand(Command):
 		sess = session_manager.sessions.get(sid)
 		if not sess:
 			return brightred + f"[!] No such session: {display}"
-	
+
 		if sess.transport.lower() in ("http", "https"):
 			out = http_exec.run_command_http(sid, cmd, op_id=op_id)
 
 		else:
 			out = tcp_exec.run_command_tcp(sid, cmd, timeout=0.5, portscan_active=True, op_id=op_id)
-	
+
 		return out or None

@@ -185,7 +185,7 @@ try {{
 		if out:
 			if "Failed to resolve DC!" in out:
 				return brightred + "[!] Failed to resolve DC, use --dc‑ip or --domain with the correct IP/domain"
-		
+
 			elif "Nothing Found" in out:
 				return brightred + "[!] No password policy found!"
 

@@ -66,8 +66,8 @@ class Dashboard(QWidget):
 				"QPushButton {"
 				"  background:#2c313a; color:#e9eaec; border:1px solid #3b404a;"
 				"  border-radius:6px; padding:6px 14px;"
-				"  font-family:'Segoe UI';"        
-				"  font-size:13px; font-weight:600;" 
+				"  font-family:'Segoe UI';"
+				"  font-size:13px; font-weight:600;"
 				"}"
 				"QPushButton:hover { border-color:#5a6270; }"
 				"QPushButton:pressed { background:#23272e; }"
@@ -296,14 +296,14 @@ class Dashboard(QWidget):
 		try:
 			sizes = self.split.sizes()
 			if not sizes:
-				return	
+				return
 			if min(sizes) < 80:  # effectively collapsed
 				h = max(self.height(), 600)
 				self.split.setSizes([int(h * 0.70), int(h * 0.30)])
 		except Exception:
 			pass
 
-	
+
 	def _remember_nonheavy_sizes(self):
 		try:
 			sz = self.split.sizes()
@@ -824,7 +824,7 @@ class Dashboard(QWidget):
 		if not chosen:
 			return
 
-		if chosen == act_close_this:      
+		if chosen == act_close_this:
 			self._close_tab(idx)
 		elif chosen == act_close_right:
 			self._close_tabs_to_right(idx)
@@ -1031,7 +1031,7 @@ class Dashboard(QWidget):
 		# have it already
 		self._try_open_gs_from_session(sid, hostname, sess)
 
-	
+
 	def _try_open_gs_from_session(self, sid: str, hostname: str, sess: dict):
 		# Block until metadata is present
 		if not self._is_meta_ready(sess):
@@ -1089,19 +1089,19 @@ class Dashboard(QWidget):
 			QMenu::item {
 				padding:6px 14px;
 				background:transparent;
-				font-weight:400;       
-				color:#e6e6e6;          
+				font-weight:400;
+				color:#e6e6e6;
 			}
 			QMenu::item:selected {
 				background:#2f3540;
 				color:#ffffff;
 			}
 			QMenu::item:disabled {
-				color:#9aa3ad;          
-				font-weight:400;        
+				color:#9aa3ad;
+				font-weight:400;
 			}
 		"""
-	
+
 	# ---- Bulk close helpers (relative to a given index) ----
 	def _close_tabs_to_right(self, idx: int):
 		# close from rightmost down to the one just after idx

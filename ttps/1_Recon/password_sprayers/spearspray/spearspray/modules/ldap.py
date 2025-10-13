@@ -16,16 +16,16 @@ class Ldap:
     }
 
     def __init__(self, target, domain, username, password, ssl, page_size):
-        
+
         # TODO: Maybe add Context Manager for simplifying connection management
-        
+
         self.target = target
         self.domain = domain
         self.username = username
         self.password = password
-        self.use_ssl = ssl 
+        self.use_ssl = ssl
         self.page_size = page_size
-        
+
         self.log = logging.getLogger(__name__)
         self.port = 636 if ssl else 389
         self.base_dn = self._get_basedn_from_domain()
@@ -34,7 +34,7 @@ class Ldap:
         """Convert domain name to Base DN format."""
         return ','.join(f'DC={part}' for part in self.domain.split('.'))
 
-    def _login(self) -> ldap3.Connection:  
+    def _login(self) -> ldap3.Connection:
         """Create LDAP connection and bind using NTLM authentication."""
         server = ldap3.Server(self.target, self.port, self.use_ssl, ldap3.ALL)
         user = f"{self.domain}\\{self.username}"
@@ -53,10 +53,10 @@ class Ldap:
                 return ldap_connection
             except ldap3.core.exceptions.LDAPBindError:
                 self.log.exception(f"{RED}[-]{RESET} An error occurred during LDAPS connection.")
-                
+
             except Exception:
                 self.log.exception(f"{RED}[-]{RESET} An unexpected error occurred during LDAPS connection.")
-                
+
 
         try:
             ldap_connection = self._login()
@@ -77,7 +77,7 @@ class Ldap:
             else:
                 # Other authentication errors (wrong credentials, etc.)
                 self.log.exception(f"{RED}[-]{RESET} An error occurred during LDAP connection.")
-                
+
 
     def close_connection(self, ldap_connection: ldap3.Connection) -> None:
         """Close the LDAP connection if it is currently bound."""
@@ -154,7 +154,7 @@ class Ldap:
         """Convert Windows FILETIME values to Python timedelta objects."""
         if isinstance(value, timedelta):
             return abs(value)  # Ensure positive duration
-        
+
         # Convert raw FILETIME (100ns intervals) to seconds, then to timedelta
         # Divide by 10,000,000 to convert from 100ns to seconds
         return timedelta(seconds=abs(int(value)) / 10_000_000)
@@ -175,14 +175,14 @@ class Ldap:
             search_scope=ldap3.BASE, # Base DN search
             attributes=attrs,
         )
-        
+
         if not ldap_connection.entries:
             raise RuntimeError("Domain object not found")
 
         # Extract domain object and create helper function for time conversion
         e = ldap_connection.entries[0]
         tf = self._filetime_to_timedelta
-        
+
         # Return normalized policy with human-readable time units
         return {
             "minPwdLength": int(e.minPwdLength.value),

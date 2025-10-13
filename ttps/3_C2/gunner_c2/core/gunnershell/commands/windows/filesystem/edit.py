@@ -104,7 +104,7 @@ class EditCommand(Command):
 		# re-upload
 		try:
 			ul(sid, local_tmp, remote_path)
-		
+
 		except Exception as e:
 			os.remove(local_tmp)
 			return f"[!] Failed to re-upload {remote_path}: {e}"

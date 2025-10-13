@@ -72,8 +72,8 @@ class ServicesCommand(Command):
 		if not sess:
 			return brightred + f"[!] No such session: {display}"
 
-		out = (http_exec.run_command_http(sid, ps_cmd, op_id=op_id) 
-			if sess.transport.lower() in ("http","https") 
+		out = (http_exec.run_command_http(sid, ps_cmd, op_id=op_id)
+			if sess.transport.lower() in ("http","https")
 			else tcp_exec.run_command_tcp(sid, ps_cmd, timeout=5.0, portscan_active=True, op_id=op_id)
 		) or ""
 
@@ -92,6 +92,6 @@ class ServicesCommand(Command):
 
 			if line.startswith("FAILED:") or line.startswith("FAILED"):
 				return brightred + f"[!] Insufficient privileges to preform {action} on {svc_name} service"
-			
+
 		# fallback if neither token seen
 		return brightyellow + "[*] Unexpected output:\n" + out

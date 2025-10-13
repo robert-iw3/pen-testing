@@ -159,7 +159,7 @@ def generate_windows_powershell_tcp_obfuscate_level1(payload, ip, port, use_ssl:
 
     else:
         run_encoded = encoded_one_liner
-    
+
     return run_encoded
 
 
@@ -466,7 +466,7 @@ def generate_windows_powershell_tcp_obfuscate_level3(raw, ip, port, use_ssl: boo
 
     else:
         final_cmd = encoded
-        
+
     return final_cmd
 
 
@@ -674,7 +674,7 @@ def generate_windows_powershell_http_obfuscate_level1(raw, ip, port, beacon_inte
 
     else:
         final_cmd = encoded
-        
+
     return final_cmd
 
 
@@ -691,7 +691,7 @@ def generate_windows_powershell_http_obfuscate_level2(raw, ip, port, beacon_inte
     hdr_keys = ["X-Session-ID", "X-API-KEY", "X-Forward-Key"]
     pages_literal = ", ".join(f"'{p}'" for p in pages)
     hdr_keys_literal  = ", ".join(f"'{h}'" for h in hdr_keys)
- 
+
 
     # build the raw PowerShell one-liner
     ps_lines = (
@@ -800,7 +800,7 @@ def generate_windows_powershell_http_obfuscate_level2(raw, ip, port, beacon_inte
 
     else:
         final_cmd = encoded
-        
+
     return final_cmd
 
 
@@ -878,7 +878,7 @@ def generate_windows_powershell_https(ip, port, beacon_interval, obs, no_child=N
     if obs is None or obs == 0:
         if no_child:
             return final_cmd
-            
+
         pyperclip.copy(final_cmd)
         print(brightyellow + final_cmd)
         print(brightgreen + "[+] Payload copied to clipboard")

@@ -29,7 +29,7 @@ Usage: bofexec dir -z [directory] -z [/s]
 
 		print(brightgreen + menu + reset)
 		return
-		
+
 	@staticmethod
 	def check_args(zargs: List[str] | None, Zargs: List[str] | None, int16: List[int] | None = None, int32: List[int] | None = None) -> list[str]:
 		"""

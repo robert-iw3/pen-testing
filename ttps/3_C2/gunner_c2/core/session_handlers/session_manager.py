@@ -158,7 +158,7 @@ def kill_http_session(sid, os_type, beacon_interval=False):
     sess = sessions.pop(sid, None)
     return True
 
-def set_alias(alias: str, sid: str):   
+def set_alias(alias: str, sid: str):
     """Point alias → real SID."""
     alias_map[alias] = sid
 
@@ -194,7 +194,7 @@ def resolve_sid(raw: str) -> str|None:
 
     except Exception as e:
         print(brightred + f"[!] Failed to resolve sid: {e}")
-            
+
 
     # exact SID?
     if raw in sessions:

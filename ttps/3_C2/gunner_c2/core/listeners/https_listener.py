@@ -45,7 +45,7 @@ def start_https_listener(ip: str, port: int, certfile: str = None, keyfile: str 
                 prompt_manager.block_next_prompt = False
                 print(brightred + "[!] Cert or key file not found, aborting HTTPS listener.")
                 return
-            
+
             context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
             context.load_cert_chain(certfile=certfile, keyfile=keyfile)
             print(brightgreen + f"[*] Loaded certificate {certfile} and key {keyfile}")

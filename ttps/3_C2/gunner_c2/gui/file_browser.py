@@ -252,7 +252,7 @@ class FileBrowser(QWidget):
 		self._path_stack.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 		self.path_edit.returnPressed.connect(self._apply_path_edit)
 		self.path_edit.editingFinished.connect(self._cancel_edit_to_crumbs)
-		
+
 		self._crumbs_host = QWidget(self)
 		self._crumbs_host.setObjectName("CrumbsHost")
 		self._crumbs_host.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
@@ -319,7 +319,7 @@ class FileBrowser(QWidget):
 		self.table = QTableWidget(0, 4)
 		self._ensure_main_columns()
 		self.table.setAlternatingRowColors(False)
-		self.table.setSortingEnabled(True)	
+		self.table.setSortingEnabled(True)
 		self.table.setEditTriggers(QTableWidget.NoEditTriggers)
 		self.table.setSelectionBehavior(QTableWidget.SelectRows)
 		self.table.verticalHeader().setVisible(False)
@@ -764,7 +764,7 @@ class FileBrowser(QWidget):
 
 			QToolButton:hover, QPushButton:hover { background:#172134; }
 			QToolButton:pressed, QPushButton:pressed { background:#101826; }
-			
+
 			#Sidebar {
 				background:#111722;
 				border:1px solid #1d2635;
@@ -1102,7 +1102,7 @@ class FileBrowser(QWidget):
 		self.overlay.setVisible(False)
 		self.status.setText("Retrying…")
 		log.warning("Busy timed out; retrying list (sid=%s path=%s)", self.sid, self.path)
-		self._kick_live(immediate=True) 
+		self._kick_live(immediate=True)
 
 	def _on_files_ws_connected(self):
 		# first list as soon as the socket is ready
@@ -1232,7 +1232,7 @@ class FileBrowser(QWidget):
 			self.tabs.setCurrentIndex(idx)
 
 	def _on_tab_changed(self, index: int):
-		if index < 0: 
+		if index < 0:
 			return
 		newp = self._tab_paths.get(index, self.path)
 		log.debug("tab_changed idx=%s path=%s -> %s (sid=%s)", index, self.path, newp, self.sid)
@@ -2769,7 +2769,7 @@ class FileBrowser(QWidget):
 			QMessageBox.information(self, "Download", "Download complete.")
 			self.status.setText("Download complete")
 			log.info("download complete (file) (sid=%s)", self.sid)
-			
+
 	def _sha256_path(self, p: str) -> str:
 		h = hashlib.sha256()
 		with open(p, "rb") as f:

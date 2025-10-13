@@ -173,7 +173,7 @@ def bind_keys():
 
 def upload_any(sid, local_path, remote_path):
 	"""
-	Upload either a single file or an entire folder, over HTTP or TCP, 
+	Upload either a single file or an entire folder, over HTTP or TCP,
 	depending on the session transport and the remote OS.
 	"""
 	# resolve session & metadata
@@ -193,7 +193,7 @@ def upload_any(sid, local_path, remote_path):
 				return
 
 			return True
-	
+
 	if is_dir:
 		return True
 
@@ -229,7 +229,7 @@ def process_command(user: str, to_console: bool = True, to_op: str = None):
 	if user == "\x0c":  # Control+L
 		os.system("clear")
 		prompt_manager.print_prompt()
-		
+
 
 	if user:
 		try:
@@ -272,7 +272,7 @@ def process_command(user: str, to_console: bool = True, to_op: str = None):
 				parser.add_argument("-o", required=True, help="Local output file or directory")
 				parser.add_argument("-t", "--timeout", dest="timeout", type=float, required=False, default=None, help="Timeout per chunk for your transfer")
 				parser.add_argument("--chunk", type=int, default=262144, required=False, help="Chunk size (bytes)")
-					
+
 				try:
 					parsed_args = parser.parse_args(args[1:])
 
@@ -437,7 +437,7 @@ def process_command(user: str, to_console: bool = True, to_op: str = None):
 			sub = args[1].lower()
 			rest = args[2:]
 
-			if sub == "clear":		
+			if sub == "clear":
 				parser = SilentParser(prog="xfer clear", add_help=False)
 				g = parser.add_mutually_exclusive_group(required=True)
 				g.add_argument("-a", "--all", action="store_true")
@@ -527,7 +527,7 @@ def process_command(user: str, to_console: bool = True, to_op: str = None):
 		except KeyError:
 			print(brightred + f"No such session or alias!")
 			return
-			
+
 		display = next((a for a, rsid in session_manager.alias_map.items() if rsid == sid), sid)
 		if not sid or sid not in session_manager.sessions:
 			print(brightred + f"No such session or alias: {parts[1]}")
@@ -641,7 +641,7 @@ def process_command(user: str, to_console: bool = True, to_op: str = None):
 			parser.add_argument("port", type=int)
 			parser.add_argument("-c", dest="certfile", help="Path to TLS cert", required=False)
 			parser.add_argument("-k", dest="keyfile", help="Path to TLS key", required=False)
-			
+
 			try:
 				parsed = parser.parse_args(parts)
 			except SystemExit:
@@ -655,7 +655,7 @@ def process_command(user: str, to_console: bool = True, to_op: str = None):
 			utils.print_help("start https", False)
 			pass
 
-				
+
 
 	elif user.startswith("start http"):
 		# parse start http flags
@@ -702,7 +702,7 @@ def process_command(user: str, to_console: bool = True, to_op: str = None):
 			return
 
 		# call the exact same TCP listener, but force SSL on
-		
+
 		threading.Thread(target=create_listener, args=(parsed.ip, parsed.port, "tls", to_console, to_op, None, parsed.certfile, parsed.keyfile), daemon=True).start()
 		return
 
@@ -1126,7 +1126,7 @@ def process_command(user: str, to_console: bool = True, to_op: str = None):
 			modname = modname
 
 		current_module = load_module(modname)
-	
+
 		if not current_module:
 			return
 
@@ -1135,7 +1135,7 @@ def process_command(user: str, to_console: bool = True, to_op: str = None):
 
 			if not subcmd:
 				return
-		
+
 			if subcmd in ("back", "exit", "quit", "leave"):
 				break
 
@@ -1233,7 +1233,7 @@ help                 - Display this help menu
 		parts = shlex.split(user)
 		if len(parts) == 3 and parts[1] == "-i":
 			raw = parts[2]
-							
+
 			sid = session_manager.resolve_sid(raw)
 			if sid:
 				display = next((a for a, rsid in session_manager.alias_map.items() if rsid == sid), sid)
@@ -1329,7 +1329,7 @@ help                 - Display this help menu
 					return
 
 				sid = session_manager.resolve_sid(sid)
-					
+
 				if not sid:
 					print(brightred + "Invalid session.")
 					return
@@ -1651,7 +1651,7 @@ help                 - Display this help menu
 		if invalid_names:
 			if len(invalid_names) == 1:
 				print(brightred + f"[!] No such operator: {invalid_names[0]!r}" + reset)
-				
+
 			else:
 				print(brightred + f"[!] No such operators: {', '.join(map(repr, invalid_names))}" + reset)
 			return
@@ -1762,7 +1762,7 @@ def operator_loop():
 			if not os.path.exists(HISTORY_FILE):
 				# create an empty history file
 				open(HISTORY_FILE, 'a').close()
-		
+
 			readline.read_history_file(HISTORY_FILE)
 
 			try:
@@ -1811,7 +1811,7 @@ if __name__ == "__main__":
 	listen = listener_load()
 	if not listen:
 		print(brightred + f"Failed to load listener library, exiting...")
-		sys.exit(1)	
+		sys.exit(1)
 
 	try:
 		BACKEND_URL = ensure_backend_running()
@@ -1861,7 +1861,7 @@ if __name__ == "__main__":
 							args=(operator, line),
 							daemon=True
 						).start()
-		
+
 					else:
 						logger.debug("→ dispatching to main shell for %s: %r", op_id, line)
 						#process_command(line, to_console=False, to_op=op_id)
@@ -1921,7 +1921,7 @@ if __name__ == "__main__":
 					#set_output_context(to_console=False, to_op=op_id, world_wide=False)
 					utils.echo(ret, False, operator.op_id, world_wide=False)
 					#operator.handler.sendall((ret + "\n").encode())
-	
+
 		except Exception as e:
 			logger.exception("Error in gunnershell interact for %s: %s", operator.op_id, e)
 

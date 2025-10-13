@@ -310,7 +310,7 @@ class Program
 
 def generate_exe_reverse_http(ip, port, obs, beacon_interval, headers, useragent, stager_ip="0.0.0.0", stager_port=9999,
 	accept=None, byte_range=None, jitter=None, profile=None, parser_name="json", loader_name="exe_csharp_http_profile_loader", scheme="http"):
-	
+
 	# Parse → Load → Config for this emitter
 	cfg = None
 	if profile:
@@ -372,7 +372,7 @@ def generate_exe_reverse_http(ip, port, obs, beacon_interval, headers, useragent
 	try:
 		with os.fdopen(fd, "w") as f:
 			f.write(raw)
-		
+
 		# 3) compile with Mingw‑w64 as x86_64 Windows exe
 		exe_path = c_path[:-3] + ".exe"
 		mcs = "mcs"
@@ -405,7 +405,7 @@ def generate_exe_reverse_http(ip, port, obs, beacon_interval, headers, useragent
 
 		with open(sc_path, "wb") as f:
 			f.write(shellcode)
-		
+
 		with open(sc_path, "rb") as f:
 			donut_file = f.read()
 

@@ -1,7 +1,14 @@
 <p align="center">
   <h1 align="center"><b>keycred</b></h1>
   <p align="center"><i>Generate and Manage KeyCredentialLinks</i></p>
- </p>
+  <p align="center">
+    <a href="https://github.com/RedTeamPentesting/keycred/releases/latest"><img alt="Release" src="https://img.shields.io/github/release/RedTeamPentesting/keycred.svg?style=for-the-badge"></a>
+    <a href="https://pkg.go.dev/github.com/RedTeamPentesting/keycred"><img alt="Go Doc" src="https://img.shields.io/badge/godoc-reference-blue.svg?style=for-the-badge"></a>
+    <a href="https://github.com/RedTeamPentesting/keycred/actions?workflow=Check"><img alt="GitHub Action: Check" src="https://img.shields.io/github/actions/workflow/status/RedTeamPentesting/keycred/check.yml?branch=main&style=for-the-badge"></a>
+    <a href="/LICENSE"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=for-the-badge"></a>
+    <a href="https://goreportcard.com/report/github.com/RedTeamPentesting/keycred"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/RedTeamPentesting/keycred?style=for-the-badge"></a>
+  </p>
+</p>
 
 ---
 

@@ -76,7 +76,7 @@ def create_listener(ip: str, port: int, transport: str, to_console: bool=True, o
 	else:
 		inst.start(ip, port)
 	return inst
- 
+
 
 def stop_listener(transport: str, port: int) -> Optional[str]:
 	"""

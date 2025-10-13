@@ -13,7 +13,7 @@ class Patterns:
     def read_patterns_file(self):
         patterns = []
         current_comment = None
-        
+
         with open(self.patterns_file, 'r', encoding='utf-8') as file:
             for line in file:
                 line = line.strip()
@@ -31,11 +31,11 @@ class Patterns:
         return patterns
 
     def create_dynamic_menu(self, patterns: list) -> str:
-        
+
         choices = []
         for item in patterns:
             pattern = item["pattern"]
-            
+
             uses_extra = "{extra}" in pattern
             if uses_extra and not self.extra:
                 choices.append(
@@ -57,8 +57,8 @@ class Patterns:
             "Select a pattern to use:",
             choices=choices
         ).ask(kbi_msg=f"\n{RED}[!] Process interrupted by user.{RESET}\n")
-        
+
         if selected_choice is None:
-            exit(130)  
-            
+            exit(130)
+
         return selected_choice

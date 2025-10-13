@@ -19,7 +19,7 @@ class GetKernalDriversBof(Bof):
 getkernaldrivers  —  List loaded kernel drivers
 
 Description:
-  Enumerates currently loaded kernel-mode drivers and prints base address, 
+  Enumerates currently loaded kernel-mode drivers and prints base address,
   image name, and full path.
 
 Usage:

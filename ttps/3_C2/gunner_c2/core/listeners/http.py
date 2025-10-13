@@ -241,7 +241,7 @@ class C2HTTPRequestHandler(BaseHTTPRequestHandler):
 				self.send_header("Content-Length", str(len(payload)))
 				self.end_headers()
 				self.wfile.write(payload)
-					
+
 			else:
 				headers = self.headers
 
@@ -302,10 +302,10 @@ class C2HTTPRequestHandler(BaseHTTPRequestHandler):
 						s = getattr(listener_registry[lid], "sessions", None)
 						if s is None or not isinstance(s, (set, list)):
 							listener_registry[lid].sessions = set()
-							
+
 						if sid not in listener_registry[lid].sessions:
 							listener_registry[lid].sessions.append(sid)
-			
+
 				try:
 					cmd_b64 = session.meta_command_queue.get_nowait()
 					session.last_cmd_type = "meta"
@@ -400,7 +400,7 @@ class C2HTTPRequestHandler(BaseHTTPRequestHandler):
 					try:
 						msg = json.loads(body)
 						#print(f"[DEBUG] Parsed JSON: {msg}")
-					
+
 					except json.JSONDecodeError as e:
 						#print(f"[!] JSON decode error: {e}")
 						self.send_response(400)
@@ -577,7 +577,7 @@ class C2HTTPRequestHandler(BaseHTTPRequestHandler):
 
 				except Exception as e:
 					logger.exception(f"ERROR in do_POST {e}")
-					self.send_response(500)	
+					self.send_response(500)
 					self.end_headers()
 
 			else:
@@ -604,7 +604,7 @@ class C2HTTPRequestHandler(BaseHTTPRequestHandler):
 					try:
 						msg = json.loads(body)
 						#print(f"[DEBUG] Parsed JSON: {msg}")
-					
+
 					except json.JSONDecodeError as e:
 						#print(f"[!] JSON decode error: {e}")
 						self.send_response(400)
@@ -757,7 +757,7 @@ class C2HTTPRequestHandler(BaseHTTPRequestHandler):
 
 				except Exception as e:
 					logger.exception(f"ERROR in do_POST {e}")
-					self.send_response(500)	
+					self.send_response(500)
 					self.end_headers()
 
 		except (ConnectionResetError, BrokenPipeError):

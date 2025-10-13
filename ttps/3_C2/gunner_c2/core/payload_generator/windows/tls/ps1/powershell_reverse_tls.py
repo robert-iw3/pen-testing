@@ -225,4 +225,4 @@ def generate_windows_powershell_tls_obfuscate_level3(raw, ip, port):
 	)
 
 	return one_liner
-		
+

@@ -396,7 +396,7 @@ class AgentItem(QGraphicsObject):
 		elif chosen == act_kill:
 			self.kill_session.emit(self.node.sid, self.node.hostname)
 
-		elif chosen == act_files:  
+		elif chosen == act_files:
 			self.open_file_browser.emit(self.node.sid, self.node.hostname)
 
 		elif chosen == act_ldap:
@@ -472,7 +472,7 @@ class EdgeItem(QGraphicsItem):
 		self._gap_pad_scene = 14.0  # scene-units padding around the text gap
 
 		self._seg1_end = None
-		self._seg2_start = None 
+		self._seg2_start = None
 
 		# don't consume mouse input
 		self.setAcceptedMouseButtons(Qt.NoButton)
@@ -926,7 +926,7 @@ class GraphView(QGraphicsView):
 		ov = getattr(self, "_overlay", None)
 		if ov is None:
 			return QRect()
-		top_left = ov.mapToGlobal(QPoint(0, 0)) 
+		top_left = ov.mapToGlobal(QPoint(0, 0))
 		return QRect(top_left, ov.size())
 
 	def set_zoom_overlay_visible(self, visible: bool):

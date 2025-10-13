@@ -32,7 +32,7 @@ def print_registered_variables() -> None:
     variables_registered = variables_instance.get_all()
 
     print(f"{YELLOW}[*] Listing all available variables and their descriptions:{RESET}")
-    
+
     for var in variables_registered:
         print(f"{GREEN}{{{var.name}}}{RESET}: {var.description}")
 
@@ -42,7 +42,7 @@ def are_all_variables_registered(patterns_detected: list, variables: list) -> bo
 
     variables_not_registered = []
     for pattern in patterns_detected:
-        
+
         pattern_raw = pattern["pattern"]
         found_variables = pattern_regex.findall(pattern_raw)
 
@@ -108,13 +108,13 @@ def variable_resolver(user: dict, selected_pattern: str, variables: list, extra:
             values[var.name] = unidecode(raw_name.split()[0]) if raw_name else user.get("sAMAccountName")
         elif var.name == "samaccountname":
             values[var.name] = user.get("sAMAccountName")
-        
+
         # Years
         elif var.name == "year":
             values[var.name] = str(dt.year)
         elif var.name == "short_year":
             values[var.name] = str(dt.year)[-2:]
-        
+
         # Months
         elif var.name == "month_number":
             values[var.name] = str(dt.month).zfill(2)
@@ -122,13 +122,13 @@ def variable_resolver(user: dict, selected_pattern: str, variables: list, extra:
             values[var.name] = constants.MONTH_NAMES_ES.get(dt.month, "")
         elif var.name == "month_en":
             values[var.name] = constants.MONTH_NAMES_EN.get(dt.month, "")
-        
+
         # Seasons
         elif var.name == "season_es":
             values[var.name] = constants.SEASONS_ES.get(dt.month, "")
         elif var.name == "season_en":
             values[var.name] = constants.SEASONS_EN.get(dt.month, "")
-        
+
         # Extra, separator and suffix
         elif var.name == "extra":
             values[var.name] = extra or ""

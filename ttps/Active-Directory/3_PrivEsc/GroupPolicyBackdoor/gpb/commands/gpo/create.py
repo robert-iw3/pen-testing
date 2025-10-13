@@ -50,7 +50,7 @@ class GPOCreator:
         self.smb_connection = smb_session_lowlevel[0]
         self.smb_session = smb_session_lowlevel[1]
         self.state_folder = state_folder
-        
+
         try:
             self.domain_sid = get_entry_attribute(self.ldap_session, self.domain_dn, 'objectSid')
             logger.info(f"[INFO] Retrieved domain SID '{self.domain_sid}'")
@@ -157,7 +157,7 @@ class GPOCreator:
                 ace5["mask"] = AccessMask.GENERIC_ALL
                 ace5["sid"] = ea_sid
                 ace5["ace_flags"] = AceFlags.OBJECT_INHERIT_ACE | AceFlags.CONTAINER_INHERIT_ACE
-                
+
 
                 # Enterprise domain controllers - Read & Execute + list folder contents - This folder, subfolders and files
                 edc_sid = SIDPacket()
@@ -219,7 +219,7 @@ class GPOCreator:
             )
             clean_save_action(self.state_folder, "smb_create_directory", fr"{share}\{dir_name}\Machine")
             logger.info(fr"[INFO] Created the '{share}\{dir_name}\Machine' directory")
-            
+
             # Create the GPT.INI file
             gpt_ini_contents = b"[General]\r\nVersion=0\r\ndisplayName=New Group Policy Object"
 
@@ -245,5 +245,4 @@ class GPOCreator:
             raise e
         finally:
             self.smb_connection.disconnect(True)
-            
-        
+

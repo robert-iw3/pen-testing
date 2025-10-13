@@ -56,7 +56,7 @@ def _recvall(sock, n):
 			if not chunk:
 				break
 			data += chunk
-			
+
 		except Exception:
 			break
 
@@ -74,7 +74,7 @@ def read_line(sock) -> str:
 			break
 		buf += c
 	return buf.decode(errors='ignore').strip()
- 
+
 
 def send_encrypted(raw_sock, plaintext: bytes):
 	try:
@@ -306,7 +306,7 @@ def start_operator_listener(host='0.0.0.0', port=5555):
 						continue
 					else:
 						del user_blocked_until[key]
-				
+
 				enc_cli.sendall(b"Password: ")
 				password = enc_cli.recv(4096).decode(errors="ignore").strip()
 
@@ -344,7 +344,7 @@ def start_operator_listener(host='0.0.0.0', port=5555):
 
 				cli.settimeout(None)
 				cli.setblocking(True)
-					
+
 				op_id = str(uuid.uuid4())
 				# enforce session cap to avoid DOS
 				with operator_lock:
@@ -430,7 +430,7 @@ def handle_operator(op_id):
 		try:
 			sock.close()
 
-		except: 
+		except:
 			pass
 
 def list_operators(name: str = None):

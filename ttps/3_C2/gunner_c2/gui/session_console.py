@@ -654,7 +654,7 @@ class SessionConsole(QWidget):
 			cur.movePosition(QTextCursor.End)
 			self.out.setTextCursor(cur)
 			self.out.ensureCursorVisible()
-			
+
 	def _update_last_line_repetition(self):
 		def _write():
 			cur = self.out.textCursor()

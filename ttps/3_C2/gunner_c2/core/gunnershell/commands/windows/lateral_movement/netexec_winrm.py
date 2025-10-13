@@ -107,7 +107,7 @@ class NetexecWinrmCommand(Command):
 
 		else:
 			prefix = "http"
-	
+
 		ps = f"""
 $Users        = {users_ps}
 $Passes       = {passes_ps}
@@ -227,8 +227,7 @@ foreach ($T in $Targets) {{
 		else:
 			if debug:
 				return out
-		
+
 			else:
 				return brightred + "[!] No valid WinRM creds found"
 
-		

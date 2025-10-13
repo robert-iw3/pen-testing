@@ -58,7 +58,7 @@ class Module(ModuleBase):
             # execute and append marker
             exec_cmd = f"{remote_script} > {remote_log} 2>&1; echo '{marker}' >> {remote_log}"
             shell.run_command_tcp(sid, exec_cmd, timeout=0.5)
-            
+
             # === BLOCKING POLL FOR MARKER ===
             print(brightyellow + "[*] Waiting for linPEAS to finish…")
             while True:
@@ -73,7 +73,7 @@ class Module(ModuleBase):
 
                 if marker not in out:
                     time.sleep(1)
-                
+
                 else:
 
                     print(brightyellow + "[*] Downloading output...")

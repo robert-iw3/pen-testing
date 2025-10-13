@@ -1,0 +1,6 @@
+/keycred
+/keycred.exe
+/pfxtool
+/pfxtool.exe
+dist/
+*.pfx

@@ -231,7 +231,7 @@ class TcpListener(Listener):
 			self.server.close()
 		except:
 			pass
-			
+
 		if self._thread:
 			self._thread.join(timeout)
 
@@ -311,7 +311,7 @@ class TcpListener(Listener):
 			sid = utils.gen_session_id()
 			session_manager.register_tcp_session(sid, client, self.is_ssl)
 			self.sessions.append(sid)
- 
+
 
 			transport_notification = ("TLS" if self.is_ssl else "TCP")
 			set_output_context(world_wide=True)

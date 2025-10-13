@@ -125,8 +125,8 @@ try {{
 	  $config = [ADSI]"LDAP://$configNC"
 	  if ($config -and $schema) {{
 		Write-Output ("SchemaMaster: "        + $schema.Properties["fSMORoleOwner"][0])
-		Write-Output ("DomainNamingMaster: " + $config.Properties["fSMORoleOwner"][0]) 
-	  }} else {{ Write-Output "Nothing Found" }}   
+		Write-Output ("DomainNamingMaster: " + $config.Properties["fSMORoleOwner"][0])
+	  }} else {{ Write-Output "Nothing Found" }}
   }}
 }} catch {{
   # on error, repeat native LDAP fallback
@@ -137,7 +137,7 @@ try {{
   $config = [ADSI]"LDAP://$configNC"
   if ($config -and $schema) {{
 	Write-Output ("SchemaMaster: "        + $schema.Properties["fSMORoleOwner"][0])
-	Write-Output ("DomainNamingMaster: " + $config.Properties["fSMORoleOwner"][0]) 
+	Write-Output ("DomainNamingMaster: " + $config.Properties["fSMORoleOwner"][0])
   }} else {{ Write-Output "Nothing Found" }}
 }}
 """
@@ -152,7 +152,7 @@ try {{
 
 		if transport in ("http", "https"):
 			out = http_exec.run_command_http(sid, one_liner, op_id=op_id)
-	
+
 		elif transport in ("tcp", "tls"):
 			out = tcp_exec.run_command_tcp(sid, one_liner, timeout=0.5, portscan_active=True, op_id=op_id)
 
@@ -162,7 +162,7 @@ try {{
 		if out:
 			if "Failed to resolve DC!" in out:
 				return brightred + "[!] Failed to resolve DC, use --dc‑ip or --domain with the correct IP/domain"
-		
+
 			elif "Nothing Found" in out:
 				return brightred + "[!] No trust relationships found!"
 

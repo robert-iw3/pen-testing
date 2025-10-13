@@ -85,7 +85,7 @@ try {{
 	$nb = $T
 }}
 """
-	
+
 		if dc_ip and domain:
 			dns_preamble = f"""
 
@@ -93,32 +93,32 @@ try {{
 	$domain = '{domain}'
 	try {{
 	$nb = (Resolve-DnsName -Type SRV "_ldap._tcp.dc._msdcs.$domain" | Sort-Object Priority,Weight | Select-Object -First 1).NameTarget.TrimEnd('.')
-	}} catch {{ 
+	}} catch {{
 			$T = '{dc_ip}'
 			try {{
 			$nb = ([System.Net.Dns]::GetHostEntry($T).HostName.Split('.')[0])
 		}} catch {{
 			$nb = $T
-		}}  
+		}}
 	}}
 }} catch {{
 	Write-Output "Failed to resolve DC!"
 	break
 }}
 """
-	
+
 		if domain:
 			dns_preamble = f"""
 
 $domain = '{domain}'
 try {{
 $nb = (Resolve-DnsName -Type SRV "_ldap._tcp.dc._msdcs.$domain" | Sort-Object Priority,Weight | Select-Object -First 1).NameTarget.TrimEnd('.')
-}} catch {{ 
+}} catch {{
 			Write-Output "Failed to resolve DC!"
 			break
 }}
 """
-	
+
 		server_arg = "-Server $nb"
 
 		# Build the PS snippet based on which flags are set

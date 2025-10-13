@@ -111,7 +111,7 @@ class ShellProtocol(TransferProtocol):
 
 		elapsed = time.time() - t0
 		logger.debug("  _run_cmd.ok elapsed=%.4fs out.len=%d out.preview=%s", elapsed, len(out), _preview(out))
-		
+
 		return out
 
 	# ---------- helpers ----------
@@ -538,7 +538,7 @@ class ShellProtocol(TransferProtocol):
 			expected_last = st.total_bytes - index_to_offset(idx, st.chunk_size)
 			if len(data) > expected_last:
 				data = data[:expected_last]
-		
+
 		logger.debug("  write_at: path=%s offset=%d write_len=%d (is_last=%r)", st.tmp_local_path, offset, len(data), is_last)
 		ensure_prealloc(st.tmp_local_path, st.total_bytes)
 		write_at(st.tmp_local_path, offset, data)

@@ -69,7 +69,7 @@ class GetDomainControllersCommand(Command):
 			if "ERROR" in preamble:
 				return brightred + "[!] Failed to resolve DC, use --dc-ip or --domain with the correct IP/domain"
 
-	
+
 		if target:
 			server_arg = "-Server $nb"
 			if enterprise:
@@ -101,7 +101,7 @@ try {{
 	  }}
   }}
   else {{
-	  
+
 	  {root}
 	  $searcher   = New-Object System.DirectoryServices.DirectorySearcher(
 		  "LDAP://$forestRoot",
@@ -117,7 +117,7 @@ try {{
   }}
 }}
 catch {{
-  
+
   {root}
   $searcher = New-Object System.DirectoryServices.DirectorySearcher(
 	  "LDAP://$forestRoot",

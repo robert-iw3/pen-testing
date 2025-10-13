@@ -47,7 +47,7 @@ def ws_client_connect_and_handle(pipe):
             http_proxy_host='127.0.0.1',
             http_proxy_port=config_handler.Config.http_proxy_port,
             http_no_proxy=['dummyhost'])
-    
+
     except Exception as e:
         log_error(e)
         ws_client_conn.close()
@@ -67,7 +67,7 @@ def pipe_server_loop():
             pipe_next = pipe_helper.create_pipe_server(config_handler.Config.pipe_fullpath)
             threading.Thread(target=ws_client_connect_and_handle, args=(pipe,)).start()
             pipe = pipe_next
-    
+
     except Exception as e:
         log_error(e)
 
@@ -77,7 +77,7 @@ async def ws_server_to_pipe_client(ws_server_conn, pipe):
         while True:
             msg = await ws_server_conn.recv()
             pipe_helper.pipe_write_async_await(pipe, msg)
-    
+
     except Exception as e:
         log_error(e)
         await ws_server_conn.close()
@@ -90,7 +90,7 @@ def pipe_client_to_ws_server(ws_server_conn, pipe, loop):
         while True:
             msg = pipe_helper.pipe_read_async_await(pipe, read_buf)
             asyncio.run_coroutine_threadsafe(ws_server_conn.send(msg), loop)
-    
+
     except Exception as e:
         log_error(e)
         asyncio.run_coroutine_threadsafe(ws_server_conn.close(), loop)
@@ -127,7 +127,7 @@ async def main():
                 # 0 means listen on a random port, we neet to get it for the WebSocket client
                 config_handler.Config.ws_server_port = ws_server.server.sockets[0].getsockname()[1]
             await pipe_server_coro
-    
+
     except Exception as e:
         log_error(e)
 

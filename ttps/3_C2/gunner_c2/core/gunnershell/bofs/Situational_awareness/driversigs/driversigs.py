@@ -18,6 +18,6 @@ class DriverSigsBof(Bof):
 checks drivers for known edr vendor names
 Run the command and we will accept enumerate services and check the binary signatures for known edr vendor names
 """
-		
+
 		print(brightgreen + menu + reset)
 		return

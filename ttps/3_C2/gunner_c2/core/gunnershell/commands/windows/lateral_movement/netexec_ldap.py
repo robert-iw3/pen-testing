@@ -144,7 +144,7 @@ foreach ($U in $Users) {{
   }}
 }}
 """
-	
+
 		if ldaps:
 			ps = f"""
 $Users   = {users_ps}
@@ -169,7 +169,7 @@ foreach ($U in $Users) {{
 			Write-Output $("LDAPS       {{0,-15}} [+] {{1}}\\{{2}}:{{3}}" -f $DC, $Domain, $U, $P)
 			continue
 		  }} catch {{
-			
+
 		  }}
 		}}
 	  }}
@@ -177,26 +177,26 @@ foreach ($U in $Users) {{
 	  # 2) Fallback: native LDAPS bind via LdapConnection
 	  try {{
 		[Reflection.Assembly]::LoadWithPartialName("System.DirectoryServices.Protocols") | Out-Null
-		if ($GC) {{ $identifier = New-Object System.DirectoryServices.Protocols.LdapDirectoryIdentifier($DC, $Port, $true, $false)}} 
+		if ($GC) {{ $identifier = New-Object System.DirectoryServices.Protocols.LdapDirectoryIdentifier($DC, $Port, $true, $false)}}
 		else {{ $identifier = New-Object System.DirectoryServices.Protocols.LdapDirectoryIdentifier($DC, $Port, $false, $false) }}
 		$ldap = New-Object System.DirectoryServices.Protocols.LdapConnection($identifier)
-		
+
 		$ldap.SessionOptions.VerifyServerCertificate = {{ param($c,$cert) return $true }}
 		$ldap.SessionOptions.ProtocolVersion   = 3
 		$ldap.SessionOptions.SecureSocketLayer = $true
 
 		$ldap.AuthType   = [System.DirectoryServices.Protocols.AuthType]::Negotiate
 		$ldap.Credential = New-Object System.Net.NetworkCredential($U, $P, $Domain)
-		
+
 		$ldap.Bind()
 
 		Write-Output $("LDAPS       {{0,-15}} [+] {{1}}\\{{2}}:{{3}}" -f $DC, $Domain, $U, $P)
 	  }} catch {{
-		
+
 	  }}
 
 	}} catch {{
-	  
+
 	}}
   }}
 }}
@@ -260,4 +260,3 @@ foreach ($U in $Users) {{
 
 		elif not out and debug:
 			return out
-		

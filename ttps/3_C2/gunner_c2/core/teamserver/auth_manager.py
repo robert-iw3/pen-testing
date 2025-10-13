@@ -216,7 +216,7 @@ def delete_operator(identifier):
     try:
         with write_lock:
             cur = conn.execute("DELETE FROM operators WHERE id = ?", (identifier,))
-            
+
             if cur.rowcount > 0:
                 success = True
                 conn.commit()
@@ -282,7 +282,7 @@ def update_operator(identifier, new_username=None, new_password=None, new_role=N
             conn.commit()
             reload_cache()
         return cur.rowcount > 0
-        
+
     except sqlite3.Error:
         reload_cache()
         return False

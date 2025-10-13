@@ -385,7 +385,7 @@ async def files_ws(ws: WebSocket):
 		except Exception as e:
 			log.exception("fs.new_text.error")
 			await _ws_send(ws, {"type":"fs.new.result","req_id":req_id,"kind":"text","ok":False,"error":f"{e!r}","path":full}, log)
-	
+
 	async def _do_download(req: Dict[str, Any]):
 		"""
 		Start a remote download via TransferManager and stream the bytes over this websocket.
@@ -433,7 +433,7 @@ async def files_ws(ws: WebSocket):
 			logger.warning("fs.download.reject_busy sid=%s req_id=%s", req.get("sid"), req.get("req_id"))
 			await _ws_send(ws, {"type": "error", "req_id": req.get("req_id"), "error": "Download already in progress on this socket"}, log)
 			return
-			
+
 		logger.info("fs.download.begin sid=%s peer=%s path=%s folder=%s tmp_dir=%s dest=%s req_id=%s",
 					sid, ws_peer, path, folder, tmp_dir, dest, req_id)
 

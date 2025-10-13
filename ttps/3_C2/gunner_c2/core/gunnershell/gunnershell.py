@@ -108,7 +108,7 @@ class Gunnershell:
 		self.MAIN_HIST = os.path.expanduser("~/.gunnerc2_history")
 		SESSION_HIST = os.path.expanduser(f"~/.gunnerc2_gs_{self.sid}_history")
 		self.SESSION_HIST = SESSION_HIST
-		logger.debug(brightblue + "SUCCESSFULLY SET GUNNERSHELL HISTORY FILES" + reset) 
+		logger.debug(brightblue + "SUCCESSFULLY SET GUNNERSHELL HISTORY FILES" + reset)
 
 		# discover available modules once
 		self.available = discover_module_files(MODULE_DIR)
@@ -143,7 +143,7 @@ class Gunnershell:
 		Resolve p (which may be relative) against the current working
 		directory (self.cwd), using the right path logic for windows/linux.
 		"""
-		
+
 
 		# if it's already absolute, just return it
 		if ("windows" in self.os_type and ntpath.isabs(p)) or \
@@ -634,7 +634,7 @@ class Gunnershell:
 				if not os.path.exists(self.SESSION_HIST):
 						# create an empty history file
 						open(self.SESSION_HIST, 'a').close()
-		
+
 				readline.read_history_file(self.SESSION_HIST)
 
 				try:

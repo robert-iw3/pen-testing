@@ -125,7 +125,7 @@ def generate_windows_powershell_http(ip, port, obs, beacon_interval, headers, us
 		cmd = payutils.encode_win_payload(payload, no_child)
 		payutils.copy_and_print(cmd)
 		return cmd
-		
+
 	"""else:
 		return _obfuscate_level3(template)"""
 
@@ -353,5 +353,5 @@ def generate_windows_powershell_http_obfuscate_level1(ip, port, beacon_interval,
 	"Start-Sleep -Seconds $delay;"
 	"}"
 )
-	
+
 	return ps_lines"""

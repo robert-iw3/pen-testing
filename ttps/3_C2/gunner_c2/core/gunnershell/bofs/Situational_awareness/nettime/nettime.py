@@ -16,12 +16,12 @@ class NetTimeBof(Bof):
 	def help_menu():
 		menu = """
 Command: nettime
-Summary: This command displays the current time on a remote host. 
+Summary: This command displays the current time on a remote host.
 
 Usage:
-  Ex: bofexec nettime target 
-  bofexec nettime target.domain.local 
-  bofexec nettime  
+  Ex: bofexec nettime target
+  bofexec nettime target.domain.local
+  bofexec nettime
 """
 		print(brightgreen + menu + reset)
 		return

@@ -17,20 +17,20 @@ from gssapi.exceptions import GSSError
 
 from spearspray.utils.constants import GREEN, RED, YELLOW, BLUE, RESET
 
-class _RateLimiter: 
+class _RateLimiter:
 
     def __init__(self, max_rps: float, logger: logging.Logger):
         """Allow at most `max_rps` operations per second (thread-safe)."""
         self.interval = 1.0 / max_rps # Calculate the interval between allowed requests
         self.next_allowed_time = time.perf_counter() # Initialize the next allowed time to the current time
-        
+
         self.lock = threading.Lock()
         self.log = logger
 
-    def acquire(self) -> None: 
+    def acquire(self) -> None:
         """
         Block until the caller is allowed to proceed.
-        
+
         Flow:
             1. Grab the lock to work with shared state.
             2. Compute how long until the next slot is free.
@@ -88,8 +88,8 @@ class Kerberos:
         self._lock = Lock() # Protects the following dictionaries from concurrent access
         self.valid_credentials: Dict[str, str] = {}
         self.expired_credentials: Dict[str, str] = {}
-        self.locked_credentials: Dict[str, str] = {} 
-        self.valid_usernames: Dict[str, str] = {} 
+        self.locked_credentials: Dict[str, str] = {}
+        self.valid_usernames: Dict[str, str] = {}
         self.failed_credentials: Dict[str, str] = {}
         self.other_errors: Dict[str, str] = {}
 
@@ -168,13 +168,13 @@ class Kerberos:
     def _sleep_jitter(self) -> None:
         if self.jitter_max == 0.0 and self.jitter_min == 0.0:
             return
-        
+
         delay = random.uniform(self.jitter_min, self.jitter_max)
         self.log.debug("[+] Jitter: sleeping %.2f s", delay)
         time.sleep(delay)
 
     def _classify_error(self, username: str, password: str, exc: gss_raw.GSSError) -> None:
-        
+
         krb_code = exc.min_code
         if krb_code & 0x80000000:          # MIT/Heimdal -> convert to negative
             krb_code -= 1 << 32
@@ -193,14 +193,14 @@ class Kerberos:
         try:
             raw = exc.gen_message()
             full_message = " ; ".join(raw) if isinstance(raw, (list, tuple)) else raw
-            
+
             # Try to extract just the Minor error message which contains the actual Kerberos error
             if "Minor" in full_message:
                 # Look for pattern: "Minor (number): actual error message"
                 minor_match = re.search(r'Minor \(\d+\): (.+)', full_message)
                 if minor_match:
                     return minor_match.group(1).strip()
-            
+
             return full_message
         except Exception:
             return self.log.exception(f"{RED}[-]{RESET} Error extracting message from GSSError.")
@@ -213,11 +213,11 @@ class Kerberos:
             if log_function == self.log.error or log_function == self.log.critical:
                 dict_to_update[username] = error_code
             else:
-                dict_to_update[username] = password 
-            
+                dict_to_update[username] = password
+
             # Determine how many arguments the log message template expects
             placeholder_count = log_message_template.count("%s")
-            
+
             try:
                 if placeholder_count == 4: # Unknown error template: username, password, error_code, error_description
                     log_function(log_message_template, username, password, error_code, error_description)

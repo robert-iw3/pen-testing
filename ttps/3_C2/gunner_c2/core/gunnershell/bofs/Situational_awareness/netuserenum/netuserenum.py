@@ -24,6 +24,6 @@ Usage:
   bofexec netuserenum -z locked
   bofexec netuserenum -z disabled
 """
-		
+
 		print(brightgreen + menu + reset)
 		return

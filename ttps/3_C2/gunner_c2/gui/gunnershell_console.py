@@ -413,7 +413,7 @@ class HistoryLineEdit(QLineEdit):
 		if self._ris_idx >= 0:
 			self.setText(self._hist[self._ris_idx]); self.setCursorPosition(len(self.text()))
 		self._ris_cancel(hide_only=True)
-	def _ris_step(self, delta): 
+	def _ris_step(self, delta):
 		if not self._ris_active: return
 		self._ris_recompute(+1 if delta > 0 else -1)
 	def _ris_cancel(self, hide_only=False):
@@ -442,7 +442,7 @@ class HistoryLineEdit(QLineEdit):
 					self.text(), self.cursorPosition(), reverse, self._cycle_state
 				)
 				if new_text is not None:
-					self.setText(new_text); 
+					self.setText(new_text);
 					if new_pos is not None: self.setCursorPosition(new_pos)
 			e.accept(); return
 		else:

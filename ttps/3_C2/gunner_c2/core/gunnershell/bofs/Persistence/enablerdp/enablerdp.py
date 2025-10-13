@@ -19,7 +19,7 @@ class EnableRDPBof(Bof):
 enablerdp — Enable Remote Desktop + Firewall Rules
 ===================================================
 
-Configure the system to allow inbound RDP connections with NLA, ensure the 
+Configure the system to allow inbound RDP connections with NLA, ensure the
 Terminal Services service is running, and add firewall rules for TCP/UDP 3389.
 
 USAGE
@@ -50,16 +50,16 @@ REQUIREMENTS
   - COM available (OLE32 / OLEAUT32)
 
 TROUBLESHOOTING
-  - “Failed setting fDenyTSConnections”  
+  - “Failed setting fDenyTSConnections”
       No write access to HKLM\\SYSTEM\\… registry path. Try elevated context.
 
-  - “TermService not running and could not be started”  
+  - “TermService not running and could not be started”
       Service disabled or lacking permissions; check Service Control Manager config.
 
-  - “CoCreateInstance(NetFwPolicy2) failed”  
+  - “CoCreateInstance(NetFwPolicy2) failed”
       COM subsystem blocked or unavailable; ensure OLE32 initialization succeeds.
 
-  - “Could not add TCP/UDP rule”  
+  - “Could not add TCP/UDP rule”
       Firewall policy prevents new rules, or they already exist.
 """
 		print(brightgreen + menu + reset)

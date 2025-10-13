@@ -40,8 +40,8 @@ Core target & connection
 
 Resolution & accuracy
   --effective                    Compute effective rights (group recursion)
-  --include-inherited            Include inherited ACEs 
-  --deny-only                    Show only explicit DENY ACEs 
+  --include-inherited            Include inherited ACEs
+  --deny-only                    Show only explicit DENY ACEs
   --resolve-sids                 SID→name resolution
   --exclude <csv>                Suppress well-known/builtin principals by name or SID.
 

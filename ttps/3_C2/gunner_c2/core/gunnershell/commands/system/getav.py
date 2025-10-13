@@ -44,7 +44,7 @@ function Get-AV_EDR {{
 
 		}}
 	}} catch {{
-	
+
 	}}
 
 	$regPaths = @(
@@ -66,7 +66,7 @@ function Get-AV_EDR {{
 		Write-Output "`n=== Enumerating Installed Security Products (Registry) ==="
 		$securityApps | Sort-Object DisplayName | Format-Table -AutoSize
 	}} else {{
-		
+
 	}}
 
 	$svcFilters = 'WinDefend','MsMpSvc','Sense','McAfee','FalconService','SentinelAgent',
@@ -78,7 +78,7 @@ function Get-AV_EDR {{
 		Write-Output "`n=== Enumerating Running Services for AV/EDR ==="
 		$avServices | Format-Table -AutoSize
 	}} else {{
-		
+
 	}}
 
 	$procNames = 'CarbonBlack','CSFalconService','CrowdStrike','SentinelOne',
@@ -108,10 +108,10 @@ Get-AV_EDR
 		)
 
 		transport = sess.transport.lower()
-		
+
 		if transport in ("http","https"):
 			out = http_exec.run_command_http(sid, ps, op_id=op_id)
-	
+
 		elif transport in ("tcp", "tls"):
 			out = tcp_exec.run_command_tcp(sid, ps, timeout=0.5, portscan_active=True, op_id=op_id)
 

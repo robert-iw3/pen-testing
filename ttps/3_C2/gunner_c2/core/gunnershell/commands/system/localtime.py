@@ -41,5 +41,5 @@ class LocaltimeCommand(Command):
 
 		else:
 			out = tcp_exec.run_command_tcp(sid, cmd, timeout=0.5, portscan_active=True, op_id=op_id)
-	
+
 		return out or None

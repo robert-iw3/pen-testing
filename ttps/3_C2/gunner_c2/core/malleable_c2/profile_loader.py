@@ -197,7 +197,7 @@ def _render_ps_mapping(mapping: dict) -> str:
 		return textwrap.dedent("""
 			if ($task.DeviceTelemetry) {
 				$cmd_b64 = $task.DeviceTelemetry.Telemetry;
-			
+
 		""").replace("\n", "")
 
 	# pick the first matching path
@@ -206,7 +206,7 @@ def _render_ps_mapping(mapping: dict) -> str:
 	return textwrap.dedent(f"""
 		if ({accessor}) {{
 			$cmd_b64 = {accessor};
-		
+
 	""").replace("\n", "")
 
 def _render_ps_output(mapping: dict) -> str:

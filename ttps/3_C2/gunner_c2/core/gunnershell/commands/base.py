@@ -75,7 +75,7 @@ def get(parts: list[str]):
         # if node is a class (leaf), record it
         if isinstance(node, type):
             match = node
-            # keep going in case there's a deeper (multi‐word) command 
+            # keep going in case there's a deeper (multi‐word) command
         elif "__default__" in node and match is None:
             # optional: handle default for a multi‐command group
             match = node["__default__"]
@@ -132,7 +132,7 @@ try {{
     $nb = $T
 }}
 """
-    
+
     if dc_ip and domain:
         dns_preamble = f"""
 
@@ -140,32 +140,32 @@ try {{
     $domain = '{domain}'
     try {{
     $nb = (Resolve-DnsName -Type SRV "_ldap._tcp.dc._msdcs.$domain" | Sort-Object Priority,Weight | Select-Object -First 1).NameTarget.TrimEnd('.')
-    }} catch {{ 
+    }} catch {{
             $T = '{dc_ip}'
             try {{
             $nb = ([System.Net.Dns]::GetHostEntry($T).HostName.Split('.')[0])
         }} catch {{
             $nb = $T
-        }}  
+        }}
     }}
 }} catch {{
     Write-Output "Failed to resolve DC!"
     break
 }}
 """
-    
+
     if domain:
         dns_preamble = f"""
 
 $domain = '{domain}'
 try {{
 $nb = (Resolve-DnsName -Type SRV "_ldap._tcp.dc._msdcs.$domain" | Sort-Object Priority,Weight | Select-Object -First 1).NameTarget.TrimEnd('.')
-}} catch {{ 
+}} catch {{
             Write-Output "Failed to resolve DC!"
             break
 }}
 """
-    
+
     if dns_preamble:
         return dns_preamble
 

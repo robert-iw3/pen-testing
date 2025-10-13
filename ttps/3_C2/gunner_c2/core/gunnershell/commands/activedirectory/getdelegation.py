@@ -81,9 +81,9 @@ class GetDelegationCommand(Command):
 try {{
   if (Get-Command Get-ADObject -ErrorAction SilentlyContinue) {{
 	  {unconst}
-	  
+
 	  {const}
-	  
+
 	  if ($con) {{ $svc = $con.Properties['msDS-AllowedToDelegateTo'] -join ',' }}
 	  if (($uncon) -or ($con)) {{
 		if ($uncon) {{
@@ -91,7 +91,7 @@ try {{
 			Write-Output "Unconstrained delegation: $r"
 		  }}
 		}}
-		
+
 		if ($con) {{
 		  foreach ($r in $con.Name) {{
 			Write-Output "Constrained delegation: $r -> $svc"
@@ -110,7 +110,7 @@ try {{
 			Write-Output "Unconstrained delegation: $n"
 		  }} else {{ Write-Output "Nothing Found" }}
 	  }}
-	  
+
 	  $searcher = New-Object System.DirectoryServices.DirectorySearcher("LDAP://$root", "(msDS-AllowedToDelegateTo=*)")
 	  $searcher.PageSize = 1000
 	  $results = $searcher.FindAll()
@@ -123,7 +123,7 @@ try {{
   }}
 }} catch {{
 	{root}
-	  
+
 	  $searcher = New-Object System.DirectoryServices.DirectorySearcher("LDAP://$root", "(userAccountControl:1.2.840.113556.1.4.803:=8192)")
 	  $searcher.PageSize = 1000
 	  $results = $searcher.FindAll()
@@ -154,7 +154,7 @@ try {{
 
 		if transport in ("http", "https"):
 			out = http_exec.run_command_http(sid, one_liner, op_id=op_id)
-	
+
 		elif transport in ("tcp", "tls"):
 			out = tcp_exec.run_command_tcp(sid, one_liner, timeout=0.5, portscan_active=True, op_id=op_id)
 
@@ -164,7 +164,7 @@ try {{
 		if out:
 			if "Failed to resolve DC!" in out:
 				return brightred + "[!] Failed to resolve DC, use --dc‑ip or --domain with the correct IP/domain"
-		
+
 			elif "Nothing Found" in out:
 				return brightred + "[!] No constrained or unconstrained delegation found!"
 

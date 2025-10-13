@@ -360,7 +360,7 @@ class ListenersTab(QWidget):
 
 	def _on_removed(self, rid: str):
 		self.model.remove_by_id(rid)
- 
+
 
 	# ----- Selection state -----
 	def _sel_changed(self, *_):
@@ -395,7 +395,7 @@ class ListenersTab(QWidget):
 		copy_name  = m.addAction("Copy Name", lambda: self._copy_field("name"))
 		copy_ip    = m.addAction("Copy IP:Port", self._copy_ip_port)
 		copy_row   = m.addAction("Copy Row (TSV)", self._copy_row_tsv)
-		
+
 		stop_act.setEnabled((row.get("status") or "").upper() == "STARTED")
 		m.exec_(self.table.viewport().mapToGlobal(pos))
 

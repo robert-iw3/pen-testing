@@ -338,7 +338,7 @@ class SessionsTab(QWidget):
 
         # Clear selection when clicking on empty space in the table
         self.table.viewport().installEventFilter(self)
- 
+
 
         # header sizing
         hdr = self.table.horizontalHeader()
@@ -437,7 +437,7 @@ class SessionsTab(QWidget):
             QMenu::item {
                 padding:6px 14px;
                 background:transparent;
-                font-weight:400;            
+                font-weight:400;
             }
 
             QMenu::item:selected {
@@ -447,7 +447,7 @@ class SessionsTab(QWidget):
 
             QMenu::item:disabled {
                 color:#9aa3ad;
-                font-weight:400;         
+                font-weight:400;
             }
 
             QLineEdit { padding:6px 10px; border:1px solid #3b404a; border-radius:6px; background:#1a1f29; }
@@ -541,7 +541,7 @@ class SessionsTab(QWidget):
         mf = QFont(self.font())
         mf.setBold(False)
         m.setFont(mf)
-        
+
         a1 = m.addAction("Open GunnerShell", self.open_gunnershell)
         a2 = m.addAction("Open Console", self.open_console)
         m.addSeparator()

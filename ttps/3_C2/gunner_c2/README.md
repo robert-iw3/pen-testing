@@ -3,17 +3,17 @@
 ![1758820780591](https://github.com/user-attachments/assets/0e94810a-3764-4b3e-bf0a-216dc3c8083b)
 
 
-A modern, operator-friendly **Command-and-Control framework** for authorized red-team operations and research.  
+A modern, operator-friendly **Command-and-Control framework** for authorized red-team operations and research.
 GunnerC2 blends a beautiful GUI, a powerful shell, and a modular core to make day-to-day ops fast, visual, and collaborative.
 
-> **Legal / Ethics**  
+> **Legal / Ethics**
 > GunnerC2 is for **authorized use only**—training, research, and engagements with **explicit written consent**. You are responsible for compliance with all laws and agreements.
 
 ---
 
 ## 🔐 Defaults (read me first)
 
-- **Default credentials:** `gunner:admin`  
+- **Default credentials:** `gunner:admin`
 - **Teamserver default port:** **6060**
 
 ---

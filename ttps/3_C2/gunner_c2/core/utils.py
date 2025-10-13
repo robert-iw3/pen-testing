@@ -77,7 +77,7 @@ class SessionDefender:
 		# 1) Unclosed quotes/backticks
 		if os_type == "windows":
 			pairings = self._win_pairings
-			
+
 		else:
 			pairings = self._linux_pairings
 
@@ -233,7 +233,7 @@ def echo(msg: str, to_console, to_op, world_wide, color=False, _raw_printer=prin
 			sys.stdout.flush()
 
 		notcmd = False
-			
+
 	elif to_op:
 		#logger.debug("SELECTED OPERATOR ELIF PATH")
 		logger.debug("to_op path, target operator=%r", to_op)
@@ -338,7 +338,7 @@ def shutdown():
 				pass
 
 	except Exception:
-		pass	
+		pass
 
 	try:
 		for name, httpd in http_listener_sockets.items():
@@ -432,7 +432,7 @@ def unregister_forward(rule_id):
 	entry = portforwards.pop(rule_id, None)
 	if not entry:
 		return
-		
+
 	try:
 		entry["listener"].close()
 

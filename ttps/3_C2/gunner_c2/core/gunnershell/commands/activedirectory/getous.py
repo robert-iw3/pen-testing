@@ -148,10 +148,10 @@ try {{
 
 			if transport in ("http", "https"):
 					out = http_exec.run_command_http(sid, one_liner, op_id=op_id)
-		
+
 			elif transport in ("tcp", "tls"):
 					out = tcp_exec.run_command_tcp(sid, one_liner, timeout=0.5, portscan_active=True, op_id=op_id)
-		
+
 			if out:
 				if "Nothing Found" in out:
 					return brightred + "[!] Didn't find any OUs!"

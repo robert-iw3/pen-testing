@@ -53,7 +53,7 @@ This technique has some serious limitations compared to dynamic linking:
 
 - You cannot define a full or relative path to the original DLL. The system loader only uses the DLL name form proxy IAT and searches in the default paths.
 - Limited debugging information. If the original DLL fails to load, the program will usually crash without additional information.
-  
+
 However, static linking may be more stealthy and natural in some scenarios.
 
 By default, DllShimmer always uses dynamic linking with the `LoadLibraryA()` and `GetProcAddress()` functions.

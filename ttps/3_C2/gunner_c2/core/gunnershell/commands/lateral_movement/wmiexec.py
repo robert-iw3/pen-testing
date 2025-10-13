@@ -64,7 +64,7 @@ class WmiexecCommand(Command):
 
 	def logic(self, sid, username, password, domain, target, command,
 			  stage_ip=None, debug=False, stager=False, stage_port=8000, op_id="console"):
-		
+
 		ps = f"""
 $T = '{target}'
 try {{
