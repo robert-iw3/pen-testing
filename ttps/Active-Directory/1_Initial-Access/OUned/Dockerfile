@@ -2,7 +2,7 @@
 # OUned: The OUned project, an exploitation tool automating Organizational Units ACLs abuse through gPLink manipulation.
 ARG repo="docker.io" \
     base_image="alpine:3.22" \
-    image_hash="eafc1edb577d2e9b458664a15f23ea1c370214193226069eb22921169fc7e43f"
+    image_hash="85f2b723e106c34644cd5851d7e81ee87da98ac54672b29947c052a45d31dc2f"
 
 FROM ${repo}/${base_image}@sha256:${image_hash}
 
