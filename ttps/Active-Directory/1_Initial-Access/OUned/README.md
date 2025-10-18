@@ -2,6 +2,19 @@
 
 The OUned project, an exploitation tool automating Organizational Units ACLs abuse through gPLink manipulation.
 
+For a detailed explanation regarding the principle behind the attack, the necessary setup as well as how to use the tool, you may refer to the
+associated article:
+https://www.synacktiv.com/publications/ounedpy-exploiting-hidden-organizational-units-acl-attack-vectors-in-active-directory
+
+# Installation
+
+Installation can be performed by cloning the repository and installing the dependencies:
+
+```bash
+$ git clone https://github.com/synacktiv/OUned
+$ python3 -m pip install -r requirements.txt
+```
+
 # Configuration file
 
 OUned arguments are provided through a configuration file - an example file is provided in the repository, `config.example.ini`.
@@ -78,13 +91,9 @@ OU child objects to the specified destination - for more details, see the articl
 Regarding the `--just-clean` flag, see the next section.
 
 ```
-podman build -t ouned .
+python3 OUned.py --help
 
-podman run -it --name ouned ouned
-
-python3 ./OUned.py --help
-
- Usage: python3 ./OUned.py [OPTIONS]
+ Usage: OUned.py [OPTIONS]
 
 ╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ *  --config               TEXT  The configuration file for OUned [default: None] [required]                                                                                      │
