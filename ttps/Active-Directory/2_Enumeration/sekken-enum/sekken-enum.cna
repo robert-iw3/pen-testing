@@ -1,0 +1,100 @@
+alias sekken-enum {
+    local('$args $handle $data $barch $target $filter $attributes $baseDN');
+
+    $barch = barch($1);
+
+    if (size(@_) < 2) {
+        berror($1, "Usage: sekken-enum [target] [filter] [attributes] [-b basedn]");
+        berror($1, "");
+        berror($1, "Arguments:");
+        berror($1, "  target      - Target domain controller (e.g., 'dc01.domain.local'). If omitted, auto-discovers DC.");
+        berror($1, "  filter      - LDAP filter (default: '(objectClass=*)')");
+        berror($1, "  attributes  - Comma-separated attributes to retrieve (default: all attributes)");
+        berror($1, "  -b basedn   - Custom base DN (e.g., 'DC=domain,DC=local'). If not specified, auto-derives from user context or target.");
+        berror($1, "");
+        berror($1, "Examples:");
+        berror($1, "  sekken-enum (objectClass=user)");
+        berror($1, "  sekken-enum (objectClass=user) samaccountname,objectsid");
+        berror($1, "  sekken-enum dc01.domain.local (objectClass=user) samaccountname,objectsid");
+        berror($1, "  sekken-enum dc01.domain.local (objectClass=*) -b CN=Configuration,DC=domain,DC=local");
+        berror($1, "");
+        berror($1, "Note: Target is optional - if omitted, DC will be auto-discovered via DsGetDcNameA.");
+        return;
+    }
+
+    $target = "";
+    $filter = "";
+    $attributes = "";
+    $baseDN = "";
+
+    if (size(@_) >= 2) {
+        $target = $2;
+        $target = replace($target, '^"', "");
+        $target = replace($target, '"$', "");
+        $target = replace($target, "^'", "");
+        $target = replace($target, "'$", "");
+    }
+    if (size(@_) >= 3) {
+        $filter = $3;
+        $filter = replace($filter, '^"', "");
+        $filter = replace($filter, '"$', "");
+        $filter = replace($filter, "^'", "");
+        $filter = replace($filter, "'$", "");
+    }
+    if (size(@_) >= 4) {
+        $attributes = $4;
+        $attributes = replace($attributes, '^"', "");
+        $attributes = replace($attributes, '"$', "");
+        $attributes = replace($attributes, "^'", "");
+        $attributes = replace($attributes, "'$", "");
+    }
+
+    if (size(@_) >= 5 && $5 eq "-b" && size(@_) >= 6) {
+        $baseDN = $6;
+        $baseDN = replace($baseDN, '^"', "");
+        $baseDN = replace($baseDN, '"$', "");
+        $baseDN = replace($baseDN, "^'", "");
+        $baseDN = replace($baseDN, "'$", "");
+    }
+
+    if ($barch eq "x64") {
+        $handle = openf(script_resource("sekken-enum.x64.o"));
+    } else {
+        $handle = openf(script_resource("sekken-enum.x86.o"));
+    }
+
+    $data = readb($handle, -1);
+    closef($handle);
+
+    if(strlen($data) == 0) {
+        berror($1, "Could not read BOF file");
+        return;
+    }
+
+    if (strlen($baseDN) > 0) {
+        $args = bof_pack($1, "zzzzz", $target, $filter, $attributes, "-b", $baseDN);
+    } else {
+        $args = bof_pack($1, "zzz", $target, $filter, $attributes);
+    }
+
+    beacon_inline_execute($1, $data, "go", $args);
+}
+
+beacon_command_register(
+    "sekken-enum",
+    "ADWS (Active Directory Web Services) enumeration BOF",
+    "Usage: sekken-enum [target] [filter] [attributes] [-b basedn]\n\n" .
+    "Enumerate Active Directory via ADWS protocol (TCP 9389).\n\n" .
+    "Arguments:\n" .
+    "  target      - Target domain controller (e.g., 'dc01.domain.local'). If omitted, auto-discovers DC.\n" .
+    "  filter      - LDAP filter (default: '(objectClass=*)')\n" .
+    "  attributes  - Comma-separated attributes to retrieve (default: all attributes)\n" .
+    "  -b basedn   - Custom base DN (e.g., 'DC=domain,DC=local'). If not specified, auto-derives from user context or target.\n\n" .
+    "Examples:\n" .
+    "  sekken-enum (objectClass=user)\n" .
+    "  sekken-enum (objectClass=user) samaccountname,objectsid\n" .
+    "  sekken-enum dc01.domain.local (objectClass=user) samaccountname,objectsid\n" .
+    "  sekken-enum dc01.domain.local (objectClass=*) -b CN=Configuration,DC=domain,DC=local\n\n" .
+    "Note: Target is optional - if omitted, DC will be auto-discovered via DsGetDcNameA.\n" .
+    "      Quotes are optional and will be automatically stripped."
+);
