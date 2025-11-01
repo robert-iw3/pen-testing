@@ -1,8 +1,8 @@
-### Penetration Testing / Red Teaming
+### Penetration Testing / Red Teaming / OffSec
 ##
 
 <p align="center">
-  <img src=".github/.img/super1337.jpg" />
+  <img src=".github/.img/superhackerdude.gif" />
 </p>
 
 Collection of known exploits/malware samples, tools for accessing systems, random notes, and knowledge base.  Some old tricks, some new, but fundamentals apply still to this day.
